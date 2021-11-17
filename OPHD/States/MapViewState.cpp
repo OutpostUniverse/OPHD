@@ -206,7 +206,7 @@ void MapViewState::initialize()
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
 	delete mPathSolver;
-	mPathSolver = new micropather::MicroPather(mTileMap);
+	mPathSolver = new micropather::MicroPather(mTileMap, 250, 6, false);
 }
 
 

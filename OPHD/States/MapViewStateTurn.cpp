@@ -38,7 +38,6 @@ static inline void pullFoodFromStructure(FoodProduction* producer, int& remainde
 static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
 	auto& start = structureManager.tileFromStructure(mine);
 
 	RouteList routeList;
@@ -48,8 +47,11 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 		if (!smelter->operational()) { continue; }
 
 		auto& end = structureManager.tileFromStructure(smelter);
+		
 		tilemap->pathStartAndEnd(&start, &end);
+		
 		Route route;
+		solver->Reset();
 		solver->Solve(&start, &end, &route.path, &route.cost);
 
 		if (!route.empty()) { routeList.push_back(route); }
@@ -257,7 +259,6 @@ void MapViewState::findMineRoutes()
 {
 	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	mPathSolver->Reset();
 	mTruckRouteOverlay.clear();
 
 	for (auto mine : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())

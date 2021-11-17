@@ -195,7 +195,7 @@ void MapViewState::load(const std::string& filePath)
 	mNavControl = std::make_unique<NavControl>(*mMapView, *mTileMap);
 
 	delete mPathSolver;
-	mPathSolver = new micropather::MicroPather(mTileMap);
+	mPathSolver = new micropather::MicroPather(mTileMap, 250, 6, false);
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	routeTable.clear();
 
