@@ -2,6 +2,7 @@
 
 #include <string_view>
 #include <cstdlib>
+#include <tuple>
 
 
 namespace
@@ -20,5 +21,6 @@ namespace
 
 void shellOpenPath(const std::string& path)
 {
-	std::system((std::string{ShellOpenCommand} + " " + path).c_str());
+	// Explicitly ignore implementation defined return value
+	std::ignore = std::system((std::string{ShellOpenCommand} + " " + path).c_str());
 }
