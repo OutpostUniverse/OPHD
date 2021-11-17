@@ -3,6 +3,7 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Common.h"
+#include "../ShellOpenPath.h"
 
 #include "MessageBox.h"
 
@@ -13,7 +14,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <cstdlib>
 
 
 using namespace NAS2D;
@@ -168,15 +168,7 @@ void FileIo::onFileNameChange(TextControl* control)
 
 void FileIo::onOpenFolder() const
 {
-#if defined(_WIN32)
-	system(("start " + mScanPath).c_str());
-#elif defined(__APPLE__)
-	system(("open " + mScanPath).c_str());
-#elif defined(__linux__)
-	system(("xdg-open " + mScanPath).c_str());
-#else
-	#pragma message("Open folder on the current platform not implemented.")
-#endif
+	shellOpenPath(mScanPath);
 }
 
 
