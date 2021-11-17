@@ -36,7 +36,6 @@ PlanetSelectState::~PlanetSelectState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
-	eventHandler.mouseMotion().disconnect(this, &PlanetSelectState::onMouseMove);
 	eventHandler.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
 
 	for (auto planet : mPlanets) { delete planet; }
@@ -49,7 +48,6 @@ void PlanetSelectState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
-	eventHandler.mouseMotion().connect(this, &PlanetSelectState::onMouseMove);
 	eventHandler.windowResized().connect(this, &PlanetSelectState::onWindowResized);
 
 	for (const auto& planetAttribute : PlanetAttributes)
@@ -146,12 +144,6 @@ void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton, int, int)
 			return;
 		}
 	}
-}
-
-
-void PlanetSelectState::onMouseMove(int x, int y, int, int)
-{
-	mMousePosition = {x, y};
 }
 
 

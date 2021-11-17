@@ -30,7 +30,6 @@ protected:
 
 private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
-	void onMouseMove(int, int, int, int);
 
 	void onMousePlanetEnter();
 	void onMousePlanetExit();
@@ -51,8 +50,6 @@ private:
 
 	const NAS2D::Sound mSelect;
 	const NAS2D::Sound mHover;
-
-	NAS2D::Point<int> mMousePosition;
 
 	std::vector<Planet*> mPlanets;
 
