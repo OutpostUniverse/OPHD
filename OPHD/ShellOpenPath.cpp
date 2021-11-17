@@ -1,17 +1,24 @@
 #include "ShellOpenPath.h"
 
+#include <string_view>
 #include <cstdlib>
+
+
+namespace
+{
+	#if defined(_WIN32)
+		constexpr const std::string_view ShellOpenCommand{"start"};
+	#elif defined(__APPLE__)
+		constexpr const std::string_view ShellOpenCommand{"open"};
+	#elif defined(__linux__)
+		constexpr const std::string_view ShellOpenCommand{"xdg-open"};
+	#else
+		#pragma message("Constant `ShellOpenCommand` not defined for the current platform.")
+	#endif
+}
 
 
 void shellOpenPath(const std::string& path)
 {
-	#if defined(_WIN32)
-		system(("start " + path).c_str());
-	#elif defined(__APPLE__)
-		system(("open " + path).c_str());
-	#elif defined(__linux__)
-		system(("xdg-open " + path).c_str());
-	#else
-		#pragma message("Open folder on the current platform not implemented.")
-	#endif
+	system((std::string{ShellOpenCommand} + " " + path).c_str());
 }
