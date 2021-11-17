@@ -6,6 +6,7 @@
 #include "../Cache.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
+#include "../ShellOpenPath.h"
 
 #include "../UI/MessageBox.h"
 
@@ -231,17 +232,7 @@ void MainMenuState::onOptions()
 void MainMenuState::onHelp()
 {
 	if (mFileIoDialog.visible()) { return; }
-
-#if defined(_WIN32)
-	system("start https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
-#elif defined(__APPLE__)
-	system("open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
-#elif defined(__linux__)
-	system("xdg-open https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
-#else
-	//#error Open a web page support on the current platform not implemented.
-	#pragma message("Open a web page support on the current platform not implemented.")
-#endif
+	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 }
 
 

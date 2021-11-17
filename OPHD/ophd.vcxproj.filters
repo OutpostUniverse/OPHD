@@ -123,6 +123,9 @@
     <ClCompile Include="RobotPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShellOpenPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Things\Robots\Robot.cpp">
       <Filter>Source Files\Things\Robots</Filter>
     </ClCompile>
@@ -606,6 +609,9 @@
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
     <ClInclude Include="RobotPoolHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellOpenPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\MineOperationsWindow.h">
