@@ -282,26 +282,26 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		const auto direction = dictionary.get<int>("direction", 0);
 
 		const auto robotType = static_cast<Robot::Type>(type);
-		auto* robot = &addRobot(robotType);
+		auto& robot = addRobot(robotType);
 		if (robotType == Robot::Type::Digger)
 		{
-			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
+			static_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
 		}
 
-		idToRobotMap[id] = robot;
+		idToRobotMap[id] = &robot;
 
-		robot->fuelCellAge(age);
+		robot.fuelCellAge(age);
 
 		if (production_time > 0)
 		{
-			robot->startTask(production_time);
-			mRobotPool.insertRobotIntoTable(mRobotList, robot, &mTileMap->getTile({{x, y}, depth}));
-			mRobotList[robot]->index(TerrainType::Dozed);
+			robot.startTask(production_time);
+			mRobotPool.insertRobotIntoTable(mRobotList, &robot, &mTileMap->getTile({{x, y}, depth}));
+			mRobotList[&robot]->index(TerrainType::Dozed);
 		}
 
 		if (depth > 0)
 		{
-			mRobotList[robot]->excavated(true);
+			mRobotList[&robot]->excavated(true);
 		}
 	}
 
