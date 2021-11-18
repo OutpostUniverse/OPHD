@@ -23,7 +23,7 @@ private:
 	class RadioButton : public TextControl
 	{
 	public:
-		RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
+		RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
 		~RadioButton() override;
 
 		// TODO: Best to delete these, but they need to exist for now
@@ -47,7 +47,7 @@ private:
 		const NAS2D::Font& mFont;
 		const NAS2D::Image& mSkin;
 		Label mLabel;
-		RadioButtonGroup* mParentContainer{nullptr};
+		RadioButtonGroup& mParentContainer;
 		bool mChecked{false};
 		NAS2D::Signal<> mSignal;
 	};
