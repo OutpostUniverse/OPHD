@@ -47,19 +47,12 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 }
 
 
-static void readRccRobots(std::string robotIds, RobotCommand& robotCommand, RobotPool& pool)
+static void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
 {
 	for (const auto& string : NAS2D::split(robotIds, ','))
 	{
 		const auto robotId = NAS2D::stringTo<int>(string);
-		for (auto* robot : pool.robots())
-		{
-			if (robot->id() == robotId)
-			{
-				robotCommand.addRobot(robot);
-				break;
-			}
-		}
+		robotCommand.addRobot(idToRobotMap.at(robotId));
 	}
 }
 
@@ -203,8 +196,8 @@ void MapViewState::load(const std::string& filePath)
 	 * having already been loaded in order to match up the robots in the save game to
 	 * the RCC.
 	 */
-	readRobots(root->firstChildElement("robots"));
-	readStructures(root->firstChildElement("structures"));
+	const auto idToRobotMap = readRobots(root->firstChildElement("robots"));
+	readStructures(root->firstChildElement("structures"), idToRobotMap);
 
 	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
 	readPopulation(root->firstChildElement("population"));
@@ -339,7 +332,7 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 }
 
 
-void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
+void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::map<int, Robot*>& idToRobotMap)
 {
 	for (NAS2D::Xml::XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
@@ -492,7 +485,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			{
 				const auto robotIds = NAS2D::attributesToDictionary(*robotsElement).get("robots");
 				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
-				readRccRobots(robotIds, robotCommand, mRobotPool);
+				readRccRobots(robotIds, idToRobotMap, robotCommand);
 			}
 		}
 

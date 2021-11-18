@@ -210,7 +210,7 @@ private:
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
 	std::map<int, Robot*> readRobots(NAS2D::Xml::XmlElement* element);
-	void readStructures(NAS2D::Xml::XmlElement* element);
+	void readStructures(NAS2D::Xml::XmlElement* element, const std::map<int, Robot*>& idToRobotMap);
 	void readTurns(NAS2D::Xml::XmlElement* element);
 	void readPopulation(NAS2D::Xml::XmlElement* element);
 	void readMoraleChanges(NAS2D::Xml::XmlElement*);
