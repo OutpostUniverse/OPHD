@@ -823,11 +823,11 @@ void MapViewState::placeStructure(Tile& tile)
 		auto& structure = *StructureCatalogue::get(mCurrentStructure);
 		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 
-		// FIXME: Ugly
 		if (structure.isFactory())
 		{
-			static_cast<Factory&>(structure).productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
-			static_cast<Factory&>(structure).resourcePool(&mResourcesCount);
+			auto& factory = static_cast<Factory&>(structure);
+			factory.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
+			factory.resourcePool(&mResourcesCount);
 		}
 
 		if (structure.structureId() == StructureID::SID_MAINTENANCE_FACILITY)
