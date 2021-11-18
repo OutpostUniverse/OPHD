@@ -230,10 +230,10 @@ void MapViewState::onMinerTaskComplete(Robot* robot)
 	auto& robotTile = *mRobotList[robot];
 
 	// Surface structure
-	MineFacility* mineFacility = new MineFacility(robotTile.mine());
-	mineFacility->maxDepth(mTileMap->maxDepth());
-	NAS2D::Utility<StructureManager>::get().addStructure(*mineFacility, robotTile);
-	mineFacility->extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
+	auto& mineFacility = *new MineFacility(robotTile.mine());
+	mineFacility.maxDepth(mTileMap->maxDepth());
+	NAS2D::Utility<StructureManager>::get().addStructure(mineFacility, robotTile);
+	mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
 
 	// Tile immediately underneath facility.
 	auto& tileBelow = mTileMap->getTile({robotTile.xy(), robotTile.depth() + 1});
