@@ -545,13 +545,14 @@ NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot
 }
 
 
-NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap)
+NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap)
 {
 	auto* robots = new NAS2D::Xml::XmlElement("robots");
 
 	for (auto robot : robotPool.robots())
 	{
 		auto dictionary = robotToDictionary(robotMap, *robot);
+		dictionary["id"] = robotToIdMap[robot];
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 

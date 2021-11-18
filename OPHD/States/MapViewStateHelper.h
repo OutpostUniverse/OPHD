@@ -13,6 +13,8 @@
 
 #include "../Map/MapCoordinate.h"
 
+#include <map>
+
 
 namespace NAS2D
 {
@@ -61,7 +63,7 @@ int pullResource(int& resource, int amount);
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 
 // Serialize / Deserialize
-NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap);
+NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap);
 
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);
