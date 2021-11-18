@@ -29,9 +29,6 @@
 #include <stdexcept>
 
 
-extern std::map<int, std::string> LEVEL_STRING_TABLE;
-
-
 namespace
 {
 	void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
