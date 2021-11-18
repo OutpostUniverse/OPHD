@@ -777,9 +777,9 @@ void MapViewState::placeStructure(Tile& tile)
 	{
 		if (!validLanderSite(tile)) { return; }
 
-		ColonistLander* s = new ColonistLander(&tile);
-		s->deploySignal().connect(this, &MapViewState::onDeployColonistLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(*s, tile);
+		auto& s = *new ColonistLander(&tile);
+		s.deploySignal().connect(this, &MapViewState::onDeployColonistLander);
+		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
@@ -793,9 +793,9 @@ void MapViewState::placeStructure(Tile& tile)
 	{
 		if (!validLanderSite(tile)) { return; }
 
-		CargoLander* cargoLander = new CargoLander(&tile);
-		cargoLander->deploySignal().connect(this, &MapViewState::onDeployCargoLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(*cargoLander, tile);
+		auto& cargoLander = *new CargoLander(&tile);
+		cargoLander.deploySignal().connect(this, &MapViewState::onDeployCargoLander);
+		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
 
 		--mLandersCargo;
 		if (mLandersCargo == 0)
@@ -820,19 +820,19 @@ void MapViewState::placeStructure(Tile& tile)
 			return;
 		}
 
-		Structure* structure = StructureCatalogue::get(mCurrentStructure);
-		NAS2D::Utility<StructureManager>::get().addStructure(*structure, tile);
+		auto& structure = *StructureCatalogue::get(mCurrentStructure);
+		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 
 		// FIXME: Ugly
-		if (structure->isFactory())
+		if (structure.isFactory())
 		{
-			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
-			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
+			static_cast<Factory&>(structure).productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
+			static_cast<Factory&>(structure).resourcePool(&mResourcesCount);
 		}
 
-		if (structure->structureId() == StructureID::SID_MAINTENANCE_FACILITY)
+		if (structure.structureId() == StructureID::SID_MAINTENANCE_FACILITY)
 		{
-			static_cast<MaintenanceFacility*>(structure)->resources(mResourcesCount);
+			static_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
 
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
@@ -1158,9 +1158,9 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 			return;
 		}
 
-		SeedLander* s = new SeedLander(point);
-		s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(*s, mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
+		auto& s = *new SeedLander(point);
+		s.deploySignal().connect(this, &MapViewState::onDeploySeedLander);
+		NAS2D::Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();
