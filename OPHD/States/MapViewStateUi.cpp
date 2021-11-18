@@ -587,7 +587,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
 	if (tile.depth() > 0 && direction == Direction::Down)
 	{
-		NAS2D::Utility<StructureManager>::get().removeStructure(tile.structure());
+		NAS2D::Utility<StructureManager>::get().removeStructure(*tile.structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		tile.deleteThing();
 		tile.connected(false);

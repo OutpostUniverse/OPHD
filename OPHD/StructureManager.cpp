@@ -370,18 +370,18 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
  * \warning	A Structure removed from the StructureManager will be freed.
  *			Remaining pointers and references will be invalidated.
  */
-void StructureManager::removeStructure(Structure* structure)
+void StructureManager::removeStructure(Structure& structure)
 {
-	StructureList& structures = mStructureLists[structure->structureClass()];
+	StructureList& structures = mStructureLists[structure.structureClass()];
 
-	const auto it = std::find(structures.begin(), structures.end(), structure);
+	const auto it = std::find(structures.begin(), structures.end(), &structure);
 	const auto isFoundStructureTable = it != structures.end();
 	if (isFoundStructureTable)
 	{
 		structures.erase(it);
 	}
 
-	const auto tileTableIt = mStructureTileTable.find(structure);
+	const auto tileTableIt = mStructureTileTable.find(&structure);
 	const auto isFoundTileTable = tileTableIt != mStructureTileTable.end();
 	if (isFoundTileTable)
 	{

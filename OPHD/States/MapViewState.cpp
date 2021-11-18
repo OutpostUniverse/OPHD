@@ -901,7 +901,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
-			NAS2D::Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
+			NAS2D::Utility<StructureManager>::get().removeStructure(*mineShaftTile.structure());
 		}
 	}
 	else if (tile.thingIsStructure())
@@ -975,7 +975,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updateStructuresAvailability();
 
 		tile.connected(false);
-		NAS2D::Utility<StructureManager>::get().removeStructure(structure);
+		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
 		tile.deleteThing();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
