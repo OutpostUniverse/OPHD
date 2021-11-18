@@ -27,7 +27,7 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
 
 	if (ProductTypeToRobotType.find(productType) == ProductTypeToRobotType.end())
 	{
-		throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
+		throw std::runtime_error("pullRobotFromFactory():: unsuitable ProductType: " + std::to_string(static_cast<int>(productType)));
 	}
 
 	const auto robotType = ProductTypeToRobotType.at(productType);
