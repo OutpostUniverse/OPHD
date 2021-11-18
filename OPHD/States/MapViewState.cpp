@@ -1107,6 +1107,26 @@ void MapViewState::placeRobominer(Tile& tile)
 }
 
 
+Robot& MapViewState::addRobot(Robot::Type type)
+{
+	const std::map<Robot::Type, void (MapViewState::*)(Robot*)> RobotTypeToHandler
+	{
+		{Robot::Type::Digger, &MapViewState::onDiggerTaskComplete},
+		{Robot::Type::Dozer, &MapViewState::onDozerTaskComplete},
+		{Robot::Type::Miner, &MapViewState::onMinerTaskComplete},
+	};
+
+	if (RobotTypeToHandler.find(type) == RobotTypeToHandler.end())
+	{
+		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
+	}
+
+	auto& robot = mRobotPool.addRobot(type);
+	robot.taskComplete().connect(this, RobotTypeToHandler.at(type));
+	return robot;
+}
+
+
 /**
  * Checks the robot selection interface and if the robot is not available in it, adds
  * it back in.

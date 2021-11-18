@@ -167,6 +167,8 @@ private:
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
 
+	Robot& addRobot(Robot::Type type);
+
 	void setStructureID(StructureID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
