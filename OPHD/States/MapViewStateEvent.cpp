@@ -16,7 +16,7 @@
 #include <stdexcept>
 
 
-void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
+void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factory)
 {
 	const std::map<ProductType, Robot::Type> ProductTypeToRobotType
 	{
@@ -25,12 +25,12 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		{ProductType::PRODUCT_MINER, Robot::Type::Miner},
 	};
 
-	if (ProductTypeToRobotType.find(pt) == ProductTypeToRobotType.end())
+	if (ProductTypeToRobotType.find(productType) == ProductTypeToRobotType.end())
 	{
 		throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
 	}
 
-	const auto robotType = ProductTypeToRobotType.at(pt);
+	const auto robotType = ProductTypeToRobotType.at(productType);
 	RobotCommand* robotCommand = getAvailableRobotCommand();
 
 	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
