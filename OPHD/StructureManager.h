@@ -3,6 +3,8 @@
 #include "Things/Structures/Structure.h"
 #include "Things/Structures/Structures.h"
 
+#include <map>
+
 
 namespace NAS2D
 {
@@ -128,7 +130,7 @@ public:
 
 	void update(const StorableResources&, PopulationPool&);
 
-	NAS2D::Xml::XmlElement* serialize();
+	NAS2D::Xml::XmlElement* serialize(std::map<const Robot*, int> robotToIdMap);
 
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;

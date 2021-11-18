@@ -57,6 +57,17 @@ static void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idT
 }
 
 
+static std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
+{
+	std::map<const Robot*, int> robotToIdMap{};
+	for (const auto* robot : robots)
+	{
+		robotToIdMap[robot] = robot->id();
+	}
+	return robotToIdMap;
+}
+
+
 
 /*****************************************************************************
  * CLASS FUNCTIONS
@@ -78,11 +89,13 @@ void MapViewState::save(const std::string& filePath)
 	);
 	doc.linkEndChild(root);
 
+	const auto robotToIdMap = generateRobotToIdMap(mRobotPool.robots());
+
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
 	mMapView->serialize(root);
-	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
-	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
+	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize(robotToIdMap));
+	root->linkEndChild(writeRobots(mRobotPool, mRobotList, robotToIdMap));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
