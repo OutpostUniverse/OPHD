@@ -58,15 +58,9 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 	switch (productType)
 	{
 	case ProductType::PRODUCT_DIGGER:
-		pullRobotFromFactory(ProductType::PRODUCT_DIGGER, factory);
-		break;
-
 	case ProductType::PRODUCT_DOZER:
-		pullRobotFromFactory(ProductType::PRODUCT_DOZER, factory);
-		break;
-
 	case ProductType::PRODUCT_MINER:
-		pullRobotFromFactory(ProductType::PRODUCT_MINER, factory);
+		pullRobotFromFactory(productType, factory);
 		break;
 
 	case ProductType::PRODUCT_TRUCK:
