@@ -622,7 +622,7 @@ void MapViewState::onInspectRobot(Robot& robot)
 void MapViewState::onInspectTile(Tile& tile)
 {
 	clearSelections();
-	mTileInspector.tile(&tile);
+	mTileInspector.tile(tile);
 	mTileInspector.show();
 	mWindowStack.bringToFront(&mTileInspector);
 }
@@ -631,7 +631,7 @@ void MapViewState::onInspectTile(Tile& tile)
 void MapViewState::onClickMap()
 {
 	if (!mDetailMap->isMouseOverTile()) { return; }
-	Tile* tile = &mDetailMap->mouseTile();
+	Tile& tile = mDetailMap->mouseTile();
 
 	if (mInsertMode == InsertMode::Structure)
 	{
@@ -687,21 +687,21 @@ void MapViewState::clearMode()
 }
 
 
-void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
+void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 {
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
 	}
 
-	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(dir, depth != 0), tile);
+	NAS2D::Utility<StructureManager>::get().addStructure(*new Tube(dir, depth != 0), tile);
 }
 
 
-void MapViewState::placeTubes(Tile* tile)
+void MapViewState::placeTubes(Tile& tile)
 {
 	// Check the basics.
-	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
+	if (tile.thing() || tile.mine() || !tile.bulldozed() || !tile.excavated()) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 *			Should instead take advantage of the updated meta data in the IconGridItem.
@@ -710,7 +710,7 @@ void MapViewState::placeTubes(Tile* tile)
 
 	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{
-		insertTube(cd, mMapView->currentDepth(), &mTileMap->getTile(mMouseTilePosition));
+		insertTube(cd, mMapView->currentDepth(), mTileMap->getTile(mMouseTilePosition));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
@@ -726,26 +726,26 @@ void MapViewState::placeTubes(Tile* tile)
 /**
  * Places a structure into the map.
  */
-void MapViewState::placeStructure(Tile* tile)
+void MapViewState::placeStructure(Tile& tile)
 {
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		!isPointInRange(tile->xy(), ccLocation(), constants::RobotCommRange))
+		!isPointInRange(tile.xy(), ccLocation(), constants::RobotCommRange))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
 	}
 
-	if (tile->mine())
+	if (tile.mine())
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureMineInWay);
 		return;
 	}
 
-	if (tile->thing())
+	if (tile.thing())
 	{
-		if (tile->thingIsStructure())
+		if (tile.thingIsStructure())
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileObstructed);
 		}
@@ -756,13 +756,13 @@ void MapViewState::placeStructure(Tile* tile)
 		return;
 	}
 
-	if ((!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
+	if ((!tile.bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTerrain);
 		return;
 	}
 
-	if (!tile->excavated())
+	if (!tile.excavated())
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureExcavated);
 		return;
@@ -775,10 +775,10 @@ void MapViewState::placeStructure(Tile* tile)
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
-		if (!validLanderSite(*tile)) { return; }
+		if (!validLanderSite(tile)) { return; }
 
-		ColonistLander* s = new ColonistLander(tile);
-		s->deploySignal().connect(this, &MapViewState::onDeployColonistLander);
+		auto& s = *new ColonistLander(&tile);
+		s.deploySignal().connect(this, &MapViewState::onDeployColonistLander);
 		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
@@ -791,10 +791,10 @@ void MapViewState::placeStructure(Tile* tile)
 	}
 	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
 	{
-		if (!validLanderSite(*tile)) { return; }
+		if (!validLanderSite(tile)) { return; }
 
-		CargoLander* cargoLander = new CargoLander(tile);
-		cargoLander->deploySignal().connect(this, &MapViewState::onDeployCargoLander);
+		auto& cargoLander = *new CargoLander(&tile);
+		cargoLander.deploySignal().connect(this, &MapViewState::onDeployCargoLander);
 		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
 
 		--mLandersCargo;
@@ -820,21 +820,19 @@ void MapViewState::placeStructure(Tile* tile)
 			return;
 		}
 
-		Structure* structure = StructureCatalogue::get(mCurrentStructure);
-		if (!structure) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
-
+		auto& structure = *StructureCatalogue::get(mCurrentStructure);
 		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 
-		// FIXME: Ugly
-		if (structure->isFactory())
+		if (structure.isFactory())
 		{
-			static_cast<Factory*>(structure)->productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
-			static_cast<Factory*>(structure)->resourcePool(&mResourcesCount);
+			auto& factory = static_cast<Factory&>(structure);
+			factory.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
+			factory.resourcePool(&mResourcesCount);
 		}
 
-		if (structure->structureId() == StructureID::SID_MAINTENANCE_FACILITY)
+		if (structure.structureId() == StructureID::SID_MAINTENANCE_FACILITY)
 		{
-			static_cast<MaintenanceFacility*>(structure)->resources(mResourcesCount);
+			static_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
 
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
@@ -845,12 +843,12 @@ void MapViewState::placeStructure(Tile* tile)
 }
 
 
-void MapViewState::placeRobot(Tile* tile)
+void MapViewState::placeRobot(Tile& tile)
 {
-	if (!tile->excavated()) { return; }
+	if (!tile.excavated()) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 
-	if (!inCommRange(tile->xy()))
+	if (!inCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;
@@ -859,13 +857,13 @@ void MapViewState::placeRobot(Tile* tile)
 	switch (mCurrentRobot)
 	{
 	case Robot::Type::Dozer:
-		placeRobodozer(*tile);
+		placeRobodozer(tile);
 		break;
 	case Robot::Type::Digger:
-		placeRobodigger(*tile);
+		placeRobodigger(tile);
 		break;
 	case Robot::Type::Miner:
-		placeRobominer(*tile);
+		placeRobominer(tile);
 		break;
 	default:
 		break;
@@ -901,7 +899,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
-			NAS2D::Utility<StructureManager>::get().removeStructure(mineShaftTile.structure());
+			NAS2D::Utility<StructureManager>::get().removeStructure(*mineShaftTile.structure());
 		}
 	}
 	else if (tile.thingIsStructure())
@@ -975,7 +973,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updateStructuresAvailability();
 
 		tile.connected(false);
-		NAS2D::Utility<StructureManager>::get().removeStructure(structure);
+		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
 		tile.deleteThing();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
@@ -984,7 +982,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
 	robot.startTask(taskTime);
-	mRobotPool.insertRobotIntoTable(mRobotList, &robot, &tile);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 	robot.tileIndex(static_cast<std::size_t>(tile.index()));
 	tile.index(TerrainType::Dozed);
 
@@ -1051,7 +1049,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	if (!tile.thing() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
 	else { mDiggerDirection.downOnlyEnabled(); }
 
-	mDiggerDirection.setParameters(&tile);
+	mDiggerDirection.setParameters(tile);
 
 	// If we're placing on the top level we can only ever go down.
 	if (mMapView->currentDepth() == constants::DepthSurface)
@@ -1096,7 +1094,7 @@ void MapViewState::placeRobominer(Tile& tile)
 
 	auto& robot = mRobotPool.getMiner();
 	robot.startTask(constants::MinerTaskTime);
-	mRobotPool.insertRobotIntoTable(mRobotList, &robot, &tile);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
@@ -1160,9 +1158,9 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 			return;
 		}
 
-		SeedLander* s = new SeedLander(point);
-		s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
+		auto& s = *new SeedLander(point);
+		s.deploySignal().connect(this, &MapViewState::onDeploySeedLander);
+		NAS2D::Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();

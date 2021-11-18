@@ -77,8 +77,8 @@ constexpr Structure::StructureClass structureTypeToClass() {
 class StructureManager
 {
 public:
-	void addStructure(Structure* structure, Tile* tile);
-	void removeStructure(Structure* structure);
+	void addStructure(Structure& structure, Tile& tile);
+	void removeStructure(Structure& structure);
 
 	template <typename StructureType>
 	const std::vector<StructureType*> getStructures()

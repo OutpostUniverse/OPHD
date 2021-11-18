@@ -157,11 +157,11 @@ private:
 	void onDeployColonistLander();
 	void onDeploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
-	void insertTube(ConnectorDir dir, int depth, Tile* tile);
+	void insertTube(ConnectorDir dir, int depth, Tile& tile);
 
-	void placeTubes(Tile* tile);
-	void placeStructure(Tile* tile);
-	void placeRobot(Tile* tile);
+	void placeTubes(Tile& tile);
+	void placeStructure(Tile& tile);
+	void placeRobot(Tile& tile);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
@@ -265,7 +265,7 @@ private:
 	void onConnectionsSelectionChange(const IconGrid::IconGridItem*);
 	void onRobotsSelectionChange(const IconGrid::IconGridItem*);
 
-	void onDiggerSelectionDialog(Direction direction, Tile* tile);
+	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 

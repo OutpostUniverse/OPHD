@@ -72,14 +72,14 @@ static Route findLowestCostRoute(RouteList& routeList)
 
 static bool routeObstructed(Route& route)
 {
-	for (auto tile : route.path)
+	for (auto tileVoidPtr : route.path)
 	{
-		Tile* t = static_cast<Tile*>(tile);
+		auto& tile = *static_cast<Tile*>(tileVoidPtr);
 
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.
-		if (t->thingIsStructure() && !t->structure()->isRoad()) { return true; }
-		if (t->index() == TerrainType::Impassable) { return true; }
+		if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
+		if (tile.index() == TerrainType::Impassable) { return true; }
 	}
 
 	return false;
@@ -303,21 +303,21 @@ void MapViewState::transportOreFromMines()
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
-			const auto smelter = static_cast<OreRefining*>(static_cast<Tile*>(route.path.back())->structure());
-			const auto mineFacility = static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+			auto& smelter = *static_cast<OreRefining*>(static_cast<Tile*>(route.path.back())->structure());
+			auto& mineFacility = *static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
 
-			if (!smelter->operational()) { break; }
+			if (!smelter.operational()) { break; }
 
 			/* clamp route cost to minimum of 1.0f for next computation to avoid
 			   unintended multiplication. */
 			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
 
 			/* intentional truncation of fractional component*/
-			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility->assignedTrucks();
+			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 
-			auto& stored = mineFacility->storage();
+			auto& stored = mineFacility.storage();
 			StorableResources moved
 			{
 				std::clamp(stored.resources[0], 0, oreMovementPart),
@@ -328,7 +328,7 @@ void MapViewState::transportOreFromMines()
 
 			stored -= moved;
 
-			auto& smelterProduction = smelter->production();
+			auto& smelterProduction = smelter.production();
 			auto newResources = smelterProduction + moved;
 			auto capped = newResources.cap(250);
 			smelterProduction = capped;

@@ -580,31 +580,31 @@ void MapViewState::onRobotsSelectionChange(const IconGrid::IconGridItem* item)
 }
 
 
-void MapViewState::onDiggerSelectionDialog(Direction direction, Tile* tile)
+void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,
 	// the assumption is that we've already checked and determined that there's an air shaft
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
-	if (tile->depth() > 0 && direction == Direction::Down)
+	if (tile.depth() > 0 && direction == Direction::Down)
 	{
-		NAS2D::Utility<StructureManager>::get().removeStructure(tile->structure());
+		NAS2D::Utility<StructureManager>::get().removeStructure(*tile.structure());
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		tile->deleteThing();
-		tile->connected(false);
+		tile.deleteThing();
+		tile.connected(false);
 		checkConnectedness();
 	}
 
 	// Assumes a digger is available.
 	Robodigger& robot = mRobotPool.getDigger();
-	robot.startTask(static_cast<int>(tile->index()) + constants::DiggerTaskTime);
-	mRobotPool.insertRobotIntoTable(mRobotList, &robot, tile);
+	robot.startTask(static_cast<int>(tile.index()) + constants::DiggerTaskTime);
+	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
 	robot.direction(direction);
 
 	const auto directionOffset = directionEnumToOffset(direction);
 	if (directionOffset != DirectionCenter)
 	{
-		mTileMap->getTile({tile->xy() + directionOffset, tile->depth()}).excavated(true);
+		mTileMap->getTile({tile.xy() + directionOffset, tile.depth()}).excavated(true);
 	}
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Digger))

@@ -295,7 +295,7 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		if (production_time > 0)
 		{
 			robot.startTask(production_time);
-			mRobotPool.insertRobotIntoTable(mRobotList, &robot, &mTileMap->getTile({{x, y}, depth}));
+			mRobotPool.insertRobotIntoTable(mRobotList, robot, mTileMap->getTile({{x, y}, depth}));
 			mRobotList[&robot]->index(TerrainType::Dozed);
 		}
 
@@ -346,7 +346,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		if (structureId == StructureID::SID_TUBE)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(connectorDir, depth, &mTileMap->getTile({{x, y}, depth}));
+			insertTube(connectorDir, depth, mTileMap->getTile({{x, y}, depth}));
 			continue; // FIXME: ugly
 		}
 
@@ -475,7 +475,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 
 		structure.populationAvailable() = {pop0, pop1};
 
-		NAS2D::Utility<StructureManager>::get().addStructure(&structure, &tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 	}
 }
 

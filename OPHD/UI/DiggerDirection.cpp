@@ -41,9 +41,9 @@ DiggerDirection::DiggerDirection() :
 }
 
 
-void DiggerDirection::setParameters(Tile* tile)
+void DiggerDirection::setParameters(Tile& tile)
 {
-	mTile = tile;
+	mTile = &tile;
 }
 
 
@@ -100,29 +100,29 @@ void DiggerDirection::selectDown()
 
 void DiggerDirection::onDiggerDown()
 {
-	mSignal(Direction::Down, mTile);
+	mSignal(Direction::Down, *mTile);
 }
 
 
 void DiggerDirection::onDiggerNorth()
 {
-	mSignal(Direction::North, mTile);
+	mSignal(Direction::North, *mTile);
 }
 
 
 void DiggerDirection::onDiggerSouth()
 {
-	mSignal(Direction::South, mTile);
+	mSignal(Direction::South, *mTile);
 }
 
 
 void DiggerDirection::onDiggerEast()
 {
-	mSignal(Direction::East, mTile);
+	mSignal(Direction::East, *mTile);
 }
 
 
 void DiggerDirection::onDiggerWest()
 {
-	mSignal(Direction::West, mTile);
+	mSignal(Direction::West, *mTile);
 }
