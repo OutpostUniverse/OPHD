@@ -12,11 +12,11 @@ public:
 
 	using Signal = NAS2D::Signal<>;
 
-	CargoLander(Tile* t) : Structure(constants::CargoLander,
+	CargoLander(Tile* tile) : Structure(constants::CargoLander,
 		"structures/lander_0.sprite",
 		StructureClass::Lander,
 		StructureID::SID_CARGO_LANDER),
-		mTile(t)
+		mTile(tile)
 	{
 		maxAge(50);
 		turnsToBuild(1);
