@@ -346,7 +346,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		if (structureId == StructureID::SID_TUBE)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(connectorDir, depth, &mTileMap->getTile({{x, y}, depth}));
+			insertTube(connectorDir, depth, mTileMap->getTile({{x, y}, depth}));
 			continue; // FIXME: ugly
 		}
 
