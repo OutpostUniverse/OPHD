@@ -288,10 +288,6 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 		}
 
-		// Could be done in the default handler in the above switch
-		// but may be better here as an explicit statement.
-		if (!robot) { continue; }
-
 		idToRobotMap[id] = robot;
 
 		robot->fuelCellAge(age);
