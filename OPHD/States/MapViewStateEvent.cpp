@@ -35,12 +35,12 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
 
 	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
-		auto* robot = &addRobot(robotType);
+		auto& robot = addRobot(robotType);
 		factory.pullProduct();
 
 		populateRobotMenu();
 
-		if (robotCommand != nullptr) { robotCommand->addRobot(robot); }
+		if (robotCommand != nullptr) { robotCommand->addRobot(&robot); }
 	}
 	else
 	{
