@@ -162,15 +162,13 @@ void RobotPool::AddRobotCtrl()
 }
 
 
-bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile)
+bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile)
 {
-	if (!tile) { return false; }
-
-	auto it = robotMap.find(robot);
+	auto it = robotMap.find(&robot);
 	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
-	robotMap[robot] = tile;
-	tile->pushThing(robot);
+	robotMap[&robot] = &tile;
+	tile.pushThing(&robot);
 
 	AddRobotCtrl();
 

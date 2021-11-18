@@ -47,7 +47,7 @@ public:
 
 	void clear();
 	void erase(Robot* robot);
-	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot* robot, Tile* tile);
+	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile);
 
 	std::size_t robotControlMax() const { return mRobotControlMax; }
 	std::size_t currentControlCount() const { return mRobotControlCount; }
