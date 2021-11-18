@@ -631,7 +631,7 @@ void MapViewState::onInspectTile(Tile& tile)
 void MapViewState::onClickMap()
 {
 	if (!mDetailMap->isMouseOverTile()) { return; }
-	Tile* tile = &mDetailMap->mouseTile();
+	Tile& tile = mDetailMap->mouseTile();
 
 	if (mInsertMode == InsertMode::Structure)
 	{
@@ -698,10 +698,10 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile* tile)
 }
 
 
-void MapViewState::placeTubes(Tile* tile)
+void MapViewState::placeTubes(Tile& tile)
 {
 	// Check the basics.
-	if (tile->thing() || tile->mine() || !tile->bulldozed() || !tile->excavated()) { return; }
+	if (tile.thing() || tile.mine() || !tile.bulldozed() || !tile.excavated()) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 *			Should instead take advantage of the updated meta data in the IconGridItem.
@@ -726,26 +726,26 @@ void MapViewState::placeTubes(Tile* tile)
 /**
  * Places a structure into the map.
  */
-void MapViewState::placeStructure(Tile* tile)
+void MapViewState::placeStructure(Tile& tile)
 {
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		!isPointInRange(tile->xy(), ccLocation(), constants::RobotCommRange))
+		!isPointInRange(tile.xy(), ccLocation(), constants::RobotCommRange))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
 	}
 
-	if (tile->mine())
+	if (tile.mine())
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureMineInWay);
 		return;
 	}
 
-	if (tile->thing())
+	if (tile.thing())
 	{
-		if (tile->thingIsStructure())
+		if (tile.thingIsStructure())
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileObstructed);
 		}
@@ -756,13 +756,13 @@ void MapViewState::placeStructure(Tile* tile)
 		return;
 	}
 
-	if ((!tile->bulldozed() && !structureIsLander(mCurrentStructure)))
+	if ((!tile.bulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTerrain);
 		return;
 	}
 
-	if (!tile->excavated())
+	if (!tile.excavated())
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureExcavated);
 		return;
@@ -775,11 +775,11 @@ void MapViewState::placeStructure(Tile* tile)
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
-		if (!validLanderSite(*tile)) { return; }
+		if (!validLanderSite(tile)) { return; }
 
-		ColonistLander* s = new ColonistLander(tile);
+		ColonistLander* s = new ColonistLander(&tile);
 		s->deploySignal().connect(this, &MapViewState::onDeployColonistLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(s, &tile);
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
@@ -791,11 +791,11 @@ void MapViewState::placeStructure(Tile* tile)
 	}
 	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
 	{
-		if (!validLanderSite(*tile)) { return; }
+		if (!validLanderSite(tile)) { return; }
 
-		CargoLander* cargoLander = new CargoLander(tile);
+		CargoLander* cargoLander = new CargoLander(&tile);
 		cargoLander->deploySignal().connect(this, &MapViewState::onDeployCargoLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, &tile);
 
 		--mLandersCargo;
 		if (mLandersCargo == 0)
@@ -823,7 +823,7 @@ void MapViewState::placeStructure(Tile* tile)
 		Structure* structure = StructureCatalogue::get(mCurrentStructure);
 		if (!structure) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
 
-		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(structure, &tile);
 
 		// FIXME: Ugly
 		if (structure->isFactory())
@@ -845,12 +845,12 @@ void MapViewState::placeStructure(Tile* tile)
 }
 
 
-void MapViewState::placeRobot(Tile* tile)
+void MapViewState::placeRobot(Tile& tile)
 {
-	if (!tile->excavated()) { return; }
+	if (!tile.excavated()) { return; }
 	if (!mRobotPool.robotCtrlAvailable()) { return; }
 
-	if (!inCommRange(tile->xy()))
+	if (!inCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;
@@ -859,13 +859,13 @@ void MapViewState::placeRobot(Tile* tile)
 	switch (mCurrentRobot)
 	{
 	case Robot::Type::Dozer:
-		placeRobodozer(*tile);
+		placeRobodozer(tile);
 		break;
 	case Robot::Type::Digger:
-		placeRobodigger(*tile);
+		placeRobodigger(tile);
 		break;
 	case Robot::Type::Miner:
-		placeRobominer(*tile);
+		placeRobominer(tile);
 		break;
 	default:
 		break;
