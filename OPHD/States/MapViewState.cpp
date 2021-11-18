@@ -622,7 +622,7 @@ void MapViewState::onInspectRobot(Robot& robot)
 void MapViewState::onInspectTile(Tile& tile)
 {
 	clearSelections();
-	mTileInspector.tile(&tile);
+	mTileInspector.tile(tile);
 	mTileInspector.show();
 	mWindowStack.bringToFront(&mTileInspector);
 }
