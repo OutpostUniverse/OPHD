@@ -8,7 +8,7 @@
 class Tile;
 
 
-class DiggerDirection: public Window
+class DiggerDirection : public Window
 {
 public:
 	using Signal = NAS2D::Signal<Direction, Tile&>;
