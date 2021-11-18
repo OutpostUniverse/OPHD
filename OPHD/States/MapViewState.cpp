@@ -821,8 +821,6 @@ void MapViewState::placeStructure(Tile& tile)
 		}
 
 		Structure* structure = StructureCatalogue::get(mCurrentStructure);
-		if (!structure) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
-
 		NAS2D::Utility<StructureManager>::get().addStructure(*structure, tile);
 
 		// FIXME: Ugly
