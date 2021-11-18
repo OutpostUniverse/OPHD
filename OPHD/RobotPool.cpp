@@ -67,7 +67,7 @@ Robot* RobotPool::addRobot(Robot::Type type)
 		return mMiners.back();
 
 	default:
-		break;
+		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
 	}
 
 	return nullptr;
