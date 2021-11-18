@@ -32,10 +32,9 @@
 extern std::map<int, std::string> LEVEL_STRING_TABLE;
 
 
-/*****************************************************************************
- * LOCAL FUNCTIONS
- *****************************************************************************/
-static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+namespace
+{
+void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
 {
 	if (!element) { return; }
 
@@ -43,7 +42,7 @@ static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, Storabl
 }
 
 
-static void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
+void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
 {
 	for (const auto& string : NAS2D::split(robotIds, ','))
 	{
@@ -53,7 +52,7 @@ static void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idT
 }
 
 
-static std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
+std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
 {
 	std::map<const Robot*, int> robotToIdMap{};
 	int currentId = 0;
@@ -63,12 +62,8 @@ static std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robo
 	}
 	return robotToIdMap;
 }
+}
 
-
-
-/*****************************************************************************
- * CLASS FUNCTIONS
- *****************************************************************************/
 
 void MapViewState::save(const std::string& filePath)
 {
