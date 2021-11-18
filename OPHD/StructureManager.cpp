@@ -32,42 +32,42 @@ namespace
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeStructure(Structure* structure, Tile* tile, std::map<const Robot*, int> robotToIdMap)
+	NAS2D::Xml::XmlElement* serializeStructure(Structure& structure, Tile& tile, std::map<const Robot*, int> robotToIdMap)
 	{
-		const auto position = tile->xyz();
+		const auto position = tile.xyz();
 		NAS2D::Dictionary dictionary =
 		{{
 			{"x", position.xy.x},
 			{"y", position.xy.y},
 			{"depth", position.z},
 		}};
-		dictionary += structure->getDataDict();
+		dictionary += structure.getDataDict();
 
 		auto* structureElement = dictionaryToAttributes("structure", dictionary);
 
-		const auto& production = structure->production();
+		const auto& production = structure.production();
 		if (!production.isEmpty())
 		{
 			structureElement->linkEndChild(writeResources(production, "production"));
 		}
 
-		const auto& stored = structure->storage();
+		const auto& stored = structure.storage();
 		if (!stored.isEmpty())
 		{
 			structureElement->linkEndChild(writeResources(stored, "storage"));
 		}
 
-		if (structure->isWarehouse())
+		if (structure.isWarehouse())
 		{
 			structureElement->linkEndChild(NAS2D::dictionaryToAttributes(
 				"warehouse_products",
-				static_cast<Warehouse*>(structure)->products().serialize()
+				static_cast<Warehouse&>(structure).products().serialize()
 			));
 		}
 
-		if (structure->isRobotCommand())
+		if (structure.isRobotCommand())
 		{
-			const auto& robots = static_cast<RobotCommand*>(structure)->robots();
+			const auto& robots = static_cast<RobotCommand&>(structure).robots();
 
 			const auto robotToIdString = [&robotToIdMap](const Robot* robot){ return NAS2D::stringFrom(robotToIdMap.at(robot)); };
 			const auto idsString = NAS2D::join(NAS2D::mapToVector(robots, robotToIdString), ",");
@@ -77,56 +77,56 @@ namespace
 			);
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::FoodProduction ||
-			structure->structureId() == StructureID::SID_COMMAND_CENTER)
+		if (structure.structureClass() == Structure::StructureClass::FoodProduction ||
+			structure.structureId() == StructureID::SID_COMMAND_CENTER)
 		{
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"food",
-					{{{"level", static_cast<FoodProduction*>(structure)->foodLevel()}}}
+					{{{"level", static_cast<FoodProduction&>(structure).foodLevel()}}}
 				)
 			);
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::Residence)
+		if (structure.structureClass() == Structure::StructureClass::Residence)
 		{
-			Residence* residence = static_cast<Residence*>(structure);
+			Residence& residence = static_cast<Residence&>(structure);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"waste",
 					{{
-						{"accumulated", residence->wasteAccumulated()},
-						{"overflow", residence->wasteOverflow()},
+						{"accumulated", residence.wasteAccumulated()},
+						{"overflow", residence.wasteOverflow()},
 					}}
 				)
 			);
 		}
 
-		if (structure->isMineFacility())
+		if (structure.isMineFacility())
 		{
-			MineFacility* facility = static_cast<MineFacility*>(structure);
+			MineFacility& facility = static_cast<MineFacility&>(structure);
 
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"trucks",
-					{{{"assigned", facility->assignedTrucks()}}}
+					{{{"assigned", facility.assignedTrucks()}}}
 				)
 			);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"extension",
-					{{{"turns_remaining", facility->digTimeRemaining()}}}
+					{{{"turns_remaining", facility.digTimeRemaining()}}}
 				)
 			);
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::Maintenance)
+		if (structure.structureClass() == Structure::StructureClass::Maintenance)
 		{
-			auto maintenance = static_cast<MaintenanceFacility*>(structure);
+			auto& maintenance = static_cast<MaintenanceFacility&>(structure);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"personnel",
-					{{{"assigned", maintenance->personnel()}}}
+					{{{"assigned", maintenance.personnel()}}}
 				)
 			);
 		}
@@ -522,7 +522,7 @@ NAS2D::Xml::XmlElement* StructureManager::serialize(std::map<const Robot*, int> 
 
 	for (auto& [structure, tile] : mStructureTileTable)
 	{
-		structures->linkEndChild(serializeStructure(structure, tile, robotToIdMap));
+		structures->linkEndChild(serializeStructure(*structure, *tile, robotToIdMap));
 	}
 
 	return structures;
