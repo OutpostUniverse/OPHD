@@ -60,9 +60,10 @@ static void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idT
 static std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
 {
 	std::map<const Robot*, int> robotToIdMap{};
+	int currentId = 0;
 	for (const auto* robot : robots)
 	{
-		robotToIdMap[robot] = robot->id();
+		robotToIdMap[robot] = currentId++;
 	}
 	return robotToIdMap;
 }
