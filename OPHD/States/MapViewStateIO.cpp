@@ -330,7 +330,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		const auto idle_reason = dictionary.get<int>("idle_reason");
 
 		const auto crime_rate = dictionary.get<int>("crime_rate", 0);
-		const auto integrity = dictionary.get<int>("integrity", 0);
+		const auto integrity = dictionary.get<int>("integrity", 100);
 
 		const auto production_completed = dictionary.get<int>("production_completed", 0);
 		const auto production_type = dictionary.get<int>("production_type", 0);
