@@ -34,34 +34,34 @@ extern std::map<int, std::string> LEVEL_STRING_TABLE;
 
 namespace
 {
-void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
-{
-	if (!element) { return; }
-
-	resources = readResources(element);
-}
-
-
-void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
-{
-	for (const auto& string : NAS2D::split(robotIds, ','))
+	void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
 	{
-		const auto robotId = NAS2D::stringTo<int>(string);
-		robotCommand.addRobot(idToRobotMap.at(robotId));
+		if (!element) { return; }
+
+		resources = readResources(element);
 	}
-}
 
 
-std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
-{
-	std::map<const Robot*, int> robotToIdMap{};
-	int currentId = 0;
-	for (const auto* robot : robots)
+	void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
 	{
-		robotToIdMap[robot] = currentId++;
+		for (const auto& string : NAS2D::split(robotIds, ','))
+		{
+			const auto robotId = NAS2D::stringTo<int>(string);
+			robotCommand.addRobot(idToRobotMap.at(robotId));
+		}
 	}
-	return robotToIdMap;
-}
+
+
+	std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
+	{
+		std::map<const Robot*, int> robotToIdMap{};
+		int currentId = 0;
+		for (const auto* robot : robots)
+		{
+			robotToIdMap[robot] = currentId++;
+		}
+		return robotToIdMap;
+	}
 }
 
 
