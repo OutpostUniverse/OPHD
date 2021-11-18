@@ -18,29 +18,24 @@
 
 void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 {
+	const std::map<ProductType, Robot::Type> ProductTypeToRobotType
+	{
+		{ProductType::PRODUCT_DIGGER, Robot::Type::Digger},
+		{ProductType::PRODUCT_DOZER, Robot::Type::Dozer},
+		{ProductType::PRODUCT_MINER, Robot::Type::Miner},
+	};
+
+	if (ProductTypeToRobotType.find(pt) == ProductTypeToRobotType.end())
+	{
+		throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
+	}
+
+	const auto robotType = ProductTypeToRobotType.at(pt);
 	RobotCommand* robotCommand = getAvailableRobotCommand();
 
 	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
-		Robot* robot = nullptr;
-
-		switch (pt)
-		{
-		case ProductType::PRODUCT_DIGGER:
-			robot = &mRobotPool.addRobot(Robot::Type::Digger);
-			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-			break;
-		case ProductType::PRODUCT_DOZER:
-			robot = &mRobotPool.addRobot(Robot::Type::Dozer);
-			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
-			break;
-		case ProductType::PRODUCT_MINER:
-			robot = &mRobotPool.addRobot(Robot::Type::Miner);
-			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
-			break;
-		default:
-			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
-		}
+		auto* robot = &addRobot(robotType);
 		factory.pullProduct();
 
 		populateRobotMenu();
@@ -51,7 +46,6 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 	{
 		factory.idle(IdleReason::FactoryInsufficientRobotCommandCapacity);
 	}
-
 }
 
 
