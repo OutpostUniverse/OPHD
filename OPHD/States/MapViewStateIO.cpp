@@ -32,10 +32,6 @@
 extern std::map<int, std::string> LEVEL_STRING_TABLE;
 
 
-extern int ROBOT_ID_COUNTER; /// \fixme Kludge
-
-
-
 /*****************************************************************************
  * LOCAL FUNCTIONS
  *****************************************************************************/
@@ -280,7 +276,6 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 
 	std::map<int, Robot*> idToRobotMap{};
 
-	ROBOT_ID_COUNTER = 0;
 	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*robotElement);
@@ -294,24 +289,22 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		const auto depth = dictionary.get<int>("depth", 0);
 		const auto direction = dictionary.get<int>("direction", 0);
 
-		ROBOT_ID_COUNTER = std::max(ROBOT_ID_COUNTER, id);
-
 		Robot* robot = nullptr;
 		switch (static_cast<Robot::Type>(type))
 		{
 		case Robot::Type::Digger:
-			robot = mRobotPool.addRobot(Robot::Type::Digger, id);
+			robot = mRobotPool.addRobot(Robot::Type::Digger);
 			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
 		case Robot::Type::Dozer:
-			robot = mRobotPool.addRobot(Robot::Type::Dozer, id);
+			robot = mRobotPool.addRobot(Robot::Type::Dozer);
 			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			break;
 
 		case Robot::Type::Miner:
-			robot = mRobotPool.addRobot(Robot::Type::Miner, id);
+			robot = mRobotPool.addRobot(Robot::Type::Miner);
 			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			break;
 

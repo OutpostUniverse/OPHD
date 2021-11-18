@@ -5,9 +5,6 @@
 #include <algorithm>
 
 
-int ROBOT_ID_COUNTER = 0; /// \fixme Kludge
-
-
 RobotPool::RobotPool()
 {}
 
@@ -48,42 +45,24 @@ void RobotPool::erase(Robot* robot)
 /**
  * Adds a robot of specified type to the pool.
  *
- * Generates a new unique ID for the robot.
- *
  * \return Returns a pointer to the robot, or nullptr if type was invalid.
  */
 Robot* RobotPool::addRobot(Robot::Type type)
-{
-	// Generate a new unique ID
-	const auto id = ++ROBOT_ID_COUNTER;
-	return addRobot(type, id);
-}
-
-
-/**
- * Adds a robot of specified type to the pool.
- *
- * \return Returns a pointer to the robot, or nullptr if type was invalid.
- */
-Robot* RobotPool::addRobot(Robot::Type type, int id)
 {
 	switch (type)
 	{
 	case Robot::Type::Dozer:
 		mDozers.push_back(new Robodozer());
-		mDozers.back()->id(id);
 		mRobots.push_back(mDozers.back());
 		return mDozers.back();
 
 	case Robot::Type::Digger:
 		mDiggers.push_back(new Robodigger());
-		mDiggers.back()->id(id);
 		mRobots.push_back(mDiggers.back());
 		return mDiggers.back();
 
 	case Robot::Type::Miner:
 		mMiners.push_back(new Robominer());
-		mMiners.back()->id(id);
 		mRobots.push_back(mMiners.back());
 		return mMiners.back();
 

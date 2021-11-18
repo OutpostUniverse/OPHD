@@ -41,9 +41,6 @@ public:
 
 	TaskSignal::Source& taskComplete() { return mTaskCompleteSignal; }
 
-	void id(int newId) { mId = newId; }
-	int id() const { return mId; }
-
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
@@ -51,7 +48,6 @@ protected:
 	void updateTask();
 
 private:
-	int mId = 0;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 
