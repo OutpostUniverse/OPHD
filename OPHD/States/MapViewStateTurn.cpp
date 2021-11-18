@@ -72,9 +72,9 @@ static Route findLowestCostRoute(RouteList& routeList)
 
 static bool routeObstructed(Route& route)
 {
-	for (auto tile : route.path)
+	for (auto tileVoidPtr : route.path)
 	{
-		Tile* t = static_cast<Tile*>(tile);
+		Tile* t = static_cast<Tile*>(tileVoidPtr);
 
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.
