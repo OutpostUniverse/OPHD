@@ -694,7 +694,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
 	}
 
-	NAS2D::Utility<StructureManager>::get().addStructure(new Tube(dir, depth != 0), &tile);
+	NAS2D::Utility<StructureManager>::get().addStructure(*new Tube(dir, depth != 0), tile);
 }
 
 
@@ -779,7 +779,7 @@ void MapViewState::placeStructure(Tile& tile)
 
 		ColonistLander* s = new ColonistLander(&tile);
 		s->deploySignal().connect(this, &MapViewState::onDeployColonistLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(s, &tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(*s, tile);
 
 		--mLandersColonist;
 		if (mLandersColonist == 0)
@@ -795,7 +795,7 @@ void MapViewState::placeStructure(Tile& tile)
 
 		CargoLander* cargoLander = new CargoLander(&tile);
 		cargoLander->deploySignal().connect(this, &MapViewState::onDeployCargoLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, &tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(*cargoLander, tile);
 
 		--mLandersCargo;
 		if (mLandersCargo == 0)
@@ -823,7 +823,7 @@ void MapViewState::placeStructure(Tile& tile)
 		Structure* structure = StructureCatalogue::get(mCurrentStructure);
 		if (!structure) { throw std::runtime_error("MapViewState::placeStructure(): NULL Structure returned from StructureCatalog."); }
 
-		NAS2D::Utility<StructureManager>::get().addStructure(structure, &tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(*structure, tile);
 
 		// FIXME: Ugly
 		if (structure->isFactory())
@@ -1162,7 +1162,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 		SeedLander* s = new SeedLander(point);
 		s->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
-		NAS2D::Utility<StructureManager>::get().addStructure(s, &mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
+		NAS2D::Utility<StructureManager>::get().addStructure(*s, mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
 
 		clearMode();
 		resetUi();

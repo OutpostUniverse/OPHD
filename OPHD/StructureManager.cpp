@@ -344,29 +344,23 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 /**
  * Adds a new Structure to the StructureManager.
  */
-void StructureManager::addStructure(Structure* structure, Tile* tile)
+void StructureManager::addStructure(Structure& structure, Tile& tile)
 {
-	// Sanity checks
-	if (tile == nullptr)
-	{
-		return;
-	}
-
-	if (mStructureTileTable.find(structure) != mStructureTileTable.end())
+	if (mStructureTileTable.find(&structure) != mStructureTileTable.end())
 	{
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 	}
 
 	// Remove things from tile only if we know we're adding a structure.
-	if (!tile->empty())
+	if (!tile.empty())
 	{
-		tile->removeThing();
+		tile.removeThing();
 	}
 
-	mStructureTileTable[structure] = tile;
+	mStructureTileTable[&structure] = &tile;
 
-	mStructureLists[structure->structureClass()].push_back(structure);
-	tile->pushThing(structure);
+	mStructureLists[structure.structureClass()].push_back(&structure);
+	tile.pushThing(&structure);
 }
 
 

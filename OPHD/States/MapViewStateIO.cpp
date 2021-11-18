@@ -475,7 +475,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 
 		structure.populationAvailable() = {pop0, pop1};
 
-		NAS2D::Utility<StructureManager>::get().addStructure(&structure, &tile);
+		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 	}
 }
 
