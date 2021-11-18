@@ -11,7 +11,7 @@ class TileInspector: public Window
 public:
 	TileInspector();
 
-	void tile(Tile* t) { mTile = t; }
+	void tile(Tile* tile) { mTile = tile; }
 
 	void update() override;
 
