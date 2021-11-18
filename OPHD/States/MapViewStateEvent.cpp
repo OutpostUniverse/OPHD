@@ -16,47 +16,36 @@
 #include <stdexcept>
 
 
-void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
+void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factory)
 {
+	const std::map<ProductType, Robot::Type> ProductTypeToRobotType
+	{
+		{ProductType::PRODUCT_DIGGER, Robot::Type::Digger},
+		{ProductType::PRODUCT_DOZER, Robot::Type::Dozer},
+		{ProductType::PRODUCT_MINER, Robot::Type::Miner},
+	};
+
+	if (ProductTypeToRobotType.find(productType) == ProductTypeToRobotType.end())
+	{
+		throw std::runtime_error("pullRobotFromFactory():: unsuitable ProductType: " + std::to_string(static_cast<int>(productType)));
+	}
+
+	const auto robotType = ProductTypeToRobotType.at(productType);
 	RobotCommand* robotCommand = getAvailableRobotCommand();
 
 	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
 	{
-		Robot* robot = nullptr;
-
-		switch (pt)
-		{
-		case ProductType::PRODUCT_DIGGER:
-			robot = mRobotPool.addRobot(Robot::Type::Digger);
-			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-			factory.pullProduct();
-			break;
-
-		case ProductType::PRODUCT_DOZER:
-			robot = mRobotPool.addRobot(Robot::Type::Dozer);
-			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
-			factory.pullProduct();
-			break;
-
-		case ProductType::PRODUCT_MINER:
-			robot = mRobotPool.addRobot(Robot::Type::Miner);
-			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
-			factory.pullProduct();
-			break;
-
-		default:
-			throw std::runtime_error("pullRobotFromFactory():: unsuitable robot type.");
-		}
+		auto& robot = addRobot(robotType);
+		factory.pullProduct();
 
 		populateRobotMenu();
 
-		if (robotCommand != nullptr) { robotCommand->addRobot(robot); }
+		if (robotCommand != nullptr) { robotCommand->addRobot(&robot); }
 	}
 	else
 	{
 		factory.idle(IdleReason::FactoryInsufficientRobotCommandCapacity);
 	}
-
 }
 
 
@@ -165,9 +154,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	mRobots.addItem(constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner));
 	mRobots.sort();
 
-	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 }
 
 

@@ -159,13 +159,15 @@ private:
 	void insertSeedLander(NAS2D::Point<int> point);
 	void insertTube(ConnectorDir dir, int depth, Tile* tile);
 
-	void placeRobot(Tile* tile);
-	void placeStructure(Tile* tile);
 	void placeTubes(Tile* tile);
+	void placeStructure(Tile* tile);
+	void placeRobot(Tile* tile);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
+
+	Robot& addRobot(Robot::Type type);
 
 	void setStructureID(StructureID type, InsertMode mode);
 

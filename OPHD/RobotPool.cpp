@@ -47,30 +47,27 @@ void RobotPool::erase(Robot* robot)
  *
  * \return Returns a pointer to the robot, or nullptr if type was invalid.
  */
-Robot* RobotPool::addRobot(Robot::Type type)
+Robot& RobotPool::addRobot(Robot::Type type)
 {
 	switch (type)
 	{
 	case Robot::Type::Dozer:
 		mDozers.push_back(new Robodozer());
 		mRobots.push_back(mDozers.back());
-		return mDozers.back();
-
+		break;
 	case Robot::Type::Digger:
 		mDiggers.push_back(new Robodigger());
 		mRobots.push_back(mDiggers.back());
-		return mDiggers.back();
-
+		break;
 	case Robot::Type::Miner:
 		mMiners.push_back(new Robominer());
 		mRobots.push_back(mMiners.back());
-		return mMiners.back();
-
-	default:
 		break;
+	default:
+		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
 	}
 
-	return nullptr;
+	return *mRobots.back();
 }
 
 

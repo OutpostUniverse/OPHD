@@ -29,46 +29,38 @@
 #include <stdexcept>
 
 
-extern std::map<int, std::string> LEVEL_STRING_TABLE;
-
-
-/*****************************************************************************
- * LOCAL FUNCTIONS
- *****************************************************************************/
-static void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
+namespace
 {
-	if (!element) { return; }
-
-	resources = readResources(element);
-}
-
-
-static void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
-{
-	for (const auto& string : NAS2D::split(robotIds, ','))
+	void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
 	{
-		const auto robotId = NAS2D::stringTo<int>(string);
-		robotCommand.addRobot(idToRobotMap.at(robotId));
+		if (!element) { return; }
+
+		resources = readResources(element);
+	}
+
+
+	void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
+	{
+		for (const auto& string : NAS2D::split(robotIds, ','))
+		{
+			const auto robotId = NAS2D::stringTo<int>(string);
+			robotCommand.addRobot(idToRobotMap.at(robotId));
+		}
+	}
+
+
+	std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
+	{
+		std::map<const Robot*, int> robotToIdMap{};
+		int currentId = 0;
+		for (const auto* robot : robots)
+		{
+			robotToIdMap[robot] = currentId++;
+		}
+		return robotToIdMap;
 	}
 }
 
-
-static std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
-{
-	std::map<const Robot*, int> robotToIdMap{};
-	int currentId = 0;
-	for (const auto* robot : robots)
-	{
-		robotToIdMap[robot] = currentId++;
-	}
-	return robotToIdMap;
-}
-
-
-
-/*****************************************************************************
- * CLASS FUNCTIONS
- *****************************************************************************/
 
 void MapViewState::save(const std::string& filePath)
 {
@@ -289,47 +281,27 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		const auto depth = dictionary.get<int>("depth", 0);
 		const auto direction = dictionary.get<int>("direction", 0);
 
-		Robot* robot = nullptr;
-		switch (static_cast<Robot::Type>(type))
+		const auto robotType = static_cast<Robot::Type>(type);
+		auto& robot = addRobot(robotType);
+		if (robotType == Robot::Type::Digger)
 		{
-		case Robot::Type::Digger:
-			robot = mRobotPool.addRobot(Robot::Type::Digger);
-			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
-			break;
-
-		case Robot::Type::Dozer:
-			robot = mRobotPool.addRobot(Robot::Type::Dozer);
-			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
-			break;
-
-		case Robot::Type::Miner:
-			robot = mRobotPool.addRobot(Robot::Type::Miner);
-			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
-			break;
-
-		default:
-			throw std::runtime_error("Unknown robot type in savegame.");
+			static_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
 		}
 
-		// Could be done in the default handler in the above switch
-		// but may be better here as an explicit statement.
-		if (!robot) { continue; }
+		idToRobotMap[id] = &robot;
 
-		idToRobotMap[id] = robot;
-
-		robot->fuelCellAge(age);
+		robot.fuelCellAge(age);
 
 		if (production_time > 0)
 		{
-			robot->startTask(production_time);
-			mRobotPool.insertRobotIntoTable(mRobotList, robot, &mTileMap->getTile({{x, y}, depth}));
-			mRobotList[robot]->index(TerrainType::Dozed);
+			robot.startTask(production_time);
+			mRobotPool.insertRobotIntoTable(mRobotList, &robot, &mTileMap->getTile({{x, y}, depth}));
+			mRobotList[&robot]->index(TerrainType::Dozed);
 		}
 
 		if (depth > 0)
 		{
-			mRobotList[robot]->excavated(true);
+			mRobotList[&robot]->excavated(true);
 		}
 	}
 
