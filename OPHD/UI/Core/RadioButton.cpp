@@ -10,7 +10,6 @@ RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, st
 	text(newText);
 	mSignal.connect({delegate});
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &RadioButtonGroup::RadioButton::onMouseDown});
-	onTextChange();
 }
 
 
