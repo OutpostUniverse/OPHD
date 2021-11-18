@@ -265,7 +265,7 @@ private:
 	void onConnectionsSelectionChange(const IconGrid::IconGridItem*);
 	void onRobotsSelectionChange(const IconGrid::IconGridItem*);
 
-	void onDiggerSelectionDialog(Direction direction, Tile* tile);
+	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
