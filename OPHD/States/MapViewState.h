@@ -47,6 +47,7 @@
 
 #include <string>
 #include <memory>
+#include <map>
 
 
 namespace NAS2D
@@ -208,7 +209,7 @@ private:
 	void checkNewlyBuiltStructures();
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
-	void readRobots(NAS2D::Xml::XmlElement* element);
+	std::map<int, Robot*> readRobots(NAS2D::Xml::XmlElement* element);
 	void readStructures(NAS2D::Xml::XmlElement* element);
 	void readTurns(NAS2D::Xml::XmlElement* element);
 	void readPopulation(NAS2D::Xml::XmlElement* element);

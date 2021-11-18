@@ -24,7 +24,6 @@
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
 #include <NAS2D/ParserHelper.h>
 
-#include <map>
 #include <string>
 #include <vector>
 #include <stdexcept>
@@ -266,11 +265,13 @@ void MapViewState::load(const std::string& filePath)
 }
 
 
-void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
+std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
 	mRobots.clear();
+
+	std::map<int, Robot*> idToRobotMap{};
 
 	ROBOT_ID_COUNTER = 0;
 	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
@@ -315,6 +316,8 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		// but may be better here as an explicit statement.
 		if (!robot) { continue; }
 
+		idToRobotMap[id] = robot;
+
 		robot->fuelCellAge(age);
 
 		if (production_time > 0)
@@ -331,6 +334,8 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 	}
 
 	populateRobotMenu();
+
+	return idToRobotMap;
 }
 
 
