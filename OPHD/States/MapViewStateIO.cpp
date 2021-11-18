@@ -285,18 +285,18 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		switch (static_cast<Robot::Type>(type))
 		{
 		case Robot::Type::Digger:
-			robot = mRobotPool.addRobot(Robot::Type::Digger);
+			robot = &mRobotPool.addRobot(Robot::Type::Digger);
 			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			static_cast<Robodigger*>(robot)->direction(static_cast<Direction>(direction));
 			break;
 
 		case Robot::Type::Dozer:
-			robot = mRobotPool.addRobot(Robot::Type::Dozer);
+			robot = &mRobotPool.addRobot(Robot::Type::Dozer);
 			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			break;
 
 		case Robot::Type::Miner:
-			robot = mRobotPool.addRobot(Robot::Type::Miner);
+			robot = &mRobotPool.addRobot(Robot::Type::Miner);
 			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			break;
 

@@ -27,19 +27,19 @@ void MapViewState::pullRobotFromFactory(ProductType pt, Factory& factory)
 		switch (pt)
 		{
 		case ProductType::PRODUCT_DIGGER:
-			robot = mRobotPool.addRobot(Robot::Type::Digger);
+			robot = &mRobotPool.addRobot(Robot::Type::Digger);
 			robot->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
 			factory.pullProduct();
 			break;
 
 		case ProductType::PRODUCT_DOZER:
-			robot = mRobotPool.addRobot(Robot::Type::Dozer);
+			robot = &mRobotPool.addRobot(Robot::Type::Dozer);
 			robot->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
 			factory.pullProduct();
 			break;
 
 		case ProductType::PRODUCT_MINER:
-			robot = mRobotPool.addRobot(Robot::Type::Miner);
+			robot = &mRobotPool.addRobot(Robot::Type::Miner);
 			robot->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 			factory.pullProduct();
 			break;
@@ -165,9 +165,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	mRobots.addItem(constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner));
 	mRobots.sort();
 
-	mRobotPool.addRobot(Robot::Type::Dozer)->taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Digger)->taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Miner)->taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
 }
 
 
