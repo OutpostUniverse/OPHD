@@ -54,26 +54,21 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
  */
 void MapViewState::onFactoryProductionComplete(Factory& factory)
 {
-	switch (factory.productWaiting())
+	const auto productType = factory.productWaiting();
+	switch (productType)
 	{
 	case ProductType::PRODUCT_DIGGER:
-		pullRobotFromFactory(ProductType::PRODUCT_DIGGER, factory);
-		break;
-
 	case ProductType::PRODUCT_DOZER:
-		pullRobotFromFactory(ProductType::PRODUCT_DOZER, factory);
-		break;
-
 	case ProductType::PRODUCT_MINER:
-		pullRobotFromFactory(ProductType::PRODUCT_MINER, factory);
+		pullRobotFromFactory(productType, factory);
 		break;
 
 	case ProductType::PRODUCT_TRUCK:
 	case ProductType::PRODUCT_CLOTHING:
 	case ProductType::PRODUCT_MEDICINE:
 		{
-			Warehouse* warehouse = getAvailableWarehouse(factory.productWaiting(), 1);
-			if (warehouse) { warehouse->products().store(factory.productWaiting(), 1); factory.pullProduct(); }
+			Warehouse* warehouse = getAvailableWarehouse(productType, 1);
+			if (warehouse) { warehouse->products().store(productType, 1); factory.pullProduct(); }
 			else { factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); }
 			break;
 		}
