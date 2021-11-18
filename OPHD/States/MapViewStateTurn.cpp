@@ -74,12 +74,12 @@ static bool routeObstructed(Route& route)
 {
 	for (auto tileVoidPtr : route.path)
 	{
-		Tile* tile = static_cast<Tile*>(tileVoidPtr);
+		auto& tile = *static_cast<Tile*>(tileVoidPtr);
 
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.
-		if (tile->thingIsStructure() && !tile->structure()->isRoad()) { return true; }
-		if (tile->index() == TerrainType::Impassable) { return true; }
+		if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
+		if (tile.index() == TerrainType::Impassable) { return true; }
 	}
 
 	return false;
