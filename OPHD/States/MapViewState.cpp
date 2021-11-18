@@ -1051,7 +1051,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	if (!tile.thing() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
 	else { mDiggerDirection.downOnlyEnabled(); }
 
-	mDiggerDirection.setParameters(&tile);
+	mDiggerDirection.setParameters(tile);
 
 	// If we're placing on the top level we can only ever go down.
 	if (mMapView->currentDepth() == constants::DepthSurface)

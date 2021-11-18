@@ -19,7 +19,7 @@ public:
 
 	Signal::Source& directionSelected() { return mSignal; }
 
-	void setParameters(Tile* tile);
+	void setParameters(Tile& tile);
 
 	void selectDown();
 
