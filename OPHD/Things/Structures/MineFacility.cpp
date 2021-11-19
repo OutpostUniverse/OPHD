@@ -92,24 +92,13 @@ void MineFacility::think()
 
 		StorableResources ore;
 
-		if (mMine->miningCommonMetals())
+		const auto enabledBits = mMine->miningEnabled();
+		for (std::size_t i = 0; i < ore.resources.size(); ++i)
 		{
-			ore.resources[0] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pullCount(this, 0));
-		}
-
-		if (mMine->miningCommonMinerals())
-		{
-			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, pullCount(this, 1));
-		}
-
-		if (mMine->miningRareMetals())
-		{
-			ore.resources[2] = mMine->pull(Mine::OreType::ORE_RARE_METALS, pullCount(this, 2));
-		}
-
-		if (mMine->miningRareMinerals())
-		{
-			ore.resources[3] = mMine->pull(Mine::OreType::ORE_RARE_MINERALS, pullCount(this, 3));
+			if (enabledBits[i])
+			{
+				ore.resources[i] = mMine->pull(static_cast<Mine::OreType>(i), pullCount(this, i));
+			}
 		}
 
 		storage() += ore;
