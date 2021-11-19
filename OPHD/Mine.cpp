@@ -99,30 +99,6 @@ void Mine::miningEnabled(OreType oreType, bool value)
 }
 
 
-void Mine::miningCommonMetals(bool value)
-{
-	mFlags[OreType::ORE_COMMON_METALS] = value;
-}
-
-
-void Mine::miningCommonMinerals(bool value)
-{
-	mFlags[OreType::ORE_COMMON_MINERALS] = value;
-}
-
-
-void Mine::miningRareMetals(bool value)
-{
-	mFlags[OreType::ORE_RARE_METALS] = value;
-}
-
-
-void Mine::miningRareMinerals(bool value)
-{
-	mFlags[OreType::ORE_RARE_MINERALS] = value;
-}
-
-
 /**
  * Increases the depth of the mine.
  * 

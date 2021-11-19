@@ -46,11 +46,6 @@ public:
 	std::bitset<4> miningEnabled() const;
 	void miningEnabled(OreType oreType, bool value);
 
-	void miningCommonMetals(bool value);
-	void miningCommonMinerals(bool value);
-	void miningRareMetals(bool value);
-	void miningRareMinerals(bool value);
-
 	StorableResources pull(const StorableResources& maxTransfer);
 
 public:
