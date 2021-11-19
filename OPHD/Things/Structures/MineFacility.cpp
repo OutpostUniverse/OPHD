@@ -47,7 +47,18 @@ void MineFacility::activated()
 StorableResources MineFacility::maxTransferAmounts()
 {
 	const auto remainingCapacity = MaxCapacity - production();
-	return remainingCapacity.cap(constants::BaseMineProductionRate);
+	auto maxTransfer = remainingCapacity.cap(constants::BaseMineProductionRate);
+
+	const auto enabledBits = mMine->miningEnabled();
+	for (std::size_t i = 0; i < maxTransfer.resources.size(); ++i)
+	{
+		if (!enabledBits[i])
+		{
+			maxTransfer.resources[i] = 0;
+		}
+	}
+
+	return maxTransfer;
 }
 
 
@@ -93,13 +104,9 @@ void MineFacility::think()
 		StorableResources ore;
 
 		const auto maxTransfer = maxTransferAmounts();
-		const auto enabledBits = mMine->miningEnabled();
 		for (std::size_t i = 0; i < ore.resources.size(); ++i)
 		{
-			if (enabledBits[i])
-			{
-				ore.resources[i] = mMine->pull(static_cast<Mine::OreType>(i), maxTransfer.resources[i]);
-			}
+			ore.resources[i] = mMine->pull(static_cast<Mine::OreType>(i), maxTransfer.resources[i]);
 		}
 
 		storage() += ore;
