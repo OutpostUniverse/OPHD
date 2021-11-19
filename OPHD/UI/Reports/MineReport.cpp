@@ -331,10 +331,11 @@ void MineReport::onMineFacilitySelectionChange()
 	btnDigNewLevel.toggle(facility->extending());
 	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
 
-	chkResources[0].checked(facility->mine()->miningCommonMetals());
-	chkResources[1].checked(facility->mine()->miningCommonMinerals());
-	chkResources[2].checked(facility->mine()->miningRareMetals());
-	chkResources[3].checked(facility->mine()->miningRareMinerals());
+	const auto enabledBits = facility->mine()->miningEnabled();
+	chkResources[0].checked(enabledBits[0]);
+	chkResources[1].checked(enabledBits[1]);
+	chkResources[2].checked(enabledBits[2]);
+	chkResources[3].checked(enabledBits[3]);
 }
 
 
