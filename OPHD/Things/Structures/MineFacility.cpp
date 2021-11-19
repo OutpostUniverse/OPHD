@@ -17,20 +17,6 @@ namespace
 }
 
 
-/**
- * Computes how many units of ore should be pulled.
- */
-static int pullCount(MineFacility* mineFacility, size_t index)
-{
-	const int storageCapacity = (mineFacility->storageCapacity() / 4);
-	const int remainingCapacity = storageCapacity - mineFacility->production().resources[index];
-
-	const int total = std::clamp(remainingCapacity, 0, constants::BaseMineProductionRate);
-
-	return total;
-}
-
-
 MineFacility::MineFacility(Mine* mine) : Structure(constants::MineFacility,
 	"structures/mine_facility.sprite",
 	StructureClass::Mine,
@@ -103,12 +89,13 @@ void MineFacility::think()
 
 		StorableResources ore;
 
+		const auto maxTransfer = maxTransferAmounts();
 		const auto enabledBits = mMine->miningEnabled();
 		for (std::size_t i = 0; i < ore.resources.size(); ++i)
 		{
 			if (enabledBits[i])
 			{
-				ore.resources[i] = mMine->pull(static_cast<Mine::OreType>(i), pullCount(this, i));
+				ore.resources[i] = mMine->pull(static_cast<Mine::OreType>(i), maxTransfer.resources[i]);
 			}
 		}
 
