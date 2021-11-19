@@ -35,6 +35,10 @@ namespace
 	};
 
 
+	// [Exhausted, Active, 4x miningEnabled]
+	const std::bitset<6> DefaultFlags{"001111"};
+
+
 	/**
 	 * Helper function that gets the total amount of ore
 	 */
@@ -47,30 +51,19 @@ namespace
 		}
 		return availableResources;
 	}
-
-
-	void setDefaultFlags(std::bitset<6>& flags)
-	{
-		flags[Mine::OreType::ORE_COMMON_METALS] = true;
-		flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
-		flags[Mine::OreType::ORE_RARE_METALS] = true;
-		flags[Mine::OreType::ORE_RARE_MINERALS] = true;
-		flags[4] = false;
-		flags[5] = false;
-	}
 }
 
 
-Mine::Mine()
+Mine::Mine() :
+	mFlags{DefaultFlags}
 {
-	setDefaultFlags(mFlags);
 }
 
 
 Mine::Mine(MineProductionRate rate) :
-	mProductionRate(rate)
+	mProductionRate{rate},
+	mFlags{DefaultFlags}
 {
-	setDefaultFlags(mFlags);
 }
 
 
