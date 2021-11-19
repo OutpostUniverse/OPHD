@@ -44,7 +44,7 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MineFacility,
 
 	requiresCHAP(false);
 	selfSustained(true);
-	storageCapacity(500);
+	storageCapacity(MineFacilityStorageCapacity);
 }
 
 
