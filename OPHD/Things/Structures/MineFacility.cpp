@@ -101,9 +101,7 @@ void MineFacility::think()
 			return;
 		}
 
-		const auto maxTransfer = maxTransferAmounts();
-		const auto ore = mMine->pull(maxTransfer);
-		storage() += ore;
+		storage() += mMine->pull(maxTransferAmounts());
 	}
 	else if (!isIdle())
 	{
