@@ -14,7 +14,7 @@ struct StorableResources;
 class Mine
 {
 public:
-	enum OreType
+	enum class OreType
 	{
 		ORE_COMMON_METALS,
 		ORE_COMMON_MINERALS,

@@ -88,7 +88,7 @@ std::bitset<4> Mine::miningEnabled() const
 
 void Mine::miningEnabled(OreType oreType, bool value)
 {
-	mFlags[oreType] = value;
+	mFlags[static_cast<int>(oreType)] = value;
 }
 
 
