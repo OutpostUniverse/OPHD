@@ -145,25 +145,25 @@ void MineOperationsWindow::onUnassignTruck()
 
 void MineOperationsWindow::onCheckBoxCommonMetalsChange()
 {
-	mFacility->mine()->miningEnabled(Mine::OreType::ORE_COMMON_METALS, chkResources[0].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxCommonMineralsChange()
 {
-	mFacility->mine()->miningEnabled(Mine::OreType::ORE_COMMON_MINERALS, chkResources[1].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMetalsChange()
 {
-	mFacility->mine()->miningEnabled(Mine::OreType::ORE_RARE_METALS, chkResources[2].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMineralsChange()
 {
-	mFacility->mine()->miningEnabled(Mine::OreType::ORE_RARE_MINERALS, chkResources[3].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
 }
 
 

@@ -16,10 +16,10 @@ class Mine
 public:
 	enum class OreType
 	{
-		ORE_COMMON_METALS,
-		ORE_COMMON_MINERALS,
-		ORE_RARE_METALS,
-		ORE_RARE_MINERALS,
+		CommonMetals,
+		CommonMinerals,
+		RareMetals,
+		RareMinerals,
 	};
 
 	using MineVein = StorableResources;
