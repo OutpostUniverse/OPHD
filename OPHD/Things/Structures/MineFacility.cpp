@@ -55,6 +55,13 @@ void MineFacility::activated()
 }
 
 
+StorableResources MineFacility::maxTransferAmounts()
+{
+	const auto remainingCapacity = MaxCapacity - production();
+	return remainingCapacity.cap(constants::BaseMineProductionRate);
+}
+
+
 void MineFacility::think()
 {
 	if (forceIdle()) { return; }
