@@ -7,6 +7,13 @@
 namespace
 {
 	const int MineFacilityStorageCapacity = 500;
+
+	const StorableResources MaxCapacity{
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+	};
 }
 
 
@@ -65,15 +72,9 @@ void MineFacility::think()
 		return;
 	}
 
-	static const StorableResources capacity{ MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4
-	};
-
 	if (isIdle() && mMine->active())
 	{
-		if (storage() < capacity)
+		if (storage() < MaxCapacity)
 		{
 			enable();
 		}
@@ -87,7 +88,7 @@ void MineFacility::think()
 
 	if (mMine->active())
 	{
-		if (storage() >= capacity)
+		if (storage() >= MaxCapacity)
 		{
 			idle(IdleReason::InternalStorageFull);
 			return;
