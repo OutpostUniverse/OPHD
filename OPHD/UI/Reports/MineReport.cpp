@@ -270,28 +270,28 @@ void MineReport::onRemoveTruck()
 void MineReport::onCheckBoxCommonMetalsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningCommonMetals(chkResources[0].checked());
+	facility->mine()->miningEnabled(Mine::OreType::ORE_COMMON_METALS, chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningCommonMinerals(chkResources[1].checked());
+	facility->mine()->miningEnabled(Mine::OreType::ORE_COMMON_MINERALS, chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningRareMetals(chkResources[2].checked());
+	facility->mine()->miningEnabled(Mine::OreType::ORE_RARE_METALS, chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningRareMinerals(chkResources[3].checked());
+	facility->mine()->miningEnabled(Mine::OreType::ORE_RARE_MINERALS, chkResources[3].checked());
 }
 
 
