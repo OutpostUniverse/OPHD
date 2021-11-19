@@ -82,6 +82,17 @@ struct StorableResources
 		return other < *this;
 	}
 
+	constexpr StorableResources cap(const StorableResources& other) const
+	{
+		StorableResources out;
+		for (std::size_t i = 0; i < resources.size(); ++i)
+		{
+			out.resources[i] = std::clamp(resources[i], 0, other.resources[i]);
+		}
+
+		return out;
+	}
+
 	constexpr StorableResources cap(int max) const
 	{
 		StorableResources out;

@@ -43,6 +43,8 @@ public:
 	StorableResources availableResources() const;
 	StorableResources totalYield() const;
 
+	std::bitset<4> miningEnabled() const;
+
 	bool miningCommonMetals() const;
 	bool miningCommonMinerals() const;
 	bool miningRareMetals() const;
@@ -53,7 +55,7 @@ public:
 	void miningRareMetals(bool value);
 	void miningRareMinerals(bool value);
 
-	int pull(OreType type, int quantity);
+	StorableResources pull(const StorableResources& maxTransfer);
 
 public:
 	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);

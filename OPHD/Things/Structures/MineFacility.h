@@ -3,6 +3,8 @@
 #include "Structure.h"
 
 #include "../../Mine.h"
+#include "../../StorableResources.h"
+
 
 /**
  * Implements the Mine Facility.
@@ -38,6 +40,8 @@ public:
 
 protected:
 	friend class MapViewState;
+
+	StorableResources maxTransferAmounts();
 
 	void assignedTrucks(int count) { mAssignedTrucks = count; }
 	void digTimeRemaining(int count) { mDigTurnsRemaining = count; }

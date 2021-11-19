@@ -4,27 +4,26 @@
 #include "../../Constants/Strings.h"
 
 
-const int MineFacilityStorageCapacity = 500;
-
-
-/**
- * Computes how many units of ore should be pulled.
- */
-static int pullCount(MineFacility* mineFacility, size_t index)
+namespace
 {
-	const int storageCapacity = (mineFacility->storageCapacity() / 4);
-	const int remainingCapacity = storageCapacity - mineFacility->production().resources[index];
+	const int MineFacilityStorageCapacity = 500;
 
-	const int total = std::clamp(remainingCapacity, 0, constants::BaseMineProductionRate);
-
-	return total;
+	const StorableResources MaxCapacity{
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+		MineFacilityStorageCapacity / 4,
+	};
 }
 
 
-MineFacility::MineFacility(Mine* mine) : Structure(constants::MineFacility,
-	"structures/mine_facility.sprite",
-	StructureClass::Mine,
-	StructureID::SID_MINE_FACILITY),
+MineFacility::MineFacility(Mine* mine) :
+	Structure(
+		constants::MineFacility,
+		"structures/mine_facility.sprite",
+		StructureClass::Mine,
+		StructureID::SID_MINE_FACILITY
+	),
 	mMine(mine)
 {
 	sprite().play(constants::StructureStateConstruction);
@@ -34,7 +33,7 @@ MineFacility::MineFacility(Mine* mine) : Structure(constants::MineFacility,
 
 	requiresCHAP(false);
 	selfSustained(true);
-	storageCapacity(500);
+	storageCapacity(MineFacilityStorageCapacity);
 }
 
 
@@ -42,6 +41,24 @@ void MineFacility::activated()
 {
 	mMine->increaseDepth();
 	mMine->active(true);
+}
+
+
+StorableResources MineFacility::maxTransferAmounts()
+{
+	const auto remainingCapacity = MaxCapacity - production();
+	auto maxTransfer = remainingCapacity.cap(constants::BaseMineProductionRate);
+
+	const auto enabledBits = mMine->miningEnabled();
+	for (std::size_t i = 0; i < maxTransfer.resources.size(); ++i)
+	{
+		if (!enabledBits[i])
+		{
+			maxTransfer.resources[i] = 0;
+		}
+	}
+
+	return maxTransfer;
 }
 
 
@@ -62,15 +79,9 @@ void MineFacility::think()
 		return;
 	}
 
-	static const StorableResources capacity{ MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4
-	};
-
 	if (isIdle() && mMine->active())
 	{
-		if (storage() < capacity)
+		if (storage() < MaxCapacity)
 		{
 			enable();
 		}
@@ -84,35 +95,13 @@ void MineFacility::think()
 
 	if (mMine->active())
 	{
-		if (storage() >= capacity)
+		if (storage() >= MaxCapacity)
 		{
 			idle(IdleReason::InternalStorageFull);
 			return;
 		}
 
-		StorableResources ore;
-
-		if (mMine->miningCommonMetals())
-		{
-			ore.resources[0] = mMine->pull(Mine::OreType::ORE_COMMON_METALS, pullCount(this, 0));
-		}
-
-		if (mMine->miningCommonMinerals())
-		{
-			ore.resources[1] = mMine->pull(Mine::OreType::ORE_COMMON_MINERALS, pullCount(this, 1));
-		}
-
-		if (mMine->miningRareMetals())
-		{
-			ore.resources[2] = mMine->pull(Mine::OreType::ORE_RARE_METALS, pullCount(this, 2));
-		}
-
-		if (mMine->miningRareMinerals())
-		{
-			ore.resources[3] = mMine->pull(Mine::OreType::ORE_RARE_MINERALS, pullCount(this, 3));
-		}
-
-		storage() += ore;
+		storage() += mMine->pull(maxTransferAmounts());
 	}
 	else if (!isIdle())
 	{
