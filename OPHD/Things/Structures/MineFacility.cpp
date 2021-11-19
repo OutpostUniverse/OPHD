@@ -4,7 +4,10 @@
 #include "../../Constants/Strings.h"
 
 
-const int MineFacilityStorageCapacity = 500;
+namespace
+{
+	const int MineFacilityStorageCapacity = 500;
+}
 
 
 /**
