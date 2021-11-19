@@ -93,30 +93,6 @@ std::bitset<4> Mine::miningEnabled() const
 }
 
 
-bool Mine::miningCommonMetals() const
-{
-	return mFlags[OreType::ORE_COMMON_METALS];
-}
-
-
-bool Mine::miningCommonMinerals() const
-{
-	return mFlags[OreType::ORE_COMMON_MINERALS];
-}
-
-
-bool Mine::miningRareMetals() const
-{
-	return mFlags[OreType::ORE_RARE_METALS];
-}
-
-
-bool Mine::miningRareMinerals() const
-{
-	return mFlags[OreType::ORE_RARE_MINERALS];
-}
-
-
 void Mine::miningCommonMetals(bool value)
 {
 	mFlags[OreType::ORE_COMMON_METALS] = value;

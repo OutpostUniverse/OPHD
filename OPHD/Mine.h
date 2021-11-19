@@ -45,11 +45,6 @@ public:
 
 	std::bitset<4> miningEnabled() const;
 
-	bool miningCommonMetals() const;
-	bool miningCommonMinerals() const;
-	bool miningRareMetals() const;
-	bool miningRareMinerals() const;
-
 	void miningCommonMetals(bool value);
 	void miningCommonMinerals(bool value);
 	void miningRareMetals(bool value);
