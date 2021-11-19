@@ -86,10 +86,11 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 	mFacility = facility;
 	if (!mFacility) { return; }
 
-	chkResources[0].checked(mFacility->mine()->miningCommonMetals());
-	chkResources[1].checked(mFacility->mine()->miningCommonMinerals());
-	chkResources[2].checked(mFacility->mine()->miningRareMetals());
-	chkResources[3].checked(mFacility->mine()->miningRareMinerals());
+	const auto enabledBits = mFacility->mine()->miningEnabled();
+	chkResources[0].checked(enabledBits[0]);
+	chkResources[1].checked(enabledBits[1]);
+	chkResources[2].checked(enabledBits[2]);
+	chkResources[3].checked(enabledBits[3]);
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
@@ -144,25 +145,25 @@ void MineOperationsWindow::onUnassignTruck()
 
 void MineOperationsWindow::onCheckBoxCommonMetalsChange()
 {
-	mFacility->mine()->miningCommonMetals(chkResources[0].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxCommonMineralsChange()
 {
-	mFacility->mine()->miningCommonMinerals(chkResources[1].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMetalsChange()
 {
-	mFacility->mine()->miningRareMetals(chkResources[2].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMineralsChange()
 {
-	mFacility->mine()->miningRareMinerals(chkResources[3].checked());
+	mFacility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
 }
 
 

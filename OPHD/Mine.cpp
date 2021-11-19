@@ -35,6 +35,10 @@ namespace
 	};
 
 
+	// [Exhausted, Active, 4x miningEnabled]
+	const std::bitset<6> DefaultFlags{"001111"};
+
+
 	/**
 	 * Helper function that gets the total amount of ore
 	 */
@@ -47,30 +51,19 @@ namespace
 		}
 		return availableResources;
 	}
-
-
-	void setDefaultFlags(std::bitset<6>& flags)
-	{
-		flags[Mine::OreType::ORE_COMMON_METALS] = true;
-		flags[Mine::OreType::ORE_COMMON_MINERALS] = true;
-		flags[Mine::OreType::ORE_RARE_METALS] = true;
-		flags[Mine::OreType::ORE_RARE_MINERALS] = true;
-		flags[4] = false;
-		flags[5] = false;
-	}
 }
 
 
-Mine::Mine()
+Mine::Mine() :
+	mFlags{DefaultFlags}
 {
-	setDefaultFlags(mFlags);
 }
 
 
 Mine::Mine(MineProductionRate rate) :
-	mProductionRate(rate)
+	mProductionRate{rate},
+	mFlags{DefaultFlags}
 {
-	setDefaultFlags(mFlags);
 }
 
 
@@ -93,51 +86,9 @@ std::bitset<4> Mine::miningEnabled() const
 }
 
 
-bool Mine::miningCommonMetals() const
+void Mine::miningEnabled(OreType oreType, bool value)
 {
-	return mFlags[OreType::ORE_COMMON_METALS];
-}
-
-
-bool Mine::miningCommonMinerals() const
-{
-	return mFlags[OreType::ORE_COMMON_MINERALS];
-}
-
-
-bool Mine::miningRareMetals() const
-{
-	return mFlags[OreType::ORE_RARE_METALS];
-}
-
-
-bool Mine::miningRareMinerals() const
-{
-	return mFlags[OreType::ORE_RARE_MINERALS];
-}
-
-
-void Mine::miningCommonMetals(bool value)
-{
-	mFlags[OreType::ORE_COMMON_METALS] = value;
-}
-
-
-void Mine::miningCommonMinerals(bool value)
-{
-	mFlags[OreType::ORE_COMMON_MINERALS] = value;
-}
-
-
-void Mine::miningRareMetals(bool value)
-{
-	mFlags[OreType::ORE_RARE_METALS] = value;
-}
-
-
-void Mine::miningRareMinerals(bool value)
-{
-	mFlags[OreType::ORE_RARE_MINERALS] = value;
+	mFlags[static_cast<int>(oreType)] = value;
 }
 
 

@@ -14,12 +14,12 @@ struct StorableResources;
 class Mine
 {
 public:
-	enum OreType
+	enum class OreType
 	{
-		ORE_COMMON_METALS,
-		ORE_COMMON_MINERALS,
-		ORE_RARE_METALS,
-		ORE_RARE_MINERALS,
+		CommonMetals,
+		CommonMinerals,
+		RareMetals,
+		RareMinerals,
 	};
 
 	using MineVein = StorableResources;
@@ -44,16 +44,7 @@ public:
 	StorableResources totalYield() const;
 
 	std::bitset<4> miningEnabled() const;
-
-	bool miningCommonMetals() const;
-	bool miningCommonMinerals() const;
-	bool miningRareMetals() const;
-	bool miningRareMinerals() const;
-
-	void miningCommonMetals(bool value);
-	void miningCommonMinerals(bool value);
-	void miningRareMetals(bool value);
-	void miningRareMinerals(bool value);
+	void miningEnabled(OreType oreType, bool value);
 
 	StorableResources pull(const StorableResources& maxTransfer);
 
