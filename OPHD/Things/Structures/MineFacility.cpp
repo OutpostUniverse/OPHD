@@ -101,14 +101,8 @@ void MineFacility::think()
 			return;
 		}
 
-		StorableResources ore;
-
 		const auto maxTransfer = maxTransferAmounts();
-		for (std::size_t i = 0; i < ore.resources.size(); ++i)
-		{
-			ore.resources[i] = mMine->pull(static_cast<Mine::OreType>(i), maxTransfer.resources[i]);
-		}
-
+		const auto ore = mMine->pull(maxTransfer);
 		storage() += ore;
 	}
 	else if (!isIdle())

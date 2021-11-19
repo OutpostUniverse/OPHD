@@ -55,7 +55,7 @@ public:
 	void miningRareMetals(bool value);
 	void miningRareMinerals(bool value);
 
-	int pull(OreType type, int quantity);
+	StorableResources pull(const StorableResources& maxTransfer);
 
 public:
 	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);

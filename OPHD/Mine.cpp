@@ -206,23 +206,19 @@ void Mine::checkExhausted()
 
 
 /**
- * Pulls the specified quantity of Ore from the Mine. If
+ * Pulls the specified quantities of Ore from the Mine. If
  * insufficient ore is available, only pulls what's available.
  */
-int Mine::pull(OreType type, int quantity)
+StorableResources Mine::pull(const StorableResources& maxTransfer)
 {
-	int pullCount = 0;
-
+	StorableResources totalTransferAmount{};
 	for (auto& vein : mVeins)
 	{
-		const auto transferAmount = std::min(vein.resources[type], quantity - pullCount);
-		pullCount += transferAmount;
-		vein.resources[type] -= transferAmount;
-
-		if (pullCount == quantity) { break; }
+		const auto transferAmount = vein.cap(maxTransfer - totalTransferAmount);
+		totalTransferAmount += transferAmount;
+		vein -= transferAmount;
 	}
-
-	return pullCount;
+	return totalTransferAmount;
 }
 
 
