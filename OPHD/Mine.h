@@ -44,6 +44,7 @@ public:
 	StorableResources totalYield() const;
 
 	std::bitset<4> miningEnabled() const;
+	void miningEnabled(OreType oreType, bool value);
 
 	void miningCommonMetals(bool value);
 	void miningCommonMinerals(bool value);

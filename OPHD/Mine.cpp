@@ -93,6 +93,12 @@ std::bitset<4> Mine::miningEnabled() const
 }
 
 
+void Mine::miningEnabled(OreType oreType, bool value)
+{
+	mFlags[oreType] = value;
+}
+
+
 void Mine::miningCommonMetals(bool value)
 {
 	mFlags[OreType::ORE_COMMON_METALS] = value;
