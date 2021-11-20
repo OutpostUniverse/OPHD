@@ -50,6 +50,19 @@ TechnologyReader::TechnologyReader(const std::string& techFile)
 }
 
 
+const Technology& TechnologyReader::technologyFromId(int id) const
+{
+	const auto it = std::find_if(mTechnologies.begin(), mTechnologies.end(), [id](const Technology& tech) { return tech.id == id; });
+
+	if (it == mTechnologies.end())
+	{
+		throw std::runtime_error("TechnologyReader: Requested technology id '" + std::to_string(id) + "' not found.");
+	}
+
+	return (*it);
+}
+
+
 void TechnologyReader::readCategories(NAS2D::Xml::XmlElement& node)
 {
 	for (auto category = node.firstChildElement(); category; category = node.nextSiblingElement())

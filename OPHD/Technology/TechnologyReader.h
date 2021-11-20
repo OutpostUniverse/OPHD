@@ -18,6 +18,8 @@ public:
 	const std::vector<Technology>& technologies() const { return mTechnologies; }
 	const std::vector<std::string>& categories() const { return mCategories; }
 
+	const Technology& technologyFromId(int id) const;
+
 private:
 	std::vector<Technology> mTechnologies;
 	std::vector<std::string> mCategories;
