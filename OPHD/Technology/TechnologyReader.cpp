@@ -10,6 +10,33 @@
 
 using namespace NAS2D;
 
+namespace
+{
+	std::map<std::string, Technology::Modifier::Modifies> StringToModifier =
+	{
+		{"agriculture", Technology::Modifier::Modifies::AgricultureEfficiency},
+		{"breakdown", Technology::Modifier::Modifies::BreakdownRate},
+		{"education", Technology::Modifier::Modifies::EducationEfficiency},
+		{"maintenance_cost", Technology::Modifier::Modifies::MaintenanceCost},
+		{"pop_fertility", Technology::Modifier::Modifies::PopulationFertility},
+		{"pop_morale", Technology::Modifier::Modifies::PopulationMorale},
+		{"pop_mortality", Technology::Modifier::Modifies::PopulationMortality},
+		{"recycling", Technology::Modifier::Modifies::RecyclingEfficiency},
+		{"smelter", Technology::Modifier::Modifies::SmelterEfficiency},
+		{"structure_cost", Technology::Modifier::Modifies::StructureCost},
+		{"structure_decay", Technology::Modifier::Modifies::StructureDecay}
+	};
+
+	std::map<std::string, Technology::Unlock::Unlocks> StringToUnlock =
+	{
+		{"disaster_prediction", Technology::Unlock::Unlocks::DisasterPrediction},
+		{"robot", Technology::Unlock::Unlocks::Robot},
+		{"satellite", Technology::Unlock::Unlocks::Satellite},
+		{"structure", Technology::Unlock::Unlocks::Structure},
+		{"vehicle", Technology::Unlock::Unlocks::Vehicle}
+	};
+};
+
 
 TechnologyReader::TechnologyReader(const std::string& techFile)
 {
@@ -104,5 +131,32 @@ void TechnologyReader::readTechnology(NAS2D::Xml::XmlElement& technology, const 
 
 void TechnologyReader::readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
 {
+	for (auto effectElement = effects.firstChildElement(); effectElement; effectElement->nextSiblingElement())
+	{
+		const std::string effectName = effectElement->value();
+		const std::string effectValue = effectElement->getText();
+		auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
 
+		if (effectName == "modifier")
+		{
+			technology.effects.push_back(std::make_unique<Technology::Effect>(
+				Technology::Modifier(
+					StringToModifier.at(effectAttributes.get<std::string>("type")),
+					std::stof(effectValue))
+				));
+		}
+		else if (effectName == "unlock")
+		{
+			technology.effects.push_back(std::make_unique<Technology::Effect>(
+				Technology::Unlock(
+					StringToUnlock.at(effectAttributes.get<std::string>("type")),
+					effectValue)
+				));
+		}
+		else
+		{
+			throw std::runtime_error("TechnologyReader: Unknown element '" + effectName +
+				"' at (" + std::to_string(effectElement->row()) + ", " + std::to_string(effectElement->column()) + ")");
+		}
+	}
 }
