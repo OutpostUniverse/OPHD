@@ -132,18 +132,18 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const { return mRequiresCHAP; }
-	bool providesCHAP() const { return structureClass() == StructureClass::LifeSupport; }
+	bool providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
 	bool selfSustained() const { return mSelfSustained; }
 	bool repairable() const { return mRepairable; }
 
 	// CONVENIENCE FUCNTIONS
-	bool isFactory() const { return structureClass() == StructureClass::Factory; }
-	bool isWarehouse() const { return structureClass() == StructureClass::Warehouse; }
-	bool isRobotCommand() const { return structureClass() == StructureClass::RobotCommand; }
-	bool isMineFacility() const { return structureClass() == StructureClass::Mine; }
-	bool isEnergyProducer() const { return structureClass() == StructureClass::EnergyProduction; }
-	bool isConnector() const { return structureClass() == StructureClass::Tube; }
-	bool isRoad() const { return structureClass() == StructureClass::Road; }
+	bool isFactory() const { return mStructureClass == StructureClass::Factory; }
+	bool isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
+	bool isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
+	bool isMineFacility() const { return mStructureClass == StructureClass::Mine; }
+	bool energyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
+	bool isConnector() const { return mStructureClass == StructureClass::Tube; }
+	bool isRoad() const { return mStructureClass == StructureClass::Road; }
 
 	void age(int newAge) { mAge = newAge; }
 	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
