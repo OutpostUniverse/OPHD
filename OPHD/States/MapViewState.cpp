@@ -68,20 +68,22 @@ namespace
 	};
 
 
+	NAS2D::Point<int> clampPointToRect(NAS2D::Point<int> point, const NAS2D::Rectangle<int>& rect)
+	{
+		const auto endPoint = rect.endPoint();
+		return {
+			std::clamp(point.x, rect.x, endPoint.x),
+			std::clamp(point.y, rect.y, endPoint.y),
+		};
+	}
+
+
 	NAS2D::Rectangle<int> buildAreaRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
 	{
-		const NAS2D::Point areaStartPoint
-		{
-			std::clamp(centerPoint.x - radius, 0, 299),
-			std::clamp(centerPoint.y - radius, 0, 149)
-		};
-
-		const NAS2D::Point areaEndPoint
-		{
-			std::clamp(centerPoint.x + radius, 0, 299),
-			std::clamp(centerPoint.y + radius, 0, 149)
-		};
-
+		const auto mapRect = NAS2D::Rectangle{0, 0, 299, 149};
+		const auto offset = NAS2D::Vector{radius, radius};
+		const auto areaStartPoint = clampPointToRect(centerPoint - offset, mapRect);
+		const auto areaEndPoint = clampPointToRect(centerPoint + offset, mapRect);
 		return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
 	}
 
