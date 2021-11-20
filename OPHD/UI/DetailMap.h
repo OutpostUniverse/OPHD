@@ -29,6 +29,9 @@ public:
 	void update() override;
 	void draw() const override;
 
+protected:
+	void drawGrid() const;
+
 private:
 	MapView& mMapView;
 	TileMap& mTileMap;
