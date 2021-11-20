@@ -595,8 +595,8 @@ void MapViewState::updateMaintenance()
 
 void MapViewState::updateOverlays()
 {
-	checkCommRangeOverlay();
-	checkSurfacePoliceOverlay();
+	updateCommRangeOverlay();
+	updatePoliceOverlay();
 
 	if (mBtnToggleConnectedness.toggled()) { onToggleConnectedness(); }
 	if (mBtnToggleCommRangeOverlay.toggled()) { onToggleCommRangeOverlay(); }
@@ -622,7 +622,7 @@ void MapViewState::nextTurn()
 	mResourceBreakdownPanel.previousResources(mResourcesCount);
 
 	NAS2D::Utility<StructureManager>::get().disconnectAll();
-	checkConnectedness();
+	updateConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
 	checkAgingStructures();

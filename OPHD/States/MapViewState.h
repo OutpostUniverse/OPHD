@@ -175,12 +175,10 @@ private:
 	void updateFood();
 	void transferFoodToCommandCenter();
 
-	void checkCommRangeOverlay();
-	void checkSurfacePoliceOverlay();
+	void updateCommRangeOverlay();
+	void updatePoliceOverlay();
 	void resetPoliceOverlays();
-	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range);
-	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth);
-	void checkConnectedness();
+	void updateConnectedness();
 	void changeViewDepth(int);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);

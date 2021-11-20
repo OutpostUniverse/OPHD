@@ -202,7 +202,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		checkConnectedness();
+		updateConnectedness();
 	}
 	newPosition.xy += directionEnumToOffset(dir);
 

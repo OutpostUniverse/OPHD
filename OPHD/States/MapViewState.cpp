@@ -26,6 +26,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <algorithm>
 #include <sstream>
@@ -68,21 +69,69 @@ namespace
 	};
 
 
-	NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
+	NAS2D::Point<int> clampPointToRect(NAS2D::Point<int> point, const NAS2D::Rectangle<int>& rect)
 	{
-		const NAS2D::Point areaStartPoint
-		{
-			std::clamp(centerTile.xy().x - radius, 0, 299),
-			std::clamp(centerTile.xy().y - radius, 0, 149)
+		const auto endPoint = rect.endPoint();
+		return {
+			std::clamp(point.x, rect.x, endPoint.x),
+			std::clamp(point.y, rect.y, endPoint.y),
 		};
+	}
 
-		const NAS2D::Point areaEndPoint
-		{
-			std::clamp(centerTile.xy().x + radius, 0, 299),
-			std::clamp(centerTile.xy().y + radius, 0, 149)
-		};
 
+	NAS2D::Rectangle<int> buildAreaRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
+	{
+		const auto mapRect = NAS2D::Rectangle{0, 0, 299, 149};
+		const auto offset = NAS2D::Vector{radius, radius};
+		const auto areaStartPoint = clampPointToRect(centerPoint - offset, mapRect);
+		const auto areaEndPoint = clampPointToRect(centerPoint + offset + NAS2D::Vector{1, 1}, mapRect);
 		return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
+	}
+
+
+	void fillOverlayCircle(TileMap& tileMap, std::vector<Tile*>& tileList, Tile& centerTile, int range)
+	{
+		const auto center = centerTile.xy();
+		const auto depth = centerTile.depth();
+		auto area = buildAreaRectFromCenter(center, range);
+
+		for (const auto point : NAS2D::PointInRectangleRange(area))
+		{
+			if (isPointInRange(center, point, range))
+			{
+				auto& tile = tileMap.getTile({point, depth});
+				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
+				{
+					tileList.push_back(&tile);
+				}
+			}
+		}
+	}
+
+
+	template <typename StructureType>
+	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*> structures)
+	{
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		for (auto structure : structures)
+		{
+			if (!structure->operational()) { continue; }
+			auto& centerTile = structureManager.tileFromStructure(structure);
+			fillOverlayCircle(tileMap, overlay, centerTile, structure->getRange());
+		}
+	}
+
+
+	template <typename StructureType>
+	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*> structures)
+	{
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		for (auto structure : structures)
+		{
+			if (!structure->operational()) { continue; }
+			auto& centerTile = structureManager.tileFromStructure(structure);
+			fillOverlayCircle(tileMap, overlays[centerTile.depth()], centerTile, structure->getRange());
+		}
 	}
 
 
@@ -724,7 +773,7 @@ void MapViewState::placeTubes(Tile& tile)
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		checkConnectedness();
+		updateConnectedness();
 	}
 	else
 	{
@@ -961,7 +1010,12 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->structureClass() == Structure::StructureClass::Communication)
 		{
-			checkCommRangeOverlay();
+			updateCommRangeOverlay();
+		}
+		if (structure->structureClass() == Structure::StructureClass::SurfacePolice ||
+			structure->structureClass() == Structure::StructureClass::UndergroundPolice)
+		{
+			updatePoliceOverlay();
 		}
 
 		auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
@@ -987,7 +1041,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		tile.deleteThing();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
-		checkConnectedness();
+		updateConnectedness();
 	}
 
 	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
@@ -1284,7 +1338,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
  * Checks the connectedness of all tiles surrounding
  * the Command Center.
  */
-void MapViewState::checkConnectedness()
+void MapViewState::updateConnectedness()
 {
 	if (ccLocation() == CcNotPlaced)
 	{
@@ -1313,91 +1367,29 @@ void MapViewState::checkConnectedness()
 }
 
 
-void MapViewState::checkCommRangeOverlay()
+void MapViewState::updateCommRangeOverlay()
 {
 	mCommRangeOverlay.clear();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& commTowers = structureManager.getStructures<CommTower>();
-	const auto& command = structureManager.getStructures<CommandCenter>();
-
-	for (auto cc : command)
-	{
-		if (!cc->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(cc);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, cc->getRange());
-	}
-
-	for (auto tower : commTowers)
-	{
-		if (!tower->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(tower);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, tower->getRange());
-	}
+	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommandCenter>());
+	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommTower>());
 }
 
 
-void MapViewState::checkSurfacePoliceOverlay()
+void MapViewState::updatePoliceOverlay()
 {
 	resetPoliceOverlays();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& policeStations = structureManager.getStructures<SurfacePolice>();
-
-	for (auto policeStation : policeStations)
-	{
-		if (!policeStation->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(policeStation);
-		fillRangedAreaList(mPoliceOverlays[0], centerTile, policeStation->getRange());
-	}
-
-	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
-
-	for (auto undergroundPoliceStation : undergroundPoliceStations)
-	{
-		if (!undergroundPoliceStation->operational()) { continue; }
-		auto depth = structureManager.tileFromStructure(undergroundPoliceStation).depth();
-		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
-		fillRangedAreaList(mPoliceOverlays[depth], centerTile, undergroundPoliceStation->getRange(), depth);
-	}
+	fillOverlay(*mTileMap, mPoliceOverlays[0], structureManager.getStructures<SurfacePolice>());
+	fillOverlay(*mTileMap, mPoliceOverlays, structureManager.getStructures<UndergroundPolice>());
 }
 
 
 void MapViewState::resetPoliceOverlays()
 {
-	mPoliceOverlays.clear();
-	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
-	{
-		mPoliceOverlays.push_back(std::vector<Tile*>());
-	}
-}
-
-
-void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range)
-{
-	fillRangedAreaList(tileList, centerTile, range, 0);
-}
-
-void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth)
-{
-	auto area = buildAreaRectFromTile(centerTile, range + 1);
-
-	for (int y = 0; y < area.height; ++y)
-	{
-		for (int x = 0; x < area.width; ++x)
-		{
-			auto& tile = (*mTileMap).getTile({{x + area.x, y + area.y}, depth});
-			if (isPointInRange(centerTile.xy(), tile.xy(), range))
-			{
-				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
-				{
-					tileList.push_back(&tile);
-				}
-			}
-		}
-	}
+	mPoliceOverlays = std::vector<std::vector<Tile*>>(mTileMap->maxDepth() + 1);
 }
 
 

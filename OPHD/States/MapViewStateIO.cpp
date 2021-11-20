@@ -207,7 +207,7 @@ void MapViewState::load(const std::string& filePath)
 
 	readMoraleChanges(root->firstChildElement("morale_change"));
 
-	checkConnectedness();
+	updateConnectedness();
 
 	NAS2D::Utility<StructureManager>::get().updateEnergyProduction();
 	NAS2D::Utility<StructureManager>::get().updateEnergyConsumed();
@@ -253,8 +253,8 @@ void MapViewState::load(const std::string& filePath)
 		populateStructureMenu();
 	}
 
-	checkCommRangeOverlay();
-	checkSurfacePoliceOverlay();
+	updateCommRangeOverlay();
+	updatePoliceOverlay();
 
 	mMapChangedSignal();
 }
