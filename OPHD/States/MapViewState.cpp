@@ -26,6 +26,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <algorithm>
 #include <sstream>
@@ -1386,11 +1387,9 @@ void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& center
 {
 	auto area = buildAreaRectFromCenter(centerTile.xy(), range + 1);
 
-	for (int y = 0; y < area.height; ++y)
+	for (const auto point : NAS2D::PointInRectangleRange(area))
 	{
-		for (int x = 0; x < area.width; ++x)
-		{
-			auto& tile = (*mTileMap).getTile({{x + area.x, y + area.y}, depth});
+			auto& tile = (*mTileMap).getTile({point, depth});
 			if (isPointInRange(centerTile.xy(), tile.xy(), range))
 			{
 				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
@@ -1398,7 +1397,6 @@ void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& center
 					tileList.push_back(&tile);
 				}
 			}
-		}
 	}
 }
 
