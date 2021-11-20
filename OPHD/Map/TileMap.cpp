@@ -91,17 +91,19 @@ namespace {
 }
 
 
-TileMap::TileMap(const std::string& mapPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
+TileMap::TileMap(const std::string& mapPath, int maxDepth, int mineCount, Planet::Hostility hostility) :
+	TileMap{mapPath, maxDepth}
+{
+	mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
+	placeMines(*this, hostility, mMineLocations);
+}
+
+
+TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 	mSizeInTiles{MapSize},
 	mMaxDepth{maxDepth}
 {
 	buildTerrainMap(mapPath);
-
-	if (shouldSetupMines)
-	{
-		mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
-		placeMines(*this, hostility, mMineLocations);
-	}
 }
 
 
