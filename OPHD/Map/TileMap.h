@@ -29,7 +29,7 @@ enum class Direction;
 class TileMap : public micropather::Graph
 {
 public:
-	TileMap(const std::string& mapPath, const std::string& tilesetPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool setupMines = true);
+	TileMap(const std::string& mapPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool setupMines = true);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
 

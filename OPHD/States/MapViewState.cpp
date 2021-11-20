@@ -115,7 +115,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState(mainReportsState),
-	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
+	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),

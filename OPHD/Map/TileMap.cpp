@@ -91,7 +91,7 @@ namespace {
 }
 
 
-TileMap::TileMap(const std::string& mapPath, const std::string& /*tilesetPath*/, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
+TileMap::TileMap(const std::string& mapPath, int maxDepth, int mineCount, Planet::Hostility hostility, bool shouldSetupMines) :
 	mSizeInTiles{MapSize},
 	mMaxDepth{maxDepth}
 {

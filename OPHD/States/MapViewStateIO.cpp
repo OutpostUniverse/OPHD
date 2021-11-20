@@ -180,7 +180,7 @@ void MapViewState::load(const std::string& filePath)
 	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
-	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.tilesetPath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
+	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth, 0, Planet::Hostility::None, false);
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
