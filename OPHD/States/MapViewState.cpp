@@ -44,58 +44,68 @@ NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 const NAS2D::Font* MAIN_FONT = nullptr;
 
 
-/** \fixme Find a sane place for these */
-struct RobotMeta
+namespace
 {
-	std::string name;
-	const int sheetIndex;
-};
-
-const std::map<Robot::Type, RobotMeta> RobotMetaTable
-{
-	{Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-	{Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-	{Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
-};
-
-
-static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
-{
-	const NAS2D::Point areaStartPoint
+	// Relative proportion of mines with yields {low, med, high}
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
 	{
-		std::clamp(centerTile.xy().x - radius, 0, 299),
-		std::clamp(centerTile.xy().y - radius, 0, 149)
+		{Planet::Hostility::Low, {30, 50, 20}},
+		{Planet::Hostility::Medium, {45, 35, 20}},
+		{Planet::Hostility::High, {35, 20, 45}},
 	};
 
-	const NAS2D::Point areaEndPoint
+	struct RobotMeta
 	{
-		std::clamp(centerTile.xy().x + radius, 0, 299),
-		std::clamp(centerTile.xy().y + radius, 0, 149)
+		std::string name;
+		const int sheetIndex;
 	};
 
-	return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
-}
-
-
-static void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
-{
-	const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
-
-	if (robot->fuelCellAge() == 190) /// \fixme magic number
+	const std::map<Robot::Type, RobotMeta> RobotMetaTable
 	{
-		notificationArea.push({
-			"Aging Robot",
-			"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
-			position,
-			NotificationArea::NotificationType::Warning});
+		{Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
+		{Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
+		{Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
+	};
+
+
+	NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
+	{
+		const NAS2D::Point areaStartPoint
+		{
+			std::clamp(centerTile.xy().x - radius, 0, 299),
+			std::clamp(centerTile.xy().y - radius, 0, 149)
+		};
+
+		const NAS2D::Point areaEndPoint
+		{
+			std::clamp(centerTile.xy().x + radius, 0, 299),
+			std::clamp(centerTile.xy().y + radius, 0, 149)
+		};
+
+		return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
 	}
-	else if (robot->fuelCellAge() == 195) /// \fixme magic number
+
+
+	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
-		notificationArea.push({
-			"Aging Robot",
-			"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
-			position,
-			NotificationArea::NotificationType::Critical});
+		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
+
+		if (robot->fuelCellAge() == 190) /// \fixme magic number
+		{
+			notificationArea.push({
+				"Aging Robot",
+				"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
+				position,
+				NotificationArea::NotificationType::Warning});
+		}
+		else if (robot->fuelCellAge() == 195) /// \fixme magic number
+		{
+			notificationArea.push({
+				"Aging Robot",
+				"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
+				position,
+				NotificationArea::NotificationType::Critical});
+		}
 	}
 }
 
@@ -115,7 +125,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState(mainReportsState),
-	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.tilesetPath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
+	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),
