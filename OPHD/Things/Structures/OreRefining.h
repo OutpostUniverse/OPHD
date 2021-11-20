@@ -66,17 +66,17 @@ protected:
 	StorableResources storageCapacities() const
 	{
 		return {
-			IndividualMaterialCapacity(),
-			IndividualMaterialCapacity(),
-			IndividualMaterialCapacity(),
-			IndividualMaterialCapacity(),
+			individualMaterialCapacity(),
+			individualMaterialCapacity(),
+			individualMaterialCapacity(),
+			individualMaterialCapacity(),
 		};
 	}
 
 	/**
 	 * Capacity of an individual type of refined resource
 	 */
-	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
+	int individualMaterialCapacity() const { return storageCapacity() / 4; }
 
 	void think() override
 	{
@@ -107,7 +107,7 @@ protected:
 
 		auto& stored = storage();
 		auto total = stored + converted;
-		auto capped = total.cap(IndividualMaterialCapacity());
+		auto capped = total.cap(individualMaterialCapacity());
 		auto overflow = total - capped;
 
 		stored = capped;
@@ -133,6 +133,6 @@ protected:
 private:
 	std::string writeStorageAmount(int storageAmount) const
 	{
-		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
+		return std::to_string(storageAmount) + " / " + std::to_string(individualMaterialCapacity());
 	}
 };
