@@ -60,25 +60,29 @@ public:
 		return stringTable;
 	}
 
-	/**
-     * Capacity of an individual type of refined resource
-     */
-	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
-
 protected:
 	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
 
+	StorableResources storageCapacities() const
+	{
+		return {
+			individualMaterialCapacity(),
+			individualMaterialCapacity(),
+			individualMaterialCapacity(),
+			individualMaterialCapacity(),
+		};
+	}
+
+	/**
+	 * Capacity of an individual type of refined resource
+	 */
+	int individualMaterialCapacity() const { return storageCapacity() / 4; }
+
 	void think() override
 	{
-		if (isIdle())
+		if (isIdle() && storage() < storageCapacities())
 		{
-			if (storage() < StorableResources{IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity()})
-			{
-				enable();
-			}
+			enable();
 		}
 
 		if (operational())
@@ -103,14 +107,15 @@ protected:
 
 		auto& stored = storage();
 		auto total = stored + converted;
-		auto capped = total.cap(IndividualMaterialCapacity());
+		auto capped = total.cap(individualMaterialCapacity());
 		auto overflow = total - capped;
 
 		stored = capped;
 
 		if (!overflow.isEmpty())
 		{
-			StorableResources deconvertedResources{ overflow.resources[0] * OreConversionDivisor[0],
+			StorableResources deconvertedResources{
+				overflow.resources[0] * OreConversionDivisor[0],
 				overflow.resources[1] * OreConversionDivisor[1],
 				overflow.resources[2] * OreConversionDivisor[2],
 				overflow.resources[3] * OreConversionDivisor[3]
@@ -118,10 +123,7 @@ protected:
 
 			ore += deconvertedResources;
 
-			if (ore >= StorableResources{IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity()})
+			if (ore >= storageCapacities())
 			{
 				idle(IdleReason::InternalStorageFull);
 			}
@@ -131,6 +133,6 @@ protected:
 private:
 	std::string writeStorageAmount(int storageAmount) const
 	{
-		return std::to_string(storageAmount) + " / " + std::to_string(IndividualMaterialCapacity());
+		return std::to_string(storageAmount) + " / " + std::to_string(individualMaterialCapacity());
 	}
 };
