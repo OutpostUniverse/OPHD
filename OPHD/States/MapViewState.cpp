@@ -1379,14 +1379,15 @@ void MapViewState::resetPoliceOverlays()
 
 void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range)
 {
+	const auto center = centerTile.xy();
 	const auto depth = centerTile.depth();
-	auto area = buildAreaRectFromCenter(centerTile.xy(), range + 1);
+	auto area = buildAreaRectFromCenter(center, range + 1);
 
 	for (const auto point : NAS2D::PointInRectangleRange(area))
 	{
-		auto& tile = (*mTileMap).getTile({point, depth});
-		if (isPointInRange(centerTile.xy(), tile.xy(), range))
+		if (isPointInRange(center, point, range))
 		{
+			auto& tile = (*mTileMap).getTile({point, depth});
 			if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
 			{
 				tileList.push_back(&tile);
