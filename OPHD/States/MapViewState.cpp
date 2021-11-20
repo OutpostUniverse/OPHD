@@ -89,7 +89,7 @@ namespace
 	}
 
 
-	void fillRangedAreaList(TileMap& tileMap, std::vector<Tile*>& tileList, Tile& centerTile, int range)
+	void fillOverlayCircle(TileMap& tileMap, std::vector<Tile*>& tileList, Tile& centerTile, int range)
 	{
 		const auto center = centerTile.xy();
 		const auto depth = centerTile.depth();
@@ -117,7 +117,7 @@ namespace
 		{
 			if (!structure->operational()) { continue; }
 			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillRangedAreaList(tileMap, overlay, centerTile, structure->getRange());
+			fillOverlayCircle(tileMap, overlay, centerTile, structure->getRange());
 		}
 	}
 
@@ -130,7 +130,7 @@ namespace
 		{
 			if (!structure->operational()) { continue; }
 			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillRangedAreaList(tileMap, overlays[centerTile.depth()], centerTile, structure->getRange());
+			fillOverlayCircle(tileMap, overlays[centerTile.depth()], centerTile, structure->getRange());
 		}
 	}
 
