@@ -22,8 +22,6 @@ public:
 
 	enum class Hostility
 	{
-		None,
-
 		Low,
 		Medium,
 		High
@@ -33,7 +31,7 @@ public:
 	{
 		PlanetType type;
 		std::string imagePath;
-		Hostility hostility = Hostility::None;
+		Hostility hostility;
 		int maxDepth = 0;
 		int maxMines = 0;
 		std::string mapImagePath;

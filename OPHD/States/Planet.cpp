@@ -81,7 +81,6 @@ namespace
 
 	const std::unordered_map<std::string, Planet::Hostility> hostilityTable
 	{
-		{"None", Planet::Hostility::None},
 		{"Low", Planet::Hostility::Low},
 		{"Medium", Planet::Hostility::Medium},
 		{"High", Planet::Hostility::High}
