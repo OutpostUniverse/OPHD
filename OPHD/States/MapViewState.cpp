@@ -1361,9 +1361,8 @@ void MapViewState::checkSurfacePoliceOverlay()
 	for (auto undergroundPoliceStation : undergroundPoliceStations)
 	{
 		if (!undergroundPoliceStation->operational()) { continue; }
-		auto depth = structureManager.tileFromStructure(undergroundPoliceStation).depth();
 		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
-		fillRangedAreaList(mPoliceOverlays[depth], centerTile, undergroundPoliceStation->getRange(), depth);
+		fillRangedAreaList(mPoliceOverlays[centerTile.depth()], centerTile, undergroundPoliceStation->getRange());
 	}
 }
 
@@ -1380,7 +1379,7 @@ void MapViewState::resetPoliceOverlays()
 
 void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range)
 {
-	fillRangedAreaList(tileList, centerTile, range, 0);
+	fillRangedAreaList(tileList, centerTile, range, centerTile.depth());
 }
 
 void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth)
