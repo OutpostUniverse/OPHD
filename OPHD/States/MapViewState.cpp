@@ -113,6 +113,7 @@ namespace
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mCrimeExecution(mNotificationArea),
+	mTechnologyReader("tech0-1.xml"),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
@@ -128,6 +129,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
+	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
