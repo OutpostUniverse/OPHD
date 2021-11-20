@@ -36,7 +36,7 @@ namespace
 		{"structure", Technology::Unlock::Unlocks::Structure},
 		{"vehicle", Technology::Unlock::Unlocks::Vehicle}
 	};
-};
+}
 
 
 TechnologyReader::TechnologyReader(const std::string& techFile)

@@ -3,8 +3,8 @@
 #include <stdexcept>
 
 
-Technology::Effect::Effect(Type type) :
-	type(type)
+Technology::Effect::Effect(Type _type) :
+	type(_type)
 {}
 
 
