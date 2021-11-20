@@ -77,12 +77,20 @@ struct Technology
 		std::string value;
 	};
 
+
+	Technology() = delete;
+	Technology(int id, int labType, int cost) :
+		id(id),
+		labType(labType),
+		cost(cost)
+	{}
+
 	std::string name{""};
 	std::string description{""};
 	
-	int id{0};
-	int labType{0};
-	int cost{0};
+	int id;
+	int labType;
+	int cost;
 
 	std::vector<int> requiredTechnologies;
 
