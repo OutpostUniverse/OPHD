@@ -68,15 +68,21 @@ public:
 protected:
 	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
 
+	StorableResources storageCapacities() const
+	{
+		return {
+			IndividualMaterialCapacity(),
+			IndividualMaterialCapacity(),
+			IndividualMaterialCapacity(),
+			IndividualMaterialCapacity(),
+		};
+	}
+
 	void think() override
 	{
 		if (isIdle())
 		{
-			if (storage() < StorableResources{
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity()})
+			if (storage() < storageCapacities())
 			{
 				enable();
 			}
@@ -120,11 +126,7 @@ protected:
 
 			ore += deconvertedResources;
 
-			if (ore >= StorableResources{
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity(),
-				IndividualMaterialCapacity()})
+			if (ore >= storageCapacities())
 			{
 				idle(IdleReason::InternalStorageFull);
 			}
