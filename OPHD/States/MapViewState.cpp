@@ -109,6 +109,19 @@ namespace
 	}
 
 
+	template <typename StructureType>
+	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*> structures)
+	{
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		for (auto structure : structures)
+		{
+			if (!structure->operational()) { continue; }
+			auto& centerTile = structureManager.tileFromStructure(structure);
+			fillRangedAreaList(tileMap, overlay, centerTile, structure->getRange());
+		}
+	}
+
+
 	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
 		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
@@ -1345,19 +1358,8 @@ void MapViewState::checkCommRangeOverlay()
 	const auto& commTowers = structureManager.getStructures<CommTower>();
 	const auto& command = structureManager.getStructures<CommandCenter>();
 
-	for (auto cc : command)
-	{
-		if (!cc->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(cc);
-		fillRangedAreaList(*mTileMap, mCommRangeOverlay, centerTile, cc->getRange());
-	}
-
-	for (auto tower : commTowers)
-	{
-		if (!tower->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(tower);
-		fillRangedAreaList(*mTileMap, mCommRangeOverlay, centerTile, tower->getRange());
-	}
+	fillOverlay(*mTileMap, mCommRangeOverlay, command);
+	fillOverlay(*mTileMap, mCommRangeOverlay, commTowers);
 }
 
 
@@ -1368,16 +1370,9 @@ void MapViewState::checkSurfacePoliceOverlay()
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	const auto& policeStations = structureManager.getStructures<SurfacePolice>();
-
-	for (auto policeStation : policeStations)
-	{
-		if (!policeStation->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(policeStation);
-		fillRangedAreaList(*mTileMap, mPoliceOverlays[0], centerTile, policeStation->getRange());
-	}
+	fillOverlay(*mTileMap, mPoliceOverlays[0], policeStations);
 
 	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
-
 	for (auto undergroundPoliceStation : undergroundPoliceStations)
 	{
 		if (!undergroundPoliceStation->operational()) { continue; }
