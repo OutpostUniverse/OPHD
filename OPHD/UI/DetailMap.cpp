@@ -133,7 +133,7 @@ void DetailMap::draw() const
 			// Draw a beacon on an unoccupied tile with a mine
 			if (tile.mine() != nullptr && !tile.thing())
 			{
-				uint8_t glow = static_cast<uint8_t>(120 + sin(throbTimer.tick() / ThrobSpeed) * 57);
+				uint8_t glow = static_cast<uint8_t>(120 + std::sin(throbTimer.tick() / ThrobSpeed) * 57);
 				renderer.drawImage(mMineBeacon, position + NAS2D::Vector{0, -64});
 				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
 			}
