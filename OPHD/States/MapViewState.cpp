@@ -44,6 +44,18 @@ NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 const NAS2D::Font* MAIN_FONT = nullptr;
 
 
+namespace
+{
+	// Relative proportion of mines with yields {low, med, high}
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
+	{
+		{Planet::Hostility::Low, {30, 50, 20}},
+		{Planet::Hostility::Medium, {45, 35, 20}},
+		{Planet::Hostility::High, {35, 20, 45}},
+	};
+}
+
+
 /** \fixme Find a sane place for these */
 struct RobotMeta
 {
@@ -115,7 +127,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState(mainReportsState),
-	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, planetAttributes.hostility)),
+	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
 	mPlanetAttributes(planetAttributes),

@@ -2,7 +2,6 @@
 
 #include "Tile.h"
 
-#include "../States/Planet.h"
 #include "../MicroPather/micropather.h"
 
 #include <NAS2D/Math/Point.h>
@@ -12,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <array>
 #include <utility>
 
 
@@ -29,7 +29,9 @@ enum class Direction;
 class TileMap : public micropather::Graph
 {
 public:
-	TileMap(const std::string& mapPath, int maxDepth, int mineCount, Planet::Hostility hostility);
+	using MineYields = std::array<int, 3>; // {low, med, high}
+
+	TileMap(const std::string& mapPath, int maxDepth, int mineCount, const MineYields& mineYields);
 	TileMap(const std::string& mapPath, int maxDepth);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;

@@ -25,15 +25,6 @@ namespace {
 	const std::string MapTerrainExtension = "_a.png";
 	const auto MapSize = NAS2D::Vector{300, 150};
 
-	// Relative proportion of mines with yields {low, med, high}
-	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
-	{
-		{Planet::Hostility::Low, {30, 50, 20}},
-		{Planet::Hostility::Medium, {45, 35, 20}},
-		{Planet::Hostility::High, {35, 20, 45}},
-	};
-
-
 	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
 	{
 		auto randPoint = [mapSize]() {
@@ -69,9 +60,8 @@ namespace {
 	}
 
 
-	void placeMines(TileMap& tileMap, Planet::Hostility hostility, const std::vector<NAS2D::Point<int>>& locations)
+	void placeMines(TileMap& tileMap, const std::vector<NAS2D::Point<int>>& locations, const TileMap::MineYields& mineYields)
 	{
-		const auto& mineYields = HostilityMineYields.at(hostility);
 		const auto total = std::accumulate(mineYields.begin(), mineYields.end(), 0);
 
 		const auto randYield = [mineYields, total]() {
@@ -91,11 +81,11 @@ namespace {
 }
 
 
-TileMap::TileMap(const std::string& mapPath, int maxDepth, int mineCount, Planet::Hostility hostility) :
+TileMap::TileMap(const std::string& mapPath, int maxDepth, int mineCount, const MineYields& mineYields) :
 	TileMap{mapPath, maxDepth}
 {
 	mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
-	placeMines(*this, hostility, mMineLocations);
+	placeMines(*this, mMineLocations, mineYields);
 }
 
 
