@@ -1389,11 +1389,7 @@ void MapViewState::updatePoliceOverlay()
 
 void MapViewState::resetPoliceOverlays()
 {
-	mPoliceOverlays.clear();
-	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
-	{
-		mPoliceOverlays.push_back(std::vector<Tile*>());
-	}
+	mPoliceOverlays = std::vector<std::vector<Tile*>>(mTileMap->maxDepth() + 1);
 }
 
 
