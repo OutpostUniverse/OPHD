@@ -8,7 +8,6 @@
 #include <NAS2D/Math/MathUtils.h>
 
 #include <algorithm>
-#include <cmath>
 
 
 using namespace NAS2D;

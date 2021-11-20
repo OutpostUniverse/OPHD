@@ -15,7 +15,6 @@
 #include <vector>
 #include <utility>
 #include <cstddef>
-#include <cmath>
 
 
 namespace NAS2D

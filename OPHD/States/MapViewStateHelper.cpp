@@ -24,7 +24,6 @@
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
 
-#include <cmath>
 #include <algorithm>
 
 
