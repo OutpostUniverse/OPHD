@@ -6,7 +6,6 @@
 #include <NAS2D/Resource/Image.h>
 
 #include <string>
-#include <unordered_map>
 
 
 class Planet

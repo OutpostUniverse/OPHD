@@ -12,6 +12,7 @@
 #include <NAS2D/Xml/Xml.h>
 
 #include <stdexcept>
+#include <unordered_map>
 
 
 namespace
