@@ -89,5 +89,20 @@ void TechnologyReader::readTechnology(NAS2D::Xml::XmlElement& technology, const 
 				tech.requiredTechnologies.push_back(std::stoi(id));
 			}
 		}
+		else if (elementName == "effects")
+		{
+			readEffects(*techElement, tech);
+		}
+		else
+		{
+			throw std::runtime_error("TechnologyReader: Unknown element '" + elementName + 
+				"' at (" + std::to_string(techElement->row()) + ", " + std::to_string(techElement->column()) + ")");
+		}
 	}
+}
+
+
+void TechnologyReader::readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
+{
+
 }

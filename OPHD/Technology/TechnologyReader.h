@@ -25,4 +25,5 @@ private:
 	void readCategories(NAS2D::Xml::XmlElement& node);
 	void readTechnologiesInCategory(NAS2D::Xml::XmlElement& category);
 	void readTechnology(NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes);
+	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology);
 };
