@@ -254,7 +254,7 @@ void MapViewState::load(const std::string& filePath)
 	}
 
 	checkCommRangeOverlay();
-	checkSurfacePoliceOverlay();
+	checkPoliceOverlay();
 
 	mMapChangedSignal();
 }

@@ -176,7 +176,7 @@ private:
 	void transferFoodToCommandCenter();
 
 	void checkCommRangeOverlay();
-	void checkSurfacePoliceOverlay();
+	void checkPoliceOverlay();
 	void resetPoliceOverlays();
 	void checkConnectedness();
 	void changeViewDepth(int);

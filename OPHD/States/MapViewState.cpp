@@ -1372,7 +1372,7 @@ void MapViewState::checkCommRangeOverlay()
 }
 
 
-void MapViewState::checkSurfacePoliceOverlay()
+void MapViewState::checkPoliceOverlay()
 {
 	resetPoliceOverlays();
 

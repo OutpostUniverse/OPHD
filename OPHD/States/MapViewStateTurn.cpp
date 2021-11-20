@@ -596,7 +596,7 @@ void MapViewState::updateMaintenance()
 void MapViewState::updateOverlays()
 {
 	checkCommRangeOverlay();
-	checkSurfacePoliceOverlay();
+	checkPoliceOverlay();
 
 	if (mBtnToggleConnectedness.toggled()) { onToggleConnectedness(); }
 	if (mBtnToggleCommRangeOverlay.toggled()) { onToggleCommRangeOverlay(); }
