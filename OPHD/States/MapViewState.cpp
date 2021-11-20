@@ -1367,12 +1367,8 @@ void MapViewState::checkCommRangeOverlay()
 	mCommRangeOverlay.clear();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& commTowers = structureManager.getStructures<CommTower>();
-	const auto& command = structureManager.getStructures<CommandCenter>();
-
-	fillOverlay(*mTileMap, mCommRangeOverlay, command);
-	fillOverlay(*mTileMap, mCommRangeOverlay, commTowers);
+	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommandCenter>());
+	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommTower>());
 }
 
 
@@ -1381,12 +1377,8 @@ void MapViewState::checkSurfacePoliceOverlay()
 	resetPoliceOverlays();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& policeStations = structureManager.getStructures<SurfacePolice>();
-	fillOverlay(*mTileMap, mPoliceOverlays[0], policeStations);
-
-	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
-	fillOverlay(*mTileMap, mPoliceOverlays, undergroundPoliceStations);
+	fillOverlay(*mTileMap, mPoliceOverlays[0], structureManager.getStructures<SurfacePolice>());
+	fillOverlay(*mTileMap, mPoliceOverlays, structureManager.getStructures<UndergroundPolice>());
 }
 
 
