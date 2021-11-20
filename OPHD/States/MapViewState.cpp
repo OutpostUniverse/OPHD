@@ -1387,7 +1387,7 @@ void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& center
 	{
 		if (isPointInRange(center, point, range))
 		{
-			auto& tile = (*mTileMap).getTile({point, depth});
+			auto& tile = mTileMap->getTile({point, depth});
 			if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
 			{
 				tileList.push_back(&tile);
