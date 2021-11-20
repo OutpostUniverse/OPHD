@@ -5,7 +5,6 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Image.h>
 
-#include <cmath>
 #include <string>
 #include <unordered_map>
 
