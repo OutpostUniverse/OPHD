@@ -122,6 +122,19 @@ namespace
 	}
 
 
+	template <typename StructureType>
+	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*> structures)
+	{
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		for (auto structure : structures)
+		{
+			if (!structure->operational()) { continue; }
+			auto& centerTile = structureManager.tileFromStructure(structure);
+			fillRangedAreaList(tileMap, overlays[centerTile.depth()], centerTile, structure->getRange());
+		}
+	}
+
+
 	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
 		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
@@ -1373,12 +1386,7 @@ void MapViewState::checkSurfacePoliceOverlay()
 	fillOverlay(*mTileMap, mPoliceOverlays[0], policeStations);
 
 	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
-	for (auto undergroundPoliceStation : undergroundPoliceStations)
-	{
-		if (!undergroundPoliceStation->operational()) { continue; }
-		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
-		fillRangedAreaList(*mTileMap, mPoliceOverlays[centerTile.depth()], centerTile, undergroundPoliceStation->getRange());
-	}
+	fillOverlay(*mTileMap, mPoliceOverlays, undergroundPoliceStations);
 }
 
 
