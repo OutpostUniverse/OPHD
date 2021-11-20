@@ -84,7 +84,7 @@ namespace
 		const auto mapRect = NAS2D::Rectangle{0, 0, 299, 149};
 		const auto offset = NAS2D::Vector{radius, radius};
 		const auto areaStartPoint = clampPointToRect(centerPoint - offset, mapRect);
-		const auto areaEndPoint = clampPointToRect(centerPoint + offset, mapRect);
+		const auto areaEndPoint = clampPointToRect(centerPoint + offset + NAS2D::Vector{1, 1}, mapRect);
 		return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
 	}
 
@@ -1381,7 +1381,7 @@ void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& center
 {
 	const auto center = centerTile.xy();
 	const auto depth = centerTile.depth();
-	auto area = buildAreaRectFromCenter(center, range + 1);
+	auto area = buildAreaRectFromCenter(center, range);
 
 	for (const auto point : NAS2D::PointInRectangleRange(area))
 	{
