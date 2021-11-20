@@ -65,7 +65,7 @@ const Technology& TechnologyReader::technologyFromId(int id) const
 
 void TechnologyReader::readCategories(NAS2D::Xml::XmlElement& node)
 {
-	for (auto category = node.firstChildElement(); category; category = node.nextSiblingElement())
+	for (auto category = &node; category; category = category->nextSiblingElement())
 	{
 		const auto attributes = NAS2D::attributesToDictionary(*category);
 		const std::string name = attributes.get<std::string>("name");
@@ -85,7 +85,7 @@ void TechnologyReader::readCategories(NAS2D::Xml::XmlElement& node)
 
 void TechnologyReader::readTechnologiesInCategory(NAS2D::Xml::XmlElement& category)
 {
-	for (auto technology = category.firstChildElement(); technology; technology = category.nextSiblingElement())
+	for (auto technology = category.firstChildElement(); technology; technology = technology->nextSiblingElement())
 	{
 		const auto attributes = NAS2D::attributesToDictionary(*technology);
 
@@ -105,11 +105,13 @@ void TechnologyReader::readTechnologiesInCategory(NAS2D::Xml::XmlElement& catego
 
 void TechnologyReader::readTechnology(NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes)
 {
-	Technology tech(attributes.get<int>("id"),
-		attributes.get<int>("lab_type"),
-		attributes.get<int>("cost"));
+	mTechnologies.push_back({attributes.get<int>("id"),
+							 attributes.get<int>("lab_type"),
+							 attributes.get<int>("cost")});
+
+	auto& tech = mTechnologies.back();
 	
-	for (auto techElement = technology.firstChildElement(); techElement; techElement = technology.nextSiblingElement())
+	for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
 	{
 		const std::string elementName = techElement->value();
 		std::string elementValue = techElement->getText();
@@ -144,7 +146,7 @@ void TechnologyReader::readTechnology(NAS2D::Xml::XmlElement& technology, const 
 
 void TechnologyReader::readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
 {
-	for (auto effectElement = effects.firstChildElement(); effectElement; effectElement->nextSiblingElement())
+	for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
 	{
 		const std::string effectName = effectElement->value();
 		const std::string effectValue = effectElement->getText();
