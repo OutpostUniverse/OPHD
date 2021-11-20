@@ -1012,6 +1012,11 @@ void MapViewState::placeRobodozer(Tile& tile)
 		{
 			updateCommRangeOverlay();
 		}
+		if (structure->structureClass() == Structure::StructureClass::SurfacePolice ||
+			structure->structureClass() == Structure::StructureClass::UndergroundPolice)
+		{
+			updatePoliceOverlay();
+		}
 
 		auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
 		addRefinedResources(recycledResources);
