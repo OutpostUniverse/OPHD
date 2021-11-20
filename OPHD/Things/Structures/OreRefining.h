@@ -61,8 +61,8 @@ public:
 	}
 
 	/**
-     * Capacity of an individual type of refined resource
-     */
+	 * Capacity of an individual type of refined resource
+	 */
 	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
 
 protected:
