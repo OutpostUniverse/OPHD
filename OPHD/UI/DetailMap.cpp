@@ -149,6 +149,24 @@ void DetailMap::draw() const
 }
 
 
+void DetailMap::drawGrid() const
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	const auto viewSize = mMapView.viewSize();
+	const auto incrementY = NAS2D::Vector{-TileSize.x, TileSize.y};
+	const auto leftEdge = mOriginPixelPosition + incrementY * viewSize / 2;
+	const auto rightEdge = mOriginPixelPosition + TileSize * viewSize / 2;
+	for (int index = 0; index <= viewSize; ++index)
+	{
+		const auto offsetX = TileSize * index / 2;
+		const auto offsetY = incrementY * index / 2;
+		renderer.drawLine(leftEdge + offsetX, mOriginPixelPosition + offsetX);
+		renderer.drawLine(mOriginPixelPosition + offsetY, rightEdge + offsetY);
+	}
+}
+
+
 void DetailMap::onMouseMove(NAS2D::Point<int> position)
 {
 	const auto pixelOffset = position - mOriginPixelPosition;
