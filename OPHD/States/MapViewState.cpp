@@ -53,61 +53,59 @@ namespace
 		{Planet::Hostility::Medium, {45, 35, 20}},
 		{Planet::Hostility::High, {35, 20, 45}},
 	};
-}
 
-
-/** \fixme Find a sane place for these */
-struct RobotMeta
-{
-	std::string name;
-	const int sheetIndex;
-};
-
-const std::map<Robot::Type, RobotMeta> RobotMetaTable
-{
-	{Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-	{Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-	{Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
-};
-
-
-static NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
-{
-	const NAS2D::Point areaStartPoint
+	struct RobotMeta
 	{
-		std::clamp(centerTile.xy().x - radius, 0, 299),
-		std::clamp(centerTile.xy().y - radius, 0, 149)
+		std::string name;
+		const int sheetIndex;
 	};
 
-	const NAS2D::Point areaEndPoint
+	const std::map<Robot::Type, RobotMeta> RobotMetaTable
 	{
-		std::clamp(centerTile.xy().x + radius, 0, 299),
-		std::clamp(centerTile.xy().y + radius, 0, 149)
+		{Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
+		{Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
+		{Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
 	};
 
-	return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
-}
 
-
-static void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
-{
-	const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
-
-	if (robot->fuelCellAge() == 190) /// \fixme magic number
+	NAS2D::Rectangle<int> buildAreaRectFromTile(const Tile& centerTile, int radius)
 	{
-		notificationArea.push({
-			"Aging Robot",
-			"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
-			position,
-			NotificationArea::NotificationType::Warning});
+		const NAS2D::Point areaStartPoint
+		{
+			std::clamp(centerTile.xy().x - radius, 0, 299),
+			std::clamp(centerTile.xy().y - radius, 0, 149)
+		};
+
+		const NAS2D::Point areaEndPoint
+		{
+			std::clamp(centerTile.xy().x + radius, 0, 299),
+			std::clamp(centerTile.xy().y + radius, 0, 149)
+		};
+
+		return NAS2D::Rectangle<int>::Create(areaStartPoint, areaEndPoint);
 	}
-	else if (robot->fuelCellAge() == 195) /// \fixme magic number
+
+
+	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
-		notificationArea.push({
-			"Aging Robot",
-			"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
-			position,
-			NotificationArea::NotificationType::Critical});
+		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
+
+		if (robot->fuelCellAge() == 190) /// \fixme magic number
+		{
+			notificationArea.push({
+				"Aging Robot",
+				"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
+				position,
+				NotificationArea::NotificationType::Warning});
+		}
+		else if (robot->fuelCellAge() == 195) /// \fixme magic number
+		{
+			notificationArea.push({
+				"Aging Robot",
+				"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
+				position,
+				NotificationArea::NotificationType::Critical});
+		}
 	}
 }
 
