@@ -5,6 +5,7 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
 
+#include <algorithm>
 #include <stdexcept>
 
 

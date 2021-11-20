@@ -79,10 +79,10 @@ struct Technology
 
 
 	Technology() = delete;
-	Technology(int id, int labType, int cost) :
-		id(id),
-		labType(labType),
-		cost(cost)
+	Technology(int _id, int _labType, int _cost) :
+		id(_id),
+		labType(_labType),
+		cost(_cost)
 	{}
 
 	std::string name{""};

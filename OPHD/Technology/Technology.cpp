@@ -40,15 +40,15 @@ Technology::Unlock& Technology::Effect::toUnlock()
 }
 
 
-Technology::Modifier::Modifier(Modifies modifies, float value) :
+Technology::Modifier::Modifier(Modifies _modifies, float _value) :
 	Effect(Type::Modifier),
-	modifies(modifies),
-	value(value)
+	modifies(_modifies),
+	value(_value)
 {}
 
 
-Technology::Unlock::Unlock(Unlocks unlocks, std::string value) :
+Technology::Unlock::Unlock(Unlocks _unlocks, std::string _value) :
 	Effect(Type::Unlock),
-	unlocks(unlocks),
-	value(value)
+	unlocks(_unlocks),
+	value(_value)
 {}
