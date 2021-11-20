@@ -2,6 +2,7 @@
 
 #include "../Things/Structures/Structures.h"
 #include "../Common.h"
+
 #include <vector>
 #include <array>
 #include <map>
