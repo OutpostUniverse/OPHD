@@ -141,7 +141,6 @@ NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 
 void MapViewState::load(const std::string& filePath)
 {
-	mPlanetAttributes = Planet::Attributes();
 	resetUi();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -172,6 +171,7 @@ void MapViewState::load(const std::string& filePath)
 	NAS2D::Xml::XmlElement* map = root->firstChildElement("properties");
 	const auto dictionary = NAS2D::attributesToDictionary(*map);
 
+	mPlanetAttributes = Planet::Attributes();
 	mPlanetAttributes.maxDepth = dictionary.get<int>("diggingdepth");
 	mPlanetAttributes.mapImagePath = dictionary.get("sitemap");
 	mPlanetAttributes.tilesetPath = dictionary.get("tset");

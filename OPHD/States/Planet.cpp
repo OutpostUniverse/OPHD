@@ -25,11 +25,6 @@ Planet::Planet(const Attributes& attributes) :
 	mAttributes(attributes),
 	mImage(NAS2D::Image(attributes.imagePath))
 {
-	if (attributes.type == PlanetType::None || attributes.type == PlanetType::Count)
-	{
-		throw std::runtime_error("Instantiated Planet class with an invalid planet type.");
-	}
-
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &Planet::onMouseMove);
 }
 
@@ -79,7 +74,6 @@ namespace
 
 	const std::unordered_map<std::string, Planet::PlanetType> planetTypeTable
 	{
-		{"None", Planet::PlanetType::None},
 		{"Mercury", Planet::PlanetType::Mercury},
 		{"Mars", Planet::PlanetType::Mars},
 		{"Ganymede", Planet::PlanetType::Ganymede}
@@ -87,7 +81,6 @@ namespace
 
 	const std::unordered_map<std::string, Planet::Hostility> hostilityTable
 	{
-		{"None", Planet::Hostility::None},
 		{"Low", Planet::Hostility::Low},
 		{"Medium", Planet::Hostility::Medium},
 		{"High", Planet::Hostility::High}
