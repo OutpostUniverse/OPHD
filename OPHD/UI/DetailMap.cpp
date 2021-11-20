@@ -12,6 +12,7 @@
 #include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <map>
+#include <cmath>
 
 
 using namespace NAS2D;
