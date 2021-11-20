@@ -1389,14 +1389,14 @@ void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& center
 
 	for (const auto point : NAS2D::PointInRectangleRange(area))
 	{
-			auto& tile = (*mTileMap).getTile({point, depth});
-			if (isPointInRange(centerTile.xy(), tile.xy(), range))
+		auto& tile = (*mTileMap).getTile({point, depth});
+		if (isPointInRange(centerTile.xy(), tile.xy(), range))
+		{
+			if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
 			{
-				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
-				{
-					tileList.push_back(&tile);
-				}
+				tileList.push_back(&tile);
 			}
+		}
 	}
 }
 
