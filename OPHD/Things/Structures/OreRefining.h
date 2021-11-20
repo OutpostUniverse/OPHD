@@ -60,11 +60,6 @@ public:
 		return stringTable;
 	}
 
-	/**
-	 * Capacity of an individual type of refined resource
-	 */
-	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
-
 protected:
 	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
 
@@ -77,6 +72,11 @@ protected:
 			IndividualMaterialCapacity(),
 		};
 	}
+
+	/**
+	 * Capacity of an individual type of refined resource
+	 */
+	int IndividualMaterialCapacity() const { return storageCapacity() / 4; }
 
 	void think() override
 	{
