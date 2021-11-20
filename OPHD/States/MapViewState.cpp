@@ -89,6 +89,26 @@ namespace
 	}
 
 
+	void fillRangedAreaList(TileMap& tileMap, std::vector<Tile*>& tileList, Tile& centerTile, int range)
+	{
+		const auto center = centerTile.xy();
+		const auto depth = centerTile.depth();
+		auto area = buildAreaRectFromCenter(center, range);
+
+		for (const auto point : NAS2D::PointInRectangleRange(area))
+		{
+			if (isPointInRange(center, point, range))
+			{
+				auto& tile = tileMap.getTile({point, depth});
+				if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
+				{
+					tileList.push_back(&tile);
+				}
+			}
+		}
+	}
+
+
 	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
 		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
@@ -1329,14 +1349,14 @@ void MapViewState::checkCommRangeOverlay()
 	{
 		if (!cc->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(cc);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, cc->getRange());
+		fillRangedAreaList(*mTileMap, mCommRangeOverlay, centerTile, cc->getRange());
 	}
 
 	for (auto tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(tower);
-		fillRangedAreaList(mCommRangeOverlay, centerTile, tower->getRange());
+		fillRangedAreaList(*mTileMap, mCommRangeOverlay, centerTile, tower->getRange());
 	}
 }
 
@@ -1353,7 +1373,7 @@ void MapViewState::checkSurfacePoliceOverlay()
 	{
 		if (!policeStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(policeStation);
-		fillRangedAreaList(mPoliceOverlays[0], centerTile, policeStation->getRange());
+		fillRangedAreaList(*mTileMap, mPoliceOverlays[0], centerTile, policeStation->getRange());
 	}
 
 	const auto& undergroundPoliceStations = structureManager.getStructures<UndergroundPolice>();
@@ -1362,7 +1382,7 @@ void MapViewState::checkSurfacePoliceOverlay()
 	{
 		if (!undergroundPoliceStation->operational()) { continue; }
 		auto& centerTile = structureManager.tileFromStructure(undergroundPoliceStation);
-		fillRangedAreaList(mPoliceOverlays[centerTile.depth()], centerTile, undergroundPoliceStation->getRange());
+		fillRangedAreaList(*mTileMap, mPoliceOverlays[centerTile.depth()], centerTile, undergroundPoliceStation->getRange());
 	}
 }
 
@@ -1373,26 +1393,6 @@ void MapViewState::resetPoliceOverlays()
 	for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 	{
 		mPoliceOverlays.push_back(std::vector<Tile*>());
-	}
-}
-
-
-void MapViewState::fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range)
-{
-	const auto center = centerTile.xy();
-	const auto depth = centerTile.depth();
-	auto area = buildAreaRectFromCenter(center, range);
-
-	for (const auto point : NAS2D::PointInRectangleRange(area))
-	{
-		if (isPointInRange(center, point, range))
-		{
-			auto& tile = mTileMap->getTile({point, depth});
-			if (std::find(tileList.begin(), tileList.end(), &tile) == tileList.end())
-			{
-				tileList.push_back(&tile);
-			}
-		}
 	}
 }
 

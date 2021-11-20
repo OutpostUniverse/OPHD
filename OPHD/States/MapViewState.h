@@ -178,7 +178,6 @@ private:
 	void checkCommRangeOverlay();
 	void checkSurfacePoliceOverlay();
 	void resetPoliceOverlays();
-	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range);
 	void checkConnectedness();
 	void changeViewDepth(int);
 
