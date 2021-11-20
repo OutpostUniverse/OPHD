@@ -175,10 +175,10 @@ private:
 	void updateFood();
 	void transferFoodToCommandCenter();
 
-	void checkCommRangeOverlay();
-	void checkPoliceOverlay();
+	void updateCommRangeOverlay();
+	void updatePoliceOverlay();
 	void resetPoliceOverlays();
-	void checkConnectedness();
+	void updateConnectedness();
 	void changeViewDepth(int);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);

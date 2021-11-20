@@ -773,7 +773,7 @@ void MapViewState::placeTubes(Tile& tile)
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		checkConnectedness();
+		updateConnectedness();
 	}
 	else
 	{
@@ -1010,7 +1010,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->structureClass() == Structure::StructureClass::Communication)
 		{
-			checkCommRangeOverlay();
+			updateCommRangeOverlay();
 		}
 
 		auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
@@ -1036,7 +1036,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		tile.deleteThing();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
-		checkConnectedness();
+		updateConnectedness();
 	}
 
 	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
@@ -1333,7 +1333,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
  * Checks the connectedness of all tiles surrounding
  * the Command Center.
  */
-void MapViewState::checkConnectedness()
+void MapViewState::updateConnectedness()
 {
 	if (ccLocation() == CcNotPlaced)
 	{
@@ -1362,7 +1362,7 @@ void MapViewState::checkConnectedness()
 }
 
 
-void MapViewState::checkCommRangeOverlay()
+void MapViewState::updateCommRangeOverlay()
 {
 	mCommRangeOverlay.clear();
 
@@ -1372,7 +1372,7 @@ void MapViewState::checkCommRangeOverlay()
 }
 
 
-void MapViewState::checkPoliceOverlay()
+void MapViewState::updatePoliceOverlay()
 {
 	resetPoliceOverlays();
 

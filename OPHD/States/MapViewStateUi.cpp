@@ -589,7 +589,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		tile.deleteThing();
 		tile.connected(false);
-		checkConnectedness();
+		updateConnectedness();
 	}
 
 	// Assumes a digger is available.
