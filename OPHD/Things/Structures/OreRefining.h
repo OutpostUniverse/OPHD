@@ -80,12 +80,9 @@ protected:
 
 	void think() override
 	{
-		if (isIdle())
+		if (isIdle() && storage() < storageCapacities())
 		{
-			if (storage() < storageCapacities())
-			{
-				enable();
-			}
+			enable();
 		}
 
 		if (operational())
