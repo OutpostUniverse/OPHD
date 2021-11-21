@@ -39,7 +39,7 @@ namespace
 }
 
 
-TechnologyReader::TechnologyReader(const std::string& techFile)
+TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 {
 	Xml::XmlDocument xmlDocument = openXmlFile(techFile, "technology");
 
@@ -51,7 +51,7 @@ TechnologyReader::TechnologyReader(const std::string& techFile)
 }
 
 
-const Technology& TechnologyReader::technologyFromId(int id) const
+const Technology& TechnologyCatalog::technologyFromId(int id) const
 {
 	const auto it = std::find_if(mTechnologies.begin(), mTechnologies.end(), [id](const Technology& tech) { return tech.id == id; });
 
@@ -64,7 +64,7 @@ const Technology& TechnologyReader::technologyFromId(int id) const
 }
 
 
-void TechnologyReader::readCategories(NAS2D::Xml::XmlElement& node)
+void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 {
 	for (auto category = &node; category; category = category->nextSiblingElement())
 	{
@@ -84,7 +84,7 @@ void TechnologyReader::readCategories(NAS2D::Xml::XmlElement& node)
 }
 
 
-void TechnologyReader::readTechnologiesInCategory(NAS2D::Xml::XmlElement& category)
+void TechnologyCatalog::readTechnologiesInCategory(NAS2D::Xml::XmlElement& category)
 {
 	for (auto technology = category.firstChildElement(); technology; technology = technology->nextSiblingElement())
 	{
@@ -104,7 +104,7 @@ void TechnologyReader::readTechnologiesInCategory(NAS2D::Xml::XmlElement& catego
 }
 
 
-void TechnologyReader::readTechnology(NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes)
+void TechnologyCatalog::readTechnology(NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes)
 {
 	mTechnologies.push_back({attributes.get<int>("id"),
 							 attributes.get<int>("lab_type"),
@@ -145,7 +145,7 @@ void TechnologyReader::readTechnology(NAS2D::Xml::XmlElement& technology, const 
 }
 
 
-void TechnologyReader::readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
+void TechnologyCatalog::readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
 {
 	for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
 	{

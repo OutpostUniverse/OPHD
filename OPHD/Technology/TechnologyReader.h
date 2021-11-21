@@ -9,11 +9,11 @@
 #include <NAS2D/Xml/Xml.h>
 
 
-class TechnologyReader
+class TechnologyCatalog
 {
 public:
-	TechnologyReader() = delete;
-	TechnologyReader(const std::string& techFile);
+	TechnologyCatalog() = delete;
+	TechnologyCatalog(const std::string& techFile);
 
 	const std::vector<Technology>& technologies() const { return mTechnologies; }
 	const std::vector<std::string>& categories() const { return mCategories; }
