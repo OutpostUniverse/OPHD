@@ -2,6 +2,7 @@
 
 #include "Technology.h"
 
+#include <map>
 #include <string>
 #include <vector>
 
@@ -15,17 +16,15 @@ public:
 	TechnologyCatalog() = delete;
 	TechnologyCatalog(const std::string& techFile);
 
-	const std::vector<Technology>& technologies() const { return mTechnologies; }
-	const std::vector<std::string>& categories() const { return mCategories; }
-
 	const Technology& technologyFromId(int id) const;
 
+	const std::vector<Technology> technologiesInCategory(const std::string& categoryName) const;
+
 private:
-	std::vector<Technology> mTechnologies;
-	std::vector<std::string> mCategories;
+	std::map<std::string, std::vector<Technology>> mCategories;
 
 	void readCategories(NAS2D::Xml::XmlElement& node);
-	void readTechnologiesInCategory(NAS2D::Xml::XmlElement& category);
-	void readTechnology(NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes);
+	void readTechnologiesInCategory(const std::string& categoryName, NAS2D::Xml::XmlElement& category);
+	void readTechnology(const std::string& categoryName, NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes);
 	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology);
 };
