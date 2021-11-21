@@ -354,9 +354,6 @@
     <ClCompile Include="Population\PopulationTable.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
-    <ClCompile Include="Technology\Technology.cpp">
-      <Filter>Source Files\Technology</Filter>
-    </ClCompile>
     <ClCompile Include="Technology\TechnologyReader.cpp">
       <Filter>Source Files\Technology</Filter>
     </ClCompile>

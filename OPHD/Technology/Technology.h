@@ -7,33 +7,7 @@
 
 struct Technology
 {
-	struct Modifier;
-	struct Unlock;
-
-	struct Effect
-	{
-		enum class Type
-		{
-			Modifier,
-			Unlock
-		};
-
-		Effect() = delete;
-		virtual ~Effect() = default;
-
-		bool isModifier() const;
-		bool isUnlock() const;
-
-		Modifier& toModifier();
-		Unlock& toUnlock();
-
-	protected:
-		Effect(Type type);
-		
-		Type type;
-	};
-
-	struct Modifier : public Effect
+	struct Modifier
 	{
 		enum class Modifies
 		{
@@ -50,15 +24,12 @@ struct Technology
 			StructureDecay
 		};
 
-		Modifier() = delete;
-		Modifier(Modifies modifies, float value);
-		~Modifier() override = default;
-
 		Modifies modifies;
 		float value;
 	};
 
-	struct Unlock : public Effect
+
+	struct Unlock
 	{
 		enum class Unlocks
 		{
@@ -68,10 +39,6 @@ struct Technology
 			Structure,
 			Vehicle
 		};
-
-		Unlock() = delete;
-		Unlock(Unlocks unlocks, std::string value);
-		~Unlock() override = default;
 
 		Unlocks unlocks;
 		std::string value;
