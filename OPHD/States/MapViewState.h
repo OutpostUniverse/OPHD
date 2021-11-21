@@ -67,6 +67,7 @@ struct MapCoordinate;
 class Tile;
 class TileMap;
 class MapView;
+class Robot;
 class MainReportsUiState;
 
 
@@ -84,6 +85,8 @@ enum class InsertMode
 	Tube,
 	Structure
 };
+
+using RobotTileTable = std::map<Robot*, Tile*>;
 
 
 class MapViewState : public Wrapper
