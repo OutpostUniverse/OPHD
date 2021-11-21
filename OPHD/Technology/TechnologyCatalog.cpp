@@ -88,6 +88,7 @@ void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 				"' at (" + std::to_string(category->row()) + ", " + std::to_string(category->column()) + ")");
 		}
 		readTechnologiesInCategory(name, *category);
+		mCategorNames.push_back(name);
 	}
 }
 
