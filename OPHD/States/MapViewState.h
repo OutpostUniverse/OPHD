@@ -14,6 +14,7 @@
 #include "../RobotPool.h"
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
+#include "../Things/Robots/Robot.h"
 #include "../Things/Structures/Structure.h"
 
 #include "../UI/NotificationArea.h"
@@ -84,6 +85,8 @@ enum class InsertMode
 	Tube,
 	Structure
 };
+
+using RobotTileTable = std::map<Robot*, Tile*>;
 
 
 class MapViewState : public Wrapper

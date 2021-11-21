@@ -19,7 +19,6 @@
 #include "../Map/MapView.h"
 
 #include "../Things/Robots/Robots.h"
-#include "../Things/Structures/Structures.h"
 
 #include "../UI/MessageBox.h"
 
