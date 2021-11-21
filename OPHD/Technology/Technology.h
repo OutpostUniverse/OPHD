@@ -94,5 +94,6 @@ struct Technology
 
 	std::vector<int> requiredTechnologies;
 
-	std::vector<std::unique_ptr<Effect>> effects;
+	std::vector<Modifier> modifiers;
+	std::vector<Unlock> unlocks;
 };
