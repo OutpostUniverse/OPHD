@@ -14,6 +14,7 @@
 #include "../RobotPool.h"
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
+#include "../Things/Robots/Robot.h"
 #include "../Things/Structures/Structure.h"
 
 #include "../UI/NotificationArea.h"
@@ -67,7 +68,6 @@ struct MapCoordinate;
 class Tile;
 class TileMap;
 class MapView;
-class Robot;
 class MainReportsUiState;
 
 
