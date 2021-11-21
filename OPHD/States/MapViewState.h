@@ -15,7 +15,7 @@
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
-#include "../Technology/TechnologyReader.h"
+#include "../Technology/TechnologyCatalog.h"
 
 #include "../Things/Robots/Robot.h"
 #include "../Things/Structures/Structure.h"
@@ -282,7 +282,7 @@ private:
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
-	TechnologyReader mTechnologyReader;
+	TechnologyCatalog mTechnologyReader;
 
 	Planet::Attributes mPlanetAttributes;
 	Difficulty mDifficulty = Difficulty::Medium;

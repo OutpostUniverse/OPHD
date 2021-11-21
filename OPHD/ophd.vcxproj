@@ -262,7 +262,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="States\SplashState.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
     <ClCompile Include="StructureManager.cpp" />
-    <ClCompile Include="Technology\TechnologyReader.cpp" />
+    <ClCompile Include="Technology\TechnologyCatalog.cpp" />
     <ClCompile Include="Things\Robots\Robot.cpp" />
     <ClCompile Include="Things\Structures\Factory.cpp" />
     <ClCompile Include="Things\Structures\MineFacility.cpp" />
@@ -358,7 +358,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="StructureCatalogue.h" />
     <ClInclude Include="StructureManager.h" />
     <ClInclude Include="Technology\Technology.h" />
-    <ClInclude Include="Technology\TechnologyReader.h" />
+    <ClInclude Include="Technology\TechnologyCatalog.h" />
     <ClInclude Include="Things\Robots\Robodigger.h" />
     <ClInclude Include="Things\Robots\Robodozer.h" />
     <ClInclude Include="Things\Robots\Robominer.h" />
