@@ -205,7 +205,7 @@ const std::string& Structure::stateDescription(StructureState state)
 
 const std::string& Structure::classDescription() const
 {
-	return classDescription(structureClass());
+	return classDescription(mStructureClass);
 }
 
 const std::string& Structure::classDescription(Structure::StructureClass structureClass)

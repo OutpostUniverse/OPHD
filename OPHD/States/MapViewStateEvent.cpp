@@ -9,7 +9,6 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../Things/Robots/Robots.h"
-#include "../Things/Structures/Structures.h"
 
 #include <NAS2D/Utility.h>
 
@@ -202,7 +201,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		checkConnectedness();
+		updateConnectedness();
 	}
 	newPosition.xy += directionEnumToOffset(dir);
 

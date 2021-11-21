@@ -14,7 +14,10 @@
 #include "../RobotPool.h"
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
+
 #include "../Technology/TechnologyReader.h"
+
+#include "../Things/Robots/Robot.h"
 #include "../Things/Structures/Structure.h"
 
 #include "../UI/NotificationArea.h"
@@ -85,6 +88,8 @@ enum class InsertMode
 	Tube,
 	Structure
 };
+
+using RobotTileTable = std::map<Robot*, Tile*>;
 
 
 class MapViewState : public Wrapper
@@ -176,12 +181,10 @@ private:
 	void updateFood();
 	void transferFoodToCommandCenter();
 
-	void checkCommRangeOverlay();
-	void checkSurfacePoliceOverlay();
+	void updateCommRangeOverlay();
+	void updatePoliceOverlay();
 	void resetPoliceOverlays();
-	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range);
-	void fillRangedAreaList(std::vector<Tile*>& tileList, Tile& centerTile, int range, int depth);
-	void checkConnectedness();
+	void updateConnectedness();
 	void changeViewDepth(int);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
