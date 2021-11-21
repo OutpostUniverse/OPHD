@@ -54,8 +54,9 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 const Technology& TechnologyCatalog::technologyFromId(int id) const
 {
 	std::vector<Technology>::const_iterator it;
-	for (const auto& [categoryName, techList] : mCategories)
+	for (const auto& category : mCategories)
 	{
+		const auto& techList = category.second;
 		it = std::find_if(techList.begin(), techList.end(), [id](const Technology& tech) { return tech.id == id; });
 
 		if (it != techList.end())
