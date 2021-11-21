@@ -3,7 +3,8 @@
 #include "Structure.h"
 
 #include "../../Mine.h"
-#include "../../StorableResources.h"
+
+struct StorableResources;
 
 
 /**
