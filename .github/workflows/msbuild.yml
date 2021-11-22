@@ -35,7 +35,7 @@ jobs:
       id: cache
       with:
         path: C:\vcpkg\installed\
-        key: ${{ runner.os }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
+        key: ${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
 
     - name: Install vcpkg dependencies
       working-directory: ${{env.GITHUB_WORKSPACE}}
