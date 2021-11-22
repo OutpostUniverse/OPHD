@@ -82,6 +82,12 @@
     <Filter Include="Source Files\MicroPather">
       <UniqueIdentifier>{53d69791-75af-4014-99df-f2d2582597ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Technology">
+      <UniqueIdentifier>{9d60dddd-887a-4c9d-9a55-97884aedd298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Technology">
+      <UniqueIdentifier>{f03fdd93-09f6-4050-a5df-18305b27811d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -347,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="Population\PopulationTable.cpp">
       <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="Technology\TechnologyCatalog.cpp">
+      <Filter>Source Files\Technology</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -760,6 +769,12 @@
     </ClInclude>
     <ClInclude Include="Population\PopulationTable.h">
       <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Technology\Technology.h">
+      <Filter>Header Files\Technology</Filter>
+    </ClInclude>
+    <ClInclude Include="Technology\TechnologyCatalog.h">
+      <Filter>Header Files\Technology</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

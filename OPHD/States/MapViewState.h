@@ -14,6 +14,9 @@
 #include "../RobotPool.h"
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
+
+#include "../Technology/TechnologyCatalog.h"
+
 #include "../Things/Robots/Robot.h"
 #include "../Things/Structures/Structure.h"
 
@@ -278,6 +281,8 @@ private:
 	std::unique_ptr<MapView> mMapView;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
+
+	TechnologyCatalog mTechnologyReader;
 
 	Planet::Attributes mPlanetAttributes;
 	Difficulty mDifficulty = Difficulty::Medium;
