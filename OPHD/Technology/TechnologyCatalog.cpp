@@ -162,16 +162,16 @@ void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 
 void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryName, NAS2D::Xml::XmlElement& category)
 {
-	for (auto technology = category.firstChildElement(); technology; technology = technology->nextSiblingElement())
+	for (auto technologyNode = category.firstChildElement(); technologyNode; technologyNode = technologyNode->nextSiblingElement())
 	{
-		Technology tech = readTechnology(*technology);
+		Technology tech = readTechnology(*technologyNode);
 
 		auto& technologies = mCategories[categoryName];
 		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
 		if (it != technologies.end())
 		{
 			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) +
-				"' at (" + std::to_string(technology->row()) + ", " + std::to_string(technology->column()) + ")");
+				"' at (" + std::to_string(technologyNode->row()) + ", " + std::to_string(technologyNode->column()) + ")");
 		}
 
 		technologies.push_back(tech);
