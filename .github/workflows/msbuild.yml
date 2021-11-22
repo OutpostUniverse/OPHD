@@ -31,9 +31,9 @@ jobs:
         path: C:\vcpkg\installed\
         key: ${{ runner.os }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
 
-    - name: Restore NuGet packages
+    - name: Install vcpkg dependencies
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+      run: nas2d-core\InstallVcpkgDeps.bat
 
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
