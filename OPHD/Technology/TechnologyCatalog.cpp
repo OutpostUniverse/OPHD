@@ -166,15 +166,11 @@ void TechnologyCatalog::readEffects(NAS2D::Xml::XmlElement& effects, Technology&
 
 		if (effectName == "modifier")
 		{
-			technology.modifiers.push_back(
-				{StringToModifier.at(effectAttributes.get<std::string>("type")),
-				 std::stof(effectValue)});
+			technology.modifiers.push_back({StringToModifier.at(effectAttributes.get("type")), std::stof(effectValue)});
 		}
 		else if (effectName == "unlock")
 		{
-			technology.unlocks.push_back(
-				{StringToUnlock.at(effectAttributes.get<std::string>("type")),
-				 effectValue});
+			technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
 		}
 		else
 		{
