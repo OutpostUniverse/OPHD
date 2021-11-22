@@ -28,6 +28,6 @@ private:
 
 	void readCategories(NAS2D::Xml::XmlElement& node);
 	void readTechnologiesInCategory(const std::string& categoryName, NAS2D::Xml::XmlElement& category);
-	void readTechnology(const std::string& categoryName, NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes);
+	Technology readTechnology(NAS2D::Xml::XmlElement& technology);
 	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology);
 };

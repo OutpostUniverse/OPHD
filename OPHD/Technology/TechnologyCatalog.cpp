@@ -98,30 +98,25 @@ void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryNa
 {
 	for (auto technology = category.firstChildElement(); technology; technology = technology->nextSiblingElement())
 	{
-		const auto attributes = NAS2D::attributesToDictionary(*technology);
-		const int id = attributes.get<int>("id");
+		Technology tech = readTechnology(*technology);
 
 		const auto& technologies = mCategories[categoryName];
-		const auto it = std::find_if(technologies.begin(), technologies.end(), [id](const Technology& tech) { return tech.id == id; });
+		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
 		if (it != technologies.end())
 		{
-			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(id) +
+			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) +
 				"' at (" + std::to_string(technology->row()) + ", " + std::to_string(technology->column()) + ")");
 		}
-
-		readTechnology(categoryName, *technology, attributes);
 	}
 }
 
 
-void TechnologyCatalog::readTechnology(const std::string& categoryName, NAS2D::Xml::XmlElement& technology, const NAS2D::Dictionary& attributes)
+Technology TechnologyCatalog::readTechnology(NAS2D::Xml::XmlElement& technology)
 {
-	auto& technologies = mCategories[categoryName];
-	technologies.push_back({attributes.get<int>("id"),
-							attributes.get<int>("lab_type"),
-							attributes.get<int>("cost")});
-
-	auto& tech = technologies.back();
+	const auto attributes = NAS2D::attributesToDictionary(technology);
+	Technology tech = {attributes.get<int>("id"),
+					   attributes.get<int>("lab_type"),
+					   attributes.get<int>("cost")};
 	
 	for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
 	{
@@ -153,6 +148,8 @@ void TechnologyCatalog::readTechnology(const std::string& categoryName, NAS2D::X
 				"' at (" + std::to_string(techElement->row()) + ", " + std::to_string(techElement->column()) + ")");
 		}
 	}
+
+	return tech;
 }
 
 
