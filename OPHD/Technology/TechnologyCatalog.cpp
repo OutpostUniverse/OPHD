@@ -28,6 +28,7 @@ namespace
 		{"structure_decay", Technology::Modifier::Modifies::StructureDecay}
 	};
 
+
 	std::map<std::string, Technology::Unlock::Unlocks> StringToUnlock =
 	{
 		{"disaster_prediction", Technology::Unlock::Unlocks::DisasterPrediction},
@@ -36,6 +37,71 @@ namespace
 		{"structure", Technology::Unlock::Unlocks::Structure},
 		{"vehicle", Technology::Unlock::Unlocks::Vehicle}
 	};
+
+
+	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
+	{
+		for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
+		{
+			const std::string effectName = effectElement->value();
+			const std::string effectValue = effectElement->getText();
+			auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
+
+			if (effectName == "modifier")
+			{
+				technology.modifiers.push_back({StringToModifier.at(effectAttributes.get("type")), std::stof(effectValue)});
+			}
+			else if (effectName == "unlock")
+			{
+				technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
+			}
+			else
+			{
+				throw std::runtime_error("TechnologyReader: Unknown element '" + effectName + "' at (" + std::to_string(effectElement->row()) + ", " + std::to_string(effectElement->column()) + ")");
+			}
+		}
+	}
+
+
+	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
+	{
+		const auto attributes = NAS2D::attributesToDictionary(technology);
+		Technology tech = {attributes.get<int>("id"),
+						   attributes.get<int>("lab_type"),
+						   attributes.get<int>("cost")};
+
+		for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
+		{
+			const std::string elementName = techElement->value();
+			std::string elementValue = techElement->getText();
+			if (elementName == "name")
+			{
+				tech.name = elementValue;
+			}
+			else if (elementName == "description")
+			{
+				tech.description = elementValue;
+			}
+			else if (elementName == "requires")
+			{
+				auto requiredIds = NAS2D::split(elementValue);
+				for (auto& id : requiredIds)
+				{
+					tech.requiredTechnologies.push_back(std::stoi(id));
+				}
+			}
+			else if (elementName == "effects")
+			{
+				readEffects(*techElement, tech);
+			}
+			else
+			{
+				throw std::runtime_error("TechnologyReader: Unknown element '" + elementName + "' at (" + std::to_string(techElement->row()) + ", " + std::to_string(techElement->column()) + ")");
+			}
+		}
+
+		return tech;
+	}
 }
 
 
@@ -100,79 +166,14 @@ void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryNa
 	{
 		Technology tech = readTechnology(*technology);
 
-		const auto& technologies = mCategories[categoryName];
+		auto& technologies = mCategories[categoryName];
 		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
 		if (it != technologies.end())
 		{
 			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) +
 				"' at (" + std::to_string(technology->row()) + ", " + std::to_string(technology->column()) + ")");
 		}
-	}
-}
 
-
-Technology TechnologyCatalog::readTechnology(NAS2D::Xml::XmlElement& technology)
-{
-	const auto attributes = NAS2D::attributesToDictionary(technology);
-	Technology tech = {attributes.get<int>("id"),
-					   attributes.get<int>("lab_type"),
-					   attributes.get<int>("cost")};
-	
-	for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
-	{
-		const std::string elementName = techElement->value();
-		std::string elementValue = techElement->getText();
-		if (elementName == "name")
-		{
-			tech.name = elementValue;
-		}
-		else if (elementName == "description")
-		{
-			tech.description = elementValue;
-		}
-		else if (elementName == "requires")
-		{
-			auto requiredIds = NAS2D::split(elementValue);
-			for (auto& id : requiredIds)
-			{
-				tech.requiredTechnologies.push_back(std::stoi(id));
-			}
-		}
-		else if (elementName == "effects")
-		{
-			readEffects(*techElement, tech);
-		}
-		else
-		{
-			throw std::runtime_error("TechnologyReader: Unknown element '" + elementName + 
-				"' at (" + std::to_string(techElement->row()) + ", " + std::to_string(techElement->column()) + ")");
-		}
-	}
-
-	return tech;
-}
-
-
-void TechnologyCatalog::readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
-{
-	for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
-	{
-		const std::string effectName = effectElement->value();
-		const std::string effectValue = effectElement->getText();
-		auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
-
-		if (effectName == "modifier")
-		{
-			technology.modifiers.push_back({StringToModifier.at(effectAttributes.get("type")), std::stof(effectValue)});
-		}
-		else if (effectName == "unlock")
-		{
-			technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
-		}
-		else
-		{
-			throw std::runtime_error("TechnologyReader: Unknown element '" + effectName +
-				"' at (" + std::to_string(effectElement->row()) + ", " + std::to_string(effectElement->column()) + ")");
-		}
+		technologies.push_back(tech);
 	}
 }
