@@ -13,7 +13,13 @@ env:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [x86, x64]
     runs-on: windows-latest
+    env:
+      PLATFORM: ${{ matrix.platform }}
 
     steps:
     - uses: actions/checkout@v2
