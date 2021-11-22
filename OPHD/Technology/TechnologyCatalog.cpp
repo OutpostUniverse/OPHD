@@ -80,7 +80,7 @@ void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 	for (auto category = &node; category; category = category->nextSiblingElement())
 	{
 		const auto attributes = NAS2D::attributesToDictionary(*category);
-		const std::string name = attributes.get<std::string>("name");
+		const std::string name = attributes.get("name");
 
 		auto it = mCategories.find(name);
 		if (it != mCategories.end())
