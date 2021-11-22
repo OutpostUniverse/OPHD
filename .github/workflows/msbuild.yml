@@ -24,6 +24,13 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
+    - name: Restore vcpkg dependency cache
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: C:\vcpkg\installed\
+        key: ${{ runner.os }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
+
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
