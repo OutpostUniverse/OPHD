@@ -690,6 +690,7 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 void MapViewState::onNotificationWindowTakeMeThere(const MapCoordinate& position)
 {
 	mMapView->centerOn(position);
+	populateStructureMenu();
 }
 
 
