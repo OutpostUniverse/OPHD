@@ -287,6 +287,7 @@ void MapViewState::focusOnStructure(Structure* structure)
 {
 	if (!structure) { return; }
 	mMapView->centerOn(NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).xyz());
+	populateStructureMenu();
 }
 
 
