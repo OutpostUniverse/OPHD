@@ -273,7 +273,7 @@ private:
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 
-	void onNotificationWindowTakeMeThere(const MapCoordinate& position);
+	void onTakeMeThere(const MapCoordinate& position);
 
 private:
 	MainReportsUiState& mMainReportsState;
