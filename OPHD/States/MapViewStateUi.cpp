@@ -89,7 +89,7 @@ void MapViewState::initUi()
 
 	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
 
-	mNotificationWindow.takeMeThere().connect(this, &MapViewState::onNotificationWindowTakeMeThere);
+	mNotificationWindow.takeMeThere().connect(this, &MapViewState::onTakeMeThere);
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
@@ -687,7 +687,7 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 }
 
 
-void MapViewState::onNotificationWindowTakeMeThere(const MapCoordinate& position)
+void MapViewState::onTakeMeThere(const MapCoordinate& position)
 {
 	mMapView->centerOn(position);
 	populateStructureMenu();
