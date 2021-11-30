@@ -6,11 +6,11 @@ commands:
     steps:
       - restore_cache:
           name: Restoring brew dependencies
-          key: deps-OPHD-{{ arch }}-v1-{{ checksum "nas2d-core/BrewDeps.txt" }}
+          key: deps-OPHD-{{ arch }}-v2-{{ checksum "nas2d-core/BrewDeps.txt" }}
       - run: make --directory nas2d-core/ install-dependencies
       - save_cache:
           name: Caching brew dependencies
-          key: deps-OPHD-{{ arch }}-v1-{{ checksum "nas2d-core/BrewDeps.txt" }}
+          key: deps-OPHD-{{ arch }}-v2-{{ checksum "nas2d-core/BrewDeps.txt" }}
           paths:
             - /usr/local/Cellar
   build:
@@ -24,7 +24,7 @@ commands:
 jobs:
   build-macos:
     macos:
-      xcode: "12.4.0"
+      xcode: "12.5.0"
     environment:
       - HOMEBREW_NO_AUTO_UPDATE: 1
       - WARN_EXTRA: "-Wno-double-promotion"
@@ -53,7 +53,7 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: outpostuniverse/nas2d-mingw:1.6
+      - image: outpostuniverse/nas2d-mingw:1.7
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
