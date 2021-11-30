@@ -53,7 +53,7 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: outpostuniverse/nas2d-mingw:1.6
+      - image: outpostuniverse/nas2d-mingw:1.7
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
