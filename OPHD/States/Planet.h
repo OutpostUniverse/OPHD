@@ -6,6 +6,7 @@
 #include <NAS2D/Resource/Image.h>
 
 #include <string>
+#include <vector>
 
 
 class Planet
