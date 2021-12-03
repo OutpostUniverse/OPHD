@@ -43,6 +43,15 @@ namespace
 	{
 		for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
 		{
+			const auto& effectName = effectElement->value();
+			if (effectName != "modifier" && effectName != "unlock")
+			{
+				throw std::runtime_error("TechnologyReader: Unknown element '" + effectName + "' at (" + std::to_string(effectElement->row()) + ", " + std::to_string(effectElement->column()) + ")");
+			}
+		}
+
+		for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
+		{
 			const std::string effectName = effectElement->value();
 			const std::string effectValue = effectElement->getText();
 			auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
@@ -54,10 +63,6 @@ namespace
 			else if (effectName == "unlock")
 			{
 				technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
-			}
-			else
-			{
-				throw std::runtime_error("TechnologyReader: Unknown element '" + effectName + "' at (" + std::to_string(effectElement->row()) + ", " + std::to_string(effectElement->column()) + ")");
 			}
 		}
 	}
