@@ -155,6 +155,7 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 	auto firstCategory = root->firstChildElement("category");
 	if (!firstCategory) { return; }
 	mCategories = readCategories(*firstCategory);
+	mCategorNames = NAS2D::getKeys(mCategories);
 }
 
 
@@ -195,7 +196,6 @@ std::map<std::string, std::vector<Technology>> TechnologyCatalog::readCategories
 			throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
 		}
 		categories[name] = readTechnologiesInCategory(*category);
-		mCategorNames.push_back(name);
 	}
 	return categories;
 }
