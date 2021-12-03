@@ -3,9 +3,17 @@
 #include "Common.h"
 
 #include <NAS2D/Math/Point.h>
-#include <NAS2D/Xml/XmlElement.h>
 
 #include <bitset>
+
+
+namespace NAS2D
+{
+	namespace Xml
+	{
+		class XmlElement;
+	}
+}
 
 
 struct StorableResources;
