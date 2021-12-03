@@ -5,6 +5,8 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/ContainerUtils.h>
+#include <NAS2D/Dictionary.h>
+#include <NAS2D/Xml/Xml.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -143,6 +145,44 @@ namespace
 
 		return tech;
 	}
+
+
+	std::vector<Technology> readTechnologiesInCategory(NAS2D::Xml::XmlElement& category)
+	{
+		std::vector<Technology> technologies;
+		for (auto technologyNode = category.firstChildElement(); technologyNode; technologyNode = technologyNode->nextSiblingElement())
+		{
+			const auto tech = readTechnology(*technologyNode);
+
+			const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
+			if (it != technologies.end())
+			{
+				throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) + "'" + nodeAtString(*technologyNode));
+			}
+
+			technologies.push_back(tech);
+		}
+		return technologies;
+	}
+
+
+	std::map<std::string, std::vector<Technology>> readCategories(NAS2D::Xml::XmlElement& node)
+	{
+		std::map<std::string, std::vector<Technology>> categories;
+		for (auto category = &node; category; category = category->nextSiblingElement())
+		{
+			const auto attributes = NAS2D::attributesToDictionary(*category);
+			const auto name = attributes.get("name");
+
+			auto it = categories.find(name);
+			if (it != categories.end())
+			{
+				throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
+			}
+			categories[name] = readTechnologiesInCategory(*category);
+		}
+		return categories;
+	}
 }
 
 
@@ -154,7 +194,8 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 
 	auto firstCategory = root->firstChildElement("category");
 	if (!firstCategory) { return; }
-	readCategories(*firstCategory);
+	mCategories = readCategories(*firstCategory);
+	mCategorNames = NAS2D::getKeys(mCategories);
 }
 
 
@@ -178,40 +219,4 @@ const Technology& TechnologyCatalog::technologyFromId(int id) const
 const std::vector<Technology> TechnologyCatalog::technologiesInCategory(const std::string& categoryName) const
 {
 	return mCategories.at(categoryName);
-}
-
-
-void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
-{
-	for (auto category = &node; category; category = category->nextSiblingElement())
-	{
-		const auto attributes = NAS2D::attributesToDictionary(*category);
-		const std::string name = attributes.get("name");
-
-		auto it = mCategories.find(name);
-		if (it != mCategories.end())
-		{
-			throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
-		}
-		readTechnologiesInCategory(name, *category);
-		mCategorNames.push_back(name);
-	}
-}
-
-
-void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryName, NAS2D::Xml::XmlElement& category)
-{
-	for (auto technologyNode = category.firstChildElement(); technologyNode; technologyNode = technologyNode->nextSiblingElement())
-	{
-		Technology tech = readTechnology(*technologyNode);
-
-		auto& technologies = mCategories[categoryName];
-		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
-		if (it != technologies.end())
-		{
-			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) + "'" + nodeAtString(*technologyNode));
-		}
-
-		technologies.push_back(tech);
-	}
 }
