@@ -45,13 +45,6 @@ struct Technology
 	};
 
 
-	Technology() = delete;
-	Technology(int _id, int _labType, int _cost) :
-		id(_id),
-		labType(_labType),
-		cost(_cost)
-	{}
-
 	std::string name{""};
 	std::string description{""};
 	
