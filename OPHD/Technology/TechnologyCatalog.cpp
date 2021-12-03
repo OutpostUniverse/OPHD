@@ -4,6 +4,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/ContainerUtils.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -105,11 +106,8 @@ namespace
 		tech.name = dictionary.get("name");
 		tech.description = dictionary.get("description", std::string{""});
 
-		auto requiredIds = NAS2D::split(dictionary.get("requires", std::string{""}));
-		for (auto& id : requiredIds)
-		{
-			tech.requiredTechnologies.push_back(std::stoi(id));
-		}
+		const auto stoi = [](const auto& string) { return std::stoi(string); };
+		tech.requiredTechnologies = NAS2D::mapToVector(NAS2D::split(dictionary.get("requires", std::string{""})), stoi);
 
 		if (const auto* techElement = technology.firstChildElement("effects"))
 		{
