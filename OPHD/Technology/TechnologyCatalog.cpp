@@ -84,6 +84,23 @@ namespace
 	}
 
 
+	Technology::Modifier elementToModifier(const NAS2D::Xml::XmlElement& element)
+	{
+		return Technology::Modifier{
+			StringToModifier.at(element.attribute("type")),
+			std::stof(element.getText())
+		};
+	}
+
+
+	Technology::Unlock elementToUnlock(const NAS2D::Xml::XmlElement& element) {
+		return Technology::Unlock{
+			StringToUnlock.at(element.attribute("type")),
+			element.getText()
+		};
+	}
+
+
 	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
 	{
 		const auto dictionary = readAttributesAndSubValues(technology);
@@ -113,12 +130,8 @@ namespace
 		{
 			verifySubElementTypes(*techElement, {"modifier", "unlock"}, "TechnologyReader: ");
 
-			tech.modifiers = readSubElementArray(*techElement, "modifier", [](auto& element) {
-				return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
-			});
-			tech.unlocks = readSubElementArray(*techElement, "unlock", [](auto& element) {
-				return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
-			});
+			tech.modifiers = readSubElementArray(*techElement, "modifier", elementToModifier);
+			tech.unlocks = readSubElementArray(*techElement, "unlock", elementToUnlock);
 		}
 
 		return tech;
