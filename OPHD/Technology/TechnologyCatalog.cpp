@@ -204,7 +204,7 @@ void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryNa
 	auto& technologies = mCategories[categoryName];
 	for (auto technologyNode = category.firstChildElement(); technologyNode; technologyNode = technologyNode->nextSiblingElement())
 	{
-		Technology tech = readTechnology(*technologyNode);
+		const auto tech = readTechnology(*technologyNode);
 
 		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
 		if (it != technologies.end())
