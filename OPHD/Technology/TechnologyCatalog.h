@@ -26,6 +26,6 @@ private:
 	std::vector<std::string> mCategorNames;
 	std::map<std::string, std::vector<Technology>> mCategories;
 
-	void readCategories(NAS2D::Xml::XmlElement& node);
+	std::map<std::string, std::vector<Technology>> readCategories(NAS2D::Xml::XmlElement& node);
 	std::vector<Technology> readTechnologiesInCategory(NAS2D::Xml::XmlElement& category);
 };
