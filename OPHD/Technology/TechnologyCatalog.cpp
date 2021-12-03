@@ -114,17 +114,18 @@ namespace
 			throw std::runtime_error("TechnologyReader: " + std::string{error.what()} + " at (line " + std::to_string(technology.row()) + ", column " + std::to_string(technology.column()) + ")");
 		}
 
+		const auto stoi = [](const auto& string) { return std::stoi(string); };
+
 		Technology tech = {
+			dictionary.get("name"),
+			dictionary.get("description", std::string{""}),
 			dictionary.get<int>("id"),
 			dictionary.get<int>("lab_type"),
-			dictionary.get<int>("cost")
+			dictionary.get<int>("cost"),
+			NAS2D::mapToVector(NAS2D::split(dictionary.get("requires", std::string{""})), stoi),
+			{},
+			{}
 		};
-
-		tech.name = dictionary.get("name");
-		tech.description = dictionary.get("description", std::string{""});
-
-		const auto stoi = [](const auto& string) { return std::stoi(string); };
-		tech.requiredTechnologies = NAS2D::mapToVector(NAS2D::split(dictionary.get("requires", std::string{""})), stoi);
 
 		if (const auto* techElement = technology.firstChildElement("effects"))
 		{
