@@ -85,11 +85,11 @@ namespace
 
 	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
 	{
-		const auto attributes = readAttributesAndSubValues(technology);
+		const auto dictionary = readAttributesAndSubValues(technology);
 
 		try
 		{
-			reportMissingOrUnexpected(attributes.keys(), {"id", "lab_type", "cost", "name"}, {"description", "requires", "effects"});
+			reportMissingOrUnexpected(dictionary.keys(), {"id", "lab_type", "cost", "name"}, {"description", "requires", "effects"});
 		}
 		catch(std::exception& error)
 		{
@@ -97,9 +97,9 @@ namespace
 		}
 
 		Technology tech = {
-			attributes.get<int>("id"),
-			attributes.get<int>("lab_type"),
-			attributes.get<int>("cost")
+			dictionary.get<int>("id"),
+			dictionary.get<int>("lab_type"),
+			dictionary.get<int>("cost")
 		};
 
 		for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
