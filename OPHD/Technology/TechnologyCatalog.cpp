@@ -86,6 +86,16 @@ namespace
 	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
 	{
 		const auto attributes = readAttributesAndSubValues(technology);
+
+		try
+		{
+			reportMissingOrUnexpected(attributes.keys(), {"id", "lab_type", "cost", "name"}, {"description", "requires", "effects"});
+		}
+		catch(std::exception& error)
+		{
+			throw std::runtime_error("TechnologyReader: " + std::string{error.what()} + " at (line " + std::to_string(technology.row()) + ", column " + std::to_string(technology.column()) + ")");
+		}
+
 		Technology tech = {
 			attributes.get<int>("id"),
 			attributes.get<int>("lab_type"),
@@ -122,10 +132,6 @@ namespace
 				tech.unlocks = readSubElementArray(*techElement, "unlock", [](auto& element) {
 					return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
 				});
-			}
-			else
-			{
-				throw std::runtime_error("TechnologyReader: Unknown element '" + elementName + "' at (" + std::to_string(techElement->row()) + ", " + std::to_string(techElement->column()) + ")");
 			}
 		}
 
