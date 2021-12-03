@@ -102,27 +102,19 @@ namespace
 			dictionary.get<int>("cost")
 		};
 
+		tech.name = dictionary.get("name");
+		tech.description = dictionary.get("description", std::string{""});
+
+		auto requiredIds = NAS2D::split(dictionary.get("requires", std::string{""}));
+		for (auto& id : requiredIds)
+		{
+			tech.requiredTechnologies.push_back(std::stoi(id));
+		}
+
 		for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
 		{
 			const std::string elementName = techElement->value();
-			std::string elementValue = techElement->getText();
-			if (elementName == "name")
-			{
-				tech.name = elementValue;
-			}
-			else if (elementName == "description")
-			{
-				tech.description = elementValue;
-			}
-			else if (elementName == "requires")
-			{
-				auto requiredIds = NAS2D::split(elementValue);
-				for (auto& id : requiredIds)
-				{
-					tech.requiredTechnologies.push_back(std::stoi(id));
-				}
-			}
-			else if (elementName == "effects")
+			if (elementName == "effects")
 			{
 				verifySubElementTypes(*techElement, {"modifier", "unlock"}, "TechnologyReader: ");
 
