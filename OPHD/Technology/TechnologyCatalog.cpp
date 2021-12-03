@@ -193,15 +193,15 @@ void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 		{
 			throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
 		}
-		readTechnologiesInCategory(name, *category);
+		mCategories[name] = readTechnologiesInCategory(*category);
 		mCategorNames.push_back(name);
 	}
 }
 
 
-void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryName, NAS2D::Xml::XmlElement& category)
+std::vector<Technology> TechnologyCatalog::readTechnologiesInCategory(NAS2D::Xml::XmlElement& category)
 {
-	auto& technologies = mCategories[categoryName];
+	std::vector<Technology> technologies;
 	for (auto technologyNode = category.firstChildElement(); technologyNode; technologyNode = technologyNode->nextSiblingElement())
 	{
 		const auto tech = readTechnology(*technologyNode);
@@ -214,4 +214,5 @@ void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryNa
 
 		technologies.push_back(tech);
 	}
+	return technologies;
 }
