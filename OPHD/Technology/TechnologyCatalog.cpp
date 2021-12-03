@@ -111,20 +111,16 @@ namespace
 			tech.requiredTechnologies.push_back(std::stoi(id));
 		}
 
-		for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
+		for (auto techElement = technology.firstChildElement("effects"); techElement; techElement = techElement->nextSiblingElement("effects"))
 		{
-			const std::string elementName = techElement->value();
-			if (elementName == "effects")
-			{
-				verifySubElementTypes(*techElement, {"modifier", "unlock"}, "TechnologyReader: ");
+			verifySubElementTypes(*techElement, {"modifier", "unlock"}, "TechnologyReader: ");
 
-				tech.modifiers = readSubElementArray(*techElement, "modifier", [](auto& element) {
-					return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
-				});
-				tech.unlocks = readSubElementArray(*techElement, "unlock", [](auto& element) {
-					return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
-				});
-			}
+			tech.modifiers = readSubElementArray(*techElement, "modifier", [](auto& element) {
+				return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
+			});
+			tech.unlocks = readSubElementArray(*techElement, "unlock", [](auto& element) {
+				return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
+			});
 		}
 
 		return tech;
