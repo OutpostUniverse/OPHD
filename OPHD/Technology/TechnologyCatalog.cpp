@@ -67,19 +67,6 @@ namespace
 	}
 
 
-	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
-	{
-		verifySubElementTypes(effects, {"modifier", "unlock"}, "TechnologyReader: ");
-
-		technology.modifiers = readSubElementArray(effects, "modifier", [](auto& element) {
-			return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
-		});
-		technology.unlocks = readSubElementArray(effects, "unlock", [](auto& element) {
-			return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
-		});
-	}
-
-
 	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
 	{
 		const auto attributes = NAS2D::attributesToDictionary(technology);
@@ -111,7 +98,14 @@ namespace
 			}
 			else if (elementName == "effects")
 			{
-				readEffects(*techElement, tech);
+				verifySubElementTypes(*techElement, {"modifier", "unlock"}, "TechnologyReader: ");
+
+				tech.modifiers = readSubElementArray(*techElement, "modifier", [](auto& element) {
+					return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
+				});
+				tech.unlocks = readSubElementArray(*techElement, "unlock", [](auto& element) {
+					return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
+				});
 			}
 			else
 			{
