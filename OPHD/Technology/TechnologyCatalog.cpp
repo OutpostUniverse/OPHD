@@ -111,7 +111,7 @@ namespace
 			tech.requiredTechnologies.push_back(std::stoi(id));
 		}
 
-		for (auto techElement = technology.firstChildElement("effects"); techElement; techElement = techElement->nextSiblingElement("effects"))
+		if (const auto* techElement = technology.firstChildElement("effects"))
 		{
 			verifySubElementTypes(*techElement, {"modifier", "unlock"}, "TechnologyReader: ");
 
