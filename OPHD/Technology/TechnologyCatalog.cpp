@@ -67,9 +67,25 @@ namespace
 	}
 
 
+	NAS2D::Dictionary readAttributesAndSubValues(NAS2D::Xml::XmlElement& element)
+	{
+		auto attributes = NAS2D::attributesToDictionary(element);
+		for (auto subElement = element.firstChildElement(); subElement; subElement = subElement->nextSiblingElement())
+		{
+			const auto& elementName = subElement->value();
+			const auto& elementValue = subElement->getText();
+			if (!elementValue.empty())
+			{
+				attributes.set(elementName, elementValue);
+			}
+		}
+		return attributes;
+	}
+
+
 	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
 	{
-		const auto attributes = NAS2D::attributesToDictionary(technology);
+		const auto attributes = readAttributesAndSubValues(technology);
 		Technology tech = {
 			attributes.get<int>("id"),
 			attributes.get<int>("lab_type"),
