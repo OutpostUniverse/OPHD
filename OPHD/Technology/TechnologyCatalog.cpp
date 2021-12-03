@@ -66,9 +66,11 @@ namespace
 	Technology readTechnology(NAS2D::Xml::XmlElement& technology)
 	{
 		const auto attributes = NAS2D::attributesToDictionary(technology);
-		Technology tech = {attributes.get<int>("id"),
-						   attributes.get<int>("lab_type"),
-						   attributes.get<int>("cost")};
+		Technology tech = {
+			attributes.get<int>("id"),
+			attributes.get<int>("lab_type"),
+			attributes.get<int>("cost")
+		};
 
 		for (auto techElement = technology.firstChildElement(); techElement; techElement = techElement->nextSiblingElement())
 		{
