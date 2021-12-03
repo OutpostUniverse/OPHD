@@ -3,6 +3,7 @@
 #include "StorableResources.h"
 
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/Xml/XmlElement.h>
 
 #include <algorithm>
 #include <array>
