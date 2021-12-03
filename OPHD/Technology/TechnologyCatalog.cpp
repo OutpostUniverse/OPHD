@@ -40,6 +40,12 @@ namespace
 	};
 
 
+	std::string nodeAtString(const NAS2D::Xml::XmlNode& node)
+	{
+		return " at (line " + std::to_string(node.row()) + ", column " + std::to_string(node.column()) + ")";
+	}
+
+
 	void verifySubElementTypes(const NAS2D::Xml::XmlElement& parentElement, const std::vector<std::string>& allowedNames, const std::string& errorMessagePrefix)
 	{
 		for (auto subElement = parentElement.firstChildElement(); subElement; subElement = subElement->nextSiblingElement())
@@ -47,7 +53,7 @@ namespace
 			const auto& elementName = subElement->value();
 			if (std::find(allowedNames.begin(), allowedNames.end(), elementName) == allowedNames.end())
 			{
-				throw std::runtime_error(errorMessagePrefix + "Unknown element '" + elementName + "' at (line " + std::to_string(subElement->row()) + ", column " + std::to_string(subElement->column()) + ")");
+				throw std::runtime_error(errorMessagePrefix + "Unknown element '" + elementName + "'" + nodeAtString(*subElement));
 			}
 		}
 	}
@@ -111,7 +117,7 @@ namespace
 		}
 		catch(std::exception& error)
 		{
-			throw std::runtime_error("TechnologyReader: " + std::string{error.what()} + " at (line " + std::to_string(technology.row()) + ", column " + std::to_string(technology.column()) + ")");
+			throw std::runtime_error("TechnologyReader: " + std::string{error.what()} + nodeAtString(technology));
 		}
 
 		const auto stoi = [](const auto& string) { return std::stoi(string); };
@@ -185,8 +191,7 @@ void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 		auto it = mCategories.find(name);
 		if (it != mCategories.end())
 		{
-			throw std::runtime_error("TechnologyReader: Category redefinition '" + name +
-				"' at (" + std::to_string(category->row()) + ", " + std::to_string(category->column()) + ")");
+			throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
 		}
 		readTechnologiesInCategory(name, *category);
 		mCategorNames.push_back(name);
@@ -204,8 +209,7 @@ void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryNa
 		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
 		if (it != technologies.end())
 		{
-			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) +
-				"' at (" + std::to_string(technologyNode->row()) + ", " + std::to_string(technologyNode->column()) + ")");
+			throw std::runtime_error("TechnologyReader: Technology ID redefinition '" + std::to_string(tech.id) + "'" + nodeAtString(*technologyNode));
 		}
 
 		technologies.push_back(tech);
