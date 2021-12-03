@@ -50,20 +50,17 @@ namespace
 			}
 		}
 
-		for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
+		for (auto effectElement = effects.firstChildElement("modifier"); effectElement; effectElement = effectElement->nextSiblingElement("modifier"))
 		{
-			const std::string effectName = effectElement->value();
 			const std::string effectValue = effectElement->getText();
 			auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
-
-			if (effectName == "modifier")
-			{
-				technology.modifiers.push_back({StringToModifier.at(effectAttributes.get("type")), std::stof(effectValue)});
-			}
-			else if (effectName == "unlock")
-			{
-				technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
-			}
+			technology.modifiers.push_back({StringToModifier.at(effectAttributes.get("type")), std::stof(effectValue)});
+		}
+		for (auto effectElement = effects.firstChildElement("unlock"); effectElement; effectElement = effectElement->nextSiblingElement("unlock"))
+		{
+			const std::string effectValue = effectElement->getText();
+			auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
+			technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
 		}
 	}
 
