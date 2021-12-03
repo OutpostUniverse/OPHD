@@ -39,6 +39,21 @@ namespace
 	};
 
 
+	template <typename UnaryOperation>
+	auto readSubElementArray(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName, UnaryOperation mapFunction)
+	{
+		using ResultType = decltype(mapFunction(std::declval<NAS2D::Xml::XmlElement&>()));
+		using ElementType = std::remove_cv_t<std::remove_reference_t<ResultType>>;
+
+		std::vector<ElementType> results;
+		for (auto subElement = parentElement.firstChildElement(subElementName); subElement; subElement = subElement->nextSiblingElement(subElementName))
+		{
+			results.push_back(mapFunction(*subElement));
+		}
+		return results;
+	}
+
+
 	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
 	{
 		for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
@@ -50,18 +65,12 @@ namespace
 			}
 		}
 
-		for (auto effectElement = effects.firstChildElement("modifier"); effectElement; effectElement = effectElement->nextSiblingElement("modifier"))
-		{
-			const std::string effectValue = effectElement->getText();
-			auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
-			technology.modifiers.push_back({StringToModifier.at(effectAttributes.get("type")), std::stof(effectValue)});
-		}
-		for (auto effectElement = effects.firstChildElement("unlock"); effectElement; effectElement = effectElement->nextSiblingElement("unlock"))
-		{
-			const std::string effectValue = effectElement->getText();
-			auto effectAttributes = NAS2D::attributesToDictionary(*effectElement);
-			technology.unlocks.push_back({StringToUnlock.at(effectAttributes.get("type")), effectValue});
-		}
+		technology.modifiers = readSubElementArray(effects, "modifier", [](auto& element) {
+			return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
+		});
+		technology.unlocks = readSubElementArray(effects, "unlock", [](auto& element) {
+			return Technology::Unlock{StringToUnlock.at(element.attribute("type")), element.getText()};
+		});
 	}
 
 
