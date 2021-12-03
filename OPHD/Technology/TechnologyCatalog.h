@@ -6,9 +6,6 @@
 #include <string>
 #include <vector>
 
-#include <NAS2D/Dictionary.h>
-#include <NAS2D/Xml/Xml.h>
-
 
 class TechnologyCatalog
 {
@@ -25,7 +22,4 @@ public:
 private:
 	std::vector<std::string> mCategorNames;
 	std::map<std::string, std::vector<Technology>> mCategories;
-
-	std::map<std::string, std::vector<Technology>> readCategories(NAS2D::Xml::XmlElement& node);
-	std::vector<Technology> readTechnologiesInCategory(NAS2D::Xml::XmlElement& category);
 };
