@@ -39,6 +39,19 @@ namespace
 	};
 
 
+	void verifySubElementTypes(const NAS2D::Xml::XmlElement& parentElement, const std::vector<std::string>& allowedNames, const std::string& errorMessagePrefix)
+	{
+		for (auto subElement = parentElement.firstChildElement(); subElement; subElement = subElement->nextSiblingElement())
+		{
+			const auto& elementName = subElement->value();
+			if (std::find(allowedNames.begin(), allowedNames.end(), elementName) == allowedNames.end())
+			{
+				throw std::runtime_error(errorMessagePrefix + "Unknown element '" + elementName + "' at (line " + std::to_string(subElement->row()) + ", column " + std::to_string(subElement->column()) + ")");
+			}
+		}
+	}
+
+
 	template <typename UnaryOperation>
 	auto readSubElementArray(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName, UnaryOperation mapFunction)
 	{
@@ -56,14 +69,7 @@ namespace
 
 	void readEffects(NAS2D::Xml::XmlElement& effects, Technology& technology)
 	{
-		for (auto effectElement = effects.firstChildElement(); effectElement; effectElement = effectElement->nextSiblingElement())
-		{
-			const auto& effectName = effectElement->value();
-			if (effectName != "modifier" && effectName != "unlock")
-			{
-				throw std::runtime_error("TechnologyReader: Unknown element '" + effectName + "' at (" + std::to_string(effectElement->row()) + ", " + std::to_string(effectElement->column()) + ")");
-			}
-		}
+		verifySubElementTypes(effects, {"modifier", "unlock"}, "TechnologyReader: ");
 
 		technology.modifiers = readSubElementArray(effects, "modifier", [](auto& element) {
 			return Technology::Modifier{StringToModifier.at(element.attribute("type")), std::stof(element.getText())};
