@@ -201,11 +201,11 @@ void TechnologyCatalog::readCategories(NAS2D::Xml::XmlElement& node)
 
 void TechnologyCatalog::readTechnologiesInCategory(const std::string& categoryName, NAS2D::Xml::XmlElement& category)
 {
+	auto& technologies = mCategories[categoryName];
 	for (auto technologyNode = category.firstChildElement(); technologyNode; technologyNode = technologyNode->nextSiblingElement())
 	{
 		Technology tech = readTechnology(*technologyNode);
 
-		auto& technologies = mCategories[categoryName];
 		const auto it = std::find_if(technologies.begin(), technologies.end(), [tech](const Technology& technology) { return technology.id == tech.id; });
 		if (it != technologies.end())
 		{
