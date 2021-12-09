@@ -776,6 +776,9 @@
     <ClInclude Include="Technology\TechnologyCatalog.h">
       <Filter>Header Files\Technology</Filter>
     </ClInclude>
+    <ClInclude Include="Technology\ResearchTracker.h">
+      <Filter>Header Files\Technology</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
