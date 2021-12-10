@@ -557,3 +557,13 @@ NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotM
 
 	return robots;
 }
+
+
+NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker&)
+{
+	auto* research = new NAS2D::Xml::XmlElement("research");
+
+
+
+	return research;
+}

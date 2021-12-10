@@ -86,7 +86,7 @@ void MapViewState::save(const std::string& filePath)
 	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize(robotToIdMap));
 	root->linkEndChild(writeRobots(mRobotPool, mRobotList, robotToIdMap));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
-
+	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
 	const auto population = mPopulation.getPopulations();
