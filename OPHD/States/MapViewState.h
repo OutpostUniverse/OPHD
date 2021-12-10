@@ -15,6 +15,7 @@
 #include "../PopulationPool.h"
 #include "../Population/Population.h"
 
+#include "../Technology/ResearchTracker.h"
 #include "../Technology/TechnologyCatalog.h"
 
 #include "../Things/Robots/Robot.h"
@@ -282,6 +283,7 @@ private:
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
+	ResearchTracker mResearchTracker;
 	TechnologyCatalog mTechnologyReader;
 
 	Planet::Attributes mPlanetAttributes;
