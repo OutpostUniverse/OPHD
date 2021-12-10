@@ -357,6 +357,9 @@
     <ClCompile Include="Technology\TechnologyCatalog.cpp">
       <Filter>Source Files\Technology</Filter>
     </ClCompile>
+    <ClCompile Include="Technology\ResearchTracker.cpp">
+      <Filter>Source Files\Technology</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
