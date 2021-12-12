@@ -592,3 +592,25 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 
 	return research;
 }
+
+
+void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
+{
+	const std::vector<std::string> researchList = NAS2D::split(element->attribute("completed"));
+
+	for (auto& item : researchList)
+	{
+		tracker.addCompletedResearch(std::stoi(item));
+	}
+
+	for (auto currentResearch = element->firstChildElement();
+		currentResearch != nullptr;
+		currentResearch = currentResearch->nextSiblingElement())
+	{
+		const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
+
+		tracker.startResearch(dictionary.get<int>("tech_id"),
+							  dictionary.get<int>("progress"),
+							  dictionary.get<int>("assigned"));
+	}
+}
