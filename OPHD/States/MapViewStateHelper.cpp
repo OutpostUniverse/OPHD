@@ -596,7 +596,9 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 
 void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 {
-	const std::vector<std::string> researchList = NAS2D::split(element->attribute("completed"));
+	if (!element) { return; }
+	
+	const std::vector<std::string> researchList = NAS2D::split(element->attribute("completed_techs"));
 
 	for (auto& item : researchList)
 	{
@@ -604,8 +606,8 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 	}
 
 	for (auto currentResearch = element->firstChildElement();
-		currentResearch != nullptr;
-		currentResearch = currentResearch->nextSiblingElement())
+		 currentResearch != nullptr;
+		 currentResearch = currentResearch->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
 
