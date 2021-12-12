@@ -20,6 +20,8 @@
 
 #include "../UI/MessageBox.h"
 
+#include "../Technology/ResearchTracker.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
@@ -559,11 +561,34 @@ NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotM
 }
 
 
-NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker&)
+NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 {
 	auto* research = new NAS2D::Xml::XmlElement("research");
 
+	std::string completedResearch;
+	for (auto techId : tracker.completedResearch())
+	{
+		completedResearch += std::to_string(techId) + ",";
+	}
 
+	if (!completedResearch.empty())
+	{
+		completedResearch.pop_back();
+	}
+
+	research->attribute("completed_techs", completedResearch);
+
+	for (auto& item : tracker.currentResearch())
+	{
+		research->linkEndChild(NAS2D::dictionaryToAttributes(
+			"current",
+			{{
+				{"tech_id", item.first},
+				{"progress", std::get<0>(item.second)},
+				{"assigned", std::get<1>(item.second)},
+			}}
+		));
+	}
 
 	return research;
 }
