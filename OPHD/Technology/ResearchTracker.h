@@ -26,6 +26,13 @@ public:
 		return mTechnologiesBeingResearched;
 	}
 
+
+	void addCompletedResearch(int techId)
+	{
+		mCompleted.push_back(techId);
+	}
+
+
 	void startResearch(int techId, int progress, int assigned);
 	void updateResearch(int techId, int progress, int assigned);
 	const std::tuple<int, int>& researchProgress(int techId) const;
