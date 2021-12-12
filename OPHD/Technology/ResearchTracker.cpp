@@ -36,3 +36,10 @@ const std::tuple<int, int>& ResearchTracker::researchProgress(int techId) const
 {
 	return mTechnologiesBeingResearched.at(techId);
 }
+
+
+void ResearchTracker::clear()
+{
+	mCompleted.clear();
+	mTechnologiesBeingResearched.clear();
+}
