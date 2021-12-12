@@ -578,14 +578,14 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 
 	research->attribute("completed_techs", completedResearch);
 
-	for (auto& item : tracker.currentResearch())
+	for (const auto& [techId, values] : tracker.currentResearch())
 	{
 		research->linkEndChild(NAS2D::dictionaryToAttributes(
 			"current",
 			{{
-				{"tech_id", item.first},
-				{"progress", std::get<0>(item.second)},
-				{"assigned", std::get<1>(item.second)},
+				{"tech_id", techId},
+				{"progress", std::get<0>(values)},
+				{"assigned", std::get<1>(values)},
 			}}
 		));
 	}
