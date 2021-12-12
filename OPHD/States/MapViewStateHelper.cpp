@@ -20,6 +20,8 @@
 
 #include "../UI/MessageBox.h"
 
+#include "../Technology/ResearchTracker.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
@@ -556,4 +558,61 @@ NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotM
 	}
 
 	return robots;
+}
+
+
+NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
+{
+	auto* research = new NAS2D::Xml::XmlElement("research");
+
+	std::string completedResearch;
+	for (auto techId : tracker.completedResearch())
+	{
+		completedResearch += std::to_string(techId) + ",";
+	}
+
+	if (!completedResearch.empty())
+	{
+		completedResearch.pop_back();
+	}
+
+	research->attribute("completed_techs", completedResearch);
+
+	for (const auto& [techId, values] : tracker.currentResearch())
+	{
+		research->linkEndChild(NAS2D::dictionaryToAttributes(
+			"current",
+			{{
+				{"tech_id", techId},
+				{"progress", std::get<0>(values)},
+				{"assigned", std::get<1>(values)},
+			}}
+		));
+	}
+
+	return research;
+}
+
+
+void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
+{
+	if (!element) { return; }
+	
+	const std::vector<std::string> researchList = NAS2D::split(element->attribute("completed_techs"));
+
+	for (auto& item : researchList)
+	{
+		tracker.addCompletedResearch(std::stoi(item));
+	}
+
+	for (auto currentResearch = element->firstChildElement();
+		 currentResearch != nullptr;
+		 currentResearch = currentResearch->nextSiblingElement())
+	{
+		const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
+
+		tracker.startResearch(dictionary.get<int>("tech_id"),
+							  dictionary.get<int>("progress"),
+							  dictionary.get<int>("assigned"));
+	}
 }

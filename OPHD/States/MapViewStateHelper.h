@@ -32,6 +32,8 @@ class RobotPool;
 class Robot;
 struct StorableResources;
 
+class ResearchTracker;
+
 using RobotTileTable = std::map<Robot*, Tile*>;
 
 extern const NAS2D::Point<int> CcNotPlaced;
@@ -64,6 +66,9 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 
 // Serialize / Deserialize
 NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap);
+NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker&);
+
+void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker);
 
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);

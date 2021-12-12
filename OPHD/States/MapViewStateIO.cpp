@@ -86,7 +86,7 @@ void MapViewState::save(const std::string& filePath)
 	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize(robotToIdMap));
 	root->linkEndChild(writeRobots(mRobotPool, mRobotList, robotToIdMap));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
-
+	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
 	const auto population = mPopulation.getPopulations();
@@ -200,6 +200,9 @@ void MapViewState::load(const std::string& filePath)
 	 */
 	const auto idToRobotMap = readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"), idToRobotMap);
+
+	mResearchTracker.clear();
+	readResearch(root->firstChildElement("research"), mResearchTracker);
 
 	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
 	readPopulation(root->firstChildElement("population"));
