@@ -25,6 +25,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/StringUtils.h>
+#include <NAS2D/ContainerUtils.h>
 
 #include <algorithm>
 
@@ -565,16 +567,8 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 {
 	auto* research = new NAS2D::Xml::XmlElement("research");
 
-	std::string completedResearch;
-	for (auto techId : tracker.completedResearch())
-	{
-		completedResearch += std::to_string(techId) + ",";
-	}
-
-	if (!completedResearch.empty())
-	{
-		completedResearch.pop_back();
-	}
+	const auto intToStr = [](const auto& x){return std::to_string(x);};
+	const auto completedResearch = NAS2D::join(NAS2D::mapToVector(tracker.completedResearch(), intToStr), ",");
 
 	research->attribute("completed_techs", completedResearch);
 
