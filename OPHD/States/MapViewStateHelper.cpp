@@ -611,8 +611,10 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
 
-		tracker.startResearch(dictionary.get<int>("tech_id"),
-							  dictionary.get<int>("progress"),
-							  dictionary.get<int>("assigned"));
+		tracker.startResearch(
+			dictionary.get<int>("tech_id"),
+			dictionary.get<int>("progress"),
+			dictionary.get<int>("assigned")
+		);
 	}
 }
