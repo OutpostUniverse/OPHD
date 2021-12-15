@@ -578,8 +578,8 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 			"current",
 			{{
 				{"tech_id", techId},
-				{"progress", std::get<0>(values)},
-				{"assigned", std::get<1>(values)},
+				{"progress", values.progress},
+				{"assigned", values.scientistsAssigned},
 			}}
 		));
 	}
