@@ -598,7 +598,7 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 {
 	if (!element) { return; }
 	
-	const std::vector<std::string> researchList = NAS2D::split(element->attribute("completed_techs"));
+	const auto researchList = NAS2D::split(element->attribute("completed_techs"));
 
 	for (auto& item : researchList)
 	{
