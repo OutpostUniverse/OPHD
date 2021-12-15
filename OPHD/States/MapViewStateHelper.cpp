@@ -25,6 +25,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/StringUtils.h>
+#include <NAS2D/ContainerUtils.h>
 
 #include <algorithm>
 
@@ -565,16 +567,8 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 {
 	auto* research = new NAS2D::Xml::XmlElement("research");
 
-	std::string completedResearch;
-	for (auto techId : tracker.completedResearch())
-	{
-		completedResearch += std::to_string(techId) + ",";
-	}
-
-	if (!completedResearch.empty())
-	{
-		completedResearch.pop_back();
-	}
+	const auto intToStr = [](const auto& x){return std::to_string(x);};
+	const auto completedResearch = NAS2D::join(NAS2D::mapToVector(tracker.completedResearch(), intToStr), ",");
 
 	research->attribute("completed_techs", completedResearch);
 
@@ -584,8 +578,8 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 			"current",
 			{{
 				{"tech_id", techId},
-				{"progress", std::get<0>(values)},
-				{"assigned", std::get<1>(values)},
+				{"progress", values.progress},
+				{"assigned", values.scientistsAssigned},
 			}}
 		));
 	}
@@ -598,7 +592,7 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 {
 	if (!element) { return; }
 	
-	const std::vector<std::string> researchList = NAS2D::split(element->attribute("completed_techs"));
+	const auto researchList = NAS2D::split(element->attribute("completed_techs"));
 
 	for (auto& item : researchList)
 	{
@@ -606,13 +600,15 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 	}
 
 	for (auto currentResearch = element->firstChildElement();
-		 currentResearch != nullptr;
-		 currentResearch = currentResearch->nextSiblingElement())
+		currentResearch != nullptr;
+		currentResearch = currentResearch->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
 
-		tracker.startResearch(dictionary.get<int>("tech_id"),
-							  dictionary.get<int>("progress"),
-							  dictionary.get<int>("assigned"));
+		tracker.startResearch(
+			dictionary.get<int>("tech_id"),
+			dictionary.get<int>("progress"),
+			dictionary.get<int>("assigned")
+		);
 	}
 }

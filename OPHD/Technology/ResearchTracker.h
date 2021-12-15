@@ -5,12 +5,19 @@
 #include "../Common.h"
 
 #include <map>
-#include <tuple>
 #include <vector>
+
 
 class ResearchTracker
 {
 public:
+	struct ResearchProgress
+	{
+		int progress;
+		int scientistsAssigned;
+	};
+
+
 	ResearchTracker() = default;
 	~ResearchTracker() = default;
 
@@ -21,7 +28,7 @@ public:
 	}
 
 	
-	const std::map<int, std::tuple<int, int>>& currentResearch() const
+	const std::map<int, ResearchProgress>& currentResearch() const
 	{
 		return mTechnologiesBeingResearched;
 	}
@@ -35,12 +42,10 @@ public:
 
 	void startResearch(int techId, int progress, int assigned);
 	void updateResearch(int techId, int progress, int assigned);
-	const std::tuple<int, int>& researchProgress(int techId) const;
-
-	void clear();
+	const ResearchProgress& researchProgress(int techId) const;
 
 
 private:
 	std::vector<int> mCompleted;
-	std::map<int, std::tuple<int, int>> mTechnologiesBeingResearched;
+	std::map<int, ResearchProgress> mTechnologiesBeingResearched;
 };
