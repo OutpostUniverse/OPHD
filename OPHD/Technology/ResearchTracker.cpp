@@ -12,12 +12,7 @@ void ResearchTracker::startResearch(int techId, int progress, int assigned)
 		throw std::runtime_error("Can't update a technology that's already researched.");
 	}
 
-	auto emplacedItem = mTechnologiesBeingResearched.emplace(techId, ResearchProgress{progress, assigned});
-	if (!emplacedItem.second)
-	{
-		(*emplacedItem.first).second = {progress, assigned};
-	}
-
+	mTechnologiesBeingResearched.insert_or_assign(techId, ResearchProgress{progress, assigned});
 }
 
 
