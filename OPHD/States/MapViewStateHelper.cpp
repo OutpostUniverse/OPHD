@@ -606,8 +606,8 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 	}
 
 	for (auto currentResearch = element->firstChildElement();
-		 currentResearch != nullptr;
-		 currentResearch = currentResearch->nextSiblingElement())
+		currentResearch != nullptr;
+		currentResearch = currentResearch->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
 
