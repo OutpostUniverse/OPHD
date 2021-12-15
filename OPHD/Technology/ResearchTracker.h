@@ -37,8 +37,6 @@ public:
 	void updateResearch(int techId, int progress, int assigned);
 	const std::tuple<int, int>& researchProgress(int techId) const;
 
-	void clear();
-
 
 private:
 	std::vector<int> mCompleted;
