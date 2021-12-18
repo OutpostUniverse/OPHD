@@ -327,15 +327,13 @@ void MapViewState::transportOreFromMines()
 			auto& stored = mineFacility.storage();
 			const auto moved = stored.cap(movementCap);
 
-			stored -= moved;
-
 			auto& smelterProduction = smelter.production();
 			auto newResources = smelterProduction + moved;
 			auto capped = newResources.cap(250);
 			smelterProduction = capped;
 
 			auto overflow = newResources - capped;
-			stored += overflow;
+			stored -= (moved - overflow);
 		}
 	}
 }
