@@ -31,6 +31,15 @@
 
 namespace
 {
+	MapCoordinate loadMapCoordinate(const NAS2D::Dictionary& dictionary)
+	{
+		const auto x = dictionary.get<int>("x");
+		const auto y = dictionary.get<int>("y");
+		const auto depth = dictionary.get<int>("depth");
+		return MapCoordinate{{x, y}, depth};
+	}
+
+
 	void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
 	{
 		if (!element) { return; }
@@ -319,10 +328,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
-		const auto x = dictionary.get<int>("x");
-		const auto y = dictionary.get<int>("y");
-		const auto depth = dictionary.get<int>("depth");
-
 		const auto type = dictionary.get<int>("type");
 		const auto age = dictionary.get<int>("age");
 		const auto state = dictionary.get<int>("state");
@@ -340,7 +345,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		const auto pop0 = dictionary.get<int>("pop0");
 		const auto pop1 = dictionary.get<int>("pop1");
 
-		const auto mapCoordinate = MapCoordinate{{x, y}, depth};
+		const auto mapCoordinate = loadMapCoordinate(dictionary);
 		auto& tile = mTileMap->getTile(mapCoordinate);
 		tile.index(TerrainType::Dozed);
 		tile.excavated(true);
