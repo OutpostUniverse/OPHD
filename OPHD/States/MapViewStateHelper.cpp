@@ -482,29 +482,6 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 }
 
 
-/**
- * Pull specified amount of resources from a given quantity.
- * 
- * \note	Modifies param \c resource.
- * 
- * \return	Actual amount pulled.
- */
-int pullResource(int& resource, int amount)
-{
-	if (amount <= resource)
-	{
-		resource -= amount;
-		return amount;
-	}
-	else
-	{
-		int ret = resource;
-		resource = 0;
-		return ret;
-	}
-}
-
-
 void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 {
 	Robodozer* dozer = dynamic_cast<Robodozer*>(robot);
