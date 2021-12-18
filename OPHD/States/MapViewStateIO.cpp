@@ -201,8 +201,7 @@ void MapViewState::load(const std::string& filePath)
 	const auto idToRobotMap = readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"), idToRobotMap);
 
-	mResearchTracker = ResearchTracker{};
-	readResearch(root->firstChildElement("research"), mResearchTracker);
+	mResearchTracker = readResearch(root->firstChildElement("research"));
 
 	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
 	readPopulation(root->firstChildElement("population"));

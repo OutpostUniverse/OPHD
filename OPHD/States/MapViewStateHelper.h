@@ -68,7 +68,7 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap);
 NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker&);
 
-void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker);
+ResearchTracker readResearch(NAS2D::Xml::XmlElement* element);
 
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);

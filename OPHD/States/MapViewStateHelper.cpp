@@ -588,9 +588,11 @@ NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 }
 
 
-void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
+ResearchTracker readResearch(NAS2D::Xml::XmlElement* element)
 {
-	if (!element) { return; }
+	ResearchTracker tracker;
+
+	if (!element) { return tracker; }
 	
 	const auto researchList = NAS2D::split(element->attribute("completed_techs"));
 
@@ -611,4 +613,6 @@ void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker)
 			dictionary.get<int>("assigned")
 		);
 	}
+
+	return tracker;
 }
