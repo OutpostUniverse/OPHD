@@ -32,6 +32,16 @@ static inline int pullFoodFromStructure(FoodProduction& producer, int remainder)
 }
 
 
+static void consumeFood(const std::vector<FoodProduction*>& foodProducers, int amountToConsume)
+{
+	for (auto foodProducer : foodProducers)
+	{
+		if (amountToConsume <= 0) { break; }
+		amountToConsume -= pullFoodFromStructure(*foodProducer, amountToConsume);
+	}
+}
+
+
 static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -96,13 +106,8 @@ void MapViewState::updatePopulation()
 	auto& commandCenters = structureManager.getStructures<CommandCenter>();
 	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
-	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
-
-	for (auto foodProducer : foodProducers)
-	{
-		if (remainder <= 0) { break; }
-		remainder -= pullFoodFromStructure(*foodProducer, remainder);
-	}
+	int amountToConsume = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
+	consumeFood(foodProducers, amountToConsume);
 }
 
 
