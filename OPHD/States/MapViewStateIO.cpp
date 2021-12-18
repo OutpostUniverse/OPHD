@@ -16,13 +16,17 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../XmlSerializer.h"
+#include "../Technology/ResearchTracker.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
+#include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/StringUtils.h>
+#include <NAS2D/ContainerUtils.h>
 
 #include <string>
 #include <vector>
@@ -102,6 +106,61 @@ namespace
 		}
 
 		return robots;
+	}
+
+
+	NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
+	{
+		auto* research = new NAS2D::Xml::XmlElement("research");
+
+		const auto intToStr = [](const auto& x){return std::to_string(x);};
+		const auto completedResearch = NAS2D::join(NAS2D::mapToVector(tracker.completedResearch(), intToStr), ",");
+
+		research->attribute("completed_techs", completedResearch);
+
+		for (const auto& [techId, values] : tracker.currentResearch())
+		{
+			research->linkEndChild(NAS2D::dictionaryToAttributes(
+				"current",
+				{{
+					{"tech_id", techId},
+					{"progress", values.progress},
+					{"assigned", values.scientistsAssigned},
+				}}
+			));
+		}
+
+		return research;
+	}
+
+
+	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element)
+	{
+		ResearchTracker tracker;
+
+		if (!element) { return tracker; }
+
+		const auto researchList = NAS2D::split(element->attribute("completed_techs"));
+
+		for (auto& item : researchList)
+		{
+			tracker.addCompletedResearch(std::stoi(item));
+		}
+
+		for (auto currentResearch = element->firstChildElement();
+			currentResearch != nullptr;
+			currentResearch = currentResearch->nextSiblingElement())
+		{
+			const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
+
+			tracker.startResearch(
+				dictionary.get<int>("tech_id"),
+				dictionary.get<int>("progress"),
+				dictionary.get<int>("assigned")
+			);
+		}
+
+		return tracker;
 	}
 }
 
