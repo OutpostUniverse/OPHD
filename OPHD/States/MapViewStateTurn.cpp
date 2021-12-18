@@ -22,7 +22,9 @@
 #include <algorithm>
 
 
-static inline int consumeFood(FoodProduction& producer, int amountToConsume)
+namespace
+{
+int consumeFood(FoodProduction& producer, int amountToConsume)
 {
 	const auto foodLevel = producer.foodLevel();
 	const auto toTransfer = std::min(foodLevel, amountToConsume);
@@ -32,7 +34,7 @@ static inline int consumeFood(FoodProduction& producer, int amountToConsume)
 }
 
 
-static void consumeFood(const std::vector<FoodProduction*>& foodProducers, int amountToConsume)
+void consumeFood(const std::vector<FoodProduction*>& foodProducers, int amountToConsume)
 {
 	for (auto foodProducer : foodProducers)
 	{
@@ -42,7 +44,7 @@ static void consumeFood(const std::vector<FoodProduction*>& foodProducers, int a
 }
 
 
-static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
+RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	auto& start = structureManager.tileFromStructure(mine);
@@ -54,9 +56,9 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 		if (!smelter->operational()) { continue; }
 
 		auto& end = structureManager.tileFromStructure(smelter);
-		
+
 		tilemap->pathStartAndEnd(&start, &end);
-		
+
 		Route route;
 		solver->Reset();
 		solver->Solve(&start, &end, &route.path, &route.cost);
@@ -68,7 +70,7 @@ static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, 
 }
 
 
-static Route findLowestCostRoute(RouteList& routeList)
+Route findLowestCostRoute(RouteList& routeList)
 {
 	if (routeList.empty()) { return Route(); }
 
@@ -77,7 +79,7 @@ static Route findLowestCostRoute(RouteList& routeList)
 }
 
 
-static bool routeObstructed(Route& route)
+bool routeObstructed(Route& route)
 {
 	for (auto tileVoidPtr : route.path)
 	{
@@ -90,6 +92,7 @@ static bool routeObstructed(Route& route)
 	}
 
 	return false;
+}
 }
 
 
