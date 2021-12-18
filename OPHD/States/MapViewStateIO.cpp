@@ -16,13 +16,17 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../XmlSerializer.h"
+#include "../Technology/ResearchTracker.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
+#include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/StringUtils.h>
+#include <NAS2D/ContainerUtils.h>
 
 #include <string>
 #include <vector>
@@ -31,6 +35,15 @@
 
 namespace
 {
+	MapCoordinate loadMapCoordinate(const NAS2D::Dictionary& dictionary)
+	{
+		const auto x = dictionary.get<int>("x");
+		const auto y = dictionary.get<int>("y");
+		const auto depth = dictionary.get<int>("depth");
+		return MapCoordinate{{x, y}, depth};
+	}
+
+
 	void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
 	{
 		if (!element) { return; }
@@ -58,6 +71,96 @@ namespace
 			robotToIdMap[robot] = currentId++;
 		}
 		return robotToIdMap;
+	}
+
+
+	NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot)
+	{
+		NAS2D::Dictionary dictionary = robot.getDataDict();
+
+		const auto it = robotTileTable.find(&robot);
+		if (it != robotTileTable.end())
+		{
+			const auto& tile = *it->second;
+			const auto position = tile.xy();
+			dictionary += NAS2D::Dictionary{{
+				{"x", position.x},
+				{"y", position.y},
+				{"depth", tile.depth()},
+			}};
+		}
+
+		return dictionary;
+	}
+
+
+	NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap)
+	{
+		auto* robots = new NAS2D::Xml::XmlElement("robots");
+
+		for (auto robot : robotPool.robots())
+		{
+			auto dictionary = robotToDictionary(robotMap, *robot);
+			dictionary["id"] = robotToIdMap[robot];
+			robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
+		}
+
+		return robots;
+	}
+
+
+	NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
+	{
+		auto* research = new NAS2D::Xml::XmlElement("research");
+
+		const auto intToStr = [](const auto& x){return std::to_string(x);};
+		const auto completedResearch = NAS2D::join(NAS2D::mapToVector(tracker.completedResearch(), intToStr), ",");
+
+		research->attribute("completed_techs", completedResearch);
+
+		for (const auto& [techId, values] : tracker.currentResearch())
+		{
+			research->linkEndChild(NAS2D::dictionaryToAttributes(
+				"current",
+				{{
+					{"tech_id", techId},
+					{"progress", values.progress},
+					{"assigned", values.scientistsAssigned},
+				}}
+			));
+		}
+
+		return research;
+	}
+
+
+	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element)
+	{
+		ResearchTracker tracker;
+
+		if (!element) { return tracker; }
+
+		const auto researchList = NAS2D::split(element->attribute("completed_techs"));
+
+		for (auto& item : researchList)
+		{
+			tracker.addCompletedResearch(std::stoi(item));
+		}
+
+		for (auto currentResearch = element->firstChildElement();
+			currentResearch != nullptr;
+			currentResearch = currentResearch->nextSiblingElement())
+		{
+			const auto dictionary = NAS2D::attributesToDictionary(*currentResearch);
+
+			tracker.startResearch(
+				dictionary.get<int>("tech_id"),
+				dictionary.get<int>("progress"),
+				dictionary.get<int>("assigned")
+			);
+		}
+
+		return tracker;
 	}
 }
 
@@ -201,8 +304,7 @@ void MapViewState::load(const std::string& filePath)
 	const auto idToRobotMap = readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"), idToRobotMap);
 
-	mResearchTracker = ResearchTracker{};
-	readResearch(root->firstChildElement("research"), mResearchTracker);
+	mResearchTracker = readResearch(root->firstChildElement("research"));
 
 	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
 	readPopulation(root->firstChildElement("population"));
@@ -320,10 +422,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
-		const auto x = dictionary.get<int>("x");
-		const auto y = dictionary.get<int>("y");
-		const auto depth = dictionary.get<int>("depth");
-
 		const auto type = dictionary.get<int>("type");
 		const auto age = dictionary.get<int>("age");
 		const auto state = dictionary.get<int>("state");
@@ -341,7 +439,8 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		const auto pop0 = dictionary.get<int>("pop0");
 		const auto pop1 = dictionary.get<int>("pop1");
 
-		auto& tile = mTileMap->getTile({{x, y}, depth});
+		const auto mapCoordinate = loadMapCoordinate(dictionary);
+		auto& tile = mTileMap->getTile(mapCoordinate);
 		tile.index(TerrainType::Dozed);
 		tile.excavated(true);
 
@@ -349,7 +448,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		if (structureId == StructureID::SID_TUBE)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(connectorDir, depth, mTileMap->getTile({{x, y}, depth}));
+			insertTube(connectorDir, mapCoordinate.z, mTileMap->getTile(mapCoordinate));
 			continue; // FIXME: ugly
 		}
 
@@ -357,12 +456,12 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
-			ccLocation() = {x, y};
+			ccLocation() = mapCoordinate.xy;
 		}
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			auto* mine = mTileMap->getTile({{x, y}, 0}).mine();
+			auto* mine = mTileMap->getTile({mapCoordinate.xy, 0}).mine();
 			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
@@ -386,14 +485,14 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 			}
 		}
 
-		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
+		if (structureId == StructureID::SID_AIR_SHAFT && mapCoordinate.z != 0)
 		{
 			static_cast<AirShaft*>(&structure)->ug(); // force underground state
 		}
 
 		if (structureId == StructureID::SID_SEED_LANDER)
 		{
-			static_cast<SeedLander*>(&structure)->position({x, y});
+			static_cast<SeedLander*>(&structure)->position(mapCoordinate.xy);
 		}
 
 		if (structureId == StructureID::SID_AGRIDOME ||

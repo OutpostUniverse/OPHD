@@ -26,13 +26,11 @@ namespace NAS2D
 
 class Tile;
 class TileMap;
-class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
-class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
+class Warehouse;
+class RobotCommand;
 class RobotPool;
 class Robot;
 struct StorableResources;
-
-class ResearchTracker;
 
 using RobotTileTable = std::map<Robot*, Tile*>;
 
@@ -63,12 +61,6 @@ void removeRefinedResources(StorableResources&);
 int pullResource(int& resource, int amount);
 
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
-
-// Serialize / Deserialize
-NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap);
-NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker&);
-
-void readResearch(NAS2D::Xml::XmlElement* element, ResearchTracker& tracker);
 
 void updateRobotControl(RobotPool& robotPool);
 void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);
