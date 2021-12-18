@@ -24,75 +24,75 @@
 
 namespace
 {
-int consumeFood(FoodProduction& producer, int amountToConsume)
-{
-	const auto foodLevel = producer.foodLevel();
-	const auto toTransfer = std::min(foodLevel, amountToConsume);
-
-	producer.foodLevel(foodLevel - toTransfer);
-	return toTransfer;
-}
-
-
-void consumeFood(const std::vector<FoodProduction*>& foodProducers, int amountToConsume)
-{
-	for (auto foodProducer : foodProducers)
+	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
-		if (amountToConsume <= 0) { break; }
-		amountToConsume -= consumeFood(*foodProducer, amountToConsume);
-	}
-}
+		const auto foodLevel = producer.foodLevel();
+		const auto toTransfer = std::min(foodLevel, amountToConsume);
 
-
-RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	auto& start = structureManager.tileFromStructure(mine);
-
-	RouteList routeList;
-
-	for (auto smelter : smelters)
-	{
-		if (!smelter->operational()) { continue; }
-
-		auto& end = structureManager.tileFromStructure(smelter);
-
-		tilemap->pathStartAndEnd(&start, &end);
-
-		Route route;
-		solver->Reset();
-		solver->Solve(&start, &end, &route.path, &route.cost);
-
-		if (!route.empty()) { routeList.push_back(route); }
+		producer.foodLevel(foodLevel - toTransfer);
+		return toTransfer;
 	}
 
-	return routeList;
-}
 
-
-Route findLowestCostRoute(RouteList& routeList)
-{
-	if (routeList.empty()) { return Route(); }
-
-	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
-	return routeList.front();
-}
-
-
-bool routeObstructed(Route& route)
-{
-	for (auto tileVoidPtr : route.path)
+	void consumeFood(const std::vector<FoodProduction*>& foodProducers, int amountToConsume)
 	{
-		auto& tile = *static_cast<Tile*>(tileVoidPtr);
-
-		// \note	Tile being occupied by a robot is not an obstruction for the
-		//			purposes of routing/pathing.
-		if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
-		if (tile.index() == TerrainType::Impassable) { return true; }
+		for (auto foodProducer : foodProducers)
+		{
+			if (amountToConsume <= 0) { break; }
+			amountToConsume -= consumeFood(*foodProducer, amountToConsume);
+		}
 	}
 
-	return false;
-}
+
+	RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
+	{
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		auto& start = structureManager.tileFromStructure(mine);
+
+		RouteList routeList;
+
+		for (auto smelter : smelters)
+		{
+			if (!smelter->operational()) { continue; }
+
+			auto& end = structureManager.tileFromStructure(smelter);
+
+			tilemap->pathStartAndEnd(&start, &end);
+
+			Route route;
+			solver->Reset();
+			solver->Solve(&start, &end, &route.path, &route.cost);
+
+			if (!route.empty()) { routeList.push_back(route); }
+		}
+
+		return routeList;
+	}
+
+
+	Route findLowestCostRoute(RouteList& routeList)
+	{
+		if (routeList.empty()) { return Route(); }
+
+		std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
+		return routeList.front();
+	}
+
+
+	bool routeObstructed(Route& route)
+	{
+		for (auto tileVoidPtr : route.path)
+		{
+			auto& tile = *static_cast<Tile*>(tileVoidPtr);
+
+			// \note	Tile being occupied by a robot is not an obstruction for the
+			//			purposes of routing/pathing.
+			if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
+			if (tile.index() == TerrainType::Impassable) { return true; }
+		}
+
+		return false;
+	}
 }
 
 
