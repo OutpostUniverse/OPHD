@@ -354,11 +354,10 @@ void MapViewState::transportResourcesToStorage()
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
 		auto& stored = smelter->storage();
-		auto moved = stored.cap(25);
+		const auto toMove = stored.cap(25);
 
-		stored -= moved;
-		moved = addRefinedResources(moved);
-		stored += moved;
+		const auto unmoved = addRefinedResources(toMove);
+		stored -= (toMove - unmoved);
 	}
 }
 
