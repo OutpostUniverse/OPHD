@@ -27,10 +27,10 @@ static inline void pullFoodFromStructure(FoodProduction* producer, int& remainde
 	if (remainder <= 0) { return; }
 
 	int foodLevel = producer->foodLevel();
-	int pulled = pullResource(foodLevel, remainder);
+	const auto toTransfer = std::min(foodLevel, remainder);
 
-	producer->foodLevel(foodLevel);
-	remainder -= pulled;
+	producer->foodLevel(foodLevel - toTransfer);
+	remainder -= toTransfer;
 }
 
 
