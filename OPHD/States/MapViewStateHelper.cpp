@@ -423,7 +423,7 @@ void resourceShortageMessage(const StorableResources& resources, StructureID sid
 /**
  * Add refined resources to the players storage structures.
  */
-void addRefinedResources(StorableResources& resourcesToAdd)
+StorableResources addRefinedResources(StorableResources resourcesToAdd)
 {
 	/**
 	 * The Command Center acts as backup storage especially during the beginning of the
@@ -450,6 +450,9 @@ void addRefinedResources(StorableResources& resourcesToAdd)
 		storageTanksResources = capped;
 		resourcesToAdd = newResources - capped;
 	}
+
+	// Return remaining unstored refined resources
+	return resourcesToAdd;
 }
 
 

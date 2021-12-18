@@ -1017,13 +1017,13 @@ void MapViewState::placeRobodozer(Tile& tile)
 			updatePoliceOverlay();
 		}
 
-		auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
-		addRefinedResources(recycledResources);
+		const auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
+		const auto wastedResources = addRefinedResources(recycledResources);
 
 		/**
 		 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
 		 */
-		if (!recycledResources.isEmpty())
+		if (!wastedResources.isEmpty())
 		{
 			mNotificationArea.push({
 				"Resources wasted",

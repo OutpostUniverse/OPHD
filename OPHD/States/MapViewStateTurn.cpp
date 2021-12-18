@@ -357,7 +357,7 @@ void MapViewState::transportResourcesToStorage()
 		auto moved = stored.cap(25);
 
 		stored -= moved;
-		addRefinedResources(moved);
+		moved = addRefinedResources(moved);
 		stored += moved;
 	}
 }
