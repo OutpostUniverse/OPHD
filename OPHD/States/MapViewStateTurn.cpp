@@ -354,13 +354,7 @@ void MapViewState::transportResourcesToStorage()
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
 		auto& stored = smelter->storage();
-		StorableResources moved
-		{
-			std::clamp(stored.resources[0], 0, 25),
-			std::clamp(stored.resources[1], 0, 25),
-			std::clamp(stored.resources[2], 0, 25),
-			std::clamp(stored.resources[3], 0, 25)
-		};
+		auto moved = stored.cap(25);
 
 		stored -= moved;
 		addRefinedResources(moved);
