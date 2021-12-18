@@ -22,66 +22,77 @@
 #include <algorithm>
 
 
-static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
+namespace
 {
-	if (remainder <= 0) { return; }
-
-	int foodLevel = producer->foodLevel();
-	int pulled = pullResource(foodLevel, remainder);
-
-	producer->foodLevel(foodLevel);
-	remainder -= pulled;
-}
-
-
-static RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	auto& start = structureManager.tileFromStructure(mine);
-
-	RouteList routeList;
-
-	for (auto smelter : smelters)
+	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
-		if (!smelter->operational()) { continue; }
+		const auto foodLevel = producer.foodLevel();
+		const auto toTransfer = std::min(foodLevel, amountToConsume);
 
-		auto& end = structureManager.tileFromStructure(smelter);
-		
-		tilemap->pathStartAndEnd(&start, &end);
-		
-		Route route;
-		solver->Reset();
-		solver->Solve(&start, &end, &route.path, &route.cost);
-
-		if (!route.empty()) { routeList.push_back(route); }
+		producer.foodLevel(foodLevel - toTransfer);
+		return toTransfer;
 	}
 
-	return routeList;
-}
 
-
-static Route findLowestCostRoute(RouteList& routeList)
-{
-	if (routeList.empty()) { return Route(); }
-
-	std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
-	return routeList.front();
-}
-
-
-static bool routeObstructed(Route& route)
-{
-	for (auto tileVoidPtr : route.path)
+	void consumeFood(const std::vector<FoodProduction*>& foodProducers, int amountToConsume)
 	{
-		auto& tile = *static_cast<Tile*>(tileVoidPtr);
-
-		// \note	Tile being occupied by a robot is not an obstruction for the
-		//			purposes of routing/pathing.
-		if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
-		if (tile.index() == TerrainType::Impassable) { return true; }
+		for (auto foodProducer : foodProducers)
+		{
+			if (amountToConsume <= 0) { break; }
+			amountToConsume -= consumeFood(*foodProducer, amountToConsume);
+		}
 	}
 
-	return false;
+
+	RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
+	{
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		auto& start = structureManager.tileFromStructure(mine);
+
+		RouteList routeList;
+
+		for (auto smelter : smelters)
+		{
+			if (!smelter->operational()) { continue; }
+
+			auto& end = structureManager.tileFromStructure(smelter);
+
+			tilemap->pathStartAndEnd(&start, &end);
+
+			Route route;
+			solver->Reset();
+			solver->Solve(&start, &end, &route.path, &route.cost);
+
+			if (!route.empty()) { routeList.push_back(route); }
+		}
+
+		return routeList;
+	}
+
+
+	Route findLowestCostRoute(RouteList& routeList)
+	{
+		if (routeList.empty()) { return Route(); }
+
+		std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
+		return routeList.front();
+	}
+
+
+	bool routeObstructed(Route& route)
+	{
+		for (auto tileVoidPtr : route.path)
+		{
+			auto& tile = *static_cast<Tile*>(tileVoidPtr);
+
+			// \note	Tile being occupied by a robot is not an obstruction for the
+			//			purposes of routing/pathing.
+			if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
+			if (tile.index() == TerrainType::Impassable) { return true; }
+		}
+
+		return false;
+	}
 }
 
 
@@ -98,12 +109,8 @@ void MapViewState::updatePopulation()
 	auto& commandCenters = structureManager.getStructures<CommandCenter>();
 	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
-	int remainder = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
-
-	for (auto foodProducer : foodProducers)
-	{
-		pullFoodFromStructure(foodProducer, remainder);
-	}
+	int amountToConsume = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
+	consumeFood(foodProducers, amountToConsume);
 }
 
 
@@ -315,25 +322,17 @@ void MapViewState::transportOreFromMines()
 			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
+			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
 
-			auto& stored = mineFacility.storage();
-			StorableResources moved
-			{
-				std::clamp(stored.resources[0], 0, oreMovementPart),
-				std::clamp(stored.resources[1], 0, oreMovementPart),
-				std::clamp(stored.resources[2], 0, oreMovementPart),
-				std::clamp(stored.resources[3], 0, oreMovementPart + oreMovementRemainder)
-			};
+			auto& mineStored = mineFacility.storage();
+			auto& smelterStored = smelter.production();
 
-			stored -= moved;
+			const auto oreAvailable = smelterStored + mineStored.cap(movementCap);
+			const auto newSmelterStored = oreAvailable.cap(250);
+			const auto movedOre = newSmelterStored - smelterStored;
 
-			auto& smelterProduction = smelter.production();
-			auto newResources = smelterProduction + moved;
-			auto capped = newResources.cap(250);
-			smelterProduction = capped;
-
-			auto overflow = newResources - capped;
-			stored += overflow;
+			mineStored -= movedOre;
+			smelterStored = newSmelterStored;
 		}
 	}
 }
@@ -347,17 +346,10 @@ void MapViewState::transportResourcesToStorage()
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
 		auto& stored = smelter->storage();
-		StorableResources moved
-		{
-			std::clamp(stored.resources[0], 0, 25),
-			std::clamp(stored.resources[1], 0, 25),
-			std::clamp(stored.resources[2], 0, 25),
-			std::clamp(stored.resources[3], 0, 25)
-		};
+		const auto toMove = stored.cap(25);
 
-		stored -= moved;
-		addRefinedResources(moved);
-		stored += moved;
+		const auto unmoved = addRefinedResources(toMove);
+		stored -= (toMove - unmoved);
 	}
 }
 

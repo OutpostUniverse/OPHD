@@ -56,9 +56,8 @@ void moveProducts(Warehouse*);
 
 void resourceShortageMessage(const StorableResources&, StructureID);
 
-void addRefinedResources(StorableResources&);
+StorableResources addRefinedResources(StorableResources);
 void removeRefinedResources(StorableResources&);
-int pullResource(int& resource, int amount);
 
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 

@@ -423,7 +423,7 @@ void resourceShortageMessage(const StorableResources& resources, StructureID sid
 /**
  * Add refined resources to the players storage structures.
  */
-void addRefinedResources(StorableResources& resourcesToAdd)
+StorableResources addRefinedResources(StorableResources resourcesToAdd)
 {
 	/**
 	 * The Command Center acts as backup storage especially during the beginning of the
@@ -450,6 +450,9 @@ void addRefinedResources(StorableResources& resourcesToAdd)
 		storageTanksResources = capped;
 		resourcesToAdd = newResources - capped;
 	}
+
+	// Return remaining unstored refined resources
+	return resourcesToAdd;
 }
 
 
@@ -474,35 +477,10 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 	{
 		if (resourcesToRemove.isEmpty()) { break; }
 
-		auto& resourcesInStorage = structure->storage().resources;
-		for (size_t i = 0; i < resourcesInStorage.size(); ++i)
-		{
-			const int pulled = pullResource(resourcesInStorage[i], resourcesToRemove.resources[i]);
-			resourcesToRemove.resources[i] -= pulled;
-		}
-	}
-}
-
-
-/**
- * Pull specified amount of resources from a given quantity.
- * 
- * \note	Modifies param \c resource.
- * 
- * \return	Actual amount pulled.
- */
-int pullResource(int& resource, int amount)
-{
-	if (amount <= resource)
-	{
-		resource -= amount;
-		return amount;
-	}
-	else
-	{
-		int ret = resource;
-		resource = 0;
-		return ret;
+		auto& resourcesInStorage = structure->storage();
+		const auto toTransfer = resourcesToRemove.cap(resourcesInStorage);
+		resourcesInStorage -= toTransfer;
+		resourcesToRemove -= toTransfer;
 	}
 }
 
