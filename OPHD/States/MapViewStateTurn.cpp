@@ -322,15 +322,10 @@ void MapViewState::transportOreFromMines()
 			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
+			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
 
 			auto& stored = mineFacility.storage();
-			StorableResources moved
-			{
-				std::clamp(stored.resources[0], 0, oreMovementPart),
-				std::clamp(stored.resources[1], 0, oreMovementPart),
-				std::clamp(stored.resources[2], 0, oreMovementPart),
-				std::clamp(stored.resources[3], 0, oreMovementPart + oreMovementRemainder)
-			};
+			const auto moved = stored.cap(movementCap);
 
 			stored -= moved;
 
