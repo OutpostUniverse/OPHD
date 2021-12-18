@@ -26,8 +26,8 @@ namespace NAS2D
 
 class Tile;
 class TileMap;
-class Warehouse; /**< Forward declaration for getAvailableWarehouse() function. */
-class RobotCommand; /**< Forward declaration for getAvailableRobotCommand() function. */
+class Warehouse;
+class RobotCommand;
 class RobotPool;
 class Robot;
 struct StorableResources;
