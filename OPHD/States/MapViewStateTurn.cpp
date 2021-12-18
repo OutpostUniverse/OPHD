@@ -24,7 +24,7 @@
 
 static inline int pullFoodFromStructure(FoodProduction& producer, int remainder)
 {
-	int foodLevel = producer.foodLevel();
+	const auto foodLevel = producer.foodLevel();
 	const auto toTransfer = std::min(foodLevel, remainder);
 
 	producer.foodLevel(foodLevel - toTransfer);
