@@ -65,7 +65,6 @@ int pullResource(int& resource, int amount);
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 
 // Serialize / Deserialize
-NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap);
 NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker&);
 
 ResearchTracker readResearch(NAS2D::Xml::XmlElement* element);
