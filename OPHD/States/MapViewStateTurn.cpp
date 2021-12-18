@@ -22,10 +22,10 @@
 #include <algorithm>
 
 
-static inline int pullFoodFromStructure(FoodProduction& producer, int remainder)
+static inline int consumeFood(FoodProduction& producer, int amountToConsume)
 {
 	const auto foodLevel = producer.foodLevel();
-	const auto toTransfer = std::min(foodLevel, remainder);
+	const auto toTransfer = std::min(foodLevel, amountToConsume);
 
 	producer.foodLevel(foodLevel - toTransfer);
 	return toTransfer;
@@ -37,7 +37,7 @@ static void consumeFood(const std::vector<FoodProduction*>& foodProducers, int a
 	for (auto foodProducer : foodProducers)
 	{
 		if (amountToConsume <= 0) { break; }
-		amountToConsume -= pullFoodFromStructure(*foodProducer, amountToConsume);
+		amountToConsume -= consumeFood(*foodProducer, amountToConsume);
 	}
 }
 
