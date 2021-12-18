@@ -340,7 +340,8 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		const auto pop0 = dictionary.get<int>("pop0");
 		const auto pop1 = dictionary.get<int>("pop1");
 
-		auto& tile = mTileMap->getTile({{x, y}, depth});
+		const auto mapCoordinate = MapCoordinate{{x, y}, depth};
+		auto& tile = mTileMap->getTile(mapCoordinate);
 		tile.index(TerrainType::Dozed);
 		tile.excavated(true);
 
@@ -348,7 +349,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 		if (structureId == StructureID::SID_TUBE)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(connectorDir, depth, mTileMap->getTile({{x, y}, depth}));
+			insertTube(connectorDir, mapCoordinate.z, mTileMap->getTile(mapCoordinate));
 			continue; // FIXME: ugly
 		}
 
@@ -356,12 +357,12 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
-			ccLocation() = {x, y};
+			ccLocation() = mapCoordinate.xy;
 		}
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			auto* mine = mTileMap->getTile({{x, y}, 0}).mine();
+			auto* mine = mTileMap->getTile({mapCoordinate.xy, 0}).mine();
 			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
@@ -385,14 +386,14 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 			}
 		}
 
-		if (structureId == StructureID::SID_AIR_SHAFT && depth != 0)
+		if (structureId == StructureID::SID_AIR_SHAFT && mapCoordinate.z != 0)
 		{
 			static_cast<AirShaft*>(&structure)->ug(); // force underground state
 		}
 
 		if (structureId == StructureID::SID_SEED_LANDER)
 		{
-			static_cast<SeedLander*>(&structure)->position({x, y});
+			static_cast<SeedLander*>(&structure)->position(mapCoordinate.xy);
 		}
 
 		if (structureId == StructureID::SID_AGRIDOME ||
