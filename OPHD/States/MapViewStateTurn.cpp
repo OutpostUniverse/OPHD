@@ -24,8 +24,6 @@
 
 static inline void pullFoodFromStructure(FoodProduction& producer, int& remainder)
 {
-	if (remainder <= 0) { return; }
-
 	int foodLevel = producer.foodLevel();
 	const auto toTransfer = std::min(foodLevel, remainder);
 
@@ -102,6 +100,7 @@ void MapViewState::updatePopulation()
 
 	for (auto foodProducer : foodProducers)
 	{
+		if (remainder <= 0) { break; }
 		pullFoodFromStructure(*foodProducer, remainder);
 	}
 }
