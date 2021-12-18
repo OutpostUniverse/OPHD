@@ -22,14 +22,14 @@
 #include <algorithm>
 
 
-static inline void pullFoodFromStructure(FoodProduction* producer, int& remainder)
+static inline void pullFoodFromStructure(FoodProduction& producer, int& remainder)
 {
 	if (remainder <= 0) { return; }
 
-	int foodLevel = producer->foodLevel();
+	int foodLevel = producer.foodLevel();
 	const auto toTransfer = std::min(foodLevel, remainder);
 
-	producer->foodLevel(foodLevel - toTransfer);
+	producer.foodLevel(foodLevel - toTransfer);
 	remainder -= toTransfer;
 }
 
@@ -102,7 +102,7 @@ void MapViewState::updatePopulation()
 
 	for (auto foodProducer : foodProducers)
 	{
-		pullFoodFromStructure(foodProducer, remainder);
+		pullFoodFromStructure(*foodProducer, remainder);
 	}
 }
 
