@@ -11,7 +11,7 @@ namespace
 		constexpr const std::string_view ShellOpenCommand{"start"};
 	#elif defined(__APPLE__)
 		constexpr const std::string_view ShellOpenCommand{"open"};
-	#elif defined(__linux__)
+	#elif defined(__linux__) || defined(__FreeBSD__)
 		constexpr const std::string_view ShellOpenCommand{"xdg-open"};
 	#else
 		#pragma message("Constant `ShellOpenCommand` not defined for the current platform.")
