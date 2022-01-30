@@ -115,7 +115,7 @@ namespace
 
 		try
 		{
-			reportMissingOrUnexpected(dictionary.keys(), {"id", "lab_type", "cost", "name"}, {"description", "requires", "effects"});
+			reportMissingOrUnexpected(dictionary.keys(), {"id", "lab_type", "cost", "name", "icon_index"}, {"description", "requires", "effects", "icon_index"});
 		}
 		catch(std::exception& error)
 		{
