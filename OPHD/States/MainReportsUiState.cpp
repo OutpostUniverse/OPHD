@@ -153,7 +153,7 @@ void MainReportsUiState::initialize()
 	Panels[NavigationPanel::PANEL_EXIT].Img = &imageCache.load("ui/icons/exit.png");
 
 	Panels[NavigationPanel::PANEL_RESEARCH].Img = &imageCache.load("ui/icons/research.png");
-	Panels[NavigationPanel::PANEL_RESEARCH].Name = "Laboratories";
+	Panels[NavigationPanel::PANEL_RESEARCH].Name = "Research";
 
 	Panels[NavigationPanel::PANEL_PRODUCTION].Img = &imageCache.load("ui/icons/production.png");
 	Panels[NavigationPanel::PANEL_PRODUCTION].Name = "Factories";
