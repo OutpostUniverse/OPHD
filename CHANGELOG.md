@@ -1,6 +1,25 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.6] - 2022-04-25
+
+Addresses a number of bugs and usability issues between 0.8.x and 0.9.x branches.
+
+### Added
+- Added a button to the FileIO window that allows the user to open the savegame directory easily instead of having to manually navigate to it
+
+### Changed
+- New and improved Planet animations in the planet selection state
+
+### Fixed
+- Fix an issue in the Take Me There button code that would allow users to exploit the structure window to build surface structures underground and vice versa
+- Fix an issue in the path finding code that would prevent more than one mine from accessing a smelter
+- Fix Mine Facility incorrectly setting 'mine exhausted' flag instead of storage pool being full
+- Fix an out of bounds crash in the click handler for the notification area
+- Fix a potential crash when enlarging the game window (map view now forces bounds validation)
+- Fix a crash caused by incorrect behavior leading to null pointer dereference when selecting a robot that isn't actually available
+
+
 ## [0.8.5] - 2021-09-26
 
 Introduces integrity decay and the Maintenance Facility.
