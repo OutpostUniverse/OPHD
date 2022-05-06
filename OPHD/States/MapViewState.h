@@ -194,6 +194,7 @@ private:
 	void onMineFacilityExtend(MineFacility* mf);
 
 	void updatePlayerResources();
+	void updateResearch();
 
 	// TURN LOGIC
 	void checkColonyShip();

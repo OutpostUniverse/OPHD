@@ -596,6 +596,16 @@ void MapViewState::updateOverlays()
 }
 
 
+void MapViewState::updateResearch()
+{
+	// Update research points
+	// get list of completed technologies
+	// get list of completed technologies that unlock buildings
+	// copy list of unlocked structures to available structure list
+	// remove obsolete structures from available structure list
+}
+
+
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -648,6 +658,8 @@ void MapViewState::nextTurn()
 	{
 		factory->updateProduction();
 	}
+
+	updateResearch();
 
 	populateRobotMenu();
 	populateStructureMenu();
