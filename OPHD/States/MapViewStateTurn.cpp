@@ -24,10 +24,10 @@
 
 namespace
 {
-	const std::map<std::string, StructureID> StructureIdStringTable =
+	const std::map<std::string, StructureTracker::StructureItem> StructureItemFromString =
 	{
-		{"SID_FUSION_REACTOR", SID_FUSION_REACTOR},
-		{"SID_SOLAR_PLANT", SID_SOLAR_PLANT}
+		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, SID_FUSION_REACTOR}},
+		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
 	};
 
 
@@ -628,14 +628,12 @@ void MapViewState::updateResearch()
 		}
 	}
 	
-	// copy list of unlocked structures to available structure list
-	std::vector<StructureID> availableStructures;
 	for (const auto& tech : unlockedStructures)
 	{
 		for (const auto& unlock : tech->unlocks)
 		{
-			const auto structureId = StructureIdStringTable.at(unlock.value);
-			availableStructures.push_back(structureId);
+			const auto& structureItem = StructureItemFromString.at(unlock.value);
+			mStructureTracker.addUnlockedSurfaceStructure(structureItem);
 		}
 	}
 	

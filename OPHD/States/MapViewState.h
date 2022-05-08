@@ -3,6 +3,7 @@
 #include "Wrapper.h"
 #include "CrimeRateUpdate.h"
 #include "CrimeExecution.h"
+#include "StructureTracker.h"
 
 #include "Planet.h"
 
@@ -283,6 +284,8 @@ private:
 	std::unique_ptr<MapView> mMapView;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
+
+	StructureTracker mStructureTracker;
 
 	ResearchTracker mResearchTracker;
 	TechnologyCatalog mTechnologyReader;
