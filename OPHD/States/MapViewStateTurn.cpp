@@ -24,6 +24,13 @@
 
 namespace
 {
+	const std::map<std::string, StructureID> StructureIdStringTable =
+	{
+		{"SID_FUSION_REACTOR", SID_FUSION_REACTOR},
+		{"SID_SOLAR_PLANT", SID_SOLAR_PLANT}
+	};
+
+
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
 		const auto foodLevel = producer.foodLevel();
