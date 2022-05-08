@@ -785,7 +785,7 @@
     <ClInclude Include="Technology\ResearchTracker.h">
       <Filter>Header Files\Technology</Filter>
     </ClInclude>
-    <ClInclude Include="States\StructuresTracker.h">
+    <ClInclude Include="States\StructureTracker.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>

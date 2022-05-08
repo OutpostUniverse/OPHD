@@ -338,7 +338,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="States\CrimeExecution.h" />
     <ClInclude Include="States\CrimeRateUpdate.h" />
-    <ClInclude Include="States\StructuresTracker.h" />
+    <ClInclude Include="States\StructureTracker.h" />
     <ClInclude Include="StorableResources.h" />
     <ClInclude Include="PopulationPool.h" />
     <ClInclude Include="Population\Morale.h" />
