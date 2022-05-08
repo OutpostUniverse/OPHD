@@ -629,6 +629,16 @@ void MapViewState::updateResearch()
 	}
 	
 	// copy list of unlocked structures to available structure list
+	std::vector<StructureID> availableStructures;
+	for (const auto& tech : unlockedStructures)
+	{
+		for (const auto& unlock : tech->unlocks)
+		{
+			const auto structureId = StructureIdStringTable.at(unlock.value);
+			availableStructures.push_back(structureId);
+		}
+	}
+	
 	// remove obsolete structures from available structure list
 }
 
