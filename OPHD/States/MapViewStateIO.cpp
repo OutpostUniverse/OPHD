@@ -326,6 +326,7 @@ void MapViewState::load(const std::string& filePath)
 	findMineRoutes();
 	updateFood();
 	updatePlayerResources();
+	updateResearch();
 
 	if (mTurnCount == 0)
 	{
