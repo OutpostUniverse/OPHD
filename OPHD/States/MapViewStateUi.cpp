@@ -307,6 +307,7 @@ void MapViewState::populateStructureMenu()
 	}
 	else if (mMapView->currentDepth() == constants::DepthSurface)
 	{
+		/*
 		mStructures.addItem(constants::Agridome, 5, StructureID::SID_AGRIDOME);
 		mStructures.addItem(constants::Chap, 3, StructureID::SID_CHAP);
 		mStructures.addItem(constants::CommTower, 22, StructureID::SID_COMM_TOWER);
@@ -323,6 +324,7 @@ void MapViewState::populateStructureMenu()
 		mStructures.addItem(constants::SurfaceFactory, 11, StructureID::SID_SURFACE_FACTORY);
 		mStructures.addItem(constants::SurfacePolice, 23, StructureID::SID_SURFACE_POLICE);
 		mStructures.addItem(constants::Warehouse, 9, StructureID::SID_WAREHOUSE);
+		*/
 
 		mConnections.addItem(constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION);
 		mConnections.addItem(constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_RIGHT);
@@ -334,6 +336,7 @@ void MapViewState::populateStructureMenu()
 	}
 	else
 	{
+		/*
 		mStructures.addItem(constants::Laboratory, 58, StructureID::SID_LABORATORY);
 		mStructures.addItem(constants::Park, 75, StructureID::SID_PARK);
 		mStructures.addItem(constants::UndergroundPolice, 61, StructureID::SID_UNDERGROUND_POLICE);
@@ -345,6 +348,7 @@ void MapViewState::populateStructureMenu()
 		mStructures.addItem(constants::Commercial, 66, StructureID::SID_COMMERCIAL);
 		mStructures.addItem(constants::RedLightDistrict, 76, StructureID::SID_RED_LIGHT_DISTRICT);
 		mStructures.addItem(constants::University, 63, StructureID::SID_UNIVERSITY);
+		*/
 
 		mConnections.addItem(constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION);
 		mConnections.addItem(constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_RIGHT);

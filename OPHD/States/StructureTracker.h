@@ -20,6 +20,8 @@ public:
 
 public:
 
+	StructureTracker();
+
 	const StructureItemList& defaultSurfaceStructures() const { return mDefaultSurfaceStructures; }
 	const StructureItemList& defaultUndergroundStructures() const { return mDefaultUndergroundStructures; }
 
