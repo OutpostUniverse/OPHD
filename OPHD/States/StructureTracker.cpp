@@ -16,7 +16,7 @@ namespace
 
 		list.push_back(structureItem);
 	}
-};
+}
 
 
 StructureTracker::StructureTracker()

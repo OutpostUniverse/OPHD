@@ -37,7 +37,7 @@ namespace
 			grid.addItem(item.name, item.sheetIndex, item.id);
 		}
 	}
-};
+}
 
 
 /**
