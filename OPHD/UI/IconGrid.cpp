@@ -174,8 +174,10 @@ void IconGrid::addItem(const Item& item)
  */
 void IconGrid::addItemSorted(const std::string& name, int sheetIndex, int meta)
 {
+	/*
 	addItem(name, sheetIndex, meta);
 	sort();
+	*/
 }
 
 
@@ -186,6 +188,7 @@ void IconGrid::addItemSorted(const std::string& name, int sheetIndex, int meta)
  *
  * \note	This function does no sanity checking.
  */
+/*
 void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 {
 	int x_pos = (sheetIndex % (mIconSheet.size().x / mIconSize)) * mIconSize;
@@ -199,6 +202,7 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 	item.pos = {x_pos, y_pos};
 	item.meta = meta;
 }
+*/
 
 
 /**
