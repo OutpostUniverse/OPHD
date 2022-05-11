@@ -143,9 +143,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	structureManager.addStructure(ss, mTileMap->getTile({point + DirectionSouthEast, 0}));
 
 	// Robots only become available after the SEED Factory is deployed.
-	mRobots.addItem(constants::Robodozer, constants::RobodozerSheetId, static_cast<int>(Robot::Type::Dozer));
-	mRobots.addItem(constants::Robodigger, constants::RobodiggerSheetId, static_cast<int>(Robot::Type::Digger));
-	mRobots.addItem(constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner));
+	mRobots.addItem({constants::Robodozer, constants::RobodozerSheetId, static_cast<int>(Robot::Type::Dozer)});
+	mRobots.addItem({constants::Robodigger, constants::RobodiggerSheetId, static_cast<int>(Robot::Type::Digger)});
+	mRobots.addItem({constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner)});
 	mRobots.sort();
 
 	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
