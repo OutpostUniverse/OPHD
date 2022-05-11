@@ -25,16 +25,12 @@ public:
 
 	/**
 	 * Item used within the IconGrid.
-	 * 
-	 * \note	Have made some changes to IconGrid that effectively makes this class
-	 *			completely transparent. Bad for encapsulation but vastly improves
-	 *			flexibility in using the IconGrid.
 	 */
 	class Item
 	{
 	public:
-		std::string name{}; /**< Name of the Item. Can be empty. */
-		int meta{0}; /**< User defined integer value. Optional. */
+		std::string name{};
+		int meta{0}; /**< Optional User defined value */
 		int sheetId{0};
 		bool available{true};
 
