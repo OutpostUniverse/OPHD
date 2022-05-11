@@ -360,6 +360,9 @@
     <ClCompile Include="Technology\ResearchTracker.cpp">
       <Filter>Source Files\Technology</Filter>
     </ClCompile>
+    <ClCompile Include="States\StructureTracker.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -781,6 +784,9 @@
     </ClInclude>
     <ClInclude Include="Technology\ResearchTracker.h">
       <Filter>Header Files\Technology</Filter>
+    </ClInclude>
+    <ClInclude Include="States\StructureTracker.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,13 @@
 
 namespace
 {
+	const std::map<std::string, StructureTracker::StructureItem> StructureItemFromString =
+	{
+		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, SID_FUSION_REACTOR}},
+		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
+	};
+
+
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
 		const auto foodLevel = producer.foodLevel();
@@ -596,6 +603,44 @@ void MapViewState::updateOverlays()
 }
 
 
+void MapViewState::updateResearch()
+{
+	// Update research points
+	// get list of completed technologies
+	const auto& completedTechs = mResearchTracker.completedResearch();
+	std::vector<const Technology*> techList;
+	for (const auto techId : completedTechs)
+	{
+		techList.push_back(&mTechnologyReader.technologyFromId(techId));
+	}
+
+	// get list of completed technologies that unlock buildings
+	std::vector<const Technology*> unlockedStructures;
+	
+	for (auto tech : techList)
+	{
+		for (const auto& unlock : (*tech).unlocks)
+		{
+			if (unlock.unlocks == Technology::Unlock::Unlocks::Structure)
+			{
+				unlockedStructures.push_back(tech);
+			}
+		}
+	}
+	
+	for (const auto& tech : unlockedStructures)
+	{
+		for (const auto& unlock : tech->unlocks)
+		{
+			const auto& structureItem = StructureItemFromString.at(unlock.value);
+			mStructureTracker.addUnlockedSurfaceStructure(structureItem);
+		}
+	}
+	
+	// remove obsolete structures from available structure list
+}
+
+
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -648,6 +693,8 @@ void MapViewState::nextTurn()
 	{
 		factory->updateProduction();
 	}
+
+	updateResearch();
 
 	populateRobotMenu();
 	populateStructureMenu();
