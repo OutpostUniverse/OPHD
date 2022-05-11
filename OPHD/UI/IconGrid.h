@@ -26,18 +26,14 @@ public:
 	/**
 	 * Item used within the IconGrid.
 	 */
-	class Item
+	struct Item
 	{
 	public:
 		std::string name{};
 		int meta{0}; /**< Optional User defined value */
 		int sheetId{0};
 		bool available{true};
-
-	protected:
-		friend class IconGrid;
-
-		NAS2D::Point<int> pos;
+		NAS2D::Point<int> pos{};
 	};
 
 	using Signal = NAS2D::Signal<const Item*>;
