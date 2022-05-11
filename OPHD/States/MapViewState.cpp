@@ -762,7 +762,7 @@ void MapViewState::placeTubes(Tile& tile)
 	if (tile.thing() || tile.mine() || !tile.bulldozed() || !tile.excavated()) { return; }
 
 	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 *			Should instead take advantage of the updated meta data in the IconGridItem.
+	 *			Should instead take advantage of the updated meta data in the IconGrid::Item.
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 

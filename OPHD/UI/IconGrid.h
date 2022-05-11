@@ -25,20 +25,14 @@ public:
 
 	/**
 	 * Item used within the IconGrid.
-	 * 
-	 * \note	Have made some changes to IconGrid that effectively makes this class
-	 *			completely transparent. Bad for encapsulation but vastly improves
-	 *			flexibility in using the IconGrid.
 	 */
-	class IconGridItem
+	class Item
 	{
 	public:
-		IconGridItem() {}
-
-		std::string name; /**< Name of the Item. Can be empty. */
-
-		int meta = 0; /**< User defined integer value. Optional. */
-		bool available = true;
+		std::string name{};
+		int meta{0}; /**< Optional User defined value */
+		int sheetId{0};
+		bool available{true};
 
 	protected:
 		friend class IconGrid;
@@ -46,7 +40,7 @@ public:
 		NAS2D::Point<int> pos;
 	};
 
-	using Signal = NAS2D::Signal<const IconGridItem*>;
+	using Signal = NAS2D::Signal<const Item*>;
 
 public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);
@@ -94,7 +88,7 @@ protected:
 	void onResize() override;
 
 private:
-	using IconItemList = std::vector<IconGridItem>;
+	using IconItemList = std::vector<Item>;
 	using Index = IconItemList::size_type;
 
 	void updateGrid();

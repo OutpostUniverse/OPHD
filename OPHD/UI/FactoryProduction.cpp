@@ -57,7 +57,7 @@ void FactoryProduction::hide()
 }
 
 
-void FactoryProduction::onProductSelectionChange(const IconGrid::IconGridItem* item)
+void FactoryProduction::onProductSelectionChange(const IconGrid::Item* item)
 {
 	if (!mFactory) { return; }
 
