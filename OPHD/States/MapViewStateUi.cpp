@@ -34,7 +34,7 @@ namespace
 	{
 		for (const auto& item : itemList)
 		{
-			grid.addItem({item.name, item.sheetIndex, item.id});
+			grid.addItem(item);
 		}
 	}
 }
