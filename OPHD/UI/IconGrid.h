@@ -30,8 +30,8 @@ public:
 	{
 	public:
 		std::string name{};
-		int meta{0}; /**< Optional User defined value */
 		int sheetId{0};
+		int meta{0}; /**< Optional User defined value */
 		bool available{true};
 		NAS2D::Point<int> pos{};
 	};
@@ -52,7 +52,7 @@ public:
 	void addItem(const Item&);
 
 	void addItemSorted(const std::string& name, int sheetIndex, int meta);
-	void addItem(const std::string& name, int sheetIndex, int meta);
+	//void addItem(const std::string& name, int sheetIndex, int meta);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void clear();
