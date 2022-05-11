@@ -156,7 +156,12 @@ void IconGrid::addItemSorted(const Item& item)
 
 void IconGrid::addItem(const Item& item)
 {
-	addItem(item.name, item.sheetId, item.meta);
+	mIconItemList.push_back(item);
+
+	const int x_pos = (item.sheetId % (mIconSheet.size().x / mIconSize)) * mIconSize;
+	const int y_pos = (item.sheetId / (mIconSheet.size().x / mIconSize)) * mIconSize;
+
+	mIconItemList.back().pos = {x_pos, y_pos};
 }
 
 
