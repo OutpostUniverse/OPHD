@@ -48,11 +48,8 @@ public:
 
 	bool empty() const { return mIconItemList.empty(); }
 
-	void addItemSorted(const Item&);
 	void addItem(const Item&);
 
-	void addItemSorted(const std::string& name, int sheetIndex, int meta);
-	//void addItem(const std::string& name, int sheetIndex, int meta);
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
 	void clear();

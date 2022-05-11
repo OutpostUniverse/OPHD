@@ -1200,9 +1200,11 @@ void MapViewState::populateRobotMenu()
 	{
 		if (mRobotPool.robotAvailable(robotType))
 		{
-			mRobots.addItemSorted(robotMeta.name, robotMeta.sheetIndex, static_cast<int>(robotType));
+			mRobots.addItem({robotMeta.name, robotMeta.sheetIndex, static_cast<int>(robotType)});
 		}
 	}
+
+	mRobots.sort();
 }
 
 

@@ -148,12 +148,6 @@ void IconGrid::onResize()
 }
 
 
-void IconGrid::addItemSorted(const Item& item)
-{
-	addItemSorted(item.name, item.sheetId, item.meta);
-}
-
-
 void IconGrid::addItem(const Item& item)
 {
 	mIconItemList.push_back(item);
@@ -163,46 +157,6 @@ void IconGrid::addItem(const Item& item)
 
 	mIconItemList.back().pos = {x_pos, y_pos};
 }
-
-
-/**
- * Adds an Icon Item to the IconGrid and sorts the list after addition.
- * 
- * \param	meta	User defined integer value. Defaults to 0.
- *
- * \note	This function does no sanity checking.
- */
-void IconGrid::addItemSorted(const std::string& name, int sheetIndex, int meta)
-{
-	/*
-	addItem(name, sheetIndex, meta);
-	sort();
-	*/
-}
-
-
-/**
- * Adds an Icon Item to the IconGrid.
- * 
- * \param	meta	User defined integer value. Defaults to 0.
- *
- * \note	This function does no sanity checking.
- */
-/*
-void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
-{
-	int x_pos = (sheetIndex % (mIconSheet.size().x / mIconSize)) * mIconSize;
-	int y_pos = (sheetIndex / (mIconSheet.size().x / mIconSize)) * mIconSize;
-
-	mIconItemList.push_back(Item());
-
-	IconGrid::Item& item = mIconItemList.back();
-
-	item.name = name;
-	item.pos = {x_pos, y_pos};
-	item.meta = meta;
-}
-*/
 
 
 /**
