@@ -4,11 +4,11 @@
 
 namespace
 {
-	void addItemToList(const StructureTracker::StructureItem& structureItem, StructureTracker::StructureItemList& list)
+	void addItemToList(const IconGrid::Item& structureItem, StructureTracker::StructureItemList& list)
 	{
 		for (const auto& item : list)
 		{
-			if (item.id == structureItem.id)
+			if (item.meta == structureItem.meta)
 			{
 				return;
 			}
@@ -50,13 +50,13 @@ StructureTracker::StructureTracker()
 }
 
 
-void StructureTracker::addUnlockedSurfaceStructure(const StructureItem& structureItem)
+void StructureTracker::addUnlockedSurfaceStructure(const IconGrid::Item& structureItem)
 {
 	addItemToList(structureItem, mUnlockedSurfaceStructures);
 }
 
 
-void StructureTracker::addUnlockedUndergroundStructure(const StructureItem& structureItem)
+void StructureTracker::addUnlockedUndergroundStructure(const IconGrid::Item& structureItem)
 {
 	addItemToList(structureItem, mUnlockedUndergroundStructures);
 }

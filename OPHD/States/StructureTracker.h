@@ -2,21 +2,15 @@
 
 #include "../Common.h"
 
+#include "../UI/IconGrid.h"
+
 #include <string>
 #include <vector>
 
 class StructureTracker
 {
 public:
-
-	struct StructureItem
-	{
-		const std::string name;
-		const int sheetIndex;
-		const StructureID id;
-	};
-
-	using StructureItemList = std::vector<StructureItem>;
+	using StructureItemList = std::vector<IconGrid::Item>;
 
 public:
 
@@ -28,8 +22,8 @@ public:
 	const StructureItemList& unlockedSurfaceStructures() const { return mUnlockedSurfaceStructures; }
 	const StructureItemList& unlockedUndergroundStructures() const { return mUnlockedUndergroundStructures; }
 
-	void addUnlockedSurfaceStructure(const StructureItem& structureItem);
-	void addUnlockedUndergroundStructure(const StructureItem& structureItem);
+	void addUnlockedSurfaceStructure(const IconGrid::Item& structureItem);
+	void addUnlockedUndergroundStructure(const IconGrid::Item& structureItem);
 
 private:
 
