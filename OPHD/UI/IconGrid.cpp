@@ -174,9 +174,9 @@ void IconGrid::addItem(const std::string& name, int sheetIndex, int meta)
 	int x_pos = (sheetIndex % (mIconSheet.size().x / mIconSize)) * mIconSize;
 	int y_pos = (sheetIndex / (mIconSheet.size().x / mIconSize)) * mIconSize;
 
-	mIconItemList.push_back(IconGridItem());
+	mIconItemList.push_back(Item());
 
-	IconGrid::IconGridItem& item = mIconItemList.back();
+	IconGrid::Item& item = mIconItemList.back();
 
 	item.name = name;
 	item.pos = {x_pos, y_pos};
@@ -292,8 +292,8 @@ void IconGrid::selection(std::size_t newSelection)
  * \note	If no items in the list contain a matching meta value,
  *			the current selection index will remain unchanged.
  * 
- * \remark	IconGridItem::meta is initialized to 0 so passing a value
- *			of 0 for IconGridItems that don't use a meta value will
+ * \remark	IconGrid::Item::meta is initialized to 0 so passing a value
+ *			of 0 for IconGrid::Item's that don't use a meta value will
  *			effectively set the index to 0.
  */
 void IconGrid::selection_meta(int selectionMetaValue)

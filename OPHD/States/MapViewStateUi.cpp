@@ -515,7 +515,7 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 * Currently uses a text comparison function. Not inherently bad but
 * should really be turned into a key/value pair table for easier lookups.
 */
-void MapViewState::onStructuresSelectionChange(const IconGrid::IconGridItem* item)
+void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 {
 	mConnections.clearSelection();
 	mRobots.clearSelection();
@@ -537,7 +537,7 @@ void MapViewState::onStructuresSelectionChange(const IconGrid::IconGridItem* ite
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*item*/)
+void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* /*item*/)
 {
 	mRobots.clearSelection();
 	mStructures.clearSelection();
@@ -549,7 +549,7 @@ void MapViewState::onConnectionsSelectionChange(const IconGrid::IconGridItem* /*
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void MapViewState::onRobotsSelectionChange(const IconGrid::IconGridItem* item)
+void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 {
 	mConnections.clearSelection();
 	mStructures.clearSelection();

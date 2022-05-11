@@ -37,7 +37,7 @@ private:
 
 	void clearProduct();
 
-	void onProductSelectionChange(const IconGrid::IconGridItem*);
+	void onProductSelectionChange(const IconGrid::Item*);
 
 	Factory* mFactory = nullptr;
 
