@@ -148,6 +148,18 @@ void IconGrid::onResize()
 }
 
 
+void IconGrid::addItemSorted(const Item& item)
+{
+	addItemSorted(item.name, item.sheetId, item.meta);
+}
+
+
+void IconGrid::addItem(const Item& item)
+{
+	addItem(item.name, item.sheetId, item.meta);
+}
+
+
 /**
  * Adds an Icon Item to the IconGrid and sorts the list after addition.
  * 
