@@ -28,7 +28,6 @@ public:
 	 */
 	struct Item
 	{
-	public:
 		std::string name{};
 		int sheetId{0};
 		int meta{0}; /**< Optional User defined value */
