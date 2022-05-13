@@ -21,6 +21,25 @@ namespace
 
 StructureTracker::StructureTracker()
 {
+	reset();
+}
+
+
+void StructureTracker::addUnlockedSurfaceStructure(const IconGrid::Item& structureItem)
+{
+	addItemToList(structureItem, mAvailableSurfaceStructures);
+}
+
+
+void StructureTracker::addUnlockedUndergroundStructure(const IconGrid::Item& structureItem)
+{
+	addItemToList(structureItem, mAvailableUndergroundStructures);
+}
+
+
+void StructureTracker::reset()
+{
+	mAvailableSurfaceStructures.clear();
 	mAvailableSurfaceStructures.push_back({constants::Agridome, 5, StructureID::SID_AGRIDOME});
 	mAvailableSurfaceStructures.push_back({constants::Chap, 3, StructureID::SID_CHAP});
 	mAvailableSurfaceStructures.push_back({constants::CommTower, 22, StructureID::SID_COMM_TOWER});
@@ -36,6 +55,7 @@ StructureTracker::StructureTracker()
 	mAvailableSurfaceStructures.push_back({constants::SurfacePolice, 23, StructureID::SID_SURFACE_POLICE});
 	mAvailableSurfaceStructures.push_back({constants::Warehouse, 9, StructureID::SID_WAREHOUSE});
 
+	mAvailableUndergroundStructures.clear();
 	mAvailableUndergroundStructures.push_back({constants::Laboratory, 58, StructureID::SID_LABORATORY});
 	mAvailableUndergroundStructures.push_back({constants::Park, 75, StructureID::SID_PARK});
 	mAvailableUndergroundStructures.push_back({constants::UndergroundPolice, 61, StructureID::SID_UNDERGROUND_POLICE});
@@ -47,16 +67,4 @@ StructureTracker::StructureTracker()
 	mAvailableUndergroundStructures.push_back({constants::Commercial, 66, StructureID::SID_COMMERCIAL});
 	mAvailableUndergroundStructures.push_back({constants::RedLightDistrict, 76, StructureID::SID_RED_LIGHT_DISTRICT});
 	mAvailableUndergroundStructures.push_back({constants::University, 63, StructureID::SID_UNIVERSITY});
-}
-
-
-void StructureTracker::addUnlockedSurfaceStructure(const IconGrid::Item& structureItem)
-{
-	addItemToList(structureItem, mAvailableSurfaceStructures);
-}
-
-
-void StructureTracker::addUnlockedUndergroundStructure(const IconGrid::Item& structureItem)
-{
-	addItemToList(structureItem, mAvailableUndergroundStructures);
 }

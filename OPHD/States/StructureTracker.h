@@ -22,6 +22,8 @@ public:
 	void addUnlockedSurfaceStructure(const IconGrid::Item& structureItem);
 	void addUnlockedUndergroundStructure(const IconGrid::Item& structureItem);
 
+	void reset();
+
 private:
 
 	StructureItemList mAvailableSurfaceStructures;
