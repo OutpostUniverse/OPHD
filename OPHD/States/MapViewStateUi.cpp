@@ -319,8 +319,7 @@ void MapViewState::populateStructureMenu()
 	}
 	else if (mMapView->currentDepth() == constants::DepthSurface)
 	{
-		fillList(mStructures, mStructureTracker.defaultSurfaceStructures());
-		fillList(mStructures, mStructureTracker.unlockedSurfaceStructures());
+		fillList(mStructures, mStructureTracker.availableSurfaceStructures());
 
 		mConnections.addItem({constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION});
 		mConnections.addItem({constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_RIGHT});
@@ -332,8 +331,7 @@ void MapViewState::populateStructureMenu()
 	}
 	else
 	{
-		fillList(mStructures, mStructureTracker.defaultUndergroundStructures());
-		fillList(mStructures, mStructureTracker.unlockedUndergroundStructures());
+		fillList(mStructures, mStructureTracker.availableUndergroundStructures());
 
 		mConnections.addItem({constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION});
 		mConnections.addItem({constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_RIGHT});

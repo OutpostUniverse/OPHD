@@ -265,6 +265,8 @@ void MapViewState::load(const std::string& filePath)
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
 
+	mStructureTracker.reset();
+
 	delete mTileMap;
 	mTileMap = nullptr;
 
