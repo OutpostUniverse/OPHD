@@ -16,20 +16,14 @@ public:
 
 	StructureTracker();
 
-	const StructureItemList& defaultSurfaceStructures() const { return mDefaultSurfaceStructures; }
-	const StructureItemList& defaultUndergroundStructures() const { return mDefaultUndergroundStructures; }
-
-	const StructureItemList& unlockedSurfaceStructures() const { return mUnlockedSurfaceStructures; }
-	const StructureItemList& unlockedUndergroundStructures() const { return mUnlockedUndergroundStructures; }
+	const StructureItemList& availableSurfaceStructures() const { return mAvailableSurfaceStructures; }
+	const StructureItemList& availableUndergroundStructures() const { return mAvailableUndergroundStructures; }
 
 	void addUnlockedSurfaceStructure(const IconGrid::Item& structureItem);
 	void addUnlockedUndergroundStructure(const IconGrid::Item& structureItem);
 
 private:
 
-	StructureItemList mDefaultSurfaceStructures;
-	StructureItemList mDefaultUndergroundStructures;
-
-	StructureItemList mUnlockedSurfaceStructures;
-	StructureItemList mUnlockedUndergroundStructures;
+	StructureItemList mAvailableSurfaceStructures;
+	StructureItemList mAvailableUndergroundStructures;
 };
