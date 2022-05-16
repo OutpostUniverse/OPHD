@@ -31,7 +31,7 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	void fillList(IconGrid& grid, const StructureTracker::StructureItemList& itemList)
+	void fillList(IconGrid& grid, const std::vector<IconGrid::Item>& itemList)
 	{
 		for (const auto& item : itemList)
 		{
