@@ -288,4 +288,5 @@ namespace constants
 	const std::string AlertStructureInsufficientResources = "You have insufficient resources to build this Structure. To build this structure, you will need an additional:\n\n";
 
 	const std::string AlertTubeInvalidLocation = "Tubes can only be placed on bulldozed tiles that are adjacent to other Tubes and Structures that have a connection to the Command Center.";
+	const std::string AlertTubeTerrain = "The selected tile is not bulldozed. Tubes can only be built on bulldozed tiles.";
 }

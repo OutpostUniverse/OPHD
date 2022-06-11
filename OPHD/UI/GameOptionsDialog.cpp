@@ -1,7 +1,7 @@
 #include "GameOptionsDialog.h"
 
 #include "../Constants/Strings.h"
-
+#include "../ShellOpenPath.h"
 #include <array>
 
 
@@ -9,13 +9,14 @@ GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WindowSystemTitle},
 	btnSave{"Save current game", {this, &GameOptionsDialog::onSave}},
 	btnLoad{"Load a saved game", {this, &GameOptionsDialog::onLoad}},
+	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
 	btnReturn{"Return to current game", {this, &GameOptionsDialog::onReturn}},
 	btnClose{"Return to Main Menu", {this, &GameOptionsDialog::onClose}}
 {
 	position({0, 0});
-	size({210, 160});
+	size({210, 188});
 
-	const auto buttons = std::array{&btnSave, &btnLoad, &btnReturn, &btnClose};
+	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnReturn, &btnClose};
 	for (auto button : buttons)
 	{
 		button->size({200, 25});
@@ -23,8 +24,9 @@ GameOptionsDialog::GameOptionsDialog() :
 
 	add(btnSave, {5, 25});
 	add(btnLoad, {5, 53});
-	add(btnReturn, {5, 91});
-	add(btnClose, {5, 129});
+	add(btnHelp, {5, 81});
+	add(btnReturn, {5, 119});
+	add(btnClose, {5, 154});
 
 	anchored(true);
 }
@@ -63,6 +65,11 @@ void GameOptionsDialog::onSave()
 void GameOptionsDialog::onLoad()
 {
 	mSignalLoad();
+}
+
+void GameOptionsDialog::onHelp()
+{
+	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 }
 
 void GameOptionsDialog::onReturn()

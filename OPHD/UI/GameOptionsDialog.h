@@ -22,6 +22,7 @@ public:
 private:
 	void onLoad();
 	void onSave();
+	void onHelp();
 	void onReturn();
 	void onClose();
 
@@ -29,6 +30,7 @@ private:
 
 	Button btnSave;
 	Button btnLoad;
+	Button btnHelp;
 	Button btnReturn;
 	Button btnClose;
 
