@@ -14,19 +14,26 @@ GameOptionsDialog::GameOptionsDialog() :
 	btnClose{"Return to Main Menu", {this, &GameOptionsDialog::onClose}}
 {
 	position({0, 0});
-	size({210, 188});
-
+	
 	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnReturn, &btnClose};
 	for (auto button : buttons)
 	{
-		button->size({200, 25});
+		button->size({buttonWidth, buttonHeight});
 	}
 
-	add(btnSave, {5, 25});
-	add(btnLoad, {5, 53});
-	add(btnHelp, {5, 81});
-	add(btnReturn, {5, 119});
-	add(btnClose, {5, 154});
+	int btnSaveHeight = buttonHeight;
+	add(btnSave, {buttonHorizontalMargin, btnSaveHeight});
+	int btnLoadHeight = btnSaveHeight + buttonHeight + buttonCloseVerticalMargin;
+	add(btnLoad, {buttonHorizontalMargin, btnLoadHeight});
+	int btnHelpHeight = btnLoadHeight + buttonHeight + buttonCloseVerticalMargin;
+	add(btnHelp, {buttonHorizontalMargin, btnHelpHeight});
+	int btnReturnHeight = btnHelpHeight + buttonHeight + buttonLargeVerticalMargin;
+	add(btnReturn, {buttonHorizontalMargin, btnReturnHeight});
+	int btnCloseHeight = btnReturnHeight + buttonHeight + buttonLargeVerticalMargin;
+	add(btnClose, {buttonHorizontalMargin, btnCloseHeight});
+
+	int windowHeight = btnCloseHeight + buttonHeight + buttonCloseVerticalMargin;
+	size({buttonWidth + 2 * buttonHorizontalMargin, windowHeight});
 
 	anchored(true);
 }
