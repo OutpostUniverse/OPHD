@@ -66,8 +66,7 @@ PopulationPanel::PopulationPanel() :
 {
 	constexpr int linesOfText = 14;
 	constexpr int edgeBuffer = constants::Margin * 2;
-	constexpr int dividerHeight = constants::Margin * 3;
-	const int windowHeight = mFontBold.height() + (mFont.height() * linesOfText) + edgeBuffer + dividerHeight;
+	const int windowHeight = mFontBold.height() + (mFont.height() * linesOfText) + (edgeBuffer * 2 /* Times two to account for both the edge and the divider line. */);
 
 	int largestStringLength = mFontBold.width(constants::MoraleBreakdown);
 	for (int i = 0; i < moraleStringTableCount(); ++i)
