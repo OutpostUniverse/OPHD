@@ -36,6 +36,7 @@ public:
 	int count(ProductType type);
 
 	int availableStorage() const;
+	int availableStoragePercent() const;
 
 	NAS2D::Dictionary serialize();
 	void deserialize(const NAS2D::Dictionary& dictionary);

@@ -130,6 +130,11 @@ int ProductPool::availableStorage() const
 	return mCapacity - mCurrentStorageCount;
 }
 
+int ProductPool::availableStoragePercent() const 
+{
+	return (100 - (mCurrentStorageCount * 100 / mCapacity))
+}
+
 
 int ProductPool::productStorageRequirement(ProductType type) const
 {
