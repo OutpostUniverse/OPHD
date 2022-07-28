@@ -72,7 +72,7 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 			{
 				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); 
 				const auto& factoryPos = NAS2D::Utility<StructureManager>::get().tileFromStructure(&factory);
-				mNotificationArea.push({"Food Stolen",
+				mNotificationArea.push({"Warehouses full",
 										"A factory has shut down due to lack of available warehouse space.",
 										factoryPos.xyz(),
 										NotificationArea::NotificationType::Warning});
