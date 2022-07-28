@@ -72,7 +72,7 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 			{
 				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); 
 				auto& structureManager = NAS2D::Utility<StructureManager>::get();
-				Tile& factoryPos = structureManager.tileFromStructure(factory);
+				Tile& factoryPos = structureManager.tileFromStructure(factory)->xyz();
 				mNotificationArea.push({
 				"Warehouse full",
 				"A factory has shut down due to lack of available warehouse space.",
