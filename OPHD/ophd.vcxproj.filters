@@ -363,6 +363,9 @@
     <ClCompile Include="States\StructureTracker.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="UI\CheatMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -787,6 +790,9 @@
     </ClInclude>
     <ClInclude Include="States\StructureTracker.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\CheatMenu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

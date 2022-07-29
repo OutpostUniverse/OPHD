@@ -7,10 +7,12 @@
 
 #include <NAS2D/Signal/Signal.h>
 
+#include <map>
+
 class CheatMenu : public Window
 {
 public:
-	enum class CheatCode 
+	enum class CheatCode
 	{
 		AddResources,
 		AddFood,
@@ -21,14 +23,15 @@ public:
 		AddScientists,
 		AddRetired,
 		Invalid
-	}
+	};
 	using CheatSignal = NAS2D::Signal<const std::string&>;
-
-	Signal::Source& cheatCodeEntered() { return mSignal; }
+	void onOkay();
+	CheatMenu();
+	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
+	CheatSignal::Source& cheatCodeEntered() { return mSignal; };
 
 
 private:
-
 	CheatSignal mSignal;
 
 	Label mLabelCheatCode;

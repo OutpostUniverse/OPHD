@@ -23,6 +23,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include "../UI/CheatMenu.h"
 
 
 extern NAS2D::Point<int> MOUSE_COORDS;
@@ -51,7 +52,7 @@ void MapViewState::initUi()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	mCheatMenu.cheatCodeEntered().connect(this, &MapViewState::onCheatCodeEntry);
-	mCheatmenu.hide();
+	mCheatMenu.hide();
 
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::onDiggerSelectionDialog);
 	mDiggerDirection.hide();
@@ -694,19 +695,18 @@ void MapViewState::onTurns()
 
 void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 {
-	CheatCode code = CheatMenu::stringToEnum(cheatCode);
+	StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
+
+	CheatMenu::CheatCode code = CheatMenu::stringToCheatCode(cheatCode);
+	auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
 	switch(code)
 	{
 		case CheatMenu::CheatCode::Invalid:
 			return;
 		case CheatMenu::CheatCode::AddResources:
-			StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
 			addRefinedResources(resourcesToAdd);
 		break;
-		case CheatMenu::CheatCode::AddFood:
-			auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
-			auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-			command->foodlevel(command->foodCapacity());
+		case CheatMenu::CheatCode::AddFood: 
 			for (auto fp : foodProducers)
 			{
 				fp->foodLevel(fp->foodCapacity());

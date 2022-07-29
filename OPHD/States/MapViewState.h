@@ -43,6 +43,7 @@
 #include "../UI/MiniMap.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
+#include "../UI/CheatMenu.h"
 
 #include "../UI/Core/WindowStack.h"
 #include "../UI/Core/ToolTip.h"
@@ -191,6 +192,7 @@ private:
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
 	void onFactoryProductionComplete(Factory& factory);
+	void onCheatCodeEntry(const std::string& cheatCode);
 
 	void onMineFacilityExtend(MineFacility* mf);
 
