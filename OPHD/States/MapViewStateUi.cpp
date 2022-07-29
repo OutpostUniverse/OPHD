@@ -50,6 +50,9 @@ void MapViewState::initUi()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
+	mCheatMenu.cheatCodeEntered().connect(this, &MapViewState::onCheatCodeEntry);
+	mCheatmenu.hide();
+
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::onDiggerSelectionDialog);
 	mDiggerDirection.hide();
 
@@ -689,6 +692,52 @@ void MapViewState::onTurns()
 	nextTurn();
 }
 
+void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
+{
+	CheatCode code = CheatMenu::stringToEnum(cheatCode);
+	switch(code)
+	{
+		case CheatMenu::CheatCode::Invalid:
+			return;
+		case CheatMenu::CheatCode::AddResources:
+			StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
+			addRefinedResources(resourcesToAdd);
+		break;
+		case CheatMenu::CheatCode::AddFood:
+			auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
+			auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+			command->foodlevel(command->foodCapacity());
+			for (auto fp : foodProducers)
+			{
+				fp->foodLevel(fp->foodCapacity());
+			}
+		break;
+		case CheatMenu::CheatCode::AddChildren:
+			mPopulation.addPopulation({10, 0, 0, 0, 0});
+		break;
+		case CheatMenu::CheatCode::AddStudents:
+			mPopulation.addPopulation({0, 10, 0, 0, 0});
+		break;
+		case CheatMenu::CheatCode::AddWorkers:
+			mPopulation.addPopulation({0, 0, 10, 0, 0});
+		break;
+		case CheatMenu::CheatCode::AddScientists:
+			mPopulation.addPopulation({0, 0, 0, 10, 0});
+		break;
+		case CheatMenu::CheatCode::AddRetired:
+			mPopulation.addPopulation({0, 0, 0, 0, 10});
+		break;
+		case CheatMenu::CheatCode::AddRobots:
+			mRobotPool.addRobot(Robot::Type::Digger);
+			mRobotPool.addRobot(Robot::Type::Dozer);
+			mRobotPool.addRobot(Robot::Type::Miner);
+			mRobotDeploymentSummary.draw();
+		break;
+
+	}
+	updatePlayerResources();
+	updateStructuresAvailability();
+}
 
 /**
  * Update IconGridItems availability

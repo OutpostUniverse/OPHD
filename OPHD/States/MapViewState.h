@@ -333,6 +333,7 @@ private:
 	IconGrid mRobots{"ui/robots.png", 46, constants::MarginTight};
 	IconGrid mConnections{"ui/structures.png", 46, constants::MarginTight};
 
+	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;
 	FactoryProduction mFactoryProduction;
 	FileIo mFileIoDialog;
