@@ -10,7 +10,7 @@ namespace
 	{
 		{"goldrush", AddResources },
 		{"orderpizza", AddFood },
-		{"getbusy", AddChildren},
+		{"waveofbabies", AddChildren},
 		{"savedbythebell", AddStudents},
 		{"gettowork", AddWorkers},
 		{"smartypants", AddScientists},
