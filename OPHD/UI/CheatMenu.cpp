@@ -26,7 +26,7 @@ CheatMenu::CheatMenu() :
 	size({320, 240});
 
 	add(mLabelCheatCode, {5, 25});
-	mLabelCheatCode.size({600, 20});
+	mLabelCheatCode.size({30, 20});
 	
 	add(btnOkay, {270, 100});
 	btnOkay.size({40, 20});
@@ -51,4 +51,11 @@ CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 	{
 		return CheatCode::Invalid;
 	}
+}
+
+void CheatMenu::update()
+{
+	if (!visible()) { return; }
+
+	Window::update();
 }

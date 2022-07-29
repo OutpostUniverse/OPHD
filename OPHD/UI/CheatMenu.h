@@ -29,7 +29,7 @@ public:
 	CheatMenu();
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 	CheatSignal::Source& cheatCodeEntered() { return mSignal; };
-
+	void update() override;
 
 private:
 	CheatSignal mSignal;
