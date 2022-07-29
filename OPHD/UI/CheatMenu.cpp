@@ -8,14 +8,14 @@ namespace
 {
 	const std::map<std::string, CheatCode> cheatCodeTable =
 	{
-		{"goldrush", AddResources },
-		{"orderpizza", AddFood },
-		{"waveofbabies", AddChildren},
-		{"savedbythebell", AddStudents},
-		{"gettowork", AddWorkers},
-		{"smartypants", AddScientists},
-		{"electronicoldmen", AddRetired},
-		{"beepboop", AddRobots}
+		{"goldrush", AddResources },      //Add 1000 of each resource.
+		{"orderpizza", AddFood },         //Refill your food supply completely
+		{"waveofbabies", AddChildren},    //Add ten children to the population
+		{"savedbythebell", AddStudents},  //Add ten students to the population
+		{"gettowork", AddWorkers},        //Add ten workers to the population
+		{"smartypants", AddScientists},   //Add ten scientists to the population
+		{"electronicoldmen", AddRetired}, //Add ten retired colonists to the population
+		{"beepboop", AddRobots}           //Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
 }
 
