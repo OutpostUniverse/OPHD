@@ -9,13 +9,13 @@ namespace
 	static const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
 	{
 		{"goldrush", CheatMenu::CheatCode::AddResources },      //Add 1000 of each resource.
-		{"orderpizza", CheatMenu::CheatCode::AddFood}, //Refill your food supply completely
-		{"waveofbabies", CheatMenu::CheatCode::AddChildren}, //Add ten children to the population
-		{"savedbythebell", CheatMenu::CheatCode::AddStudents}, //Add ten students to the population
-		{"gettowork", CheatMenu::CheatCode::AddWorkers}, //Add ten workers to the population
-		{"smartypants", CheatMenu::CheatCode::AddScientists}, //Add ten scientists to the population
+		{"orderpizza", CheatMenu::CheatCode::AddFood},          //Refill your food supply completely
+		{"waveofbabies", CheatMenu::CheatCode::AddChildren},    //Add ten children to the population
+		{"savedbythebell", CheatMenu::CheatCode::AddStudents},  //Add ten students to the population
+		{"gettowork", CheatMenu::CheatCode::AddWorkers},        //Add ten workers to the population
+		{"smartypants", CheatMenu::CheatCode::AddScientists},   //Add ten scientists to the population
 		{"electronicoldmen", CheatMenu::CheatCode::AddRetired}, //Add ten retired colonists to the population
-		{"beepboop", CheatMenu::CheatCode::AddRobots} //Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
+		{"beepboop", CheatMenu::CheatCode::AddRobots}           //Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
 }
 
