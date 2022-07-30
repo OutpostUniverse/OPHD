@@ -701,6 +701,9 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 
 	CheatMenu::CheatCode code = CheatMenu::stringToCheatCode(cheatCode);
 	auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
+	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+
+	foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 	switch(code)
 	{
 		case CheatMenu::CheatCode::Invalid:
