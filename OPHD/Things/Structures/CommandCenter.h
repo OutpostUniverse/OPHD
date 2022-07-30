@@ -17,8 +17,9 @@ public:
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)
 	{
-		maxAge(500);
+		maxAge(0);
 		turnsToBuild(4);
+		integrityDecayRate(0);
 
 		requiresCHAP(false);
 		selfSustained(true);
