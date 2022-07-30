@@ -23,23 +23,26 @@ CheatMenu::CheatMenu() :
 	Window{"Cheating"},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
-	size({320, 240});
+	size({300, 88});
 
 	mLabelCheatCode.size({30, 20});
 	mLabelCheatCode.text("Code:");
-	add(mLabelCheatCode, {5, 25});
+	add(mLabelCheatCode, {5, 34});
 	
 	btnOkay.size({40, 20});
-	add(btnOkay, {270, 100});
+	add(btnOkay, {240, 34});
 
-	txtCheatCode.size({200, 18});
+	txtCheatCode.size({150, 20});
 	txtCheatCode.maxCharacters(50);
-	add(txtCheatCode, {10, 100});
+	add(txtCheatCode, {40, 34});
 }
 
 void CheatMenu::onOkay()
 {
+	mSignal(txtCheatCode.text());
+	txtCheatCode.clear();
 	hide();
+
 }
 
 CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
