@@ -14,19 +14,17 @@ GameOptionsDialog::GameOptionsDialog() :
 	btnClose{"Return to Main Menu", {this, &GameOptionsDialog::onClose}}
 {
 	position({0, 0});
-	size({210, 188});
-
+	
 	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnReturn, &btnClose};
+	auto position = mRect.startPoint() + NAS2D::Vector{buttonHorizontalMargin, buttonHeight};
 	for (auto button : buttons)
 	{
-		button->size({200, 25});
+		button->size({buttonWidth, buttonHeight});
+		add(*button, {position.x, position.y});
+		position.y += buttonHeight + buttonVerticalMargin;
 	}
-
-	add(btnSave, {5, 25});
-	add(btnLoad, {5, 53});
-	add(btnHelp, {5, 81});
-	add(btnReturn, {5, 119});
-	add(btnClose, {5, 154});
+	
+	size({buttonWidth + 2 * buttonHorizontalMargin, position.y});
 
 	anchored(true);
 }
