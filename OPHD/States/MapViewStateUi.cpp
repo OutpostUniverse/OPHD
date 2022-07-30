@@ -739,6 +739,9 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 	}
 	updatePlayerResources();
 	updateStructuresAvailability();
+	updateFood();
+	updatePopulation();
+	updateRobots();
 }
 
 /**
