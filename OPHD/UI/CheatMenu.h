@@ -24,11 +24,17 @@ public:
 		AddRetired,
 		Invalid
 	};
+
 	using CheatSignal = NAS2D::Signal<const std::string&>;
+	
 	void onOkay();
+	
 	CheatMenu();
+	
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
+	
 	CheatSignal::Source& cheatCodeEntered() { return mSignal; };
+	
 	void update() override;
 
 private:
@@ -36,7 +42,7 @@ private:
 
 	Label mLabelCheatCode;
 
-	Button btnOkay{"Okay", {this, &CheatMenu::onOkay}};
+	Button btnOkay;
 
 	TextField txtCheatCode;
 };

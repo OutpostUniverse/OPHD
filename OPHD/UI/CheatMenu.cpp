@@ -25,15 +25,16 @@ CheatMenu::CheatMenu() :
 {
 	size({320, 240});
 
-	add(mLabelCheatCode, {5, 25});
 	mLabelCheatCode.size({30, 20});
+	mLabelCheatCode.text("Code:");
+	add(mLabelCheatCode, {5, 25});
 	
-	add(btnOkay, {270, 100});
 	btnOkay.size({40, 20});
-	
-	add(txtCheatCode, {10, 100});
+	add(btnOkay, {270, 100});
+
 	txtCheatCode.size({200, 18});
 	txtCheatCode.maxCharacters(50);
+	add(txtCheatCode, {10, 100});
 }
 
 void CheatMenu::onOkay()

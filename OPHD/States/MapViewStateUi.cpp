@@ -224,6 +224,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Anchored window positions
 	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x, 50});
+	mCheatMenu.position(NAS2D::Point{centerPosition(mFileIoDialog).x, 50});
 	mGameOverDialog.position(centerPosition(mGameOverDialog) - NAS2D::Vector{0, 100});
 	mAnnouncement.position(centerPosition(mAnnouncement) - NAS2D::Vector{0, 100});
 	mGameOptionsDialog.position(centerPosition(mGameOptionsDialog) - NAS2D::Vector{0, 100});
