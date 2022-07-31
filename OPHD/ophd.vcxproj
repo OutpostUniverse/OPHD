@@ -270,6 +270,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="Things\Structures\MineFacility.cpp" />
     <ClCompile Include="Things\Structures\RobotCommand.cpp" />
     <ClCompile Include="Things\Structures\Structure.cpp" />
+    <ClCompile Include="UI\CheatMenu.cpp" />
     <ClCompile Include="UI\Core\Button.cpp" />
     <ClCompile Include="UI\Core\CheckBox.cpp" />
     <ClCompile Include="UI\Core\ComboBox.cpp" />
@@ -413,6 +414,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="Things\Structures\University.h" />
     <ClInclude Include="Things\Structures\Warehouse.h" />
     <ClInclude Include="Things\Thing.h" />
+    <ClInclude Include="UI\CheatMenu.h" />
     <ClInclude Include="UI\Core\Button.h" />
     <ClInclude Include="UI\Core\CheckBox.h" />
     <ClInclude Include="UI\Core\ComboBox.h" />

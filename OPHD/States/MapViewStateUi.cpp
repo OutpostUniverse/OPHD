@@ -23,6 +23,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include "../UI/CheatMenu.h"
 
 
 extern NAS2D::Point<int> MOUSE_COORDS;
@@ -49,6 +50,9 @@ namespace
 void MapViewState::initUi()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	mCheatMenu.cheatCodeEntered().connect(this, &MapViewState::onCheatCodeEntry);
+	mCheatMenu.hide();
 
 	mDiggerDirection.directionSelected().connect(this, &MapViewState::onDiggerSelectionDialog);
 	mDiggerDirection.hide();
@@ -98,6 +102,7 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mMineOperationsWindow);
 	mWindowStack.addWindow(&mRobotInspector);
 	mWindowStack.addWindow(&mNotificationWindow);
+	mWindowStack.addWindow(&mCheatMenu);
 
 	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
 
@@ -220,6 +225,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Anchored window positions
 	mFileIoDialog.position(NAS2D::Point{centerPosition(mFileIoDialog).x, 50});
+	mCheatMenu.position(NAS2D::Point{centerPosition(mCheatMenu).x, centerPosition(mCheatMenu).y});
 	mGameOverDialog.position(centerPosition(mGameOverDialog) - NAS2D::Vector{0, 100});
 	mAnnouncement.position(centerPosition(mAnnouncement) - NAS2D::Vector{0, 100});
 	mGameOptionsDialog.position(centerPosition(mGameOptionsDialog) - NAS2D::Vector{0, 100});
@@ -689,6 +695,57 @@ void MapViewState::onTurns()
 	nextTurn();
 }
 
+void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
+{
+	StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
+
+	CheatMenu::CheatCode code = CheatMenu::stringToCheatCode(cheatCode);
+	auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
+	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+
+	foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
+	switch(code)
+	{
+		case CheatMenu::CheatCode::Invalid:
+			return;
+		case CheatMenu::CheatCode::AddResources:
+			addRefinedResources(resourcesToAdd);
+		break;
+		case CheatMenu::CheatCode::AddFood: 
+			for (auto fp : foodProducers)
+			{
+				fp->foodLevel(fp->foodCapacity());
+			}
+		break;
+		case CheatMenu::CheatCode::AddChildren:
+			mPopulation.addPopulation({10, 0, 0, 0, 0});
+		break;
+		case CheatMenu::CheatCode::AddStudents:
+			mPopulation.addPopulation({0, 10, 0, 0, 0});
+		break;
+		case CheatMenu::CheatCode::AddWorkers:
+			mPopulation.addPopulation({0, 0, 10, 0, 0});
+		break;
+		case CheatMenu::CheatCode::AddScientists:
+			mPopulation.addPopulation({0, 0, 0, 10, 0});
+		break;
+		case CheatMenu::CheatCode::AddRetired:
+			mPopulation.addPopulation({0, 0, 0, 0, 10});
+		break;
+		case CheatMenu::CheatCode::AddRobots:
+			mRobotPool.addRobot(Robot::Type::Digger);
+			mRobotPool.addRobot(Robot::Type::Dozer);
+			mRobotPool.addRobot(Robot::Type::Miner);
+			mRobotDeploymentSummary.draw();
+		break;
+
+	}
+	updatePlayerResources();
+	updateStructuresAvailability();
+	updateFood();
+	updatePopulation();
+	updateRobots();
+}
 
 /**
  * Update IconGridItems availability

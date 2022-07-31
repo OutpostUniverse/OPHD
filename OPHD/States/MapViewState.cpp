@@ -452,10 +452,8 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 		case NAS2D::EventHandler::KeyCode::KEY_F10:
 			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(mod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(mod))
 			{
-				StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
-				addRefinedResources(resourcesToAdd);
-				updatePlayerResources();
-				updateStructuresAvailability();
+				mCheatMenu.show();
+				mWindowStack.bringToFront(&mCheatMenu);
 			}
 			break;
 
