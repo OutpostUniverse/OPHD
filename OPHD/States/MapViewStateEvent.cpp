@@ -68,7 +68,15 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 		{
 			Warehouse* warehouse = getAvailableWarehouse(productType, 1);
 			if (warehouse) { warehouse->products().store(productType, 1); factory.pullProduct(); }
-			else { factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); }
+			else 
+			{
+				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); 
+				const auto& factoryPos = NAS2D::Utility<StructureManager>::get().tileFromStructure(&factory);
+				mNotificationArea.push({"Warehouses full",
+										"A factory has shut down due to lack of available warehouse space.",
+										factoryPos.xyz(),
+										NotificationArea::NotificationType::Warning});
+			}
 			break;
 		}
 

@@ -20,6 +20,11 @@ public:
 	ClickSignal::Source& returnToMainMenu() { return mSignalClose; }
 
 private:
+	const int buttonHeight = 25;
+	const int buttonWidth = 200;
+	const int buttonHorizontalMargin = 5;
+	const int buttonVerticalMargin = 3;
+	
 	void onLoad();
 	void onSave();
 	void onHelp();
