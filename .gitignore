@@ -14,3 +14,7 @@ x64/
 *.user
 /proj/vs2019/packages
 /OPHD/*.aps
+
+# MacOS
+*.DS_Store
+/Build/
