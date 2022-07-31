@@ -6,18 +6,32 @@ using namespace NAS2D;
 
 namespace
 {
+	enum class CheatCode
+	{
+		AddResources,
+		AddFood,
+		AddRobots,
+		AddChildren,
+		AddStudents,
+		AddWorkers,
+		AddScientists,
+		AddRetired,
+		Invalid
+	};
+
 	static const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
 	{
 		{"goldrush", CheatMenu::CheatCode::AddResources },      //Add 1000 of each resource.
-		{"orderpizza", CheatMenu::CheatCode::AddFood}, //Refill your food supply completely
-		{"waveofbabies", CheatMenu::CheatCode::AddChildren}, //Add ten children to the population
-		{"savedbythebell", CheatMenu::CheatCode::AddStudents}, //Add ten students to the population
-		{"gettowork", CheatMenu::CheatCode::AddWorkers}, //Add ten workers to the population
-		{"smartypants", CheatMenu::CheatCode::AddScientists}, //Add ten scientists to the population
+		{"orderpizza", CheatMenu::CheatCode::AddFood},          //Refill your food supply completely
+		{"waveofbabies", CheatMenu::CheatCode::AddChildren},    //Add ten children to the population
+		{"savedbythebell", CheatMenu::CheatCode::AddStudents},  //Add ten students to the population
+		{"gettowork", CheatMenu::CheatCode::AddWorkers},        //Add ten workers to the population
+		{"smartypants", CheatMenu::CheatCode::AddScientists},   //Add ten scientists to the population
 		{"electronicoldmen", CheatMenu::CheatCode::AddRetired}, //Add ten retired colonists to the population
-		{"beepboop", CheatMenu::CheatCode::AddRobots} //Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
+		{"beepboop", CheatMenu::CheatCode::AddRobots}           //Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
 }
+
 
 CheatMenu::CheatMenu() :
 	Window{"Cheating"},
@@ -37,6 +51,7 @@ CheatMenu::CheatMenu() :
 	add(txtCheatCode, {40, 34});
 }
 
+
 void CheatMenu::onOkay()
 {
 	mSignal(txtCheatCode.text());
@@ -44,6 +59,7 @@ void CheatMenu::onOkay()
 	hide();
 
 }
+
 
 CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 {
@@ -56,6 +72,7 @@ CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 		return CheatCode::Invalid;
 	}
 }
+
 
 void CheatMenu::update()
 {
