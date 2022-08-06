@@ -223,7 +223,7 @@ void MapViewState::save(const std::string& filePath)
 	NAS2D::Xml::XmlMemoryBuffer buff;
 	doc.accept(&buff);
 
-	NAS2D::Utility<NAS2D::Filesystem>::get().write(filePath, buff.buffer());
+	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(filePath, buff.buffer());
 }
 
 

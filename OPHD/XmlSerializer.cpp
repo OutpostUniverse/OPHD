@@ -8,7 +8,7 @@ using namespace NAS2D;
 Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
 {
 	Xml::XmlDocument xmlDocument;
-	xmlDocument.parse(Utility<Filesystem>::get().read(filename).c_str());
+	xmlDocument.parse(Utility<Filesystem>::get().readFile(filename).c_str());
 
 	if (xmlDocument.error())
 	{
