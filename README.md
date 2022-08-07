@@ -22,7 +22,7 @@ MacOS X applications are generally distributed as App Bundles which include all 
 
 In the mean time, for users of MacOS 10.14 (Mojave) and above, you can install all of OPHD's dependencies using Homebrew (https://brew.sh -- follow instructions for installation) and then run the following command in terminal:
 
-    brew install physfs sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
+    brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf libpng libjpeg libtiff webp libmodplug libvorbis libogg freetype glew googletest
 
 It will take a few minutes but all dependencies will be installed. From here you can clone the OPHD git repository and run `make` in terminal to build OutpostHD. When built, you can launch OutpostHD by entering `./ophd.exe` from the terminal.
 
