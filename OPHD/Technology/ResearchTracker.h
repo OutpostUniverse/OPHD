@@ -18,10 +18,6 @@ public:
 	};
 
 
-	ResearchTracker() = default;
-	~ResearchTracker() = default;
-
-
 	const std::vector<int>& completedResearch() const
 	{
 		return mCompleted;
