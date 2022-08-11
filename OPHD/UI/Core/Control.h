@@ -19,6 +19,8 @@ public:
 	using OnMoveSignal = NAS2D::Signal<NAS2D::Vector<int>>;
 
 	Control() = default;
+	Control(Control&) = default;
+	Control(Control&&) = default;
 	virtual ~Control() = default;
 
 	const NAS2D::Rectangle<int>& area() const { return mRect; }
