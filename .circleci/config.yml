@@ -27,7 +27,7 @@ jobs:
       - build
   build-linux-gcc:
     docker:
-      - image: outpostuniverse/nas2d-gcc:1.3
+      - image: outpostuniverse/nas2d-gcc:1.4
     environment:
       WARN_EXTRA: -Wsuggest-override
     steps:
@@ -36,7 +36,7 @@ jobs:
       - build
   build-linux-clang:
     docker:
-      - image: outpostuniverse/nas2d-clang:1.2
+      - image: outpostuniverse/nas2d-clang:1.3
     environment:
       WARN_EXTRA: -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
     steps:
@@ -45,7 +45,7 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: outpostuniverse/nas2d-mingw:1.7
+      - image: outpostuniverse/nas2d-mingw:1.8
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
