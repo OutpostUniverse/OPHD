@@ -16,7 +16,7 @@ commands:
 jobs:
   build-macos:
     macos:
-      xcode: "12.5.0"
+      xcode: "12.5.1"
     environment:
       - HOMEBREW_NO_AUTO_UPDATE: 1
       - WARN_EXTRA: "-Wno-double-promotion"
