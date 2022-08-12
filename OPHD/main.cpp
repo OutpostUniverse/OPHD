@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		auto& filesystem = Utility<Filesystem>::init<Filesystem>(argv[0], "OutpostHD", "LairWorks");
+		auto& filesystem = Utility<Filesystem>::init<Filesystem>("OutpostHD", "LairWorks");
 		// Prioritize data from working directory, fallback on data from executable path
 		filesystem.mountSoftFail("data");
 		filesystem.mountSoftFail(filesystem.basePath() + "data");
