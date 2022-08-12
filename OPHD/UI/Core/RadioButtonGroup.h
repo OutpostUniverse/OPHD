@@ -27,7 +27,6 @@ private:
 
 		// TODO: Best to delete these, but they need to exist for now
 		// The default methods do not properly handle global event connect/disconnect
-		RadioButton(const RadioButton&) = default;
 		RadioButton(RadioButton&&) = default;
 
 		void checked(bool toggle);
