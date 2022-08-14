@@ -267,7 +267,7 @@ void ScrollBar::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (mThumbPressed && mTrack.contains({x, y}))
+	if (mThumbPressed && mTrack.contains(NAS2D::Point{x, y}))
 	{
 		value(
 			(mScrollBarType == ScrollBarType::Vertical) ?

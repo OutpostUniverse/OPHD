@@ -194,7 +194,7 @@ public:
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, int x, int y) {
-		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains({x, y}))
+		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(NAS2D::Point{x, y}))
 		{
 			return;
 		}
@@ -203,7 +203,7 @@ protected:
 	}
 
 	virtual void onMouseMove(int x, int y, int /*relX*/, int /*relY*/) {
-		if (!visible() || !mScrollArea.contains({x, y}))
+		if (!visible() || !mScrollArea.contains(NAS2D::Point{x, y}))
 		{
 			mHighlightIndex = constants::NoSelection;
 			return;
