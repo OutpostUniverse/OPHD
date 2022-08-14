@@ -124,8 +124,9 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 
 void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
 {
-	if (!rect().contains({x, y})) { return; }
-	mNotificationIndex = notificationIndex({x, y});
+	const auto position = NAS2D::Point{x, y};
+	if (!rect().contains(position)) { return; }
+	mNotificationIndex = notificationIndex(position);
 }
 
 
