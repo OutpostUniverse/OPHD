@@ -1,14 +1,15 @@
 #pragma once
 
-#include "Structure.h"
+#include "ResearchFacility.h"
 
 #include "../../Constants/Strings.h"
 
 
-class Laboratory : public Structure
+class Laboratory : public ResearchFacility
 {
 public:
-	Laboratory() : Structure(constants::Laboratory,
+	Laboratory() :
+		ResearchFacility(constants::Laboratory,
 		"structures/laboratory_underground.sprite",
 		StructureClass::Laboratory,
 		StructureID::SID_LABORATORY)
