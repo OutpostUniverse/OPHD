@@ -391,6 +391,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="Things\Structures\RecreationCenter.h" />
     <ClInclude Include="Things\Structures\Recycling.h" />
     <ClInclude Include="Things\Structures\RedLightDistrict.h" />
+    <ClInclude Include="Things\Structures\ResearchFacility.h" />
     <ClInclude Include="Things\Structures\Residence.h" />
     <ClInclude Include="Things\Structures\Road.h" />
     <ClInclude Include="Things\Structures\RobotCommand.h" />
