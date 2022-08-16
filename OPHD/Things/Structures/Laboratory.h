@@ -19,7 +19,11 @@ public:
 
 		requiresCHAP(false);
 		hasCrime(true);
+
+		maxScientistsAllowed(3);
+		regularPointsPerScientist(1);
 	}
+
 
 protected:
 	void defineResourceInput() override

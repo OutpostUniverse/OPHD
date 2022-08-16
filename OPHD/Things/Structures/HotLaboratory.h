@@ -19,6 +19,9 @@ public:
 		integrityDecayRate(2);
 
 		requiresCHAP(false);
+
+		maxScientistsAllowed(3);
+		hotPointsPerScientist(1.0f);
 	}
 
 protected:
