@@ -192,6 +192,13 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
 
 	assignColonistsToResidences(population);
+	
+	/**
+	 * Scientists are assigned to labs after other facilities like medical, university, etc
+	 * as those are much higher priority than labs. If the player wants to free up scientists,
+	 * they can either manually set a structure to idle or bulldoze it.
+	 */
+	assignScientistsToResearchFacilities(population);
 }
 
 
@@ -242,6 +249,23 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 		{
 			residence->assignColonists(populationCount);
 			populationCount -= residence->assignedColonists();
+		}
+	}
+}
+
+
+void StructureManager::assignScientistsToResearchFacilities(PopulationPool& population)
+{
+	int availableScientists = population.availableScientists();
+	for (auto laboratory : mStructureLists[Structure::StructureClass::Laboratory])
+	{
+		ResearchFacility* lab = static_cast<ResearchFacility*>(laboratory);
+		lab->assignScientsts(0);
+		if (lab->operational())
+		{
+			lab->assignScientsts(availableScientists);
+			availableScientists -= lab->assignedScientists();
+			population.usePopulation({0, lab->assignedScientists()});
 		}
 	}
 }
