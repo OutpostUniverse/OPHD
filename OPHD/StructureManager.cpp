@@ -192,6 +192,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
 
 	assignColonistsToResidences(population);
+	assignScientistsToResearchFacilities(population);
 }
 
 
@@ -244,6 +245,11 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 			populationCount -= residence->assignedColonists();
 		}
 	}
+}
+
+
+void StructureManager::assignScientistsToResearchFacilities(PopulationPool& population)
+{
 }
 
 
