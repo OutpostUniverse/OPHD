@@ -256,6 +256,18 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 
 void StructureManager::assignScientistsToResearchFacilities(PopulationPool& population)
 {
+	int availableScientists = population.availableScientists();
+	for (auto laboratory : mStructureLists[Structure::StructureClass::Laboratory])
+	{
+		ResearchFacility* lab = static_cast<ResearchFacility*>(laboratory);
+		lab->assignScientsts(0);
+		if (lab->operational())
+		{
+			lab->assignScientsts(availableScientists);
+			availableScientists -= lab->assignedScientists();
+			population.usePopulation({0, lab->assignedScientists()});
+		}
+	}
 }
 
 
