@@ -34,6 +34,7 @@ public:
 			std::floor(mActualScientstsEmployed * mRegularPointsPerScientist));
 	}
 
+
 	int hotResearchProduced() const
 	{
 		return static_cast<int>(
@@ -41,9 +42,16 @@ public:
 	}
 
 
-	int scientistsNeeded() const { return mMaxScientstsAllowed - mActualScientstsEmployed; }
+	int scientistsNeeded() const
+	{
+		return mMaxScientstsAllowed - mActualScientstsEmployed;
+	}
 
-	void assignScientsts(int count) { mActualScientstsEmployed = count; }
+	
+	void assignScientsts(int count)
+	{
+		mActualScientstsEmployed = count;
+	}
 
 
 protected:
