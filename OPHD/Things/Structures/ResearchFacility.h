@@ -2,11 +2,16 @@
 
 #include "Structure.h"
 
+#include <cmath>
+
+
 class ResearchFacility : public Structure
 {
 public:
 	ResearchFacility(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
-		Structure(name, spritePath, structureClass, id) {}
+		Structure(name, spritePath, structureClass, id)
+	{}
+
 
 	StringTable createInspectorViewTable() override
 	{
@@ -22,10 +27,36 @@ public:
 		return stringTable;
 	}
 
-	int regularResearchProduced() const { return mRegularResearchProduced; }
-	int hotResearchProduced() const { return mHotResearchProduced; }
+
+	int regularResearchProduced() const
+	{
+		return static_cast<int>(
+			std::floor(mActualScientstsEmployed * mRegularPointsPerScientist));
+	}
+
+	int hotResearchProduced() const
+	{
+		return static_cast<int>(
+			std::floor(mActualScientstsEmployed * mHotPointsPerScientist));
+	}
+
+
+	int scientistsNeeded() const { return mMaxScientstsAllowed - mActualScientstsEmployed; }
+
+	void assignScientsts(int count) { mActualScientstsEmployed = count; }
+
+
+protected:
+	void maxScientistsAllowed(int count) { mMaxScientstsAllowed = count; }
+
+	void regularPointsPerScientist(float count) { mRegularPointsPerScientist = count; }
+	void hotPointsPerScientist(float count) { mHotPointsPerScientist = count; }
+
 
 private:
-	int mRegularResearchProduced{0};
-	int mHotResearchProduced{0};
+	int mMaxScientstsAllowed{0};
+	int mActualScientstsEmployed{0};
+
+	float mRegularPointsPerScientist{0.0f};
+	float mHotPointsPerScientist{0.0f};
 };
