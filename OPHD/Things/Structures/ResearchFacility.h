@@ -2,6 +2,7 @@
 
 #include "Structure.h"
 
+#include <algorithm>
 #include <cmath>
 
 
@@ -50,7 +51,13 @@ public:
 	
 	void assignScientsts(int count)
 	{
-		mActualScientstsEmployed = count;
+		mActualScientstsEmployed = std::clamp(count, 0, mMaxScientstsAllowed);
+	}
+
+
+	int assignedScientists() const
+	{
+		return mActualScientstsEmployed;
 	}
 
 
