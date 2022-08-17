@@ -668,11 +668,11 @@ void MapViewState::nextTurn()
 
 	transferFoodToCommandCenter();
 
+	updateResidentialCapacity();
+
 	mCrimeRateUpdate.update(mPoliceOverlays);
 	auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
 	mCrimeExecution.executeCrimes(structuresCommittingCrimes);
-
-	updateResidentialCapacity();
 
 	updateFood();
 	updatePopulation();
