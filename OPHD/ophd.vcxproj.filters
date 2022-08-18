@@ -366,6 +366,9 @@
     <ClCompile Include="UI\CheatMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProductCatalogue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -795,6 +798,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Things\Structures\ResearchFacility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
