@@ -3,6 +3,7 @@
 
 #include "Common.h"
 
+#include <map>
 #include <string>
 
 
@@ -13,10 +14,18 @@
 class ProductCatalogue
 {
 public:
-	ProductCatalogue() = default;
+	struct Product
+	{
+		int Id{ProductType::PRODUCT_NONE};
+		std::string Name{};
+		std::string Description{};
+	};
 
-	const std::string& productName(ProductType type) const;
+public:
+	ProductCatalogue(const std::string& catalogFile);
+
+	const Product& product(ProductType type) const;
 
 private:
-
+	std::map<ProductType, Product> mProductTable;
 };
