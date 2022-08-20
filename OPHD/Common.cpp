@@ -135,9 +135,6 @@ int moraleStringTableCount()
 }
 
 
-/**
- * Description table for products.
- */
 std::array<std::string, ProductType::PRODUCT_COUNT> ProductDescriptionTable =
 {
 	constants::Robodigger,
