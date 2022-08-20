@@ -44,12 +44,6 @@ Window::~Window()
 }
 
 
-void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void Window::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -61,21 +55,9 @@ void Window::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> pos
 }
 
 
-void Window::onMouseUp(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseUp(button, {x, y});
-}
-
-
 void Window::onMouseUp(EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	mMouseDrag = false;
-}
-
-
-void Window::onMouseMove(int x, int y, int dX, int dY)
-{
-	onMouseMove({x, y}, {dX, dY});
 }
 
 

@@ -46,9 +46,7 @@ private:
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onListSelectionChange();
 
-	void onMouseWheel(int x, int y);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 
 	Button btnDown;

@@ -118,12 +118,6 @@ bool Button::hasImage() const
 }
 
 
-void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -146,12 +140,6 @@ void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> pos
 }
 
 
-void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseUp(button, {x, y});
-}
-
-
 void Button::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -168,12 +156,6 @@ void Button::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> posit
 			}
 		}
 	}
-}
-
-
-void Button::onMouseMove(int x, int y, int dX, int dY)
-{
-	onMouseMove({x, y}, {dX, dY});
 }
 
 

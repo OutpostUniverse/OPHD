@@ -87,12 +87,6 @@ void UIContainer::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-void UIContainer::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }

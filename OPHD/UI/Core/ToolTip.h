@@ -23,7 +23,6 @@ public:
 	void draw() const override;
 
 private:
-	void onMouseMove(int, int, int, int);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void buildDrawParams(std::pair<Control*, std::string>&, int);

@@ -68,12 +68,6 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 }
 
 
-void ToolTip::onMouseMove(int x, int y, int dX, int dY)
-{
-	onMouseMove({x, y}, {dX, dY});
-}
-
-
 void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
 {
 	if (relative != Vector{0, 0})

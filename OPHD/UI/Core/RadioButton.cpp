@@ -82,12 +82,6 @@ void RadioButtonGroup::RadioButton::onTextChange()
 }
 
 
-void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }

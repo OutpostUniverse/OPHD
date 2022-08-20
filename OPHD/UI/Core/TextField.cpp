@@ -219,15 +219,6 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 }
 
 
-/**
- * Mouse down even handler.
- */
-void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void TextField::onMouseDown(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.

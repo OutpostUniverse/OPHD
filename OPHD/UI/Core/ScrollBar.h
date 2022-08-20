@@ -47,11 +47,8 @@ public:
 
 protected:
 	void onButtonClick(bool& buttonFlag, ValueType value);
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
-	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
-	virtual void onMouseMove(int x, int y, int dX, int dY);
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void onMove(NAS2D::Vector<int> displacement) override;

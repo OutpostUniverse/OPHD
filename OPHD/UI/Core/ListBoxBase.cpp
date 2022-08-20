@@ -99,15 +99,6 @@ void ListBoxBase::onResize()
 }
 
 
-/**
- * Mouse Down event handler.
- */
-void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void ListBoxBase::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -126,15 +117,6 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int
 	if (mHighlightIndex >= mItems.size()) { return; }
 
 	setSelection(mHighlightIndex);
-}
-
-
-/**
- * Mouse Motion event handler.
- */
-void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
-{
-	onMouseMove({x, y}, {relX, relY});
 }
 
 
@@ -164,17 +146,6 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 	{
 		mHighlightIndex = constants::NoSelection;
 	}
-}
-
-
-/**
- * Mouse Wheel event handler.
- * 
- * \todo	Make the scroll step configurable. Legacy from the ListBox.
- */
-void ListBoxBase::onMouseWheel(int x, int y)
-{
-	onMouseWheel({x, y});
 }
 
 
