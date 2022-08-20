@@ -131,7 +131,13 @@ NAS2D::State* PlanetSelectState::update()
 }
 
 
-void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton, int, int)
+void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
+{
+	onMouseDown(button, {x, y});
+}
+
+
+void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
