@@ -70,8 +70,13 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 {
-	const auto position = NAS2D::Point{x, y};
-	if (dX != 0 || dY != 0)
+	onMouseMove({x, y}, {dX, dY});
+}
+
+
+void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
+{
+	if (relative != Vector{0, 0})
 	{
 		if (mFocusedControl)
 		{
@@ -88,7 +93,7 @@ void ToolTip::onMouseMove(int x, int y, int dX, int dY)
 		if (item.first->rect().contains(position))
 		{
 			mFocusedControl = &item;
-			buildDrawParams(item, x);
+			buildDrawParams(item, position.x);
 			return;
 		}
 	}

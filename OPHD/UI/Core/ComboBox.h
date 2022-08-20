@@ -7,6 +7,8 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 
 #include <cstddef>
@@ -45,7 +47,9 @@ private:
 	void onListSelectionChange();
 
 	void onMouseWheel(int x, int y);
+	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 
 	Button btnDown;
 	ListBox<> lstItems;

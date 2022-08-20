@@ -1,6 +1,8 @@
 #pragma once
 
 #include <NAS2D/State.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 
 #include <memory>
 
@@ -25,6 +27,7 @@ public:
 
 private:
 	void onMouseMove(int x, int y, int relX, int relY);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void onFadeComplete();
 	void onMusicComplete();

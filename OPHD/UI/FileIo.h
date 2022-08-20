@@ -8,6 +8,7 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
 
 
 class FileIo : public Window
@@ -33,6 +34,7 @@ public:
 
 protected:
 	void onDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onDoubleClick(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 
 private:

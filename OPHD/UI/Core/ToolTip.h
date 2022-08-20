@@ -3,6 +3,7 @@
 #include "Control.h"
 
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Timer.h>
 
@@ -23,6 +24,7 @@ public:
 
 private:
 	void onMouseMove(int, int, int, int);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void buildDrawParams(std::pair<Control*, std::string>&, int);
 

@@ -4,6 +4,8 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
@@ -50,8 +52,11 @@ public:
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseMove(int x, int y, int dX, int dY);
+	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:
 	enum class State

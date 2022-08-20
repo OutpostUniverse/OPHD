@@ -243,9 +243,15 @@ void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::Even
  */
 void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!active()) { return; }
 
-	if (!NAS2D::Rectangle{0, 0, NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}.contains(NAS2D::Point{x, y})) { return; } // ignore clicks in the UI area.
+	if (!NAS2D::Rectangle{0, 0, NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}.contains(position)) { return; } // ignore clicks in the UI area.
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{

@@ -491,6 +491,12 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
  */
 void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!active()) { return; }
 
 	if (modalUiElementDisplayed()) { return; }
@@ -534,7 +540,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 		}
 
 		// MiniMap Check
-		mMiniMap->onMouseDown(button, x, y);
+		mMiniMap->onMouseDown(button, position);
 
 		// Click was within the bounds of the TileMap.
 		if (mDetailMap->isMouseOverTile())
@@ -545,7 +551,13 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, i
 }
 
 
-void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, int /*x*/, int /*y*/)
+void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y)
+{
+	onMouseDoubleClick(button, {x, y});
+}
+
+
+void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> /*position*/)
 {
 	if (!active()) { return; }
 
@@ -590,9 +602,15 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, i
 */
 void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
+	onMouseUp(button, {x, y});
+}
+
+
+void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
-		mMiniMap->onMouseUp(button, x, y);
+		mMiniMap->onMouseUp(button, position);
 	}
 }
 
@@ -602,8 +620,14 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int
 */
 void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 {
+	onMouseMove({x, y}, {rX, rY});
+}
+
+
+void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
+{
 	if (!active()) { return; }
-	mMiniMap->onMouseMove(x, y, rX, rY);
+	mMiniMap->onMouseMove(position, relative);
 	mMouseTilePosition = mDetailMap->mouseTilePosition();
 }
 
@@ -611,11 +635,17 @@ void MapViewState::onMouseMove(int x, int y, int rX, int rY)
 /**
  * Mouse wheel event handler.
  */
-void MapViewState::onMouseWheel(int /*x*/, int y)
+void MapViewState::onMouseWheel(int x, int y)
+{
+	onMouseWheel({x, y});
+}
+
+
+void MapViewState::onMouseWheel(NAS2D::Vector<int> changeAmount)
 {
 	if (mInsertMode != InsertMode::Tube) { return; }
 
-	y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
+	changeAmount.y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
 }
 
 

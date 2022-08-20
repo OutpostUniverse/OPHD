@@ -7,6 +7,8 @@
 
 #include "../Core/Button.h"
 
+#include <NAS2D/Math/Point.h>
+
 #include <vector>
 
 
@@ -55,6 +57,7 @@ private:
 	void fillListDisabled();
 
 	void onDoubleClick(NAS2D::EventHandler::MouseButton, int, int);
+	void onDoubleClick(NAS2D::EventHandler::MouseButton, NAS2D::Point<int> position);
 
 	void onStructureSelectionChange();
 

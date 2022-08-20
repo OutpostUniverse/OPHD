@@ -100,9 +100,15 @@ MainReportsUiState& GameState::getMainReportsState()
 /**
  * Mouse motion event handler.
  */
-void GameState::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
+void GameState::onMouseMove(int x, int y, int relX, int relY)
 {
-	MOUSE_COORDS = {x, y};
+	onMouseMove({x, y}, {relX, relY});
+}
+
+
+void GameState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	MOUSE_COORDS = position;
 }
 
 

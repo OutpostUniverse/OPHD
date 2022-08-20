@@ -3,6 +3,7 @@
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Resource/Image.h>
 
 #include <string>
@@ -66,6 +67,7 @@ public:
 protected:
 	bool pointInCircle(NAS2D::Point<int> point);
 	void onMouseMove(int x, int y, int rX, int rY);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:
 	Planet() = delete;
