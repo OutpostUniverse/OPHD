@@ -19,7 +19,7 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	static const NAS2D::Image* WINDOW_BACKGROUND = nullptr;
+	const NAS2D::Image* WINDOW_BACKGROUND = nullptr;
 
 	const NAS2D::Font* BIG_FONT = nullptr;
 	const NAS2D::Font* BIG_FONT_BOLD = nullptr;
