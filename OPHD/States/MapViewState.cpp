@@ -35,10 +35,6 @@
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
-
-NAS2D::Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
-NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
-
 const NAS2D::Font* MAIN_FONT = nullptr;
 
 
