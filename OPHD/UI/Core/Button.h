@@ -55,14 +55,14 @@ protected:
 	virtual void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
+	void draw() const override;
+
 private:
 	enum class State
 	{
 		Normal,
 		Pressed
 	};
-
-	void draw() const override;
 
 	const ButtonSkin mButtonSkin;
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
