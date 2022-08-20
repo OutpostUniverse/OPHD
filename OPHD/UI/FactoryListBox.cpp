@@ -25,9 +25,9 @@ static const Font* MAIN_FONT_BOLD = nullptr;
 static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	Factory* f = item.factory;
-
-	const auto& structureColor = structureColorFromIndex(f->state());
-	const auto& structureTextColor = structureTextColorFromIndex(f->state());
+	const auto factoryState = f->state();
+	const auto& structureColor = structureColorFromIndex(factoryState);
+	const auto& structureTextColor = structureTextColorFromIndex(factoryState);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
