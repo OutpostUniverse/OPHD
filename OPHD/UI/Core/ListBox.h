@@ -8,6 +8,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -193,8 +195,12 @@ public:
 	}
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, int x, int y) {
-		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(NAS2D::Point{x, y}))
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) {
+		onMouseDown(button, {x, y});
+	}
+
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position) {
+		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(position))
 		{
 			return;
 		}
@@ -202,24 +208,32 @@ protected:
 		setSelected(mHighlightIndex);
 	}
 
-	virtual void onMouseMove(int x, int y, int /*relX*/, int /*relY*/) {
-		if (!visible() || !mScrollArea.contains(NAS2D::Point{x, y}))
+	virtual void onMouseMove(int x, int y, int relX, int relY) {
+		onMouseMove({x, y}, {relX, relY});
+	}
+
+	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/) {
+		if (!visible() || !mScrollArea.contains(position))
 		{
 			mHighlightIndex = constants::NoSelection;
 			return;
 		}
 
-		mHighlightIndex = (static_cast<std::size_t>(y) - mScrollArea.y + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+		mHighlightIndex = (static_cast<std::size_t>(position.y) - mScrollArea.y + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
 			mHighlightIndex = constants::NoSelection;
 		}
 	}
 
-	void onMouseWheel(int /*x*/, int y) {
+	void onMouseWheel(int x, int y) {
+		onMouseWheel({x, y});
+	}
+
+	void onMouseWheel(NAS2D::Vector<int> scrollAmount) {
 		if (isEmpty() || !visible()) { return; }
 
-		mScrollBar.changeValue((y < 0 ? 16 : -16));
+		mScrollBar.changeValue((scrollAmount.y < 0 ? 16 : -16));
 	}
 
 	virtual void onSlideChange(ScrollBar::ValueType /*newPosition*/) {
