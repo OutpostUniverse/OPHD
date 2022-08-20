@@ -90,13 +90,13 @@ void Button::type(Type type)
 
 void Button::toggle(bool toggle)
 {
-	mState = toggle ? State::Pressed : State::Normal;
+	mIsPressed = toggle;
 }
 
 
 bool Button::isPressed() const
 {
-	return mState == State::Pressed;
+	return mIsPressed;
 }
 
 
@@ -128,11 +128,11 @@ void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> pos
 		{
 			if (mType == Type::Push)
 			{
-				mState = State::Pressed;
+				mIsPressed = true;
 			}
 			else
 			{
-				mState = (mState == State::Pressed ? State::Normal : State::Pressed);
+				mIsPressed = !mIsPressed;
 				mSignal();
 			}
 		}
@@ -148,7 +148,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> posit
 	{
 		if (mType == Type::Push)
 		{
-			mState = State::Normal;
+			mIsPressed = false;
 
 			if (mRect.contains(position))
 			{
@@ -180,7 +180,7 @@ void Button::draw() const
 
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto& skin = (mState == State::Pressed) ? mButtonSkin.pressed :
+	const auto& skin = (mIsPressed) ? mButtonSkin.pressed :
 		(enabled() && mMouseHover) ? mButtonSkin.hover : mButtonSkin.normal;
 	skin.draw(renderer, mRect);
 

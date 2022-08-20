@@ -58,12 +58,6 @@ protected:
 	void draw() const override;
 
 private:
-	enum class State
-	{
-		Normal,
-		Pressed
-	};
-
 	const ButtonSkin mButtonSkin;
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
 	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
@@ -71,6 +65,6 @@ private:
 	ClickSignal mSignal; /**< Object to notify when the Button is activated. */
 
 	Type mType = Type::Push; /**< Modifies Button behavior. */
-	State mState = State::Normal; /**< Current state of the Button. */
+	bool mIsPressed = false; /**< Current state of the Button. */
 	bool mMouseHover = false; /**< Mouse is within the bounds of the Button. */
 };
