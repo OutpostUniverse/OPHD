@@ -18,8 +18,8 @@ class Button: public TextControl
 public:
 	enum class Type
 	{
-		BUTTON_NORMAL,
-		BUTTON_TOGGLE
+		Push,
+		Toggle
 	};
 
 	struct ButtonSkin
@@ -70,7 +70,7 @@ private:
 
 	ClickSignal mSignal; /**< Object to notify when the Button is activated. */
 
-	Type mType = Type::BUTTON_NORMAL; /**< Modifies Button behavior. */
+	Type mType = Type::Push; /**< Modifies Button behavior. */
 	State mState = State::Normal; /**< Current state of the Button. */
 	bool mMouseHover = false; /**< Mouse is within the bounds of the Button. */
 };

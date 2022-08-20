@@ -126,7 +126,7 @@ void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> pos
 	{
 		if (mRect.contains(position))
 		{
-			if (mType == Type::BUTTON_NORMAL)
+			if (mType == Type::Push)
 			{
 				mState = State::Pressed;
 			}
@@ -146,7 +146,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> posit
 
 	if (button == EventHandler::MouseButton::Left)
 	{
-		if (mType == Type::BUTTON_NORMAL)
+		if (mType == Type::Push)
 		{
 			mState = State::Normal;
 
