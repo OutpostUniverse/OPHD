@@ -5,6 +5,8 @@
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 
 #include <map>
 #include <string>
@@ -31,8 +33,11 @@ protected:
 	friend MapViewState;
 	void onActivate();
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(int x, int y, int rX, int rY);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onSetView(NAS2D::Point<int> mousePixel);
 
 private:

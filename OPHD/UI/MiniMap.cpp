@@ -124,7 +124,13 @@ void MiniMap::onActivate()
 }
 
 
-void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
+void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y)
+{
+	onMouseUp(button, {x, y});
+}
+
+
+void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	mLeftButtonDown = false;
 }
@@ -132,26 +138,36 @@ void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, int /*x*/, 
 
 void MiniMap::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void MiniMap::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		mLeftButtonDown = true;
-		const auto mousePosition = NAS2D::Point{x, y};
-		if (mRect.contains(mousePosition))
+		if (mRect.contains(position))
 		{
-			onSetView(mousePosition);
+			onSetView(position);
 		}
 	}
 }
 
 
-void MiniMap::onMouseMove(int x, int y, int /*rX*/, int /*rY*/)
+void MiniMap::onMouseMove(int x, int y, int rX, int rY)
+{
+	onMouseMove({x, y}, {rX, rY});
+}
+
+
+void MiniMap::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	if (mLeftButtonDown)
 	{
-		const auto mousePosition = NAS2D::Point{x, y};
-		if (mRect.contains(mousePosition))
+		if (mRect.contains(position))
 		{
-			onSetView(mousePosition);
+			onSetView(position);
 		}
 	}
 }
