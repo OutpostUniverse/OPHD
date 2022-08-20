@@ -6,6 +6,8 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Color.h>
 
 #include <string>
@@ -88,8 +90,11 @@ private:
 	void onSlideChange(ScrollBar::ValueType newPosition);
 
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(int x, int y, int relX, int relY);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseWheel(int x, int y);
+	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
 	void onResize() override;
 

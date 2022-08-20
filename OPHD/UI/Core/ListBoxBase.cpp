@@ -104,21 +104,25 @@ void ListBoxBase::onResize()
  */
 void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	const auto point = NAS2D::Point{x, y};
+	onMouseDown(button, {x, y});
+}
 
+
+void ListBoxBase::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!enabled() || !visible()) { return; }
 
 	if (isEmpty() || button == EventHandler::MouseButton::Middle) { return; }
 
-	if (button == EventHandler::MouseButton::Right && mRect.contains(point))
+	if (button == EventHandler::MouseButton::Right && mRect.contains(position))
 	{
 		setSelection(constants::NoSelection);
 		return;
 	}
 
 	// A few basic checks
-	if (!rect().contains(point) || mHighlightIndex == constants::NoSelection) { return; }
-	if (mScrollBar.visible() && mScrollBar.rect().contains(point)) { return; }
+	if (!rect().contains(position) || mHighlightIndex == constants::NoSelection) { return; }
+	if (mScrollBar.visible() && mScrollBar.rect().contains(position)) { return; }
 	if (mHighlightIndex >= mItems.size()) { return; }
 
 	setSelection(mHighlightIndex);
@@ -128,12 +132,17 @@ void ListBoxBase::onMouseDown(EventHandler::MouseButton button, int x, int y)
 /**
  * Mouse Motion event handler.
  */
-void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
+void ListBoxBase::onMouseMove(int x, int y, int relX, int relY)
+{
+	onMouseMove({x, y}, {relX, relY});
+}
+
+
+void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	if (!visible() || isEmpty()) { return; }
 
-	const auto mousePosition = NAS2D::Point{x, y};
-	mHasFocus = rect().contains(mousePosition);
+	mHasFocus = rect().contains(position);
 
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if (!mHasFocus)
@@ -143,13 +152,13 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
 	}
 
 	// if the mouse is on the scroll bar then the scroll bar should handle that
-	if (mScrollBar.visible() && mScrollBar.rect().contains(mousePosition))
+	if (mScrollBar.visible() && mScrollBar.rect().contains(position))
 	{
 		mHighlightIndex = constants::NoSelection;
 		return;
 	}
 
-	mHighlightIndex = (static_cast<unsigned int>(y - positionY()) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
+	mHighlightIndex = (static_cast<unsigned int>(position.y - positionY()) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
 
 	if (mHighlightIndex >= mItems.size())
 	{
@@ -163,14 +172,20 @@ void ListBoxBase::onMouseMove(int x, int y, int /*relX*/, int /*relY*/)
  * 
  * \todo	Make the scroll step configurable. Legacy from the ListBox.
  */
-void ListBoxBase::onMouseWheel(int /*x*/, int y)
+void ListBoxBase::onMouseWheel(int x, int y)
+{
+	onMouseWheel({x, y});
+}
+
+
+void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 {
 	if (!enabled() || !visible()) { return; }
 	if (!mHasFocus) { return; }
 
 	auto change = static_cast<ScrollBar::ValueType>(mItemHeight);
 
-	mScrollBar.changeValue((y < 0 ? change : -change));
+	mScrollBar.changeValue((scrollAmount.y < 0 ? change : -change));
 }
 
 
