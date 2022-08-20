@@ -181,12 +181,6 @@ void WarehouseReport::fillListDisabled()
 }
 
 
-void WarehouseReport::onDoubleClick(EventHandler::MouseButton button, int x, int y)
-{
-	onDoubleClick(button, {x, y});
-}
-
-
 void WarehouseReport::onDoubleClick(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }
