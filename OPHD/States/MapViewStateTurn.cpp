@@ -141,9 +141,9 @@ void MapViewState::updateCommercial()
 		/**
 		 * inspect for luxury products.
 		 * 
-		 * \fixme	I feel like this could be done better. At the moment there
-		 *			is only one luxury item, clothing, but as this changes more
-		 *			items may be seen as luxury.
+		 * FIXME: I feel like this could be done better. At the moment there
+		 * is only one luxury item, clothing, but as this changes more
+		 * items may be seen as luxury.
 		 */
 		int clothing = productPool.count(ProductType::PRODUCT_CLOTHING);
 
@@ -704,7 +704,6 @@ void MapViewState::nextTurn()
 
 	checkColonyShip();
 
-	/// \fixme There's probably a cleaner way to do this
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions

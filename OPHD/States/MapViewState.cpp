@@ -136,7 +136,7 @@ namespace
 	{
 		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
 
-		if (robot->fuelCellAge() == 190) /// \fixme magic number
+		if (robot->fuelCellAge() == 190) // FIXME: magic number
 		{
 			notificationArea.push({
 				"Aging Robot",
@@ -144,7 +144,7 @@ namespace
 				position,
 				NotificationArea::NotificationType::Warning});
 		}
-		else if (robot->fuelCellAge() == 195) /// \fixme magic number
+		else if (robot->fuelCellAge() == 195) // FIXME: magic number
 		{
 			notificationArea.push({
 				"Aging Robot",
@@ -753,8 +753,8 @@ void MapViewState::placeTubes(Tile& tile)
 
 	if (tile.thing() || tile.mine() || !tile.excavated()) { return; }
 
-	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 *			Should instead take advantage of the updated meta data in the IconGrid::Item.
+	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
+	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 
