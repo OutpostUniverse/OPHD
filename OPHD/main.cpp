@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 		const auto& options = cf["options"];
 		if (options.get<bool>("maximized"))
 		{
-			/** \fixme Evil hack exposing an internal NAS2D variable. */
+			// FIXME: Evil hack exposing an internal NAS2D variable
 			extern SDL_Window* underlyingWindow;
 			SDL_MaximizeWindow(underlyingWindow);
 		}
