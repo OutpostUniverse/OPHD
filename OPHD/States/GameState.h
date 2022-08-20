@@ -13,6 +13,9 @@ class Structure;
 class Wrapper;
 
 
+extern NAS2D::Point<int> MOUSE_COORDS;
+
+
 class GameState : public NAS2D::State
 {
 public:
