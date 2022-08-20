@@ -64,15 +64,6 @@ void IconGrid::updateGrid()
 }
 
 
-/**
- * MouseDown event handler.
- */
-void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void IconGrid::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -103,15 +94,6 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> p
 	{
 		raiseChangedEvent();
 	}
-}
-
-
-/**
- * MouseMotion event handler.
- */
-void IconGrid::onMouseMove(int x, int y, int dX, int dY)
-{
-	onMouseMove({x, y}, {dX, dY});
 }
 
 

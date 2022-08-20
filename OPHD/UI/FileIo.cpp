@@ -68,15 +68,6 @@ FileIo::~FileIo()
 }
 
 
-/**
- * Event handler for mouse double click.
- */
-void FileIo::onDoubleClick(EventHandler::MouseButton button, int x, int y)
-{
-	onDoubleClick(button, {x, y});
-}
-
-
 void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
