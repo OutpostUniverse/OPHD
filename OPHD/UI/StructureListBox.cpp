@@ -20,10 +20,9 @@ static const Font* MAIN_FONT_BOLD = nullptr;
 
 static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
-	Structure* structure = item.structure;
-
-	const auto& structureColor = structureColorFromIndex(structure->state());
-	const auto& structureTextColor = structureTextColorFromIndex(structure->state());
+	const auto structureState = item.structure->state();
+	const auto& structureColor = structureColorFromIndex(structureState);
+	const auto& structureTextColor = structureTextColorFromIndex(structureState);
 	const auto highlightColor = NAS2D::Color{structureColor.red, structureColor.green, structureColor.blue, 75};
 
 	// draw highlight rect so as not to tint/hue colors of everything else
