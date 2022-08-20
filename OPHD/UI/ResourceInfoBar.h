@@ -6,6 +6,7 @@
 #include "Core/ToolTip.h"
 
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Image.h>
 
 
@@ -26,6 +27,7 @@ public:
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 
 	int totalStorage(Structure::StructureClass, int) const;
 
