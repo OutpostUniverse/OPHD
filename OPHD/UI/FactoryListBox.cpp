@@ -28,14 +28,12 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 
 	const auto& structureColor = structureColorFromIndex(f->state());
 	const auto& structureTextColor = structureTextColorFromIndex(f->state());
-	const auto highlightColor = structureColor.alphaFade(75);
-	const auto subImageColor = NAS2D::Color::White.alphaFade(structureColor.alpha);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(rect, highlightColor); }
+	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
 
 	renderer.drawBox(rect.inset(2), structureColor);
-	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46}, subImageColor);
+	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46}, NAS2D::Color::White.alphaFade(structureColor.alpha));
 
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.startPoint() + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 
