@@ -114,7 +114,7 @@ void MineOperationsWindow::onExtendShaft()
 
 void MineOperationsWindow::onIdle()
 {
-	mFacility->forceIdle(btnIdle.toggled());
+	mFacility->forceIdle(btnIdle.isPressed());
 }
 
 

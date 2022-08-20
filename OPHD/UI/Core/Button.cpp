@@ -94,7 +94,7 @@ void Button::toggle(bool toggle)
 }
 
 
-bool Button::toggled() const
+bool Button::isPressed() const
 {
 	return mState == State::Pressed;
 }

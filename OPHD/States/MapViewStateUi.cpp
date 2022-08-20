@@ -442,7 +442,7 @@ void MapViewState::changePoliceOverlayDepth(int oldDepth, int newDepth)
 
 void MapViewState::onToggleHeightmap()
 {
-	mMiniMap->heightMapVisible(mBtnToggleHeightmap.toggled());
+	mMiniMap->heightMapVisible(mBtnToggleHeightmap.isPressed());
 }
 
 
@@ -453,7 +453,7 @@ void MapViewState::onToggleConnectedness()
 {
 	clearOverlays();
 
-	if (mBtnToggleConnectedness.toggled())
+	if (mBtnToggleConnectedness.isPressed())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
@@ -468,7 +468,7 @@ void MapViewState::onToggleCommRangeOverlay()
 {
 	clearOverlays();
 
-	if (mBtnToggleCommRangeOverlay.toggled())
+	if (mBtnToggleCommRangeOverlay.isPressed())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
@@ -482,7 +482,7 @@ void MapViewState::onTogglePoliceOverlay()
 {
 	clearOverlays();
 
-	if (mBtnTogglePoliceOverlay.toggled())
+	if (mBtnTogglePoliceOverlay.isPressed())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleConnectedness.toggle(false);
@@ -496,7 +496,7 @@ void MapViewState::onToggleRouteOverlay()
 {
 	clearOverlays();
 
-	if (mBtnToggleRouteOverlay.toggled())
+	if (mBtnToggleRouteOverlay.isPressed())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleCommRangeOverlay.toggle(false);

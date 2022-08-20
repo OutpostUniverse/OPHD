@@ -356,7 +356,7 @@ void FactoryReport::onShowDisabled()
 
 void FactoryReport::onIdle()
 {
-	selectedFactory->forceIdle(btnIdle.toggled());
+	selectedFactory->forceIdle(btnIdle.isPressed());
 }
 
 

@@ -39,7 +39,7 @@ public:
 	void type(Type type);
 
 	void toggle(bool toggle);
-	bool toggled() const;
+	bool isPressed() const;
 
 	void fontSize(unsigned int pointSize);
 

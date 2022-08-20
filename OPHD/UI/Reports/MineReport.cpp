@@ -215,7 +215,7 @@ void MineReport::onShowDisabled()
 
 void MineReport::onIdle()
 {
-	mSelectedFacility->forceIdle(btnIdle.toggled());
+	mSelectedFacility->forceIdle(btnIdle.isPressed());
 }
 
 
