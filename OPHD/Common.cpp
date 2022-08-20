@@ -138,7 +138,7 @@ int moraleStringTableCount()
 /**
  * Description table for products.
  */
-std::array<std::string, ProductType::PRODUCT_COUNT> PRODUCT_DESCRIPTION_TABLE =
+std::array<std::string, ProductType::PRODUCT_COUNT> ProductDescriptionTable =
 {
 	constants::Robodigger,
 	constants::Robodozer,
@@ -280,15 +280,15 @@ const std::string& productDescription(ProductType type)
 {
 	if (type == ProductType::PRODUCT_NONE) { return constants::None; }
 
-	return PRODUCT_DESCRIPTION_TABLE[static_cast<std::size_t>(type)];
+	return ProductDescriptionTable[static_cast<std::size_t>(type)];
 }
 
 
 ProductType productTypeFromDescription(const std::string& description)
 {
-	for (std::size_t i = 0; i < PRODUCT_DESCRIPTION_TABLE.size(); ++i)
+	for (std::size_t i = 0; i < ProductDescriptionTable.size(); ++i)
 	{
-		if (PRODUCT_DESCRIPTION_TABLE[i] == description)
+		if (ProductDescriptionTable[i] == description)
 		{
 			// dubious (and slow)
 			return static_cast<ProductType>(i);
