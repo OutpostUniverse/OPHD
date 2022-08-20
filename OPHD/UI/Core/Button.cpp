@@ -120,11 +120,17 @@ bool Button::hasImage() const
 
 void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left)
 	{
-		if (mRect.contains(Point<int>{x, y}))
+		if (mRect.contains(position))
 		{
 			if (mType == Type::BUTTON_NORMAL)
 			{
@@ -142,6 +148,12 @@ void Button::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
+	onMouseUp(button, {x, y});
+}
+
+
+void Button::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left)
@@ -150,7 +162,7 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 		{
 			mState = State::Normal;
 
-			if (mRect.contains(Point<int>{x, y}))
+			if (mRect.contains(position))
 			{
 				mSignal();
 			}
@@ -159,9 +171,15 @@ void Button::onMouseUp(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void Button::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+void Button::onMouseMove(int x, int y, int dX, int dY)
 {
-	mMouseHover = mRect.contains(NAS2D::Point{x, y});
+	onMouseMove({x, y}, {dX, dY});
+}
+
+
+void Button::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	mMouseHover = mRect.contains(position);
 }
 
 
