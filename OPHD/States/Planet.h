@@ -53,7 +53,6 @@ public:
 
 	NAS2D::Point<int> position() const { return mPosition; }
 	void position(const NAS2D::Point<int>& point) { mPosition = point; }
-	void position(int x, int y) { mPosition = {x, y}; }
 
 	const Attributes& attributes() const { return mAttributes; }
 
