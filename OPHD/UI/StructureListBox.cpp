@@ -23,10 +23,9 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 	const auto structureState = item.structure->state();
 	const auto& structureColor = structureColorFromIndex(structureState);
 	const auto& structureTextColor = structureTextColorFromIndex(structureState);
-	const auto highlightColor = structureColor.alphaFade(75);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(rect, highlightColor); }
+	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
 
 	renderer.drawBox(rect.inset(2), structureColor);
 
