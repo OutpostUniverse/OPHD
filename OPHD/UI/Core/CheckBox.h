@@ -4,6 +4,7 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
 
 #include <string>
 
@@ -34,6 +35,7 @@ public:
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
 	void onResize() override;
 	void onTextChange() override;
