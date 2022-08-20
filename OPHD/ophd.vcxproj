@@ -242,6 +242,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="PopulationPool.cpp" />
     <ClCompile Include="Population\Population.cpp" />
     <ClCompile Include="Population\PopulationTable.cpp" />
+    <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="RobotPool.cpp" />
     <ClCompile Include="ShellOpenPath.cpp" />
@@ -336,6 +337,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="Population\PopulationTable.h" />
+    <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="States\CrimeExecution.h" />
     <ClInclude Include="States\CrimeRateUpdate.h" />

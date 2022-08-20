@@ -11,6 +11,7 @@
 #include "../Constants/UiConstants.h"
 
 #include "../Common.h"
+#include "../ProductCatalogue.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 #include "../PopulationPool.h"
@@ -286,6 +287,8 @@ private:
 	std::unique_ptr<MapView> mMapView;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
+
+	ProductCatalogue mProductCatalog;
 
 	StructureTracker mStructureTracker;
 
