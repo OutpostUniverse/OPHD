@@ -81,13 +81,19 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
  */
 void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	UIContainer::onMouseDown(button, x, y);
+	onMouseDown(button, {x, y});
+}
+
+
+void ComboBox::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
+	UIContainer::onMouseDown(button, position);
 
 	if (!enabled() || !visible()) { return; }
 
 	if (button != EventHandler::MouseButton::Left) { return; }
 
-	if (mBaseArea.contains(Point{x, y}))
+	if (mBaseArea.contains(position))
 	{
 		lstItems.visible(!lstItems.visible());
 		if (lstItems.visible())
@@ -99,7 +105,7 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 			mRect = mBaseArea;
 		}
 	}
-	else if (!lstItems.rect().contains(Point{x, y}))
+	else if (!lstItems.rect().contains(position))
 	{
 		lstItems.visible(false);
 		mRect = mBaseArea;
@@ -107,7 +113,13 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void ComboBox::onMouseWheel(int /*x*/, int /*y*/)
+void ComboBox::onMouseWheel(int x, int y)
+{
+	onMouseWheel({x, y});
+}
+
+
+void ComboBox::onMouseWheel(NAS2D::Vector<int> /*scrollAmount*/)
 {
 
 }
