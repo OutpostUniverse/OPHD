@@ -38,7 +38,7 @@ jobs:
     docker:
       - image: outpostuniverse/nas2d-clang:1.3
     environment:
-      WARN_EXTRA: -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wextra-semi -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
+      WARN_EXTRA: -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wshadow-field -Wextra-semi -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
