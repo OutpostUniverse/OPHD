@@ -85,7 +85,7 @@ void ProductListBox::update()
 		// Draw item column contents
 		renderer.drawText(mFontBold, item.text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, itemColor);
 		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, itemColor);
-		drawBasicProgressBar(x + secondStop + 5, y + 10, firstStop - 10, 10, item.usage, 2);
+		drawBasicProgressBar({x + secondStop + 5, y + 10, firstStop - 10, 10}, item.usage, 2);
 	}
 
 	renderer.clipRectClear();
