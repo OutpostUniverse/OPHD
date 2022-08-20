@@ -23,7 +23,7 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 	const auto structureState = item.structure->state();
 	const auto& structureColor = structureColorFromIndex(structureState);
 	const auto& structureTextColor = structureTextColorFromIndex(structureState);
-	const auto highlightColor = NAS2D::Color{structureColor.red, structureColor.green, structureColor.blue, 75};
+	const auto highlightColor = structureColor.alphaFade(75);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { renderer.drawBoxFilled(rect, highlightColor); }
