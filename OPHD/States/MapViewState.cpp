@@ -706,7 +706,7 @@ void MapViewState::onSystemMenu()
  */
 void MapViewState::changeViewDepth(int depth)
 {
-	if (mBtnTogglePoliceOverlay.toggled())
+	if (mBtnTogglePoliceOverlay.isPressed())
 	{
 		changePoliceOverlayDepth(mMapView->currentDepth(), depth);
 	}

@@ -64,32 +64,32 @@ FactoryReport::FactoryReport() :
 
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({75, 20});
-	btnShowAll.type(Button::Type::BUTTON_TOGGLE);
+	btnShowAll.type(Button::Type::Toggle);
 	btnShowAll.toggle(true);
 
 	add(btnShowSurface, {87, 10});
 	btnShowSurface.size({75, 20});
-	btnShowSurface.type(Button::Type::BUTTON_TOGGLE);
+	btnShowSurface.type(Button::Type::Toggle);
 
 	add(btnShowUnderground, {164, 10});
 	btnShowUnderground.size({75, 20});
-	btnShowUnderground.type(Button::Type::BUTTON_TOGGLE);
+	btnShowUnderground.type(Button::Type::Toggle);
 
 	add(btnShowActive, {10, 33});
 	btnShowActive.size({75, 20});
-	btnShowActive.type(Button::Type::BUTTON_TOGGLE);
+	btnShowActive.type(Button::Type::Toggle);
 
 	add(btnShowIdle, {87, 33});
 	btnShowIdle.size({75, 20});
-	btnShowIdle.type(Button::Type::BUTTON_TOGGLE);
+	btnShowIdle.type(Button::Type::Toggle);
 
 	add(btnShowDisabled, {164, 33});
 	btnShowDisabled.size({75, 20});
-	btnShowDisabled.type(Button::Type::BUTTON_TOGGLE);
+	btnShowDisabled.type(Button::Type::Toggle);
 
 	int position_x = Utility<Renderer>::get().size().x - 110;
 	add(btnIdle, {position_x, 35});
-	btnIdle.type(Button::Type::BUTTON_TOGGLE);
+	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({140, 30});
 
 	add(btnClearProduction, {position_x, 75});
@@ -356,7 +356,7 @@ void FactoryReport::onShowDisabled()
 
 void FactoryReport::onIdle()
 {
-	selectedFactory->forceIdle(btnIdle.toggled());
+	selectedFactory->forceIdle(btnIdle.isPressed());
 }
 
 

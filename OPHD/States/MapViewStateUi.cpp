@@ -121,27 +121,27 @@ void MapViewState::initUi()
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(constants::MainButtonSize);
-	mBtnToggleHeightmap.type(Button::Type::BUTTON_TOGGLE);
+	mBtnToggleHeightmap.type(Button::Type::Toggle);
 	mBtnToggleHeightmap.click().connect(this, &MapViewState::onToggleHeightmap);
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(constants::MainButtonSize);
-	mBtnToggleConnectedness.type(Button::Type::BUTTON_TOGGLE);
+	mBtnToggleConnectedness.type(Button::Type::Toggle);
 	mBtnToggleConnectedness.click().connect(this, &MapViewState::onToggleConnectedness);
 
 	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
 	mBtnToggleCommRangeOverlay.size(constants::MainButtonSize);
-	mBtnToggleCommRangeOverlay.type(Button::Type::BUTTON_TOGGLE);
+	mBtnToggleCommRangeOverlay.type(Button::Type::Toggle);
 	mBtnToggleCommRangeOverlay.click().connect(this, &MapViewState::onToggleCommRangeOverlay);
 
 	mBtnToggleRouteOverlay.image("ui/icons/route.png");
 	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
-	mBtnToggleRouteOverlay.type(Button::Type::BUTTON_TOGGLE);
+	mBtnToggleRouteOverlay.type(Button::Type::Toggle);
 	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
 
 	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
 	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
-	mBtnTogglePoliceOverlay.type(Button::Type::BUTTON_TOGGLE);
+	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
 	mBtnTogglePoliceOverlay.click().connect(this, &MapViewState::onTogglePoliceOverlay);
 
 	// Menus
@@ -442,7 +442,7 @@ void MapViewState::changePoliceOverlayDepth(int oldDepth, int newDepth)
 
 void MapViewState::onToggleHeightmap()
 {
-	mMiniMap->heightMapVisible(mBtnToggleHeightmap.toggled());
+	mMiniMap->heightMapVisible(mBtnToggleHeightmap.isPressed());
 }
 
 
@@ -453,7 +453,7 @@ void MapViewState::onToggleConnectedness()
 {
 	clearOverlays();
 
-	if (mBtnToggleConnectedness.toggled())
+	if (mBtnToggleConnectedness.isPressed())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
@@ -468,7 +468,7 @@ void MapViewState::onToggleCommRangeOverlay()
 {
 	clearOverlays();
 
-	if (mBtnToggleCommRangeOverlay.toggled())
+	if (mBtnToggleCommRangeOverlay.isPressed())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
@@ -482,7 +482,7 @@ void MapViewState::onTogglePoliceOverlay()
 {
 	clearOverlays();
 
-	if (mBtnTogglePoliceOverlay.toggled())
+	if (mBtnTogglePoliceOverlay.isPressed())
 	{
 		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleConnectedness.toggle(false);
@@ -496,7 +496,7 @@ void MapViewState::onToggleRouteOverlay()
 {
 	clearOverlays();
 
-	if (mBtnToggleRouteOverlay.toggled())
+	if (mBtnToggleRouteOverlay.isPressed())
 	{
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleCommRangeOverlay.toggle(false);

@@ -56,7 +56,7 @@ MineReport::MineReport() :
 	for (auto button : buttons)
 	{
 		button->size({75, 20});
-		button->type(Button::Type::BUTTON_TOGGLE);
+		button->type(Button::Type::Toggle);
 		add(*button, buttonOffset);
 		buttonOffset.x += button->size().x + margin;
 	}
@@ -67,7 +67,7 @@ MineReport::MineReport() :
 	add(lstMineFacilities, {10, 40});
 
 	// DETAIL PANE
-	btnIdle.type(Button::Type::BUTTON_TOGGLE);
+	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({140, 30});
 
 	btnDigNewLevel.size({140, 30});
@@ -215,7 +215,7 @@ void MineReport::onShowDisabled()
 
 void MineReport::onIdle()
 {
-	mSelectedFacility->forceIdle(btnIdle.toggled());
+	mSelectedFacility->forceIdle(btnIdle.isPressed());
 }
 
 

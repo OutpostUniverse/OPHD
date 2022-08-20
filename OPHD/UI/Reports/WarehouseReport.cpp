@@ -49,7 +49,7 @@ WarehouseReport::WarehouseReport() :
 	for (auto button : buttons)
 	{
 		button->size({75, 20});
-		button->type(Button::Type::BUTTON_TOGGLE);
+		button->type(Button::Type::Toggle);
 		button->toggle(false);
 	}
 
