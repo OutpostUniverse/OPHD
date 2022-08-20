@@ -2,6 +2,7 @@
 
 #include "Control.h"
 
+#include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/EventHandler.h>
 
@@ -34,6 +35,7 @@ protected:
 	void onMove(NAS2D::Vector<int> displacement) override;
 
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
 private:
 	std::vector<Control*> mControls;

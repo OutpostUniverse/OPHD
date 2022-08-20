@@ -87,7 +87,13 @@ void UIContainer::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
+void UIContainer::onMouseDown(EventHandler::MouseButton button, int x, int y)
+{
+	onMouseDown(button, {x, y});
+}
+
+
+void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }
 
@@ -95,7 +101,7 @@ void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y
 	for (auto it = mControls.rbegin(); it != mControls.rend(); ++it)
 	{
 		control = (*it);
-		if (control->visible() && control->rect().contains(NAS2D::Point{x, y}))
+		if (control->visible() && control->rect().contains(position))
 		{
 			if (control == mControls.back()) { return; }
 			bringToFront(control);
