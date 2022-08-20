@@ -28,8 +28,8 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 
 	const auto& structureColor = structureColorFromIndex(f->state());
 	const auto& structureTextColor = structureTextColorFromIndex(f->state());
-	const auto highlightColor = NAS2D::Color{structureColor.red, structureColor.green, structureColor.blue, 75};
-	const auto subImageColor = NAS2D::Color{255, 255, 255, structureColor.alpha};
+	const auto highlightColor = structureColor.alphaFade(75);
+	const auto subImageColor = NAS2D::Color::White.alphaFade(structureColor.alpha);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
 	if (highlight) { renderer.drawBoxFilled(rect, highlightColor); }
