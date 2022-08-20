@@ -26,7 +26,6 @@ public:
 	State* update() override;
 
 private:
-	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void onFadeComplete();

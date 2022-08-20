@@ -238,15 +238,6 @@ void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::Even
 }
 
 
-/**
- * Mouse down event handler.
- */
-void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!active()) { return; }
