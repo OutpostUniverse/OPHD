@@ -6,6 +6,7 @@
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Signal/Signal.h>
 
 #include <vector>
@@ -57,7 +58,9 @@ protected:
 	std::size_t notificationIndex(NAS2D::Point<int> pixelPosition);
 
 	void onMouseDown(NAS2D::EventHandler::MouseButton, int, int);
+	void onMouseDown(NAS2D::EventHandler::MouseButton, NAS2D::Point<int> position);
 	void onMouseMove(int x, int y, int dX, int dY);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:
 	const NAS2D::Image& mIcons;

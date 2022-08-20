@@ -102,13 +102,19 @@ std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
 
 void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void NotificationArea::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (button != EventHandler::MouseButton::Left &&
 		button != EventHandler::MouseButton::Right)
 	{
 		return;
 	}
 
-	const auto index = notificationIndex({x, y});
+	const auto index = notificationIndex(position);
 	if (index != NoSelection)
 	{
 		if (button == EventHandler::MouseButton::Left)
@@ -117,14 +123,19 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int 
 		}
 
 		mNotificationList.erase(mNotificationList.begin() + index);
-		onMouseMove(x, y, 0, 0);
+		onMouseMove(position, {0, 0});
 	}
 }
 
 
-void NotificationArea::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+void NotificationArea::onMouseMove(int x, int y, int dX, int dY)
 {
-	const auto position = NAS2D::Point{x, y};
+	onMouseMove({x, y}, {dX, dY});
+}
+
+
+void NotificationArea::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
 	if (!rect().contains(position)) { return; }
 	mNotificationIndex = notificationIndex(position);
 }
