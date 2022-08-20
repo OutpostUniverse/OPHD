@@ -22,7 +22,7 @@ static const Font* MAIN_FONT = nullptr;
 static const Font* MAIN_FONT_BOLD = nullptr;
 
 
-static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, bool highlight)
+static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	Factory* f = item.factory;
 
@@ -32,18 +32,18 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	const auto subImageColor = NAS2D::Color{255, 255, 255, structureColor.alpha};
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y, w, LIST_ITEM_HEIGHT}, highlightColor); }
+	if (highlight) { renderer.drawBoxFilled(rect, highlightColor); }
 
-	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
-	renderer.drawSubImage(*STRUCTURE_ICONS, NAS2D::Point{x + 8, y + 8}, NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46}, subImageColor);
+	renderer.drawBox(rect.inset(2), structureColor);
+	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46}, subImageColor);
 
-	renderer.drawText(*MAIN_FONT_BOLD, f->name(), NAS2D::Point{x + 64, ((y + 29) - MAIN_FONT_BOLD->height() / 2)}, structureTextColor);
+	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.startPoint() + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 
-	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), NAS2D::Point{x + w - 112, ((y + 19) - MAIN_FONT_BOLD->height() / 2)}, structureTextColor);
+	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 
 	// PROGRESS BAR
 	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
-	drawBasicProgressBar({x + w - 112, y + 30, 105, 11}, percentage, 2);
+	drawBasicProgressBar(NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}), percentage, 2);
 }
 
 
@@ -123,9 +123,12 @@ void FactoryListBox::update()
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		drawItem(renderer, *static_cast<FactoryListBoxItem*>(mItems[i]),
-			positionX(),
-			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset()),
-			static_cast<int>(item_width()),
+			{
+				positionX(),
+				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset()),
+				static_cast<int>(item_width()),
+				LIST_ITEM_HEIGHT
+			},
 			i == selectedIndex());
 	}
 
