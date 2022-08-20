@@ -217,12 +217,6 @@ void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
 }
 
 
-void ScrollBar::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void ScrollBar::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -245,12 +239,6 @@ void ScrollBar::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> 
 }
 
 
-void ScrollBar::onMouseUp(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseUp(button, {x, y});
-}
-
-
 void ScrollBar::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (button != EventHandler::MouseButton::Left) { return; }
@@ -270,12 +258,6 @@ void ScrollBar::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> po
 			-viewSize : viewSize;
 		changeValue(changeAmount);
 	}
-}
-
-
-void ScrollBar::onMouseMove(int x, int y, int dX, int dY)
-{
-	onMouseMove({x, y}, {dX, dY});
 }
 
 

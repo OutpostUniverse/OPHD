@@ -486,15 +486,6 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 }
 
 
-/**
- * Mouse Down event handler.
- */
-void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!active()) { return; }
@@ -551,12 +542,6 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 }
 
 
-void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDoubleClick(button, {x, y});
-}
-
-
 void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> /*position*/)
 {
 	if (!active()) { return; }
@@ -597,15 +582,6 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, N
 }
 
 
-/**
-* Mouse Up event handler.
-*/
-void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseUp(button, {x, y});
-}
-
-
 void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (button == NAS2D::EventHandler::MouseButton::Left)
@@ -615,29 +591,11 @@ void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Poi
 }
 
 
-/**
-* Mouse motion event handler.
-*/
-void MapViewState::onMouseMove(int x, int y, int rX, int rY)
-{
-	onMouseMove({x, y}, {rX, rY});
-}
-
-
 void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
 {
 	if (!active()) { return; }
 	mMiniMap->onMouseMove(position, relative);
 	mMouseTilePosition = mDetailMap->mouseTilePosition();
-}
-
-
-/**
- * Mouse wheel event handler.
- */
-void MapViewState::onMouseWheel(int x, int y)
-{
-	onMouseWheel({x, y});
 }
 
 

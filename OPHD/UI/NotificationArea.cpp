@@ -100,12 +100,6 @@ std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
 }
 
 
-void NotificationArea::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void NotificationArea::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (button != EventHandler::MouseButton::Left &&
@@ -125,12 +119,6 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, NAS2D::Poin
 		mNotificationList.erase(mNotificationList.begin() + index);
 		onMouseMove(position, {0, 0});
 	}
-}
-
-
-void NotificationArea::onMouseMove(int x, int y, int dX, int dY)
-{
-	onMouseMove({x, y}, {dX, dY});
 }
 
 

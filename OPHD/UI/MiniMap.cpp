@@ -124,21 +124,9 @@ void MiniMap::onActivate()
 }
 
 
-void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseUp(button, {x, y});
-}
-
-
 void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	mLeftButtonDown = false;
-}
-
-
-void MiniMap::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
 }
 
 
@@ -152,12 +140,6 @@ void MiniMap::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<
 			onSetView(position);
 		}
 	}
-}
-
-
-void MiniMap::onMouseMove(int x, int y, int rX, int rY)
-{
-	onMouseMove({x, y}, {rX, rY});
 }
 
 

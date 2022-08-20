@@ -76,15 +76,6 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-/**
- * Mouse button down event handler.
- */
-void ComboBox::onMouseDown(EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void ComboBox::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	UIContainer::onMouseDown(button, position);
@@ -110,12 +101,6 @@ void ComboBox::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> p
 		lstItems.visible(false);
 		mRect = mBaseArea;
 	}
-}
-
-
-void ComboBox::onMouseWheel(int x, int y)
-{
-	onMouseWheel({x, y});
 }
 
 

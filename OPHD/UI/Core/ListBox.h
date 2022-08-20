@@ -195,10 +195,6 @@ public:
 	}
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) {
-		onMouseDown(button, {x, y});
-	}
-
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position) {
 		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(position))
 		{
@@ -206,10 +202,6 @@ protected:
 		}
 
 		setSelected(mHighlightIndex);
-	}
-
-	virtual void onMouseMove(int x, int y, int relX, int relY) {
-		onMouseMove({x, y}, {relX, relY});
 	}
 
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/) {
@@ -224,10 +216,6 @@ protected:
 		{
 			mHighlightIndex = constants::NoSelection;
 		}
-	}
-
-	void onMouseWheel(int x, int y) {
-		onMouseWheel({x, y});
 	}
 
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount) {

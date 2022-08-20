@@ -185,12 +185,6 @@ void ResourceInfoBar::draw() const
 }
 
 
-void ResourceInfoBar::onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y)
-{
-	onMouseDown(button, {x, y});
-}
-
-
 void ResourceInfoBar::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	UIContainer::onMouseDown(button, position);

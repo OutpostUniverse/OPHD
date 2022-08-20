@@ -41,7 +41,6 @@ private:
 	protected:
 		void onResize() override;
 		void onTextChange() override;
-		void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 		void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
 	private:

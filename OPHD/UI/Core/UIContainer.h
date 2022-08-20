@@ -34,7 +34,6 @@ protected:
 	void onVisibilityChange(bool visible) override;
 	void onMove(NAS2D::Vector<int> displacement) override;
 
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
 private:

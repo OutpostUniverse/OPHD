@@ -89,11 +89,8 @@ protected:
 private:
 	void onSlideChange(ScrollBar::ValueType newPosition);
 
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
-	void onMouseMove(int x, int y, int relX, int relY);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
-	void onMouseWheel(int x, int y);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
 	void onResize() override;

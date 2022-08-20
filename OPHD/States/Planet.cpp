@@ -44,12 +44,6 @@ bool Planet::pointInCircle(NAS2D::Point<int> point)
 }
 
 
-void Planet::onMouseMove(int x, int y, int rX, int rY)
-{
-	onMouseMove({x, y}, {rX, rY});
-}
-
-
 void Planet::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	bool inArea = pointInCircle(position);
