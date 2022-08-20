@@ -5,6 +5,8 @@
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+#include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 
 #include <string>
 
@@ -32,8 +34,11 @@ public:
 
 protected:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y) override;
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 	void onMouseUp(NAS2D::EventHandler::MouseButton button, int x, int y);
+	void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(int x, int y, int dX, int dY);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	static constexpr int sWindowTitleBarHeight = 20;
 

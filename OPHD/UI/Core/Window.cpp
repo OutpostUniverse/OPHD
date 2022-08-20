@@ -46,28 +46,46 @@ Window::~Window()
 
 void Window::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	if (!enabled() || !visible()) { return; }
-
-	UIContainer::onMouseDown(button, x, y);
-
-	const auto titleBarBounds = NAS2D::Rectangle{mRect.x, mRect.y, mRect.width, sWindowTitleBarHeight};
-	mMouseDrag = (button == EventHandler::MouseButton::Left && titleBarBounds.contains(NAS2D::Point{x, y}));
+	onMouseDown(button, {x, y});
 }
 
 
-void Window::onMouseUp(EventHandler::MouseButton /*button*/, int /*x*/, int /*y*/)
+void Window::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
+	if (!enabled() || !visible()) { return; }
+
+	UIContainer::onMouseDown(button, position);
+
+	const auto titleBarBounds = NAS2D::Rectangle{mRect.x, mRect.y, mRect.width, sWindowTitleBarHeight};
+	mMouseDrag = (button == EventHandler::MouseButton::Left && titleBarBounds.contains(position));
+}
+
+
+void Window::onMouseUp(EventHandler::MouseButton button, int x, int y)
+{
+	onMouseUp(button, {x, y});
+}
+
+
+void Window::onMouseUp(EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	mMouseDrag = false;
 }
 
 
-void Window::onMouseMove(int /*x*/, int /*y*/, int dX, int dY)
+void Window::onMouseMove(int x, int y, int dX, int dY)
+{
+	onMouseMove({x, y}, {dX, dY});
+}
+
+
+void Window::onMouseMove(NAS2D::Point<int> /*position*/, NAS2D::Vector<int> relative)
 {
 	if (!enabled() || !visible()) { return; }
 
 	if (mMouseDrag && !mAnchored)
 	{
-		position(position() + NAS2D::Vector{dX, dY});
+		position(position() + relative);
 	}
 }
 
