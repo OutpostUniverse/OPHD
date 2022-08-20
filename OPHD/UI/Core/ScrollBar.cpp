@@ -219,20 +219,25 @@ void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
 
 void ScrollBar::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void ScrollBar::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!enabled() || !visible()) { return; }
 
 	if (button == EventHandler::MouseButton::Left)
 	{
-		const auto mousePosition = NAS2D::Point{x, y};
-		if (mThumb.contains(mousePosition))
+		if (mThumb.contains(position))
 		{
 			mThumbPressed = true;
 		}
-		else if (mButtonDecrease.contains(mousePosition))
+		else if (mButtonDecrease.contains(position))
 		{
 			onButtonClick(mButtonDecreaseHeld, -1);
 		}
-		else if (mButtonIncrease.contains(mousePosition))
+		else if (mButtonIncrease.contains(position))
 		{
 			onButtonClick(mButtonIncreaseHeld, 1);
 		}
@@ -242,6 +247,12 @@ void ScrollBar::onMouseDown(EventHandler::MouseButton button, int x, int y)
 
 void ScrollBar::onMouseUp(EventHandler::MouseButton button, int x, int y)
 {
+	onMouseUp(button, {x, y});
+}
+
+
+void ScrollBar::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (button != EventHandler::MouseButton::Left) { return; }
 
 	mButtonDecreaseHeld = false;
@@ -250,12 +261,11 @@ void ScrollBar::onMouseUp(EventHandler::MouseButton button, int x, int y)
 
 	if (!enabled() || !visible()) { return; }
 
-	const auto mousePosition = NAS2D::Point{x, y};
-	if (mTrack.contains(mousePosition) && !mThumb.contains(mousePosition))
+	if (mTrack.contains(position) && !mThumb.contains(position))
 	{
 		const auto [clickPosition, thumbPosition, viewSize] =
 			(mScrollBarType == ScrollBarType::Vertical) ?
-				std::tuple{y, mThumb.y, mRect.height} : std::tuple{x, mThumb.x, mRect.width};
+				std::tuple{position.y, mThumb.y, mRect.height} : std::tuple{position.x, mThumb.x, mRect.width};
 		const auto changeAmount = (clickPosition < thumbPosition) ?
 			-viewSize : viewSize;
 		changeValue(changeAmount);
@@ -263,16 +273,22 @@ void ScrollBar::onMouseUp(EventHandler::MouseButton button, int x, int y)
 }
 
 
-void ScrollBar::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+void ScrollBar::onMouseMove(int x, int y, int dX, int dY)
+{
+	onMouseMove({x, y}, {dX, dY});
+}
+
+
+void ScrollBar::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (mThumbPressed && mTrack.contains(NAS2D::Point{x, y}))
+	if (mThumbPressed && mTrack.contains(position))
 	{
 		value(
 			(mScrollBarType == ScrollBarType::Vertical) ?
-				mMax * (y - mTrack.y - mThumb.height / 2) / (mTrack.height - mThumb.height) :
-				mMax * (x - mTrack.x - mThumb.width / 2) / (mTrack.width - mThumb.width)
+				mMax * (position.y - mTrack.y - mThumb.height / 2) / (mTrack.height - mThumb.height) :
+				mMax * (position.x - mTrack.x - mThumb.width / 2) / (mTrack.width - mThumb.width)
 		);
 	}
 }
