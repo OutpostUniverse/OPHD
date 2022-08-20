@@ -12,6 +12,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/MathUtils.h>
+#include <NAS2D/Math/Point.h>
 
 #include <algorithm>
 #include <string>
@@ -41,6 +42,7 @@ private:
 		void onResize() override;
 		void onTextChange() override;
 		void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+		void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
 	private:
 		const NAS2D::Font& mFont;
