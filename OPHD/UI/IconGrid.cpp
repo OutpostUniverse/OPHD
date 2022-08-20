@@ -69,6 +69,12 @@ void IconGrid::updateGrid()
  */
 void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
+	onMouseDown(button, {x, y});
+}
+
+
+void IconGrid::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
 	if (!enabled() || !visible()) { return; }
 
 	// Don't respond to anything unless it's the left mouse button.
@@ -80,14 +86,13 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 	}
 
 	auto startPoint = mRect.startPoint();
-	auto mousePoint = NAS2D::Point{x, y};
-	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
+	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(position))
 	{
 		return;
 	}
 
 	auto previousIndex = mSelectedIndex;
-	mSelectedIndex = translateCoordsToIndex(mousePoint - startPoint);
+	mSelectedIndex = translateCoordsToIndex(position - startPoint);
 
 	if (mSelectedIndex >= mIconItemList.size())
 	{
@@ -104,20 +109,25 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, int x, int y)
 /**
  * MouseMotion event handler.
  */
-void IconGrid::onMouseMove(int x, int y, int /*dX*/, int /*dY*/)
+void IconGrid::onMouseMove(int x, int y, int dX, int dY)
+{
+	onMouseMove({x, y}, {dX, dY});
+}
+
+
+void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	if (!enabled() || !visible()) { return; }
 
 	auto startPoint = mRect.startPoint();
-	auto mousePoint = NAS2D::Point{x, y};
-	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(mousePoint))
+	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(position))
 	{
 		mHighlightIndex = constants::NoSelection;
 		return;
 	}
 
 	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(mousePoint - startPoint);
+	mHighlightIndex = translateCoordsToIndex(position - startPoint);
 
 	if (mHighlightIndex >= mIconItemList.size())
 	{
