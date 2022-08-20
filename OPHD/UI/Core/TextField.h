@@ -10,6 +10,7 @@
 #include "TextControl.h"
 
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
@@ -61,6 +62,7 @@ public:
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, int x, int y);
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
 

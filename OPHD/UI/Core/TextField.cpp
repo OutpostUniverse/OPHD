@@ -222,13 +222,19 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 /**
  * Mouse down even handler.
  */
-void TextField::onMouseDown(EventHandler::MouseButton /*button*/, int x, int y)
+void TextField::onMouseDown(EventHandler::MouseButton button, int x, int y)
 {
-	hasFocus(mRect.contains(Point{x, y})); // This is a very useful check, should probably include this in all controls.
+	onMouseDown(button, {x, y});
+}
+
+
+void TextField::onMouseDown(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+{
+	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
 
 	if (!enabled() || !visible()) { return; }
 
-	int relativePosition = x - mRect.x;
+	int relativePosition = position.x - mRect.x;
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
