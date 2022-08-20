@@ -15,11 +15,14 @@
 using namespace NAS2D;
 
 
-const int LIST_ITEM_HEIGHT = 58;
-const Image* STRUCTURE_ICONS = nullptr;
+namespace
+{
+	const int LIST_ITEM_HEIGHT = 58;
+	const Image* STRUCTURE_ICONS = nullptr;
 
-static const Font* MAIN_FONT = nullptr;
-static const Font* MAIN_FONT_BOLD = nullptr;
+	static const Font* MAIN_FONT = nullptr;
+	static const Font* MAIN_FONT_BOLD = nullptr;
+}
 
 
 static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, int x, int y, int w, int offset, bool highlight)
