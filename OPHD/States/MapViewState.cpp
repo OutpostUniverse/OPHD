@@ -1283,6 +1283,11 @@ void MapViewState::updateRobots()
 			if (tile->thing() == robot)
 			{
 				tile->removeThing();
+
+				mNotificationArea.push({"Robot Task Completed",
+										robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+										tile->xyz(),
+										NotificationArea::NotificationType::Success});
 			}
 			robot_it = mRobotList.erase(robot_it);
 
@@ -1291,6 +1296,11 @@ void MapViewState::updateRobots()
 				resetTileIndexFromDozer(robot, tile);
 				populateRobotMenu();
 				robot->reset();
+
+				mNotificationArea.push({"Robot Task Canceled",
+						robot->name() + " canceled its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+						tile->xyz(),
+						NotificationArea::NotificationType::Information});
 			}
 		}
 		else
