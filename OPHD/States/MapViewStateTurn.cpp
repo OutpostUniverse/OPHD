@@ -415,7 +415,7 @@ void MapViewState::checkWarehouseCapacity()
 		availableStorageTotal += warehouse->products().availableStoragePercent();
 	}
 
-	const int availableStorage = availableStorageTotal / warehouses.size();
+	const int availableStorage = availableStorageTotal / static_cast<int>(warehouses.size());
 
 	if (availableStorage == 0) // FIXME -- Magic Number
 	{
