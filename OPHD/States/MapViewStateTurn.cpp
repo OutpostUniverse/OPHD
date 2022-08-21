@@ -484,7 +484,7 @@ void MapViewState::transferFoodToCommandCenter()
 
 			foodToMove -= foodMoved;
 
-			if (foodToMove == 0) { return; }
+			if (foodToMove == 0) { break; }
 
 			++foodProducerIterator;
 		}
