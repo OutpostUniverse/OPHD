@@ -56,13 +56,5 @@ ProductCatalogue::ProductCatalogue(const std::string& catalogFile)
 
 const ProductCatalogue::Product& ProductCatalogue::product(ProductType type) const
 {
-	const auto& product = mProductTable.find(type);
-	if (product != mProductTable.end())
-	{
-		return product->second;
-	}
-	else
-	{
-		throw std::runtime_error("Unknown ProductType: " + std::to_string(static_cast<int>(type)));
-	}
+	return mProductTable.at(type);
 }
