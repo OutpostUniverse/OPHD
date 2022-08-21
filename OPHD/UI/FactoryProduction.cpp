@@ -1,6 +1,8 @@
 #include "FactoryProduction.h"
 
 #include "StringTable.h"
+
+#include "../ProductCatalogue.h"
 #include "../Constants/Strings.h"
 #include "../Things/Structures/Factory.h"
 
@@ -136,7 +138,7 @@ void FactoryProduction::factory(Factory* newFactory)
 
 	for (std::size_t i = 0; i < ptlist.size(); ++i)
 	{
-		mProductGrid.addItem({productDescription(ptlist[i]), ptlist[i], ptlist[i]});
+		mProductGrid.addItem({ProductCatalogue::get(ptlist[i]).Name, ptlist[i], ptlist[i]});
 	}
 
 	if (mFactory->productType() == ProductType::PRODUCT_NONE) { mProductGrid.clearSelection(); }

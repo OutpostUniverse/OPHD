@@ -406,7 +406,7 @@ void FactoryReport::onListSelectionChange()
 	{
 		for (auto item : selectedFactory->productList())
 		{
-			lstProducts.add(productDescription(item), static_cast<int>(item));
+			lstProducts.add(ProductCatalogue::get(item).Name, static_cast<int>(item));
 		}
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
@@ -483,7 +483,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
+		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
 		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
@@ -491,7 +491,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
 	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.y + 358}, textColor);
-	renderer.drawText(fontMedium, "Building " + productDescription(selectedFactory->productType()), NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
 
 	float percent = 0.0f;
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
