@@ -276,21 +276,6 @@ const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 };
 
 
-ProductType productTypeFromDescription(const std::string& description)
-{
-	for (std::size_t i = 0; i < ProductDescriptionTable.size(); ++i)
-	{
-		if (ProductDescriptionTable[i] == description)
-		{
-			// dubious (and slow)
-			return static_cast<ProductType>(i);
-		}
-	}
-
-	return ProductType::PRODUCT_NONE;
-}
-
-
 const std::string& disabledReason(DisabledReason disabledReason)
 {
 	return DISABLED_REASON_TABLE.at(disabledReason);
