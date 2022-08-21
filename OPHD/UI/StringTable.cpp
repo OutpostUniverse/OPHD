@@ -184,8 +184,6 @@ void StringTable::accountForCellJustification(std::size_t index, int columnWidth
 	case (Justification::Center):
 		cell.textOffset.x += (columnWidth - getCellFont(index)->width(cell.text)) / 2;
 		return;
-	default:
-		return;
 	}
 }
 
