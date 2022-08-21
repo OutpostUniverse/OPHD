@@ -11,7 +11,6 @@
 #include "../Constants/UiConstants.h"
 
 #include "../Common.h"
-#include "../ProductCatalogue.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 #include "../PopulationPool.h"
@@ -114,8 +113,8 @@ public:
 	using MapChangedSignal = NAS2D::Signal<>;
 
 public:
-	MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame);
-	MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
+	MapViewState(MainReportsUiState&, const std::string& savegame);
+	MapViewState(MainReportsUiState&, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);
@@ -290,8 +289,6 @@ private:
 	std::unique_ptr<MapView> mMapView;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
-
-	ProductCatalogue mProductCatalog;
 
 	StructureTracker mStructureTracker;
 
