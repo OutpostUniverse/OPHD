@@ -276,14 +276,6 @@ const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 };
 
 
-const std::string& productDescription(ProductType type)
-{
-	if (type == ProductType::PRODUCT_NONE) { return constants::None; }
-
-	return ProductDescriptionTable[static_cast<std::size_t>(type)];
-}
-
-
 ProductType productTypeFromDescription(const std::string& description)
 {
 	for (std::size_t i = 0; i < ProductDescriptionTable.size(); ++i)
