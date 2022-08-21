@@ -7,6 +7,7 @@
 #include "../Core/TextArea.h"
 #include "../FactoryListBox.h"
 #include "../../Common.h"
+#include "../../ProductCatalogue.h"
 
 #include <NAS2D/Math/Rectangle.h>
 
