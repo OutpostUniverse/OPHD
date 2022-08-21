@@ -204,6 +204,7 @@ private:
 
 	// TURN LOGIC
 	void checkColonyShip();
+	void checkWarehouseCapacity();
 	void nextTurn();
 	void updatePopulation();
 	void updateCommercial();
