@@ -567,7 +567,7 @@ void MapViewState::checkNewlyBuiltStructures()
 			"Construction Finished",
 			structure->name() + " completed construction.",
 			structureTile.xyz(),
-			NotificationArea::NotificationType::Information});
+			NotificationArea::NotificationType::Success});
 	}
 }
 

@@ -28,6 +28,7 @@ public:
 	{
 		Critical,
 		Information,
+		Success,
 		Warning
 	};
 
