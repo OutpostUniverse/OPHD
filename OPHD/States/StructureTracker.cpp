@@ -4,7 +4,7 @@
 
 namespace
 {
-	void addItemToList(const IconGrid::Item& structureItem, StructureTracker::StructureItemList& list)
+	void addItemToList(const IconGrid::Item& structureItem, std::vector<IconGrid::Item>& list)
 	{
 		for (const auto& item : list)
 		{
