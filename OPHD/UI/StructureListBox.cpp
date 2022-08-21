@@ -18,22 +18,19 @@ static const Font* MAIN_FONT = nullptr;
 static const Font* MAIN_FONT_BOLD = nullptr;
 
 
-static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, int x, int y, int w, int offset, bool highlight)
+static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
-	Structure* structure = item.structure;
-
-	const auto& structureColor = structureColorFromIndex(structure->state());
-	const auto& structureTextColor = structureTextColorFromIndex(structure->state());
-	const auto highlightColor = NAS2D::Color{structureColor.red, structureColor.green, structureColor.blue, 75};
+	const auto structureState = item.structure->state();
+	const auto& structureColor = structureColorFromIndex(structureState);
+	const auto& structureTextColor = structureTextColorFromIndex(structureState);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, w, LIST_ITEM_HEIGHT}, highlightColor); }
+	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
+	renderer.drawBox(rect.inset(2), structureColor);
 
-	renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, w - 4, LIST_ITEM_HEIGHT - 4}, structureColor);
-
-	renderer.drawText(*MAIN_FONT_BOLD, item.text, NAS2D::Point{x + 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
-
-	renderer.drawText(*MAIN_FONT, item.structureState, NAS2D::Point{x + w - MAIN_FONT->width(item.structureState) - 5, ((y + 15) - MAIN_FONT_BOLD->height() / 2) - offset}, structureTextColor);
+	const auto yOffset = 15 - MAIN_FONT_BOLD->height() / 2;
+	renderer.drawText(*MAIN_FONT_BOLD, item.text, rect.startPoint() + NAS2D::Vector{5, yOffset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT, item.structureState, rect.crossXPoint() + NAS2D::Vector{-MAIN_FONT->width(item.structureState) - 5, yOffset}, structureTextColor);
 }
 
 
@@ -124,10 +121,12 @@ void StructureListBox::update()
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		drawItem(renderer, *static_cast<StructureListBoxItem*>(mItems[i]),
-			positionX(),
-			positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT),
-			static_cast<int>(item_width()),
-			static_cast<int>(draw_offset()),
+			{
+				positionX(),
+				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset()),
+				static_cast<int>(item_width()),
+				LIST_ITEM_HEIGHT
+			},
 			i == selectedIndex());
 	}
 

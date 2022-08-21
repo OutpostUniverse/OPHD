@@ -370,7 +370,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 		const float percent = static_cast<float>(oreAvailable.resources[i]) / static_cast<float>(oreTotalYield.resources[i]);
 
-		drawBasicProgressBar(barOrigin, resourceTextOrigin.y, barWidth, 12, percent, 2);
+		drawBasicProgressBar({barOrigin, resourceTextOrigin.y, barWidth, 12}, percent, 2);
 		resourceTextOrigin.y += 20;
 	}
 }
@@ -396,7 +396,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		renderer.drawText(fontBold, ResourceNamesOre[i], origin + NAS2D::Vector{20, 30 + offsetY}, textColor);
 
 		const auto percent = static_cast<float>(oreAvailable.resources[i]) / static_cast<float>(oreTotalYield.resources[i]);
-		drawBasicProgressBar(origin.x, origin.y + 50 + offsetY, barWidth, 25, percent);
+		drawBasicProgressBar({origin.x, origin.y + 50 + offsetY, barWidth, 25}, percent);
 
 		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
 		const int strOffsetX = (barWidth / 2) - (fontBold.width(str) / 2);

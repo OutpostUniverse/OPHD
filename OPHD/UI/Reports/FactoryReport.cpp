@@ -500,7 +500,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 			static_cast<float>(selectedFactory->productionTurnsToComplete());
 	}
 
-	drawBasicProgressBar(position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30, percent, 4);
+	drawBasicProgressBar({position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30}, percent, 4);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
 	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.y + 449}, textColor);

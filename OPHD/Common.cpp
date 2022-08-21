@@ -365,15 +365,15 @@ std::vector<std::string> splitString(const std::string& string, char delimiter)
 }
 
 
-void drawBasicProgressBar(int x, int y, int width, int height, float percent, int padding)
+void drawBasicProgressBar(NAS2D::Rectangle<int> rect, float percent, int padding)
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawBox(NAS2D::Rectangle{x, y, width, height}, NAS2D::Color{0, 185, 0});
+	renderer.drawBox(rect, NAS2D::Color{0, 185, 0});
 
 	if (percent > 0.0f)
 	{
-		int bar_width = static_cast<int>(static_cast<float>(width - (padding + padding)) * percent);
-		renderer.drawBoxFilled(NAS2D::Rectangle{x + padding, y + padding + 1, bar_width - 1, height - (padding + padding) - 1}, NAS2D::Color{0, 100, 0});
+		int bar_width = static_cast<int>(static_cast<float>(rect.width - (padding + padding)) * percent);
+		renderer.drawBoxFilled(NAS2D::Rectangle{rect.x + padding, rect.y + padding + 1, bar_width - 1, rect.height - (padding + padding) - 1}, NAS2D::Color{0, 100, 0});
 	}
 }
 
