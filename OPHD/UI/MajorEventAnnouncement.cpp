@@ -39,8 +39,6 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 	case AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS:
 		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists on board!";
 		break;
-	default:
-		throw std::runtime_error("MajorEventAnnouncement::announcement(): Called with invalid announcement type.");
 	}
 }
 

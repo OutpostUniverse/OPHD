@@ -32,14 +32,14 @@ public:
 	int regularResearchProduced() const
 	{
 		return static_cast<int>(
-			std::floor(mActualScientstsEmployed * mRegularPointsPerScientist));
+			std::floor(static_cast<float>(mActualScientstsEmployed) * mRegularPointsPerScientist));
 	}
 
 
 	int hotResearchProduced() const
 	{
 		return static_cast<int>(
-			std::floor(mActualScientstsEmployed * mHotPointsPerScientist));
+			std::floor(static_cast<float>(mActualScientstsEmployed) * mHotPointsPerScientist));
 	}
 
 

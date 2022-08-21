@@ -34,11 +34,6 @@ void WindowStack::removeWindow(Window* window)
 }
 
 
-/**
- * \fixme	Can this and updateStack() just be rolled together? I don't see a use case where
- *			this would be used unless we're pressing a mouse button except maybe for highlights
- *			during mouse moves?
- */
 bool WindowStack::pointInWindow(const NAS2D::Point<int>& point) const
 {
 	for (auto* window : mWindowList)

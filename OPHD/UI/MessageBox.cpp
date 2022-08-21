@@ -8,7 +8,7 @@
 #endif
 
 
-/** \fixme Evil hack exposing an internal NAS2D variable. */
+// FIXME: Evil hack exposing an internal NAS2D variable
 extern SDL_Window* underlyingWindow;
 
 

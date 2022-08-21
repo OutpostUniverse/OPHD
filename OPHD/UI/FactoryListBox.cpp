@@ -15,11 +15,14 @@
 using namespace NAS2D;
 
 
-const int LIST_ITEM_HEIGHT = 58;
-const Image* STRUCTURE_ICONS = nullptr;
+namespace
+{
+	const int LIST_ITEM_HEIGHT = 58;
+	const Image* STRUCTURE_ICONS = nullptr;
 
-static const Font* MAIN_FONT = nullptr;
-static const Font* MAIN_FONT_BOLD = nullptr;
+	const Font* MAIN_FONT = nullptr;
+	const Font* MAIN_FONT_BOLD = nullptr;
+}
 
 
 static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
@@ -39,7 +42,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 
 	// PROGRESS BAR
-	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (f->productionTurnsCompleted() / f->productionTurnsToComplete());
+	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (static_cast<float>(f->productionTurnsCompleted()) / static_cast<float>(f->productionTurnsToComplete()));
 	drawBasicProgressBar(NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}), percentage, 2);
 }
 
@@ -68,7 +71,6 @@ void FactoryListBox::addItem(Factory* factory)
 		}
 	}
 
-	/// \fixme super sloppy
 	const auto& text = factory->name();
 	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? NAS2D::Point<int>{414, 368} :
 		(text == constants::UndergroundFactory) ? NAS2D::Point<int>{138, 276} :

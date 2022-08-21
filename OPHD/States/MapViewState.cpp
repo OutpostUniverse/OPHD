@@ -29,15 +29,8 @@
 #include <sstream>
 #include <vector>
 
-// Disable some warnings that can be safely ignored.
-#pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
-
 
 extern NAS2D::Point<int> MOUSE_COORDS;
-
-
-NAS2D::Rectangle<int> RESOURCE_PANEL_PIN{0, 1, 8, 19};
-NAS2D::Rectangle<int> POPULATION_PANEL_PIN{675, 1, 8, 19};
 
 const NAS2D::Font* MAIN_FONT = nullptr;
 
@@ -136,7 +129,7 @@ namespace
 	{
 		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
 
-		if (robot->fuelCellAge() == 190) /// \fixme magic number
+		if (robot->fuelCellAge() == 190) // FIXME: magic number
 		{
 			notificationArea.push({
 				"Aging Robot",
@@ -144,7 +137,7 @@ namespace
 				position,
 				NotificationArea::NotificationType::Warning});
 		}
-		else if (robot->fuelCellAge() == 195) /// \fixme magic number
+		else if (robot->fuelCellAge() == 195) // FIXME: magic number
 		{
 			notificationArea.push({
 				"Aging Robot",
@@ -706,7 +699,7 @@ void MapViewState::onSystemMenu()
  */
 void MapViewState::changeViewDepth(int depth)
 {
-	if (mBtnTogglePoliceOverlay.toggled())
+	if (mBtnTogglePoliceOverlay.isPressed())
 	{
 		changePoliceOverlayDepth(mMapView->currentDepth(), depth);
 	}
@@ -753,8 +746,8 @@ void MapViewState::placeTubes(Tile& tile)
 
 	if (tile.thing() || tile.mine() || !tile.excavated()) { return; }
 
-	/** \fixme	This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 *			Should instead take advantage of the updated meta data in the IconGrid::Item.
+	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
+	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
 

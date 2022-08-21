@@ -96,6 +96,9 @@ enum class InsertMode
 using RobotTileTable = std::map<Robot*, Tile*>;
 
 
+extern const NAS2D::Font* MAIN_FONT;
+
+
 class MapViewState : public Wrapper
 {
 public:

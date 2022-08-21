@@ -34,7 +34,7 @@ public:
 	
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 	
-	CheatSignal::Source& cheatCodeEntered() { return mSignal; };
+	CheatSignal::Source& cheatCodeEntered() { return mSignal; }
 
 private:
 	CheatSignal mSignal;

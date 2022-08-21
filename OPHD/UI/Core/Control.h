@@ -83,9 +83,9 @@ protected:
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 
+	bool mVisible = true; /**< Flag indicating visibility of the Control. */
 	bool mEnabled = true; /**< Flag indicating whether or not the Control is enabled. */
 	bool mHasFocus = false; /**< Flag indicating that the Control has input focus. */
-	bool mVisible = true; /**< Flag indicating visibility of the Control. */
 	bool mHighlight = false; /**< Flag indicating that this Control is highlighted. */
 
 private:

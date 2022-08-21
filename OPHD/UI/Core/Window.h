@@ -41,9 +41,6 @@ protected:
 
 private:
 	const NAS2D::Font& mTitleFont;
-	bool mMouseDrag = false;
-	bool mAnchored = false;
-
 	const NAS2D::Image& mTitleBarLeft;
 	const NAS2D::Image& mTitleBarCenter;
 	const NAS2D::Image& mTitleBarRight;
@@ -52,4 +49,7 @@ private:
 	TitleChangeSignal mTitleChanged;
 
 	std::string mTitle;
+
+	bool mMouseDrag = false;
+	bool mAnchored = false;
 };
