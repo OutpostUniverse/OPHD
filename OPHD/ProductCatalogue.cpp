@@ -59,5 +59,12 @@ void ProductCatalogue::init(const std::string& filename)
 
 const ProductCatalogue::Product& ProductCatalogue::get(ProductType type)
 {
-	return mProductTable.at(type);
+	try
+	{
+		return mProductTable.at(type);
+	}
+	catch (std::out_of_range&)
+	{
+		throw std::runtime_error("Product type (" + std::to_string(static_cast<int>(type)) + ") not found in Product Catalogue.");
+	}
 }
