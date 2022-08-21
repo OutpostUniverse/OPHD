@@ -402,6 +402,12 @@ void MapViewState::checkColonyShip()
 }
 
 
+void MapViewState::checkWarehouseCapacity()
+{
+
+}
+
+
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
@@ -703,6 +709,7 @@ void MapViewState::nextTurn()
 	populateStructureMenu();
 
 	checkColonyShip();
+	checkWarehouseCapacity();
 
 	mMineOperationsWindow.updateTruckAvailability();
 
