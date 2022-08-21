@@ -11,6 +11,7 @@
 #include "../DirectionOffset.h"
 #include "../Cache.h"
 #include "../GraphWalker.h"
+#include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 
@@ -236,6 +237,8 @@ void MapViewState::initialize()
 		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	}
+
+	ProductCatalogue::init("factory_products.xml");
 
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
