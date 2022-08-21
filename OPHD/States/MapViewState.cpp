@@ -29,9 +29,6 @@
 #include <sstream>
 #include <vector>
 
-// Disable some warnings that can be safely ignored.
-#pragma warning(disable : 4244) // possible loss of data (floats to int and vice versa)
-
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
