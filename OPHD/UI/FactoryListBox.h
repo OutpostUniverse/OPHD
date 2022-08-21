@@ -2,6 +2,8 @@
 
 #include "Core/ListBoxBase.h"
 
+#include "../ProductCatalogue.h"
+
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
 
@@ -18,8 +20,6 @@ class Factory;
 class FactoryListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedSignal = NAS2D::Signal<Factory*>;
-
 	struct FactoryListBoxItem : public ListBoxItem
 	{
 		FactoryListBoxItem(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) :
