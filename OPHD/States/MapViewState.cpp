@@ -11,6 +11,7 @@
 #include "../DirectionOffset.h"
 #include "../Cache.h"
 #include "../GraphWalker.h"
+#include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 
@@ -152,7 +153,6 @@ namespace
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mMainReportsState(mainReportsState),
 	mCrimeExecution(mNotificationArea),
-	mProductCatalog("factory_products.xml"),
 	mTechnologyReader("tech0-1.xml"),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame),
@@ -169,7 +169,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
-	mProductCatalog("factory_products.xml"),
 	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
@@ -238,6 +237,8 @@ void MapViewState::initialize()
 		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
 		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
 	}
+
+	ProductCatalogue::init("factory_products.xml");
 
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();

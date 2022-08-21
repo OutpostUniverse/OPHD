@@ -11,6 +11,7 @@
 #include "../Cache.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
+#include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
@@ -285,6 +286,7 @@ void MapViewState::load(const std::string& filePath)
 	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
+	ProductCatalogue::init("factory_products.xml");
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);

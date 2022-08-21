@@ -121,7 +121,6 @@ FactoryReport::FactoryReport() :
 	txtProductDescription.font(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	txtProductDescription.height(128);
 	txtProductDescription.textColor(NAS2D::Color{0, 185, 0});
-	txtProductDescription.text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 
 	fillLists();
 }
@@ -142,6 +141,7 @@ void FactoryReport::clearSelected()
 {
 	lstFactoryList.clearSelected();
 	selectedFactory = nullptr;
+	txtProductDescription.text("");
 }
 
 
@@ -289,6 +289,11 @@ void FactoryReport::onVisibilityChange(bool visible)
 	StructureState state = selectedFactory->state();
 	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
 	checkFactoryActionControls();
+
+	if (selectedProductType != ProductType::PRODUCT_NONE)
+	{
+		txtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+	}
 }
 
 
@@ -406,7 +411,7 @@ void FactoryReport::onListSelectionChange()
 	{
 		for (auto item : selectedFactory->productList())
 		{
-			lstProducts.add(productDescription(item), static_cast<int>(item));
+			lstProducts.add(ProductCatalogue::get(item).Name, static_cast<int>(item));
 		}
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
@@ -420,6 +425,7 @@ void FactoryReport::onListSelectionChange()
 void FactoryReport::onProductSelectionChange()
 {
 	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
+	txtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
 }
 
 
@@ -483,7 +489,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, productDescription(selectedProductType), NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
+		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
 		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
@@ -491,7 +497,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
 	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.y + 358}, textColor);
-	renderer.drawText(fontMedium, "Building " + productDescription(selectedFactory->productType()), NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
 
 	float percent = 0.0f;
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)

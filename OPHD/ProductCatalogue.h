@@ -22,10 +22,15 @@ public:
 	};
 
 public:
-	ProductCatalogue(const std::string& catalogFile);
+	ProductCatalogue() = delete;
+	ProductCatalogue(const ProductCatalogue&) = delete;
+	ProductCatalogue(const ProductCatalogue&&) noexcept = delete;
+	ProductCatalogue& operator=(const ProductCatalogue& other) = delete;
+	ProductCatalogue& operator=(ProductCatalogue&& other) noexcept = delete;
 
-	const Product& product(ProductType type) const;
+	static void init(const std::string& filename);
+	static const Product& get(ProductType type);
 
 private:
-	std::map<ProductType, Product> mProductTable;
+	static std::map<ProductType, Product> mProductTable;
 };

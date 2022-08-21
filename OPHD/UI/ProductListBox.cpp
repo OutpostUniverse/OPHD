@@ -2,6 +2,7 @@
 
 #include "../Constants/UiConstants.h"
 #include "../Cache.h"
+#include "../ProductCatalogue.h"
 #include "../ProductPool.h"
 
 #include <NAS2D/Utility.h>
@@ -36,7 +37,7 @@ void ProductListBox::productPool(ProductPool& pool)
 		if (productCount > 0)
 		{
 			ProductListBoxItem* item = new ProductListBoxItem();
-			item->text = productDescription(productType);
+			item->text = ProductCatalogue::get(productType).Name;
 			item->count = productCount;
 			item->usage = static_cast<float>(productCount * pool.productStorageRequirement(productType)) / static_cast<float>(pool.capacity());
 			mItems.push_back(item);

@@ -5,6 +5,7 @@
 #include "../Cache.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
+#include "../ProductCatalogue.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -28,7 +29,10 @@ namespace
 static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	Factory* f = item.factory;
+
+	const auto productType = f->productType();
 	const auto factoryState = f->state();
+
 	const auto& structureColor = structureColorFromIndex(factoryState);
 	const auto& structureTextColor = structureTextColorFromIndex(factoryState);
 
@@ -39,10 +43,10 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46};
 	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.startPoint() + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
-	renderer.drawText(*MAIN_FONT, productDescription(f->productType()), rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
+	renderer.drawText(*MAIN_FONT, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 
 	// PROGRESS BAR
-	float percentage = (f->productType() == ProductType::PRODUCT_NONE) ? 0.0f : (static_cast<float>(f->productionTurnsCompleted()) / static_cast<float>(f->productionTurnsToComplete()));
+	float percentage = (productType == ProductType::PRODUCT_NONE) ? 0.0f : (static_cast<float>(f->productionTurnsCompleted()) / static_cast<float>(f->productionTurnsToComplete()));
 	drawBasicProgressBar(NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}), percentage, 2);
 }
 

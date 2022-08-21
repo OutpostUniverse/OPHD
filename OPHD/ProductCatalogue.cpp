@@ -30,12 +30,17 @@ namespace
 }
 
 
-ProductCatalogue::ProductCatalogue(const std::string& catalogFile)
+std::map<ProductType, ProductCatalogue::Product> ProductCatalogue::mProductTable;
+
+
+void ProductCatalogue::init(const std::string& filename)
 {
+	mProductTable.clear();
+
 	const std::string RootElementName("products");
 	const std::string ProductElement("product");
-	
-	auto xmlDocument = openXmlFile(catalogFile, RootElementName);
+
+	auto xmlDocument = openXmlFile(filename, RootElementName);
 	auto rootElement = xmlDocument.firstChildElement(RootElementName);
 	for (const auto* node = rootElement->firstChildElement(ProductElement); node; node = node->nextSiblingElement(ProductElement))
 	{
@@ -44,9 +49,7 @@ ProductCatalogue::ProductCatalogue(const std::string& catalogFile)
 
 		if (mProductTable.find(productId) != mProductTable.end())
 		{
-			std::cout << "ProductID (" << product.Id << ") already found in table: " <<
-				mProductTable[productId].Name << ". Previous entry will be overwritten with new entry '" <<
-				product.Name << "'" << std::endl;
+			std::cout << "ProductID (" << product.Id << ") already found in table: " << mProductTable[productId].Name << ". Previous entry will be overwritten with new entry '" << product.Name << "'" << std::endl;
 		}
 
 		mProductTable[productId] = product;
@@ -54,15 +57,14 @@ ProductCatalogue::ProductCatalogue(const std::string& catalogFile)
 }
 
 
-const ProductCatalogue::Product& ProductCatalogue::product(ProductType type) const
+const ProductCatalogue::Product& ProductCatalogue::get(ProductType type)
 {
-	const auto& product = mProductTable.find(type);
-	if (product != mProductTable.end())
+	try
 	{
-		return product->second;
+		return mProductTable.at(type);
 	}
-	else
+	catch (std::out_of_range&)
 	{
-		throw std::runtime_error("Unknown ProductType: " + std::to_string(static_cast<int>(type)));
+		throw std::runtime_error("Product type (" + std::to_string(static_cast<int>(type)) + ") not found in Product Catalogue.");
 	}
 }

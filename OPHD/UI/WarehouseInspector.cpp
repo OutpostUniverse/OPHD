@@ -1,6 +1,9 @@
 #include "WarehouseInspector.h"
 
 #include "TextRender.h"
+
+#include "../ProductCatalogue.h"
+
 #include "../Constants/UiConstants.h"
 
 #include "../Things/Structures/Warehouse.h"
@@ -65,7 +68,7 @@ void WarehouseInspector::update()
 		if (pool.count(productType) == 0) { continue; }
 		if (storageRequiredPerUnit(productType) == 0) { continue; }
 
-		drawLabelAndValueLeftJustify(position, labelWidth, productDescription(productType) + ":", std::to_string(pool.count(productType)));
+		drawLabelAndValueLeftJustify(position, labelWidth, ProductCatalogue::get(productType).Name + ":", std::to_string(pool.count(productType)));
 
 		position.y += 15;
 	}

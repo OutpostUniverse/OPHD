@@ -20,6 +20,7 @@ public:
 
 public:
 	MainReportsUiState();
+
 	~MainReportsUiState() override;
 
 	void selectFactoryPanel(Structure*);
