@@ -35,6 +35,8 @@ std::map<ProductType, ProductCatalogue::Product> ProductCatalogue::mProductTable
 
 void ProductCatalogue::init(const std::string& filename)
 {
+	mProductTable.clear();
+
 	const std::string RootElementName("products");
 	const std::string ProductElement("product");
 
