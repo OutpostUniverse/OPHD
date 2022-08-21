@@ -417,19 +417,19 @@ void MapViewState::checkWarehouseCapacity()
 
 	const int availableStorage = availableStorageTotal / warehouses.size();
 
-	if (availableStorage < 15)  // FIXME -- Magic Number
-	{
-		mNotificationArea.push({"Warehouse Space Low",
-								"Warehouse space is running low. Current available storage capacity is at " + std::to_string(availableStorage) + "%.",
-								{{-1, -1}, 0},
-								NotificationArea::NotificationType::Warning});
-	}
-	else if (availableStorage < 5) // FIXME -- Ditto
+	if (availableStorage < 5)  // FIXME -- Magic Number
 	{
 		mNotificationArea.push({"Warehouse Space Critically Low",
 								"Warehouse space is critically low! You only have " + std::to_string(availableStorage) + "% storage capacity remaining!",
 								{{-1, -1}, 0},
 								NotificationArea::NotificationType::Critical});
+	}
+	else if (availableStorage < 15) // FIXME -- Ditto
+	{
+		mNotificationArea.push({"Warehouse Space Low",
+								"Warehouse space is running low. Current available storage capacity is at " + std::to_string(availableStorage) + "%.",
+								{{-1, -1}, 0},
+								NotificationArea::NotificationType::Warning});
 	}
 }
 
