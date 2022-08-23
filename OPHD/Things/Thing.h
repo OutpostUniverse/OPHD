@@ -7,7 +7,10 @@
 
 
 /**
- * Class implementing a Thing interface.
+ * Thing interface
+ *
+ * Does not own it's own coordinates.
+ * Owner is responsible for drawing at correct location.
  */
 class Thing
 {
@@ -23,15 +26,6 @@ public:
 
 	const std::string& name() const;
 
-	/**
-	 * Gets a reference to the Sprite used to represent this Thing.
-	 * 
-	 * ASSUMPTION: The code that actually draws the map including Things
-	 * should be responsible for drawing and updating the Thing as well.
-	 * Making the thing responsible for drawing itself needlessly complicates
-	 * the code as it requires that the Thing have screen positional
-	 * information included in it.
-	 */
 	NAS2D::Sprite& sprite();
 
 	virtual void die();
@@ -46,10 +40,10 @@ private:
 	Thing& operator=(const Thing& thing) = delete;
 
 private:
-	std::string mName; /**< Name of the Thing. */
-	NAS2D::Sprite mSprite; /**< Sprite used to represent the Thing. */
+	std::string mName;
+	NAS2D::Sprite mSprite;
 
-	bool mIsDead = false;/**< Thing is dead and should be cleaned up. */
+	bool mIsDead = false;
 
 	DieSignal mDieSignal;
 };

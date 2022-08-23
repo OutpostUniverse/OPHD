@@ -26,6 +26,7 @@ void Thing::die()
 }
 
 
+/// Thing is dead and should be cleaned up.
 bool Thing::dead() const
 {
 	return mIsDead;
