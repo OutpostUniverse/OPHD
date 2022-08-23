@@ -19,6 +19,8 @@ public:
 
 public:
 	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction);
+	Thing(const Thing& thing) = delete;
+	Thing& operator=(const Thing& thing) = delete;
 
 	virtual ~Thing() = default;
 
@@ -32,12 +34,6 @@ public:
 	bool dead() const;
 
 	DieSignal::Source& onDie();
-
-private:
-	// No default copy constructor, or copy operator
-	// Calling these should result in an error
-	Thing(const Thing& thing) = delete;
-	Thing& operator=(const Thing& thing) = delete;
 
 private:
 	std::string mName;
