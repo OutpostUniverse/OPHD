@@ -27,7 +27,7 @@ public:
 	NAS2D::Sprite& sprite();
 	const std::string& name() const;
 
-	bool dead() const;
+	bool isDead() const;
 	virtual void die();
 	DieSignal::Source& onDie();
 

@@ -66,7 +66,7 @@ std::size_t robotControlCount(const T& t)
 	std::size_t controlCounter{0};
 	for (auto robot : t)
 	{
-		if (!robot->idle() && !robot->dead()) { ++controlCounter; }
+		if (!robot->idle() && !robot->isDead()) { ++controlCounter; }
 	}
 	return controlCounter;
 }
