@@ -1243,7 +1243,7 @@ void MapViewState::updateRobots()
 
 		pushAgingRobotMessage(robot, position, mNotificationArea);
 
-		if (robot->dead())
+		if (robot->isDead())
 		{
 			const auto robotLocationText = "(" +  std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
 
