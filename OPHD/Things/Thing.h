@@ -21,25 +21,19 @@ public:
 	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction);
 	Thing(const Thing& thing) = delete;
 	Thing& operator=(const Thing& thing) = delete;
-
 	virtual ~Thing() = default;
 
 	virtual void update() = 0;
-
+	NAS2D::Sprite& sprite();
 	const std::string& name() const;
 
-	NAS2D::Sprite& sprite();
-
-	virtual void die();
 	bool dead() const;
-
+	virtual void die();
 	DieSignal::Source& onDie();
 
 private:
 	std::string mName;
 	NAS2D::Sprite mSprite;
-
-	bool mIsDead = false;
-
 	DieSignal mDieSignal;
+	bool mIsDead = false;
 };
