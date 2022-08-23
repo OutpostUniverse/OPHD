@@ -225,6 +225,9 @@
     <ClCompile Include="Things\Structures\MineFacility.cpp">
       <Filter>Source Files\Things\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="Things\Thing.cpp">
+      <Filter>Source Files\Things\</Filter>
+    </ClCompile>
     <ClCompile Include="UI\MineOperationsWindow.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>

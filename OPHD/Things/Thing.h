@@ -15,16 +15,13 @@ public:
 	using DieSignal = NAS2D::Signal<Thing*>;
 
 public:
-	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction) :
-		mName(name),
-		mSprite(spritePath, initialAction)
-	{}
+	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction);
 
 	virtual ~Thing() = default;
 
 	virtual void update() = 0;
 
-	const std::string& name() const { return mName; }
+	const std::string& name() const;
 
 	/**
 	 * Gets a reference to the Sprite used to represent this Thing.
@@ -35,12 +32,12 @@ public:
 	 * the code as it requires that the Thing have screen positional
 	 * information included in it.
 	 */
-	NAS2D::Sprite& sprite() { return mSprite; }
+	NAS2D::Sprite& sprite();
 
-	virtual void die() { mIsDead = true; mDieSignal(this); }
-	bool dead() const { return mIsDead; }
+	virtual void die();
+	bool dead() const;
 
-	DieSignal::Source& onDie() { return mDieSignal; }
+	DieSignal::Source& onDie();
 
 private:
 	// No default copy constructor, or copy operator
