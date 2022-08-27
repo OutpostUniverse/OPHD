@@ -97,9 +97,9 @@ NAS2D::State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (auto* planet : mPlanets)
 	{
-		mPlanets[i]->update();
+		planet->update();
 	}
 
 	renderer.drawText(mFontBold, PlanetAttributes[0].name, mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[0].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
