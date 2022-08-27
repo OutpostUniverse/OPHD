@@ -10,10 +10,11 @@
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Music.h>
 #include <NAS2D/Resource/Sound.h>
-#include <NAS2D/Math/Point.h>
+#include <NAS2D/Renderer/Fade.h>
 
 #include <vector>
 
@@ -60,6 +61,7 @@ private:
 	std::size_t mPlanetSelection{constants::NoSelection};
 
 	NAS2D::Timer mTimer;
+	NAS2D::Fade mFade;
 
 	NAS2D::State* mReturnState = this;
 

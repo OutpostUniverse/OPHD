@@ -5,6 +5,7 @@
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Image.h>
+#include <NAS2D/Renderer/Fade.h>
 
 
 class SplashState : public NAS2D::State
@@ -34,6 +35,7 @@ private:
 	NAS2D::Point<int> mMousePosition;
 
 	NAS2D::Timer mTimer;
+	NAS2D::Fade mFade;
 
 	NAS2D::State* mReturnState = this;
 };

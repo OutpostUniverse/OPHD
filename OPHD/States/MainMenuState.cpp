@@ -35,7 +35,7 @@ MainMenuState::~MainMenuState()
 	eventHandler.keyDown().disconnect(this, &MainMenuState::onKeyDown);
 
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
+	mFade.fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
 }
 
 
@@ -67,10 +67,9 @@ void MainMenuState::initialize()
 	disableButtons();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	renderer.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
-	renderer.fadeOut(std::chrono::milliseconds{0});
-	renderer.fadeIn(constants::FadeSpeed);
 	renderer.showSystemPointer(true);
+	mFade.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
+	mFade.fadeIn(constants::FadeSpeed);
 
 	NAS2D::Mixer& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
 	if (!mixer.musicPlaying()) { mixer.playMusic(*trackMars); }
@@ -152,7 +151,7 @@ void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOper
 		gameState->mapviewstate(mapview);
 		mReturnState = gameState;
 
-		NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+		mFade.fadeOut(constants::FadeSpeed);
 		NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 	}
 	catch (const std::exception& e)
@@ -180,11 +179,11 @@ void MainMenuState::onWindowResized(NAS2D::Vector<int> /*newSize*/)
 
 
 /**
- * Event handler for renderer fading.
+ * Event handler for fading.
  */
 void MainMenuState::onFadeComplete()
 {
-	if (NAS2D::Utility<NAS2D::Renderer>::get().isFaded()) { return; }
+	if (mFade.isFaded()) { return; }
 	enableButtons();
 }
 
@@ -200,7 +199,7 @@ void MainMenuState::onNewGame()
 
 	mReturnState = new PlanetSelectState();
 
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeOut(constants::FadeSpeed);
+	mFade.fadeOut(constants::FadeSpeed);
 	NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
 }
 
@@ -279,7 +278,10 @@ NAS2D::State* MainMenuState::update()
 
 	lblVersion.update();
 
-	if (renderer.isFading())
+	mFade.update();
+	mFade.draw(renderer);
+
+	if (mFade.isFading())
 	{
 		return this;
 	}

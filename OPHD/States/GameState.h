@@ -3,6 +3,7 @@
 #include <NAS2D/State.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
+#include <NAS2D/Renderer/Fade.h>
 
 #include <memory>
 
@@ -11,9 +12,6 @@ class MainReportsUiState;
 class MapViewState;
 class Structure;
 class Wrapper;
-
-
-extern NAS2D::Point<int> MOUSE_COORDS;
 
 
 class GameState : public NAS2D::State
@@ -46,4 +44,5 @@ private:
 	std::unique_ptr<MapViewState> mMapView;
 	Wrapper* mActiveState = nullptr;
 	std::unique_ptr<MainReportsUiState> mMainReportsState;
+	NAS2D::Fade mFade;
 };

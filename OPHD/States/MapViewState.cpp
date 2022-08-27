@@ -243,7 +243,7 @@ void MapViewState::initialize()
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
 
-	NAS2D::Utility<NAS2D::Renderer>::get().fadeIn(constants::FadeSpeed);
+	mFade.fadeIn(constants::FadeSpeed);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
@@ -328,6 +328,9 @@ NAS2D::State* MapViewState::update()
 	}
 
 	drawUI();
+
+	mFade.update();
+	mFade.draw(renderer);
 
 	return this;
 }
@@ -1400,4 +1403,10 @@ void MapViewState::scrubRobotList()
 	{
 		it.second->removeThing();
 	}
+}
+
+
+bool MapViewState::hasGameEnded()
+{
+	return mFade.isFaded();
 }
