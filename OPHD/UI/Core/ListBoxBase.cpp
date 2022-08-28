@@ -16,13 +16,13 @@ using namespace NAS2D;
 ListBoxBase::ListBoxBase()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseWheel().connect(this, &ListBoxBase::onMouseWheel);
-	eventHandler.mouseButtonDown().connect(this, &ListBoxBase::onMouseDown);
-	eventHandler.mouseMotion().connect(this, &ListBoxBase::onMouseMove);
+	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
+	eventHandler.mouseButtonDown().connect({this, &ListBoxBase::onMouseDown});
+	eventHandler.mouseMotion().connect({this, &ListBoxBase::onMouseMove});
 
 	mScrollBar.max(0);
 	mScrollBar.value(0);
-	mScrollBar.change().connect(this, &ListBoxBase::onSlideChange);
+	mScrollBar.change().connect({this, &ListBoxBase::onSlideChange});
 
 	updateScrollLayout();
 }
@@ -30,12 +30,12 @@ ListBoxBase::ListBoxBase()
 
 ListBoxBase::~ListBoxBase()
 {
-	mScrollBar.change().disconnect(this, &ListBoxBase::onSlideChange);
+	mScrollBar.change().disconnect({this, &ListBoxBase::onSlideChange});
 
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseWheel().disconnect(this, &ListBoxBase::onMouseWheel);
-	eventHandler.mouseButtonDown().disconnect(this, &ListBoxBase::onMouseDown);
-	eventHandler.mouseMotion().disconnect(this, &ListBoxBase::onMouseMove);
+	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
+	eventHandler.mouseButtonDown().disconnect({this, &ListBoxBase::onMouseDown});
+	eventHandler.mouseMotion().disconnect({this, &ListBoxBase::onMouseMove});
 
 	for (auto item : mItems) { delete item; }
 }

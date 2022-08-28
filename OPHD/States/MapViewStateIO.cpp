@@ -351,7 +351,7 @@ void MapViewState::load(const std::string& filePath)
 			SeedLander* seedLander = list[0];
 			if (!seedLander) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			seedLander->deploySignal().connect(this, &MapViewState::onDeploySeedLander);
+			seedLander->deploySignal().connect({this, &MapViewState::onDeploySeedLander});
 
 			mStructures.clear();
 			mConnections.clear();
@@ -475,7 +475,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 			auto& mineFacility = *static_cast<MineFacility*>(&structure);
 			mineFacility.mine(mine);
 			mineFacility.maxDepth(mTileMap->maxDepth());
-			mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
+			mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
 
 			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
@@ -561,7 +561,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 			factory.productType(static_cast<ProductType>(production_type));
 			factory.productionTurnsCompleted(production_completed);
 			factory.resourcePool(&mResourcesCount);
-			factory.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
+			factory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 		}
 
 		if (structure.isRobotCommand())

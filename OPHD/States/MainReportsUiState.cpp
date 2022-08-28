@@ -126,18 +126,18 @@ static void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
 MainReportsUiState::MainReportsUiState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.windowResized().connect(this, &MainReportsUiState::onWindowResized);
-	eventHandler.keyDown().connect(this, &MainReportsUiState::onKeyDown);
-	eventHandler.mouseButtonDown().connect(this, &MainReportsUiState::onMouseDown);
+	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});
+	eventHandler.keyDown().connect({this, &MainReportsUiState::onKeyDown});
+	eventHandler.mouseButtonDown().connect({this, &MainReportsUiState::onMouseDown});
 }
 
 
 MainReportsUiState::~MainReportsUiState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.windowResized().disconnect(this, &MainReportsUiState::onWindowResized);
-	eventHandler.keyDown().disconnect(this, &MainReportsUiState::onKeyDown);
-	eventHandler.mouseButtonDown().disconnect(this, &MainReportsUiState::onMouseDown);
+	eventHandler.windowResized().disconnect({this, &MainReportsUiState::onWindowResized});
+	eventHandler.keyDown().disconnect({this, &MainReportsUiState::onKeyDown});
+	eventHandler.mouseButtonDown().disconnect({this, &MainReportsUiState::onMouseDown});
 
 	for (Panel& panel : Panels)
 	{

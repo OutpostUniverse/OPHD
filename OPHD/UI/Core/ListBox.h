@@ -64,22 +64,22 @@ public:
 	ListBox() :
 		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect(this, &ListBox::onMouseDown);
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &ListBox::onMouseMove);
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect(this, &ListBox::onMouseWheel);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect({this, &ListBox::onMouseWheel});
 
 		mScrollBar.max(0);
 		mScrollBar.value(0);
-		mScrollBar.change().connect(this, &ListBox::onSlideChange);
+		mScrollBar.change().connect({this, &ListBox::onSlideChange});
 		updateScrollLayout();
 	}
 
 	~ListBox() override {
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect(this, &ListBox::onMouseDown);
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect(this, &ListBox::onMouseMove);
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect(this, &ListBox::onMouseWheel);
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ListBox::onMouseMove});
+		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect({this, &ListBox::onMouseWheel});
 
-		mScrollBar.change().disconnect(this, &ListBox::onSlideChange);
+		mScrollBar.change().disconnect({this, &ListBox::onSlideChange});
 	}
 
 	bool isEmpty() const {

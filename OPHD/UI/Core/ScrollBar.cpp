@@ -127,18 +127,18 @@ ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType) :
 	mSkins{skins}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().connect(this, &ScrollBar::onMouseDown);
-	eventHandler.mouseButtonUp().connect(this, &ScrollBar::onMouseUp);
-	eventHandler.mouseMotion().connect(this, &ScrollBar::onMouseMove);
+	eventHandler.mouseButtonDown().connect({this, &ScrollBar::onMouseDown});
+	eventHandler.mouseButtonUp().connect({this, &ScrollBar::onMouseUp});
+	eventHandler.mouseMotion().connect({this, &ScrollBar::onMouseMove});
 }
 
 
 ScrollBar::~ScrollBar()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().disconnect(this, &ScrollBar::onMouseDown);
-	eventHandler.mouseButtonUp().disconnect(this, &ScrollBar::onMouseUp);
-	eventHandler.mouseMotion().disconnect(this, &ScrollBar::onMouseMove);
+	eventHandler.mouseButtonDown().disconnect({this, &ScrollBar::onMouseDown});
+	eventHandler.mouseButtonUp().disconnect({this, &ScrollBar::onMouseUp});
+	eventHandler.mouseMotion().disconnect({this, &ScrollBar::onMouseMove});
 }
 
 

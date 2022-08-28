@@ -51,10 +51,10 @@ void MapViewState::initUi()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	mCheatMenu.cheatCodeEntered().connect(this, &MapViewState::onCheatCodeEntry);
+	mCheatMenu.cheatCodeEntered().connect({this, &MapViewState::onCheatCodeEntry});
 	mCheatMenu.hide();
 
-	mDiggerDirection.directionSelected().connect(this, &MapViewState::onDiggerSelectionDialog);
+	mDiggerDirection.directionSelected().connect({this, &MapViewState::onDiggerSelectionDialog});
 	mDiggerDirection.hide();
 
 	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.size().x / 2.0f, 175.0f});
@@ -70,7 +70,7 @@ void MapViewState::initUi()
 	mFactoryProduction.hide();
 
 	mFileIoDialog.setMode(FileIo::FileOperation::Save);
-	mFileIoDialog.fileOperation().connect(this, &MapViewState::onFileIoAction);
+	mFileIoDialog.fileOperation().connect({this, &MapViewState::onFileIoAction});
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
@@ -80,13 +80,13 @@ void MapViewState::initUi()
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);
 
-	mGameOverDialog.returnToMainMenu().connect(this, &MapViewState::onGameOver);
+	mGameOverDialog.returnToMainMenu().connect({this, &MapViewState::onGameOver});
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.SaveGame().connect(this, &MapViewState::onSaveGame);
-	mGameOptionsDialog.LoadGame().connect(this, &MapViewState::onLoadGame);
-	mGameOptionsDialog.returnToGame().connect(this, &MapViewState::onReturnToGame);
-	mGameOptionsDialog.returnToMainMenu().connect(this, &MapViewState::onGameOver);
+	mGameOptionsDialog.SaveGame().connect({this, &MapViewState::onSaveGame});
+	mGameOptionsDialog.LoadGame().connect({this, &MapViewState::onLoadGame});
+	mGameOptionsDialog.returnToGame().connect({this, &MapViewState::onReturnToGame});
+	mGameOptionsDialog.returnToMainMenu().connect({this, &MapViewState::onGameOver});
 	mGameOptionsDialog.hide();
 
 	mAnnouncement.hide();
@@ -104,9 +104,9 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mNotificationWindow);
 	mWindowStack.addWindow(&mCheatMenu);
 
-	mNotificationArea.notificationClicked().connect(this, &MapViewState::onNotificationClicked);
+	mNotificationArea.notificationClicked().connect({this, &MapViewState::onNotificationClicked});
 
-	mNotificationWindow.takeMeThere().connect(this, &MapViewState::onTakeMeThere);
+	mNotificationWindow.takeMeThere().connect({this, &MapViewState::onTakeMeThere});
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
@@ -116,48 +116,48 @@ void MapViewState::initUi()
 	mBtnTurns.image("ui/icons/turns.png");
 	mBtnTurns.position(NAS2D::Point{mMiniMapBoundingBox.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnTurns.size(constants::MainButtonSize);
-	mBtnTurns.click().connect(this, &MapViewState::onTurns);
+	mBtnTurns.click().connect({this, &MapViewState::onTurns});
 	mBtnTurns.enabled(false);
 
 	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(constants::MainButtonSize);
 	mBtnToggleHeightmap.type(Button::Type::Toggle);
-	mBtnToggleHeightmap.click().connect(this, &MapViewState::onToggleHeightmap);
+	mBtnToggleHeightmap.click().connect({this, &MapViewState::onToggleHeightmap});
 
 	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(constants::MainButtonSize);
 	mBtnToggleConnectedness.type(Button::Type::Toggle);
-	mBtnToggleConnectedness.click().connect(this, &MapViewState::onToggleConnectedness);
+	mBtnToggleConnectedness.click().connect({this, &MapViewState::onToggleConnectedness});
 
 	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
 	mBtnToggleCommRangeOverlay.size(constants::MainButtonSize);
 	mBtnToggleCommRangeOverlay.type(Button::Type::Toggle);
-	mBtnToggleCommRangeOverlay.click().connect(this, &MapViewState::onToggleCommRangeOverlay);
+	mBtnToggleCommRangeOverlay.click().connect({this, &MapViewState::onToggleCommRangeOverlay});
 
 	mBtnToggleRouteOverlay.image("ui/icons/route.png");
 	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
 	mBtnToggleRouteOverlay.type(Button::Type::Toggle);
-	mBtnToggleRouteOverlay.click().connect(this, &MapViewState::onToggleRouteOverlay);
+	mBtnToggleRouteOverlay.click().connect({this, &MapViewState::onToggleRouteOverlay});
 
 	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
 	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
-	mBtnTogglePoliceOverlay.click().connect(this, &MapViewState::onTogglePoliceOverlay);
+	mBtnTogglePoliceOverlay.click().connect({this, &MapViewState::onTogglePoliceOverlay});
 
 	// Menus
 	mRobots.position({mBtnTurns.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin});
 	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
 	mRobots.showTooltip(true);
-	mRobots.selectionChanged().connect(this, &MapViewState::onRobotsSelectionChange);
+	mRobots.selectionChanged().connect({this, &MapViewState::onRobotsSelectionChange});
 
 	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.y + constants::Margin});
 	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
-	mConnections.selectionChanged().connect(this, &MapViewState::onConnectionsSelectionChange);
+	mConnections.selectionChanged().connect({this, &MapViewState::onConnectionsSelectionChange});
 
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.y + constants::Margin});
 	mStructures.size({mConnections.positionX() - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 	mStructures.showTooltip(true);
-	mStructures.selectionChanged().connect(this, &MapViewState::onStructuresSelectionChange);
+	mStructures.selectionChanged().connect({this, &MapViewState::onStructuresSelectionChange});
 
 	// Initial Structures
 	mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});

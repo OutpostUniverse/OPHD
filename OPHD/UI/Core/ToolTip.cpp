@@ -14,13 +14,13 @@ using namespace NAS2D;
 ToolTip::ToolTip():
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
 {
-	Utility<EventHandler>::get().mouseMotion().connect(this, &ToolTip::onMouseMove);
+	Utility<EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
 }
 
 
 ToolTip::~ToolTip()
 {
-	Utility<EventHandler>::get().mouseMotion().disconnect(this, &ToolTip::onMouseMove);
+	Utility<EventHandler>::get().mouseMotion().disconnect({this, &ToolTip::onMouseMove});
 }
 
 

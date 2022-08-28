@@ -31,11 +31,11 @@ MainMenuState::MainMenuState() :
 MainMenuState::~MainMenuState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.windowResized().disconnect(this, &MainMenuState::onWindowResized);
-	eventHandler.keyDown().disconnect(this, &MainMenuState::onKeyDown);
+	eventHandler.windowResized().disconnect({this, &MainMenuState::onWindowResized});
+	eventHandler.keyDown().disconnect({this, &MainMenuState::onKeyDown});
 
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
-	mFade.fadeComplete().disconnect(this, &MainMenuState::onFadeComplete);
+	mFade.fadeComplete().disconnect({this, &MainMenuState::onFadeComplete});
 }
 
 
@@ -45,8 +45,8 @@ MainMenuState::~MainMenuState()
 void MainMenuState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.windowResized().connect(this, &MainMenuState::onWindowResized);
-	eventHandler.keyDown().connect(this, &MainMenuState::onKeyDown);
+	eventHandler.windowResized().connect({this, &MainMenuState::onWindowResized});
+	eventHandler.keyDown().connect({this, &MainMenuState::onKeyDown});
 
 	for (auto& button : buttons)
 	{
@@ -55,7 +55,7 @@ void MainMenuState::initialize()
 	}
 
 	mFileIoDialog.setMode(FileIo::FileOperation::Load);
-	mFileIoDialog.fileOperation().connect(this, &MainMenuState::onFileIoAction);
+	mFileIoDialog.fileOperation().connect({this, &MainMenuState::onFileIoAction});
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
@@ -68,7 +68,7 @@ void MainMenuState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.showSystemPointer(true);
-	mFade.fadeComplete().connect(this, &MainMenuState::onFadeComplete);
+	mFade.fadeComplete().connect({this, &MainMenuState::onFadeComplete});
 	mFade.fadeIn(constants::FadeSpeed);
 
 	NAS2D::Mixer& mixer = NAS2D::Utility<NAS2D::Mixer>::get();

@@ -58,16 +58,16 @@ SplashState::SplashState() :
 SplashState::~SplashState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.keyDown().disconnect(this, &SplashState::onKeyDown);
-	eventHandler.mouseButtonDown().disconnect(this, &SplashState::onMouseDown);
+	eventHandler.keyDown().disconnect({this, &SplashState::onKeyDown});
+	eventHandler.mouseButtonDown().disconnect({this, &SplashState::onMouseDown});
 }
 
 
 void SplashState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.keyDown().connect(this, &SplashState::onKeyDown);
-	eventHandler.mouseButtonDown().connect(this, &SplashState::onMouseDown);
+	eventHandler.keyDown().connect({this, &SplashState::onKeyDown});
+	eventHandler.mouseButtonDown().connect({this, &SplashState::onMouseDown});
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.showSystemPointer(false);

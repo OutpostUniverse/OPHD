@@ -31,16 +31,16 @@ Window::Window(std::string newTitle) :
 	title(newTitle);
 
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonUp().connect(this, &Window::onMouseUp);
-	eventHandler.mouseMotion().connect(this, &Window::onMouseMove);
+	eventHandler.mouseButtonUp().connect({this, &Window::onMouseUp});
+	eventHandler.mouseMotion().connect({this, &Window::onMouseMove});
 }
 
 
 Window::~Window()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonUp().disconnect(this, &Window::onMouseUp);
-	eventHandler.mouseMotion().disconnect(this, &Window::onMouseMove);
+	eventHandler.mouseButtonUp().disconnect({this, &Window::onMouseUp});
+	eventHandler.mouseMotion().disconnect({this, &Window::onMouseMove});
 }
 
 

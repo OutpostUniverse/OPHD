@@ -53,9 +53,9 @@ TextField::TextField() :
 	}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().connect(this, &TextField::onMouseDown);
-	eventHandler.keyDown().connect(this, &TextField::onKeyDown);
-	eventHandler.textInput().connect(this, &TextField::onTextInput);
+	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
+	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
+	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
 	eventHandler.textInputMode(true);
 
@@ -66,9 +66,9 @@ TextField::TextField() :
 TextField::~TextField()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().disconnect(this, &TextField::onMouseDown);
-	eventHandler.keyDown().disconnect(this, &TextField::onKeyDown);
-	eventHandler.textInput().disconnect(this, &TextField::onTextInput);
+	eventHandler.mouseButtonDown().disconnect({this, &TextField::onMouseDown});
+	eventHandler.keyDown().disconnect({this, &TextField::onKeyDown});
+	eventHandler.textInput().disconnect({this, &TextField::onTextInput});
 }
 
 

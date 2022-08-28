@@ -23,7 +23,7 @@ FactoryProduction::FactoryProduction() :
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
-	mProductGrid.selectionChanged().connect(this, &FactoryProduction::onProductSelectionChange);
+	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
 
 	add(btnOkay, {233, 138});
 	btnOkay.size({40, 20});
@@ -39,7 +39,7 @@ FactoryProduction::FactoryProduction() :
 
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});
-	chkIdle.click().connect(this, &FactoryProduction::onCheckBoxIdleChange);
+	chkIdle.click().connect({this, &FactoryProduction::onCheckBoxIdleChange});
 }
 
 

@@ -32,19 +32,19 @@ CheckBox::CheckBox(std::string newText) :
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
 	text(newText);
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &CheckBox::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().connect({this, &CheckBox::onMouseDown});
 }
 
 
 CheckBox::CheckBox(std::string newText, ClickSignal::DelegateType clickHandler) : CheckBox(newText)
 {
-	mSignal.connect(clickHandler);
+	mSignal.connect({clickHandler});
 }
 
 
 CheckBox::~CheckBox()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &CheckBox::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect({this, &CheckBox::onMouseDown});
 }
 
 

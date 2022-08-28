@@ -142,7 +142,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	// BOTTOM ROW
 	auto& sf = *static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
 	sf.resourcePool(&mResourcesCount);
-	sf.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
+	sf.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 	sf.sprite().setFrame(7);
 	structureManager.addStructure(sf, mTileMap->getTile({point + DirectionSouthWest, 0}));
 
@@ -156,9 +156,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	mRobots.addItem({constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner)});
 	mRobots.sort();
 
-	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect(this, &MapViewState::onDozerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect(this, &MapViewState::onDiggerTaskComplete);
-	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect(this, &MapViewState::onMinerTaskComplete);
+	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect({this, &MapViewState::onDozerTaskComplete});
+	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect({this, &MapViewState::onDiggerTaskComplete});
+	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect({this, &MapViewState::onMinerTaskComplete});
 }
 
 
@@ -240,7 +240,7 @@ void MapViewState::onMinerTaskComplete(Robot* robot)
 	auto& mineFacility = *new MineFacility(robotTile.mine());
 	mineFacility.maxDepth(mTileMap->maxDepth());
 	NAS2D::Utility<StructureManager>::get().addStructure(mineFacility, robotTile);
-	mineFacility.extensionComplete().connect(this, &MapViewState::onMineFacilityExtend);
+	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
 
 	// Tile immediately underneath facility.
 	auto& tileBelow = mTileMap->getTile({robotTile.xy(), robotTile.depth() + 1});

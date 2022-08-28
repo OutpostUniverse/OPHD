@@ -11,15 +11,15 @@ RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, st
 	mParentContainer{parentContainer}
 {
 	text(newText);
-	mSignal.connect(delegate);
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &RadioButtonGroup::RadioButton::onMouseDown);
+	mSignal.connect({delegate});
+	Utility<EventHandler>::get().mouseButtonDown().connect({this, &RadioButtonGroup::RadioButton::onMouseDown});
 	onTextChange();
 }
 
 
 RadioButtonGroup::RadioButton::~RadioButton()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &RadioButtonGroup::RadioButton::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect({this, &RadioButtonGroup::RadioButton::onMouseDown});
 }
 
 

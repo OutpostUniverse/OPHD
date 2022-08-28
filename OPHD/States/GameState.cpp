@@ -28,19 +28,19 @@ GameState::~GameState()
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseMotion().disconnect(this, &GameState::onMouseMove);
+	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
 
-	mMainReportsState->hideReports().disconnect(this, &GameState::onHideReports);
-	mMapView->quit().disconnect(this, &GameState::onQuit);
-	mMapView->showReporstUi().disconnect(this, &GameState::onShowReports);
-	mMapView->mapChanged().disconnect(this, &GameState::onMapChange);
+	mMainReportsState->hideReports().disconnect({this, &GameState::onHideReports});
+	mMapView->quit().disconnect({this, &GameState::onQuit});
+	mMapView->showReporstUi().disconnect({this, &GameState::onShowReports});
+	mMapView->mapChanged().disconnect({this, &GameState::onMapChange});
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
-		takeMeThere->disconnect(this, &GameState::onTakeMeThere);
+		takeMeThere->disconnect({this, &GameState::onTakeMeThere});
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().disconnect(MakeDelegate(this, &GameState::onMusicComplete));
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().disconnect({MakeDelegate(this, &GameState::onMusicComplete)});
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
@@ -51,18 +51,18 @@ GameState::~GameState()
 void GameState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseMotion().connect(this, &GameState::onMouseMove);
+	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
 
 	mMainReportsState = std::make_unique<MainReportsUiState>();
 	mMainReportsState->_initialize();
-	mMainReportsState->hideReports().connect(this, &GameState::onHideReports);
+	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
-		takeMeThere->connect(this, &GameState::onTakeMeThere);
+		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect(MakeDelegate(this, &GameState::onMusicComplete));
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({MakeDelegate(this, &GameState::onMusicComplete)});
 	mFade.fadeIn(constants::FadeSpeed);
 }
 
@@ -82,9 +82,9 @@ void GameState::mapviewstate(MapViewState* state)
 	mMapView.reset(state);
 	mActiveState = mMapView.get();
 
-	mMapView->quit().connect(this, &GameState::onQuit);
-	mMapView->showReporstUi().connect(this, &GameState::onShowReports);
-	mMapView->mapChanged().connect(this, &GameState::onMapChange);
+	mMapView->quit().connect({this, &GameState::onQuit});
+	mMapView->showReporstUi().connect({this, &GameState::onShowReports});
+	mMapView->mapChanged().connect({this, &GameState::onMapChange});
 }
 
 
