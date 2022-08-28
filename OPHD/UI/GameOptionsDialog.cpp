@@ -32,10 +32,10 @@ GameOptionsDialog::GameOptionsDialog() :
 
 GameOptionsDialog::~GameOptionsDialog()
 {
-	btnSave.click().disconnect(this, &GameOptionsDialog::onSave);
-	btnLoad.click().disconnect(this, &GameOptionsDialog::onLoad);
-	btnReturn.click().disconnect(this, &GameOptionsDialog::onReturn);
-	btnClose.click().disconnect(this, &GameOptionsDialog::onClose);
+	btnSave.click().disconnect({this, &GameOptionsDialog::onSave});
+	btnLoad.click().disconnect({this, &GameOptionsDialog::onLoad});
+	btnReturn.click().disconnect({this, &GameOptionsDialog::onReturn});
+	btnClose.click().disconnect({this, &GameOptionsDialog::onClose});
 }
 
 

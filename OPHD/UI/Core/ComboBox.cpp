@@ -17,7 +17,7 @@ ComboBox::ComboBox() :
 	UIContainer{{&btnDown, &txtField, &lstItems}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseWheel().connect(this, &ComboBox::onMouseWheel);
+	eventHandler.mouseWheel().connect({this, &ComboBox::onMouseWheel});
 
 	btnDown.image("ui/icons/down.png");
 	btnDown.size({20, 20});
@@ -26,15 +26,15 @@ ComboBox::ComboBox() :
 	lstItems.visible(false);
 	lstItems.height(300);
 
-	lstItems.selectionChanged().connect(this, &ComboBox::onListSelectionChange);
+	lstItems.selectionChanged().connect({this, &ComboBox::onListSelectionChange});
 }
 
 
 ComboBox::~ComboBox()
 {
-	lstItems.selectionChanged().disconnect(this, &ComboBox::onListSelectionChange);
+	lstItems.selectionChanged().disconnect({this, &ComboBox::onListSelectionChange});
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseWheel().disconnect(this, &ComboBox::onMouseWheel);
+	eventHandler.mouseWheel().disconnect({this, &ComboBox::onMouseWheel});
 }
 
 

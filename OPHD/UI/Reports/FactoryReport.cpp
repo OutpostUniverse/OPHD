@@ -60,7 +60,7 @@ FactoryReport::FactoryReport() :
 	btnApply{"Apply", {this, &FactoryReport::onApply}}
 {
 	add(lstFactoryList, {10, 63});
-	lstFactoryList.selectionChanged().connect(this, &FactoryReport::onListSelectionChange);
+	lstFactoryList.selectionChanged().connect({this, &FactoryReport::onListSelectionChange});
 
 	add(btnShowAll, {10, 10});
 	btnShowAll.size({75, 20});
@@ -114,7 +114,7 @@ FactoryReport::FactoryReport() :
 	cboFilterByProduct.addItem(constants::Robominer, ProductType::PRODUCT_MINER);
 	cboFilterByProduct.addItem(constants::Truck, ProductType::PRODUCT_TRUCK);
 
-	cboFilterByProduct.selectionChanged().connect(this, &FactoryReport::onProductFilterSelectionChange);
+	cboFilterByProduct.selectionChanged().connect({this, &FactoryReport::onProductFilterSelectionChange});
 
 	add(lstProducts, {cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 20, mRect.y + 230});
 
@@ -271,7 +271,7 @@ void FactoryReport::onResize()
 	btnApply.position({position_x, mRect.height + 8});
 
 	lstProducts.size({detailPanelRect.width / 3, detailPanelRect.height - 219});
-	lstProducts.selectionChanged().connect(this, &FactoryReport::onProductSelectionChange);
+	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
 	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
 	txtProductDescription.width(mRect.width - txtProductDescription.positionX() - 30);

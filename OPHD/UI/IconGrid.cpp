@@ -42,16 +42,16 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	}
 
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().connect(this, &IconGrid::onMouseDown);
-	eventHandler.mouseMotion().connect(this, &IconGrid::onMouseMove);
+	eventHandler.mouseButtonDown().connect({this, &IconGrid::onMouseDown});
+	eventHandler.mouseMotion().connect({this, &IconGrid::onMouseMove});
 }
 
 
 IconGrid::~IconGrid()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseButtonDown().disconnect(this, &IconGrid::onMouseDown);
-	eventHandler.mouseMotion().disconnect(this, &IconGrid::onMouseMove);
+	eventHandler.mouseButtonDown().disconnect({this, &IconGrid::onMouseDown});
+	eventHandler.mouseMotion().disconnect({this, &IconGrid::onMouseMove});
 }
 
 

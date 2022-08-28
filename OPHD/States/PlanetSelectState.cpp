@@ -35,8 +35,8 @@ PlanetSelectState::PlanetSelectState() :
 PlanetSelectState::~PlanetSelectState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseButtonDown().disconnect(this, &PlanetSelectState::onMouseDown);
-	eventHandler.windowResized().disconnect(this, &PlanetSelectState::onWindowResized);
+	eventHandler.mouseButtonDown().disconnect({this, &PlanetSelectState::onMouseDown});
+	eventHandler.windowResized().disconnect({this, &PlanetSelectState::onWindowResized});
 
 	for (auto planet : mPlanets) { delete planet; }
 
@@ -47,8 +47,8 @@ PlanetSelectState::~PlanetSelectState()
 void PlanetSelectState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseButtonDown().connect(this, &PlanetSelectState::onMouseDown);
-	eventHandler.windowResized().connect(this, &PlanetSelectState::onWindowResized);
+	eventHandler.mouseButtonDown().connect({this, &PlanetSelectState::onMouseDown});
+	eventHandler.windowResized().connect({this, &PlanetSelectState::onWindowResized});
 
 	for (const auto& planetAttribute : PlanetAttributes)
 	{
@@ -60,16 +60,16 @@ void PlanetSelectState::initialize()
 	const auto centralPlanetPosition = NAS2D::Point{-64, -64} + viewportSize / 2;
 	const auto sidePlanetOffset = NAS2D::Vector{viewportSize.x / 4, 0};
 	mPlanets[0]->position(centralPlanetPosition - sidePlanetOffset);
-	mPlanets[0]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
-	mPlanets[0]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
+	mPlanets[0]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+	mPlanets[0]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 
 	mPlanets[1]->position(centralPlanetPosition);
-	mPlanets[1]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
-	mPlanets[1]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
+	mPlanets[1]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+	mPlanets[1]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 
 	mPlanets[2]->position(centralPlanetPosition + sidePlanetOffset);
-	mPlanets[2]->mouseEnter().connect(this, &PlanetSelectState::onMousePlanetEnter);
-	mPlanets[2]->mouseExit().connect(this, &PlanetSelectState::onMousePlanetExit);
+	mPlanets[2]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+	mPlanets[2]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 
 	mQuit.size({100, 20});
 	mQuit.position({renderer.size().x - 105, 30});

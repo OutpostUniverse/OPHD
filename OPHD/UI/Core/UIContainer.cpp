@@ -19,13 +19,13 @@ UIContainer::UIContainer() : UIContainer{{}}
 UIContainer::UIContainer(std::vector<Control*> controls) :
 	mControls{std::move(controls)}
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect(this, &UIContainer::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().connect({this, &UIContainer::onMouseDown});
 }
 
 
 UIContainer::~UIContainer()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect(this, &UIContainer::onMouseDown);
+	Utility<EventHandler>::get().mouseButtonDown().disconnect({this, &UIContainer::onMouseDown});
 }
 
 

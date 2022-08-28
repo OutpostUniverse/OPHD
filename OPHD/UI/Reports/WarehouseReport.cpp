@@ -58,9 +58,9 @@ WarehouseReport::WarehouseReport() :
 
 	btnTakeMeThere.size({140, 30});
 
-	lstStructures.selectionChanged().connect(this, &WarehouseReport::onStructureSelectionChange);
+	lstStructures.selectionChanged().connect({this, &WarehouseReport::onStructureSelectionChange});
 
-	Utility<EventHandler>::get().mouseDoubleClick().connect(this, &WarehouseReport::onDoubleClick);
+	Utility<EventHandler>::get().mouseDoubleClick().connect({this, &WarehouseReport::onDoubleClick});
 
 	fillLists();
 
@@ -79,7 +79,7 @@ WarehouseReport::WarehouseReport() :
 
 WarehouseReport::~WarehouseReport()
 {
-	Utility<EventHandler>::get().mouseDoubleClick().disconnect(this, &WarehouseReport::onDoubleClick);
+	Utility<EventHandler>::get().mouseDoubleClick().disconnect({this, &WarehouseReport::onDoubleClick});
 }
 
 

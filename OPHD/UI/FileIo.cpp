@@ -27,8 +27,8 @@ FileIo::FileIo() :
 	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseDoubleClick().connect(this, &FileIo::onDoubleClick);
-	eventHandler.keyDown().connect(this, &FileIo::onKeyDown);
+	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
+	eventHandler.keyDown().connect({this, &FileIo::onKeyDown});
 
 	size({700, 350});
 
@@ -51,20 +51,20 @@ FileIo::FileIo() :
 	add(txtFileName, {5, 302});
 	txtFileName.size({690, 18});
 	txtFileName.maxCharacters(50);
-	txtFileName.textChanged().connect(this, &FileIo::onFileNameChange);
+	txtFileName.textChanged().connect({this, &FileIo::onFileNameChange});
 
 	add(mListBox, {5, 45});
 	mListBox.size({690, 253});
 	mListBox.visible(true);
-	mListBox.selectionChanged().connect(this, &FileIo::onFileSelect);
+	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
 }
 
 
 FileIo::~FileIo()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
-	eventHandler.mouseDoubleClick().disconnect(this, &FileIo::onDoubleClick);
-	eventHandler.keyDown().disconnect(this, &FileIo::onKeyDown);
+	eventHandler.mouseDoubleClick().disconnect({this, &FileIo::onDoubleClick});
+	eventHandler.keyDown().disconnect({this, &FileIo::onKeyDown});
 }
 
 

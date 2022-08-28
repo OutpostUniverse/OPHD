@@ -21,16 +21,16 @@ class WindowEventWrapper
 public:
 	WindowEventWrapper()
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().windowMaximized().connect(this, &WindowEventWrapper::onWindowMaximized);
-		NAS2D::Utility<NAS2D::EventHandler>::get().windowRestored().connect(this, &WindowEventWrapper::onWindowRestored);
-		NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &WindowEventWrapper::onWindowResized);
+		NAS2D::Utility<NAS2D::EventHandler>::get().windowMaximized().connect({this, &WindowEventWrapper::onWindowMaximized});
+		NAS2D::Utility<NAS2D::EventHandler>::get().windowRestored().connect({this, &WindowEventWrapper::onWindowRestored});
+		NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &WindowEventWrapper::onWindowResized});
 	}
 
 	~WindowEventWrapper()
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().windowMaximized().disconnect(this, &WindowEventWrapper::onWindowMaximized);
-		NAS2D::Utility<NAS2D::EventHandler>::get().windowRestored().disconnect(this, &WindowEventWrapper::onWindowRestored);
-		NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().disconnect(this, &WindowEventWrapper::onWindowResized);
+		NAS2D::Utility<NAS2D::EventHandler>::get().windowMaximized().disconnect({this, &WindowEventWrapper::onWindowMaximized});
+		NAS2D::Utility<NAS2D::EventHandler>::get().windowRestored().disconnect({this, &WindowEventWrapper::onWindowRestored});
+		NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().disconnect({this, &WindowEventWrapper::onWindowResized});
 	}
 
 private:

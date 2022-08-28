@@ -63,7 +63,7 @@ MineReport::MineReport() :
 
 	btnShowAll.toggle(true);
 
-	lstMineFacilities.selectionChanged().connect(this, &MineReport::onMineFacilitySelectionChange);
+	lstMineFacilities.selectionChanged().connect({this, &MineReport::onMineFacilitySelectionChange});
 	add(lstMineFacilities, {10, 40});
 
 	// DETAIL PANE

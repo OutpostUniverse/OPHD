@@ -55,8 +55,8 @@ NotificationArea::NotificationArea() :
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
-	eventhandler.mouseButtonDown().connect(this, &NotificationArea::onMouseDown);
-	eventhandler.mouseMotion().connect(this, &NotificationArea::onMouseMove);
+	eventhandler.mouseButtonDown().connect({this, &NotificationArea::onMouseDown});
+	eventhandler.mouseMotion().connect({this, &NotificationArea::onMouseMove});
 
 	width(IconPaddedSize.x);
 }
@@ -66,8 +66,8 @@ NotificationArea::~NotificationArea()
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
-	eventhandler.mouseButtonDown().disconnect(this, &NotificationArea::onMouseDown);
-	eventhandler.mouseMotion().disconnect(this, &NotificationArea::onMouseMove);
+	eventhandler.mouseButtonDown().disconnect({this, &NotificationArea::onMouseDown});
+	eventhandler.mouseMotion().disconnect({this, &NotificationArea::onMouseMove});
 }
 
 

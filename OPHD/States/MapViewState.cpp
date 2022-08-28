@@ -160,7 +160,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mRobotDeploymentSummary{mRobotPool}
 {
 	ccLocation() = CcNotPlaced;
-	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
+	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 
 
@@ -179,7 +179,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 {
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
-	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect(this, &MapViewState::onWindowResized);
+	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 
 
@@ -193,14 +193,14 @@ MapViewState::~MapViewState()
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.activate().disconnect(this, &MapViewState::onActivate);
-	eventHandler.keyDown().disconnect(this, &MapViewState::onKeyDown);
-	eventHandler.mouseButtonDown().disconnect(this, &MapViewState::onMouseDown);
-	eventHandler.mouseButtonUp().disconnect(this, &MapViewState::onMouseUp);
-	eventHandler.mouseDoubleClick().disconnect(this, &MapViewState::onMouseDoubleClick);
-	eventHandler.mouseMotion().disconnect(this, &MapViewState::onMouseMove);
-	eventHandler.mouseWheel().disconnect(this, &MapViewState::onMouseWheel);
-	eventHandler.windowResized().disconnect(this, &MapViewState::onWindowResized);
+	eventHandler.activate().disconnect({this, &MapViewState::onActivate});
+	eventHandler.keyDown().disconnect({this, &MapViewState::onKeyDown});
+	eventHandler.mouseButtonDown().disconnect({this, &MapViewState::onMouseDown});
+	eventHandler.mouseButtonUp().disconnect({this, &MapViewState::onMouseUp});
+	eventHandler.mouseDoubleClick().disconnect({this, &MapViewState::onMouseDoubleClick});
+	eventHandler.mouseMotion().disconnect({this, &MapViewState::onMouseMove});
+	eventHandler.mouseWheel().disconnect({this, &MapViewState::onMouseWheel});
+	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
 	eventHandler.textInputMode(false);
 
@@ -247,13 +247,13 @@ void MapViewState::initialize()
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
-	eventHandler.activate().connect(this, &MapViewState::onActivate);
-	eventHandler.keyDown().connect(this, &MapViewState::onKeyDown);
-	eventHandler.mouseButtonDown().connect(this, &MapViewState::onMouseDown);
-	eventHandler.mouseButtonUp().connect(this, &MapViewState::onMouseUp);
-	eventHandler.mouseDoubleClick().connect(this, &MapViewState::onMouseDoubleClick);
-	eventHandler.mouseMotion().connect(this, &MapViewState::onMouseMove);
-	eventHandler.mouseWheel().connect(this, &MapViewState::onMouseWheel);
+	eventHandler.activate().connect({this, &MapViewState::onActivate});
+	eventHandler.keyDown().connect({this, &MapViewState::onKeyDown});
+	eventHandler.mouseButtonDown().connect({this, &MapViewState::onMouseDown});
+	eventHandler.mouseButtonUp().connect({this, &MapViewState::onMouseUp});
+	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
+	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
+	eventHandler.mouseWheel().connect({this, &MapViewState::onMouseWheel});
 
 	eventHandler.textInputMode(true);
 
@@ -825,7 +825,7 @@ void MapViewState::placeStructure(Tile& tile)
 		if (!validLanderSite(tile)) { return; }
 
 		auto& s = *new ColonistLander(&tile);
-		s.deploySignal().connect(this, &MapViewState::onDeployColonistLander);
+		s.deploySignal().connect({this, &MapViewState::onDeployColonistLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
 
 		--mLandersColonist;
@@ -841,7 +841,7 @@ void MapViewState::placeStructure(Tile& tile)
 		if (!validLanderSite(tile)) { return; }
 
 		auto& cargoLander = *new CargoLander(&tile);
-		cargoLander.deploySignal().connect(this, &MapViewState::onDeployCargoLander);
+		cargoLander.deploySignal().connect({this, &MapViewState::onDeployCargoLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
 
 		--mLandersCargo;
@@ -873,7 +873,7 @@ void MapViewState::placeStructure(Tile& tile)
 		if (structure.isFactory())
 		{
 			auto& factory = static_cast<Factory&>(structure);
-			factory.productionComplete().connect(this, &MapViewState::onFactoryProductionComplete);
+			factory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 			factory.resourcePool(&mResourcesCount);
 		}
 
@@ -1172,7 +1172,7 @@ Robot& MapViewState::addRobot(Robot::Type type)
 	}
 
 	auto& robot = mRobotPool.addRobot(type);
-	robot.taskComplete().connect(this, RobotTypeToHandler.at(type));
+	robot.taskComplete().connect({this, RobotTypeToHandler.at(type)});
 	return robot;
 }
 
@@ -1213,7 +1213,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		}
 
 		auto& s = *new SeedLander(point);
-		s.deploySignal().connect(this, &MapViewState::onDeploySeedLander);
+		s.deploySignal().connect({this, &MapViewState::onDeploySeedLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
 
 		clearMode();

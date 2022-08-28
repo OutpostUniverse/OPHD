@@ -26,13 +26,13 @@ Planet::Planet(const Attributes& attributes) :
 	mAttributes(attributes),
 	mImage(NAS2D::Image(attributes.imagePath))
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect(this, &Planet::onMouseMove);
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &Planet::onMouseMove});
 }
 
 
 Planet::~Planet()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect(this, &Planet::onMouseMove);
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &Planet::onMouseMove});
 }
 
 
