@@ -40,7 +40,7 @@ GameState::~GameState()
 		takeMeThere->disconnect({this, &GameState::onTakeMeThere});
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().disconnect({MakeDelegate(this, &GameState::onMusicComplete)});
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().disconnect({this, &GameState::onMusicComplete});
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
@@ -62,7 +62,7 @@ void GameState::initialize()
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
 
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({MakeDelegate(this, &GameState::onMusicComplete)});
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 	mFade.fadeIn(constants::FadeSpeed);
 }
 
