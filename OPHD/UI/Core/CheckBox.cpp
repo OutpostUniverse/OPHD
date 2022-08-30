@@ -24,15 +24,12 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 CheckBox::CheckBox(std::string newText) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
 	text(newText);
-	Utility<EventHandler>::get().mouseButtonDown().connect({this, &CheckBox::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &CheckBox::onMouseDown});
 }
 
 
@@ -44,7 +41,7 @@ CheckBox::CheckBox(std::string newText, ClickSignal::DelegateType clickHandler) 
 
 CheckBox::~CheckBox()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect({this, &CheckBox::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &CheckBox::onMouseDown});
 }
 
 
@@ -72,11 +69,11 @@ CheckBox::ClickSignal::Source& CheckBox::click()
 }
 
 
-void CheckBox::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void CheckBox::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == EventHandler::MouseButton::Left && mRect.contains(position))
+	if (button == NAS2D::EventHandler::MouseButton::Left && mRect.contains(position))
 	{
 		mChecked = !mChecked;
 		mSignal();
@@ -109,7 +106,7 @@ void CheckBox::update()
 
 void CheckBox::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto uncheckedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
 	const auto checkedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
