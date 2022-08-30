@@ -8,9 +8,6 @@
 #include <stdexcept>
 
 
-using namespace NAS2D;
-
-
 UIContainer::UIContainer() : UIContainer{{}}
 {
 }
@@ -19,13 +16,13 @@ UIContainer::UIContainer() : UIContainer{{}}
 UIContainer::UIContainer(std::vector<Control*> controls) :
 	mControls{std::move(controls)}
 {
-	Utility<EventHandler>::get().mouseButtonDown().connect({this, &UIContainer::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &UIContainer::onMouseDown});
 }
 
 
 UIContainer::~UIContainer()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect({this, &UIContainer::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &UIContainer::onMouseDown});
 }
 
 
@@ -87,7 +84,7 @@ void UIContainer::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-void UIContainer::onMouseDown(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+void UIContainer::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }
 
@@ -121,7 +118,7 @@ void UIContainer::update()
 		/*
 		if (control->hasFocus())
 		{
-			Utility<Renderer>::get().drawBox(control->rect(), 255, 0, 255);
+			NAS2D::Utility<NAS2D::Renderer>::get().drawBox(control->rect(), 255, 0, 255);
 		}
 		*/
 	}
