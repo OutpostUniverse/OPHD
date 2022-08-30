@@ -10,9 +10,6 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
 {
 	mRadioButtons.reserve(buttonInfos.size());
