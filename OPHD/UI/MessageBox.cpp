@@ -25,7 +25,7 @@ void doAlertMessage(const std::string& title, const std::string& message)
 /**
  * Shows a message dialog box with Yes and No buttons.
  */
-bool doYesNoMessage(const std::string& title, const std::string message)
+bool doYesNoMessage(const std::string& title, const std::string& message)
 {
 	return NAS2D::Utility<NAS2D::Renderer>::get().doModalYesNo(title, message);
 }
