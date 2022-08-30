@@ -2,11 +2,10 @@
 
 #include "Common.h"
 
-#include "UI/MessageBox.h"
-
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Configuration.h>
+#include <NAS2D/Renderer/Renderer.h>
 
 
 /**
@@ -46,7 +45,7 @@ private:
 
 	void onWindowResized(NAS2D::Vector<int> newSize)
 	{
-		if (windowMaximized()) { return; }
+		if (NAS2D::Utility<NAS2D::Renderer>::get().isMaximized()) { return; }
 
 		auto& configuration = NAS2D::Utility<NAS2D::Configuration>::get();
 		auto& graphics = configuration["graphics"];
