@@ -1,9 +1,6 @@
 #include "Control.h"
 
 
-using namespace NAS2D;
-
-
 void Control::area(const NAS2D::Rectangle<int>& area)
 {
 	const auto displacement = area.startPoint() - mRect.startPoint();
@@ -18,7 +15,7 @@ void Control::area(const NAS2D::Rectangle<int>& area)
  * 
  * \param pos	2D Coordinate to position the Control at.
  */
-void Control::position(Point<int> pos)
+void Control::position(NAS2D::Point<int> pos)
 {
 	const auto displacement = pos - mRect.startPoint();
 	mRect.startPoint(pos);
@@ -103,7 +100,7 @@ Control::ResizeSignal::Source& Control::resized()
  * 
  * \return	A const reference to a Rectangle<int> object.
  */
-const Rectangle<int>& Control::rect() const
+const NAS2D::Rectangle<int>& Control::rect() const
 {
 	return mRect;
 }
