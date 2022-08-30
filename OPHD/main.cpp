@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
 		// Game Loop
 		while (stateManager.update())
 		{
-			Utility<Renderer>::get().update();
+			renderer.update();
 		}
 
 		cf.save("config.xml"); // force configuration to save any changes.
