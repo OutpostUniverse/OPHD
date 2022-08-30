@@ -117,9 +117,7 @@ int main(int argc, char *argv[])
 		const auto& options = cf["options"];
 		if (options.get<bool>("maximized"))
 		{
-			// FIXME: Evil hack exposing an internal NAS2D variable
-			extern SDL_Window* underlyingWindow;
-			SDL_MaximizeWindow(underlyingWindow);
+			renderer.maximize();
 		}
 
 		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
