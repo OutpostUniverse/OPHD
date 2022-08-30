@@ -10,13 +10,10 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 ComboBox::ComboBox() :
 	UIContainer{{&btnDown, &txtField, &lstItems}}
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().connect({this, &ComboBox::onMouseWheel});
 
 	btnDown.image("ui/icons/down.png");
@@ -33,7 +30,7 @@ ComboBox::ComboBox() :
 ComboBox::~ComboBox()
 {
 	lstItems.selectionChanged().disconnect({this, &ComboBox::onListSelectionChange});
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().disconnect({this, &ComboBox::onMouseWheel});
 }
 
@@ -57,7 +54,7 @@ void ComboBox::onResize()
 	lstItems.width(mRect.width);
 	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{mRect.width, btnDown.size().y});
+	mBaseArea = NAS2D::Rectangle<int>::Create(position(), NAS2D::Vector{mRect.width, btnDown.size().y});
 }
 
 
@@ -72,17 +69,17 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 	btnDown.position(txtField.rect().crossXPoint());
 	lstItems.position(rect().crossYPoint());
 
-	mBaseArea = Rectangle<int>::Create(position(), NAS2D::Vector{mRect.width, btnDown.size().y});
+	mBaseArea = NAS2D::Rectangle<int>::Create(position(), NAS2D::Vector{mRect.width, btnDown.size().y});
 }
 
 
-void ComboBox::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ComboBox::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	UIContainer::onMouseDown(button, position);
 
 	if (!enabled() || !visible()) { return; }
 
-	if (button != EventHandler::MouseButton::Left) { return; }
+	if (button != NAS2D::EventHandler::MouseButton::Left) { return; }
 
 	if (mBaseArea.contains(position))
 	{
@@ -189,7 +186,7 @@ void ComboBox::setSelected(std::size_t index) {
 
 void ComboBox::text(const std::string& text) {
 	txtField.text(text);
-	lstItems.selectIf([target = toLowercase(txtField.text())](const auto& item){ return toLowercase(item.text) == target; });
+	lstItems.selectIf([target = NAS2D::toLowercase(txtField.text())](const auto& item){ return NAS2D::toLowercase(item.text) == target; });
 	mSelectionChanged();
 }
 
