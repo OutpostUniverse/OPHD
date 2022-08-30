@@ -43,11 +43,13 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46};
 	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.startPoint() + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
-	renderer.drawText(*MAIN_FONT, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
-
-	// PROGRESS BAR
-	float percentage = (productType == ProductType::PRODUCT_NONE) ? 0.0f : (static_cast<float>(f->productionTurnsCompleted()) / static_cast<float>(f->productionTurnsToComplete()));
-	drawBasicProgressBar(NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}), percentage, 2);
+	if (productType != ProductType::PRODUCT_NONE)
+	{
+		renderer.drawText(*MAIN_FONT, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
+		// PROGRESS BAR
+		float percentage = static_cast<float>(f->productionTurnsCompleted()) / static_cast<float>(f->productionTurnsToComplete());
+		drawBasicProgressBar(NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}), percentage, 2);
+	}
 }
 
 
