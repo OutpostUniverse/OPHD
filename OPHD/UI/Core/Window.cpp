@@ -8,9 +8,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 Window::Window(std::string newTitle) :
 	mTitleFont{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
 	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
