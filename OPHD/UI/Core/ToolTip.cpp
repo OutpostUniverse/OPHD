@@ -95,7 +95,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 
 void ToolTip::update()
 {
-	if (mTimer.accumulator() < 1000)
+	if (mTimer.elapsedTicks() < 1000)
 	{
 		return;
 	}
