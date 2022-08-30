@@ -7,7 +7,6 @@
 #include "../Things/Structures/Structure.h"
 #include "../RandomNumberGenerator.h"
 
-#include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
