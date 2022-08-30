@@ -181,7 +181,7 @@ void ScrollBar::update()
 
 	if (mButtonDecreaseHeld || mButtonIncreaseHeld)
 	{
-		if (mTimer.accumulator() >= mPressedAccumulator)
+		if (mTimer.elapsedTicks() >= mPressedAccumulator)
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();

@@ -58,7 +58,7 @@ void Planet::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relati
 
 void Planet::update()
 {
-	if (mMouseInArea && mTimer.accumulator() >= constants::PlanetAnimationSpeed)
+	if (mMouseInArea && mTimer.elapsedTicks() >= constants::PlanetAnimationSpeed)
 	{
 		mTimer.reset(); // don't care about frame skips.
 		++mTick;

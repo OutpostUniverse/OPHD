@@ -5,7 +5,6 @@
 #include "../Map/MapCoordinate.h"
 
 #include <NAS2D/Resource/Image.h>
-#include <NAS2D/Timer.h>
 
 
 class Tile;

@@ -93,7 +93,7 @@ NAS2D::State* SplashState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	if (mFade.isFaded() && !mFade.isFading() && mTimer.accumulator() > fadePauseTime)
+	if (mFade.isFaded() && !mFade.isFading() && mTimer.elapsedTicks() > fadePauseTime)
 	{
 		if (mReturnState != this) { return mReturnState; }
 
@@ -117,7 +117,7 @@ NAS2D::State* SplashState::update()
 	}
 	if (currentState == LogoState::OutpostHD)
 	{
-		const unsigned int tick = bylineTimer.accumulator();
+		const unsigned int tick = bylineTimer.elapsedTicks();
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
 		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, static_cast<float>(bylineTimer.tick()) / 600.0f);
@@ -142,13 +142,13 @@ NAS2D::State* SplashState::update()
 
 	if (currentState == LogoState::OutpostHD)
 	{
-		if (mTimer.accumulator() > 11000)
+		if (mTimer.elapsedTicks() > 11000)
 		{
 			skipSplash();
 			return this;
 		}
 	}
-	else if (mTimer.accumulator() > pauseTime)
+	else if (mTimer.elapsedTicks() > pauseTime)
 	{
 		mFade.fadeOut(fadeLength);
 		mTimer.reset();

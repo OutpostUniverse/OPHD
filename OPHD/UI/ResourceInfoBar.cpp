@@ -33,7 +33,7 @@ namespace
 		static int glowStepDelta = 20;
 		static int glowStep = 0;
 
-		if (glowTimer.accumulator() >= 10)
+		if (glowTimer.elapsedTicks() >= 10)
 		{
 			glowTimer.reset();
 
