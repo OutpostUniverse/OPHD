@@ -8,19 +8,16 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 ToolTip::ToolTip():
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
 {
-	Utility<EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
 }
 
 
 ToolTip::~ToolTip()
 {
-	Utility<EventHandler>::get().mouseMotion().disconnect({this, &ToolTip::onMouseMove});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ToolTip::onMouseMove});
 }
 
 
@@ -49,7 +46,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	auto tooltipPosition = item.first->position();
 	tooltipPosition.x = mouseX;
 
-	auto offset = Vector{0, -tooltipHeight - constants::Margin};
+	auto offset = NAS2D::Vector{0, -tooltipHeight - constants::Margin};
 
 	if (tooltipPosition.y + offset.y < 0)
 	{
@@ -57,7 +54,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	}
 
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	if (tooltipPosition.x + tooltipWidth > renderer.size().x)
 	{
 		offset.x -= (tooltipPosition.x + tooltipWidth) - (renderer.size().x - constants::Margin);
@@ -70,7 +67,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
 {
-	if (relative != Vector{0, 0})
+	if (relative != NAS2D::Vector{0, 0})
 	{
 		if (mFocusedControl)
 		{
@@ -110,9 +107,9 @@ void ToolTip::draw() const
 {
 	if (mFocusedControl)
 	{
-		auto& renderer = Utility<Renderer>::get();
-		renderer.drawBoxFilled(rect(), Color::DarkGray);
-		renderer.drawBox(rect(), Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, Point{positionX() + constants::MarginTight, positionY() + constants::MarginTight});
+		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
+		renderer.drawBox(rect(), NAS2D::Color::Black);
+		renderer.drawText(mFont, mFocusedControl->second, NAS2D::Point{positionX() + constants::MarginTight, positionY() + constants::MarginTight});
 	}
 }

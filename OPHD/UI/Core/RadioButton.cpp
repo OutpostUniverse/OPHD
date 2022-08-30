@@ -1,9 +1,6 @@
 #include "RadioButtonGroup.h"
 
 
-using namespace NAS2D;
-
-
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mSkin{imageCache.load("ui/skin/radio.png")},
@@ -12,14 +9,14 @@ RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup* parentContainer, st
 {
 	text(newText);
 	mSignal.connect({delegate});
-	Utility<EventHandler>::get().mouseButtonDown().connect({this, &RadioButtonGroup::RadioButton::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &RadioButtonGroup::RadioButton::onMouseDown});
 	onTextChange();
 }
 
 
 RadioButtonGroup::RadioButton::~RadioButton()
 {
-	Utility<EventHandler>::get().mouseButtonDown().disconnect({this, &RadioButtonGroup::RadioButton::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &RadioButtonGroup::RadioButton::onMouseDown});
 }
 
 
@@ -56,7 +53,7 @@ const std::string& RadioButtonGroup::RadioButton::text() const
 
 void RadioButtonGroup::RadioButton::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto unselectedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
 	const auto selectedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
@@ -82,11 +79,11 @@ void RadioButtonGroup::RadioButton::onTextChange()
 }
 
 
-void RadioButtonGroup::RadioButton::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void RadioButtonGroup::RadioButton::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == EventHandler::MouseButton::Left && mRect.contains(position))
+	if (button == NAS2D::EventHandler::MouseButton::Left && mRect.contains(position))
 	{
 		mParentContainer->select(*this);
 		mSignal();

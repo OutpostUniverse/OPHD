@@ -5,9 +5,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 unsigned int ListBoxItemText::Context::itemHeight() const
 {
 	return font.height() + constants::MarginTight;

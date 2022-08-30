@@ -17,9 +17,6 @@
 #include <locale>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	constexpr int fieldPadding = 4;
@@ -52,7 +49,7 @@ TextField::TextField() :
 		imageCache.load("ui/skin/textbox_bottom_right_highlight.png")
 	}
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
 	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
@@ -65,7 +62,7 @@ TextField::TextField() :
 
 TextField::~TextField()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &TextField::onMouseDown});
 	eventHandler.keyDown().disconnect({this, &TextField::onKeyDown});
 	eventHandler.textInput().disconnect({this, &TextField::onTextInput});
@@ -153,14 +150,14 @@ void TextField::onTextInput(const std::string& newTextInput)
 }
 
 
-void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!hasFocus() || !editable() || !visible()) { return; }
 
 	switch(key)
 	{
 		// COMMAND KEYS
-		case EventHandler::KeyCode::KEY_BACKSPACE:
+		case NAS2D::EventHandler::KeyCode::KEY_BACKSPACE:
 			if (!text().empty() && mCursorPosition > 0)
 			{
 				mCursorPosition--;
@@ -169,15 +166,15 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			}
 			break;
 
-		case EventHandler::KeyCode::KEY_HOME:
+		case NAS2D::EventHandler::KeyCode::KEY_HOME:
 			mCursorPosition = 0;
 			break;
 
-		case EventHandler::KeyCode::KEY_END:
+		case NAS2D::EventHandler::KeyCode::KEY_END:
 			mCursorPosition = text().length();
 			break;
 
-		case EventHandler::KeyCode::KEY_DELETE:
+		case NAS2D::EventHandler::KeyCode::KEY_DELETE:
 			if (text().length() > 0)
 			{
 				mText = mText.erase(mCursorPosition, 1);
@@ -186,30 +183,30 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 			break;
 
 		// ARROW KEYS
-		case EventHandler::KeyCode::KEY_LEFT:
+		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
 			if (mCursorPosition > 0)
 				--mCursorPosition;
 			break;
 
-		case EventHandler::KeyCode::KEY_RIGHT:
+		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
 			if (mCursorPosition < text().length())
 				++mCursorPosition;
 			break;
 
 		// KEYPAD ARROWS
-		case EventHandler::KeyCode::KEY_KP4:
-			if ((mCursorPosition > 0) && !Utility<EventHandler>::get().query_numlock())
+		case NAS2D::EventHandler::KeyCode::KEY_KP4:
+			if ((mCursorPosition > 0) && !NAS2D::Utility<NAS2D::EventHandler>::get().query_numlock())
 				--mCursorPosition;
 			break;
 
-		case EventHandler::KeyCode::KEY_KP6:
-			if ((mCursorPosition < text().length()) && !Utility<EventHandler>::get().query_numlock())
+		case NAS2D::EventHandler::KeyCode::KEY_KP6:
+			if ((mCursorPosition < text().length()) && !NAS2D::Utility<NAS2D::EventHandler>::get().query_numlock())
 				++mCursorPosition;
 			break;
 
 		// IGNORE ENTER/RETURN KEY
-		case EventHandler::KeyCode::KEY_ENTER:
-		case EventHandler::KeyCode::KEY_KP_ENTER:
+		case NAS2D::EventHandler::KeyCode::KEY_ENTER:
+		case NAS2D::EventHandler::KeyCode::KEY_KP_ENTER:
 			break;
 
 		// REGULAR KEYS
@@ -219,7 +216,7 @@ void TextField::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /
 }
 
 
-void TextField::onMouseDown(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+void TextField::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
 
@@ -263,7 +260,7 @@ void TextField::drawCursor() const
 	{
 		if (mShowCursor)
 		{
-			auto& renderer = Utility<Renderer>::get();
+			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 			const auto startPosition = NAS2D::Point{mCursorX, mRect.y + fieldPadding};
 			const auto endPosition = NAS2D::Point{mCursorX, mRect.y + mRect.height - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
@@ -317,7 +314,7 @@ void TextField::update()
 
 void TextField::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto showFocused = hasFocus() && editable();
 	const auto& skin = showFocused ? mSkinFocus : mSkinNormal;

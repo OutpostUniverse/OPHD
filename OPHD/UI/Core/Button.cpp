@@ -9,9 +9,6 @@
 #include <NAS2D/Math/MathUtils.h>
 
 
-using namespace NAS2D;
-
-
 Button::Button(std::string newText) :
 	mButtonSkin{
 		{
@@ -51,7 +48,7 @@ Button::Button(std::string newText) :
 {
 	text(newText);
 
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
@@ -75,7 +72,7 @@ Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHand
 
 Button::~Button()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &Button::onMouseDown});
 	eventHandler.mouseButtonUp().disconnect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().disconnect({this, &Button::onMouseMove});
@@ -118,11 +115,11 @@ bool Button::hasImage() const
 }
 
 
-void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void Button::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mRect.contains(position))
 		{
@@ -140,11 +137,11 @@ void Button::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> pos
 }
 
 
-void Button::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void Button::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mType == Type::Push)
 		{
@@ -178,7 +175,7 @@ void Button::draw() const
 {
 	if (!visible()) { return; }
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto& skin = (mIsPressed) ? mButtonSkin.pressed :
 		(enabled() && mMouseHover) ? mButtonSkin.hover : mButtonSkin.normal;

@@ -8,9 +8,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 Window::Window(std::string newTitle) :
 	mTitleFont{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
 	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
@@ -30,7 +27,7 @@ Window::Window(std::string newTitle) :
 {
 	title(newTitle);
 
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonUp().connect({this, &Window::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Window::onMouseMove});
 }
@@ -38,24 +35,24 @@ Window::Window(std::string newTitle) :
 
 Window::~Window()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonUp().disconnect({this, &Window::onMouseUp});
 	eventHandler.mouseMotion().disconnect({this, &Window::onMouseMove});
 }
 
 
-void Window::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void Window::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
 	UIContainer::onMouseDown(button, position);
 
 	const auto titleBarBounds = NAS2D::Rectangle{mRect.x, mRect.y, mRect.width, sWindowTitleBarHeight};
-	mMouseDrag = (button == EventHandler::MouseButton::Left && titleBarBounds.contains(position));
+	mMouseDrag = (button == NAS2D::EventHandler::MouseButton::Left && titleBarBounds.contains(position));
 }
 
 
-void Window::onMouseUp(EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void Window::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	mMouseDrag = false;
 }
@@ -95,7 +92,7 @@ void Window::update()
 
 void Window::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mTitleBarLeft, mRect.startPoint());
 	renderer.drawImageRepeated(mTitleBarCenter, NAS2D::Rectangle{mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight});

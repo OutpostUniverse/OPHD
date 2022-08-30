@@ -7,9 +7,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 void TextArea::font(const std::string& filePath, unsigned int pointSize)
 {
 	mFont = &fontCache.load(filePath, pointSize);
@@ -88,7 +85,7 @@ void TextArea::update()
 
 void TextArea::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
 
