@@ -10,12 +10,9 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 ListBoxBase::ListBoxBase()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().connect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &ListBoxBase::onMouseMove});
@@ -32,7 +29,7 @@ ListBoxBase::~ListBoxBase()
 {
 	mScrollBar.change().disconnect({this, &ListBoxBase::onSlideChange});
 
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().disconnect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().disconnect({this, &ListBoxBase::onMouseMove});
@@ -99,13 +96,13 @@ void ListBoxBase::onResize()
 }
 
 
-void ListBoxBase::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ListBoxBase::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (isEmpty() || button == EventHandler::MouseButton::Middle) { return; }
+	if (isEmpty() || button == NAS2D::EventHandler::MouseButton::Middle) { return; }
 
-	if (button == EventHandler::MouseButton::Right && mRect.contains(position))
+	if (button == NAS2D::EventHandler::MouseButton::Right && mRect.contains(position))
 	{
 		setSelection(constants::NoSelection);
 		return;
@@ -262,7 +259,7 @@ void ListBoxBase::update()
 
 void ListBoxBase::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// CONTROL EXTENTS
 	const auto backgroundRect = NAS2D::Rectangle{mRect.x, mRect.y, mItemWidth, mRect.height};
