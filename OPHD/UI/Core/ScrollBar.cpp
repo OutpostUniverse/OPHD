@@ -8,9 +8,6 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	ScrollBar::Skins loadSkins(ScrollBar::ScrollBarType scrollBarType)
@@ -126,7 +123,7 @@ ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType) :
 	mScrollBarType{scrollBarType},
 	mSkins{skins}
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ScrollBar::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &ScrollBar::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &ScrollBar::onMouseMove});
@@ -135,7 +132,7 @@ ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType) :
 
 ScrollBar::~ScrollBar()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &ScrollBar::onMouseDown});
 	eventHandler.mouseButtonUp().disconnect({this, &ScrollBar::onMouseUp});
 	eventHandler.mouseMotion().disconnect({this, &ScrollBar::onMouseMove});
@@ -198,7 +195,7 @@ void ScrollBar::update()
 
 void ScrollBar::draw() const
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	mSkins.skinTrack.draw(renderer, mTrack);
 	mSkins.skinThumb.draw(renderer, mThumb);
@@ -217,11 +214,11 @@ void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
 }
 
 
-void ScrollBar::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ScrollBar::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == EventHandler::MouseButton::Left)
+	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
 		if (mThumb.contains(position))
 		{
@@ -239,9 +236,9 @@ void ScrollBar::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> 
 }
 
 
-void ScrollBar::onMouseUp(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ScrollBar::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
-	if (button != EventHandler::MouseButton::Left) { return; }
+	if (button != NAS2D::EventHandler::MouseButton::Left) { return; }
 
 	mButtonDecreaseHeld = false;
 	mButtonIncreaseHeld = false;
