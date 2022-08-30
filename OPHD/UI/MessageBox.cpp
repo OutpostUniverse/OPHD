@@ -100,14 +100,3 @@ bool doYesNoMessage(const std::string& title, const std::string msg)
 
 	return yes;
 }
-
-
-/**
- * Bit of a kludge to get state of a window
- * outside of what the EventHandler provides.
- */
-bool windowMaximized()
-{
-	unsigned int flags = SDL_GetWindowFlags(underlyingWindow);
-	return (flags & SDL_WINDOW_MAXIMIZED);
-}
