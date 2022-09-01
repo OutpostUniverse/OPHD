@@ -34,6 +34,7 @@ GameOptionsDialog::~GameOptionsDialog()
 {
 	btnSave.click().disconnect({this, &GameOptionsDialog::onSave});
 	btnLoad.click().disconnect({this, &GameOptionsDialog::onLoad});
+	btnHelp.click().disconnect({this, &GameOptionsDialog::onHelp});
 	btnReturn.click().disconnect({this, &GameOptionsDialog::onReturn});
 	btnClose.click().disconnect({this, &GameOptionsDialog::onClose});
 }
