@@ -43,6 +43,7 @@ void GameOptionsDialog::onEnableChange()
 {
 	btnSave.enabled(enabled());
 	btnLoad.enabled(enabled());
+	btnHelp.enabled(enabled());
 	btnReturn.enabled(enabled());
 	btnClose.enabled(enabled());
 }
