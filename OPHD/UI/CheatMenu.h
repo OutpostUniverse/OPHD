@@ -22,6 +22,11 @@ public:
 		AddWorkers,
 		AddScientists,
 		AddRetired,
+		RemoveChildren,
+		RemoveStudents,
+		RemoveWorkers,
+		RemoveScientists,
+		RemoveRetired,
 		Invalid
 	};
 

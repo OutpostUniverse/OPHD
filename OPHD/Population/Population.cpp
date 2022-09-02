@@ -46,6 +46,11 @@ void Population::addPopulation(const PopulationTable& population)
 	mPopulation += population;
 }
 
+void Population::removePopulation(const PopulationTable& population)
+{
+	mPopulation -= population.cap(mPopulation);
+}
+
 
 void Population::spawnPopulation(int morale, int residences, int nurseries, int universities)
 {

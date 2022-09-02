@@ -732,6 +732,21 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 		case CheatMenu::CheatCode::AddRetired:
 			mPopulation.addPopulation({0, 0, 0, 0, 10});
 		break;
+		case CheatMenu::CheatCode::RemoveChildren:
+			mPopulation.removePopulation({10, 0, 0, 0, 0});
+		break;
+		case CheatMenu::CheatCode::RemoveStudents:
+			mPopulation.removePopulation({0, 10, 0, 0, 0});
+		break;
+		case CheatMenu::CheatCode::RemoveWorkers:
+			mPopulation.removePopulation({0, 0, 10, 0, 0});
+		break;
+		case CheatMenu::CheatCode::RemoveScientists:
+			mPopulation.removePopulation({0, 0, 0, 10, 0});
+		break;
+		case CheatMenu::CheatCode::RemoveRetired:
+			mPopulation.removePopulation({0, 0, 0, 0, 10});
+		break;
 		case CheatMenu::CheatCode::AddRobots:
 			mRobotPool.addRobot(Robot::Type::Digger);
 			mRobotPool.addRobot(Robot::Type::Dozer);
