@@ -13,6 +13,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/StateManager.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Music.h>
@@ -168,6 +169,11 @@ int main(int argc, char *argv[])
 	}
 
 	imageCache.clear();
+	Utility<Renderer>::clear();
+	Utility<EventHandler>::clear();
+	Utility<Mixer>::clear();
+	Utility<Configuration>::clear();
+	Utility<Filesystem>::clear();
 
 	#ifdef NDEBUG
 	// Reset to stdout again (prevents crashes on exit)
