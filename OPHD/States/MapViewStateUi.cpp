@@ -697,8 +697,6 @@ void MapViewState::onTurns()
 
 void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 {
-	StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
-
 	CheatMenu::CheatCode code = CheatMenu::stringToCheatCode(cheatCode);
 	auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
 	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
@@ -709,7 +707,7 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 		case CheatMenu::CheatCode::Invalid:
 			return;
 		case CheatMenu::CheatCode::AddResources:
-			addRefinedResources(resourcesToAdd);
+			addRefinedResources({1000, 1000, 1000, 1000});
 		break;
 		case CheatMenu::CheatCode::AddFood: 
 			for (auto fp : foodProducers)
