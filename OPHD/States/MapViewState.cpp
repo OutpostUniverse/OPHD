@@ -228,17 +228,13 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
+	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
+	ProductCatalogue::init("factory_products.xml");
+
 	if (mLoadingExisting)
 	{
 		load(mExistingToLoad);
 	}
-	else
-	{
-		// StructureCatalogue is initialized in load routine if saved game present to load existing structures
-		StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
-	}
-
-	ProductCatalogue::init("factory_products.xml");
 
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
