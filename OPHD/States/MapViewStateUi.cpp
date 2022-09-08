@@ -751,7 +751,6 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 			mRobotPool.addRobot(Robot::Type::Digger);
 			mRobotPool.addRobot(Robot::Type::Dozer);
 			mRobotPool.addRobot(Robot::Type::Miner);
-			mRobotDeploymentSummary.draw();
 		break;
 
 	}
