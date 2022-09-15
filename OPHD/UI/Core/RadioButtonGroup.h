@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 #include "Label.h"
 #include "../../Cache.h"
 #include "../../Constants/UiConstants.h"
@@ -20,10 +20,10 @@
 class RadioButtonGroup : public Control
 {
 private:
-	class RadioButton : public TextControl
+	class RadioButton : public Control
 	{
 	public:
-		RadioButton(RadioButtonGroup* parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
+		RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
 		~RadioButton() override;
 
 		// TODO: Best to delete these, but they need to exist for now
@@ -40,14 +40,14 @@ private:
 
 	protected:
 		void onResize() override;
-		void onTextChange() override;
+		void onTextChange();
 		void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
 	private:
 		const NAS2D::Font& mFont;
 		const NAS2D::Image& mSkin;
 		Label mLabel;
-		RadioButtonGroup* mParentContainer{nullptr};
+		RadioButtonGroup& mParentContainer;
 		bool mChecked{false};
 		NAS2D::Signal<> mSignal;
 	};
