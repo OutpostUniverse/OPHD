@@ -697,25 +697,25 @@ void MapViewState::onTurns()
 
 void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 {
-	StorableResources resourcesToAdd{1000, 1000, 1000, 1000};
-
 	CheatMenu::CheatCode code = CheatMenu::stringToCheatCode(cheatCode);
-	auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
-	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-
-	foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 	switch(code)
 	{
 		case CheatMenu::CheatCode::Invalid:
 			return;
 		case CheatMenu::CheatCode::AddResources:
-			addRefinedResources(resourcesToAdd);
+			addRefinedResources({1000, 1000, 1000, 1000});
 		break;
-		case CheatMenu::CheatCode::AddFood: 
+		case CheatMenu::CheatCode::AddFood:
+		{
+			auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
+			auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+			foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
+
 			for (auto fp : foodProducers)
 			{
 				fp->foodLevel(fp->foodCapacity());
 			}
+		}
 		break;
 		case CheatMenu::CheatCode::AddChildren:
 			mPopulation.addPopulation({10, 0, 0, 0, 0});
@@ -751,7 +751,6 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 			mRobotPool.addRobot(Robot::Type::Digger);
 			mRobotPool.addRobot(Robot::Type::Dozer);
 			mRobotPool.addRobot(Robot::Type::Miner);
-			mRobotDeploymentSummary.draw();
 		break;
 
 	}
