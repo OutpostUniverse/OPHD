@@ -113,21 +113,19 @@ void FileIo::setMode(FileOperation fileOp)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
-	mScanPath = Utility<Filesystem>::get().prefPath() + directory;
+	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
 	mLabelFilePath.text("Save game path :  " + mScanPath);
 
 	const auto& filesystem = Utility<Filesystem>::get();
-	std::vector<std::string> dirList = filesystem.directoryList(directory);
+	auto dirList = filesystem.directoryList(directory);
 	std::sort(dirList.begin(), dirList.end());
 
 	mListBox.clear();
 	for (auto& dir : dirList)
 	{
-		if (!filesystem.isDirectory(directory + dir))
+		if (!filesystem.isDirectory(directory + dir.string()))
 		{
-			// FixMe: Naive approach: Assumes a file save extension of 3 characters.
-			dir.resize(dir.size() - 4);
-			mListBox.add(dir);
+			mListBox.add(dir.stem().string());
 		}
 	}
 }
