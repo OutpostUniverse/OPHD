@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 		auto& filesystem = Utility<Filesystem>::init<Filesystem>("OutpostHD", "LairWorks");
 		// Prioritize data from working directory, fallback on data from executable path
 		filesystem.mountSoftFail("data");
-		filesystem.mountSoftFail(filesystem.basePath() + "data");
+		filesystem.mountSoftFail(filesystem.basePath() / "data");
 		filesystem.mountReadWrite(filesystem.prefPath());
 
 		filesystem.makeDirectory(constants::SaveGamePath);
