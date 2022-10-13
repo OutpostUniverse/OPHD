@@ -8,6 +8,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <algorithm>
+
 
 using namespace NAS2D;
 
@@ -45,11 +47,9 @@ RobotInspector::RobotInspector() :
 	mContentRect = {
 		imageWidth,
 		sWindowTitleBarHeight + constants::Margin,
-		mainFontBold.width("Age") + mainFont.width("    9999"),
+		std::max(mainFontBold.width("Age") + mainFont.width("    9999"), buttonSize.x),
 		mainFont.height() + constants::Margin
 	};
-
-	if (mContentRect.width < buttonSize.x) { mContentRect.width = buttonSize.x; }
 
 	auto buttonPosition = Vector{imageWidth,  mContentRect.y + mContentRect.height + constants::Margin};
 
