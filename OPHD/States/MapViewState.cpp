@@ -70,7 +70,7 @@ namespace
 	}
 
 
-	NAS2D::Rectangle<int> buildAreaRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
+	NAS2D::Rectangle<int> buildTileRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
 	{
 		const auto mapRect = NAS2D::Rectangle{0, 0, 299, 149};
 		const auto offset = NAS2D::Vector{radius, radius};
@@ -84,7 +84,7 @@ namespace
 	{
 		const auto center = centerTile.xy();
 		const auto depth = centerTile.depth();
-		auto area = buildAreaRectFromCenter(center, range);
+		auto area = buildTileRectFromCenter(center, range);
 
 		for (const auto point : NAS2D::PointInRectangleRange(area))
 		{
