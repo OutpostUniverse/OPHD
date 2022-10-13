@@ -52,10 +52,10 @@ void MiniMap::heightMapVisible(bool isVisible)
 void MiniMap::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto miniMapBoxFloat = mRect.to<float>();
-	renderer.clipRect(miniMapBoxFloat);
+	const auto miniMapFloatRect = mRect.to<float>();
+	renderer.clipRect(miniMapFloatRect);
 
-	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapBoxFloat.startPoint());
+	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapFloatRect.startPoint());
 
 	const auto miniMapOffset = mRect.startPoint() - NAS2D::Point{0, 0};
 	const auto ccPosition = ccLocation();
