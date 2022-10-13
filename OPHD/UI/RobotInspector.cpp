@@ -42,16 +42,16 @@ RobotInspector::RobotInspector() :
 	const int imageWidth = robotImage(Robot::Type::Digger).size().x + padding;
 	const int contentWidth = imageWidth + buttonSize.x;
 
-	mContentArea = {
+	mContentRect = {
 		imageWidth,
 		sWindowTitleBarHeight + constants::Margin,
 		mainFontBold.width("Age") + mainFont.width("    9999"),
 		mainFont.height() + constants::Margin
 	};
 
-	if (mContentArea.width < buttonSize.x) { mContentArea.width = buttonSize.x; }
+	if (mContentRect.width < buttonSize.x) { mContentRect.width = buttonSize.x; }
 
-	auto buttonPosition = Vector{imageWidth,  mContentArea.y + mContentArea.height + constants::Margin};
+	auto buttonPosition = Vector{imageWidth,  mContentRect.y + mContentRect.height + constants::Margin};
 
 	btnCancelOrders.size(buttonSize);
 	add(btnCancelOrders, buttonPosition);
@@ -105,6 +105,6 @@ void RobotInspector::update()
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
 
-	const auto labelPosition = rect().startPoint() + Vector{mContentArea.x, mContentArea.y};
-	drawLabelAndValueRightJustify(labelPosition, mContentArea.width, "Age", std::to_string(mRobot->fuelCellAge()));
+	const auto labelPosition = rect().startPoint() + Vector{mContentRect.x, mContentRect.y};
+	drawLabelAndValueRightJustify(labelPosition, mContentRect.width, "Age", std::to_string(mRobot->fuelCellAge()));
 }

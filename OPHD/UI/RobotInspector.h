@@ -30,7 +30,7 @@ private:
 	Button btnSelfDestruct;
 	Button btnCancel;
 
-	NAS2D::Rectangle<int> mContentArea;
+	NAS2D::Rectangle<int> mContentRect;
 
 	NAS2D::Signal<Robot*> mSignal;
 
