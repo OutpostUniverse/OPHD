@@ -84,7 +84,7 @@ void NavControl::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const std::array buttonDrawAreas
+	const std::array buttonDrawRects
 	{
 		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{64, 128, 32, 32}},
 		std::tuple{mMoveUpIconRect, NAS2D::Rectangle{96, 128, 32, 32}},
@@ -93,7 +93,7 @@ void NavControl::draw() const
 		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle{0, 128, 32, 16}},
 		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}},
 	};
-	for (const auto& [currentIconBounds, subImageBounds] : buttonDrawAreas)
+	for (const auto& [currentIconBounds, subImageBounds] : buttonDrawRects)
 	{
 		bool isMouseInIcon = currentIconBounds.contains(MOUSE_COORDS);
 		NAS2D::Color color = isMouseInIcon ? NAS2D::Color::Red : NAS2D::Color::White;
