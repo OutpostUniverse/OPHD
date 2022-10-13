@@ -48,7 +48,7 @@ struct ListBoxItemText
 		unsigned int itemHeight() const;
 	};
 
-	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted) const;
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
 };
 
 
@@ -170,22 +170,22 @@ public:
 		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
 		const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (lineHeight - 1)) / lineHeight;
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
-		auto itemDrawArea = mScrollArea;
-		itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
-		itemDrawArea.height = static_cast<int>(lineHeight);
+		auto itemDrawRect = mScrollArea;
+		itemDrawRect.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
+		itemDrawRect.height = static_cast<int>(lineHeight);
 		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 		{
 			const auto isSelected = (i == mSelectedIndex);
 			const auto isHighlighted = (i == mHighlightIndex);
 
-			mItems[i].draw(renderer, itemDrawArea, mContext, isSelected, isHighlighted);
+			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawArea.y += lineHeight;
+			itemDrawRect.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawArea.height = mScrollArea.endPoint().y - itemDrawArea.startPoint().y;
-		renderer.drawBoxFilled(itemDrawArea, mContext.backgroundColorNormal);
+		itemDrawRect.height = mScrollArea.endPoint().y - itemDrawRect.startPoint().y;
+		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
 	}
