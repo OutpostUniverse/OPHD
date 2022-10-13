@@ -100,7 +100,7 @@ Tile& DetailMap::mouseTile()
 
 void DetailMap::update()
 {
-	for (const auto tilePosition : PointInRectangleRange{mMapView.viewArea()})
+	for (const auto tilePosition : PointInRectangleRange{mMapView.viewTileRect()})
 	{
 		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
@@ -118,13 +118,13 @@ void DetailMap::draw() const
 
 	int tsetOffset = mMapView.currentDepth() > 0 ? TileDrawSize.y : 0;
 
-	for (const auto tilePosition : PointInRectangleRange{mMapView.viewArea()})
+	for (const auto tilePosition : PointInRectangleRange{mMapView.viewTileRect()})
 	{
 		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
 		if (tile.excavated())
 		{
-			const auto offset = tilePosition - mMapView.viewArea().startPoint();
+			const auto offset = tilePosition - mMapView.viewTileRect().startPoint();
 			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
 			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
 			const bool isTileHighlighted = tilePosition == mMouseTilePosition;
@@ -171,5 +171,5 @@ void DetailMap::onMouseMove(NAS2D::Point<int> position)
 {
 	const auto pixelOffset = position - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);
-	mMouseTilePosition = mMapView.viewArea().startPoint() + tileOffset;
+	mMouseTilePosition = mMapView.viewTileRect().startPoint() + tileOffset;
 }

@@ -307,7 +307,7 @@ private:
 
 	MapCoordinate mMouseTilePosition;
 
-	NAS2D::Rectangle<int> mMiniMapBoundingBox; /**< Area of the site map display. */
+	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
 	int mFood{0};
 

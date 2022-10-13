@@ -48,7 +48,7 @@ struct ListBoxItemText
 		unsigned int itemHeight() const;
 	};
 
-	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawArea, const Context& context, bool isSelected, bool isHighlighted) const;
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
 };
 
 
@@ -168,24 +168,24 @@ public:
 		// display actuals values that are meant to be
 		const auto lineHeight = mContext.itemHeight();
 		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
-		const auto lastVisibleIndex = (mScrollOffsetInPixels + mScrollArea.height + (lineHeight - 1)) / lineHeight;
+		const auto lastVisibleIndex = (mScrollOffsetInPixels + mClientRect.height + (lineHeight - 1)) / lineHeight;
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
-		auto itemDrawArea = mScrollArea;
-		itemDrawArea.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
-		itemDrawArea.height = static_cast<int>(lineHeight);
+		auto itemDrawRect = mClientRect;
+		itemDrawRect.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
+		itemDrawRect.height = static_cast<int>(lineHeight);
 		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 		{
 			const auto isSelected = (i == mSelectedIndex);
 			const auto isHighlighted = (i == mHighlightIndex);
 
-			mItems[i].draw(renderer, itemDrawArea, mContext, isSelected, isHighlighted);
+			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawArea.y += lineHeight;
+			itemDrawRect.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawArea.height = mScrollArea.endPoint().y - itemDrawArea.startPoint().y;
-		renderer.drawBoxFilled(itemDrawArea, mContext.backgroundColorNormal);
+		itemDrawRect.height = mClientRect.endPoint().y - itemDrawRect.startPoint().y;
+		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
 	}
@@ -196,7 +196,7 @@ public:
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position) {
-		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(position))
+		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))
 		{
 			return;
 		}
@@ -205,13 +205,13 @@ protected:
 	}
 
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/) {
-		if (!visible() || !mScrollArea.contains(position))
+		if (!visible() || !mClientRect.contains(position))
 		{
 			mHighlightIndex = constants::NoSelection;
 			return;
 		}
 
-		mHighlightIndex = (static_cast<std::size_t>(position.y) - mScrollArea.y + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+		mHighlightIndex = (static_cast<std::size_t>(position.y) - mClientRect.y + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
 			mHighlightIndex = constants::NoSelection;
@@ -244,7 +244,7 @@ private:
 
 	void updateScrollLayout() {
 		// Account for border around control
-		mScrollArea = mRect.inset(1);
+		mClientRect = mRect.inset(1);
 
 		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
 		if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
@@ -253,7 +253,7 @@ private:
 			mScrollBar.size({14, mRect.height});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
-			mScrollArea.width -= mScrollBar.size().x; // Remove scroll bar from scroll area
+			mClientRect.width -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);
 		}
 		else
@@ -273,7 +273,7 @@ private:
 
 	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
 
-	NAS2D::Rectangle<int> mScrollArea;
+	NAS2D::Rectangle<int> mClientRect;
 
 	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
 	ScrollBar mScrollBar;

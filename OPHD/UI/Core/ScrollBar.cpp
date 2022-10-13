@@ -197,10 +197,10 @@ void ScrollBar::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	mSkins.skinTrack.draw(renderer, mTrack);
-	mSkins.skinThumb.draw(renderer, mThumb);
-	mSkins.skinButtonDecrease.draw(renderer, mButtonDecrease);
-	mSkins.skinButtonIncrease.draw(renderer, mButtonIncrease);
+	mSkins.skinTrack.draw(renderer, mTrackRect);
+	mSkins.skinThumb.draw(renderer, mThumbRect);
+	mSkins.skinButtonDecrease.draw(renderer, mButtonDecreaseRect);
+	mSkins.skinButtonIncrease.draw(renderer, mButtonIncreaseRect);
 }
 
 
@@ -220,15 +220,15 @@ void ScrollBar::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Poin
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
-		if (mThumb.contains(position))
+		if (mThumbRect.contains(position))
 		{
 			mThumbPressed = true;
 		}
-		else if (mButtonDecrease.contains(position))
+		else if (mButtonDecreaseRect.contains(position))
 		{
 			onButtonClick(mButtonDecreaseHeld, -1);
 		}
-		else if (mButtonIncrease.contains(position))
+		else if (mButtonIncreaseRect.contains(position))
 		{
 			onButtonClick(mButtonIncreaseHeld, 1);
 		}
@@ -246,11 +246,11 @@ void ScrollBar::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<
 
 	if (!enabled() || !visible()) { return; }
 
-	if (mTrack.contains(position) && !mThumb.contains(position))
+	if (mTrackRect.contains(position) && !mThumbRect.contains(position))
 	{
 		const auto [clickPosition, thumbPosition, viewSize] =
 			(mScrollBarType == ScrollBarType::Vertical) ?
-				std::tuple{position.y, mThumb.y, mRect.height} : std::tuple{position.x, mThumb.x, mRect.width};
+				std::tuple{position.y, mThumbRect.y, mRect.height} : std::tuple{position.x, mThumbRect.x, mRect.width};
 		const auto changeAmount = (clickPosition < thumbPosition) ?
 			-viewSize : viewSize;
 		changeValue(changeAmount);
@@ -262,12 +262,12 @@ void ScrollBar::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rel
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (mThumbPressed && mTrack.contains(position))
+	if (mThumbPressed && mTrackRect.contains(position))
 	{
 		value(
 			(mScrollBarType == ScrollBarType::Vertical) ?
-				mMax * (position.y - mTrack.y - mThumb.height / 2) / (mTrack.height - mThumb.height) :
-				mMax * (position.x - mTrack.x - mThumb.width / 2) / (mTrack.width - mThumb.width)
+				mMax * (position.y - mTrackRect.y - mThumbRect.height / 2) / (mTrackRect.height - mThumbRect.height) :
+				mMax * (position.x - mTrackRect.x - mThumbRect.width / 2) / (mTrackRect.width - mThumbRect.width)
 		);
 	}
 }
@@ -289,20 +289,20 @@ void ScrollBar::onLayoutChange()
 {
 	if (mScrollBarType == ScrollBarType::Vertical)
 	{
-		mButtonDecrease = {mRect.x, mRect.y, mRect.width, mRect.width};
-		mButtonIncrease = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
-		mTrack = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
-		const auto newSize = std::min(mTrack.height * mRect.height / std::max(mMax + mRect.height, 1), mTrack.height);
-		const auto drawOffset = (mTrack.height - newSize) * mValue / std::max(mMax, 1);
-		mThumb = {mTrack.x, mTrack.y + drawOffset, mTrack.width, newSize};
+		mButtonDecreaseRect = {mRect.x, mRect.y, mRect.width, mRect.width};
+		mButtonIncreaseRect = {mRect.x, mRect.y + mRect.height - mRect.width, mRect.width, mRect.width};
+		mTrackRect = {mRect.x, mRect.y + mRect.width, mRect.width, mRect.height - 2 * mRect.width};
+		const auto newSize = std::min(mTrackRect.height * mRect.height / std::max(mMax + mRect.height, 1), mTrackRect.height);
+		const auto drawOffset = (mTrackRect.height - newSize) * mValue / std::max(mMax, 1);
+		mThumbRect = {mTrackRect.x, mTrackRect.y + drawOffset, mTrackRect.width, newSize};
 	}
 	else
 	{
-		mButtonDecrease = {mRect.x, mRect.y, mRect.height, mRect.height};
-		mButtonIncrease = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
-		mTrack = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
-		const auto newSize = std::min(mTrack.width * mRect.width / std::max(mMax + mRect.width, 1), mTrack.width);
-		const auto drawOffset = (mTrack.width - newSize) * mValue / std::max(mMax, 1);
-		mThumb = {mTrack.x + drawOffset, mTrack.y, newSize, mTrack.height};
+		mButtonDecreaseRect = {mRect.x, mRect.y, mRect.height, mRect.height};
+		mButtonIncreaseRect = {mRect.x + mRect.width - mRect.height, mRect.y, mRect.height, mRect.height};
+		mTrackRect = {mRect.x + mRect.height, mRect.y, mRect.width - 2 * mRect.height, mRect.height};
+		const auto newSize = std::min(mTrackRect.width * mRect.width / std::max(mMax + mRect.width, 1), mTrackRect.width);
+		const auto drawOffset = (mTrackRect.width - newSize) * mValue / std::max(mMax, 1);
+		mThumbRect = {mTrackRect.x + drawOffset, mTrackRect.y, newSize, mTrackRect.height};
 	}
 }

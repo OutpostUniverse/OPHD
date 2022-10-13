@@ -24,7 +24,7 @@ public:
 
 	Tile& getTile(NAS2D::Point<int> position);
 
-	NAS2D::Rectangle<int> viewArea() const;
+	NAS2D::Rectangle<int> viewTileRect() const;
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);

@@ -70,7 +70,7 @@ namespace
 	}
 
 
-	NAS2D::Rectangle<int> buildAreaRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
+	NAS2D::Rectangle<int> buildTileRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
 	{
 		const auto mapRect = NAS2D::Rectangle{0, 0, 299, 149};
 		const auto offset = NAS2D::Vector{radius, radius};
@@ -84,9 +84,9 @@ namespace
 	{
 		const auto center = centerTile.xy();
 		const auto depth = centerTile.depth();
-		auto area = buildAreaRectFromCenter(center, range);
+		auto tileRect = buildTileRectFromCenter(center, range);
 
-		for (const auto point : NAS2D::PointInRectangleRange(area))
+		for (const auto point : NAS2D::PointInRectangleRange(tileRect))
 		{
 			if (isPointInRange(center, point, range))
 			{
@@ -300,18 +300,18 @@ void MapViewState::difficulty(Difficulty difficulty)
 NAS2D::State* MapViewState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto renderArea = NAS2D::Rectangle<int>::Create({0, 0}, renderer.size());
+	const auto windowClientRect = NAS2D::Rectangle<int>::Create({0, 0}, renderer.size());
 
 	// Game's over, don't bother drawing anything else
 	if (mGameOverDialog.visible())
 	{
-		renderer.drawBoxFilled(renderArea, NAS2D::Color::Black);
+		renderer.drawBoxFilled(windowClientRect, NAS2D::Color::Black);
 		mGameOverDialog.update();
 
 		return this;
 	}
 
-	renderer.drawImageStretched(mBackground, renderArea);
+	renderer.drawImageStretched(mBackground, windowClientRect);
 
 	if (!modalUiElementDisplayed())
 	{
@@ -324,7 +324,7 @@ NAS2D::State* MapViewState::update()
 	// FIXME: Ugly / hacky
 	if (modalUiElementDisplayed())
 	{
-		renderer.drawBoxFilled(renderArea, NAS2D::Color{0, 0, 0, 165});
+		renderer.drawBoxFilled(windowClientRect, NAS2D::Color{0, 0, 0, 165});
 	}
 
 	drawUI();
