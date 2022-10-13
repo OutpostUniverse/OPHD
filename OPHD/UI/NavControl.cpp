@@ -93,11 +93,11 @@ void NavControl::draw() const
 		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle{0, 128, 32, 16}},
 		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}},
 	};
-	for (const auto& [currentIconRect, subImageBounds] : buttonDrawRects)
+	for (const auto& [currentIconRect, subImageRect] : buttonDrawRects)
 	{
 		bool isMouseInIcon = currentIconRect.contains(MOUSE_COORDS);
 		NAS2D::Color color = isMouseInIcon ? NAS2D::Color::Red : NAS2D::Color::White;
-		renderer.drawSubImage(mUiIcons, currentIconRect.startPoint(), subImageBounds, color);
+		renderer.drawSubImage(mUiIcons, currentIconRect.startPoint(), subImageRect, color);
 	}
 
 	// Display the levels "bar"
