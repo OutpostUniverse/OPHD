@@ -110,9 +110,9 @@ void MiniMap::draw() const
 		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 
-	const auto& viewArea = mMapView.viewArea();
-	renderer.drawBox(viewArea.translate(miniMapOffset + NAS2D::Vector{1, 1}), NAS2D::Color{0, 0, 0, 180});
-	renderer.drawBox(viewArea.translate(miniMapOffset), NAS2D::Color::White);
+	const auto& viewTileRect = mMapView.viewTileRect();
+	renderer.drawBox(viewTileRect.translate(miniMapOffset + NAS2D::Vector{1, 1}), NAS2D::Color{0, 0, 0, 180});
+	renderer.drawBox(viewTileRect.translate(miniMapOffset), NAS2D::Color::White);
 
 	renderer.clipRectClear();
 }
