@@ -84,9 +84,9 @@ namespace
 	{
 		const auto center = centerTile.xy();
 		const auto depth = centerTile.depth();
-		auto area = buildTileRectFromCenter(center, range);
+		auto tileRect = buildTileRectFromCenter(center, range);
 
-		for (const auto point : NAS2D::PointInRectangleRange(area))
+		for (const auto point : NAS2D::PointInRectangleRange(tileRect))
 		{
 			if (isPointInRange(center, point, range))
 			{
