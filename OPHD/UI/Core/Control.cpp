@@ -1,10 +1,10 @@
 #include "Control.h"
 
 
-void Control::area(const NAS2D::Rectangle<int>& area)
+void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
-	const auto displacement = area.startPoint() - mRect.startPoint();
-	mRect = area;
+	const auto displacement = newRect.startPoint() - mRect.startPoint();
+	mRect = newRect;
 	onMove(displacement);
 	onResize();
 }
