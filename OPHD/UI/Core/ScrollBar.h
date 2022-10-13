@@ -70,8 +70,8 @@ private:
 
 	// Drawing vars
 	Skins mSkins;
-	NAS2D::Rectangle<int> mTrack;
-	NAS2D::Rectangle<int> mThumb;
-	NAS2D::Rectangle<int> mButtonDecrease; // Top/Left
-	NAS2D::Rectangle<int> mButtonIncrease; // Bottom/Right
+	NAS2D::Rectangle<int> mTrackRect;
+	NAS2D::Rectangle<int> mThumbRect;
+	NAS2D::Rectangle<int> mButtonDecreaseRect; // Top/Left
+	NAS2D::Rectangle<int> mButtonIncreaseRect; // Bottom/Right
 };
