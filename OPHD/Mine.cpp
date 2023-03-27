@@ -24,9 +24,9 @@ namespace
 	 */
 	const std::map<MineProductionRate, Mine::MineVein> YieldTable =
 	{
-		{MineProductionRate::Low, {600, 500, 600, 500}},
-		{MineProductionRate::Medium, {700, 550, 700, 550}},
-		{MineProductionRate::High, {850, 600, 850, 600}}
+		{MineProductionRate::Low, {800, 800, 800, 800}},
+		{MineProductionRate::Medium, {1000, 1000, 1000, 1000}},
+		{MineProductionRate::High, {1250, 1250, 1250, 1250}}
 	};
 
 
