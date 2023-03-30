@@ -236,6 +236,8 @@ void MapViewState::initialize()
 		load(mExistingToLoad);
 	}
 
+	mResourceInfoBar.ignoreGlow(mTurnCount == 0);
+
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
 

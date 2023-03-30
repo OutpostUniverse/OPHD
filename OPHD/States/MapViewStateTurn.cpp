@@ -757,4 +757,6 @@ void MapViewState::nextTurn()
 	mPopulationPanel.old_morale(mPreviousMorale);
 
 	mTurnCount++;
+
+	mResourceInfoBar.ignoreGlow(false);
 }
