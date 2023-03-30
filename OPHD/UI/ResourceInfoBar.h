@@ -22,6 +22,8 @@ public:
 	bool isResourcePanelVisible() const;
 	bool isPopulationPanelVisible() const;
 
+	void ignoreGlow(const bool ignore);
+
 	void update() override;
 	void draw() const override;
 
@@ -50,4 +52,5 @@ private:
 
 	bool mPinResourcePanel = false;
 	bool mPinPopulationPanel = false;
+	bool mIgnoreGlow = false;
 };

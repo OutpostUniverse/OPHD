@@ -99,6 +99,11 @@ bool ResourceInfoBar::isPopulationPanelVisible() const
 	return mPinPopulationPanel || NAS2D::Rectangle{675, 1, 75, 19}.contains(MOUSE_COORDS);
 }
 
+void ResourceInfoBar::ignoreGlow(const bool ignore)
+{
+	mIgnoreGlow = ignore;
+}
+
 
 void ResourceInfoBar::update()
 {
@@ -145,7 +150,7 @@ void ResourceInfoBar::draw() const
 	for (const auto& [imageRect, amount, spacing] : resources)
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
-		const auto color = (amount <= 10) ? glowColor : NAS2D::Color::White;
+		const auto color = (amount <= 10 && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
 		renderer.drawText(*MAIN_FONT, std::to_string(amount), position + textOffset, color);
 		position.x += spacing;
 	}
@@ -163,7 +168,7 @@ void ResourceInfoBar::draw() const
 	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities)
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
-		const auto color = isHighlighted ? glowColor : NAS2D::Color::White;
+		const auto color = (isHighlighted  && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
 		renderer.drawText(*MAIN_FONT, text, position + textOffset, color);
 		position.x += (x + offsetX) * 2;
