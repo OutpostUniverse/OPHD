@@ -1448,6 +1448,7 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					__XCODE_BUILD__,
 					GL_SILENCE_DEPRECATION,
 					"DEBUG=1",
 					"$(inherited)",
@@ -1490,7 +1491,10 @@
 					"$(PROJECT_DIR)/**",
 					"$(PROJECT_DIR)",
 				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = GL_SILENCE_DEPRECATION;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					__XCODE_BUILD__,
+					GL_SILENCE_DEPRECATION,
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "../nas2d-core/";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.strategy-games";
