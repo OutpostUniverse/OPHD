@@ -306,6 +306,9 @@ NAS2D::State* MapViewState::update()
 		renderer.drawBoxFilled(windowClientRect, NAS2D::Color::Black);
 		mGameOverDialog.update();
 
+		mFade.update();
+		mFade.draw(renderer);
+
 		return this;
 	}
 
