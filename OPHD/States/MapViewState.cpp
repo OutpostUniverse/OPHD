@@ -147,6 +147,13 @@ namespace
 				NotificationArea::NotificationType::Critical});
 		}
 	}
+
+
+	void updateFade(NAS2D::Renderer& renderer, NAS2D::Fade& fade)
+	{
+		fade.update();
+		fade.draw(renderer);
+	}
 }
 
 
@@ -306,8 +313,7 @@ NAS2D::State* MapViewState::update()
 		renderer.drawBoxFilled(windowClientRect, NAS2D::Color::Black);
 		mGameOverDialog.update();
 
-		mFade.update();
-		mFade.draw(renderer);
+		updateFade(renderer, mFade);
 
 		return this;
 	}
@@ -330,8 +336,7 @@ NAS2D::State* MapViewState::update()
 
 	drawUI();
 
-	mFade.update();
-	mFade.draw(renderer);
+	updateFade(renderer, mFade);
 
 	return this;
 }
