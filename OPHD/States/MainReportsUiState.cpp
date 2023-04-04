@@ -210,14 +210,14 @@ void MainReportsUiState::initialize()
  */
 void MainReportsUiState::_activate()
 {
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->refresh();
-
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->refresh();
-
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
+	for (auto& panel : Panels)
+	{
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->fillLists();
+			panel.UiPanel->refresh();
+		}
+	}
 }
 
 
@@ -228,13 +228,14 @@ void MainReportsUiState::_deactivate()
 {
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->hide(); }
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->hide();
+			panel.UiPanel->clearSelected();
+		}
+
 		panel.Selected(false);
 	}
-
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->clearSelected();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->clearSelected();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->clearSelected();
 }
 
 
