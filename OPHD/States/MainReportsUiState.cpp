@@ -7,6 +7,7 @@
 
 #include "../UI/Reports/FactoryReport.h"
 #include "../UI/Reports/MineReport.h"
+#include "../UI/Reports/ResearchReport.h"
 #include "../UI/Reports/WarehouseReport.h"
 
 #include <NAS2D/Utility.h>
@@ -184,17 +185,23 @@ void MainReportsUiState::initialize()
 	factory_report->size({size.x, size.y - 48});
 	factory_report->hide();
 
-	ReportInterface* warehouse_report = new WarehouseReport();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
-	warehouse_report->position({0, 48});
-	warehouse_report->size({size.x, size.y - 48});
-	warehouse_report->hide();
-
 	ReportInterface* mining_report = new MineReport();
 	Panels[NavigationPanel::PANEL_MINING].UiPanel = mining_report;
 	mining_report->position({0, 48});
 	mining_report->size({size.x, size.y - 48});
 	mining_report->hide();
+
+	ReportInterface* research_report = new ResearchReport();
+	Panels[NavigationPanel::PANEL_RESEARCH].UiPanel = research_report;
+	research_report->position({0, 48});
+	research_report->size({size.x, size.y - 48});
+	research_report->hide();
+
+	ReportInterface* warehouse_report = new WarehouseReport();
+	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
+	warehouse_report->position({0, 48});
+	warehouse_report->size({size.x, size.y - 48});
+	warehouse_report->hide();
 }
 
 
