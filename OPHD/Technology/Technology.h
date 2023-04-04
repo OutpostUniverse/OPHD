@@ -48,9 +48,9 @@ struct Technology
 	std::string name{""};
 	std::string description{""};
 	
-	int id;
-	int labType;
-	int cost;
+	int id{};
+	int labType{};
+	int cost{};
 
 	std::vector<int> requiredTechnologies;
 
