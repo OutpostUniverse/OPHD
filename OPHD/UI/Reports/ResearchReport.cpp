@@ -1,0 +1,81 @@
+#include "ResearchReport.h"
+
+#include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Renderer/Renderer.h>
+
+#include "../../Cache.h"
+
+
+ResearchReport::ResearchReport():
+	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
+	imageLab{imageCache.load("ui/interface/lab.png")}
+{
+}
+
+
+ResearchReport::~ResearchReport()
+{
+}
+
+
+void ResearchReport::fillLists()
+{
+}
+
+
+void ResearchReport::clearSelected()
+{
+}
+
+
+void ResearchReport::refresh()
+{
+}
+
+
+void ResearchReport::selectStructure(Structure*)
+{
+}
+
+
+void ResearchReport::update()
+{
+}
+
+
+void ResearchReport::computeTotalWarehouseCapacity()
+{
+}
+
+
+void ResearchReport::fillListFromStructureList(const std::vector<ResearchFacility*>&)
+{
+}
+
+
+void ResearchReport::onResize()
+{
+}
+
+
+void ResearchReport::onDisabled()
+{
+}
+
+
+void ResearchReport::onTakeMeThere()
+{
+}
+
+
+void ResearchReport::onStructureSelectionChange()
+{
+}
+
+
+void ResearchReport::filterButtonClicked()
+{
+}

@@ -311,6 +311,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="UI\ProductListBox.cpp" />
     <ClCompile Include="UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="UI\Reports\MineReport.cpp" />
+    <ClCompile Include="UI\Reports\ResearchReport.cpp" />
     <ClCompile Include="UI\Reports\WarehouseReport.cpp" />
     <ClCompile Include="UI\ResourceBreakdownPanel.cpp" />
     <ClCompile Include="UI\ResourceInfoBar.cpp" />
@@ -460,6 +461,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="UI\Reports\FactoryReport.h" />
     <ClInclude Include="UI\Reports\MineReport.h" />
     <ClInclude Include="UI\Reports\ReportInterface.h" />
+    <ClInclude Include="UI\Reports\ResearchReport.h" />
     <ClInclude Include="UI\Reports\WarehouseReport.h" />
     <ClInclude Include="UI\ResourceBreakdownPanel.h" />
     <ClInclude Include="UI\ResourceInfoBar.h" />
