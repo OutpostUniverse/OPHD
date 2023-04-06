@@ -4,6 +4,7 @@
 
 #include <NAS2D/Renderer/RectangleSkin.h>
 
+#include <string>
 #include <vector>
 #include <utility>
 
