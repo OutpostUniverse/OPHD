@@ -5,6 +5,9 @@
 /.build/
 *.exe
 
+# VS Code
+.vscode/
+
 # Windows - Visual Studio
 Temporary/
 Release/
