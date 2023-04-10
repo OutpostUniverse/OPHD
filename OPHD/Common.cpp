@@ -10,6 +10,8 @@
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlElement.h>
 
+#include <stdexcept>
+
 
 using namespace NAS2D;
 
@@ -265,6 +267,10 @@ std::vector<std::string> splitString(const std::string& string, char delimiter)
 
 void setMeanSolarDistance(float newMeanSolarDistance)
 {
+	if (newMeanSolarDistance <= 0)
+	{
+		throw std::runtime_error("Must set a positive value for `meanSolarDistance`: " + std::to_string(newMeanSolarDistance));
+	}
 	meanSolarDistance = newMeanSolarDistance;
 }
 
