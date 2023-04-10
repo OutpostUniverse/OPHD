@@ -1,0 +1,2 @@
+# Don't include xcode project and included frameworks in language stats
+./xcode linguist-vendored
