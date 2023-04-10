@@ -1,6 +1,38 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.7] - 2023-04-09
+
+Addresses a few bugs and provides some quality of life balancing.
+
+### Added
+- Basic cheat dialog window (can be brought up with Ctrl+Shift+F10)
+- FreeBSD configuration to be able to build OPHD from source
+
+### Changed
+- Resource values won't glow on first turn
+- Adjusted cost of structures
+- Adjusted cost of robots
+- Mine yields have been increased
+- PhysFS dependency removed
+- Factory list box will now only show progress bars if a factory is actually producing something
+- Alerts will be pushed if there are issues with Warehouse storage and capacity
+- Alerts will be pushed when tasks are completed for robots and construction
+- Alerts will be pushed when robot tasks are canceled
+- Factory Report now shows actual description of products instead of placeholder text
+- Moved factory product descriptions out of the code and into an external definition file
+- Improved exception error messages for better end-user reporting
+
+### Fixed
+- Command Center will no longer collapse if there is no maintenance facility
+- Game Over dialog's "Return to Main Menu" functions properly again
+- Fixed potential crashing with certain UI element event handlers not being properly disconnected
+- Fixed crashing in Factory Report view
+- Fixed potential crashing in event handling that could lead to memory corruption
+- Crime no longer generates until population is landed on the surface
+- Trying to build a tube on a non-bulldozed tile will now issue a warning
+
+
 ## [0.8.6] - 2022-04-25
 
 Addresses a number of bugs and usability issues between 0.8.x and 0.9.x branches.
