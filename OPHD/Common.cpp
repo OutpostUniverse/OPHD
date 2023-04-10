@@ -14,6 +14,12 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	float meanSolarDistance = 1;
+}
+
+
 std::string difficultyString(Difficulty difficulty)
 {
 	for (const auto& difficultyPair : difficultyTable)
@@ -254,6 +260,18 @@ std::vector<std::string> splitString(const std::string& string, char delimiter)
 	} while (0 != *str++);
 
 	return result;
+}
+
+
+void setMeanSolarDistance(float newMeanSolarDistance)
+{
+	meanSolarDistance = newMeanSolarDistance;
+}
+
+
+float getMeanSolarDistance()
+{
+	return meanSolarDistance;
 }
 
 
