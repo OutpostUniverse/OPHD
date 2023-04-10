@@ -22,16 +22,16 @@ jobs:
       PLATFORM: ${{ matrix.platform }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Checkout NAS2D
       run: git submodule update --init nas2d-core/
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.3.1
 
     - name: Restore vcpkg dependency cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cache
       with:
         path: C:\vcpkg\installed\
