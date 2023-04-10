@@ -61,9 +61,11 @@ I'd like to give a special thanks and shout out to the following contributors wh
 - havkyp
 - Inglonias
 - JetMech1999
+- Laura Hild
 - lhark
 - lordpalandus
 - macksting
+- matt-handy
 - singthemuse
 - Sirbomber
 - Vagabond
