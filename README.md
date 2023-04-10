@@ -59,6 +59,7 @@ I'd like to give a special thanks and shout out to the following contributors wh
 - FallTime
 - Goof
 - havkyp
+- Inglonias
 - JetMech1999
 - lhark
 - lordpalandus
