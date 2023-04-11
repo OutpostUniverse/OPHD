@@ -283,6 +283,8 @@ void MapViewState::load(const std::string& filePath)
 	mPlanetAttributes.tilesetPath = dictionary.get("tset");
 	mPlanetAttributes.meanSolarDistance = dictionary.get<float>("meansolardistance");
 
+	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
+
 	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
 	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);

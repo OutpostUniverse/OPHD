@@ -184,6 +184,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
 {
+	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
