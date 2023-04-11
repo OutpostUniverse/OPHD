@@ -2,6 +2,7 @@
 
 #include "PowerStructure.h"
 
+#include "../../Common.h"
 #include "../../Constants/Strings.h"
 
 
@@ -30,7 +31,7 @@ public:
 protected:
 	int calculateMaxEnergyProduction() override
 	{
-		return static_cast<int>(SOLAR_PLANT_BASE_PRODUCUCTION / mMeanSolarDistance);
+		return static_cast<int>(SOLAR_PLANT_BASE_PRODUCUCTION / getMeanSolarDistance());
 	}
 
 private:
