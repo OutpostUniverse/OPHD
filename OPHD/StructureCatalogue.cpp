@@ -351,7 +351,7 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 
 
 /**
- * Initializes StructureCatalogue and builds the requirements tables.
+ * Initializes StructureCatalogue.
  */
 void StructureCatalogue::init()
 {
