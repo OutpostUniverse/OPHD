@@ -12,15 +12,14 @@ const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;
 class SolarPanelArray : public PowerStructure
 {
 public:
-	SolarPanelArray(float meanSolarDistance) :
+	SolarPanelArray() :
 		PowerStructure
 		{
 			constants::SolarPanel1,
 			"structures/solar_array1.sprite",
 			StructureClass::EnergyProduction,
 			StructureID::SID_SOLAR_PANEL1
-		},
-		mMeanSolarDistance{meanSolarDistance != 0 ? meanSolarDistance : 1.0f} // Prevent division by 0
+		}
 	{
 		maxAge(1000);
 		turnsToBuild(4);
@@ -33,7 +32,4 @@ protected:
 	{
 		return static_cast<int>(SOLAR_PANEL_BASE_PRODUCUCTION / getMeanSolarDistance());
 	}
-
-private:
-	const float mMeanSolarDistance;
 };
