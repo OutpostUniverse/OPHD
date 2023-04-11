@@ -129,8 +129,6 @@ namespace
 	}
 }
 
-float StructureCatalogue::mMeanSolarDistance = 0;
-
 
 /**
  * Gets a new Structure object given a StructureID.
@@ -355,9 +353,8 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 /**
  * Initializes StructureCatalogue and builds the requirements tables.
  */
-void StructureCatalogue::init(float meanSolarDistance)
+void StructureCatalogue::init()
 {
-	mMeanSolarDistance = meanSolarDistance;
 }
 
 

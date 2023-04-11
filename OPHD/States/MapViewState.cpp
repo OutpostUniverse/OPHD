@@ -236,7 +236,7 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
-	StructureCatalogue::init(mPlanetAttributes.meanSolarDistance);
+	StructureCatalogue::init();
 	ProductCatalogue::init("factory_products.xml");
 
 	if (mLoadingExisting)
