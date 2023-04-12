@@ -314,6 +314,8 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
 std::vector<std::string> splitString(const std::string& string, char delimiter);
 
+void setMeanSolarDistance(float newMeanSolarDistance);
+float getMeanSolarDistance();
 
 /**
  * Translates a DisabledReason enumeration into a string

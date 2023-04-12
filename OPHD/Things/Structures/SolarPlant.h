@@ -2,6 +2,7 @@
 
 #include "PowerStructure.h"
 
+#include "../../Common.h"
 #include "../../Constants/Strings.h"
 
 
@@ -11,15 +12,14 @@ const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
 class SolarPlant : public PowerStructure
 {
 public:
-	SolarPlant(float meanSolarDistance) :
+	SolarPlant() :
 		PowerStructure
 		{
 			constants::SolarPlant,
 			"structures/solar_plant.sprite",
 			StructureClass::EnergyProduction,
 			StructureID::SID_SOLAR_PLANT
-		},
-		mMeanSolarDistance{meanSolarDistance != 0 ? meanSolarDistance : 1.0f} // Prevent division by 0
+		}
 	{
 		maxAge(1000);
 		turnsToBuild(4);
@@ -30,9 +30,6 @@ public:
 protected:
 	int calculateMaxEnergyProduction() override
 	{
-		return static_cast<int>(SOLAR_PLANT_BASE_PRODUCUCTION / mMeanSolarDistance);
+		return static_cast<int>(SOLAR_PLANT_BASE_PRODUCUCTION / getMeanSolarDistance());
 	}
-
-private:
-	const float mMeanSolarDistance;
 };

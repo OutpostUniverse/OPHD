@@ -10,8 +10,16 @@
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlElement.h>
 
+#include <stdexcept>
+
 
 using namespace NAS2D;
+
+
+namespace
+{
+	float meanSolarDistance = 1;
+}
 
 
 std::string difficultyString(Difficulty difficulty)
@@ -254,6 +262,22 @@ std::vector<std::string> splitString(const std::string& string, char delimiter)
 	} while (0 != *str++);
 
 	return result;
+}
+
+
+void setMeanSolarDistance(float newMeanSolarDistance)
+{
+	if (newMeanSolarDistance <= 0)
+	{
+		throw std::runtime_error("Must set a positive value for `meanSolarDistance`: " + std::to_string(newMeanSolarDistance));
+	}
+	meanSolarDistance = newMeanSolarDistance;
+}
+
+
+float getMeanSolarDistance()
+{
+	return meanSolarDistance;
 }
 
 

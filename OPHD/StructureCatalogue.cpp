@@ -129,8 +129,6 @@ namespace
 	}
 }
 
-float StructureCatalogue::mMeanSolarDistance = 0;
-
 
 /**
  * Gets a new Structure object given a StructureID.
@@ -270,11 +268,11 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray(mMeanSolarDistance);
+			structure = new SolarPanelArray();
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			structure = new SolarPlant(mMeanSolarDistance);
+			structure = new SolarPlant();
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:
@@ -353,11 +351,10 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 
 
 /**
- * Initializes StructureCatalogue and builds the requirements tables.
+ * Initializes StructureCatalogue.
  */
-void StructureCatalogue::init(float meanSolarDistance)
+void StructureCatalogue::init()
 {
-	mMeanSolarDistance = meanSolarDistance;
 }
 
 

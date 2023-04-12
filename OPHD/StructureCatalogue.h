@@ -24,7 +24,7 @@ class StructureCatalogue
 public:
 	StructureCatalogue() = delete;
 
-	static void init(float meanSolarDistance);
+	static void init();
 
 	static Structure* get(StructureID type);
 
@@ -33,7 +33,4 @@ public:
 	static const StorableResources& recyclingValue(StructureID type);
 
 	static bool canBuild(const StorableResources& source, StructureID type);
-
-private:
-	static float mMeanSolarDistance;
 };
