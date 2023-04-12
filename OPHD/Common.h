@@ -339,6 +339,8 @@ int moraleStringTableCount();
  */
 void drawBasicProgressBar(NAS2D::Rectangle<int> rect, float percent, int padding = 4);
 
+void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding = 4);
+
 NAS2D::Color structureColorFromIndex(StructureState structureState);
 NAS2D::Color structureTextColorFromIndex(StructureState structureState);
 
