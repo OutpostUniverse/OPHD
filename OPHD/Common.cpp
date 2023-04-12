@@ -284,11 +284,6 @@ float getMeanSolarDistance()
 
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding)
 {
-	if (value <= 0)
-	{
-		return;
-	}
-
 	if (max == 0)
 	{
 		throw std::runtime_error("Progress bar must have non-zero max value: " + std::to_string(max));
