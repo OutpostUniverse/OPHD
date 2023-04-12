@@ -39,7 +39,8 @@ void ProductListBox::productPool(ProductPool& pool)
 			ProductListBoxItem* item = new ProductListBoxItem();
 			item->text = ProductCatalogue::get(productType).Name;
 			item->count = productCount;
-			item->usage = static_cast<float>(productCount * pool.productStorageRequirement(productType)) / static_cast<float>(pool.capacity());
+			item->capacityUsed = productCount * pool.productStorageRequirement(productType);
+			item->capacityTotal = pool.capacity();
 			mItems.push_back(item);
 		}
 	}
@@ -86,7 +87,12 @@ void ProductListBox::update()
 		// Draw item column contents
 		renderer.drawText(mFontBold, item.text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, itemColor);
 		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, itemColor);
-		drawBasicProgressBar({x + secondStop + 5, y + 10, firstStop - 10, 10}, item.usage, 2);
+		drawProgressBar(
+			item.capacityUsed,
+			item.capacityTotal,
+			{x + secondStop + 5, y + 10, firstStop - 10, 10},
+			2
+		);
 	}
 
 	renderer.clipRectClear();

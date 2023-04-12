@@ -85,5 +85,5 @@ private:
 
 	std::size_t warehouseCount;
 	int warehouseCapacityTotal;
-	float warehouseCapacityPercent = 0.0f;
+	int warehouseCapacityUsed;
 };

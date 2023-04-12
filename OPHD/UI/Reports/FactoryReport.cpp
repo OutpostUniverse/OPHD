@@ -499,14 +499,14 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.y + 358}, textColor);
 	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
 
-	float percent = 0.0f;
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
 	{
-		percent = static_cast<float>(selectedFactory->productionTurnsCompleted()) /
-			static_cast<float>(selectedFactory->productionTurnsToComplete());
+		drawProgressBar(
+			selectedFactory->productionTurnsCompleted(),
+			selectedFactory->productionTurnsToComplete(),
+			{position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30}
+		);
 	}
-
-	drawBasicProgressBar({position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30}, percent, 4);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
 	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.y + 449}, textColor);
