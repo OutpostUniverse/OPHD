@@ -282,19 +282,6 @@ float getMeanSolarDistance()
 }
 
 
-void drawBasicProgressBar(NAS2D::Rectangle<int> rect, float percent, int padding)
-{
-	auto& renderer = Utility<Renderer>::get();
-	renderer.drawBox(rect, NAS2D::Color{0, 185, 0});
-
-	if (percent > 0.0f)
-	{
-		int bar_width = static_cast<int>(static_cast<float>(rect.width - (padding + padding)) * percent);
-		renderer.drawBoxFilled(NAS2D::Rectangle{rect.x + padding, rect.y + padding + 1, bar_width - 1, rect.height - (padding + padding) - 1}, NAS2D::Color{0, 100, 0});
-	}
-}
-
-
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding)
 {
 	if (value <= 0)

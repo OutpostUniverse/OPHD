@@ -334,11 +334,6 @@ const std::string& moraleString(int index);
 const std::string& moraleString(Morale morale);
 int moraleStringTableCount();
 
-/**
- * Super basic progress bar.
- */
-void drawBasicProgressBar(NAS2D::Rectangle<int> rect, float percent, int padding = 4);
-
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding = 4);
 
 NAS2D::Color structureColorFromIndex(StructureState structureState);
