@@ -158,11 +158,11 @@ namespace
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
-	mMainReportsState(mainReportsState),
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
 	mLoadingExisting(true),
 	mExistingToLoad(savegame),
+	mMainReportsState(mainReportsState),
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool}
 {
@@ -172,12 +172,12 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
-	mMainReportsState(mainReportsState),
 	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
-	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
+	mMainReportsState(mainReportsState),
+	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},

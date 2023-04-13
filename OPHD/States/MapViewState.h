@@ -288,9 +288,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
-	MainReportsUiState& mMainReportsState;
 	TileMap* mTileMap{nullptr};
-	std::unique_ptr<MapView> mMapView;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
@@ -302,14 +300,18 @@ private:
 	Planet::Attributes mPlanetAttributes;
 	Difficulty mDifficulty = Difficulty::Medium;
 
-	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
-	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
-
-	MapCoordinate mMouseTilePosition;
-
-	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
-
 	int mFood{0};
+
+	// MISCELLANEOUS
+	int mTurnCount = 0;
+
+	int mCurrentMorale = constants::DefaultStartingMorale;
+	int mPreviousMorale = constants::DefaultStartingMorale;
+
+	int mLandersColonist = 0;
+	int mLandersCargo = 0;
+
+	int mResidentialCapacity = 0;
 
 	// POOLS
 	StorableResources mResourcesCount;
@@ -317,12 +319,27 @@ private:
 	PopulationPool mPopulationPool;
 
 	RobotTileTable mRobotList; /**< List of active robots and their positions on the map. */
+	Population mPopulation;
+
+	// ROUTING
+	micropather::MicroPather* mPathSolver = nullptr;
+
+	bool mLoadingExisting = false;
+	std::string mExistingToLoad; /**< Filename of the existing game to load. */
+
+	MainReportsUiState& mMainReportsState;
+	std::unique_ptr<MapView> mMapView;
+
+	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
+	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
+
+	MapCoordinate mMouseTilePosition;
+
+	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
 	Robot::Type mCurrentRobot = Robot::Type::None; /**< Robot being placed. */
-
-	Population mPopulation;
 
 	// USER INTERFACE
 	Button mBtnTurns;
@@ -368,28 +385,10 @@ private:
 	ReportsUiSignal mReportsUiSignal;
 	MapChangedSignal mMapChangedSignal;
 
-	// ROUTING
-	micropather::MicroPather* mPathSolver = nullptr;
-
-	// MISCELLANEOUS
-	int mTurnCount = 0;
-
-	int mCurrentMorale = constants::DefaultStartingMorale;
-	int mPreviousMorale = constants::DefaultStartingMorale;
-
-	int mLandersColonist = 0;
-	int mLandersCargo = 0;
-
-	int mResidentialCapacity = 0;
-
 	std::vector<Tile*> mConnectednessOverlay;
 	std::vector<Tile*> mCommRangeOverlay;
 	std::vector<std::vector<Tile*>> mPoliceOverlays;
 	std::vector<Tile*> mTruckRouteOverlay;
-
-	bool mLoadingExisting = false;
-
-	std::string mExistingToLoad; /**< Filename of the existing game to load. */
 
 	ResourceInfoBar mResourceInfoBar;
 	RobotDeploymentSummary mRobotDeploymentSummary;
