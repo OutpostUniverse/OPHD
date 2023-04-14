@@ -23,7 +23,7 @@ namespace
 void shellOpenPath(const std::string& path)
 {
 	#if defined(_WIN32)
-		std::ignore = ShellExecute(NULL, L"explore", std::wstring(path.begin(), path.end()).c_str(), NULL, NULL, SW_NORMAL);
+		std::ignore = ShellExecuteA(NULL, "explore", path.c_str(), NULL, NULL, SW_NORMAL);
 	#else
 		// Explicitly ignore implementation defined return value
 		std::ignore = std::system((std::string{ShellOpenCommand} + " " + path).c_str());
