@@ -8,7 +8,7 @@
 namespace
 {
 	#if defined(_WIN32)
-		#include <Windows.h>
+		#include <windows.h>
 		#include <shellapi.h>
 	#elif defined(__APPLE__)
 		constexpr const std::string_view ShellOpenCommand{"open"};
