@@ -20,7 +20,8 @@ public:
 	struct ProductListBoxItem : public ListBoxItem
 	{
 		int count = 0; /**< Count of the product. */
-		float usage = 0.0f; /**< Usage of available capacity. */
+		int capacityUsed = 0;
+		int capacityTotal = 0;
 	};
 
 	ProductListBox();

@@ -46,9 +46,12 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	if (productType != ProductType::PRODUCT_NONE)
 	{
 		renderer.drawText(*MAIN_FONT, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
-		// PROGRESS BAR
-		float percentage = static_cast<float>(f->productionTurnsCompleted()) / static_cast<float>(f->productionTurnsToComplete());
-		drawBasicProgressBar(NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}), percentage, 2);
+		drawProgressBar(
+			f->productionTurnsCompleted(),
+			f->productionTurnsToComplete(),
+			NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}),
+			2
+		);
 	}
 }
 

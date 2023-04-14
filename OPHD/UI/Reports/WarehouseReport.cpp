@@ -99,11 +99,9 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 		}
 	}
 
-	int capacityUsed = capacityTotal - capacityAvailable;
-
 	warehouseCount = warehouses.size();
 	warehouseCapacityTotal = capacityTotal;
-	warehouseCapacityPercent = static_cast<float>(capacityUsed) / static_cast<float>(capacityTotal);
+	warehouseCapacityUsed = capacityTotal - capacityAvailable;
 }
 
 
@@ -316,7 +314,11 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.width / 2 - 30 - capacityUsedTextWidth;
 	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
-	drawBasicProgressBar({capacityBarPositionX, positionY() + 84, capacityBarWidth, 20}, warehouseCapacityPercent);
+	drawProgressBar(
+		warehouseCapacityUsed,
+		warehouseCapacityTotal,
+		{capacityBarPositionX, positionY() + 84, capacityBarWidth, 20}
+	);
 }
 
 
