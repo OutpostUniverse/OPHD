@@ -2,6 +2,6 @@
 	"project_dir": "OPHD",
 	"include_dirs": ["../nas2d-core", "/usr/include"],
 	"ignore_dirs": ["MicroPather"],
-	"ignore_files": ["Windows.h"]
+	"ignore_files": ["windows.h"]
 }
 
