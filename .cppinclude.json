@@ -4,4 +4,3 @@
 	"ignore_dirs": ["MicroPather"],
 	"ignore_files": ["windows.h", "shellapi.h"]
 }
-
