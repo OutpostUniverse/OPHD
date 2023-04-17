@@ -26,6 +26,6 @@ void shellOpenPath(const std::string& path)
 		std::ignore = ShellExecuteA(NULL, "explore", path.c_str(), NULL, NULL, SW_NORMAL);
 	#else
 		// Explicitly ignore implementation defined return value
-		std::ignore = std::system((std::string{ShellOpenCommand} + " " + path).c_str());
+		std::ignore = std::system((std::string{ShellOpenCommand} + " " + "\"" + path + "\"").c_str());
 	#endif
 }
