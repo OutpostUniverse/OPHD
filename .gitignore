@@ -21,3 +21,4 @@ x64/
 # MacOS
 *.DS_Store
 /Build/
+/xcode/OutpostHD.xcodeproj/xcuserdata/
