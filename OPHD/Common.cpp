@@ -284,18 +284,16 @@ float getMeanSolarDistance()
 
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding)
 {
-	if (max == 0)
-	{
-		throw std::runtime_error("Progress bar must have non-zero max value: " + std::to_string(max));
-	}
-
 	const auto clippedValue = std::clamp(value, 0, max);
-	auto innerRect = rect.inset(padding);
-	innerRect.width = innerRect.width * clippedValue / max;
-
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawBox(rect, NAS2D::Color{0, 185, 0});
-	renderer.drawBoxFilled(innerRect, NAS2D::Color{0, 100, 0});
+
+	if (max > 0)
+	{
+		auto innerRect = rect.inset(padding);
+		innerRect.width = innerRect.width * clippedValue / max;
+		renderer.drawBoxFilled(innerRect, NAS2D::Color{0, 100, 0});
+	}
 }
 
 
