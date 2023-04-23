@@ -32,8 +32,6 @@ FileIo::FileIo() :
 
 	size({700, 350});
 
-	add(mLabelFilePath, {5, 25});
-	mLabelFilePath.size({600, 20});
 	add(mOpenSaveFolder, {600, 25});
 	mOpenSaveFolder.size({95, 15});
 
@@ -114,7 +112,6 @@ void FileIo::setMode(FileOperation fileOp)
 void FileIo::scanDirectory(const std::string& directory)
 {
 	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
-	mLabelFilePath.text("Save game path :  " + mScanPath);
 
 	const auto& filesystem = Utility<Filesystem>::get();
 	auto dirList = filesystem.directoryList(directory);

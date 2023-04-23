@@ -49,7 +49,6 @@ private:
 
 	FileOperation mMode;
 
-	Label mLabelFilePath;
 	Button mOpenSaveFolder;
 	std::string mScanPath;
 
