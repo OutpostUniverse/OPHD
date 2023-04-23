@@ -21,7 +21,7 @@ using namespace NAS2D;
 
 FileIo::FileIo() :
 	Window{"File I/O"},
-	mOpenSaveFolder{"Open Folder", {this, &FileIo::onOpenFolder}},
+	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
 	btnClose{"Cancel", {this, &FileIo::onClose}},
 	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
 	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
@@ -32,8 +32,8 @@ FileIo::FileIo() :
 
 	size({700, 350});
 
-	add(mOpenSaveFolder, {600, 25});
-	mOpenSaveFolder.size({95, 15});
+	add(mOpenSaveFolder, {590, 22});
+	mOpenSaveFolder.size({105, 20});
 
 	add(btnFileOp, {645, 325});
 	btnFileOp.size({50, 20});
