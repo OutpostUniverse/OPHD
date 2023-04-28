@@ -19,12 +19,7 @@
 using namespace NAS2D;
 
 
-FileIo::FileIo() :
-	Window{"File I/O"},
-	mOpenSaveFolder{"Open Folder", {this, &FileIo::onOpenFolder}},
-	btnClose{"Cancel", {this, &FileIo::onClose}},
-	btnFileOp{"FileOp", {this, &FileIo::onFileIo}},
-	btnFileDelete{"Delete", {this, &FileIo::onFileDelete}}
+FileIo::FileIo() : Window{"File I/O"}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
@@ -32,26 +27,24 @@ FileIo::FileIo() :
 
 	size({700, 350});
 
-	add(mLabelFilePath, {5, 25});
-	mLabelFilePath.size({600, 20});
-	add(mOpenSaveFolder, {600, 25});
-	mOpenSaveFolder.size({95, 15});
+	add(mOpenSaveFolder, {590, 22});
+	mOpenSaveFolder.size({105, 20});
 
-	add(btnFileOp, {645, 325});
-	btnFileOp.size({50, 20});
-	btnFileOp.enabled(false);
+	add(mFileOperation, {645, 325});
+	mFileOperation.size({50, 20});
+	mFileOperation.enabled(false);
 
-	add(btnFileDelete, {5, 325});
-	btnFileDelete.size({50, 20});
-	btnFileDelete.enabled(false);
+	add(mDeleteFile, {5, 325});
+	mDeleteFile.size({50, 20});
+	mDeleteFile.enabled(false);
 
-	add(btnClose, {590, 325});
-	btnClose.size({50, 20});
+	add(mClose, {590, 325});
+	mClose.size({50, 20});
 
-	add(txtFileName, {5, 302});
-	txtFileName.size({690, 18});
-	txtFileName.maxCharacters(50);
-	txtFileName.textChanged().connect({this, &FileIo::onFileNameChange});
+	add(mFileName, {5, 302});
+	mFileName.size({690, 18});
+	mFileName.maxCharacters(50);
+	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
 
 	add(mListBox, {5, 45});
 	mListBox.size({690, 253});
@@ -74,7 +67,7 @@ void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, NAS2D::Point<in
 
 	if (mListBox.rect().contains(position))
 	{
-		if (mListBox.currentHighlight() != constants::NoSelection && !txtFileName.empty())
+		if (mListBox.currentHighlight() != constants::NoSelection && !mFileName.empty())
 		{
 			onFileIo();
 		}
@@ -91,7 +84,7 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 
 	if (key == EventHandler::KeyCode::KEY_ENTER || key == EventHandler::KeyCode::KEY_KP_ENTER)
 	{
-		if (!txtFileName.empty())
+		if (!mFileName.empty())
 		{
 			onFileIo();
 		}
@@ -107,14 +100,13 @@ void FileIo::setMode(FileOperation fileOp)
 {
 	mMode = fileOp;
 	title(mMode == FileOperation::Load ? constants::WindowFileIoTitleLoad : constants::WindowFileIoTitleSave);
-	btnFileOp.text(mMode == FileOperation::Load ? constants::WindowFileIoLoad : constants::WindowFileIoSave);
+	mFileOperation.text(mMode == FileOperation::Load ? constants::WindowFileIoLoad : constants::WindowFileIoSave);
 }
 
 
 void FileIo::scanDirectory(const std::string& directory)
 {
 	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
-	mLabelFilePath.text("Save game path :  " + mScanPath);
 
 	const auto& filesystem = Utility<Filesystem>::get();
 	auto dirList = filesystem.directoryList(directory);
@@ -133,7 +125,7 @@ void FileIo::scanDirectory(const std::string& directory)
 
 void FileIo::onFileSelect()
 {
-	txtFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
+	mFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
 }
 
 
@@ -145,18 +137,18 @@ void FileIo::onFileNameChange(TextControl* control)
 
 	if (sFile.empty()) // no blank filename
 	{
-		btnFileOp.enabled(false);
-		btnFileDelete.enabled(false);
+		mFileOperation.enabled(false);
+		mDeleteFile.enabled(false);
 	}
 	else if (sFile.find_first_of(RestrictedFilenameChars) != std::string::npos)
 	{
-		btnFileOp.enabled(false);
-		btnFileDelete.enabled(false);
+		mFileOperation.enabled(false);
+		mDeleteFile.enabled(false);
 	}
 	else
 	{
-		btnFileOp.enabled(true);
-		btnFileDelete.enabled(true);
+		mFileOperation.enabled(true);
+		mDeleteFile.enabled(true);
 	}
 }
 
@@ -170,26 +162,26 @@ void FileIo::onOpenFolder() const
 void FileIo::onClose()
 {
 	visible(false);
-	txtFileName.text("");
-	txtFileName.resetCursorPosition();
+	mFileName.text("");
+	mFileName.resetCursorPosition();
 }
 
 
 void FileIo::onFileIo()
 {
-	mSignal(txtFileName.text(), mMode);
-	txtFileName.text("");
-	txtFileName.resetCursorPosition();
-	btnFileOp.enabled(false);
+	mSignal(mFileName.text(), mMode);
+	mFileName.text("");
+	mFileName.resetCursorPosition();
+	mFileOperation.enabled(false);
 }
 
 void FileIo::onFileDelete()
 {
-	std::string filename = constants::SaveGamePath + txtFileName.text() + ".xml";
+	std::string filename = constants::SaveGamePath + mFileName.text() + ".xml";
 
 	try
 	{
-		if(doYesNoMessage(constants::WindowFileIoTitleDelete, "Are you sure you want to delete " + txtFileName.text() + "?"))
+		if(doYesNoMessage(constants::WindowFileIoTitleDelete, "Are you sure you want to delete " + mFileName.text() + "?"))
 		{
 			Utility<Filesystem>::get().del(filename);
 		}
@@ -199,9 +191,9 @@ void FileIo::onFileDelete()
 		doNonFatalErrorMessage("Delete Failed", e.what());
 	}
 
-	txtFileName.text("");
-	txtFileName.resetCursorPosition();
-	btnFileDelete.enabled(false);
+	mFileName.text("");
+	mFileName.resetCursorPosition();
+	mDeleteFile.enabled(false);
 	scanDirectory(constants::SaveGamePath);
 }
 

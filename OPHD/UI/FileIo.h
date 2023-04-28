@@ -47,17 +47,16 @@ private:
 
 	FileOperationSignal mSignal;
 
-	FileOperation mMode;
+	FileOperation mMode{FileOperation::Load};
 
-	Label mLabelFilePath;
-	Button mOpenSaveFolder;
 	std::string mScanPath;
 
-	Button btnClose;
-	Button btnFileOp;
-	Button btnFileDelete;
+	Button mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}};
+	Button mClose{"Cancel", {this, &FileIo::onClose}};
+	Button mFileOperation{"FileOp", {this, &FileIo::onFileIo}};
+	Button mDeleteFile{"Delete", {this, &FileIo::onFileDelete}};
 
-	TextField txtFileName;
+	TextField mFileName;
 
 	ListBox<> mListBox;
 };
