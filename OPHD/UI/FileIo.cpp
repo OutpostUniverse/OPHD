@@ -19,12 +19,7 @@
 using namespace NAS2D;
 
 
-FileIo::FileIo() :
-	Window{"File I/O"},
-	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
-	mClose{"Cancel", {this, &FileIo::onClose}},
-	mFileOperation{"FileOp", {this, &FileIo::onFileIo}},
-	mDeleteFile{"Delete", {this, &FileIo::onFileDelete}}
+FileIo::FileIo() : Window{"File I/O"}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
