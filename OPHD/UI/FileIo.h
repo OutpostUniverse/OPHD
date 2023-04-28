@@ -52,11 +52,11 @@ private:
 	std::string mScanPath;
 
 	Button mOpenSaveFolder;
-	Button btnClose;
-	Button btnFileOp;
-	Button btnFileDelete;
+	Button mClose;
+	Button mFileOperation;
+	Button mDeleteFile;
 
-	TextField txtFileName;
+	TextField mFileName;
 
 	ListBox<> mListBox;
 };
