@@ -49,9 +49,9 @@ private:
 
 	FileOperation mMode;
 
-	Button mOpenSaveFolder;
 	std::string mScanPath;
 
+	Button mOpenSaveFolder;
 	Button btnClose;
 	Button btnFileOp;
 	Button btnFileDelete;
