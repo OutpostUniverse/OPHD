@@ -31,9 +31,9 @@ static const std::array trend
 };
 
 
-static int moraleIndex(int morale)
+static std::size_t moraleIndex(int morale)
 {
-	return std::clamp(morale, 0, 999) / 200;
+	return static_cast<std::size_t>(std::clamp(morale, 0, 999) / 200);
 }
 
 
@@ -69,7 +69,7 @@ PopulationPanel::PopulationPanel() :
 	const int windowHeight = mFontBold.height() + (mFont.height() * linesOfText) + (edgeBuffer * 2 /* Times two to account for both the edge and the divider line. */);
 
 	int largestStringLength = mFontBold.width(constants::MoraleBreakdown);
-	for (int i = 0; i < moraleStringTableCount(); ++i)
+	for (std::size_t i = 0; i < moraleStringTableCount(); ++i)
 	{
 		const int lengthCompare = mFont.width(moraleString(i));
 		if (lengthCompare > largestStringLength)
