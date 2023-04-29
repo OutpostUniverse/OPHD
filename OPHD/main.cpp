@@ -122,6 +122,7 @@ int main(int argc, char *argv[])
 
 		WindowEventWrapper windowEventWrapper;
 
+		std::cout << "Starting OpenGL Renderer:" << std::endl;
 		auto& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
 
 		dumpGraphicsInfo(renderer);
@@ -188,6 +189,7 @@ int main(int argc, char *argv[])
 
 	imageCache.clear();
 	Utility<Renderer>::clear();
+	std::cout << "OpenGL Renderer Terminated." << std::endl;
 	Utility<EventHandler>::clear();
 	Utility<Mixer>::clear();
 	Utility<Configuration>::clear();
