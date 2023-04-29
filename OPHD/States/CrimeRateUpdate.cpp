@@ -50,7 +50,7 @@ bool CrimeRateUpdate::isProtectedByPolice(const std::vector<std::vector<Tile*>>&
 {
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
 
-	for (const auto& tile : policeOverlays[structureTile.depth()])
+	for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
 	{
 		if (tile->xy() == structureTile.xy())
 		{
