@@ -191,6 +191,7 @@ int main(int argc, char *argv[])
 	Utility<Renderer>::clear();
 	std::cout << "OpenGL Renderer Terminated." << std::endl;
 	Utility<EventHandler>::clear();
+	std::cout << "EventHandler Terminated." << std::endl;
 	Utility<Mixer>::clear();
 	Utility<Configuration>::clear();
 	Utility<Filesystem>::clear();
