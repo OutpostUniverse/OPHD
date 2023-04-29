@@ -38,7 +38,7 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	const auto trendIndex = [](int newValue, int oldValue){
+	const auto trendIndex = [](int newValue, int oldValue) -> std::size_t {
 		return
 			(newValue == oldValue) ? 0 :
 			(newValue > oldValue) ? 1 : 2;
