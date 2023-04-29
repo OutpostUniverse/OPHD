@@ -30,6 +30,23 @@
 using namespace NAS2D;
 
 
+void dumpGraphicsInfo(RendererOpenGL& renderer)
+{
+	std::vector<std::string> info{
+		"- OpenGL System Info -",
+		"Vendor: " + renderer.getVendor(),
+		"Renderer: " + renderer.getRenderer(),
+		"Driver Version: " + renderer.getDriverVersion(),
+		"GLSL Version: " + renderer.getShaderVersion(),
+	};
+
+	for (const auto& str : info)
+	{
+		std::cout << "\t" << str << std::endl;
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
 	// Crude way of redirecting stream buffer when building in release (no console)
@@ -85,7 +102,9 @@ int main(int argc, char *argv[])
 				}
 			}
 		);
+		std::cout << "Initializing Configuration... ";
 		cf.load("config.xml");
+		std::cout << "done." << std::endl;
 
 		// Ensure minimum video resolution
 		auto& graphics = cf["graphics"];
@@ -105,8 +124,10 @@ int main(int argc, char *argv[])
 
 		WindowEventWrapper windowEventWrapper;
 
+		std::cout << "Starting OpenGL Renderer:" << std::endl;
 		auto& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
 
+		dumpGraphicsInfo(renderer);
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
 		renderer.minimumSize(constants::MinimumWindowSize);
@@ -170,7 +191,9 @@ int main(int argc, char *argv[])
 
 	imageCache.clear();
 	Utility<Renderer>::clear();
+	std::cout << "OpenGL Renderer Terminated." << std::endl;
 	Utility<EventHandler>::clear();
+	std::cout << "EventHandler Terminated." << std::endl;
 	Utility<Mixer>::clear();
 	Utility<Configuration>::clear();
 	Utility<Filesystem>::clear();
