@@ -19,7 +19,7 @@ using namespace NAS2D;
 static constexpr int IconSize = 32;
 
 
-static const auto trendIndex = [](int value)
+static const auto trendIndex = [](int value) -> std::size_t
 {
 	return (value >= 0) ? 0 : 1;
 };
