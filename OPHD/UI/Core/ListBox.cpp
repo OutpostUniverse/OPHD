@@ -7,7 +7,7 @@
 
 unsigned int ListBoxItemText::Context::itemHeight() const
 {
-	return font.height() + constants::MarginTight;
+	return static_cast<unsigned int>(font.height() + constants::MarginTight);
 }
 
 
