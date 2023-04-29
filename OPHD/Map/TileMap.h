@@ -31,7 +31,7 @@ class TileMap : public micropather::Graph
 public:
 	using MineYields = std::array<int, 3>; // {low, med, high}
 
-	TileMap(const std::string& mapPath, int maxDepth, int mineCount, const MineYields& mineYields);
+	TileMap(const std::string& mapPath, int maxDepth, std::size_t mineCount, const MineYields& mineYields);
 	TileMap(const std::string& mapPath, int maxDepth);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;

@@ -39,18 +39,18 @@ namespace {
 		// Some locations might not be acceptable, so try up to twice as many locations
 		// A high density of mines could result in many rejected locations
 		// Don't try indefinitely to avoid possibility of infinite loop
-		std::vector<bool> usedLocations(mapSize.x * mapSize.y);
+		std::vector<bool> usedLocations(static_cast<std::size_t>(mapSize.x * mapSize.y));
 		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
 		{
 			// Generate a location and check surroundings for minimum spacing
 			const auto point = randPoint();
-			if (!usedLocations[point.x + mapSize.x * point.y])
+			if (!usedLocations[static_cast<std::size_t>(point.x + mapSize.x * point.y)])
 			{
 				locations.push_back(point);
 				for (const auto& offset : DirectionScan3x3)
 				{
 					const auto usedPoint = point + offset;
-					usedLocations[usedPoint.x + mapSize.x * usedPoint.y] = true;
+					usedLocations[static_cast<std::size_t>(usedPoint.x + mapSize.x * usedPoint.y)] = true;
 				}
 			}
 		}
@@ -80,7 +80,7 @@ namespace {
 }
 
 
-TileMap::TileMap(const std::string& mapPath, int maxDepth, int mineCount, const MineYields& mineYields) :
+TileMap::TileMap(const std::string& mapPath, int maxDepth, std::size_t mineCount, const MineYields& mineYields) :
 	TileMap{mapPath, maxDepth}
 {
 	mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
@@ -121,9 +121,7 @@ const Tile& TileMap::getTile(const MapCoordinate& position) const
 	{
 		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
 	}
-	const auto mapPosition = position.xy.to<std::size_t>();
-	const auto level = static_cast<std::size_t>(position.z);
-	return mTileMap[((level * mSizeInTiles.y) + mapPosition.y) * mSizeInTiles.x + mapPosition.x];
+	return mTileMap[static_cast<std::size_t>(((position.z * mSizeInTiles.y) + position.xy.y) * mSizeInTiles.x + position.xy.x)];
 }
 
 
@@ -138,8 +136,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 {
 	const Image heightmap(path + MapTerrainExtension);
 
-	const auto levelCount = static_cast<std::size_t>(mMaxDepth) + 1;
-	mTileMap.resize(mSizeInTiles.x * mSizeInTiles.y * levelCount);
+	mTileMap.resize(static_cast<std::size_t>(mSizeInTiles.x * mSizeInTiles.y * (mMaxDepth + 1)));
 
 	/**
 	 * Builds a terrain map based on the pixel color values in

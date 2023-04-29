@@ -124,7 +124,7 @@ namespace
 			dictionary.get("ImagePath"),
 			stringToEnum(hostilityTable, dictionary.get("Hostility")),
 			dictionary.get<int>("MaxDepth"),
-			dictionary.get<int>("MaxMines"),
+			dictionary.get<std::size_t>("MaxMines"),
 			dictionary.get("MapImagePath"),
 			dictionary.get("TilesetPath"),
 			dictionary.get("Name"),

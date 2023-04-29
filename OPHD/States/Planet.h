@@ -33,7 +33,7 @@ public:
 		std::string imagePath;
 		Hostility hostility;
 		int maxDepth = 0;
-		int maxMines = 0;
+		std::size_t maxMines = 0;
 		std::string mapImagePath;
 		std::string tilesetPath;
 		std::string name;
