@@ -422,7 +422,7 @@ void MapViewState::clearOverlays()
 {
 	clearOverlay(mConnectednessOverlay);
 	clearOverlay(mCommRangeOverlay);
-	clearOverlay(mPoliceOverlays[mMapView->currentDepth()]);
+	clearOverlay(mPoliceOverlays[static_cast<std::size_t>(mMapView->currentDepth())]);
 	clearOverlay(mTruckRouteOverlay);
 }
 
@@ -435,8 +435,8 @@ void MapViewState::clearOverlay(std::vector<Tile*>& tileList)
 
 void MapViewState::changePoliceOverlayDepth(int oldDepth, int newDepth)
 {
-	clearOverlay(mPoliceOverlays[oldDepth]);
-	setOverlay(mPoliceOverlays[newDepth], Tile::Overlay::Police);
+	clearOverlay(mPoliceOverlays[static_cast<std::size_t>(oldDepth)]);
+	setOverlay(mPoliceOverlays[static_cast<std::size_t>(newDepth)], Tile::Overlay::Police);
 }
 
 
@@ -488,7 +488,7 @@ void MapViewState::onTogglePoliceOverlay()
 		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
 
-		setOverlay(mPoliceOverlays[mMapView->currentDepth()], Tile::Overlay::Police);
+		setOverlay(mPoliceOverlays[static_cast<std::size_t>(mMapView->currentDepth())], Tile::Overlay::Police);
 	}
 }
 

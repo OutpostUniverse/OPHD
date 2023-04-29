@@ -118,7 +118,7 @@ void NotificationArea::onMouseDown(EventHandler::MouseButton button, NAS2D::Poin
 			mNotificationClicked(mNotificationList.at(index));
 		}
 
-		mNotificationList.erase(mNotificationList.begin() + index);
+		mNotificationList.erase(mNotificationList.begin() + static_cast<std::ptrdiff_t>(index));
 		onMouseMove(position, {0, 0});
 	}
 }

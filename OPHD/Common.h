@@ -330,9 +330,9 @@ const std::string& idleReason(IdleReason);
 /**
  * Gets a morale string based on value;
  */
-const std::string& moraleString(int index);
+const std::string& moraleString(std::size_t index);
 const std::string& moraleString(Morale morale);
-int moraleStringTableCount();
+std::size_t moraleStringTableCount();
 
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding = 4);
 

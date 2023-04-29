@@ -273,7 +273,7 @@ namespace micropather
 
 		unsigned Hash(void* voidval);
 		unsigned HashSize() const { return 1 << hashShift; }
-		unsigned HashMask()	const { return ((1 << hashShift) - 1); }
+		unsigned HashMask()	const { return ((1u << hashShift) - 1); }
 		void AddPathNode(unsigned key, PathNode* p);
 		Block* NewBlock();
 		PathNode* Alloc();

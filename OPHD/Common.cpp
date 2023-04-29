@@ -126,7 +126,7 @@ const std::array MoraleStringTable =
 };
 
 
-const std::string& moraleString(int index)
+const std::string& moraleString(std::size_t index)
 {
 	return MoraleStringTable[index];
 }
@@ -134,13 +134,13 @@ const std::string& moraleString(int index)
 
 const std::string& moraleString(Morale morale)
 {
-	return MoraleStringTable[static_cast<int>(morale)];
+	return MoraleStringTable[static_cast<std::size_t>(morale)];
 }
 
 
-int moraleStringTableCount()
+std::size_t moraleStringTableCount()
 {
-	return static_cast<int>(MoraleStringTable.size());
+	return MoraleStringTable.size();
 }
 
 

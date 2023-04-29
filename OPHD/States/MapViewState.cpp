@@ -121,7 +121,7 @@ namespace
 		{
 			if (!structure->operational()) { continue; }
 			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillOverlayCircle(tileMap, overlays[centerTile.depth()], centerTile, structure->getRange());
+			fillOverlayCircle(tileMap, overlays[static_cast<std::size_t>(centerTile.depth())], centerTile, structure->getRange());
 		}
 	}
 
@@ -1401,7 +1401,7 @@ void MapViewState::updatePoliceOverlay()
 
 void MapViewState::resetPoliceOverlays()
 {
-	mPoliceOverlays = std::vector<std::vector<Tile*>>(mTileMap->maxDepth() + 1);
+	mPoliceOverlays = std::vector<std::vector<Tile*>>(static_cast<std::size_t>(mTileMap->maxDepth() + 1));
 }
 
 

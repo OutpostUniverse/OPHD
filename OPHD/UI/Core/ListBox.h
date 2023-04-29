@@ -168,7 +168,7 @@ public:
 		// display actuals values that are meant to be
 		const auto lineHeight = mContext.itemHeight();
 		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
-		const auto lastVisibleIndex = (mScrollOffsetInPixels + mClientRect.height + (lineHeight - 1)) / lineHeight;
+		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.height) + (lineHeight - 1)) / lineHeight;
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 		auto itemDrawRect = mClientRect;
 		itemDrawRect.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
@@ -180,7 +180,7 @@ public:
 
 			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawRect.y += lineHeight;
+			itemDrawRect.y += static_cast<int>(lineHeight);
 		}
 
 		// Paint remaining section of scroll area not covered by items
@@ -211,7 +211,7 @@ protected:
 			return;
 		}
 
-		mHighlightIndex = (static_cast<std::size_t>(position.y) - mClientRect.y + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+		mHighlightIndex = (static_cast<std::size_t>(position.y - mClientRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
 			mHighlightIndex = constants::NoSelection;
