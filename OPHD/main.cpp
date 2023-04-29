@@ -30,6 +30,23 @@
 using namespace NAS2D;
 
 
+void dumpGraphicsInfo(RendererOpenGL& renderer)
+{
+	std::vector<std::string> info{
+		"- OpenGL System Info -",
+		"Vendor: " + renderer.getVendor(),
+		"Renderer: " + renderer.getRenderer(),
+		"Driver Version: " + renderer.getDriverVersion(),
+		"GLSL Version: " + renderer.getShaderVersion(),
+	};
+
+	for (const auto& str : info)
+	{
+		std::cout << "\t" << str << std::endl;
+	}
+}
+
+
 int main(int argc, char *argv[])
 {
 	// Crude way of redirecting stream buffer when building in release (no console)
@@ -107,6 +124,7 @@ int main(int argc, char *argv[])
 
 		auto& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
 
+		dumpGraphicsInfo(renderer);
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
 		renderer.minimumSize(constants::MinimumWindowSize);
