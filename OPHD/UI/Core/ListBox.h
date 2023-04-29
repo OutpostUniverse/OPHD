@@ -180,7 +180,7 @@ public:
 
 			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawRect.y += lineHeight;
+			itemDrawRect.y += static_cast<int>(lineHeight);
 		}
 
 		// Paint remaining section of scroll area not covered by items
