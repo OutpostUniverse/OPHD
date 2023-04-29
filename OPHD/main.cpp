@@ -102,7 +102,9 @@ int main(int argc, char *argv[])
 				}
 			}
 		);
+		std::cout << "Initializing Configuration... ";
 		cf.load("config.xml");
+		std::cout << "done." << std::endl;
 
 		// Ensure minimum video resolution
 		auto& graphics = cf["graphics"];
