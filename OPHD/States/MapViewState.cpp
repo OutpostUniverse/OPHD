@@ -575,7 +575,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, N
 			{
 				mMainReportsState.selectWarehousePanel(structure);
 			}
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter)
+			else if (structure->isMineFacility() || structure->isSmelter())
 			{
 				mMainReportsState.selectMinePanel(structure);
 			}
