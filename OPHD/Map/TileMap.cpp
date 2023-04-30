@@ -281,13 +281,14 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 
 float TileMap::tileMovementCost(Tile& tile) const
 {
-	float cost = constants::RouteBaseCost;
-
 	if (tile.index() == TerrainType::Impassable)
 	{
-		cost = FLT_MAX;
+		return FLT_MAX;
 	}
-	else if (!tile.empty())
+
+	float cost = constants::RouteBaseCost;
+
+	if (!tile.empty())
 	{
 		if (tile.thingIsStructure() && (tile.structure()->isMineFacility() || tile.structure()->isSmelter()))
 		{
