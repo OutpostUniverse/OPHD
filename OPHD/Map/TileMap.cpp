@@ -271,6 +271,16 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		}
 
 		auto& adjacentTile = getTile({position, 0});
+		float cost = tileMovementCost(adjacentTile);
+
+		micropather::StateCost nodeCost = {&adjacentTile, cost};
+		adjacent->push_back(nodeCost);
+	}
+}
+
+
+float TileMap::tileMovementCost(Tile& adjacentTile) const
+{
 		float cost = constants::RouteBaseCost;
 
 		if (adjacentTile.index() == TerrainType::Impassable)
@@ -310,9 +320,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 		}
 
-		micropather::StateCost nodeCost = {&adjacentTile, cost};
-		adjacent->push_back(nodeCost);
-	}
+		return cost;
 }
 
 
