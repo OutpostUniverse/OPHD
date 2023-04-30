@@ -105,6 +105,10 @@ install-dependencies:
 	$(MAKE) -C nas2d-core install-dependencies
 
 
+.PHONY: show-warnings
+show-warnings:
+	$(MAKE) -j1 clean all CXX=clang++ CXXFLAGS_WARN=-Weverything 2>&1 >/dev/null | grep -o "\[-W.*\]" | sort | uniq
+
 .PHONY: lint
 lint: cppcheck cppclean cppinclude
 
