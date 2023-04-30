@@ -279,23 +279,23 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 }
 
 
-float TileMap::tileMovementCost(Tile& adjacentTile) const
+float TileMap::tileMovementCost(Tile& tile) const
 {
 	float cost = constants::RouteBaseCost;
 
-	if (adjacentTile.index() == TerrainType::Impassable)
+	if (tile.index() == TerrainType::Impassable)
 	{
 		cost = FLT_MAX;
 	}
-	else if (!adjacentTile.empty())
+	else if (!tile.empty())
 	{
-		if (adjacentTile.thingIsStructure() && (adjacentTile.structure()->isMineFacility() || adjacentTile.structure()->isSmelter()))
+		if (tile.thingIsStructure() && (tile.structure()->isMineFacility() || tile.structure()->isSmelter()))
 		{
-			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
+			cost *= static_cast<float>(tile.index()) + 1.0f;
 		}
-		else if (adjacentTile.thingIsStructure() && adjacentTile.structure()->isRoad())
+		else if (tile.thingIsStructure() && tile.structure()->isRoad())
 		{
-			Structure& road = *adjacentTile.structure();
+			Structure& road = *tile.structure();
 
 			if (road.state() != StructureState::Operational)
 			{
@@ -317,7 +317,7 @@ float TileMap::tileMovementCost(Tile& adjacentTile) const
 	}
 	else
 	{
-		cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
+		cost *= static_cast<float>(tile.index()) + 1.0f;
 	}
 
 	return cost;
