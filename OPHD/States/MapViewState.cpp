@@ -974,7 +974,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			return;
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
+		if (structure->isLander() && structure->age() == 0)
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeLandingSite);
 			return;
