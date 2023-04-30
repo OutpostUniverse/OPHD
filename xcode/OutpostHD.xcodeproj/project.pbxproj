@@ -15,6 +15,7 @@
 		572509E229D66BB100A59072 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 572509E129D66BB100A59072 /* AppDelegate.m */; };
 		572509E429D66BB200A59072 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 572509E329D66BB200A59072 /* Assets.xcassets */; };
 		572509E729D66BB200A59072 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 572509E529D66BB200A59072 /* MainMenu.xib */; };
+		575D2F3329FEF6BA00A9769B /* ResearchReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575D2F3129FEF6BA00A9769B /* ResearchReport.cpp */; };
 		5780336529D679A9005DE933 /* FpsCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5780334A29D679A9005DE933 /* FpsCounter.cpp */; };
 		5780336629D679A9005DE933 /* Filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5780334F29D679A9005DE933 /* Filesystem.cpp */; };
 		5780336729D679A9005DE933 /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5780335029D679A9005DE933 /* Configuration.cpp */; };
@@ -240,6 +241,8 @@
 		572509E629D66BB200A59072 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		572509EA29D66BB200A59072 /* OutpostHD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OutpostHD.entitlements; sourceTree = "<group>"; };
 		572509F129D66C3B00A59072 /* Developer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Developer; path = ../../../../../System/Developer; sourceTree = "<group>"; };
+		575D2F3129FEF6BA00A9769B /* ResearchReport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResearchReport.cpp; path = ../../OPHD/UI/Reports/ResearchReport.cpp; sourceTree = "<group>"; };
+		575D2F3229FEF6BA00A9769B /* ResearchReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResearchReport.h; path = ../../OPHD/UI/Reports/ResearchReport.h; sourceTree = "<group>"; };
 		5780334929D679A9005DE933 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = "../../nas2d-core/NAS2D/Dictionary.h"; sourceTree = "<group>"; };
 		5780334A29D679A9005DE933 /* FpsCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FpsCounter.cpp; path = "../../nas2d-core/NAS2D/FpsCounter.cpp"; sourceTree = "<group>"; };
 		5780334B29D679A9005DE933 /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = "../../nas2d-core/NAS2D/Version.h"; sourceTree = "<group>"; };
@@ -1040,6 +1043,8 @@
 		57BE5C4B29D66F0D0021C4AB /* Reports */ = {
 			isa = PBXGroup;
 			children = (
+				575D2F3129FEF6BA00A9769B /* ResearchReport.cpp */,
+				575D2F3229FEF6BA00A9769B /* ResearchReport.h */,
 				57BE5C4E29D66F1F0021C4AB /* FactoryReport.cpp */,
 				57BE5C5029D66F1F0021C4AB /* FactoryReport.h */,
 				57BE5C5229D66F1F0021C4AB /* MineReport.cpp */,
@@ -1173,6 +1178,7 @@
 				57BE5C8329D66F2A0021C4AB /* CheckBox.cpp in Sources */,
 				57BE5B8029D66E8B0021C4AB /* PopulationTable.cpp in Sources */,
 				578034A429D6978C005DE933 /* MiniMap.cpp in Sources */,
+				575D2F3329FEF6BA00A9769B /* ResearchReport.cpp in Sources */,
 				5780338C29D679F6005DE933 /* Mixer.cpp in Sources */,
 				578033A229D67A03005DE933 /* RendererOpenGL.cpp in Sources */,
 				5780345229D6975B005DE933 /* PopulationPool.cpp in Sources */,
