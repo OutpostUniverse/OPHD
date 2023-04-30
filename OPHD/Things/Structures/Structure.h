@@ -143,6 +143,7 @@ public:
 	bool isMineFacility() const { return mStructureClass == StructureClass::Mine; }
 	bool isSmelter() const { return mStructureClass == StructureClass::Smelter; }
 	bool isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
+	bool isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
 	bool isConnector() const { return mStructureClass == StructureClass::Tube; }
 	bool isRoad() const { return mStructureClass == StructureClass::Road; }
 
