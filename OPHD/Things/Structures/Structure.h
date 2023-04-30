@@ -144,6 +144,7 @@ public:
 	bool isSmelter() const { return mStructureClass == StructureClass::Smelter; }
 	bool isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
 	bool isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
+	bool isLander() const { return mStructureClass == StructureClass::Lander; }
 	bool isConnector() const { return mStructureClass == StructureClass::Tube; }
 	bool isRoad() const { return mStructureClass == StructureClass::Road; }
 
