@@ -575,7 +575,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, N
 			{
 				mMainReportsState.selectWarehousePanel(structure);
 			}
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter)
+			else if (structure->isMineFacility() || structure->isSmelter())
 			{
 				mMainReportsState.selectMinePanel(structure);
 			}
@@ -974,7 +974,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			return;
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
+		if (structure->isLander() && structure->age() == 0)
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeLandingSite);
 			return;
@@ -1012,8 +1012,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		{
 			updateCommRangeOverlay();
 		}
-		if (structure->structureClass() == Structure::StructureClass::SurfacePolice ||
-			structure->structureClass() == Structure::StructureClass::UndergroundPolice)
+		if (structure->isPolice())
 		{
 			updatePoliceOverlay();
 		}

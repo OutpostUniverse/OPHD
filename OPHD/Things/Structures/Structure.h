@@ -141,7 +141,11 @@ public:
 	bool isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
 	bool isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
 	bool isMineFacility() const { return mStructureClass == StructureClass::Mine; }
-	bool energyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
+	bool isSmelter() const { return mStructureClass == StructureClass::Smelter; }
+	bool isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
+	bool isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
+	bool isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
+	bool isLander() const { return mStructureClass == StructureClass::Lander; }
 	bool isConnector() const { return mStructureClass == StructureClass::Tube; }
 	bool isRoad() const { return mStructureClass == StructureClass::Road; }
 

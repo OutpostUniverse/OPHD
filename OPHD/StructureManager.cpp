@@ -76,8 +76,7 @@ namespace
 			);
 		}
 
-		if (structure.structureClass() == Structure::StructureClass::FoodProduction ||
-			structure.structureId() == StructureID::SID_COMMAND_CENTER)
+		if (structure.isFoodStore())
 		{
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
