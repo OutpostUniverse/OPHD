@@ -286,6 +286,24 @@ float TileMap::tileMovementCost(Tile& tile) const
 		return FLT_MAX;
 	}
 
+	if (!tile.empty() && tile.thingIsStructure() && tile.structure()->isRoad())
+	{
+		Structure& road = *tile.structure();
+
+		if (road.state() != StructureState::Operational)
+		{
+			return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
+		}
+		else if (road.integrity() < constants::RoadIntegrityChange)
+		{
+			return 0.75f;
+		}
+		else
+		{
+			return 0.5f;
+		}
+	}
+
 	float cost;
 
 	if (!tile.empty())
@@ -293,23 +311,6 @@ float TileMap::tileMovementCost(Tile& tile) const
 		if (tile.thingIsStructure() && (tile.structure()->isMineFacility() || tile.structure()->isSmelter()))
 		{
 			cost = constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
-		}
-		else if (tile.thingIsStructure() && tile.structure()->isRoad())
-		{
-			Structure& road = *tile.structure();
-
-			if (road.state() != StructureState::Operational)
-			{
-				cost = constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
-			}
-			else if (road.integrity() < constants::RoadIntegrityChange)
-			{
-				cost = 0.75f;
-			}
-			else
-			{
-				cost = 0.5f;
-			}
 		}
 		else
 		{
