@@ -279,7 +279,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		}
 		else if (!adjacentTile.empty())
 		{
-			if (&adjacentTile == mPathStartEndPair.first || &adjacentTile == mPathStartEndPair.second)
+			if (adjacentTile.thingIsStructure() && (adjacentTile.structure()->isMineFacility() || adjacentTile.structure()->isSmelter()))
 			{
 				cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 			}
