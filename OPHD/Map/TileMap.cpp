@@ -281,46 +281,46 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 
 float TileMap::tileMovementCost(Tile& adjacentTile) const
 {
-		float cost = constants::RouteBaseCost;
+	float cost = constants::RouteBaseCost;
 
-		if (adjacentTile.index() == TerrainType::Impassable)
+	if (adjacentTile.index() == TerrainType::Impassable)
+	{
+		cost = FLT_MAX;
+	}
+	else if (!adjacentTile.empty())
+	{
+		if (adjacentTile.thingIsStructure() && (adjacentTile.structure()->isMineFacility() || adjacentTile.structure()->isSmelter()))
 		{
-			cost = FLT_MAX;
+			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
 		}
-		else if (!adjacentTile.empty())
+		else if (adjacentTile.thingIsStructure() && adjacentTile.structure()->isRoad())
 		{
-			if (adjacentTile.thingIsStructure() && (adjacentTile.structure()->isMineFacility() || adjacentTile.structure()->isSmelter()))
-			{
-				cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
-			}
-			else if (adjacentTile.thingIsStructure() && adjacentTile.structure()->isRoad())
-			{
-				Structure& road = *adjacentTile.structure();
+			Structure& road = *adjacentTile.structure();
 
-				if (road.state() != StructureState::Operational)
-				{
-					cost *= static_cast<float>(TerrainType::Difficult) + 1.0f;
-				}
-				else if (road.integrity() < constants::RoadIntegrityChange)
-				{
-					cost = 0.75f;
-				}
-				else
-				{
-					cost = 0.5f;
-				}		
+			if (road.state() != StructureState::Operational)
+			{
+				cost *= static_cast<float>(TerrainType::Difficult) + 1.0f;
+			}
+			else if (road.integrity() < constants::RoadIntegrityChange)
+			{
+				cost = 0.75f;
 			}
 			else
 			{
-				cost = FLT_MAX;
+				cost = 0.5f;
 			}
 		}
 		else
 		{
-			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
+			cost = FLT_MAX;
 		}
+	}
+	else
+	{
+		cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
+	}
 
-		return cost;
+	return cost;
 }
 
 
