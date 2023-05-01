@@ -115,16 +115,14 @@ Robot* Tile::robot() const
 
 float Tile::movementCost() const
 {
-	const Tile& tile = *this;
-
-	if (tile.index() == TerrainType::Impassable)
+	if (index() == TerrainType::Impassable)
 	{
 		return FLT_MAX;
 	}
 
-	if (!tile.empty() && tile.thingIsStructure() && tile.structure()->isRoad())
+	if (!empty() && thingIsStructure() && structure()->isRoad())
 	{
-		Structure& road = *tile.structure();
+		Structure& road = *structure();
 
 		if (road.state() != StructureState::Operational)
 		{
@@ -140,10 +138,10 @@ float Tile::movementCost() const
 		}
 	}
 
-	if (!tile.empty() && (!tile.thingIsStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))
+	if (!empty() && (!thingIsStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
 	{
 		return FLT_MAX;
 	}
 
-	return constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
+	return constants::RouteBaseCost * static_cast<float>(index()) + 1.0f;
 }
