@@ -51,7 +51,7 @@ namespace
 	}
 
 
-	RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
+	RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		auto& start = structureManager.tileFromStructure(mine);
@@ -63,8 +63,6 @@ namespace
 			if (!smelter->operational()) { continue; }
 
 			auto& end = structureManager.tileFromStructure(smelter);
-
-			tilemap->pathStartAndEnd(&start, &end);
 
 			Route route;
 			solver->Reset();
@@ -291,7 +289,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver, mTileMap, mine, smelterList);
+			auto routeList = findRoutes(mPathSolver, mine, smelterList);
 			auto newRoute = findLowestCostRoute(routeList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine

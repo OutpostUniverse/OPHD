@@ -56,8 +56,6 @@ public:
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
 	void PrintStateInfo(void* /*state*/) override {}
 
-	void pathStartAndEnd(void* start, void* end);
-
 private:
 	void buildTerrainMap(const std::string& path);
 
@@ -68,6 +66,4 @@ private:
 	std::vector<NAS2D::Point<int>> mMineLocations;
 
 	std::string mMapPath;
-
-	std::pair<void*, void*> mPathStartEndPair = {nullptr, nullptr};
 };

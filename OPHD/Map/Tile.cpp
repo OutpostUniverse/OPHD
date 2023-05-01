@@ -4,6 +4,10 @@
 #include "../Things/Robots/Robot.h"
 #include "../Things/Structures/Structure.h"
 
+#include "../Constants/Numbers.h"
+
+#include <cfloat>
+
 
 Tile::Tile(const MapCoordinate& position, TerrainType index) :
 	mIndex{index},
@@ -106,4 +110,38 @@ Structure* Tile::structure() const
 Robot* Tile::robot() const
 {
 	return dynamic_cast<Robot*>(thing());
+}
+
+
+float Tile::movementCost() const
+{
+	if (index() == TerrainType::Impassable)
+	{
+		return FLT_MAX;
+	}
+
+	if (!empty() && thingIsStructure() && structure()->isRoad())
+	{
+		Structure& road = *structure();
+
+		if (road.state() != StructureState::Operational)
+		{
+			return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
+		}
+		else if (road.integrity() < constants::RoadIntegrityChange)
+		{
+			return 0.75f;
+		}
+		else
+		{
+			return 0.5f;
+		}
+	}
+
+	if (!empty() && (!thingIsStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
+	{
+		return FLT_MAX;
+	}
+
+	return constants::RouteBaseCost * static_cast<float>(index()) + 1.0f;
 }
