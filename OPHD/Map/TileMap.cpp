@@ -304,18 +304,16 @@ float TileMap::tileMovementCost(Tile& tile) const
 		}
 	}
 
+	if (!tile.empty() && !(tile.thingIsStructure() && (tile.structure()->isMineFacility() || tile.structure()->isSmelter())))
+	{
+		return FLT_MAX;
+	}
+
 	float cost;
 
 	if (!tile.empty())
 	{
-		if (tile.thingIsStructure() && (tile.structure()->isMineFacility() || tile.structure()->isSmelter()))
-		{
-			cost = constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
-		}
-		else
-		{
-			cost = FLT_MAX;
-		}
+		cost = constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
 	}
 	else
 	{
