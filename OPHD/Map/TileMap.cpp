@@ -309,18 +309,7 @@ float TileMap::tileMovementCost(Tile& tile) const
 		return FLT_MAX;
 	}
 
-	float cost;
-
-	if (!tile.empty())
-	{
-		cost = constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
-	}
-	else
-	{
-		cost = constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
-	}
-
-	return cost;
+	return constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
 }
 
 
