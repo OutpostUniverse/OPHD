@@ -304,7 +304,7 @@ float TileMap::tileMovementCost(Tile& tile) const
 		}
 	}
 
-	if (!tile.empty() && !(tile.thingIsStructure() && (tile.structure()->isMineFacility() || tile.structure()->isSmelter())))
+	if (!tile.empty() && (!tile.thingIsStructure() || !(tile.structure()->isMineFacility() || tile.structure()->isSmelter())))
 	{
 		return FLT_MAX;
 	}
