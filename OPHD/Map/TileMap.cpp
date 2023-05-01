@@ -277,9 +277,3 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		adjacent->push_back(nodeCost);
 	}
 }
-
-
-void TileMap::pathStartAndEnd(void* start, void* end)
-{
-	mPathStartEndPair = std::make_pair(start, end);
-}
