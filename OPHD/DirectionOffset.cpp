@@ -19,7 +19,7 @@ namespace
         { Direction::Up, DirectionCenter },
         { Direction::Down, DirectionCenter }
     };
-};
+}
 
 
 NAS2D::Vector<int> directionEnumToOffset(Direction direction)
