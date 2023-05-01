@@ -279,7 +279,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 }
 
 
-float TileMap::tileMovementCost(Tile& tile) const
+float TileMap::tileMovementCost(const Tile& tile) const
 {
 	if (tile.index() == TerrainType::Impassable)
 	{

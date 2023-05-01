@@ -54,7 +54,7 @@ public:
 	/** MicroPather public interface implementation. */
 	float LeastCostEstimate(void* stateStart, void* stateEnd) override;
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
-	float tileMovementCost(Tile& tile) const;
+	float tileMovementCost(const Tile& tile) const;
 	void PrintStateInfo(void* /*state*/) override {}
 
 	void pathStartAndEnd(void* start, void* end);
