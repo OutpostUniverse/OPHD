@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Map/MapCoordinate.h"
+#include "../Map/MapOffset.h"
 
 #include <NAS2D/Math/Rectangle.h>
 
@@ -28,6 +29,7 @@ public:
 	void mapViewLocation(const MapCoordinate& position);
 	void centerOn(NAS2D::Point<int> point);
 	void centerOn(const MapCoordinate& position);
+	void moveView(MapOffset direction);
 	void moveView(Direction direction);
 
 	int currentDepth() const { return mOriginTilePosition.z; }
