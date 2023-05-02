@@ -95,12 +95,19 @@ void GraphWalker::walkGraph()
 	mThisTile.connected(true);
 	mTileList.push_back(&mThisTile);
 
-	check(mPosition, Direction::Up);
-	check(mPosition, Direction::Down);
-	check(mPosition, Direction::North);
-	check(mPosition, Direction::East);
-	check(mPosition, Direction::South);
-	check(mPosition, Direction::West);
+	const auto directions = std::array{
+		Direction::Up,
+		Direction::Down,
+		Direction::North,
+		Direction::East,
+		Direction::South,
+		Direction::West,
+	};
+
+	for (const auto direction : directions)
+	{
+		check(mPosition, direction);
+	}
 }
 
 
