@@ -106,15 +106,15 @@ void GraphWalker::walkGraph()
 
 	for (const auto direction : directions)
 	{
-		const auto position = mPosition.translate(direction);
-		if (!mTileMap.isValidPosition(position)) { continue; }
+		const auto nextPosition = mPosition.translate(direction);
+		if (!mTileMap.isValidPosition(nextPosition)) { continue; }
 
-		auto& tile = mTileMap.getTile(position);
+		auto& tile = mTileMap.getTile(nextPosition);
 		if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { continue; }
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
-			GraphWalker walker(position, mTileMap, mTileList);
+			GraphWalker walker(nextPosition, mTileMap, mTileList);
 		}
 	}
 }
