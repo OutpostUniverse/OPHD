@@ -25,7 +25,7 @@ private:
 	GraphWalker& operator=(const GraphWalker&) = delete;
 
 private:
-	void walkGraph();
+	void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList);
 
 private:
 	TileMap& mTileMap;

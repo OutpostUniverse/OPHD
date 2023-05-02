@@ -85,15 +85,15 @@ GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, std::v
 	mTileList{tileList},
 	mPosition{position}
 {
-	walkGraph();
+	walkGraph(position, tileMap, tileList);
 }
 
 
-void GraphWalker::walkGraph()
+void GraphWalker::walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
 {
-	Tile& thisTile = mTileMap.getTile(mPosition);
+	Tile& thisTile = tileMap.getTile(position);
 	thisTile.connected(true);
-	mTileList.push_back(&thisTile);
+	tileList.push_back(&thisTile);
 
 	const auto directions = std::array{
 		Direction::Up,
@@ -106,15 +106,15 @@ void GraphWalker::walkGraph()
 
 	for (const auto direction : directions)
 	{
-		const auto nextPosition = mPosition.translate(direction);
-		if (!mTileMap.isValidPosition(nextPosition)) { continue; }
+		const auto nextPosition = position.translate(direction);
+		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
-		auto& tile = mTileMap.getTile(nextPosition);
+		auto& tile = tileMap.getTile(nextPosition);
 		if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { continue; }
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
-			GraphWalker walker(nextPosition, mTileMap, mTileList);
+			GraphWalker walker(nextPosition, tileMap, tileList);
 		}
 	}
 }
