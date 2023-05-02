@@ -26,10 +26,4 @@ private:
 
 private:
 	void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList);
-
-private:
-	TileMap& mTileMap;
-	std::vector<Tile*>& mTileList;
-
-	MapCoordinate mPosition{};
 };
