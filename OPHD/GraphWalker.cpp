@@ -1,6 +1,7 @@
 #include "GraphWalker.h"
 #include "DirectionOffset.h"
 
+#include "Map/MapCoordinate.h"
 #include "Map/TileMap.h"
 #include "Things/Structures/Structure.h"
 
@@ -80,50 +81,40 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
-GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList) :
-	mTileMap{tileMap},
-	mThisTile{tileMap.getTile(position)},
-	mTileList{tileList},
-	mPosition{position}
+std::vector<Tile*> walkGraph(const MapCoordinate& position, TileMap& tileMap)
 {
-	walkGraph();
+	std::vector<Tile*> tileList;
+	walkGraph(position, tileMap, tileList);
+	return tileList;
 }
 
 
-void GraphWalker::walkGraph()
+void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
 {
-	mThisTile.connected(true);
-	mTileList.push_back(&mThisTile);
+	Tile& thisTile = tileMap.getTile(position);
+	thisTile.connected(true);
+	tileList.push_back(&thisTile);
 
-	check(mPosition, Direction::Up);
-	check(mPosition, Direction::Down);
-	check(mPosition, Direction::North);
-	check(mPosition, Direction::East);
-	check(mPosition, Direction::South);
-	check(mPosition, Direction::West);
-}
+	const auto directions = std::array{
+		Direction::Up,
+		Direction::Down,
+		Direction::North,
+		Direction::East,
+		Direction::South,
+		Direction::West,
+	};
 
-
-/**
- * Checks a given map location for a valid connection.
- *
- * \todo	With Tile being updated to include position information, this function can be modified
- *			to take a source and destination tile instead of looking them up. By using the internal
- *			positional information in the Tiles we can deduce direction between source and destination.
- */
-void GraphWalker::check(const MapCoordinate& fromPosition, Direction direction)
-{
-	const auto position = fromPosition.translate(direction);
-
-	if (position.z < 0 || position.z > mTileMap.maxDepth()) { return; }
-	if (!NAS2D::Rectangle<int>::Create({0, 0}, mTileMap.size()).contains(position.xy)) { return; }
-
-	auto& tile = mTileMap.getTile(position);
-
-	if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { return; }
-
-	if (validConnection(mThisTile.structure(), tile.structure(), direction))
+	for (const auto direction : directions)
 	{
-		GraphWalker walker(position, mTileMap, mTileList);
+		const auto nextPosition = position.translate(direction);
+		if (!tileMap.isValidPosition(nextPosition)) { continue; }
+
+		auto& tile = tileMap.getTile(nextPosition);
+		if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { continue; }
+
+		if (validConnection(thisTile.structure(), tile.structure(), direction))
+		{
+			walkGraph(nextPosition, tileMap, tileList);
+		}
 	}
 }
