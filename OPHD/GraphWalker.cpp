@@ -80,6 +80,14 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
+std::vector<Tile*> walkGraph(const MapCoordinate& position, TileMap& tileMap)
+{
+	std::vector<Tile*> tileList;
+	walkGraph(position, tileMap, tileList);
+	return tileList;
+}
+
+
 void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
 {
 	Tile& thisTile = tileMap.getTile(position);
