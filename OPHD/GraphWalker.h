@@ -29,7 +29,6 @@ private:
 
 private:
 	TileMap& mTileMap;
-	Tile& mThisTile;
 	std::vector<Tile*>& mTileList;
 
 	MapCoordinate mPosition{};

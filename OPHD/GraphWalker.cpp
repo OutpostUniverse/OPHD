@@ -82,7 +82,6 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 
 GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList) :
 	mTileMap{tileMap},
-	mThisTile{tileMap.getTile(position)},
 	mTileList{tileList},
 	mPosition{position}
 {
@@ -92,8 +91,9 @@ GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, std::v
 
 void GraphWalker::walkGraph()
 {
-	mThisTile.connected(true);
-	mTileList.push_back(&mThisTile);
+	Tile& thisTile = mTileMap.getTile(mPosition);
+	thisTile.connected(true);
+	mTileList.push_back(&thisTile);
 
 	const auto directions = std::array{
 		Direction::Up,
@@ -112,7 +112,7 @@ void GraphWalker::walkGraph()
 		auto& tile = mTileMap.getTile(position);
 		if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { continue; }
 
-		if (validConnection(mThisTile.structure(), tile.structure(), direction))
+		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
 			GraphWalker walker(position, mTileMap, mTileList);
 		}
