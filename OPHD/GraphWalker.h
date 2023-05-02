@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Common.h"
 #include "Map/MapCoordinate.h"
-
-#include <NAS2D/Math/Point.h>
 
 #include <vector>
 
