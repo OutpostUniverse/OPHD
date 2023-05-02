@@ -26,7 +26,6 @@ private:
 
 private:
 	void walkGraph();
-	void check(const MapCoordinate& fromPosition, Direction direction);
 
 private:
 	TileMap& mTileMap;

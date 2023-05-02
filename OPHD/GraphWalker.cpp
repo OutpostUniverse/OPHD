@@ -106,28 +106,15 @@ void GraphWalker::walkGraph()
 
 	for (const auto direction : directions)
 	{
-		check(mPosition, direction);
-	}
-}
+		const auto position = mPosition.translate(direction);
+		if (!mTileMap.isValidPosition(position)) { continue; }
 
+		auto& tile = mTileMap.getTile(position);
+		if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { continue; }
 
-/**
- * Checks a given map location for a valid connection.
- *
- * \todo	With Tile being updated to include position information, this function can be modified
- *			to take a source and destination tile instead of looking them up. By using the internal
- *			positional information in the Tiles we can deduce direction between source and destination.
- */
-void GraphWalker::check(const MapCoordinate& fromPosition, Direction direction)
-{
-	const auto position = fromPosition.translate(direction);
-	if (!mTileMap.isValidPosition(position)) { return; }
-
-	auto& tile = mTileMap.getTile(position);
-	if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { return; }
-
-	if (validConnection(mThisTile.structure(), tile.structure(), direction))
-	{
-		GraphWalker walker(position, mTileMap, mTileList);
+		if (validConnection(mThisTile.structure(), tile.structure(), direction))
+		{
+			GraphWalker walker(position, mTileMap, mTileList);
+		}
 	}
 }
