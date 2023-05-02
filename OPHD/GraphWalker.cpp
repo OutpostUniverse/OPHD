@@ -114,11 +114,9 @@ void GraphWalker::walkGraph()
 void GraphWalker::check(const MapCoordinate& fromPosition, Direction direction)
 {
 	const auto position = fromPosition.translate(direction);
-
 	if (!mTileMap.isValidPosition(position)) { return; }
 
 	auto& tile = mTileMap.getTile(position);
-
 	if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { return; }
 
 	if (validConnection(mThisTile.structure(), tile.structure(), direction))
