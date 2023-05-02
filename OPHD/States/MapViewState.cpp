@@ -405,22 +405,22 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 	{
 		case NAS2D::EventHandler::KeyCode::KEY_w:
 		case NAS2D::EventHandler::KeyCode::KEY_UP:
-			mMapView->moveView(Direction::NorthWest);
+			mMapView->moveView(MapOffsetNorthWest);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_s:
 		case NAS2D::EventHandler::KeyCode::KEY_DOWN:
-			mMapView->moveView(Direction::SouthEast);
+			mMapView->moveView(MapOffsetSouthEast);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_a:
 		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
-			mMapView->moveView(Direction::SouthWest);
+			mMapView->moveView(MapOffsetSouthWest);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_d:
 		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
-			mMapView->moveView(Direction::NorthEast);
+			mMapView->moveView(MapOffsetNorthEast);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_0:
