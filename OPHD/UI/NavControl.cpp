@@ -1,6 +1,7 @@
 #include "NavControl.h"
 
 #include "../Cache.h"
+#include "../DirectionOffset.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Map/TileMap.h"
@@ -59,12 +60,12 @@ void NavControl::onClick(NAS2D::Point<int> mousePosition)
 {
 	const std::array directionOptions
 	{
-		std::tuple{mMoveNorthIconRect, Direction::North},
-		std::tuple{mMoveSouthIconRect, Direction::South},
-		std::tuple{mMoveEastIconRect, Direction::East},
-		std::tuple{mMoveWestIconRect, Direction::West},
-		std::tuple{mMoveUpIconRect, Direction::Up},
-		std::tuple{mMoveDownIconRect, Direction::Down},
+		std::tuple{mMoveNorthIconRect, MapOffsetNorth},
+		std::tuple{mMoveSouthIconRect, MapOffsetSouth},
+		std::tuple{mMoveEastIconRect, MapOffsetEast},
+		std::tuple{mMoveWestIconRect, MapOffsetWest},
+		std::tuple{mMoveUpIconRect, MapOffsetUp},
+		std::tuple{mMoveDownIconRect, MapOffsetDown},
 	};
 
 	for (const auto& [iconRect, direction] : directionOptions)
