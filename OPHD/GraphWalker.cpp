@@ -111,7 +111,7 @@ void GraphWalker::walkGraph(const MapCoordinate& position, TileMap& tileMap, std
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
-			GraphWalker walker(nextPosition, tileMap, tileList);
+			walkGraph(nextPosition, tileMap, tileList);
 		}
 	}
 }
