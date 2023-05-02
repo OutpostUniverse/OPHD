@@ -80,13 +80,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
-GraphWalker::GraphWalker(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
-{
-	walkGraph(position, tileMap, tileList);
-}
-
-
-void GraphWalker::walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
+void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
 {
 	Tile& thisTile = tileMap.getTile(position);
 	thisTile.connected(true);
