@@ -1,6 +1,7 @@
 #include "GraphWalker.h"
 #include "DirectionOffset.h"
 
+#include "Map/MapCoordinate.h"
 #include "Map/TileMap.h"
 #include "Things/Structures/Structure.h"
 

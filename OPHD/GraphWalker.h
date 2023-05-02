@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Map/MapCoordinate.h"
-
 #include <vector>
 
 
+struct MapCoordinate;
 class Tile;
 class TileMap;
 
