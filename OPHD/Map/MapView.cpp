@@ -51,10 +51,7 @@ void MapView::centerOn(const MapCoordinate& position)
 
 void MapView::moveView(Direction direction)
 {
-	mapViewLocation({
-		mOriginTilePosition.xy + directionEnumToOffset(direction),
-		mOriginTilePosition.z + directionEnumToVerticalOffset(direction)
-	});
+	mapViewLocation(mOriginTilePosition.translate(direction));
 }
 
 
