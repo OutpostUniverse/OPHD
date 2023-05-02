@@ -444,11 +444,11 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			changeViewDepth(mMapView->currentDepth() - 1);
+			mMapView->moveView(MapOffsetUp);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			changeViewDepth(mMapView->currentDepth() + 1);
+			mMapView->moveView(MapOffsetDown);
 			break;
 
 
