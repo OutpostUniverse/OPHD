@@ -65,8 +65,8 @@ private:
 	Mine& operator=(const Mine&) = delete;
 
 private:
-	MineVeins mVeins; /**< Ore veins */
-	MineProductionRate mProductionRate = MineProductionRate::Low; /**< Mine's production rate. */
+	MineVeins mVeins;
+	MineProductionRate mProductionRate = MineProductionRate::Low;
 
 	/**
 	 * Flags indicating several states for the mine:
