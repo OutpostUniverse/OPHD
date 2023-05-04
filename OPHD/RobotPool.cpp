@@ -39,6 +39,8 @@ void RobotPool::erase(Robot* robot)
 	eraseRobot(mDiggers, robot);
 	eraseRobot(mDozers, robot);
 	eraseRobot(mMiners, robot);
+
+	delete robot;
 }
 
 

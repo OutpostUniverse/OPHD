@@ -1289,7 +1289,6 @@ void MapViewState::updateRobots()
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
 
 			mRobotPool.erase(robot);
-			delete robot;
 			robot_it = mRobotList.erase(robot_it);
 		}
 		else if (robot->idle())
