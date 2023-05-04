@@ -45,7 +45,7 @@ void RobotPool::erase(Robot* robot)
 /**
  * Adds a robot of specified type to the pool.
  *
- * \return Returns a pointer to the robot, or nullptr if type was invalid.
+ * \return Returns a reference to the robot, or throws if type was invalid.
  */
 Robot& RobotPool::addRobot(Robot::Type type)
 {
