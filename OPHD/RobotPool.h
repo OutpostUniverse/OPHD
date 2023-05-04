@@ -4,7 +4,7 @@
 #include "Things/Robots/Robots.h"
 
 #include <cstddef>
-#include <vector>
+#include <list>
 #include <map>
 
 
@@ -14,9 +14,9 @@ class Tile;
 class RobotPool
 {
 public:
-	using DiggerList = std::vector<Robodigger*>;
-	using DozerList = std::vector<Robodozer*>;
-	using MinerList = std::vector<Robominer*>;
+	using DiggerList = std::list<Robodigger>;
+	using DozerList = std::list<Robodozer>;
+	using MinerList = std::list<Robominer>;
 	using RobotTileTable = std::map<Robot*, Tile*>;
 
 public:

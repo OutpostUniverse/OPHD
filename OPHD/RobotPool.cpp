@@ -22,9 +22,9 @@ RobotPool::~RobotPool()
 
 void RobotPool::clear()
 {
-	clearRobots(mDiggers);
-	clearRobots(mDozers);
-	clearRobots(mMiners);
+	mDiggers.clear();
+	mDozers.clear();
+	mMiners.clear();
 	mRobots.clear();
 
 	mRobotControlCount = 0;
@@ -39,8 +39,6 @@ void RobotPool::erase(Robot* robot)
 	eraseRobot(mDiggers, robot);
 	eraseRobot(mDozers, robot);
 	eraseRobot(mMiners, robot);
-
-	delete robot;
 }
 
 
@@ -54,16 +52,16 @@ Robot& RobotPool::addRobot(Robot::Type type)
 	switch (type)
 	{
 	case Robot::Type::Dozer:
-		mDozers.push_back(new Robodozer());
-		mRobots.push_back(mDozers.back());
+		mDozers.emplace_back();
+		mRobots.push_back(&mDozers.back());
 		break;
 	case Robot::Type::Digger:
-		mDiggers.push_back(new Robodigger());
-		mRobots.push_back(mDiggers.back());
+		mDiggers.emplace_back();
+		mRobots.push_back(&mDiggers.back());
 		break;
 	case Robot::Type::Miner:
-		mMiners.push_back(new Robominer());
-		mRobots.push_back(mMiners.back());
+		mMiners.emplace_back();
+		mRobots.push_back(&mMiners.back());
 		break;
 	default:
 		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
