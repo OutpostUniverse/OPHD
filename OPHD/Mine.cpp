@@ -1,7 +1,5 @@
 #include "Mine.h"
 
-#include "StorableResources.h"
-
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 
@@ -22,7 +20,7 @@ namespace
 	 * [2] Rare Metals
 	 * [3] Rare Minerals
 	 */
-	const std::map<MineProductionRate, Mine::MineVein> YieldTable =
+	const std::map<MineProductionRate, StorableResources> YieldTable =
 	{
 		{MineProductionRate::Low, {800, 800, 800, 800}},
 		{MineProductionRate::Medium, {1000, 1000, 1000, 1000}},
@@ -38,20 +36,6 @@ namespace
 
 	// [Exhausted, Active, 4x miningEnabled]
 	const std::bitset<6> DefaultFlags{"001111"};
-
-
-	/**
-	 * Helper function that gets the total amount of ore
-	 */
-	StorableResources getOreCount(const Mine::MineVeins& veins, int depth)
-	{
-		StorableResources availableResources{};
-		for (std::size_t i = 0; i < static_cast<std::size_t>(depth); ++i)
-		{
-			availableResources += veins[i];
-		}
-		return availableResources;
-	}
 }
 
 
@@ -101,7 +85,8 @@ void Mine::miningEnabled(OreType oreType, bool value)
  */
 void Mine::increaseDepth()
 {
-	mVeins.push_back(YieldTable.at(productionRate()));
+	mCurrentDepth++;
+	mTappedReserves += YieldTable.at(productionRate());
 }
 
 
@@ -110,13 +95,13 @@ void Mine::increaseDepth()
  */
 int Mine::depth() const
 {
-	return static_cast<int>(mVeins.size());
+	return mCurrentDepth;
 }
 
 
 StorableResources Mine::availableResources() const
 {
-	return getOreCount(mVeins, depth());
+	return mTappedReserves;
 }
 
 
@@ -146,14 +131,7 @@ bool Mine::exhausted() const
 void Mine::checkExhausted()
 {
 	if (!active()) { return; }
-
-	int oreCount = 0;
-	for (auto vein : mVeins)
-	{
-		oreCount += vein.total();
-	}
-
-	mFlags[5] = (oreCount == 0);
+	mFlags[5] = mTappedReserves.isEmpty();
 }
 
 
@@ -163,14 +141,10 @@ void Mine::checkExhausted()
  */
 StorableResources Mine::pull(const StorableResources& maxTransfer)
 {
-	StorableResources totalTransferAmount{};
-	for (auto& vein : mVeins)
-	{
-		const auto transferAmount = vein.cap(maxTransfer - totalTransferAmount);
-		totalTransferAmount += transferAmount;
-		vein -= transferAmount;
-	}
-	return totalTransferAmount;
+	const auto transferAmount = mTappedReserves.cap(maxTransfer);
+	mTappedReserves -= transferAmount;
+
+	return transferAmount;
 }
 
 
@@ -194,15 +168,15 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 		}}
 	);
 
-	for (const auto& mineVein : mVeins)
+	if (!mTappedReserves.isEmpty())
 	{
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
-				{ResourceFieldNames[0], mineVein.resources[0]},
-				{ResourceFieldNames[1], mineVein.resources[1]},
-				{ResourceFieldNames[2], mineVein.resources[2]},
-				{ResourceFieldNames[3], mineVein.resources[3]},
+				{ResourceFieldNames[0], mTappedReserves.resources[0]},
+				{ResourceFieldNames[1], mTappedReserves.resources[1]},
+				{ResourceFieldNames[2], mTappedReserves.resources[2]},
+				{ResourceFieldNames[3], mTappedReserves.resources[3]},
 			}}
 		));
 	}
@@ -215,24 +189,24 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
+	mCurrentDepth = dictionary.get<int>("depth");
+	mProductionRate = static_cast<MineProductionRate>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
-	const auto depth = dictionary.get<int>("depth");
-	const auto yield = dictionary.get<int>("yield");
 	mFlags = std::bitset<6>(dictionary.get("flags"));
 
 	this->active(active);
-	mProductionRate = static_cast<MineProductionRate>(yield);
 
-	mVeins.resize(0);
-	mVeins.reserve(static_cast<std::size_t>(depth));
+	mTappedReserves = {};
+	// Keep the vein iteration so we can still load old saved games
 	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
 		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
-		mVeins.push_back({
+		const auto veinReserves = StorableResources{
 			veinDictionary.get<int>(ResourceFieldNames[0], 0),
 			veinDictionary.get<int>(ResourceFieldNames[1], 0),
 			veinDictionary.get<int>(ResourceFieldNames[2], 0),
 			veinDictionary.get<int>(ResourceFieldNames[3], 0),
-		});
+		};
+		mTappedReserves += veinReserves;
 	}
 }
