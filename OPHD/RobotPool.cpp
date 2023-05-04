@@ -111,15 +111,15 @@ bool RobotPool::robotAvailable(Robot::Type type) const
 	{
 	case Robot::Type::Digger:
 	{
-		return getIdleRobotOrNull(mDiggers) != nullptr;
+		return hasIdleRobot(mDiggers);
 	}
 	case Robot::Type::Dozer:
 	{
-		return getIdleRobotOrNull(mDozers) != nullptr;
+		return hasIdleRobot(mDozers);
 	}
 	case Robot::Type::Miner:
 	{
-		return getIdleRobotOrNull(mMiners) != nullptr;
+		return hasIdleRobot(mMiners);
 	}
 	default:
 	{

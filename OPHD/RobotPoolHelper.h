@@ -36,6 +36,17 @@ void eraseRobot(T& list, Robot* robot)
 
 
 template <class T>
+bool hasIdleRobot(const T& list)
+{
+	for (const auto& robot : list)
+	{
+		if (robot->idle()) { return true; }
+	}
+	return false;
+}
+
+
+template <class T>
 typename T::value_type getIdleRobotOrNull(const T& list)
 {
 	for (const auto& robot : list)
