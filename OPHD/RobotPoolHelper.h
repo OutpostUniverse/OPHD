@@ -47,25 +47,13 @@ bool hasIdleRobot(const T& list)
 
 
 template <class T>
-typename T::value_type getIdleRobotOrNull(const T& list)
+auto& getIdleRobot(T& list)
 {
-	for (const auto& robot : list)
+	for (auto& robot : list)
 	{
-		if (robot->idle()) { return robot; }
+		if (robot->idle()) { return *robot; }
 	}
-	return nullptr;
-}
-
-
-template <class T>
-auto& getIdleRobot(const T& list)
-{
-	auto* robot = getIdleRobotOrNull(list);
-	if (robot == nullptr)
-	{
-		throw std::runtime_error("Failed to get an idle robot");
-	}
-	return *robot;
+	throw std::runtime_error("Failed to get an idle robot");
 }
 
 
