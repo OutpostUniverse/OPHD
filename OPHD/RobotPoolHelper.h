@@ -15,7 +15,7 @@
 template <class T>
 void clearRobots(T& list)
 {
-	for (auto robot : list)
+	for (const auto& robot : list)
 	{
 		delete robot;
 	}
@@ -38,7 +38,7 @@ void eraseRobot(T& list, Robot* robot)
 template <class T>
 typename T::value_type getIdleRobotOrNull(const T& list)
 {
-	for (auto robot : list)
+	for (const auto& robot : list)
 	{
 		if (robot->idle()) { return robot; }
 	}
@@ -62,7 +62,7 @@ template <class T>
 std::size_t getIdleCount(const T& list)
 {
 	std::size_t count = 0;
-	for (auto robot : list)
+	for (const auto& robot : list)
 	{
 		if (robot->idle()) { ++count; }
 	}
@@ -75,7 +75,7 @@ template <class T>
 std::size_t robotControlCount(const T& list)
 {
 	std::size_t controlCounter{0};
-	for (auto robot : list)
+	for (const auto& robot : list)
 	{
 		if (!robot->idle() && !robot->isDead()) { ++controlCounter; }
 	}
