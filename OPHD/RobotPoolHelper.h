@@ -25,6 +25,17 @@ void clearRobots(T& list)
 
 
 template <class T>
+void eraseRobot(T& list, Robot* robot)
+{
+	auto it = find(list.begin(), list.end(), robot);
+	if (it != list.end())
+	{
+		list.erase(it);
+	}
+}
+
+
+template <class T>
 typename T::value_type getIdleRobotOrNull(const T& list)
 {
 	for (auto robot : list)
@@ -69,15 +80,4 @@ std::size_t robotControlCount(const T& list)
 		if (!robot->idle() && !robot->isDead()) { ++controlCounter; }
 	}
 	return controlCounter;
-}
-
-
-template <class T>
-void eraseRobot(T& list, Robot* robot)
-{
-	auto it = find(list.begin(), list.end(), robot);
-	if (it != list.end())
-	{
-		list.erase(it);
-	}
 }
