@@ -983,7 +983,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		if (structure->isRobotCommand())
 		{
 			auto* rcc = static_cast<RobotCommand*>(structure);
-			if (rcc->isControlling(&robot))
+			if (mRobotPool.currentControlCount() >= mRobotPool.robotControlMax() - 10)
 			{
 				mNotificationArea.push({
 					"Cannot bulldoze",
