@@ -982,7 +982,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->isRobotCommand())
 		{
-			auto* rcc = static_cast<RobotCommand*>(structure);
 			if (mRobotPool.currentControlCount() >= mRobotPool.robotControlMax() - 10)
 			{
 				mNotificationArea.push({
@@ -990,10 +989,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 					"Cannot bulldoze Robot Command Center by a Robot under its command.",
 					tile.xyz(),
 					NotificationArea::NotificationType::Information});
-			}
-			else
-			{
-				mRobotPool.deleteRobotsInRCC(rcc, mRobotList);
 			}
 		}
 
@@ -1279,11 +1274,6 @@ void MapViewState::updateRobots()
 			if (tile->thing() == robot)
 			{
 				tile->removeThing();
-			}
-
-			for (auto rcc : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
-			{
-				rcc->removeRobot(robot);
 			}
 
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }

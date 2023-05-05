@@ -27,7 +27,6 @@ namespace NAS2D
 class Tile;
 class TileMap;
 class Warehouse;
-class RobotCommand;
 class Robot;
 struct StorableResources;
 
@@ -46,7 +45,6 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
 bool selfSustained(StructureID id);
 
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
-RobotCommand* getAvailableRobotCommand();
 
 bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);

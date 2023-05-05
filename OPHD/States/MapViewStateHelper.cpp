@@ -285,29 +285,6 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 
 
 /**
- * Gets a RobotCommand structure that has available command capacity
- * to house additional robots.
- * 
- * \note	Assumes a check for only one robot at any given time.
- * 
- * \return	Returns a pointer to a RobotCommand structure or \c nullptr if
- *			there are no robot commands available with the required space.
- */
-RobotCommand* getAvailableRobotCommand()
-{
-	for (auto robotCommand : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
-	{
-		if (robotCommand->operational() && robotCommand->commandCapacityAvailable())
-		{
-			return robotCommand;
-		}
-	}
-
-	return nullptr;
-}
-
-
-/**
  * Simulates moving the products out of a specified warehouse and raises
  * an alert to the user if not all products can be moved out of the
  * warehouse.

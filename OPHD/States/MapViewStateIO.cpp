@@ -53,28 +53,6 @@ namespace
 	}
 
 
-	void readRccRobots(std::string robotIds, const std::map<int, Robot*>& idToRobotMap, RobotCommand& robotCommand)
-	{
-		for (const auto& string : NAS2D::split(robotIds, ','))
-		{
-			const auto robotId = NAS2D::stringTo<int>(string);
-			robotCommand.addRobot(idToRobotMap.at(robotId));
-		}
-	}
-
-
-	std::map<const Robot*, int> generateRobotToIdMap(std::vector<Robot*> robots)
-	{
-		std::map<const Robot*, int> robotToIdMap{};
-		int currentId = 0;
-		for (const auto* robot : robots)
-		{
-			robotToIdMap[robot] = currentId++;
-		}
-		return robotToIdMap;
-	}
-
-
 	NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot)
 	{
 		NAS2D::Dictionary dictionary = robot.getDataDict();
@@ -95,14 +73,13 @@ namespace
 	}
 
 
-	NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap, std::map<const Robot*, int> robotToIdMap)
+	NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap)
 	{
 		auto* robots = new NAS2D::Xml::XmlElement("robots");
 
 		for (auto robot : robotPool.robots())
 		{
 			auto dictionary = robotToDictionary(robotMap, *robot);
-			dictionary["id"] = robotToIdMap[robot];
 			robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 		}
 
@@ -182,13 +159,11 @@ void MapViewState::save(const std::string& filePath)
 	);
 	doc.linkEndChild(root);
 
-	const auto robotToIdMap = generateRobotToIdMap(mRobotPool.robots());
-
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
 	mMapView->serialize(root);
-	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize(robotToIdMap));
-	root->linkEndChild(writeRobots(mRobotPool, mRobotList, robotToIdMap));
+	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
+	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
@@ -300,13 +275,8 @@ void MapViewState::load(const std::string& filePath)
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	routeTable.clear();
 
-	/**
-	 * In the case of loading a game, the Robot Command Center depends on the robot list
-	 * having already been loaded in order to match up the robots in the save game to
-	 * the RCC.
-	 */
-	const auto idToRobotMap = readRobots(root->firstChildElement("robots"));
-	readStructures(root->firstChildElement("structures"), idToRobotMap);
+	readRobots(root->firstChildElement("robots"));
+	readStructures(root->firstChildElement("structures"));
 
 	mResearchTracker = readResearch(root->firstChildElement("research"));
 
@@ -370,19 +340,16 @@ void MapViewState::load(const std::string& filePath)
 }
 
 
-std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
+void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 {
 	mRobotPool.clear();
 	mRobotList.clear();
 	mRobots.clear();
 
-	std::map<int, Robot*> idToRobotMap{};
-
 	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*robotElement);
 
-		const auto id = dictionary.get<int>("id");
 		const auto type = dictionary.get<int>("type");
 		const auto age = dictionary.get<int>("age");
 		const auto production_time = dictionary.get<int>("production");
@@ -397,8 +364,6 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		{
 			static_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
 		}
-
-		idToRobotMap[id] = &robot;
 
 		robot.fuelCellAge(age);
 
@@ -416,12 +381,10 @@ std::map<int, Robot*> MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 	}
 
 	populateRobotMenu();
-
-	return idToRobotMap;
 }
 
 
-void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::map<int, Robot*>& idToRobotMap)
+void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 {
 	for (NAS2D::Xml::XmlElement* structureElement = element->firstChildElement(); structureElement != nullptr; structureElement = structureElement->nextSiblingElement())
 	{
@@ -562,17 +525,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element, const std::ma
 			factory.productionTurnsCompleted(production_completed);
 			factory.resourcePool(&mResourcesCount);
 			factory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
-		}
-
-		if (structure.isRobotCommand())
-		{
-			auto robotsElement = structureElement->firstChildElement("robots");
-			if (robotsElement)
-			{
-				const auto robotIds = NAS2D::attributesToDictionary(*robotsElement).get("robots");
-				auto& robotCommand = *static_cast<RobotCommand*>(&structure);
-				readRccRobots(robotIds, idToRobotMap, robotCommand);
-			}
 		}
 
 		if (structure.hasCrime())

@@ -29,17 +29,12 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
 		throw std::runtime_error("pullRobotFromFactory():: unsuitable ProductType: " + std::to_string(static_cast<int>(productType)));
 	}
 
-	const auto robotType = ProductTypeToRobotType.at(productType);
-	RobotCommand* robotCommand = getAvailableRobotCommand();
-
-	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
+	if (mRobotPool.commandCapacityAvailable())
 	{
-		auto& robot = addRobot(robotType);
+		addRobot(ProductTypeToRobotType.at(productType));
 		factory.pullProduct();
 
 		populateRobotMenu();
-
-		if (robotCommand != nullptr) { robotCommand->addRobot(&robot); }
 	}
 	else
 	{
