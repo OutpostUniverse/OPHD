@@ -635,9 +635,6 @@
     <ClInclude Include="Things\Structures\SolarPanelArray.h">
       <Filter>Header Files\Things\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="RobotPoolHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ShellOpenPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>

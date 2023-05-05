@@ -352,7 +352,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
     <ClInclude Include="RobotPool.h" />
-    <ClInclude Include="RobotPoolHelper.h" />
     <ClInclude Include="ShellOpenPath.h" />
     <ClInclude Include="States\GameState.h" />
     <ClInclude Include="States\MapViewState.h" />
