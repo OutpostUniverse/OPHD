@@ -1322,7 +1322,7 @@ void MapViewState::updateRobots()
 		}
 	}
 
-	updateRobotControl(mRobotPool);
+	mRobotPool.update();
 }
 
 

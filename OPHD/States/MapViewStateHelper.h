@@ -28,7 +28,6 @@ class Tile;
 class TileMap;
 class Warehouse;
 class RobotCommand;
-class RobotPool;
 class Robot;
 struct StorableResources;
 
@@ -58,5 +57,3 @@ StorableResources addRefinedResources(StorableResources);
 void removeRefinedResources(StorableResources&);
 
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
-
-void updateRobotControl(RobotPool& robotPool);

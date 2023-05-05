@@ -37,6 +37,7 @@ public:
 	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }
 	void AddRobotCtrl();
+	void update();
 
 	DiggerList& diggers() { return mDiggers; }
 	DozerList& dozers() { return mDozers; }

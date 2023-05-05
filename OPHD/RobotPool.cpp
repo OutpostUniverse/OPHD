@@ -1,7 +1,11 @@
 #include "RobotPool.h"
 
+#include "StructureManager.h"
 #include "Map/Tile.h"
+#include "Things/Structures/CommandCenter.h"
 #include "Things/Structures/RobotCommand.h"
+
+#include <NAS2D/Utility.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -225,6 +229,24 @@ void RobotPool::AddRobotCtrl()
 	{
 		++mRobotControlCount;
 	}
+}
+
+
+void RobotPool::update()
+{
+	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
+
+	// 3 for the first command center
+	std::size_t maxRobots = 0;
+	if (commandCenters.size() > 0) { maxRobots += 3; }
+	// the 10 per robot command facility
+	for (std::size_t s = 0; s < robotCommands.size(); ++s)
+	{
+		if (robotCommands[s]->operational()) { maxRobots += 10; }
+	}
+
+	InitRobotCtrl(maxRobots);
 }
 
 
