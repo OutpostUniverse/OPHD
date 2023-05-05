@@ -216,13 +216,6 @@ std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 }
 
 
-void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
-{
-	mRobotControlMax = maxRobotCtrl;
-	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
-}
-
-
 void RobotPool::AddRobotCtrl()
 {
 	if (mRobotControlCount < mRobotControlMax)
@@ -246,7 +239,8 @@ void RobotPool::update()
 		if (robotCommands[s]->operational()) { maxRobots += 10; }
 	}
 
-	InitRobotCtrl(maxRobots);
+	mRobotControlMax = maxRobots;
+	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
 
