@@ -9,6 +9,7 @@
 
 
 class Tile;
+class RobotCommand;
 
 
 class RobotPool
@@ -48,6 +49,7 @@ public:
 	void clear();
 	void erase(Robot* robot);
 	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile);
+	void deleteRobotsInRCC(RobotCommand* rcc, RobotTileTable& rtt);
 
 	std::size_t robotControlMax() const { return mRobotControlMax; }
 	std::size_t currentControlCount() const { return mRobotControlCount; }

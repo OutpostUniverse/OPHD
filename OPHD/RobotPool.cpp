@@ -1,5 +1,7 @@
 #include "RobotPool.h"
+
 #include "Map/Tile.h"
+#include "Things/Structures/RobotCommand.h"
 
 #include <algorithm>
 #include <stdexcept>
@@ -237,4 +239,21 @@ bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 	AddRobotCtrl();
 
 	return true;
+}
+
+
+void RobotPool::deleteRobotsInRCC(RobotCommand* rcc, RobotTileTable& rtt)
+{
+	const RobotList& rl = rcc->robots();
+
+	for (auto robot : rl)
+	{
+		if (rtt.find(robot) != rtt.end())
+		{
+			robot->die();
+			continue;
+		}
+
+		erase(robot);
+	}
 }

@@ -993,7 +993,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			}
 			else
 			{
-				deleteRobotsInRCC(rcc, mRobotPool, mRobotList);
+				mRobotPool.deleteRobotsInRCC(rcc, mRobotList);
 			}
 		}
 

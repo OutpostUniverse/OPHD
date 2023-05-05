@@ -180,23 +180,6 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 }
 
 
-void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt)
-{
-	const RobotList& rl = rcc->robots();
-
-	for (auto robot : rl)
-	{
-		if (rtt.find(robot) != rtt.end())
-		{
-			robot->die();
-			continue;
-		}
-
-		robotPool.erase(robot);
-	}
-}
-
-
 void updateRobotControl(RobotPool& robotPool)
 {
 	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();

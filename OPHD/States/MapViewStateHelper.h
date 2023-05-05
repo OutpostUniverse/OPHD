@@ -32,8 +32,6 @@ class RobotPool;
 class Robot;
 struct StorableResources;
 
-using RobotTileTable = std::map<Robot*, Tile*>;
-
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
 
@@ -62,4 +60,3 @@ void removeRefinedResources(StorableResources&);
 void resetTileIndexFromDozer(Robot* robot, Tile* tile);
 
 void updateRobotControl(RobotPool& robotPool);
-void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);
