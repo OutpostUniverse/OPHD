@@ -1,8 +1,72 @@
 #include "RobotPool.h"
-#include "RobotPoolHelper.h"
 #include "Map/Tile.h"
 
 #include <algorithm>
+#include <stdexcept>
+
+
+namespace
+{
+	template <class T>
+	void eraseRobot(T& list, Robot* robot)
+	{
+		for (auto it = list.begin(); it != list.end(); ++it)
+		{
+			if (&*it == robot)
+			{
+				list.erase(it);
+				return;
+			}
+		}
+	}
+
+
+	template <class T>
+	bool hasIdleRobot(const T& list)
+	{
+		for (auto& robot : list)
+		{
+			if (robot.idle()) { return true; }
+		}
+		return false;
+	}
+
+
+	template <class T>
+	auto& getIdleRobot(T& list)
+	{
+		for (auto& robot : list)
+		{
+			if (robot.idle()) { return robot; }
+		}
+		throw std::runtime_error("Failed to get an idle robot");
+	}
+
+
+	template <class T>
+	std::size_t getIdleCount(const T& list)
+	{
+		std::size_t count = 0;
+		for (const auto& robot : list)
+		{
+			if (robot.idle()) { ++count; }
+		}
+
+		return count;
+	}
+
+
+	template <class T>
+	std::size_t robotControlCount(const T& list)
+	{
+		std::size_t controlCounter{0};
+		for (const auto& robot : list)
+		{
+			if (!robot.idle() && !robot.isDead()) { ++controlCounter; }
+		}
+		return controlCounter;
+	}
+}
 
 
 RobotPool::RobotPool()
