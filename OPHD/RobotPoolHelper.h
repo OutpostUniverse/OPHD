@@ -13,47 +13,48 @@
 
 
 template <class T>
-void clearRobots(T& t)
+void eraseRobot(T& list, Robot* robot)
 {
-	for (auto robot : t)
+	for (auto it = list.begin(); it != list.end(); ++it)
 	{
-		delete robot;
+		if (&*it == robot)
+		{
+			list.erase(it);
+			return;
+		}
 	}
-
-	t.clear();
 }
 
 
 template <class T>
-typename T::value_type getIdleRobotOrNull(const T& t)
+bool hasIdleRobot(const T& list)
 {
-	for (auto robot : t)
+	for (auto& robot : list)
 	{
-		if (robot->idle()) { return robot; }
+		if (robot.idle()) { return true; }
 	}
-	return nullptr;
+	return false;
 }
 
 
 template <class T>
-auto& getIdleRobot(const T& list)
+auto& getIdleRobot(T& list)
 {
-	auto* robot = getIdleRobotOrNull(list);
-	if (robot == nullptr)
+	for (auto& robot : list)
 	{
-		throw std::runtime_error("Failed to get an idle robot");
+		if (robot.idle()) { return robot; }
 	}
-	return *robot;
+	throw std::runtime_error("Failed to get an idle robot");
 }
 
 
 template <class T>
-std::size_t getIdleCount(const T& t)
+std::size_t getIdleCount(const T& list)
 {
 	std::size_t count = 0;
-	for (auto robot : t)
+	for (const auto& robot : list)
 	{
-		if (robot->idle()) { ++count; }
+		if (robot.idle()) { ++count; }
 	}
 
 	return count;
@@ -61,23 +62,12 @@ std::size_t getIdleCount(const T& t)
 
 
 template <class T>
-std::size_t robotControlCount(const T& t)
+std::size_t robotControlCount(const T& list)
 {
 	std::size_t controlCounter{0};
-	for (auto robot : t)
+	for (const auto& robot : list)
 	{
-		if (!robot->idle() && !robot->isDead()) { ++controlCounter; }
+		if (!robot.idle() && !robot.isDead()) { ++controlCounter; }
 	}
 	return controlCounter;
-}
-
-
-template <class T>
-void eraseRobot(T& t, Robot* robot)
-{
-	auto it = find(t.begin(), t.end(), robot);
-	if (it != t.end())
-	{
-		t.erase(it);
-	}
 }

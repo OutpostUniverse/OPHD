@@ -193,7 +193,6 @@ void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& 
 		}
 
 		robotPool.erase(robot);
-		delete robot;
 	}
 }
 
