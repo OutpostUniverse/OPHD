@@ -1,5 +1,11 @@
 #include "RobotPool.h"
+
+#include "StructureManager.h"
 #include "Map/Tile.h"
+#include "Things/Structures/CommandCenter.h"
+#include "Things/Structures/RobotCommand.h"
+
+#include <NAS2D/Utility.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -210,31 +216,59 @@ std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 }
 
 
-void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
+void RobotPool::update()
 {
-	mRobotControlMax = maxRobotCtrl;
-	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
-}
+	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
 
-
-void RobotPool::AddRobotCtrl()
-{
-	if (mRobotControlCount < mRobotControlMax)
+	// 3 for the first command center
+	std::size_t maxRobots = 0;
+	if (commandCenters.size() > 0) { maxRobots += 3; }
+	// the 10 per robot command facility
+	for (std::size_t s = 0; s < robotCommands.size(); ++s)
 	{
-		++mRobotControlCount;
+		if (robotCommands[s]->operational()) { maxRobots += 10; }
 	}
+
+	mRobotControlMax = maxRobots;
+	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
 
 bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile)
 {
+	// Add pre-check for control count against max capacity, with one caveat
+	// When loading saved games a control max won't have been set yet as robots are loaded before structures
+	// Assume saved games are correct, and if not, things will be corrected by next turn
+	if (mRobotControlMax > 0 && mRobotControlCount >= mRobotControlMax)
+	{
+		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + "/" + std::to_string(mRobotControlMax));
+	}
+
 	auto it = robotMap.find(&robot);
 	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
 	robotMap[&robot] = &tile;
 	tile.pushThing(&robot);
 
-	AddRobotCtrl();
+	++mRobotControlCount;
 
 	return true;
+}
+
+
+void RobotPool::deleteRobotsInRCC(RobotCommand* rcc, RobotTileTable& rtt)
+{
+	const RobotList& rl = rcc->robots();
+
+	for (auto robot : rl)
+	{
+		if (rtt.find(robot) != rtt.end())
+		{
+			robot->die();
+			continue;
+		}
+
+		erase(robot);
+	}
 }

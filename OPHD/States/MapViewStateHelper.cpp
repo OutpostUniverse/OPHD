@@ -180,41 +180,6 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 }
 
 
-void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt)
-{
-	const RobotList& rl = rcc->robots();
-
-	for (auto robot : rl)
-	{
-		if (rtt.find(robot) != rtt.end())
-		{
-			robot->die();
-			continue;
-		}
-
-		robotPool.erase(robot);
-	}
-}
-
-
-void updateRobotControl(RobotPool& robotPool)
-{
-	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
-
-	// 3 for the first command center
-	std::size_t maxRobots = 0;
-	if (commandCenters.size() > 0) { maxRobots += 3; }
-	// the 10 per robot command facility
-	for (std::size_t s = 0; s < robotCommands.size(); ++s)
-	{
-		if (robotCommands[s]->operational()) { maxRobots += 10; }
-	}
-
-	robotPool.InitRobotCtrl(maxRobots);
-}
-
-
 /** 
  * Indicates that a given StructureID is a Lander of sorts.
  */
