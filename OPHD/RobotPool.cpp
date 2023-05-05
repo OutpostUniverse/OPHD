@@ -216,15 +216,6 @@ std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 }
 
 
-void RobotPool::AddRobotCtrl()
-{
-	if (mRobotControlCount < mRobotControlMax)
-	{
-		++mRobotControlCount;
-	}
-}
-
-
 void RobotPool::update()
 {
 	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
@@ -252,7 +243,10 @@ bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 	robotMap[&robot] = &tile;
 	tile.pushThing(&robot);
 
-	AddRobotCtrl();
+	if (mRobotControlCount < mRobotControlMax)
+	{
+		++mRobotControlCount;
+	}
 
 	return true;
 }
