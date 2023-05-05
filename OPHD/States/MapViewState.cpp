@@ -905,7 +905,7 @@ void MapViewState::placeStructure(Tile& tile)
 void MapViewState::placeRobot(Tile& tile)
 {
 	if (!tile.excavated()) { return; }
-	if (!mRobotPool.robotCtrlAvailable()) { return; }
+	if (!mRobotPool.isControlCapacityAvailable()) { return; }
 
 	if (!inCommRange(tile.xy()))
 	{

@@ -33,7 +33,7 @@ public:
 	bool robotAvailable(Robot::Type type) const;
 	std::size_t getAvailableCount(Robot::Type type) const;
 
-	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
+	bool isControlCapacityAvailable() { return mRobotControlCount < mRobotControlMax; }
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }
 	void update();
 
