@@ -79,40 +79,6 @@ namespace
 	}
 
 
-	NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot)
-	{
-		NAS2D::Dictionary dictionary = robot.getDataDict();
-
-		const auto it = robotTileTable.find(&robot);
-		if (it != robotTileTable.end())
-		{
-			const auto& tile = *it->second;
-			const auto position = tile.xy();
-			dictionary += NAS2D::Dictionary{{
-				{"x", position.x},
-				{"y", position.y},
-				{"depth", tile.depth()},
-			}};
-		}
-
-		return dictionary;
-	}
-
-
-	NAS2D::Xml::XmlElement* writeRobots(RobotPool& robotPool, RobotTileTable& robotMap)
-	{
-		auto* robots = new NAS2D::Xml::XmlElement("robots");
-
-		for (auto robot : robotPool.robots())
-		{
-			auto dictionary = robotToDictionary(robotMap, *robot);
-			robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
-		}
-
-		return robots;
-	}
-
-
 	NAS2D::Xml::XmlElement* writeResearch(const ResearchTracker& tracker)
 	{
 		auto* research = new NAS2D::Xml::XmlElement("research");
@@ -189,7 +155,7 @@ void MapViewState::save(const std::string& filePath)
 	mTileMap->serialize(root);
 	mMapView->serialize(root);
 	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
-	root->linkEndChild(writeRobots(mRobotPool, mRobotList));
+	root->linkEndChild(mRobotPool.writeRobots(mRobotList));
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));

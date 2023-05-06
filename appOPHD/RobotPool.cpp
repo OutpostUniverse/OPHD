@@ -6,6 +6,8 @@
 #include "MapObjects/Structures/RobotCommand.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/ParserHelper.h>
+#include <NAS2D/Xml/XmlElement.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -71,6 +73,26 @@ namespace
 			if (!robot.idle() && !robot.isDead()) { ++controlCounter; }
 		}
 		return controlCounter;
+	}
+
+
+	NAS2D::Dictionary robotToDictionary(RobotPool::RobotTileTable& robotTileTable, Robot& robot)
+	{
+		NAS2D::Dictionary dictionary = robot.getDataDict();
+
+		const auto it = robotTileTable.find(&robot);
+		if (it != robotTileTable.end())
+		{
+			const auto& tile = *it->second;
+			const auto position = tile.xy();
+			dictionary += NAS2D::Dictionary{{
+				{"x", position.x},
+				{"y", position.y},
+				{"depth", tile.depth()},
+			}};
+		}
+
+		return dictionary;
 	}
 }
 
@@ -252,4 +274,18 @@ void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 	tile.pushMapObject(&robot);
 
 	++mRobotControlCount;
+}
+
+
+NAS2D::Xml::XmlElement* RobotPool::writeRobots(RobotTileTable& robotMap)
+{
+	auto* robots = new NAS2D::Xml::XmlElement("robots");
+
+	for (auto robot : mRobots)
+	{
+		auto dictionary = robotToDictionary(robotMap, *robot);
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
+	}
+
+	return robots;
 }
