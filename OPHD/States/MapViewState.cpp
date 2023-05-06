@@ -989,6 +989,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 					"Cannot bulldoze Robot Command Center by a Robot under its command.",
 					tile.xyz(),
 					NotificationArea::NotificationType::Information});
+				return;
 			}
 		}
 
