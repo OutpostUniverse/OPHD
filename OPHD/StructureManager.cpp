@@ -31,7 +31,7 @@ namespace
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeStructure(Structure& structure, Tile& tile, std::map<const Robot*, int> robotToIdMap)
+	NAS2D::Xml::XmlElement* serializeStructure(Structure& structure, Tile& tile)
 	{
 		const auto position = tile.xyz();
 		NAS2D::Dictionary dictionary =
@@ -62,18 +62,6 @@ namespace
 				"warehouse_products",
 				static_cast<Warehouse&>(structure).products().serialize()
 			));
-		}
-
-		if (structure.isRobotCommand())
-		{
-			const auto& robots = static_cast<RobotCommand&>(structure).robots();
-
-			const auto robotToIdString = [&robotToIdMap](const Robot* robot){ return NAS2D::stringFrom(robotToIdMap.at(robot)); };
-			const auto idsString = NAS2D::join(NAS2D::mapToVector(robots, robotToIdString), ",");
-
-			structureElement->linkEndChild(
-				NAS2D::dictionaryToAttributes("robots", {{{"robots", idsString}}})
-			);
 		}
 
 		if (structure.isFoodStore())
@@ -532,13 +520,13 @@ Tile& StructureManager::tileFromStructure(Structure* structure)
 }
 
 
-NAS2D::Xml::XmlElement* StructureManager::serialize(std::map<const Robot*, int> robotToIdMap)
+NAS2D::Xml::XmlElement* StructureManager::serialize()
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
 	for (auto& [structure, tile] : mStructureTileTable)
 	{
-		structures->linkEndChild(serializeStructure(*structure, *tile, robotToIdMap));
+		structures->linkEndChild(serializeStructure(*structure, *tile));
 	}
 
 	return structures;

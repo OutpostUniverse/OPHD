@@ -131,7 +131,7 @@ public:
 
 	void update(const StorableResources&, PopulationPool&);
 
-	NAS2D::Xml::XmlElement* serialize(std::map<const Robot*, int> robotToIdMap);
+	NAS2D::Xml::XmlElement* serialize();
 
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
