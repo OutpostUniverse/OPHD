@@ -1,6 +1,6 @@
 #include "StructureListBox.h"
 
-#include "../Things/Structures/Structure.h"
+#include "../MapObjects/Structures/Structure.h"
 
 #include "../Cache.h"
 

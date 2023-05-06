@@ -7,21 +7,21 @@
 
 
 /**
- * Thing interface
+ * MapObject interface
  *
  * Does not own it's own coordinates.
  * Owner is responsible for drawing at correct location.
  */
-class Thing
+class MapObject
 {
 public:
-	using DieSignal = NAS2D::Signal<Thing*>;
+	using DieSignal = NAS2D::Signal<MapObject*>;
 
 public:
-	Thing(const std::string& name, const std::string& spritePath, const std::string& initialAction);
-	Thing(const Thing& thing) = delete;
-	Thing& operator=(const Thing& thing) = delete;
-	virtual ~Thing() = default;
+	MapObject(const std::string& name, const std::string& spritePath, const std::string& initialAction);
+	MapObject(const MapObject& thing) = delete;
+	MapObject& operator=(const MapObject& thing) = delete;
+	virtual ~MapObject() = default;
 
 	virtual void update() = 0;
 	NAS2D::Sprite& sprite();

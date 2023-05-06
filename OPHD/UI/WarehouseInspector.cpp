@@ -6,7 +6,7 @@
 
 #include "../Constants/UiConstants.h"
 
-#include "../Things/Structures/Warehouse.h"
+#include "../MapObjects/Structures/Warehouse.h"
 
 
 using namespace NAS2D;

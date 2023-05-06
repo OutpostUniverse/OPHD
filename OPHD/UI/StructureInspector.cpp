@@ -2,7 +2,7 @@
 
 #include "../Cache.h"
 #include "../Constants/Strings.h"
-#include "../Things/Structures/Structure.h"
+#include "../MapObjects/Structures/Structure.h"
 #include "StringTable.h"
 #include "TextRender.h"
 

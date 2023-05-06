@@ -810,7 +810,7 @@ void MapViewState::placeStructure(Tile& tile)
 		}
 		else
 		{
-			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileThing);
+			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileMapObject);
 		}
 		return;
 	}
@@ -1033,7 +1033,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		tile.connected(false);
 		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
-		tile.deleteThing();
+		tile.deleteMapObject();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		updateConnectedness();
@@ -1274,7 +1274,7 @@ void MapViewState::updateRobots()
 
 			if (tile->thing() == robot)
 			{
-				tile->removeThing();
+				tile->removeMapObject();
 			}
 
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
@@ -1286,7 +1286,7 @@ void MapViewState::updateRobots()
 		{
 			if (tile->thing() == robot)
 			{
-				tile->removeThing();
+				tile->removeMapObject();
 
 				mNotificationArea.push({"Robot Task Completed",
 										robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
@@ -1399,7 +1399,7 @@ void MapViewState::scrubRobotList()
 {
 	for (auto it : mRobotList)
 	{
-		it.second->removeThing();
+		it.second->removeMapObject();
 	}
 }
 

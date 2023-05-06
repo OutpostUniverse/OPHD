@@ -3,7 +3,7 @@
 
 #include "Map/MapCoordinate.h"
 #include "Map/TileMap.h"
-#include "Things/Structures/Structure.h"
+#include "MapObjects/Structures/Structure.h"
 
 
 using namespace NAS2D;

@@ -1,7 +1,7 @@
 #include "StructureCatalogue.h"
 
 #include "StorableResources.h"
-#include "Things/Structures/Structures.h"
+#include "MapObjects/Structures/Structures.h"
 
 #include <string>
 #include <stdexcept>

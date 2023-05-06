@@ -15,8 +15,8 @@
 #include "../DirectionOffset.h"
 #include "../RobotPool.h"
 #include "../Map/TileMap.h"
-#include "../Things/Structures/RobotCommand.h"
-#include "../Things/Structures/Warehouse.h"
+#include "../MapObjects/Structures/RobotCommand.h"
+#include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
 
@@ -172,7 +172,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 		else if (tile.thing())
 		{
 			// This is a case that should never happen. If it does, blow up loudly.
-			throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
+			throw std::runtime_error("Tile obstructed by a MapObject other than a Mine.");
 		}
 	}
 

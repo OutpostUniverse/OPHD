@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Thing.h"
+#include "../MapObject.h"
 
 #include "../../Common.h"
 #include "../../PopulationPool.h"
@@ -22,7 +22,7 @@ enum class StructureState
 	Destroyed
 };
 
-class Structure : public Thing
+class Structure : public MapObject
 {
 public:
 	/**

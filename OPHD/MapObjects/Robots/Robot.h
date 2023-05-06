@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../Thing.h"
+#include "../MapObject.h"
 
 #include <NAS2D/Dictionary.h>
 
 
-class Robot : public Thing
+class Robot : public MapObject
 {
 public:
 	enum class Type

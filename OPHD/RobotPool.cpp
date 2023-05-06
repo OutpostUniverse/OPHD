@@ -2,8 +2,8 @@
 
 #include "StructureManager.h"
 #include "Map/Tile.h"
-#include "Things/Structures/CommandCenter.h"
-#include "Things/Structures/RobotCommand.h"
+#include "MapObjects/Structures/CommandCenter.h"
+#include "MapObjects/Structures/RobotCommand.h"
 
 #include <NAS2D/Utility.h>
 
@@ -249,7 +249,7 @@ bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
 	robotMap[&robot] = &tile;
-	tile.pushThing(&robot);
+	tile.pushMapObject(&robot);
 
 	++mRobotControlCount;
 

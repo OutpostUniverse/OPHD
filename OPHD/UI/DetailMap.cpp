@@ -4,7 +4,7 @@
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
-#include "../Things/Thing.h"
+#include "../MapObjects/MapObject.h"
 
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>

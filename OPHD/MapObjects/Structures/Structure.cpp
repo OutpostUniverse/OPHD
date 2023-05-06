@@ -105,7 +105,7 @@ std::string StructureName(StructureID id)
 
 
 Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
-	Thing(name, spritePath, constants::StructureStateConstruction),
+	MapObject(name, spritePath, constants::StructureStateConstruction),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
@@ -113,7 +113,7 @@ Structure::Structure(const std::string& name, const std::string& spritePath, Str
 
 
 Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
-	Thing(name, spritePath, initialAction),
+	MapObject(name, spritePath, initialAction),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
@@ -340,7 +340,7 @@ void Structure::forced_state_change(StructureState structureState, DisabledReaso
 
 
 /**
- * Special overidding of Thing::die for Structure.
+ * Special overidding of MapObject::die for Structure.
  *
  * There is no conceivable situation in which a Structure should be marked as 'dead' or have its
  * 'die' function be called. Such cases should be treated as bad logic and immediately and very
@@ -356,9 +356,9 @@ void Structure::forced_state_change(StructureState structureState, DisabledReaso
  */
 void Structure::die()
 {
-	Thing::die();
+	MapObject::die();
 
-	throw std::runtime_error("Thing::die() was called on a Structure!");
+	throw std::runtime_error("MapObject::die() was called on a Structure!");
 }
 
 

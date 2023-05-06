@@ -5,7 +5,7 @@
 
 #include "../Common.h"
 
-#include "../Things/Robots/Robot.h"
+#include "../MapObjects/Robots/Robot.h"
 
 
 class RobotInspector : public Window
