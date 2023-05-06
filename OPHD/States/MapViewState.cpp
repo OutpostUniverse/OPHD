@@ -1261,7 +1261,8 @@ void MapViewState::updateRobots()
 					"Robot Self-Destructed",
 					robot->name() + " at location " + robotLocationText + " self destructed.",
 					position,
-					NotificationArea::NotificationType::Critical});
+					NotificationArea::NotificationType::Critical
+				});
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
@@ -1286,10 +1287,12 @@ void MapViewState::updateRobots()
 			{
 				tile->removeMapObject();
 
-				mNotificationArea.push({"Robot Task Completed",
-										robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
-										tile->xyz(),
-										NotificationArea::NotificationType::Success});
+				mNotificationArea.push({
+					"Robot Task Completed",
+					robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					tile->xyz(),
+					NotificationArea::NotificationType::Success
+				});
 			}
 			robot_it = mRobotList.erase(robot_it);
 
@@ -1299,10 +1302,12 @@ void MapViewState::updateRobots()
 				populateRobotMenu();
 				robot->reset();
 
-				mNotificationArea.push({"Robot Task Canceled",
-						robot->name() + " canceled its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
-						tile->xyz(),
-						NotificationArea::NotificationType::Information});
+				mNotificationArea.push({
+					"Robot Task Canceled",
+					robot->name() + " canceled its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					tile->xyz(),
+					NotificationArea::NotificationType::Information
+				});
 			}
 		}
 		else
