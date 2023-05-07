@@ -401,8 +401,8 @@
     <ClInclude Include="MapObjects\Robot.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Robots\Robots.h">
-      <Filter>Header Files\MapObjects\Robots</Filter>
+    <ClInclude Include="MapObjects\Robots.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\AirShaft.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
@@ -428,8 +428,8 @@
     <ClInclude Include="MapObjects\Structure.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Structures.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="UI\DetailMap.h">
       <Filter>Header Files\UI</Filter>

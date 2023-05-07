@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MapObjects/Structure.h"
-#include "MapObjects/Structures/Structures.h"
+#include "MapObjects/Structures.h"
 
 #include <map>
 

@@ -371,7 +371,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="MapObjects\Robots\Robodozer.h" />
     <ClInclude Include="MapObjects\Robots\Robominer.h" />
     <ClInclude Include="MapObjects\Robot.h" />
-    <ClInclude Include="MapObjects\Robots\Robots.h" />
+    <ClInclude Include="MapObjects\Robots.h" />
     <ClInclude Include="MapObjects\Structures\AirShaft.h" />
     <ClInclude Include="MapObjects\Structures\CargoLander.h" />
     <ClInclude Include="MapObjects\Structures\CHAP.h" />
@@ -408,7 +408,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="MapObjects\Structures\SolarPlant.h" />
     <ClInclude Include="MapObjects\Structures\StorageTanks.h" />
     <ClInclude Include="MapObjects\Structure.h" />
-    <ClInclude Include="MapObjects\Structures\Structures.h" />
+    <ClInclude Include="MapObjects\Structures.h" />
     <ClInclude Include="MapObjects\Structures\FusionReactor.h" />
     <ClInclude Include="MapObjects\Structures\SurfaceFactory.h" />
     <ClInclude Include="MapObjects\Structures\SurfacePolice.h" />

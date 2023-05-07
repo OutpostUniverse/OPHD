@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "MapObjects/Robots/Robots.h"
+#include "MapObjects/Robots.h"
 
 #include <cstddef>
 #include <list>
