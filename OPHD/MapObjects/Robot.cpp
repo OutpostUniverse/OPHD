@@ -14,7 +14,7 @@ Robot::Robot(const std::string& name, const std::string& spritePath, const std::
 
 void Robot::startTask(int turns)
 {
-	if (turns < 1) { throw std::runtime_error("Robot::startTask() called with a value less than 1."); }
+	if (turns < 1) { throw std::runtime_error("Robot task time must be at least 1 turn"); }
 	mTurnsToCompleteTask = turns;
 }
 
