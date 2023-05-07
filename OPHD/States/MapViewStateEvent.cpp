@@ -8,7 +8,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
-#include "../Things/Robots/Robots.h"
+#include "../MapObjects/Robots.h"
 
 #include <NAS2D/Utility.h>
 

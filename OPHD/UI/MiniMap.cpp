@@ -3,7 +3,7 @@
 #include "../Cache.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
-#include "../Things/Robots/Robot.h"
+#include "../MapObjects/Robot.h"
 #include "../States/Route.h"
 #include "../StructureManager.h"
 

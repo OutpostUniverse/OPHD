@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Things/Structures/FoodProduction.h"
+#include "../MapObjects/Structures/FoodProduction.h"
 #include "../Common.h"
 
 #include <vector>

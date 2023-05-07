@@ -7,9 +7,9 @@
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
 
-#include "../../Things/Structures/SurfaceFactory.h"
-#include "../../Things/Structures/SeedFactory.h"
-#include "../../Things/Structures/UndergroundFactory.h"
+#include "../../MapObjects/Structures/SurfaceFactory.h"
+#include "../../MapObjects/Structures/SeedFactory.h"
+#include "../../MapObjects/Structures/UndergroundFactory.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

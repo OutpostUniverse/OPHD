@@ -19,8 +19,8 @@
 #include "../Technology/ResearchTracker.h"
 #include "../Technology/TechnologyCatalog.h"
 
-#include "../Things/Robots/Robot.h"
-#include "../Things/Structures/Structure.h"
+#include "../MapObjects/Robot.h"
+#include "../MapObjects/Structure.h"
 
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"

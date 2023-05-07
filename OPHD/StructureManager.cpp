@@ -5,7 +5,7 @@
 #include "IOHelper.h"
 #include "PopulationPool.h"
 #include "Map/Tile.h"
-#include "Things/Robots/Robot.h"
+#include "MapObjects/Robot.h"
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
@@ -364,13 +364,13 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 	// Remove things from tile only if we know we're adding a structure.
 	if (!tile.empty())
 	{
-		tile.removeThing();
+		tile.removeMapObject();
 	}
 
 	mStructureTileTable[&structure] = &tile;
 
 	mStructureLists[structure.structureClass()].push_back(&structure);
-	tile.pushThing(&structure);
+	tile.pushMapObject(&structure);
 }
 
 
@@ -395,7 +395,7 @@ void StructureManager::removeStructure(Structure& structure)
 	const auto isFoundTileTable = tileTableIt != mStructureTileTable.end();
 	if (isFoundTileTable)
 	{
-		tileTableIt->second->deleteThing();
+		tileTableIt->second->deleteMapObject();
 		mStructureTileTable.erase(tileTableIt);
 	}
 
@@ -501,7 +501,7 @@ void StructureManager::dropAllStructures()
 {
 	for (auto& pair : mStructureTileTable)
 	{
-		pair.second->deleteThing();
+		pair.second->deleteMapObject();
 	}
 
 	mStructureTileTable.clear();

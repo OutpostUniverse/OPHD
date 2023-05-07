@@ -9,7 +9,7 @@
 
 
 class Mine;
-class Thing;
+class MapObject;
 class Robot;
 class Structure;
 
@@ -52,9 +52,9 @@ public:
 	bool connected() const { return mConnected; }
 	void connected(bool value) { mConnected = value; }
 
-	Thing* thing() const { return mThing; }
+	MapObject* thing() const { return mMapObject; }
 
-	bool empty() const { return mThing == nullptr; }
+	bool empty() const { return mMapObject == nullptr; }
 
 	bool hasMine() const { return mMine != nullptr; }
 
@@ -64,10 +64,10 @@ public:
 	bool thingIsStructure() const { return structure() != nullptr; }
 	bool thingIsRobot() const { return robot() != nullptr; }
 
-	void pushThing(Thing*);
-	void deleteThing();
+	void pushMapObject(MapObject*);
+	void deleteMapObject();
 
-	void removeThing();
+	void removeMapObject();
 
 	const Mine* mine() const { return mMine; }
 	Mine* mine() { return mMine; }
@@ -83,7 +83,7 @@ private:
 
 	MapCoordinate mPosition;
 
-	Thing* mThing = nullptr;
+	MapObject* mMapObject = nullptr;
 	Mine* mMine = nullptr;
 
 	Overlay mOverlay{Overlay::None};
