@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../MapObjects/Structures/Structure.h"
+#include "../MapObjects/Structure.h"
 
 #include "Core/UIContainer.h"
 #include "Core/ToolTip.h"

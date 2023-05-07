@@ -1,7 +1,7 @@
 #include "CrimeRateUpdate.h"
 
 #include "../Map/Tile.h"
-#include "../MapObjects/Structures/Structure.h"
+#include "../MapObjects/Structure.h"
 #include "../StructureManager.h"
 #include "../RandomNumberGenerator.h"
 

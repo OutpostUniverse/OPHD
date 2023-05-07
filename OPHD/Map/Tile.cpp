@@ -2,7 +2,7 @@
 
 #include "../Mine.h"
 #include "../MapObjects/Robots/Robot.h"
-#include "../MapObjects/Structures/Structure.h"
+#include "../MapObjects/Structure.h"
 
 #include "../Constants/Numbers.h"
 

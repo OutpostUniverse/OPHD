@@ -4,7 +4,7 @@
 #include "../Constants/UiConstants.h"
 #include "../DirectionOffset.h"
 #include "../Mine.h"
-#include "../MapObjects/Structures/Structure.h"
+#include "../MapObjects/Structure.h"
 #include "../RandomNumberGenerator.h"
 
 #include <NAS2D/Utility.h>

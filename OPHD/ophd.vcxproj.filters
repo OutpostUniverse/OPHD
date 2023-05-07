@@ -102,8 +102,8 @@
     <ClCompile Include="StructureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\Structures\Structure.cpp">
-      <Filter>Source Files\MapObjects\Structures</Filter>
+    <ClCompile Include="MapObjects\Structure.cpp">
+      <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
     <ClCompile Include="UI\DetailMap.cpp">
       <Filter>Source Files\UI</Filter>
@@ -425,8 +425,8 @@
     <ClInclude Include="MapObjects\Structures\SeedSmelter.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Structure.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
+    <ClInclude Include="MapObjects\Structure.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\Structures.h">
       <Filter>Header Files\MapObjects\Structures</Filter>

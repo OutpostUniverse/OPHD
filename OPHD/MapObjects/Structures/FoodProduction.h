@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Structure.h"
+#include "../Structure.h"
 
 /**
 * Virtual class for structures whose primary purpose is agricultural production

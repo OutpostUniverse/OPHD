@@ -20,7 +20,7 @@
 #include "../Technology/TechnologyCatalog.h"
 
 #include "../MapObjects/Robots/Robot.h"
-#include "../MapObjects/Structures/Structure.h"
+#include "../MapObjects/Structure.h"
 
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"

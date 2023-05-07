@@ -1,7 +1,8 @@
 #include "Structure.h"
 
-#include "../../RandomNumberGenerator.h"
-#include "../../Constants/Strings.h"
+#include "../RandomNumberGenerator.h"
+#include "../Constants/Strings.h"
+
 #include <algorithm>
 
 

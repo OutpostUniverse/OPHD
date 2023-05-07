@@ -2,7 +2,7 @@
 
 #include "../../Cache.h"
 #include "../../StructureManager.h"
-#include "../../MapObjects/Structures/Structure.h"
+#include "../../MapObjects/Structure.h"
 #include "../../MapObjects/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>

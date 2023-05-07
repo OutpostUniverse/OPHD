@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Structure.h"
+#include "../Structure.h"
 
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"

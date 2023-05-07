@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../MapObject.h"
+#include "MapObject.h"
 
-#include "../../Common.h"
-#include "../../PopulationPool.h"
-#include "../../StorableResources.h"
-#include "../../UI/StringTable.h"
+#include "../Common.h"
+#include "../PopulationPool.h"
+#include "../StorableResources.h"
+#include "../UI/StringTable.h"
 
 #include <NAS2D/Dictionary.h>
 
