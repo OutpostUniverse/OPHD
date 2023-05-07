@@ -1039,8 +1039,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 	auto& robot = mRobotPool.getDozer();
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	robot.tileIndex(static_cast<std::size_t>(tile.index()));
-	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 	{

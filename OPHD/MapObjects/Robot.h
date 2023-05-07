@@ -28,7 +28,7 @@ public:
 
 	void update() override;
 
-	void startTask(Tile& tile);
+	virtual void startTask(Tile& tile);
 	void startTask(int turns);
 
 	void fuelCellAge(int age) { mFuelCellAge = age; }
