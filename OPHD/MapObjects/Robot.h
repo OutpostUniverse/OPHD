@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../MapObject.h"
+#include "MapObject.h"
 
 #include <NAS2D/Dictionary.h>
 

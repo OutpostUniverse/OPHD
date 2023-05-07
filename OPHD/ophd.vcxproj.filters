@@ -132,8 +132,8 @@
     <ClCompile Include="ShellOpenPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\Robots\Robot.cpp">
-      <Filter>Source Files\MapObjects\Robots</Filter>
+    <ClCompile Include="MapObjects\Robot.cpp">
+      <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Structures\Factory.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
@@ -398,8 +398,8 @@
     <ClInclude Include="MapObjects\Robots\Robominer.h">
       <Filter>Header Files\MapObjects\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Robots\Robot.h">
-      <Filter>Header Files\MapObjects\Robots</Filter>
+    <ClInclude Include="MapObjects\Robot.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Robots\Robots.h">
       <Filter>Header Files\MapObjects\Robots</Filter>

@@ -1,7 +1,7 @@
 #include "Tile.h"
 
 #include "../Mine.h"
-#include "../MapObjects/Robots/Robot.h"
+#include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
 #include "../Constants/Numbers.h"

@@ -19,7 +19,7 @@
 #include "../Technology/ResearchTracker.h"
 #include "../Technology/TechnologyCatalog.h"
 
-#include "../MapObjects/Robots/Robot.h"
+#include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
 #include "../UI/NotificationArea.h"

@@ -5,7 +5,7 @@
 #include "IOHelper.h"
 #include "PopulationPool.h"
 #include "Map/Tile.h"
-#include "MapObjects/Robots/Robot.h"
+#include "MapObjects/Robot.h"
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
