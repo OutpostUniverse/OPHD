@@ -1,13 +1,13 @@
 #include "Robot.h"
 
-Robot::Robot(const std::string& name, const std::string& sprite_path, Type t) :
-	MapObject(name, sprite_path, "running"),
+Robot::Robot(const std::string& name, const std::string& spritePath, Type t) :
+	MapObject(name, spritePath, "running"),
 	mType{t}
 {}
 
 
-Robot::Robot(const std::string& name, const std::string& sprite_path, const std::string& initialAction, Type t) :
-	MapObject(name, sprite_path, initialAction),
+Robot::Robot(const std::string& name, const std::string& spritePath, const std::string& initialAction, Type t) :
+	MapObject(name, spritePath, initialAction),
 	mType{t}
 {}
 
