@@ -1,20 +1,20 @@
 #include "Robot.h"
 
-Robot::Robot(const std::string& name, const std::string& sprite_path, Type t) :
-	MapObject(name, sprite_path, "running"),
-	mType{t}
+Robot::Robot(const std::string& name, const std::string& spritePath, Type type) :
+	MapObject(name, spritePath, "running"),
+	mType{type}
 {}
 
 
-Robot::Robot(const std::string& name, const std::string& sprite_path, const std::string& initialAction, Type t) :
-	MapObject(name, sprite_path, initialAction),
-	mType{t}
+Robot::Robot(const std::string& name, const std::string& spritePath, const std::string& initialAction, Type type) :
+	MapObject(name, spritePath, initialAction),
+	mType{type}
 {}
 
 
 void Robot::startTask(int turns)
 {
-	if (turns < 1) { throw std::runtime_error("Robot::startTask() called with a value less than 1."); }
+	if (turns < 1) { throw std::runtime_error("Robot task time must be at least 1 turn"); }
 	mTurnsToCompleteTask = turns;
 }
 
@@ -29,11 +29,12 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::updateTask()
+void Robot::update()
 {
 	if (mSelfDestruct)
 	{
 		die();
+		return;
 	}
 
 	if (mCancelTask)

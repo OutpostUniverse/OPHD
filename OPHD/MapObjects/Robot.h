@@ -23,6 +23,8 @@ public:
 	Robot(const std::string&, const std::string&, Type);
 	Robot(const std::string&, const std::string&, const std::string&, Type);
 
+	void update() override;
+
 	void startTask(int turns);
 
 	void fuelCellAge(int age) { mFuelCellAge = age; }
@@ -45,7 +47,6 @@ public:
 
 protected:
 	void incrementFuelCellAge() { mFuelCellAge++; }
-	void updateTask();
 
 private:
 	int mFuelCellAge = 0;

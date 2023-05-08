@@ -18,8 +18,6 @@ public:
 	void direction(Direction dir) { mDirection = dir; }
 	Direction direction() const { return mDirection; }
 
-	void update() override { updateTask(); }
-
 	NAS2D::Dictionary getDataDict() const override
 	{
 		auto dictionary = Robot::getDataDict();

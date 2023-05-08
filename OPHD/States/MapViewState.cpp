@@ -932,8 +932,6 @@ void MapViewState::placeRobot(Tile& tile)
 
 void MapViewState::placeRobodozer(Tile& tile)
 {
-	auto& robot = mRobotPool.getDozer();
-
 	if (tile.thing() && !tile.thingIsStructure())
 	{
 		return;
@@ -1035,10 +1033,10 @@ void MapViewState::placeRobodozer(Tile& tile)
 		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
 		tile.deleteMapObject();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		updateConnectedness();
 	}
 
+	auto& robot = mRobotPool.getDozer();
 	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
 	robot.startTask(taskTime);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
