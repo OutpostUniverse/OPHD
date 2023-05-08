@@ -29,7 +29,7 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::updateTask()
+void Robot::update()
 {
 	if (mSelfDestruct)
 	{
