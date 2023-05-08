@@ -34,6 +34,7 @@ void Robot::updateTask()
 	if (mSelfDestruct)
 	{
 		die();
+		return;
 	}
 
 	if (mCancelTask)
