@@ -107,6 +107,7 @@ std::string StructureName(StructureID id)
 
 Structure::Structure(const std::string& spritePath, StructureClass structureClass, StructureID id) :
 	MapObject(StructureName(id), spritePath, constants::StructureStateConstruction),
+	mSpritePath(spritePath),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
@@ -115,6 +116,7 @@ Structure::Structure(const std::string& spritePath, StructureClass structureClas
 
 Structure::Structure(const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
 	MapObject(StructureName(id), spritePath, initialAction),
+	mSpritePath(spritePath),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {

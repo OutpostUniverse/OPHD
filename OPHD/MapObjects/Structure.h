@@ -210,6 +210,8 @@ private:
 	virtual void activated() {}
 
 private:
+	std::string mSpritePath;
+
 	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
 	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
