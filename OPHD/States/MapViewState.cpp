@@ -1039,8 +1039,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 	auto& robot = mRobotPool.getDozer();
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	robot.tileIndex(static_cast<std::size_t>(tile.index()));
-	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 	{
@@ -1151,7 +1149,6 @@ void MapViewState::placeRobominer(Tile& tile)
 	auto& robot = mRobotPool.getMiner();
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
 	{
@@ -1267,7 +1264,7 @@ void MapViewState::updateRobots()
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
-				resetTileIndexFromDozer(robot, tile);
+				robot->abortTask(*tile);
 			}
 
 			if (tile->thing() == robot)
@@ -1297,7 +1294,7 @@ void MapViewState::updateRobots()
 
 			if (robot->taskCanceled())
 			{
-				resetTileIndexFromDozer(robot, tile);
+				robot->abortTask(*tile);
 				populateRobotMenu();
 				robot->reset();
 

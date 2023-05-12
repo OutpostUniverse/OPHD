@@ -13,9 +13,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../DirectionOffset.h"
-#include "../RobotPool.h"
 #include "../Map/TileMap.h"
-#include "../MapObjects/Structures/RobotCommand.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
@@ -422,15 +420,5 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 		const auto toTransfer = resourcesToRemove.cap(resourcesInStorage);
 		resourcesInStorage -= toTransfer;
 		resourcesToRemove -= toTransfer;
-	}
-}
-
-
-void resetTileIndexFromDozer(Robot* robot, Tile* tile)
-{
-	Robodozer* dozer = dynamic_cast<Robodozer*>(robot);
-	if (dozer)
-	{
-		tile->index(static_cast<TerrainType>(dozer->tileIndex()));
 	}
 }

@@ -28,8 +28,10 @@ public:
 
 	void update() override;
 
-	void startTask(Tile& tile);
+	virtual void startTask(Tile& tile);
 	void startTask(int turns);
+
+	virtual void abortTask(Tile& /*tile*/) {}
 
 	void fuelCellAge(int age) { mFuelCellAge = age; }
 	int fuelCellAge() const { return mFuelCellAge; }
