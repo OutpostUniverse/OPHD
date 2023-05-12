@@ -2,6 +2,13 @@
 
 #include "StorableResources.h"
 #include "MapObjects/Structures.h"
+#include "MapObjects/StructureType.h"
+#include "IOHelper.h"
+#include "XmlSerializer.h"
+
+#include <NAS2D/Utility.h>
+#include <NAS2D/Filesystem.h>
+#include <NAS2D/ParserHelper.h>
 
 #include <string>
 #include <stdexcept>
@@ -117,6 +124,48 @@ namespace
 
 		return structureRecycleValueTable;
 	}
+
+
+	std::vector<StructureType> loadStructureTypes(const std::string& filePath)
+	{
+		const auto document = openXmlFile(filePath, "Structures");
+		const auto& structuresElement = *document.firstChildElement("Structures");
+
+		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
+		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+
+		std::vector<StructureType> structureTypes;
+		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
+		{
+			const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
+			NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, optionalFields);
+
+			structureTypes.push_back({
+				dictionary.get("Name"),
+				dictionary.get("ImagePath"),
+				readResources(*structureElement, "BuildCost"),
+				readResources(*structureElement, "OperationalCost"),
+				{
+					dictionary.get<int>("RequiredWorkers"),
+					dictionary.get<int>("RequiredScientists"),
+				},
+				dictionary.get<int>("Priority"),
+				dictionary.get<int>("TurnsToBuild"),
+				dictionary.get<int>("MaxAge"),
+				dictionary.get<int>("EnergyRequired"),
+				dictionary.get<int>("EnergyProduced"),
+				dictionary.get<int>("FoodProduced"),
+				dictionary.get<int>("FoodStorageCapacity"),
+				dictionary.get<int>("OreStorageCapacity"),
+				dictionary.get<int>("IntegrityDecayRate"),
+				dictionary.get<bool>("IsSelfSustained"),
+				dictionary.get<bool>("IsRepairable"),
+				dictionary.get<bool>("IsChapRequired"),
+				dictionary.get<bool>("IsCrimeTarget"),
+			});
+		}
+		return structureTypes;
+	}
 }
 
 
@@ -125,6 +174,7 @@ namespace
  */
 void StructureCatalogue::init()
 {
+	loadStructureTypes("StructureTypes.xml");
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
