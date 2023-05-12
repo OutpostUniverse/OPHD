@@ -1264,7 +1264,7 @@ void MapViewState::updateRobots()
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
-				resetTileIndexFromDozer(robot, tile);
+				robot->abortTask(*tile);
 			}
 
 			if (tile->thing() == robot)
@@ -1294,7 +1294,7 @@ void MapViewState::updateRobots()
 
 			if (robot->taskCanceled())
 			{
-				resetTileIndexFromDozer(robot, tile);
+				robot->abortTask(*tile);
 				populateRobotMenu();
 				robot->reset();
 

@@ -424,13 +424,3 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 		resourcesToRemove -= toTransfer;
 	}
 }
-
-
-void resetTileIndexFromDozer(Robot* robot, Tile* tile)
-{
-	Robodozer* dozer = dynamic_cast<Robodozer*>(robot);
-	if (dozer)
-	{
-		dozer->abortTask(*tile);
-	}
-}

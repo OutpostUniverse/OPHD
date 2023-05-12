@@ -27,7 +27,6 @@ namespace NAS2D
 class Tile;
 class TileMap;
 class Warehouse;
-class Robot;
 struct StorableResources;
 
 extern const NAS2D::Point<int> CcNotPlaced;
@@ -53,5 +52,3 @@ void resourceShortageMessage(const StorableResources&, StructureID);
 
 StorableResources addRefinedResources(StorableResources);
 void removeRefinedResources(StorableResources&);
-
-void resetTileIndexFromDozer(Robot* robot, Tile* tile);
