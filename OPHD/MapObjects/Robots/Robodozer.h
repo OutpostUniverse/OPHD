@@ -26,9 +26,6 @@ public:
 		tile.index(static_cast<TerrainType>(mTileIndex));
 	}
 
-	void tileIndex(std::size_t index) { mTileIndex = index; }
-	std::size_t tileIndex() const { return mTileIndex; }
-
 private:
 	std::size_t mTileIndex = 0;
 };
