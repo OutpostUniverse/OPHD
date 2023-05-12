@@ -431,6 +431,6 @@ void resetTileIndexFromDozer(Robot* robot, Tile* tile)
 	Robodozer* dozer = dynamic_cast<Robodozer*>(robot);
 	if (dozer)
 	{
-		tile->index(static_cast<TerrainType>(dozer->tileIndex()));
+		dozer->abortTask(*tile);
 	}
 }

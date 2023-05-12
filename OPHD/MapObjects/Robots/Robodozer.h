@@ -21,6 +21,11 @@ public:
 		tile.index(TerrainType::Dozed);
 	}
 
+	void abortTask(Tile& tile)
+	{
+		tile.index(static_cast<TerrainType>(mTileIndex));
+	}
+
 	void tileIndex(std::size_t index) { mTileIndex = index; }
 	std::size_t tileIndex() const { return mTileIndex; }
 
