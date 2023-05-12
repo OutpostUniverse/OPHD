@@ -17,7 +17,7 @@ public:
 	{
 		Robot::startTask(tile);
 
-		tileIndex(static_cast<std::size_t>(tile.index()));
+		mTileIndex = static_cast<std::size_t>(tile.index());
 		tile.index(TerrainType::Dozed);
 	}
 
