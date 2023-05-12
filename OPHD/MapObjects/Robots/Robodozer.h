@@ -21,7 +21,7 @@ public:
 		tile.index(TerrainType::Dozed);
 	}
 
-	void abortTask(Tile& tile)
+	void abortTask(Tile& tile) override
 	{
 		tile.index(static_cast<TerrainType>(mTileIndex));
 	}
