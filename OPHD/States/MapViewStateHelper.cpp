@@ -13,9 +13,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../DirectionOffset.h"
-#include "../RobotPool.h"
 #include "../Map/TileMap.h"
-#include "../MapObjects/Structures/RobotCommand.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
