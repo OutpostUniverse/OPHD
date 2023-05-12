@@ -7,7 +7,7 @@
 #include <NAS2D/ParserHelper.h>
 
 
-StorableResources readResources(NAS2D::Xml::XmlElement* element)
+StorableResources readResources(const NAS2D::Xml::XmlElement* element)
 {
 	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
 
