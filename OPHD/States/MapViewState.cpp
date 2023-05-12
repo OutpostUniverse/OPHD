@@ -1037,8 +1037,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	}
 
 	auto& robot = mRobotPool.getDozer();
-	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
-	robot.startTask(taskTime);
+	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 	robot.tileIndex(static_cast<std::size_t>(tile.index()));
 	tile.index(TerrainType::Dozed);
@@ -1150,7 +1149,7 @@ void MapViewState::placeRobominer(Tile& tile)
 	}
 
 	auto& robot = mRobotPool.getMiner();
-	robot.startTask(constants::MinerTaskTime);
+	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 	tile.index(TerrainType::Dozed);
 

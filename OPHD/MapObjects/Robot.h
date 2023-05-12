@@ -5,6 +5,9 @@
 #include <NAS2D/Dictionary.h>
 
 
+class Tile;
+
+
 class Robot : public MapObject
 {
 public:
@@ -25,6 +28,7 @@ public:
 
 	void update() override;
 
+	void startTask(Tile& tile);
 	void startTask(int turns);
 
 	void fuelCellAge(int age) { mFuelCellAge = age; }
