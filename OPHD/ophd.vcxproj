@@ -407,6 +407,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClInclude Include="MapObjects\Structures\SolarPanelArray.h" />
     <ClInclude Include="MapObjects\Structures\SolarPlant.h" />
     <ClInclude Include="MapObjects\Structures\StorageTanks.h" />
+    <ClInclude Include="MapObjects\StructureType.h" />
     <ClInclude Include="MapObjects\Structure.h" />
     <ClInclude Include="MapObjects\Structures.h" />
     <ClInclude Include="MapObjects\Structures\FusionReactor.h" />
