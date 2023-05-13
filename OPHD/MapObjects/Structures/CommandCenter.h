@@ -16,14 +16,6 @@ public:
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)
 	{
-		maxAge(0);
-		turnsToBuild(4);
-		integrityDecayRate(0);
-
-		requiresCHAP(false);
-		selfSustained(true);
-
-		storageCapacity(constants::BaseStorageCapacity);
 	}
 
 	int foodCapacity() override

@@ -19,10 +19,6 @@ public:
 			StructureID::SID_SOLAR_PANEL1
 		}
 	{
-		maxAge(1000);
-		turnsToBuild(4);
-		requiresCHAP(false);
-		hasCrime(true);
 	}
 
 protected:

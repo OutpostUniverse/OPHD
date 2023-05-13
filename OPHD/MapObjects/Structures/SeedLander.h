@@ -21,12 +21,6 @@ public:
 		},
 		mPosition{position}
 	{
-		maxAge(50);
-		turnsToBuild(1);
-		repairable(false);
-		requiresCHAP(false);
-		selfSustained(true);
-
 		enable();
 	}
 

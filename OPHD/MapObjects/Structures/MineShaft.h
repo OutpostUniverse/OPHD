@@ -12,11 +12,5 @@ public:
 		StructureClass::Undefined,
 		StructureID::SID_MINE_SHAFT)
 	{
-		maxAge(1200);
-		turnsToBuild(2);
-
-		requiresCHAP(false);
-		selfSustained(true);
-		integrityDecayRate(0);
 	}
 };

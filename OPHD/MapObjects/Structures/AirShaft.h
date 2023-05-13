@@ -16,9 +16,7 @@ public:
 	{
 		connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);
 
-		requiresCHAP(false);
 		state(StructureState::Operational);
-		integrityDecayRate(0);
 	}
 
 	void ug()

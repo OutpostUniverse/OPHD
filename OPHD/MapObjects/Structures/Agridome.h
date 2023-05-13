@@ -15,11 +15,6 @@ class Agridome : public FoodProduction
 public:
 	Agridome() : FoodProduction(StructureClass::FoodProduction, StructureID::SID_AGRIDOME)
 	{
-		maxAge(600);
-		turnsToBuild(3);
-
-		requiresCHAP(true);
-		hasCrime(true);
 	}
 
 protected:
@@ -33,12 +28,6 @@ protected:
 		{
 			idle(IdleReason::InternalStorageFull);
 		}
-	}
-
-	void defineResourceInput() override
-	{
-		resourcesIn({1, 0, 0, 0});
-		energyRequired(2);
 	}
 
 	void disabledStateSet() override

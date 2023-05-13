@@ -11,12 +11,6 @@ public:
 	UndergroundFactory() : Factory(
 		StructureID::SID_UNDERGROUND_FACTORY)
 	{
-		maxAge(600);
-		turnsToBuild(4);
-
-		requiresCHAP(false);
-		hasCrime(true);
-
 		initFactory();
 	}
 
@@ -28,11 +22,5 @@ protected:
 		// Produces luxuries, clothing, or medicine
 		addProduct(ProductType::PRODUCT_CLOTHING);
 		addProduct(ProductType::PRODUCT_MEDICINE);
-	}
-
-private:
-	void defineResourceInput() override
-	{
-		energyRequired(10);
 	}
 };

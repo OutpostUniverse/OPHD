@@ -17,17 +17,6 @@ public:
 		StructureClass::EnergyProduction,
 		StructureID::SID_FUSION_REACTOR)
 	{
-		maxAge(1000);
-		turnsToBuild(10);
-		requiresCHAP(false);
-		hasCrime(true);
-		integrityDecayRate(2);
-	}
-
-protected:
-	void defineResourceInput() override
-	{
-		resourcesIn({2, 2, 1, 1});
 	}
 
 protected:

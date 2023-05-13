@@ -16,11 +16,6 @@ public:
 		StructureClass::Communication,
 		StructureID::SID_COMM_TOWER)
 	{
-		maxAge(600);
-		turnsToBuild(2);
-
-		requiresCHAP(false);
-		selfSustained(true);
 	}
 
 
@@ -45,11 +40,5 @@ public:
 		}
 
 		return stringTable;
-	}
-
-protected:
-	void defineResourceInput() override
-	{
-		energyRequired(3);
 	}
 };

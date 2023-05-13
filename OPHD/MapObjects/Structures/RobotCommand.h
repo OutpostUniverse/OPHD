@@ -20,16 +20,5 @@ public:
 		StructureClass::RobotCommand,
 		StructureID::SID_ROBOT_COMMAND)
 	{
-		maxAge(500);
-		turnsToBuild(3);
-
-		requiresCHAP(false);
-		hasCrime(true);
-	}
-
-protected:
-	void defineResourceInput() override
-	{
-		energyRequired(5);
 	}
 };

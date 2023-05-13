@@ -24,11 +24,6 @@ public:
 		StructureClass::Residence,
 		StructureID::SID_RESIDENCE)
 	{
-		maxAge(500);
-		turnsToBuild(2);
-
-		requiresCHAP(true);
-		hasCrime(true);
 	}
 
 
@@ -92,12 +87,6 @@ public:
 
 
 protected:
-	void defineResourceInput() override
-	{
-		energyRequired(2);
-	}
-
-
 	void think() override
 	{
 		mWasteAccumulated += mAssignedColonists;

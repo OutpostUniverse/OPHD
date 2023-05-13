@@ -19,11 +19,6 @@ public:
 		StructureClass::Recycling,
 		StructureID::SID_RECYCLING)
 	{
-		maxAge(500);
-		turnsToBuild(4);
-
-		requiresCHAP(true);
-		hasCrime(true);
 	}
 
 
@@ -70,12 +65,5 @@ public:
 		}
 
 		return stringTable;
-	}
-
-
-protected:
-	void defineResourceInput() override
-	{
-		energyRequired(4);
 	}
 };

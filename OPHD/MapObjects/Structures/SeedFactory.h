@@ -11,10 +11,6 @@ public:
 	SeedFactory() : Factory(
 		StructureID::SID_SEED_FACTORY)
 	{
-		maxAge(150);
-		turnsToBuild(8);
-		requiresCHAP(false);
-
 		initFactory();
 	}
 
@@ -25,11 +21,5 @@ protected:
 		addProduct(ProductType::PRODUCT_DOZER);
 		addProduct(ProductType::PRODUCT_MINER);
 		addProduct(ProductType::PRODUCT_TRUCK);
-	}
-
-private:
-	void defineResourceInput() override
-	{
-		energyRequired(5);
 	}
 };

@@ -13,20 +13,9 @@ public:
 		StructureClass::Warehouse,
 		StructureID::SID_WAREHOUSE)
 	{
-		maxAge(500);
-		turnsToBuild(2);
-
-		requiresCHAP(false);
-		hasCrime(true);
 	}
 
 	ProductPool& products() { return mProducts; }
-
-protected:
-	void defineResourceInput() override
-	{
-		energyRequired(1);
-	}
 
 private:
 	ProductPool mProducts;

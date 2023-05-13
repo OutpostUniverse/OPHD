@@ -18,13 +18,6 @@ public:
 		StructureID::SID_COLONIST_LANDER),
 		mTile(tile)
 	{
-		maxAge(50);
-		turnsToBuild(1);
-		repairable(false);
-		requiresCHAP(false);
-		selfSustained(true);
-		integrityDecayRate(2);
-
 		enable();
 	}
 
