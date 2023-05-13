@@ -169,6 +169,19 @@ namespace
 
 
 	std::vector<StructureType> structureTypes;
+
+
+	const StructureType& findStructureType(const std::string& name)
+	{
+		for (const auto& structureType : structureTypes)
+		{
+			if (structureType.name == name)
+			{
+				return structureType;
+			}
+		}
+		throw std::runtime_error("StructureType not found: " + name);
+	}
 }
 
 
@@ -179,6 +192,12 @@ void StructureCatalogue::init()
 {
 	structureTypes = loadStructureTypes("StructureTypes.xml");
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
+}
+
+
+const StructureType& StructureCatalogue::getType(StructureID type)
+{
+	return findStructureType(StructureName(type));
 }
 
 

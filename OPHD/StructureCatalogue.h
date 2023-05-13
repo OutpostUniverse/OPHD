@@ -6,6 +6,7 @@
 
 
 class Structure;
+struct StructureType;
 struct PopulationRequirements;
 struct StorableResources;
 
@@ -25,6 +26,8 @@ public:
 	StructureCatalogue() = delete;
 
 	static void init();
+
+	static const StructureType& getType(StructureID type);
 
 	static Structure* get(StructureID type);
 
