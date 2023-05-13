@@ -7,6 +7,17 @@
 #include <NAS2D/ParserHelper.h>
 
 
+StorableResources readResources(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName)
+{
+	const auto* childElement = parentElement.firstChildElement(subElementName);
+	if (!childElement) {
+		throw std::runtime_error("No sub element to read resources from: " + subElementName);
+	}
+
+	return readResources(childElement);
+}
+
+
 StorableResources readResources(const NAS2D::Xml::XmlElement* element)
 {
 	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
