@@ -16,7 +16,6 @@ public:
 	SeedLander() = delete;
 	SeedLander(NAS2D::Point<int> position) :
 		Structure{
-			"structures/seed_0.sprite",
 			StructureClass::Lander,
 			StructureID::SID_SEED_LANDER
 		},

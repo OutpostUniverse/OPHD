@@ -9,7 +9,6 @@ class RedLightDistrict : public Structure
 {
 public:
 	RedLightDistrict() : Structure(
-		"structures/red_light_district.sprite",
 		StructureClass::Residence,
 		StructureID::SID_RED_LIGHT_DISTRICT)
 	{

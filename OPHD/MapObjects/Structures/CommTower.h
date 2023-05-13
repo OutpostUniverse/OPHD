@@ -13,7 +13,6 @@ private:
 
 public:
 	CommTower() : Structure(
-		"structures/communications_tower.sprite",
 		StructureClass::Communication,
 		StructureID::SID_COMM_TOWER)
 	{

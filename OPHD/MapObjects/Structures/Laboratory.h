@@ -9,7 +9,6 @@ class Laboratory : public ResearchFacility
 {
 public:
 	Laboratory() : ResearchFacility(
-		"structures/laboratory_underground.sprite",
 		StructureClass::Laboratory,
 		StructureID::SID_LABORATORY)
 	{

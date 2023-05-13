@@ -19,7 +19,6 @@ public:
 
 public:
 	MaintenanceFacility() : Structure(
-		"structures/maintenance.sprite",
 		StructureClass::Maintenance,
 		StructureID::SID_MAINTENANCE_FACILITY)
 	{

@@ -12,7 +12,6 @@ class StorageTanks : public Structure
 {
 public:
 	StorageTanks() : Structure(
-		"structures/storage_tanks.sprite",
 		StructureClass::Storage,
 		StructureID::SID_STORAGE_TANKS)
 	{

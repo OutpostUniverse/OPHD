@@ -10,7 +10,6 @@ class Warehouse : public Structure
 {
 public:
 	Warehouse() : Structure(
-		"structures/warehouse.sprite",
 		StructureClass::Warehouse,
 		StructureID::SID_WAREHOUSE)
 	{

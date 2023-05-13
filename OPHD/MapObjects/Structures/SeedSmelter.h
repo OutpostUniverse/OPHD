@@ -11,7 +11,6 @@ class SeedSmelter : public OreRefining
 
 public:
 	SeedSmelter() : OreRefining(
-		"structures/seed_1.sprite",
 		StructureClass::Smelter,
 		StructureID::SID_SEED_SMELTER)
 	{

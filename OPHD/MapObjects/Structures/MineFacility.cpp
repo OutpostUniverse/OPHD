@@ -20,7 +20,6 @@ namespace
 
 MineFacility::MineFacility(Mine* mine) :
 	Structure(
-		"structures/mine_facility.sprite",
 		StructureClass::Mine,
 		StructureID::SID_MINE_FACILITY
 	),

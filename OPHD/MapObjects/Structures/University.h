@@ -9,7 +9,6 @@ class University : public Structure
 {
 public:
 	University() : Structure(
-		"structures/university.sprite",
 		StructureClass::University,
 		StructureID::SID_UNIVERSITY)
 	{

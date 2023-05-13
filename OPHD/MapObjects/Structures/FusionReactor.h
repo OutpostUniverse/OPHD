@@ -14,7 +14,6 @@ class FusionReactor : public PowerStructure
 {
 public:
 	FusionReactor() : PowerStructure(
-		"structures/fusion_reactor.sprite",
 		StructureClass::EnergyProduction,
 		StructureID::SID_FUSION_REACTOR)
 	{

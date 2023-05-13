@@ -9,7 +9,6 @@ class SeedFactory : public Factory
 {
 public:
 	SeedFactory() : Factory(
-		"structures/seed_1.sprite",
 		StructureID::SID_SEED_FACTORY)
 	{
 		maxAge(150);

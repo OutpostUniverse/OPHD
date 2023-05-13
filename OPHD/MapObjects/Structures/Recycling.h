@@ -16,7 +16,6 @@ private:
 
 public:
 	Recycling() : Structure(
-		"structures/recycling.sprite",
 		StructureClass::Recycling,
 		StructureID::SID_RECYCLING)
 	{

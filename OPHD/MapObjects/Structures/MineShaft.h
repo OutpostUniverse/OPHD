@@ -9,7 +9,6 @@ class MineShaft : public Structure
 {
 public:
 	MineShaft() : Structure(
-		"structures/mine_shaft.sprite",
 		StructureClass::Undefined,
 		StructureID::SID_MINE_SHAFT)
 	{

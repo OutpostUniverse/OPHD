@@ -9,7 +9,6 @@ class HotLaboratory : public ResearchFacility
 {
 public:
 	HotLaboratory() : ResearchFacility(
-		"structures/labo_surface.sprite",
 		StructureClass::Laboratory,
 		StructureID::SID_HOT_LABORATORY)
 	{

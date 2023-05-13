@@ -10,8 +10,8 @@
 class FoodProduction : public Structure
 {
 public:
-	FoodProduction(const std::string& spritePath, StructureClass structureClass, StructureID id) :
-		Structure(spritePath, structureClass, id) {}
+	FoodProduction(StructureClass structureClass, StructureID id) :
+		Structure(structureClass, id) {}
 
 	StringTable createInspectorViewTable() override
 	{

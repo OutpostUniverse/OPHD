@@ -9,7 +9,6 @@ class Road : public Structure
 {
 public:
 	Road() : Structure(
-		"structures/roads.sprite",
 		StructureClass::Road,
 		StructureID::SID_ROAD)
 	{

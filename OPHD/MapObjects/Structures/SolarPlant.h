@@ -15,7 +15,6 @@ public:
 	SolarPlant() :
 		PowerStructure
 		{
-			"structures/solar_plant.sprite",
 			StructureClass::EnergyProduction,
 			StructureID::SID_SOLAR_PLANT
 		}

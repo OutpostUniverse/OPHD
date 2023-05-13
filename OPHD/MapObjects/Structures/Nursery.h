@@ -9,7 +9,6 @@ class Nursery : public Structure
 {
 public:
 	Nursery() : Structure(
-		"structures/nursery_01.sprite",
 		StructureClass::Nursery,
 		StructureID::SID_NURSERY)
 	{

@@ -9,7 +9,6 @@ class SurfacePolice : public Structure
 {
 public:
 	SurfacePolice() : Structure(
-		"structures/police_surface.sprite",
 		StructureClass::SurfacePolice,
 		StructureID::SID_SURFACE_POLICE)
 	{

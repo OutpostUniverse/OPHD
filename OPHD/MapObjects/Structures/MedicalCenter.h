@@ -9,7 +9,6 @@ class MedicalCenter : public Structure
 {
 public:
 	MedicalCenter() : Structure(
-		"structures/medical.sprite",
 		StructureClass::MedicalCenter,
 		StructureID::SID_MEDICAL_CENTER)
 	{

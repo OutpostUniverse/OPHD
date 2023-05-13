@@ -9,7 +9,6 @@ class SurfaceFactory : public Factory
 {
 public:
 	SurfaceFactory() : Factory(
-		"structures/factory_surface.sprite",
 		StructureID::SID_SURFACE_FACTORY)
 	{
 		maxAge(600);

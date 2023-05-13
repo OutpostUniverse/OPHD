@@ -21,7 +21,6 @@ class Residence : public Structure
 {
 public:
 	Residence() : Structure(
-		"structures/residential_1.sprite",
 		StructureClass::Residence,
 		StructureID::SID_RESIDENCE)
 	{

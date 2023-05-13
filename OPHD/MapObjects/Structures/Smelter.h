@@ -11,7 +11,6 @@ class Smelter : public OreRefining
 
 public:
 	Smelter() : OreRefining(
-		"structures/smelter.sprite",
 		StructureClass::Smelter,
 		StructureID::SID_SMELTER)
 	{

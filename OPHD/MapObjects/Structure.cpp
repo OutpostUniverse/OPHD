@@ -1,5 +1,7 @@
 #include "Structure.h"
 
+#include "StructureType.h"
+
 #include "../StructureCatalogue.h"
 #include "../RandomNumberGenerator.h"
 #include "../Constants/Strings.h"
@@ -106,8 +108,8 @@ std::string StructureName(StructureID id)
 
 
 
-Structure::Structure(const std::string& spritePath, StructureClass structureClass, StructureID id) :
-	MapObject(StructureName(id), spritePath, constants::StructureStateConstruction),
+Structure::Structure(StructureClass structureClass, StructureID id) :
+	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, constants::StructureStateConstruction),
 	mStructureType(StructureCatalogue::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
@@ -115,8 +117,8 @@ Structure::Structure(const std::string& spritePath, StructureClass structureClas
 }
 
 
-Structure::Structure(const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
-	MapObject(StructureName(id), spritePath, initialAction),
+Structure::Structure(const std::string& initialAction, StructureClass structureClass, StructureID id) :
+	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, initialAction),
 	mStructureType(StructureCatalogue::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
