@@ -8,7 +8,7 @@
 class UndergroundPolice : public Structure
 {
 public:
-	UndergroundPolice() : Structure(constants::UndergroundPolice,
+	UndergroundPolice() : Structure(
 		"structures/police_underground.sprite",
 		StructureClass::UndergroundPolice,
 		StructureID::SID_UNDERGROUND_POLICE)

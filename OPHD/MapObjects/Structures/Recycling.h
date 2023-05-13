@@ -15,7 +15,7 @@ private:
 	const int ResidentialSupportCount = 10;
 
 public:
-	Recycling() : Structure(constants::Recycling,
+	Recycling() : Structure(
 		"structures/recycling.sprite",
 		StructureClass::Recycling,
 		StructureID::SID_RECYCLING)

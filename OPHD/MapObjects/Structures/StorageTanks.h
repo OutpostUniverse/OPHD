@@ -11,7 +11,7 @@ const int StorageTanksCapacity = 1000;
 class StorageTanks : public Structure
 {
 public:
-	StorageTanks() : Structure(constants::StorageTanks,
+	StorageTanks() : Structure(
 		"structures/storage_tanks.sprite",
 		StructureClass::Storage,
 		StructureID::SID_STORAGE_TANKS)

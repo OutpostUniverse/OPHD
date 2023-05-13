@@ -15,7 +15,6 @@ public:
 	SolarPanelArray() :
 		PowerStructure
 		{
-			constants::SolarPanel1,
 			"structures/solar_array1.sprite",
 			StructureClass::EnergyProduction,
 			StructureID::SID_SOLAR_PANEL1

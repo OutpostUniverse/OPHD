@@ -12,7 +12,7 @@ public:
 
 	using Signal = NAS2D::Signal<>;
 
-	CargoLander(Tile* tile) : Structure(constants::CargoLander,
+	CargoLander(Tile* tile) : Structure(
 		"structures/lander_0.sprite",
 		StructureClass::Lander,
 		StructureID::SID_CARGO_LANDER),

@@ -14,7 +14,7 @@ class Tube : public Structure
 {
 public:
 	Tube(ConnectorDir dir, bool underground) :
-		Structure(constants::Tube, "structures/tubes.sprite",
+		Structure("structures/tubes.sprite",
 			getAnimationName(dir, underground),
 			StructureClass::Tube,
 			StructureID::SID_TUBE)

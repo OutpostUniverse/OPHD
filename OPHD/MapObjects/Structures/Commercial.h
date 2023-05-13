@@ -8,7 +8,7 @@
 class Commercial : public Structure
 {
 public:
-	Commercial() : Structure(constants::Commercial,
+	Commercial() : Structure(
 		"structures/commercial.sprite",
 		StructureClass::Commercial,
 		StructureID::SID_COMMERCIAL)

@@ -20,7 +20,7 @@ const int ResidentialColonistCapacityBase = 25;
 class Residence : public Structure
 {
 public:
-	Residence() : Structure(constants::Residence,
+	Residence() : Structure(
 		"structures/residential_1.sprite",
 		StructureClass::Residence,
 		StructureID::SID_RESIDENCE)

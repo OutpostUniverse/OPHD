@@ -13,7 +13,7 @@ const int AGRIDOME_BASE_PRODUCUCTION = 10;
 class Agridome : public FoodProduction
 {
 public:
-	Agridome() : FoodProduction(constants::Agridome, "structures/agridome.sprite", StructureClass::FoodProduction, StructureID::SID_AGRIDOME)
+	Agridome() : FoodProduction("structures/agridome.sprite", StructureClass::FoodProduction, StructureID::SID_AGRIDOME)
 	{
 		maxAge(600);
 		turnsToBuild(3);
