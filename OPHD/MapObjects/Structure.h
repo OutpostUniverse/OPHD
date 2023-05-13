@@ -209,25 +209,31 @@ private:
 	virtual void activated() {}
 
 private:
+	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
+	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
+
 	int mTurnsToBuild{0};
-	int mAge{0};
 	int mMaxAge{0};
 	int mEnergyRequirement{0};
 	int mStorageCapacity{0};
-	int mCrimeRate{0};
-	int mIntegrity{100};
 	int mIntegrityDecayRate{1};
 
+	bool mRepairable{true};
+	bool mRequiresCHAP{true};
+	bool mSelfSustained{false};
+	bool mHasCrime{false};
+
 	StructureID mStructureId{StructureID::SID_NONE};
+
+	int mAge{0};
+	int mCrimeRate{0};
+	int mIntegrity{100};
 
 	StructureState mStructureState{StructureState::UnderConstruction};
 	StructureClass mStructureClass{StructureClass::Undefined};
 	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
-	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
-
-	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
 	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
@@ -235,10 +241,6 @@ private:
 	DisabledReason mDisabledReason{DisabledReason::None};
 	IdleReason mIdleReason{IdleReason::None};
 
-	bool mRepairable{true};
-	bool mRequiresCHAP{true};
-	bool mSelfSustained{false};
-	bool mHasCrime{false};
 	bool mForcedIdle{false}; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 
