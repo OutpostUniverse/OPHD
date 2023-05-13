@@ -10,6 +10,9 @@
 #include <NAS2D/Dictionary.h>
 
 
+struct StructureType;
+
+
 /**
  * State of an individual Structure.
  */
@@ -210,6 +213,8 @@ private:
 	virtual void activated() {}
 
 private:
+	const StructureType& mStructureType;
+
 	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
 	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
