@@ -110,7 +110,7 @@ public:
 	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	const std::string& classDescription() const;
-	static const std::string& classDescription(Structure::StructureClass structureClass);
+	static const std::string& classDescription(StructureClass structureClass);
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int turnsToBuild() const { return mTurnsToBuild; }

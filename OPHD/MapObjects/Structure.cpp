@@ -209,7 +209,7 @@ const std::string& Structure::classDescription() const
 	return classDescription(mStructureClass);
 }
 
-const std::string& Structure::classDescription(Structure::StructureClass structureClass)
+const std::string& Structure::classDescription(StructureClass structureClass)
 {
 	return STRUCTURE_CLASS_TRANSLATION.at(structureClass);
 }
