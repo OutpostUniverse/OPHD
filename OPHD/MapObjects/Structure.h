@@ -97,12 +97,12 @@ public:
 	bool forceIdle() const { return mForcedIdle; }
 
 	// RESOURCES AND RESOURCE MANAGEMENT
-	const StorableResources& resourcesIn() const { return mResourcesInput; }
+	const StorableResources& resourcesIn() const;
 
 	StorableResources& storage() { return mStoragePool; }
 	StorableResources& production() { return mProductionPool; }
 
-	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
+	const PopulationRequirements& populationRequirements() const;
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
 
 	// ATTRIBUTES
@@ -113,28 +113,28 @@ public:
 	static const std::string& classDescription(StructureClass structureClass);
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
-	int turnsToBuild() const { return mTurnsToBuild; }
+	int turnsToBuild() const;
 	int age() const { return mAge; }
-	int maxAge() const { return mMaxAge; }
+	int maxAge() const;
 	bool ages() const { return maxAge() > 0; }
 
-	int energyRequirement() const { return mEnergyRequirement; }
-	int storageCapacity() const { return mStorageCapacity; }
+	int energyRequirement() const;
+	int storageCapacity() const;
 
-	bool hasCrime() const { return mHasCrime; }
+	bool hasCrime() const;
 	int crimeRate() const { return mCrimeRate; }
 	void crimeRate(int crimeRate);
 	void increaseCrimeRate(int deltaCrimeRate);
 
 	int integrity() const { return mIntegrity; }
 	void integrity(int integrity);
-	int integrityDecayRate() const { return mIntegrityDecayRate; }
+	int integrityDecayRate() const;
 
 	// FLAGS
-	bool requiresCHAP() const { return mRequiresCHAP; }
+	bool requiresCHAP() const;
 	bool providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
-	bool selfSustained() const { return mSelfSustained; }
-	bool repairable() const { return mRepairable; }
+	bool selfSustained() const;
+	bool repairable() const;
 
 	// CONVENIENCE FUCNTIONS
 	bool isFactory() const { return mStructureClass == StructureClass::Factory; }
