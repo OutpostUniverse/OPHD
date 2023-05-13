@@ -45,14 +45,6 @@ namespace
 	}
 
 
-	void loadResorucesFromXmlElement(NAS2D::Xml::XmlElement* element, StorableResources& resources)
-	{
-		if (!element) { return; }
-
-		resources = readResources(element);
-	}
-
-
 	NAS2D::Dictionary robotToDictionary(RobotTileTable& robotTileTable, Robot& robot)
 	{
 		NAS2D::Dictionary dictionary = robot.getDataDict();
@@ -280,7 +272,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mResearchTracker = readResearch(root->firstChildElement("research"));
 
-	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
+	mResourceBreakdownPanel.previousResources() = readResources(*root, "prev_resources");
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
@@ -484,8 +476,8 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
 
-		loadResorucesFromXmlElement(structureElement->firstChildElement("production"), structure.production());
-		loadResorucesFromXmlElement(structureElement->firstChildElement("storage"), structure.storage());
+		structure.production() = readResourcesOptional(*structureElement, "production");
+		structure.storage() = readResourcesOptional(*structureElement, "storage");
 
 		if (structure.structureClass() == Structure::StructureClass::Residence)
 		{
