@@ -14,15 +14,13 @@ StorableResources readResources(const NAS2D::Xml::XmlElement& parentElement, con
 		throw std::runtime_error("No sub element to read resources from: " + subElementName);
 	}
 
-	return readResources(childElement);
+	return readResources(*childElement);
 }
 
 
-StorableResources readResources(const NAS2D::Xml::XmlElement* element)
+StorableResources readResources(const NAS2D::Xml::XmlElement& element)
 {
-	if (!element) { throw std::runtime_error("MapViewState::readResources(): Called with element==nullptr"); }
-
-	const auto dictionary = NAS2D::attributesToDictionary(*element);
+	const auto dictionary = NAS2D::attributesToDictionary(element);
 
 	const auto requiredFields = std::vector<std::string>{constants::SaveGameResource0, constants::SaveGameResource1, constants::SaveGameResource2, constants::SaveGameResource3};
 	NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});

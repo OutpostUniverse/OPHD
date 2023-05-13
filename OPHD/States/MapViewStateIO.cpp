@@ -49,7 +49,7 @@ namespace
 	{
 		if (!element) { return; }
 
-		resources = readResources(element);
+		resources = readResources(*element);
 	}
 
 
