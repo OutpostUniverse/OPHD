@@ -178,12 +178,6 @@ protected:
 
 	virtual void defineResourceInput() {}
 
-	void activate();
-
-	virtual void disabledStateSet() {}
-
-	void state(StructureState newState) { mStructureState = newState; }
-
 	void requiresCHAP(bool value) { mRequiresCHAP = value; }
 	void selfSustained(bool value) { mSelfSustained = value; }
 	void hasCrime(bool value) { mHasCrime = value; }
@@ -194,6 +188,13 @@ protected:
 	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
 
 	void storageCapacity(int capacity) { mStorageCapacity = capacity; }
+
+
+	void activate();
+
+	virtual void disabledStateSet() {}
+
+	void state(StructureState newState) { mStructureState = newState; }
 
 private:
 	Structure() = delete;
