@@ -194,6 +194,16 @@ void Structure::forceIdle(bool force)
 	}
 }
 
+const StorableResources& Structure::resourcesIn() const
+{
+	return mResourcesInput;
+}
+
+const PopulationRequirements& Structure::populationRequirements() const
+{
+	return mPopulationRequirements;
+}
+
 const std::string& Structure::stateDescription() const
 {
 	return stateDescription(state());
@@ -209,9 +219,54 @@ const std::string& Structure::classDescription() const
 	return classDescription(mStructureClass);
 }
 
-const std::string& Structure::classDescription(Structure::StructureClass structureClass)
+const std::string& Structure::classDescription(StructureClass structureClass)
 {
 	return STRUCTURE_CLASS_TRANSLATION.at(structureClass);
+}
+
+int Structure::turnsToBuild() const
+{
+	return mTurnsToBuild;
+}
+
+int Structure::maxAge() const
+{
+	return mMaxAge;
+}
+
+int Structure::energyRequirement() const
+{
+	return mEnergyRequirement;
+}
+
+int Structure::storageCapacity() const
+{
+	return mStorageCapacity;
+}
+
+bool Structure::hasCrime() const
+{
+	return mHasCrime;
+}
+
+int Structure::integrityDecayRate() const
+{
+	return mIntegrityDecayRate;
+}
+
+bool Structure::requiresCHAP() const
+{
+	return mRequiresCHAP;
+}
+
+bool Structure::selfSustained() const
+{
+	return mSelfSustained;
+}
+
+bool Structure::repairable() const
+{
+	return mRepairable;
 }
 
 /**

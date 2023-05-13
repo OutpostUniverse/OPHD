@@ -97,12 +97,12 @@ public:
 	bool forceIdle() const { return mForcedIdle; }
 
 	// RESOURCES AND RESOURCE MANAGEMENT
-	const StorableResources& resourcesIn() const { return mResourcesInput; }
+	const StorableResources& resourcesIn() const;
 
 	StorableResources& storage() { return mStoragePool; }
 	StorableResources& production() { return mProductionPool; }
 
-	const PopulationRequirements& populationRequirements() const { return mPopulationRequirements; }
+	const PopulationRequirements& populationRequirements() const;
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
 
 	// ATTRIBUTES
@@ -110,31 +110,31 @@ public:
 	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	const std::string& classDescription() const;
-	static const std::string& classDescription(Structure::StructureClass structureClass);
+	static const std::string& classDescription(StructureClass structureClass);
 	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
-	int turnsToBuild() const { return mTurnsToBuild; }
+	int turnsToBuild() const;
 	int age() const { return mAge; }
-	int maxAge() const { return mMaxAge; }
+	int maxAge() const;
 	bool ages() const { return maxAge() > 0; }
 
-	int energyRequirement() const { return mEnergyRequirement; }
-	int storageCapacity() const { return mStorageCapacity; }
+	int energyRequirement() const;
+	int storageCapacity() const;
 
-	bool hasCrime() const { return mHasCrime; }
+	bool hasCrime() const;
 	int crimeRate() const { return mCrimeRate; }
 	void crimeRate(int crimeRate);
 	void increaseCrimeRate(int deltaCrimeRate);
 
 	int integrity() const { return mIntegrity; }
 	void integrity(int integrity);
-	int integrityDecayRate() const { return mIntegrityDecayRate; }
+	int integrityDecayRate() const;
 
 	// FLAGS
-	bool requiresCHAP() const { return mRequiresCHAP; }
+	bool requiresCHAP() const;
 	bool providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
-	bool selfSustained() const { return mSelfSustained; }
-	bool repairable() const { return mRepairable; }
+	bool selfSustained() const;
+	bool repairable() const;
 
 	// CONVENIENCE FUCNTIONS
 	bool isFactory() const { return mStructureClass == StructureClass::Factory; }
@@ -178,12 +178,6 @@ protected:
 
 	virtual void defineResourceInput() {}
 
-	void activate();
-
-	virtual void disabledStateSet() {}
-
-	void state(StructureState newState) { mStructureState = newState; }
-
 	void requiresCHAP(bool value) { mRequiresCHAP = value; }
 	void selfSustained(bool value) { mSelfSustained = value; }
 	void hasCrime(bool value) { mHasCrime = value; }
@@ -194,6 +188,13 @@ protected:
 	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
 
 	void storageCapacity(int capacity) { mStorageCapacity = capacity; }
+
+
+	void activate();
+
+	virtual void disabledStateSet() {}
+
+	void state(StructureState newState) { mStructureState = newState; }
 
 private:
 	Structure() = delete;
@@ -209,25 +210,31 @@ private:
 	virtual void activated() {}
 
 private:
+	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
+	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
+
 	int mTurnsToBuild{0};
-	int mAge{0};
 	int mMaxAge{0};
 	int mEnergyRequirement{0};
 	int mStorageCapacity{0};
-	int mCrimeRate{0};
-	int mIntegrity{100};
 	int mIntegrityDecayRate{1};
 
+	bool mRepairable{true};
+	bool mRequiresCHAP{true};
+	bool mSelfSustained{false};
+	bool mHasCrime{false};
+
 	StructureID mStructureId{StructureID::SID_NONE};
+
+	int mAge{0};
+	int mCrimeRate{0};
+	int mIntegrity{100};
 
 	StructureState mStructureState{StructureState::UnderConstruction};
 	StructureClass mStructureClass{StructureClass::Undefined};
 	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
-	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
-
-	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
 
 	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
@@ -235,10 +242,6 @@ private:
 	DisabledReason mDisabledReason{DisabledReason::None};
 	IdleReason mIdleReason{IdleReason::None};
 
-	bool mRepairable{true};
-	bool mRequiresCHAP{true};
-	bool mSelfSustained{false};
-	bool mHasCrime{false};
 	bool mForcedIdle{false}; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 

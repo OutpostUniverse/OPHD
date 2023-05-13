@@ -131,6 +131,14 @@ namespace
 
 
 /**
+ * Initializes StructureCatalogue.
+ */
+void StructureCatalogue::init()
+{
+}
+
+
+/**
  * Gets a new Structure object given a StructureID.
  * 
  * \param	type	A valid StructureID value.
@@ -347,14 +355,6 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 {
 	return findOrDefault(StructureRecycleValueTable, type);
-}
-
-
-/**
- * Initializes StructureCatalogue.
- */
-void StructureCatalogue::init()
-{
 }
 
 
