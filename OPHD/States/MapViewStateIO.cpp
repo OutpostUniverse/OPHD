@@ -280,7 +280,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mResearchTracker = readResearch(root->firstChildElement("research"));
 
-	mResourceBreakdownPanel.previousResources() = readResources(root->firstChildElement("prev_resources"));
+	mResourceBreakdownPanel.previousResources() = readResources(*root, "prev_resources");
 	readPopulation(root->firstChildElement("population"));
 	readTurns(root->firstChildElement("turns"));
 
