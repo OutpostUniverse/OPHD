@@ -166,6 +166,9 @@ namespace
 		}
 		return structureTypes;
 	}
+
+
+	std::vector<StructureType> structureTypes;
 }
 
 
@@ -174,7 +177,7 @@ namespace
  */
 void StructureCatalogue::init()
 {
-	loadStructureTypes("StructureTypes.xml");
+	structureTypes = loadStructureTypes("StructureTypes.xml");
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
