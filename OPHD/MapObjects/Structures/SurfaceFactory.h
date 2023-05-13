@@ -8,7 +8,7 @@
 class SurfaceFactory : public Factory
 {
 public:
-	SurfaceFactory() : Factory(constants::SurfaceFactory,
+	SurfaceFactory() : Factory(
 		"structures/factory_surface.sprite",
 		StructureID::SID_SURFACE_FACTORY)
 	{

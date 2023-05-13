@@ -12,7 +12,7 @@ const int SEED_POWER_PRODUCTION = 50;
 class SeedPower : public PowerStructure
 {
 public:
-	SeedPower() : PowerStructure(constants::SeedPower,
+	SeedPower() : PowerStructure(
 		"structures/seed_1.sprite",
 		StructureClass::EnergyProduction,
 		StructureID::SID_SEED_POWER)

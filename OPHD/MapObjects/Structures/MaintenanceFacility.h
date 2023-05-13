@@ -18,7 +18,7 @@ public:
 	static constexpr int MinimumPersonnel{1};
 
 public:
-	MaintenanceFacility() : Structure(constants::MaintenanceFacility,
+	MaintenanceFacility() : Structure(
 		"structures/maintenance.sprite",
 		StructureClass::Maintenance,
 		StructureID::SID_MAINTENANCE_FACILITY)

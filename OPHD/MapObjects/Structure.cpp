@@ -105,16 +105,16 @@ std::string StructureName(StructureID id)
 
 
 
-Structure::Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
-	MapObject(name, spritePath, constants::StructureStateConstruction),
+Structure::Structure(const std::string& spritePath, StructureClass structureClass, StructureID id) :
+	MapObject(StructureName(id), spritePath, constants::StructureStateConstruction),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
 }
 
 
-Structure::Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
-	MapObject(name, spritePath, initialAction),
+Structure::Structure(const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
+	MapObject(StructureName(id), spritePath, initialAction),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {

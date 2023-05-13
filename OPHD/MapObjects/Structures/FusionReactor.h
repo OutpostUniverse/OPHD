@@ -13,7 +13,7 @@ const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
 class FusionReactor : public PowerStructure
 {
 public:
-	FusionReactor() : PowerStructure(constants::FusionReactor,
+	FusionReactor() : PowerStructure(
 		"structures/fusion_reactor.sprite",
 		StructureClass::EnergyProduction,
 		StructureID::SID_FUSION_REACTOR)

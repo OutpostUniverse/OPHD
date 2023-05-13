@@ -13,7 +13,7 @@ public:
 
 public:
 
-	ColonistLander(Tile* tile) : Structure(constants::ColonistLander,
+	ColonistLander(Tile* tile) : Structure(
 		"structures/lander_1.sprite",
 		StructureClass::Lander,
 		StructureID::SID_COLONIST_LANDER),

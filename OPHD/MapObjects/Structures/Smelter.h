@@ -10,7 +10,7 @@ class Smelter : public OreRefining
 	const int StorageCapacity = 800;
 
 public:
-	Smelter() : OreRefining(constants::Smelter,
+	Smelter() : OreRefining(
 		"structures/smelter.sprite",
 		StructureClass::Smelter,
 		StructureID::SID_SMELTER)

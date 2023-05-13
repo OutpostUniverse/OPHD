@@ -8,7 +8,7 @@
 class RecreationCenter : public Structure
 {
 public:
-	RecreationCenter() : Structure(constants::RecreationCenter,
+	RecreationCenter() : Structure(
 		"structures/recreation_center.sprite",
 		StructureClass::RecreationCenter,
 		StructureID::SID_RECREATION_CENTER)

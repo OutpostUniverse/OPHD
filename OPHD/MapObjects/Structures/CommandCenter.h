@@ -12,7 +12,7 @@
 class CommandCenter : public FoodProduction
 {
 public:
-	CommandCenter() : FoodProduction(constants::CommandCenter,
+	CommandCenter() : FoodProduction(
 		"structures/command_center.sprite",
 		StructureClass::Command,
 		StructureID::SID_COMMAND_CENTER)

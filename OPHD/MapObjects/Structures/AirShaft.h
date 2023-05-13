@@ -9,7 +9,8 @@
 class AirShaft : public Structure
 {
 public:
-	AirShaft() : Structure(constants::AirShaft, "structures/air_shaft.sprite",
+	AirShaft() : Structure(
+		"structures/air_shaft.sprite",
 		constants::StructureStateOperational,
 		StructureClass::Tube,
 		StructureID::SID_AIR_SHAFT)

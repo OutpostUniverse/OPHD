@@ -15,8 +15,8 @@
 class PowerStructure : public Structure
 {
 public:
-	PowerStructure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id) :
-		Structure(name, spritePath, structureClass, id) {}
+	PowerStructure(const std::string& spritePath, StructureClass structureClass, StructureID id) :
+		Structure(spritePath, structureClass, id) {}
 
 	StringTable createInspectorViewTable() override
 	{

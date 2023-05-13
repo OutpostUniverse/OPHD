@@ -67,8 +67,8 @@ public:
 	};
 
 public:
-	Structure(const std::string& name, const std::string& spritePath, StructureClass structureClass, StructureID id);
-	Structure(const std::string& name, const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id);
+	Structure(const std::string& spritePath, StructureClass structureClass, StructureID id);
+	Structure(const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id);
 
 	~Structure() override = default;
 
