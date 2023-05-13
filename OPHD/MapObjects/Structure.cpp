@@ -201,12 +201,12 @@ void Structure::forceIdle(bool force)
 
 const StorableResources& Structure::resourcesIn() const
 {
-	return mResourcesInput;
+	return mStructureType.operationalCost;
 }
 
 const PopulationRequirements& Structure::populationRequirements() const
 {
-	return mPopulationRequirements;
+	return mStructureType.populationRequirements;
 }
 
 const std::string& Structure::stateDescription() const
@@ -231,47 +231,47 @@ const std::string& Structure::classDescription(StructureClass structureClass)
 
 int Structure::turnsToBuild() const
 {
-	return mTurnsToBuild;
+	return mStructureType.turnsToBuild;
 }
 
 int Structure::maxAge() const
 {
-	return mMaxAge;
+	return mStructureType.maxAge;
 }
 
 int Structure::energyRequirement() const
 {
-	return mEnergyRequirement;
+	return mStructureType.energyRequired;
 }
 
 int Structure::storageCapacity() const
 {
-	return mStorageCapacity;
+	return mStructureType.oreStorageCapacity;
 }
 
 bool Structure::hasCrime() const
 {
-	return mHasCrime;
+	return mStructureType.isCrimeTarget;
 }
 
 int Structure::integrityDecayRate() const
 {
-	return mIntegrityDecayRate;
+	return mStructureType.integrityDecayRate;
 }
 
 bool Structure::requiresCHAP() const
 {
-	return mRequiresCHAP;
+	return mStructureType.isChapRequired;
 }
 
 bool Structure::selfSustained() const
 {
-	return mSelfSustained;
+	return mStructureType.isSelfSustained;
 }
 
 bool Structure::repairable() const
 {
-	return mRepairable && (mStructureState != StructureState::Destroyed);
+	return mStructureType.isRepairable && (mStructureState != StructureState::Destroyed);
 }
 
 /**
