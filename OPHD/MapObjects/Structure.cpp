@@ -266,7 +266,7 @@ bool Structure::selfSustained() const
 
 bool Structure::repairable() const
 {
-	return mRepairable;
+	return mRepairable && (mStructureState != StructureState::Destroyed);
 }
 
 /**
@@ -368,9 +368,6 @@ void Structure::destroy()
 {
 	sprite().play(constants::StructureStateDestroyed);
 	state(StructureState::Destroyed);
-
-	// Destroyed buildings just need to be rebuilt right?
-	repairable(false);
 }
 
 
