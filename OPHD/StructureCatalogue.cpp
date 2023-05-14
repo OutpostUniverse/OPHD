@@ -382,8 +382,6 @@ Structure* StructureCatalogue::get(StructureID type)
 		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
 	}
 
-	structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
-
 	return structure;
 }
 

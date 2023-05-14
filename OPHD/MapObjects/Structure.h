@@ -172,27 +172,6 @@ public:
 protected:
 	friend class StructureCatalogue;
 
-	void turnsToBuild(int newTurnsToBuild) { mTurnsToBuild = newTurnsToBuild; }
-	void maxAge(int newMaxAge) { mMaxAge = newMaxAge; }
-
-	void integrityDecayRate(int decayRate) { mIntegrityDecayRate = decayRate; }
-
-	void repairable(bool isRepairable) { mRepairable = isRepairable; }
-
-	virtual void defineResourceInput() {}
-
-	void requiresCHAP(bool value) { mRequiresCHAP = value; }
-	void selfSustained(bool value) { mSelfSustained = value; }
-	void hasCrime(bool value) { mHasCrime = value; }
-
-	void setPopulationRequirements(const PopulationRequirements& pr) { mPopulationRequirements = pr; }
-	void energyRequired(int energy) { mEnergyRequirement = energy; }
-
-	void resourcesIn(const StorableResources& resources) { mResourcesInput = resources; }
-
-	void storageCapacity(int capacity) { mStorageCapacity = capacity; }
-
-
 	void activate();
 
 	virtual void disabledStateSet() {}
@@ -214,20 +193,6 @@ private:
 
 private:
 	const StructureType& mStructureType;
-
-	PopulationRequirements mPopulationRequirements{}; /**< Population requirements for structure operation. */
-	StorableResources mResourcesInput; /**< Resources needed to operate the Structure. */
-
-	int mTurnsToBuild{0};
-	int mMaxAge{0};
-	int mEnergyRequirement{0};
-	int mStorageCapacity{0};
-	int mIntegrityDecayRate{1};
-
-	bool mRepairable{true};
-	bool mRequiresCHAP{true};
-	bool mSelfSustained{false};
-	bool mHasCrime{false};
 
 	StructureID mStructureId{StructureID::SID_NONE};
 

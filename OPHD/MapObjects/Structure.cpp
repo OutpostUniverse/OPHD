@@ -286,8 +286,6 @@ void Structure::activate()
 	sprite().play(constants::StructureStateOperational);
 	enable();
 
-	defineResourceInput();
-
 	activated();
 }
 
@@ -379,8 +377,6 @@ void Structure::destroy()
  */
 void Structure::forced_state_change(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
-	defineResourceInput();
-
 	if (age() >= turnsToBuild())
 	{
 		sprite().play(constants::StructureStateOperational);
