@@ -449,7 +449,7 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"pop1", mPopulationAvailable.scientists},
 	}};
 
-	if (mHasCrime)
+	if (hasCrime())
 	{
 		dictionary.set("crime_rate", mCrimeRate);
 	}
