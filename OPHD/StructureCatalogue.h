@@ -31,7 +31,6 @@ public:
 
 	static Structure* get(StructureID type);
 
-	static const PopulationRequirements& populationRequirements(StructureID type);
 	static const StorableResources& costToBuild(StructureID type);
 	static const StorableResources& recyclingValue(StructureID type);
 

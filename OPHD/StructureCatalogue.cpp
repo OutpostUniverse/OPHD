@@ -59,33 +59,6 @@ namespace
 
 	std::map<StructureID, StorableResources> StructureRecycleValueTable;
 
-	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
-		{SID_NONE, {}},
-		{SID_AGRIDOME, {1, 0}},
-		{SID_CHAP, {2, 0}},
-		{SID_COMMERCIAL, {1, 0}},
-		{SID_FUSION_REACTOR, {1, 2}},
-		{SID_HOT_LABORATORY, {0, 0}},
-		{SID_LABORATORY, {0, 0}},
-		{SID_MEDICAL_CENTER, {1, 2}},
-		{SID_NURSERY, {1, 1}},
-		{SID_PARK, {1, 0}},
-		{SID_SURFACE_POLICE, {3, 0}},
-		{SID_UNDERGROUND_POLICE, {3, 0}},
-		{SID_RECREATION_CENTER, {2, 0}},
-		{SID_RECYCLING, {1, 1}},
-		{SID_RED_LIGHT_DISTRICT, {2, 0}},
-		{SID_ROBOT_COMMAND, {4, 0}},
-		{SID_SEED_FACTORY, {2, 0}},
-		{SID_SEED_SMELTER, {2, 0}},
-		{SID_SMELTER, {4, 0}},
-		{SID_SOLAR_PANEL1, {0, 0}},
-		{SID_SURFACE_FACTORY, {4, 0}},
-		{SID_UNDERGROUND_FACTORY, {2, 0}},
-		{SID_UNIVERSITY, {1, 3}},
-		{SID_WAREHOUSE, {1, 0}},
-	};
-
 
 	template <typename Value>
 	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
@@ -383,17 +356,6 @@ Structure* StructureCatalogue::get(StructureID type)
 	}
 
 	return structure;
-}
-
-
-/**
- * Gets the population required to operate a given Structure.
- * 
- * \param	type	A valid StructureID value.
- */
-const PopulationRequirements& StructureCatalogue::populationRequirements(StructureID type)
-{
-	return findOrDefault(PopulationRequirementsTable, type);
 }
 
 
