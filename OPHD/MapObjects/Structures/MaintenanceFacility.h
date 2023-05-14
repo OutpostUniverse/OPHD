@@ -189,7 +189,7 @@ protected:
 
 			if (structure->structureId() == StructureID::SID_ROAD)
 			{
-				structure->rebuild(1);
+				structure->rebuild();
 			}
 		}
 	}

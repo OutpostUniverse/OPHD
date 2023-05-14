@@ -266,7 +266,7 @@ bool Structure::selfSustained() const
 
 bool Structure::repairable() const
 {
-	return mRepairable;
+	return mRepairable && (mStructureState != StructureState::Destroyed);
 }
 
 /**
@@ -287,14 +287,12 @@ void Structure::activate()
 }
 
 
-void Structure::rebuild(size_t turnsToRebuild)
+void Structure::rebuild()
 {
 	sprite().play(constants::StructureStateConstruction);
 	state(StructureState::UnderConstruction);
 
-	age(0);
-
-	turnsToBuild(static_cast<int>(turnsToRebuild));
+	age(1);
 }
 
 
@@ -368,9 +366,6 @@ void Structure::destroy()
 {
 	sprite().play(constants::StructureStateDestroyed);
 	state(StructureState::Destroyed);
-
-	// Destroyed buildings just need to be rebuilt right?
-	repairable(false);
 }
 
 
@@ -452,7 +447,7 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"pop1", mPopulationAvailable.scientists},
 	}};
 
-	if (mHasCrime)
+	if (hasCrime())
 	{
 		dictionary.set("crime_rate", mCrimeRate);
 	}
