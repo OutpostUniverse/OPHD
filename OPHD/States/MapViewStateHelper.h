@@ -27,12 +27,7 @@ namespace NAS2D
 class Tile;
 class TileMap;
 class Warehouse;
-class RobotCommand;
-class RobotPool;
-class Robot;
 struct StorableResources;
-
-using RobotTileTable = std::map<Robot*, Tile*>;
 
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
@@ -49,7 +44,6 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
 bool selfSustained(StructureID id);
 
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
-RobotCommand* getAvailableRobotCommand();
 
 bool simulateMoveProducts(Warehouse*);
 void moveProducts(Warehouse*);
@@ -58,8 +52,3 @@ void resourceShortageMessage(const StorableResources&, StructureID);
 
 StorableResources addRefinedResources(StorableResources);
 void removeRefinedResources(StorableResources&);
-
-void resetTileIndexFromDozer(Robot* robot, Tile* tile);
-
-void updateRobotControl(RobotPool& robotPool);
-void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt);

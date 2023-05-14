@@ -8,13 +8,13 @@
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{4c338eac-6a16-447d-9675-0fb6f6775bda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Things">
+    <Filter Include="Source Files\MapObjects">
       <UniqueIdentifier>{52eb17f3-c971-4ead-bf0c-5c4e384abc52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Things\Robots">
+    <Filter Include="Source Files\MapObjects\Robots">
       <UniqueIdentifier>{131c8505-7c2b-49a2-9a9f-39f18a5b600a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Things\Structures">
+    <Filter Include="Source Files\MapObjects\Structures">
       <UniqueIdentifier>{4ed844e6-1ccb-4e6f-887c-381f36561c0e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\UI">
@@ -30,13 +30,13 @@
     <Filter Include="Header Files\States">
       <UniqueIdentifier>{402a383d-3f20-4883-b636-09f71bc952da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Things">
+    <Filter Include="Header Files\MapObjects">
       <UniqueIdentifier>{f1567006-6b53-4e9f-a038-9e5e9d444cb3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Things\Robots">
+    <Filter Include="Header Files\MapObjects\Robots">
       <UniqueIdentifier>{affdff4d-cd8d-452b-b49b-b21fe6e4d487}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Things\Structures">
+    <Filter Include="Header Files\MapObjects\Structures">
       <UniqueIdentifier>{1d0c1304-94ea-4f94-b1e6-439408414946}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\UI">
@@ -102,8 +102,8 @@
     <ClCompile Include="StructureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Things\Structures\Structure.cpp">
-      <Filter>Source Files\Things\Structures</Filter>
+    <ClCompile Include="MapObjects\Structure.cpp">
+      <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
     <ClCompile Include="UI\DetailMap.cpp">
       <Filter>Source Files\UI</Filter>
@@ -132,11 +132,11 @@
     <ClCompile Include="ShellOpenPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Things\Robots\Robot.cpp">
-      <Filter>Source Files\Things\Robots</Filter>
+    <ClCompile Include="MapObjects\Robot.cpp">
+      <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Things\Structures\Factory.cpp">
-      <Filter>Source Files\Things\Structures</Filter>
+    <ClCompile Include="MapObjects\Structures\Factory.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
     <ClCompile Include="States\PlanetSelectState.cpp">
       <Filter>Source Files\States</Filter>
@@ -219,11 +219,8 @@
     <ClCompile Include="States\MainMenuState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="Things\Structures\RobotCommand.cpp">
-      <Filter>Source Files\Things\Structures</Filter>
-    </ClCompile>
-    <ClCompile Include="Things\Structures\MineFacility.cpp">
-      <Filter>Source Files\Things\Structures</Filter>
+    <ClCompile Include="MapObjects\Structures\MineFacility.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
     <ClCompile Include="UI\MineOperationsWindow.cpp">
       <Filter>Source Files\UI</Filter>
@@ -369,7 +366,7 @@
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Things\Thing.cpp">
+    <ClCompile Include="MapObjects\MapObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UI\Reports\ResearchReport.cpp">
@@ -392,50 +389,50 @@
     <ClInclude Include="StructureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Thing.h">
-      <Filter>Header Files\Things</Filter>
+    <ClInclude Include="MapObjects\MapObject.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Robots\Robodigger.h">
-      <Filter>Header Files\Things\Robots</Filter>
+    <ClInclude Include="MapObjects\Robots\Robodigger.h">
+      <Filter>Header Files\MapObjects\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Robots\Robodozer.h">
-      <Filter>Header Files\Things\Robots</Filter>
+    <ClInclude Include="MapObjects\Robots\Robodozer.h">
+      <Filter>Header Files\MapObjects\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Robots\Robominer.h">
-      <Filter>Header Files\Things\Robots</Filter>
+    <ClInclude Include="MapObjects\Robots\Robominer.h">
+      <Filter>Header Files\MapObjects\Robots</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Robots\Robot.h">
-      <Filter>Header Files\Things\Robots</Filter>
+    <ClInclude Include="MapObjects\Robot.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Robots\Robots.h">
-      <Filter>Header Files\Things\Robots</Filter>
+    <ClInclude Include="MapObjects\Robots.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\AirShaft.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\AirShaft.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\CommandCenter.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\CommandCenter.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\MineFacility.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\MineFacility.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SeedFactory.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SeedFactory.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SeedLander.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SeedLander.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SeedPower.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SeedPower.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SeedSmelter.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SeedSmelter.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Structure.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structure.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Structures.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="UI\DetailMap.h">
       <Filter>Header Files\UI</Filter>
@@ -461,20 +458,20 @@
     <ClInclude Include="GraphWalker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Agridome.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Agridome.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\CHAP.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\CHAP.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Factory.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Factory.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="States\PlanetSelectState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Tube.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Tube.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\TextField.h">
       <Filter>Header Files\UI\Core</Filter>
@@ -497,14 +494,14 @@
     <ClInclude Include="UI\IconGrid.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\StorageTanks.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\StorageTanks.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Residence.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Residence.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\MineShaft.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\MineShaft.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\StructureInspector.h">
       <Filter>Header Files\UI</Filter>
@@ -512,23 +509,23 @@
     <ClInclude Include="States\SplashState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\FusionReactor.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\FusionReactor.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\TextArea.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Smelter.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Smelter.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\UndergroundFactory.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\UndergroundFactory.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Park.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Park.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SolarPlant.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SolarPlant.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\Window.h">
       <Filter>Header Files\UI\Core</Filter>
@@ -536,31 +533,34 @@
     <ClInclude Include="UI\Core\WindowStack.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\RobotCommand.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\RobotCommand.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Warehouse.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Warehouse.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Laboratory.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Laboratory.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\RecreationCenter.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\RecreationCenter.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Commercial.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Commercial.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\RedLightDistrict.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\RedLightDistrict.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\University.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\University.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="Population\Population.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
     <ClInclude Include="Map\MapCoordinate.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapOffset.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Map\MapView.h">
@@ -575,8 +575,8 @@
     <ClInclude Include="UI\PopulationPanel.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\ColonistLander.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\ColonistLander.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\GameOverDialog.h">
       <Filter>Header Files\UI</Filter>
@@ -593,8 +593,8 @@
     <ClInclude Include="UI\GameOptionsDialog.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\MedicalCenter.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\MedicalCenter.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="PopulationPool.h">
       <Filter>Header Files</Filter>
@@ -614,14 +614,14 @@
     <ClInclude Include="UI\Core\ListBox.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Nursery.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Nursery.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\CommTower.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\CommTower.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\CargoLander.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\CargoLander.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="ProductionCost.h">
       <Filter>Header Files</Filter>
@@ -632,11 +632,8 @@
     <ClInclude Include="States\MainMenuState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SolarPanelArray.h">
-      <Filter>Header Files\Things\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="RobotPoolHelper.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MapObjects\Structures\SolarPanelArray.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="ShellOpenPath.h">
       <Filter>Header Files</Filter>
@@ -671,8 +668,8 @@
     <ClInclude Include="UI\Reports\FactoryReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SurfaceFactory.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SurfaceFactory.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\CheckBox.h">
       <Filter>Header Files\UI\Core</Filter>
@@ -713,11 +710,11 @@
     <ClInclude Include="UI\Core\RadioButtonGroup.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\SurfacePolice.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\SurfacePolice.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\UndergroundPolice.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\UndergroundPolice.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\TextRender.h">
       <Filter>Header Files\UI</Filter>
@@ -725,8 +722,8 @@
     <ClInclude Include="UI\StringTable.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\PowerStructure.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\PowerStructure.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="States\Route.h">
       <Filter>Header Files\States</Filter>
@@ -734,26 +731,26 @@
     <ClInclude Include="StorableResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\FoodProduction.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\FoodProduction.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="IOHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\OreRefining.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\OreRefining.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\TextControl.h">
       <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Road.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Road.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\MineReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\Recycling.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\Recycling.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="UI\Core\ToolTip.h">
       <Filter>Header Files\UI\Core</Filter>
@@ -773,8 +770,8 @@
     <ClInclude Include="States\CrimeRateUpdate.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\HotLaboratory.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\HotLaboratory.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="States\CrimeExecution.h">
       <Filter>Header Files\States</Filter>
@@ -782,8 +779,8 @@
     <ClInclude Include="RandomNumberGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\MaintenanceFacility.h">
-      <Filter>Header Files\Things\Structures</Filter>
+    <ClInclude Include="MapObjects\Structures\MaintenanceFacility.h">
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="Population\PopulationTable.h">
       <Filter>Header Files\Population</Filter>
@@ -803,7 +800,7 @@
     <ClInclude Include="UI\CheatMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Things\Structures\ResearchFacility.h">
+    <ClInclude Include="MapObjects\Structures\ResearchFacility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCatalogue.h">

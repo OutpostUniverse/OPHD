@@ -1,7 +1,7 @@
 #include "StructureCatalogue.h"
 
 #include "StorableResources.h"
-#include "Things/Structures/Structures.h"
+#include "MapObjects/Structures.h"
 
 #include <string>
 #include <stdexcept>
@@ -127,6 +127,14 @@ namespace
 
 		return structureRecycleValueTable;
 	}
+}
+
+
+/**
+ * Initializes StructureCatalogue.
+ */
+void StructureCatalogue::init()
+{
 }
 
 
@@ -347,14 +355,6 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 {
 	return findOrDefault(StructureRecycleValueTable, type);
-}
-
-
-/**
- * Initializes StructureCatalogue.
- */
-void StructureCatalogue::init()
-{
 }
 
 

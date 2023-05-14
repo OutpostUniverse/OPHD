@@ -8,7 +8,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
-#include "../Things/Robots/Robots.h"
+#include "../MapObjects/Robots.h"
 
 #include <NAS2D/Utility.h>
 
@@ -29,17 +29,12 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
 		throw std::runtime_error("pullRobotFromFactory():: unsuitable ProductType: " + std::to_string(static_cast<int>(productType)));
 	}
 
-	const auto robotType = ProductTypeToRobotType.at(productType);
-	RobotCommand* robotCommand = getAvailableRobotCommand();
-
-	if ((robotCommand != nullptr) || mRobotPool.commandCapacityAvailable())
+	if (mRobotPool.commandCapacityAvailable())
 	{
-		auto& robot = addRobot(robotType);
+		addRobot(ProductTypeToRobotType.at(productType));
 		factory.pullProduct();
 
 		populateRobotMenu();
-
-		if (robotCommand != nullptr) { robotCommand->addRobot(&robot); }
 	}
 	else
 	{
@@ -72,10 +67,12 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 			{
 				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); 
 				const auto& factoryPos = NAS2D::Utility<StructureManager>::get().tileFromStructure(&factory);
-				mNotificationArea.push({"Warehouses full",
-										"A factory has shut down due to lack of available warehouse space.",
-										factoryPos.xyz(),
-										NotificationArea::NotificationType::Warning});
+				mNotificationArea.push({
+					"Warehouses full",
+					"A factory has shut down due to lack of available warehouse space.",
+					factoryPos.xyz(),
+					NotificationArea::NotificationType::Warning
+				});
 			}
 			break;
 		}

@@ -19,8 +19,8 @@
 #include "../Technology/ResearchTracker.h"
 #include "../Technology/TechnologyCatalog.h"
 
-#include "../Things/Robots/Robot.h"
-#include "../Things/Structures/Structure.h"
+#include "../MapObjects/Robot.h"
+#include "../MapObjects/Structure.h"
 
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
@@ -227,8 +227,8 @@ private:
 	void checkNewlyBuiltStructures();
 
 	// SAVE GAME MANAGEMENT FUNCTIONS
-	std::map<int, Robot*> readRobots(NAS2D::Xml::XmlElement* element);
-	void readStructures(NAS2D::Xml::XmlElement* element, const std::map<int, Robot*>& idToRobotMap);
+	void readRobots(NAS2D::Xml::XmlElement* element);
+	void readStructures(NAS2D::Xml::XmlElement* element);
 	void readTurns(NAS2D::Xml::XmlElement* element);
 	void readPopulation(NAS2D::Xml::XmlElement* element);
 	void readMoraleChanges(NAS2D::Xml::XmlElement*);

@@ -51,7 +51,7 @@ namespace
 	}
 
 
-	RouteList findRoutes(micropather::MicroPather* solver, TileMap* tilemap, Structure* mine, const std::vector<OreRefining*>& smelters)
+	RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		auto& start = structureManager.tileFromStructure(mine);
@@ -63,8 +63,6 @@ namespace
 			if (!smelter->operational()) { continue; }
 
 			auto& end = structureManager.tileFromStructure(smelter);
-
-			tilemap->pathStartAndEnd(&start, &end);
 
 			Route route;
 			solver->Reset();
@@ -291,7 +289,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver, mTileMap, mine, smelterList);
+			auto routeList = findRoutes(mPathSolver, mine, smelterList);
 			auto newRoute = findLowestCostRoute(routeList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
@@ -419,24 +417,30 @@ void MapViewState::checkWarehouseCapacity()
 
 	if (availableStorage == 0) // FIXME -- Magic Number
 	{
-		mNotificationArea.push({"No Warehouse Space",
-								"You are out of storage space at your warehouses! Your Factories will go idle until you build more Warehouses or reduce inventory.",
-								{{-1, -1}, 0},
-								NotificationArea::NotificationType::Critical});
+		mNotificationArea.push({
+			"No Warehouse Space",
+			"You are out of storage space at your warehouses! Your Factories will go idle until you build more Warehouses or reduce inventory.",
+			{{-1, -1}, 0},
+			NotificationArea::NotificationType::Critical
+		});
 	}
 	else if (availableStorage < 5) // FIXME -- Ditto
 	{
-		mNotificationArea.push({"Warehouse Space Critically Low",
-								"Warehouse space is critically low! You only have " + std::to_string(availableStorage) + "% storage capacity remaining!",
-								{{-1, -1}, 0},
-								NotificationArea::NotificationType::Critical});
+		mNotificationArea.push({
+			"Warehouse Space Critically Low",
+			"Warehouse space is critically low! You only have " + std::to_string(availableStorage) + "% storage capacity remaining!",
+			{{-1, -1}, 0},
+			NotificationArea::NotificationType::Critical
+		});
 	}
 	else if (availableStorage < 15) // FIXME -- Ditto
 	{
-		mNotificationArea.push({"Warehouse Space Low",
-								"Warehouse space is running low. Current available storage capacity is at " + std::to_string(availableStorage) + "%.",
-								{{-1, -1}, 0},
-								NotificationArea::NotificationType::Warning});
+		mNotificationArea.push({
+			"Warehouse Space Low",
+			"Warehouse space is running low. Current available storage capacity is at " + std::to_string(availableStorage) + "%.",
+			{{-1, -1}, 0},
+			NotificationArea::NotificationType::Warning
+		});
 	}
 }
 

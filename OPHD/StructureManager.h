@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Things/Structures/Structure.h"
-#include "Things/Structures/Structures.h"
+#include "MapObjects/Structure.h"
+#include "MapObjects/Structures.h"
 
 #include <map>
 
@@ -131,7 +131,7 @@ public:
 
 	void update(const StorableResources&, PopulationPool&);
 
-	NAS2D::Xml::XmlElement* serialize(std::map<const Robot*, int> robotToIdMap);
+	NAS2D::Xml::XmlElement* serialize();
 
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;

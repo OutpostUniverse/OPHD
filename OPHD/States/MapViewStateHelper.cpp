@@ -13,10 +13,8 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../DirectionOffset.h"
-#include "../RobotPool.h"
 #include "../Map/TileMap.h"
-#include "../Things/Structures/RobotCommand.h"
-#include "../Things/Structures/Warehouse.h"
+#include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
 
@@ -172,47 +170,11 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 		else if (tile.thing())
 		{
 			// This is a case that should never happen. If it does, blow up loudly.
-			throw std::runtime_error("Tile obstructed by a Thing other than a Mine.");
+			throw std::runtime_error("Tile obstructed by a MapObject other than a Mine.");
 		}
 	}
 
 	return true;
-}
-
-
-void deleteRobotsInRCC(RobotCommand* rcc, RobotPool& robotPool, RobotTileTable& rtt)
-{
-	const RobotList& rl = rcc->robots();
-
-	for (auto robot : rl)
-	{
-		if (rtt.find(robot) != rtt.end())
-		{
-			robot->die();
-			continue;
-		}
-
-		robotPool.erase(robot);
-		delete robot;
-	}
-}
-
-
-void updateRobotControl(RobotPool& robotPool)
-{
-	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
-
-	// 3 for the first command center
-	std::size_t maxRobots = 0;
-	if (commandCenters.size() > 0) { maxRobots += 3; }
-	// the 10 per robot command facility
-	for (std::size_t s = 0; s < robotCommands.size(); ++s)
-	{
-		if (robotCommands[s]->operational()) { maxRobots += 10; }
-	}
-
-	robotPool.InitRobotCtrl(maxRobots);
 }
 
 
@@ -313,29 +275,6 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 		if (warehouse->products().canStore(type, static_cast<int>(count)))
 		{
 			return warehouse;
-		}
-	}
-
-	return nullptr;
-}
-
-
-/**
- * Gets a RobotCommand structure that has available command capacity
- * to house additional robots.
- * 
- * \note	Assumes a check for only one robot at any given time.
- * 
- * \return	Returns a pointer to a RobotCommand structure or \c nullptr if
- *			there are no robot commands available with the required space.
- */
-RobotCommand* getAvailableRobotCommand()
-{
-	for (auto robotCommand : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
-	{
-		if (robotCommand->operational() && robotCommand->commandCapacityAvailable())
-		{
-			return robotCommand;
 		}
 	}
 
@@ -481,15 +420,5 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 		const auto toTransfer = resourcesToRemove.cap(resourcesInStorage);
 		resourcesInStorage -= toTransfer;
 		resourcesToRemove -= toTransfer;
-	}
-}
-
-
-void resetTileIndexFromDozer(Robot* robot, Tile* tile)
-{
-	Robodozer* dozer = dynamic_cast<Robodozer*>(robot);
-	if (dozer)
-	{
-		tile->index(static_cast<TerrainType>(dozer->tileIndex()));
 	}
 }

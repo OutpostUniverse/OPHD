@@ -1,6 +1,6 @@
 #include "FactoryListBox.h"
 
-#include "../Things/Structures/Factory.h"
+#include "../MapObjects/Structures/Factory.h"
 
 #include "../Cache.h"
 #include "../Constants/Strings.h"

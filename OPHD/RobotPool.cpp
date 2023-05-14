@@ -1,8 +1,78 @@
 #include "RobotPool.h"
-#include "RobotPoolHelper.h"
+
+#include "StructureManager.h"
 #include "Map/Tile.h"
+#include "MapObjects/Structures/CommandCenter.h"
+#include "MapObjects/Structures/RobotCommand.h"
+
+#include <NAS2D/Utility.h>
 
 #include <algorithm>
+#include <stdexcept>
+
+
+namespace
+{
+	template <class T>
+	void eraseRobot(T& list, Robot* robot)
+	{
+		for (auto it = list.begin(); it != list.end(); ++it)
+		{
+			if (&*it == robot)
+			{
+				list.erase(it);
+				return;
+			}
+		}
+	}
+
+
+	template <class T>
+	bool hasIdleRobot(const T& list)
+	{
+		for (auto& robot : list)
+		{
+			if (robot.idle()) { return true; }
+		}
+		return false;
+	}
+
+
+	template <class T>
+	auto& getIdleRobot(T& list)
+	{
+		for (auto& robot : list)
+		{
+			if (robot.idle()) { return robot; }
+		}
+		throw std::runtime_error("Failed to get an idle robot");
+	}
+
+
+	template <class T>
+	std::size_t getIdleCount(const T& list)
+	{
+		std::size_t count = 0;
+		for (const auto& robot : list)
+		{
+			if (robot.idle()) { ++count; }
+		}
+
+		return count;
+	}
+
+
+	template <class T>
+	std::size_t robotControlCount(const T& list)
+	{
+		std::size_t controlCounter{0};
+		for (const auto& robot : list)
+		{
+			if (!robot.idle() && !robot.isDead()) { ++controlCounter; }
+		}
+		return controlCounter;
+	}
+}
 
 
 RobotPool::RobotPool()
@@ -22,9 +92,9 @@ RobotPool::~RobotPool()
 
 void RobotPool::clear()
 {
-	clearRobots(mDiggers);
-	clearRobots(mDozers);
-	clearRobots(mMiners);
+	mDiggers.clear();
+	mDozers.clear();
+	mMiners.clear();
 	mRobots.clear();
 
 	mRobotControlCount = 0;
@@ -45,23 +115,23 @@ void RobotPool::erase(Robot* robot)
 /**
  * Adds a robot of specified type to the pool.
  *
- * \return Returns a pointer to the robot, or nullptr if type was invalid.
+ * \return Returns a reference to the robot, or throws if type was invalid.
  */
 Robot& RobotPool::addRobot(Robot::Type type)
 {
 	switch (type)
 	{
 	case Robot::Type::Dozer:
-		mDozers.push_back(new Robodozer());
-		mRobots.push_back(mDozers.back());
+		mDozers.emplace_back();
+		mRobots.push_back(&mDozers.back());
 		break;
 	case Robot::Type::Digger:
-		mDiggers.push_back(new Robodigger());
-		mRobots.push_back(mDiggers.back());
+		mDiggers.emplace_back();
+		mRobots.push_back(&mDiggers.back());
 		break;
 	case Robot::Type::Miner:
-		mMiners.push_back(new Robominer());
-		mRobots.push_back(mMiners.back());
+		mMiners.emplace_back();
+		mRobots.push_back(&mMiners.back());
 		break;
 	default:
 		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
@@ -109,15 +179,15 @@ bool RobotPool::robotAvailable(Robot::Type type) const
 	{
 	case Robot::Type::Digger:
 	{
-		return getIdleRobotOrNull(mDiggers) != nullptr;
+		return hasIdleRobot(mDiggers);
 	}
 	case Robot::Type::Dozer:
 	{
-		return getIdleRobotOrNull(mDozers) != nullptr;
+		return hasIdleRobot(mDozers);
 	}
 	case Robot::Type::Miner:
 	{
-		return getIdleRobotOrNull(mMiners) != nullptr;
+		return hasIdleRobot(mMiners);
 	}
 	default:
 	{
@@ -146,31 +216,40 @@ std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 }
 
 
-void RobotPool::InitRobotCtrl(std::size_t maxRobotCtrl)
+void RobotPool::update()
 {
-	mRobotControlMax = maxRobotCtrl;
+	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
+
+	// 3 for the first command center
+	std::size_t maxRobots = 0;
+	if (commandCenters.size() > 0) { maxRobots += 3; }
+	// the 10 per robot command facility
+	for (std::size_t s = 0; s < robotCommands.size(); ++s)
+	{
+		if (robotCommands[s]->operational()) { maxRobots += 10; }
+	}
+
+	mRobotControlMax = maxRobots;
 	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
 
-void RobotPool::AddRobotCtrl()
+void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile)
 {
-	if (mRobotControlCount < mRobotControlMax)
+	// Add pre-check for control count against max capacity, with one caveat
+	// When loading saved games a control max won't have been set yet as robots are loaded before structures
+	// Assume saved games are correct, and if not, things will be corrected by next turn
+	if (mRobotControlMax > 0 && mRobotControlCount >= mRobotControlMax)
 	{
-		++mRobotControlCount;
+		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + "/" + std::to_string(mRobotControlMax));
 	}
-}
 
-
-bool RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile)
-{
 	auto it = robotMap.find(&robot);
 	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
 	robotMap[&robot] = &tile;
-	tile.pushThing(&robot);
+	tile.pushMapObject(&robot);
 
-	AddRobotCtrl();
-
-	return true;
+	++mRobotControlCount;
 }

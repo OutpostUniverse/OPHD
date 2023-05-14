@@ -8,8 +8,8 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../StructureManager.h"
-#include "../Things/Structures/MineFacility.h"
-#include "../Things/Structures/Warehouse.h"
+#include "../MapObjects/Structures/MineFacility.h"
+#include "../MapObjects/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

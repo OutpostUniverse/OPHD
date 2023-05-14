@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common.h"
+#include "StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 
@@ -29,9 +30,6 @@ public:
 		RareMetals,
 		RareMinerals,
 	};
-
-	using MineVein = StorableResources;
-	using MineVeins = std::vector<MineVein>;
 
 public:
 	Mine();
@@ -65,8 +63,9 @@ private:
 	Mine& operator=(const Mine&) = delete;
 
 private:
-	MineVeins mVeins; /**< Ore veins */
-	MineProductionRate mProductionRate = MineProductionRate::Low; /**< Mine's production rate. */
+	StorableResources mTappedReserves;
+	int mCurrentDepth{1};
+	MineProductionRate mProductionRate = MineProductionRate::Low;
 
 	/**
 	 * Flags indicating several states for the mine:

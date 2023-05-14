@@ -4,7 +4,7 @@
 #include "../Constants/UiConstants.h"
 #include "../DirectionOffset.h"
 #include "../Mine.h"
-#include "../Things/Structures/Structure.h"
+#include "../MapObjects/Structure.h"
 #include "../RandomNumberGenerator.h"
 
 #include <NAS2D/Utility.h>
@@ -271,52 +271,9 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		}
 
 		auto& adjacentTile = getTile({position, 0});
-		float cost = constants::RouteBaseCost;
-
-		if (adjacentTile.index() == TerrainType::Impassable)
-		{
-			cost = FLT_MAX;
-		}
-		else if (!adjacentTile.empty())
-		{
-			if (&adjacentTile == mPathStartEndPair.first || &adjacentTile == mPathStartEndPair.second)
-			{
-				cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
-			}
-			else if (adjacentTile.thingIsStructure() && adjacentTile.structure()->structureId() == StructureID::SID_ROAD)
-			{
-				Structure& road = *adjacentTile.structure();
-
-				if (road.state() != StructureState::Operational)
-				{
-					cost *= static_cast<float>(TerrainType::Difficult) + 1.0f;
-				}
-				else if (road.integrity() < constants::RoadIntegrityChange)
-				{
-					cost = 0.75f;
-				}
-				else
-				{
-					cost = 0.5f;
-				}		
-			}
-			else
-			{
-				cost = FLT_MAX;
-			}
-		}
-		else
-		{
-			cost *= static_cast<float>(adjacentTile.index()) + 1.0f;
-		}
+		float cost = adjacentTile.movementCost();
 
 		micropather::StateCost nodeCost = {&adjacentTile, cost};
 		adjacent->push_back(nodeCost);
 	}
-}
-
-
-void TileMap::pathStartAndEnd(void* start, void* end)
-{
-	mPathStartEndPair = std::make_pair(start, end);
 }

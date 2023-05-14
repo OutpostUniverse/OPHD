@@ -1,22 +1,23 @@
 #pragma once
 
 
-#include "Things/Robots/Robots.h"
+#include "MapObjects/Robots.h"
 
 #include <cstddef>
-#include <vector>
+#include <list>
 #include <map>
 
 
 class Tile;
+class RobotCommand;
 
 
 class RobotPool
 {
 public:
-	using DiggerList = std::vector<Robodigger*>;
-	using DozerList = std::vector<Robodozer*>;
-	using MinerList = std::vector<Robominer*>;
+	using DiggerList = std::list<Robodigger>;
+	using DozerList = std::list<Robodozer>;
+	using MinerList = std::list<Robominer>;
 	using RobotTileTable = std::map<Robot*, Tile*>;
 
 public:
@@ -32,10 +33,9 @@ public:
 	bool robotAvailable(Robot::Type type) const;
 	std::size_t getAvailableCount(Robot::Type type) const;
 
-	void InitRobotCtrl(std::size_t MaxRobotCtrl);
-	bool robotCtrlAvailable() { return mRobotControlCount < mRobotControlMax; }
+	bool isControlCapacityAvailable() { return mRobotControlCount < mRobotControlMax; }
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }
-	void AddRobotCtrl();
+	void update();
 
 	DiggerList& diggers() { return mDiggers; }
 	DozerList& dozers() { return mDozers; }
@@ -47,7 +47,7 @@ public:
 
 	void clear();
 	void erase(Robot* robot);
-	bool insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile);
+	void insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile);
 
 	std::size_t robotControlMax() const { return mRobotControlMax; }
 	std::size_t currentControlCount() const { return mRobotControlCount; }

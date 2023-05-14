@@ -1,8 +1,12 @@
 #include "Tile.h"
 
 #include "../Mine.h"
-#include "../Things/Robots/Robot.h"
-#include "../Things/Structures/Structure.h"
+#include "../MapObjects/Robot.h"
+#include "../MapObjects/Structure.h"
+
+#include "../Constants/Numbers.h"
+
+#include <cfloat>
 
 
 Tile::Tile(const MapCoordinate& position, TerrainType index) :
@@ -14,12 +18,12 @@ Tile::Tile(const MapCoordinate& position, TerrainType index) :
 Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
 	mPosition{other.mPosition},
-	mThing{other.mThing},
+	mMapObject{other.mMapObject},
 	mMine{other.mMine},
 	mOverlay{other.mOverlay},
 	mExcavated{other.mExcavated}
 {
-	other.mThing = nullptr;
+	other.mMapObject = nullptr;
 	other.mMine = nullptr;
 }
 
@@ -28,12 +32,12 @@ Tile& Tile::operator=(Tile&& other) noexcept
 {
 	mIndex = other.mIndex;
 	mPosition = other.mPosition;
-	mThing = other.mThing;
+	mMapObject = other.mMapObject;
 	mMine = other.mMine;
 	mOverlay = other.mOverlay;
 	mExcavated = other.mExcavated;
 
-	other.mThing = nullptr;
+	other.mMapObject = nullptr;
 	other.mMine = nullptr;
 
 	return *this;
@@ -43,50 +47,50 @@ Tile& Tile::operator=(Tile&& other) noexcept
 Tile::~Tile()
 {
 	delete mMine;
-	delete mThing;
+	delete mMapObject;
 }
 
 
 /**
- * Adds a new Thing to the tile.
+ * Adds a new MapObject to the tile.
  *
- * \param	thing		Pointer to a Thing.
+ * \param	mapObject		Pointer to a MapObject.
  */
-void Tile::pushThing(Thing* thing)
+void Tile::pushMapObject(MapObject* mapObject)
 {
-	if (mThing)
+	if (mMapObject)
 	{
-		if (mThing == thing)
+		if (mMapObject == mapObject)
 		{
-			throw std::runtime_error("Attempting to pushThing on a tile where it's already set");
+			throw std::runtime_error("Attempting to pushMapObject on a tile where it's already set");
 		}
-		deleteThing();
+		deleteMapObject();
 	}
 
-	mThing = thing;
+	mMapObject = mapObject;
 }
 
 
 /**
- * Clears a Thing from the Tile.
+ * Clears a MapObject from the Tile.
  *
- * \note	Garbage collects the Thing. Deletes and frees memory.
+ * \note	Garbage collects the MapObject. Deletes and frees memory.
  */
-void Tile::deleteThing()
+void Tile::deleteMapObject()
 {
-	delete mThing;
-	removeThing();
+	delete mMapObject;
+	removeMapObject();
 }
 
 
 /**
- * Removes a Thing from the Tile.
+ * Removes a MapObject from the Tile.
  *
  * \note	Does NOT delete or free memory. Simply clears the pointer, not the memory.
  */
-void Tile::removeThing()
+void Tile::removeMapObject()
 {
-	mThing = nullptr;
+	mMapObject = nullptr;
 }
 
 
@@ -106,4 +110,38 @@ Structure* Tile::structure() const
 Robot* Tile::robot() const
 {
 	return dynamic_cast<Robot*>(thing());
+}
+
+
+float Tile::movementCost() const
+{
+	if (index() == TerrainType::Impassable)
+	{
+		return FLT_MAX;
+	}
+
+	if (!empty() && thingIsStructure() && structure()->isRoad())
+	{
+		Structure& road = *structure();
+
+		if (road.state() != StructureState::Operational)
+		{
+			return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
+		}
+		else if (road.integrity() < constants::RoadIntegrityChange)
+		{
+			return 0.75f;
+		}
+		else
+		{
+			return 0.5f;
+		}
+	}
+
+	if (!empty() && (!thingIsStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
+	{
+		return FLT_MAX;
+	}
+
+	return constants::RouteBaseCost * static_cast<float>(index()) + 1.0f;
 }

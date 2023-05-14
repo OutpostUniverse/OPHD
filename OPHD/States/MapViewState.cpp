@@ -405,22 +405,22 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 	{
 		case NAS2D::EventHandler::KeyCode::KEY_w:
 		case NAS2D::EventHandler::KeyCode::KEY_UP:
-			mMapView->moveView(Direction::North);
+			mMapView->moveView(MapOffsetNorthWest);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_s:
 		case NAS2D::EventHandler::KeyCode::KEY_DOWN:
-			mMapView->moveView(Direction::South);
+			mMapView->moveView(MapOffsetSouthEast);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_a:
 		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
-			mMapView->moveView(Direction::West);
+			mMapView->moveView(MapOffsetSouthWest);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_d:
 		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
-			mMapView->moveView(Direction::East);
+			mMapView->moveView(MapOffsetNorthEast);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_0:
@@ -444,11 +444,11 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			changeViewDepth(mMapView->currentDepth() - 1);
+			mMapView->moveView(MapOffsetUp);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			changeViewDepth(mMapView->currentDepth() + 1);
+			mMapView->moveView(MapOffsetDown);
 			break;
 
 
@@ -575,7 +575,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, N
 			{
 				mMainReportsState.selectWarehousePanel(structure);
 			}
-			else if (structure->isMineFacility() || structure->structureClass() == Structure::StructureClass::Smelter)
+			else if (structure->isMineFacility() || structure->isSmelter())
 			{
 				mMainReportsState.selectMinePanel(structure);
 			}
@@ -810,7 +810,7 @@ void MapViewState::placeStructure(Tile& tile)
 		}
 		else
 		{
-			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileThing);
+			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileMapObject);
 		}
 		return;
 	}
@@ -905,7 +905,7 @@ void MapViewState::placeStructure(Tile& tile)
 void MapViewState::placeRobot(Tile& tile)
 {
 	if (!tile.excavated()) { return; }
-	if (!mRobotPool.robotCtrlAvailable()) { return; }
+	if (!mRobotPool.isControlCapacityAvailable()) { return; }
 
 	if (!inCommRange(tile.xy()))
 	{
@@ -932,8 +932,6 @@ void MapViewState::placeRobot(Tile& tile)
 
 void MapViewState::placeRobodozer(Tile& tile)
 {
-	auto& robot = mRobotPool.getDozer();
-
 	if (tile.thing() && !tile.thingIsStructure())
 	{
 		return;
@@ -974,7 +972,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			return;
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::Lander && structure->age() == 0)
+		if (structure->isLander() && structure->age() == 0)
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeLandingSite);
 			return;
@@ -982,18 +980,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->isRobotCommand())
 		{
-			auto* rcc = static_cast<RobotCommand*>(structure);
-			if (rcc->isControlling(&robot))
+			if (mRobotPool.currentControlCount() >= mRobotPool.robotControlMax() - 10)
 			{
 				mNotificationArea.push({
 					"Cannot bulldoze",
 					"Cannot bulldoze Robot Command Center by a Robot under its command.",
 					tile.xyz(),
 					NotificationArea::NotificationType::Information});
-			}
-			else
-			{
-				deleteRobotsInRCC(rcc, mRobotPool, mRobotList);
+				return;
 			}
 		}
 
@@ -1012,8 +1006,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		{
 			updateCommRangeOverlay();
 		}
-		if (structure->structureClass() == Structure::StructureClass::SurfacePolice ||
-			structure->structureClass() == Structure::StructureClass::UndergroundPolice)
+		if (structure->isPolice())
 		{
 			updatePoliceOverlay();
 		}
@@ -1038,17 +1031,14 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		tile.connected(false);
 		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
-		tile.deleteThing();
+		tile.deleteMapObject();
 		NAS2D::Utility<StructureManager>::get().disconnectAll();
-		robot.tileIndex(static_cast<std::size_t>(TerrainType::Dozed));
 		updateConnectedness();
 	}
 
-	int taskTime = tile.index() == TerrainType::Dozed ? 1 : static_cast<int>(tile.index());
-	robot.startTask(taskTime);
+	auto& robot = mRobotPool.getDozer();
+	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	robot.tileIndex(static_cast<std::size_t>(tile.index()));
-	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
 	{
@@ -1157,9 +1147,8 @@ void MapViewState::placeRobominer(Tile& tile)
 	}
 
 	auto& robot = mRobotPool.getMiner();
-	robot.startTask(constants::MinerTaskTime);
+	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-	tile.index(TerrainType::Dozed);
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
 	{
@@ -1268,54 +1257,53 @@ void MapViewState::updateRobots()
 					"Robot Self-Destructed",
 					robot->name() + " at location " + robotLocationText + " self destructed.",
 					position,
-					NotificationArea::NotificationType::Critical});
+					NotificationArea::NotificationType::Critical
+				});
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
-				resetTileIndexFromDozer(robot, tile);
+				robot->abortTask(*tile);
 			}
 
 			if (tile->thing() == robot)
 			{
-				tile->removeThing();
-			}
-
-			for (auto rcc : NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>())
-			{
-				rcc->removeRobot(robot);
+				tile->removeMapObject();
 			}
 
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
 
 			mRobotPool.erase(robot);
-			delete robot;
 			robot_it = mRobotList.erase(robot_it);
 		}
 		else if (robot->idle())
 		{
 			if (tile->thing() == robot)
 			{
-				tile->removeThing();
+				tile->removeMapObject();
 
-				mNotificationArea.push({"Robot Task Completed",
-										robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
-										tile->xyz(),
-										NotificationArea::NotificationType::Success});
+				mNotificationArea.push({
+					"Robot Task Completed",
+					robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					tile->xyz(),
+					NotificationArea::NotificationType::Success
+				});
 			}
 			robot_it = mRobotList.erase(robot_it);
 
 			if (robot->taskCanceled())
 			{
-				resetTileIndexFromDozer(robot, tile);
+				robot->abortTask(*tile);
 				populateRobotMenu();
 				robot->reset();
 
-				mNotificationArea.push({"Robot Task Canceled",
-						robot->name() + " canceled its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
-						tile->xyz(),
-						NotificationArea::NotificationType::Information});
+				mNotificationArea.push({
+					"Robot Task Canceled",
+					robot->name() + " canceled its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					tile->xyz(),
+					NotificationArea::NotificationType::Information
+				});
 			}
 		}
 		else
@@ -1324,7 +1312,7 @@ void MapViewState::updateRobots()
 		}
 	}
 
-	updateRobotControl(mRobotPool);
+	mRobotPool.update();
 }
 
 
@@ -1371,11 +1359,8 @@ void MapViewState::updateConnectedness()
 		return;
 	}
 
-	tile.connected(true);
-
 	// Start graph walking at the CC location.
-	mConnectednessOverlay.clear();
-	GraphWalker graphWalker({ccLocation(), 0}, *mTileMap, mConnectednessOverlay);
+	mConnectednessOverlay = walkGraph({ccLocation(), 0}, *mTileMap);
 }
 
 
@@ -1413,7 +1398,7 @@ void MapViewState::scrubRobotList()
 {
 	for (auto it : mRobotList)
 	{
-		it.second->removeThing();
+		it.second->removeMapObject();
 	}
 }
 
