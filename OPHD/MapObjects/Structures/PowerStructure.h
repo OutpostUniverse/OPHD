@@ -42,7 +42,5 @@ public:
 	}
 
 protected:
-	friend class StructureCatalogue;
-
 	virtual int calculateMaxEnergyProduction() = 0;
 };

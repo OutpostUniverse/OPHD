@@ -3,17 +3,8 @@
 #include "StorableResources.h"
 #include "MapObjects/Structures.h"
 
-#include "IOHelper.h"
-
-#include <NAS2D/Utility.h>
-#include <NAS2D/Filesystem.h>
-#include <NAS2D/ParserHelper.h>
-#include <NAS2D/Xml/XmlDocument.h>
-#include <NAS2D/Xml/XmlElement.h>
-#include <NAS2D/Xml/XmlMemoryBuffer.h>
-
+#include <string>
 #include <stdexcept>
-#include <algorithm>
 
 
 namespace
@@ -144,7 +135,6 @@ namespace
  */
 void StructureCatalogue::init()
 {
-	save("StructureTypes.xml");
 }
 
 
@@ -315,9 +305,7 @@ Structure* StructureCatalogue::get(StructureID type)
 
 
 		case StructureID::SID_TUBE:
-			structure = new Tube(ConnectorDir::CONNECTOR_INTERSECTION, false);
 			break;
-
 
 		case StructureID::SID_NONE:
 			break;
@@ -377,100 +365,4 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {
 	return StructureCatalogue::costToBuild(type) <= source;
-}
-
-
-void StructureCatalogue::save(const std::string& filePath)
-{
-	// Highest priority first
-	constexpr std::array priorityList{
-		Structure::StructureClass::Lander,
-		Structure::StructureClass::Command,
-		Structure::StructureClass::EnergyProduction,
-		Structure::StructureClass::Mine,
-		Structure::StructureClass::Smelter,
-		Structure::StructureClass::LifeSupport,
-		Structure::StructureClass::FoodProduction,
-		Structure::StructureClass::MedicalCenter,
-		Structure::StructureClass::Nursery,
-		Structure::StructureClass::Factory,
-		Structure::StructureClass::Maintenance,
-		Structure::StructureClass::Storage,
-		Structure::StructureClass::Park,
-		Structure::StructureClass::SurfacePolice,
-		Structure::StructureClass::UndergroundPolice,
-		Structure::StructureClass::RecreationCenter,
-		Structure::StructureClass::Recycling,
-		Structure::StructureClass::Residence,
-		Structure::StructureClass::RobotCommand,
-		Structure::StructureClass::Warehouse,
-		Structure::StructureClass::Laboratory,
-		Structure::StructureClass::Commercial,
-		Structure::StructureClass::University,
-		Structure::StructureClass::Communication,
-		Structure::StructureClass::Road,
-		Structure::StructureClass::Undefined,
-	};
-
-	NAS2D::Xml::XmlDocument doc;
-	auto* structures = new NAS2D::Xml::XmlElement("Structures");
-	doc.linkEndChild(structures);
-
-	setMeanSolarDistance(1.0);
-
-	for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
-	{
-		const auto structureId = static_cast<StructureID>(i);
-
-		auto& structure = *get(structureId);
-
-		structure.defineResourceInput();
-		structure.state(StructureState::Operational);
-
-		NAS2D::Dictionary structureDictionary{{
-			{"Name", structure.name()},
-			{"ImagePath", structure.mSpritePath},
-			{"TurnsToBuild", structure.turnsToBuild()},
-			{"MaxAge", structure.maxAge()},
-			{"EnergyRequired", structure.energyRequirement()},
-			{"EnergyProduced", 0},
-			{"FoodProduced", 0},
-			{"FoodStorageCapacity", 0},
-			{"OreStorageCapacity", structure.storageCapacity()},
-			{"IntegrityDecayRate", structure.mIntegrityDecayRate},
-			{"RequiredWorkers", structure.mPopulationRequirements.workers},
-			{"RequiredScientists", structure.mPopulationRequirements.scientists},
-			{"IsSelfSustained", structure.mSelfSustained},
-			{"IsRepairable", structure.mRepairable},
-			{"IsChapRequired", structure.mRequiresCHAP},
-			{"IsCrimeTarget", structure.mHasCrime},
-		}};
-
-		if (auto* energyStructure = dynamic_cast<PowerStructure*>(&structure))
-		{
-			structureDictionary["EnergyProduced"] = energyStructure->calculateMaxEnergyProduction();
-		}
-
-		if (auto* foodStructure = dynamic_cast<FoodProduction*>(&structure))
-		{
-			structureDictionary["FoodProduced"] = foodStructure->calculateProduction();
-			structureDictionary["FoodStorageCapacity"] = foodStructure->foodCapacity();
-		}
-
-		const auto priorityIterator = std::find(priorityList.begin(), priorityList.end(), structure.structureClass());
-		const auto priorityIndexReversed = priorityList.end() - priorityIterator;
-		structureDictionary["Priority"] = priorityIndexReversed * 100;
-
-		auto* structureElement = NAS2D::dictionaryToAttributes("Structure", structureDictionary);
-		structureElement->linkEndChild(writeResources(costToBuild(structureId), "BuildCost"));
-		structureElement->linkEndChild(writeResources(structure.resourcesIn(), "OperationalCost"));
-		structures->linkEndChild(structureElement);
-
-		delete &structure;
-	}
-
-	// Write out the XML file.
-	NAS2D::Xml::XmlMemoryBuffer buff;
-	doc.accept(&buff);
-	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(filePath, buff.buffer());
 }

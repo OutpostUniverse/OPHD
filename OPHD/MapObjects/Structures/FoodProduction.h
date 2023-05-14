@@ -32,8 +32,6 @@ public:
 	virtual int foodCapacity() = 0;
 
 protected:
-	friend class StructureCatalogue;
-
 	virtual int calculateProduction() = 0;
 
 	int mFoodLevel = 0;

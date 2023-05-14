@@ -3,7 +3,6 @@
 #include "Common.h"
 
 #include <map>
-#include <string>
 
 
 class Structure;
@@ -34,6 +33,4 @@ public:
 	static const StorableResources& recyclingValue(StructureID type);
 
 	static bool canBuild(const StorableResources& source, StructureID type);
-
-	static void save(const std::string& filePath);
 };
