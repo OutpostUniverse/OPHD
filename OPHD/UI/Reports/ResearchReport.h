@@ -5,7 +5,7 @@
 #include "../ProductListBox.h"
 #include "../StructureListBox.h"
 
-#include "../../Things/Structures/ResearchFacility.h"
+#include "../../MapObjects/Structures/ResearchFacility.h"
 
 #include "../Core/Button.h"
 
@@ -37,21 +37,6 @@ public:
 	void selectStructure(Structure*) override;
 
 	void update() override;
-
-private:
-	void computeTotalWarehouseCapacity();
-
-	void fillListFromStructureList(const std::vector<ResearchFacility*>&);
-
-	void onResize() override;
-
-	void onDisabled();
-
-	void onTakeMeThere();
-
-	void onStructureSelectionChange();
-
-	void filterButtonClicked();
 
 private:
 	const NAS2D::Font& fontMedium;
