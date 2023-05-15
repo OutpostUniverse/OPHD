@@ -9,7 +9,7 @@
 
 namespace
 {
-	std::map<StructureID, StorableResources> buildRecycleValueTable();
+	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
 
 	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
@@ -46,7 +46,11 @@ namespace
 		{SID_WAREHOUSE, {5, 5, 0, 0}},
 	}};
 
-	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable();
+	/**	Currently set at 90% but this should probably be
+	 *	lowered for actual gameplay with modifiers to improve efficiency. */
+	const int DefaultRecyclePercent = 90;
+
+	std::map<StructureID, StorableResources> StructureRecycleValueTable;
 
 	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
 		{SID_NONE, {}},
@@ -75,10 +79,6 @@ namespace
 		{SID_WAREHOUSE, {1, 0}},
 	};
 
-	/**	Default recycle value. Currently set at 90% but this should probably be
-	 *	lowered for actual gameplay with modifiers to improve efficiency. */
-	const int DEFAULT_RECYCLE_VALUE = 90;
-
 
 	template <typename Value>
 	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
@@ -93,26 +93,16 @@ namespace
 
 
 	/**
-	 * Calculates the base recycling value of a given structure.
-	 *
-	 * \param	type	A valid StructureID value.
-	 */
-	StorableResources recycleValue(StructureID type, int percent)
-	{
-		return findOrDefault(StructureCostTable, type) * percent / 100;
-	}
-
-
-	/**
 	 * Fills out the recycle value for all structures.
 	 */
-	std::map<StructureID, StorableResources> buildRecycleValueTable()
+	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent)
 	{
 		std::map<StructureID, StorableResources> structureRecycleValueTable;
 
 		for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
 		{
-			structureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
+			const auto structureId = static_cast<StructureID>(i);
+			structureRecycleValueTable[structureId] = StructureCatalogue::costToBuild(structureId) * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
@@ -135,6 +125,7 @@ namespace
  */
 void StructureCatalogue::init()
 {
+	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
 
