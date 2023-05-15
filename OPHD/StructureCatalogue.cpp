@@ -46,6 +46,10 @@ namespace
 		{SID_WAREHOUSE, {5, 5, 0, 0}},
 	}};
 
+	/**	Default recycle value. Currently set at 90% but this should probably be
+	 *	lowered for actual gameplay with modifiers to improve efficiency. */
+	const int DEFAULT_RECYCLE_VALUE = 90;
+
 	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable();
 
 	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
@@ -74,10 +78,6 @@ namespace
 		{SID_UNIVERSITY, {1, 3}},
 		{SID_WAREHOUSE, {1, 0}},
 	};
-
-	/**	Default recycle value. Currently set at 90% but this should probably be
-	 *	lowered for actual gameplay with modifiers to improve efficiency. */
-	const int DEFAULT_RECYCLE_VALUE = 90;
 
 
 	template <typename Value>
