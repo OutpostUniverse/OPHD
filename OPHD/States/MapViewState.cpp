@@ -1014,9 +1014,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 		const auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
 		const auto wastedResources = addRefinedResources(recycledResources);
 
-		/**
-		 * \todo	This could/should be some sort of alert message to the user instead of dumped to the console
-		 */
 		if (!wastedResources.isEmpty())
 		{
 			mNotificationArea.push({

@@ -100,7 +100,7 @@ namespace constants
 	const std::string MineFacility = "Mine Facility";
 	const std::string MineShaft = "Mine Shaft";
 	const std::string Nursery = "Nursery";
-	const std::string Park = "Park / Reservoir ";
+	const std::string Park = "Park / Reservoir";
 	const std::string RecreationCenter = "Recreation Center";
 	const std::string Recycling = "Recycling Facility";
 	const std::string RedLightDistrict = "Red Light District";

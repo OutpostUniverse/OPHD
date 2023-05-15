@@ -99,7 +99,7 @@ namespace
 	{
 		std::map<StructureID, StorableResources> structureRecycleValueTable;
 
-		for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
+		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
 		{
 			const auto structureId = static_cast<StructureID>(i);
 			structureRecycleValueTable[structureId] = StructureCatalogue::costToBuild(structureId) * recoveryPercent / 100;
