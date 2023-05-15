@@ -93,17 +93,6 @@ namespace
 
 
 	/**
-	 * Calculates the base recycling value of a given structure.
-	 *
-	 * \param	type	A valid StructureID value.
-	 */
-	StorableResources recycleValue(StructureID type, int percent)
-	{
-		return StructureCatalogue::costToBuild(type) * percent / 100;
-	}
-
-
-	/**
 	 * Fills out the recycle value for all structures.
 	 */
 	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent)
@@ -113,7 +102,7 @@ namespace
 		for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
 		{
 			const auto structureId = static_cast<StructureID>(i);
-			structureRecycleValueTable[structureId] = recycleValue(structureId, recoveryPercent);
+			structureRecycleValueTable[structureId] = StructureCatalogue::costToBuild(structureId) * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
