@@ -50,7 +50,7 @@ namespace
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
 	const int DefaultRecyclePercent = 90;
 
-	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
+	std::map<StructureID, StorableResources> StructureRecycleValueTable;
 
 	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
 		{SID_NONE, {}},
@@ -125,6 +125,7 @@ namespace
  */
 void StructureCatalogue::init()
 {
+	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
 
