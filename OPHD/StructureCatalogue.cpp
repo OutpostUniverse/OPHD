@@ -99,7 +99,7 @@ namespace
 	 */
 	StorableResources recycleValue(StructureID type, int percent)
 	{
-		return findOrDefault(StructureCostTable, type) * percent / 100;
+		return StructureCatalogue::costToBuild(type) * percent / 100;
 	}
 
 
