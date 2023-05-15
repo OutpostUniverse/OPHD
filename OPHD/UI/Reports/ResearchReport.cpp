@@ -11,7 +11,7 @@ ResearchReport::ResearchReport():
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
-	imageLab{imageCache.load("ui/interface/lab.png")}
+	imageLab{imageCache.load("ui/interface/lab_ug.png")}
 {
 }
 
@@ -43,39 +43,7 @@ void ResearchReport::selectStructure(Structure*)
 
 void ResearchReport::update()
 {
-}
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-
-void ResearchReport::computeTotalWarehouseCapacity()
-{
-}
-
-
-void ResearchReport::fillListFromStructureList(const std::vector<ResearchFacility*>&)
-{
-}
-
-
-void ResearchReport::onResize()
-{
-}
-
-
-void ResearchReport::onDisabled()
-{
-}
-
-
-void ResearchReport::onTakeMeThere()
-{
-}
-
-
-void ResearchReport::onStructureSelectionChange()
-{
-}
-
-
-void ResearchReport::filterButtonClicked()
-{
+	renderer.drawImage(imageLab, rect().startPoint() + NAS2D::Vector<int>{10, 10});
 }
