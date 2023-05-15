@@ -9,7 +9,7 @@
 
 namespace
 {
-	std::map<StructureID, StorableResources> buildRecycleValueTable();
+	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
 
 	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
@@ -50,7 +50,7 @@ namespace
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
 	const int DEFAULT_RECYCLE_VALUE = 90;
 
-	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable();
+	const std::map<StructureID, StorableResources> StructureRecycleValueTable = buildRecycleValueTable(DEFAULT_RECYCLE_VALUE);
 
 	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
 		{SID_NONE, {}},
@@ -106,13 +106,13 @@ namespace
 	/**
 	 * Fills out the recycle value for all structures.
 	 */
-	std::map<StructureID, StorableResources> buildRecycleValueTable()
+	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent)
 	{
 		std::map<StructureID, StorableResources> structureRecycleValueTable;
 
 		for (std::size_t i = 0; i < StructureID::SID_COUNT; ++i)
 		{
-			structureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), DEFAULT_RECYCLE_VALUE);
+			structureRecycleValueTable[static_cast<StructureID>(i)] = recycleValue(static_cast<StructureID>(i), recoveryPercent);
 		}
 
 		// Set recycling values for landers and automatically built structures.
