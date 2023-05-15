@@ -6,6 +6,7 @@
 
 
 class Structure;
+struct StructureType;
 struct PopulationRequirements;
 struct StorableResources;
 
@@ -26,9 +27,10 @@ public:
 
 	static void init();
 
+	static const StructureType& getType(StructureID type);
+
 	static Structure* get(StructureID type);
 
-	static const PopulationRequirements& populationRequirements(StructureID type);
 	static const StorableResources& costToBuild(StructureID type);
 	static const StorableResources& recyclingValue(StructureID type);
 

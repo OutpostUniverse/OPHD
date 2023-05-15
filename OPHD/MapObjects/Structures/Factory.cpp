@@ -36,8 +36,8 @@ const ProductionCost& productCost(ProductType productType)
 }
 
 
-Factory::Factory(const std::string& spritePath, StructureID id) :
-	Structure(spritePath, StructureClass::Factory, id)
+Factory::Factory(StructureID id) :
+	Structure(StructureClass::Factory, id)
 {}
 
 

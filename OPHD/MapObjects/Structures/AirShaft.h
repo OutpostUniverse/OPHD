@@ -10,16 +10,13 @@ class AirShaft : public Structure
 {
 public:
 	AirShaft() : Structure(
-		"structures/air_shaft.sprite",
 		constants::StructureStateOperational,
 		StructureClass::Tube,
 		StructureID::SID_AIR_SHAFT)
 	{
 		connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);
 
-		requiresCHAP(false);
 		state(StructureState::Operational);
-		integrityDecayRate(0);
 	}
 
 	void ug()

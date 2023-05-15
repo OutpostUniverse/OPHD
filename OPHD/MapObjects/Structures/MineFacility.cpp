@@ -20,20 +20,12 @@ namespace
 
 MineFacility::MineFacility(Mine* mine) :
 	Structure(
-		"structures/mine_facility.sprite",
 		StructureClass::Mine,
 		StructureID::SID_MINE_FACILITY
 	),
 	mMine(mine)
 {
 	sprite().play(constants::StructureStateConstruction);
-	maxAge(1200);
-	turnsToBuild(2);
-	integrityDecayRate(0);
-
-	requiresCHAP(false);
-	selfSustained(true);
-	storageCapacity(MineFacilityStorageCapacity);
 }
 
 

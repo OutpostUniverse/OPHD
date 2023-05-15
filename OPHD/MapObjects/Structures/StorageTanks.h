@@ -12,16 +12,9 @@ class StorageTanks : public Structure
 {
 public:
 	StorageTanks() : Structure(
-		"structures/storage_tanks.sprite",
 		StructureClass::Storage,
 		StructureID::SID_STORAGE_TANKS)
 	{
-		maxAge(500);
-		turnsToBuild(2);
-
-		requiresCHAP(false);
-		storageCapacity(StorageTanksCapacity);
-		hasCrime(true);
 	}
 
 	StringTable createInspectorViewTable() override
@@ -49,11 +42,5 @@ public:
 			});
 
 		return stringTable;
-	}
-
-protected:
-	void defineResourceInput() override
-	{
-		energyRequired(1);
 	}
 };

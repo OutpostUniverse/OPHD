@@ -19,15 +19,9 @@ public:
 
 public:
 	MaintenanceFacility() : Structure(
-		"structures/maintenance.sprite",
 		StructureClass::Maintenance,
 		StructureID::SID_MAINTENANCE_FACILITY)
 	{
-		maxAge(200);
-		turnsToBuild(5);
-
-		requiresCHAP(true);
-		hasCrime(true);
 	}
 
 
@@ -119,12 +113,6 @@ public:
 
 
 protected:
-	void defineResourceInput() override
-	{
-		energyRequired(4);
-	}
-
-
 	bool canMakeRepairs()
 	{
 		return (personnelAvailable() && suppliesAvailable());

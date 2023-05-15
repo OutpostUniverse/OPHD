@@ -9,8 +9,8 @@
 class ResearchFacility : public Structure
 {
 public:
-	ResearchFacility(const std::string& spritePath, StructureClass structureClass, StructureID id) :
-		Structure(spritePath, structureClass, id)
+	ResearchFacility(StructureClass structureClass, StructureID id) :
+		Structure(structureClass, id)
 	{}
 
 

@@ -13,13 +13,9 @@ class SeedPower : public PowerStructure
 {
 public:
 	SeedPower() : PowerStructure(
-		"structures/seed_1.sprite",
 		StructureClass::EnergyProduction,
 		StructureID::SID_SEED_POWER)
 	{
-		maxAge(150);
-		turnsToBuild(5);
-		requiresCHAP(false);
 	}
 
 private:

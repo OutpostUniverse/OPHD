@@ -1,5 +1,8 @@
 #include "Structure.h"
 
+#include "StructureType.h"
+
+#include "../StructureCatalogue.h"
 #include "../RandomNumberGenerator.h"
 #include "../Constants/Strings.h"
 
@@ -105,16 +108,18 @@ std::string StructureName(StructureID id)
 
 
 
-Structure::Structure(const std::string& spritePath, StructureClass structureClass, StructureID id) :
-	MapObject(StructureName(id), spritePath, constants::StructureStateConstruction),
+Structure::Structure(StructureClass structureClass, StructureID id) :
+	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, constants::StructureStateConstruction),
+	mStructureType(StructureCatalogue::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
 }
 
 
-Structure::Structure(const std::string& spritePath, const std::string& initialAction, StructureClass structureClass, StructureID id) :
-	MapObject(StructureName(id), spritePath, initialAction),
+Structure::Structure(const std::string& initialAction, StructureClass structureClass, StructureID id) :
+	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, initialAction),
+	mStructureType(StructureCatalogue::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
@@ -196,12 +201,12 @@ void Structure::forceIdle(bool force)
 
 const StorableResources& Structure::resourcesIn() const
 {
-	return mResourcesInput;
+	return mStructureType.operationalCost;
 }
 
 const PopulationRequirements& Structure::populationRequirements() const
 {
-	return mPopulationRequirements;
+	return mStructureType.populationRequirements;
 }
 
 const std::string& Structure::stateDescription() const
@@ -226,47 +231,47 @@ const std::string& Structure::classDescription(StructureClass structureClass)
 
 int Structure::turnsToBuild() const
 {
-	return mTurnsToBuild;
+	return mStructureType.turnsToBuild;
 }
 
 int Structure::maxAge() const
 {
-	return mMaxAge;
+	return mStructureType.maxAge;
 }
 
 int Structure::energyRequirement() const
 {
-	return mEnergyRequirement;
+	return mStructureType.energyRequired;
 }
 
 int Structure::storageCapacity() const
 {
-	return mStorageCapacity;
+	return mStructureType.oreStorageCapacity;
 }
 
 bool Structure::hasCrime() const
 {
-	return mHasCrime;
+	return mStructureType.isCrimeTarget;
 }
 
 int Structure::integrityDecayRate() const
 {
-	return mIntegrityDecayRate;
+	return mStructureType.integrityDecayRate;
 }
 
 bool Structure::requiresCHAP() const
 {
-	return mRequiresCHAP;
+	return mStructureType.isChapRequired;
 }
 
 bool Structure::selfSustained() const
 {
-	return mSelfSustained;
+	return mStructureType.isSelfSustained;
 }
 
 bool Structure::repairable() const
 {
-	return mRepairable && (mStructureState != StructureState::Destroyed);
+	return mStructureType.isRepairable && (mStructureState != StructureState::Destroyed);
 }
 
 /**
@@ -280,8 +285,6 @@ void Structure::activate()
 {
 	sprite().play(constants::StructureStateOperational);
 	enable();
-
-	defineResourceInput();
 
 	activated();
 }
@@ -374,8 +377,6 @@ void Structure::destroy()
  */
 void Structure::forced_state_change(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
-	defineResourceInput();
-
 	if (age() >= turnsToBuild())
 	{
 		sprite().play(constants::StructureStateOperational);

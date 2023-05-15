@@ -12,8 +12,8 @@
 class OreRefining : public Structure
 {
 public:
-	OreRefining(const std::string& spritePath, StructureClass structureClass, StructureID id) :
-		Structure(spritePath, structureClass, id) {}
+	OreRefining(StructureClass structureClass, StructureID id) :
+		Structure(structureClass, id) {}
 
 	StringTable createInspectorViewTable() override
 	{

@@ -2,6 +2,13 @@
 
 #include "StorableResources.h"
 #include "MapObjects/Structures.h"
+#include "MapObjects/StructureType.h"
+#include "IOHelper.h"
+#include "XmlSerializer.h"
+
+#include <NAS2D/Utility.h>
+#include <NAS2D/Filesystem.h>
+#include <NAS2D/ParserHelper.h>
 
 #include <string>
 #include <stdexcept>
@@ -11,73 +18,11 @@ namespace
 {
 	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
-
-	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
-	const std::map<StructureID, StorableResources> StructureCostTable =
-	{{
-		{SID_NONE, {}},
-		{SID_AGRIDOME, {10, 10, 2, 2}},
-		{SID_CHAP, {15, 10, 6, 6}},
-		{SID_COMMAND_CENTER, {100, 75, 75, 40}},
-		{SID_COMMERCIAL, {8, 5, 5, 0}},
-		{SID_COMM_TOWER, {5, 5, 5, 0}},
-		{SID_FUSION_REACTOR, {30, 25, 20, 10}},
-		{SID_HOT_LABORATORY, {20, 10, 6, 5}},
-		{SID_LABORATORY, {20, 10, 6, 5}},
-		{SID_MAINTENANCE_FACILITY, {10, 5, 0, 0}},
-		{SID_MEDICAL_CENTER, {8, 5, 3, 3}},
-		{SID_NURSERY, {8, 5, 0, 0}},
-		{SID_PARK, {6, 6, 0, 0}},
-		{SID_SURFACE_POLICE, {8, 5, 8, 2}},
-		{SID_UNDERGROUND_POLICE, {8, 5, 8, 2}},
-		{SID_RECREATION_CENTER, {10, 8, 4, 0}},
-		{SID_RECYCLING, {10, 6, 8, 3}},
-		{SID_RED_LIGHT_DISTRICT, {15, 12, 10, 3}},
-		{SID_RESIDENCE, {8, 8, 0, 0}},
-		{SID_ROAD, {5, 5, 0, 0}},
-		{SID_ROBOT_COMMAND, {20, 15, 10, 5}},
-		{SID_SMELTER, {20, 15, 5, 5}},
-		{SID_SOLAR_PANEL1, {10, 20, 5, 5}},
-		{SID_SOLAR_PLANT, {30, 20, 20, 20}},
-		{SID_STORAGE_TANKS, {5, 5, 0, 0}},
-		{SID_SURFACE_FACTORY, {20, 10, 10, 5}},
-		{SID_UNDERGROUND_FACTORY, {20, 10, 10, 5}},
-		{SID_UNIVERSITY, {8, 8, 5, 5}},
-		{SID_WAREHOUSE, {5, 5, 0, 0}},
-	}};
-
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
 	const int DefaultRecyclePercent = 90;
 
 	std::map<StructureID, StorableResources> StructureRecycleValueTable;
-
-	const std::map<StructureID, PopulationRequirements> PopulationRequirementsTable = {
-		{SID_NONE, {}},
-		{SID_AGRIDOME, {1, 0}},
-		{SID_CHAP, {2, 0}},
-		{SID_COMMERCIAL, {1, 0}},
-		{SID_FUSION_REACTOR, {1, 2}},
-		{SID_HOT_LABORATORY, {0, 0}},
-		{SID_LABORATORY, {0, 0}},
-		{SID_MEDICAL_CENTER, {1, 2}},
-		{SID_NURSERY, {1, 1}},
-		{SID_PARK, {1, 0}},
-		{SID_SURFACE_POLICE, {3, 0}},
-		{SID_UNDERGROUND_POLICE, {3, 0}},
-		{SID_RECREATION_CENTER, {2, 0}},
-		{SID_RECYCLING, {1, 1}},
-		{SID_RED_LIGHT_DISTRICT, {2, 0}},
-		{SID_ROBOT_COMMAND, {4, 0}},
-		{SID_SEED_FACTORY, {2, 0}},
-		{SID_SEED_SMELTER, {2, 0}},
-		{SID_SMELTER, {4, 0}},
-		{SID_SOLAR_PANEL1, {0, 0}},
-		{SID_SURFACE_FACTORY, {4, 0}},
-		{SID_UNDERGROUND_FACTORY, {2, 0}},
-		{SID_UNIVERSITY, {1, 3}},
-		{SID_WAREHOUSE, {1, 0}},
-	};
 
 
 	template <typename Value>
@@ -117,6 +62,64 @@ namespace
 
 		return structureRecycleValueTable;
 	}
+
+
+	std::vector<StructureType> loadStructureTypes(const std::string& filePath)
+	{
+		const auto document = openXmlFile(filePath, "Structures");
+		const auto& structuresElement = *document.firstChildElement("Structures");
+
+		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
+		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+
+		std::vector<StructureType> structureTypes;
+		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
+		{
+			const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
+			NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, optionalFields);
+
+			structureTypes.push_back({
+				dictionary.get("Name"),
+				dictionary.get("ImagePath"),
+				readResources(*structureElement, "BuildCost"),
+				readResources(*structureElement, "OperationalCost"),
+				{
+					dictionary.get<int>("RequiredWorkers"),
+					dictionary.get<int>("RequiredScientists"),
+				},
+				dictionary.get<int>("Priority"),
+				dictionary.get<int>("TurnsToBuild"),
+				dictionary.get<int>("MaxAge"),
+				dictionary.get<int>("EnergyRequired"),
+				dictionary.get<int>("EnergyProduced"),
+				dictionary.get<int>("FoodProduced"),
+				dictionary.get<int>("FoodStorageCapacity"),
+				dictionary.get<int>("OreStorageCapacity"),
+				dictionary.get<int>("IntegrityDecayRate"),
+				dictionary.get<bool>("IsSelfSustained"),
+				dictionary.get<bool>("IsRepairable"),
+				dictionary.get<bool>("IsChapRequired"),
+				dictionary.get<bool>("IsCrimeTarget"),
+			});
+		}
+		return structureTypes;
+	}
+
+
+	std::vector<StructureType> structureTypes;
+
+
+	const StructureType& findStructureType(const std::string& name)
+	{
+		for (const auto& structureType : structureTypes)
+		{
+			if (structureType.name == name)
+			{
+				return structureType;
+			}
+		}
+		throw std::runtime_error("StructureType not found: " + name);
+	}
 }
 
 
@@ -125,7 +128,14 @@ namespace
  */
 void StructureCatalogue::init()
 {
+	structureTypes = loadStructureTypes("StructureTypes.xml");
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
+}
+
+
+const StructureType& StructureCatalogue::getType(StructureID type)
+{
+	return findStructureType(StructureName(type));
 }
 
 
@@ -310,20 +320,7 @@ Structure* StructureCatalogue::get(StructureID type)
 		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
 	}
 
-	structure->setPopulationRequirements(StructureCatalogue::populationRequirements(type));
-
 	return structure;
-}
-
-
-/**
- * Gets the population required to operate a given Structure.
- * 
- * \param	type	A valid StructureID value.
- */
-const PopulationRequirements& StructureCatalogue::populationRequirements(StructureID type)
-{
-	return findOrDefault(PopulationRequirementsTable, type);
 }
 
 
@@ -334,7 +331,7 @@ const PopulationRequirements& StructureCatalogue::populationRequirements(Structu
  */
 const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 {
-	return findOrDefault(StructureCostTable, type);
+	return getType(type).buildCost;
 }
 
 

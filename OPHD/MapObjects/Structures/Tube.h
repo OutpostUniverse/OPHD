@@ -15,15 +15,12 @@ class Tube : public Structure
 public:
 	Tube(ConnectorDir dir, bool underground) :
 		Structure(
-			"structures/tubes.sprite",
 			getAnimationName(dir, underground),
 			StructureClass::Tube,
 			StructureID::SID_TUBE)
 	{
 		connectorDirection(dir);
-		requiresCHAP(false);
 		state(StructureState::Operational);
-		integrityDecayRate(0);
 	}
 
 private:

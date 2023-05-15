@@ -14,18 +14,10 @@ public:
 public:
 
 	ColonistLander(Tile* tile) : Structure(
-		"structures/lander_1.sprite",
 		StructureClass::Lander,
 		StructureID::SID_COLONIST_LANDER),
 		mTile(tile)
 	{
-		maxAge(50);
-		turnsToBuild(1);
-		repairable(false);
-		requiresCHAP(false);
-		selfSustained(true);
-		integrityDecayRate(2);
-
 		enable();
 	}
 
