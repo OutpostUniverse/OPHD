@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		571EECE72A12F16700671F98 /* MineFacility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571EECD52A12F16600671F98 /* MineFacility.cpp */; };
+		571EECE82A12F16700671F98 /* Factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571EECD62A12F16600671F98 /* Factory.cpp */; };
+		571EECF42A12F18F00671F98 /* MapObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571EECEC2A12F18E00671F98 /* MapObject.cpp */; };
+		571EECF52A12F18F00671F98 /* Robot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571EECED2A12F18E00671F98 /* Robot.cpp */; };
+		571EECF62A12F18F00671F98 /* Structure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 571EECEF2A12F18E00671F98 /* Structure.cpp */; };
 		572509E229D66BB100A59072 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 572509E129D66BB100A59072 /* AppDelegate.m */; };
 		572509E429D66BB200A59072 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 572509E329D66BB200A59072 /* Assets.xcassets */; };
 		572509E729D66BB200A59072 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 572509E529D66BB200A59072 /* MainMenu.xib */; };
@@ -131,12 +136,6 @@
 		57BE5BAE29D66E9E0021C4AB /* PlanetSelectState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5B9D29D66E9E0021C4AB /* PlanetSelectState.cpp */; };
 		57BE5BB429D66EAD0021C4AB /* TechnologyCatalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BB229D66EAD0021C4AB /* TechnologyCatalog.cpp */; };
 		57BE5BB529D66EAD0021C4AB /* ResearchTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BB329D66EAD0021C4AB /* ResearchTracker.cpp */; };
-		57BE5BBA29D66EDC0021C4AB /* Thing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BB829D66EDC0021C4AB /* Thing.cpp */; };
-		57BE5BEC29D66EEC0021C4AB /* Structure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BC129D66EEC0021C4AB /* Structure.cpp */; };
-		57BE5BED29D66EEC0021C4AB /* MineFacility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BCA29D66EEC0021C4AB /* MineFacility.cpp */; };
-		57BE5BEE29D66EEC0021C4AB /* Factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BD529D66EEC0021C4AB /* Factory.cpp */; };
-		57BE5BEF29D66EEC0021C4AB /* RobotCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BEA29D66EEC0021C4AB /* RobotCommand.cpp */; };
-		57BE5BF629D66EF70021C4AB /* Robot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5BF529D66EF70021C4AB /* Robot.cpp */; };
 		57BE5C5429D66F1F0021C4AB /* FactoryReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C4E29D66F1F0021C4AB /* FactoryReport.cpp */; };
 		57BE5C5529D66F1F0021C4AB /* MineReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C5229D66F1F0021C4AB /* MineReport.cpp */; };
 		57BE5C5629D66F1F0021C4AB /* WarehouseReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C5329D66F1F0021C4AB /* WarehouseReport.cpp */; };
@@ -178,6 +177,62 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		571EECBA2A12F16600671F98 /* CommandCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandCenter.h; path = ../../OPHD/MapObjects/Structures/CommandCenter.h; sourceTree = "<group>"; };
+		571EECBB2A12F16600671F98 /* CommTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommTower.h; path = ../../OPHD/MapObjects/Structures/CommTower.h; sourceTree = "<group>"; };
+		571EECBC2A12F16600671F98 /* ColonistLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColonistLander.h; path = ../../OPHD/MapObjects/Structures/ColonistLander.h; sourceTree = "<group>"; };
+		571EECBD2A12F16600671F98 /* HotLaboratory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotLaboratory.h; path = ../../OPHD/MapObjects/Structures/HotLaboratory.h; sourceTree = "<group>"; };
+		571EECBE2A12F16600671F98 /* OreRefining.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OreRefining.h; path = ../../OPHD/MapObjects/Structures/OreRefining.h; sourceTree = "<group>"; };
+		571EECBF2A12F16600671F98 /* Recycling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recycling.h; path = ../../OPHD/MapObjects/Structures/Recycling.h; sourceTree = "<group>"; };
+		571EECC02A12F16600671F98 /* SeedFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedFactory.h; path = ../../OPHD/MapObjects/Structures/SeedFactory.h; sourceTree = "<group>"; };
+		571EECC12A12F16600671F98 /* PowerStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PowerStructure.h; path = ../../OPHD/MapObjects/Structures/PowerStructure.h; sourceTree = "<group>"; };
+		571EECC22A12F16600671F98 /* RecreationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecreationCenter.h; path = ../../OPHD/MapObjects/Structures/RecreationCenter.h; sourceTree = "<group>"; };
+		571EECC32A12F16600671F98 /* MineShaft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineShaft.h; path = ../../OPHD/MapObjects/Structures/MineShaft.h; sourceTree = "<group>"; };
+		571EECC42A12F16600671F98 /* MaintenanceFacility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaintenanceFacility.h; path = ../../OPHD/MapObjects/Structures/MaintenanceFacility.h; sourceTree = "<group>"; };
+		571EECC52A12F16600671F98 /* SeedLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedLander.h; path = ../../OPHD/MapObjects/Structures/SeedLander.h; sourceTree = "<group>"; };
+		571EECC62A12F16600671F98 /* Laboratory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Laboratory.h; path = ../../OPHD/MapObjects/Structures/Laboratory.h; sourceTree = "<group>"; };
+		571EECC72A12F16600671F98 /* UndergroundFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndergroundFactory.h; path = ../../OPHD/MapObjects/Structures/UndergroundFactory.h; sourceTree = "<group>"; };
+		571EECC82A12F16600671F98 /* AirShaft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirShaft.h; path = ../../OPHD/MapObjects/Structures/AirShaft.h; sourceTree = "<group>"; };
+		571EECC92A12F16600671F98 /* SolarPanelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolarPanelArray.h; path = ../../OPHD/MapObjects/Structures/SolarPanelArray.h; sourceTree = "<group>"; };
+		571EECCA2A12F16600671F98 /* Warehouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Warehouse.h; path = ../../OPHD/MapObjects/Structures/Warehouse.h; sourceTree = "<group>"; };
+		571EECCB2A12F16600671F98 /* Residence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Residence.h; path = ../../OPHD/MapObjects/Structures/Residence.h; sourceTree = "<group>"; };
+		571EECCC2A12F16600671F98 /* SolarPlant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolarPlant.h; path = ../../OPHD/MapObjects/Structures/SolarPlant.h; sourceTree = "<group>"; };
+		571EECCD2A12F16600671F98 /* Agridome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Agridome.h; path = ../../OPHD/MapObjects/Structures/Agridome.h; sourceTree = "<group>"; };
+		571EECCE2A12F16600671F98 /* Commercial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Commercial.h; path = ../../OPHD/MapObjects/Structures/Commercial.h; sourceTree = "<group>"; };
+		571EECCF2A12F16600671F98 /* CHAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHAP.h; path = ../../OPHD/MapObjects/Structures/CHAP.h; sourceTree = "<group>"; };
+		571EECD02A12F16600671F98 /* FoodProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FoodProduction.h; path = ../../OPHD/MapObjects/Structures/FoodProduction.h; sourceTree = "<group>"; };
+		571EECD12A12F16600671F98 /* SeedPower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedPower.h; path = ../../OPHD/MapObjects/Structures/SeedPower.h; sourceTree = "<group>"; };
+		571EECD22A12F16600671F98 /* Park.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Park.h; path = ../../OPHD/MapObjects/Structures/Park.h; sourceTree = "<group>"; };
+		571EECD32A12F16600671F98 /* SurfacePolice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurfacePolice.h; path = ../../OPHD/MapObjects/Structures/SurfacePolice.h; sourceTree = "<group>"; };
+		571EECD42A12F16600671F98 /* StorageTanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StorageTanks.h; path = ../../OPHD/MapObjects/Structures/StorageTanks.h; sourceTree = "<group>"; };
+		571EECD52A12F16600671F98 /* MineFacility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MineFacility.cpp; path = ../../OPHD/MapObjects/Structures/MineFacility.cpp; sourceTree = "<group>"; };
+		571EECD62A12F16600671F98 /* Factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Factory.cpp; path = ../../OPHD/MapObjects/Structures/Factory.cpp; sourceTree = "<group>"; };
+		571EECD72A12F16600671F98 /* Road.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Road.h; path = ../../OPHD/MapObjects/Structures/Road.h; sourceTree = "<group>"; };
+		571EECD82A12F16600671F98 /* RedLightDistrict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RedLightDistrict.h; path = ../../OPHD/MapObjects/Structures/RedLightDistrict.h; sourceTree = "<group>"; };
+		571EECD92A12F16600671F98 /* FusionReactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FusionReactor.h; path = ../../OPHD/MapObjects/Structures/FusionReactor.h; sourceTree = "<group>"; };
+		571EECDA2A12F16600671F98 /* ResearchFacility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResearchFacility.h; path = ../../OPHD/MapObjects/Structures/ResearchFacility.h; sourceTree = "<group>"; };
+		571EECDB2A12F16600671F98 /* UndergroundPolice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndergroundPolice.h; path = ../../OPHD/MapObjects/Structures/UndergroundPolice.h; sourceTree = "<group>"; };
+		571EECDC2A12F16600671F98 /* Smelter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Smelter.h; path = ../../OPHD/MapObjects/Structures/Smelter.h; sourceTree = "<group>"; };
+		571EECDD2A12F16600671F98 /* SeedSmelter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedSmelter.h; path = ../../OPHD/MapObjects/Structures/SeedSmelter.h; sourceTree = "<group>"; };
+		571EECDE2A12F16700671F98 /* SurfaceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurfaceFactory.h; path = ../../OPHD/MapObjects/Structures/SurfaceFactory.h; sourceTree = "<group>"; };
+		571EECDF2A12F16700671F98 /* CargoLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CargoLander.h; path = ../../OPHD/MapObjects/Structures/CargoLander.h; sourceTree = "<group>"; };
+		571EECE02A12F16700671F98 /* RobotCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RobotCommand.h; path = ../../OPHD/MapObjects/Structures/RobotCommand.h; sourceTree = "<group>"; };
+		571EECE12A12F16700671F98 /* MedicalCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MedicalCenter.h; path = ../../OPHD/MapObjects/Structures/MedicalCenter.h; sourceTree = "<group>"; };
+		571EECE22A12F16700671F98 /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = University.h; path = ../../OPHD/MapObjects/Structures/University.h; sourceTree = "<group>"; };
+		571EECE32A12F16700671F98 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Factory.h; path = ../../OPHD/MapObjects/Structures/Factory.h; sourceTree = "<group>"; };
+		571EECE42A12F16700671F98 /* Nursery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Nursery.h; path = ../../OPHD/MapObjects/Structures/Nursery.h; sourceTree = "<group>"; };
+		571EECE52A12F16700671F98 /* MineFacility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineFacility.h; path = ../../OPHD/MapObjects/Structures/MineFacility.h; sourceTree = "<group>"; };
+		571EECE62A12F16700671F98 /* Tube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tube.h; path = ../../OPHD/MapObjects/Structures/Tube.h; sourceTree = "<group>"; };
+		571EECE92A12F17700671F98 /* Robodozer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robodozer.h; path = ../../OPHD/MapObjects/Robots/Robodozer.h; sourceTree = "<group>"; };
+		571EECEA2A12F17700671F98 /* Robominer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robominer.h; path = ../../OPHD/MapObjects/Robots/Robominer.h; sourceTree = "<group>"; };
+		571EECEB2A12F17700671F98 /* Robodigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robodigger.h; path = ../../OPHD/MapObjects/Robots/Robodigger.h; sourceTree = "<group>"; };
+		571EECEC2A12F18E00671F98 /* MapObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MapObject.cpp; path = ../../OPHD/MapObjects/MapObject.cpp; sourceTree = "<group>"; };
+		571EECED2A12F18E00671F98 /* Robot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robot.cpp; path = ../../OPHD/MapObjects/Robot.cpp; sourceTree = "<group>"; };
+		571EECEE2A12F18E00671F98 /* Robots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robots.h; path = ../../OPHD/MapObjects/Robots.h; sourceTree = "<group>"; };
+		571EECEF2A12F18E00671F98 /* Structure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Structure.cpp; path = ../../OPHD/MapObjects/Structure.cpp; sourceTree = "<group>"; };
+		571EECF02A12F18E00671F98 /* MapObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapObject.h; path = ../../OPHD/MapObjects/MapObject.h; sourceTree = "<group>"; };
+		571EECF12A12F18F00671F98 /* Structure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Structure.h; path = ../../OPHD/MapObjects/Structure.h; sourceTree = "<group>"; };
+		571EECF22A12F18F00671F98 /* Structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Structures.h; path = ../../OPHD/MapObjects/Structures.h; sourceTree = "<group>"; };
+		571EECF32A12F18F00671F98 /* Robot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robot.h; path = ../../OPHD/MapObjects/Robot.h; sourceTree = "<group>"; };
 		572509DD29D66BB100A59072 /* OutpostHD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OutpostHD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		572509E029D66BB100A59072 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		572509E129D66BB100A59072 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -435,63 +490,6 @@
 		57BE5BB129D66EAD0021C4AB /* TechnologyCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TechnologyCatalog.h; path = ../../OPHD/Technology/TechnologyCatalog.h; sourceTree = "<group>"; };
 		57BE5BB229D66EAD0021C4AB /* TechnologyCatalog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TechnologyCatalog.cpp; path = ../../OPHD/Technology/TechnologyCatalog.cpp; sourceTree = "<group>"; };
 		57BE5BB329D66EAD0021C4AB /* ResearchTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResearchTracker.cpp; path = ../../OPHD/Technology/ResearchTracker.cpp; sourceTree = "<group>"; };
-		57BE5BB829D66EDC0021C4AB /* Thing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Thing.cpp; path = ../../OPHD/Things/Thing.cpp; sourceTree = "<group>"; };
-		57BE5BB929D66EDC0021C4AB /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = ../../OPHD/Things/Thing.h; sourceTree = "<group>"; };
-		57BE5BBB29D66EEC0021C4AB /* SeedSmelter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedSmelter.h; path = ../../OPHD/Things/Structures/SeedSmelter.h; sourceTree = "<group>"; };
-		57BE5BBC29D66EEC0021C4AB /* PowerStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PowerStructure.h; path = ../../OPHD/Things/Structures/PowerStructure.h; sourceTree = "<group>"; };
-		57BE5BBD29D66EEC0021C4AB /* CHAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHAP.h; path = ../../OPHD/Things/Structures/CHAP.h; sourceTree = "<group>"; };
-		57BE5BBE29D66EEC0021C4AB /* Residence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Residence.h; path = ../../OPHD/Things/Structures/Residence.h; sourceTree = "<group>"; };
-		57BE5BBF29D66EEC0021C4AB /* SeedLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedLander.h; path = ../../OPHD/Things/Structures/SeedLander.h; sourceTree = "<group>"; };
-		57BE5BC029D66EEC0021C4AB /* SolarPanelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolarPanelArray.h; path = ../../OPHD/Things/Structures/SolarPanelArray.h; sourceTree = "<group>"; };
-		57BE5BC129D66EEC0021C4AB /* Structure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Structure.cpp; path = ../../OPHD/Things/Structures/Structure.cpp; sourceTree = "<group>"; };
-		57BE5BC229D66EEC0021C4AB /* MineFacility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineFacility.h; path = ../../OPHD/Things/Structures/MineFacility.h; sourceTree = "<group>"; };
-		57BE5BC329D66EEC0021C4AB /* CargoLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CargoLander.h; path = ../../OPHD/Things/Structures/CargoLander.h; sourceTree = "<group>"; };
-		57BE5BC429D66EEC0021C4AB /* SurfaceFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurfaceFactory.h; path = ../../OPHD/Things/Structures/SurfaceFactory.h; sourceTree = "<group>"; };
-		57BE5BC529D66EEC0021C4AB /* Recycling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recycling.h; path = ../../OPHD/Things/Structures/Recycling.h; sourceTree = "<group>"; };
-		57BE5BC629D66EEC0021C4AB /* SeedFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedFactory.h; path = ../../OPHD/Things/Structures/SeedFactory.h; sourceTree = "<group>"; };
-		57BE5BC729D66EEC0021C4AB /* SolarPlant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SolarPlant.h; path = ../../OPHD/Things/Structures/SolarPlant.h; sourceTree = "<group>"; };
-		57BE5BC829D66EEC0021C4AB /* Nursery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Nursery.h; path = ../../OPHD/Things/Structures/Nursery.h; sourceTree = "<group>"; };
-		57BE5BC929D66EEC0021C4AB /* CommTower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommTower.h; path = ../../OPHD/Things/Structures/CommTower.h; sourceTree = "<group>"; };
-		57BE5BCA29D66EEC0021C4AB /* MineFacility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MineFacility.cpp; path = ../../OPHD/Things/Structures/MineFacility.cpp; sourceTree = "<group>"; };
-		57BE5BCB29D66EEC0021C4AB /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Factory.h; path = ../../OPHD/Things/Structures/Factory.h; sourceTree = "<group>"; };
-		57BE5BCC29D66EEC0021C4AB /* StorageTanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StorageTanks.h; path = ../../OPHD/Things/Structures/StorageTanks.h; sourceTree = "<group>"; };
-		57BE5BCD29D66EEC0021C4AB /* ColonistLander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColonistLander.h; path = ../../OPHD/Things/Structures/ColonistLander.h; sourceTree = "<group>"; };
-		57BE5BCE29D66EEC0021C4AB /* Smelter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Smelter.h; path = ../../OPHD/Things/Structures/Smelter.h; sourceTree = "<group>"; };
-		57BE5BCF29D66EEC0021C4AB /* UndergroundPolice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndergroundPolice.h; path = ../../OPHD/Things/Structures/UndergroundPolice.h; sourceTree = "<group>"; };
-		57BE5BD029D66EEC0021C4AB /* Structure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Structure.h; path = ../../OPHD/Things/Structures/Structure.h; sourceTree = "<group>"; };
-		57BE5BD129D66EEC0021C4AB /* Park.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Park.h; path = ../../OPHD/Things/Structures/Park.h; sourceTree = "<group>"; };
-		57BE5BD229D66EEC0021C4AB /* Tube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tube.h; path = ../../OPHD/Things/Structures/Tube.h; sourceTree = "<group>"; };
-		57BE5BD329D66EEC0021C4AB /* FusionReactor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FusionReactor.h; path = ../../OPHD/Things/Structures/FusionReactor.h; sourceTree = "<group>"; };
-		57BE5BD429D66EEC0021C4AB /* HotLaboratory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HotLaboratory.h; path = ../../OPHD/Things/Structures/HotLaboratory.h; sourceTree = "<group>"; };
-		57BE5BD529D66EEC0021C4AB /* Factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Factory.cpp; path = ../../OPHD/Things/Structures/Factory.cpp; sourceTree = "<group>"; };
-		57BE5BD629D66EEC0021C4AB /* AirShaft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirShaft.h; path = ../../OPHD/Things/Structures/AirShaft.h; sourceTree = "<group>"; };
-		57BE5BD729D66EEC0021C4AB /* UndergroundFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UndergroundFactory.h; path = ../../OPHD/Things/Structures/UndergroundFactory.h; sourceTree = "<group>"; };
-		57BE5BD829D66EEC0021C4AB /* RobotCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RobotCommand.h; path = ../../OPHD/Things/Structures/RobotCommand.h; sourceTree = "<group>"; };
-		57BE5BD929D66EEC0021C4AB /* MineShaft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineShaft.h; path = ../../OPHD/Things/Structures/MineShaft.h; sourceTree = "<group>"; };
-		57BE5BDA29D66EEC0021C4AB /* Warehouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Warehouse.h; path = ../../OPHD/Things/Structures/Warehouse.h; sourceTree = "<group>"; };
-		57BE5BDB29D66EEC0021C4AB /* MaintenanceFacility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaintenanceFacility.h; path = ../../OPHD/Things/Structures/MaintenanceFacility.h; sourceTree = "<group>"; };
-		57BE5BDC29D66EEC0021C4AB /* Laboratory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Laboratory.h; path = ../../OPHD/Things/Structures/Laboratory.h; sourceTree = "<group>"; };
-		57BE5BDD29D66EEC0021C4AB /* SeedPower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SeedPower.h; path = ../../OPHD/Things/Structures/SeedPower.h; sourceTree = "<group>"; };
-		57BE5BDE29D66EEC0021C4AB /* MedicalCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MedicalCenter.h; path = ../../OPHD/Things/Structures/MedicalCenter.h; sourceTree = "<group>"; };
-		57BE5BDF29D66EEC0021C4AB /* OreRefining.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OreRefining.h; path = ../../OPHD/Things/Structures/OreRefining.h; sourceTree = "<group>"; };
-		57BE5BE029D66EEC0021C4AB /* Road.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Road.h; path = ../../OPHD/Things/Structures/Road.h; sourceTree = "<group>"; };
-		57BE5BE129D66EEC0021C4AB /* RecreationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecreationCenter.h; path = ../../OPHD/Things/Structures/RecreationCenter.h; sourceTree = "<group>"; };
-		57BE5BE229D66EEC0021C4AB /* Commercial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Commercial.h; path = ../../OPHD/Things/Structures/Commercial.h; sourceTree = "<group>"; };
-		57BE5BE329D66EEC0021C4AB /* Agridome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Agridome.h; path = ../../OPHD/Things/Structures/Agridome.h; sourceTree = "<group>"; };
-		57BE5BE429D66EEC0021C4AB /* FoodProduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FoodProduction.h; path = ../../OPHD/Things/Structures/FoodProduction.h; sourceTree = "<group>"; };
-		57BE5BE529D66EEC0021C4AB /* ResearchFacility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResearchFacility.h; path = ../../OPHD/Things/Structures/ResearchFacility.h; sourceTree = "<group>"; };
-		57BE5BE629D66EEC0021C4AB /* SurfacePolice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurfacePolice.h; path = ../../OPHD/Things/Structures/SurfacePolice.h; sourceTree = "<group>"; };
-		57BE5BE729D66EEC0021C4AB /* Structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Structures.h; path = ../../OPHD/Things/Structures/Structures.h; sourceTree = "<group>"; };
-		57BE5BE829D66EEC0021C4AB /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = University.h; path = ../../OPHD/Things/Structures/University.h; sourceTree = "<group>"; };
-		57BE5BE929D66EEC0021C4AB /* RedLightDistrict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RedLightDistrict.h; path = ../../OPHD/Things/Structures/RedLightDistrict.h; sourceTree = "<group>"; };
-		57BE5BEA29D66EEC0021C4AB /* RobotCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RobotCommand.cpp; path = ../../OPHD/Things/Structures/RobotCommand.cpp; sourceTree = "<group>"; };
-		57BE5BEB29D66EEC0021C4AB /* CommandCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommandCenter.h; path = ../../OPHD/Things/Structures/CommandCenter.h; sourceTree = "<group>"; };
-		57BE5BF029D66EF60021C4AB /* Robots.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robots.h; path = ../../OPHD/Things/Robots/Robots.h; sourceTree = "<group>"; };
-		57BE5BF129D66EF60021C4AB /* Robominer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robominer.h; path = ../../OPHD/Things/Robots/Robominer.h; sourceTree = "<group>"; };
-		57BE5BF229D66EF60021C4AB /* Robot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robot.h; path = ../../OPHD/Things/Robots/Robot.h; sourceTree = "<group>"; };
-		57BE5BF329D66EF70021C4AB /* Robodigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robodigger.h; path = ../../OPHD/Things/Robots/Robodigger.h; sourceTree = "<group>"; };
-		57BE5BF429D66EF70021C4AB /* Robodozer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Robodozer.h; path = ../../OPHD/Things/Robots/Robodozer.h; sourceTree = "<group>"; };
-		57BE5BF529D66EF70021C4AB /* Robot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robot.cpp; path = ../../OPHD/Things/Robots/Robot.cpp; sourceTree = "<group>"; };
 		57BE5C4D29D66F1F0021C4AB /* MineReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MineReport.h; path = ../../OPHD/UI/Reports/MineReport.h; sourceTree = "<group>"; };
 		57BE5C4E29D66F1F0021C4AB /* FactoryReport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FactoryReport.cpp; path = ../../OPHD/UI/Reports/FactoryReport.cpp; sourceTree = "<group>"; };
 		57BE5C4F29D66F1F0021C4AB /* WarehouseReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WarehouseReport.h; path = ../../OPHD/UI/Reports/WarehouseReport.h; sourceTree = "<group>"; };
@@ -550,6 +548,85 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		571EECB72A12F13B00671F98 /* MapObjects */ = {
+			isa = PBXGroup;
+			children = (
+				571EECEC2A12F18E00671F98 /* MapObject.cpp */,
+				571EECF02A12F18E00671F98 /* MapObject.h */,
+				571EECED2A12F18E00671F98 /* Robot.cpp */,
+				571EECF32A12F18F00671F98 /* Robot.h */,
+				571EECEE2A12F18E00671F98 /* Robots.h */,
+				571EECEF2A12F18E00671F98 /* Structure.cpp */,
+				571EECF12A12F18F00671F98 /* Structure.h */,
+				571EECF22A12F18F00671F98 /* Structures.h */,
+				571EECB92A12F15700671F98 /* Robots */,
+				571EECB82A12F14A00671F98 /* Structures */,
+			);
+			name = MapObjects;
+			sourceTree = "<group>";
+		};
+		571EECB82A12F14A00671F98 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				571EECCD2A12F16600671F98 /* Agridome.h */,
+				571EECC82A12F16600671F98 /* AirShaft.h */,
+				571EECDF2A12F16700671F98 /* CargoLander.h */,
+				571EECCF2A12F16600671F98 /* CHAP.h */,
+				571EECBC2A12F16600671F98 /* ColonistLander.h */,
+				571EECBA2A12F16600671F98 /* CommandCenter.h */,
+				571EECCE2A12F16600671F98 /* Commercial.h */,
+				571EECBB2A12F16600671F98 /* CommTower.h */,
+				571EECD62A12F16600671F98 /* Factory.cpp */,
+				571EECE32A12F16700671F98 /* Factory.h */,
+				571EECD02A12F16600671F98 /* FoodProduction.h */,
+				571EECD92A12F16600671F98 /* FusionReactor.h */,
+				571EECBD2A12F16600671F98 /* HotLaboratory.h */,
+				571EECC62A12F16600671F98 /* Laboratory.h */,
+				571EECC42A12F16600671F98 /* MaintenanceFacility.h */,
+				571EECE12A12F16700671F98 /* MedicalCenter.h */,
+				571EECD52A12F16600671F98 /* MineFacility.cpp */,
+				571EECE52A12F16700671F98 /* MineFacility.h */,
+				571EECC32A12F16600671F98 /* MineShaft.h */,
+				571EECE42A12F16700671F98 /* Nursery.h */,
+				571EECBE2A12F16600671F98 /* OreRefining.h */,
+				571EECD22A12F16600671F98 /* Park.h */,
+				571EECC12A12F16600671F98 /* PowerStructure.h */,
+				571EECC22A12F16600671F98 /* RecreationCenter.h */,
+				571EECBF2A12F16600671F98 /* Recycling.h */,
+				571EECD82A12F16600671F98 /* RedLightDistrict.h */,
+				571EECDA2A12F16600671F98 /* ResearchFacility.h */,
+				571EECCB2A12F16600671F98 /* Residence.h */,
+				571EECD72A12F16600671F98 /* Road.h */,
+				571EECE02A12F16700671F98 /* RobotCommand.h */,
+				571EECC02A12F16600671F98 /* SeedFactory.h */,
+				571EECC52A12F16600671F98 /* SeedLander.h */,
+				571EECD12A12F16600671F98 /* SeedPower.h */,
+				571EECDD2A12F16600671F98 /* SeedSmelter.h */,
+				571EECDC2A12F16600671F98 /* Smelter.h */,
+				571EECC92A12F16600671F98 /* SolarPanelArray.h */,
+				571EECCC2A12F16600671F98 /* SolarPlant.h */,
+				571EECD42A12F16600671F98 /* StorageTanks.h */,
+				571EECDE2A12F16700671F98 /* SurfaceFactory.h */,
+				571EECD32A12F16600671F98 /* SurfacePolice.h */,
+				571EECE62A12F16700671F98 /* Tube.h */,
+				571EECC72A12F16600671F98 /* UndergroundFactory.h */,
+				571EECDB2A12F16600671F98 /* UndergroundPolice.h */,
+				571EECE22A12F16700671F98 /* University.h */,
+				571EECCA2A12F16600671F98 /* Warehouse.h */,
+			);
+			name = Structures;
+			sourceTree = "<group>";
+		};
+		571EECB92A12F15700671F98 /* Robots */ = {
+			isa = PBXGroup;
+			children = (
+				571EECEB2A12F17700671F98 /* Robodigger.h */,
+				571EECE92A12F17700671F98 /* Robodozer.h */,
+				571EECEA2A12F17700671F98 /* Robominer.h */,
+			);
+			name = Robots;
+			sourceTree = "<group>";
+		};
 		572509D429D66BB100A59072 = {
 			isa = PBXGroup;
 			children = (
@@ -571,15 +648,14 @@
 		572509DF29D66BB100A59072 /* OutpostHD */ = {
 			isa = PBXGroup;
 			children = (
+				571EECB72A12F13B00671F98 /* MapObjects */,
 				572509EA29D66BB200A59072 /* OutpostHD.entitlements */,
 				578032FC29D6795F005DE933 /* nas2d-core */,
-				57BE5B6129D66D640021C4AB /* Constants */,
 				57BE5B6229D66D6C0021C4AB /* Map */,
 				57BE5B6329D66D730021C4AB /* MicroPather */,
 				57BE5B6429D66D7D0021C4AB /* Population */,
 				57BE5B6529D66D850021C4AB /* States */,
 				57BE5B6629D66D8C0021C4AB /* Technology */,
-				57BE5B6729D66D9B0021C4AB /* Things */,
 				57BE5B6829D66DA80021C4AB /* UI */,
 				572509E029D66BB100A59072 /* AppDelegate.h */,
 				572509E129D66BB100A59072 /* AppDelegate.m */,
@@ -637,6 +713,7 @@
 		578032FC29D6795F005DE933 /* nas2d-core */ = {
 			isa = PBXGroup;
 			children = (
+				57BE5B6129D66D640021C4AB /* Constants */,
 				5780337529D679E0005DE933 /* Math */,
 				5780337429D679D9005DE933 /* Mixer */,
 				5780337329D679D0005DE933 /* Renderer */,
@@ -895,17 +972,6 @@
 			name = Technology;
 			sourceTree = "<group>";
 		};
-		57BE5B6729D66D9B0021C4AB /* Things */ = {
-			isa = PBXGroup;
-			children = (
-				57BE5BB729D66EC80021C4AB /* Robots */,
-				57BE5BB629D66EBB0021C4AB /* Structures */,
-				57BE5BB829D66EDC0021C4AB /* Thing.cpp */,
-				57BE5BB929D66EDC0021C4AB /* Thing.h */,
-			);
-			name = Things;
-			sourceTree = "<group>";
-		};
 		57BE5B6829D66DA80021C4AB /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,75 +1035,6 @@
 				5780347B29D6978C005DE933 /* WarehouseInspector.h */,
 			);
 			name = UI;
-			sourceTree = "<group>";
-		};
-		57BE5BB629D66EBB0021C4AB /* Structures */ = {
-			isa = PBXGroup;
-			children = (
-				57BE5BE329D66EEC0021C4AB /* Agridome.h */,
-				57BE5BD629D66EEC0021C4AB /* AirShaft.h */,
-				57BE5BC329D66EEC0021C4AB /* CargoLander.h */,
-				57BE5BBD29D66EEC0021C4AB /* CHAP.h */,
-				57BE5BCD29D66EEC0021C4AB /* ColonistLander.h */,
-				57BE5BEB29D66EEC0021C4AB /* CommandCenter.h */,
-				57BE5BE229D66EEC0021C4AB /* Commercial.h */,
-				57BE5BC929D66EEC0021C4AB /* CommTower.h */,
-				57BE5BD529D66EEC0021C4AB /* Factory.cpp */,
-				57BE5BCB29D66EEC0021C4AB /* Factory.h */,
-				57BE5BE429D66EEC0021C4AB /* FoodProduction.h */,
-				57BE5BD329D66EEC0021C4AB /* FusionReactor.h */,
-				57BE5BD429D66EEC0021C4AB /* HotLaboratory.h */,
-				57BE5BDC29D66EEC0021C4AB /* Laboratory.h */,
-				57BE5BDB29D66EEC0021C4AB /* MaintenanceFacility.h */,
-				57BE5BDE29D66EEC0021C4AB /* MedicalCenter.h */,
-				57BE5BCA29D66EEC0021C4AB /* MineFacility.cpp */,
-				57BE5BC229D66EEC0021C4AB /* MineFacility.h */,
-				57BE5BD929D66EEC0021C4AB /* MineShaft.h */,
-				57BE5BC829D66EEC0021C4AB /* Nursery.h */,
-				57BE5BDF29D66EEC0021C4AB /* OreRefining.h */,
-				57BE5BD129D66EEC0021C4AB /* Park.h */,
-				57BE5BBC29D66EEC0021C4AB /* PowerStructure.h */,
-				57BE5BE129D66EEC0021C4AB /* RecreationCenter.h */,
-				57BE5BC529D66EEC0021C4AB /* Recycling.h */,
-				57BE5BE929D66EEC0021C4AB /* RedLightDistrict.h */,
-				57BE5BE529D66EEC0021C4AB /* ResearchFacility.h */,
-				57BE5BBE29D66EEC0021C4AB /* Residence.h */,
-				57BE5BE029D66EEC0021C4AB /* Road.h */,
-				57BE5BEA29D66EEC0021C4AB /* RobotCommand.cpp */,
-				57BE5BD829D66EEC0021C4AB /* RobotCommand.h */,
-				57BE5BC629D66EEC0021C4AB /* SeedFactory.h */,
-				57BE5BBF29D66EEC0021C4AB /* SeedLander.h */,
-				57BE5BDD29D66EEC0021C4AB /* SeedPower.h */,
-				57BE5BBB29D66EEC0021C4AB /* SeedSmelter.h */,
-				57BE5BCE29D66EEC0021C4AB /* Smelter.h */,
-				57BE5BC029D66EEC0021C4AB /* SolarPanelArray.h */,
-				57BE5BC729D66EEC0021C4AB /* SolarPlant.h */,
-				57BE5BCC29D66EEC0021C4AB /* StorageTanks.h */,
-				57BE5BC129D66EEC0021C4AB /* Structure.cpp */,
-				57BE5BD029D66EEC0021C4AB /* Structure.h */,
-				57BE5BE729D66EEC0021C4AB /* Structures.h */,
-				57BE5BC429D66EEC0021C4AB /* SurfaceFactory.h */,
-				57BE5BE629D66EEC0021C4AB /* SurfacePolice.h */,
-				57BE5BD229D66EEC0021C4AB /* Tube.h */,
-				57BE5BD729D66EEC0021C4AB /* UndergroundFactory.h */,
-				57BE5BCF29D66EEC0021C4AB /* UndergroundPolice.h */,
-				57BE5BE829D66EEC0021C4AB /* University.h */,
-				57BE5BDA29D66EEC0021C4AB /* Warehouse.h */,
-			);
-			name = Structures;
-			sourceTree = "<group>";
-		};
-		57BE5BB729D66EC80021C4AB /* Robots */ = {
-			isa = PBXGroup;
-			children = (
-				57BE5BF329D66EF70021C4AB /* Robodigger.h */,
-				57BE5BF429D66EF70021C4AB /* Robodozer.h */,
-				57BE5BF129D66EF60021C4AB /* Robominer.h */,
-				57BE5BF529D66EF70021C4AB /* Robot.cpp */,
-				57BE5BF229D66EF60021C4AB /* Robot.h */,
-				57BE5BF029D66EF60021C4AB /* Robots.h */,
-			);
-			name = Robots;
 			sourceTree = "<group>";
 		};
 		57BE5C4B29D66F0D0021C4AB /* Reports */ = {
@@ -1170,7 +1167,6 @@
 				57BE5C8529D66F2A0021C4AB /* Window.cpp in Sources */,
 				578033D829D67A27005DE933 /* XmlNode.cpp in Sources */,
 				578033D529D67A27005DE933 /* XmlMemoryBuffer.cpp in Sources */,
-				57BE5BF629D66EF70021C4AB /* Robot.cpp in Sources */,
 				578034A029D6978C005DE933 /* RobotDeploymentSummary.cpp in Sources */,
 				57BE5B7A29D66E7A0021C4AB /* micropather.cpp in Sources */,
 				578034B029D6978C005DE933 /* ProductListBox.cpp in Sources */,
@@ -1217,6 +1213,7 @@
 				57BE5B7429D66E320021C4AB /* MapCoordinate.cpp in Sources */,
 				57BE5BA529D66E9E0021C4AB /* Planet.cpp in Sources */,
 				5780338129D679EB005DE933 /* Trig.cpp in Sources */,
+				571EECF42A12F18F00671F98 /* MapObject.cpp in Sources */,
 				5780339E29D67A03005DE933 /* RectangleSkin.cpp in Sources */,
 				57BE5C7929D66F2A0021C4AB /* RadioButton.cpp in Sources */,
 				578034A929D6978C005DE933 /* TextRender.cpp in Sources */,
@@ -1235,14 +1232,11 @@
 				57BE5BAD29D66E9E0021C4AB /* MapViewStateEvent.cpp in Sources */,
 				57BE5C8429D66F2A0021C4AB /* Button.cpp in Sources */,
 				578034A329D6978C005DE933 /* MajorEventAnnouncement.cpp in Sources */,
-				57BE5BED29D66EEC0021C4AB /* MineFacility.cpp in Sources */,
 				5780345829D6975B005DE933 /* main.cpp in Sources */,
 				57BE5BAA29D66E9E0021C4AB /* CrimeRateUpdate.cpp in Sources */,
 				57BE5C5529D66F1F0021C4AB /* MineReport.cpp in Sources */,
 				57BE5C7D29D66F2A0021C4AB /* UIContainer.cpp in Sources */,
 				57BE5C7B29D66F2A0021C4AB /* ListBox.cpp in Sources */,
-				57BE5BEF29D66EEC0021C4AB /* RobotCommand.cpp in Sources */,
-				57BE5BEE29D66EEC0021C4AB /* Factory.cpp in Sources */,
 				5780338329D679EB005DE933 /* MathUtils.cpp in Sources */,
 				5780338D29D679F6005DE933 /* MixerSDL.cpp in Sources */,
 				57BE5BAE29D66E9E0021C4AB /* PlanetSelectState.cpp in Sources */,
@@ -1255,6 +1249,7 @@
 				5780349C29D6978C005DE933 /* MineOperationsWindow.cpp in Sources */,
 				57BE5C8829D66F2A0021C4AB /* TextControl.cpp in Sources */,
 				578033B229D67A10005DE933 /* Sound.cpp in Sources */,
+				571EECE82A12F16700671F98 /* Factory.cpp in Sources */,
 				57BE5BA329D66E9E0021C4AB /* MapViewStateDraw.cpp in Sources */,
 				578033D629D67A27005DE933 /* XmlAttributeSet.cpp in Sources */,
 				578033A029D67A03005DE933 /* DisplayDesc.cpp in Sources */,
@@ -1262,12 +1257,13 @@
 				57BE5C7C29D66F2A0021C4AB /* ScrollBar.cpp in Sources */,
 				5780349729D6978C005DE933 /* MessageBox.cpp in Sources */,
 				57BE5C8029D66F2A0021C4AB /* RadioButtonGroup.cpp in Sources */,
+				571EECF62A12F18F00671F98 /* Structure.cpp in Sources */,
 				5780349E29D6978C005DE933 /* TileInspector.cpp in Sources */,
 				5780336D29D679A9005DE933 /* StringUtils.cpp in Sources */,
 				578034AD29D6978C005DE933 /* NotificationArea.cpp in Sources */,
 				5780338B29D679F6005DE933 /* MixerNull.cpp in Sources */,
 				5780349629D6978C005DE933 /* DiggerDirection.cpp in Sources */,
-				57BE5BBA29D66EDC0021C4AB /* Thing.cpp in Sources */,
+				571EECF52A12F18F00671F98 /* Robot.cpp in Sources */,
 				578034AF29D6978C005DE933 /* NotificationWindow.cpp in Sources */,
 				5780336A29D679A9005DE933 /* Timer.cpp in Sources */,
 				5780339D29D67A03005DE933 /* Window.cpp in Sources */,
@@ -1279,7 +1275,6 @@
 				5780349829D6978C005DE933 /* WarehouseInspector.cpp in Sources */,
 				5780336E29D679A9005DE933 /* Game.cpp in Sources */,
 				57BE5BA729D66E9E0021C4AB /* MainReportsUiState.cpp in Sources */,
-				57BE5BEC29D66EEC0021C4AB /* Structure.cpp in Sources */,
 				578034A529D6978C005DE933 /* FactoryProduction.cpp in Sources */,
 				5780336929D679A9005DE933 /* ParserHelper.cpp in Sources */,
 				5780336729D679A9005DE933 /* Configuration.cpp in Sources */,
@@ -1302,6 +1297,7 @@
 				578033D429D67A27005DE933 /* XmlUnknown.cpp in Sources */,
 				578033DE29D67A27005DE933 /* XmlBase.cpp in Sources */,
 				5780336B29D679A9005DE933 /* Dictionary.cpp in Sources */,
+				571EECE72A12F16700671F98 /* MineFacility.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
