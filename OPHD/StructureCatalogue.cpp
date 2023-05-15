@@ -18,41 +18,6 @@ namespace
 {
 	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
-
-	// RESOURCES: CommonMetals | CommonMinerals | RareMetals | RareMinerals
-	const std::map<StructureID, StorableResources> StructureCostTable =
-	{{
-		{SID_NONE, {}},
-		{SID_AGRIDOME, {10, 10, 2, 2}},
-		{SID_CHAP, {15, 10, 6, 6}},
-		{SID_COMMAND_CENTER, {100, 75, 75, 40}},
-		{SID_COMMERCIAL, {8, 5, 5, 0}},
-		{SID_COMM_TOWER, {5, 5, 5, 0}},
-		{SID_FUSION_REACTOR, {30, 25, 20, 10}},
-		{SID_HOT_LABORATORY, {20, 10, 6, 5}},
-		{SID_LABORATORY, {20, 10, 6, 5}},
-		{SID_MAINTENANCE_FACILITY, {10, 5, 0, 0}},
-		{SID_MEDICAL_CENTER, {8, 5, 3, 3}},
-		{SID_NURSERY, {8, 5, 0, 0}},
-		{SID_PARK, {6, 6, 0, 0}},
-		{SID_SURFACE_POLICE, {8, 5, 8, 2}},
-		{SID_UNDERGROUND_POLICE, {8, 5, 8, 2}},
-		{SID_RECREATION_CENTER, {10, 8, 4, 0}},
-		{SID_RECYCLING, {10, 6, 8, 3}},
-		{SID_RED_LIGHT_DISTRICT, {15, 12, 10, 3}},
-		{SID_RESIDENCE, {8, 8, 0, 0}},
-		{SID_ROAD, {5, 5, 0, 0}},
-		{SID_ROBOT_COMMAND, {20, 15, 10, 5}},
-		{SID_SMELTER, {20, 15, 5, 5}},
-		{SID_SOLAR_PANEL1, {10, 20, 5, 5}},
-		{SID_SOLAR_PLANT, {30, 20, 20, 20}},
-		{SID_STORAGE_TANKS, {5, 5, 0, 0}},
-		{SID_SURFACE_FACTORY, {20, 10, 10, 5}},
-		{SID_UNDERGROUND_FACTORY, {20, 10, 10, 5}},
-		{SID_UNIVERSITY, {8, 8, 5, 5}},
-		{SID_WAREHOUSE, {5, 5, 0, 0}},
-	}};
-
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
 	const int DefaultRecyclePercent = 90;
@@ -366,7 +331,7 @@ Structure* StructureCatalogue::get(StructureID type)
  */
 const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 {
-	return findOrDefault(StructureCostTable, type);
+	return getType(type).buildCost;
 }
 
 
