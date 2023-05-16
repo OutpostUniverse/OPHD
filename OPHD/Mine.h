@@ -64,7 +64,7 @@ private:
 
 private:
 	StorableResources mTappedReserves;
-	int mCurrentDepth{1};
+	int mCurrentDepth{0};
 	MineProductionRate mProductionRate = MineProductionRate::Low;
 
 	/**
