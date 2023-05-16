@@ -39,7 +39,6 @@ public:
 	void active(bool newActive);
 
 	bool exhausted() const;
-	void checkExhausted();
 
 	MineProductionRate productionRate() const { return mProductionRate; }
 
@@ -75,7 +74,6 @@ private:
 	 * [2] : Mine Rare Metal Ore
 	 * [3] : Mine Rare Mineral Ore
 	 * [4] : Mine is active
-	 * [5] : Mine is exhausted
 	 */
-	std::bitset<6> mFlags; /**< Set of flags. */
+	std::bitset<5> mFlags; /**< Set of flags. */
 };

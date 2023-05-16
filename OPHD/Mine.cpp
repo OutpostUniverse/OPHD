@@ -34,8 +34,8 @@ namespace
 	};
 
 
-	// [Exhausted, Active, 4x miningEnabled]
-	const std::bitset<6> DefaultFlags{"001111"};
+	// [Active, 4x miningEnabled]
+	const std::bitset<5> DefaultFlags{"01111"};
 }
 
 
@@ -116,22 +116,7 @@ StorableResources Mine::totalYield() const
  */
 bool Mine::exhausted() const
 {
-	return mFlags[5];
-}
-
-
-/**
- * Checks if the mine is exhausted and if it is sets the exhausted flag.
- * 
- * \note	This function is provided so that this computation is only
- *			done once per turn instead of being done every frame. The
- *			issue came up after updating the minimap code to indicate
- *			exhausted mines.
- */
-void Mine::checkExhausted()
-{
-	if (!active()) { return; }
-	mFlags[5] = mTappedReserves.isEmpty();
+	return mTappedReserves.isEmpty();
 }
 
 
@@ -192,7 +177,7 @@ void Mine::deserialize(NAS2D::Xml::XmlElement* element)
 	mCurrentDepth = dictionary.get<int>("depth");
 	mProductionRate = static_cast<MineProductionRate>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
-	mFlags = std::bitset<6>(dictionary.get("flags"));
+	mFlags = std::bitset<5>(dictionary.get("flags"));
 
 	this->active(active);
 
