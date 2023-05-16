@@ -146,9 +146,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 
 	ccLocation() = point + DirectionNorthEast;
 
-	auto& sf = *static_cast<SeedFactory*>(structures[2]);
-	sf.resourcePool(&mResourcesCount);
-	sf.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
+	auto& seedFactory = *static_cast<SeedFactory*>(structures[2]);
+	seedFactory.resourcePool(&mResourcesCount);
+	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 
 	// Robots only become available after the SEED Factory is deployed.
 	mRobots.addItem({constants::Robodozer, constants::RobodozerSheetId, static_cast<int>(Robot::Type::Dozer)});
