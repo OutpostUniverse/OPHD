@@ -150,15 +150,11 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	seedFactory.resourcePool(&mResourcesCount);
 	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 
-	// Robots only become available after the SEED Factory is deployed.
-	mRobots.addItem({constants::Robodozer, constants::RobodozerSheetId, static_cast<int>(Robot::Type::Dozer)});
-	mRobots.addItem({constants::Robodigger, constants::RobodiggerSheetId, static_cast<int>(Robot::Type::Digger)});
-	mRobots.addItem({constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner)});
-	mRobots.sort();
-
 	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect({this, &MapViewState::onDozerTaskComplete});
 	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect({this, &MapViewState::onDiggerTaskComplete});
 	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect({this, &MapViewState::onMinerTaskComplete});
+
+	populateRobotMenu();
 }
 
 
