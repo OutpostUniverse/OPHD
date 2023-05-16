@@ -120,6 +120,22 @@ namespace
 		}
 		throw std::runtime_error("StructureType not found: " + name);
 	}
+
+
+	auto buildStructureTypeLookup()
+	{
+		std::map<StructureID, const StructureType&> idToType;
+		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
+		{
+			const auto structureId = static_cast<StructureID>(i);
+			const auto& structureName = StructureName(structureId);
+			idToType.emplace(structureId, findStructureType(structureName));
+		}
+		return idToType;
+	}
+
+
+	std::map<StructureID, const StructureType&> idToType;
 }
 
 
@@ -129,13 +145,14 @@ namespace
 void StructureCatalogue::init()
 {
 	structureTypes = loadStructureTypes("StructureTypes.xml");
+	idToType = buildStructureTypeLookup();
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
 
 const StructureType& StructureCatalogue::getType(StructureID type)
 {
-	return findStructureType(StructureName(type));
+	return idToType.at(type);
 }
 
 
@@ -144,8 +161,8 @@ const StructureType& StructureCatalogue::getType(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  * 
- * \return	Pointer to a newly constructed Structure or
- *			\c nullptr if structure type unsupported/invalid.
+ * \return	Pointer to a newly constructed Structure
+ * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
 Structure* StructureCatalogue::get(StructureID type)
 {
