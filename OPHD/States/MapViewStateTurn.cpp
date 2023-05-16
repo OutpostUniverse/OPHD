@@ -274,8 +274,6 @@ void MapViewState::findMineRoutes()
 
 	for (auto mine : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
-		mine->mine()->checkExhausted();
-
 		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
 
 		auto routeIt = routeTable.find(mine);
