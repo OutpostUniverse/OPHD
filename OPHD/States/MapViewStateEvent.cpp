@@ -129,7 +129,8 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	}
 
 	// TOP ROW
-	structureManager.addStructure(*new SeedPower(), mTileMap->getTile({point + DirectionNorthWest, 0}));
+	auto& sp = *StructureCatalogue::get(StructureID::SID_SEED_POWER);
+	structureManager.addStructure(sp, mTileMap->getTile({point + DirectionNorthWest, 0}));
 
 	auto& cc = *StructureCatalogue::get(StructureID::SID_COMMAND_CENTER);
 	structureManager.addStructure(cc, mTileMap->getTile({point + DirectionNorthEast, 0}));
