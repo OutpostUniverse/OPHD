@@ -13,6 +13,7 @@
 #include <NAS2D/Utility.h>
 
 #include <stdexcept>
+#include <array>
 
 
 void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factory)
@@ -128,34 +129,32 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 		structureManager.addStructure(*new Tube(ConnectorDir::CONNECTOR_INTERSECTION, false), mTileMap->getTile({point + direction, 0}));
 	}
 
-	// TOP ROW
-	structureManager.addStructure(*new SeedPower(), mTileMap->getTile({point + DirectionNorthWest, 0}));
+	constexpr std::array initialStructures{
+		std::tuple{DirectionNorthWest, StructureID::SID_SEED_POWER},
+		std::tuple{DirectionNorthEast, StructureID::SID_COMMAND_CENTER},
+		std::tuple{DirectionSouthWest, StructureID::SID_SEED_FACTORY},
+		std::tuple{DirectionSouthEast, StructureID::SID_SEED_SMELTER},
+	};
 
-	auto& cc = *static_cast<CommandCenter*>(StructureCatalogue::get(StructureID::SID_COMMAND_CENTER));
-	cc.sprite().setFrame(3);
-	structureManager.addStructure(cc, mTileMap->getTile({point + DirectionNorthEast, 0}));
+	std::vector<Structure*> structures;
+	for (const auto& [direction, structureId] : initialStructures)
+	{
+		auto* structure = StructureCatalogue::get(structureId);
+		structureManager.addStructure(*structure, mTileMap->getTile({point + direction, 0}));
+		structures.push_back(structure);
+	}
+
 	ccLocation() = point + DirectionNorthEast;
 
-	// BOTTOM ROW
-	auto& sf = *static_cast<SeedFactory*>(StructureCatalogue::get(StructureID::SID_SEED_FACTORY));
-	sf.resourcePool(&mResourcesCount);
-	sf.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
-	sf.sprite().setFrame(7);
-	structureManager.addStructure(sf, mTileMap->getTile({point + DirectionSouthWest, 0}));
-
-	auto& ss = *static_cast<SeedSmelter*>(StructureCatalogue::get(StructureID::SID_SEED_SMELTER));
-	ss.sprite().setFrame(10);
-	structureManager.addStructure(ss, mTileMap->getTile({point + DirectionSouthEast, 0}));
-
-	// Robots only become available after the SEED Factory is deployed.
-	mRobots.addItem({constants::Robodozer, constants::RobodozerSheetId, static_cast<int>(Robot::Type::Dozer)});
-	mRobots.addItem({constants::Robodigger, constants::RobodiggerSheetId, static_cast<int>(Robot::Type::Digger)});
-	mRobots.addItem({constants::Robominer, constants::RobominerSheetId, static_cast<int>(Robot::Type::Miner)});
-	mRobots.sort();
+	auto& seedFactory = *static_cast<SeedFactory*>(structures[2]);
+	seedFactory.resourcePool(&mResourcesCount);
+	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 
 	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect({this, &MapViewState::onDozerTaskComplete});
 	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect({this, &MapViewState::onDiggerTaskComplete});
 	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect({this, &MapViewState::onMinerTaskComplete});
+
+	populateRobotMenu();
 }
 
 
