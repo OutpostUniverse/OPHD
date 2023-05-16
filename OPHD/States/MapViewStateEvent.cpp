@@ -131,7 +131,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	// TOP ROW
 	structureManager.addStructure(*new SeedPower(), mTileMap->getTile({point + DirectionNorthWest, 0}));
 
-	auto& cc = *static_cast<CommandCenter*>(StructureCatalogue::get(StructureID::SID_COMMAND_CENTER));
+	auto& cc = *StructureCatalogue::get(StructureID::SID_COMMAND_CENTER);
 	structureManager.addStructure(cc, mTileMap->getTile({point + DirectionNorthEast, 0}));
 	ccLocation() = point + DirectionNorthEast;
 
@@ -141,7 +141,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	sf.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 	structureManager.addStructure(sf, mTileMap->getTile({point + DirectionSouthWest, 0}));
 
-	auto& ss = *static_cast<SeedSmelter*>(StructureCatalogue::get(StructureID::SID_SEED_SMELTER));
+	auto& ss = *StructureCatalogue::get(StructureID::SID_SEED_SMELTER);
 	structureManager.addStructure(ss, mTileMap->getTile({point + DirectionSouthEast, 0}));
 
 	// Robots only become available after the SEED Factory is deployed.
