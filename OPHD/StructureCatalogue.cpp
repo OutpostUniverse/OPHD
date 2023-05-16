@@ -161,8 +161,8 @@ const StructureType& StructureCatalogue::getType(StructureID type)
  * 
  * \param	type	A valid StructureID value.
  * 
- * \return	Pointer to a newly constructed Structure or
- *			\c nullptr if structure type unsupported/invalid.
+ * \return	Pointer to a newly constructed Structure
+ * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
 Structure* StructureCatalogue::get(StructureID type)
 {
