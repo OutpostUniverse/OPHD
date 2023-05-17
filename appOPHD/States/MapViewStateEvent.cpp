@@ -189,12 +189,10 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	}
 
 	const auto dir = static_cast<Robodigger*>(&robot)->direction(); // fugly
-	auto newPosition = position;
+	auto newPosition = position.translate(dir);
 
 	if (dir == Direction::Down)
 	{
-		++newPosition.z;
-
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
 		auto& as1 = *new AirShaft();
@@ -211,7 +209,6 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		/// \fixme Naive approach; will be slow with large colonies.
 		updateConnectedness();
 	}
-	newPosition.xy += directionEnumToOffset(dir);
 
 	/**
 	 * \todo	Add checks for obstructions and things that explode if
