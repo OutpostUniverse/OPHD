@@ -8,8 +8,9 @@
 
 #include <vector>
 
-
 class Structure;
+class TechnologyCatalog;
+class ResearchTracker;
 
 class MainReportsUiState : public Wrapper
 {
@@ -26,6 +27,8 @@ public:
 	void selectFactoryPanel(Structure*);
 	void selectWarehousePanel(Structure*);
 	void selectMinePanel(Structure*);
+    
+    void injectTechnology(TechnologyCatalog&, ResearchTracker&);
 
 	void clearLists();
 
