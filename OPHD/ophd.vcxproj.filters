@@ -138,6 +138,9 @@
     <ClCompile Include="MapObjects\Robots\Robodigger.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Robots\Robodozer.cpp">
+      <Filter>Source Files\MapObjects</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\Factory.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
