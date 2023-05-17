@@ -10,6 +10,14 @@
 class TechnologyCatalog
 {
 public:
+	struct Category
+	{
+		const int icon_index{0};
+		const std::string name;
+		std::vector<Technology> technologies;
+	};
+
+public:
 	TechnologyCatalog() = delete;
 	TechnologyCatalog(const std::string& techFile);
 
@@ -17,9 +25,9 @@ public:
 
 	const Technology& technologyFromId(int id) const;
 
-	const std::vector<Technology> technologiesInCategory(const std::string& categoryName) const;
+	const std::vector<Technology>& technologiesInCategory(const std::string& categoryName) const;
 
 private:
 	std::vector<std::string> mCategorNames;
-	std::map<std::string, std::vector<Technology>> mCategories;
+	std::vector<Category> mCategories;
 };
