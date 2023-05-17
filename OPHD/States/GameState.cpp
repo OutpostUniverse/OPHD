@@ -19,8 +19,18 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 // If a default constructor was used instead, construction would happen in importing translation unit
 // The header uses forward declares for some types, so only incomplete types are available to importing code
 // Complete types are needed to construct the std::unique_ptr members
-GameState::GameState()
-{}
+GameState::GameState():
+    mMainReportsState{std::make_unique<MainReportsUiState>()}
+{
+    mMainReportsState->_initialize();
+    mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
+
+    for (auto takeMeThere : mMainReportsState->takeMeThere())
+    {
+        takeMeThere->connect({this, &GameState::onTakeMeThere});
+    }
+
+}
 
 
 GameState::~GameState()
@@ -52,15 +62,6 @@ void GameState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
-
-	mMainReportsState = std::make_unique<MainReportsUiState>();
-	mMainReportsState->_initialize();
-	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
-
-	for (auto takeMeThere : mMainReportsState->takeMeThere())
-	{
-		takeMeThere->connect({this, &GameState::onTakeMeThere});
-	}
 
 	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 	mFade.fadeIn(constants::FadeSpeed);
