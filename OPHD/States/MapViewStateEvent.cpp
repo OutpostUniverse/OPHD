@@ -241,7 +241,7 @@ void MapViewState::onMinerTaskComplete(Robot* robot)
 	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
 
 	// Tile immediately underneath facility.
-	auto& tileBelow = mTileMap->getTile({robotTile.xy(), robotTile.depth() + 1});
+	auto& tileBelow = mTileMap->getTile(robotTile.xyz().translate(MapOffsetDown));
 	structureManager.addStructure(*new MineShaft(), tileBelow);
 
 	robotTile.index(TerrainType::Dozed);
