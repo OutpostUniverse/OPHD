@@ -172,16 +172,17 @@ namespace
 		for (auto category = &node; category; category = category->nextSiblingElement())
 		{
 			const auto attributes = NAS2D::attributesToDictionary(*category);
-			TechnologyCatalog::Category newCategory{attributes.get<int>("icon_index"), attributes.get("name"), {}};
+			const std::string name = attributes.get("name");
 
 			for (const auto& cat : categories)
 			{
-				if (cat.name == newCategory.name)
+				if (cat.name == name)
 				{
-					throw std::runtime_error("TechnologyReader: Category redefinition '" + newCategory.name + "'" + nodeAtString(*category));
+					throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
 				}
 			}
-			newCategory.technologies = readTechnologiesInCategory(*category);
+			
+			const TechnologyCatalog::Category newCategory{attributes.get<int>("icon_index"), name, readTechnologiesInCategory(*category)};
 			categories.push_back(newCategory);
 		}
 
