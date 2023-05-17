@@ -348,6 +348,13 @@ void MainReportsUiState::selectMinePanel(Structure* structure)
 }
 
 
+void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
+{
+    auto researchPanel = Panels[NavigationPanel::PANEL_RESEARCH].UiPanel;
+    static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
+}
+
+
 void MainReportsUiState::clearLists()
 {
 	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->fillLists();
