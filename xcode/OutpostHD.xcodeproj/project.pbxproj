@@ -352,7 +352,6 @@
 		5780342829D69072005DE933 /* GLEW.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GLEW.framework; sourceTree = "<group>"; };
 		5780342D29D6975A005DE933 /* ShellOpenPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShellOpenPath.h; path = ../../OPHD/ShellOpenPath.h; sourceTree = "<group>"; };
 		5780342E29D6975A005DE933 /* ProductPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProductPool.cpp; path = ../../OPHD/ProductPool.cpp; sourceTree = "<group>"; };
-		5780342F29D6975A005DE933 /* RobotPoolHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RobotPoolHelper.h; path = ../../OPHD/RobotPoolHelper.h; sourceTree = "<group>"; };
 		5780343029D6975A005DE933 /* DirectionOffset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionOffset.cpp; path = ../../OPHD/DirectionOffset.cpp; sourceTree = "<group>"; };
 		5780343129D6975A005DE933 /* IOHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOHelper.h; path = ../../OPHD/IOHelper.h; sourceTree = "<group>"; };
 		5780343229D6975A005DE933 /* XmlSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XmlSerializer.cpp; path = ../../OPHD/XmlSerializer.cpp; sourceTree = "<group>"; };
@@ -685,7 +684,6 @@
 				5780344B29D6975A005DE933 /* resource.h */,
 				5780344C29D6975A005DE933 /* RobotPool.cpp */,
 				5780344429D6975A005DE933 /* RobotPool.h */,
-				5780342F29D6975A005DE933 /* RobotPoolHelper.h */,
 				5780343D29D6975A005DE933 /* ShellOpenPath.cpp */,
 				5780342D29D6975A005DE933 /* ShellOpenPath.h */,
 				5780344229D6975A005DE933 /* StorableResources.h */,
