@@ -207,6 +207,12 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 }
 
 
+const std::vector<std::string>& TechnologyCatalog::categories()
+{
+	return mCategorNames;
+}
+
+
 const Technology& TechnologyCatalog::technologyFromId(int id) const
 {
 	for (const auto& category : mCategories)

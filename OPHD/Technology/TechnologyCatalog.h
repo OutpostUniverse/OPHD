@@ -2,7 +2,6 @@
 
 #include "Technology.h"
 
-#include <map>
 #include <string>
 #include <vector>
 
@@ -21,7 +20,7 @@ public:
 	TechnologyCatalog() = delete;
 	TechnologyCatalog(const std::string& techFile);
 
-	const std::vector<std::string>& categories() const { return mCategorNames; }
+	const std::vector<std::string>& categories();
 
 	const Technology& technologyFromId(int id) const;
 
