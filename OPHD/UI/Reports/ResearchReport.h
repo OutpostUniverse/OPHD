@@ -6,6 +6,8 @@
 #include "../StructureListBox.h"
 
 #include "../../MapObjects/Structures/ResearchFacility.h"
+#include "../../Technology/TechnologyCatalog.h"
+#include "../../Technology/ResearchTracker.h"
 
 #include "../Core/Button.h"
 
@@ -27,7 +29,7 @@ class Structure;
 class ResearchReport : public ReportInterface
 {
 public:
-	ResearchReport();
+    ResearchReport();
 	~ResearchReport() override;
 
 	void fillLists() override;
@@ -35,6 +37,8 @@ public:
 
 	void refresh() override;
 	void selectStructure(Structure*) override;
+    
+    void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
 
 	void update() override;
 
@@ -44,6 +48,9 @@ private:
 	const NAS2D::Font& fontBigBold;
 
 	const NAS2D::Image& imageLab;
+    
+    TechnologyCatalog* mTechCatalog{ nullptr };
+    ResearchTracker* mResearchTracker{ nullptr };
 
 	Button btnTakeMeThere;
 
