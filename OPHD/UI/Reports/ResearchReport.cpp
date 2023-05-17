@@ -41,6 +41,13 @@ void ResearchReport::selectStructure(Structure*)
 }
 
 
+void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTracker& tracker)
+{
+    mTechCatalog = &catalog;
+    mResearchTracker = &tracker;
+}
+
+
 void ResearchReport::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
