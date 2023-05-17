@@ -172,7 +172,7 @@ namespace
 		for (auto category = &node; category; category = category->nextSiblingElement())
 		{
 			const auto attributes = NAS2D::attributesToDictionary(*category);
-			TechnologyCatalog::Category newCategory{std::stoi(attributes.get("icon_index")), attributes.get("name")};
+			TechnologyCatalog::Category newCategory{std::stoi(attributes.get("icon_index")), attributes.get("name"), {}};
 
 			for (const auto& cat : categories)
 			{
