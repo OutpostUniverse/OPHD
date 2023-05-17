@@ -207,9 +207,15 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 }
 
 
-const std::vector<std::string>& TechnologyCatalog::categories()
+const std::vector<std::string> TechnologyCatalog::categories()
 {
-	return mCategorNames;
+	std::vector<std::string> categoryNames;
+	for (const auto& category : mCategories)
+	{
+		categoryNames.push_back(category.name);
+	}
+
+	return categoryNames;
 }
 
 

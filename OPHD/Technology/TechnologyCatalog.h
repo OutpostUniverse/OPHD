@@ -20,7 +20,7 @@ public:
 	TechnologyCatalog() = delete;
 	TechnologyCatalog(const std::string& techFile);
 
-	const std::vector<std::string>& categories();
+	const std::vector<std::string> categories();
 
 	const Technology& technologyFromId(int id) const;
 
