@@ -267,6 +267,9 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
     <ClCompile Include="Technology\ResearchTracker.cpp" />
     <ClCompile Include="Technology\TechnologyCatalog.cpp" />
     <ClCompile Include="MapObjects\Robot.cpp" />
+    <ClCompile Include="MapObjects\Robots\Robodigger.cpp" />
+    <ClCompile Include="MapObjects\Robots\Robodozer.cpp" />
+    <ClCompile Include="MapObjects\Robots\Robominer.cpp" />
     <ClCompile Include="MapObjects\Structures\Factory.cpp" />
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MapObjects\Structure.cpp" />

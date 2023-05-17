@@ -1,5 +1,6 @@
 #include "Cache.h"
 #include "Common.h"
+#include "Constants/Strings.h"
 #include "Constants/Numbers.h"
 #include "WindowEventWrapper.h"
 

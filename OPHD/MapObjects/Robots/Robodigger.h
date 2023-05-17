@@ -2,28 +2,19 @@
 
 #include "../Robot.h"
 
-#include "../../Common.h"
-#include "../../Constants/Strings.h"
+
+enum class Direction;
 
 
 class Robodigger : public Robot
 {
 public:
-	Robodigger() :
-		Robot(constants::Robodigger, "robots/robodigger.sprite", Robot::Type::Digger),
-		mDirection(Direction::Down)
-	{
-	}
+	Robodigger();
 
-	void direction(Direction dir) { mDirection = dir; }
-	Direction direction() const { return mDirection; }
+	void direction(Direction dir);
+	Direction direction() const;
 
-	NAS2D::Dictionary getDataDict() const override
-	{
-		auto dictionary = Robot::getDataDict();
-		dictionary.set("direction", static_cast<int>(mDirection));
-		return dictionary;
-	}
+	NAS2D::Dictionary getDataDict() const override;
 
 private:
 	Direction mDirection;
