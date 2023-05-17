@@ -519,7 +519,7 @@
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\ResearchFacility.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\Residence.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
