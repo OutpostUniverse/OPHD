@@ -199,11 +199,6 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 	auto firstCategory = root->firstChildElement("category");
 	if (!firstCategory) { return; }
 	mCategories = readCategories(*firstCategory);
-
-	for (const auto& category : mCategories)
-	{
-		mCategorNames.push_back(category.name);
-	}
 }
 
 

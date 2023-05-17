@@ -27,6 +27,5 @@ public:
 	const std::vector<Technology>& technologiesInCategory(const std::string& categoryName) const;
 
 private:
-	std::vector<std::string> mCategorNames;
 	std::vector<Category> mCategories;
 };
