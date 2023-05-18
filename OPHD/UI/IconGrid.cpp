@@ -124,8 +124,8 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
  */
 std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset)
 {
-	const auto gridOffset = relativeOffset / (mIconSize + mIconMargin);
-	return static_cast<std::size_t>(gridOffset.x + (mGridSize.x * gridOffset.y));
+	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<std::size_t>();
+	return gridOffset.x + (static_cast<std::size_t>(mGridSize.x) * gridOffset.y);
 }
 
 
