@@ -1011,8 +1011,8 @@ void MapViewState::placeRobodozer(Tile& tile)
 			updatePoliceOverlay();
 		}
 
-		const auto recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
-		const auto wastedResources = addRefinedResources(recycledResources);
+		const auto& recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
+		const auto& wastedResources = addRefinedResources(recycledResources);
 
 		if (!wastedResources.isEmpty())
 		{
@@ -1240,7 +1240,7 @@ void MapViewState::updateRobots()
 
 		robot->update();
 
-		const auto position = tile->xyz();
+		const auto& position = tile->xyz();
 
 		pushAgingRobotMessage(robot, position, mNotificationArea);
 

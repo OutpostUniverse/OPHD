@@ -44,7 +44,7 @@ namespace
 
 	NAS2D::Xml::XmlElement* serializeStructure(Structure& structure, Tile& tile)
 	{
-		const auto position = tile.xyz();
+		const auto& position = tile.xyz();
 		NAS2D::Dictionary dictionary =
 		{{
 			{"x", position.xy.x},
