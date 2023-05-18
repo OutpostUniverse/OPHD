@@ -43,6 +43,8 @@ public:
 	void update() override;
 
 private:
+	void onResize() override;
+
 	void drawReport();
 
 	const NAS2D::Font& fontMedium;
