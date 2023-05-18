@@ -772,7 +772,6 @@ void MapViewState::placeTubes(Tile& tile)
 		insertTube(cd, mMapView->currentDepth(), mTileMap->getTile(mMouseTilePosition));
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
-		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		updateConnectedness();
 	}
 	else
@@ -1028,7 +1027,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
 		tile.deleteMapObject();
-		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		updateConnectedness();
 	}
 
@@ -1337,6 +1335,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 void MapViewState::updateConnectedness()
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	structureManager.disconnectAll();
 	const auto ccLocations = structureManager.operationalCommandCenterPositions();
 	mConnectednessOverlay = walkGraph(ccLocations, *mTileMap);
 }
