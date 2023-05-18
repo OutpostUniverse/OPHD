@@ -55,14 +55,12 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
-			if (dst->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT) { return true; }
+			return dst->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT;
 		}
 		else if (direction == Direction::North || direction == Direction::South)
 		{
-			if (dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT) { return true; }
+			return dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT;
 		}
-
-		return false;
 	}
 	else if (src->isConnector())
 	{
