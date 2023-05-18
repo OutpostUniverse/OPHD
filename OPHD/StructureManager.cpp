@@ -227,6 +227,20 @@ Tile& StructureManager::tileFromStructure(const Structure* structure) const
 }
 
 
+std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
+{
+	std::vector<MapCoordinate> positions;
+	for (const auto* commandCenter : structureList(Structure::StructureClass::Command))
+	{
+		if (commandCenter->operational())
+		{
+			positions.push_back(tileFromStructure(commandCenter).xyz());
+		}
+	}
+	return positions;
+}
+
+
 /**
  * Resets the 'connected' flag on all structures in the primary structure list.
  */

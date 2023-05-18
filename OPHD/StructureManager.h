@@ -4,6 +4,7 @@
 #include "MapObjects/Structures.h"
 
 #include <map>
+#include <vector>
 
 
 namespace NAS2D
@@ -17,6 +18,7 @@ namespace NAS2D
 class Tile;
 class PopulationPool;
 struct StorableResources;
+struct MapCoordinate;
 
 
 template <typename T> constexpr bool dependent_false = false;
@@ -105,6 +107,8 @@ public:
 	StructureList allStructures() const;
 
 	Tile& tileFromStructure(const Structure* structure) const;
+
+	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
 	void disconnectAll();
 	void dropAllStructures();
