@@ -80,6 +80,9 @@ public:
 
 	StructureID structureId() const { return mStructureId; }
 
+	bool connected() const { return mConnected; }
+	void connected(bool value) { mConnected = value; }
+
 	bool disabled() const { return mStructureState == StructureState::Disabled; }
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
@@ -212,6 +215,7 @@ private:
 	DisabledReason mDisabledReason{DisabledReason::None};
 	IdleReason mIdleReason{IdleReason::None};
 
+	bool mConnected{false};
 	bool mForcedIdle{false}; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
 

@@ -95,7 +95,7 @@ std::vector<Tile*> walkGraph(const std::vector<MapCoordinate>& positions, TileMa
 void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
 {
 	Tile& thisTile = tileMap.getTile(position);
-	thisTile.connected(true);
+	thisTile.structure()->connected(true);
 	tileList.push_back(&thisTile);
 
 	const auto directions = std::array{
@@ -113,7 +113,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
 		auto& tile = tileMap.getTile(nextPosition);
-		if (!tile.thingIsStructure() || tile.connected() || tile.mine()) { continue; }
+		if (!tile.thingIsStructure() || tile.structure()->connected() || tile.mine()) { continue; }
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{

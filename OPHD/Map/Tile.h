@@ -49,9 +49,6 @@ public:
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
 
-	bool connected() const { return mConnected; }
-	void connected(bool value) { mConnected = value; }
-
 	MapObject* thing() const { return mMapObject; }
 
 	bool empty() const { return mMapObject == nullptr; }
@@ -89,5 +86,4 @@ private:
 	Overlay mOverlay{Overlay::None};
 
 	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
-	bool mConnected = false; /**< Flag indicating that this tile is connected to the Command Center. */
 };

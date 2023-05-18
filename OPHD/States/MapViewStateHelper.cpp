@@ -80,7 +80,7 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
 	Structure* structure = tile.structure();
-	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !tile.connected() || !structure->isConnector())
+	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !structure->connected() || !structure->isConnector())
 	{
 		return false;
 	}

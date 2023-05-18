@@ -145,8 +145,6 @@ private:
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
-	bool structureConnected(Structure* structure);
-
 	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
 	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
 

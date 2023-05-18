@@ -248,7 +248,7 @@ void StructureManager::disconnectAll()
 {
 	for (auto& pair : mStructureTileTable)
 	{
-		pair.second->connected(false);
+		pair.first->connected(false);
 	}
 }
 
@@ -510,7 +510,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 		}
 
 		// Connection Check
-		if (!structureConnected(structure) && !structure->selfSustained())
+		if (!structure->connected() && !structure->selfSustained())
 		{
 			structure->disable(DisabledReason::Disconnected);
 			continue;
@@ -563,10 +563,4 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 			structure->think();
 		}
 	}
-}
-
-
-bool StructureManager::structureConnected(Structure* structure)
-{
-	return mStructureTileTable[structure]->connected();
 }
