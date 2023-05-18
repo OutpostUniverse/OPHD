@@ -194,7 +194,7 @@ void MineOperationsWindow::update()
 
 	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
 
-	if (mFacility && mFacility->extending())
+	if (mFacility->extending())
 	{
 		const auto extensionTimeRemaining = std::to_string(mFacility->digTimeRemaining());
 		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", extensionTimeRemaining);
