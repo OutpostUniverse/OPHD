@@ -104,7 +104,7 @@ public:
 	const StructureList& structureList(Structure::StructureClass structureClass) const;
 	StructureList allStructures() const;
 
-	Tile& tileFromStructure(Structure* structure) const;
+	Tile& tileFromStructure(const Structure* structure) const;
 
 	void disconnectAll();
 	void dropAllStructures();
