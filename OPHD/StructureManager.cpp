@@ -310,7 +310,7 @@ int StructureManager::destroyed()
 
 bool StructureManager::CHAPAvailable()
 {
-	for (auto chap : mStructureLists[Structure::StructureClass::LifeSupport])
+	for (const auto* chap : structureList(Structure::StructureClass::LifeSupport))
 	{
 		if (chap->operational()) { return true; }
 	}
