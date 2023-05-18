@@ -178,7 +178,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 	}
 
 	auto& tile = *mRobotList[robot];
-	const auto position = tile.xyz();
+	const auto& position = tile.xyz();
 
 	if (position.z > mTileMap->maxDepth())
 	{
