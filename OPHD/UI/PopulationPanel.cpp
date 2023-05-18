@@ -113,7 +113,7 @@ void PopulationPanel::update()
 
 	// POPULATION
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
-	const auto population = mPopulation->getPopulations();
+	const auto& population = mPopulation->getPopulations();
 	const std::array populationData
 	{
 		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, population.child, std::string("Children")},
