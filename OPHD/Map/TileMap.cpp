@@ -24,6 +24,21 @@ namespace {
 	const std::string MapTerrainExtension = "_a.png";
 	const auto MapSize = NAS2D::Vector{300, 150};
 
+
+	constexpr std::size_t linearSize(NAS2D::Vector<int> size)
+	{
+		const auto converted = size.to<std::size_t>();
+		return converted.x * converted.y;
+	}
+
+
+	constexpr std::size_t linearIndex(NAS2D::Point<int> point, int sizeX)
+	{
+		const auto converted = point.to<std::size_t>();
+		return converted.x + static_cast<std::size_t>(sizeX) * converted.y;
+	}
+
+
 	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
 	{
 		auto randPoint = [mapSize]() {
@@ -39,18 +54,18 @@ namespace {
 		// Some locations might not be acceptable, so try up to twice as many locations
 		// A high density of mines could result in many rejected locations
 		// Don't try indefinitely to avoid possibility of infinite loop
-		std::vector<bool> usedLocations(static_cast<std::size_t>(mapSize.x * mapSize.y));
+		std::vector<bool> usedLocations(linearSize(mapSize));
 		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
 		{
 			// Generate a location and check surroundings for minimum spacing
 			const auto point = randPoint();
-			if (!usedLocations[static_cast<std::size_t>(point.x + mapSize.x * point.y)])
+			if (!usedLocations[linearIndex(point, mapSize.x)])
 			{
 				locations.push_back(point);
 				for (const auto& offset : DirectionScan3x3)
 				{
 					const auto usedPoint = point + offset;
-					usedLocations[static_cast<std::size_t>(usedPoint.x + mapSize.x * usedPoint.y)] = true;
+					usedLocations[linearIndex(usedPoint, mapSize.x)] = true;
 				}
 			}
 		}
