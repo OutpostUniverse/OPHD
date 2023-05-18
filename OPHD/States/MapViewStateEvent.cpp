@@ -204,7 +204,6 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		mTileMap->getTile(newPosition).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
-		NAS2D::Utility<StructureManager>::get().disconnectAll();
 		updateConnectedness();
 	}
 	newPosition.xy += directionEnumToOffset(dir);

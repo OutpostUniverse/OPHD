@@ -698,7 +698,6 @@ void MapViewState::nextTurn()
 
 	mResourceBreakdownPanel.previousResources(mResourcesCount);
 
-	NAS2D::Utility<StructureManager>::get().disconnectAll();
 	updateConnectedness();
 	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
 
