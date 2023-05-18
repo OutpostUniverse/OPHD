@@ -1337,27 +1337,9 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
  */
 void MapViewState::updateConnectedness()
 {
-	if (ccLocation() == CcNotPlaced)
-	{
-		return;
-	}
-
-	// Assumes that the 'thing' at mCCLocation is in fact a Structure.
-	auto& tile = mTileMap->getTile({ccLocation(), 0});
-	Structure* cc = tile.structure();
-
-	if (!cc)
-	{
-		throw std::runtime_error("CC coordinates do not actually point to a Command Center.");
-	}
-
-	if (cc->state() == StructureState::UnderConstruction)
-	{
-		return;
-	}
-
-	// Start graph walking at the CC location.
-	mConnectednessOverlay = walkGraph({{ccLocation(), 0}}, *mTileMap);
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto ccLocations = structureManager.operationalCommandCenterPositions();
+	mConnectednessOverlay = walkGraph(ccLocations, *mTileMap);
 }
 
 
