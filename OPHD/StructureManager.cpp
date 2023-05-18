@@ -122,6 +122,175 @@ namespace
 }
 
 
+/**
+ * Adds a new Structure to the StructureManager.
+ */
+void StructureManager::addStructure(Structure& structure, Tile& tile)
+{
+	if (mStructureTileTable.find(&structure) != mStructureTileTable.end())
+	{
+		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
+	}
+
+	// Remove things from tile only if we know we're adding a structure.
+	if (!tile.empty())
+	{
+		tile.removeMapObject();
+	}
+
+	mStructureTileTable[&structure] = &tile;
+
+	mStructureLists[structure.structureClass()].push_back(&structure);
+	tile.pushMapObject(&structure);
+}
+
+
+/**
+ * Removes a Structure from the StructureManager.
+ *
+ * \warning	A Structure removed from the StructureManager will be freed.
+ *			Remaining pointers and references will be invalidated.
+ */
+void StructureManager::removeStructure(Structure& structure)
+{
+	StructureList& structures = mStructureLists[structure.structureClass()];
+
+	const auto it = std::find(structures.begin(), structures.end(), &structure);
+	const auto isFoundStructureTable = it != structures.end();
+	if (isFoundStructureTable)
+	{
+		structures.erase(it);
+	}
+
+	const auto tileTableIt = mStructureTileTable.find(&structure);
+	const auto isFoundTileTable = tileTableIt != mStructureTileTable.end();
+	if (isFoundTileTable)
+	{
+		tileTableIt->second->deleteMapObject();
+		mStructureTileTable.erase(tileTableIt);
+	}
+
+	if (!isFoundStructureTable || !isFoundTileTable)
+	{
+		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
+	}
+}
+
+
+const StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
+{
+	return mStructureLists[structureClass];
+}
+
+
+StructureList StructureManager::allStructures()
+{
+	StructureList structuresOut;
+
+	for (auto& classListPair : mStructureLists)
+	{
+		auto& structures = classListPair.second;
+		std::copy(structures.begin(), structures.end(), std::back_inserter(structuresOut));
+	}
+
+	return structuresOut;
+}
+
+
+Tile& StructureManager::tileFromStructure(Structure* structure)
+{
+	auto it = mStructureTileTable.find(structure);
+	if (it == mStructureTileTable.end())
+	{
+		throw std::runtime_error("Could not find tile for structure");
+	}
+	return *it->second;
+}
+
+
+/**
+ * Resets the 'connected' flag on all structures in the primary structure list.
+ */
+void StructureManager::disconnectAll()
+{
+	for (auto& pair : mStructureTileTable)
+	{
+		pair.second->connected(false);
+	}
+}
+
+
+void StructureManager::dropAllStructures()
+{
+	for (auto& pair : mStructureTileTable)
+	{
+		pair.second->deleteMapObject();
+	}
+
+	mStructureTileTable.clear();
+	mStructureLists.clear();
+}
+
+
+/**
+ * Returns the number of structures currently being managed by the StructureManager.
+ */
+int StructureManager::count() const
+{
+	int count = 0;
+	for (auto& pair : mStructureLists)
+	{
+		count += static_cast<int>(pair.second.size());
+	}
+
+	return count;
+}
+
+
+int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
+{
+	int count = 0;
+	for (const auto* structure : structureList(structureClass))
+	{
+		if (structure->state() == state)
+		{
+			++count;
+		}
+	}
+	return count;
+}
+
+
+/**
+ * Gets a count of the number of disabled buildings.
+ */
+int StructureManager::disabled()
+{
+	int count = 0;
+	for (auto& pair : mStructureLists)
+	{
+		count += getCountInState(pair.first, StructureState::Disabled);
+	}
+
+	return count;
+}
+
+
+/**
+ * Gets a count of the number of destroyed buildings.
+ */
+int StructureManager::destroyed()
+{
+	int count = 0;
+	for (auto& pair : mStructureLists)
+	{
+		count += getCountInState(pair.first, StructureState::Destroyed);
+	}
+
+	return count;
+}
+
+
 bool StructureManager::CHAPAvailable()
 {
 	for (auto chap : mStructureLists[Structure::StructureClass::LifeSupport])
@@ -130,62 +299,6 @@ bool StructureManager::CHAPAvailable()
 	}
 
 	return false;
-}
-
-
-void StructureManager::update(const StorableResources& resources, PopulationPool& population)
-{
-	mAgingStructures.clear();
-	mNewlyBuiltStructures.clear();
-	mStructuresWithCrime.clear();
-
-	// Called separately so that 1) high priority structures can be updated first and
-	// 2) so that resource handling code (like energy) can be handled between update
-	// calls to lower priority structures.
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Lander]); // No resource needs
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Command]); // Self sufficient
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::EnergyProduction]); // Nothing can work without energy
-
-	updateEnergyProduction();
-
-	// Basic resource production
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Mine]); // Can't operate without resources.
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Smelter]);
-
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::LifeSupport]); // Air, water food must come before others
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::FoodProduction]);
-
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::MedicalCenter]); // No medical facilities, people die
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Nursery]);
-
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Factory]); // Production
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Maintenance]);
-
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Storage]); // Everything else.
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Park]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::SurfacePolice]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::UndergroundPolice]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RecreationCenter]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Recycling]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Residence]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RobotCommand]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Warehouse]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Laboratory]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Commercial]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::University]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Communication]);
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Road]);
-
-	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
-
-	assignColonistsToResidences(population);
-	
-	/**
-	 * Scientists are assigned to labs after other facilities like medical, university, etc
-	 * as those are much higher priority than labs. If the player wants to free up scientists,
-	 * they can either manually set a structure to idle or bulldoze it.
-	 */
-	assignScientistsToResearchFacilities(population);
 }
 
 
@@ -255,6 +368,75 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 			population.usePopulation({0, lab->assignedScientists()});
 		}
 	}
+}
+
+
+void StructureManager::update(const StorableResources& resources, PopulationPool& population)
+{
+	mAgingStructures.clear();
+	mNewlyBuiltStructures.clear();
+	mStructuresWithCrime.clear();
+
+	// Called separately so that 1) high priority structures can be updated first and
+	// 2) so that resource handling code (like energy) can be handled between update
+	// calls to lower priority structures.
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Lander]); // No resource needs
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Command]); // Self sufficient
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::EnergyProduction]); // Nothing can work without energy
+
+	updateEnergyProduction();
+
+	// Basic resource production
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Mine]); // Can't operate without resources.
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Smelter]);
+
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::LifeSupport]); // Air, water food must come before others
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::FoodProduction]);
+
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::MedicalCenter]); // No medical facilities, people die
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Nursery]);
+
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Factory]); // Production
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Maintenance]);
+
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Storage]); // Everything else.
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Park]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::SurfacePolice]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::UndergroundPolice]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RecreationCenter]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Recycling]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Residence]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::RobotCommand]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Warehouse]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Laboratory]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Commercial]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::University]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Communication]);
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Road]);
+
+	updateStructures(resources, population, mStructureLists[Structure::StructureClass::Undefined]);
+
+	assignColonistsToResidences(population);
+	
+	/**
+	 * Scientists are assigned to labs after other facilities like medical, university, etc
+	 * as those are much higher priority than labs. If the player wants to free up scientists,
+	 * they can either manually set a structure to idle or bulldoze it.
+	 */
+	assignScientistsToResearchFacilities(population);
+}
+
+
+NAS2D::Xml::XmlElement* StructureManager::serialize()
+{
+	auto* structures = new NAS2D::Xml::XmlElement("structures");
+
+	for (auto& [structure, tile] : mStructureTileTable)
+	{
+		structures->linkEndChild(serializeStructure(*structure, *tile));
+	}
+
+	return structures;
 }
 
 
@@ -348,188 +530,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 			structure->think();
 		}
 	}
-}
-
-
-/**
- * Adds a new Structure to the StructureManager.
- */
-void StructureManager::addStructure(Structure& structure, Tile& tile)
-{
-	if (mStructureTileTable.find(&structure) != mStructureTileTable.end())
-	{
-		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
-	}
-
-	// Remove things from tile only if we know we're adding a structure.
-	if (!tile.empty())
-	{
-		tile.removeMapObject();
-	}
-
-	mStructureTileTable[&structure] = &tile;
-
-	mStructureLists[structure.structureClass()].push_back(&structure);
-	tile.pushMapObject(&structure);
-}
-
-
-/**
- * Removes a Structure from the StructureManager.
- *
- * \warning	A Structure removed from the StructureManager will be freed.
- *			Remaining pointers and references will be invalidated.
- */
-void StructureManager::removeStructure(Structure& structure)
-{
-	StructureList& structures = mStructureLists[structure.structureClass()];
-
-	const auto it = std::find(structures.begin(), structures.end(), &structure);
-	const auto isFoundStructureTable = it != structures.end();
-	if (isFoundStructureTable)
-	{
-		structures.erase(it);
-	}
-
-	const auto tileTableIt = mStructureTileTable.find(&structure);
-	const auto isFoundTileTable = tileTableIt != mStructureTileTable.end();
-	if (isFoundTileTable)
-	{
-		tileTableIt->second->deleteMapObject();
-		mStructureTileTable.erase(tileTableIt);
-	}
-
-	if (!isFoundStructureTable || !isFoundTileTable)
-	{
-		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
-	}
-}
-
-
-const StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
-{
-	return mStructureLists[structureClass];
-}
-
-
-StructureList StructureManager::allStructures()
-{
-	StructureList structuresOut;
-
-	for (auto& classListPair : mStructureLists)
-	{
-		auto& structures = classListPair.second;
-		std::copy(structures.begin(), structures.end(), std::back_inserter(structuresOut));
-	}
-
-	return structuresOut;
-}
-
-
-/**
- * Resets the 'connected' flag on all structures in the primary structure list.
- */
-void StructureManager::disconnectAll()
-{
-	for (auto& pair : mStructureTileTable)
-	{
-		pair.second->connected(false);
-	}
-}
-
-
-/**
- * Returns the number of structures currently being managed by the StructureManager.
- */
-int StructureManager::count() const
-{
-	int count = 0;
-	for (auto& pair : mStructureLists)
-	{
-		count += static_cast<int>(pair.second.size());
-	}
-
-	return count;
-}
-
-
-int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
-{
-	int count = 0;
-	for (const auto* structure : structureList(structureClass))
-	{
-		if (structure->state() == state)
-		{
-			++count;
-		}
-	}
-	return count;
-}
-
-
-/**
- * Gets a count of the number of disabled buildings.
- */
-int StructureManager::disabled()
-{
-	int count = 0;
-	for (auto& pair : mStructureLists)
-	{
-		count += getCountInState(pair.first, StructureState::Disabled);
-	}
-
-	return count;
-}
-
-
-/**
- * Gets a count of the number of destroyed buildings.
- */
-int StructureManager::destroyed()
-{
-	int count = 0;
-	for (auto& pair : mStructureLists)
-	{
-		count += getCountInState(pair.first, StructureState::Destroyed);
-	}
-
-	return count;
-}
-
-
-void StructureManager::dropAllStructures()
-{
-	for (auto& pair : mStructureTileTable)
-	{
-		pair.second->deleteMapObject();
-	}
-
-	mStructureTileTable.clear();
-	mStructureLists.clear();
-}
-
-
-Tile& StructureManager::tileFromStructure(Structure* structure)
-{
-	auto it = mStructureTileTable.find(structure);
-	if (it == mStructureTileTable.end())
-	{
-		throw std::runtime_error("Could not find tile for structure");
-	}
-	return *it->second;
-}
-
-
-NAS2D::Xml::XmlElement* StructureManager::serialize()
-{
-	auto* structures = new NAS2D::Xml::XmlElement("structures");
-
-	for (auto& [structure, tile] : mStructureTileTable)
-	{
-		structures->linkEndChild(serializeStructure(*structure, *tile));
-	}
-
-	return structures;
 }
 
 
