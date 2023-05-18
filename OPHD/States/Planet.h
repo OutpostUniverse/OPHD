@@ -29,7 +29,7 @@ public:
 
 	struct Attributes
 	{
-		PlanetType type;
+		PlanetType type{PlanetType::Mercury};
 		std::string imagePath;
 		Hostility hostility{Hostility::Low};
 		int maxDepth = 0;
