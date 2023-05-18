@@ -20,11 +20,13 @@ public:
 	TechnologyCatalog() = delete;
 	TechnologyCatalog(const std::string& techFile);
 
-	const std::vector<std::string> categories();
+	const std::vector<std::string> categoryNames();
 
 	const Technology& technologyFromId(int id) const;
 
 	const std::vector<Technology>& technologiesInCategory(const std::string& categoryName) const;
+
+	const std::vector<Category>& categories() { return mCategories; }
 
 private:
 	std::vector<Category> mCategories;
