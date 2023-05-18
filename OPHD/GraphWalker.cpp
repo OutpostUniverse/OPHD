@@ -45,8 +45,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	}
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
-		if (src->isConnector() && src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL) { return true; }
-		return false;
+		return src->isConnector() && src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL;
 	}
 	else if (dst->isConnector())
 	{
