@@ -113,7 +113,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
 		auto& tile = tileMap.getTile(nextPosition);
-		if (tile.connected() || tile.mine() || !tile.excavated() || !tile.thingIsStructure()) { continue; }
+		if (!tile.thingIsStructure() || tile.connected() || tile.mine()) { continue; }
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
