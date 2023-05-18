@@ -11,6 +11,6 @@
  */
 struct ProductionCost
 {
-	int turnsToBuild;
+	int turnsToBuild{0};
 	StorableResources resourceCost;
 };

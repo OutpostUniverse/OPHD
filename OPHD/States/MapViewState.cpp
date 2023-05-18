@@ -1365,7 +1365,8 @@ void MapViewState::updatePoliceOverlay()
 
 void MapViewState::resetPoliceOverlays()
 {
-	mPoliceOverlays = std::vector<std::vector<Tile*>>(static_cast<std::size_t>(mTileMap->maxDepth() + 1));
+	const auto adjustedZ = mTileMap->maxDepth() + 1;
+	mPoliceOverlays = std::vector<std::vector<Tile*>>(static_cast<std::size_t>(adjustedZ));
 }
 
 

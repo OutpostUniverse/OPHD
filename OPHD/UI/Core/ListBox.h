@@ -211,7 +211,8 @@ protected:
 			return;
 		}
 
-		mHighlightIndex = (static_cast<std::size_t>(position.y - mClientRect.y) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+		const auto dy = position.y - mClientRect.y;
+		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
 			mHighlightIndex = constants::NoSelection;

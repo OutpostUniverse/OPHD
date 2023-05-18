@@ -24,6 +24,21 @@ namespace {
 	const std::string MapTerrainExtension = "_a.png";
 	const auto MapSize = NAS2D::Vector{300, 150};
 
+
+	constexpr std::size_t linearSize(NAS2D::Vector<int> size)
+	{
+		const auto converted = size.to<std::size_t>();
+		return converted.x * converted.y;
+	}
+
+
+	constexpr std::size_t linearIndex(NAS2D::Point<int> point, int sizeX)
+	{
+		const auto converted = point.to<std::size_t>();
+		return converted.x + static_cast<std::size_t>(sizeX) * converted.y;
+	}
+
+
 	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
 	{
 		auto randPoint = [mapSize]() {
@@ -39,18 +54,18 @@ namespace {
 		// Some locations might not be acceptable, so try up to twice as many locations
 		// A high density of mines could result in many rejected locations
 		// Don't try indefinitely to avoid possibility of infinite loop
-		std::vector<bool> usedLocations(static_cast<std::size_t>(mapSize.x * mapSize.y));
+		std::vector<bool> usedLocations(linearSize(mapSize));
 		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
 		{
 			// Generate a location and check surroundings for minimum spacing
 			const auto point = randPoint();
-			if (!usedLocations[static_cast<std::size_t>(point.x + mapSize.x * point.y)])
+			if (!usedLocations[linearIndex(point, mapSize.x)])
 			{
 				locations.push_back(point);
 				for (const auto& offset : DirectionScan3x3)
 				{
 					const auto usedPoint = point + offset;
-					usedLocations[static_cast<std::size_t>(usedPoint.x + mapSize.x * usedPoint.y)] = true;
+					usedLocations[linearIndex(usedPoint, mapSize.x)] = true;
 				}
 			}
 		}
@@ -121,7 +136,7 @@ const Tile& TileMap::getTile(const MapCoordinate& position) const
 	{
 		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
 	}
-	return mTileMap[static_cast<std::size_t>(((position.z * mSizeInTiles.y) + position.xy.y) * mSizeInTiles.x + position.xy.x)];
+	return mTileMap[linearIndex(position)];
 }
 
 
@@ -136,7 +151,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 {
 	const Image heightmap(path + MapTerrainExtension);
 
-	mTileMap.resize(static_cast<std::size_t>(mSizeInTiles.x * mSizeInTiles.y * (mMaxDepth + 1)));
+	mTileMap.resize(linearSize());
 
 	/**
 	 * Builds a terrain map based on the pixel color values in
@@ -276,4 +291,22 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		micropather::StateCost nodeCost = {&adjacentTile, cost};
 		adjacent->push_back(nodeCost);
 	}
+}
+
+
+std::size_t TileMap::linearSize() const
+{
+	const auto convertedSize = mSizeInTiles.to<std::size_t>();
+	const auto adjustedZ = mMaxDepth + 1;
+	return convertedSize.x * convertedSize.y * static_cast<std::size_t>(adjustedZ);
+}
+
+
+
+std::size_t TileMap::linearIndex(const MapCoordinate& position) const
+{
+	const auto convertedSize = mSizeInTiles.to<std::size_t>();
+	const auto convertedPosition = position.xy.to<std::size_t>();
+	const auto convertedZ = static_cast<std::size_t>(position.z);
+	return ((convertedZ * convertedSize.y) + convertedPosition.y) * convertedSize.x + convertedPosition.x;
 }

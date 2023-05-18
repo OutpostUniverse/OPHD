@@ -57,6 +57,9 @@ public:
 	void PrintStateInfo(void* /*state*/) override {}
 
 private:
+	std::size_t linearSize() const;
+	std::size_t linearIndex(const MapCoordinate& position) const;
+
 	void buildTerrainMap(const std::string& path);
 
 
