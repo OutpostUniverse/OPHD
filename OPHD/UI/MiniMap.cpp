@@ -57,17 +57,16 @@ void MiniMap::draw() const
 
 	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapFloatRect.startPoint());
 
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto miniMapOffset = mRect.startPoint() - NAS2D::Point{0, 0};
-	const auto ccPosition = ccLocation();
-	if (ccPosition != CcNotPlaced)
+	for (const auto& ccPosition : structureManager.operationalCommandCenterPositions())
 	{
-		const auto ccOffsetPosition = ccPosition + miniMapOffset;
+		const auto ccOffsetPosition = ccPosition.xy + miniMapOffset;
 		const auto ccCommRangeImageRect = NAS2D::Rectangle{166, 226, 30, 30};
 		renderer.drawSubImage(mUiIcons, ccOffsetPosition - ccCommRangeImageRect.size() / 2, ccCommRangeImageRect);
 		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector{1, 1}, NAS2D::Vector{3, 3}), NAS2D::Color::White);
 	}
 
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	for (auto commTower : structureManager.getStructures<CommTower>())
 	{
 		if (commTower->operational())
