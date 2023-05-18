@@ -200,7 +200,7 @@ const StructureList& StructureManager::structureList(Structure::StructureClass s
 }
 
 
-StructureList StructureManager::allStructures()
+StructureList StructureManager::allStructures() const
 {
 	StructureList structuresOut;
 
@@ -214,7 +214,7 @@ StructureList StructureManager::allStructures()
 }
 
 
-Tile& StructureManager::tileFromStructure(Structure* structure)
+Tile& StructureManager::tileFromStructure(Structure* structure) const
 {
 	auto it = mStructureTileTable.find(structure);
 	if (it == mStructureTileTable.end())
@@ -264,7 +264,7 @@ int StructureManager::count() const
 }
 
 
-int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
+int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state) const
 {
 	int count = 0;
 	for (const auto* structure : structureList(structureClass))
@@ -281,7 +281,7 @@ int StructureManager::getCountInState(Structure::StructureClass structureClass, 
 /**
  * Gets a count of the number of disabled buildings.
  */
-int StructureManager::disabled()
+int StructureManager::disabled() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
@@ -296,7 +296,7 @@ int StructureManager::disabled()
 /**
  * Gets a count of the number of destroyed buildings.
  */
-int StructureManager::destroyed()
+int StructureManager::destroyed() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
@@ -308,7 +308,7 @@ int StructureManager::destroyed()
 }
 
 
-bool StructureManager::CHAPAvailable()
+bool StructureManager::CHAPAvailable() const
 {
 	for (const auto* chap : structureList(Structure::StructureClass::LifeSupport))
 	{
@@ -444,7 +444,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 }
 
 
-NAS2D::Xml::XmlElement* StructureManager::serialize()
+NAS2D::Xml::XmlElement* StructureManager::serialize() const
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
