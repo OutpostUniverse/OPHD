@@ -136,7 +136,7 @@ const Tile& TileMap::getTile(const MapCoordinate& position) const
 	{
 		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
 	}
-	return mTileMap[static_cast<std::size_t>(((position.z * mSizeInTiles.y) + position.xy.y) * mSizeInTiles.x + position.xy.x)];
+	return mTileMap[linearIndex(position)];
 }
 
 
@@ -151,7 +151,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 {
 	const Image heightmap(path + MapTerrainExtension);
 
-	mTileMap.resize(static_cast<std::size_t>(mSizeInTiles.x * mSizeInTiles.y * (mMaxDepth + 1)));
+	mTileMap.resize(linearSize());
 
 	/**
 	 * Builds a terrain map based on the pixel color values in
@@ -291,4 +291,22 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 		micropather::StateCost nodeCost = {&adjacentTile, cost};
 		adjacent->push_back(nodeCost);
 	}
+}
+
+
+std::size_t TileMap::linearSize() const
+{
+	const auto convertedSize = mSizeInTiles.to<std::size_t>();
+	const auto adjustedZ = mMaxDepth + 1;
+	return convertedSize.x * convertedSize.y * static_cast<std::size_t>(adjustedZ);
+}
+
+
+
+std::size_t TileMap::linearIndex(const MapCoordinate& position) const
+{
+	const auto convertedSize = mSizeInTiles.to<std::size_t>();
+	const auto convertedPosition = position.xy.to<std::size_t>();
+	const auto convertedZ = static_cast<std::size_t>(position.z);
+	return ((convertedZ * convertedSize.y) + convertedPosition.y) * convertedSize.x + convertedPosition.x;
 }
