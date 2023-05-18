@@ -34,7 +34,7 @@ bool PopulationPool::usePopulation(PopulationRequirements populationRequirements
 {
 	const auto [workersRequired, scientistsRequired] = populationRequirements;
 
-	const auto population = mPopulation->getPopulations();
+	const auto& population = mPopulation->getPopulations();
 	const auto scientistsAvailable = population.scientist - (mScientistsAsWorkers + mScientistsUsed);
 	const auto workersAvailable = population.worker - mWorkersUsed;
 
