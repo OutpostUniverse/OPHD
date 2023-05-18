@@ -9,9 +9,15 @@
 
 #include <vector>
 
+extern NAS2D::Point<int> MOUSE_COORDS;	// <-- Yuck, really need to find a better way to
+										// poll mouse position. Might make sense to add a
+										// method to NAS2D::EventHandler for that.
 
 namespace
 {
+	constexpr NAS2D::Color ColorPanelHighlight{0, 185, 185, 100};
+	constexpr NAS2D::Color ColorPanelSelected{0, 85, 0};
+
 	constexpr auto CategoryIconSize = 64;
 	constexpr auto TopicIconSize = 128;
 
@@ -34,7 +40,7 @@ namespace
 };
 
 
-ResearchReport::ResearchReport():
+ResearchReport::ResearchReport() :
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
@@ -43,11 +49,13 @@ ResearchReport::ResearchReport():
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")}
 {
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 }
 
 
 ResearchReport::~ResearchReport()
 {
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 }
 
 
@@ -74,6 +82,7 @@ void ResearchReport::refresh()
 		CategoryPanels[i].rect = {point.x, point.y, CategoryIconSize, CategoryIconSize};
 	}
 	
+	CategoryPanels.front().selected = true;
 }
 
 
@@ -115,6 +124,16 @@ void ResearchReport::onResize()
 	refresh();
 }
 
+void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+{
+	if (button != NAS2D::EventHandler::MouseButton::Left) { return; }
+
+	for (auto& panel : CategoryPanels)
+	{
+		panel.selected = panel.rect.contains(position) ? true : false;
+	}
+}
+
 
 void ResearchReport::draw() const
 {
@@ -122,6 +141,15 @@ void ResearchReport::draw() const
 
 	for (const auto& panel : CategoryPanels)
 	{
+		if (panel.selected)
+		{
+			renderer.drawBoxFilled(panel.rect, ColorPanelSelected);
+		}
+		else if (panel.rect.contains(MOUSE_COORDS))
+		{
+			renderer.drawBoxFilled(panel.rect, ColorPanelHighlight);
+		}
+
 		renderer.drawSubImage(imageCategoryIcons, panel.rect.startPoint(), panel.imageSlice);
 	}
 }
