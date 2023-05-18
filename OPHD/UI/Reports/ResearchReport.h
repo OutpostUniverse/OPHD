@@ -43,11 +43,16 @@ public:
 	void update() override;
 
 private:
+	void drawReport();
+
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
 
 	const NAS2D::Image& imageLab;
+	const NAS2D::Image& imageUiIcons;
+	const NAS2D::Image& imageCategoryIcons;
+	const NAS2D::Image& imageTopicIcons;
     
     TechnologyCatalog* mTechCatalog{ nullptr };
     ResearchTracker* mResearchTracker{ nullptr };
