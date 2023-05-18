@@ -160,7 +160,7 @@ void MapViewState::save(const std::string& filePath)
 	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
-	const auto population = mPopulation.getPopulations();
+	const auto& population = mPopulation.getPopulations();
 	root->linkEndChild(NAS2D::dictionaryToAttributes(
 		"population",
 		{{
