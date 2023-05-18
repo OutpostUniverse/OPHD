@@ -19,6 +19,17 @@
 
 namespace
 {
+	auto populateKeys()
+	{
+		std::map<Structure::StructureClass, StructureList> result;
+		for (const auto structureClass : allStructureClasses())
+		{
+			result[structureClass]; // Generate blank array value for given key
+		}
+		return result;
+	}
+
+
 	/**
 	 * Fills population requirements fields in a Structure.
 	 */
@@ -122,6 +133,12 @@ namespace
 }
 
 
+StructureManager::StructureManager() :
+	mStructureLists{populateKeys()}
+{
+}
+
+
 /**
  * Adds a new Structure to the StructureManager.
  */
@@ -177,13 +194,13 @@ void StructureManager::removeStructure(Structure& structure)
 }
 
 
-const StructureList& StructureManager::structureList(Structure::StructureClass structureClass)
+const StructureList& StructureManager::structureList(Structure::StructureClass structureClass) const
 {
-	return mStructureLists[structureClass];
+	return mStructureLists.at(structureClass);
 }
 
 
-StructureList StructureManager::allStructures()
+StructureList StructureManager::allStructures() const
 {
 	StructureList structuresOut;
 
@@ -197,14 +214,16 @@ StructureList StructureManager::allStructures()
 }
 
 
-Tile& StructureManager::tileFromStructure(Structure* structure)
+Tile& StructureManager::tileFromStructure(const Structure* structure) const
 {
-	auto it = mStructureTileTable.find(structure);
-	if (it == mStructureTileTable.end())
+	for (const auto [keyStructure, valueTile] : mStructureTileTable)
 	{
-		throw std::runtime_error("Could not find tile for structure");
+		if (keyStructure == structure)
+		{
+			return *valueTile;
+		}
 	}
-	return *it->second;
+	throw std::runtime_error("Could not find tile for structure");
 }
 
 
@@ -228,7 +247,7 @@ void StructureManager::dropAllStructures()
 	}
 
 	mStructureTileTable.clear();
-	mStructureLists.clear();
+	mStructureLists = populateKeys();
 }
 
 
@@ -247,7 +266,7 @@ int StructureManager::count() const
 }
 
 
-int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state)
+int StructureManager::getCountInState(Structure::StructureClass structureClass, StructureState state) const
 {
 	int count = 0;
 	for (const auto* structure : structureList(structureClass))
@@ -264,7 +283,7 @@ int StructureManager::getCountInState(Structure::StructureClass structureClass, 
 /**
  * Gets a count of the number of disabled buildings.
  */
-int StructureManager::disabled()
+int StructureManager::disabled() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
@@ -279,7 +298,7 @@ int StructureManager::disabled()
 /**
  * Gets a count of the number of destroyed buildings.
  */
-int StructureManager::destroyed()
+int StructureManager::destroyed() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
@@ -291,9 +310,9 @@ int StructureManager::destroyed()
 }
 
 
-bool StructureManager::CHAPAvailable()
+bool StructureManager::CHAPAvailable() const
 {
-	for (auto chap : mStructureLists[Structure::StructureClass::LifeSupport])
+	for (const auto* chap : structureList(Structure::StructureClass::LifeSupport))
 	{
 		if (chap->operational()) { return true; }
 	}
@@ -427,7 +446,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 }
 
 
-NAS2D::Xml::XmlElement* StructureManager::serialize()
+NAS2D::Xml::XmlElement* StructureManager::serialize() const
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");
 

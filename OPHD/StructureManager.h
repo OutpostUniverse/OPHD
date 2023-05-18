@@ -77,6 +77,8 @@ constexpr Structure::StructureClass structureTypeToClass() {
 class StructureManager
 {
 public:
+	StructureManager();
+
 	void addStructure(Structure& structure, Tile& tile);
 	void removeStructure(Structure& structure);
 
@@ -99,26 +101,26 @@ public:
 		return output;
 	}
 
-	const StructureList& structureList(Structure::StructureClass structureClass);
-	StructureList allStructures();
+	const StructureList& structureList(Structure::StructureClass structureClass) const;
+	StructureList allStructures() const;
 
-	Tile& tileFromStructure(Structure* structure);
+	Tile& tileFromStructure(const Structure* structure) const;
 
 	void disconnectAll();
 	void dropAllStructures();
 
 	int count() const;
 
-	int getCountInState(Structure::StructureClass structureClass, StructureState state);
+	int getCountInState(Structure::StructureClass structureClass, StructureState state) const;
 
 	const StructureList& agingStructures() const { return mAgingStructures; }
 	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
 	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
-	int disabled();
-	int destroyed();
+	int disabled() const;
+	int destroyed() const;
 
-	bool CHAPAvailable();
+	bool CHAPAvailable() const;
 
 	void updateEnergyProduction();
 	void updateEnergyConsumed();
@@ -131,7 +133,7 @@ public:
 
 	void update(const StorableResources&, PopulationPool&);
 
-	NAS2D::Xml::XmlElement* serialize();
+	NAS2D::Xml::XmlElement* serialize() const;
 
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;

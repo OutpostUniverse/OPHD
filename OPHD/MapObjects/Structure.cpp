@@ -107,6 +107,16 @@ std::string StructureName(StructureID id)
 }
 
 
+std::vector<Structure::StructureClass> allStructureClasses()
+{
+	std::vector<Structure::StructureClass> result;
+	for (const auto& entry : STRUCTURE_CLASS_TRANSLATION)
+	{
+		result.push_back(entry.first);
+	}
+	return result;
+}
+
 
 Structure::Structure(StructureClass structureClass, StructureID id) :
 	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, constants::StructureStateConstruction),
