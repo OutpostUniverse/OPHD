@@ -101,7 +101,7 @@ public:
 		return output;
 	}
 
-	const StructureList& structureList(Structure::StructureClass structureClass);
+	const StructureList& structureList(Structure::StructureClass structureClass) const;
 	StructureList allStructures();
 
 	Tile& tileFromStructure(Structure* structure);
