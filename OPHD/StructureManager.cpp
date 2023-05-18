@@ -248,7 +248,7 @@ void StructureManager::disconnectAll()
 {
 	for (auto& pair : mStructureTileTable)
 	{
-		pair.second->connected(false);
+		pair.first->connected(false);
 	}
 }
 
@@ -568,5 +568,5 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 bool StructureManager::structureConnected(Structure* structure)
 {
-	return mStructureTileTable[structure]->connected();
+	return structure->connected();
 }
