@@ -231,22 +231,10 @@ void MapViewState::onMinerTaskComplete(Robot* robot)
 	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	auto& robotTile = *mRobotList[robot];
+	auto& miner = *static_cast<Robominer*>(robot);
 
-	// Surface structure
-	auto& mineFacility = *new MineFacility(robotTile.mine());
-	mineFacility.maxDepth(mTileMap->maxDepth());
-	NAS2D::Utility<StructureManager>::get().addStructure(mineFacility, robotTile);
+	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
 	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
-
-	// Tile immediately underneath facility.
-	auto& tileBelow = mTileMap->getTile({robotTile.xy(), robotTile.depth() + 1});
-	NAS2D::Utility<StructureManager>::get().addStructure(*new MineShaft(), tileBelow);
-
-	robotTile.index(TerrainType::Dozed);
-	tileBelow.index(TerrainType::Dozed);
-	tileBelow.excavated(true);
-
-	robot->die();
 }
 
 
@@ -254,9 +242,10 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 {
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
-	auto& mineFacilityTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(mineFacility);
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	auto& mineFacilityTile = structureManager.tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->mine()->depth()});
-	NAS2D::Utility<StructureManager>::get().addStructure(*new MineShaft(), mineDepthTile);
+	structureManager.addStructure(*new MineShaft(), mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
 }

@@ -166,21 +166,26 @@ namespace
 	}
 
 
-	std::map<std::string, std::vector<Technology>> readCategories(NAS2D::Xml::XmlElement& node)
+	std::vector<TechnologyCatalog::Category> readCategories(NAS2D::Xml::XmlElement& node)
 	{
-		std::map<std::string, std::vector<Technology>> categories;
+		std::vector<TechnologyCatalog::Category> categories;
 		for (auto category = &node; category; category = category->nextSiblingElement())
 		{
 			const auto attributes = NAS2D::attributesToDictionary(*category);
-			const auto name = attributes.get("name");
+			const std::string name = attributes.get("name");
 
-			auto it = categories.find(name);
-			if (it != categories.end())
+			for (const auto& cat : categories)
 			{
-				throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
+				if (cat.name == name)
+				{
+					throw std::runtime_error("TechnologyReader: Category redefinition '" + name + "'" + nodeAtString(*category));
+				}
 			}
-			categories[name] = readTechnologiesInCategory(*category);
+			
+			const TechnologyCatalog::Category newCategory{attributes.get<int>("icon_index"), name, readTechnologiesInCategory(*category)};
+			categories.push_back(newCategory);
 		}
+
 		return categories;
 	}
 }
@@ -195,7 +200,18 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 	auto firstCategory = root->firstChildElement("category");
 	if (!firstCategory) { return; }
 	mCategories = readCategories(*firstCategory);
-	mCategorNames = NAS2D::getKeys(mCategories);
+}
+
+
+const std::vector<std::string> TechnologyCatalog::categoryNames()
+{
+	std::vector<std::string> categoryNames;
+	for (const auto& category : mCategories)
+	{
+		categoryNames.push_back(category.name);
+	}
+
+	return categoryNames;
 }
 
 
@@ -203,7 +219,7 @@ const Technology& TechnologyCatalog::technologyFromId(int id) const
 {
 	for (const auto& category : mCategories)
 	{
-		const auto& techList = category.second;
+		const auto& techList = category.technologies;
 		const auto it = std::find_if(techList.begin(), techList.end(), [id](const Technology& tech) { return tech.id == id; });
 
 		if (it != techList.end())
@@ -216,7 +232,15 @@ const Technology& TechnologyCatalog::technologyFromId(int id) const
 }
 
 
-const std::vector<Technology> TechnologyCatalog::technologiesInCategory(const std::string& categoryName) const
+const std::vector<Technology>& TechnologyCatalog::technologiesInCategory(const std::string& categoryName) const
 {
-	return mCategories.at(categoryName);
+	for (const auto& category : mCategories)
+	{
+		if (category.name == categoryName)
+		{
+			return category.technologies;
+		}
+	}
+	
+	throw std::runtime_error("No category named '" + categoryName + "' found in catalog.");
 }
