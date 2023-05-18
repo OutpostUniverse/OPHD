@@ -31,7 +31,7 @@ public:
 	{
 		PlanetType type;
 		std::string imagePath;
-		Hostility hostility;
+		Hostility hostility{Hostility::Low};
 		int maxDepth = 0;
 		std::size_t maxMines = 0;
 		std::string mapImagePath;
