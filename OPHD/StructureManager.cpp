@@ -19,6 +19,17 @@
 
 namespace
 {
+	auto populateKeys()
+	{
+		std::map<Structure::StructureClass, StructureList> result;
+		for (const auto structureClass : allStructureClasses())
+		{
+			result[structureClass]; // Generate blank array value for given key
+		}
+		return result;
+	}
+
+
 	/**
 	 * Fills population requirements fields in a Structure.
 	 */
@@ -119,6 +130,12 @@ namespace
 
 		return structureElement;
 	}
+}
+
+
+StructureManager::StructureManager() :
+	mStructureLists{populateKeys()}
+{
 }
 
 
@@ -228,7 +245,7 @@ void StructureManager::dropAllStructures()
 	}
 
 	mStructureTileTable.clear();
-	mStructureLists.clear();
+	mStructureLists = populateKeys();
 }
 
 
