@@ -65,7 +65,7 @@ void ResearchReport::refresh()
 {
 	if (CategoryPanels.size() < 1) { return; }
 
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()) - 1);
+	const int minimumHeight = CategoryIconSize * static_cast<int>(CategoryPanels.size());
 	const int padding = ((rect().height - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size());
 	
 	for (int i = 0; i < CategoryPanels.size(); ++i)
