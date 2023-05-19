@@ -219,5 +219,5 @@ void ResearchReport::draw() const
 
 	drawTopicHeader();
 
-	drawVerticalSectionSpacer(rect().center().x);
+	drawVerticalSectionSpacer((rect().width / 3) * 2);
 }
