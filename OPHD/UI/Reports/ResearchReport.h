@@ -51,6 +51,12 @@ private:
 	void drawTopicHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
 
+	void onAllTopicsClicked();
+	void onAvailableTopicsClicked();
+	void onCompletedTopicsClicked();
+	void onStandardLabClicked();
+	void onHotLabClicked();
+
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
@@ -59,6 +65,13 @@ private:
 	const NAS2D::Image& imageUiIcons;
 	const NAS2D::Image& imageCategoryIcons;
 	const NAS2D::Image& imageTopicIcons;
+
+	Button btnAllTopics;
+	Button btnAvailableTopics;
+	Button btnCompletedTopics;
+	Button btnStandardLab;
+	Button btnHotLab;
+
     
     TechnologyCatalog* mTechCatalog{ nullptr };
     ResearchTracker* mResearchTracker{ nullptr };

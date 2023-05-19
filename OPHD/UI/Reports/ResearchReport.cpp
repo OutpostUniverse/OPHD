@@ -7,6 +7,7 @@
 
 #include "../../Cache.h"
 
+#include <array>
 #include <vector>
 
 extern NAS2D::Point<int> MOUSE_COORDS;	// <-- Yuck, really need to find a better way to
@@ -55,11 +56,23 @@ ResearchReport::ResearchReport() :
 	imageLab{imageCache.load("ui/interface/lab_ug.png")},
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
-	imageTopicIcons{imageCache.load("topicicons.png")}
+	imageTopicIcons{imageCache.load("topicicons.png")},
+	btnAllTopics{"All Topics", {100, 25}, {this, &ResearchReport::onAllTopicsClicked}},
+	btnAvailableTopics{"Available Topics", {100, 25}, {this, &ResearchReport::onAvailableTopicsClicked}},
+	btnCompletedTopics{"Completed Topics", {100, 25}, {this, &ResearchReport::onCompletedTopicsClicked}},
+	btnStandardLab{"Standard Lab", {100, 25}, {this, &ResearchReport::onStandardLabClicked}},
+	btnHotLab{"Standard Lab", {100, 25}, {this, &ResearchReport::onHotLabClicked}}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
-}
 
+	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
+	for (auto button : buttons)
+	{
+		add(*button, {});
+		button->type(Button::Type::Toggle);
+		button->toggle(false);
+	}
+}
 
 ResearchReport::~ResearchReport()
 {
@@ -124,6 +137,7 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 void ResearchReport::update()
 {
 	draw();
+	UIContainer::update();
 }
 
 
@@ -163,6 +177,31 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
         SelectedCategory = lastPanel;
         SelectedCategory->selected = true;
     }
+}
+
+
+void ResearchReport::onAllTopicsClicked()
+{
+}
+
+
+void ResearchReport::onAvailableTopicsClicked()
+{
+}
+
+
+void ResearchReport::onCompletedTopicsClicked()
+{
+}
+
+
+void ResearchReport::onStandardLabClicked()
+{
+}
+
+
+void ResearchReport::onHotLabClicked()
+{
 }
 
 
