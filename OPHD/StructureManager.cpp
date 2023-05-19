@@ -6,6 +6,7 @@
 #include "PopulationPool.h"
 #include "Map/Tile.h"
 #include "MapObjects/Robot.h"
+#include "GraphWalker.h"
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
@@ -238,6 +239,13 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 		}
 	}
 	return positions;
+}
+
+
+std::vector<Tile*> StructureManager::updateConnectedness(TileMap& tileMap)
+{
+	disconnectAll();
+	return walkGraph(operationalCommandCenterPositions(), tileMap);
 }
 
 

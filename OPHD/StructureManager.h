@@ -16,6 +16,7 @@ namespace NAS2D
 }
 
 class Tile;
+class TileMap;
 class PopulationPool;
 struct StorableResources;
 struct MapCoordinate;
@@ -110,6 +111,7 @@ public:
 
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
+	std::vector<Tile*> updateConnectedness(TileMap& tileMap);
 	void disconnectAll();
 	void dropAllStructures();
 
