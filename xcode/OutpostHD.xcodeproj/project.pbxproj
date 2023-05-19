@@ -157,6 +157,9 @@
 		57BE5C8629D66F2A0021C4AB /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C7129D66F2A0021C4AB /* Label.cpp */; };
 		57BE5C8729D66F2A0021C4AB /* ToolTip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C7429D66F2A0021C4AB /* ToolTip.cpp */; };
 		57BE5C8829D66F2A0021C4AB /* TextControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C7629D66F2A0021C4AB /* TextControl.cpp */; };
+		57E273E42A170B08004750D3 /* Robodigger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E273E12A170B08004750D3 /* Robodigger.cpp */; };
+		57E273E52A170B08004750D3 /* Robodozer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E273E22A170B08004750D3 /* Robodozer.cpp */; };
+		57E273E62A170B08004750D3 /* Robominer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E273E32A170B08004750D3 /* Robominer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -532,6 +535,9 @@
 		57BE5C7529D66F2A0021C4AB /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = ../../OPHD/UI/Core/Label.h; sourceTree = "<group>"; };
 		57BE5C7629D66F2A0021C4AB /* TextControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextControl.cpp; path = ../../OPHD/UI/Core/TextControl.cpp; sourceTree = "<group>"; };
 		57BE5C7729D66F2A0021C4AB /* UIContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIContainer.h; path = ../../OPHD/UI/Core/UIContainer.h; sourceTree = "<group>"; };
+		57E273E12A170B08004750D3 /* Robodigger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robodigger.cpp; path = ../../OPHD/MapObjects/Robots/Robodigger.cpp; sourceTree = "<group>"; };
+		57E273E22A170B08004750D3 /* Robodozer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robodozer.cpp; path = ../../OPHD/MapObjects/Robots/Robodozer.cpp; sourceTree = "<group>"; };
+		57E273E32A170B08004750D3 /* Robominer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robominer.cpp; path = ../../OPHD/MapObjects/Robots/Robominer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,6 +628,9 @@
 		571EECB92A12F15700671F98 /* Robots */ = {
 			isa = PBXGroup;
 			children = (
+				57E273E12A170B08004750D3 /* Robodigger.cpp */,
+				57E273E22A170B08004750D3 /* Robodozer.cpp */,
+				57E273E32A170B08004750D3 /* Robominer.cpp */,
 				571EECEB2A12F17700671F98 /* Robodigger.h */,
 				571EECE92A12F17700671F98 /* Robodozer.h */,
 				571EECEA2A12F17700671F98 /* Robominer.h */,
@@ -1174,6 +1183,7 @@
 				57BE5B7A29D66E7A0021C4AB /* micropather.cpp in Sources */,
 				578034B029D6978C005DE933 /* ProductListBox.cpp in Sources */,
 				57BE5C8329D66F2A0021C4AB /* CheckBox.cpp in Sources */,
+				57E273E42A170B08004750D3 /* Robodigger.cpp in Sources */,
 				57BE5B8029D66E8B0021C4AB /* PopulationTable.cpp in Sources */,
 				578034A429D6978C005DE933 /* MiniMap.cpp in Sources */,
 				575D2F3329FEF6BA00A9769B /* ResearchReport.cpp in Sources */,
@@ -1183,6 +1193,7 @@
 				578033B329D67A10005DE933 /* Image.cpp in Sources */,
 				5780349B29D6978C005DE933 /* StructureListBox.cpp in Sources */,
 				578033DB29D67A27005DE933 /* XmlParser.cpp in Sources */,
+				57E273E62A170B08004750D3 /* Robominer.cpp in Sources */,
 				57BE5BAB29D66E9E0021C4AB /* MapViewStateTurn.cpp in Sources */,
 				5780345C29D6975B005DE933 /* RobotPool.cpp in Sources */,
 				57BE5BAC29D66E9E0021C4AB /* CrimeExecution.cpp in Sources */,
@@ -1302,6 +1313,7 @@
 				578033DE29D67A27005DE933 /* XmlBase.cpp in Sources */,
 				5780336B29D679A9005DE933 /* Dictionary.cpp in Sources */,
 				571EECE72A12F16700671F98 /* MineFacility.cpp in Sources */,
+				57E273E52A170B08004750D3 /* Robodozer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
