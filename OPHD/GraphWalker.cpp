@@ -45,36 +45,26 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	}
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
-		if (src->isConnector() && src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL) { return true; }
-		return false;
+		return src->isConnector() && src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL;
 	}
 	else if (dst->isConnector())
 	{
 		if (dst->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || dst->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
 		{
-			if (!src->isConnector())
-			{
-				return true;
-			}
-			else
-			{
-				return checkSourceTubeAlignment(src, direction);
-			}
+			return !src->isConnector() || checkSourceTubeAlignment(src, direction);
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
-			if (dst->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT) { return true; }
+			return dst->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT;
 		}
 		else if (direction == Direction::North || direction == Direction::South)
 		{
-			if (dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT) { return true; }
+			return dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT;
 		}
-
-		return false;
 	}
-	else if (src->isConnector())
+	else
 	{
-		return checkSourceTubeAlignment(src, direction);
+		return src->isConnector() && checkSourceTubeAlignment(src, direction);
 	}
 
 	return false;
@@ -113,7 +103,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
 		auto& tile = tileMap.getTile(nextPosition);
-		if (!tile.thingIsStructure() || tile.structure()->connected() || tile.mine()) { continue; }
+		if (!tile.thingIsStructure() || tile.structure()->connected()) { continue; }
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
