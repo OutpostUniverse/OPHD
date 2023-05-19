@@ -24,6 +24,7 @@ namespace
 
 	constexpr auto CategoryIconSize = 64;
 	constexpr auto TopicIconSize = 128;
+	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {32, 224, 32, 32};
 	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {0, 224, 32, 32};
@@ -105,6 +106,15 @@ void ResearchReport::refresh()
 	
 	CategoryPanels.front().selected = true;
     SelectedCategory = &CategoryPanels.front();
+
+	const Point<int> buttonStartPosition{rect().x + MarginSize * 3 + CategoryIconSize, rect().y + MarginSize * 2 + fontBigBold.height()};
+	const int buttonLineWidth = 0;
+
+	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		buttons[i]->position(buttonStartPosition);
+	}
 }
 
 
