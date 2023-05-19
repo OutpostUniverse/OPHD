@@ -112,7 +112,7 @@ public:
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
 	std::vector<Tile*> updateConnectedness(TileMap& tileMap);
-	void disconnectAll();
+
 	void dropAllStructures();
 
 	int count() const;
@@ -144,6 +144,8 @@ public:
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
+
+	void disconnectAll();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
