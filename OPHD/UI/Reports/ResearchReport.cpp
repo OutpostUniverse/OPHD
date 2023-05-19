@@ -73,8 +73,8 @@ void ResearchReport::refresh()
 {
 	if (CategoryPanels.size() < 1) { return; }
 
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()) - 1);
-	const int padding = ((rect().height - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size());
+	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
+	const int padding = ((rect().height - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
 	
 	for (int i = 0; i < CategoryPanels.size(); ++i)
 	{
@@ -123,9 +123,15 @@ void ResearchReport::onResize()
 	refresh();
 }
 
+
 void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
-	if (button != NAS2D::EventHandler::MouseButton::Left) { return; }
+	if (!visible() || 
+		!rect().contains(position) ||
+		button != NAS2D::EventHandler::MouseButton::Left)
+	{
+		return;
+	}
 
 	for (auto& panel : CategoryPanels)
 	{
@@ -150,6 +156,5 @@ void ResearchReport::drawReport()
 		}
 
 		renderer.drawSubImage(imageCategoryIcons, panel.rect.startPoint(), panel.imageSlice);
-		//renderer.drawText(fontMedium, panel.name, point + NAS2D::Vector<int>{CategoryIconSize + 10, CategoryIconSize / 2 - fontMedium.height() / 2});
 	}
 }
