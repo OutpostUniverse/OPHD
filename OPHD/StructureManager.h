@@ -111,7 +111,8 @@ public:
 
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
-	std::vector<Tile*> updateConnectedness(TileMap& tileMap);
+	void updateConnectedness(TileMap& tileMap);
+	std::vector<Tile*> getConnectednessOverlay() const;
 
 	void dropAllStructures();
 

@@ -242,10 +242,25 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 }
 
 
-std::vector<Tile*> StructureManager::updateConnectedness(TileMap& tileMap)
+void StructureManager::updateConnectedness(TileMap& tileMap)
 {
 	disconnectAll();
-	return walkGraph(operationalCommandCenterPositions(), tileMap);
+	walkGraph(operationalCommandCenterPositions(), tileMap);
+}
+
+
+std::vector<Tile*> StructureManager::getConnectednessOverlay() const
+{
+	std::vector<Tile*> result;
+	result.reserve(mStructureTileTable.size());
+	for (const auto [structure, tile] : mStructureTileTable)
+	{
+		if (structure->connected())
+		{
+			result.push_back(tile);
+		}
+	}
+	return result;
 }
 
 

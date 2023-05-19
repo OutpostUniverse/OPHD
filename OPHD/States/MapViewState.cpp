@@ -1334,7 +1334,8 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 void MapViewState::updateConnectedness()
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	mConnectednessOverlay = structureManager.updateConnectedness(*mTileMap);
+	structureManager.updateConnectedness(*mTileMap);
+	mConnectednessOverlay = structureManager.getConnectednessOverlay();
 }
 
 
