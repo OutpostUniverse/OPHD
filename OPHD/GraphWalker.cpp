@@ -108,3 +108,31 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		}
 	}
 }
+
+
+void extendWalk(const MapCoordinate& position, TileMap& tileMap)
+{
+	const auto directions = std::array{
+		Direction::Up,
+		Direction::Down,
+		Direction::North,
+		Direction::East,
+		Direction::South,
+		Direction::West,
+	};
+
+	Tile& thisTile = tileMap.getTile(position);
+	for (const auto direction : directions)
+	{
+		const auto nextPosition = position.translate(direction);
+		if (!tileMap.isValidPosition(nextPosition)) { continue; }
+
+		auto& tile = tileMap.getTile(nextPosition);
+		if (!tile.thingIsStructure() || !tile.structure()->connected()) { continue; }
+
+		if (validConnection(thisTile.structure(), tile.structure(), direction))
+		{
+			walkGraph(nextPosition, tileMap);
+		}
+	}
+}
