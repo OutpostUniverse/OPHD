@@ -17,6 +17,7 @@ namespace
 {
 	constexpr NAS2D::Color ColorPanelHighlight{0, 185, 185, 100};
 	constexpr NAS2D::Color ColorPanelSelected{0, 85, 0};
+	constexpr NAS2D::Color ColorText{0, 185, 0};
 
 	constexpr auto CategoryIconSize = 64;
 	constexpr auto TopicIconSize = 128;
@@ -164,15 +165,21 @@ void ResearchReport::drawReport()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
+	renderer.drawText(fontBigBold, SelectedCategory->name, rect().startPoint() + NAS2D::Vector<int>{20 + CategoryIconSize, 10}, ColorText);
+
+	constexpr NAS2D::Vector<int> SelectorPadding{2, 2};
+
 	for (const auto& panel : CategoryPanels)
 	{
+		const NAS2D::Rectangle<int> panelRect = NAS2D::Rectangle<int>::Create(panel.rect.startPoint() - SelectorPadding, panel.rect.endPoint() + SelectorPadding);
+
 		if (panel.selected)
 		{
-			renderer.drawBoxFilled(panel.rect, ColorPanelSelected);
+			renderer.drawBoxFilled(panelRect, ColorPanelSelected);
 		}
 		else if (panel.rect.contains(MOUSE_COORDS))
 		{
-			renderer.drawBoxFilled(panel.rect, ColorPanelHighlight);
+			renderer.drawBoxFilled(panelRect, ColorPanelHighlight);
 		}
 
 		renderer.drawSubImage(imageCategoryIcons, panel.rect.startPoint(), panel.imageSlice);
