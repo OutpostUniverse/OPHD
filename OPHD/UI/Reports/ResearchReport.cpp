@@ -24,6 +24,7 @@ namespace
 
 	constexpr auto CategoryIconSize = 64;
 	constexpr auto TopicIconSize = 128;
+	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {32, 224, 32, 32};
 	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {0, 224, 32, 32};
@@ -61,7 +62,7 @@ ResearchReport::ResearchReport() :
 	btnAvailableTopics{"Available Topics", {100, 25}, {this, &ResearchReport::onAvailableTopicsClicked}},
 	btnCompletedTopics{"Completed Topics", {100, 25}, {this, &ResearchReport::onCompletedTopicsClicked}},
 	btnStandardLab{"Standard Lab", {100, 25}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Standard Lab", {100, 25}, {this, &ResearchReport::onHotLabClicked}}
+	btnHotLab{"Hot Lab", {100, 25}, {this, &ResearchReport::onHotLabClicked}}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
@@ -71,6 +72,14 @@ ResearchReport::ResearchReport() :
 		add(*button, {});
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
+	}
+
+	const Point<int> buttonStartPosition{rect().x + MarginSize * 3 + CategoryIconSize, rect().y + MarginSize * 2 + fontBigBold.height()};
+	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
+
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * i, 0});
 	}
 }
 
