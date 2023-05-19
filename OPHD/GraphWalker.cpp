@@ -62,9 +62,9 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 			return dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT;
 		}
 	}
-	else if (src->isConnector())
+	else
 	{
-		return checkSourceTubeAlignment(src, direction);
+		return src->isConnector() && checkSourceTubeAlignment(src, direction);
 	}
 
 	return false;
