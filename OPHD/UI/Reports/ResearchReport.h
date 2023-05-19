@@ -46,7 +46,10 @@ private:
 	void onResize() override;
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
 
-	void drawReport();
+	void draw() const override;
+	void drawCategories() const;
+	void drawTopicHeader() const;
+	void drawVerticalSectionSpacer(const int column) const;
 
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;

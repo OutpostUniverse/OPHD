@@ -13,6 +13,8 @@ extern NAS2D::Point<int> MOUSE_COORDS;	// <-- Yuck, really need to find a better
 										// poll mouse position. Might make sense to add a
 										// method to NAS2D::EventHandler for that.
 
+using namespace NAS2D;
+
 namespace
 {
 	constexpr NAS2D::Color ColorPanelHighlight{0, 185, 185, 100};
@@ -27,6 +29,9 @@ namespace
 
 	constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {0, 192, 24, 24};
 	constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {24, 192, 24, 24};
+
+	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
+	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
 
     struct CategoryPanel
     {
@@ -118,7 +123,7 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 
 void ResearchReport::update()
 {
-	drawReport();
+	draw();
 }
 
 
@@ -161,17 +166,15 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 }
 
 
-void ResearchReport::drawReport()
+void ResearchReport::drawCategories() const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	renderer.drawText(fontBigBold, SelectedCategory->name, rect().startPoint() + NAS2D::Vector<int>{20 + CategoryIconSize, 10}, ColorText);
-
-	constexpr NAS2D::Vector<int> SelectorPadding{2, 2};
+	auto& renderer = Utility<Renderer>::get();
 
 	for (const auto& panel : CategoryPanels)
 	{
-		const NAS2D::Rectangle<int> panelRect = NAS2D::Rectangle<int>::Create(panel.rect.startPoint() - SelectorPadding, panel.rect.endPoint() + SelectorPadding);
+		const auto panelRect = Rectangle<int>::Create(
+			panel.rect.startPoint() - CategorySelectorPadding,
+			panel.rect.endPoint() + CategorySelectorPadding);
 
 		if (panel.selected)
 		{
@@ -184,4 +187,37 @@ void ResearchReport::drawReport()
 
 		renderer.drawSubImage(imageCategoryIcons, panel.rect.startPoint(), panel.imageSlice);
 	}
+}
+
+
+void ResearchReport::drawTopicHeader() const
+{
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawText(
+		fontBigBold,
+		SelectedCategory->name,
+		rect().startPoint() + Vector<int>{SectionPadding.x * 3 + CategoryIconSize, SectionPadding.y},
+		ColorText);
+}
+
+
+void ResearchReport::drawVerticalSectionSpacer(const int startX) const
+{
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawLine(
+		Point<int>{startX, rect().y + SectionPadding.y},
+		Point<int>{startX, rect().y + rect().height - SectionPadding.y},
+		ColorText);
+}
+
+
+void ResearchReport::draw() const
+{
+	drawCategories();
+
+	drawVerticalSectionSpacer(CategoryPanels.front().rect.endPoint().x + SectionPadding.x);
+
+	drawTopicHeader();
+
+	drawVerticalSectionSpacer(rect().center().x);
 }
