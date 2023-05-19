@@ -27,13 +27,15 @@ namespace
 	constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {0, 192, 24, 24};
 	constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {24, 192, 24, 24};
 
-	struct CategoryPanel
-	{
-		NAS2D::Rectangle<int> rect{};
-		NAS2D::Rectangle<int> imageSlice{};
-		std::string name{};
-		bool selected{false};
-	};
+    struct CategoryPanel
+    {
+        NAS2D::Rectangle<int> rect{};
+        NAS2D::Rectangle<int> imageSlice{};
+        std::string name{};
+        bool selected{false};
+    };
+
+    CategoryPanel* SelectedCategory{ nullptr };
 
 	std::vector<CategoryPanel> CategoryPanels;
 
@@ -83,6 +85,7 @@ void ResearchReport::refresh()
 	}
 	
 	CategoryPanels.front().selected = true;
+    SelectedCategory = &CategoryPanels.front();
 }
 
 
@@ -132,11 +135,28 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 	{
 		return;
 	}
-
+    
+    CategoryPanel* lastPanel = SelectedCategory;
+    bool panelClickedOn = false;
 	for (auto& panel : CategoryPanels)
 	{
-		panel.selected = panel.rect.contains(position) ? true : false;
+        if(panel.rect.contains(position))
+        {
+            panel.selected = true;
+            SelectedCategory = &panel;
+            panelClickedOn = true;
+        }
+        else
+        {
+            panel.selected = false;
+        }
 	}
+    
+    if(!panelClickedOn && lastPanel != nullptr)
+    {
+        SelectedCategory = lastPanel;
+        SelectedCategory->selected = true;
+    }
 }
 
 
