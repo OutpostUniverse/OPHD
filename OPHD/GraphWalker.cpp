@@ -71,22 +71,19 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 }
 
 
-std::vector<Tile*> walkGraph(const std::vector<MapCoordinate>& positions, TileMap& tileMap)
+void walkGraph(const std::vector<MapCoordinate>& positions, TileMap& tileMap)
 {
-	std::vector<Tile*> tileList;
 	for (const auto& position : positions)
 	{
-		walkGraph(position, tileMap, tileList);
+		walkGraph(position, tileMap);
 	}
-	return tileList;
 }
 
 
-void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile*>& tileList)
+void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 {
 	Tile& thisTile = tileMap.getTile(position);
 	thisTile.structure()->connected(true);
-	tileList.push_back(&thisTile);
 
 	const auto directions = std::array{
 		Direction::Up,
@@ -107,7 +104,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap, std::vector<Tile
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{
-			walkGraph(nextPosition, tileMap, tileList);
+			walkGraph(nextPosition, tileMap);
 		}
 	}
 }

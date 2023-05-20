@@ -16,6 +16,7 @@ namespace NAS2D
 }
 
 class Tile;
+class TileMap;
 class PopulationPool;
 struct StorableResources;
 struct MapCoordinate;
@@ -110,7 +111,9 @@ public:
 
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
-	void disconnectAll();
+	void updateConnectedness(TileMap& tileMap);
+	std::vector<Tile*> getConnectednessOverlay() const;
+
 	void dropAllStructures();
 
 	int count() const;
@@ -142,6 +145,8 @@ public:
 private:
 	using StructureTileTable = std::map<Structure*, Tile*>;
 	using StructureClassTable = std::map<Structure::StructureClass, StructureList>;
+
+	void disconnectAll();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
