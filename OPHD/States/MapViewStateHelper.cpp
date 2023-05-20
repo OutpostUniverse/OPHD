@@ -14,6 +14,7 @@
 #include "../StructureManager.h"
 #include "../DirectionOffset.h"
 #include "../Map/TileMap.h"
+#include "../MapObjects/StructureType.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
@@ -192,15 +193,7 @@ bool structureIsLander(StructureID id)
  */
 bool selfSustained(StructureID id)
 {
-	switch (id)
-	{
-	case StructureID::SID_COMM_TOWER:
-	case StructureID::SID_ROAD:
-		return true;
-
-	default:
-		return false;
-	}
+	return StructureCatalogue::getType(id).isSelfSustained;
 }
 
 
