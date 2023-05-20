@@ -114,6 +114,15 @@ void ResearchReport::refresh()
 	
 	CategoryPanels.front().selected = true;
     SelectedCategory = &CategoryPanels.front();
+
+	const Point<int> buttonStartPosition{rect().x + MarginSize * 3 + CategoryIconSize, rect().y + MarginSize * 2 + fontBigBold.height()};
+	const int buttonLineWidth = 0;
+
+	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
+	for (int i = 0; i < buttons.size(); ++i)
+	{
+		buttons[i]->position(buttonStartPosition);
+	}
 }
 
 
