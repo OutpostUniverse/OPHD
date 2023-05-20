@@ -48,7 +48,6 @@ namespace
 	Rectangle<int> IconArea{};
 
 	std::vector<CategoryPanel> CategoryPanels;
-
 };
 
 
@@ -116,6 +115,8 @@ void ResearchReport::refresh()
 	
 	CategoryPanels.front().selected = true;
     SelectedCategory = &CategoryPanels.front();
+
+	onAllTopicsClicked();
 
 	IconArea = {
 		rect().x + MarginSize * 3 + CategoryIconSize,
@@ -197,28 +198,48 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 }
 
 
+void ResearchReport::untoggleAllButtons()
+{
+	btnAllTopics.toggle(false);
+	btnAvailableTopics.toggle(false);
+	btnCompletedTopics.toggle(false);
+	btnStandardLab.toggle(false);
+	btnHotLab.toggle(false);
+}
+
+
 void ResearchReport::onAllTopicsClicked()
 {
+	untoggleAllButtons();
+	btnAllTopics.toggle(true);
 }
 
 
 void ResearchReport::onAvailableTopicsClicked()
 {
+	untoggleAllButtons();
+	btnAvailableTopics.toggle(true);
 }
 
 
 void ResearchReport::onCompletedTopicsClicked()
 {
+	untoggleAllButtons();
+	btnCompletedTopics.toggle(true);
 }
 
 
 void ResearchReport::onStandardLabClicked()
 {
+	untoggleAllButtons();
+	btnStandardLab.toggle(true);
 }
 
 
 void ResearchReport::onHotLabClicked()
 {
+	untoggleAllButtons();
+	btnHotLab.toggle(true);
 }
 
 

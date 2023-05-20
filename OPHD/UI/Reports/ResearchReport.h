@@ -51,11 +51,14 @@ private:
 	void drawTopicHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
 
+	void untoggleAllButtons();
+
 	void onAllTopicsClicked();
 	void onAvailableTopicsClicked();
 	void onCompletedTopicsClicked();
 	void onStandardLabClicked();
 	void onHotLabClicked();
+
 
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
