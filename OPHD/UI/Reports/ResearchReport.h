@@ -73,13 +73,10 @@ private:
 	Button btnAvailableTopics;
 	Button btnCompletedTopics;
 	Button btnStandardLab;
-	Button btnHotLab;
-
+    Button btnHotLab;
     
     TechnologyCatalog* mTechCatalog{ nullptr };
     ResearchTracker* mResearchTracker{ nullptr };
-
-	Button btnTakeMeThere;
 
 	StructureListBox lstStructures;
 	ProductListBox lstProducts;
