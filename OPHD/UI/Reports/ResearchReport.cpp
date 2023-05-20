@@ -45,6 +45,8 @@ namespace
 
     CategoryPanel* SelectedCategory{ nullptr };
 
+	Rectangle<int> IconArea{};
+
 	std::vector<CategoryPanel> CategoryPanels;
 
 };
@@ -115,14 +117,11 @@ void ResearchReport::refresh()
 	CategoryPanels.front().selected = true;
     SelectedCategory = &CategoryPanels.front();
 
-	const Point<int> buttonStartPosition{rect().x + MarginSize * 3 + CategoryIconSize, rect().y + MarginSize * 2 + fontBigBold.height()};
-	const int buttonLineWidth = 0;
-
-	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
-	for (int i = 0; i < buttons.size(); ++i)
-	{
-		buttons[i]->position(buttonStartPosition);
-	}
+	IconArea = {
+		rect().x + MarginSize * 3 + CategoryIconSize,
+		rect().y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3,
+		((rect().width / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
+		rect().height - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y};
 }
 
 
@@ -270,11 +269,15 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 
 void ResearchReport::draw() const
 {
+	auto& renderer = Utility<Renderer>::get();
+
 	drawCategories();
 
 	drawVerticalSectionSpacer(CategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 
 	drawTopicHeader();
+
+	renderer.drawBox(IconArea);
 
 	drawVerticalSectionSpacer((rect().width / 3) * 2);
 }
