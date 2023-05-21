@@ -50,6 +50,7 @@ private:
 	void drawCategories() const;
 	void drawTopicHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
+    void drawTopicIconPanel() const;
 
 	void untoggleAllButtons();
 
