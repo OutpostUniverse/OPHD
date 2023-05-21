@@ -59,11 +59,11 @@ ResearchReport::ResearchReport() :
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
-	btnAllTopics{"All Topics", {100, 25}, {this, &ResearchReport::onAllTopicsClicked}},
-	btnAvailableTopics{"Available Topics", {100, 25}, {this, &ResearchReport::onAvailableTopicsClicked}},
-	btnCompletedTopics{"Completed Topics", {100, 25}, {this, &ResearchReport::onCompletedTopicsClicked}},
-	btnStandardLab{"Standard Lab", {100, 25}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Hot Lab", {100, 25}, {this, &ResearchReport::onHotLabClicked}}
+	btnAllTopics{"All Topics", {100, 32}, {this, &ResearchReport::onAllTopicsClicked}},
+	btnAvailableTopics{"Available Topics", {100, 32}, {this, &ResearchReport::onAvailableTopicsClicked}},
+	btnCompletedTopics{"Completed Topics", {100, 32}, {this, &ResearchReport::onCompletedTopicsClicked}},
+	btnStandardLab{"Standard Lab", {100, 32}, {this, &ResearchReport::onStandardLabClicked}},
+	btnHotLab{"Hot Lab", {100, 32}, {this, &ResearchReport::onHotLabClicked}}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
@@ -295,6 +295,26 @@ void ResearchReport::drawTopicIconPanel() const
 }
 
 
+void ResearchReport::drawResearchPointsPanel() const
+{
+    auto& renderer = Utility<Renderer>::get();
+    
+    const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.width, SectionPadding.y};
+    
+    renderer.drawText(
+      fontBigBold,
+      "Research Generated Per Turn",
+      startPoint,
+      ColorText);
+    
+    renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}, StandardLabIconRect);
+    renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{(rect().width - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}, HotLabIconRect);
+	
+	const Point<int> lineStartPoint{startPoint.x, rect().y + fontBigBold.height() + HotLabIconRect.height + SectionPadding.y * 3};
+	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().width - startPoint.x - SectionPadding.x, 0}, ColorText);
+}
+
+
 void ResearchReport::draw() const
 {
 	drawCategories();
@@ -305,4 +325,7 @@ void ResearchReport::draw() const
     drawTopicIconPanel();
 
 	drawVerticalSectionSpacer((rect().width / 3) * 2);
+    
+    drawResearchPointsPanel();
+    
 }

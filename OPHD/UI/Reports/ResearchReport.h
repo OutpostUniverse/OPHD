@@ -51,6 +51,7 @@ private:
 	void drawTopicHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
     void drawTopicIconPanel() const;
+    void drawResearchPointsPanel() const;
 
 	void untoggleAllButtons();
 
