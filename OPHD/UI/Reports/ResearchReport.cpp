@@ -22,12 +22,13 @@ namespace
 	constexpr NAS2D::Color ColorPanelSelected{0, 85, 0};
 	constexpr NAS2D::Color ColorText{0, 185, 0};
 
+	constexpr auto LabTypeIconSize = 32;
 	constexpr auto CategoryIconSize = 64;
 	constexpr auto TopicIconSize = 128;
 	constexpr auto MarginSize = 10;
 
-	constexpr NAS2D::Rectangle<int> HotLabIconRect = {32, 224, 32, 32};
-	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {0, 224, 32, 32};
+	constexpr NAS2D::Rectangle<int> HotLabIconRect = {32, 224, LabTypeIconSize, LabTypeIconSize};
+	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {0, 224, LabTypeIconSize, LabTypeIconSize};
 
 	constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {0, 192, 24, 24};
 	constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {24, 192, 24, 24};
@@ -59,11 +60,11 @@ ResearchReport::ResearchReport() :
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
-	btnAllTopics{"All Topics", {100, 32}, {this, &ResearchReport::onAllTopicsClicked}},
-	btnAvailableTopics{"Available Topics", {100, 32}, {this, &ResearchReport::onAvailableTopicsClicked}},
-	btnCompletedTopics{"Completed Topics", {100, 32}, {this, &ResearchReport::onCompletedTopicsClicked}},
-	btnStandardLab{"Standard Lab", {100, 32}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Hot Lab", {100, 32}, {this, &ResearchReport::onHotLabClicked}}
+	btnAllTopics{"All Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAllTopicsClicked}},
+	btnAvailableTopics{"Available Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAvailableTopicsClicked}},
+	btnCompletedTopics{"Completed Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onCompletedTopicsClicked}},
+	btnStandardLab{"Standard Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onStandardLabClicked}},
+	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
@@ -310,7 +311,7 @@ void ResearchReport::drawResearchPointsPanel() const
     renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}, StandardLabIconRect);
     renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{(rect().width - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}, HotLabIconRect);
 	
-	const Point<int> lineStartPoint{startPoint.x, rect().y + fontBigBold.height() + HotLabIconRect.height + SectionPadding.y * 3};
+	const Point<int> lineStartPoint{startPoint.x, rect().y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
 	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().width - startPoint.x - SectionPadding.x, 0}, ColorText);
 }
 
