@@ -295,6 +295,24 @@ void ResearchReport::drawTopicIconPanel() const
 }
 
 
+void ResearchReport::drawResearchPointsPanel() const
+{
+    auto& renderer = Utility<Renderer>::get();
+    
+    const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.width, SectionPadding.y};
+    
+    renderer.drawText(
+      fontBigBold,
+      "Research Generated Per Turn",
+      startPoint,
+      ColorText);
+    
+    renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}, StandardLabIconRect);
+    renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{(rect().width - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}, HotLabIconRect);
+    
+}
+
+
 void ResearchReport::draw() const
 {
 	drawCategories();
@@ -305,4 +323,7 @@ void ResearchReport::draw() const
     drawTopicIconPanel();
 
 	drawVerticalSectionSpacer((rect().width / 3) * 2);
+    
+    drawResearchPointsPanel();
+    
 }
