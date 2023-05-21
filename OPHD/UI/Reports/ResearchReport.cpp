@@ -298,19 +298,24 @@ void ResearchReport::drawTopicIconPanel() const
 
 void ResearchReport::drawResearchPointsPanel() const
 {
-    auto& renderer = Utility<Renderer>::get();
-    
-    const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.width, SectionPadding.y};
-    
-    renderer.drawText(
-      fontBigBold,
-      "Research Generated Per Turn",
-      startPoint,
-      ColorText);
-    
-    renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}, StandardLabIconRect);
-    renderer.drawSubImage(imageUiIcons, startPoint + Vector<int>{(rect().width - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}, HotLabIconRect);
-	
+	auto& renderer = Utility<Renderer>::get();
+
+	const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.width, SectionPadding.y};
+
+	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
+
+	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
+	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().width - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
+
+	renderer.drawSubImage(imageUiIcons, standardLabStartPoint, StandardLabIconRect);
+	renderer.drawSubImage(imageUiIcons, hotLabStartPoint, HotLabIconRect);
+
+	const auto standardLabTextOffset{standardLabStartPoint + Vector<int>{LabTypeIconSize + SectionPadding.x, LabTypeIconSize / 2 - fontMedium.height() / 2}};
+	const auto hotLabTextOffset{hotLabStartPoint + Vector<int>{LabTypeIconSize + SectionPadding.x, LabTypeIconSize / 2 - fontMedium.height() / 2}};
+
+	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
+	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
+
 	const Point<int> lineStartPoint{startPoint.x, rect().y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
 	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().width - startPoint.x - SectionPadding.x, 0}, ColorText);
 }
