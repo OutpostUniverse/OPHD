@@ -25,14 +25,15 @@ namespace
 
 	constexpr auto LabTypeIconSize = 32;
 	constexpr auto CategoryIconSize = 64;
-	constexpr auto TopicIconSize = 128;
+	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {32, 224, LabTypeIconSize, LabTypeIconSize};
 	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {0, 224, LabTypeIconSize, LabTypeIconSize};
 
-	constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {0, 192, 24, 24};
-	constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {24, 192, 24, 24};
+    // Will be used in future change sets
+	//constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {0, 192, 24, 24};
+	//constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {24, 192, 24, 24};
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
 	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
