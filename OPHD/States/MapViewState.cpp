@@ -10,7 +10,6 @@
 
 #include "../DirectionOffset.h"
 #include "../Cache.h"
-#include "../GraphWalker.h"
 #include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
@@ -1337,9 +1336,8 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 void MapViewState::updateConnectedness()
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	structureManager.disconnectAll();
-	const auto ccLocations = structureManager.operationalCommandCenterPositions();
-	mConnectednessOverlay = walkGraph(ccLocations, *mTileMap);
+	structureManager.updateConnectedness(*mTileMap);
+	mConnectednessOverlay = structureManager.getConnectednessOverlay();
 }
 
 
