@@ -203,7 +203,7 @@ TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 }
 
 
-const std::vector<std::string> TechnologyCatalog::categories()
+const std::vector<std::string> TechnologyCatalog::categoryNames()
 {
 	std::vector<std::string> categoryNames;
 	for (const auto& category : mCategories)

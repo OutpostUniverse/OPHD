@@ -15,6 +15,7 @@
 		572509E229D66BB100A59072 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 572509E129D66BB100A59072 /* AppDelegate.m */; };
 		572509E429D66BB200A59072 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 572509E329D66BB200A59072 /* Assets.xcassets */; };
 		572509E729D66BB200A59072 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 572509E529D66BB200A59072 /* MainMenu.xib */; };
+		575D2F3329FEF6BA00A9769B /* ResearchReport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575D2F3129FEF6BA00A9769B /* ResearchReport.cpp */; };
 		5780336529D679A9005DE933 /* FpsCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5780334A29D679A9005DE933 /* FpsCounter.cpp */; };
 		5780336629D679A9005DE933 /* Filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5780334F29D679A9005DE933 /* Filesystem.cpp */; };
 		5780336729D679A9005DE933 /* Configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5780335029D679A9005DE933 /* Configuration.cpp */; };
@@ -156,6 +157,9 @@
 		57BE5C8629D66F2A0021C4AB /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C7129D66F2A0021C4AB /* Label.cpp */; };
 		57BE5C8729D66F2A0021C4AB /* ToolTip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C7429D66F2A0021C4AB /* ToolTip.cpp */; };
 		57BE5C8829D66F2A0021C4AB /* TextControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57BE5C7629D66F2A0021C4AB /* TextControl.cpp */; };
+		57E273E42A170B08004750D3 /* Robodigger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E273E12A170B08004750D3 /* Robodigger.cpp */; };
+		57E273E52A170B08004750D3 /* Robodozer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E273E22A170B08004750D3 /* Robodozer.cpp */; };
+		57E273E62A170B08004750D3 /* Robominer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E273E32A170B08004750D3 /* Robominer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -240,6 +244,8 @@
 		572509E629D66BB200A59072 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		572509EA29D66BB200A59072 /* OutpostHD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OutpostHD.entitlements; sourceTree = "<group>"; };
 		572509F129D66C3B00A59072 /* Developer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Developer; path = ../../../../../System/Developer; sourceTree = "<group>"; };
+		575D2F3129FEF6BA00A9769B /* ResearchReport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResearchReport.cpp; path = ../../OPHD/UI/Reports/ResearchReport.cpp; sourceTree = "<group>"; };
+		575D2F3229FEF6BA00A9769B /* ResearchReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResearchReport.h; path = ../../OPHD/UI/Reports/ResearchReport.h; sourceTree = "<group>"; };
 		5780334929D679A9005DE933 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dictionary.h; path = "../../nas2d-core/NAS2D/Dictionary.h"; sourceTree = "<group>"; };
 		5780334A29D679A9005DE933 /* FpsCounter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FpsCounter.cpp; path = "../../nas2d-core/NAS2D/FpsCounter.cpp"; sourceTree = "<group>"; };
 		5780334B29D679A9005DE933 /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Version.h; path = "../../nas2d-core/NAS2D/Version.h"; sourceTree = "<group>"; };
@@ -349,7 +355,6 @@
 		5780342829D69072005DE933 /* GLEW.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GLEW.framework; sourceTree = "<group>"; };
 		5780342D29D6975A005DE933 /* ShellOpenPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShellOpenPath.h; path = ../../OPHD/ShellOpenPath.h; sourceTree = "<group>"; };
 		5780342E29D6975A005DE933 /* ProductPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProductPool.cpp; path = ../../OPHD/ProductPool.cpp; sourceTree = "<group>"; };
-		5780342F29D6975A005DE933 /* RobotPoolHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RobotPoolHelper.h; path = ../../OPHD/RobotPoolHelper.h; sourceTree = "<group>"; };
 		5780343029D6975A005DE933 /* DirectionOffset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DirectionOffset.cpp; path = ../../OPHD/DirectionOffset.cpp; sourceTree = "<group>"; };
 		5780343129D6975A005DE933 /* IOHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOHelper.h; path = ../../OPHD/IOHelper.h; sourceTree = "<group>"; };
 		5780343229D6975A005DE933 /* XmlSerializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XmlSerializer.cpp; path = ../../OPHD/XmlSerializer.cpp; sourceTree = "<group>"; };
@@ -530,6 +535,9 @@
 		57BE5C7529D66F2A0021C4AB /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = ../../OPHD/UI/Core/Label.h; sourceTree = "<group>"; };
 		57BE5C7629D66F2A0021C4AB /* TextControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextControl.cpp; path = ../../OPHD/UI/Core/TextControl.cpp; sourceTree = "<group>"; };
 		57BE5C7729D66F2A0021C4AB /* UIContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIContainer.h; path = ../../OPHD/UI/Core/UIContainer.h; sourceTree = "<group>"; };
+		57E273E12A170B08004750D3 /* Robodigger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robodigger.cpp; path = ../../OPHD/MapObjects/Robots/Robodigger.cpp; sourceTree = "<group>"; };
+		57E273E22A170B08004750D3 /* Robodozer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robodozer.cpp; path = ../../OPHD/MapObjects/Robots/Robodozer.cpp; sourceTree = "<group>"; };
+		57E273E32A170B08004750D3 /* Robominer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Robominer.cpp; path = ../../OPHD/MapObjects/Robots/Robominer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -620,6 +628,9 @@
 		571EECB92A12F15700671F98 /* Robots */ = {
 			isa = PBXGroup;
 			children = (
+				57E273E12A170B08004750D3 /* Robodigger.cpp */,
+				57E273E22A170B08004750D3 /* Robodozer.cpp */,
+				57E273E32A170B08004750D3 /* Robominer.cpp */,
 				571EECEB2A12F17700671F98 /* Robodigger.h */,
 				571EECE92A12F17700671F98 /* Robodozer.h */,
 				571EECEA2A12F17700671F98 /* Robominer.h */,
@@ -682,7 +693,6 @@
 				5780344B29D6975A005DE933 /* resource.h */,
 				5780344C29D6975A005DE933 /* RobotPool.cpp */,
 				5780344429D6975A005DE933 /* RobotPool.h */,
-				5780342F29D6975A005DE933 /* RobotPoolHelper.h */,
 				5780343D29D6975A005DE933 /* ShellOpenPath.cpp */,
 				5780342D29D6975A005DE933 /* ShellOpenPath.h */,
 				5780344229D6975A005DE933 /* StorableResources.h */,
@@ -1040,6 +1050,8 @@
 		57BE5C4B29D66F0D0021C4AB /* Reports */ = {
 			isa = PBXGroup;
 			children = (
+				575D2F3129FEF6BA00A9769B /* ResearchReport.cpp */,
+				575D2F3229FEF6BA00A9769B /* ResearchReport.h */,
 				57BE5C4E29D66F1F0021C4AB /* FactoryReport.cpp */,
 				57BE5C5029D66F1F0021C4AB /* FactoryReport.h */,
 				57BE5C5229D66F1F0021C4AB /* MineReport.cpp */,
@@ -1171,14 +1183,17 @@
 				57BE5B7A29D66E7A0021C4AB /* micropather.cpp in Sources */,
 				578034B029D6978C005DE933 /* ProductListBox.cpp in Sources */,
 				57BE5C8329D66F2A0021C4AB /* CheckBox.cpp in Sources */,
+				57E273E42A170B08004750D3 /* Robodigger.cpp in Sources */,
 				57BE5B8029D66E8B0021C4AB /* PopulationTable.cpp in Sources */,
 				578034A429D6978C005DE933 /* MiniMap.cpp in Sources */,
+				575D2F3329FEF6BA00A9769B /* ResearchReport.cpp in Sources */,
 				5780338C29D679F6005DE933 /* Mixer.cpp in Sources */,
 				578033A229D67A03005DE933 /* RendererOpenGL.cpp in Sources */,
 				5780345229D6975B005DE933 /* PopulationPool.cpp in Sources */,
 				578033B329D67A10005DE933 /* Image.cpp in Sources */,
 				5780349B29D6978C005DE933 /* StructureListBox.cpp in Sources */,
 				578033DB29D67A27005DE933 /* XmlParser.cpp in Sources */,
+				57E273E62A170B08004750D3 /* Robominer.cpp in Sources */,
 				57BE5BAB29D66E9E0021C4AB /* MapViewStateTurn.cpp in Sources */,
 				5780345C29D6975B005DE933 /* RobotPool.cpp in Sources */,
 				57BE5BAC29D66E9E0021C4AB /* CrimeExecution.cpp in Sources */,
@@ -1298,6 +1313,7 @@
 				578033DE29D67A27005DE933 /* XmlBase.cpp in Sources */,
 				5780336B29D679A9005DE933 /* Dictionary.cpp in Sources */,
 				571EECE72A12F16700671F98 /* MineFacility.cpp in Sources */,
+				57E273E52A170B08004750D3 /* Robodozer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

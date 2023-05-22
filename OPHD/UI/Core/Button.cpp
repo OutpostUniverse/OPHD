@@ -63,6 +63,13 @@ Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Bu
 }
 
 
+Button::Button(std::string text, NAS2D::Vector<int> sz, ClickSignal::DelegateType clickHandler):
+	Button(text, clickHandler)
+{
+	size(sz);
+}
+
+
 Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler) :
 	mButtonSkin{buttonSkin}
 {

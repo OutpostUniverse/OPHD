@@ -7,6 +7,7 @@
 
 #include "../UI/Reports/FactoryReport.h"
 #include "../UI/Reports/MineReport.h"
+#include "../UI/Reports/ResearchReport.h"
 #include "../UI/Reports/WarehouseReport.h"
 
 #include <NAS2D/Utility.h>
@@ -184,17 +185,23 @@ void MainReportsUiState::initialize()
 	factory_report->size({size.x, size.y - 48});
 	factory_report->hide();
 
-	ReportInterface* warehouse_report = new WarehouseReport();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
-	warehouse_report->position({0, 48});
-	warehouse_report->size({size.x, size.y - 48});
-	warehouse_report->hide();
-
 	ReportInterface* mining_report = new MineReport();
 	Panels[NavigationPanel::PANEL_MINING].UiPanel = mining_report;
 	mining_report->position({0, 48});
 	mining_report->size({size.x, size.y - 48});
 	mining_report->hide();
+
+	ReportInterface* research_report = new ResearchReport();
+	Panels[NavigationPanel::PANEL_RESEARCH].UiPanel = research_report;
+	research_report->position({0, 48});
+	research_report->size({size.x, size.y - 48});
+	research_report->hide();
+
+	ReportInterface* warehouse_report = new WarehouseReport();
+	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
+	warehouse_report->position({0, 48});
+	warehouse_report->size({size.x, size.y - 48});
+	warehouse_report->hide();
 }
 
 
@@ -203,14 +210,14 @@ void MainReportsUiState::initialize()
  */
 void MainReportsUiState::_activate()
 {
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->refresh();
-
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->refresh();
-
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
+	for (auto& panel : Panels)
+	{
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->fillLists();
+			panel.UiPanel->refresh();
+		}
+	}
 }
 
 
@@ -221,13 +228,14 @@ void MainReportsUiState::_deactivate()
 {
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->hide(); }
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->hide();
+			panel.UiPanel->clearSelected();
+		}
+
 		panel.Selected(false);
 	}
-
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->clearSelected();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->clearSelected();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->clearSelected();
 }
 
 
@@ -337,6 +345,13 @@ void MainReportsUiState::selectMinePanel(Structure* structure)
 	Panels[NavigationPanel::PANEL_MINING].UiPanel->visible(true);
 	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
 	Panels[NavigationPanel::PANEL_MINING].UiPanel->selectStructure(structure);
+}
+
+
+void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
+{
+    auto researchPanel = Panels[NavigationPanel::PANEL_RESEARCH].UiPanel;
+    static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
 }
 
 

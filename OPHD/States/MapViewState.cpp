@@ -247,6 +247,8 @@ void MapViewState::initialize()
 
 	setupUiPositions(renderer.size());
 	resetPoliceOverlays();
+    
+    mMainReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
 
 	mFade.fadeIn(constants::FadeSpeed);
 
