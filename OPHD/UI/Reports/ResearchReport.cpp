@@ -5,6 +5,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/Rectangle.h>
 
+#include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
 
 #include <array>
@@ -49,7 +50,7 @@ namespace
 	Rectangle<int> IconArea{};
 
 	std::vector<CategoryPanel> CategoryPanels;
-};
+}
 
 
 ResearchReport::ResearchReport() :
@@ -79,9 +80,9 @@ ResearchReport::ResearchReport() :
 	const Point<int> buttonStartPosition{rect().x + MarginSize * 3 + CategoryIconSize, rect().y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
 
-	for (int i = 0; i < buttons.size(); ++i)
+	for (size_t i = 0; i < buttons.size(); ++i)
 	{
-		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * i, 0});
+		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
 	}
 }
 
@@ -108,9 +109,9 @@ void ResearchReport::refresh()
 	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
 	const int padding = ((rect().height - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
 	
-	for (int i = 0; i < CategoryPanels.size(); ++i)
+	for (size_t i = 0; i < CategoryPanels.size(); ++i)
 	{
-		const NAS2D::Point<int> point{rect().x + 10, rect().y + 10 + i * CategoryIconSize + i * padding};
+		const NAS2D::Point<int> point{rect().x + 10, rect().y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
 		CategoryPanels[i].rect = {point.x, point.y, CategoryIconSize, CategoryIconSize};
 	}
 	

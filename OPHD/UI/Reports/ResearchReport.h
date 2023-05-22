@@ -2,9 +2,6 @@
 
 #include "ReportInterface.h"
 
-#include "../ProductListBox.h"
-#include "../StructureListBox.h"
-
 #include "../../MapObjects/Structures/ResearchFacility.h"
 #include "../../Technology/TechnologyCatalog.h"
 #include "../../Technology/ResearchTracker.h"
@@ -79,11 +76,4 @@ private:
     
     TechnologyCatalog* mTechCatalog{ nullptr };
     ResearchTracker* mResearchTracker{ nullptr };
-
-	StructureListBox lstStructures;
-	ProductListBox lstProducts;
-
-	std::size_t mLabCount{};
-
-	ResearchFacility* mSelectedLab{ nullptr };
 };
