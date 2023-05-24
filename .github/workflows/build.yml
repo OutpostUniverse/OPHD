@@ -1,18 +1,9 @@
-name: MSBuild
+name: Build
 
 on: [push]
 
-env:
-  # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: .
-
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-  BUILD_CONFIGURATION: Release
-
 jobs:
-  build:
+  windows:
     strategy:
       fail-fast: false
       matrix:
@@ -20,6 +11,8 @@ jobs:
     runs-on: windows-latest
     env:
       PLATFORM: ${{ matrix.platform }}
+      BUILD_CONFIGURATION: Release
+      SOLUTION_FILE_PATH: .
 
     steps:
     - uses: actions/checkout@v3
@@ -38,11 +31,9 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
 
     - name: Install vcpkg dependencies
-      working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nas2d-core\InstallVcpkgDeps.bat
 
     - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
