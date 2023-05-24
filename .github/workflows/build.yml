@@ -31,11 +31,9 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
 
     - name: Install vcpkg dependencies
-      working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nas2d-core\InstallVcpkgDeps.bat
 
     - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
