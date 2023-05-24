@@ -103,7 +103,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
@@ -138,7 +138,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
@@ -175,7 +175,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
@@ -212,7 +212,7 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>SETLOCAL ENABLEDELAYEDEXPANSION
