@@ -7,7 +7,7 @@ CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 
 SRCDIR := OPHD/
 BUILDDIR := .build/
-OBJDIR := $(BUILDDIR)obj/
+OBJDIR := $(BUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
 EXE := ophd.exe
 NAS2DDIR := nas2d-core/
 NAS2DINCLUDEDIR := $(NAS2DDIR)
