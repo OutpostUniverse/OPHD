@@ -43,11 +43,8 @@ jobs:
       uses: actions/cache@v3
       id: cache
       with:
-        path: C:\vcpkg\installed\
-        key: ${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('nas2d-core\InstallVcpkgDeps.bat') }}
-
-    - name: Install vcpkg dependencies
-      run: nas2d-core\InstallVcpkgDeps.bat
+        path: vcpkg_installed
+        key: ${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
     - name: Build
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
