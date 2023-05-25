@@ -112,18 +112,6 @@
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
-
-IF NOT "$(VcpkgInstalledDir)" == "" (
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
-
-  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
-)</Command>
-      <Message>Copy OGG dependencies if vckpg present</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -147,18 +135,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
-
-IF NOT "$(VcpkgInstalledDir)" == "" (
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
-
-  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
-)</Command>
-      <Message>Copy OGG dependencies if vckpg present</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -184,18 +160,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
-
-IF NOT "$(VcpkgInstalledDir)" == "" (
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
-
-  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
-)</Command>
-      <Message>Copy OGG dependencies if vckpg present</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -221,18 +185,6 @@ IF NOT "$(VcpkgInstalledDir)" == "" (
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalLibraryDirectories>$(SolutionDir)nas2d-core\.build\$(Configuration)_$(PlatformShortName)_NAS2D;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>SETLOCAL ENABLEDELAYEDEXPANSION
-
-IF NOT "$(VcpkgInstalledDir)" == "" (
-  SET sourceDir="$(VcpkgInstalledDir)$(VcpkgTriplet)\$(VcpkgConfigSubdir)bin\"
-
-  xcopy /y /d "!sourceDir!ogg.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbis.dll" "$(TargetDir)"
-  xcopy /y /d "!sourceDir!vorbisfile.dll" "$(TargetDir)"
-)</Command>
-      <Message>Copy OGG dependencies if vckpg present</Message>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
