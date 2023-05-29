@@ -165,8 +165,7 @@ void StringTable::computeRelativeCellPositions()
 	}
 	else
 	{
-		mScreenRect.width = mCells.back().textOffset.x + columnWidths.back();
-		mScreenRect.height = mCells.back().textOffset.y + rowHeights.back();
+		mScreenRect.size(mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()});
 	}
 }
 
