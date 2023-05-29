@@ -145,7 +145,7 @@ void NotificationArea::update()
 		{
 			const auto textPadding = Vector<int>{4, 2};
 			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
-			const auto briefPosition = rect.startPoint() + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.height - textAreaSize.y) / 2};
+			const auto briefPosition = rect.startPoint() + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.size().y - textAreaSize.y) / 2};
 			const auto notificationBriefRect = NAS2D::Rectangle<int>::Create(briefPosition, textAreaSize);
 			const auto textPosition = briefPosition + textPadding;
 
