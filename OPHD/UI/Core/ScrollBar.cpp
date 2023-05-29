@@ -289,7 +289,7 @@ void ScrollBar::onLayoutChange()
 {
 	if (mScrollBarType == ScrollBarType::Vertical)
 	{
-		mButtonDecreaseRect = {{mRect.position.x, mRect.position.y}, {mRect.size.x, mRect.size.x}};
+		mButtonDecreaseRect = {mRect.position, {mRect.size.x, mRect.size.x}};
 		mButtonIncreaseRect = {{mRect.position.x, mRect.position.y + mRect.size.y - mRect.size.x}, {mRect.size.x, mRect.size.x}};
 		mTrackRect = {{mRect.position.x, mRect.position.y + mRect.size.x}, {mRect.size.x, mRect.size.y - 2 * mRect.size.x}};
 		const auto newSize = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
@@ -298,7 +298,7 @@ void ScrollBar::onLayoutChange()
 	}
 	else
 	{
-		mButtonDecreaseRect = {{mRect.position.x, mRect.position.y}, {mRect.size.y, mRect.size.y}};
+		mButtonDecreaseRect = {mRect.position, {mRect.size.y, mRect.size.y}};
 		mButtonIncreaseRect = {{mRect.position.x + mRect.size.x - mRect.size.y, mRect.position.y}, {mRect.size.y, mRect.size.y}};
 		mTrackRect = {{mRect.position.x + mRect.size.y, mRect.position.y}, {mRect.size.x - 2 * mRect.size.y, mRect.size.y}};
 		const auto newSize = std::min(mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1), mTrackRect.size.x);
