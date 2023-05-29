@@ -22,7 +22,7 @@ StructureInspector::StructureInspector() :
 	size({350, 250});
 
 	btnClose.size({50, 20});
-	add(btnClose, {rect().width - btnClose.rect().width - 5, rect().height - btnClose.rect().height - 5,});
+	add(btnClose, {rect().size().x - btnClose.rect().size().x - 5, rect().size().y - btnClose.rect().size().y - 5,});
 }
 
 
@@ -34,10 +34,10 @@ void StructureInspector::structure(Structure* structure)
 
 	auto stringTable = buildStringTable();
 
-	auto windowWidth = stringTable.screenRect().width + 10;
-	size({windowWidth < 350 ? 350 : windowWidth, rect().height});
+	auto windowWidth = stringTable.screenRect().size().x + 10;
+	size({windowWidth < 350 ? 350 : windowWidth, rect().size().y});
 
-	btnClose.position({positionX() + rect().width - 55, btnClose.positionY()});
+	btnClose.position({positionX() + rect().size().x - 55, btnClose.positionY()});
 }
 
 
