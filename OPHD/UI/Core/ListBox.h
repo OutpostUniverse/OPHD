@@ -168,7 +168,7 @@ public:
 		// display actuals values that are meant to be
 		const auto lineHeight = mContext.itemHeight();
 		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
-		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.height) + (lineHeight - 1)) / lineHeight;
+		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.size().y) + (lineHeight - 1)) / lineHeight;
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 		auto itemDrawRect = mClientRect;
 		itemDrawRect.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
@@ -211,7 +211,7 @@ protected:
 			return;
 		}
 
-		const auto dy = position.y - mClientRect.y;
+		const auto dy = position.y - mClientRect.startPoint().y;
 		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
@@ -248,11 +248,11 @@ private:
 		mClientRect = mRect.inset(1);
 
 		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
-		if (neededDisplaySize > static_cast<std::size_t>(mRect.height))
+		if (neededDisplaySize > static_cast<std::size_t>(mRect.size().y))
 		{
-			mScrollBar.position({rect().x + mRect.width - 14, mRect.y});
-			mScrollBar.size({14, mRect.height});
-			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.height));
+			mScrollBar.position({rect().startPoint().x + mRect.size().x - 14, mRect.startPoint().y});
+			mScrollBar.size({14, mRect.size().y});
+			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.size().y));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
 			mClientRect.width -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);

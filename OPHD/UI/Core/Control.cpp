@@ -28,7 +28,7 @@ void Control::position(NAS2D::Point<int> pos)
  */
 int Control::positionX() const
 {
-	return mRect.x;
+	return mRect.startPoint().x;
 }
 
 
@@ -37,7 +37,7 @@ int Control::positionX() const
  */
 int Control::positionY() const
 {
-	return mRect.y;
+	return mRect.startPoint().y;
 }
 
 
@@ -71,8 +71,7 @@ void Control::size(int newSize)
  */
 void Control::width(int w)
 {
-	mRect.width = w;
-	onResize();
+	size({w, size().y});
 }
 
 
@@ -84,8 +83,7 @@ void Control::width(int w)
  */
 void Control::height(int h)
 {
-	mRect.height = h;
-	onResize();
+	size({size().x, h});
 }
 
 

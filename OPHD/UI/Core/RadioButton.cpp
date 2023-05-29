@@ -67,7 +67,7 @@ void RadioButtonGroup::RadioButton::draw() const
  */
 void RadioButtonGroup::RadioButton::onResize()
 {
-	mRect.size({std::max(mRect.width, 13), 13});
+	mRect.size({std::max(mRect.size().x, 13), 13});
 }
 
 

@@ -47,7 +47,7 @@ void Window::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<i
 
 	UIContainer::onMouseDown(button, position);
 
-	const auto titleBarBounds = NAS2D::Rectangle{mRect.x, mRect.y, mRect.width, sWindowTitleBarHeight};
+	const auto titleBarBounds = NAS2D::Rectangle{mRect.startPoint().x, mRect.startPoint().y, mRect.size().x, sWindowTitleBarHeight};
 	mMouseDrag = (button == NAS2D::EventHandler::MouseButton::Left && titleBarBounds.contains(position));
 }
 
@@ -95,12 +95,12 @@ void Window::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mTitleBarLeft, mRect.startPoint());
-	renderer.drawImageRepeated(mTitleBarCenter, NAS2D::Rectangle{mRect.x + 4, mRect.y, mRect.width - 8, sWindowTitleBarHeight});
-	renderer.drawImage(mTitleBarRight, NAS2D::Point{mRect.x + mRect.width - 4, mRect.y});
+	renderer.drawImageRepeated(mTitleBarCenter, NAS2D::Rectangle{mRect.startPoint().x + 4, mRect.startPoint().y, mRect.size().x - 8, sWindowTitleBarHeight});
+	renderer.drawImage(mTitleBarRight, NAS2D::Point{mRect.startPoint().x + mRect.size().x - 4, mRect.startPoint().y});
 
-	mBody.draw(renderer, NAS2D::Rectangle{mRect.x, mRect.y + 20, mRect.width, mRect.height - 20});
+	mBody.draw(renderer, NAS2D::Rectangle{mRect.startPoint().x, mRect.startPoint().y + 20, mRect.size().x, mRect.size().y - 20});
 
-	renderer.drawText(mTitleFont, title(), NAS2D::Point{mRect.x + 5, mRect.y + 2}, NAS2D::Color::White);
+	renderer.drawText(mTitleFont, title(), NAS2D::Point{mRect.startPoint().x + 5, mRect.startPoint().y + 2}, NAS2D::Color::White);
 }
 
 
