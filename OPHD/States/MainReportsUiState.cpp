@@ -85,7 +85,7 @@ static void setPanelRects(int width)
 	Panels[NavigationPanel::PANEL_EXIT].Rect = {width - 48, 0, 48, 48};
 	Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
 
-	int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.width;
+	int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.size().x;
 	const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 	auto panelPosition = NAS2D::Point{0, 0};
