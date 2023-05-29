@@ -49,7 +49,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 		drawProgressBar(
 			f->productionTurnsCompleted(),
 			f->productionTurnsToComplete(),
-			NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}),
+			NAS2D::Rectangle{rect.crossXPoint() + NAS2D::Vector{-112, 30}, {105, 11}},
 			2
 		);
 	}

@@ -65,7 +65,7 @@ void ResourceBreakdownPanel::update()
 		const auto valueString = std::to_string(value);
 		renderer.drawText(mFont, valueString, position + NAS2D::Vector{195 - mFont.width(valueString), 0}, NAS2D::Color::White);
 		const auto& [textColor, iconStartPoint] = trend[trendIndex(value, oldValue)];
-		const auto changeIconImageRect = NAS2D::Rectangle<int>::Create(iconStartPoint, NAS2D::Vector{8, 8});
+		const auto changeIconImageRect = NAS2D::Rectangle{iconStartPoint, {8, 8}};
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
 		renderer.drawText(mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, textColor);
 		position.y += 18;

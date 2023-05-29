@@ -64,7 +64,7 @@ void MiniMap::draw() const
 		const auto ccOffsetPosition = ccPosition.xy + miniMapOffset;
 		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{{166, 226}, {30, 30}};
 		renderer.drawSubImage(mUiIcons, ccOffsetPosition - ccCommRangeImageRect.size / 2, ccCommRangeImageRect);
-		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector{1, 1}, NAS2D::Vector{3, 3}), NAS2D::Color::White);
+		renderer.drawBoxFilled(NAS2D::Rectangle{ccOffsetPosition - NAS2D::Vector{1, 1}, {3, 3}}, NAS2D::Color::White);
 	}
 
 	for (auto commTower : structureManager.getStructures<CommTower>())

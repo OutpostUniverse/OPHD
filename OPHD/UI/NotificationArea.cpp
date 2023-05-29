@@ -86,7 +86,7 @@ void NotificationArea::clear()
 NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
 {
 	auto rectPosition = position() + NAS2D::Vector{IconPadding.x, size().y - IconPaddedSize.y * static_cast<int>(index + 1)};
-	return NAS2D::Rectangle<int>::Create(rectPosition, IconSize);
+	return NAS2D::Rectangle{rectPosition, IconSize};
 }
 
 
@@ -146,7 +146,7 @@ void NotificationArea::update()
 			const auto textPadding = Vector<int>{4, 2};
 			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
 			const auto briefPosition = rect.position + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.size.y - textAreaSize.y) / 2};
-			const auto notificationBriefRect = NAS2D::Rectangle<int>::Create(briefPosition, textAreaSize);
+			const auto notificationBriefRect = NAS2D::Rectangle{briefPosition, textAreaSize};
 			const auto textPosition = briefPosition + textPadding;
 
 			renderer.drawBoxFilled(notificationBriefRect, Color::DarkGray);
