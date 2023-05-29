@@ -60,7 +60,7 @@ IconGrid::~IconGrid()
  */
 void IconGrid::updateGrid()
 {
-	mGridSize = (mRect.size() - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
+	mGridSize = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
 }
 
 
@@ -354,7 +354,7 @@ void IconGrid::update()
 	{
 		const auto position = indexToGridPosition(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
-		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle{mIconItemList[i].pos.x, mIconItemList[i].pos.y, mIconSize, mIconSize}, highlightColor);
+		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, {mIconSize, mIconSize}}, highlightColor);
 	}
 
 	if (mSelectedIndex != constants::NoSelection)
@@ -372,7 +372,7 @@ void IconGrid::update()
 		if (mShowTooltip)
 		{
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
-			const auto tooltipRect = NAS2D::Rectangle{position.x, position.y - 15, mFont.width(highlightedName) + 4, mFont.height()};
+			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - 15}, {mFont.width(highlightedName) + 4, mFont.height()}};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
 			renderer.drawText(mFont, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);

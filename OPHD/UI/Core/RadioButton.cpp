@@ -54,8 +54,8 @@ void RadioButtonGroup::RadioButton::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto unselectedIconRect = NAS2D::Rectangle{0, 0, 13, 13};
-	const auto selectedIconRect = NAS2D::Rectangle{13, 0, 13, 13};
+	const auto unselectedIconRect = NAS2D::Rectangle<int>{{0, 0}, {13, 13}};
+	const auto selectedIconRect = NAS2D::Rectangle<int>{{13, 0}, {13, 13}};
 
 	renderer.drawSubImage(mSkin, position(), (mChecked ? selectedIconRect : unselectedIconRect));
 	renderer.drawText(mFont, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
@@ -67,7 +67,7 @@ void RadioButtonGroup::RadioButton::draw() const
  */
 void RadioButtonGroup::RadioButton::onResize()
 {
-	mRect.size({std::max(mRect.size().x, 13), 13});
+	mRect.size = {std::max(mRect.size.x, 13), 13};
 }
 
 

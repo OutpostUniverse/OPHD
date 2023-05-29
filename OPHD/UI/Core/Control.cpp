@@ -52,7 +52,7 @@ Control::OnMoveSignal::Source& Control::moved()
 
 void Control::size(NAS2D::Vector<int> newSize)
 {
-	mRect.size(newSize);
+	mRect.size = newSize;
 	onResize();
 }
 

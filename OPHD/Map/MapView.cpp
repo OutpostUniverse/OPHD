@@ -22,7 +22,7 @@ Tile& MapView::getTile(NAS2D::Point<int> position)
 
 NAS2D::Rectangle<int> MapView::viewTileRect() const
 {
-	return {mOriginTilePosition.xy.x, mOriginTilePosition.xy.y, mEdgeLength, mEdgeLength};
+	return {mOriginTilePosition.xy, {mEdgeLength, mEdgeLength}};
 }
 
 

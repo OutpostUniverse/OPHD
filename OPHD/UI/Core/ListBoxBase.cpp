@@ -67,13 +67,13 @@ void ListBoxBase::onVisibilityChange(bool)
  */
 void ListBoxBase::updateScrollLayout()
 {
-	mItemWidth = mRect.size().x;
+	mItemWidth = mRect.size.x;
 
-	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.size().y)
+	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.size.y)
 	{
-		mScrollBar.position({rect().startPoint().x + mRect.size().x - 14, mRect.startPoint().y});
-		mScrollBar.size({14, mRect.size().y});
-		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.size().y));
+		mScrollBar.position({rect().startPoint().x + mRect.size.x - 14, mRect.startPoint().y});
+		mScrollBar.size({14, mRect.size.y});
+		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.size.y));
 		mScrollOffsetInPixels = static_cast<unsigned int>(mScrollBar.value());
 		mItemWidth -= mScrollBar.size().x;
 		mScrollBar.visible(true);
@@ -262,7 +262,7 @@ void ListBoxBase::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// CONTROL EXTENTS
-	const auto backgroundRect = NAS2D::Rectangle{mRect.startPoint().x, mRect.startPoint().y, mItemWidth, mRect.size().y};
+	const auto backgroundRect = NAS2D::Rectangle<int>{{mRect.startPoint().x, mRect.startPoint().y}, {mItemWidth, mRect.size.y}};
 	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
 	renderer.drawBox(backgroundRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
@@ -270,7 +270,7 @@ void ListBoxBase::draw() const
 
 	// MOUSE HIGHLIGHT
 	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mScrollOffsetInPixels);
-	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
+	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{positionX(), highlight_y}, {mItemWidth, mItemHeight}}, NAS2D::Color{0, 185, 0, 50});
 
 	renderer.clipRectClear();
 }

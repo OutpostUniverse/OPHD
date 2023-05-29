@@ -27,10 +27,10 @@ void RobotDeploymentSummary::draw() const
 	auto position = mRect.startPoint();
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
-	const auto minerImageRect = NAS2D::Rectangle{231, 18, 25, 25};
-	const auto dozerImageRect = NAS2D::Rectangle{206, 18, 25, 25};
-	const auto diggerImageRect = NAS2D::Rectangle{181, 18, 25, 25};
-	const auto robotSummaryImageRect = NAS2D::Rectangle{231, 43, 25, 25};
+	const auto minerImageRect = NAS2D::Rectangle<int>{{231, 18}, {25, 25}};
+	const auto dozerImageRect = NAS2D::Rectangle<int>{{206, 18}, {25, 25}};
+	const auto diggerImageRect = NAS2D::Rectangle<int>{{181, 18}, {25, 25}};
+	const auto robotSummaryImageRect = NAS2D::Rectangle<int>{{231, 43}, {25, 25}};
 
 	const std::array icons{
 		std::tuple{robotSummaryImageRect, mRobotPool.currentControlCount(), mRobotPool.robotControlMax()},

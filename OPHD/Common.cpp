@@ -158,19 +158,19 @@ const std::array<std::string, 4> ResourceNamesOre =
 
 const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsRefined =
 {
-	NAS2D::Rectangle{64, 16, 16, 16},
-	NAS2D::Rectangle{96, 16, 16, 16},
-	NAS2D::Rectangle{80, 16, 16, 16},
-	NAS2D::Rectangle{112, 16, 16, 16},
+	NAS2D::Rectangle<int>{{64, 16}, {16, 16}},
+	NAS2D::Rectangle<int>{{96, 16}, {16, 16}},
+	NAS2D::Rectangle<int>{{80, 16}, {16, 16}},
+	NAS2D::Rectangle<int>{{112, 16}, {16, 16}},
 };
 
 
 const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre =
 {
-	NAS2D::Rectangle{64, 0, 16, 16},
-	NAS2D::Rectangle{96, 0, 16, 16},
-	NAS2D::Rectangle{80, 0, 16, 16},
-	NAS2D::Rectangle{112, 0, 16, 16},
+	NAS2D::Rectangle<int>{{64, 0}, {16, 16}},
+	NAS2D::Rectangle<int>{{96, 0}, {16, 16}},
+	NAS2D::Rectangle<int>{{80, 0}, {16, 16}},
+	NAS2D::Rectangle<int>{{112, 0}, {16, 16}},
 };
 
 
@@ -291,7 +291,7 @@ void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding
 	if (max > 0)
 	{
 		auto innerRect = rect.inset(padding);
-		innerRect.width = innerRect.width * clippedValue / max;
+		innerRect.size.x *= clippedValue / max;
 		renderer.drawBoxFilled(innerRect, NAS2D::Color{0, 100, 0});
 	}
 }

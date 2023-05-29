@@ -101,7 +101,7 @@ void TextField::maxCharacters(std::size_t count)
 
 int TextField::textAreaWidth() const
 {
-	return mRect.size().x - fieldPadding * 2;
+	return mRect.size.x - fieldPadding * 2;
 }
 
 
@@ -262,7 +262,7 @@ void TextField::drawCursor() const
 		{
 			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 			const auto startPosition = NAS2D::Point{mCursorX, mRect.startPoint().y + fieldPadding};
-			const auto endPosition = NAS2D::Point{mCursorX, mRect.startPoint().y + mRect.size().y - fieldPadding - 1};
+			const auto endPosition = NAS2D::Point{mCursorX, mRect.startPoint().y + mRect.size.y - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}

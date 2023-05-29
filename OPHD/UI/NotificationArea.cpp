@@ -31,10 +31,10 @@ namespace
 
 	const std::map<NotificationArea::NotificationType, IconDrawParameters> NotificationIconDrawParameters
 	{
-		{NotificationArea::NotificationType::Critical, {{64, 64, 32, 32}, Color::Red}},
-		{NotificationArea::NotificationType::Information, {{128, 64, 32, 32}, Color::Blue}},
-		{NotificationArea::NotificationType::Success, {{32, 64, 32, 32}, Color::Green}},
-		{NotificationArea::NotificationType::Warning, {{96, 64, 32, 32}, {255, 165, 0}}}
+		{NotificationArea::NotificationType::Critical, {{{64, 64}, {32, 32}}, Color::Red}},
+		{NotificationArea::NotificationType::Information, {{{128, 64}, {32, 32}}, Color::Blue}},
+		{NotificationArea::NotificationType::Success, {{{32, 64}, {32, 32}}, Color::Green}},
+		{NotificationArea::NotificationType::Warning, {{{96, 64}, {32, 32}}, {255, 165, 0}}}
 	};
 }
 
@@ -43,7 +43,7 @@ void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::Notifica
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto& iconDrawParameters = NotificationIconDrawParameters.at(type);
-	renderer.drawSubImage(icons, position, {160, 64, 32, 32}, iconDrawParameters.color);
+	renderer.drawSubImage(icons, position, {{160, 64}, {32, 32}}, iconDrawParameters.color);
 	renderer.drawSubImage(icons, position, iconDrawParameters.iconRect, Color::Normal);
 }
 
@@ -145,7 +145,7 @@ void NotificationArea::update()
 		{
 			const auto textPadding = Vector<int>{4, 2};
 			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
-			const auto briefPosition = rect.startPoint() + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.size().y - textAreaSize.y) / 2};
+			const auto briefPosition = rect.startPoint() + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.size.y - textAreaSize.y) / 2};
 			const auto notificationBriefRect = NAS2D::Rectangle<int>::Create(briefPosition, textAreaSize);
 			const auto textPosition = briefPosition + textPadding;
 

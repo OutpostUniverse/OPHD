@@ -215,8 +215,8 @@ void WarehouseReport::onResize()
 {
 	Control::onResize();
 
-	lstStructures.size({(mRect.size().x / 2) - 20, mRect.size().y - 126});
-	lstProducts.size({(mRect.size().x / 2) - 20, mRect.size().y - 184});
+	lstStructures.size({(mRect.size.x / 2) - 20, mRect.size.y - 126});
+	lstProducts.size({(mRect.size.x / 2) - 20, mRect.size.y - 184});
 	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.positionY()});
 
 	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, positionY() + 35});
@@ -308,16 +308,16 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
 	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
-	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size().x / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
-	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size().x / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
+	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
+	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
-	const auto capacityBarWidth = mRect.size().x / 2 - 30 - capacityUsedTextWidth;
+	const auto capacityBarWidth = mRect.size.x / 2 - 30 - capacityUsedTextWidth;
 	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
 	drawProgressBar(
 		warehouseCapacityUsed,
 		warehouseCapacityTotal,
-		{capacityBarPositionX, positionY() + 84, capacityBarWidth, 20}
+		{{capacityBarPositionX, positionY() + 84}, {capacityBarWidth, 20}}
 	);
 }
 
@@ -340,7 +340,7 @@ void WarehouseReport::update()
 	// Left Panel
 	drawLeftPanel(renderer);
 	const auto positionX = renderer.center().x;
-	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.size().y - 10}, NAS2D::Color{0, 185, 0});
+	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.size.y - 10}, NAS2D::Color{0, 185, 0});
 	drawRightPanel(renderer);
 
 	UIContainer::update();

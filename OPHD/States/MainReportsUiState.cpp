@@ -82,10 +82,10 @@ static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels; /**< Array of UI 
  */
 static void setPanelRects(int width)
 {
-	Panels[NavigationPanel::PANEL_EXIT].Rect = {width - 48, 0, 48, 48};
+	Panels[NavigationPanel::PANEL_EXIT].Rect = {{width - 48, 0}, {48, 48}};
 	Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
 
-	int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.width;
+	int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.size.x;
 	const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 	auto panelPosition = NAS2D::Point{0, 0};
@@ -253,7 +253,7 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 {
 	if (!active()) { return; }
 
-	if (!NAS2D::Rectangle{0, 0, NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}.contains(position)) { return; } // ignore clicks in the UI area.
+	if (!NAS2D::Rectangle<int>{{0, 0}, {NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}}.contains(position)) { return; } // ignore clicks in the UI area.
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
@@ -387,7 +387,7 @@ NAS2D::State* MainReportsUiState::update()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.clearScreen(NAS2D::Color{35, 35, 35});
-	renderer.drawBoxFilled(NAS2D::Rectangle{0, 0, renderer.size().x, 48}, NAS2D::Color::Black);
+	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, 48}}, NAS2D::Color::Black);
 
 	for (Panel& panel : Panels) { drawPanel(renderer, panel); }
 
