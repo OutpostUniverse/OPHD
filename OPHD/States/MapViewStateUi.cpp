@@ -110,7 +110,7 @@ void MapViewState::initUi()
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
-	mBottomUiRect = {0, size.y - constants::BottomUiHeight, size.x, constants::BottomUiHeight};
+	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
 
 	// BUTTONS
 	mBtnTurns.image("ui/icons/turns.png");
@@ -183,16 +183,16 @@ void MapViewState::initUi()
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
 	// Bottom UI Area
-	mBottomUiRect = {0, size.y - constants::BottomUiHeight, size.x, constants::BottomUiHeight};
+	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
 
 	// Menu / System Icon
 	mTooltipSystemButton.position({size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0});
 	mTooltipCurrentTurns.position({size.x - 80 , 0});
 
-	mRobotDeploymentSummary.area({8, size.y - constants::BottomUiHeight - 8 - 100, 200, 100});
+	mRobotDeploymentSummary.area({{8, size.y - constants::BottomUiHeight - 8 - 100}, {200, 100}});
 
 	// Mini Map
-	mMiniMapRect = {size.x - 300 - constants::Margin, mBottomUiRect.startPoint().y + constants::Margin, 300, 150};
+	mMiniMapRect = {{size.x - 300 - constants::Margin, mBottomUiRect.startPoint().y + constants::Margin}, {300, 150}};
 	mMiniMap->area(mMiniMapRect);
 
 	const auto navControlEndPoint = NAS2D::Point{size.x, mBottomUiRect.startPoint().y};

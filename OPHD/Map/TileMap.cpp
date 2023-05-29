@@ -126,7 +126,7 @@ void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 
 bool TileMap::isValidPosition(const MapCoordinate& position) const
 {
-	return NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
+	return NAS2D::Rectangle{{0, 0}, mSizeInTiles}.contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
 }
 
 
@@ -280,7 +280,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 	for (const auto& offset : DirectionClockwise4)
 	{
 		const auto position = tilePosition + offset;
-		if (!NAS2D::Rectangle{0, 0, mSizeInTiles.x, mSizeInTiles.y}.contains(position))
+		if (!NAS2D::Rectangle{{0, 0}, mSizeInTiles}.contains(position))
 		{
 			continue;
 		}

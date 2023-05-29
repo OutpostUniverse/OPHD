@@ -71,7 +71,7 @@ namespace
 
 	NAS2D::Rectangle<int> buildTileRectFromCenter(const NAS2D::Point<int>& centerPoint, int radius)
 	{
-		const auto mapRect = NAS2D::Rectangle{0, 0, 299, 149};
+		const auto mapRect = NAS2D::Rectangle<int>{{0, 0}, {299, 149}};
 		const auto offset = NAS2D::Vector{radius, radius};
 		const auto areaStartPoint = clampPointToRect(centerPoint - offset, mapRect);
 		const auto areaEndPoint = clampPointToRect(centerPoint + offset + NAS2D::Vector{1, 1}, mapRect);

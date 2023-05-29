@@ -86,7 +86,7 @@ void ComboBox::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point
 		lstItems.visible(!lstItems.visible());
 		if (lstItems.visible())
 		{
-			mRect.height = mRect.size().y + lstItems.size().y;
+			mRect.rectSize.y += lstItems.size().y;
 		}
 		else
 		{

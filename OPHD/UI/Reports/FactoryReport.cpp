@@ -257,10 +257,8 @@ void FactoryReport::onResize()
 	lstFactoryList.size({comboEndPoint.x - 10, mRect.size().y - 74});
 
 	detailPanelRect = {
-		comboEndPoint.x + 20,
-		rect().startPoint().y + 10,
-		rect().size().x - comboEndPoint.x - 30,
-		rect().startPoint().y + mRect.size().y - 69
+		{ comboEndPoint.x + 20, rect().startPoint().y + 10},
+		{rect().size().x - comboEndPoint.x - 30, rect().startPoint().y + mRect.size().y - 69}
 	};
 
 	int position_x = mRect.size().x - 150;
@@ -504,7 +502,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 		drawProgressBar(
 			selectedFactory->productionTurnsCompleted(),
 			selectedFactory->productionTurnsToComplete(),
-			{position_x, detailPanelRect.startPoint().y + 413, mRect.size().x - position_x - 10, 30}
+			{{position_x, detailPanelRect.startPoint().y + 413}, {mRect.size().x - position_x - 10, 30}}
 		);
 	}
 

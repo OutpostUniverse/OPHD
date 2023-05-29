@@ -317,7 +317,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 	drawProgressBar(
 		warehouseCapacityUsed,
 		warehouseCapacityTotal,
-		{capacityBarPositionX, positionY() + 84, capacityBarWidth, 20}
+		{{capacityBarPositionX, positionY() + 84}, {capacityBarWidth, 20}}
 	);
 }
 

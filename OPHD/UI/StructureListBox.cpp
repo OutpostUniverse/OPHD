@@ -122,10 +122,10 @@ void StructureListBox::update()
 	{
 		drawItem(renderer, *static_cast<StructureListBoxItem*>(mItems[i]),
 			{
-				positionX(),
-				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset()),
-				static_cast<int>(item_width()),
-				LIST_ITEM_HEIGHT
+				{positionX(),
+				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset())},
+				{static_cast<int>(item_width()),
+				LIST_ITEM_HEIGHT}
 			},
 			i == selectedIndex());
 	}

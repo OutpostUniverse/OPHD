@@ -46,13 +46,13 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 	const auto position = mRect.startPoint();
 	const auto navIconSpacing = 32 + constants::MarginTight;
 	// Top line
-	mMoveWestIconRect = {position.x, position.y + 8, 32, 16};
-	mMoveNorthIconRect = {position.x + navIconSpacing, position.y + 8, 32, 16};
-	mMoveUpIconRect = {position.x + 2 * navIconSpacing, position.y, 32, 32};
+	mMoveWestIconRect = {{position.x, position.y + 8}, {32, 16}};
+	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, {32, 16}};
+	mMoveUpIconRect = {{position.x + 2 * navIconSpacing, position.y}, {32, 32}};
 	// Bottom line
-	mMoveSouthIconRect = {position.x, position.y + navIconSpacing + 8, 32, 16};
-	mMoveEastIconRect = {position.x + navIconSpacing, position.y + navIconSpacing + 8, 32, 16};
-	mMoveDownIconRect = {position.x + 2 * navIconSpacing, position.y + navIconSpacing, 32, 32};
+	mMoveSouthIconRect = {{position.x, position.y + navIconSpacing + 8}, {32, 16}};
+	mMoveEastIconRect = {{position.x + navIconSpacing, position.y + navIconSpacing + 8}, {32, 16}};
+	mMoveDownIconRect = {{position.x + 2 * navIconSpacing, position.y + navIconSpacing}, {32, 32}};
 }
 
 
@@ -87,12 +87,12 @@ void NavControl::draw() const
 
 	const std::array buttonDrawRects
 	{
-		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{64, 128, 32, 32}},
-		std::tuple{mMoveUpIconRect, NAS2D::Rectangle{96, 128, 32, 32}},
-		std::tuple{mMoveEastIconRect, NAS2D::Rectangle{32, 128, 32, 16}},
-		std::tuple{mMoveWestIconRect, NAS2D::Rectangle{32, 144, 32, 16}},
-		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle{0, 128, 32, 16}},
-		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle{0, 144, 32, 16}},
+		std::tuple{mMoveDownIconRect, NAS2D::Rectangle<int>{{64, 128}, {32, 32}}},
+		std::tuple{mMoveUpIconRect, NAS2D::Rectangle<int>{{96, 128}, {32, 32}}},
+		std::tuple{mMoveEastIconRect, NAS2D::Rectangle<int>{{32, 128}, {32, 16}}},
+		std::tuple{mMoveWestIconRect, NAS2D::Rectangle<int>{{32, 144}, {32, 16}}},
+		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle<int>{{0, 128}, {32, 16}}},
+		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle<int>{{0, 144}, {32, 16}}},
 	};
 	for (const auto& [currentIconRect, subImageRect] : buttonDrawRects)
 	{

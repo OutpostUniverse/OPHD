@@ -45,10 +45,10 @@ RobotInspector::RobotInspector() :
 	const int contentWidth = imageWidth + buttonSize.x;
 
 	mContentRect = {
-		imageWidth,
-		sWindowTitleBarHeight + constants::Margin,
-		std::max(mainFontBold.width("Age") + mainFont.width("    9999"), buttonSize.x),
-		mainFont.height() + constants::Margin
+		{imageWidth,
+		sWindowTitleBarHeight + constants::Margin},
+		{std::max(mainFontBold.width("Age") + mainFont.width("    9999"), buttonSize.x),
+		mainFont.height() + constants::Margin}
 	};
 
 	auto buttonPosition = Vector{imageWidth,  mContentRect.startPoint().y + mContentRect.size().y + constants::Margin};

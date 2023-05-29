@@ -40,7 +40,7 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
 	renderer.drawBox(rect.inset(2), structureColor);
 
-	const auto subImageRect = NAS2D::Rectangle{item.icon_slice.x, item.icon_slice.y, 46, 46};
+	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
 	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
 	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.startPoint() + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 	if (productType != ProductType::PRODUCT_NONE)
@@ -132,10 +132,10 @@ void FactoryListBox::update()
 	{
 		drawItem(renderer, *static_cast<FactoryListBoxItem*>(mItems[i]),
 			{
-				positionX(),
-				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset()),
-				static_cast<int>(item_width()),
-				LIST_ITEM_HEIGHT
+				{positionX(),
+				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset())},
+				{static_cast<int>(item_width()),
+				LIST_ITEM_HEIGHT}
 			},
 			i == selectedIndex());
 	}

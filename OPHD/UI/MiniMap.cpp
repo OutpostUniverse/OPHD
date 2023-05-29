@@ -62,7 +62,7 @@ void MiniMap::draw() const
 	for (const auto& ccPosition : structureManager.operationalCommandCenterPositions())
 	{
 		const auto ccOffsetPosition = ccPosition.xy + miniMapOffset;
-		const auto ccCommRangeImageRect = NAS2D::Rectangle{166, 226, 30, 30};
+		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{{166, 226}, {30, 30}};
 		renderer.drawSubImage(mUiIcons, ccOffsetPosition - ccCommRangeImageRect.size() / 2, ccCommRangeImageRect);
 		renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create(ccOffsetPosition - NAS2D::Vector{1, 1}, NAS2D::Vector{3, 3}), NAS2D::Color::White);
 	}
@@ -72,7 +72,7 @@ void MiniMap::draw() const
 		if (commTower->operational())
 		{
 			const auto commTowerPosition = structureManager.tileFromStructure(commTower).xy();
-			const auto commTowerRangeImageRect = NAS2D::Rectangle{146, 236, 20, 20};
+			const auto commTowerRangeImageRect = NAS2D::Rectangle<int>{{146, 236}, {20, 20}};
 			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size() / 2, commTowerRangeImageRect);
 		}
 	}
@@ -87,7 +87,7 @@ void MiniMap::draw() const
 		else if (!mine->exhausted()) { mineBeaconStatusOffsetX = 8; }
 		else { mineBeaconStatusOffsetX = 16; }
 
-		const auto mineImageRect = NAS2D::Rectangle{mineBeaconStatusOffsetX, 0, 7, 7};
+		const auto mineImageRect = NAS2D::Rectangle<int>{{mineBeaconStatusOffsetX, 0}, {7, 7}};
 		renderer.drawSubImage(mUiIcons, minePosition + miniMapOffset - NAS2D::Vector{2, 2}, mineImageRect);
 	}
 

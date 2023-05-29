@@ -171,8 +171,8 @@ public:
 		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.size().y) + (lineHeight - 1)) / lineHeight;
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 		auto itemDrawRect = mClientRect;
-		itemDrawRect.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
-		itemDrawRect.height = static_cast<int>(lineHeight);
+		itemDrawRect.position.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
+		itemDrawRect.rectSize.y = static_cast<int>(lineHeight);
 		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 		{
 			const auto isSelected = (i == mSelectedIndex);
@@ -180,11 +180,11 @@ public:
 
 			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawRect.y += static_cast<int>(lineHeight);
+			itemDrawRect.position.y += static_cast<int>(lineHeight);
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawRect.height = mClientRect.endPoint().y - itemDrawRect.startPoint().y;
+		itemDrawRect.rectSize.y = mClientRect.endPoint().y - itemDrawRect.startPoint().y;
 		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
@@ -254,7 +254,7 @@ private:
 			mScrollBar.size({14, mRect.size().y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.size().y));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
-			mClientRect.width -= mScrollBar.size().x; // Remove scroll bar from scroll area
+			mClientRect.rectSize.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);
 		}
 		else

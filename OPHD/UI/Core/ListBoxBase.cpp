@@ -262,7 +262,7 @@ void ListBoxBase::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// CONTROL EXTENTS
-	const auto backgroundRect = NAS2D::Rectangle{mRect.startPoint().x, mRect.startPoint().y, mItemWidth, mRect.size().y};
+	const auto backgroundRect = NAS2D::Rectangle<int>{{mRect.startPoint().x, mRect.startPoint().y}, {mItemWidth, mRect.size().y}};
 	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
 	renderer.drawBox(backgroundRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
@@ -270,7 +270,7 @@ void ListBoxBase::draw() const
 
 	// MOUSE HIGHLIGHT
 	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mScrollOffsetInPixels);
-	renderer.drawBoxFilled(NAS2D::Rectangle{positionX(), highlight_y, mItemWidth, mItemHeight}, NAS2D::Color{0, 185, 0, 50});
+	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{positionX(), highlight_y}, {mItemWidth, mItemHeight}}, NAS2D::Color{0, 185, 0, 50});
 
 	renderer.clipRectClear();
 }

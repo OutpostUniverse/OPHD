@@ -77,10 +77,10 @@ void ProductListBox::update()
 		const auto highlight = i == selectedIndex();
 
 		// Draw highlight rect so as not to tint/hue colors of everything else
-		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{x, y - offset, itemSize.x, itemSize.y}, highlightColor); }
+		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{{x, y - offset}, itemSize}, highlightColor); }
 
 		// Draw item borders and column breaks
-		renderer.drawBox(NAS2D::Rectangle{x + 2, y + 2 - offset, itemSize.x - 4, itemSize.y - 4}, itemColor);
+		renderer.drawBox(NAS2D::Rectangle<int>{{x + 2, y + 2 - offset}, {itemSize.x - 4, itemSize.y - 4}}, itemColor);
 		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, itemColor);
 		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, itemColor);
 
@@ -90,7 +90,7 @@ void ProductListBox::update()
 		drawProgressBar(
 			item.capacityUsed,
 			item.capacityTotal,
-			{x + secondStop + 5, y + 10, firstStop - 10, 10},
+			{{x + secondStop + 5, y + 10}, {firstStop - 10, 10}},
 			2
 		);
 	}

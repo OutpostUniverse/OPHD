@@ -116,11 +116,11 @@ void PopulationPanel::update()
 	const auto& population = mPopulation->getPopulations();
 	const std::array populationData
 	{
-		std::tuple{NAS2D::Rectangle{0, 96, IconSize, IconSize}, population.child, std::string("Children")},
-		std::tuple{NAS2D::Rectangle{32, 96, IconSize, IconSize}, population.student, std::string("Students")},
-		std::tuple{NAS2D::Rectangle{64, 96, IconSize, IconSize}, population.worker, std::string("Workers")},
-		std::tuple{NAS2D::Rectangle{96, 96, IconSize, IconSize}, population.scientist, std::string("Scientists")},
-		std::tuple{NAS2D::Rectangle{128, 96, IconSize, IconSize}, population.retiree, std::string("Retired")},
+		std::tuple{NAS2D::Rectangle<int>{{0, 96}, {IconSize, IconSize}}, population.child, std::string("Children")},
+		std::tuple{NAS2D::Rectangle<int>{{32, 96}, {IconSize, IconSize}}, population.student, std::string("Students")},
+		std::tuple{NAS2D::Rectangle<int>{{64, 96}, {IconSize, IconSize}}, population.worker, std::string("Workers")},
+		std::tuple{NAS2D::Rectangle<int>{{96, 96}, {IconSize, IconSize}}, population.scientist, std::string("Scientists")},
+		std::tuple{NAS2D::Rectangle<int>{{128, 96}, {IconSize, IconSize}}, population.retiree, std::string("Retired")},
 	};
 
 	position.y += fontBoldHeight + constants::Margin;

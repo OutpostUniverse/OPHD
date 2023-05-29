@@ -126,7 +126,7 @@ void DetailMap::draw() const
 		{
 			const auto offset = tilePosition - mMapView.viewTileRect().startPoint();
 			const auto position = mOriginPixelPosition - TileDrawOffset + NAS2D::Vector{(offset.x - offset.y) * TileSize.x / 2, (offset.x + offset.y) * TileSize.y / 2};
-			const auto subImageRect = NAS2D::Rectangle{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset, TileDrawSize.x, TileDrawSize.y};
+			const auto subImageRect = NAS2D::Rectangle{{static_cast<int>(tile.index()) * TileDrawSize.x, tsetOffset}, TileDrawSize};
 			const bool isTileHighlighted = tilePosition == mMouseTilePosition;
 
 			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
@@ -136,7 +136,7 @@ void DetailMap::draw() const
 			{
 				uint8_t glow = static_cast<uint8_t>(120 + std::sin(throbTimer.tick() / ThrobSpeed) * 57);
 				renderer.drawImage(mMineBeacon, position + NAS2D::Vector{0, -64});
-				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle{59, 79, 10, 7}, NAS2D::Color{glow, glow, glow});
+				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle<int>{{59, 79}, {10, 7}}, NAS2D::Color{glow, glow, glow});
 			}
 
 			// Tell an occupying thing to update itself.

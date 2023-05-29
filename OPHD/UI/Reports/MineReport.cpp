@@ -371,7 +371,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 		drawProgressBar(
 			oreAvailable.resources[i],
 			oreTotalYield.resources[i],
-			{barOrigin, resourceTextOrigin.y, barWidth, 12},
+			{{barOrigin, resourceTextOrigin.y}, {barWidth, 12}},
 			2
 		);
 		resourceTextOrigin.y += 20;
@@ -401,7 +401,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		drawProgressBar(
 			oreAvailable.resources[i],
 			oreTotalYield.resources[i],
-			{origin.x, origin.y + 50 + offsetY, barWidth, 25}
+			{{origin.x, origin.y + 50 + offsetY}, {barWidth, 25}}
 		);
 
 		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
@@ -475,7 +475,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 	const int oreMovementPart = totalOreMovement / 4;
 	const int oreLabelWidth = (oreMovementLabelWidth - 10) / 2;
 
-	const NAS2D::Rectangle<int> tableRect({origin.x - 2, origin.y + 18, oreMovementLabelWidth + 5, 47});
+	const NAS2D::Rectangle<int> tableRect({{origin.x - 2, origin.y + 18}, {oreMovementLabelWidth + 5, 47}});
 
 	r.drawBoxFilled(tableRect, {0, 0, 0, 100});
 	r.drawBox(tableRect, textColor);
