@@ -60,7 +60,7 @@ IconGrid::~IconGrid()
  */
 void IconGrid::updateGrid()
 {
-	mGridSize = (mRect.size() - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
+	mGridSize = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
 }
 
 

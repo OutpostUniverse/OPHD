@@ -51,7 +51,7 @@ RobotInspector::RobotInspector() :
 		mainFont.height() + constants::Margin}
 	};
 
-	auto buttonPosition = Vector{imageWidth,  mContentRect.startPoint().y + mContentRect.size().y + constants::Margin};
+	auto buttonPosition = Vector{imageWidth,  mContentRect.startPoint().y + mContentRect.size.y + constants::Margin};
 
 	btnCancelOrders.size(buttonSize);
 	add(btnCancelOrders, buttonPosition);
@@ -106,5 +106,5 @@ void RobotInspector::update()
 	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
 
 	const auto labelPosition = rect().startPoint() + Vector{mContentRect.startPoint().x, mContentRect.startPoint().y};
-	drawLabelAndValueRightJustify(labelPosition, mContentRect.size().x, "Age", std::to_string(mRobot->fuelCellAge()));
+	drawLabelAndValueRightJustify(labelPosition, mContentRect.size.x, "Age", std::to_string(mRobot->fuelCellAge()));
 }

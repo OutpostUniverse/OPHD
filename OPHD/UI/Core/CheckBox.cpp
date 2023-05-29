@@ -93,7 +93,7 @@ void CheckBox::onTextChange()
  */
 void CheckBox::onResize()
 {
-	mRect.size({std::max(mRect.size().x, 13), 13});
+	mRect.size = {std::max(mRect.size.x, 13), 13};
 }
 
 

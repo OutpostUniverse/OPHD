@@ -43,18 +43,18 @@ void ComboBox::onResize()
 	Control::onResize();
 
 	// Enforce minimum size
-	if (mRect.size().x < 50 || mRect.size().y < 20)
+	if (mRect.size.x < 50 || mRect.size.y < 20)
 	{
-		size({std::max(mRect.size().x, 50), std::max(mRect.size().y, 20)});
+		size({std::max(mRect.size.x, 50), std::max(mRect.size.y, 20)});
 	}
 
 	txtField.size(size() - NAS2D::Vector{20, 0});
 	btnDown.position(txtField.rect().crossXPoint());
-	btnDown.height(mRect.size().y);
-	lstItems.width(mRect.size().x);
+	btnDown.height(mRect.size.y);
+	lstItems.width(mRect.size.x);
 	lstItems.position(rect().crossYPoint());
 
-	mBarRect = NAS2D::Rectangle<int>::Create(position(), NAS2D::Vector{mRect.size().x, btnDown.size().y});
+	mBarRect = NAS2D::Rectangle<int>::Create(position(), NAS2D::Vector{mRect.size.x, btnDown.size().y});
 }
 
 
@@ -69,7 +69,7 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 	btnDown.position(txtField.rect().crossXPoint());
 	lstItems.position(rect().crossYPoint());
 
-	mBarRect = NAS2D::Rectangle<int>::Create(position(), NAS2D::Vector{mRect.size().x, btnDown.size().y});
+	mBarRect = NAS2D::Rectangle<int>::Create(position(), NAS2D::Vector{mRect.size.x, btnDown.size().y});
 }
 
 
@@ -86,7 +86,7 @@ void ComboBox::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point
 		lstItems.visible(!lstItems.visible());
 		if (lstItems.visible())
 		{
-			mRect.rectSize.y += lstItems.size().y;
+			mRect.size.y += lstItems.size().y;
 		}
 		else
 		{

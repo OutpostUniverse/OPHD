@@ -108,7 +108,7 @@ void ResearchReport::refresh()
 	if (CategoryPanels.size() < 1) { return; }
 
 	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
-	const int padding = ((rect().size().y - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
+	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
 	
 	for (size_t i = 0; i < CategoryPanels.size(); ++i)
 	{
@@ -124,8 +124,8 @@ void ResearchReport::refresh()
 	IconArea = {
 		{rect().startPoint().x + MarginSize * 3 + CategoryIconSize,
 		rect().startPoint().y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
-		{((rect().size().x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
-		rect().size().y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y}};
+		{((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
+		rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y}};
 }
 
 
@@ -286,7 +286,7 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawLine(
 		Point<int>{startX, rect().startPoint().y + SectionPadding.y},
-		Point<int>{startX, rect().startPoint().y + rect().size().y - SectionPadding.y},
+		Point<int>{startX, rect().startPoint().y + rect().size.y - SectionPadding.y},
 		ColorText);
 }
 
@@ -302,12 +302,12 @@ void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.size().x, SectionPadding.y};
+	const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.size.x, SectionPadding.y};
 
 	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
 
 	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
-	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size().x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
+	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
 
 	renderer.drawSubImage(imageUiIcons, standardLabStartPoint, StandardLabIconRect);
 	renderer.drawSubImage(imageUiIcons, hotLabStartPoint, HotLabIconRect);
@@ -319,7 +319,7 @@ void ResearchReport::drawResearchPointsPanel() const
 	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
 
 	const Point<int> lineStartPoint{startPoint.x, rect().startPoint().y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
-	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size().x - startPoint.x - SectionPadding.x, 0}, ColorText);
+	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
 }
 
 
@@ -332,7 +332,7 @@ void ResearchReport::draw() const
 	drawTopicHeader();
     drawTopicIconPanel();
 
-	drawVerticalSectionSpacer((rect().size().x / 3) * 2);
+	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
     
     drawResearchPointsPanel();
     

@@ -51,7 +51,7 @@ public:
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
 
-	NAS2D::Vector<int> size() const { return mRect.size(); }
+	NAS2D::Vector<int> size() const { return mRect.size; }
 	void size(NAS2D::Vector<int> newSize);
 	void size(int newSize);
 

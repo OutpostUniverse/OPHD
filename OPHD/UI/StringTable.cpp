@@ -161,11 +161,11 @@ void StringTable::computeRelativeCellPositions()
 
 	if (mCells.size() == 0)
 	{
-		mScreenRect.size({0, 0});
+		mScreenRect.size = {0, 0};
 	}
 	else
 	{
-		mScreenRect.size(mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()});
+		mScreenRect.size = mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()};
 	}
 }
 

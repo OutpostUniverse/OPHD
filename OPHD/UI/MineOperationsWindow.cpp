@@ -57,13 +57,13 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnExtendShaft, {72, 230});
 	btnExtendShaft.size({100, 30});
 
-	add(btnOkay, {mRect.size().x - 70, 230});
+	add(btnOkay, {mRect.size.x - 70, 230});
 	btnOkay.size({60, 30});
 
-	add(btnAssignTruck, {mRect.size().x - 85, 115});
+	add(btnAssignTruck, {mRect.size.x - 85, 115});
 	btnAssignTruck.size({80, 20});
 
-	add(btnUnassignTruck, {mRect.size().x - 170, 115});
+	add(btnUnassignTruck, {mRect.size.x - 170, 115});
 	btnUnassignTruck.size({80, 20});
 
 	// ORE TOGGLE BUTTONS
@@ -209,7 +209,7 @@ void MineOperationsWindow::update()
 	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
-	const auto width = mRect.size().x;
+	const auto width = mRect.size.x;
 	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
 	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}));
