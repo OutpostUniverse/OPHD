@@ -47,7 +47,7 @@ void Window::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<i
 
 	UIContainer::onMouseDown(button, position);
 
-	const auto titleBarBounds = NAS2D::Rectangle<int>{{mRect.position.x, mRect.position.y}, {mRect.size.x, sWindowTitleBarHeight}};
+	const auto titleBarBounds = NAS2D::Rectangle{mRect.position, {mRect.size.x, sWindowTitleBarHeight}};
 	mMouseDrag = (button == NAS2D::EventHandler::MouseButton::Left && titleBarBounds.contains(position));
 }
 
