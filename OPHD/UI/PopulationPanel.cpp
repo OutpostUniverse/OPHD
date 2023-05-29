@@ -139,7 +139,7 @@ void PopulationPanel::update()
 
 	// DIVIDER LINE
 	position = NAS2D::Point{positionX() + mPopulationPanelWidth, positionY() + constants::Margin};
-	renderer.drawLine(position, position + NAS2D::Vector<int>{0, rect().height - 10}, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{0, rect().size().y - 10}, Color::DarkGray);
 
 	// MORALE
 	position.x += constants::Margin;
@@ -162,7 +162,7 @@ void PopulationPanel::update()
 
 	position.y += fontHeight + fontHeight / 2;
 
-	renderer.drawLine(position, position + NAS2D::Vector<int>{rect().width - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{rect().size().x - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
 
 	position.y += fontHeight / 2;
 
@@ -171,7 +171,7 @@ void PopulationPanel::update()
 		renderer.drawText(mFont, item.first, position);
 
 		const auto text = formatDiff(item.second);
-		const NAS2D::Point<int> labelPosition = {rect().x + rect().width - mFont.width(text) - 5 , position.y};
+		const NAS2D::Point<int> labelPosition = {rect().startPoint().x + rect().size().x - mFont.width(text) - 5 , position.y};
 
 		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
 		position.y += fontHeight;
