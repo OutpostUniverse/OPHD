@@ -63,8 +63,8 @@ namespace
 	{
 		const auto endPoint = rect.endPoint();
 		return {
-			std::clamp(point.x, rect.startPoint().x, endPoint.x),
-			std::clamp(point.y, rect.startPoint().y, endPoint.y),
+			std::clamp(point.x, rect.position.x, endPoint.x),
+			std::clamp(point.y, rect.position.y, endPoint.y),
 		};
 	}
 

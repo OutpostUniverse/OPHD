@@ -184,7 +184,7 @@ public:
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawRect.size.y = mClientRect.endPoint().y - itemDrawRect.startPoint().y;
+		itemDrawRect.size.y = mClientRect.endPoint().y - itemDrawRect.position.y;
 		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
@@ -211,7 +211,7 @@ protected:
 			return;
 		}
 
-		const auto dy = position.y - mClientRect.startPoint().y;
+		const auto dy = position.y - mClientRect.position.y;
 		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
@@ -250,7 +250,7 @@ private:
 		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
 		if (neededDisplaySize > static_cast<std::size_t>(mRect.size.y))
 		{
-			mScrollBar.position({rect().startPoint().x + mRect.size.x - 14, mRect.startPoint().y});
+			mScrollBar.position({rect().position.x + mRect.size.x - 14, mRect.position.y});
 			mScrollBar.size({14, mRect.size.y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.size.y));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());

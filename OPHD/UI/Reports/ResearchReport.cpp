@@ -78,7 +78,7 @@ ResearchReport::ResearchReport() :
 		button->toggle(false);
 	}
 
-	const Point<int> buttonStartPosition{rect().startPoint().x + MarginSize * 3 + CategoryIconSize, rect().startPoint().y + MarginSize * 2 + fontBigBold.height()};
+	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
 
 	for (size_t i = 0; i < buttons.size(); ++i)
@@ -112,7 +112,7 @@ void ResearchReport::refresh()
 	
 	for (size_t i = 0; i < CategoryPanels.size(); ++i)
 	{
-		const NAS2D::Point<int> point{rect().startPoint().x + 10, rect().startPoint().y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
+		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
 		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
 	}
 	
@@ -122,8 +122,8 @@ void ResearchReport::refresh()
 	onAllTopicsClicked();
 
 	IconArea = {
-		{rect().startPoint().x + MarginSize * 3 + CategoryIconSize,
-		rect().startPoint().y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
+		{rect().position.x + MarginSize * 3 + CategoryIconSize,
+		rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
 		{((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
 		rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y}};
 }
@@ -253,7 +253,7 @@ void ResearchReport::drawCategories() const
 	for (const auto& panel : CategoryPanels)
 	{
 		const auto panelRect = Rectangle<int>::Create(
-			panel.rect.startPoint() - CategorySelectorPadding,
+			panel.rect.position - CategorySelectorPadding,
 			panel.rect.endPoint() + CategorySelectorPadding);
 
 		if (panel.selected)
@@ -265,7 +265,7 @@ void ResearchReport::drawCategories() const
 			renderer.drawBoxFilled(panelRect, ColorPanelHighlight);
 		}
 
-		renderer.drawSubImage(imageCategoryIcons, panel.rect.startPoint(), panel.imageSlice);
+		renderer.drawSubImage(imageCategoryIcons, panel.rect.position, panel.imageSlice);
 	}
 }
 
@@ -276,7 +276,7 @@ void ResearchReport::drawTopicHeader() const
 	renderer.drawText(
 		fontBigBold,
 		SelectedCategory->name,
-		rect().startPoint() + Vector<int>{SectionPadding.x * 3 + CategoryIconSize, SectionPadding.y},
+		rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize, SectionPadding.y},
 		ColorText);
 }
 
@@ -285,8 +285,8 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 {
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawLine(
-		Point<int>{startX, rect().startPoint().y + SectionPadding.y},
-		Point<int>{startX, rect().startPoint().y + rect().size.y - SectionPadding.y},
+		Point<int>{startX, rect().position.y + SectionPadding.y},
+		Point<int>{startX, rect().position.y + rect().size.y - SectionPadding.y},
 		ColorText);
 }
 
@@ -302,7 +302,7 @@ void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = rect().startPoint() + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.size.x, SectionPadding.y};
+	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.size.x, SectionPadding.y};
 
 	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
 
@@ -318,7 +318,7 @@ void ResearchReport::drawResearchPointsPanel() const
 	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
 	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
 
-	const Point<int> lineStartPoint{startPoint.x, rect().startPoint().y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
+	const Point<int> lineStartPoint{startPoint.x, rect().position.y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
 	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
 }
 

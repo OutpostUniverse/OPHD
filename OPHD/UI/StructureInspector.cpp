@@ -50,7 +50,7 @@ void StructureInspector::onClose()
 StringTable StructureInspector::buildStringTable() const
 {
 	StringTable stringTable(4, 6);
-	stringTable.position(mRect.startPoint() + NAS2D::Vector{5, 25});
+	stringTable.position(mRect.position + NAS2D::Vector{5, 25});
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 

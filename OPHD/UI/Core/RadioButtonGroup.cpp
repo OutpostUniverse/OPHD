@@ -20,7 +20,7 @@ RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
 
 		auto &button = mRadioButtons.emplace_back(*this, buttonInfo.name, buttonInfo.delegate);
 		button.visible(visible());
-		button.position(mRect.startPoint() + offset);
+		button.position(mRect.position + offset);
 	}
 }
 

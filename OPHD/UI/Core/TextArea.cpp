@@ -91,7 +91,7 @@ void TextArea::draw() const
 
 	if (!mFont) { return; }
 
-	auto textPosition = mRect.startPoint();
+	auto textPosition = mRect.position;
 	for (std::size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
 	{
 		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);

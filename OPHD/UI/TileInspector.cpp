@@ -34,7 +34,7 @@ void TileInspector::update()
 
 	const auto* mine = mTile->mine();
 
-	auto position = mRect.startPoint() + NAS2D::Vector{5, 25};
+	auto position = mRect.position + NAS2D::Vector{5, 25};
 	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
 
 	if (mine)
@@ -46,7 +46,7 @@ void TileInspector::update()
 		drawLabelAndValue(position, "Production Rate: ", MINE_YIELD_TRANSLATION.at(mTile->mine()->productionRate()));
 	}
 
-	position = mRect.startPoint() + NAS2D::Vector{5, 62};
+	position = mRect.position + NAS2D::Vector{5, 62};
 	const auto tilePosition = mTile->xy();
 	drawLabelAndValue(position, "Location: ", std::to_string(tilePosition.x) + ", " + std::to_string(tilePosition.y));
 

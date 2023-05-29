@@ -29,7 +29,7 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 	renderer.drawBox(rect.inset(2), structureColor);
 
 	const auto yOffset = 15 - MAIN_FONT_BOLD->height() / 2;
-	renderer.drawText(*MAIN_FONT_BOLD, item.text, rect.startPoint() + NAS2D::Vector{5, yOffset}, structureTextColor);
+	renderer.drawText(*MAIN_FONT_BOLD, item.text, rect.position + NAS2D::Vector{5, yOffset}, structureTextColor);
 	renderer.drawText(*MAIN_FONT, item.structureState, rect.crossXPoint() + NAS2D::Vector{-MAIN_FONT->width(item.structureState) - 5, yOffset}, structureTextColor);
 }
 

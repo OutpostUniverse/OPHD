@@ -57,7 +57,7 @@ void ResourceBreakdownPanel::update()
 		std::tuple{ResourceImageRectsRefined[3], ResourceNamesRefined[3], mPlayerResources->resources[3], mPreviousResources.resources[3]},
 	};
 
-	auto position = mRect.startPoint() + NAS2D::Vector{5, 5};
+	auto position = mRect.position + NAS2D::Vector{5, 5};
 	for (const auto& [imageRect, text, value, oldValue] : resources)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);

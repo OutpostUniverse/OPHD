@@ -43,7 +43,7 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 	Control::onMove(displacement);
 
 	// NAVIGATION BUTTONS
-	const auto position = mRect.startPoint();
+	const auto position = mRect.position;
 	const auto navIconSpacing = 32 + constants::MarginTight;
 	// Top line
 	mMoveWestIconRect = {{position.x, position.y + 8}, {32, 16}};
@@ -98,7 +98,7 @@ void NavControl::draw() const
 	{
 		bool isMouseInIcon = currentIconRect.contains(MOUSE_COORDS);
 		NAS2D::Color color = isMouseInIcon ? NAS2D::Color::Red : NAS2D::Color::White;
-		renderer.drawSubImage(mUiIcons, currentIconRect.startPoint(), subImageRect, color);
+		renderer.drawSubImage(mUiIcons, currentIconRect.position, subImageRect, color);
 	}
 
 	// Display the levels "bar"

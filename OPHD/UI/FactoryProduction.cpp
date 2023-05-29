@@ -156,7 +156,7 @@ void FactoryProduction::update()
 	Window::update();
 
 	StringTable stringTable(2, 5);
-	stringTable.position(mRect.startPoint() + NAS2D::Vector{constants::Margin * 2 + mProductGrid.size().x, 25});
+	stringTable.position(mRect.position + NAS2D::Vector{constants::Margin * 2 + mProductGrid.size().x, 25});
 	stringTable.setColumnJustification(1, StringTable::Justification::Right);
 
 	stringTable.setColumnText(0,

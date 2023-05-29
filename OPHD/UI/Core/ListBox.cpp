@@ -24,7 +24,7 @@ void ListBoxItemText::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> draw
 	}
 
 	// Draw item contents
-	const auto textPosition = drawRect.startPoint() + NAS2D::Vector{constants::MarginTight, 0};
+	const auto textPosition = drawRect.position + NAS2D::Vector{constants::MarginTight, 0};
 	const auto textColor = isHighlighted ? context.textColorMouseHover : context.textColorNormal;
 	renderer.drawTextShadow(context.font, text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 }

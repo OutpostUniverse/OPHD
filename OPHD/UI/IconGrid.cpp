@@ -76,7 +76,7 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> p
 		return;
 	}
 
-	auto startPoint = mRect.startPoint();
+	auto startPoint = mRect.position;
 	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(position))
 	{
 		return;
@@ -101,7 +101,7 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 {
 	if (!enabled() || !visible()) { return; }
 
-	auto startPoint = mRect.startPoint();
+	auto startPoint = mRect.position;
 	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(position))
 	{
 		mHighlightIndex = constants::NoSelection;
@@ -344,7 +344,7 @@ void IconGrid::update()
 	mSkin.draw(renderer, mRect);
 
 	if (mGridSize.x == 0) { return; }
-	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.startPoint(), spacing = mIconSize + mIconMargin](std::size_t index) {
+	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.position, spacing = mIconSize + mIconMargin](std::size_t index) {
 		const auto linearOffset = static_cast<int>(index);
 		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
 		return startPoint + offset * spacing;

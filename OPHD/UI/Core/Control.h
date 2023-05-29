@@ -26,7 +26,7 @@ public:
 	const NAS2D::Rectangle<int>& area() const { return mRect; }
 	void area(const NAS2D::Rectangle<int>& area);
 
-	NAS2D::Point<int> position() const { return mRect.startPoint(); }
+	NAS2D::Point<int> position() const { return mRect.position; }
 	void position(NAS2D::Point<int> pos);
 
 	int positionX() const;

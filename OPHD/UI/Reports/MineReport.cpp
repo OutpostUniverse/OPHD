@@ -523,7 +523,7 @@ void MineReport::update()
 	auto& r = Utility<Renderer>::get();
 
 	const auto textColor = NAS2D::Color{0, 185, 0};
-	const auto startPoint = NAS2D::Point{rect().center().x , rect().startPoint().y + 10};
+	const auto startPoint = NAS2D::Point{rect().center().x , rect().position.y + 10};
 
 	r.drawLine(startPoint, startPoint + NAS2D::Vector{0, rect().size.y - 20}, textColor);
 

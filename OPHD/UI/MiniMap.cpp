@@ -55,10 +55,10 @@ void MiniMap::draw() const
 	const auto miniMapFloatRect = mRect.to<float>();
 	renderer.clipRect(miniMapFloatRect);
 
-	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapFloatRect.startPoint());
+	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapFloatRect.position);
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	const auto miniMapOffset = mRect.startPoint() - NAS2D::Point{0, 0};
+	const auto miniMapOffset = mRect.position - NAS2D::Point{0, 0};
 	for (const auto& ccPosition : structureManager.operationalCommandCenterPositions())
 	{
 		const auto ccOffsetPosition = ccPosition.xy + miniMapOffset;
@@ -156,6 +156,6 @@ void MiniMap::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relat
 
 void MiniMap::onSetView(NAS2D::Point<int> mousePixel)
 {
-	const auto position = NAS2D::Point{0, 0} + (mousePixel - mRect.startPoint());
+	const auto position = NAS2D::Point{0, 0} + (mousePixel - mRect.position);
 	mMapView.centerOn(position);
 }
