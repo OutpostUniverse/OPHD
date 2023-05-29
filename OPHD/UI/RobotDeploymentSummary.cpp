@@ -24,7 +24,7 @@ void RobotDeploymentSummary::draw() const
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	auto position = mRect.startPoint();
+	auto position = mRect.position;
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
 
 	const auto minerImageRect = NAS2D::Rectangle<int>{{231, 18}, {25, 25}};

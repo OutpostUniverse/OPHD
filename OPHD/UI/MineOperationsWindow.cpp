@@ -181,7 +181,7 @@ void MineOperationsWindow::update()
 
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto origin = mRect.startPoint();
+	const auto origin = mRect.position;
 	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
 	const auto& mineYield = MINE_YIELD_TRANSLATION.at(mFacility->mine()->productionRate());
@@ -212,7 +212,7 @@ void MineOperationsWindow::update()
 	const auto width = mRect.size.x;
 	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
-	mPanel.draw(renderer, NAS2D::Rectangle<int>::Create(origin + NAS2D::Vector{10, 180}, NAS2D::Vector{width - 20, 40}));
+	mPanel.draw(renderer, NAS2D::Rectangle{origin + NAS2D::Vector{10, 180}, {width - 20, 40}});
 
 	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
 	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});

@@ -36,7 +36,7 @@ void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
 	mControls.push_back(&control);
 
-	control.position(mRect.startPoint() + offset);
+	control.position(mRect.position + offset);
 	control.visible(visible());
 	control.hasFocus(true);
 }

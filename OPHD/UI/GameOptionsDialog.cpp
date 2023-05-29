@@ -16,7 +16,7 @@ GameOptionsDialog::GameOptionsDialog() :
 	position({0, 0});
 	
 	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnReturn, &btnClose};
-	auto position = mRect.startPoint() + NAS2D::Vector{buttonHorizontalMargin, buttonHeight};
+	auto position = mRect.position + NAS2D::Vector{buttonHorizontalMargin, buttonHeight};
 	for (auto button : buttons)
 	{
 		button->size({buttonWidth, buttonHeight});

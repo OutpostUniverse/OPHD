@@ -92,7 +92,7 @@ static void setPanelRects(int width)
 	for (std::size_t i = 0; i < NavigationPanel::PANEL_EXIT; ++i)
 	{
 		auto& panel = Panels[i];
-		panel.Rect = NAS2D::Rectangle<int>::Create(panelPosition, panelSize);
+		panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
 		panel.TextPosition = panelPosition + (panelSize - BIG_FONT->size(panel.Name)) / 2 + NAS2D::Vector{20, 0};
 		panel.IconPosition = {panel.TextPosition.x - 40, 8};
 		panelPosition.x += panelSize.x;

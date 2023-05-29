@@ -63,8 +63,8 @@ namespace
 	{
 		const auto endPoint = rect.endPoint();
 		return {
-			std::clamp(point.x, rect.startPoint().x, endPoint.x),
-			std::clamp(point.y, rect.startPoint().y, endPoint.y),
+			std::clamp(point.x, rect.position.x, endPoint.x),
+			std::clamp(point.y, rect.position.y, endPoint.y),
 		};
 	}
 
@@ -307,7 +307,7 @@ void MapViewState::difficulty(Difficulty difficulty)
 NAS2D::State* MapViewState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto windowClientRect = NAS2D::Rectangle<int>::Create({0, 0}, renderer.size());
+	const auto windowClientRect = NAS2D::Rectangle{{0, 0}, renderer.size()};
 
 	// Game's over, don't bother drawing anything else
 	if (mGameOverDialog.visible())

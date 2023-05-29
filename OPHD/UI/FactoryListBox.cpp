@@ -41,15 +41,15 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 	renderer.drawBox(rect.inset(2), structureColor);
 
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
-	renderer.drawSubImage(*STRUCTURE_ICONS, rect.startPoint() + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
-	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.startPoint() + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
+	renderer.drawSubImage(*STRUCTURE_ICONS, rect.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
+	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.position + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 	if (productType != ProductType::PRODUCT_NONE)
 	{
 		renderer.drawText(*MAIN_FONT, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
 		drawProgressBar(
 			f->productionTurnsCompleted(),
 			f->productionTurnsToComplete(),
-			NAS2D::Rectangle<int>::Create(rect.crossXPoint() + NAS2D::Vector{-112, 30}, NAS2D::Vector{105, 11}),
+			NAS2D::Rectangle{rect.crossXPoint() + NAS2D::Vector{-112, 30}, {105, 11}},
 			2
 		);
 	}

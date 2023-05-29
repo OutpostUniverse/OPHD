@@ -3,7 +3,7 @@
 
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
-	const auto displacement = newRect.startPoint() - mRect.startPoint();
+	const auto displacement = newRect.position - mRect.position;
 	mRect = newRect;
 	onMove(displacement);
 	onResize();
@@ -17,7 +17,7 @@ void Control::area(const NAS2D::Rectangle<int>& newRect)
  */
 void Control::position(NAS2D::Point<int> pos)
 {
-	const auto displacement = pos - mRect.startPoint();
+	const auto displacement = pos - mRect.position;
 	mRect.startPoint(pos);
 	onMove(displacement);
 }
@@ -28,7 +28,7 @@ void Control::position(NAS2D::Point<int> pos)
  */
 int Control::positionX() const
 {
-	return mRect.startPoint().x;
+	return mRect.position.x;
 }
 
 
@@ -37,7 +37,7 @@ int Control::positionX() const
  */
 int Control::positionY() const
 {
-	return mRect.startPoint().y;
+	return mRect.position.y;
 }
 
 

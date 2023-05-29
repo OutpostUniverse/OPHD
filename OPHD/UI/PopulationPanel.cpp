@@ -171,7 +171,7 @@ void PopulationPanel::update()
 		renderer.drawText(mFont, item.first, position);
 
 		const auto text = formatDiff(item.second);
-		const NAS2D::Point<int> labelPosition = {rect().startPoint().x + rect().size.x - mFont.width(text) - 5 , position.y};
+		const NAS2D::Point<int> labelPosition = {rect().position.x + rect().size.x - mFont.width(text) - 5 , position.y};
 
 		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
 		position.y += fontHeight;

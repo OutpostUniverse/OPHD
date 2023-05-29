@@ -104,7 +104,7 @@ NAS2D::State* SplashState::update()
 
 	const auto size = renderer.size();
 	const auto backgroundColor = (currentState == LogoState::OutpostHD) ? NAS2D::Color::Black : NAS2D::Color::White;
-	renderer.drawBoxFilled(NAS2D::Rectangle<int>::Create({0, 0}, size), backgroundColor);
+	renderer.drawBoxFilled(NAS2D::Rectangle{{0, 0}, size}, backgroundColor);
 
 
 	if (currentState == LogoState::Lairworks)

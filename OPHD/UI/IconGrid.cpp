@@ -76,8 +76,8 @@ void IconGrid::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> p
 		return;
 	}
 
-	auto startPoint = mRect.startPoint();
-	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(position))
+	auto startPoint = mRect.position;
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSize * (mIconSize + mIconMargin)}.contains(position))
 	{
 		return;
 	}
@@ -101,8 +101,8 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 {
 	if (!enabled() || !visible()) { return; }
 
-	auto startPoint = mRect.startPoint();
-	if (mIconItemList.empty() || !NAS2D::Rectangle<int>::Create(startPoint, mGridSize * (mIconSize + mIconMargin)).contains(position))
+	auto startPoint = mRect.position;
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSize * (mIconSize + mIconMargin)}.contains(position))
 	{
 		mHighlightIndex = constants::NoSelection;
 		return;
@@ -344,7 +344,7 @@ void IconGrid::update()
 	mSkin.draw(renderer, mRect);
 
 	if (mGridSize.x == 0) { return; }
-	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.startPoint(), spacing = mIconSize + mIconMargin](std::size_t index) {
+	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.position, spacing = mIconSize + mIconMargin](std::size_t index) {
 		const auto linearOffset = static_cast<int>(index);
 		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
 		return startPoint + offset * spacing;
@@ -360,13 +360,13 @@ void IconGrid::update()
 	if (mSelectedIndex != constants::NoSelection)
 	{
 		const auto position = indexToGridPosition(mSelectedIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
-		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 100, 255});
+		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 100, 255});
 	}
 
 	if (mHighlightIndex != constants::NoSelection)
 	{
 		const auto position = indexToGridPosition(mHighlightIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
-		renderer.drawBox(NAS2D::Rectangle<int>::Create(position, NAS2D::Vector{mIconSize, mIconSize}), NAS2D::Color{0, 180, 0});
+		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 180, 0});
 
 		// Name Tooltip
 		if (mShowTooltip)
