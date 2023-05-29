@@ -116,7 +116,7 @@ FactoryReport::FactoryReport() :
 
 	cboFilterByProduct.selectionChanged().connect({this, &FactoryReport::onProductFilterSelectionChange});
 
-	add(lstProducts, {cboFilterByProduct.rect().x + cboFilterByProduct.rect().width + 20, mRect.y + 230});
+	add(lstProducts, {cboFilterByProduct.rect().startPoint().x + cboFilterByProduct.rect().size().x + 20, mRect.startPoint().y + 230});
 
 	txtProductDescription.font(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	txtProductDescription.height(128);
@@ -254,27 +254,27 @@ void FactoryReport::onResize()
 
 	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
 
-	lstFactoryList.size({comboEndPoint.x - 10, mRect.height - 74});
+	lstFactoryList.size({comboEndPoint.x - 10, mRect.size().y - 74});
 
 	detailPanelRect = {
 		comboEndPoint.x + 20,
-		rect().y + 10,
-		rect().width - comboEndPoint.x - 30,
-		rect().y + mRect.height - 69
+		rect().startPoint().y + 10,
+		rect().size().x - comboEndPoint.x - 30,
+		rect().startPoint().y + mRect.size().y - 69
 	};
 
-	int position_x = mRect.width - 150;
+	int position_x = mRect.size().x - 150;
 	btnIdle.position({position_x, btnIdle.positionY()});
 	btnClearProduction.position({position_x, btnClearProduction.positionY()});
 	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});
 
-	btnApply.position({position_x, mRect.height + 8});
+	btnApply.position({position_x, mRect.size().y + 8});
 
-	lstProducts.size({detailPanelRect.width / 3, detailPanelRect.height - 219});
+	lstProducts.size({detailPanelRect.size().x / 3, detailPanelRect.size().y - 219});
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
 	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
-	txtProductDescription.width(mRect.width - txtProductDescription.positionX() - 30);
+	txtProductDescription.width(mRect.size().x - txtProductDescription.positionX() - 30);
 }
 
 
@@ -483,34 +483,34 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
 	const auto textColor = NAS2D::Color{0, 185, 0};
-	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.x, detailPanelRect.y + 180}, textColor);
+	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.startPoint().x, detailPanelRect.startPoint().y + 180}, textColor);
 
-	int position_x = detailPanelRect.x + lstProducts.size().x + 20;
+	int position_x = detailPanelRect.startPoint().x + lstProducts.size().x + 20;
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.y + 180}, textColor);
+		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.startPoint().y + 180}, textColor);
 		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
-	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.y + 358}, textColor);
-	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.y + 393}, textColor);
+	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.startPoint().y + 358}, textColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.startPoint().y + 393}, textColor);
 
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
 	{
 		drawProgressBar(
 			selectedFactory->productionTurnsCompleted(),
 			selectedFactory->productionTurnsToComplete(),
-			{position_x, detailPanelRect.y + 413, mRect.width - position_x - 10, 30}
+			{position_x, detailPanelRect.startPoint().y + 413, mRect.size().x - position_x - 10, 30}
 		);
 	}
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
-	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.y + 449}, textColor);
-	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.width - fontMedium.width(text) - 10, detailPanelRect.y + 449}, textColor);
+	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.startPoint().y + 449}, textColor);
+	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.size().x - fontMedium.width(text) - 10, detailPanelRect.startPoint().y + 449}, textColor);
 }
 
 
@@ -520,9 +520,9 @@ void FactoryReport::update()
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto textColor = NAS2D::Color{0, 185, 0};
-	const auto positionX = cboFilterByProduct.rect().x + cboFilterByProduct.rect().width;
-	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.y + 10}, NAS2D::Point{positionX + 10, mRect.y + mRect.height - 10}, textColor);
-	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.y + 10}, textColor);
+	const auto positionX = cboFilterByProduct.rect().startPoint().x + cboFilterByProduct.rect().size().x;
+	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.startPoint().y + 10}, NAS2D::Point{positionX + 10, mRect.startPoint().y + mRect.size().y - 10}, textColor);
+	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.startPoint().y + 10}, textColor);
 
 	if (selectedFactory)
 	{
