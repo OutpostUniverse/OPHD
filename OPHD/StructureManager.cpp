@@ -217,7 +217,7 @@ StructureList StructureManager::allStructures() const
 
 Tile& StructureManager::tileFromStructure(const Structure* structure) const
 {
-	for (const auto [keyStructure, valueTile] : mStructureTileTable)
+	for (const auto& [keyStructure, valueTile] : mStructureTileTable)
 	{
 		if (keyStructure == structure)
 		{
@@ -253,7 +253,7 @@ std::vector<Tile*> StructureManager::getConnectednessOverlay() const
 {
 	std::vector<Tile*> result;
 	result.reserve(mStructureTileTable.size());
-	for (const auto [structure, tile] : mStructureTileTable)
+	for (const auto& [structure, tile] : mStructureTileTable)
 	{
 		if (structure->connected())
 		{
