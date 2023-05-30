@@ -106,7 +106,7 @@
       <AdditionalOptions>/we4242 /we4254 /we4263 /we4265 /we4287 /we4289 /we4296 /we4311 /we4545 /we4546 /we4547 /we4549 /we4555 /we4619 /we4640 /we4826 /we4905 /we4906 /we4928 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>NAS2D.lib;opengl32.lib;sdl2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
