@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
+    <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
+  </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
