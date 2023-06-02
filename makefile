@@ -23,7 +23,7 @@ NAS2DINCLUDEDIR := $(NAS2DDIR)
 NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
 
-$(NAS2DLIB): nas2d
+$(NAS2DLIB): nas2d ;
 
 .PHONY: nas2d
 nas2d: $(NAS2DDIR)makefile
