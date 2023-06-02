@@ -62,11 +62,6 @@ LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
 PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
-DEPFLAGS = -MT $@ -MMD -MP -MF $(@:.o=.Td)
-
-COMPILE.cpp = $(CXX) $(DEPFLAGS) $(PROJECT_FLAGS) $(TARGET_ARCH) -c
-POSTCOMPILE = @mv -f $(@:.o=.Td) $(@:.o=.d) && touch $@
-
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
 
@@ -74,21 +69,37 @@ OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
 ophd: $(EXE)
 
 $(EXE): $(NAS2DLIB) $(OBJS)
-	@mkdir -p ${@D}
-	$(CXX) $^ $(PROJECT_LINKFLAGS) -o $@
 
 .PHONY: intermediate
 intermediate: $(OBJS)
 
 $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
-	@mkdir -p ${@D}
+
+include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
+
+
+## Compile rules ##
+
+DEPFLAGS = -MT $@ -MMD -MP -MF $(@:.o=.Td)
+COMPILE.cpp = $(CXX) $(DEPFLAGS) $(PROJECT_FLAGS) $(TARGET_ARCH) -c
+POSTCOMPILE = @mv -f $(@:.o=.Td) $(@:.o=.d) && touch $@
+
+
+%:
+	@mkdir -p "${@D}"
+	$(CXX) $^ $(PROJECT_LINKFLAGS) -o $@
+
+lib%.a:
+	@mkdir -p "${@D}"
+	ar rcs $@ $^
+
+%.o:
+	@mkdir -p "${@D}"
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE)
 
 %.d: ;
 .PRECIOUS: %.d
-
-include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
 
 
 ## Package ##
