@@ -23,7 +23,7 @@ NAS2DINCLUDEDIR := $(NAS2DDIR)
 NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
 
-$(NAS2DLIB): nas2d
+$(NAS2DLIB): nas2d ;
 
 .PHONY: nas2d
 nas2d: $(NAS2DDIR)makefile
@@ -59,37 +59,57 @@ CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I
 LDFLAGS := $(LDFLAGS_EXTRA) -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
 LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(OpenGL_LIBS)
 
-DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)$*.Td
-
-COMPILE.cpp = $(CXX) $(DEPFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(TARGET_ARCH) -c
-POSTCOMPILE = @mv -f $(OBJDIR)$*.Td $(OBJDIR)$*.d && touch $@
+PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
+PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
-FOLDERS := $(sort $(dir $(SRCS)))
 
 .PHONY: ophd
 ophd: $(EXE)
 
 $(EXE): $(NAS2DLIB) $(OBJS)
-	@mkdir -p ${@D}
-	$(CXX) $^ $(LDFLAGS) $(LDLIBS) -o $@
+$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
+
+include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
+
 
 .PHONY: intermediate
 intermediate: $(OBJS)
 
-$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d | build-folder
+
+## Compile rules ##
+
+DEPFLAGS = -MT $@ -MMD -MP -MF $(@:.o=.Td)
+COMPILE.cpp = $(CXX) $(DEPFLAGS) $(PROJECT_FLAGS) $(TARGET_ARCH) -c
+POSTCOMPILE = @mv -f $(@:.o=.Td) $(@:.o=.d) && touch $@
+
+
+%:
+	@mkdir -p "${@D}"
+	$(CXX) $^ $(PROJECT_LINKFLAGS) -o $@
+
+lib%.a:
+	@mkdir -p "${@D}"
+	ar rcs $@ $^
+
+%.o:
+	@mkdir -p "${@D}"
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE)
 
-.PHONY: build-folder
-build-folder:
-	@mkdir -p $(patsubst $(SRCDIR)%,$(OBJDIR)%, $(FOLDERS))
+%.d: ;
+.PRECIOUS: %.d
 
-$(OBJDIR)%.d: ;
-.PRECIOUS: $(OBJDIR)%.d
 
-include $(wildcard $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.d,$(SRCS)))
+## Clean ##
+
+.PHONY: clean clean-all
+clean:
+	-rm -fr $(OBJDIR)
+clean-all:
+	-rm -rf $(BUILDDIR)
+	-rm -f $(EXE)
 
 
 ## Package ##
@@ -105,16 +125,6 @@ package: $(PACKAGE_NAME)
 $(PACKAGE_NAME): $(EXE)
 	@mkdir -p "$(PACKAGEDIR)"
 	tar -czf $(PACKAGE_NAME) $(EXE)
-
-
-## Clean ##
-
-.PHONY: clean clean-all
-clean:
-	-rm -fr $(OBJDIR)
-clean-all:
-	-rm -rf $(BUILDDIR)
-	-rm -f $(EXE)
 
 
 ## Dependencies ##
