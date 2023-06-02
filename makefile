@@ -85,8 +85,8 @@ $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE)
 
-$(OBJDIR)%.d: ;
-.PRECIOUS: $(OBJDIR)%.d
+%.d: ;
+.PRECIOUS: %.d
 
 include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
 
