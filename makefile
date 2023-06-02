@@ -69,13 +69,13 @@ OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
 ophd: $(EXE)
 
 $(EXE): $(NAS2DLIB) $(OBJS)
-
-.PHONY: intermediate
-intermediate: $(OBJS)
-
 $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
 
 include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
+
+
+.PHONY: intermediate
+intermediate: $(OBJS)
 
 
 ## Compile rules ##
