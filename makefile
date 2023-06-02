@@ -192,15 +192,12 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
-ophd_OUTPUT := ophd.exe
+ophd_OUTPUT := ophd
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
 ophd_CPPFLAGS := $(CPPFLAGS) -I./
 ophd_PROJECT_FLAGS := $(ophd_CPPFLAGS) $(CXXFLAGS)
-
-.PHONY: ophd
-ophd: $(ophd_OUTPUT)
 
 $(ophd_OUTPUT): $(ophd_OBJS) $(libOPHD_OUTPUT) $(libControls_OUTPUT) $(NAS2DLIB)
 

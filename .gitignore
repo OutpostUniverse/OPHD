@@ -4,6 +4,7 @@
 # Linux - Makefile
 /.build/
 *.exe
+ophd
 
 # VS Code
 .vscode/
