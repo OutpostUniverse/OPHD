@@ -10,6 +10,12 @@ CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
 
+## Default and top-level targets ##
+
+.PHONY: all
+all: ophd
+
+
 ## OPHD project ##
 
 SRCDIR := OPHD/
@@ -42,8 +48,8 @@ SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
 FOLDERS := $(sort $(dir $(SRCS)))
 
-.PHONY: all
-all: $(EXE)
+.PHONY: ophd
+ophd: $(EXE)
 
 $(EXE): $(NAS2DLIB) $(OBJS)
 	@mkdir -p ${@D}
