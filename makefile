@@ -5,6 +5,9 @@ Debug_CXX_FLAGS := -Og -g
 Release_CXX_FLAGS := -O3
 CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 
+
+## OPHD project ##
+
 SRCDIR := OPHD/
 BUILDDIR := .build/
 OBJDIR := $(BUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
@@ -80,6 +83,8 @@ $(OBJDIR)%.d: ;
 include $(wildcard $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.d,$(SRCS)))
 
 
+## Package ##
+
 VERSION = $(shell git describe --tags --dirty)
 CONFIG = $(TARGET_OS).x64
 PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
@@ -92,6 +97,8 @@ $(PACKAGE_NAME): $(EXE)
 	tar -czf $(PACKAGE_NAME) $(EXE)
 
 
+## Clean ##
+
 .PHONY: clean clean-all
 clean:
 	-rm -fr $(OBJDIR)
@@ -100,10 +107,14 @@ clean-all:
 	-rm -f $(EXE)
 
 
+## Dependencies ##
+
 .PHONY: install-dependencies
 install-dependencies:
 	$(MAKE) -C nas2d-core install-dependencies
 
+
+## Linting ##
 
 .PHONY: show-warnings
 show-warnings:
