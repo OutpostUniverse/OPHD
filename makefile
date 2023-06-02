@@ -16,16 +16,36 @@ TARGET_OS ?= $(CURRENT_OS)
 all: ophd
 
 
+## NAS2D project ##
+
+NAS2DDIR := nas2d-core/
+NAS2DINCLUDEDIR := $(NAS2DDIR)
+NAS2DLIBDIR := $(NAS2DDIR)lib/
+NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
+
+$(NAS2DLIB): nas2d
+
+.PHONY: nas2d
+nas2d: $(NAS2DDIR)makefile
+	$(MAKE) -C nas2d-core
+
+$(NAS2DDIR)makefile:
+	@echo "\nWARNING: NAS2D dependency not found. Install as Git submodule or download manually."
+	@if test -d ".git"; then \
+		echo "Git detected. Attempting to download submodules.\n"; \
+		git submodule update --init --recursive; \
+	else \
+		echo "You don't seem to be using Git. Consider using Git clone.\n"; \
+		false; \
+	fi
+
+
 ## OPHD project ##
 
 SRCDIR := OPHD/
 BUILDDIR := .build/
 OBJDIR := $(BUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
 EXE := ophd.exe
-NAS2DDIR := nas2d-core/
-NAS2DINCLUDEDIR := $(NAS2DDIR)
-NAS2DLIBDIR := $(NAS2DDIR)lib/
-NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
@@ -57,22 +77,6 @@ $(EXE): $(NAS2DLIB) $(OBJS)
 
 .PHONY: intermediate
 intermediate: $(OBJS)
-
-$(NAS2DLIB): nas2d
-
-.PHONY: nas2d
-nas2d: $(NAS2DDIR)makefile
-	$(MAKE) -C nas2d-core
-
-$(NAS2DDIR)makefile:
-	@echo "\nWARNING: NAS2D dependency not found. Install as Git submodule or download manually."
-	@if test -d ".git"; then \
-		echo "Git detected. Attempting to download submodules.\n"; \
-		git submodule update --init --recursive; \
-	else \
-		echo "You don't seem to be using Git. Consider using Git clone.\n"; \
-		false; \
-	fi
 
 $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d | build-folder
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
