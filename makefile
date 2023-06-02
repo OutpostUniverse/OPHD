@@ -59,9 +59,11 @@ CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I
 LDFLAGS := $(LDFLAGS_EXTRA) -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
 LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(OpenGL_LIBS)
 
+PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
+
 DEPFLAGS = -MT $@ -MMD -MP -MF $(@:.o=.Td)
 
-COMPILE.cpp = $(CXX) $(DEPFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(TARGET_ARCH) -c
+COMPILE.cpp = $(CXX) $(DEPFLAGS) $(PROJECT_FLAGS) $(TARGET_ARCH) -c
 POSTCOMPILE = @mv -f $(@:.o=.Td) $(@:.o=.d) && touch $@
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
