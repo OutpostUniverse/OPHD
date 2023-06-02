@@ -88,7 +88,7 @@ $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
 $(OBJDIR)%.d: ;
 .PRECIOUS: $(OBJDIR)%.d
 
-include $(wildcard $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.d,$(SRCS)))
+include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
 
 
 ## Package ##
