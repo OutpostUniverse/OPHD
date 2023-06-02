@@ -69,7 +69,6 @@ POSTCOMPILE = @mv -f $(@:.o=.Td) $(@:.o=.d) && touch $@
 
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
-FOLDERS := $(sort $(dir $(SRCS)))
 
 .PHONY: ophd
 ophd: $(EXE)
@@ -81,13 +80,10 @@ $(EXE): $(NAS2DLIB) $(OBJS)
 .PHONY: intermediate
 intermediate: $(OBJS)
 
-$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d | build-folder
+$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
+	@mkdir -p ${@D}
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $<
 	$(POSTCOMPILE)
-
-.PHONY: build-folder
-build-folder:
-	@mkdir -p $(patsubst $(SRCDIR)%,$(OBJDIR)%, $(FOLDERS))
 
 $(OBJDIR)%.d: ;
 .PRECIOUS: $(OBJDIR)%.d
