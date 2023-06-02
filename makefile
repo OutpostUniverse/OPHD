@@ -60,6 +60,7 @@ LDFLAGS := $(LDFLAGS_EXTRA) -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
 LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(OpenGL_LIBS)
 
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
+PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
 DEPFLAGS = -MT $@ -MMD -MP -MF $(@:.o=.Td)
 
@@ -75,7 +76,7 @@ ophd: $(EXE)
 
 $(EXE): $(NAS2DLIB) $(OBJS)
 	@mkdir -p ${@D}
-	$(CXX) $^ $(LDFLAGS) $(LDLIBS) -o $@
+	$(CXX) $^ $(PROJECT_LINKFLAGS) -o $@
 
 .PHONY: intermediate
 intermediate: $(OBJS)
