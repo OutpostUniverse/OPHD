@@ -5,6 +5,10 @@ Debug_CXX_FLAGS := -Og -g
 Release_CXX_FLAGS := -O3
 CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 
+# Determine OS (Linux, Darwin, ...)
+CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
+TARGET_OS ?= $(CURRENT_OS)
+
 
 ## OPHD project ##
 
@@ -16,10 +20,6 @@ NAS2DDIR := nas2d-core/
 NAS2DINCLUDEDIR := $(NAS2DDIR)
 NAS2DLIBDIR := $(NAS2DDIR)lib/
 NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
-
-# Determine OS (Linux, Darwin, ...)
-CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
-TARGET_OS ?= $(CURRENT_OS)
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
