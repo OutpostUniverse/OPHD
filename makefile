@@ -102,6 +102,16 @@ lib%.a:
 .PRECIOUS: %.d
 
 
+## Clean ##
+
+.PHONY: clean clean-all
+clean:
+	-rm -fr $(OBJDIR)
+clean-all:
+	-rm -rf $(BUILDDIR)
+	-rm -f $(EXE)
+
+
 ## Package ##
 
 PACKAGEDIR := $(BUILDDIR)/package/
@@ -115,16 +125,6 @@ package: $(PACKAGE_NAME)
 $(PACKAGE_NAME): $(EXE)
 	@mkdir -p "$(PACKAGEDIR)"
 	tar -czf $(PACKAGE_NAME) $(EXE)
-
-
-## Clean ##
-
-.PHONY: clean clean-all
-clean:
-	-rm -fr $(OBJDIR)
-clean-all:
-	-rm -rf $(BUILDDIR)
-	-rm -f $(EXE)
 
 
 ## Dependencies ##
