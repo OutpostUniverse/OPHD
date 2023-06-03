@@ -9,6 +9,9 @@ CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
+ROOTBUILDDIR := .build
+BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
+
 
 ## Default and top-level targets ##
 
@@ -43,8 +46,6 @@ $(NAS2DDIR)makefile:
 ## OPHD project ##
 
 SRCDIR := OPHD/
-ROOTBUILDDIR := .build/
-BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
 EXE := ophd.exe
 
