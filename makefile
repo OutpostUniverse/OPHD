@@ -72,7 +72,7 @@ ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 .PHONY: ophd
 ophd: $(ophd_OUTPUT)
 
-$(ophd_OUTPUT): $(NAS2DLIB) $(ophd_OBJS)
+$(ophd_OUTPUT): $(ophd_OBJS) $(NAS2DLIB)
 $(ophd_OBJS): $(ophd_OBJDIR)%.o : $(ophd_SRCDIR)%.cpp $(ophd_OBJDIR)%.d
 
 include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
