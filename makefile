@@ -64,7 +64,7 @@ PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 ## OPHD project ##
 
 ophd_SRCDIR := OPHD/
-ophd_OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
+ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
 ophd_OUTPUT := ophd.exe
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
@@ -162,4 +162,4 @@ cppinclude:
 .PHONY: format
 format:
 	@clang-format --version
-	find OPHD/ \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path 'OPHD/MicroPather' -prune -type f | xargs clang-format -i
+	find $(ophd_SRCDIR) \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path '$(ophd_SRCDIR)MicroPather' -prune -type f | xargs clang-format -i
