@@ -9,6 +9,9 @@ CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
+ROOTBUILDDIR := .build
+BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
+
 
 ## Default and top-level targets ##
 
@@ -20,8 +23,7 @@ all: ophd
 
 NAS2DDIR := nas2d-core/
 NAS2DINCLUDEDIR := $(NAS2DDIR)
-NAS2DLIBDIR := $(NAS2DDIR)lib/
-NAS2DLIB := $(NAS2DLIBDIR)libnas2d.a
+NAS2DLIB := $(NAS2DDIR)lib/libnas2d.a
 
 $(NAS2DLIB): nas2d ;
 
@@ -40,12 +42,7 @@ $(NAS2DDIR)makefile:
 	fi
 
 
-## OPHD project ##
-
-SRCDIR := OPHD/
-BUILDDIR := .build/
-OBJDIR := $(BUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
-EXE := ophd.exe
+## Default project flags ##
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
@@ -56,26 +53,32 @@ OpenGL_LIBS := $($(TARGET_OS)_OpenGL_LIBS)
 CPPFLAGS := $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute $(WARN_EXTRA)
 CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
-LDFLAGS := $(LDFLAGS_EXTRA) -L$(NAS2DLIBDIR) $(shell sdl2-config --libs)
-LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(OpenGL_LIBS)
+LDFLAGS := $(LDFLAGS_EXTRA) $(shell sdl2-config --libs)
+LDLIBS := $(LDLIBS_EXTRA) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(OpenGL_LIBS)
 
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
 PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
-SRCS := $(shell find $(SRCDIR) -name '*.cpp')
-OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
+
+## OPHD project ##
+
+ophd_SRCDIR := OPHD/
+ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
+ophd_OUTPUT := ophd.exe
+ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
+ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
 .PHONY: ophd
-ophd: $(EXE)
+ophd: $(ophd_OUTPUT)
 
-$(EXE): $(NAS2DLIB) $(OBJS)
-$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
+$(ophd_OUTPUT): $(ophd_OBJS) $(NAS2DLIB)
+$(ophd_OBJS): $(ophd_OBJDIR)%.o : $(ophd_SRCDIR)%.cpp $(ophd_OBJDIR)%.d
 
-include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
+include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
 
 
 .PHONY: intermediate
-intermediate: $(OBJS)
+intermediate: $(ophd_OBJS)
 
 
 ## Compile rules ##
@@ -106,15 +109,15 @@ lib%.a:
 
 .PHONY: clean clean-all
 clean:
-	-rm -fr $(OBJDIR)
+	-rm -fr $(ophd_OBJDIR)
 clean-all:
-	-rm -rf $(BUILDDIR)
-	-rm -f $(EXE)
+	-rm -rf $(ROOTBUILDDIR)
+	-rm -f $(ophd_OUTPUT)
 
 
 ## Package ##
 
-PACKAGEDIR := $(BUILDDIR)/package/
+PACKAGEDIR := $(ROOTBUILDDIR)/package/
 VERSION = $(shell git describe --tags --dirty)
 CONFIG = $(TARGET_OS).x64
 PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
@@ -122,9 +125,9 @@ PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
 .PHONY: package
 package: $(PACKAGE_NAME)
 
-$(PACKAGE_NAME): $(EXE)
+$(PACKAGE_NAME): $(ophd_OUTPUT)
 	@mkdir -p "$(PACKAGEDIR)"
-	tar -czf $(PACKAGE_NAME) $(EXE)
+	tar -czf $(PACKAGE_NAME) $(ophd_OUTPUT)
 
 
 ## Dependencies ##
@@ -145,11 +148,11 @@ lint: cppcheck cppclean cppinclude
 
 .PHONY: cppcheck
 cppcheck:
-	cppcheck --quiet "$(SRCDIR)"
+	cppcheck --quiet "$(ophd_SRCDIR)"
 
 .PHONY: cppclean
 cppclean:
-	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(SRCDIR)"
+	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(ophd_SRCDIR)"
 
 .PHONY: cppinclude
 cppinclude:
@@ -158,4 +161,4 @@ cppinclude:
 .PHONY: format
 format:
 	@clang-format --version
-	find OPHD/ \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path 'OPHD/MicroPather' -prune -type f | xargs clang-format -i
+	find $(ophd_SRCDIR) \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path '$(ophd_SRCDIR)MicroPather' -prune -type f | xargs clang-format -i
