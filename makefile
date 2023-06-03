@@ -65,14 +65,14 @@ PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
 SRCDIR := OPHD/
 OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
-EXE := ophd.exe
+OUTPUT := ophd.exe
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
 
 .PHONY: ophd
-ophd: $(EXE)
+ophd: $(OUTPUT)
 
-$(EXE): $(NAS2DLIB) $(OBJS)
+$(OUTPUT): $(NAS2DLIB) $(OBJS)
 $(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
 
 include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
@@ -113,7 +113,7 @@ clean:
 	-rm -fr $(OBJDIR)
 clean-all:
 	-rm -rf $(ROOTBUILDDIR)
-	-rm -f $(EXE)
+	-rm -f $(OUTPUT)
 
 
 ## Package ##
@@ -126,9 +126,9 @@ PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
 .PHONY: package
 package: $(PACKAGE_NAME)
 
-$(PACKAGE_NAME): $(EXE)
+$(PACKAGE_NAME): $(OUTPUT)
 	@mkdir -p "$(PACKAGEDIR)"
-	tar -czf $(PACKAGE_NAME) $(EXE)
+	tar -czf $(PACKAGE_NAME) $(OUTPUT)
 
 
 ## Dependencies ##
