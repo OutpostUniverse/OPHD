@@ -43,8 +43,8 @@ $(NAS2DDIR)makefile:
 ## OPHD project ##
 
 SRCDIR := OPHD/
-BUILDDIR := .build/
-OBJDIR := $(BUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
+ROOTBUILDDIR := .build/
+OBJDIR := $(ROOTBUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
 EXE := ophd.exe
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
@@ -108,13 +108,13 @@ lib%.a:
 clean:
 	-rm -fr $(OBJDIR)
 clean-all:
-	-rm -rf $(BUILDDIR)
+	-rm -rf $(ROOTBUILDDIR)
 	-rm -f $(EXE)
 
 
 ## Package ##
 
-PACKAGEDIR := $(BUILDDIR)/package/
+PACKAGEDIR := $(ROOTBUILDDIR)/package/
 VERSION = $(shell git describe --tags --dirty)
 CONFIG = $(TARGET_OS).x64
 PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
