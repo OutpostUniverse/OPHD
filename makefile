@@ -43,11 +43,7 @@ $(NAS2DDIR)makefile:
 	fi
 
 
-## OPHD project ##
-
-SRCDIR := OPHD/
-OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
-EXE := ophd.exe
+## Default project flags ##
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
@@ -64,6 +60,12 @@ LDLIBS := $(LDLIBS_EXTRA) -lnas2d -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
 PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
+
+## OPHD project ##
+
+SRCDIR := OPHD/
+OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
+EXE := ophd.exe
 SRCS := $(shell find $(SRCDIR) -name '*.cpp')
 OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
 
