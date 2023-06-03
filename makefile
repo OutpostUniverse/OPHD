@@ -63,23 +63,23 @@ PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
 ## OPHD project ##
 
-SRCDIR := OPHD/
-OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
-OUTPUT := ophd.exe
-SRCS := $(shell find $(SRCDIR) -name '*.cpp')
-OBJS := $(patsubst $(SRCDIR)%.cpp,$(OBJDIR)%.o,$(SRCS))
+ophd_SRCDIR := OPHD/
+ophd_OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
+ophd_OUTPUT := ophd.exe
+ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
+ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
 .PHONY: ophd
-ophd: $(OUTPUT)
+ophd: $(ophd_OUTPUT)
 
-$(OUTPUT): $(NAS2DLIB) $(OBJS)
-$(OBJS): $(OBJDIR)%.o : $(SRCDIR)%.cpp $(OBJDIR)%.d
+$(ophd_OUTPUT): $(NAS2DLIB) $(ophd_OBJS)
+$(ophd_OBJS): $(ophd_OBJDIR)%.o : $(ophd_SRCDIR)%.cpp $(ophd_OBJDIR)%.d
 
-include $(wildcard $(patsubst %.o,%.d,$(OBJS)))
+include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
 
 
 .PHONY: intermediate
-intermediate: $(OBJS)
+intermediate: $(ophd_OBJS)
 
 
 ## Compile rules ##
@@ -110,10 +110,10 @@ lib%.a:
 
 .PHONY: clean clean-all
 clean:
-	-rm -fr $(OBJDIR)
+	-rm -fr $(ophd_OBJDIR)
 clean-all:
 	-rm -rf $(ROOTBUILDDIR)
-	-rm -f $(OUTPUT)
+	-rm -f $(ophd_OUTPUT)
 
 
 ## Package ##
@@ -126,9 +126,9 @@ PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
 .PHONY: package
 package: $(PACKAGE_NAME)
 
-$(PACKAGE_NAME): $(OUTPUT)
+$(PACKAGE_NAME): $(ophd_OUTPUT)
 	@mkdir -p "$(PACKAGEDIR)"
-	tar -czf $(PACKAGE_NAME) $(OUTPUT)
+	tar -czf $(PACKAGE_NAME) $(ophd_OUTPUT)
 
 
 ## Dependencies ##
@@ -149,11 +149,11 @@ lint: cppcheck cppclean cppinclude
 
 .PHONY: cppcheck
 cppcheck:
-	cppcheck --quiet "$(SRCDIR)"
+	cppcheck --quiet "$(ophd_SRCDIR)"
 
 .PHONY: cppclean
 cppclean:
-	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(SRCDIR)"
+	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(ophd_SRCDIR)"
 
 .PHONY: cppinclude
 cppinclude:
