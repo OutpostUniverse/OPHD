@@ -44,7 +44,8 @@ $(NAS2DDIR)makefile:
 
 SRCDIR := OPHD/
 ROOTBUILDDIR := .build/
-OBJDIR := $(ROOTBUILDDIR)$(CONFIG)_Linux_OPHD/Intermediate/
+BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
+OBJDIR := $(BUILDDIRPREFIX)OPHD/Intermediate/
 EXE := ophd.exe
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
