@@ -1,7 +1,5 @@
 #include "Button.h"
 
-#include "../../Cache.h"
-
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/MathUtils.h>
@@ -10,37 +8,37 @@
 Button::Button(std::string newText) :
 	mButtonSkin{
 		{
-			imageCache.load("ui/skin/button_top_left.png"),
-			imageCache.load("ui/skin/button_top_middle.png"),
-			imageCache.load("ui/skin/button_top_right.png"),
-			imageCache.load("ui/skin/button_middle_left.png"),
-			imageCache.load("ui/skin/button_middle_middle.png"),
-			imageCache.load("ui/skin/button_middle_right.png"),
-			imageCache.load("ui/skin/button_bottom_left.png"),
-			imageCache.load("ui/skin/button_bottom_middle.png"),
-			imageCache.load("ui/skin/button_bottom_right.png")
+			getImage("ui/skin/button_top_left.png"),
+			getImage("ui/skin/button_top_middle.png"),
+			getImage("ui/skin/button_top_right.png"),
+			getImage("ui/skin/button_middle_left.png"),
+			getImage("ui/skin/button_middle_middle.png"),
+			getImage("ui/skin/button_middle_right.png"),
+			getImage("ui/skin/button_bottom_left.png"),
+			getImage("ui/skin/button_bottom_middle.png"),
+			getImage("ui/skin/button_bottom_right.png")
 		},
 		{
-			imageCache.load("ui/skin/button_hover_top_left.png"),
-			imageCache.load("ui/skin/button_hover_top_middle.png"),
-			imageCache.load("ui/skin/button_hover_top_right.png"),
-			imageCache.load("ui/skin/button_hover_middle_left.png"),
-			imageCache.load("ui/skin/button_hover_middle_middle.png"),
-			imageCache.load("ui/skin/button_hover_middle_right.png"),
-			imageCache.load("ui/skin/button_hover_bottom_left.png"),
-			imageCache.load("ui/skin/button_hover_bottom_middle.png"),
-			imageCache.load("ui/skin/button_hover_bottom_right.png")
+			getImage("ui/skin/button_hover_top_left.png"),
+			getImage("ui/skin/button_hover_top_middle.png"),
+			getImage("ui/skin/button_hover_top_right.png"),
+			getImage("ui/skin/button_hover_middle_left.png"),
+			getImage("ui/skin/button_hover_middle_middle.png"),
+			getImage("ui/skin/button_hover_middle_right.png"),
+			getImage("ui/skin/button_hover_bottom_left.png"),
+			getImage("ui/skin/button_hover_bottom_middle.png"),
+			getImage("ui/skin/button_hover_bottom_right.png")
 		},
 		{
-			imageCache.load("ui/skin/button_pressed_top_left.png"),
-			imageCache.load("ui/skin/button_pressed_top_middle.png"),
-			imageCache.load("ui/skin/button_pressed_top_right.png"),
-			imageCache.load("ui/skin/button_pressed_middle_left.png"),
-			imageCache.load("ui/skin/button_pressed_middle_middle.png"),
-			imageCache.load("ui/skin/button_pressed_middle_right.png"),
-			imageCache.load("ui/skin/button_pressed_bottom_left.png"),
-			imageCache.load("ui/skin/button_pressed_bottom_middle.png"),
-			imageCache.load("ui/skin/button_pressed_bottom_right.png")
+			getImage("ui/skin/button_pressed_top_left.png"),
+			getImage("ui/skin/button_pressed_top_middle.png"),
+			getImage("ui/skin/button_pressed_top_right.png"),
+			getImage("ui/skin/button_pressed_middle_left.png"),
+			getImage("ui/skin/button_pressed_middle_middle.png"),
+			getImage("ui/skin/button_pressed_middle_right.png"),
+			getImage("ui/skin/button_pressed_bottom_left.png"),
+			getImage("ui/skin/button_pressed_bottom_middle.png"),
+			getImage("ui/skin/button_pressed_bottom_right.png")
 		}
 	}
 {
@@ -110,7 +108,7 @@ void Button::fontSize(unsigned int pointSize)
 
 void Button::image(const std::string& path)
 {
-	mImage = &imageCache.load(path);
+	mImage = &getImage(path);
 }
 
 

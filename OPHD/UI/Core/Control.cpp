@@ -22,6 +22,12 @@ const NAS2D::Font& Control::getDefaultFontOfSize(unsigned int pointSize)
 }
 
 
+const NAS2D::Image& Control::getImage(const std::string& filename)
+{
+	return imageCache.load(filename);
+}
+
+
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
 	const auto displacement = newRect.position - mRect.position;

@@ -1,10 +1,11 @@
 #include "RadioButtonGroup.h"
 
+#include <NAS2D/Resource/Font.h>
 
 
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
 	mFont{getDefaultFont()},
-	mSkin{imageCache.load("ui/skin/radio.png")},
+	mSkin{getImage("ui/skin/radio.png")},
 	mLabel{newText},
 	mParentContainer{parentContainer}
 {
