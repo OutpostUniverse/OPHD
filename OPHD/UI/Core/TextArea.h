@@ -16,8 +16,6 @@ public:
 
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 
-	void font(const std::string& filePath, unsigned int pointSize);
-
 	void update() override;
 
 private:

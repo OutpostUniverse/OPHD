@@ -1,7 +1,5 @@
 #include "TextArea.h"
 
-#include "../../Cache.h"
-
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -16,12 +14,6 @@ TextArea::TextArea() :
 TextArea::TextArea(const NAS2D::Font& font) :
 	mFont{&font}
 {
-}
-
-
-void TextArea::font(const std::string& filePath, unsigned int pointSize)
-{
-	mFont = &fontCache.load(filePath, pointSize);
 }
 
 
