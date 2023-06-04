@@ -38,11 +38,11 @@ void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 
 void RadioButtonGroup::clear()
 {
-	if (mIndex != constants::NoSelection)
+	if (mIndex != NoSelection)
 	{
 		mRadioButtons[mIndex].checked(false);
 	}
-	mIndex = constants::NoSelection;
+	mIndex = NoSelection;
 }
 
 
