@@ -109,6 +109,6 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, NAS2D::Point{positionX() + constants::MarginTight, positionY() + constants::MarginTight});
+		renderer.drawText(mFont, mFocusedControl->second, position() + NAS2D::Vector{constants::MarginTight, constants::MarginTight});
 	}
 }
