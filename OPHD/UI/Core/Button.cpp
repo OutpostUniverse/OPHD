@@ -105,7 +105,7 @@ bool Button::isPressed() const
 
 void Button::fontSize(unsigned int pointSize)
 {
-	mFont = &fontCache.load(constants::FONT_PRIMARY, pointSize);
+	mFont = &getDefaultFontOfSize(pointSize);
 }
 
 
