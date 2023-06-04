@@ -17,6 +17,7 @@
 #include <vector>
 #include <utility>
 #include <cstddef>
+#include <limits>
 
 
 namespace NAS2D
@@ -61,6 +62,9 @@ class ListBox : public Control
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
 
+	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
+
+
 	ListBox() :
 		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
 	{
@@ -98,18 +102,18 @@ public:
 
 	void clear() {
 		mItems.clear();
-		mSelectedIndex = constants::NoSelection;
-		mHighlightIndex = constants::NoSelection;
+		mSelectedIndex = NoSelection;
+		mHighlightIndex = NoSelection;
 		updateScrollLayout();
 	}
 
 
 	bool isItemSelected() const {
-		return mSelectedIndex != constants::NoSelection;
+		return mSelectedIndex != NoSelection;
 	}
 
 	const ListBoxItem& selected() const {
-		if (mSelectedIndex == constants::NoSelection)
+		if (mSelectedIndex == NoSelection)
 		{
 			throw std::runtime_error("ListBox has no selected item");
 		}
@@ -128,7 +132,7 @@ public:
 	}
 
 	void clearSelected() {
-		mSelectedIndex = constants::NoSelection;
+		mSelectedIndex = NoSelection;
 	}
 
 	template <typename UnaryPredicate>
@@ -196,7 +200,7 @@ public:
 
 protected:
 	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position) {
-		if (!visible() || mHighlightIndex == constants::NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))
+		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))
 		{
 			return;
 		}
@@ -207,7 +211,7 @@ protected:
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/) {
 		if (!visible() || !mClientRect.contains(position))
 		{
-			mHighlightIndex = constants::NoSelection;
+			mHighlightIndex = NoSelection;
 			return;
 		}
 
@@ -215,7 +219,7 @@ protected:
 		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
 		if (mHighlightIndex >= mItems.size())
 		{
-			mHighlightIndex = constants::NoSelection;
+			mHighlightIndex = NoSelection;
 		}
 	}
 
@@ -268,7 +272,7 @@ private:
 
 	typename ListBoxItem::Context mContext;
 
-	std::size_t mHighlightIndex = constants::NoSelection;
+	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 
