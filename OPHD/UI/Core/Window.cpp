@@ -8,19 +8,19 @@
 
 Window::Window(std::string newTitle) :
 	mTitleFont{getDefaultFontBold()},
-	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
-	mTitleBarCenter{imageCache.load("ui/skin/window_title_middle.png")},
-	mTitleBarRight{imageCache.load("ui/skin/window_title_right.png")},
+	mTitleBarLeft{getImage("ui/skin/window_title_left.png")},
+	mTitleBarCenter{getImage("ui/skin/window_title_middle.png")},
+	mTitleBarRight{getImage("ui/skin/window_title_right.png")},
 	mBody{
-		imageCache.load("ui/skin/window_top_left.png"),
-		imageCache.load("ui/skin/window_top_middle.png"),
-		imageCache.load("ui/skin/window_top_right.png"),
-		imageCache.load("ui/skin/window_middle_left.png"),
-		imageCache.load("ui/skin/window_middle_middle.png"),
-		imageCache.load("ui/skin/window_middle_right.png"),
-		imageCache.load("ui/skin/window_bottom_left.png"),
-		imageCache.load("ui/skin/window_bottom_middle.png"),
-		imageCache.load("ui/skin/window_bottom_right.png")
+		getImage("ui/skin/window_top_left.png"),
+		getImage("ui/skin/window_top_middle.png"),
+		getImage("ui/skin/window_top_right.png"),
+		getImage("ui/skin/window_middle_left.png"),
+		getImage("ui/skin/window_middle_middle.png"),
+		getImage("ui/skin/window_middle_right.png"),
+		getImage("ui/skin/window_bottom_left.png"),
+		getImage("ui/skin/window_bottom_middle.png"),
+		getImage("ui/skin/window_bottom_right.png")
 	}
 {
 	title(newTitle);

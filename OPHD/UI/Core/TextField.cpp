@@ -26,26 +26,26 @@ namespace
 TextField::TextField() :
 	mFont{getDefaultFont()},
 	mSkinNormal{
-		imageCache.load("ui/skin/textbox_top_left.png"),
-		imageCache.load("ui/skin/textbox_top_middle.png"),
-		imageCache.load("ui/skin/textbox_top_right.png"),
-		imageCache.load("ui/skin/textbox_middle_left.png"),
-		imageCache.load("ui/skin/textbox_middle_middle.png"),
-		imageCache.load("ui/skin/textbox_middle_right.png"),
-		imageCache.load("ui/skin/textbox_bottom_left.png"),
-		imageCache.load("ui/skin/textbox_bottom_middle.png"),
-		imageCache.load("ui/skin/textbox_bottom_right.png")
+		getImage("ui/skin/textbox_top_left.png"),
+		getImage("ui/skin/textbox_top_middle.png"),
+		getImage("ui/skin/textbox_top_right.png"),
+		getImage("ui/skin/textbox_middle_left.png"),
+		getImage("ui/skin/textbox_middle_middle.png"),
+		getImage("ui/skin/textbox_middle_right.png"),
+		getImage("ui/skin/textbox_bottom_left.png"),
+		getImage("ui/skin/textbox_bottom_middle.png"),
+		getImage("ui/skin/textbox_bottom_right.png")
 	},
 	mSkinFocus{
-		imageCache.load("ui/skin/textbox_top_left_highlight.png"),
-		imageCache.load("ui/skin/textbox_top_middle_highlight.png"),
-		imageCache.load("ui/skin/textbox_top_right_highlight.png"),
-		imageCache.load("ui/skin/textbox_middle_left_highlight.png"),
-		imageCache.load("ui/skin/textbox_middle_middle_highlight.png"),
-		imageCache.load("ui/skin/textbox_middle_right_highlight.png"),
-		imageCache.load("ui/skin/textbox_bottom_left_highlight.png"),
-		imageCache.load("ui/skin/textbox_bottom_middle_highlight.png"),
-		imageCache.load("ui/skin/textbox_bottom_right_highlight.png")
+		getImage("ui/skin/textbox_top_left_highlight.png"),
+		getImage("ui/skin/textbox_top_middle_highlight.png"),
+		getImage("ui/skin/textbox_top_right_highlight.png"),
+		getImage("ui/skin/textbox_middle_left_highlight.png"),
+		getImage("ui/skin/textbox_middle_middle_highlight.png"),
+		getImage("ui/skin/textbox_middle_right_highlight.png"),
+		getImage("ui/skin/textbox_bottom_left_highlight.png"),
+		getImage("ui/skin/textbox_bottom_middle_highlight.png"),
+		getImage("ui/skin/textbox_bottom_right_highlight.png")
 	}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();

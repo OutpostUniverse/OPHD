@@ -25,7 +25,7 @@
 
 CheckBox::CheckBox(std::string newText) :
 	mFont{getDefaultFont()},
-	mSkin{imageCache.load("ui/skin/checkbox.png")}
+	mSkin{getImage("ui/skin/checkbox.png")}
 {
 	text(newText);
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &CheckBox::onMouseDown});
