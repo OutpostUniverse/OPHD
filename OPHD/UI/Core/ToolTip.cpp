@@ -43,30 +43,27 @@ void ToolTip::add(Control& c, const std::string& str)
 
 void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
-	constexpr int padding = constants::MarginTight * 2;
-
-	const int tooltipWidth = mFont.width(item.second) + padding;
-	const int tooltipHeight = mFont.height() + padding;
+	const auto toolTipSize = mFont.size(item.second) + paddingSize * 2;
 
 	auto tooltipPosition = item.first->position();
 	tooltipPosition.x = mouseX;
 
-	auto offset = NAS2D::Vector{0, -tooltipHeight - constants::Margin};
+	auto offset = NAS2D::Vector{0, -toolTipSize.y - constants::Margin};
 
 	if (tooltipPosition.y + offset.y < 0)
 	{
-		offset.y = tooltipHeight + constants::Margin;
+		offset.y = toolTipSize.y + constants::Margin;
 	}
 
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	if (tooltipPosition.x + tooltipWidth > renderer.size().x)
+	if (tooltipPosition.x + toolTipSize.x > renderer.size().x)
 	{
-		offset.x -= (tooltipPosition.x + tooltipWidth) - (renderer.size().x - constants::Margin);
+		offset.x -= (tooltipPosition.x + toolTipSize.x) - (renderer.size().x - constants::Margin);
 	}
 
 	position(tooltipPosition + offset);
-	size({tooltipWidth, tooltipHeight});
+	size(toolTipSize);
 }
 
 
