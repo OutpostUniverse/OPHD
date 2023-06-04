@@ -2,7 +2,6 @@
 
 #include "Control.h"
 #include "ScrollBar.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
