@@ -1,6 +1,5 @@
 #include "RadioButtonGroup.h"
 
-#include "../../Constants/UiConstants.h"
 
 
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :

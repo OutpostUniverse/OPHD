@@ -3,7 +3,6 @@
 #include "Control.h"
 #include "ScrollBar.h"
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Signal/Signal.h>
