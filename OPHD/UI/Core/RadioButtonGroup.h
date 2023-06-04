@@ -2,8 +2,6 @@
 
 #include "Control.h"
 #include "Label.h"
-#include "../../Cache.h"
-
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>

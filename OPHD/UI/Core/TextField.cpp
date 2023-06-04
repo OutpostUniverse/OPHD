@@ -7,8 +7,6 @@
 
 #include "TextField.h"
 
-#include "../../Cache.h"
-
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
