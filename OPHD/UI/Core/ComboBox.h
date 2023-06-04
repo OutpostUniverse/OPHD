@@ -57,5 +57,5 @@ private:
 
 	SelectionChangeSignal mSelectionChanged;
 
-	std::size_t mMaxDisplayItems = constants::MinimumDisplayItems;
+	std::size_t mMaxDisplayItems;
 };

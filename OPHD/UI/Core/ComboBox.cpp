@@ -11,11 +11,13 @@
 namespace
 {
 	const std::string EmptyString{};
+	constexpr unsigned int MinimumDisplayItems{5};
 }
 
 
 ComboBox::ComboBox() :
-	UIContainer{{&btnDown, &txtField, &lstItems}}
+	UIContainer{{&btnDown, &txtField, &lstItems}},
+	mMaxDisplayItems{MinimumDisplayItems}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().connect({this, &ComboBox::onMouseWheel});
@@ -137,9 +139,9 @@ void ComboBox::maxDisplayItems(std::size_t count)
 {
 	mMaxDisplayItems = count;
 
-	if (count < constants::MinimumDisplayItems)
+	if (count < MinimumDisplayItems)
 	{
-		mMaxDisplayItems = constants::MinimumDisplayItems;
+		mMaxDisplayItems = MinimumDisplayItems;
 	}
 }
 
