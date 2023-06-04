@@ -1,15 +1,19 @@
 #include "TextArea.h"
 
-#include "../../Cache.h"
-
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 
-void TextArea::font(const std::string& filePath, unsigned int pointSize)
+TextArea::TextArea() :
+	mFont{&getDefaultFont()}
 {
-	mFont = &fontCache.load(filePath, pointSize);
+}
+
+
+TextArea::TextArea(const NAS2D::Font& font) :
+	mFont{&font}
+{
 }
 
 

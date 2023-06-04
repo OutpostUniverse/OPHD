@@ -11,11 +11,10 @@
 class TextArea : public TextControl
 {
 public:
-	TextArea() = default;
+	TextArea();
+	TextArea(const NAS2D::Font& font);
 
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
-
-	void font(const std::string& filePath, unsigned int pointSize);
 
 	void update() override;
 
