@@ -1,5 +1,6 @@
 #include "RadioButtonGroup.h"
 
+#include <NAS2D/Resource/Font.h>
 
 
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
