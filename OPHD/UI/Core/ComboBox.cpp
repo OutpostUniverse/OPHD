@@ -1,13 +1,17 @@
 #include "ComboBox.h"
 
-#include "../../Constants/Strings.h"
-
 #include <NAS2D/Utility.h>
 #include <NAS2D/Math/MathUtils.h>
 #include <NAS2D/StringUtils.h>
 
 #include <utility>
 #include <algorithm>
+
+
+namespace
+{
+	const std::string EmptyString{};
+}
 
 
 ComboBox::ComboBox() :
@@ -159,7 +163,7 @@ void ComboBox::addItem(const std::string& item, int tag)
  */
 const std::string& ComboBox::selectionText() const
 {
-	return lstItems.isItemSelected() ? lstItems.selected().text : constants::EmptyString;
+	return lstItems.isItemSelected() ? lstItems.selected().text : EmptyString;
 }
 
 
