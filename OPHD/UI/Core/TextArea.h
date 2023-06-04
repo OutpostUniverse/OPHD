@@ -11,7 +11,7 @@
 class TextArea : public TextControl
 {
 public:
-	TextArea() = default;
+	TextArea();
 
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 

@@ -7,6 +7,12 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
+TextArea::TextArea() :
+	mFont{&getDefaultFont()}
+{
+}
+
+
 void TextArea::font(const std::string& filePath, unsigned int pointSize)
 {
 	mFont = &fontCache.load(filePath, pointSize);
