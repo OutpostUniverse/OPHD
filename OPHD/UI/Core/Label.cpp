@@ -1,7 +1,6 @@
 #include "Label.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
@@ -10,7 +9,7 @@
 
 
 Label::Label(std::string newText) :
-	mFont(&fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal))
+	mFont(&getDefaultFont())
 {
 	text(newText);
 	autosize();

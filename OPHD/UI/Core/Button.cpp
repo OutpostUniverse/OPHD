@@ -1,7 +1,6 @@
 #include "Button.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -52,7 +51,7 @@ Button::Button(std::string newText) :
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 
-	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	mFont = &getDefaultFont();
 }
 
 
@@ -105,7 +104,7 @@ bool Button::isPressed() const
 
 void Button::fontSize(unsigned int pointSize)
 {
-	mFont = &fontCache.load(constants::FONT_PRIMARY, pointSize);
+	mFont = &getDefaultFontOfSize(pointSize);
 }
 
 

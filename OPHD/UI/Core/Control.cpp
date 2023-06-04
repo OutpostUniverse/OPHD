@@ -1,5 +1,26 @@
 #include "Control.h"
 
+#include "../../Cache.h"
+#include "../../Constants/UiConstants.h"
+
+
+const NAS2D::Font& Control::getDefaultFont()
+{
+	return fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+}
+
+
+const NAS2D::Font& Control::getDefaultFontBold()
+{
+	return fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
+}
+
+
+const NAS2D::Font& Control::getDefaultFontOfSize(unsigned int pointSize)
+{
+	return fontCache.load(constants::FONT_PRIMARY, pointSize);
+}
+
 
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {

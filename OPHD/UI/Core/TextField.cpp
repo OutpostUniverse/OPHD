@@ -8,7 +8,6 @@
 #include "TextField.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -25,7 +24,7 @@ namespace
 
 
 TextField::TextField() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{getDefaultFont()},
 	mSkinNormal{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),

@@ -3,7 +3,6 @@
 #include "Control.h"
 #include "ScrollBar.h"
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Signal/Signal.h>
@@ -66,7 +65,7 @@ public:
 
 
 	ListBox() :
-		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
+		mContext{getDefaultFont()}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});

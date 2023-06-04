@@ -15,7 +15,6 @@
 #include "CheckBox.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -25,7 +24,7 @@
 
 
 CheckBox::CheckBox(std::string newText) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{getDefaultFont()},
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
 	text(newText);

@@ -1,14 +1,13 @@
 #include "Window.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 
 Window::Window(std::string newTitle) :
-	mTitleFont{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
+	mTitleFont{getDefaultFontBold()},
 	mTitleBarLeft{imageCache.load("ui/skin/window_title_left.png")},
 	mTitleBarCenter{imageCache.load("ui/skin/window_title_middle.png")},
 	mTitleBarRight{imageCache.load("ui/skin/window_title_right.png")},
