@@ -57,9 +57,10 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	if (tooltipPosition.x + toolTipSize.x > renderer.size().x)
+	const auto maxX = renderer.size().x - toolTipSize.x;
+	if (tooltipPosition.x > maxX)
 	{
-		offset.x = renderer.size().x - (tooltipPosition.x + toolTipSize.x);
+		offset.x = maxX - tooltipPosition.x;
 	}
 
 	position(tooltipPosition + offset);
