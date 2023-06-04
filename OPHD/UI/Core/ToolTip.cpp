@@ -9,7 +9,7 @@
 
 
 ToolTip::ToolTip():
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
+	mFont{getDefaultFont()}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
 }

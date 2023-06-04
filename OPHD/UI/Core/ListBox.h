@@ -66,7 +66,7 @@ public:
 
 
 	ListBox() :
-		mContext{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)}
+		mContext{getDefaultFont()}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});

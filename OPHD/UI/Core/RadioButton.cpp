@@ -4,7 +4,7 @@
 
 
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{getDefaultFont()},
 	mSkin{imageCache.load("ui/skin/radio.png")},
 	mLabel{newText},
 	mParentContainer{parentContainer}

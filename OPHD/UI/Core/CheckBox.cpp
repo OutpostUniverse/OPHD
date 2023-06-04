@@ -25,7 +25,7 @@
 
 
 CheckBox::CheckBox(std::string newText) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{getDefaultFont()},
 	mSkin{imageCache.load("ui/skin/checkbox.png")}
 {
 	text(newText);

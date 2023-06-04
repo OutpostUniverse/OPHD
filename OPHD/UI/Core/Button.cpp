@@ -52,7 +52,7 @@ Button::Button(std::string newText) :
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 
-	mFont = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	mFont = &getDefaultFont();
 }
 
 
