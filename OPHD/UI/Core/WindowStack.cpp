@@ -1,7 +1,6 @@
 #include "WindowStack.h"
 
 #include "Window.h"
-#include "../../Common.h"
 
 #include <algorithm>
 #include <stdexcept>
