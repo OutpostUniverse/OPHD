@@ -92,7 +92,7 @@ void StructureListBox::setSelected(Structure* structure)
 
 Structure* StructureListBox::selectedStructure()
 {
-	return (selectedIndex() == constants::NoSelection) ? nullptr : static_cast<StructureListBoxItem*>(mItems[selectedIndex()])->structure;
+	return !isItemSelected() ? nullptr : static_cast<StructureListBoxItem*>(mItems[selectedIndex()])->structure;
 }
 
 
