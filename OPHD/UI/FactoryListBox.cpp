@@ -111,7 +111,7 @@ void FactoryListBox::setSelected(Factory* f)
 
 Factory* FactoryListBox::selectedFactory()
 {
-	return (selectedIndex() == constants::NoSelection) ? nullptr : static_cast<FactoryListBoxItem*>(mItems[selectedIndex()])->factory;
+	return !isItemSelected() ? nullptr : static_cast<FactoryListBoxItem*>(mItems[selectedIndex()])->factory;
 }
 
 

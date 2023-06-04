@@ -104,12 +104,12 @@ void ListBoxBase::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Po
 
 	if (button == NAS2D::EventHandler::MouseButton::Right && mRect.contains(position))
 	{
-		setSelection(constants::NoSelection);
+		setSelection(NoSelection);
 		return;
 	}
 
 	// A few basic checks
-	if (!rect().contains(position) || mHighlightIndex == constants::NoSelection) { return; }
+	if (!rect().contains(position) || mHighlightIndex == NoSelection) { return; }
 	if (mScrollBar.visible() && mScrollBar.rect().contains(position)) { return; }
 	if (mHighlightIndex >= mItems.size()) { return; }
 
@@ -126,14 +126,14 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 	// Ignore mouse motion events if the pointer isn't within the menu rect.
 	if (!mHasFocus)
 	{
-		mHighlightIndex = constants::NoSelection;
+		mHighlightIndex = NoSelection;
 		return;
 	}
 
 	// if the mouse is on the scroll bar then the scroll bar should handle that
 	if (mScrollBar.visible() && mScrollBar.rect().contains(position))
 	{
-		mHighlightIndex = constants::NoSelection;
+		mHighlightIndex = NoSelection;
 		return;
 	}
 
@@ -141,7 +141,7 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 
 	if (mHighlightIndex >= mItems.size())
 	{
-		mHighlightIndex = constants::NoSelection;
+		mHighlightIndex = NoSelection;
 	}
 }
 
@@ -173,8 +173,8 @@ void ListBoxBase::clear()
 {
 	for (auto item : mItems) { delete item; }
 	mItems.clear();
-	mSelectedIndex = constants::NoSelection;
-	mHighlightIndex = constants::NoSelection;
+	mSelectedIndex = NoSelection;
+	mHighlightIndex = NoSelection;
 	updateScrollLayout();
 }
 
@@ -199,13 +199,13 @@ std::size_t ListBoxBase::selectedIndex() const
 
 bool ListBoxBase::isItemSelected() const
 {
-	return mSelectedIndex != constants::NoSelection;
+	return mSelectedIndex != NoSelection;
 }
 
 
 const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
 {
-	if (mSelectedIndex == constants::NoSelection)
+	if (mSelectedIndex == NoSelection)
 	{
 		throw std::runtime_error("ListBox has no selected item");
 	}
@@ -221,7 +221,7 @@ const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
  */
 void ListBoxBase::setSelection(std::size_t selection)
 {
-	mSelectedIndex = (selection < mItems.size()) ? selection : constants::NoSelection;
+	mSelectedIndex = (selection < mItems.size()) ? selection : NoSelection;
 	mSelectionChanged();
 }
 
@@ -231,7 +231,7 @@ void ListBoxBase::setSelection(std::size_t selection)
  */
 void ListBoxBase::clearSelected()
 {
-	mSelectedIndex = constants::NoSelection;
+	mSelectedIndex = NoSelection;
 }
 
 

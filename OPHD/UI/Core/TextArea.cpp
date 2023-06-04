@@ -1,8 +1,8 @@
 #include "TextArea.h"
 
-#include "../../Common.h"
 #include "../../Cache.h"
 
+#include <NAS2D/StringUtils.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -19,7 +19,7 @@ void TextArea::processString()
 
 	if (mRect.size.x < 10 || !mFont || text().empty()) { return; }
 
-	const auto tokenList = splitString(text(), ' ');
+	const auto tokenList = NAS2D::split(text(), ' ');
 
 	std::size_t i = 0;
 	int w = 0;

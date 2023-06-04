@@ -2,7 +2,6 @@
 
 #include "Control.h"
 #include "ScrollBar.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
@@ -13,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <cstddef>
+#include <limits>
 
 
 /**
@@ -43,6 +43,8 @@ public:
 
 		std::string text;
 	};
+
+	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 	ListBoxBase();
@@ -96,8 +98,8 @@ private:
 	void onResize() override;
 
 
-	std::size_t mHighlightIndex = constants::NoSelection;
-	std::size_t mSelectedIndex = constants::NoSelection;
+	std::size_t mHighlightIndex = NoSelection;
+	std::size_t mSelectedIndex = NoSelection;
 	unsigned int mScrollOffsetInPixels = 0;
 
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */

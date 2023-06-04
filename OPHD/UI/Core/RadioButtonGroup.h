@@ -3,7 +3,6 @@
 #include "Control.h"
 #include "Label.h"
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
@@ -16,6 +15,8 @@
 
 #include <algorithm>
 #include <string>
+#include <limits>
+
 
 class RadioButtonGroup : public Control
 {
@@ -59,6 +60,9 @@ public:
 		NAS2D::Delegate<void()> delegate;
 	};
 
+	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
+
+
 	RadioButtonGroup() = default;
 	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
 
@@ -74,6 +78,6 @@ protected:
 	void onMove(NAS2D::Vector<int> displacement) override;
 
 private:
-	std::size_t mIndex = constants::NoSelection;
+	std::size_t mIndex = NoSelection;
 	std::vector<RadioButton> mRadioButtons;
 };
