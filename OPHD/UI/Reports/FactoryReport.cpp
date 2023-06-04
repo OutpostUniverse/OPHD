@@ -118,7 +118,6 @@ FactoryReport::FactoryReport() :
 
 	add(lstProducts, {cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x + 20, mRect.position.y + 230});
 
-	txtProductDescription.font(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	txtProductDescription.height(128);
 	txtProductDescription.textColor(NAS2D::Color{0, 185, 0});
 

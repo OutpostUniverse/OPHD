@@ -24,7 +24,6 @@ NotificationWindow::NotificationWindow():
 
 	add(mMessageArea, {5, 65});
 	mMessageArea.size({size().x - 10, 125});
-	mMessageArea.font(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 }
 
 
