@@ -9,6 +9,7 @@
 namespace NAS2D
 {
 	class Font;
+	class Image;
 }
 
 
@@ -27,6 +28,7 @@ public:
 	static const NAS2D::Font& getDefaultFont();
 	static const NAS2D::Font& getDefaultFontBold();
 	static const NAS2D::Font& getDefaultFontOfSize(unsigned int pointSize);
+	static const NAS2D::Image& getImage(const std::string& filename);
 
 
 	Control() = default;
