@@ -12,6 +12,7 @@ class TextArea : public TextControl
 {
 public:
 	TextArea();
+	TextArea(const NAS2D::Font& font);
 
 	void textColor(const NAS2D::Color& color) { mTextColor = color; }
 

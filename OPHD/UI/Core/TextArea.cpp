@@ -13,6 +13,12 @@ TextArea::TextArea() :
 }
 
 
+TextArea::TextArea(const NAS2D::Font& font) :
+	mFont{&font}
+{
+}
+
+
 void TextArea::font(const std::string& filePath, unsigned int pointSize)
 {
 	mFont = &fontCache.load(filePath, pointSize);
