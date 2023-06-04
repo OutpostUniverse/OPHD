@@ -313,8 +313,6 @@ extern const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable
 void checkSavegameVersion(const std::string& filename);
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
-std::vector<std::string> splitString(const std::string& string, char delimiter);
-
 void setMeanSolarDistance(float newMeanSolarDistance);
 float getMeanSolarDistance();
 
