@@ -60,7 +60,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	const auto maxX = renderer.size().x - toolTipSize.x;
 	if (tooltipPosition.x > maxX)
 	{
-		offset.x = maxX - tooltipPosition.x;
+		tooltipPosition.x = maxX;
 	}
 
 	position(tooltipPosition + offset);
