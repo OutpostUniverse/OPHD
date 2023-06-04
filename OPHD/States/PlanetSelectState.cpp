@@ -27,6 +27,7 @@ PlanetSelectState::PlanetSelectState() :
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
 	mQuit{"Main Menu", {this, &PlanetSelectState::onQuit}},
+	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	mReturnState{this},
 	PlanetAttributes(parsePlanetAttributes())
 {}
@@ -75,7 +76,6 @@ void PlanetSelectState::initialize()
 	mQuit.position({renderer.size().x - 105, 30});
 
 	mPlanetDescription.text("");
-	mPlanetDescription.font(constants::FONT_PRIMARY, constants::FontPrimaryMedium);
 	mPlanetDescription.size({550, 200});
 	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
