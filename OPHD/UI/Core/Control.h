@@ -6,6 +6,12 @@
 #include <NAS2D/Math/Rectangle.h>
 
 
+namespace NAS2D
+{
+	class Font;
+}
+
+
 /**
  * Implements a base for all GUI Controls to derive from.
  * 
@@ -17,6 +23,11 @@ class Control
 public:
 	using ResizeSignal = NAS2D::Signal<Control*>;
 	using OnMoveSignal = NAS2D::Signal<NAS2D::Vector<int>>;
+
+	static const NAS2D::Font& getDefaultFont();
+	static const NAS2D::Font& getDefaultFontBold();
+	static const NAS2D::Font& getDefaultFontOfSize(unsigned int pointSize);
+
 
 	Control() = default;
 	Control(Control&) = default;
