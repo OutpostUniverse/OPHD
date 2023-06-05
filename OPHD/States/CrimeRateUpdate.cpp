@@ -3,7 +3,8 @@
 #include "../Map/Tile.h"
 #include "../MapObjects/Structure.h"
 #include "../StructureManager.h"
-#include "../RandomNumberGenerator.h"
+
+#include <libOPHD/RandomNumberGenerator.h>
 
 #include <NAS2D/Utility.h>
 

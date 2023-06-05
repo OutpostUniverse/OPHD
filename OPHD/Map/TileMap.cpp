@@ -5,7 +5,8 @@
 #include "../DirectionOffset.h"
 #include "../Mine.h"
 #include "../MapObjects/Structure.h"
-#include "../RandomNumberGenerator.h"
+
+#include <libOPHD/RandomNumberGenerator.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>

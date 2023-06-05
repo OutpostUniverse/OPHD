@@ -3,8 +3,9 @@
 #include "StructureType.h"
 
 #include "../StructureCatalogue.h"
-#include "../RandomNumberGenerator.h"
 #include "../Constants/Strings.h"
+
+#include <libOPHD/RandomNumberGenerator.h>
 
 #include <algorithm>
 
