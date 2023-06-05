@@ -106,6 +106,12 @@ void Button::fontSize(unsigned int pointSize)
 }
 
 
+void Button::font(const NAS2D::Font& font)
+{
+	mFont = &font;
+}
+
+
 void Button::image(const std::string& path)
 {
 	mImage = &getImage(path);
