@@ -2,9 +2,9 @@
 
 #include "ReportInterface.h"
 
-#include "../Core/Button.h"
-#include "../Core/ComboBox.h"
-#include "../Core/TextArea.h"
+#include <libControls/Button.h>
+#include <libControls/ComboBox.h>
+#include <libControls/TextArea.h>
 #include "../FactoryListBox.h"
 #include "../../Common.h"
 #include "../../ProductCatalogue.h"

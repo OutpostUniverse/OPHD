@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Window.h"
-#include "Core/Button.h"
+#include <libControls/Window.h>
+#include <libControls/Button.h>
 
 
 class GameOverDialog : public Window

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Control.h"
+#include <libControls/Control.h>
 
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Resource/Image.h>

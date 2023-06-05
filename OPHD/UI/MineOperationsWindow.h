@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core/Window.h"
-#include "Core/Button.h"
-#include "Core/CheckBox.h"
+#include <libControls/Window.h>
+#include <libControls/Button.h>
+#include <libControls/CheckBox.h>
 
 #include <NAS2D/Renderer/RectangleSkin.h>
 

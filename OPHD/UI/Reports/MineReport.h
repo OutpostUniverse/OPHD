@@ -2,8 +2,8 @@
 
 #include "ReportInterface.h"
 
-#include "../Core/Button.h"
-#include "../Core/CheckBox.h"
+#include <libControls/Button.h>
+#include <libControls/CheckBox.h>
 #include "../StructureListBox.h"
 #include "../../Common.h"
 

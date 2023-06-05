@@ -45,8 +45,8 @@
 #include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
 
-#include "../UI/Core/WindowStack.h"
-#include "../UI/Core/ToolTip.h"
+#include <libControls/WindowStack.h>
+#include <libControls/ToolTip.h>
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>

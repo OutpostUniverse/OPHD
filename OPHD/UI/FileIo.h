@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Core/Window.h"
-#include "Core/Button.h"
-#include "Core/TextField.h"
-#include "Core/ListBox.h"
-#include "Core/Label.h"
+#include <libControls/Window.h>
+#include <libControls/Button.h>
+#include <libControls/TextField.h>
+#include <libControls/ListBox.h>
+#include <libControls/Label.h>
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>

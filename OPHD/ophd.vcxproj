@@ -63,7 +63,7 @@
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+    <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
   </PropertyGroup>
@@ -71,19 +71,19 @@
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+    <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+    <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
+    <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
   </PropertyGroup>
@@ -230,23 +230,6 @@
     <ClCompile Include="Technology\ResearchTracker.cpp" />
     <ClCompile Include="Technology\TechnologyCatalog.cpp" />
     <ClCompile Include="UI\CheatMenu.cpp" />
-    <ClCompile Include="UI\Core\Button.cpp" />
-    <ClCompile Include="UI\Core\CheckBox.cpp" />
-    <ClCompile Include="UI\Core\ComboBox.cpp" />
-    <ClCompile Include="UI\Core\Control.cpp" />
-    <ClCompile Include="UI\Core\Label.cpp" />
-    <ClCompile Include="UI\Core\ListBox.cpp" />
-    <ClCompile Include="UI\Core\ListBoxBase.cpp" />
-    <ClCompile Include="UI\Core\RadioButton.cpp" />
-    <ClCompile Include="UI\Core\RadioButtonGroup.cpp" />
-    <ClCompile Include="UI\Core\ScrollBar.cpp" />
-    <ClCompile Include="UI\Core\TextArea.cpp" />
-    <ClCompile Include="UI\Core\TextControl.cpp" />
-    <ClCompile Include="UI\Core\TextField.cpp" />
-    <ClCompile Include="UI\Core\ToolTip.cpp" />
-    <ClCompile Include="UI\Core\UIContainer.cpp" />
-    <ClCompile Include="UI\Core\Window.cpp" />
-    <ClCompile Include="UI\Core\WindowStack.cpp" />
     <ClCompile Include="UI\DetailMap.cpp" />
     <ClCompile Include="UI\DiggerDirection.cpp" />
     <ClCompile Include="UI\FactoryListBox.cpp" />
@@ -380,22 +363,6 @@
     <ClInclude Include="Technology\Technology.h" />
     <ClInclude Include="Technology\TechnologyCatalog.h" />
     <ClInclude Include="UI\CheatMenu.h" />
-    <ClInclude Include="UI\Core\Button.h" />
-    <ClInclude Include="UI\Core\CheckBox.h" />
-    <ClInclude Include="UI\Core\ComboBox.h" />
-    <ClInclude Include="UI\Core\Control.h" />
-    <ClInclude Include="UI\Core\Label.h" />
-    <ClInclude Include="UI\Core\ListBox.h" />
-    <ClInclude Include="UI\Core\ListBoxBase.h" />
-    <ClInclude Include="UI\Core\RadioButtonGroup.h" />
-    <ClInclude Include="UI\Core\ScrollBar.h" />
-    <ClInclude Include="UI\Core\TextArea.h" />
-    <ClInclude Include="UI\Core\TextControl.h" />
-    <ClInclude Include="UI\Core\TextField.h" />
-    <ClInclude Include="UI\Core\ToolTip.h" />
-    <ClInclude Include="UI\Core\UIContainer.h" />
-    <ClInclude Include="UI\Core\Window.h" />
-    <ClInclude Include="UI\Core\WindowStack.h" />
     <ClInclude Include="UI\DetailMap.h" />
     <ClInclude Include="UI\DiggerDirection.h" />
     <ClInclude Include="UI\FactoryListBox.h" />
@@ -439,6 +406,9 @@
   <ItemGroup>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">
       <Project>{3350562d-6204-42fc-898a-c85fd62e04e8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libControls\libControls.vcxproj">
+      <Project>{a6c25675-5e50-4bdf-9a05-25fc7c448713}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

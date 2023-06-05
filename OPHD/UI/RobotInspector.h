@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core/Button.h"
-#include "Core/Window.h"
+#include <libControls/Button.h>
+#include <libControls/Window.h>
 
 #include "../Common.h"
 
