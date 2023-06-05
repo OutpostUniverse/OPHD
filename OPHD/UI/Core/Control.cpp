@@ -1,32 +1,67 @@
 #include "Control.h"
 
-#include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
+#include <NAS2D/Resource/Image.h>
+
+
+namespace
+{
+	const NAS2D::Font* defaultFont = nullptr;
+	const NAS2D::Font* defaultFontBold = nullptr;
+	Control::ControlImageCache* defaultImageCache = nullptr;
+}
+
+
+// Global static functions
+
+void Control::setDefaultFont(const NAS2D::Font& font)
+{
+	defaultFont = &font;
+}
+
+
+void Control::setDefaultFontBold(const NAS2D::Font& font)
+{
+	defaultFontBold = &font;
+}
+
+
+void Control::setImageCache(ControlImageCache& controlImageCache)
+{
+	defaultImageCache = &controlImageCache;
+}
 
 
 const NAS2D::Font& Control::getDefaultFont()
 {
-	return fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	if (!defaultFont)
+	{
+		throw std::runtime_error("No default font set");
+	}
+	return *defaultFont;
 }
 
 
 const NAS2D::Font& Control::getDefaultFontBold()
 {
-	return fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
-}
-
-
-const NAS2D::Font& Control::getDefaultFontOfSize(unsigned int pointSize)
-{
-	return fontCache.load(constants::FONT_PRIMARY, pointSize);
+	if (!defaultFontBold)
+	{
+		throw std::runtime_error("No default bold font set");
+	}
+	return *defaultFontBold;
 }
 
 
 const NAS2D::Image& Control::getImage(const std::string& filename)
 {
-	return imageCache.load(filename);
+	if (!defaultImageCache)
+	{
+		throw std::runtime_error("No default image cache set");
+	}
+	return defaultImageCache->load(filename);
 }
 
+
+// Control member functions
 
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {

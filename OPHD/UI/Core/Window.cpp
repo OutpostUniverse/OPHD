@@ -4,8 +4,8 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-Window::Window(std::string newTitle) :
-	mTitleFont{getDefaultFontBold()},
+Window::Window(std::string newTitle, const NAS2D::Font& titleFont) :
+	mTitleFont{titleFont},
 	mTitleBarLeft{getImage("ui/skin/window_title_left.png")},
 	mTitleBarCenter{getImage("ui/skin/window_title_middle.png")},
 	mTitleBarRight{getImage("ui/skin/window_title_right.png")},
