@@ -4,8 +4,8 @@
 
 #include "../Constants/UiConstants.h"
 
-#include "../UI/Core/Button.h"
-#include "../UI/Core/TextArea.h"
+#include <libControls/Button.h>
+#include <libControls/TextArea.h>
 
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>

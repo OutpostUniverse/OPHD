@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Control.h"
+#include <libControls/Control.h>
 
 #include "../Constants/UiConstants.h"
 

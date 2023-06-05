@@ -2,8 +2,8 @@
 
 #include "../MapObjects/Structure.h"
 
-#include "Core/UIContainer.h"
-#include "Core/ToolTip.h"
+#include <libControls/UIContainer.h>
+#include <libControls/ToolTip.h>
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>

@@ -6,7 +6,7 @@
 #include "../../Technology/TechnologyCatalog.h"
 #include "../../Technology/ResearchTracker.h"
 
-#include "../Core/Button.h"
+#include <libControls/Button.h>
 
 #include <NAS2D/Math/Point.h>
 

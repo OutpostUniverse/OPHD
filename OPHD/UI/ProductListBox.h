@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/ListBoxBase.h"
+#include <libControls/ListBoxBase.h>
 
 
 namespace NAS2D

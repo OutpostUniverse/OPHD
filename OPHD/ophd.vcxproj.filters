@@ -231,57 +231,6 @@
     <ClCompile Include="UI\CheatMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Core\Button.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\CheckBox.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\ComboBox.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\Control.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\Label.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\ListBox.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\ListBoxBase.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\RadioButton.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\RadioButtonGroup.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\ScrollBar.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\TextArea.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\TextControl.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\TextField.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\ToolTip.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\UIContainer.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\Window.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Core\WindowStack.cpp">
-      <Filter>Source Files\UI\Core</Filter>
-    </ClCompile>
     <ClCompile Include="UI\DetailMap.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -682,54 +631,6 @@
     </ClInclude>
     <ClInclude Include="UI\CheatMenu.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\Button.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\CheckBox.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\ComboBox.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\Control.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\Label.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\ListBox.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\ListBoxBase.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\RadioButtonGroup.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\ScrollBar.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\TextArea.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\TextControl.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\TextField.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\ToolTip.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\UIContainer.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\Window.h">
-      <Filter>Header Files\UI\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Core\WindowStack.h">
-      <Filter>Header Files\UI\Core</Filter>
     </ClInclude>
     <ClInclude Include="UI\DetailMap.h">
       <Filter>Header Files\UI</Filter>

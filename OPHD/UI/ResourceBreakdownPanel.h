@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Control.h"
+#include <libControls/Control.h>
 #include "../StorableResources.h"
 
 #include <NAS2D/Resource/Font.h>

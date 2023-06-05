@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core/Window.h"
-#include "Core/Button.h"
-#include "Core/TextArea.h"
+#include <libControls/Window.h>
+#include <libControls/Button.h>
+#include <libControls/TextArea.h>
 
 #include "NotificationArea.h"
 

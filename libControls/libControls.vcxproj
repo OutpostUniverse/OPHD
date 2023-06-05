@@ -145,9 +145,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CheckBox.cpp" />
+    <ClCompile Include="ComboBox.cpp" />
+    <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="ListBox.cpp" />
+    <ClCompile Include="ListBoxBase.cpp" />
+    <ClCompile Include="RadioButton.cpp" />
+    <ClCompile Include="RadioButtonGroup.cpp" />
+    <ClCompile Include="ScrollBar.cpp" />
+    <ClCompile Include="TextArea.cpp" />
+    <ClCompile Include="TextControl.cpp" />
+    <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="ToolTip.cpp" />
+    <ClCompile Include="UIContainer.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowStack.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="libControls.cpp" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CheckBox.h" />
+    <ClInclude Include="ComboBox.h" />
+    <ClInclude Include="Control.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="ListBox.h" />
+    <ClInclude Include="ListBoxBase.h" />
+    <ClInclude Include="RadioButtonGroup.h" />
+    <ClInclude Include="ScrollBar.h" />
+    <ClInclude Include="TextArea.h" />
+    <ClInclude Include="TextControl.h" />
+    <ClInclude Include="TextField.h" />
+    <ClInclude Include="ToolTip.h" />
+    <ClInclude Include="UIContainer.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">
