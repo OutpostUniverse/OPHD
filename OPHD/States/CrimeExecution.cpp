@@ -1,8 +1,9 @@
 #include "CrimeExecution.h"
 
 #include "../StructureManager.h"
-#include "../RandomNumberGenerator.h"
 #include "../UI/NotificationArea.h"
+
+#include <libOPHD/RandomNumberGenerator.h>
 
 #include <NAS2D/StringUtils.h>
 #include <NAS2D/Utility.h>

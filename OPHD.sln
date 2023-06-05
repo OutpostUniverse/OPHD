@@ -6,11 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OPHD", "OPHD\ophd.vcxproj", "{230AB062-FDCA-4D56-A781-0D3B9E8AE310}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3350562D-6204-42FC-898A-C85FD62E04E8} = {3350562D-6204-42FC-898A-C85FD62E04E8}
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95} = {98C10163-D69F-4A70-A56F-FA8C41BE1D95}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NAS2D", "nas2d-core\NAS2D\NAS2D.vcxproj", "{3350562D-6204-42FC-898A-C85FD62E04E8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libControls", "libControls\libControls.vcxproj", "{A6C25675-5E50-4BDF-9A05-25FC7C448713}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libOPHD", "libOPHD\libOPHD.vcxproj", "{98C10163-D69F-4A70-A56F-FA8C41BE1D95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +47,14 @@ Global
 		{A6C25675-5E50-4BDF-9A05-25FC7C448713}.Release|x64.Build.0 = Release|x64
 		{A6C25675-5E50-4BDF-9A05-25FC7C448713}.Release|x86.ActiveCfg = Release|Win32
 		{A6C25675-5E50-4BDF-9A05-25FC7C448713}.Release|x86.Build.0 = Release|Win32
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Debug|x64.ActiveCfg = Debug|x64
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Debug|x64.Build.0 = Debug|x64
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Debug|x86.ActiveCfg = Debug|Win32
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Debug|x86.Build.0 = Debug|Win32
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x64.ActiveCfg = Release|x64
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x64.Build.0 = Release|x64
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x86.ActiveCfg = Release|Win32
+		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

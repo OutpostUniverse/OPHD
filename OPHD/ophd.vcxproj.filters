@@ -551,9 +551,6 @@
     <ClInclude Include="ProductPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RandomNumberGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
