@@ -261,7 +261,6 @@
     <ClCompile Include="UI\TextRender.cpp" />
     <ClCompile Include="UI\TileInspector.cpp" />
     <ClCompile Include="UI\WarehouseInspector.cpp" />
-    <ClCompile Include="WindowEventWrapper.h" />
     <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -395,6 +394,7 @@
     <ClInclude Include="UI\TextRender.h" />
     <ClInclude Include="UI\TileInspector.h" />
     <ClInclude Include="UI\WarehouseInspector.h" />
+    <ClInclude Include="WindowEventWrapper.h" />
     <ClInclude Include="XmlSerializer.h" />
   </ItemGroup>
   <ItemGroup>
