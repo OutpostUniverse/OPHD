@@ -1,13 +1,11 @@
 #include "ListBox.h"
 
-#include "../../Constants/UiConstants.h"
-
 #include <NAS2D/Renderer/Renderer.h>
 
 
 namespace
 {
-	constexpr int MarginTight{constants::MarginTight};
+	constexpr int MarginTight{2};
 }
 
 
