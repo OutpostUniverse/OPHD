@@ -100,12 +100,6 @@ bool Button::isPressed() const
 }
 
 
-void Button::fontSize(unsigned int pointSize)
-{
-	mFont = &getDefaultFontOfSize(pointSize);
-}
-
-
 void Button::font(const NAS2D::Font& font)
 {
 	mFont = &font;

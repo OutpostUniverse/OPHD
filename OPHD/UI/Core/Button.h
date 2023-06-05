@@ -42,7 +42,6 @@ public:
 	void toggle(bool toggle);
 	bool isPressed() const;
 
-	void fontSize(unsigned int pointSize);
 	void font(const NAS2D::Font& font);
 
 	void image(const std::string& path);
