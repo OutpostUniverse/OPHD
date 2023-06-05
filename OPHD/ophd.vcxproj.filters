@@ -288,6 +288,9 @@
     <ClCompile Include="UI\Reports\MineReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Reports\ResearchReport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UI\Reports\WarehouseReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
@@ -322,9 +325,6 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="XmlSerializer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Reports\ResearchReport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -683,6 +683,9 @@
     <ClInclude Include="UI\Reports\ReportInterface.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
+    <ClInclude Include="UI\Reports\ResearchReport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="UI\Reports\WarehouseReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
@@ -717,9 +720,6 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="XmlSerializer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI\Reports\ResearchReport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowEventWrapper.h">
