@@ -16,12 +16,6 @@ const NAS2D::Font& Control::getDefaultFontBold()
 }
 
 
-const NAS2D::Font& Control::getDefaultFontOfSize(unsigned int pointSize)
-{
-	return fontCache.load(constants::FONT_PRIMARY, pointSize);
-}
-
-
 const NAS2D::Image& Control::getImage(const std::string& filename)
 {
 	return imageCache.load(filename);
