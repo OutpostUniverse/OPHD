@@ -289,7 +289,7 @@
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
     <ClCompile Include="UI\Reports\ResearchReport.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
     <ClCompile Include="UI\Reports\WarehouseReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
@@ -684,7 +684,7 @@
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\ResearchReport.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\WarehouseReport.h">
       <Filter>Header Files\UI\Reports</Filter>
