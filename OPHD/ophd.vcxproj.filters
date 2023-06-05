@@ -321,9 +321,6 @@
     <ClCompile Include="UI\WarehouseInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="WindowEventWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="XmlSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -735,6 +732,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\ResearchReport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowEventWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
