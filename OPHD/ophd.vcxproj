@@ -404,6 +404,9 @@
     <Image Include="outpost.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\libOPHD\libOPHD.vcxproj">
+      <Project>{98c10163-d69f-4a70-a56f-fa8c41be1d95}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">
       <Project>{3350562d-6204-42fc-898a-c85fd62e04e8}</Project>
     </ProjectReference>
