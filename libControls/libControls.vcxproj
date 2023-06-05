@@ -73,6 +73,7 @@
   <PropertyGroup>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
+    <IncludePath>..\nas2d-core;$(IncludePath)</IncludePath>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
@@ -143,6 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libControls.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">
+      <Project>{3350562d-6204-42fc-898a-c85fd62e04e8}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
