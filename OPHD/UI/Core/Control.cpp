@@ -1,12 +1,13 @@
 #include "Control.h"
 
-#include "../../Cache.h"
+#include <NAS2D/Resource/Image.h>
 
 
 namespace
 {
 	const NAS2D::Font* defaultFont = nullptr;
 	const NAS2D::Font* defaultFontBold = nullptr;
+	Control::ControlImageCache* defaultImageCache = nullptr;
 }
 
 
@@ -21,6 +22,12 @@ void Control::setDefaultFont(const NAS2D::Font& font)
 void Control::setDefaultFontBold(const NAS2D::Font& font)
 {
 	defaultFontBold = &font;
+}
+
+
+void Control::setImageCache(ControlImageCache& controlImageCache)
+{
+	defaultImageCache = &controlImageCache;
 }
 
 
@@ -46,7 +53,11 @@ const NAS2D::Font& Control::getDefaultFontBold()
 
 const NAS2D::Image& Control::getImage(const std::string& filename)
 {
-	return imageCache.load(filename);
+	if (!defaultImageCache)
+	{
+		throw std::runtime_error("No default image cache set");
+	}
+	return defaultImageCache->load(filename);
 }
 
 

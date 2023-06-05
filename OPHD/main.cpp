@@ -139,6 +139,7 @@ int main(int argc, char *argv[])
 
 		Control::setDefaultFont(fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal));
 		Control::setDefaultFontBold(fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal));
+		Control::setImageCache(imageCache);
 
 		const auto& options = cf["options"];
 		if (options.get<bool>("maximized"))

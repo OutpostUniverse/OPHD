@@ -4,6 +4,7 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Resource/ResourceCache.h>
 
 
 namespace NAS2D
@@ -25,8 +26,11 @@ public:
 	using ResizeSignal = NAS2D::Signal<Control*>;
 	using OnMoveSignal = NAS2D::Signal<NAS2D::Vector<int>>;
 
+	using ControlImageCache = NAS2D::ResourceCache<NAS2D::Image, std::string>;
+
 	static void setDefaultFont(const NAS2D::Font& font);
 	static void setDefaultFontBold(const NAS2D::Font& font);
+	static void setImageCache(ControlImageCache& controlImageCache);
 
 	static const NAS2D::Font& getDefaultFont();
 	static const NAS2D::Font& getDefaultFontBold();
