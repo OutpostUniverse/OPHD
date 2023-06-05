@@ -25,6 +25,9 @@ public:
 	using ResizeSignal = NAS2D::Signal<Control*>;
 	using OnMoveSignal = NAS2D::Signal<NAS2D::Vector<int>>;
 
+	static void setDefaultFont(const NAS2D::Font& font);
+	static void setDefaultFontBold(const NAS2D::Font& font);
+
 	static const NAS2D::Font& getDefaultFont();
 	static const NAS2D::Font& getDefaultFontBold();
 	static const NAS2D::Image& getImage(const std::string& filename);

@@ -1,18 +1,46 @@
 #include "Control.h"
 
 #include "../../Cache.h"
-#include "../../Constants/UiConstants.h"
+
+
+namespace
+{
+	const NAS2D::Font* defaultFont = nullptr;
+	const NAS2D::Font* defaultFontBold = nullptr;
+}
+
+
+// Global static functions
+
+void Control::setDefaultFont(const NAS2D::Font& font)
+{
+	defaultFont = &font;
+}
+
+
+void Control::setDefaultFontBold(const NAS2D::Font& font)
+{
+	defaultFontBold = &font;
+}
 
 
 const NAS2D::Font& Control::getDefaultFont()
 {
-	return fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	if (!defaultFont)
+	{
+		throw std::runtime_error("No default font set");
+	}
+	return *defaultFont;
 }
 
 
 const NAS2D::Font& Control::getDefaultFontBold()
 {
-	return fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
+	if (!defaultFontBold)
+	{
+		throw std::runtime_error("No default bold font set");
+	}
+	return *defaultFontBold;
 }
 
 
@@ -21,6 +49,8 @@ const NAS2D::Image& Control::getImage(const std::string& filename)
 	return imageCache.load(filename);
 }
 
+
+// Control member functions
 
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
