@@ -60,6 +60,24 @@ PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
 PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
 
 
+## libControls project ##
+
+libControls_SRCDIR := libControls/
+libControls_OUTDIR := $(BUILDDIRPREFIX)$(libControls_SRCDIR)
+libControls_OBJDIR := $(libControls_OUTDIR)Intermediate/
+libControls_OUTPUT := $(libControls_OUTDIR)libControls.a
+libControls_SRCS := $(shell find $(libControls_SRCDIR) -name '*.cpp')
+libControls_OBJS := $(patsubst $(libControls_SRCDIR)%.cpp,$(libControls_OBJDIR)%.o,$(libControls_SRCS))
+
+.PHONY: controls
+controls: $(libControls_OUTPUT)
+
+$(libControls_OUTPUT): $(libControls_OBJS) $(NAS2DLIB)
+$(libControls_OBJS): $(libControls_OBJDIR)%.o : $(libControls_SRCDIR)%.cpp $(libControls_OBJDIR)%.d
+
+include $(wildcard $(patsubst %.o,%.d,$(libControls_OBJS)))
+
+
 ## OPHD project ##
 
 ophd_SRCDIR := OPHD/
@@ -68,10 +86,15 @@ ophd_OUTPUT := ophd.exe
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
+ophd_CPPFLAGS := $(CPPFLAGS) -I./
+ophd_PROJECT_FLAGS := $(ophd_CPPFLAGS) $(CXXFLAGS)
+
 .PHONY: ophd
 ophd: $(ophd_OUTPUT)
 
-$(ophd_OUTPUT): $(ophd_OBJS) $(NAS2DLIB)
+$(ophd_OUTPUT): $(ophd_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
+
+$(ophd_OBJS): PROJECT_FLAGS := $(ophd_PROJECT_FLAGS)
 $(ophd_OBJS): $(ophd_OBJDIR)%.o : $(ophd_SRCDIR)%.cpp $(ophd_OBJDIR)%.d
 
 include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
