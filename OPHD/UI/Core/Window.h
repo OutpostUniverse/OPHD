@@ -14,7 +14,7 @@
 class Window : public UIContainer
 {
 public:
-	Window(std::string newTitle = "");
+	Window(std::string newTitle = "", const NAS2D::Font& titleFont = getDefaultFontBold());
 	~Window() override;
 
 	void anchored(bool isAnchored);
