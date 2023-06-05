@@ -5,9 +5,15 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
+namespace
+{
+	constexpr int MarginTight{constants::MarginTight};
+}
+
+
 unsigned int ListBoxItemText::Context::itemHeight() const
 {
-	return static_cast<unsigned int>(font.height() + constants::MarginTight);
+	return static_cast<unsigned int>(font.height() + MarginTight);
 }
 
 
@@ -24,7 +30,7 @@ void ListBoxItemText::draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> draw
 	}
 
 	// Draw item contents
-	const auto textPosition = drawRect.position + NAS2D::Vector{constants::MarginTight, 0};
+	const auto textPosition = drawRect.position + NAS2D::Vector{MarginTight, 0};
 	const auto textColor = isHighlighted ? context.textColorMouseHover : context.textColorNormal;
 	renderer.drawTextShadow(context.font, text, textPosition, {1, 1}, textColor, NAS2D::Color::Black);
 }

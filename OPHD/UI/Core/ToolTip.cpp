@@ -9,7 +9,8 @@
 
 namespace
 {
-	constexpr auto PaddingSize = NAS2D::Vector{constants::MarginTight, constants::MarginTight};
+	constexpr int MarginTight{constants::MarginTight};
+	constexpr auto PaddingSize = NAS2D::Vector{MarginTight, MarginTight};
 }
 
 
