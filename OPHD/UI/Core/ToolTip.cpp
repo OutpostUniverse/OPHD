@@ -9,7 +9,7 @@
 
 namespace
 {
-	constexpr auto paddingSize = NAS2D::Vector{constants::MarginTight, constants::MarginTight};
+	constexpr auto PaddingSize = NAS2D::Vector{constants::MarginTight, constants::MarginTight};
 }
 
 
@@ -43,7 +43,7 @@ void ToolTip::add(Control& c, const std::string& str)
 
 void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + paddingSize * 2;
+	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
 
 	auto tooltipPosition = item.first->position();
 
@@ -103,6 +103,6 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + paddingSize);
+		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
 	}
 }
