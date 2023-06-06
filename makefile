@@ -18,6 +18,12 @@ BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 .PHONY: all
 all: ophd
 
+.PHONY: test
+test: testLibOPHD testLibControls
+
+.PHONY: check
+check: checkOPHD checkControls
+
 
 ## NAS2D project ##
 
@@ -113,8 +119,8 @@ testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
 .PHONY: testLibOPHD
 testLibOPHD: $(testLibOphd_OUTPUT)
 
-.PHONY: check
-check: $(testLibOphd_OUTPUT)
+.PHONY: checkOPHD
+checkOPHD: $(testLibOphd_OUTPUT)
 	$(testLibOphd_OUTPUT)
 
 $(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
