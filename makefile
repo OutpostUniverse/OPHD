@@ -216,6 +216,10 @@ lib%.a:
 
 .PHONY: clean clean-all
 clean:
+	-rm -fr $(libOPHD_OBJDIR)
+	-rm -fr $(libControls_OBJDIR)
+	-rm -fr $(testLibOphd_OBJDIR)
+	-rm -fr $(testLibControls_OBJDIR)
 	-rm -fr $(ophd_OBJDIR)
 clean-all:
 	-rm -rf $(ROOTBUILDDIR)
