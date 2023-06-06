@@ -162,6 +162,28 @@ $(testLibControls_OBJS): $(testLibControls_OBJDIR)%.o : $(testLibControls_SRCDIR
 include $(wildcard $(patsubst %.o,%.d,$(testLibControls_OBJS)))
 
 
+## demoLibControls project ##
+
+demoLibControls_SRCDIR := demoLibControls/
+demoLibControls_OBJDIR := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)Intermediate/
+demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls
+demoLibControls_SRCS := $(shell find $(demoLibControls_SRCDIR) -name '*.cpp')
+demoLibControls_OBJS := $(patsubst $(demoLibControls_SRCDIR)%.cpp,$(demoLibControls_OBJDIR)%.o,$(demoLibControls_SRCS))
+
+demoLibControls_CPPFLAGS := $(CPPFLAGS) -I./
+demoLibControls_PROJECT_FLAGS := $(demoLibControls_CPPFLAGS) $(CXXFLAGS)
+
+.PHONY: demoLibControls
+demoLibControls: $(demoLibControls_OUTPUT)
+
+$(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
+
+$(demoLibControls_OBJS): PROJECT_FLAGS := $(demoLibControls_PROJECT_FLAGS)
+$(demoLibControls_OBJS): $(demoLibControls_OBJDIR)%.o : $(demoLibControls_SRCDIR)%.cpp $(demoLibControls_OBJDIR)%.d
+
+include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
+
+
 ## OPHD project ##
 
 ophd_SRCDIR := OPHD/
