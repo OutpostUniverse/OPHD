@@ -126,6 +126,36 @@ $(testLibOphd_OBJS): $(testLibOphd_OBJDIR)%.o : $(testLibOphd_SRCDIR)%.cpp $(tes
 include $(wildcard $(patsubst %.o,%.d,$(testLibOphd_OBJS)))
 
 
+## testLibControls project ##
+
+testLibControls_SRCDIR := testLibControls/
+testLibControls_OBJDIR := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)Intermediate/
+testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls
+testLibControls_SRCS := $(shell find $(testLibControls_SRCDIR) -name '*.cpp')
+testLibControls_OBJS := $(patsubst $(testLibControls_SRCDIR)%.cpp,$(testLibControls_OBJDIR)%.o,$(testLibControls_SRCS))
+
+testLibControls_CPPFLAGS := $(CPPFLAGS) -I./
+testLibControls_LDLIBS := -lgtest -lgtest_main -lgmock -lgmock_main -lpthread $(LDLIBS)
+
+testLibControls_PROJECT_FLAGS := $(testLibControls_CPPFLAGS) $(CXXFLAGS)
+testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibControls_LDLIBS)
+
+.PHONY: testLibControls
+testLibControls: $(testLibControls_OUTPUT)
+
+.PHONY: checkControls
+checkControls: $(testLibControls_OUTPUT)
+	$(testLibControls_OUTPUT)
+
+$(testLibControls_OUTPUT): PROJECT_LINKFLAGS := $(testLibControls_PROJECT_LINKFLAGS)
+$(testLibControls_OUTPUT): $(testLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
+
+$(testLibControls_OBJS): PROJECT_FLAGS := $(testLibControls_PROJECT_FLAGS)
+$(testLibControls_OBJS): $(testLibControls_OBJDIR)%.o : $(testLibControls_SRCDIR)%.cpp $(testLibControls_OBJDIR)%.d
+
+include $(wildcard $(patsubst %.o,%.d,$(testLibControls_OBJS)))
+
+
 ## OPHD project ##
 
 ophd_SRCDIR := OPHD/
