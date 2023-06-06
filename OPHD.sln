@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libControls", "libControls\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libOPHD", "libOPHD\libOPHD.vcxproj", "{98C10163-D69F-4A70-A56F-FA8C41BE1D95}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testLibOPHD", "testLibOPHD\testLibOPHD.vcxproj", "{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -55,6 +57,14 @@ Global
 		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x64.Build.0 = Release|x64
 		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x86.ActiveCfg = Release|Win32
 		{98C10163-D69F-4A70-A56F-FA8C41BE1D95}.Release|x86.Build.0 = Release|Win32
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Debug|x64.ActiveCfg = Debug|x64
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Debug|x64.Build.0 = Debug|x64
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Debug|x86.ActiveCfg = Debug|Win32
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Debug|x86.Build.0 = Debug|Win32
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Release|x64.ActiveCfg = Release|x64
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Release|x64.Build.0 = Release|x64
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Release|x86.ActiveCfg = Release|Win32
+		{29170E23-7782-4D14-81DC-5A0B6BA5E0E3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
