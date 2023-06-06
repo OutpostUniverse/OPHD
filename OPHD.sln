@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testLibOPHD", "testLibOPHD\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testLibControls", "testLibControls\testLibControls.vcxproj", "{352C8742-8775-4C25-A32C-EF1C7AF06370}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demoLibControls", "demoLibControls\demoLibControls.vcxproj", "{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -75,6 +77,14 @@ Global
 		{352C8742-8775-4C25-A32C-EF1C7AF06370}.Release|x64.Build.0 = Release|x64
 		{352C8742-8775-4C25-A32C-EF1C7AF06370}.Release|x86.ActiveCfg = Release|Win32
 		{352C8742-8775-4C25-A32C-EF1C7AF06370}.Release|x86.Build.0 = Release|Win32
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Debug|x64.ActiveCfg = Debug|x64
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Debug|x64.Build.0 = Debug|x64
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Debug|x86.ActiveCfg = Debug|Win32
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Debug|x86.Build.0 = Debug|Win32
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Release|x64.ActiveCfg = Release|x64
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Release|x64.Build.0 = Release|x64
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Release|x86.ActiveCfg = Release|Win32
+		{9DD61223-F1E9-4A4E-87E6-5F4EDDD91266}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
