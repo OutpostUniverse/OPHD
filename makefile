@@ -96,6 +96,36 @@ $(libControls_OBJS): $(libControls_OBJDIR)%.o : $(libControls_SRCDIR)%.cpp $(lib
 include $(wildcard $(patsubst %.o,%.d,$(libControls_OBJS)))
 
 
+## testLibOPHD project ##
+
+testLibOphd_SRCDIR := testLibOPHD/
+testLibOphd_OBJDIR := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)Intermediate/
+testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD
+testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
+testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
+
+testLibOphd_CPPFLAGS := $(CPPFLAGS) -I./
+testLibOphd_LDLIBS := -lgtest -lgtest_main -lgmock -lgmock_main -lpthread $(LDLIBS)
+
+testLibOphd_PROJECT_FLAGS := $(testLibOphd_CPPFLAGS) $(CXXFLAGS)
+testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
+
+.PHONY: testLibOPHD
+testLibOPHD: $(testLibOphd_OUTPUT)
+
+.PHONY: check
+check: $(testLibOphd_OUTPUT)
+	$(testLibOphd_OUTPUT)
+
+$(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
+$(testLibOphd_OUTPUT): $(testLibOphd_OBJS) $(libOPHD_OUTPUT) $(NAS2DLIB)
+
+$(testLibOphd_OBJS): PROJECT_FLAGS := $(testLibOphd_PROJECT_FLAGS)
+$(testLibOphd_OBJS): $(testLibOphd_OBJDIR)%.o : $(testLibOphd_SRCDIR)%.cpp $(testLibOphd_OBJDIR)%.d
+
+include $(wildcard $(patsubst %.o,%.d,$(testLibOphd_OBJS)))
+
+
 ## OPHD project ##
 
 ophd_SRCDIR := OPHD/
