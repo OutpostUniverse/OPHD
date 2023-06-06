@@ -93,8 +93,8 @@ libControls_OUTPUT := $(libControls_OUTDIR)libControls.a
 libControls_SRCS := $(shell find $(libControls_SRCDIR) -name '*.cpp')
 libControls_OBJS := $(patsubst $(libControls_SRCDIR)%.cpp,$(libControls_OBJDIR)%.o,$(libControls_SRCS))
 
-.PHONY: controls
-controls: $(libControls_OUTPUT)
+.PHONY: libControls
+libControls: $(libControls_OUTPUT)
 
 $(libControls_OUTPUT): $(libControls_OBJS) $(NAS2DLIB)
 $(libControls_OBJS): $(libControls_OBJDIR)%.o : $(libControls_SRCDIR)%.cpp $(libControls_OBJDIR)%.d
