@@ -176,6 +176,10 @@ demoLibControls_PROJECT_FLAGS := $(demoLibControls_CPPFLAGS) $(CXXFLAGS)
 .PHONY: demoLibControls
 demoLibControls: $(demoLibControls_OUTPUT)
 
+.PHONY: runDemoControls
+runDemoControls:
+	$(demoLibControls_OUTPUT)
+
 $(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
 
 $(demoLibControls_OBJS): PROJECT_FLAGS := $(demoLibControls_PROJECT_FLAGS)
