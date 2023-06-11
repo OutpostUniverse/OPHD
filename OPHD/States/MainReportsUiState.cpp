@@ -35,13 +35,13 @@ namespace
 	 */
 	enum NavigationPanel
 	{
-		PANEL_RESEARCH,
-		PANEL_PRODUCTION,
-		PANEL_WAREHOUSE,
-		PANEL_MINING,
-		PANEL_SATELLITES,
-		PANEL_SPACEPORT,
-		PANEL_EXIT
+		Research,
+		Production,
+		Warehouse,
+		Mines,
+		Satellites,
+		Spaceports,
+		Exit
 	};
 
 
@@ -84,14 +84,14 @@ namespace
 	 */
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
-		Panels[NavigationPanel::PANEL_EXIT].Rect = {{width - 48, 0}, {48, 48}};
-		Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
+		Panels[NavigationPanel::Exit].Rect = {{width - 48, 0}, {48, 48}};
+		Panels[NavigationPanel::Exit].IconPosition = {width - 40, 8};
 
-		int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.size.x;
+		int remaining_width = width - Panels[NavigationPanel::Exit].Rect.size.x;
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 		auto panelPosition = NAS2D::Point{0, 0};
-		for (std::size_t i = 0; i < NavigationPanel::PANEL_EXIT; ++i)
+		for (std::size_t i = 0; i < NavigationPanel::Exit; ++i)
 		{
 			auto& panel = Panels[i];
 			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
@@ -251,7 +251,7 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 		}
 	}
 
-	if (Panels[NavigationPanel::PANEL_EXIT].Selected())
+	if (Panels[NavigationPanel::Exit].Selected())
 	{
 		exit();
 	}
@@ -299,11 +299,11 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[NavigationPanel::PANEL_PRODUCTION].Selected(true);
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->visible(true);
+	Panels[NavigationPanel::Production].Selected(true);
+	Panels[NavigationPanel::Production].UiPanel->visible(true);
 
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->refresh();
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->selectStructure(structure);
+	Panels[NavigationPanel::Production].UiPanel->refresh();
+	Panels[NavigationPanel::Production].UiPanel->selectStructure(structure);
 }
 
 
@@ -313,10 +313,10 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].Selected(true);
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->visible(true);
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->refresh();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->selectStructure(structure);
+	Panels[NavigationPanel::Warehouse].Selected(true);
+	Panels[NavigationPanel::Warehouse].UiPanel->visible(true);
+	Panels[NavigationPanel::Warehouse].UiPanel->refresh();
+	Panels[NavigationPanel::Warehouse].UiPanel->selectStructure(structure);
 }
 
 
@@ -326,25 +326,25 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[NavigationPanel::PANEL_MINING].Selected(true);
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->visible(true);
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->refresh();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->selectStructure(structure);
+	Panels[NavigationPanel::Mines].Selected(true);
+	Panels[NavigationPanel::Mines].UiPanel->visible(true);
+	Panels[NavigationPanel::Mines].UiPanel->refresh();
+	Panels[NavigationPanel::Mines].UiPanel->selectStructure(structure);
 }
 
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-    auto researchPanel = Panels[NavigationPanel::PANEL_RESEARCH].UiPanel;
+    auto researchPanel = Panels[NavigationPanel::Research].UiPanel;
     static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
 }
 
 
 void MainReportsUiState::clearLists()
 {
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel->fillLists();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel->fillLists();
+	Panels[NavigationPanel::Production].UiPanel->fillLists();
+	Panels[NavigationPanel::Warehouse].UiPanel->fillLists();
+	Panels[NavigationPanel::Mines].UiPanel->fillLists();
 }
 
 
