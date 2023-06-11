@@ -27,110 +27,112 @@ namespace
 	const NAS2D::Font* BIG_FONT = nullptr;
 	const NAS2D::Font* BIG_FONT_BOLD = nullptr;
 
+
 	struct PanelInfo
 	{
 		ReportInterface* report{nullptr};
 		const NAS2D::Image* image{nullptr};
 		const std::string name{};
 	};
+
+
+	/**
+	 * Enumerated IDs for the navigation panels.
+	 */
+	enum NavigationPanel
+	{
+		PANEL_RESEARCH,
+		PANEL_PRODUCTION,
+		PANEL_WAREHOUSE,
+		PANEL_MINING,
+		PANEL_SATELLITES,
+		PANEL_SPACEPORT,
+		PANEL_EXIT,
+		PANEL_COUNT
+	};
+
+
+	/**
+	* Represents a navigation panel.
+	*/
+	class Panel
+	{
+	public:
+		void Selected(bool isSelected)
+		{
+			mIsSelected = isSelected;
+			if (UiPanel) { UiPanel->enabled(isSelected); }
+		}
+
+		bool Selected() { return mIsSelected; }
+
+	public:
+		std::string Name;
+
+		const NAS2D::Image* Img = nullptr;
+
+		NAS2D::Point<int> TextPosition;
+		NAS2D::Point<int> IconPosition;
+
+		NAS2D::Rectangle<int> Rect;
+
+		ReportInterface* UiPanel = nullptr;
+
+	private:
+		bool mIsSelected = false;
+	};
+
+
+	static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels; /**< Array of UI navigation panels. */
+
+
+	/**
+	 * Computes the panel rectangles for the top nav bar.
+	 */
+	void setPanelRects(int width)
+	{
+		Panels[NavigationPanel::PANEL_EXIT].Rect = {{width - 48, 0}, {48, 48}};
+		Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
+
+		int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.size.x;
+		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
+
+		auto panelPosition = NAS2D::Point{0, 0};
+		for (std::size_t i = 0; i < NavigationPanel::PANEL_EXIT; ++i)
+		{
+			auto& panel = Panels[i];
+			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
+			panel.TextPosition = panelPosition + (panelSize - BIG_FONT->size(panel.Name)) / 2 + NAS2D::Vector{20, 0};
+			panel.IconPosition = {panel.TextPosition.x - 40, 8};
+			panelPosition.x += panelSize.x;
+		}
+	}
+
+
+	/**
+	 * Draws a UI panel.
+	 */
+	void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
+	{
+		if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
+
+		if (panel.Selected())
+		{
+			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 85, 0});
+
+			if (panel.UiPanel) { panel.UiPanel->update(); }
+
+			renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
+			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
+		}
+		else
+		{
+			renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
+			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
+		}
+	}
 }
 
-
-/**
- * Enumerated IDs for the navigation panels.
- */
-enum NavigationPanel
-{
-	PANEL_RESEARCH,
-	PANEL_PRODUCTION,
-	PANEL_WAREHOUSE,
-	PANEL_MINING,
-	PANEL_SATELLITES,
-	PANEL_SPACEPORT,
-	PANEL_EXIT,
-	PANEL_COUNT
-};
-
-
-/**
- * Represents a navigation panel.
- */
-class Panel
-{
-public:
-	void Selected(bool isSelected)
-	{
-		mIsSelected = isSelected;
-		if (UiPanel) { UiPanel->enabled(isSelected); }
-	}
-
-	bool Selected() { return mIsSelected; }
-
-public:
-	std::string Name;
-
-	const NAS2D::Image* Img = nullptr;
-
-	NAS2D::Point<int> TextPosition;
-	NAS2D::Point<int> IconPosition;
-
-	NAS2D::Rectangle<int> Rect;
-
-	ReportInterface* UiPanel = nullptr;
-
-private:
-	bool mIsSelected = false;
-};
-
-
-static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels; /**< Array of UI navigation panels. */
-
-
-/**
- * Computes the panel rectangles for the top nav bar.
- */
-void setPanelRects(int width)
-{
-	Panels[NavigationPanel::PANEL_EXIT].Rect = {{width - 48, 0}, {48, 48}};
-	Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
-
-	int remaining_width = width - Panels[NavigationPanel::PANEL_EXIT].Rect.size.x;
-	const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
-
-	auto panelPosition = NAS2D::Point{0, 0};
-	for (std::size_t i = 0; i < NavigationPanel::PANEL_EXIT; ++i)
-	{
-		auto& panel = Panels[i];
-		panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
-		panel.TextPosition = panelPosition + (panelSize - BIG_FONT->size(panel.Name)) / 2 + NAS2D::Vector{20, 0};
-		panel.IconPosition = {panel.TextPosition.x - 40, 8};
-		panelPosition.x += panelSize.x;
-	}
-}
-
-
-/**
- * Draws a UI panel.
- */
-void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
-{
-	if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
-
-	if (panel.Selected())
-	{
-		renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 85, 0});
-
-		if (panel.UiPanel) { panel.UiPanel->update(); }
-
-		renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
-		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
-	}
-	else
-	{
-		renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
-		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
-	}
-}
 
 
 MainReportsUiState::MainReportsUiState()
