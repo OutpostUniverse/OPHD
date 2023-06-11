@@ -8,6 +8,8 @@
 #include "../UI/Reports/FactoryReport.h"
 #include "../UI/Reports/MineReport.h"
 #include "../UI/Reports/ResearchReport.h"
+#include "../UI/Reports/SatellitesReport.h"
+#include "../UI/Reports/SpaceportsReport.h"
 #include "../UI/Reports/WarehouseReport.h"
 
 #include <NAS2D/Utility.h>
@@ -196,6 +198,18 @@ void MainReportsUiState::initialize()
 	research_report->position({0, 48});
 	research_report->size({size.x, size.y - 48});
 	research_report->hide();
+
+	ReportInterface* satellite_report = new SatellitesReport();
+	Panels[NavigationPanel::PANEL_SATELLITES].UiPanel = satellite_report;
+	satellite_report->position({0, 48});
+	satellite_report->size({size.x, size.y - 48});
+	satellite_report->hide();
+
+	ReportInterface* spaceport_report = new SpaceportsReport();
+	Panels[NavigationPanel::PANEL_SPACEPORT].UiPanel = spaceport_report;
+	spaceport_report->position({0, 48});
+	spaceport_report->size({size.x, size.y - 48});
+	spaceport_report->hide();
 
 	ReportInterface* warehouse_report = new WarehouseReport();
 	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
