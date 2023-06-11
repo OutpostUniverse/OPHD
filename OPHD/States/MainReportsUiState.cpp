@@ -8,6 +8,8 @@
 #include "../UI/Reports/FactoryReport.h"
 #include "../UI/Reports/MineReport.h"
 #include "../UI/Reports/ResearchReport.h"
+#include "../UI/Reports/SatellitesReport.h"
+#include "../UI/Reports/SpaceportsReport.h"
 #include "../UI/Reports/WarehouseReport.h"
 
 #include <NAS2D/Utility.h>
@@ -24,6 +26,13 @@ namespace
 
 	const NAS2D::Font* BIG_FONT = nullptr;
 	const NAS2D::Font* BIG_FONT_BOLD = nullptr;
+
+	struct PanelInfo
+	{
+		ReportInterface* report{nullptr};
+		const NAS2D::Image* image{nullptr};
+		const std::string name{};
+	};
 }
 
 
@@ -154,54 +163,39 @@ void MainReportsUiState::initialize()
 	BIG_FONT = &fontCache.load(constants::FONT_PRIMARY, 16);
 	BIG_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 16);
 
-	Panels[NavigationPanel::PANEL_EXIT].Img = &imageCache.load("ui/icons/exit.png");
-
-	Panels[NavigationPanel::PANEL_RESEARCH].Img = &imageCache.load("ui/icons/research.png");
-	Panels[NavigationPanel::PANEL_RESEARCH].Name = "Research";
-
-	Panels[NavigationPanel::PANEL_PRODUCTION].Img = &imageCache.load("ui/icons/production.png");
-	Panels[NavigationPanel::PANEL_PRODUCTION].Name = "Factories";
-
-	Panels[NavigationPanel::PANEL_WAREHOUSE].Img = &imageCache.load("ui/icons/warehouse.png");
-	Panels[NavigationPanel::PANEL_WAREHOUSE].Name = "Warehouses";
-
-	Panels[NavigationPanel::PANEL_MINING].Img = &imageCache.load("ui/icons/mine.png");
-	Panels[NavigationPanel::PANEL_MINING].Name = "Mines";
-
-	Panels[NavigationPanel::PANEL_SATELLITES].Img = &imageCache.load("ui/icons/satellite.png");
-	Panels[NavigationPanel::PANEL_SATELLITES].Name = "Satellites";
-
-	Panels[NavigationPanel::PANEL_SPACEPORT].Img = &imageCache.load("ui/icons/spaceport.png");
-	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto size = renderer.size().to<int>();
-	setPanelRects(size.x);
 
 	// INIT UI REPORT PANELS
-	ReportInterface* factory_report = new FactoryReport();
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel = factory_report;
-	factory_report->position({0, 48});
-	factory_report->size({size.x, size.y - 48});
-	factory_report->hide();
+	/* NOTE: Matches the order in enum::NavigationPanel */
+	auto panelInfo = std::array<PanelInfo, 7>{
+		PanelInfo{new ResearchReport(), &imageCache.load("ui/icons/research.png"), "Research"},
+		PanelInfo{new FactoryReport(), &imageCache.load("ui/icons/production.png"), "Factories"},
+		PanelInfo{new WarehouseReport(), &imageCache.load("ui/icons/warehouse.png"), "Warehouses"},
+		PanelInfo{new MineReport(), &imageCache.load("ui/icons/mine.png"), "Mines"},
+		PanelInfo{new SatellitesReport(), &imageCache.load("ui/icons/satellite.png"), "Satellites"},
+		PanelInfo{new SpaceportsReport(), &imageCache.load("ui/icons/spaceport.png"), "Space Ports"},
+		PanelInfo{nullptr, &imageCache.load("ui/icons/exit.png"), ""}
+	};
 
-	ReportInterface* mining_report = new MineReport();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel = mining_report;
-	mining_report->position({0, 48});
-	mining_report->size({size.x, size.y - 48});
-	mining_report->hide();
+	for (size_t i = 0; i < panelInfo.size(); i++)
+	{
+		auto& panel = Panels[i];
+		panel.Img = panelInfo[i].image;
+		panel.Name = panelInfo[i].name;
+		panel.UiPanel = panelInfo[i].report;
 
-	ReportInterface* research_report = new ResearchReport();
-	Panels[NavigationPanel::PANEL_RESEARCH].UiPanel = research_report;
-	research_report->position({0, 48});
-	research_report->size({size.x, size.y - 48});
-	research_report->hide();
+		auto report = panel.UiPanel;
+		if (report)
+		{
+			report->position({0, 48});
+			report->size({size.x, size.y - 48});
+			report->hide();
+		}
+	}
 
-	ReportInterface* warehouse_report = new WarehouseReport();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
-	warehouse_report->position({0, 48});
-	warehouse_report->size({size.x, size.y - 48});
-	warehouse_report->hide();
+	setPanelRects(size.x);
 }
 
 
@@ -216,6 +210,7 @@ void MainReportsUiState::_activate()
 		{
 			panel.UiPanel->fillLists();
 			panel.UiPanel->refresh();
+			panel.UiPanel->show();
 		}
 	}
 }

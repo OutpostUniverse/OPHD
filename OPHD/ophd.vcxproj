@@ -250,6 +250,8 @@
     <ClCompile Include="UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="UI\Reports\MineReport.cpp" />
     <ClCompile Include="UI\Reports\ResearchReport.cpp" />
+    <ClCompile Include="UI\Reports\SatellitesReport.cpp" />
+    <ClCompile Include="UI\Reports\SpaceportsReport.cpp" />
     <ClCompile Include="UI\Reports\WarehouseReport.cpp" />
     <ClCompile Include="UI\ResourceBreakdownPanel.cpp" />
     <ClCompile Include="UI\ResourceInfoBar.cpp" />
@@ -382,6 +384,8 @@
     <ClInclude Include="UI\Reports\MineReport.h" />
     <ClInclude Include="UI\Reports\ReportInterface.h" />
     <ClInclude Include="UI\Reports\ResearchReport.h" />
+    <ClInclude Include="UI\Reports\SatellitesReport.h" />
+    <ClInclude Include="UI\Reports\SpaceportsReport.h" />
     <ClInclude Include="UI\Reports\WarehouseReport.h" />
     <ClInclude Include="UI\ResourceBreakdownPanel.h" />
     <ClInclude Include="UI\ResourceInfoBar.h" />
