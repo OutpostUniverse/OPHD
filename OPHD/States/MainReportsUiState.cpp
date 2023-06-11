@@ -22,8 +22,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	const NAS2D::Image* WINDOW_BACKGROUND = nullptr;
-
 	struct PanelInfo
 	{
 		ReportInterface* report{nullptr};
@@ -157,8 +155,6 @@ MainReportsUiState::~MainReportsUiState()
 
 void MainReportsUiState::initialize()
 {
-	WINDOW_BACKGROUND = &imageCache.load("ui/skin/window_middle_middle.png");
-
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto size = renderer.size().to<int>();
 
