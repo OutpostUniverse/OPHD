@@ -216,6 +216,7 @@ void MainReportsUiState::_activate()
 		{
 			panel.UiPanel->fillLists();
 			panel.UiPanel->refresh();
+			panel.UiPanel->show();
 		}
 	}
 }
