@@ -24,10 +24,6 @@ namespace
 {
 	const NAS2D::Image* WINDOW_BACKGROUND = nullptr;
 
-	const NAS2D::Font* BIG_FONT = nullptr;
-	const NAS2D::Font* BIG_FONT_BOLD = nullptr;
-
-
 	struct PanelInfo
 	{
 		ReportInterface* report{nullptr};
@@ -89,7 +85,7 @@ namespace
 	/**
 	 * Computes the panel rectangles for the top nav bar.
 	 */
-	void setPanelRects(int width)
+	void setPanelRects(int width, const NAS2D::Font& font)
 	{
 		Panels[NavigationPanel::PANEL_EXIT].Rect = {{width - 48, 0}, {48, 48}};
 		Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
@@ -102,7 +98,7 @@ namespace
 		{
 			auto& panel = Panels[i];
 			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
-			panel.TextPosition = panelPosition + (panelSize - BIG_FONT->size(panel.Name)) / 2 + NAS2D::Vector{20, 0};
+			panel.TextPosition = panelPosition + (panelSize - font.size(panel.Name)) / 2 + NAS2D::Vector{20, 0};
 			panel.IconPosition = {panel.TextPosition.x - 40, 8};
 			panelPosition.x += panelSize.x;
 		}
@@ -112,7 +108,7 @@ namespace
 	/**
 	 * Draws a UI panel.
 	 */
-	void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
+	void drawPanel(NAS2D::Renderer& renderer, Panel& panel, const NAS2D::Font& font)
 	{
 		if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
 
@@ -122,12 +118,12 @@ namespace
 
 			if (panel.UiPanel) { panel.UiPanel->update(); }
 
-			renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
+			renderer.drawText(font, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
 			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
 		}
 		else
 		{
-			renderer.drawText(*BIG_FONT_BOLD, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
+			renderer.drawText(font, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
 			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
 		}
 	}
@@ -135,7 +131,8 @@ namespace
 
 
 
-MainReportsUiState::MainReportsUiState()
+MainReportsUiState::MainReportsUiState() :
+	fontMain{fontCache.load(constants::FONT_PRIMARY_BOLD, 16)}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});
@@ -161,10 +158,6 @@ MainReportsUiState::~MainReportsUiState()
 void MainReportsUiState::initialize()
 {
 	WINDOW_BACKGROUND = &imageCache.load("ui/skin/window_middle_middle.png");
-
-	BIG_FONT = &fontCache.load(constants::FONT_PRIMARY, 16);
-	BIG_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 16);
-
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto size = renderer.size().to<int>();
@@ -197,7 +190,7 @@ void MainReportsUiState::initialize()
 		}
 	}
 
-	setPanelRects(size.x);
+	setPanelRects(size.x, fontMain);
 }
 
 
@@ -288,7 +281,7 @@ void MainReportsUiState::exit()
  */
 void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 {
-	setPanelRects(newSize.x);
+	setPanelRects(newSize.x, fontMain);
 	for (Panel& panel : Panels)
 	{
 		if (panel.UiPanel) { panel.UiPanel->size(NAS2D::Vector{newSize.x, newSize.y - 48}); }
@@ -386,7 +379,7 @@ NAS2D::State* MainReportsUiState::update()
 	renderer.clearScreen(NAS2D::Color{35, 35, 35});
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, 48}}, NAS2D::Color::Black);
 
-	for (Panel& panel : Panels) { drawPanel(renderer, panel); }
+	for (Panel& panel : Panels) { drawPanel(renderer, panel, fontMain); }
 
 	return this;
 }
