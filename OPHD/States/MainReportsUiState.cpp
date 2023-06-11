@@ -89,7 +89,7 @@ static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels; /**< Array of UI 
 /**
  * Computes the panel rectangles for the top nav bar.
  */
-static void setPanelRects(int width)
+void setPanelRects(int width)
 {
 	Panels[NavigationPanel::PANEL_EXIT].Rect = {{width - 48, 0}, {48, 48}};
 	Panels[NavigationPanel::PANEL_EXIT].IconPosition = {width - 40, 8};
@@ -112,7 +112,7 @@ static void setPanelRects(int width)
 /**
  * Draws a UI panel.
  */
-static void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
+void drawPanel(NAS2D::Renderer& renderer, Panel& panel)
 {
 	if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
 
