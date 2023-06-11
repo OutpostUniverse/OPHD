@@ -41,8 +41,7 @@ namespace
 		PANEL_MINING,
 		PANEL_SATELLITES,
 		PANEL_SPACEPORT,
-		PANEL_EXIT,
-		PANEL_COUNT
+		PANEL_EXIT
 	};
 
 
@@ -77,7 +76,7 @@ namespace
 	};
 
 
-	static std::array<Panel, NavigationPanel::PANEL_COUNT> Panels; /**< Array of UI navigation panels. */
+	static std::array<Panel, 7> Panels; /**< Array of UI navigation panels. */
 
 
 	/**
