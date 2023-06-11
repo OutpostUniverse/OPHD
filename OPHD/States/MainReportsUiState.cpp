@@ -26,6 +26,13 @@ namespace
 
 	const NAS2D::Font* BIG_FONT = nullptr;
 	const NAS2D::Font* BIG_FONT_BOLD = nullptr;
+
+	struct PanelInfo
+	{
+		ReportInterface* report{nullptr};
+		const NAS2D::Image* image{nullptr};
+		const std::string name{};
+	};
 }
 
 
@@ -156,51 +163,39 @@ void MainReportsUiState::initialize()
 	BIG_FONT = &fontCache.load(constants::FONT_PRIMARY, 16);
 	BIG_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 16);
 
-	Panels[NavigationPanel::PANEL_EXIT].Img = &imageCache.load("ui/icons/exit.png");
-
-	Panels[NavigationPanel::PANEL_RESEARCH].Img = &imageCache.load("ui/icons/research.png");
-	Panels[NavigationPanel::PANEL_RESEARCH].Name = "Research";
-
-	Panels[NavigationPanel::PANEL_PRODUCTION].Img = &imageCache.load("ui/icons/production.png");
-	Panels[NavigationPanel::PANEL_PRODUCTION].Name = "Factories";
-
-	Panels[NavigationPanel::PANEL_WAREHOUSE].Img = &imageCache.load("ui/icons/warehouse.png");
-	Panels[NavigationPanel::PANEL_WAREHOUSE].Name = "Warehouses";
-
-	Panels[NavigationPanel::PANEL_MINING].Img = &imageCache.load("ui/icons/mine.png");
-	Panels[NavigationPanel::PANEL_MINING].Name = "Mines";
-
-	Panels[NavigationPanel::PANEL_SATELLITES].Img = &imageCache.load("ui/icons/satellite.png");
-	Panels[NavigationPanel::PANEL_SATELLITES].Name = "Satellites";
-
-	Panels[NavigationPanel::PANEL_SPACEPORT].Img = &imageCache.load("ui/icons/spaceport.png");
-	Panels[NavigationPanel::PANEL_SPACEPORT].Name = "Space Ports";
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto size = renderer.size().to<int>();
-	setPanelRects(size.x);
-
 
 	// INIT UI REPORT PANELS
-
 	/* NOTE: Matches the order in enum::NavigationPanel */
-	const auto reports = std::array<ReportInterface*, 6>{
-		new ResearchReport(),
-		new FactoryReport(),
-		new WarehouseReport(),
-		new MineReport(),
-		new SatellitesReport(),
-		new SpaceportsReport()
+	auto panelInfo = std::array<PanelInfo, 7>{
+		PanelInfo{new ResearchReport(), &imageCache.load("ui/icons/research.png"), "Research"},
+		PanelInfo{new FactoryReport(), &imageCache.load("ui/icons/production.png"), "Factories"},
+		PanelInfo{new WarehouseReport(), &imageCache.load("ui/icons/warehouse.png"), "Warehouses"},
+		PanelInfo{new MineReport(), &imageCache.load("ui/icons/mine.png"), "Mines"},
+		PanelInfo{new SatellitesReport(), &imageCache.load("ui/icons/satellite.png"), "Satellites"},
+		PanelInfo{new SpaceportsReport(), &imageCache.load("ui/icons/spaceport.png"), "Space Ports"},
+		PanelInfo{nullptr, &imageCache.load("ui/icons/exit.png"), ""}
 	};
-	
-	for (size_t i = 0; i < reports.size(); i++)
+
+	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
-		auto report = reports[i];
-		Panels[i].UiPanel = report;
-		report->position({0, 48});
-		report->size({size.x, size.y - 48});
-		report->hide();
+		auto& panel = Panels[i];
+		panel.Img = panelInfo[i].image;
+		panel.Name = panelInfo[i].name;
+		panel.UiPanel = panelInfo[i].report;
+
+		auto report = panel.UiPanel;
+		if (report)
+		{
+			report->position({0, 48});
+			report->size({size.x, size.y - 48});
+			report->hide();
+		}
 	}
+
+	setPanelRects(size.x);
 }
 
 
