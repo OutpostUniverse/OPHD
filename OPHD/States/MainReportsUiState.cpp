@@ -180,42 +180,27 @@ void MainReportsUiState::initialize()
 	const auto size = renderer.size().to<int>();
 	setPanelRects(size.x);
 
+
 	// INIT UI REPORT PANELS
-	ReportInterface* factory_report = new FactoryReport();
-	Panels[NavigationPanel::PANEL_PRODUCTION].UiPanel = factory_report;
-	factory_report->position({0, 48});
-	factory_report->size({size.x, size.y - 48});
-	factory_report->hide();
 
-	ReportInterface* mining_report = new MineReport();
-	Panels[NavigationPanel::PANEL_MINING].UiPanel = mining_report;
-	mining_report->position({0, 48});
-	mining_report->size({size.x, size.y - 48});
-	mining_report->hide();
-
-	ReportInterface* research_report = new ResearchReport();
-	Panels[NavigationPanel::PANEL_RESEARCH].UiPanel = research_report;
-	research_report->position({0, 48});
-	research_report->size({size.x, size.y - 48});
-	research_report->hide();
-
-	ReportInterface* satellite_report = new SatellitesReport();
-	Panels[NavigationPanel::PANEL_SATELLITES].UiPanel = satellite_report;
-	satellite_report->position({0, 48});
-	satellite_report->size({size.x, size.y - 48});
-	satellite_report->hide();
-
-	ReportInterface* spaceport_report = new SpaceportsReport();
-	Panels[NavigationPanel::PANEL_SPACEPORT].UiPanel = spaceport_report;
-	spaceport_report->position({0, 48});
-	spaceport_report->size({size.x, size.y - 48});
-	spaceport_report->hide();
-
-	ReportInterface* warehouse_report = new WarehouseReport();
-	Panels[NavigationPanel::PANEL_WAREHOUSE].UiPanel = warehouse_report;
-	warehouse_report->position({0, 48});
-	warehouse_report->size({size.x, size.y - 48});
-	warehouse_report->hide();
+	/* NOTE: Matches the order in enum::NavigationPanel */
+	const auto reports = std::array<ReportInterface*, 6>{
+		new ResearchReport(),
+		new FactoryReport(),
+		new WarehouseReport(),
+		new MineReport(),
+		new SatellitesReport(),
+		new SpaceportsReport()
+	};
+	
+	for (size_t i = 0; i < reports.size(); i++)
+	{
+		auto report = reports[i];
+		Panels[i].UiPanel = report;
+		report->position({0, 48});
+		report->size({size.x, size.y - 48});
+		report->hide();
+	}
 }
 
 
