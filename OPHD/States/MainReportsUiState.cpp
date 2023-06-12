@@ -72,10 +72,12 @@ namespace
 
 	static std::array<Panel, 7> Panels;
 
+	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
+
 
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
-		auto& exitPanel = Panels[6];
+		auto& exitPanel = Panels[ExitPanelIndex];
 		exitPanel.Rect = {{width - 48, 0}, {48, 48}};
 		exitPanel.IconPosition = {width - 40, 8};
 
@@ -245,7 +247,7 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 		}
 	}
 
-	if (Panels[6].Selected())
+	if (Panels[ExitPanelIndex].Selected())
 	{
 		exit();
 	}
