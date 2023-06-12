@@ -91,7 +91,7 @@ namespace
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 		auto panelPosition = NAS2D::Point{0, 0};
-		for (std::size_t i = 0; i < Panels.size(); ++i)
+		for (std::size_t i = 0; i < Panels.size() - 1; ++i)
 		{
 			auto& panel = Panels[i];
 			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
