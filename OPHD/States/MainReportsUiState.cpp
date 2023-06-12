@@ -235,7 +235,10 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 			bool selected = panel.Rect.contains(MOUSE_COORDS);
 			panel.Selected(selected);
 
-			if (panel.UiPanel) { panel.UiPanel->visible(selected); }
+			if (panel.UiPanel)
+			{
+				panel.UiPanel->visible(selected);
+			}
 		}
 	}
 
@@ -252,7 +255,10 @@ void MainReportsUiState::exit()
 
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->clearSelected(); }
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->clearSelected();
+		}
 	}
 
 	mReportsUiSignal();
@@ -264,7 +270,10 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 	setPanelRects(newSize.x, fontMain);
 	for (Panel& panel : Panels)
 	{
-		if (panel.UiPanel) { panel.UiPanel->size(NAS2D::Vector{newSize.x, newSize.y - 48}); }
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->size(NAS2D::Vector{newSize.x, newSize.y - 48});
+		}
 	}
 }
 
@@ -337,7 +346,10 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 	TakeMeThereList takeMeThereList;
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel) { takeMeThereList.push_back(&panel.UiPanel->takeMeThereSignal()); }
+		if (panel.UiPanel)
+		{
+			takeMeThereList.push_back(&panel.UiPanel->takeMeThereSignal());
+		}
 	}
 	return takeMeThereList;
 }
@@ -350,7 +362,10 @@ NAS2D::State* MainReportsUiState::update()
 	renderer.clearScreen(NAS2D::Color{35, 35, 35});
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, 48}}, NAS2D::Color::Black);
 
-	for (Panel& panel : Panels) { drawPanel(renderer, panel, fontMain); }
+	for (Panel& panel : Panels)
+	{
+		drawPanel(renderer, panel, fontMain);
+	}
 
 	return this;
 }
