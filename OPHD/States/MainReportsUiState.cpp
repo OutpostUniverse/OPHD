@@ -48,10 +48,16 @@ namespace
 		void Selected(bool isSelected)
 		{
 			mIsSelected = isSelected;
-			if (UiPanel) { UiPanel->enabled(isSelected); }
+			if (UiPanel)
+			{
+				UiPanel->enabled(isSelected);
+			}
 		}
 
-		bool Selected() { return mIsSelected; }
+		bool Selected()
+		{
+			return mIsSelected;
+		}
 
 	public:
 		std::string Name;
@@ -222,16 +228,30 @@ void MainReportsUiState::_deactivate()
 
 void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
-	if (!active()) { return; }
-	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
+	if (!active())
+	{
+		return;
+	}
+
+	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE)
+	{
+		exit();
+	}
 }
 
 
 void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!active()) { return; }
+	if (!active())
+	{
+		return;
+	}
 
-	if (!NAS2D::Rectangle<int>{{0, 0}, {NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}}.contains(position)) { return; } // ignore clicks in the UI area.
+	// ignore clicks in the UI area.
+	if (!NAS2D::Rectangle<int>{{0, 0}, {NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}}.contains(position))
+	{
+		return;
+	}
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
@@ -356,6 +376,7 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 			takeMeThereList.push_back(&panel.UiPanel->takeMeThereSignal());
 		}
 	}
+
 	return takeMeThereList;
 }
 
