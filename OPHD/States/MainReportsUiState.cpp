@@ -48,10 +48,23 @@ namespace
 		void Selected(bool isSelected)
 		{
 			mIsSelected = isSelected;
-			if (UiPanel) { UiPanel->enabled(isSelected); }
+			if (UiPanel)
+			{
+				UiPanel->enabled(isSelected);
+			}
 		}
 
-		bool Selected() { return mIsSelected; }
+		bool Selected()
+		{
+			return mIsSelected;
+		}
+
+		void setMeta(const PanelInfo& panelInfo)
+		{
+			Img = panelInfo.image;
+			Name = panelInfo.name;
+			UiPanel = panelInfo.report;
+		}
 
 	public:
 		std::string Name;
@@ -72,10 +85,12 @@ namespace
 
 	static std::array<Panel, 7> Panels;
 
+	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
+
 
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
-		auto& exitPanel = Panels[6];
+		auto& exitPanel = Panels[ExitPanelIndex];
 		exitPanel.Rect = {{width - 48, 0}, {48, 48}};
 		exitPanel.IconPosition = {width - 40, 8};
 
@@ -83,7 +98,7 @@ namespace
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 		auto panelPosition = NAS2D::Point{0, 0};
-		for (std::size_t i = 0; i < Panels.size(); ++i)
+		for (std::size_t i = 0; i < Panels.size() - 1; ++i)
 		{
 			auto& panel = Panels[i];
 			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
@@ -96,22 +111,25 @@ namespace
 
 	void drawPanel(NAS2D::Renderer& renderer, Panel& panel, const NAS2D::Font& font)
 	{
-		if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
+		if (panel.Rect.contains(MOUSE_COORDS))
+		{
+			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100});
+		}
+
+		auto drawColor = panel.Selected() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{185, 185, 0};
 
 		if (panel.Selected())
 		{
 			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 85, 0});
 
-			if (panel.UiPanel) { panel.UiPanel->update(); }
+			if (panel.UiPanel)
+			{
+				panel.UiPanel->update();
+			}
+		}
 
-			renderer.drawText(font, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
-			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
-		}
-		else
-		{
-			renderer.drawText(font, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
-			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
-		}
+		renderer.drawText(font, panel.Name, panel.TextPosition, drawColor);
+		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, drawColor);
 	}
 
 
@@ -121,6 +139,17 @@ namespace
 		panel.UiPanel->visible(true);
 		panel.UiPanel->refresh();
 		panel.UiPanel->selectStructure(structure);
+	}
+
+
+	void setReportValues(ReportInterface* report, const NAS2D::Vector<int>& size)
+	{
+		if (report)
+		{
+			report->position({0, 48});
+			report->size({size.x, size.y - 48});
+			report->hide();
+		}
 	}
 }
 
@@ -169,17 +198,8 @@ void MainReportsUiState::initialize()
 	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
 		auto& panel = Panels[i];
-		panel.Img = panelInfo[i].image;
-		panel.Name = panelInfo[i].name;
-		panel.UiPanel = panelInfo[i].report;
-
-		auto report = panel.UiPanel;
-		if (report)
-		{
-			report->position({0, 48});
-			report->size({size.x, size.y - 48});
-			report->hide();
-		}
+		panel.setMeta(panelInfo[i]);
+		setReportValues(panel.UiPanel, size);
 	}
 
 	setPanelRects(size.x, fontMain);
@@ -217,16 +237,30 @@ void MainReportsUiState::_deactivate()
 
 void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
-	if (!active()) { return; }
-	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE) { exit(); }
+	if (!active())
+	{
+		return;
+	}
+
+	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE)
+	{
+		exit();
+	}
 }
 
 
 void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!active()) { return; }
+	if (!active())
+	{
+		return;
+	}
 
-	if (!NAS2D::Rectangle<int>{{0, 0}, {NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}}.contains(position)) { return; } // ignore clicks in the UI area.
+	// ignore clicks in the UI area.
+	if (!NAS2D::Rectangle<int>{{0, 0}, {NAS2D::Utility<NAS2D::Renderer>::get().size().x, 40}}.contains(position))
+	{
+		return;
+	}
 
 	if (button == NAS2D::EventHandler::MouseButton::Left)
 	{
@@ -242,7 +276,7 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 		}
 	}
 
-	if (Panels[6].Selected())
+	if (Panels[ExitPanelIndex].Selected())
 	{
 		exit();
 	}
@@ -351,6 +385,7 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 			takeMeThereList.push_back(&panel.UiPanel->takeMeThereSignal());
 		}
 	}
+
 	return takeMeThereList;
 }
 
