@@ -30,9 +30,6 @@ namespace
 	};
 
 
-	/**
-	 * Enumerated IDs for the navigation panels.
-	 */
 	enum class NavigationPanel
 	{
 		Research,
@@ -45,9 +42,6 @@ namespace
 	};
 
 
-	/**
-	* Represents a navigation panel.
-	*/
 	class Panel
 	{
 	public:
@@ -76,12 +70,9 @@ namespace
 	};
 
 
-	static std::array<Panel, 7> Panels; /**< Array of UI navigation panels. */
+	static std::array<Panel, 7> Panels;
 
 
-	/**
-	 * Computes the panel rectangles for the top nav bar.
-	 */
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
 		auto& exitPanel = Panels[6];
@@ -103,9 +94,6 @@ namespace
 	}
 
 
-	/**
-	 * Draws a UI panel.
-	 */
 	void drawPanel(NAS2D::Renderer& renderer, Panel& panel, const NAS2D::Font& font)
 	{
 		if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
@@ -126,7 +114,6 @@ namespace
 		}
 	}
 }
-
 
 
 MainReportsUiState::MainReportsUiState() :
@@ -190,9 +177,6 @@ void MainReportsUiState::initialize()
 }
 
 
-/**
- * Wrapper activate handler.
- */
 void MainReportsUiState::_activate()
 {
 	for (auto& panel : Panels)
@@ -207,9 +191,6 @@ void MainReportsUiState::_activate()
 }
 
 
-/**
- * Wrapper deactivate handler.
- */
 void MainReportsUiState::_deactivate()
 {
 	for (auto& panel : Panels)
@@ -225,9 +206,6 @@ void MainReportsUiState::_deactivate()
 }
 
 
-/**
- * Key down event handler.
- */
 void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active()) { return; }
@@ -272,9 +250,6 @@ void MainReportsUiState::exit()
 }
 
 
-/**
- * Window resized event handler.
- */
 void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	setPanelRects(newSize.x, fontMain);
@@ -370,9 +345,6 @@ MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
 }
 
 
-/**
- * Draw
- */
 NAS2D::State* MainReportsUiState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
