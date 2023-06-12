@@ -317,9 +317,13 @@ void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTr
 
 void MainReportsUiState::clearLists()
 {
-	Panels[static_cast<size_t>(NavigationPanel::Production)].UiPanel->fillLists();
-	Panels[static_cast<size_t>(NavigationPanel::Warehouse)].UiPanel->fillLists();
-	Panels[static_cast<size_t>(NavigationPanel::Mines)].UiPanel->fillLists();
+	for (auto& panel : Panels)
+	{
+		if (panel.UiPanel)
+		{
+			panel.UiPanel->fillLists();
+		}
+	}
 }
 
 
