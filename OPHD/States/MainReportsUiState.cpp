@@ -33,7 +33,7 @@ namespace
 	/**
 	 * Enumerated IDs for the navigation panels.
 	 */
-	enum NavigationPanel
+	enum class NavigationPanel
 	{
 		Research,
 		Production,
@@ -84,14 +84,15 @@ namespace
 	 */
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
-		Panels[NavigationPanel::Exit].Rect = {{width - 48, 0}, {48, 48}};
-		Panels[NavigationPanel::Exit].IconPosition = {width - 40, 8};
+		auto& exitPanel = Panels[6];
+		exitPanel.Rect = {{width - 48, 0}, {48, 48}};
+		exitPanel.IconPosition = {width - 40, 8};
 
-		int remaining_width = width - Panels[NavigationPanel::Exit].Rect.size.x;
+		int remaining_width = width - exitPanel.Rect.size.x;
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 		auto panelPosition = NAS2D::Point{0, 0};
-		for (std::size_t i = 0; i < NavigationPanel::Exit; ++i)
+		for (std::size_t i = 0; i < Panels.size(); ++i)
 		{
 			auto& panel = Panels[i];
 			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
@@ -251,7 +252,7 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 		}
 	}
 
-	if (Panels[NavigationPanel::Exit].Selected())
+	if (Panels[6].Selected())
 	{
 		exit();
 	}
@@ -299,11 +300,12 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[NavigationPanel::Production].Selected(true);
-	Panels[NavigationPanel::Production].UiPanel->visible(true);
 
-	Panels[NavigationPanel::Production].UiPanel->refresh();
-	Panels[NavigationPanel::Production].UiPanel->selectStructure(structure);
+	auto& productionPanel = Panels[static_cast<size_t>(NavigationPanel::Production)];
+	productionPanel.Selected(true);
+	productionPanel.UiPanel->visible(true);
+	productionPanel.UiPanel->refresh();
+	productionPanel.UiPanel->selectStructure(structure);
 }
 
 
@@ -313,10 +315,12 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[NavigationPanel::Warehouse].Selected(true);
-	Panels[NavigationPanel::Warehouse].UiPanel->visible(true);
-	Panels[NavigationPanel::Warehouse].UiPanel->refresh();
-	Panels[NavigationPanel::Warehouse].UiPanel->selectStructure(structure);
+
+	auto& warehousePanel = Panels[static_cast<size_t>(NavigationPanel::Warehouse)];
+	warehousePanel.Selected(true);
+	warehousePanel.UiPanel->visible(true);
+	warehousePanel.UiPanel->refresh();
+	warehousePanel.UiPanel->selectStructure(structure);
 }
 
 
@@ -326,25 +330,27 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-	Panels[NavigationPanel::Mines].Selected(true);
-	Panels[NavigationPanel::Mines].UiPanel->visible(true);
-	Panels[NavigationPanel::Mines].UiPanel->refresh();
-	Panels[NavigationPanel::Mines].UiPanel->selectStructure(structure);
+
+	auto& minePanel = Panels[static_cast<size_t>(NavigationPanel::Mines)];
+	minePanel.Selected(true);
+	minePanel.UiPanel->visible(true);
+	minePanel.UiPanel->refresh();
+	minePanel.UiPanel->selectStructure(structure);
 }
 
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-    auto researchPanel = Panels[NavigationPanel::Research].UiPanel;
+	auto researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].UiPanel;
     static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
 }
 
 
 void MainReportsUiState::clearLists()
 {
-	Panels[NavigationPanel::Production].UiPanel->fillLists();
-	Panels[NavigationPanel::Warehouse].UiPanel->fillLists();
-	Panels[NavigationPanel::Mines].UiPanel->fillLists();
+	Panels[static_cast<size_t>(NavigationPanel::Production)].UiPanel->fillLists();
+	Panels[static_cast<size_t>(NavigationPanel::Warehouse)].UiPanel->fillLists();
+	Panels[static_cast<size_t>(NavigationPanel::Mines)].UiPanel->fillLists();
 }
 
 
