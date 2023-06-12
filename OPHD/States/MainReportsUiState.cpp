@@ -113,6 +113,15 @@ namespace
 			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
 		}
 	}
+
+
+	void selectPanel(Panel& panel, Structure* structure)
+	{
+		panel.Selected(true);
+		panel.UiPanel->visible(true);
+		panel.UiPanel->refresh();
+		panel.UiPanel->selectStructure(structure);
+	}
 }
 
 
@@ -275,12 +284,7 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-
-	auto& productionPanel = Panels[static_cast<size_t>(NavigationPanel::Production)];
-	productionPanel.Selected(true);
-	productionPanel.UiPanel->visible(true);
-	productionPanel.UiPanel->refresh();
-	productionPanel.UiPanel->selectStructure(structure);
+	selectPanel(Panels[static_cast<size_t>(NavigationPanel::Production)], structure);
 }
 
 
@@ -290,12 +294,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-
-	auto& warehousePanel = Panels[static_cast<size_t>(NavigationPanel::Warehouse)];
-	warehousePanel.Selected(true);
-	warehousePanel.UiPanel->visible(true);
-	warehousePanel.UiPanel->refresh();
-	warehousePanel.UiPanel->selectStructure(structure);
+	selectPanel(Panels[static_cast<size_t>(NavigationPanel::Warehouse)], structure);
 }
 
 
@@ -305,12 +304,7 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-
-	auto& minePanel = Panels[static_cast<size_t>(NavigationPanel::Mines)];
-	minePanel.Selected(true);
-	minePanel.UiPanel->visible(true);
-	minePanel.UiPanel->refresh();
-	minePanel.UiPanel->selectStructure(structure);
+	selectPanel(Panels[static_cast<size_t>(NavigationPanel::Mines)], structure);
 }
 
 
