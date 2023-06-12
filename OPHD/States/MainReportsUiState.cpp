@@ -59,6 +59,13 @@ namespace
 			return mIsSelected;
 		}
 
+		void setMeta(const PanelInfo& panelInfo)
+		{
+			Img = panelInfo.image;
+			Name = panelInfo.name;
+			UiPanel = panelInfo.report;
+		}
+
 	public:
 		std::string Name;
 
@@ -180,9 +187,7 @@ void MainReportsUiState::initialize()
 	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
 		auto& panel = Panels[i];
-		panel.Img = panelInfo[i].image;
-		panel.Name = panelInfo[i].name;
-		panel.UiPanel = panelInfo[i].report;
+		panel.setMeta(panelInfo[i]);
 
 		auto report = panel.UiPanel;
 		if (report)
