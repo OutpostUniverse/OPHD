@@ -140,6 +140,17 @@ namespace
 		panel.UiPanel->refresh();
 		panel.UiPanel->selectStructure(structure);
 	}
+
+
+	void setReportValues(ReportInterface* report, const NAS2D::Vector<int>& size)
+	{
+		if (report)
+		{
+			report->position({0, 48});
+			report->size({size.x, size.y - 48});
+			report->hide();
+		}
+	}
 }
 
 
@@ -188,14 +199,7 @@ void MainReportsUiState::initialize()
 	{
 		auto& panel = Panels[i];
 		panel.setMeta(panelInfo[i]);
-
-		auto report = panel.UiPanel;
-		if (report)
-		{
-			report->position({0, 48});
-			report->size({size.x, size.y - 48});
-			report->hide();
-		}
+		setReportValues(panel.UiPanel, size);
 	}
 
 	setPanelRects(size.x, fontMain);
