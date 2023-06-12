@@ -12,6 +12,12 @@ class Structure;
 class TechnologyCatalog;
 class ResearchTracker;
 
+namespace NAS2D
+{
+	class Font;
+}
+
+
 class MainReportsUiState : public Wrapper
 {
 public:
@@ -53,5 +59,7 @@ private:
 	void exit();
 
 private:
+	const NAS2D::Font& fontMain;
+
 	ReportsUiSignal mReportsUiSignal;
 };
