@@ -96,22 +96,25 @@ namespace
 
 	void drawPanel(NAS2D::Renderer& renderer, Panel& panel, const NAS2D::Font& font)
 	{
-		if (panel.Rect.contains(MOUSE_COORDS)) { renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100}); }
+		if (panel.Rect.contains(MOUSE_COORDS))
+		{
+			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100});
+		}
+
+		auto drawColor = panel.Selected() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{185, 185, 0};
 
 		if (panel.Selected())
 		{
 			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 85, 0});
 
-			if (panel.UiPanel) { panel.UiPanel->update(); }
+			if (panel.UiPanel)
+			{
+				panel.UiPanel->update();
+			}
+		}
 
-			renderer.drawText(font, panel.Name, panel.TextPosition, NAS2D::Color{185, 185, 0});
-			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{185, 185, 0});
-		}
-		else
-		{
-			renderer.drawText(font, panel.Name, panel.TextPosition, NAS2D::Color{0, 185, 0});
-			renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, NAS2D::Color{0, 185, 0});
-		}
+		renderer.drawText(font, panel.Name, panel.TextPosition, drawColor);
+		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, drawColor);
 	}
 
 
