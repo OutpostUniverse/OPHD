@@ -1,4 +1,5 @@
 #include "XmlSerializer.h"
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
 
