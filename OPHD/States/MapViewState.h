@@ -13,11 +13,6 @@
 #include "../Common.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
-#include "../PopulationPool.h"
-#include "../Population/Population.h"
-
-#include "../Technology/ResearchTracker.h"
-#include "../Technology/TechnologyCatalog.h"
 
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
@@ -44,6 +39,12 @@
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
+
+#include <libOPHD/Population/PopulationPool.h>
+#include <libOPHD/Population/Population.h>
+
+#include <libOPHD/Technology/ResearchTracker.h>
+#include <libOPHD/Technology/TechnologyCatalog.h>
 
 #include <libControls/WindowStack.h>
 #include <libControls/ToolTip.h>

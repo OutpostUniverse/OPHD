@@ -1,6 +1,6 @@
 #include "ProductCatalogue.h"
 
-#include "XmlSerializer.h"
+#include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/ParserHelper.h>
 

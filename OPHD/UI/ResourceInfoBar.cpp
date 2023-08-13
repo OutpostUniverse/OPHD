@@ -5,7 +5,8 @@
 #include "../Constants/UiConstants.h"
 
 #include "../StructureManager.h"
-#include "../Population/Population.h"
+
+#include <libOPHD/Population/Population.h>
 
 #include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>

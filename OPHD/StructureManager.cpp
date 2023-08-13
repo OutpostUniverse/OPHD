@@ -3,12 +3,13 @@
 #include "Constants/Numbers.h"
 #include "ProductPool.h"
 #include "IOHelper.h"
-#include "PopulationPool.h"
 #include "Map/Tile.h"
 #include "MapObjects/Robot.h"
 #include "GraphWalker.h"
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
+
+#include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/StringUtils.h>

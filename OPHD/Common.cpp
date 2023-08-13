@@ -1,10 +1,11 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
 #include "StructureManager.h"
-#include "XmlSerializer.h"
 
 #include "MapObjects/Structure.h"
 #include "MapObjects/Structures/Warehouse.h"
+
+#include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Xml/XmlDocument.h>

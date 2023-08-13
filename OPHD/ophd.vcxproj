@@ -202,9 +202,6 @@
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="Mine.cpp" />
-    <ClCompile Include="PopulationPool.cpp" />
-    <ClCompile Include="Population\Population.cpp" />
-    <ClCompile Include="Population\PopulationTable.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="RobotPool.cpp" />
@@ -227,8 +224,6 @@
     <ClCompile Include="States\StructureTracker.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
     <ClCompile Include="StructureManager.cpp" />
-    <ClCompile Include="Technology\ResearchTracker.cpp" />
-    <ClCompile Include="Technology\TechnologyCatalog.cpp" />
     <ClCompile Include="UI\CheatMenu.cpp" />
     <ClCompile Include="UI\DetailMap.cpp" />
     <ClCompile Include="UI\DiggerDirection.cpp" />
@@ -263,7 +258,6 @@
     <ClCompile Include="UI\TextRender.cpp" />
     <ClCompile Include="UI\TileInspector.cpp" />
     <ClCompile Include="UI\WarehouseInspector.cpp" />
-    <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h" />
@@ -333,10 +327,6 @@
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="Mine.h" />
-    <ClInclude Include="Population\Population.h" />
-    <ClInclude Include="Population\PopulationTable.h" />
-    <ClInclude Include="Population\Morale.h" />
-    <ClInclude Include="PopulationPool.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
@@ -359,9 +349,6 @@
     <ClInclude Include="StorableResources.h" />
     <ClInclude Include="StructureCatalogue.h" />
     <ClInclude Include="StructureManager.h" />
-    <ClInclude Include="Technology\ResearchTracker.h" />
-    <ClInclude Include="Technology\Technology.h" />
-    <ClInclude Include="Technology\TechnologyCatalog.h" />
     <ClInclude Include="UI\CheatMenu.h" />
     <ClInclude Include="UI\DetailMap.h" />
     <ClInclude Include="UI\DiggerDirection.h" />
@@ -398,7 +385,6 @@
     <ClInclude Include="UI\TileInspector.h" />
     <ClInclude Include="UI\WarehouseInspector.h" />
     <ClInclude Include="WindowEventWrapper.h" />
-    <ClInclude Include="XmlSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc" />

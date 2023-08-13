@@ -1,7 +1,8 @@
 #include "Planet.h"
 
 #include "../Constants/Numbers.h"
-#include "../XmlSerializer.h"
+
+#include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>

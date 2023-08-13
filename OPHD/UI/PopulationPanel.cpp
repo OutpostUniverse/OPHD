@@ -4,7 +4,8 @@
 #include "../Common.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../Population/Population.h"
+
+#include <libOPHD/Population/Population.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>

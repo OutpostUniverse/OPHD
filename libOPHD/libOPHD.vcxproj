@@ -163,14 +163,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp" />
+    <ClCompile Include="Population\PopulationPool.cpp" />
+    <ClCompile Include="Population\Population.cpp" />
+    <ClCompile Include="Population\PopulationTable.cpp" />
+    <ClCompile Include="Technology\ResearchTracker.cpp" />
+    <ClCompile Include="Technology\TechnologyCatalog.cpp" />
+    <ClCompile Include="XmlSerializer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="Population\Population.h" />
+    <ClInclude Include="Population\PopulationTable.h" />
+    <ClInclude Include="Population\Morale.h" />
+    <ClInclude Include="Population\PopulationPool.h" />
+    <ClInclude Include="Technology\ResearchTracker.h" />
+    <ClInclude Include="Technology\Technology.h" />
+    <ClInclude Include="Technology\TechnologyCatalog.h" />
+    <ClInclude Include="XmlSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">
       <Project>{3350562d-6204-42fc-898a-c85fd62e04e8}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="RandomNumberGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

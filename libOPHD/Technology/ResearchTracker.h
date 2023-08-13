@@ -2,8 +2,6 @@
 
 #include "Technology.h"
 
-#include "../Common.h"
-
 #include <map>
 #include <vector>
 

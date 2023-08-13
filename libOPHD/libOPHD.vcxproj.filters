@@ -13,14 +13,68 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Population">
+      <UniqueIdentifier>{964e7130-2144-43ab-a0c0-ff1f199d1c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Population">
+      <UniqueIdentifier>{d903cae4-8bc6-462c-afb0-c731298b8840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Technology">
+      <UniqueIdentifier>{9d60dddd-887a-4c9d-9a55-97884aedd298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Technology">
+      <UniqueIdentifier>{f03fdd93-09f6-4050-a5df-18305b27811d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Population\PopulationPool.cpp">
+      <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="Population\Population.cpp">
+      <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="Population\PopulationTable.cpp">
+      <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="Technology\TechnologyCatalog.cpp">
+      <Filter>Source Files\Technology</Filter>
+    </ClCompile>
+    <ClCompile Include="Technology\ResearchTracker.cpp">
+      <Filter>Source Files\Technology</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlSerializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNumberGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Population\Population.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Population\PopulationTable.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Population\Morale.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Population\PopulationPool.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Technology\ResearchTracker.h">
+      <Filter>Header Files\Technology</Filter>
+    </ClInclude>
+    <ClInclude Include="Technology\Technology.h">
+      <Filter>Header Files\Technology</Filter>
+    </ClInclude>
+    <ClInclude Include="Technology\TechnologyCatalog.h">
+      <Filter>Header Files\Technology</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlSerializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
