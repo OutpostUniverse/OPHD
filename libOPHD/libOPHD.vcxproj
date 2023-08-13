@@ -163,10 +163,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp" />
+    <ClCompile Include="Technology\ResearchTracker.cpp" />
+    <ClCompile Include="Technology\TechnologyCatalog.cpp" />
     <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="Technology\ResearchTracker.h" />
+    <ClInclude Include="Technology\Technology.h" />
+    <ClInclude Include="Technology\TechnologyCatalog.h" />
     <ClInclude Include="XmlSerializer.h" />
   </ItemGroup>
   <ItemGroup>

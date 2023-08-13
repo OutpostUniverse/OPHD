@@ -3,8 +3,9 @@
 #include "ReportInterface.h"
 
 #include "../../MapObjects/Structures/ResearchFacility.h"
-#include "../../Technology/TechnologyCatalog.h"
-#include "../../Technology/ResearchTracker.h"
+
+#include <libOPHD/Technology/TechnologyCatalog.h>
+#include <libOPHD/Technology/ResearchTracker.h>
 
 #include <libControls/Button.h>
 

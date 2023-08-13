@@ -82,12 +82,6 @@
     <Filter Include="Source Files\MicroPather">
       <UniqueIdentifier>{53d69791-75af-4014-99df-f2d2582597ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Technology">
-      <UniqueIdentifier>{9d60dddd-887a-4c9d-9a55-97884aedd298}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Technology">
-      <UniqueIdentifier>{f03fdd93-09f6-4050-a5df-18305b27811d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common.cpp">
@@ -221,12 +215,6 @@
     </ClCompile>
     <ClCompile Include="StructureManager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Technology\TechnologyCatalog.cpp">
-      <Filter>Source Files\Technology</Filter>
-    </ClCompile>
-    <ClCompile Include="Technology\ResearchTracker.cpp">
-      <Filter>Source Files\Technology</Filter>
     </ClCompile>
     <ClCompile Include="UI\CheatMenu.cpp">
       <Filter>Source Files</Filter>
@@ -610,15 +598,6 @@
     </ClInclude>
     <ClInclude Include="StructureManager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Technology\ResearchTracker.h">
-      <Filter>Header Files\Technology</Filter>
-    </ClInclude>
-    <ClInclude Include="Technology\Technology.h">
-      <Filter>Header Files\Technology</Filter>
-    </ClInclude>
-    <ClInclude Include="Technology\TechnologyCatalog.h">
-      <Filter>Header Files\Technology</Filter>
     </ClInclude>
     <ClInclude Include="UI\CheatMenu.h">
       <Filter>Header Files</Filter>

@@ -16,8 +16,8 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
-#include "../Technology/ResearchTracker.h"
 
+#include <libOPHD/Technology/ResearchTracker.h>
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>

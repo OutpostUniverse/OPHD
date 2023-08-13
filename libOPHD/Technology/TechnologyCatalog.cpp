@@ -1,6 +1,6 @@
 #include "TechnologyCatalog.h"
 
-#include <libOPHD/XmlSerializer.h>
+#include "../XmlSerializer.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
