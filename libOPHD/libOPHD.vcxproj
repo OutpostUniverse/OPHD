@@ -163,12 +163,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp" />
+    <ClCompile Include="Population\PopulationPool.cpp" />
+    <ClCompile Include="Population\Population.cpp" />
+    <ClCompile Include="Population\PopulationTable.cpp" />
     <ClCompile Include="Technology\ResearchTracker.cpp" />
     <ClCompile Include="Technology\TechnologyCatalog.cpp" />
     <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="Population\Population.h" />
+    <ClInclude Include="Population\PopulationTable.h" />
+    <ClInclude Include="Population\Morale.h" />
+    <ClInclude Include="Population\PopulationPool.h" />
     <ClInclude Include="Technology\ResearchTracker.h" />
     <ClInclude Include="Technology\Technology.h" />
     <ClInclude Include="Technology\TechnologyCatalog.h" />

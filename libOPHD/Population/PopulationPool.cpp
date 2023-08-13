@@ -1,5 +1,6 @@
 #include "PopulationPool.h"
-#include "Population/Population.h"
+
+#include "Population.h"
 
 #include <algorithm>
 #include <string>

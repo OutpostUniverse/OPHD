@@ -202,9 +202,6 @@
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="Mine.cpp" />
-    <ClCompile Include="PopulationPool.cpp" />
-    <ClCompile Include="Population\Population.cpp" />
-    <ClCompile Include="Population\PopulationTable.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="RobotPool.cpp" />
@@ -330,10 +327,6 @@
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="Mine.h" />
-    <ClInclude Include="Population\Population.h" />
-    <ClInclude Include="Population\PopulationTable.h" />
-    <ClInclude Include="Population\Morale.h" />
-    <ClInclude Include="PopulationPool.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />

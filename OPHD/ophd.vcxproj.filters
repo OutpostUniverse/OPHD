@@ -52,12 +52,6 @@
     <Filter Include="Header Files\Constants">
       <UniqueIdentifier>{df1a7586-89dd-467f-b703-58d0b820cd47}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Population">
-      <UniqueIdentifier>{964e7130-2144-43ab-a0c0-ff1f199d1c15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Population">
-      <UniqueIdentifier>{d903cae4-8bc6-462c-afb0-c731298b8840}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Map">
       <UniqueIdentifier>{ef0f2f7d-e0aa-47f6-a564-6a2de9a2cef2}</UniqueIdentifier>
     </Filter>
@@ -140,15 +134,6 @@
     </ClCompile>
     <ClCompile Include="Mine.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PopulationPool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Population\Population.cpp">
-      <Filter>Source Files\Population</Filter>
-    </ClCompile>
-    <ClCompile Include="Population\PopulationTable.cpp">
-      <Filter>Source Files\Population</Filter>
     </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
@@ -519,18 +504,6 @@
       <Filter>Header Files\MicroPather</Filter>
     </ClInclude>
     <ClInclude Include="Mine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Population\Population.h">
-      <Filter>Header Files\Population</Filter>
-    </ClInclude>
-    <ClInclude Include="Population\PopulationTable.h">
-      <Filter>Header Files\Population</Filter>
-    </ClInclude>
-    <ClInclude Include="Population\Morale.h">
-      <Filter>Header Files\Population</Filter>
-    </ClInclude>
-    <ClInclude Include="PopulationPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCatalogue.h">

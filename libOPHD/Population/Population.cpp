@@ -1,7 +1,7 @@
 #include "Population.h"
 #include "Morale.h"
 
-#include <libOPHD/RandomNumberGenerator.h>
+#include "../RandomNumberGenerator.h"
 
 #include <algorithm>
 #include <array>
