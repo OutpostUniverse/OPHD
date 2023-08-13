@@ -7,7 +7,8 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Cache.h"
-#include "../XmlSerializer.h"
+
+#include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Mixer/Mixer.h>

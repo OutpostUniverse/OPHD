@@ -324,9 +324,6 @@
     <ClCompile Include="UI\WarehouseInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="XmlSerializer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UI\Reports\SpaceportsReport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -721,9 +718,6 @@
     </ClInclude>
     <ClInclude Include="UI\WarehouseInspector.h">
       <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlSerializer.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowEventWrapper.h">
       <Filter>Header Files</Filter>

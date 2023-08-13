@@ -163,9 +163,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp" />
+    <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="XmlSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">

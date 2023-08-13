@@ -1,6 +1,6 @@
 #include "CheatMenu.h"
 
-#include "../XmlSerializer.h"
+#include <libOPHD/XmlSerializer.h>
 
 using namespace NAS2D;
 

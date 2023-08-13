@@ -18,9 +18,15 @@
     <ClCompile Include="libOPHD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XmlSerializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNumberGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlSerializer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
