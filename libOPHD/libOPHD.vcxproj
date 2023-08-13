@@ -165,12 +165,12 @@
     <ClCompile Include="libOPHD.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RandomNumberGenerator.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">
       <Project>{3350562d-6204-42fc-898a-c85fd62e04e8}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="RandomNumberGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
