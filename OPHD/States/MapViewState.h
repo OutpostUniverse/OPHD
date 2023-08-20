@@ -7,8 +7,6 @@
 
 #include "Planet.h"
 
-#include "../Constants/UiConstants.h"
-
 #include "../Common.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
@@ -355,9 +353,9 @@ private:
 
 	ToolTip mToolTip;
 
-	IconGrid mStructures{"ui/structures.png", 46, constants::MarginTight};
-	IconGrid mRobots{"ui/robots.png", 46, constants::MarginTight};
-	IconGrid mConnections{"ui/structures.png", 46, constants::MarginTight};
+	IconGrid mStructures;
+	IconGrid mRobots;
+	IconGrid mConnections;
 
 	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;
