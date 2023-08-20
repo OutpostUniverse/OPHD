@@ -29,6 +29,7 @@ PlanetSelectState::PlanetSelectState() :
 	mHover{"sfx/menu4.ogg"},
 	mQuit{"Main Menu", {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
+	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
 	PlanetAttributes(parsePlanetAttributes())
 {}

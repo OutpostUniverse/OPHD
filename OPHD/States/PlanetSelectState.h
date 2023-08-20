@@ -2,8 +2,6 @@
 
 #include "Planet.h"
 
-#include "../Constants/UiConstants.h"
-
 #include <libControls/Button.h>
 #include <libControls/TextArea.h>
 
@@ -58,7 +56,7 @@ private:
 
 	TextArea mPlanetDescription;
 
-	std::size_t mPlanetSelection{constants::NoSelection};
+	std::size_t mPlanetSelection;
 
 	NAS2D::Timer mTimer;
 	NAS2D::Fade mFade;
