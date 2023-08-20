@@ -7,7 +7,6 @@
 
 #include "Planet.h"
 
-#include "../Constants/Numbers.h"
 #include "../Constants/UiConstants.h"
 
 #include "../Common.h"
@@ -306,8 +305,8 @@ private:
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 
-	int mCurrentMorale = constants::DefaultStartingMorale;
-	int mPreviousMorale = constants::DefaultStartingMorale;
+	int mCurrentMorale;
+	int mPreviousMorale;
 
 	int mLandersColonist = 0;
 	int mLandersCargo = 0;

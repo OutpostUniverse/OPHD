@@ -159,6 +159,8 @@ namespace
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
+	mCurrentMorale{constants::DefaultStartingMorale},
+	mPreviousMorale{constants::DefaultStartingMorale},
 	mLoadingExisting(true),
 	mExistingToLoad(savegame),
 	mMainReportsState(mainReportsState),
@@ -175,6 +177,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
+	mCurrentMorale{constants::DefaultStartingMorale},
+	mPreviousMorale{constants::DefaultStartingMorale},
 	mMainReportsState(mainReportsState),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
