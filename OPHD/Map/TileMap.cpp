@@ -1,7 +1,5 @@
 #include "TileMap.h"
 
-#include "../Constants/Numbers.h"
-#include "../Constants/UiConstants.h"
 #include "../DirectionOffset.h"
 #include "../Mine.h"
 #include "../MapObjects/Structure.h"

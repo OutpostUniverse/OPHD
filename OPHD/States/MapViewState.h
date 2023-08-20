@@ -7,9 +7,6 @@
 
 #include "Planet.h"
 
-#include "../Constants/Numbers.h"
-#include "../Constants/UiConstants.h"
-
 #include "../Common.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
@@ -306,8 +303,8 @@ private:
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 
-	int mCurrentMorale = constants::DefaultStartingMorale;
-	int mPreviousMorale = constants::DefaultStartingMorale;
+	int mCurrentMorale;
+	int mPreviousMorale;
 
 	int mLandersColonist = 0;
 	int mLandersCargo = 0;
@@ -356,9 +353,9 @@ private:
 
 	ToolTip mToolTip;
 
-	IconGrid mStructures{"ui/structures.png", 46, constants::MarginTight};
-	IconGrid mRobots{"ui/robots.png", 46, constants::MarginTight};
-	IconGrid mConnections{"ui/structures.png", 46, constants::MarginTight};
+	IconGrid mStructures;
+	IconGrid mRobots;
+	IconGrid mConnections;
 
 	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;

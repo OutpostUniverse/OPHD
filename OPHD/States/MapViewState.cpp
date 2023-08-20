@@ -159,9 +159,14 @@ namespace
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
+	mCurrentMorale{constants::DefaultStartingMorale},
+	mPreviousMorale{constants::DefaultStartingMorale},
 	mLoadingExisting(true),
 	mExistingToLoad(savegame),
 	mMainReportsState(mainReportsState),
+	mStructures{"ui/structures.png", 46, constants::MarginTight},
+	mRobots{"ui/robots.png", 46, constants::MarginTight},
+	mConnections{"ui/structures.png", 46, constants::MarginTight},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool}
 {
@@ -175,8 +180,13 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
+	mCurrentMorale{constants::DefaultStartingMorale},
+	mPreviousMorale{constants::DefaultStartingMorale},
 	mMainReportsState(mainReportsState),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
+	mStructures{"ui/structures.png", 46, constants::MarginTight},
+	mRobots{"ui/robots.png", 46, constants::MarginTight},
+	mConnections{"ui/structures.png", 46, constants::MarginTight},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},

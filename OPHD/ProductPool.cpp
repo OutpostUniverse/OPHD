@@ -1,5 +1,6 @@
 #include "ProductPool.h"
 
+#include "Constants/Numbers.h"
 #include "Constants/Strings.h"
 
 #include <NAS2D/ParserHelper.h>
@@ -116,6 +117,12 @@ namespace
 int storageRequiredPerUnit(ProductType type)
 {
 	return ProductStorageSpace.at(type);
+}
+
+
+ProductPool::ProductPool() :
+	mCapacity{constants::BaseProductCapacity}
+{
 }
 
 
