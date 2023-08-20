@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Common.h"
-#include "Constants/Numbers.h"
 
 #include <NAS2D/Dictionary.h>
 
@@ -16,7 +15,7 @@ public:
 	using ProductTypeCount = std::array<int, ProductType::PRODUCT_COUNT>;
 
 
-	ProductPool() = default;
+	ProductPool();
 	~ProductPool() = default;
 
 	ProductPool(const ProductPool&) = default;
@@ -46,6 +45,6 @@ public:
 private:
 	ProductTypeCount mProducts{};
 
-	int mCapacity{constants::BaseProductCapacity};
+	int mCapacity;
 	int mCurrentStorageCount{0};
 };
