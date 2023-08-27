@@ -193,6 +193,7 @@
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
     <ClCompile Include="MapObjects\MapObject.cpp" />
+    <ClCompile Include="MapObjects\Mine.cpp" />
     <ClCompile Include="MapObjects\Robot.cpp" />
     <ClCompile Include="MapObjects\Robots\Robodigger.cpp" />
     <ClCompile Include="MapObjects\Robots\Robodozer.cpp" />
@@ -201,7 +202,6 @@
     <ClCompile Include="MapObjects\Structures\Factory.cpp" />
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
-    <ClCompile Include="Mine.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="RobotPool.cpp" />
@@ -274,6 +274,7 @@
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="MapObjects\MapObject.h" />
+    <ClInclude Include="MapObjects\Mine.h" />
     <ClInclude Include="MapObjects\Robots\Robodigger.h" />
     <ClInclude Include="MapObjects\Robots\Robodozer.h" />
     <ClInclude Include="MapObjects\Robots\Robominer.h" />
@@ -326,7 +327,6 @@
     <ClInclude Include="MapObjects\Structures\University.h" />
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
-    <ClInclude Include="Mine.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />

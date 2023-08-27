@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common.h"
-#include "StorableResources.h"
+#include "../Common.h"
+#include "../StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 

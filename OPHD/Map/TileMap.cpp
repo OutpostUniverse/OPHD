@@ -1,7 +1,7 @@
 #include "TileMap.h"
 
 #include "../DirectionOffset.h"
-#include "../Mine.h"
+#include "../MapObjects/Mine.h"
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/RandomNumberGenerator.h>

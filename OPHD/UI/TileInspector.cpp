@@ -2,7 +2,7 @@
 
 #include "TextRender.h"
 #include "../Constants/Strings.h"
-#include "../Mine.h"
+#include "../MapObjects/Mine.h"
 
 #include <map>
 #include <sstream>

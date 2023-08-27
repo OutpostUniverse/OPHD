@@ -2,7 +2,7 @@
 
 #include "../Structure.h"
 
-#include "../../Mine.h"
+#include "../Mine.h"
 
 struct StorableResources;
 
