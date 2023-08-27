@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common.h"
-#include "StorableResources.h"
+#include "../Common.h"
+#include "../StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 
@@ -68,7 +68,7 @@ private:
 
 	/**
 	 * Flags indicating several states for the mine:
-	 * 
+	 *
 	 * [0] : Mine Common Metal Ore
 	 * [1] : Mine Common Mineral Ore
 	 * [2] : Mine Rare Metal Ore

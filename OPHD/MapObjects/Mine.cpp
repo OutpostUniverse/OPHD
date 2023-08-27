@@ -79,7 +79,7 @@ void Mine::miningEnabled(OreType oreType, bool value)
 
 /**
  * Increases the depth of the mine.
- * 
+ *
  * \note	This function only modifies the Mine. It has no knowledge of the
  *			maximum digging depth of a planet and doesn't modify any tiles.
  */

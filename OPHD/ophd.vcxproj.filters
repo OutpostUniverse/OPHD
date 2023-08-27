@@ -108,6 +108,9 @@
     <ClCompile Include="MapObjects\MapObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Mine.cpp">
+      <Filter>Source Files\MapObjects</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Robot.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
@@ -131,9 +134,6 @@
     </ClCompile>
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
-    </ClCompile>
-    <ClCompile Include="Mine.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
@@ -347,6 +347,9 @@
     <ClInclude Include="MapObjects\MapObject.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
+    <ClInclude Include="MapObjects\Mine.h">
+      <Filter>Header Files\MapObjects</Filter>
+    </ClInclude>
     <ClInclude Include="MapObjects\Robots\Robodigger.h">
       <Filter>Header Files\MapObjects\Robots</Filter>
     </ClInclude>
@@ -502,9 +505,6 @@
     </ClInclude>
     <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
-    </ClInclude>
-    <ClInclude Include="Mine.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
