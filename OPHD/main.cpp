@@ -31,6 +31,7 @@
 using namespace NAS2D;
 
 
+namespace {
 void dumpGraphicsInfo(RendererOpenGL& renderer)
 {
 	std::vector<std::string> info{
@@ -45,6 +46,7 @@ void dumpGraphicsInfo(RendererOpenGL& renderer)
 	{
 		std::cout << "\t" << str << std::endl;
 	}
+}
 }
 
 
