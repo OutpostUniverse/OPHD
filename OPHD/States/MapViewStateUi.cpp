@@ -76,6 +76,7 @@ void MapViewState::initUi()
 
 	mPopulationPanel.position({675, constants::ResourceIconSize + 4 + constants::MarginTight});
 	mPopulationPanel.population(&mPopulation);
+	mPopulationPanel.populationPool(&mPopulationPool);
 
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);

@@ -6,6 +6,7 @@
 #include "../Constants/UiConstants.h"
 
 #include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>
@@ -65,7 +66,7 @@ PopulationPanel::PopulationPanel() :
 		imageCache.load("ui/skin/window_bottom_right.png")
 	}
 {
-	constexpr int linesOfText = 14;
+	constexpr int linesOfText = 16;
 	constexpr int edgeBuffer = constants::Margin * 2;
 	const int windowHeight = mFontBold.height() + (mFont.height() * linesOfText) + (edgeBuffer * 2 /* Times two to account for both the edge and the divider line. */);
 
@@ -88,12 +89,15 @@ PopulationPanel::PopulationPanel() :
 	size({windowWidth, windowHeight});
 }
 
-
 void PopulationPanel::population(Population* pop)
 {
 	mPopulation = pop;
 }
 
+void PopulationPanel::populationPool(PopulationPool* popPool)
+{
+	mPopulationPool = popPool;
+}
 
 void PopulationPanel::addMoraleReason(const std::string& str, int val)
 {
@@ -112,7 +116,7 @@ void PopulationPanel::update()
 
 	auto position = NAS2D::Point{positionX() + constants::Margin, positionY() + constants::Margin};
 
-	// POPULATION
+	// POPULATION Statistics
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
 	const auto& population = mPopulation->getPopulations();
 	const std::array populationData
@@ -126,19 +130,40 @@ void PopulationPanel::update()
 
 	position.y += fontBoldHeight + constants::Margin;
 	const auto textOffset = NAS2D::Vector{IconSize + constants::Margin, (IconSize / 2) - (fontHeight / 2)};
+
 	for (const auto& [imageRect, personCount, personRole] : populationData)
 	{
 		renderer.drawSubImage(mIcons, position, imageRect);
 
-		const auto roleCount = std::to_string(personCount);
 		renderer.drawText(mFont, personRole + ": ", position + textOffset);
 
-		const NAS2D::Point<int> labelPosition = {positionX() + mPopulationPanelWidth - mFont.width(roleCount) - constants::Margin , position.y + textOffset.y};
-		renderer.drawText(mFont, roleCount, labelPosition);
+		const auto personCountString = std::to_string(personCount);
+		const NAS2D::Point<int> labelPosition = {positionX() + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y + textOffset.y};
+		renderer.drawText(mFont, personCountString, labelPosition);
+
 		position.y += IconSize + constants::Margin;
 	}
 
-	// DIVIDER LINE
+	// DIVIDER LINE Between population statistics and population availability statistics
+	renderer.drawLine(position, position + NAS2D::Vector<int>{mFont.width(constants::PopulationBreakdown) + constants::Margin, 0}, Color::DarkGray);
+	position.y += constants::Margin;
+
+	const std::array populationAvailablitiyStatistics{
+		std::tuple{"Available Workers: ", mPopulationPool->availableWorkers()},
+		std::tuple{"Available Scientists: ", mPopulationPool->availableScientists()},
+	};
+
+	for (const auto& [statisticLabel, personCount] : populationAvailablitiyStatistics)
+	{
+		const auto personCountString = std::to_string(personCount);
+		const Color statusColor = personCount <= 0 ? Color::Red : Color::White;
+		renderer.drawText(mFont, statisticLabel, position, Color::White);
+		const NAS2D::Point<int> labelPosition = {positionX() + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y};
+		renderer.drawText(mFont, personCountString, labelPosition, statusColor);
+		position.y += fontBoldHeight + constants::Margin;
+	}
+
+	// DIVIDER LINE Between population statistics and morale statistics
 	position = NAS2D::Point{positionX() + mPopulationPanelWidth, positionY() + constants::Margin};
 	renderer.drawLine(position, position + NAS2D::Vector<int>{0, rect().size.y - 10}, Color::DarkGray);
 
@@ -163,6 +188,7 @@ void PopulationPanel::update()
 
 	position.y += fontHeight + fontHeight / 2;
 
+	// DIVIDER LINE Between morale breakdown and morale change reasons
 	renderer.drawLine(position, position + NAS2D::Vector<int>{rect().size.x - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
 
 	position.y += fontHeight / 2;
