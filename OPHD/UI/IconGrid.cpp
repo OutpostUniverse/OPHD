@@ -255,10 +255,10 @@ void IconGrid::selection(std::size_t newSelection)
 /**
  * Sets the current selection index to the first item with
  * a matching meta value.
- * 
+ *
  * \note	If no items in the list contain a matching meta value,
  *			the current selection index will remain unchanged.
- * 
+ *
  * \remark	IconGrid::Item::meta is initialized to 0 so passing a value
  *			of 0 for IconGrid::Item's that don't use a meta value will
  *			effectively set the index to 0.
@@ -365,17 +365,33 @@ void IconGrid::update()
 
 	if (mHighlightIndex != constants::NoSelection)
 	{
+		int entries = 7;
 		const auto position = indexToGridPosition(mHighlightIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
+		const auto toolTipPosition = indexToGridPosition(mHighlightIndex) + NAS2D::Vector{mIconMargin, mIconMargin} + NAS2D::Vector{0, -1 * mFont.height() * entries};
 		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 180, 0});
 
 		// Name Tooltip
 		if (mShowTooltip)
 		{
+
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
-			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - 15}, {mFont.width(highlightedName) + 4, mFont.height()}};
+			const auto tooltipRect = NAS2D::Rectangle<int>{{toolTipPosition.x, toolTipPosition.y - 15}, {mFont.width("Common Minerals: 99") + 5, mFont.height() * entries}};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
-			renderer.drawText(mFont, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+			renderer.drawText(mFont, highlightedName, toolTipPosition + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+
+			if (highlightedName != "Robodigger" && highlightedName != "Robodozer" && highlightedName != "Robominer") //HEADS UP Feels like there is a better way. Unless more robots are to be added it works.
+			{
+				const auto& tempStructure = Structure::Structure(Structure::StructureClass::Undefined, (StructureID)mIconItemList[mHighlightIndex].meta);
+				const auto& popNeeds = tempStructure.populationRequirements();
+				const auto& cost = StructureCatalogue::costToBuild((StructureID)mIconItemList[mHighlightIndex].meta);
+				renderer.drawText(mFont, ResourceNamesRefined[0] + ": " + std::to_string(cost.resources[0]), toolTipPosition + NAS2D::Vector{2, (-15 + mFont.height())}, NAS2D::Color::Black);
+				renderer.drawText(mFont, ResourceNamesRefined[1] + ": " + std::to_string(cost.resources[1]), toolTipPosition + NAS2D::Vector{2, (-15 + mFont.height() * 2)}, NAS2D::Color::Black);
+				renderer.drawText(mFont, ResourceNamesRefined[2] + ": " + std::to_string(cost.resources[2]), toolTipPosition + NAS2D::Vector{2, (-15 + mFont.height() * 3)}, NAS2D::Color::Black);
+				renderer.drawText(mFont, ResourceNamesRefined[3] + ": " + std::to_string(cost.resources[3]), toolTipPosition + NAS2D::Vector{2, (-15 + mFont.height() * 4)}, NAS2D::Color::Black);
+				renderer.drawText(mFont, "Workers: " + std::to_string(popNeeds.workers), toolTipPosition + NAS2D::Vector{2, (-15 + mFont.height() * 5)}, NAS2D::Color::Black);
+				renderer.drawText(mFont, "Scientists: " + std::to_string(popNeeds.scientists), toolTipPosition + NAS2D::Vector{2, (-15 + mFont.height() * 6)}, NAS2D::Color::Black);
+			}
 		}
 	}
 }

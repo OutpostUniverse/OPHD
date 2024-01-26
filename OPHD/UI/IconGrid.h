@@ -15,6 +15,10 @@
 
 #include <algorithm>
 
+#include "../MapObjects/Structure.h"
+#include "../StructureCatalogue.h"
+#include "../Common.h"
+#include "../StorableResources.h"
 
 /**
  * Represents a 2D grid of Icon items that can be selected with a mouse.
