@@ -375,7 +375,7 @@ void IconGrid::update()
 			toolTipStrings.push_back(mIconItemList[mHighlightIndex].name);
 			/* HEADS UP Feels like there is a better way. Unless more robots are to be added it works.
 			* Without this name check accessing the structure resource and population requirements causes an error because the robots are not structures*/
-			if (toolTipStrings[0] != "Robodigger" && toolTipStrings[0] != "Robodozer" && toolTipStrings[0] != "Robominer")
+			if (toolTipStrings[0] != "Robodigger" && toolTipStrings[0] != "Robodozer" && toolTipStrings[0] != "Robominer" && this->mIconSheet.name() != "ui/factory.png")
 			{
 				const auto& tempStructure = Structure::Structure(Structure::StructureClass::Undefined, (StructureID)mIconItemList[mHighlightIndex].meta);
 				const auto& popNeeds = tempStructure.populationRequirements();
