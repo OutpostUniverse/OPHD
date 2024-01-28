@@ -31,22 +31,22 @@ namespace
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, {LabTypeIconSize, LabTypeIconSize}};
 	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, {LabTypeIconSize, LabTypeIconSize}};
 
-    // Will be used in future change sets
+	// Will be used in future change sets
 	//constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {{0, 192}, {24, 24}};
 	//constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {{24, 192}, {24, 24}};
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
 	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
 
-    struct CategoryPanel
-    {
-        NAS2D::Rectangle<int> rect{};
-        NAS2D::Rectangle<int> imageSlice{};
-        std::string name{};
-        bool selected{false};
-    };
+	struct CategoryPanel
+	{
+		NAS2D::Rectangle<int> rect{};
+		NAS2D::Rectangle<int> imageSlice{};
+		std::string name{};
+		bool selected{false};
+	};
 
-    CategoryPanel* SelectedCategory{ nullptr };
+	CategoryPanel* SelectedCategory{ nullptr };
 
 	Rectangle<int> IconArea{};
 
@@ -117,7 +117,7 @@ void ResearchReport::refresh()
 	}
 	
 	CategoryPanels.front().selected = true;
-    SelectedCategory = &CategoryPanels.front();
+	SelectedCategory = &CategoryPanels.front();
 
 	onAllTopicsClicked();
 
@@ -136,8 +136,8 @@ void ResearchReport::selectStructure(Structure*)
 
 void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-    mTechCatalog = &catalog;
-    mResearchTracker = &tracker;
+	mTechCatalog = &catalog;
+	mResearchTracker = &tracker;
 
 	const int columns = imageCategoryIcons.size().x / CategoryIconSize;
 
@@ -176,28 +176,28 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 	{
 		return;
 	}
-    
-    CategoryPanel* lastPanel = SelectedCategory;
-    bool panelClickedOn = false;
+	
+	CategoryPanel* lastPanel = SelectedCategory;
+	bool panelClickedOn = false;
 	for (auto& panel : CategoryPanels)
 	{
-        if(panel.rect.contains(position))
-        {
-            panel.selected = true;
-            SelectedCategory = &panel;
-            panelClickedOn = true;
-        }
-        else
-        {
-            panel.selected = false;
-        }
+		if(panel.rect.contains(position))
+		{
+			panel.selected = true;
+			SelectedCategory = &panel;
+			panelClickedOn = true;
+		}
+		else
+		{
+			panel.selected = false;
+		}
 	}
-    
-    if(!panelClickedOn && lastPanel != nullptr)
-    {
-        SelectedCategory = lastPanel;
-        SelectedCategory->selected = true;
-    }
+	
+	if(!panelClickedOn && lastPanel != nullptr)
+	{
+		SelectedCategory = lastPanel;
+		SelectedCategory->selected = true;
+	}
 }
 
 
@@ -293,8 +293,8 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 
 void ResearchReport::drawTopicIconPanel() const
 {
-    auto& renderer = Utility<Renderer>::get();
-    renderer.drawBox(IconArea, ColorText);
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawBox(IconArea, ColorText);
 }
 
 
@@ -330,10 +330,10 @@ void ResearchReport::draw() const
 	drawVerticalSectionSpacer(CategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 
 	drawTopicHeader();
-    drawTopicIconPanel();
+	drawTopicIconPanel();
 
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
-    
-    drawResearchPointsPanel();
-    
+	
+	drawResearchPointsPanel();
+	
 }
