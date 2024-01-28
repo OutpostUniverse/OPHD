@@ -31,19 +31,21 @@
 using namespace NAS2D;
 
 
-void dumpGraphicsInfo(RendererOpenGL& renderer)
-{
-	std::vector<std::string> info{
-		"- OpenGL System Info -",
-		"Vendor: " + renderer.getVendor(),
-		"Renderer: " + renderer.getRenderer(),
-		"Driver Version: " + renderer.getDriverVersion(),
-		"GLSL Version: " + renderer.getShaderVersion(),
-	};
-
-	for (const auto& str : info)
+namespace {
+	void dumpGraphicsInfo(RendererOpenGL& renderer)
 	{
-		std::cout << "\t" << str << std::endl;
+		std::vector<std::string> info{
+			"- OpenGL System Info -",
+			"Vendor: " + renderer.getVendor(),
+			"Renderer: " + renderer.getRenderer(),
+			"Driver Version: " + renderer.getDriverVersion(),
+			"GLSL Version: " + renderer.getShaderVersion(),
+		};
+
+		for (const auto& str : info)
+		{
+			std::cout << "\t" << str << std::endl;
+		}
 	}
 }
 
