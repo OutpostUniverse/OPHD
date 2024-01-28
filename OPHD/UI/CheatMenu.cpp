@@ -47,7 +47,7 @@ CheatMenu::CheatMenu() :
 	mLabelCheatCode.size({30, 20});
 	mLabelCheatCode.text("Code:");
 	add(mLabelCheatCode, {5, 34});
-	
+
 	btnOkay.size({40, 20});
 	add(btnOkay, {240, 34});
 

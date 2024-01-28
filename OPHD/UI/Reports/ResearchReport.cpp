@@ -109,13 +109,13 @@ void ResearchReport::refresh()
 
 	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
 	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
-	
+
 	for (size_t i = 0; i < CategoryPanels.size(); ++i)
 	{
 		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
 		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
 	}
-	
+
 	CategoryPanels.front().selected = true;
 	SelectedCategory = &CategoryPanels.front();
 
@@ -170,13 +170,13 @@ void ResearchReport::onResize()
 
 void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!visible() || 
+	if (!visible() ||
 		!rect().contains(position) ||
 		button != NAS2D::EventHandler::MouseButton::Left)
 	{
 		return;
 	}
-	
+
 	CategoryPanel* lastPanel = SelectedCategory;
 	bool panelClickedOn = false;
 	for (auto& panel : CategoryPanels)
@@ -192,7 +192,7 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 			panel.selected = false;
 		}
 	}
-	
+
 	if(!panelClickedOn && lastPanel != nullptr)
 	{
 		SelectedCategory = lastPanel;
@@ -333,7 +333,7 @@ void ResearchReport::draw() const
 	drawTopicIconPanel();
 
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
-	
+
 	drawResearchPointsPanel();
-	
+
 }
