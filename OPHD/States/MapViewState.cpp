@@ -530,7 +530,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 		const auto tilePosition = mDetailMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
-		const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().query_shift() ||
+		const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().shift() ||
 			button == NAS2D::EventHandler::MouseButton::Middle;
 
 		onInspect(tilePosition, inspectModifier);
