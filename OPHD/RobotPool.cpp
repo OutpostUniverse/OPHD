@@ -170,7 +170,7 @@ Robominer& RobotPool::getMiner()
 
 /**
  * Determines if a requested robot type is available.
- * 
+ *
  * \return	Returns true if the requested robot type is available. False otherwise.
  */
 bool RobotPool::robotAvailable(Robot::Type type) const

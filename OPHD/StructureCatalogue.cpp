@@ -159,9 +159,9 @@ const StructureType& StructureCatalogue::getType(StructureID type)
 
 /**
  * Gets a new Structure object given a StructureID.
- * 
+ *
  * \param	type	A valid StructureID value.
- * 
+ *
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
@@ -344,7 +344,7 @@ Structure* StructureCatalogue::get(StructureID type)
 
 /**
  * Gets the cost in resources required to build a given Structure.
- * 
+ *
  * \param	type	A valid StructureID value.
  */
 const StorableResources& StructureCatalogue::costToBuild(StructureID type)
@@ -355,7 +355,7 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID type)
 
 /**
  * Gets the recycling value of a specified structure type.
- * 
+ *
  * \param	type	A valid StructureID value.
  */
 const StorableResources& StructureCatalogue::recyclingValue(StructureID type)

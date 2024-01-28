@@ -372,7 +372,7 @@ void MainReportsUiState::clearLists()
 
 /**
  * Gets a list of TakeMeThere signal pointers.
- * 
+ *
  * Acts as a pass-through for GameState.
  */
 MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
