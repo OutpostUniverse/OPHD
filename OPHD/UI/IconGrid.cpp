@@ -255,10 +255,10 @@ void IconGrid::selection(std::size_t newSelection)
 /**
  * Sets the current selection index to the first item with
  * a matching meta value.
- * 
+ *
  * \note	If no items in the list contain a matching meta value,
  *			the current selection index will remain unchanged.
- * 
+ *
  * \remark	IconGrid::Item::meta is initialized to 0 so passing a value
  *			of 0 for IconGrid::Item's that don't use a meta value will
  *			effectively set the index to 0.

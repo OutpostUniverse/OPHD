@@ -53,7 +53,7 @@ StructureListBox::StructureListBox()
 
 /**
  * Adds a Factory to the FactoryListBox.
- * 
+ *
  * Specialized version of the default addItem(ListBoxItem*) function.
  */
 void StructureListBox::addItem(Structure* structure)
@@ -72,7 +72,7 @@ void StructureListBox::addItem(Structure* structure)
 
 /**
  * Sets the current selection.
- * 
+ *
  * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
  */
 void StructureListBox::setSelected(Structure* structure)

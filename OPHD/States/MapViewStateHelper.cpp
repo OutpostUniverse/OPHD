@@ -1,6 +1,6 @@
 /**
  * MapViewStateHelper.h / MapViewStateHelper.cpp
- * 
+ *
  * These are files that are used exclusively by the MapViewState class. They are here
  * in an effort to reduce the size/complexity of the MapViewState object as most of these
  * functions do not require access to internal parts of the MapViewState class (and if
@@ -146,9 +146,9 @@ bool validLanderSite(Tile& tile)
 /**
  * Check landing site for obstructions such as mining beacons, things
  * and impassable terrain.
- * 
+ *
  * This is used for the SEED Lander only.
- * 
+ *
  * \note	This function will trigger modal dialog boxes to alert
  *			the user as to why the landing site isn't suitable.
  */
@@ -179,7 +179,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 }
 
 
-/** 
+/**
  * Indicates that a given StructureID is a Lander of sorts.
  */
 bool structureIsLander(StructureID id)
@@ -197,7 +197,7 @@ bool selfSustained(StructureID id)
 }
 
 
-/** 
+/**
  * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
  */
 bool inCommRange(NAS2D::Point<int> position)
@@ -249,10 +249,10 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
 /**
  * Gets a pointer to a Warehouse structure that has the specified
  * amount of storage available.
- * 
+ *
  * \param	type		Product to store. Use value from ProductType enumerator.
  * \param	count		Count of products that need to be stored.
- * 
+ *
  * \return	Returns a pointer to a Warehouse structure or \c nullptr if
  *			there are no warehouses available with the required space.
  */
@@ -279,7 +279,7 @@ Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
  * Simulates moving the products out of a specified warehouse and raises
  * an alert to the user if not all products can be moved out of the
  * warehouse.
- * 
+ *
  * \return	True if all products can be moved or if the user selects "yes"
  *			if bulldozing will result in lost products.
  */
@@ -390,7 +390,7 @@ StorableResources addRefinedResources(StorableResources resourcesToAdd)
 
 /**
  * Remove refined resources from the players storage structures.
- * 
+ *
  * \note	Assumes that enough resources are available and has already
  *			been checked.
  */
