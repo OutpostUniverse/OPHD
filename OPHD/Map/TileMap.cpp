@@ -155,7 +155,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 	/**
 	 * Builds a terrain map based on the pixel color values in
 	 * a maps height map.
-	 * 
+	 *
 	 * Height maps by default are in grey-scale. This method assumes
 	 * that all channels are the same value so it only looks at the red.
 	 * Color values are divided by 50 to get a height value from 1 - 4.
@@ -262,7 +262,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 /**
  * Implements MicroPather interface.
- * 
+ *
  * \warning	Assumes stateStart and stateEnd are never nullptr.
  */
 float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)

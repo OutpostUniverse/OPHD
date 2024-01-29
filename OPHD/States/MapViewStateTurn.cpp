@@ -138,7 +138,7 @@ void MapViewState::updateCommercial()
 
 		/**
 		 * inspect for luxury products.
-		 * 
+		 *
 		 * FIXME: I feel like this could be done better. At the moment there
 		 * is only one luxury item, clothing, but as this changes more
 		 * items may be seen as luxury.
@@ -559,7 +559,7 @@ void MapViewState::updateRoads()
 		}
 
 		std::string tag = "";
-		
+
 		if (road->integrity() < constants::RoadIntegrityChange) { tag = "-decayed"; }
 		else if (road->integrity() == 0) { tag = "-destroyed"; }
 
@@ -657,7 +657,7 @@ void MapViewState::updateResearch()
 
 	// get list of completed technologies that unlock buildings
 	std::vector<const Technology*> unlockedStructures;
-	
+
 	for (auto tech : techList)
 	{
 		for (const auto& unlock : (*tech).unlocks)
@@ -668,7 +668,7 @@ void MapViewState::updateResearch()
 			}
 		}
 	}
-	
+
 	for (const auto& tech : unlockedStructures)
 	{
 		for (const auto& unlock : tech->unlocks)
@@ -677,7 +677,7 @@ void MapViewState::updateResearch()
 			mStructureTracker.addUnlockedSurfaceStructure(structureItem);
 		}
 	}
-	
+
 	// remove obsolete structures from available structure list
 }
 

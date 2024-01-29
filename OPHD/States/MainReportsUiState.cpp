@@ -354,7 +354,7 @@ void MainReportsUiState::selectMinePanel(Structure* structure)
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
 	auto researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].UiPanel;
-    static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
+	static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
 }
 
 
@@ -372,7 +372,7 @@ void MainReportsUiState::clearLists()
 
 /**
  * Gets a list of TakeMeThere signal pointers.
- * 
+ *
  * Acts as a pass-through for GameState.
  */
 MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()

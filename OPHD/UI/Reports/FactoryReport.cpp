@@ -127,7 +127,7 @@ FactoryReport::FactoryReport() :
 
 /**
  * Override of the interface provided by ReportInterface class.
- * 
+ *
  * \note	Pointer
  */
 void FactoryReport::selectStructure(Structure* structure)

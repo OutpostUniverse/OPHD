@@ -138,7 +138,7 @@ int ProductPool::availableStorage() const
 }
 
 
-int ProductPool::availableStoragePercent() const 
+int ProductPool::availableStoragePercent() const
 {
 	return (100 - (mCurrentStorageCount * 100 / mCapacity));
 }
@@ -188,10 +188,10 @@ void ProductPool::transferAllTo(ProductPool& destination)
 
 /**
  * Stores a specified amount of a ProductType.
- * 
+ *
  * \param	type	ProductType enumerator.
  * \param	count	Number of products to store.
- * 
+ *
  * \note	This is an all or nothing call. Products will only be
  *			stored if the entire specified amount will fit.
  */

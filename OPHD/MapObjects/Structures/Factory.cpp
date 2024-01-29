@@ -68,7 +68,7 @@ void Factory::productType(ProductType type)
 
 /**
  * Pulls a product that is in the waiting queue.
- * 
+ *
  * \throws	std::runtime_error if the product waiting queue is empty.
  */
 ProductType Factory::pullProduct()
@@ -95,7 +95,7 @@ void Factory::updateProduction()
 {
 	/**
 	 * A few check conditions to see if we're doing any processing.
-	 * 
+	 *
 	 * \fixme	Most of these can be combined into a single
 	 *			compound conditional statement.
 	 */

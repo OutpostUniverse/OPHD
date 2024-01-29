@@ -18,7 +18,7 @@ namespace
 		}
 
 		const auto requiredFields = std::vector<std::string>{"id", "name", "description"};
-		
+
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
 		return {

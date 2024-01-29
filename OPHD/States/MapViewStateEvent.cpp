@@ -64,9 +64,9 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 		{
 			Warehouse* warehouse = getAvailableWarehouse(productType, 1);
 			if (warehouse) { warehouse->products().store(productType, 1); factory.pullProduct(); }
-			else 
+			else
 			{
-				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace); 
+				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace);
 				const auto& factoryPos = NAS2D::Utility<StructureManager>::get().tileFromStructure(&factory);
 				mNotificationArea.push({
 					"Warehouses full",

@@ -67,7 +67,7 @@ FactoryListBox::FactoryListBox()
 
 /**
  * Adds a Factory to the FactoryListBox.
- * 
+ *
  * Specialized version of the default addItem(ListBoxItem*) function.
  */
 void FactoryListBox::addItem(Factory* factory)
@@ -91,7 +91,7 @@ void FactoryListBox::addItem(Factory* factory)
 
 /**
  * Sets the current selection.
- * 
+ *
  * \param f	Pointer to a Factory object. Safe to pass \c nullptr.
  */
 void FactoryListBox::setSelected(Factory* f)

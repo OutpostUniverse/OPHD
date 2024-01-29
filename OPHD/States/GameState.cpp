@@ -20,15 +20,15 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 // The header uses forward declares for some types, so only incomplete types are available to importing code
 // Complete types are needed to construct the std::unique_ptr members
 GameState::GameState():
-    mMainReportsState{std::make_unique<MainReportsUiState>()}
+	mMainReportsState{std::make_unique<MainReportsUiState>()}
 {
-    mMainReportsState->_initialize();
-    mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
+	mMainReportsState->_initialize();
+	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
-    for (auto takeMeThere : mMainReportsState->takeMeThere())
-    {
-        takeMeThere->connect({this, &GameState::onTakeMeThere});
-    }
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
+	{
+		takeMeThere->connect({this, &GameState::onTakeMeThere});
+	}
 
 }
 
@@ -70,12 +70,12 @@ void GameState::initialize()
 
 /**
  * Sets a pointer for the MapViewState.
- * 
+ *
  * Since the MapViewState is created outside of the GameState, this function
  * takes a pointer to an already instatiated MapViewState object.
- * 
+ *
  * \param	state	Pointer to a MapViewState. Ownership is transfered to GameState.
- * 
+ *
  * \note	GameState will handle correct destruction of the MapViewState object.
  */
 void GameState::mapviewstate(MapViewState* state)
@@ -103,7 +103,7 @@ void GameState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rel
 
 /**
  * Music Complete event handler.
- * 
+ *
  * Called by NAS2D::Mixer upon completion of a music track. This function
  * changes the background music track to a different track in the lineup.
  */
@@ -115,7 +115,7 @@ void GameState::onMusicComplete()
 
 /**
  * Event handler that responds to a quit event raised by the MapViewState.
- * 
+ *
  * This event is raised on game overs and when the user chooses the "Return
  * to Main Menu" from the system options window.
  */
@@ -128,7 +128,7 @@ void GameState::onQuit()
 
 /**
  * Event handler that responds to a show reports event raised by the MapViewState.
- * 
+ *
  * This event is raised whenever a user double-clicks on a factory in the MapViewState.
  */
 void GameState::onShowReports()
@@ -144,7 +144,7 @@ void GameState::onShowReports()
 
 /**
  * Event handler that responds to a hide report event raised by the MainReportsUiState.
- * 
+ *
  * This event is raised by the MainReportsUiState whenever the user clicks the Exit
  * UI panel or if the Escape key is pressed.
  */
@@ -167,7 +167,7 @@ void GameState::onMapChange()
 
 /**
  * Event handler that responds to a 'take me there' event raised by the MainReportsUiState.
- * 
+ *
  * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
  * of the report UI panels is clicked.
  */
