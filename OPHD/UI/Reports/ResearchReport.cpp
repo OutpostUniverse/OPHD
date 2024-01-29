@@ -89,7 +89,7 @@ ResearchReport::ResearchReport() :
 
 ResearchReport::~ResearchReport()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ResearchReport::onMouseDown});
 }
 
 
