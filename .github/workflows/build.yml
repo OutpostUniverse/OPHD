@@ -18,13 +18,13 @@ jobs:
       VCPKG_BINARY_SOURCES: 'clear;nuget,GitHub,readwrite'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Checkout NAS2D
       run: git submodule update --init nas2d-core/
 
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.3.1
+      uses: microsoft/setup-msbuild@v1.3.2
 
     - name: Setup NuGet credentials
       shell: bash
@@ -42,7 +42,7 @@ jobs:
         -source "https://nuget.pkg.github.com/OutpostUniverse/index.json"
 
     - name: Restore vcpkg dependency cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: cache
       with:
         path: vcpkg_installed
