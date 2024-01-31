@@ -148,7 +148,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 }
 
 
-void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool /*repeat*/)
 {
 	if (!hasFocus() || !editable() || !visible()) { return; }
 
@@ -193,12 +193,12 @@ void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler:
 
 		// KEYPAD ARROWS
 		case NAS2D::EventHandler::KeyCode::KEY_KP4:
-			if ((mCursorPosition > 0) && !NAS2D::Utility<NAS2D::EventHandler>::get().query_numlock())
+			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(mod))
 				--mCursorPosition;
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_KP6:
-			if ((mCursorPosition < text().length()) && !NAS2D::Utility<NAS2D::EventHandler>::get().query_numlock())
+			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
 				++mCursorPosition;
 			break;
 
