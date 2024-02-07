@@ -186,12 +186,12 @@ void PopulationPanel::update()
 	position.y += fontHeight;
 	renderer.drawText(mFont, "Mean Crime Rate: " + std::to_string(mCrimeRate) + "%", position, NAS2D::Color::White);
 
-	position.y += fontHeight + fontHeight / 2;
+	position.y += fontHeight + constants::Margin;
 
 	// DIVIDER LINE Between morale breakdown and morale change reasons
 	renderer.drawLine(position, position + NAS2D::Vector<int>{rect().size.x - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
 
-	position.y += fontHeight / 2;
+	position.y += constants::Margin;
 
 	for (auto& item : mMoraleChangeReasons)
 	{
