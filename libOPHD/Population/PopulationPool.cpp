@@ -9,7 +9,7 @@
 
 /**
  * Sets a pointer to a Population object.
- * 
+ *
  * \note	PopulationPool expects a valid object and does no checking
  *			for invalid states.
  */
@@ -19,13 +19,13 @@ void PopulationPool::population(Population* pop)
 }
 
 
-int PopulationPool::availableWorkers()
+int PopulationPool::availableWorkers() const
 {
 	return mPopulation->getPopulations().worker - workersEmployed();
 }
 
 
-int PopulationPool::availableScientists()
+int PopulationPool::availableScientists() const
 {
 	return mPopulation->getPopulations().scientist - scientistsEmployed();
 }
@@ -67,7 +67,7 @@ void PopulationPool::clear()
 /**
  * Amount of Scientists employed as Workers.
  */
-int PopulationPool::scientistsAsWorkers()
+int PopulationPool::scientistsAsWorkers() const
 {
 	return mScientistsAsWorkers;
 }
@@ -76,7 +76,7 @@ int PopulationPool::scientistsAsWorkers()
 /**
  * Amount of Scientists currently employed.
  */
-int PopulationPool::scientistsEmployed()
+int PopulationPool::scientistsEmployed() const
 {
 	return mScientistsUsed;
 }
@@ -85,7 +85,7 @@ int PopulationPool::scientistsEmployed()
 /**
  * Amount of Workers currently employed.
  */
-int PopulationPool::workersEmployed()
+int PopulationPool::workersEmployed() const
 {
 	return mWorkersUsed;
 }
@@ -94,7 +94,7 @@ int PopulationPool::workersEmployed()
 /**
  * Amount of population currently employed.
  */
-int PopulationPool::populationEmployed()
+int PopulationPool::populationEmployed() const
 {
 	return scientistsEmployed() + scientistsAsWorkers() + workersEmployed();
 }

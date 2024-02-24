@@ -15,17 +15,17 @@ class PopulationPool
 public:
 	void population(Population* pop);
 
-	int availableWorkers();
-	int availableScientists();
+	int availableWorkers() const;
+	int availableScientists() const;
 
 	bool usePopulation(PopulationRequirements populationRequirements);
 
 	void clear();
 
-	int scientistsAsWorkers();
-	int scientistsEmployed();
-	int workersEmployed();
-	int populationEmployed();
+	int scientistsAsWorkers() const;
+	int scientistsEmployed() const;
+	int workersEmployed() const;
+	int populationEmployed() const;
 
 	int size() const;
 
