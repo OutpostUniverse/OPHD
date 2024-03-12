@@ -458,11 +458,11 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			mMapView->moveView(MapOffsetUp);
+			changeViewDepth(0, MapOffsetUp);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			mMapView->moveView(MapOffsetDown);
+			changeViewDepth(0, MapOffsetDown);
 			break;
 
 
@@ -725,18 +725,26 @@ void MapViewState::onSystemMenu()
 
 
 /**
- * Changes the current view depth.
+ * Changes the current view depth. If a value is given for the 2nd parameter, the first will be ignored.
  */
-void MapViewState::changeViewDepth(int depth)
+void MapViewState::changeViewDepth(int depth, std::optional<MapOffset> direction)
 {
 	if (mBtnTogglePoliceOverlay.isPressed())
 	{
 		changePoliceOverlayDepth(mMapView->currentDepth(), depth);
 	}
 
-	mMapView->currentDepth(depth);
+	if (direction.has_value())
+	{
+		mMapView->moveView(direction.value());
+	}
+	else
+	{
+		mMapView->currentDepth(depth);
+	}
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
+
 	populateStructureMenu();
 }
 

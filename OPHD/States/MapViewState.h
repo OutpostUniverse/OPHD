@@ -192,7 +192,7 @@ private:
 	void updatePoliceOverlay();
 	void resetPoliceOverlays();
 	void updateConnectedness();
-	void changeViewDepth(int);
+	void changeViewDepth(int, std::optional<MapOffset> = std::nullopt);
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
 	void onFactoryProductionComplete(Factory& factory);
