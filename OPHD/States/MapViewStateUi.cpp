@@ -710,9 +710,9 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 			const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 			foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 
-			for (auto* fp : foodProducers)
+			for (auto* foodProducer : foodProducers)
 			{
-				fp->foodLevel(fp->foodCapacity());
+				foodProducer->foodLevel(foodProducer->foodCapacity());
 			}
 		}
 		break;
