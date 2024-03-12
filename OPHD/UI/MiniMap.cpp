@@ -57,7 +57,7 @@ void MiniMap::draw() const
 
 	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapFloatRect.position);
 
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto miniMapOffset = mRect.position - NAS2D::Point{0, 0};
 	for (const auto& ccPosition : structureManager.operationalCommandCenterPositions())
 	{

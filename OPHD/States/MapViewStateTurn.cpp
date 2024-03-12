@@ -111,7 +111,7 @@ void MapViewState::updatePopulation()
 	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
 
 	auto foodProducers = structureManager.getStructures<FoodProduction>();
-	auto& commandCenters = structureManager.getStructures<CommandCenter>();
+	const auto& commandCenters = structureManager.getStructures<CommandCenter>();
 	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
 	int amountToConsume = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
@@ -196,7 +196,7 @@ void MapViewState::updateMorale()
 	const int residentialOverCapacityHit = mPopulation.getPopulations().size() > mResidentialCapacity ? 2 : 0;
 	const int foodProductionHit = foodProducingStructures > 0 ? 0 : 5;
 
-	auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
+	const auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
 	int bioWasteAccumulation = 0;
 	for (auto residence : residences)
 	{
@@ -268,7 +268,7 @@ void MapViewState::updateMorale()
 
 void MapViewState::findMineRoutes()
 {
-	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
+	const auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	mTruckRouteOverlay.clear();
 
@@ -343,7 +343,7 @@ void MapViewState::transportOreFromMines()
 
 void MapViewState::transportResourcesToStorage()
 {
-	auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
+	const auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
 	for (auto smelter : smelterList)
 	{
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
@@ -460,8 +460,8 @@ void MapViewState::updateResidentialCapacity()
 
 void MapViewState::updateBiowasteRecycling()
 {
-	auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
-	auto& recyclingFacilities = NAS2D::Utility<StructureManager>::get().getStructures<Recycling>();
+	const auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
+	const auto& recyclingFacilities = NAS2D::Utility<StructureManager>::get().getStructures<Recycling>();
 
 	if (residences.empty() || recyclingFacilities.empty()) { return; }
 
@@ -490,7 +490,7 @@ void MapViewState::updateFood()
 	mFood = 0;
 
 	auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
-	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 
 	foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 
@@ -506,8 +506,8 @@ void MapViewState::updateFood()
 
 void MapViewState::transferFoodToCommandCenter()
 {
-	auto& foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
-	auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
+	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 
 	auto foodProducerIterator = foodProducers.begin();
 	for (auto commandCenter : commandCenters)
@@ -538,7 +538,7 @@ void MapViewState::transferFoodToCommandCenter()
  */
 void MapViewState::updateRoads()
 {
-	auto roads = NAS2D::Utility<StructureManager>::get().getStructures<Road>();
+	const auto& roads = NAS2D::Utility<StructureManager>::get().getStructures<Road>();
 
 	for (auto road : roads)
 	{
@@ -624,7 +624,7 @@ void MapViewState::updateMaintenance()
 	auto structures = structureManager.allStructures();
 	std::sort(structures.begin(), structures.end(), sortLambda);
 
-	auto& maintenanceFacilities = structureManager.getStructures<MaintenanceFacility>();
+	const auto& maintenanceFacilities = structureManager.getStructures<MaintenanceFacility>();
 	for (auto maintenanceFacility : maintenanceFacilities)
 	{
 		maintenanceFacility->repairStructures(structures);
@@ -731,7 +731,7 @@ void MapViewState::nextTurn()
 
 	updateOverlays();
 
-	auto& factories = NAS2D::Utility<StructureManager>::get().getStructures<Factory>();
+	const auto& factories = NAS2D::Utility<StructureManager>::get().getStructures<Factory>();
 	for (auto factory : factories)
 	{
 		factory->updateProduction();
