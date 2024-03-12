@@ -205,7 +205,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	const auto& seedLanders = structureManager.getStructures<SeedLander>();
-	for (auto lander : seedLanders)
+	for (const auto* lander : seedLanders)
 	{
 		if (!lander->operational()) { continue; }
 		if (isPointInRange(position, structureManager.tileFromStructure(lander).xy(), 5)) // \fixme magic number
@@ -215,7 +215,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	}
 
 	const auto& command = structureManager.getStructures<CommandCenter>();
-	for (auto cc : command)
+	for (const auto* cc : command)
 	{
 		if (!cc->operational()) { continue; }
 
@@ -226,7 +226,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	}
 
 	const auto& commTowers = structureManager.getStructures<CommTower>();
-	for (auto tower : commTowers)
+	for (const auto* tower : commTowers)
 	{
 		if (!tower->operational()) { continue; }
 
@@ -258,7 +258,7 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count)
 {
-	for (auto warehouse : NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>())
+	for (auto* warehouse : NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>())
 	{
 		if (!warehouse->operational())
 		{
@@ -287,7 +287,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 {
 	ProductPool sourcePool = sourceWarehouse->products();
 	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
-	for (auto warehouse : warehouses)
+	for (auto* warehouse : warehouses)
 	{
 		if (warehouse->operational())
 		{
@@ -318,7 +318,7 @@ bool simulateMoveProducts(Warehouse* sourceWarehouse)
 void moveProducts(Warehouse* sourceWarehouse)
 {
 	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
-	for (auto warehouse : warehouses)
+	for (auto* warehouse : warehouses)
 	{
 		if (warehouse->operational())
 		{
@@ -370,7 +370,7 @@ StorableResources addRefinedResources(StorableResources resourcesToAdd)
 	storage.insert(storage.end(), command.begin(), command.end());
 	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 
-	for (auto structure : storage)
+	for (auto* structure : storage)
 	{
 		if (resourcesToAdd.isEmpty()) { break; }
 
@@ -405,7 +405,7 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 	storage.insert(storage.end(), command.begin(), command.end());
 
-	for (auto structure : storage)
+	for (auto* structure : storage)
 	{
 		if (resourcesToRemove.isEmpty()) { break; }
 

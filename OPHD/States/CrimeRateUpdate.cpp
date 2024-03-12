@@ -25,7 +25,7 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 
 	double accumulatedCrime{0};
 
-	for (auto structure : structuresWithCrime)
+	for (auto* structure : structuresWithCrime)
 	{
 		int crimeRateChange = isProtectedByPolice(policeOverlays, structure) ? -1 : 1;
 		structure->increaseCrimeRate(crimeRateChange);

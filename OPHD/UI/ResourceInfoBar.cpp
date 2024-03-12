@@ -218,7 +218,7 @@ int ResourceInfoBar::totalStorage(Structure::StructureClass structureClass, int 
 	}
 
 	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(structureClass);
-	for (auto structure : structures)
+	for (const auto* structure : structures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{

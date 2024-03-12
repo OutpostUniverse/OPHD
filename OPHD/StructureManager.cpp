@@ -364,7 +364,7 @@ void StructureManager::updateEnergyProduction()
 	mTotalEnergyOutput = 0;
 	mTotalEnergyUsed = 0;
 
-	for (auto structure : mStructureLists[Structure::StructureClass::EnergyProduction])
+	for (auto* structure : mStructureLists[Structure::StructureClass::EnergyProduction])
 	{
 		auto powerStructure = static_cast<PowerStructure*>(structure);
 		if (powerStructure->operational())
@@ -385,7 +385,7 @@ void StructureManager::updateEnergyConsumed()
 
 	for (auto& classListPair : mStructureLists)
 	{
-		for (auto structure : classListPair.second)
+		for (const auto* structure : classListPair.second)
 		{
 			if (structure->operational())
 			{
@@ -399,7 +399,7 @@ void StructureManager::updateEnergyConsumed()
 void StructureManager::assignColonistsToResidences(PopulationPool& population)
 {
 	int populationCount = population.size();
-	for (auto structure : mStructureLists[Structure::StructureClass::Residence])
+	for (auto* structure : mStructureLists[Structure::StructureClass::Residence])
 	{
 		Residence* residence = static_cast<Residence*>(structure);
 		if (residence->operational())
@@ -414,7 +414,7 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 void StructureManager::assignScientistsToResearchFacilities(PopulationPool& population)
 {
 	int availableScientists = population.availableScientists();
-	for (auto laboratory : mStructureLists[Structure::StructureClass::Laboratory])
+	for (auto* laboratory : mStructureLists[Structure::StructureClass::Laboratory])
 	{
 		ResearchFacility* lab = static_cast<ResearchFacility*>(laboratory);
 		lab->assignScientsts(0);

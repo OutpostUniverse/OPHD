@@ -41,7 +41,7 @@ PlanetSelectState::~PlanetSelectState()
 	eventHandler.mouseButtonDown().disconnect({this, &PlanetSelectState::onMouseDown});
 	eventHandler.windowResized().disconnect({this, &PlanetSelectState::onWindowResized});
 
-	for (auto planet : mPlanets) { delete planet; }
+	for (auto* planet : mPlanets) { delete planet; }
 
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
