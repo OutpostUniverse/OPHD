@@ -104,7 +104,7 @@ public:
 			repairPriorityStructures(structures);
 		}
 
-		for (auto structure : structures)
+		for (auto* structure : structures)
 		{
 			repairStructure(structure);
 			std::rotate(structures.begin(), structures.begin() + 1, structures.end());
@@ -132,7 +132,7 @@ protected:
 
 	void repairPriorityStructures(StructureList& structures)
 	{
-		for (auto structure : mPriorityList)
+		for (auto* structure : mPriorityList)
 		{
 			if (!canMakeRepairs()) { return; }
 

@@ -89,7 +89,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityAvailable = 0;
 
 	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
-	for (auto warehouse : warehouses)
+	for (auto* warehouse : warehouses)
 	{
 		if (warehouse->operational())
 		{
@@ -109,7 +109,7 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 {
 	lstStructures.clear();
 
-	for (auto warehouse : warehouses)
+	for (auto* warehouse : warehouses)
 	{
 		lstStructures.addItem(warehouse);
 		StructureListBox::StructureListBoxItem* item = lstStructures.last();

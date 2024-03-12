@@ -93,7 +93,7 @@ public:
 
 		std::vector<StructureType*> output;
 		// Filter for instances of the exact type parameter
-		for (auto structure : sameClassStructures)
+		for (auto* structure : sameClassStructures)
 		{
 			StructureType* derivedStructure = dynamic_cast<StructureType*>(structure);
 			if (derivedStructure)

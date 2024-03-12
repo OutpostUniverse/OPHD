@@ -103,7 +103,7 @@ namespace
 	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*> structures)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (auto structure : structures)
+		for (auto* structure : structures)
 		{
 			if (!structure->operational()) { continue; }
 			auto& centerTile = structureManager.tileFromStructure(structure);
@@ -116,7 +116,7 @@ namespace
 	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*> structures)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (auto structure : structures)
+		for (auto* structure : structures)
 		{
 			if (!structure->operational()) { continue; }
 			auto& centerTile = structureManager.tileFromStructure(structure);
@@ -364,7 +364,7 @@ void MapViewState::updatePlayerResources()
 	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 
 	StorableResources resources;
-	for (auto structure : storage)
+	for (auto* structure : storage)
 	{
 		resources += structure->storage();
 	}
