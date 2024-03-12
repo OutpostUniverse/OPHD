@@ -363,8 +363,8 @@ StorableResources addRefinedResources(StorableResources resourcesToAdd)
 	 * structure list and that it's always the first structure in the list.
 	 */
 
-	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
+	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
@@ -398,8 +398,8 @@ void removeRefinedResources(StorableResources& resourcesToRemove)
 {
 	// Command Center is backup storage, we want to pull from it last
 
-	auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
+	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
