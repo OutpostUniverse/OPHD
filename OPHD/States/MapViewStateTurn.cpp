@@ -538,7 +538,7 @@ void MapViewState::transferFoodToCommandCenter()
  */
 void MapViewState::updateRoads()
 {
-	const auto roads = NAS2D::Utility<StructureManager>::get().getStructures<Road>();
+	const auto& roads = NAS2D::Utility<StructureManager>::get().getStructures<Road>();
 
 	for (auto road : roads)
 	{
