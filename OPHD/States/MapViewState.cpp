@@ -100,7 +100,7 @@ namespace
 
 
 	template <typename StructureType>
-	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*> structures)
+	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*>& structures)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		for (const auto* structure : structures)
@@ -113,7 +113,7 @@ namespace
 
 
 	template <typename StructureType>
-	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*> structures)
+	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*>& structures)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		for (const auto* structure : structures)
