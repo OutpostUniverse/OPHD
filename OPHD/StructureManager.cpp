@@ -385,7 +385,7 @@ void StructureManager::updateEnergyConsumed()
 
 	for (auto& classListPair : mStructureLists)
 	{
-		for (auto* structure : classListPair.second)
+		for (const auto* structure : classListPair.second)
 		{
 			if (structure->operational())
 			{

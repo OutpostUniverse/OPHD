@@ -58,7 +58,7 @@ namespace
 
 		RouteList routeList;
 
-		for (auto* smelter : smelters)
+		for (const auto* smelter : smelters)
 		{
 			if (!smelter->operational()) { continue; }
 
@@ -198,7 +198,7 @@ void MapViewState::updateMorale()
 
 	const auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
 	int bioWasteAccumulation = 0;
-	for (auto* residence : residences)
+	for (const auto* residence : residences)
 	{
 		if (residence->wasteOverflow() > 0) { ++bioWasteAccumulation; }
 	}
@@ -447,7 +447,7 @@ void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = 0;
 	const auto& residences = NAS2D::Utility<StructureManager>::get().getStructures<Residence>();
-	for (auto* residence : residences)
+	for (const auto* residence : residences)
 	{
 		if (residence->operational()) { mResidentialCapacity += residence->capacity(); }
 	}
@@ -466,7 +466,7 @@ void MapViewState::updateBiowasteRecycling()
 	if (residences.empty() || recyclingFacilities.empty()) { return; }
 
 	auto residenceIterator = residences.begin();
-	for (auto* recycling : recyclingFacilities)
+	for (const auto* recycling : recyclingFacilities)
 	{
 		if (!recycling->operational()) { continue; } // Consider a different control structure
 
@@ -494,7 +494,7 @@ void MapViewState::updateFood()
 
 	foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 
-	for (auto* foodProdcer : foodProducers)
+	for (const auto* foodProdcer : foodProducers)
 	{
 		if (foodProdcer->operational() || foodProdcer->isIdle())
 		{
@@ -572,7 +572,7 @@ void MapViewState::checkAgingStructures()
 {
 	const auto& structures = NAS2D::Utility<StructureManager>::get().agingStructures();
 
-	for (auto* structure : structures)
+	for (const auto* structure : structures)
 	{
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
 
@@ -600,7 +600,7 @@ void MapViewState::checkNewlyBuiltStructures()
 {
 	const auto& structures = NAS2D::Utility<StructureManager>::get().newlyBuiltStructures();
 
-	for (auto* structure : structures)
+	for (const auto* structure : structures)
 	{
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
 

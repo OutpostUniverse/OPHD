@@ -67,7 +67,7 @@ void MiniMap::draw() const
 		renderer.drawBoxFilled(NAS2D::Rectangle{ccOffsetPosition - NAS2D::Vector{1, 1}, {3, 3}}, NAS2D::Color::White);
 	}
 
-	for (auto* commTower : structureManager.getStructures<CommTower>())
+	for (const auto* commTower : structureManager.getStructures<CommTower>())
 	{
 		if (commTower->operational())
 		{
