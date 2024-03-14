@@ -458,11 +458,11 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			changeViewDepth(0, MapOffsetUp);
+			moveView( MapOffsetUp);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			changeViewDepth(0, MapOffsetDown);
+			moveView(MapOffsetDown);
 			break;
 
 
@@ -723,29 +723,44 @@ void MapViewState::onSystemMenu()
 	resetUi();
 }
 
-
 /**
- * Changes the current view depth. If a value is given for the 2nd parameter, the first will be ignored.
- */
-void MapViewState::changeViewDepth(int depth, std::optional<MapOffset> direction)
-{
+* Handle side effects of changing depth view
+*/
+void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
 	if (mBtnTogglePoliceOverlay.isPressed())
 	{
-		changePoliceOverlayDepth(mMapView->currentDepth(), depth);
-	}
-
-	if (direction.has_value())
-	{
-		mMapView->moveView(direction.value());
-	}
-	else
-	{
-		mMapView->currentDepth(depth);
+		changePoliceOverlayDepth(oldDepth, newDepth);
 	}
 
 	if (mInsertMode != InsertMode::Robot) { clearMode(); }
 
 	populateStructureMenu();
+}
+
+void MapViewState::moveView(MapOffset offset) {
+	int oldZLevel = mMapView->currentDepth();
+	
+	mMapView->moveView(offset);
+
+	int newZLevel = mMapView->currentDepth();
+	if (oldZLevel != newZLevel) {
+		onChangeDepth(oldZLevel, newZLevel);
+	}
+}
+
+/**
+ * Changes the current view depth.
+ */
+void MapViewState::changeViewDepth(int depth)
+{
+	int oldZLevel = mMapView->currentDepth();
+
+	mMapView->currentDepth(depth);
+
+	int newZLevel = mMapView->currentDepth();
+	if (oldZLevel != newZLevel) {
+		onChangeDepth(oldZLevel, newZLevel);
+	}
 }
 
 
