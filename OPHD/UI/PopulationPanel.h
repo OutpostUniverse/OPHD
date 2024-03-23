@@ -21,7 +21,7 @@ namespace NAS2D
 class PopulationPanel : public Control
 {
 public:
-	PopulationPanel();
+	PopulationPanel(Population* pop = nullptr, PopulationPool* popPool = nullptr);
 
 	void population(Population* pop);
 	void populationPool(PopulationPool* popPool);

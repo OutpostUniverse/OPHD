@@ -49,7 +49,7 @@ static const std::array moraleStringColor
 };
 
 
-PopulationPanel::PopulationPanel() :
+PopulationPanel::PopulationPanel(Population* pop, PopulationPool* popPool) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
 	mIcons{imageCache.load("ui/icons.png")},
@@ -64,7 +64,9 @@ PopulationPanel::PopulationPanel() :
 		imageCache.load("ui/skin/window_bottom_left.png"),
 		imageCache.load("ui/skin/window_bottom_middle.png"),
 		imageCache.load("ui/skin/window_bottom_right.png")
-	}
+	},
+	mPopulation(pop),
+	mPopulationPool(popPool)
 {
 	constexpr int linesOfText = 16;
 	constexpr int edgeBuffer = constants::Margin * 2;
