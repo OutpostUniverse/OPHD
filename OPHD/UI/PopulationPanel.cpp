@@ -91,16 +91,6 @@ PopulationPanel::PopulationPanel(const Population* pop, const PopulationPool* po
 	size({windowWidth, windowHeight});
 }
 
-void PopulationPanel::population(Population* pop)
-{
-	mPopulation = pop;
-}
-
-void PopulationPanel::populationPool(PopulationPool* popPool)
-{
-	mPopulationPool = popPool;
-}
-
 void PopulationPanel::addMoraleReason(const std::string& str, int val)
 {
 	if (val == 0) { return; }

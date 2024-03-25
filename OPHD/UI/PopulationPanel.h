@@ -21,10 +21,7 @@ namespace NAS2D
 class PopulationPanel : public Control
 {
 public:
-	PopulationPanel(const Population* pop = nullptr, const PopulationPool* popPool = nullptr);
-
-	void population(Population* pop);
-	void populationPool(PopulationPool* popPool);
+	PopulationPanel(const Population* pop, const PopulationPool* popPool);
 
 	void morale(int val) { mMorale = val; }
 	void old_morale(int val) { mPreviousMorale = val; }
