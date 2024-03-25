@@ -49,7 +49,7 @@ static const std::array moraleStringColor
 };
 
 
-PopulationPanel::PopulationPanel(const Population* pop, const PopulationPool* popPool) :
+PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& popPool) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
 	mIcons{imageCache.load("ui/icons.png")},
@@ -110,7 +110,7 @@ void PopulationPanel::update()
 
 	// POPULATION Statistics
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
-	const auto& population = mPopulation->getPopulations();
+	const auto& population = mPopulation.getPopulations();
 	const std::array populationData
 	{
 		std::tuple{NAS2D::Rectangle<int>{{0, 96}, {IconSize, IconSize}}, population.child, std::string("Children")},
@@ -141,8 +141,8 @@ void PopulationPanel::update()
 	position.y += constants::Margin;
 
 	const std::array populationAvailablitiyStatistics{
-		std::tuple{"Available Workers: ", mPopulationPool->availableWorkers()},
-		std::tuple{"Available Scientists: ", mPopulationPool->availableScientists()},
+		std::tuple{"Available Workers: ", mPopulationPool.availableWorkers()},
+		std::tuple{"Available Scientists: ", mPopulationPool.availableScientists()},
 	};
 
 	for (const auto& [statisticLabel, personCount] : populationAvailablitiyStatistics)
