@@ -49,7 +49,7 @@ static const std::array moraleStringColor
 };
 
 
-PopulationPanel::PopulationPanel(Population* pop, PopulationPool* popPool) :
+PopulationPanel::PopulationPanel(const Population* pop, const PopulationPool* popPool) :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
 	mIcons{imageCache.load("ui/icons.png")},
