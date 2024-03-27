@@ -167,9 +167,9 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mStructures{"ui/structures.png", 46, constants::MarginTight},
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
+	mPopulationPanel{mPopulation, mPopulationPool},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool},
-	mPopulationPanel{mPopulation, mPopulationPool}
+	mRobotDeploymentSummary{mRobotPool}
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -183,12 +183,12 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mPlanetAttributes(planetAttributes),
 	mCurrentMorale{constants::DefaultStartingMorale},
 	mPreviousMorale{constants::DefaultStartingMorale},
-	mPopulationPanel{mPopulation, mPopulationPool},
 	mMainReportsState(mainReportsState),
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mStructures{"ui/structures.png", 46, constants::MarginTight},
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
+	mPopulationPanel{mPopulation, mPopulationPool},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},
