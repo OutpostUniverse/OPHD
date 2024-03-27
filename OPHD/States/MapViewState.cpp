@@ -167,6 +167,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mStructures{"ui/structures.png", 46, constants::MarginTight},
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
+	mPopulationPanel{mPopulation, mPopulationPool},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool}
 {
@@ -187,6 +188,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mStructures{"ui/structures.png", 46, constants::MarginTight},
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
+	mPopulationPanel{mPopulation, mPopulationPool},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},

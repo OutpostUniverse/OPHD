@@ -21,10 +21,7 @@ namespace NAS2D
 class PopulationPanel : public Control
 {
 public:
-	PopulationPanel();
-
-	void population(Population* pop);
-	void populationPool(PopulationPool* popPool);
+	PopulationPanel(const Population& pop, const PopulationPool& popPool);
 
 	void morale(int val) { mMorale = val; }
 	void old_morale(int val) { mPreviousMorale = val; }
@@ -50,8 +47,8 @@ private:
 
 	std::vector<std::pair<std::string,int>> mMoraleChangeReasons;
 
-	Population* mPopulation = nullptr;
-	PopulationPool* mPopulationPool = nullptr;
+	const Population& mPopulation;
+	const PopulationPool& mPopulationPool;
 
 	int mMorale{0};
 	int mPreviousMorale{0};
