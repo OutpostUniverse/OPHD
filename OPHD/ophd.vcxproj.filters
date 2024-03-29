@@ -306,7 +306,7 @@
     <ClCompile Include="Command\KeyboardInputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Command\Command.cpp">
+    <ClCompile Include="Command\Commands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

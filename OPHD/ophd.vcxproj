@@ -183,7 +183,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Command\Command.cpp" />
+    <ClCompile Include="Command\Commands.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="GraphWalker.cpp" />

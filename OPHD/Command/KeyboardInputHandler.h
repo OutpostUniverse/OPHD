@@ -5,6 +5,10 @@
 
 #include "../Constants/Strings.h"
 #include "../Map/MapView.h"
+#include "../DirectionOffset.h"
+
+#include "Command.h"
+#include "Commands.cpp"
 
 class KeyboardInputHandler
 {
@@ -14,4 +18,7 @@ public:
 
 private:
 	MapView* mMapView;
+	int mMoveScalar = 1;
+	Command* mUpKey_ = new MoveCommand(*mMapView, DirectionNorthWest, &mMoveScalar);
+	Command* mWKey_ = mUpKey_;
 };
