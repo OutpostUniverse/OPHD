@@ -9,7 +9,7 @@ public:
 		mScalarFactor(scalarFactor)
 	{}
 
-	virtual void execute()
+	virtual void execute() override
 	{
 		mMapView.moveView(MapOffset{mVector * (*mScalarFactor), 0});
 	}

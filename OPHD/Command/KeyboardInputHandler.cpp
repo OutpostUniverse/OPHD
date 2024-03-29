@@ -21,23 +21,33 @@ void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::
 	case NAS2D::EventHandler::KeyCode::KEY_w:
 		mWKey_->execute();
 		break;
+
 	case NAS2D::EventHandler::KeyCode::KEY_UP:
 		mUpKey_->execute();
 		break;
 
 	case NAS2D::EventHandler::KeyCode::KEY_s:
+		mSKey_->execute();
+		break;
+
 	case NAS2D::EventHandler::KeyCode::KEY_DOWN:
-		mMapView->moveView(MapOffset{DirectionSouthEast * shiftMoveScalar, 0});
+		mDownKey_->execute();
 		break;
 
 	case NAS2D::EventHandler::KeyCode::KEY_a:
+		mAKey_->execute();
+		break;
+
 	case NAS2D::EventHandler::KeyCode::KEY_LEFT:
-		mMapView->moveView(MapOffset{DirectionSouthWest * shiftMoveScalar, 0});
+		mLeftKey_->execute();
 		break;
 
 	case NAS2D::EventHandler::KeyCode::KEY_d:
+		mDKey_->execute();
+		break;
+
 	case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
-		mMapView->moveView(MapOffset{DirectionNorthEast * shiftMoveScalar, 0});
+		mRightKey_->execute();
 		break;
 
 	default:
