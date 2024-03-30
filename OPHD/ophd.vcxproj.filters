@@ -303,6 +303,9 @@
     <ClCompile Include="UI\Reports\SatellitesReport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Command\KeyboardInputHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
@@ -678,6 +681,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\SpaceportsReport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\KeyboardInputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

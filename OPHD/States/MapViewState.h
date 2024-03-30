@@ -4,6 +4,7 @@
 #include "CrimeRateUpdate.h"
 #include "CrimeExecution.h"
 #include "StructureTracker.h"
+#include "../Command/KeyboardInputHandler.h"
 
 #include "Planet.h"
 
@@ -395,4 +396,6 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
+
+	KeyboardInputHandler mKeyboardInputHandler;
 };
