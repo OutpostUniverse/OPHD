@@ -183,6 +183,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Command\Command.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
@@ -262,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h" />
+    <ClInclude Include="Command\Command.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants\Numbers.h" />
     <ClInclude Include="Constants\Strings.h" />
