@@ -18,4 +18,12 @@ private:
 	MapView& mMapView;
 	NAS2D::Vector<int> mVector;
 	int* mScalarFactor;
+
+class NullCommand : public Command
+{
+public:
+    virtual void execute() override
+    {
+        // Do nothing
+    }
 };
