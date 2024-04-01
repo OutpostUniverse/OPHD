@@ -1,4 +1,6 @@
 #pragma once
+#include <unordered_map>
+
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Utility.h>
@@ -18,13 +20,11 @@ public:
 
 private:
 	MapView* mMapView;
-	int mMoveScalar = 1;
-	Command* mUpKey_ = new MoveCommand(*mMapView, DirectionNorthWest, &mMoveScalar);
-	Command* mWKey_ = mUpKey_;
-	Command* mLeftKey_ = new MoveCommand(*mMapView, DirectionSouthWest, &mMoveScalar);
-	Command* mAKey_ = mLeftKey_;
-	Command* mRightKey_ = new MoveCommand(*mMapView, DirectionNorthEast, &mMoveScalar);
-	Command* mDKey_ = mRightKey_;
-	Command* mDownKey_ = new MoveCommand(*mMapView, DirectionSouthEast, &mMoveScalar);
-	Command* mSKey_ = mDownKey_;
+	NAS2D::EventHandler::KeyModifier mKeyModifiers;
+
+
+
+	std::unordered_map<NAS2D::EventHandler::KeyCode, Command*> mKeyCommandMap;
+
+	Command* mNullCommand = new NullCommand();
 };
