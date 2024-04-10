@@ -42,9 +42,9 @@ private:
 class ShowCheatMenuCommand : public Command
 {
 public:
-	ShowCheatMenuCommand(CheatMenu* cheatMenu, WindowStack* mWindowStack) :
+	ShowCheatMenuCommand(CheatMenu* cheatMenu, WindowStack* windowStack) :
 		mCheatMenu(cheatMenu),
-		mWindowStack(mWindowStack)
+		mWindowStack(windowStack)
 	{}
 
 	virtual void execute() override

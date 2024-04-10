@@ -16,7 +16,7 @@
 class KeyboardInputHandler
 {
 public:
-	KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal);
+	KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal, CheatMenu* cheatMenu, WindowStack* windowStack);
 	void handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers);
 
 private:

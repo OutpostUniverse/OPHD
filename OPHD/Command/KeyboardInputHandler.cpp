@@ -6,7 +6,7 @@
 #include <OPHD/States/MapViewState.h>
 
 
-KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal) :
+KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal, CheatMenu* cheatMenu, WindowStack* windowStack) :
 	mMapView(&mapView)
 {
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest * 5);
@@ -26,6 +26,7 @@ KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* re
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast);
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast);
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(reportsUiSignal);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift | NAS2D::EventHandler::KeyModifier::Ctrl][NAS2D::EventHandler::KeyCode::KEY_F10] = new ShowCheatMenuCommand(cheatMenu, windowStack);
 }
 
 
