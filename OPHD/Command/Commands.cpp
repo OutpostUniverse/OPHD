@@ -8,21 +8,19 @@
 class MoveCommand : public Command
 {
 public:
-	MoveCommand(MapView& mapView, NAS2D::Vector<int> vector, int scalarFactor) :
+	MoveCommand(MapView& mapView, NAS2D::Vector<int> vector) :
 		mMapView(mapView),
-		mVector(vector),
-		mScalarFactor(scalarFactor)
+		mVector(vector)
 	{}
 
 	virtual void execute() override
 	{
-		mMapView.moveView(MapOffset{mVector * mScalarFactor, 0});
+		mMapView.moveView(MapOffset{mVector, 0});
 	}
 
 private:
 	MapView& mMapView;
 	NAS2D::Vector<int> mVector;
-	int mScalarFactor;
 };
 
 class SignalCommand : public Command
