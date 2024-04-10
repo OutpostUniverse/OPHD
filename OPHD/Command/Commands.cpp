@@ -2,6 +2,8 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Signal/Signal.h>
 #include "../Map/MapView.h"
+#include <OPHD/UI/CheatMenu.h>
+#include <libControls/WindowStack.h>
 
 class MoveCommand : public Command
 {
@@ -37,6 +39,24 @@ public:
 
 private:
 	NAS2D::Signal<>* mSignal;
+};
+
+class ShowCheatMenuCommand : public Command
+{
+public:
+	ShowCheatMenuCommand(CheatMenu* cheatMenu, WindowStack* mWindowStack) :
+		mCheatMenu(cheatMenu),
+		mWindowStack(mWindowStack)
+	{}
+
+	virtual void execute() override
+	{
+		mCheatMenu->show();
+		mWindowStack->bringToFront(mCheatMenu);
+	}
+	private:
+	CheatMenu* mCheatMenu;
+	WindowStack* mWindowStack;
 };
 
 class NullCommand : public Command
