@@ -6,8 +6,9 @@
 #include <OPHD/States/MapViewState.h>
 
 
-KeyboardInputHandler::KeyboardInputHandler(MapView& mapView) :
-	mMapView(&mapView)
+KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal) :
+	mMapView(&mapView),
+	mReportsUiSignal(reportsUiSignal)
 {
 	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest, &mKeyModifiers);
 	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_UP] =  new MoveCommand(*mMapView, DirectionNorthWest, &mKeyModifiers);
@@ -17,6 +18,7 @@ KeyboardInputHandler::KeyboardInputHandler(MapView& mapView) :
 	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_LEFT] = new MoveCommand(*mMapView, DirectionSouthWest, &mKeyModifiers);
 	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast, &mKeyModifiers);
 	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast, &mKeyModifiers);
+	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(mReportsUiSignal);
 }
 
 

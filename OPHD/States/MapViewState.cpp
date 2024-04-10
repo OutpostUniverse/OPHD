@@ -170,7 +170,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mPopulationPanel{mPopulation, mPopulationPool},
 	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mKeyboardInputHandler{*mMapView}
+	mKeyboardInputHandler{*mMapView, &mReportsUiSignal}
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -195,7 +195,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)},
-	mKeyboardInputHandler{*mMapView}
+	mKeyboardInputHandler{*mMapView, &mReportsUiSignal}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	difficulty(selectedDifficulty);
