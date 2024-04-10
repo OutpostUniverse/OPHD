@@ -10,26 +10,41 @@ KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* re
 	mMapView(&mapView),
 	mReportsUiSignal(reportsUiSignal)
 {
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_UP] =  new MoveCommand(*mMapView, DirectionNorthWest, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_s] = new MoveCommand(*mMapView, DirectionSouthEast, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_DOWN] = new MoveCommand(*mMapView, DirectionSouthEast, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_a] = new MoveCommand(*mMapView, DirectionSouthWest, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_LEFT] = new MoveCommand(*mMapView, DirectionSouthWest, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast, &mKeyModifiers);
-	mKeyCommandMap[NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(mReportsUiSignal);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_UP] = new MoveCommand(*mMapView, DirectionNorthWest, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_s] = new MoveCommand(*mMapView, DirectionSouthEast, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_DOWN] = new MoveCommand(*mMapView, DirectionSouthEast, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_a] = new MoveCommand(*mMapView, DirectionSouthWest, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_LEFT] = new MoveCommand(*mMapView, DirectionSouthWest, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast, 5);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_UP] = new MoveCommand(*mMapView, DirectionNorthWest, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_s] = new MoveCommand(*mMapView, DirectionSouthEast, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_DOWN] = new MoveCommand(*mMapView, DirectionSouthEast, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_a] = new MoveCommand(*mMapView, DirectionSouthWest, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_LEFT] = new MoveCommand(*mMapView, DirectionSouthWest, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast, 1);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(mReportsUiSignal);
 }
 
 
 void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers)
-
-	switch (key)
+{
+	auto keyModifiersFitered = NAS2D::EventHandler::KeyModifier::None;
+	if (NAS2D::Utility<NAS2D::EventHandler>::get().shift(keyModifiers))
 	{
-	mKeyModifiers = keyModifiers;
+		keyModifiersFitered |= NAS2D::EventHandler::KeyModifier::Shift;
+	}
 
-	if (mKeyCommandMap.find(key) != mKeyCommandMap.end())
+	if (NAS2D::Utility<NAS2D::EventHandler>::get().control(keyModifiers))
 	{
-		mKeyCommandMap[key]->execute();
+		keyModifiersFitered |= NAS2D::EventHandler::KeyModifier::Ctrl;
+	}
+
+	if (mKeyModifierMap.find(keyModifiersFitered) != mKeyModifierMap.end() && mKeyModifierMap[keyModifiersFitered].find(key) != mKeyModifierMap[keyModifiersFitered].end())
+	{
+		mKeyModifierMap[keyModifiersFitered][key]->execute();
 	}
 }

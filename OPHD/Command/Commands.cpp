@@ -1,11 +1,12 @@
 #include "Command.h"
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Signal/Signal.h>
+#include "../Map/MapView.h"
 
 class MoveCommand : public Command
 {
 public:
-	MoveCommand(MapView& mapView, NAS2D::Vector<int> vector, int* scalarFactor) :
+	MoveCommand(MapView& mapView, NAS2D::Vector<int> vector, int scalarFactor) :
 		mMapView(mapView),
 		mVector(vector),
 		mScalarFactor(scalarFactor)
@@ -13,13 +14,14 @@ public:
 
 	virtual void execute() override
 	{
-		mMapView.moveView(MapOffset{mVector * (*mScalarFactor), 0});
+		mMapView.moveView(MapOffset{mVector * mScalarFactor, 0});
 	}
 
 private:
 	MapView& mMapView;
 	NAS2D::Vector<int> mVector;
-	int* mScalarFactor;
+	int mScalarFactor;
+};
 
 class SignalCommand : public Command
 {

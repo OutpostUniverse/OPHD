@@ -1,8 +1,6 @@
 #pragma once
 #include <NAS2D/Math/Vector.h>
 
-#include "../Map/MapView.h"
-
 
 class Command
 {
