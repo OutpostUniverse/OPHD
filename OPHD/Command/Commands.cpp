@@ -1,4 +1,6 @@
 #include "Command.h"
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Signal/Signal.h>
 
 class MoveCommand : public Command
 {
@@ -19,11 +21,27 @@ private:
 	NAS2D::Vector<int> mVector;
 	int* mScalarFactor;
 
+class SignalCommand : public Command
+{
+public:
+	SignalCommand(NAS2D::Signal<>* signal) :
+		mSignal(signal)
+	{}
+
+	virtual void execute() override
+	{
+		mSignal->emit();
+	}
+
+private:
+	NAS2D::Signal<>* mSignal;
+};
+
 class NullCommand : public Command
 {
 public:
-    virtual void execute() override
-    {
-        // Do nothing
-    }
+	virtual void execute() override
+	{
+		// Do nothing
+	}
 };
