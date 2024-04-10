@@ -7,8 +7,7 @@
 
 
 KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal) :
-	mMapView(&mapView),
-	mReportsUiSignal(reportsUiSignal)
+	mMapView(&mapView)
 {
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest, 5);
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::Shift][NAS2D::EventHandler::KeyCode::KEY_UP] = new MoveCommand(*mMapView, DirectionNorthWest, 5);
@@ -26,7 +25,7 @@ KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* re
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_LEFT] = new MoveCommand(*mMapView, DirectionSouthWest, 1);
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast, 1);
 	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast, 1);
-	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(mReportsUiSignal);
+	mKeyModifierMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(reportsUiSignal);
 }
 
 

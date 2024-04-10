@@ -21,7 +21,6 @@ public:
 
 private:
 	MapView* mMapView;
-	NAS2D::Signal<>* mReportsUiSignal;
 
 	std::unordered_map<NAS2D::EventHandler::KeyModifier, std::unordered_map<NAS2D::EventHandler::KeyCode, Command*>> mKeyModifierMap;
 
