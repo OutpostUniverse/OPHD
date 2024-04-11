@@ -173,7 +173,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
-	registerCommandsDefaultBindings();
 }
 
 
@@ -1351,6 +1350,10 @@ void MapViewState::resetPoliceOverlays()
 
 void MapViewState::registerCommandsDefaultBindings()
 {
+    mMoveNorthEastCommand.setMapView(mMapView.get());
+	mMoveNorthWestCommand.setMapView(mMapView.get());
+	mMoveSouthEastCommand.setMapView(mMapView.get());
+	mMoveSouthWestCommand.setMapView(mMapView.get());
 	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_w, &mMoveNorthWestCommand);
 	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_UP, &mMoveNorthWestCommand);
 	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_s, &mMoveSouthEastCommand);

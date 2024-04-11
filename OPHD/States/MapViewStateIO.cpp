@@ -330,6 +330,7 @@ void MapViewState::load(const std::string& filePath)
 	updatePoliceOverlay();
 
 	mMapChangedSignal();
+	registerCommandsDefaultBindings();
 }
 
 
