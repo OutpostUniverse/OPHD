@@ -65,12 +65,34 @@ public:
 
 	virtual void execute() override
 	{
-		mCheatMenu->show();
-		mWindowStack->bringToFront(mCheatMenu);
+			mCheatMenu->show();
+			mWindowStack->bringToFront(mCheatMenu);
 	}
 	private:
 	CheatMenu* mCheatMenu;
 	WindowStack* mWindowStack;
+};
+
+class ModifierCommand : public Command
+{
+public:
+	ModifierCommand(int* modifier_, int commandedModifier) :
+		mModifier_(modifier_)
+	{}
+
+	virtual void execute() override
+	{
+		*mModifier_ = mCommandedModifier;
+	}
+
+	void setModifier_(int* modifier_)
+	{
+		mModifier_ = modifier_;
+	}
+
+private:
+	int* mModifier_ = nullptr;
+	int mCommandedModifier = 1;
 };
 
 class NullCommand : public Command
