@@ -21,6 +21,11 @@ public:
 		mMapView.moveView(MapOffset{mVector * (*mMoveCommandScalar_), 0});
 	}
 
+	void setMoveCommandScalar_(int* moveCommandScalar_)
+	{
+		mMoveCommandScalar_ = moveCommandScalar_;
+	}
+
 private:
 	MapView& mMapView;
 	NAS2D::Vector<int> mVector;
