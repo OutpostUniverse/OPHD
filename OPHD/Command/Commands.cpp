@@ -18,7 +18,14 @@ public:
 
 	virtual void execute() override
 	{
+		if (mMoveCommandScalar_ != nullptr)
+		{
 		mMapView.moveView(MapOffset{mVector * (*mMoveCommandScalar_), 0});
+	}
+		else
+		{
+			mMapView.moveView(MapOffset{mVector, 0});
+		}
 	}
 
 	void setMoveCommandScalar_(int* moveCommandScalar_)
