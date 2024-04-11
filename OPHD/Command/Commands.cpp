@@ -10,8 +10,8 @@
 class MoveCommand : public Command
 {
 public:
-	MoveCommand(MapView& mapView, NAS2D::Vector<int> vector, int* mMoveCommandScalar) :
-		mMapView(mapView),
+	MoveCommand(MapView* mapView, NAS2D::Vector<int> vector, int* mMoveCommandScalar) :
+		mMapView_(mapView),
 		mVector(vector),
 		mMoveCommandScalar_(mMoveCommandScalar)
 	{}
@@ -20,11 +20,11 @@ public:
 	{
 		if (mMoveCommandScalar_ != nullptr)
 		{
-		mMapView.moveView(MapOffset{mVector * (*mMoveCommandScalar_), 0});
+		mMapView_->moveView(MapOffset{mVector * (*mMoveCommandScalar_), 0});
 	}
 		else
 		{
-			mMapView.moveView(MapOffset{mVector, 0});
+			mMapView_->moveView(MapOffset{mVector, 0});
 		}
 	}
 
@@ -33,8 +33,13 @@ public:
 		mMoveCommandScalar_ = moveCommandScalar_;
 	}
 
+	void setMapView(MapView* mapView)
+	{
+		mMapView_ = mapView;
+	}
+
 private:
-	MapView& mMapView;
+	MapView* mMapView_;
 	NAS2D::Vector<int> mVector;
 	int* mMoveCommandScalar_ = nullptr;
 };

@@ -404,10 +404,10 @@ private:
 
 	//Keyboard Input Handling
 	KeyboardInputHandler mKeyboardInputHandler;
-	MoveCommand mMoveNorthEastCommand = MoveCommand(*mMapView, DirectionNorthEast, nullptr);
-	MoveCommand mMoveNorthWestCommand = MoveCommand(*mMapView, DirectionNorthWest, nullptr);
-	MoveCommand mMoveSouthWestCommand = MoveCommand(*mMapView, DirectionSouthWest, nullptr);
-	MoveCommand mMoveSouthEastCommand = MoveCommand(*mMapView, DirectionSouthEast, nullptr);
+	MoveCommand mMoveNorthEastCommand = MoveCommand(nullptr, DirectionNorthEast, nullptr);
+	MoveCommand mMoveNorthWestCommand = MoveCommand(nullptr, DirectionNorthWest, nullptr);
+	MoveCommand mMoveSouthWestCommand = MoveCommand(nullptr, DirectionSouthWest, nullptr);
+	MoveCommand mMoveSouthEastCommand = MoveCommand(nullptr, DirectionSouthEast, nullptr);
 	SignalCommand mReportsUiCommand = SignalCommand(&mReportsUiSignal);
 	ShowCheatMenuCommand mShowCheatMenuCommand = ShowCheatMenuCommand(&mCheatMenu, &mWindowStack);
 	ModifierCommand mShiftModifierCommand = ModifierCommand(nullptr, 5);
