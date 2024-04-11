@@ -4,7 +4,7 @@
 #include "CrimeRateUpdate.h"
 #include "CrimeExecution.h"
 #include "StructureTracker.h"
-#include "../Command/KeyboardInputHandler.h"
+
 
 #include "Planet.h"
 
@@ -37,6 +37,10 @@
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
+
+#include "../Command/Command.h"
+#include "../Command/KeyboardInputHandler.h"
+#include "../Command/Commands.cpp"
 
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Population.h>
@@ -397,5 +401,13 @@ private:
 
 	NAS2D::Fade mFade;
 
+	//Keyboard Input Handling
 	KeyboardInputHandler mKeyboardInputHandler;
+	MoveCommand mMoveNorthEastCommand = MoveCommand(*mMapView, DirectionNorthEast, nullptr);
+	MoveCommand mMoveNorthWestCommand = MoveCommand(*mMapView, DirectionNorthWest, nullptr);
+	MoveCommand mMoveSouthWestCommand = MoveCommand(*mMapView, DirectionSouthWest, nullptr);
+	MoveCommand mMoveSouthEastCommand = MoveCommand(*mMapView, DirectionSouthEast, nullptr);
+	SignalCommand mReportsUiCommand = SignalCommand(&mReportsUiSignal);
+	ShowCheatMenuCommand mShowCheatMenuCommand = ShowCheatMenuCommand(&mCheatMenu, &mWindowStack);
+	NullCommand mNullCommand;
 };

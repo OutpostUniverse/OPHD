@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Command.h"
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Signal/Signal.h>
