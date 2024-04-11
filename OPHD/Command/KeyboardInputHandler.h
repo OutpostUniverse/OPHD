@@ -33,8 +33,9 @@ public:
 	}
 
 	//Register a command that will be executed when a modifier key of combination of (ie. Ctrl, Shift, Alt, Meta) is pressed
-	void registerCommand(NAS2D::EventHandler::KeyModifier keyModifier, Command* command)
+	void registerCommand(NAS2D::EventHandler::KeyModifier keyModifier, ModifierCommand* command)
 	{
+		command->setModifier_(modifier_);
 		mModifierCommandMap[keyModifier] = command;
 	}
 
