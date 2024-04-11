@@ -173,6 +173,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
+	registerCommandsDefaultBindings();
 }
 
 
@@ -199,6 +200,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
+	registerCommandsDefaultBindings();
 }
 
 
