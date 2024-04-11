@@ -17,6 +17,7 @@ class KeyboardInputHandler
 {
 public:
 	KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal, CheatMenu* cheatMenu, WindowStack* windowStack);
+	KeyboardInputHandler(){};
 	void handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers);
 
 	//Register a command that will be executed when a key or combination of key and key modifiers are pressed
