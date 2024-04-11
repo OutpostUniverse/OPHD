@@ -40,8 +40,8 @@ public:
 	}
 
 private:
-	MapView* mMapView;
-	int mMoveCommandScalar;
+	MapView* mMapView = nullptr;
+	int mMoveCommandScalar = 1;
 
 	std::unordered_map<NAS2D::EventHandler::KeyModifier, Command*> mModifierCommandMap;
 	std::unordered_map<NAS2D::EventHandler::KeyModifier, std::unordered_map<NAS2D::EventHandler::KeyCode, Command*>> mKeyCodeMap;
