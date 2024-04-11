@@ -6,22 +6,6 @@
 #include <OPHD/States/MapViewState.h>
 
 
-KeyboardInputHandler::KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal, CheatMenu* cheatMenu, WindowStack* windowStack) :
-	mMapView(&mapView)
-{
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_w] = new MoveCommand(*mMapView, DirectionNorthWest, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_UP] = new MoveCommand(*mMapView, DirectionNorthWest, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_s] = new MoveCommand(*mMapView, DirectionSouthEast, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_DOWN] = new MoveCommand(*mMapView, DirectionSouthEast, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_a] = new MoveCommand(*mMapView, DirectionSouthWest, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_LEFT] = new MoveCommand(*mMapView, DirectionSouthWest, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_d] = new MoveCommand(*mMapView, DirectionNorthEast, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_RIGHT] = new MoveCommand(*mMapView, DirectionNorthEast, &mMoveCommandScalar);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][NAS2D::EventHandler::KeyCode::KEY_F1] = new SignalCommand(reportsUiSignal);
-	mKeyCodeMap[NAS2D::EventHandler::KeyModifier::Shift | NAS2D::EventHandler::KeyModifier::Ctrl][NAS2D::EventHandler::KeyCode::KEY_F10] = new ShowCheatMenuCommand(cheatMenu, windowStack);
-}
-
-
 void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers)
 {
 	auto keyModifiersFitered = NAS2D::EventHandler::KeyModifier::None;

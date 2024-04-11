@@ -16,7 +16,6 @@
 class KeyboardInputHandler
 {
 public:
-	KeyboardInputHandler(MapView& mapView, NAS2D::Signal<>* reportsUiSignal, CheatMenu* cheatMenu, WindowStack* windowStack);
 	KeyboardInputHandler(){};
 	void handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers);
 
@@ -40,7 +39,6 @@ public:
 	}
 
 private:
-	MapView* mMapView = nullptr;
 	int mMoveCommandScalar = 1;
 
 	std::unordered_map<NAS2D::EventHandler::KeyModifier, Command*> mModifierCommandMap;
