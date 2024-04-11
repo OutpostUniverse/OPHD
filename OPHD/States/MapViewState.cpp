@@ -1347,6 +1347,19 @@ void MapViewState::resetPoliceOverlays()
 	mPoliceOverlays = std::vector<std::vector<Tile*>>(static_cast<std::size_t>(adjustedZ));
 }
 
+void MapViewState::registerCommandsDefaultBindings()
+{
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_w, &mMoveNorthWestCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_UP, &mMoveNorthWestCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_s, &mMoveSouthEastCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_DOWN, &mMoveSouthEastCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_a, &mMoveSouthWestCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_LEFT, &mMoveSouthWestCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_d, &mMoveNorthEastCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_RIGHT, &mMoveNorthEastCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_F1, &mReportsUiCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::Shift | NAS2D::EventHandler::KeyModifier::Ctrl, NAS2D::EventHandler::KeyCode::KEY_F10, &mShowCheatMenuCommand);
+}
 
 /**
  * Removes deployed robots from the TileMap to

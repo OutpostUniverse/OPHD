@@ -291,6 +291,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
+	void registerCommandsDefaultBindings();
 	TileMap* mTileMap{nullptr};
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
