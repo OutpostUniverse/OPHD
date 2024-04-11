@@ -77,7 +77,8 @@ class ModifierCommand : public Command
 {
 public:
 	ModifierCommand(int* modifier_, int commandedModifier) :
-		mModifier_(modifier_)
+		mModifier_(modifier_),
+		mCommandedModifier(commandedModifier)
 	{}
 
 	virtual void execute() override

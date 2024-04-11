@@ -410,5 +410,8 @@ private:
 	MoveCommand mMoveSouthEastCommand = MoveCommand(*mMapView, DirectionSouthEast, nullptr);
 	SignalCommand mReportsUiCommand = SignalCommand(&mReportsUiSignal);
 	ShowCheatMenuCommand mShowCheatMenuCommand = ShowCheatMenuCommand(&mCheatMenu, &mWindowStack);
+	ModifierCommand mShiftModifierCommand = ModifierCommand(nullptr, 5);
+	ModifierCommand mCtrlModifierCommand = ModifierCommand(nullptr, 10);
+	ModifierCommand mCtrlShiftModifierCommand = ModifierCommand(nullptr, 20);
 	NullCommand mNullCommand;
 };

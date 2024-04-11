@@ -9,11 +9,17 @@
 void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers)
 {
 	auto keyModifiersFitered = NAS2D::EventHandler::KeyModifier::None;
-	mMoveCommandScalar = NAS2D::Utility<NAS2D::EventHandler>::get().shift(keyModifiers) ? 5 : 1;
+
+	mMoveCommandScalar = 1;
 
 	NAS2D::Utility<NAS2D::EventHandler>::get().shift(keyModifiers) ? keyModifiersFitered |= NAS2D::EventHandler::KeyModifier::Shift : keyModifiersFitered;
 
 	NAS2D::Utility<NAS2D::EventHandler>::get().control(keyModifiers) ? keyModifiersFitered |= NAS2D::EventHandler::KeyModifier::Ctrl : keyModifiersFitered;
+
+	if(mModifierCommandMap.find(keyModifiersFitered) != mModifierCommandMap.end())
+	{
+		mModifierCommandMap[keyModifiersFitered]->execute();
+	}
 
 	if (mKeyCodeMap.find(keyModifiersFitered) != mKeyCodeMap.end() && mKeyCodeMap[keyModifiersFitered].find(key) != mKeyCodeMap[keyModifiersFitered].end())
 	{
