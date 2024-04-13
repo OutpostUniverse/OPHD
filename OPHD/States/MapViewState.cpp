@@ -460,11 +460,11 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			mMapView->moveView(MapOffsetUp);
+			moveView(MapOffsetUp);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
-			mMapView->moveView(MapOffsetDown);
+			moveView(MapOffsetDown);
 			break;
 
 
@@ -552,7 +552,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 		mNavControl->onClick(MOUSE_COORDS);
 		if (oldDepth != mMapView->currentDepth())
 		{
-			changeViewDepth(mMapView->currentDepth());
+			onChangeDepth(oldDepth, mMapView->currentDepth());
 		}
 
 		// MiniMap Check
@@ -725,21 +725,44 @@ void MapViewState::onSystemMenu()
 	resetUi();
 }
 
+/**
+* Handle side effects of changing depth view
+*/
+void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
+	if (mBtnTogglePoliceOverlay.isPressed())
+	{
+		changePoliceOverlayDepth(oldDepth, newDepth);
+	}
+
+	if (mInsertMode != InsertMode::Robot) { clearMode(); }
+
+	populateStructureMenu();
+}
+
+void MapViewState::moveView(MapOffset offset) {
+	int oldZLevel = mMapView->currentDepth();
+	
+	mMapView->moveView(offset);
+
+	int newZLevel = mMapView->currentDepth();
+	if (oldZLevel != newZLevel) {
+		onChangeDepth(oldZLevel, newZLevel);
+	}
+}
 
 /**
  * Changes the current view depth.
  */
 void MapViewState::changeViewDepth(int depth)
 {
-	if (mBtnTogglePoliceOverlay.isPressed())
-	{
-		changePoliceOverlayDepth(mMapView->currentDepth(), depth);
-	}
+	int oldZLevel = mMapView->currentDepth();
 
 	mMapView->currentDepth(depth);
 
-	if (mInsertMode != InsertMode::Robot) { clearMode(); }
-	populateStructureMenu();
+	int newZLevel = mMapView->currentDepth();
+	if (oldZLevel != newZLevel) {
+		onChangeDepth(oldZLevel, newZLevel);
+	}
 }
 
 
