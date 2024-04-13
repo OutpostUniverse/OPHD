@@ -458,7 +458,7 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
-			moveView( MapOffsetUp);
+			moveView(MapOffsetUp);
 			break;
 
 		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
@@ -550,7 +550,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 		mNavControl->onClick(MOUSE_COORDS);
 		if (oldDepth != mMapView->currentDepth())
 		{
-			changeViewDepth(mMapView->currentDepth());
+			onChangeDepth(oldDepth, mMapView->currentDepth());
 		}
 
 		// MiniMap Check
