@@ -1363,10 +1363,10 @@ void MapViewState::registerCommandsDefaultBindings()
 	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyCode::KEY_d, &mMoveNorthEastCommand);
 	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyCode::KEY_RIGHT, &mMoveNorthEastCommand);
 	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyCode::KEY_F1, &mReportsUiCommand);
-	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::Ctrl | NAS2D::EventHandler::KeyModifier::Shift, NAS2D::EventHandler::KeyCode::KEY_F10, &mShowCheatMenuCommand);
-	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::Shift, &mShiftModifierCommand);
-	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::Ctrl, &mCtrlModifierCommand);
-	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::Ctrl | NAS2D::EventHandler::KeyModifier::Shift, &mCtrlShiftModifierCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::CtrlLeft | NAS2D::EventHandler::KeyModifier::ShiftLeft, NAS2D::EventHandler::KeyCode::KEY_F10, &mShowCheatMenuCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::ShiftLeft, &mShiftModifierCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::CtrlLeft, &mCtrlModifierCommand);
+	mKeyboardInputHandler.registerCommand(NAS2D::EventHandler::KeyModifier::CtrlRight | NAS2D::EventHandler::KeyModifier::ShiftRight, &mCtrlShiftModifierCommand);
 }
 
 /**
