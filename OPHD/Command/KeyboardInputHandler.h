@@ -19,11 +19,27 @@ public:
 	KeyboardInputHandler(){}
 	void handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers);
 
+	//Register a command that will be executed when a key is pressed
+	void registerCommand(NAS2D::EventHandler::KeyCode keyCode, Command* command)
+	{
+		mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][keyCode] = command;
+	}
+
+
 	//Register a command that will be executed when a key or combination of key and key modifiers are pressed
 	void registerCommand(NAS2D::EventHandler::KeyModifier keyModifier, NAS2D::EventHandler::KeyCode keyCode, Command* command)
 	{
 		mKeyCodeMap[keyModifier][keyCode] = command;
 	}
+
+
+	//Register a move command that will be executed when a key is pressed
+	void registerCommand(NAS2D::EventHandler::KeyCode keyCode, MoveCommand* command)
+	{
+		command->setMoveCommandScalar_(&mMoveCommandScalar);
+		mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][keyCode] = command;
+	}
+
 
 	//Register a move command that will be executed when a key or combination of key and key modifiers are pressed
 	void registerCommand(NAS2D::EventHandler::KeyModifier keyModifier, NAS2D::EventHandler::KeyCode keyCode, MoveCommand* command)
@@ -32,12 +48,14 @@ public:
 		mKeyCodeMap[keyModifier][keyCode] = command;
 	}
 
+
 	//Register a command that will be executed when a modifier key of combination of (ie. Ctrl, Shift, Alt, Meta) is pressed
 	void registerCommand(NAS2D::EventHandler::KeyModifier keyModifier, ModifierCommand* command)
 	{
 		command->setModifier_(&mMoveCommandScalar); //TODO: permit a list of modifiers to adjust
 		mModifierCommandMap[keyModifier] = command;
 	}
+
 
 private:
 	int mMoveCommandScalar = 1;
