@@ -17,7 +17,7 @@ class KeyboardInputHandler
 {
 public:
 	KeyboardInputHandler(){}
-	void handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers);
+	void handleInput(NAS2D::EventHandler::KeyModifier keyModifiers, NAS2D::EventHandler::KeyCode keyCode);
 
 	//Register a command that will be executed when a key is pressed
 	void registerCommand(NAS2D::EventHandler::KeyCode keyCode, Command* command)

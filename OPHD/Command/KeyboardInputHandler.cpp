@@ -6,7 +6,7 @@
 #include <OPHD/States/MapViewState.h>
 
 
-void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier keyModifiers)
+void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyModifier keyModifiers, NAS2D::EventHandler::KeyCode keyCode)
 {
 	auto keyModifiersFiltered = NAS2D::EventHandler::KeyModifier::None;
 

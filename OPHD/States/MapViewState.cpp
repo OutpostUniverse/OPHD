@@ -409,7 +409,7 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 		return;
 	}
 
-	mKeyboardInputHandler.handleInput(key, mod);
+	mKeyboardInputHandler.handleInput(mod, key);
 
 	switch(key)
 	{
