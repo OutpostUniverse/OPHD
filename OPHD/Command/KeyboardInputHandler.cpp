@@ -10,23 +10,49 @@ void KeyboardInputHandler::handleInput(NAS2D::EventHandler::KeyModifier keyModif
 {
 	auto keyModifiersFiltered = NAS2D::EventHandler::KeyModifier::None;
 
+	NAS2D::Utility<NAS2D::EventHandler>::get().shift(keyModifiers) ? keyModifiersFiltered |= NAS2D::EventHandler::KeyModifier::Shift : keyModifiersFiltered;
+	NAS2D::Utility<NAS2D::EventHandler>::get().control(keyModifiers) ? keyModifiersFiltered |= NAS2D::EventHandler::KeyModifier::Ctrl : keyModifiersFiltered;
+	NAS2D::Utility<NAS2D::EventHandler>::get().alt(keyModifiers) ? keyModifiersFiltered |= NAS2D::EventHandler::KeyModifier::Alt : keyModifiersFiltered;
+
 	mMoveCommandScalar = 1;
 
-	NAS2D::Utility<NAS2D::EventHandler>::get().shift(keyModifiers) ? keyModifiersFiltered |= NAS2D::EventHandler::KeyModifier::Shift : keyModifiersFiltered;
+	modifierCommand(keyModifiersFiltered)->execute();
+	keyCodeCommand(keyModifiersFiltered, keyCode)->execute();
+}
 
-	NAS2D::Utility<NAS2D::EventHandler>::get().control(keyModifiers) ? keyModifiersFiltered |= NAS2D::EventHandler::KeyModifier::Ctrl : keyModifiersFiltered;
 
-	if(mModifierCommandMap.find(keyModifiersFiltered) != mModifierCommandMap.end())
+Command* KeyboardInputHandler::modifierCommand(NAS2D::EventHandler::KeyModifier keyModifier)
+{
+	auto keyModifierIterator = mModifierCommandMap.find(keyModifier);
+	if (keyModifierIterator != mModifierCommandMap.end())
 	{
-		mModifierCommandMap[keyModifiersFiltered]->execute();
+		return keyModifierIterator->second;
+	}
+	return mNullCommand;
+}
+
+
+Command* KeyboardInputHandler::keyCodeCommand(NAS2D::EventHandler::KeyModifier keyModifier, NAS2D::EventHandler::KeyCode keyCode)
+{
+	auto keyModifierIterator = mKeyCodeMap.find(keyModifier);
+	if (keyModifierIterator != mKeyCodeMap.end())
+	{
+		auto keyCodeIterator = keyModifierIterator->second.find(keyCode);
+		if (keyCodeIterator != keyModifierIterator->second.end())
+		{
+			return keyCodeIterator->second;
+		}
 	}
 
-	if (mKeyCodeMap.find(keyModifiersFiltered) != mKeyCodeMap.end() && mKeyCodeMap[keyModifiersFiltered].find(key) != mKeyCodeMap[keyModifiersFiltered].end())
+	keyModifierIterator = mKeyCodeMap.find(NAS2D::EventHandler::KeyModifier::None);
+	if (keyModifierIterator != mKeyCodeMap.end())
 	{
-		mKeyCodeMap[keyModifiersFiltered][key]->execute();
+		auto keyCodeIterator = keyModifierIterator->second.find(keyCode);
+		if (keyCodeIterator != keyModifierIterator->second.end())
+		{
+			return keyCodeIterator->second;
+		}
 	}
-	else if (mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None].find(key) != mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None].end())
-	{
-		mKeyCodeMap[NAS2D::EventHandler::KeyModifier::None][key]->execute();
-	}
+
+	return mNullCommand;
 }

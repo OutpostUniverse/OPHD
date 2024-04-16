@@ -58,6 +58,8 @@ public:
 
 
 private:
+	Command* modifierCommand(NAS2D::EventHandler::KeyModifier);
+	Command* keyCodeCommand(NAS2D::EventHandler::KeyModifier, NAS2D::EventHandler::KeyCode);
 	int mMoveCommandScalar = 1;
 
 	std::unordered_map<NAS2D::EventHandler::KeyModifier, Command*> mModifierCommandMap;
