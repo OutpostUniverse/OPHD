@@ -1,6 +1,3 @@
-#ifndef commands
-#define commands
-
 #include "Command.h"
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Signal/Signal.h>
@@ -110,4 +107,3 @@ public:
 		// Do nothing
 	}
 };
-#endif

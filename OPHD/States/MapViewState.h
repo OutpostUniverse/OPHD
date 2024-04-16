@@ -38,9 +38,7 @@
 #include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
 
-#include "../Command/Command.h"
 #include "../Command/KeyboardInputHandler.h"
-#include "../Command/Commands.cpp"
 
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Population.h>
