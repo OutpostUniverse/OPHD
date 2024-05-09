@@ -741,7 +741,6 @@ void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
 
 void MapViewState::moveView(MapOffset offset) {
 	int oldZLevel = mMapView->currentDepth();
-	
 	mMapView->moveView(offset);
 
 	int newZLevel = mMapView->currentDepth();
