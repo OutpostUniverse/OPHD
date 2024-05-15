@@ -63,7 +63,7 @@ public:
 
 
 	ListBox() :
-		mContext{getDefaultFont()}
+		mContext{ getDefaultFont() }
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
@@ -75,7 +75,9 @@ public:
 		updateScrollLayout();
 	}
 
-	~ListBox() override {
+
+	~ListBox() override
+	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ListBox::onMouseMove});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect({this, &ListBox::onMouseWheel});
@@ -83,21 +85,29 @@ public:
 		mScrollBar.change().disconnect({this, &ListBox::onSlideChange});
 	}
 
-	bool isEmpty() const {
+
+	bool isEmpty() const
+	{
 		return mItems.empty();
 	}
 
-	std::size_t count() const {
+
+	std::size_t count() const
+	{
 		return mItems.size();
 	}
 
+
 	template <typename... Args>
-	void add(Args&&... args) {
+	void add(Args&&... args)
+	{
 		mItems.emplace_back(ListBoxItem{std::forward<Args>(args)...});
 		updateScrollLayout();
 	}
 
-	void clear() {
+
+	void clear()
+	{
 		mItems.clear();
 		mSelectedIndex = NoSelection;
 		mHighlightIndex = NoSelection;
@@ -105,11 +115,13 @@ public:
 	}
 
 
-	bool isItemSelected() const {
+	bool isItemSelected() const
+	{
 		return mSelectedIndex != NoSelection;
 	}
 
-	const ListBoxItem& selected() const {
+	const ListBoxItem& selected() const
+	{
 		if (mSelectedIndex == NoSelection)
 		{
 			throw std::runtime_error("ListBox has no selected item");
@@ -119,43 +131,59 @@ public:
 	}
 
 
-	std::size_t selectedIndex() const {
+	std::size_t selectedIndex() const
+	{
 		return mSelectedIndex;
 	}
 
-	void setSelected(std::size_t index) {
+
+	void setSelected(std::size_t index)
+	{
 		mSelectedIndex = index;
 		mSelectionChanged();
 	}
 
-	void clearSelected() {
+
+	void clearSelected()
+	{
 		mSelectedIndex = NoSelection;
 	}
 
 	template <typename UnaryPredicate>
-	void selectIf(UnaryPredicate predicate) {
-		for (std::size_t i = 0; i < mItems.size(); ++i) {
-			if (predicate(mItems[i])) {
+	void selectIf(UnaryPredicate predicate)
+	{
+		for (std::size_t i = 0; i < mItems.size(); ++i)
+		{
+			if (predicate(mItems[i]))
+			{
 				mSelectedIndex = i;
 				return;
 			}
 		}
 	}
 
-	std::size_t currentHighlight() const {
+
+	std::size_t currentHighlight() const
+	{
 		return mHighlightIndex;
 	}
 
-	unsigned int lineHeight() const {
+
+	unsigned int lineHeight() const
+	{
 		return mContext.itemHeight();
 	}
 
-	void update() override {
+
+	void update() override
+	{
 		// Ignore if menu is empty or invisible
 		if (!visible()) { return; }
+
 		draw();
 		mScrollBar.update();
 	}
+
 
 	void draw() const override
 	{
@@ -191,12 +219,16 @@ public:
 		renderer.clipRectClear();
 	}
 
-	SelectionChangeSignal::Source& selectionChanged() {
+
+	SelectionChangeSignal::Source& selectionChanged()
+	{
 		return mSelectionChanged;
 	}
 
+
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position) {
+	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+	{
 		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))
 		{
 			return;
@@ -205,7 +237,9 @@ protected:
 		setSelected(mHighlightIndex);
 	}
 
-	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/) {
+
+	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+	{
 		if (!visible() || !mClientRect.contains(position))
 		{
 			mHighlightIndex = NoSelection;
@@ -214,37 +248,48 @@ protected:
 
 		const auto dy = position.y - mClientRect.position.y;
 		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+
 		if (mHighlightIndex >= mItems.size())
 		{
 			mHighlightIndex = NoSelection;
 		}
 	}
 
-	void onMouseWheel(NAS2D::Vector<int> scrollAmount) {
+
+	void onMouseWheel(NAS2D::Vector<int> scrollAmount)
+	{
 		if (isEmpty() || !visible()) { return; }
 
 		mScrollBar.changeValue((scrollAmount.y < 0 ? 16 : -16));
 	}
 
-	virtual void onSlideChange(ScrollBar::ValueType /*newPosition*/) {
+
+	virtual void onSlideChange(ScrollBar::ValueType /*newPosition*/)
+	{
 		updateScrollLayout();
 	}
 
 
-	void onVisibilityChange(bool /*visible*/) override {
+	void onVisibilityChange(bool /*visible*/) override
+	{
 		updateScrollLayout();
 	}
 
 private:
-	void onMove(NAS2D::Vector<int> /*displacement*/) override {
+	void onMove(NAS2D::Vector<int> /*displacement*/) override
+	{
 		updateScrollLayout();
 	}
 
-	void onResize() override {
+
+	void onResize() override
+	{
 		updateScrollLayout();
 	}
 
-	void updateScrollLayout() {
+
+	void updateScrollLayout()
+	{
 		// Account for border around control
 		mClientRect = mRect.inset(1);
 
