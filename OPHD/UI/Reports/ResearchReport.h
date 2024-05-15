@@ -8,6 +8,7 @@
 #include <libOPHD/Technology/ResearchTracker.h>
 
 #include <libControls/Button.h>
+#include <libControls/ListBox.h>
 
 #include <NAS2D/Math/Point.h>
 
@@ -59,7 +60,7 @@ private:
 	void onStandardLabClicked();
 	void onHotLabClicked();
 
-
+private:
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
@@ -74,6 +75,8 @@ private:
 	Button btnCompletedTopics;
 	Button btnStandardLab;
     Button btnHotLab;
+
+	ListBox<ListBoxItemText> lstResearchTopics;
     
     TechnologyCatalog* mTechCatalog{ nullptr };
     ResearchTracker* mResearchTracker{ nullptr };

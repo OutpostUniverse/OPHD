@@ -51,6 +51,17 @@ namespace
 	Rectangle<int> IconArea{};
 
 	std::vector<CategoryPanel> CategoryPanels;
+
+	void resetCategorySelection()
+	{
+		for (auto& panel : CategoryPanels)
+		{
+			panel.selected = false;
+		}
+
+		CategoryPanels.front().selected = true;
+		SelectedCategory = &CategoryPanels.front();
+	}
 }
 
 
@@ -95,11 +106,15 @@ ResearchReport::~ResearchReport()
 
 void ResearchReport::fillLists()
 {
+	lstResearchTopics.clear();
 }
 
 
 void ResearchReport::clearSelected()
 {
+	lstResearchTopics.clearSelected();
+	resetCategorySelection();
+	onAllTopicsClicked();
 }
 
 
@@ -116,9 +131,7 @@ void ResearchReport::refresh()
 		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
 	}
 
-	CategoryPanels.front().selected = true;
-	SelectedCategory = &CategoryPanels.front();
-
+	resetCategorySelection();
 	onAllTopicsClicked();
 
 	IconArea = {
