@@ -107,6 +107,8 @@ ResearchReport::~ResearchReport()
 void ResearchReport::fillLists()
 {
 	lstResearchTopics.clear();
+	resetCategorySelection();
+	onAllTopicsClicked();
 }
 
 
