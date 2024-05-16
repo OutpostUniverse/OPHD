@@ -109,6 +109,15 @@ void ResearchReport::refresh()
 
 void ResearchReport::setSectionRects()
 {
+	mCategoryIconArea =
+	{
+		mCategoryPanels.begin()->rect.startPoint(),
+		{
+			CategoryIconSize,
+			mCategoryPanels.rbegin()->rect.endPoint().y - mCategoryPanels.begin()->rect.startPoint().y
+		}
+	};
+
 	mResearchTopicArea =
 	{
 		{

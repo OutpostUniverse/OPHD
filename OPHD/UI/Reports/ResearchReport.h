@@ -99,5 +99,6 @@ private:
 	CategoryPanel* mSelectedCategory{nullptr};
 	std::vector<CategoryPanel> mCategoryPanels;
 
+	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};
 };
