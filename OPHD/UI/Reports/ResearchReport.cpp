@@ -224,15 +224,13 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 	bool panelClickedOn = false;
 	for (auto& panel : mCategoryPanels)
 	{
+		panel.selected = false;
+
 		if (panel.rect.contains(position))
 		{
 			panel.selected = true;
 			mSelectedCategory = &panel;
 			panelClickedOn = true;
-		}
-		else
-		{
-			panel.selected = false;
 		}
 	}
 
