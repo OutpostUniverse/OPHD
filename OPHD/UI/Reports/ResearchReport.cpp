@@ -63,6 +63,9 @@ ResearchReport::ResearchReport() :
 		button->toggle(false);
 	}
 
+
+	add(lstResearchTopics, {});
+
 	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
 
@@ -104,6 +107,8 @@ void ResearchReport::refresh()
 	onAllTopicsClicked();
 
 	setSectionRects();
+
+	lstResearchTopics.area(mResearchTopicArea);
 }
 
 
