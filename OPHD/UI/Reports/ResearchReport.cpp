@@ -206,11 +206,17 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 		return;
 	}
 
+	handleMouseDownInCategories(position);
+}
+
+
+void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
+{
 	CategoryPanel* lastPanel = mSelectedCategory;
 	bool panelClickedOn = false;
 	for (auto& panel : mCategoryPanels)
 	{
-		if(panel.rect.contains(position))
+		if (panel.rect.contains(position))
 		{
 			panel.selected = true;
 			mSelectedCategory = &panel;
@@ -222,7 +228,7 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 		}
 	}
 
-	if(!panelClickedOn && lastPanel != nullptr)
+	if (!panelClickedOn && lastPanel != nullptr)
 	{
 		mSelectedCategory = lastPanel;
 		mSelectedCategory->selected = true;
