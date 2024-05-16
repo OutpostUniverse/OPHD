@@ -48,7 +48,7 @@ struct ListBoxItemText
 
 	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
 
-	bool operator<(const ListBoxItemText& other)
+	bool operator<(const ListBoxItemText& other) const
 	{
 		return text < other.text;
 	}
