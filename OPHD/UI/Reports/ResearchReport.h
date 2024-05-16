@@ -36,6 +36,7 @@ public:
 	void clearSelected() override;
 
 	void refresh() override;
+	void setSectionRects();
 	void selectStructure(Structure*) override;
 
 	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);

@@ -103,11 +103,24 @@ void ResearchReport::refresh()
 	resetCategorySelection();
 	onAllTopicsClicked();
 
-	mResearchTopicArea = {
-		{rect().position.x + MarginSize * 3 + CategoryIconSize,
-		rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
-		{((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
-		rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y}};
+	setSectionRects();
+}
+
+
+void ResearchReport::setSectionRects()
+{
+	mResearchTopicArea =
+	{
+		{
+			rect().position.x + MarginSize * 3 + CategoryIconSize,
+			rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3
+		},
+
+		{
+			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
+			rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y
+		}
+	};
 }
 
 
