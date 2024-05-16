@@ -51,17 +51,6 @@ namespace
 	Rectangle<int> IconArea{};
 
 	std::vector<CategoryPanel> CategoryPanels;
-
-	void resetCategorySelection()
-	{
-		for (auto& panel : CategoryPanels)
-		{
-			panel.selected = false;
-		}
-
-		CategoryPanels.front().selected = true;
-		SelectedCategory = &CategoryPanels.front();
-	}
 }
 
 
@@ -147,6 +136,18 @@ void ResearchReport::adjustCategoryIconSpacing() const
 		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
 		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
 	}
+}
+
+
+void ResearchReport::resetCategorySelection()
+{
+	for (auto& panel : CategoryPanels)
+	{
+		panel.selected = false;
+	}
+
+	CategoryPanels.front().selected = true;
+	SelectedCategory = &CategoryPanels.front();
 }
 
 

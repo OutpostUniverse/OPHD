@@ -47,6 +47,8 @@ private:
 
 	void adjustCategoryIconSpacing() const;
 
+	void resetCategorySelection();
+
 	void draw() const override;
 	void drawCategories() const;
 	void drawTopicHeader() const;
