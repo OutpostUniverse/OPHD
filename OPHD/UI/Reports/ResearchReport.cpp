@@ -206,7 +206,10 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 		return;
 	}
 
-	handleMouseDownInCategories(position);
+	if (mCategoryIconArea.contains(position))
+	{
+		handleMouseDownInCategories(position);
+	}
 }
 
 
