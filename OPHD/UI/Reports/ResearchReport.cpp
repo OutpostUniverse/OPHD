@@ -63,8 +63,8 @@ ResearchReport::ResearchReport() :
 		button->toggle(false);
 	}
 
-
 	add(lstResearchTopics, {});
+	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
 
 	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
@@ -354,6 +354,11 @@ void ResearchReport::drawResearchPointsPanel() const
 
 	const Point<int> lineStartPoint{startPoint.x, rect().position.y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
 	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
+}
+
+
+void ResearchReport::handleTopicChanged()
+{
 }
 
 

@@ -59,6 +59,8 @@ private:
 	void drawVerticalSectionSpacer(const int column) const;
 	void drawResearchPointsPanel() const;
 
+	void handleTopicChanged();
+
 	void untoggleAllButtons();
 
 	void onAllTopicsClicked();
