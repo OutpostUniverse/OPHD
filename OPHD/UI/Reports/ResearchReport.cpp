@@ -124,14 +124,7 @@ void ResearchReport::refresh()
 {
 	if (CategoryPanels.size() < 1) { return; }
 
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
-	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
-
-	for (size_t i = 0; i < CategoryPanels.size(); ++i)
-	{
-		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
-		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
-	}
+	adjustCategoryIconSpacing();
 
 	resetCategorySelection();
 	onAllTopicsClicked();
@@ -141,6 +134,19 @@ void ResearchReport::refresh()
 		rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
 		{((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
 		rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y}};
+}
+
+
+void ResearchReport::adjustCategoryIconSpacing() const
+{
+	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
+	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
+
+	for (size_t i = 0; i < CategoryPanels.size(); ++i)
+	{
+		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
+		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
+	}
 }
 
 
