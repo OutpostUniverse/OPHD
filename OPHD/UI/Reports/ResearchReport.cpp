@@ -327,10 +327,10 @@ void ResearchReport::drawTopicHeader() const
 void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawLine(
-		Point<int>{startX, rect().position.y + SectionPadding.y},
-		Point<int>{startX, rect().position.y + rect().size.y - SectionPadding.y},
-		ColorText);
+
+	const Point<int> start{startX, rect().position.y + SectionPadding.y};
+	const Point<int> end{startX, rect().position.y + rect().size.y - SectionPadding.y};
+	renderer.drawLine(start, end, ColorText);
 }
 
 
