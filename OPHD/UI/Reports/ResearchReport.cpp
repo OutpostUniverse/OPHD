@@ -48,7 +48,7 @@ namespace
 
 	CategoryPanel* SelectedCategory{ nullptr };
 
-	Rectangle<int> IconArea{};
+	Rectangle<int> ResearchTopicArea{};
 
 	std::vector<CategoryPanel> CategoryPanels;
 }
@@ -118,7 +118,7 @@ void ResearchReport::refresh()
 	resetCategorySelection();
 	onAllTopicsClicked();
 
-	IconArea = {
+	ResearchTopicArea = {
 		{rect().position.x + MarginSize * 3 + CategoryIconSize,
 		rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
 		{((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
@@ -316,7 +316,7 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 void ResearchReport::drawTopicIconPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawBox(IconArea, ColorText);
+	renderer.drawBox(ResearchTopicArea, ColorText);
 }
 
 
@@ -324,7 +324,7 @@ void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + IconArea.size.x, SectionPadding.y};
+	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + ResearchTopicArea.size.x, SectionPadding.y};
 
 	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
 
