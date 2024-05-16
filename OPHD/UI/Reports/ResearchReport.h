@@ -8,8 +8,10 @@
 #include <libOPHD/Technology/ResearchTracker.h>
 
 #include <libControls/Button.h>
+#include <libControls/ListBox.h>
 
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Rectangle.h>
 
 #include <vector>
 
@@ -27,16 +29,17 @@ class Structure;
 class ResearchReport : public ReportInterface
 {
 public:
-    ResearchReport();
+	ResearchReport();
 	~ResearchReport() override;
 
 	void fillLists() override;
 	void clearSelected() override;
 
 	void refresh() override;
+	void setSectionRects();
 	void selectStructure(Structure*) override;
-    
-    void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
+
+	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
 
 	void update() override;
 
@@ -44,12 +47,20 @@ private:
 	void onResize() override;
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 
+	void handleMouseDownInCategories(NAS2D::Point<int>& position);
+
+	void adjustCategoryIconSpacing();
+
+	void resetCategorySelection();
+
 	void draw() const override;
 	void drawCategories() const;
 	void drawTopicHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
-    void drawTopicIconPanel() const;
-    void drawResearchPointsPanel() const;
+	void drawResearchPointsPanel() const;
+
+	void handleCategoryChanged();
+	void handleTopicChanged();
 
 	void untoggleAllButtons();
 
@@ -59,7 +70,16 @@ private:
 	void onStandardLabClicked();
 	void onHotLabClicked();
 
+private:
+	struct CategoryPanel
+	{
+		NAS2D::Rectangle<int> rect{};
+		NAS2D::Rectangle<int> imageSlice{};
+		std::string name{};
+		bool selected{false};
+	};
 
+private:
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
@@ -73,8 +93,16 @@ private:
 	Button btnAvailableTopics;
 	Button btnCompletedTopics;
 	Button btnStandardLab;
-    Button btnHotLab;
-    
-    TechnologyCatalog* mTechCatalog{ nullptr };
-    ResearchTracker* mResearchTracker{ nullptr };
+	Button btnHotLab;
+
+	ListBox<ListBoxItemText> lstResearchTopics;
+
+	TechnologyCatalog* mTechCatalog{nullptr};
+	ResearchTracker* mResearchTracker{nullptr};
+
+	CategoryPanel* mSelectedCategory{nullptr};
+	std::vector<CategoryPanel> mCategoryPanels;
+
+	NAS2D::Rectangle<int> mCategoryIconArea{};
+	NAS2D::Rectangle<int> mResearchTopicArea{};
 };
