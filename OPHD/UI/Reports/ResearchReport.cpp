@@ -3,7 +3,6 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Math/Rectangle.h>
 
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
@@ -37,20 +36,6 @@ namespace
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
 	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
-
-	struct CategoryPanel
-	{
-		NAS2D::Rectangle<int> rect{};
-		NAS2D::Rectangle<int> imageSlice{};
-		std::string name{};
-		bool selected{false};
-	};
-
-	CategoryPanel* SelectedCategory{ nullptr };
-
-	Rectangle<int> ResearchTopicArea{};
-
-	std::vector<CategoryPanel> CategoryPanels;
 }
 
 
@@ -111,14 +96,14 @@ void ResearchReport::clearSelected()
 
 void ResearchReport::refresh()
 {
-	if (CategoryPanels.size() < 1) { return; }
+	if (mCategoryPanels.size() < 1) { return; }
 
 	adjustCategoryIconSpacing();
 
 	resetCategorySelection();
 	onAllTopicsClicked();
 
-	ResearchTopicArea = {
+	mResearchTopicArea = {
 		{rect().position.x + MarginSize * 3 + CategoryIconSize,
 		rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3},
 		{((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
@@ -126,28 +111,28 @@ void ResearchReport::refresh()
 }
 
 
-void ResearchReport::adjustCategoryIconSpacing() const
+void ResearchReport::adjustCategoryIconSpacing()
 {
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(CategoryPanels.size()));
-	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(CategoryPanels.size() - 1);
+	const int minimumHeight = CategoryIconSize * (static_cast<int>(mCategoryPanels.size()));
+	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
 
-	for (size_t i = 0; i < CategoryPanels.size(); ++i)
+	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
 	{
 		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
-		CategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
+		mCategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
 	}
 }
 
 
 void ResearchReport::resetCategorySelection()
 {
-	for (auto& panel : CategoryPanels)
+	for (auto& panel : mCategoryPanels)
 	{
 		panel.selected = false;
 	}
 
-	CategoryPanels.front().selected = true;
-	SelectedCategory = &CategoryPanels.front();
+	mCategoryPanels.front().selected = true;
+	mSelectedCategory = &mCategoryPanels.front();
 }
 
 
@@ -165,14 +150,14 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 
 	for (const auto& category : mTechCatalog->categories())
 	{
-		CategoryPanels.emplace_back(CategoryPanel{
+		mCategoryPanels.emplace_back(CategoryPanel{
 			{{0, 0}, {CategoryIconSize, CategoryIconSize}},
 			{{(category.icon_index % columns) * CategoryIconSize, (category.icon_index / columns) * CategoryIconSize}, {CategoryIconSize, CategoryIconSize}},
 			category.name,
 			false});
 	}
 
-	std::sort(CategoryPanels.begin(), CategoryPanels.end(), [](const auto& a, const auto& b) { return a.name < b.name; });
+	std::sort(mCategoryPanels.begin(), mCategoryPanels.end(), [](const auto& a, const auto& b) { return a.name < b.name; });
 	refresh();
 }
 
@@ -199,14 +184,14 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 		return;
 	}
 
-	CategoryPanel* lastPanel = SelectedCategory;
+	CategoryPanel* lastPanel = mSelectedCategory;
 	bool panelClickedOn = false;
-	for (auto& panel : CategoryPanels)
+	for (auto& panel : mCategoryPanels)
 	{
 		if(panel.rect.contains(position))
 		{
 			panel.selected = true;
-			SelectedCategory = &panel;
+			mSelectedCategory = &panel;
 			panelClickedOn = true;
 		}
 		else
@@ -217,8 +202,8 @@ void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D:
 
 	if(!panelClickedOn && lastPanel != nullptr)
 	{
-		SelectedCategory = lastPanel;
-		SelectedCategory->selected = true;
+		mSelectedCategory = lastPanel;
+		mSelectedCategory->selected = true;
 	}
 }
 
@@ -272,7 +257,7 @@ void ResearchReport::drawCategories() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	for (const auto& panel : CategoryPanels)
+	for (const auto& panel : mCategoryPanels)
 	{
 		const auto panelRect = Rectangle<int>::Create(
 			panel.rect.position - CategorySelectorPadding,
@@ -297,7 +282,7 @@ void ResearchReport::drawTopicHeader() const
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawText(
 		fontBigBold,
-		SelectedCategory->name,
+		mSelectedCategory->name,
 		rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize, SectionPadding.y},
 		ColorText);
 }
@@ -316,7 +301,7 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 void ResearchReport::drawTopicIconPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawBox(ResearchTopicArea, ColorText);
+	renderer.drawBox(mResearchTopicArea, ColorText);
 }
 
 
@@ -324,7 +309,7 @@ void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + ResearchTopicArea.size.x, SectionPadding.y};
+	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + mResearchTopicArea.size.x, SectionPadding.y};
 
 	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
 
@@ -349,7 +334,7 @@ void ResearchReport::draw() const
 {
 	drawCategories();
 
-	drawVerticalSectionSpacer(CategoryPanels.front().rect.endPoint().x + SectionPadding.x);
+	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 
 	drawTopicHeader();
 	drawTopicIconPanel();
