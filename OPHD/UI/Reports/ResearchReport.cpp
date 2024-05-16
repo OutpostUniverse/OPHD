@@ -334,13 +334,6 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 }
 
 
-void ResearchReport::drawTopicIconPanel() const
-{
-	auto& renderer = Utility<Renderer>::get();
-	renderer.drawBox(mResearchTopicArea, ColorText);
-}
-
-
 void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
@@ -373,7 +366,6 @@ void ResearchReport::draw() const
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 
 	drawTopicHeader();
-	drawTopicIconPanel();
 
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 
