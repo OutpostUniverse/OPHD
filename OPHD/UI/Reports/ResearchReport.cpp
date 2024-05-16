@@ -160,6 +160,7 @@ void ResearchReport::resetCategorySelection()
 
 	mCategoryPanels.front().selected = true;
 	mSelectedCategory = &mCategoryPanels.front();
+	handleCategoryChanged();
 }
 
 
@@ -231,6 +232,7 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 			panel.selected = true;
 			mSelectedCategory = &panel;
 			panelClickedOn = true;
+			handleCategoryChanged();
 		}
 	}
 
@@ -354,6 +356,30 @@ void ResearchReport::drawResearchPointsPanel() const
 
 	const Point<int> lineStartPoint{startPoint.x, rect().position.y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
 	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
+}
+
+
+void ResearchReport::handleCategoryChanged()
+{
+	lstResearchTopics.clear();
+
+	std::vector<ListBoxItemText> itemsToAdd;
+
+	const auto& completedTopics = mResearchTracker->completedResearch();
+	for (const auto& topic : mTechCatalog->technologiesInCategory(mSelectedCategory->name))
+	{
+		const auto it = std::find(completedTopics.begin(), completedTopics.end(), topic.id);
+		if (it == completedTopics.end())
+		{
+			itemsToAdd.emplace_back(ListBoxItemText{topic.name, topic.id});
+		}
+	}
+
+	std::sort(itemsToAdd.begin(), itemsToAdd.end());
+	for (auto& item : itemsToAdd)
+	{
+		lstResearchTopics.add(item);
+	}
 }
 
 
