@@ -36,6 +36,23 @@ namespace
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
 	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
+
+
+	std::vector<ListBoxItemText> availableTopics(const std::string& categoryName, const TechnologyCatalog& catalog, const ResearchTracker& tracker)
+	{
+		std::vector<ListBoxItemText> itemsToAdd;
+		const auto& completedTopics = tracker.completedResearch();
+		for (const auto& topic : catalog.technologiesInCategory(categoryName))
+		{
+			const auto it = std::find(completedTopics.begin(), completedTopics.end(), topic.id);
+			if (it == completedTopics.end())
+			{
+				itemsToAdd.emplace_back(ListBoxItemText{topic.name, topic.id});
+			}
+		}
+
+		return itemsToAdd;
+	}
 }
 
 
@@ -363,17 +380,7 @@ void ResearchReport::handleCategoryChanged()
 {
 	lstResearchTopics.clear();
 
-	std::vector<ListBoxItemText> itemsToAdd;
-
-	const auto& completedTopics = mResearchTracker->completedResearch();
-	for (const auto& topic : mTechCatalog->technologiesInCategory(mSelectedCategory->name))
-	{
-		const auto it = std::find(completedTopics.begin(), completedTopics.end(), topic.id);
-		if (it == completedTopics.end())
-		{
-			itemsToAdd.emplace_back(ListBoxItemText{topic.name, topic.id});
-		}
-	}
+	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
 
 	std::sort(itemsToAdd.begin(), itemsToAdd.end());
 	for (auto& item : itemsToAdd)
