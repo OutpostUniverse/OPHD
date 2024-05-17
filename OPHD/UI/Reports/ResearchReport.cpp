@@ -23,13 +23,13 @@ namespace
 	constexpr NAS2D::Color ColorPanelSelected{0, 85, 0};
 	constexpr NAS2D::Color ColorText{0, 185, 0};
 
-	constexpr auto LabTypeIconSize = 32;
+	constexpr Vector<int> LabTypeIconSize{32, 32};
 	constexpr Vector<int> CategoryIconSize{64, 64};
 	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
 	constexpr auto MarginSize = 10;
 
-	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, {LabTypeIconSize, LabTypeIconSize}};
-	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, {LabTypeIconSize, LabTypeIconSize}};
+	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
+	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, LabTypeIconSize};
 
 	// Will be used in future change sets
 	//constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {{0, 192}, {24, 24}};
@@ -359,8 +359,8 @@ void ResearchReport::drawTopicHeaderPanel() const
 	renderer.drawSubImage(imageUiIcons, standardLabStartPoint, StandardLabIconRect);
 	renderer.drawSubImage(imageUiIcons, hotLabStartPoint, HotLabIconRect);
 
-	const auto standardLabTextOffset{standardLabStartPoint + Vector<int>{LabTypeIconSize + SectionPadding.x, LabTypeIconSize / 2 - fontMedium.height() / 2}};
-	const auto hotLabTextOffset{hotLabStartPoint + Vector<int>{LabTypeIconSize + SectionPadding.x, LabTypeIconSize / 2 - fontMedium.height() / 2}};
+	const auto standardLabTextOffset{standardLabStartPoint + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
+	const auto hotLabTextOffset{hotLabStartPoint + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 
 	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
 	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
