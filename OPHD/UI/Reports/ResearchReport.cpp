@@ -4,6 +4,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
 
@@ -98,7 +99,7 @@ ResearchReport::ResearchReport() :
 		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
 	}
 
-	const auto rects = std::array{&mCategoryIconArea, &mResearchTopicArea, &mTopicDetailsTitleArea, & mTopicDetailsArea};
+	const auto rects = std::array{&mCategoryIconArea, &mResearchTopicArea, &mTopicDetailsHeaderArea, & mTopicDetailsArea};
 	for (auto rect : rects)
 	{
 		RectList.push_back(rect);
@@ -172,7 +173,7 @@ void ResearchReport::setSectionRects()
 	};
 
 	
-	mTopicDetailsTitleArea =
+	mTopicDetailsHeaderArea =
 	{
 		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
 		{
@@ -183,10 +184,10 @@ void ResearchReport::setSectionRects()
 	
 	mTopicDetailsArea =
 	{
-		mTopicDetailsTitleArea.position + Vector<int>{0, mTopicDetailsTitleArea.size.y + SectionPadding.x * 2},
+		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
 		{
-			mTopicDetailsTitleArea.size.x,
-			mCategoryIconArea.size.y - mTopicDetailsTitleArea.size.y - SectionPadding.x * 2
+			mTopicDetailsHeaderArea.size.x,
+			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
 		}
 	};
 }
@@ -392,9 +393,9 @@ void ResearchReport::drawTopicHeaderPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = mTopicDetailsTitleArea.startPoint();
+	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
 
-	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
+	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
 
 	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
 	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
@@ -409,6 +410,8 @@ void ResearchReport::drawTopicHeaderPanel() const
 	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
 
 	const Point<int> lineStartPoint{startPoint.x, rect().position.y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
+
+
 	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
 }
 
