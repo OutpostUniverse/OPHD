@@ -399,12 +399,8 @@ void ResearchReport::drawTopicHeaderPanel() const
 void ResearchReport::draw() const
 {
 	drawCategories();
-
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
-
 	drawCategoryHeader();
-
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
-
 	drawTopicHeaderPanel();
 }
