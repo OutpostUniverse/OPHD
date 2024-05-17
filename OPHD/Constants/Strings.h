@@ -186,6 +186,8 @@ namespace constants
 	const std::string WarehouseFull = "At Capacity";
 	const std::string WarehouseSpaceAvailable = "Space Available";
 
+	const std::string ResearchReportTopicDetails = "Research Topic Details";
+
 	// =====================================
 	// = POPULATION PANEL STRINGS
 	// =====================================

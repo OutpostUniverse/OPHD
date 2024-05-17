@@ -4,6 +4,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
 
@@ -68,7 +69,8 @@ ResearchReport::ResearchReport() :
 	btnAvailableTopics{"Available Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAvailableTopicsClicked}},
 	btnCompletedTopics{"Completed Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onCompletedTopicsClicked}},
 	btnStandardLab{"Standard Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}}
+	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}},
+	txtTopicDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
@@ -82,6 +84,8 @@ ResearchReport::ResearchReport() :
 
 	add(lstResearchTopics, {});
 	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
+
+	add(txtTopicDescription, {});
 
 	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
@@ -109,6 +113,8 @@ void ResearchReport::fillLists()
 void ResearchReport::clearSelected()
 {
 	lstResearchTopics.clearSelected();
+	txtTopicDescription.text("");
+
 	resetCategorySelection();
 	onAllTopicsClicked();
 }
@@ -126,6 +132,9 @@ void ResearchReport::refresh()
 	setSectionRects();
 
 	lstResearchTopics.area(mResearchTopicArea);
+
+	txtTopicDescription.text("");
+	txtTopicDescription.area(mTopicDetailsArea);
 }
 
 
@@ -150,6 +159,25 @@ void ResearchReport::setSectionRects()
 		{
 			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
 			rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y
+		}
+	};
+
+	
+	mTopicDetailsHeaderArea =
+	{
+		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
+		{
+			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
+			100
+		}
+	};
+	
+	mTopicDetailsArea =
+	{
+		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
+		{
+			mTopicDetailsHeaderArea.size.x,
+			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
 		}
 	};
 }
@@ -330,7 +358,7 @@ void ResearchReport::drawCategories() const
 }
 
 
-void ResearchReport::drawTopicHeader() const
+void ResearchReport::drawCategoryHeader() const
 {
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawText(
@@ -351,13 +379,13 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 }
 
 
-void ResearchReport::drawResearchPointsPanel() const
+void ResearchReport::drawTopicHeaderPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + mResearchTopicArea.size.x, SectionPadding.y};
+	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
 
-	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
+	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
 
 	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
 	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
@@ -371,14 +399,17 @@ void ResearchReport::drawResearchPointsPanel() const
 	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
 	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
 
-	const Point<int> lineStartPoint{startPoint.x, rect().position.y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
-	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
+	const Point<int> lineStartPoint{mTopicDetailsHeaderArea.crossYPoint() + Vector<int>{0, SectionPadding.y}};
+	const Point<int> lineEndPoint{mTopicDetailsHeaderArea.endPoint() + Vector<int>{0, SectionPadding.y}};
+
+	renderer.drawLine(lineStartPoint, lineEndPoint, ColorText);
 }
 
 
 void ResearchReport::handleCategoryChanged()
 {
 	lstResearchTopics.clear();
+	txtTopicDescription.text("");
 
 	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
 
@@ -392,6 +423,15 @@ void ResearchReport::handleCategoryChanged()
 
 void ResearchReport::handleTopicChanged()
 {
+	txtTopicDescription.text("");
+
+	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
+	{
+		return;
+	}
+
+	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
+	txtTopicDescription.text(technology.description);
 }
 
 
@@ -401,10 +441,9 @@ void ResearchReport::draw() const
 
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 
-	drawTopicHeader();
+	drawCategoryHeader();
 
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 
-	drawResearchPointsPanel();
-
+	drawTopicHeaderPanel();
 }

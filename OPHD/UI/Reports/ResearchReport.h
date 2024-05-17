@@ -9,6 +9,7 @@
 
 #include <libControls/Button.h>
 #include <libControls/ListBox.h>
+#include <libControls/TextArea.h>
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -55,9 +56,9 @@ private:
 
 	void draw() const override;
 	void drawCategories() const;
-	void drawTopicHeader() const;
+	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
-	void drawResearchPointsPanel() const;
+	void drawTopicHeaderPanel() const;
 
 	void handleCategoryChanged();
 	void handleTopicChanged();
@@ -97,6 +98,8 @@ private:
 
 	ListBox<ListBoxItemText> lstResearchTopics;
 
+	TextArea txtTopicDescription;
+
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};
 
@@ -105,4 +108,6 @@ private:
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};
+	NAS2D::Rectangle<int> mTopicDetailsHeaderArea{};
+	NAS2D::Rectangle<int> mTopicDetailsArea{};
 };
