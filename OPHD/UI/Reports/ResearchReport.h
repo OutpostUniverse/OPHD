@@ -38,7 +38,7 @@ public:
 
 	void refresh() override;
 
-	void selectStructure(Structure*) override;
+	void selectStructure(Structure*) override {}
 
 	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
 

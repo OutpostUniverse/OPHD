@@ -115,11 +115,6 @@ void ResearchReport::refresh()
 }
 
 
-void ResearchReport::selectStructure(Structure*)
-{
-}
-
-
 void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
 	mTechCatalog = &catalog;
