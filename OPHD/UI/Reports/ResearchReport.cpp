@@ -53,6 +53,14 @@ namespace
 
 		return itemsToAdd;
 	}
+
+
+	void drawDetailsHeaderSeparator(const Rectangle<int>& area)
+	{
+		const Point<int> lineStartPoint{area.crossYPoint() + Vector<int>{0, SectionPadding.y}};
+		const Point<int> lineEndPoint{area.endPoint() + Vector<int>{0, SectionPadding.y}};
+		Utility<Renderer>::get().drawLine(lineStartPoint, lineEndPoint, ColorText);
+	}
 }
 
 
@@ -347,6 +355,8 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 
 void ResearchReport::drawTopicHeaderPanel() const
 {
+	if (!lstResearchTopics.isItemSelected()) { return; }
+
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
@@ -362,13 +372,10 @@ void ResearchReport::drawTopicHeaderPanel() const
 	const auto standardLabTextOffset{standardLabStartPoint + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 	const auto hotLabTextOffset{hotLabStartPoint + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 
-	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
-	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
+	renderer.drawText(fontMedium, "0 of X", standardLabTextOffset, ColorText);
+	renderer.drawText(fontMedium, "0 of X", hotLabTextOffset, ColorText);
 
-	const Point<int> lineStartPoint{mTopicDetailsHeaderArea.crossYPoint() + Vector<int>{0, SectionPadding.y}};
-	const Point<int> lineEndPoint{mTopicDetailsHeaderArea.endPoint() + Vector<int>{0, SectionPadding.y}};
-
-	renderer.drawLine(lineStartPoint, lineEndPoint, ColorText);
+	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
 }
 
 
