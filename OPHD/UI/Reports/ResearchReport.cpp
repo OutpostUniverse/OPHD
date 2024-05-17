@@ -24,7 +24,7 @@ namespace
 	constexpr NAS2D::Color ColorText{0, 185, 0};
 
 	constexpr auto LabTypeIconSize = 32;
-	constexpr auto CategoryIconSize = 64;
+	constexpr Vector<int> CategoryIconSize{64, 64};
 	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
 	constexpr auto MarginSize = 10;
 
@@ -36,8 +36,7 @@ namespace
 	//constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {{24, 192}, {24, 24}};
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
-	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
-
+	constexpr NAS2D::Vector<int> SectionPadding{10, 10};
 
 	std::vector<ListBoxItemText> availableTopics(const std::string& categoryName, const TechnologyCatalog& catalog, const ResearchTracker& tracker)
 	{
@@ -122,13 +121,13 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 	mTechCatalog = &catalog;
 	mResearchTracker = &tracker;
 
-	const int columns = imageCategoryIcons.size().x / CategoryIconSize;
+	const int columns = imageCategoryIcons.size().x / CategoryIconSize.x;
 
 	for (const auto& category : mTechCatalog->categories())
 	{
 		mCategoryPanels.emplace_back(CategoryPanel{
-			{{0, 0}, {CategoryIconSize, CategoryIconSize}},
-			{{(category.icon_index % columns) * CategoryIconSize, (category.icon_index / columns) * CategoryIconSize}, {CategoryIconSize, CategoryIconSize}},
+			{{0, 0}, CategoryIconSize},
+			{{(category.icon_index % columns) * CategoryIconSize.x, (category.icon_index / columns) * CategoryIconSize.y}, CategoryIconSize},
 			category.name,
 			false});
 	}
@@ -199,7 +198,7 @@ void ResearchReport::setSectionRects()
 	{
 		mCategoryPanels.begin()->rect.startPoint(),
 		{
-			CategoryIconSize,
+			CategoryIconSize.x,
 			mCategoryPanels.rbegin()->rect.endPoint().y - mCategoryPanels.begin()->rect.startPoint().y
 		}
 	};
@@ -207,12 +206,12 @@ void ResearchReport::setSectionRects()
 	mResearchTopicArea =
 	{
 		{
-			rect().position.x + MarginSize * 3 + CategoryIconSize,
+			rect().position.x + MarginSize * 3 + CategoryIconSize.x,
 			rect().position.y + fontBigBold.height() + MarginSize * 3
 		},
 
 		{
-			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
+			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize.x,
 			rect().size.y - MarginSize * 4 - fontBigBold.height()
 		}
 	};
@@ -240,13 +239,18 @@ void ResearchReport::setSectionRects()
 
 void ResearchReport::adjustCategoryIconSpacing()
 {
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(mCategoryPanels.size()));
+	const int minimumHeight = CategoryIconSize.x * (static_cast<int>(mCategoryPanels.size()));
 	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
 
 	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
 	{
-		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
-		mCategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
+		const NAS2D::Point<int> point
+		{
+			rect().position.x + 10,
+			rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize.y + static_cast<int>(i) * padding
+		};
+		
+		mCategoryPanels[i].rect = {point, CategoryIconSize};
 	}
 }
 
@@ -326,7 +330,7 @@ void ResearchReport::drawCategoryHeader() const
 	renderer.drawText(
 		fontBigBold,
 		mSelectedCategory->name,
-		rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize, SectionPadding.y},
+		rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y},
 		ColorText);
 }
 
