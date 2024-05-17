@@ -267,8 +267,8 @@ void ResearchReport::adjustCategoryIconSpacing()
 	{
 		const NAS2D::Point<int> point
 		{
-			rect().position.x + 10,
-			rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize.y + static_cast<int>(i) * padding
+			rect().position.x + MarginSize,
+			rect().position.y + MarginSize + static_cast<int>(i) * CategoryIconSize.y + static_cast<int>(i) * padding
 		};
 		
 		mCategoryPanels[i].rect = {point, CategoryIconSize};
