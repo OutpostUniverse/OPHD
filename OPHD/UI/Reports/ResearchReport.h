@@ -50,6 +50,7 @@ private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
 
+	void setIconPositions();
 	void setSectionRects();
 	void adjustCategoryIconSpacing();
 
@@ -63,7 +64,7 @@ private:
 	void drawCategories() const;
 	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
-	void drawTopicLabRequirements(const NAS2D::Point<int>& startPoint, NAS2D::Renderer& renderer) const;
+	void drawTopicLabRequirements() const;
 	void drawTopicHeaderPanel() const;
 	void draw() const override;
 
@@ -100,6 +101,11 @@ private:
 
 	CategoryPanel* mSelectedCategory{nullptr};
 	std::vector<CategoryPanel> mCategoryPanels;
+
+	NAS2D::Point<int> mHotLabIconPosition{};
+	NAS2D::Point<int> mHotLabTextPosition{};
+	NAS2D::Point<int> mStdLabIconPosition{};
+	NAS2D::Point<int> mStdLabTextPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};

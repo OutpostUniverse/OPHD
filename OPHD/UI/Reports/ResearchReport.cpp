@@ -116,6 +116,7 @@ void ResearchReport::refresh()
 	fillResearchTopicsList();
 
 	setSectionRects();
+	setIconPositions();
 
 	lstResearchTopics.area(mResearchTopicArea);
 
@@ -197,6 +198,17 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 		mSelectedCategory = lastPanel;
 		mSelectedCategory->selected = true;
 	}
+}
+
+
+void ResearchReport::setIconPositions()
+{
+	const auto startPoint{mTopicDetailsHeaderArea.startPoint()};
+
+	mHotLabIconPosition = {startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
+	mStdLabIconPosition = {startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
+	mStdLabTextPosition = {mStdLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
+	mHotLabTextPosition = {mHotLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 }
 
 
@@ -353,19 +365,13 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 }
 
 
-void ResearchReport::drawTopicLabRequirements(const NAS2D::Point<int>& startPoint, NAS2D::Renderer& renderer) const
+void ResearchReport::drawTopicLabRequirements() const
 {
-	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
-	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
-
-	renderer.drawSubImage(imageUiIcons, standardLabStartPoint, StandardLabIconRect);
-	renderer.drawSubImage(imageUiIcons, hotLabStartPoint, HotLabIconRect);
-
-	const auto standardLabTextOffset{standardLabStartPoint + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
-	const auto hotLabTextOffset{hotLabStartPoint + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
-
-	renderer.drawText(fontMedium, "0 of X", standardLabTextOffset, ColorText);
-	renderer.drawText(fontMedium, "0 of X", hotLabTextOffset, ColorText);
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawSubImage(imageUiIcons, mStdLabIconPosition, StandardLabIconRect);
+	renderer.drawSubImage(imageUiIcons, mHotLabIconPosition, HotLabIconRect);
+	renderer.drawText(fontMedium, "0 of X", mStdLabTextPosition, ColorText);
+	renderer.drawText(fontMedium, "0 of X", mHotLabTextPosition, ColorText);
 }
 
 
@@ -378,7 +384,7 @@ void ResearchReport::drawTopicHeaderPanel() const
 	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
 	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
 
-	drawTopicLabRequirements(startPoint, renderer);
+	drawTopicLabRequirements();
 	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
 }
 
