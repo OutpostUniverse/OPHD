@@ -63,6 +63,7 @@ private:
 	void drawCategories() const;
 	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
+	void drawTopicLabRequirements(const NAS2D::Point<int>& startPoint, NAS2D::Renderer& renderer) const;
 	void drawTopicHeaderPanel() const;
 	void draw() const override;
 

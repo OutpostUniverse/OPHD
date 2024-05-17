@@ -353,16 +353,8 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 }
 
 
-void ResearchReport::drawTopicHeaderPanel() const
+void ResearchReport::drawTopicLabRequirements(const NAS2D::Point<int>& startPoint, NAS2D::Renderer& renderer) const
 {
-	if (!lstResearchTopics.isItemSelected()) { return; }
-
-	auto& renderer = Utility<Renderer>::get();
-
-	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
-
-	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
-
 	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
 	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
 
@@ -374,7 +366,19 @@ void ResearchReport::drawTopicHeaderPanel() const
 
 	renderer.drawText(fontMedium, "0 of X", standardLabTextOffset, ColorText);
 	renderer.drawText(fontMedium, "0 of X", hotLabTextOffset, ColorText);
+}
 
+
+void ResearchReport::drawTopicHeaderPanel() const
+{
+	if (!lstResearchTopics.isItemSelected()) { return; }
+
+	auto& renderer = Utility<Renderer>::get();
+
+	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
+	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
+
+	drawTopicLabRequirements(startPoint, renderer);
 	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
 }
 
