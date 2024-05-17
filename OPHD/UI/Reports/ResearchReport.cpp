@@ -160,32 +160,6 @@ void ResearchReport::setSectionRects()
 }
 
 
-void ResearchReport::adjustCategoryIconSpacing()
-{
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(mCategoryPanels.size()));
-	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
-
-	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
-	{
-		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
-		mCategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
-	}
-}
-
-
-void ResearchReport::resetCategorySelection()
-{
-	for (auto& panel : mCategoryPanels)
-	{
-		panel.selected = false;
-	}
-
-	mCategoryPanels.front().selected = true;
-	mSelectedCategory = &mCategoryPanels.front();
-	handleCategoryChanged();
-}
-
-
 void ResearchReport::selectStructure(Structure*)
 {
 }
@@ -263,6 +237,61 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 		mSelectedCategory = lastPanel;
 		mSelectedCategory->selected = true;
 	}
+}
+
+
+void ResearchReport::adjustCategoryIconSpacing()
+{
+	const int minimumHeight = CategoryIconSize * (static_cast<int>(mCategoryPanels.size()));
+	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
+
+	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
+	{
+		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
+		mCategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
+	}
+}
+
+
+void ResearchReport::resetCategorySelection()
+{
+	for (auto& panel : mCategoryPanels)
+	{
+		panel.selected = false;
+	}
+
+	mCategoryPanels.front().selected = true;
+	mSelectedCategory = &mCategoryPanels.front();
+	handleCategoryChanged();
+}
+
+
+void ResearchReport::handleCategoryChanged()
+{
+	lstResearchTopics.clear();
+	txtTopicDescription.text("");
+
+	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
+
+	std::sort(itemsToAdd.begin(), itemsToAdd.end());
+	for (auto& item : itemsToAdd)
+	{
+		lstResearchTopics.add(item);
+	}
+}
+
+
+void ResearchReport::handleTopicChanged()
+{
+	txtTopicDescription.text("");
+
+	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
+	{
+		return;
+	}
+
+	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
+	txtTopicDescription.text(technology.description);
 }
 
 
@@ -349,33 +378,4 @@ void ResearchReport::draw() const
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 
 	drawTopicHeaderPanel();
-}
-
-
-void ResearchReport::handleCategoryChanged()
-{
-	lstResearchTopics.clear();
-	txtTopicDescription.text("");
-
-	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
-
-	std::sort(itemsToAdd.begin(), itemsToAdd.end());
-	for (auto& item : itemsToAdd)
-	{
-		lstResearchTopics.add(item);
-	}
-}
-
-
-void ResearchReport::handleTopicChanged()
-{
-	txtTopicDescription.text("");
-
-	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
-	{
-		return;
-	}
-
-	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
-	txtTopicDescription.text(technology.description);
 }

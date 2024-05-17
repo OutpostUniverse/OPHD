@@ -46,22 +46,22 @@ public:
 
 private:
 	void onResize() override;
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
 
 	void adjustCategoryIconSpacing();
 
 	void resetCategorySelection();
 
+	void handleCategoryChanged();
+	void handleTopicChanged();
+
 	void drawCategories() const;
 	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
 	void drawTopicHeaderPanel() const;
 	void draw() const override;
-
-	void handleCategoryChanged();
-	void handleTopicChanged();
 
 private:
 	struct CategoryPanel
