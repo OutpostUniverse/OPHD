@@ -96,7 +96,7 @@ void ResearchReport::clearSelected()
 
 void ResearchReport::refresh()
 {
-	if (mCategoryPanels.size() < 1) { return; }
+	if (mCategoryPanels.empty()) { return; }
 
 	adjustCategoryIconSpacing();
 
