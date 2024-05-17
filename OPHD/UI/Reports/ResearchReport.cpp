@@ -115,51 +115,6 @@ void ResearchReport::refresh()
 }
 
 
-void ResearchReport::setSectionRects()
-{
-	mCategoryIconArea =
-	{
-		mCategoryPanels.begin()->rect.startPoint(),
-		{
-			CategoryIconSize,
-			mCategoryPanels.rbegin()->rect.endPoint().y - mCategoryPanels.begin()->rect.startPoint().y
-		}
-	};
-
-	mResearchTopicArea =
-	{
-		{
-			rect().position.x + MarginSize * 3 + CategoryIconSize,
-			rect().position.y + fontBigBold.height() + MarginSize * 3
-		},
-
-		{
-			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
-			rect().size.y - MarginSize * 4 - fontBigBold.height()
-		}
-	};
-
-	
-	mTopicDetailsHeaderArea =
-	{
-		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
-		{
-			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
-			100
-		}
-	};
-	
-	mTopicDetailsArea =
-	{
-		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
-		{
-			mTopicDetailsHeaderArea.size.x,
-			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
-		}
-	};
-}
-
-
 void ResearchReport::selectStructure(Structure*)
 {
 }
@@ -237,6 +192,51 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 		mSelectedCategory = lastPanel;
 		mSelectedCategory->selected = true;
 	}
+}
+
+
+void ResearchReport::setSectionRects()
+{
+	mCategoryIconArea =
+	{
+		mCategoryPanels.begin()->rect.startPoint(),
+		{
+			CategoryIconSize,
+			mCategoryPanels.rbegin()->rect.endPoint().y - mCategoryPanels.begin()->rect.startPoint().y
+		}
+	};
+
+	mResearchTopicArea =
+	{
+		{
+			rect().position.x + MarginSize * 3 + CategoryIconSize,
+			rect().position.y + fontBigBold.height() + MarginSize * 3
+		},
+
+		{
+			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
+			rect().size.y - MarginSize * 4 - fontBigBold.height()
+		}
+	};
+
+	
+	mTopicDetailsHeaderArea =
+	{
+		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
+		{
+			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
+			100
+		}
+	};
+	
+	mTopicDetailsArea =
+	{
+		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
+		{
+			mTopicDetailsHeaderArea.size.x,
+			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
+		}
+	};
 }
 
 

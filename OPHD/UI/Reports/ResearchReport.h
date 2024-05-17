@@ -37,7 +37,7 @@ public:
 	void clearSelected() override;
 
 	void refresh() override;
-	void setSectionRects();
+
 	void selectStructure(Structure*) override;
 
 	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
@@ -50,6 +50,7 @@ private:
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
 
+	void setSectionRects();
 	void adjustCategoryIconSpacing();
 
 	void resetCategorySelection();
