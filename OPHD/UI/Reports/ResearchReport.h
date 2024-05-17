@@ -9,6 +9,7 @@
 
 #include <libControls/Button.h>
 #include <libControls/ListBox.h>
+#include <libControls/TextArea.h>
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -96,6 +97,8 @@ private:
 	Button btnHotLab;
 
 	ListBox<ListBoxItemText> lstResearchTopics;
+
+	TextArea txtTopicDescription;
 
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};

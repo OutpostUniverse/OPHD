@@ -68,7 +68,8 @@ ResearchReport::ResearchReport() :
 	btnAvailableTopics{"Available Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAvailableTopicsClicked}},
 	btnCompletedTopics{"Completed Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onCompletedTopicsClicked}},
 	btnStandardLab{"Standard Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}}
+	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}},
+	txtTopicDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
@@ -82,6 +83,8 @@ ResearchReport::ResearchReport() :
 
 	add(lstResearchTopics, {});
 	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
+
+	add(txtTopicDescription, {});
 
 	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
@@ -126,6 +129,7 @@ void ResearchReport::refresh()
 	setSectionRects();
 
 	lstResearchTopics.area(mResearchTopicArea);
+	txtTopicDescription.area({300, 300, 250, 250});
 }
 
 
@@ -392,6 +396,15 @@ void ResearchReport::handleCategoryChanged()
 
 void ResearchReport::handleTopicChanged()
 {
+	txtTopicDescription.text("");
+
+	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
+	{
+		return;
+	}
+
+	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
+	txtTopicDescription.text(technology.description);
 }
 
 
