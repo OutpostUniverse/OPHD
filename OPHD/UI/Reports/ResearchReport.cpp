@@ -144,7 +144,6 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 	}
 
 	std::sort(mCategoryPanels.begin(), mCategoryPanels.end());
-	refresh();
 }
 
 
