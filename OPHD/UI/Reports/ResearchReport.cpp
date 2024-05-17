@@ -132,18 +132,7 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 	mTechCatalog = &catalog;
 	mResearchTracker = &tracker;
 
-	const int columns = imageCategoryIcons.size().x / CategoryIconSize.x;
-
-	for (const auto& category : mTechCatalog->categories())
-	{
-		mCategoryPanels.emplace_back(CategoryPanel{
-			{{0, 0}, CategoryIconSize},
-			{{(category.icon_index % columns) * CategoryIconSize.x, (category.icon_index / columns) * CategoryIconSize.y}, CategoryIconSize},
-			category.name,
-			false});
-	}
-
-	std::sort(mCategoryPanels.begin(), mCategoryPanels.end());
+	processCategories();
 }
 
 
@@ -273,6 +262,23 @@ void ResearchReport::adjustCategoryIconSpacing()
 		
 		mCategoryPanels[i].rect = {point, CategoryIconSize};
 	}
+}
+
+
+void ResearchReport::processCategories()
+{
+	const int columns = imageCategoryIcons.size().x / CategoryIconSize.x;
+
+	for (const auto& category : mTechCatalog->categories())
+	{
+		mCategoryPanels.emplace_back(CategoryPanel{
+			{{0, 0}, CategoryIconSize},
+			{{(category.icon_index % columns) * CategoryIconSize.x, (category.icon_index / columns) * CategoryIconSize.y}, CategoryIconSize},
+			category.name,
+			false});
+	}
+
+	std::sort(mCategoryPanels.begin(), mCategoryPanels.end());
 }
 
 

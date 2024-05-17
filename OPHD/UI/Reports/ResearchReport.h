@@ -54,6 +54,7 @@ private:
 	void setSectionRects();
 	void adjustCategoryIconSpacing();
 
+	void processCategories();
 	void resetCategorySelection();
 
 	void fillResearchTopicsList();
