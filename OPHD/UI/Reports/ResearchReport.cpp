@@ -84,16 +84,12 @@ ResearchReport::~ResearchReport()
 
 void ResearchReport::fillLists()
 {
-	lstResearchTopics.clear();
 	resetCategorySelection();
 }
 
 
 void ResearchReport::clearSelected()
 {
-	lstResearchTopics.clearSelected();
-	txtTopicDescription.text("");
-
 	resetCategorySelection();
 }
 
