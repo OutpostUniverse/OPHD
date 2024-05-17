@@ -56,7 +56,7 @@ private:
 
 	void draw() const override;
 	void drawCategories() const;
-	void drawTopicHeader() const;
+	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
 	void drawResearchPointsPanel() const;
 

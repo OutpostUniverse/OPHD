@@ -347,7 +347,7 @@ void ResearchReport::drawCategories() const
 }
 
 
-void ResearchReport::drawTopicHeader() const
+void ResearchReport::drawCategoryHeader() const
 {
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawText(
@@ -428,7 +428,7 @@ void ResearchReport::draw() const
 
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 
-	drawTopicHeader();
+	drawCategoryHeader();
 
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 
