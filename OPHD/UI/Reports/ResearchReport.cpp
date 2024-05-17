@@ -74,14 +74,6 @@ ResearchReport::ResearchReport() :
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
-	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
-	for (auto button : buttons)
-	{
-		add(*button, {});
-		button->type(Button::Type::Toggle);
-		button->toggle(false);
-	}
-
 	add(lstResearchTopics, {});
 	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
 
@@ -90,11 +82,20 @@ ResearchReport::ResearchReport() :
 	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
 	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
 
+	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
+	for (auto button : buttons)
+	{
+		add(*button, {});
+		button->type(Button::Type::Toggle);
+		button->toggle(false);
+	}
+
 	for (size_t i = 0; i < buttons.size(); ++i)
 	{
 		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
 	}
 }
+
 
 ResearchReport::~ResearchReport()
 {
