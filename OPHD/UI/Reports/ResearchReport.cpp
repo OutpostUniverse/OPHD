@@ -54,12 +54,23 @@ namespace
 		return itemsToAdd;
 	}
 
-
 	void drawDetailsHeaderSeparator(const Rectangle<int>& area)
 	{
 		const Point<int> lineStartPoint{area.crossYPoint() + Vector<int>{0, SectionPadding.y}};
 		const Point<int> lineEndPoint{area.endPoint() + Vector<int>{0, SectionPadding.y}};
 		Utility<Renderer>::get().drawLine(lineStartPoint, lineEndPoint, ColorText);
+	}
+
+	Rectangle<int> getCategorySlice(const int imageWidth, const int iconIndex)
+	{
+		const int columns = imageWidth / CategoryIconSize.x;
+		const Point<int> sliceStartPosition
+		{
+			(iconIndex % columns) * CategoryIconSize.x,
+			(iconIndex / columns) * CategoryIconSize.y
+		};
+
+		return {sliceStartPosition, CategoryIconSize};
 	}
 }
 
@@ -267,15 +278,10 @@ void ResearchReport::adjustCategoryIconSpacing()
 
 void ResearchReport::processCategories()
 {
-	const int columns = imageCategoryIcons.size().x / CategoryIconSize.x;
-
 	for (const auto& category : mTechCatalog->categories())
 	{
-		mCategoryPanels.emplace_back(CategoryPanel{
-			{{0, 0}, CategoryIconSize},
-			{{(category.icon_index % columns) * CategoryIconSize.x, (category.icon_index / columns) * CategoryIconSize.y}, CategoryIconSize},
-			category.name,
-			false});
+		const Rectangle<int> sliceRect{getCategorySlice(imageCategoryIcons.size().x, category.icon_index)};
+		mCategoryPanels.emplace_back(CategoryPanel{{}, sliceRect, category.name, false});
 	}
 
 	std::sort(mCategoryPanels.begin(), mCategoryPanels.end());
