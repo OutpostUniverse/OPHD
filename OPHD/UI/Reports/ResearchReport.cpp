@@ -98,7 +98,7 @@ ResearchReport::ResearchReport() :
 		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
 	}
 
-	const auto rects = std::array{&mCategoryIconArea, &mResearchTopicArea, &mTopicDetailsArea};
+	const auto rects = std::array{&mCategoryIconArea, &mResearchTopicArea, &mTopicDetailsTitleArea, & mTopicDetailsArea};
 	for (auto rect : rects)
 	{
 		RectList.push_back(rect);
@@ -143,7 +143,7 @@ void ResearchReport::refresh()
 	lstResearchTopics.area(mResearchTopicArea);
 
 	txtTopicDescription.text("");
-	txtTopicDescription.area({mTopicDetailsArea.startPoint().x, 300, mTopicDetailsArea.size.x, 250});
+	txtTopicDescription.area(mTopicDetailsArea);
 }
 
 
@@ -171,12 +171,22 @@ void ResearchReport::setSectionRects()
 		}
 	};
 
-	mTopicDetailsArea =
+	
+	mTopicDetailsTitleArea =
 	{
 		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
 		{
 			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
-			mCategoryIconArea.size.y
+			100
+		}
+	};
+	
+	mTopicDetailsArea =
+	{
+		mTopicDetailsTitleArea.position + Vector<int>{0, mTopicDetailsTitleArea.size.y + SectionPadding.x * 2},
+		{
+			mTopicDetailsTitleArea.size.x,
+			mCategoryIconArea.size.y - mTopicDetailsTitleArea.size.y - SectionPadding.x * 2
 		}
 	};
 }
@@ -382,7 +392,7 @@ void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = mTopicDetailsArea.startPoint();
+	const auto startPoint = mTopicDetailsTitleArea.startPoint();
 
 	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
 
