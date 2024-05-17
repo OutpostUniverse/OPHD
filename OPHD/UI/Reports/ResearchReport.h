@@ -102,6 +102,7 @@ private:
 	CategoryPanel* mSelectedCategory{nullptr};
 	std::vector<CategoryPanel> mCategoryPanels;
 
+	NAS2D::Point<int> mCategoryHeaderTextPosition{};
 	NAS2D::Point<int> mHotLabIconPosition{};
 	NAS2D::Point<int> mHotLabTextPosition{};
 	NAS2D::Point<int> mStdLabIconPosition{};

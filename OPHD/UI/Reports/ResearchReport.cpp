@@ -118,6 +118,8 @@ void ResearchReport::refresh()
 	setSectionRects();
 	setIconPositions();
 
+	mCategoryHeaderTextPosition = {rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
+
 	lstResearchTopics.area(mResearchTopicArea);
 
 	txtTopicDescription.text("");
@@ -347,11 +349,7 @@ void ResearchReport::drawCategories() const
 void ResearchReport::drawCategoryHeader() const
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawText(
-		fontBigBold,
-		mSelectedCategory->name,
-		rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y},
-		ColorText);
+	renderer.drawText(fontBigBold, mSelectedCategory->name, mCategoryHeaderTextPosition, ColorText);
 }
 
 
@@ -380,9 +378,7 @@ void ResearchReport::drawTopicHeaderPanel() const
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
 	auto& renderer = Utility<Renderer>::get();
-
-	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
-	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
+	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, mTopicDetailsHeaderArea.startPoint(), ColorText);
 
 	drawTopicLabRequirements();
 	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
