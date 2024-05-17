@@ -54,11 +54,11 @@ private:
 
 	void resetCategorySelection();
 
-	void draw() const override;
 	void drawCategories() const;
 	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
 	void drawTopicHeaderPanel() const;
+	void draw() const override;
 
 	void handleCategoryChanged();
 	void handleTopicChanged();
