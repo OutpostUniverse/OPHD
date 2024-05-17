@@ -257,18 +257,24 @@ void ResearchReport::resetCategorySelection()
 }
 
 
+void ResearchReport::fillResearchTopicsList()
+{
+	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
+	std::sort(itemsToAdd.begin(), itemsToAdd.end());
+	
+	for (auto& item : itemsToAdd)
+	{
+		lstResearchTopics.add(item);
+	}
+}
+
+
 void ResearchReport::handleCategoryChanged()
 {
 	lstResearchTopics.clear();
 	txtTopicDescription.text("");
 
-	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
-
-	std::sort(itemsToAdd.begin(), itemsToAdd.end());
-	for (auto& item : itemsToAdd)
-	{
-		lstResearchTopics.add(item);
-	}
+	fillResearchTopicsList();
 }
 
 

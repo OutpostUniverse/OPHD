@@ -55,6 +55,8 @@ private:
 
 	void resetCategorySelection();
 
+	void fillResearchTopicsList();
+
 	void handleCategoryChanged();
 	void handleTopicChanged();
 
