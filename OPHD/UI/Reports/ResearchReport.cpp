@@ -409,10 +409,10 @@ void ResearchReport::drawTopicHeaderPanel() const
 	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
 	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
 
-	const Point<int> lineStartPoint{startPoint.x, rect().position.y + fontBigBold.height() + LabTypeIconSize + SectionPadding.y * 3};
+	const Point<int> lineStartPoint{mTopicDetailsHeaderArea.crossYPoint() + Vector<int>{0, SectionPadding.y}};
+	const Point<int> lineEndPoint{mTopicDetailsHeaderArea.endPoint() + Vector<int>{0, SectionPadding.y}};
 
-
-	renderer.drawLine(lineStartPoint, lineStartPoint + Vector<int>{rect().size.x - startPoint.x - SectionPadding.x, 0}, ColorText);
+	renderer.drawLine(lineStartPoint, lineEndPoint, ColorText);
 }
 
 
@@ -457,10 +457,8 @@ void ResearchReport::draw() const
 
 	drawTopicHeaderPanel();
 
-
 	for (auto rect : RectList)
 	{
 		Utility<Renderer>::get().drawBox(*rect);
 	}
-
 }
