@@ -23,21 +23,20 @@ namespace
 	constexpr NAS2D::Color ColorPanelSelected{0, 85, 0};
 	constexpr NAS2D::Color ColorText{0, 185, 0};
 
-	constexpr auto LabTypeIconSize = 32;
-	constexpr auto CategoryIconSize = 64;
+	constexpr Vector<int> LabTypeIconSize{32, 32};
+	constexpr Vector<int> CategoryIconSize{64, 64};
 	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
 	constexpr auto MarginSize = 10;
 
-	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, {LabTypeIconSize, LabTypeIconSize}};
-	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, {LabTypeIconSize, LabTypeIconSize}};
+	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
+	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, LabTypeIconSize};
 
 	// Will be used in future change sets
 	//constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {{0, 192}, {24, 24}};
 	//constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {{24, 192}, {24, 24}};
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
-	constexpr NAS2D::Vector<int> SectionPadding {10, 10};
-
+	constexpr NAS2D::Vector<int> SectionPadding{10, 10};
 
 	std::vector<ListBoxItemText> availableTopics(const std::string& categoryName, const TechnologyCatalog& catalog, const ResearchTracker& tracker)
 	{
@@ -54,6 +53,25 @@ namespace
 
 		return itemsToAdd;
 	}
+
+	void drawDetailsHeaderSeparator(const Rectangle<int>& area)
+	{
+		const Point<int> lineStartPoint{area.crossYPoint() + Vector<int>{0, SectionPadding.y}};
+		const Point<int> lineEndPoint{area.endPoint() + Vector<int>{0, SectionPadding.y}};
+		Utility<Renderer>::get().drawLine(lineStartPoint, lineEndPoint, ColorText);
+	}
+
+	Rectangle<int> getCategorySlice(const int imageWidth, const int iconIndex)
+	{
+		const int columns = imageWidth / CategoryIconSize.x;
+		const Point<int> sliceStartPosition
+		{
+			(iconIndex % columns) * CategoryIconSize.x,
+			(iconIndex / columns) * CategoryIconSize.y
+		};
+
+		return {sliceStartPosition, CategoryIconSize};
+	}
 }
 
 
@@ -65,36 +83,16 @@ ResearchReport::ResearchReport() :
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
-	btnAllTopics{"All Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAllTopicsClicked}},
-	btnAvailableTopics{"Available Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAvailableTopicsClicked}},
-	btnCompletedTopics{"Completed Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onCompletedTopicsClicked}},
-	btnStandardLab{"Standard Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}},
 	txtTopicDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
-
-	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
-	for (auto button : buttons)
-	{
-		add(*button, {});
-		button->type(Button::Type::Toggle);
-		button->toggle(false);
-	}
 
 	add(lstResearchTopics, {});
 	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
 
 	add(txtTopicDescription, {});
-
-	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
-	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
-
-	for (size_t i = 0; i < buttons.size(); ++i)
-	{
-		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
-	}
 }
+
 
 ResearchReport::~ResearchReport()
 {
@@ -104,32 +102,34 @@ ResearchReport::~ResearchReport()
 
 void ResearchReport::fillLists()
 {
-	lstResearchTopics.clear();
 	resetCategorySelection();
-	onAllTopicsClicked();
+	resetResearchDetails();
+	fillResearchTopicsList();
 }
 
 
 void ResearchReport::clearSelected()
 {
-	lstResearchTopics.clearSelected();
-	txtTopicDescription.text("");
-
 	resetCategorySelection();
-	onAllTopicsClicked();
+	resetResearchDetails();
+	fillResearchTopicsList();
 }
 
 
 void ResearchReport::refresh()
 {
-	if (mCategoryPanels.size() < 1) { return; }
+	if (mCategoryPanels.empty()) { return; }
 
 	adjustCategoryIconSpacing();
 
 	resetCategorySelection();
-	onAllTopicsClicked();
+	resetResearchDetails();
+	fillResearchTopicsList();
 
 	setSectionRects();
+	setIconPositions();
+
+	mCategoryHeaderTextPosition = {rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
 
 	lstResearchTopics.area(mResearchTopicArea);
 
@@ -138,100 +138,12 @@ void ResearchReport::refresh()
 }
 
 
-void ResearchReport::setSectionRects()
-{
-	mCategoryIconArea =
-	{
-		mCategoryPanels.begin()->rect.startPoint(),
-		{
-			CategoryIconSize,
-			mCategoryPanels.rbegin()->rect.endPoint().y - mCategoryPanels.begin()->rect.startPoint().y
-		}
-	};
-
-	mResearchTopicArea =
-	{
-		{
-			rect().position.x + MarginSize * 3 + CategoryIconSize,
-			rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3
-		},
-
-		{
-			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
-			rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y
-		}
-	};
-
-	
-	mTopicDetailsHeaderArea =
-	{
-		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
-		{
-			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
-			100
-		}
-	};
-	
-	mTopicDetailsArea =
-	{
-		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
-		{
-			mTopicDetailsHeaderArea.size.x,
-			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
-		}
-	};
-}
-
-
-void ResearchReport::adjustCategoryIconSpacing()
-{
-	const int minimumHeight = CategoryIconSize * (static_cast<int>(mCategoryPanels.size()));
-	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
-
-	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
-	{
-		const NAS2D::Point<int> point{rect().position.x + 10, rect().position.y + 10 + static_cast<int>(i) * CategoryIconSize + static_cast<int>(i) * padding};
-		mCategoryPanels[i].rect = {point, {CategoryIconSize, CategoryIconSize}};
-	}
-}
-
-
-void ResearchReport::resetCategorySelection()
-{
-	for (auto& panel : mCategoryPanels)
-	{
-		panel.selected = false;
-	}
-
-	mCategoryPanels.front().selected = true;
-	mSelectedCategory = &mCategoryPanels.front();
-	handleCategoryChanged();
-}
-
-
-void ResearchReport::selectStructure(Structure*)
-{
-}
-
-
 void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
 	mTechCatalog = &catalog;
 	mResearchTracker = &tracker;
 
-	const int columns = imageCategoryIcons.size().x / CategoryIconSize;
-
-	for (const auto& category : mTechCatalog->categories())
-	{
-		mCategoryPanels.emplace_back(CategoryPanel{
-			{{0, 0}, {CategoryIconSize, CategoryIconSize}},
-			{{(category.icon_index % columns) * CategoryIconSize, (category.icon_index / columns) * CategoryIconSize}, {CategoryIconSize, CategoryIconSize}},
-			category.name,
-			false});
-	}
-
-	std::sort(mCategoryPanels.begin(), mCategoryPanels.end(), [](const auto& a, const auto& b) { return a.name < b.name; });
-	refresh();
+	processCategories();
 }
 
 
@@ -277,7 +189,8 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 			panel.selected = true;
 			mSelectedCategory = &panel;
 			panelClickedOn = true;
-			handleCategoryChanged();
+			resetResearchDetails();
+			fillResearchTopicsList();
 		}
 	}
 
@@ -289,48 +202,134 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 }
 
 
-void ResearchReport::untoggleAllButtons()
+void ResearchReport::setIconPositions()
 {
-	btnAllTopics.toggle(false);
-	btnAvailableTopics.toggle(false);
-	btnCompletedTopics.toggle(false);
-	btnStandardLab.toggle(false);
-	btnHotLab.toggle(false);
+	const auto startPoint{mTopicDetailsHeaderArea.startPoint()};
+
+	mHotLabIconPosition = {startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
+	mStdLabIconPosition = {startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
+	mStdLabTextPosition = {mStdLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
+	mHotLabTextPosition = {mHotLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 }
 
 
-void ResearchReport::onAllTopicsClicked()
+void ResearchReport::setSectionRects()
 {
-	untoggleAllButtons();
-	btnAllTopics.toggle(true);
+	mCategoryIconArea =
+	{
+		mCategoryPanels.begin()->rect.startPoint(),
+		{
+			CategoryIconSize.x,
+			mCategoryPanels.rbegin()->rect.endPoint().y - mCategoryPanels.begin()->rect.startPoint().y
+		}
+	};
+
+	mResearchTopicArea =
+	{
+		{
+			rect().position.x + MarginSize * 3 + CategoryIconSize.x,
+			rect().position.y + fontBigBold.height() + MarginSize * 3
+		},
+
+		{
+			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize.x,
+			rect().size.y - MarginSize * 4 - fontBigBold.height()
+		}
+	};
+
+	
+	mTopicDetailsHeaderArea =
+	{
+		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
+		{
+			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
+			100
+		}
+	};
+	
+	mTopicDetailsArea =
+	{
+		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
+		{
+			mTopicDetailsHeaderArea.size.x,
+			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
+		}
+	};
 }
 
 
-void ResearchReport::onAvailableTopicsClicked()
+void ResearchReport::adjustCategoryIconSpacing()
 {
-	untoggleAllButtons();
-	btnAvailableTopics.toggle(true);
+	const int minimumHeight = CategoryIconSize.x * (static_cast<int>(mCategoryPanels.size()));
+	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
+
+	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
+	{
+		const NAS2D::Point<int> point
+		{
+			rect().position.x + MarginSize,
+			rect().position.y + MarginSize + static_cast<int>(i) * CategoryIconSize.y + static_cast<int>(i) * padding
+		};
+		
+		mCategoryPanels[i].rect = {point, CategoryIconSize};
+	}
 }
 
 
-void ResearchReport::onCompletedTopicsClicked()
+void ResearchReport::processCategories()
 {
-	untoggleAllButtons();
-	btnCompletedTopics.toggle(true);
+	for (const auto& category : mTechCatalog->categories())
+	{
+		const Rectangle<int> sliceRect{getCategorySlice(imageCategoryIcons.size().x, category.icon_index)};
+		mCategoryPanels.emplace_back(CategoryPanel{{}, sliceRect, category.name, false});
+	}
+
+	std::sort(mCategoryPanels.begin(), mCategoryPanels.end());
 }
 
 
-void ResearchReport::onStandardLabClicked()
+void ResearchReport::resetCategorySelection()
 {
-	untoggleAllButtons();
-	btnStandardLab.toggle(true);
+	for (auto& panel : mCategoryPanels)
+	{
+		panel.selected = false;
+	}
+
+	mCategoryPanels.front().selected = true;
+	mSelectedCategory = &mCategoryPanels.front();
 }
 
 
-void ResearchReport::onHotLabClicked()
+void ResearchReport::fillResearchTopicsList()
 {
-	untoggleAllButtons();
-	btnHotLab.toggle(true);
+	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
+	std::sort(itemsToAdd.begin(), itemsToAdd.end());
+	
+	for (auto& item : itemsToAdd)
+	{
+		lstResearchTopics.add(item);
+	}
+}
+
+
+void ResearchReport::resetResearchDetails()
+{
+	lstResearchTopics.clear();
+	txtTopicDescription.text("");
+}
+
+
+void ResearchReport::handleTopicChanged()
+{
+	txtTopicDescription.text("");
+
+	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
+	{
+		return;
+	}
+
+	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
+	txtTopicDescription.text(technology.description);
 }
 
 
@@ -361,11 +360,7 @@ void ResearchReport::drawCategories() const
 void ResearchReport::drawCategoryHeader() const
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawText(
-		fontBigBold,
-		mSelectedCategory->name,
-		rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize, SectionPadding.y},
-		ColorText);
+	renderer.drawText(fontBigBold, mSelectedCategory->name, mCategoryHeaderTextPosition, ColorText);
 }
 
 
@@ -379,71 +374,33 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 }
 
 
-void ResearchReport::drawTopicHeaderPanel() const
+void ResearchReport::drawTopicLabRequirements() const
 {
 	auto& renderer = Utility<Renderer>::get();
-
-	const auto startPoint = mTopicDetailsHeaderArea.startPoint();
-
-	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, startPoint, ColorText);
-
-	const auto standardLabStartPoint{startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
-	const auto hotLabStartPoint{startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
-
-	renderer.drawSubImage(imageUiIcons, standardLabStartPoint, StandardLabIconRect);
-	renderer.drawSubImage(imageUiIcons, hotLabStartPoint, HotLabIconRect);
-
-	const auto standardLabTextOffset{standardLabStartPoint + Vector<int>{LabTypeIconSize + SectionPadding.x, LabTypeIconSize / 2 - fontMedium.height() / 2}};
-	const auto hotLabTextOffset{hotLabStartPoint + Vector<int>{LabTypeIconSize + SectionPadding.x, LabTypeIconSize / 2 - fontMedium.height() / 2}};
-
-	renderer.drawText(fontMedium, "0", standardLabTextOffset, ColorText);
-	renderer.drawText(fontMedium, "0", hotLabTextOffset, ColorText);
-
-	const Point<int> lineStartPoint{mTopicDetailsHeaderArea.crossYPoint() + Vector<int>{0, SectionPadding.y}};
-	const Point<int> lineEndPoint{mTopicDetailsHeaderArea.endPoint() + Vector<int>{0, SectionPadding.y}};
-
-	renderer.drawLine(lineStartPoint, lineEndPoint, ColorText);
+	renderer.drawSubImage(imageUiIcons, mStdLabIconPosition, StandardLabIconRect);
+	renderer.drawSubImage(imageUiIcons, mHotLabIconPosition, HotLabIconRect);
+	renderer.drawText(fontMedium, "0 of X", mStdLabTextPosition, ColorText);
+	renderer.drawText(fontMedium, "0 of X", mHotLabTextPosition, ColorText);
 }
 
 
-void ResearchReport::handleCategoryChanged()
+void ResearchReport::drawTopicHeaderPanel() const
 {
-	lstResearchTopics.clear();
-	txtTopicDescription.text("");
+	if (!lstResearchTopics.isItemSelected()) { return; }
 
-	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, mTopicDetailsHeaderArea.startPoint(), ColorText);
 
-	std::sort(itemsToAdd.begin(), itemsToAdd.end());
-	for (auto& item : itemsToAdd)
-	{
-		lstResearchTopics.add(item);
-	}
-}
-
-
-void ResearchReport::handleTopicChanged()
-{
-	txtTopicDescription.text("");
-
-	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
-	{
-		return;
-	}
-
-	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
-	txtTopicDescription.text(technology.description);
+	drawTopicLabRequirements();
+	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
 }
 
 
 void ResearchReport::draw() const
 {
 	drawCategories();
-
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
-
 	drawCategoryHeader();
-
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
-
 	drawTopicHeaderPanel();
 }

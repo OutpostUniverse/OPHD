@@ -37,8 +37,8 @@ public:
 	void clearSelected() override;
 
 	void refresh() override;
-	void setSectionRects();
-	void selectStructure(Structure*) override;
+
+	void selectStructure(Structure*) override {}
 
 	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
 
@@ -46,30 +46,28 @@ public:
 
 private:
 	void onResize() override;
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 
+	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
 
+	void setIconPositions();
+	void setSectionRects();
 	void adjustCategoryIconSpacing();
 
+	void processCategories();
 	void resetCategorySelection();
 
-	void draw() const override;
+	void fillResearchTopicsList();
+
+	void resetResearchDetails();
+	void handleTopicChanged();
+
 	void drawCategories() const;
 	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
+	void drawTopicLabRequirements() const;
 	void drawTopicHeaderPanel() const;
-
-	void handleCategoryChanged();
-	void handleTopicChanged();
-
-	void untoggleAllButtons();
-
-	void onAllTopicsClicked();
-	void onAvailableTopicsClicked();
-	void onCompletedTopicsClicked();
-	void onStandardLabClicked();
-	void onHotLabClicked();
+	void draw() const override;
 
 private:
 	struct CategoryPanel
@@ -78,6 +76,11 @@ private:
 		NAS2D::Rectangle<int> imageSlice{};
 		std::string name{};
 		bool selected{false};
+
+		bool operator<(const CategoryPanel& other) const
+		{
+			return name < other.name;
+		}
 	};
 
 private:
@@ -90,12 +93,6 @@ private:
 	const NAS2D::Image& imageCategoryIcons;
 	const NAS2D::Image& imageTopicIcons;
 
-	Button btnAllTopics;
-	Button btnAvailableTopics;
-	Button btnCompletedTopics;
-	Button btnStandardLab;
-	Button btnHotLab;
-
 	ListBox<ListBoxItemText> lstResearchTopics;
 
 	TextArea txtTopicDescription;
@@ -105,6 +102,12 @@ private:
 
 	CategoryPanel* mSelectedCategory{nullptr};
 	std::vector<CategoryPanel> mCategoryPanels;
+
+	NAS2D::Point<int> mCategoryHeaderTextPosition{};
+	NAS2D::Point<int> mHotLabIconPosition{};
+	NAS2D::Point<int> mHotLabTextPosition{};
+	NAS2D::Point<int> mStdLabIconPosition{};
+	NAS2D::Point<int> mStdLabTextPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};
