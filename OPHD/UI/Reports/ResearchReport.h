@@ -108,4 +108,5 @@ private:
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};
+	NAS2D::Rectangle<int> mTopicDetailsArea{};
 };

@@ -133,7 +133,7 @@ void ResearchReport::refresh()
 	lstResearchTopics.area(mResearchTopicArea);
 
 	txtTopicDescription.text("");
-	txtTopicDescription.area({300, 300, 250, 250});
+	txtTopicDescription.area({mTopicDetailsArea.startPoint().x, 300, mTopicDetailsArea.size.x, 250});
 }
 
 
@@ -158,6 +158,15 @@ void ResearchReport::setSectionRects()
 		{
 			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
 			rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y
+		}
+	};
+
+	mTopicDetailsArea =
+	{
+		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
+		{
+			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
+			mCategoryIconArea.size.y
 		}
 	};
 }
@@ -363,7 +372,7 @@ void ResearchReport::drawResearchPointsPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto startPoint = rect().position + Vector<int>{SectionPadding.x * 5 + CategoryIconSize + mResearchTopicArea.size.x, SectionPadding.y};
+	const auto startPoint = mTopicDetailsArea.startPoint();
 
 	renderer.drawText(fontBigBold, "Research Generated Per Turn", startPoint, ColorText);
 
