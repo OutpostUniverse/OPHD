@@ -57,7 +57,7 @@ private:
 
 	void fillResearchTopicsList();
 
-	void handleCategoryChanged();
+	void resetResearchDetails();
 	void handleTopicChanged();
 
 	void drawCategories() const;

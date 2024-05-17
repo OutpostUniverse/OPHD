@@ -174,7 +174,7 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 			panel.selected = true;
 			mSelectedCategory = &panel;
 			panelClickedOn = true;
-			handleCategoryChanged();
+			resetResearchDetails();
 		}
 	}
 
@@ -253,7 +253,7 @@ void ResearchReport::resetCategorySelection()
 
 	mCategoryPanels.front().selected = true;
 	mSelectedCategory = &mCategoryPanels.front();
-	handleCategoryChanged();
+	resetResearchDetails();
 }
 
 
@@ -269,7 +269,7 @@ void ResearchReport::fillResearchTopicsList()
 }
 
 
-void ResearchReport::handleCategoryChanged()
+void ResearchReport::resetResearchDetails()
 {
 	lstResearchTopics.clear();
 	txtTopicDescription.text("");
