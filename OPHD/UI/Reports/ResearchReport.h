@@ -58,7 +58,7 @@ private:
 	void drawCategories() const;
 	void drawCategoryHeader() const;
 	void drawVerticalSectionSpacer(const int column) const;
-	void drawResearchPointsPanel() const;
+	void drawTopicHeaderPanel() const;
 
 	void handleCategoryChanged();
 	void handleTopicChanged();

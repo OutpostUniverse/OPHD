@@ -388,7 +388,7 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 }
 
 
-void ResearchReport::drawResearchPointsPanel() const
+void ResearchReport::drawTopicHeaderPanel() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -452,7 +452,7 @@ void ResearchReport::draw() const
 
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 
-	drawResearchPointsPanel();
+	drawTopicHeaderPanel();
 
 
 	for (auto rect : RectList)
