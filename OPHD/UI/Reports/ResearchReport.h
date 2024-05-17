@@ -63,14 +63,6 @@ private:
 	void handleCategoryChanged();
 	void handleTopicChanged();
 
-	void untoggleAllButtons();
-
-	void onAllTopicsClicked();
-	void onAvailableTopicsClicked();
-	void onCompletedTopicsClicked();
-	void onStandardLabClicked();
-	void onHotLabClicked();
-
 private:
 	struct CategoryPanel
 	{
@@ -89,12 +81,6 @@ private:
 	const NAS2D::Image& imageUiIcons;
 	const NAS2D::Image& imageCategoryIcons;
 	const NAS2D::Image& imageTopicIcons;
-
-	Button btnAllTopics;
-	Button btnAvailableTopics;
-	Button btnCompletedTopics;
-	Button btnStandardLab;
-	Button btnHotLab;
 
 	ListBox<ListBoxItemText> lstResearchTopics;
 

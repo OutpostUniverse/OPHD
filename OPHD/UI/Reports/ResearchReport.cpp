@@ -65,11 +65,6 @@ ResearchReport::ResearchReport() :
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
-	btnAllTopics{"All Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAllTopicsClicked}},
-	btnAvailableTopics{"Available Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onAvailableTopicsClicked}},
-	btnCompletedTopics{"Completed Topics", {100, LabTypeIconSize}, {this, &ResearchReport::onCompletedTopicsClicked}},
-	btnStandardLab{"Standard Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onStandardLabClicked}},
-	btnHotLab{"Hot Lab", {100, LabTypeIconSize}, {this, &ResearchReport::onHotLabClicked}},
 	txtTopicDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
@@ -78,22 +73,6 @@ ResearchReport::ResearchReport() :
 	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
 
 	add(txtTopicDescription, {});
-
-	const Point<int> buttonStartPosition{rect().position.x + MarginSize * 3 + CategoryIconSize, rect().position.y + MarginSize * 2 + fontBigBold.height()};
-	const int buttonSpacing = btnAllTopics.size().x + MarginSize;
-
-	const auto buttons = std::array{&btnAllTopics, &btnAvailableTopics, &btnCompletedTopics, &btnStandardLab, &btnHotLab};
-	for (auto button : buttons)
-	{
-		add(*button, {});
-		button->type(Button::Type::Toggle);
-		button->toggle(false);
-	}
-
-	for (size_t i = 0; i < buttons.size(); ++i)
-	{
-		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
-	}
 }
 
 
@@ -107,7 +86,6 @@ void ResearchReport::fillLists()
 {
 	lstResearchTopics.clear();
 	resetCategorySelection();
-	onAllTopicsClicked();
 }
 
 
@@ -117,7 +95,6 @@ void ResearchReport::clearSelected()
 	txtTopicDescription.text("");
 
 	resetCategorySelection();
-	onAllTopicsClicked();
 }
 
 
@@ -128,7 +105,6 @@ void ResearchReport::refresh()
 	adjustCategoryIconSpacing();
 
 	resetCategorySelection();
-	onAllTopicsClicked();
 
 	setSectionRects();
 
@@ -154,12 +130,12 @@ void ResearchReport::setSectionRects()
 	{
 		{
 			rect().position.x + MarginSize * 3 + CategoryIconSize,
-			rect().position.y + fontBigBold.height() + btnAllTopics.size().y + MarginSize * 3
+			rect().position.y + fontBigBold.height() + MarginSize * 3
 		},
 
 		{
 			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize,
-			rect().size.y - MarginSize * 4 - fontBigBold.height() - btnAllTopics.size().y
+			rect().size.y - MarginSize * 4 - fontBigBold.height()
 		}
 	};
 
@@ -287,51 +263,6 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 		mSelectedCategory = lastPanel;
 		mSelectedCategory->selected = true;
 	}
-}
-
-
-void ResearchReport::untoggleAllButtons()
-{
-	btnAllTopics.toggle(false);
-	btnAvailableTopics.toggle(false);
-	btnCompletedTopics.toggle(false);
-	btnStandardLab.toggle(false);
-	btnHotLab.toggle(false);
-}
-
-
-void ResearchReport::onAllTopicsClicked()
-{
-	untoggleAllButtons();
-	btnAllTopics.toggle(true);
-}
-
-
-void ResearchReport::onAvailableTopicsClicked()
-{
-	untoggleAllButtons();
-	btnAvailableTopics.toggle(true);
-}
-
-
-void ResearchReport::onCompletedTopicsClicked()
-{
-	untoggleAllButtons();
-	btnCompletedTopics.toggle(true);
-}
-
-
-void ResearchReport::onStandardLabClicked()
-{
-	untoggleAllButtons();
-	btnStandardLab.toggle(true);
-}
-
-
-void ResearchReport::onHotLabClicked()
-{
-	untoggleAllButtons();
-	btnHotLab.toggle(true);
 }
 
 
