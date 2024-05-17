@@ -112,6 +112,8 @@ void ResearchReport::fillLists()
 void ResearchReport::clearSelected()
 {
 	lstResearchTopics.clearSelected();
+	txtTopicDescription.text("");
+
 	resetCategorySelection();
 	onAllTopicsClicked();
 }
@@ -129,6 +131,8 @@ void ResearchReport::refresh()
 	setSectionRects();
 
 	lstResearchTopics.area(mResearchTopicArea);
+
+	txtTopicDescription.text("");
 	txtTopicDescription.area({300, 300, 250, 250});
 }
 
@@ -383,6 +387,7 @@ void ResearchReport::drawResearchPointsPanel() const
 void ResearchReport::handleCategoryChanged()
 {
 	lstResearchTopics.clear();
+	txtTopicDescription.text("");
 
 	std::vector<ListBoxItemText> itemsToAdd = availableTopics(mSelectedCategory->name, *mTechCatalog, *mResearchTracker);
 
