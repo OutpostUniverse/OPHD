@@ -71,6 +71,11 @@ private:
 		NAS2D::Rectangle<int> imageSlice{};
 		std::string name{};
 		bool selected{false};
+
+		bool operator<(const CategoryPanel& other) const
+		{
+			return name < other.name;
+		}
 	};
 
 private:

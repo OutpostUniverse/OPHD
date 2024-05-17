@@ -127,7 +127,7 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 			false});
 	}
 
-	std::sort(mCategoryPanels.begin(), mCategoryPanels.end(), [](const auto& a, const auto& b) { return a.name < b.name; });
+	std::sort(mCategoryPanels.begin(), mCategoryPanels.end());
 	refresh();
 }
 
