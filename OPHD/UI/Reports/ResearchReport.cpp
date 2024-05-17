@@ -54,10 +54,6 @@ namespace
 
 		return itemsToAdd;
 	}
-
-
-	std::vector<Rectangle<int>*> RectList;
-
 }
 
 
@@ -97,12 +93,6 @@ ResearchReport::ResearchReport() :
 	for (size_t i = 0; i < buttons.size(); ++i)
 	{
 		buttons[i]->position(buttonStartPosition + Vector<int>{buttonSpacing * static_cast<int>(i), 0});
-	}
-
-	const auto rects = std::array{&mCategoryIconArea, &mResearchTopicArea, &mTopicDetailsHeaderArea, & mTopicDetailsArea};
-	for (auto rect : rects)
-	{
-		RectList.push_back(rect);
 	}
 }
 
@@ -456,9 +446,4 @@ void ResearchReport::draw() const
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 
 	drawTopicHeaderPanel();
-
-	for (auto rect : RectList)
-	{
-		Utility<Renderer>::get().drawBox(*rect);
-	}
 }
