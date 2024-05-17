@@ -85,12 +85,16 @@ ResearchReport::~ResearchReport()
 void ResearchReport::fillLists()
 {
 	resetCategorySelection();
+	resetResearchDetails();
+	fillResearchTopicsList();
 }
 
 
 void ResearchReport::clearSelected()
 {
 	resetCategorySelection();
+	resetResearchDetails();
+	fillResearchTopicsList();
 }
 
 
@@ -101,6 +105,8 @@ void ResearchReport::refresh()
 	adjustCategoryIconSpacing();
 
 	resetCategorySelection();
+	resetResearchDetails();
+	fillResearchTopicsList();
 
 	setSectionRects();
 
@@ -175,6 +181,7 @@ void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 			mSelectedCategory = &panel;
 			panelClickedOn = true;
 			resetResearchDetails();
+			fillResearchTopicsList();
 		}
 	}
 
@@ -253,7 +260,6 @@ void ResearchReport::resetCategorySelection()
 
 	mCategoryPanels.front().selected = true;
 	mSelectedCategory = &mCategoryPanels.front();
-	resetResearchDetails();
 }
 
 
@@ -273,8 +279,6 @@ void ResearchReport::resetResearchDetails()
 {
 	lstResearchTopics.clear();
 	txtTopicDescription.text("");
-
-	fillResearchTopicsList();
 }
 
 
