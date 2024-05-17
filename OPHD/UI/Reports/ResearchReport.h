@@ -54,6 +54,8 @@ private:
 	void setSectionRects();
 	void adjustCategoryIconSpacing();
 
+	void checkForLabAvailability();
+
 	void processCategories();
 	void resetCategorySelection();
 
@@ -113,4 +115,6 @@ private:
 	NAS2D::Rectangle<int> mResearchTopicArea{};
 	NAS2D::Rectangle<int> mTopicDetailsHeaderArea{};
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
+
+	bool mLabsAvailable{false};
 };

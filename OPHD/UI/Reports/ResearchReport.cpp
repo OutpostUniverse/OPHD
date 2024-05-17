@@ -7,6 +7,10 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
+#include "../../StructureManager.h"
+
+#include "../../MapObjects/Structures/HotLaboratory.h"
+#include "../../MapObjects/Structures/Laboratory.h"
 
 #include <array>
 #include <vector>
@@ -119,6 +123,8 @@ void ResearchReport::clearSelected()
 void ResearchReport::refresh()
 {
 	if (mCategoryPanels.empty()) { return; }
+
+	checkForLabAvailability();
 
 	adjustCategoryIconSpacing();
 
@@ -272,6 +278,22 @@ void ResearchReport::adjustCategoryIconSpacing()
 		};
 		
 		mCategoryPanels[i].rect = {point, CategoryIconSize};
+	}
+}
+
+
+void ResearchReport::checkForLabAvailability()
+{
+	const auto labs = Utility<StructureManager>::get().getStructures<ResearchFacility>();
+	mLabsAvailable = !labs.empty();
+
+	for (auto* lab : labs)
+	{
+		if (lab->operational())
+		{
+			mLabsAvailable = true;
+			break;
+		}
 	}
 }
 
