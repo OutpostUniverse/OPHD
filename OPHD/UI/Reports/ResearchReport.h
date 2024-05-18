@@ -85,6 +85,12 @@ private:
 		}
 	};
 
+	struct LabsAvailable
+	{
+		unsigned int standard{};
+		unsigned int hot{};
+	};
+
 private:
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
@@ -116,5 +122,6 @@ private:
 	NAS2D::Rectangle<int> mTopicDetailsHeaderArea{};
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
 
-	bool mLabsAvailable{false};
+	LabsAvailable mLabsAvailable{};
+
 };
