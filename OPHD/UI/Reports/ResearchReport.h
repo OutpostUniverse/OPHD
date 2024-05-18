@@ -54,6 +54,8 @@ private:
 	void setSectionRects();
 	void adjustCategoryIconSpacing();
 
+	void checkForLabAvailability();
+
 	void processCategories();
 	void resetCategorySelection();
 
@@ -81,6 +83,12 @@ private:
 		{
 			return name < other.name;
 		}
+	};
+
+	struct LabsAvailable
+	{
+		unsigned int standard{};
+		unsigned int hot{};
 	};
 
 private:
@@ -113,4 +121,7 @@ private:
 	NAS2D::Rectangle<int> mResearchTopicArea{};
 	NAS2D::Rectangle<int> mTopicDetailsHeaderArea{};
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
+
+	LabsAvailable mLabsAvailable{};
+
 };
