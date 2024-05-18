@@ -76,21 +76,6 @@ namespace
 
 		return {sliceStartPosition, CategoryIconSize};
 	}
-
-	template <typename StructureType>
-	unsigned int labCount()
-	{
-		unsigned int count = 0;
-		for (auto* lab : Utility<StructureManager>::get().getStructures<StructureType>())
-		{
-			if (lab->operational())
-			{
-				++count;
-			}
-		}
-
-		return count;
-	}
 }
 
 
@@ -299,7 +284,8 @@ void ResearchReport::adjustCategoryIconSpacing()
 
 void ResearchReport::checkForLabAvailability()
 {
-	mLabsAvailable = {labCount<Laboratory>(), labCount<HotLaboratory>()};
+	auto& mgr = Utility<StructureManager>::get();
+	mLabsAvailable = {mgr.countInState<Laboratory>(StructureState::Operational), mgr.countInState<HotLaboratory>(StructureState::Operational)};
 }
 
 

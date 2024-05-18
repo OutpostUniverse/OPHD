@@ -121,6 +121,20 @@ public:
 
 	int getCountInState(Structure::StructureClass structureClass, StructureState state) const;
 
+	template <typename StructureType>
+	unsigned int countInState(StructureState state) const
+	{
+		unsigned int count = 0;
+		for (const auto* structure : getStructures<StructureType>())
+		{
+			if (structure->state() == state)
+			{
+				++count;
+			}
+		}
+		return count;
+	}
+
 	const StructureList& agingStructures() const { return mAgingStructures; }
 	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
 	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
