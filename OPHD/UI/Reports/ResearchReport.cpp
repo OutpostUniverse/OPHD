@@ -23,10 +23,6 @@ using namespace NAS2D;
 
 namespace
 {
-	constexpr NAS2D::Color ColorPanelHighlight{0, 185, 185, 100};
-	constexpr NAS2D::Color ColorPanelSelected{0, 85, 0};
-	constexpr NAS2D::Color ColorText{0, 185, 0};
-
 	constexpr Vector<int> LabTypeIconSize{32, 32};
 	constexpr Vector<int> CategoryIconSize{64, 64};
 	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
@@ -62,7 +58,7 @@ namespace
 	{
 		const Point<int> lineStartPoint{area.crossYPoint() + Vector<int>{0, SectionPadding.y}};
 		const Point<int> lineEndPoint{area.endPoint() + Vector<int>{0, SectionPadding.y}};
-		Utility<Renderer>::get().drawLine(lineStartPoint, lineEndPoint, ColorText);
+		Utility<Renderer>::get().drawLine(lineStartPoint, lineEndPoint, constants::PrimaryTextColor);
 	}
 
 	Rectangle<int> getCategorySlice(const int imageWidth, const int iconIndex)
@@ -95,6 +91,7 @@ ResearchReport::ResearchReport() :
 	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
 
 	add(txtTopicDescription, {});
+	txtTopicDescription.textColor(constants::PrimaryTextColor);
 }
 
 
@@ -358,11 +355,11 @@ void ResearchReport::drawCategories() const
 
 		if (panel.selected)
 		{
-			renderer.drawBoxFilled(panelRect, ColorPanelSelected);
+			renderer.drawBoxFilled(panelRect, constants::PrimaryColorVariant);
 		}
 		else if (panel.rect.contains(MOUSE_COORDS))
 		{
-			renderer.drawBoxFilled(panelRect, ColorPanelHighlight);
+			renderer.drawBoxFilled(panelRect, constants::HighliteColor);
 		}
 
 		renderer.drawSubImage(imageCategoryIcons, panel.rect.position, panel.imageSlice);
@@ -373,7 +370,7 @@ void ResearchReport::drawCategories() const
 void ResearchReport::drawCategoryHeader() const
 {
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawText(fontBigBold, mSelectedCategory->name, mCategoryHeaderTextPosition, ColorText);
+	renderer.drawText(fontBigBold, mSelectedCategory->name, mCategoryHeaderTextPosition, constants::PrimaryTextColor);
 }
 
 
@@ -383,7 +380,7 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 
 	const Point<int> start{startX, rect().position.y + SectionPadding.y};
 	const Point<int> end{startX, rect().position.y + rect().size.y - SectionPadding.y};
-	renderer.drawLine(start, end, ColorText);
+	renderer.drawLine(start, end, constants::PrimaryColor);
 }
 
 
@@ -392,8 +389,8 @@ void ResearchReport::drawTopicLabRequirements() const
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawSubImage(imageUiIcons, mStdLabIconPosition, StandardLabIconRect);
 	renderer.drawSubImage(imageUiIcons, mHotLabIconPosition, HotLabIconRect);
-	renderer.drawText(fontMedium, "0 of X", mStdLabTextPosition, ColorText);
-	renderer.drawText(fontMedium, "0 of X", mHotLabTextPosition, ColorText);
+	renderer.drawText(fontMedium, "0 of X", mStdLabTextPosition, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "0 of X", mHotLabTextPosition, constants::PrimaryTextColor);
 }
 
 
@@ -402,7 +399,7 @@ void ResearchReport::drawTopicHeaderPanel() const
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, mTopicDetailsHeaderArea.startPoint(), ColorText);
+	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, mTopicDetailsHeaderArea.startPoint(), constants::PrimaryTextColor);
 
 	drawTopicLabRequirements();
 	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);

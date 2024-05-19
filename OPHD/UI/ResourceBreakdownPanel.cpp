@@ -45,7 +45,7 @@ void ResourceBreakdownPanel::update()
 	};
 	const std::array trend{
 		std::tuple{Color::White, Point{16, 64}},
-		std::tuple{Color{0, 185, 0}, Point{8, 64}},
+		std::tuple{constants::PrimaryTextColor, Point{8, 64}},
 		std::tuple{Color::Red, Point{0, 64}}
 	};
 

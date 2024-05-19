@@ -299,17 +299,16 @@ void WarehouseReport::onStructureSelectionChange()
 
 void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
-	const auto textColor = NAS2D::Color{0, 185, 0};
-	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, textColor);
-	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, textColor);
-	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, textColor);
+	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, constants::PrimaryTextColor);
 
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
 	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
-	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, positionY() + 35}, textColor);
-	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, positionY() + 57}, textColor);
+	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, positionY() + 35}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, positionY() + 57}, constants::PrimaryTextColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.size.x / 2 - 30 - capacityUsedTextWidth;
@@ -327,7 +326,7 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 	if (!selectedWarehouse) { return; }
 
 	const auto positionX = renderer.center().x + 10;
-	renderer.drawText(fontBigBold, selectedWarehouse->name(), NAS2D::Point{positionX, positionY() + 2}, NAS2D::Color{0, 185, 0});
+	renderer.drawText(fontBigBold, selectedWarehouse->name(), NAS2D::Point{positionX, positionY() + 2}, constants::PrimaryTextColor);
 	renderer.drawImage(imageWarehouse, NAS2D::Point{positionX, positionY() + 35});
 }
 
@@ -340,7 +339,7 @@ void WarehouseReport::update()
 	// Left Panel
 	drawLeftPanel(renderer);
 	const auto positionX = renderer.center().x;
-	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.size.y - 10}, NAS2D::Color{0, 185, 0});
+	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.size.y - 10}, constants::PrimaryColor);
 	drawRightPanel(renderer);
 
 	UIContainer::update();
