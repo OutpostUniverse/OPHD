@@ -25,7 +25,7 @@ namespace
 {
 	constexpr Vector<int> LabTypeIconSize{32, 32};
 	constexpr Vector<int> CategoryIconSize{64, 64};
-	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
+	constexpr Vector<int> TopicIconSize{128, 128};
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
