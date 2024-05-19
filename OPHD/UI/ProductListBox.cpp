@@ -61,7 +61,6 @@ void ProductListBox::update()
 
 	renderer.clipRect(mRect);
 
-	constexpr Color itemColor{0, 185, 0};
 	constexpr Color highlightColor{0, 185, 0, 75};
 
 	const auto itemSize = NAS2D::Vector{item_width(), item_height()}.to<int>();
@@ -80,13 +79,13 @@ void ProductListBox::update()
 		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{{x, y - offset}, itemSize}, highlightColor); }
 
 		// Draw item borders and column breaks
-		renderer.drawBox(NAS2D::Rectangle<int>{{x + 2, y + 2 - offset}, {itemSize.x - 4, itemSize.y - 4}}, itemColor);
-		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, itemColor);
-		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, itemColor);
+		renderer.drawBox(NAS2D::Rectangle<int>{{x + 2, y + 2 - offset}, {itemSize.x - 4, itemSize.y - 4}}, constants::PrimaryColor);
+		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, constants::PrimaryColor);
+		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, constants::PrimaryColor);
 
 		// Draw item column contents
-		renderer.drawText(mFontBold, item.text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, itemColor);
-		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, itemColor);
+		renderer.drawText(mFontBold, item.text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, constants::PrimaryColor);
+		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, constants::PrimaryColor);
 		drawProgressBar(
 			item.capacityUsed,
 			item.capacityTotal,

@@ -113,14 +113,14 @@ namespace
 	{
 		if (panel.Rect.contains(MOUSE_COORDS))
 		{
-			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 185, 185, 100});
+			renderer.drawBoxFilled(panel.Rect, constants::HighliteColor);
 		}
 
-		auto drawColor = panel.Selected() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{185, 185, 0};
+		auto drawColor = panel.Selected() ? constants::PrimaryColor : constants::SecondaryColor;
 
 		if (panel.Selected())
 		{
-			renderer.drawBoxFilled(panel.Rect, NAS2D::Color{0, 85, 0});
+			renderer.drawBoxFilled(panel.Rect, constants::PrimaryColorVariant);
 
 			if (panel.UiPanel)
 			{

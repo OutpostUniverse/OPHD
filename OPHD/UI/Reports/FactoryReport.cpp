@@ -119,7 +119,7 @@ FactoryReport::FactoryReport() :
 	add(lstProducts, {cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x + 20, mRect.position.y + 230});
 
 	txtProductDescription.height(128);
-	txtProductDescription.textColor(NAS2D::Color{0, 185, 0});
+	txtProductDescription.textColor(constants::PrimaryTextColor);
 
 	fillLists();
 }
@@ -436,20 +436,18 @@ void FactoryReport::onProductFilterSelectionChange()
 
 void FactoryReport::drawDetailPane(Renderer& renderer)
 {
-	NAS2D::Color defaultTextColor{0, 185, 0};
-
 	const auto startPoint = detailPanelRect.position;
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
-	renderer.drawText(fontBigBold, selectedFactory->name(), startPoint + NAS2D::Vector{0, -8}, defaultTextColor);
+	renderer.drawText(fontBigBold, selectedFactory->name(), startPoint + NAS2D::Vector{0, -8}, constants::PrimaryTextColor);
 
 	auto statusPosition = startPoint + NAS2D::Vector{138, 20};
-	renderer.drawText(fontMediumBold, "Status", statusPosition, defaultTextColor);
+	renderer.drawText(fontMediumBold, "Status", statusPosition, constants::PrimaryTextColor);
 
 	bool isStatusHighlighted = selectedFactory->disabled() || selectedFactory->destroyed();
 	statusPosition.x += fontMediumBold.width("Status") + 20;
-	renderer.drawText(fontMedium, selectedFactory->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	renderer.drawText(fontMedium, selectedFactory->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
-	renderer.drawText(fontMediumBold, "Resources Required", startPoint + NAS2D::Vector{138, 60}, defaultTextColor);
+	renderer.drawText(fontMediumBold, "Resources Required", startPoint + NAS2D::Vector{138, 60}, constants::PrimaryTextColor);
 
 	const auto labelWidth = fontMediumBold.width("Resources Required");
 
@@ -464,7 +462,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	auto position = startPoint + NAS2D::Vector{138, 80};
 	for (auto [title, value] : requiredResources)
 	{
-		drawLabelAndValueLeftJustify(position, labelWidth, title, std::to_string(value), defaultTextColor);
+		drawLabelAndValueLeftJustify(position, labelWidth, title, std::to_string(value), constants::PrimaryTextColor);
 		position.y += 15;
 	}
 
@@ -473,28 +471,27 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 	const auto workersRequired = selectedFactory->populationRequirements().workers;
 	bool isPopulationRequirementHighlighted = workersAvailable != workersRequired;
 	auto text = std::to_string(workersAvailable) + " / " + std::to_string(workersRequired);
-	drawLabelAndValueLeftJustify(position, labelWidth, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : defaultTextColor));
+	drawLabelAndValueLeftJustify(position, labelWidth, "Workers", text, (isPopulationRequirementHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 }
 
 
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
-	const auto textColor = NAS2D::Color{0, 185, 0};
-	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.position.x, detailPanelRect.position.y + 180}, textColor);
+	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.position.x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
 
 	int position_x = detailPanelRect.position.x + lstProducts.size().x + 20;
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 180}, textColor);
+		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
 		txtProductDescription.update();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
-	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.position.y + 358}, textColor);
-	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 393}, textColor);
+	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.position.y + 358}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 393}, constants::PrimaryTextColor);
 
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
 	{
@@ -506,8 +503,8 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	}
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
-	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.position.y + 449}, textColor);
-	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.size.x - fontMedium.width(text) - 10, detailPanelRect.position.y + 449}, textColor);
+	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.size.x - fontMedium.width(text) - 10, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
 }
 
 
@@ -516,10 +513,9 @@ void FactoryReport::update()
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto textColor = NAS2D::Color{0, 185, 0};
 	const auto positionX = cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x;
-	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, textColor);
-	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + 10}, textColor);
+	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);
+	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + 10}, constants::PrimaryTextColor);
 
 	if (selectedFactory)
 	{

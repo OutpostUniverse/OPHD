@@ -28,7 +28,7 @@ static const auto trendIndex = [](int value) -> std::size_t
 
 static const std::array trend
 {
-	Color{0, 185, 0},
+	constants::PrimaryColor,
 	Color::Red
 };
 
@@ -45,7 +45,7 @@ static const std::array moraleStringColor
 	Color::Orange,
 	Color::Yellow,
 	Color::White,
-	Color{0, 185, 0}
+	constants::PrimaryColor
 };
 
 

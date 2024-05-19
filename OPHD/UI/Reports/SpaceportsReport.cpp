@@ -8,13 +8,6 @@
 
 using namespace NAS2D;
 
-
-namespace
-{
-	constexpr NAS2D::Color ColorText{0, 185, 0};
-}
-
-
 SpaceportsReport::SpaceportsReport() :
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
@@ -71,6 +64,6 @@ void SpaceportsReport::draw() const
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(imageNotImplemented, rect().startPoint() + Vector<int>{10, 10});
-	renderer.drawText(fontBigBold, "Spaceports Report", rect().startPoint() + Vector<int>{148, 10}, ColorText);
-	renderer.drawText(fontMedium, "This panel intentionally left blank.", rect().startPoint() + Vector<int>{148, 20 + fontBigBold.height()}, ColorText);
+	renderer.drawText(fontBigBold, "Spaceports Report", rect().startPoint() + Vector<int>{148, 10}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "This panel intentionally left blank.", rect().startPoint() + Vector<int>{148, 20 + fontBigBold.height()}, constants::PrimaryTextColor);
 }
