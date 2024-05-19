@@ -33,6 +33,17 @@ namespace constants
 	const NAS2D::Color MineColor = NAS2D::Color::Red;
 	const NAS2D::Color ActiveMineColor = NAS2D::Color::Yellow;
 
+	const NAS2D::Color PrimaryColor{0, 185, 0};
+	const NAS2D::Color PrimaryColorVariant{0, 85, 0};
+
+	const NAS2D::Color SecondaryColor{185, 185, 0};
+	const NAS2D::Color SecondaryColorVariant{100, 100, 0};
+
+	const NAS2D::Color HighliteColor{0, 185, 185, 100};
+
+	const NAS2D::Color PrimaryTextColor{PrimaryColor};
+	const NAS2D::Color PrimaryTextColorVariant{PrimaryColorVariant};
+
 	// =====================================
 	// = MOUSE POINTERS
 	// =====================================
