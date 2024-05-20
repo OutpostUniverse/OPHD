@@ -249,10 +249,18 @@ void ResearchReport::setSectionRects()
 			100
 		}
 	};
-	
+
+
+	mTopicDetailsIconPosition =
+	{
+		mTopicDetailsHeaderArea.position.x,
+		mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2
+	};
+
+
 	mTopicDetailsArea =
 	{
-		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
+		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsIconPosition.y + TopicIconSize.y + SectionPadding.x * 3},
 		{
 			mTopicDetailsHeaderArea.size.x,
 			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
@@ -340,6 +348,15 @@ void ResearchReport::handleTopicChanged()
 
 	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
 	txtTopicDescription.text(technology.description);
+
+	const auto& tech = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
+	const auto columns = imageTopicIcons.size().x / TopicIconSize.x;
+
+	mTopicDetailsIconCoords =
+	{
+		tech.iconIndex % columns,
+		tech.iconIndex / columns
+	};
 }
 
 
@@ -406,6 +423,15 @@ void ResearchReport::drawTopicHeaderPanel() const
 }
 
 
+void ResearchReport::drawTopicDetailsPanel() const
+{
+	if (!lstResearchTopics.isItemSelected()) { return; }
+
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconCoords, TopicIconSize});
+}
+
+
 void ResearchReport::draw() const
 {
 	drawCategories();
@@ -413,4 +439,5 @@ void ResearchReport::draw() const
 	drawCategoryHeader();
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 	drawTopicHeaderPanel();
+	drawTopicDetailsPanel();
 }
