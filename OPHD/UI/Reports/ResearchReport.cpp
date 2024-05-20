@@ -352,7 +352,7 @@ void ResearchReport::handleTopicChanged()
 	const auto& tech = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
 	const auto columns = imageTopicIcons.size().x / TopicIconSize.x;
 
-	mTopicDetailsIconCoords =
+	mTopicDetailsIconUV =
 	{
 		(tech.iconIndex % columns) * TopicIconSize.x,
 		(tech.iconIndex / columns) * TopicIconSize.y
@@ -428,7 +428,7 @@ void ResearchReport::drawTopicDetailsPanel() const
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconCoords, TopicIconSize});
+	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconUV, TopicIconSize});
 }
 
 

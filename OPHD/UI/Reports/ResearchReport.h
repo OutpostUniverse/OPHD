@@ -118,7 +118,7 @@ private:
 	NAS2D::Point<int> mStdLabIconPosition{};
 	NAS2D::Point<int> mStdLabTextPosition{};
 
-	NAS2D::Point<int> mTopicDetailsIconCoords{};
+	NAS2D::Point<int> mTopicDetailsIconUV{};
 	NAS2D::Point<int> mTopicDetailsIconPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
