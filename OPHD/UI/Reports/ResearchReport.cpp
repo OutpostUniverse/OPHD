@@ -354,8 +354,8 @@ void ResearchReport::handleTopicChanged()
 
 	mTopicDetailsIconCoords =
 	{
-		tech.iconIndex % columns,
-		tech.iconIndex / columns
+		(tech.iconIndex % columns) * TopicIconSize.x,
+		(tech.iconIndex / columns) * TopicIconSize.y
 	};
 }
 
