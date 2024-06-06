@@ -72,6 +72,15 @@ namespace
 
 		return {sliceStartPosition, CategoryIconSize};
 	}
+
+	Point<int> getIconTextureCoords(const Technology& tech, const int textureWidth)
+	{
+		const auto columns = textureWidth / TopicIconSize.x;
+
+		return {
+			(tech.iconIndex % columns) * TopicIconSize.x,
+			(tech.iconIndex / columns) * TopicIconSize.y};
+	}
 }
 
 
@@ -348,15 +357,7 @@ void ResearchReport::handleTopicChanged()
 
 	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
 	txtTopicDescription.text(technology.description);
-
-	const auto& tech = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
-	const auto columns = imageTopicIcons.size().x / TopicIconSize.x;
-
-	mTopicDetailsIconUV =
-	{
-		(tech.iconIndex % columns) * TopicIconSize.x,
-		(tech.iconIndex / columns) * TopicIconSize.y
-	};
+	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
 }
 
 
