@@ -259,20 +259,19 @@ void ResearchReport::setSectionRects()
 		}
 	};
 
-
 	mTopicDetailsIconPosition =
 	{
 		mTopicDetailsHeaderArea.position.x,
-		mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2
+		mTopicDetailsHeaderArea.crossYPoint().y + SectionPadding.y * 2
 	};
 
-
+	const Point<int> topicDetailStart{mTopicDetailsIconPosition + Vector<int>{0, TopicIconSize.y + SectionPadding.y}};
 	mTopicDetailsArea =
 	{
-		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsIconPosition.y + TopicIconSize.y + SectionPadding.x * 3},
+		topicDetailStart,
 		{
 			mTopicDetailsHeaderArea.size.x,
-			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
+			rect().size.y - topicDetailStart.y + SectionPadding.x * 4
 		}
 	};
 }
