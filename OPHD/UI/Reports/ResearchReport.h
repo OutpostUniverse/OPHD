@@ -69,6 +69,7 @@ private:
 	void drawVerticalSectionSpacer(const int column) const;
 	void drawTopicLabRequirements() const;
 	void drawTopicHeaderPanel() const;
+	void drawTopicDetailsPanel() const;
 	void draw() const override;
 
 private:
@@ -116,6 +117,9 @@ private:
 	NAS2D::Point<int> mHotLabTextPosition{};
 	NAS2D::Point<int> mStdLabIconPosition{};
 	NAS2D::Point<int> mStdLabTextPosition{};
+
+	NAS2D::Point<int> mTopicDetailsIconUV{};
+	NAS2D::Point<int> mTopicDetailsIconPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};

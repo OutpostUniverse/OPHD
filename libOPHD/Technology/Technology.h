@@ -51,6 +51,7 @@ struct Technology
 	int id{};
 	int labType{};
 	int cost{};
+	int iconIndex{};
 
 	std::vector<int> requiredTechnologies;
 

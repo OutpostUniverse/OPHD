@@ -25,7 +25,7 @@ namespace
 {
 	constexpr Vector<int> LabTypeIconSize{32, 32};
 	constexpr Vector<int> CategoryIconSize{64, 64};
-	//constexpr auto TopicIconSize = 128; <-- Will be used in future change sets
+	constexpr Vector<int> TopicIconSize{128, 128};
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
@@ -71,6 +71,15 @@ namespace
 		};
 
 		return {sliceStartPosition, CategoryIconSize};
+	}
+
+	Point<int> getIconTextureCoords(const Technology& tech, const int textureWidth)
+	{
+		const auto columns = textureWidth / TopicIconSize.x;
+
+		return {
+			(tech.iconIndex % columns) * TopicIconSize.x,
+			(tech.iconIndex / columns) * TopicIconSize.y};
 	}
 }
 
@@ -249,13 +258,20 @@ void ResearchReport::setSectionRects()
 			100
 		}
 	};
-	
+
+	mTopicDetailsIconPosition =
+	{
+		mTopicDetailsHeaderArea.position.x,
+		mTopicDetailsHeaderArea.crossYPoint().y + SectionPadding.y * 2
+	};
+
+	const Point<int> topicDetailStart{mTopicDetailsIconPosition + Vector<int>{0, TopicIconSize.y + SectionPadding.y}};
 	mTopicDetailsArea =
 	{
-		mTopicDetailsHeaderArea.position + Vector<int>{0, mTopicDetailsHeaderArea.size.y + SectionPadding.x * 2},
+		topicDetailStart,
 		{
 			mTopicDetailsHeaderArea.size.x,
-			mCategoryIconArea.size.y - mTopicDetailsHeaderArea.size.y - SectionPadding.x * 2
+			rect().size.y - topicDetailStart.y + SectionPadding.x * 4
 		}
 	};
 }
@@ -340,6 +356,7 @@ void ResearchReport::handleTopicChanged()
 
 	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
 	txtTopicDescription.text(technology.description);
+	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
 }
 
 
@@ -406,6 +423,15 @@ void ResearchReport::drawTopicHeaderPanel() const
 }
 
 
+void ResearchReport::drawTopicDetailsPanel() const
+{
+	if (!lstResearchTopics.isItemSelected()) { return; }
+
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconUV, TopicIconSize});
+}
+
+
 void ResearchReport::draw() const
 {
 	drawCategories();
@@ -413,4 +439,5 @@ void ResearchReport::draw() const
 	drawCategoryHeader();
 	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
 	drawTopicHeaderPanel();
+	drawTopicDetailsPanel();
 }
