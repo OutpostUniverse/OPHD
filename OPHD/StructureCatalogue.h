@@ -7,7 +7,6 @@
 
 class Structure;
 struct StructureType;
-struct PopulationRequirements;
 struct StorableResources;
 
 
