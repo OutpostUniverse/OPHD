@@ -78,7 +78,7 @@ libOPHD_OBJS := $(patsubst $(libOPHD_SRCDIR)%.cpp,$(libOPHD_OBJDIR)%.o,$(libOPHD
 .PHONY: libOphd
 libOphd: $(libOPHD_OUTPUT)
 
-$(libOPHD_OUTPUT): $(libOPHD_OBJS) $(NAS2DLIB)
+$(libOPHD_OUTPUT): $(libOPHD_OBJS)
 $(libOPHD_OBJS): $(libOPHD_OBJDIR)%.o : $(libOPHD_SRCDIR)%.cpp $(libOPHD_OBJDIR)%.d
 
 include $(wildcard $(patsubst %.o,%.d,$(libOPHD_OBJS)))
@@ -96,7 +96,7 @@ libControls_OBJS := $(patsubst $(libControls_SRCDIR)%.cpp,$(libControls_OBJDIR)%
 .PHONY: libControls
 libControls: $(libControls_OUTPUT)
 
-$(libControls_OUTPUT): $(libControls_OBJS) $(NAS2DLIB)
+$(libControls_OUTPUT): $(libControls_OBJS)
 $(libControls_OBJS): $(libControls_OBJDIR)%.o : $(libControls_SRCDIR)%.cpp $(libControls_OBJDIR)%.d
 
 include $(wildcard $(patsubst %.o,%.d,$(libControls_OBJS)))
