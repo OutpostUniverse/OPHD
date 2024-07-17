@@ -4,7 +4,6 @@
 
 
 struct MapCoordinate;
-class Tile;
 class TileMap;
 
 
