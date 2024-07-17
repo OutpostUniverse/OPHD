@@ -17,9 +17,6 @@ namespace NAS2D
 }
 
 
-struct StorableResources;
-
-
 class Mine
 {
 public:

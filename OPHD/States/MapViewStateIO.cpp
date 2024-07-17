@@ -17,6 +17,9 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
+#include "../UI/DetailMap.h"
+#include "../UI/NavControl.h"
+
 #include <libOPHD/Technology/ResearchTracker.h>
 #include <libOPHD/XmlSerializer.h>
 
@@ -27,7 +30,6 @@
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
-#include <NAS2D/StringUtils.h>
 #include <NAS2D/ContainerUtils.h>
 
 #include <string>

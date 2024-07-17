@@ -9,7 +9,6 @@
 
 
 class Tile;
-class RobotCommand;
 using RobotList = std::vector<Robot*>;
 
 

@@ -20,10 +20,11 @@
 #include "../Map/MapView.h"
 
 #include "../UI/MessageBox.h"
+#include "../UI/NavControl.h"
+#include "../UI/CheatMenu.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include "../UI/CheatMenu.h"
 
 
 extern NAS2D::Point<int> MOUSE_COORDS;

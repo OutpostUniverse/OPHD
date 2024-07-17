@@ -7,9 +7,6 @@
 #include <vector>
 
 
-class Robot;
-
-
 /**
  * Implements the Robot Command structure.
  */

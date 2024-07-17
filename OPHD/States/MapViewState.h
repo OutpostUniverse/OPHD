@@ -11,6 +11,8 @@
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
+#include "../Map/MapCoordinate.h"
+
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
@@ -33,8 +35,6 @@
 #include "../UI/ResourceInfoBar.h"
 #include "../UI/RobotDeploymentSummary.h"
 #include "../UI/MiniMap.h"
-#include "../UI/DetailMap.h"
-#include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
 
 #include <libOPHD/Population/PopulationPool.h>
@@ -69,10 +69,11 @@ namespace micropather
 	class MicroPather;
 }
 
-struct MapCoordinate;
 class Tile;
 class TileMap;
 class MapView;
+class DetailMap;
+class NavControl;
 class MainReportsUiState;
 
 
