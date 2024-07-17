@@ -18,6 +18,7 @@
 #include "../Map/MapView.h"
 
 #include "../UI/DetailMap.h"
+#include "../UI/NavControl.h"
 
 #include <libOPHD/Technology/ResearchTracker.h>
 #include <libOPHD/XmlSerializer.h>

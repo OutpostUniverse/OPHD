@@ -20,6 +20,7 @@
 
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
+#include "../UI/NavControl.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
