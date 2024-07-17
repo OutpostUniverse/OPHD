@@ -11,6 +11,8 @@
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
+#include "../Map/MapCoordinate.h"
+
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
@@ -67,7 +69,6 @@ namespace micropather
 	class MicroPather;
 }
 
-struct MapCoordinate;
 class Tile;
 class TileMap;
 class MapView;
