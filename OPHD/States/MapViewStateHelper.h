@@ -16,14 +16,6 @@
 #include <map>
 
 
-namespace NAS2D
-{
-	namespace Xml
-	{
-		class XmlElement;
-	}
-}
-
 class Tile;
 class TileMap;
 class Warehouse;
