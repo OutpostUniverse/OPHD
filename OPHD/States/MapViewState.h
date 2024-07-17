@@ -33,7 +33,6 @@
 #include "../UI/ResourceInfoBar.h"
 #include "../UI/RobotDeploymentSummary.h"
 #include "../UI/MiniMap.h"
-#include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
 
@@ -73,6 +72,7 @@ struct MapCoordinate;
 class Tile;
 class TileMap;
 class MapView;
+class DetailMap;
 class MainReportsUiState;
 
 

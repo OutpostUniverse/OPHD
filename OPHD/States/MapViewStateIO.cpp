@@ -17,6 +17,8 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
+#include "../UI/DetailMap.h"
+
 #include <libOPHD/Technology/ResearchTracker.h>
 #include <libOPHD/XmlSerializer.h>
 
