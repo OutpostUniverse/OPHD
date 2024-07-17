@@ -23,7 +23,6 @@ namespace NAS2D
 	class Image;
 }
 
-class Warehouse;
 class Structure;
 
 
