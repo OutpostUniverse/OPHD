@@ -54,6 +54,7 @@
 #include <string>
 #include <memory>
 #include <map>
+#include <functional>
 
 
 namespace NAS2D
@@ -398,4 +399,7 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
+
+	// KEY BINDINGS AND COMMANDS
+	using Command = std::function<void(MapViewState&)>;
 };
