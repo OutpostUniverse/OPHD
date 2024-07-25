@@ -10,6 +10,7 @@
 #include "../Common.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
+#include "../DirectionOffset.h"
 
 #include "../Map/MapCoordinate.h"
 
@@ -411,4 +412,19 @@ private:
 		}
 	};
 	std::unordered_map<std::pair<NAS2D::EventHandler::KeyModifier, NAS2D::EventHandler::KeyCode>, Command, KeyHash> mKeyCodeMap;
+
+	std::function<void(MapViewState&)> makeCommandMoveView(MapOffset direction, int scalar) { return [direction, scalar] (MapViewState& mapViewState) { mapViewState.moveView(direction * scalar); }; }
+	std::function<void(MapViewState&)> makeCommandChangeViewDepth(int level) {return [level] (MapViewState& mapViewState) { mapViewState.changeViewDepth(level); };}
+	std::function<void(MapViewState&)> makeCommandFileIODialog(std::string filePath, FileIo::FileOperation fileOp)
+	{
+		return [filePath, fileOp](MapViewState& mapViewState) {
+			mapViewState.mFileIoDialog.scanDirectory(filePath);
+			mapViewState.mFileIoDialog.setMode(fileOp);
+			mapViewState.mFileIoDialog.show(); };
+	}
+	Command mCommandReportsUiSignal = [](MapViewState& mapViewState) { mapViewState.mReportsUiSignal(); };
+	Command mCommandCheatMenu = [](MapViewState& mapViewState) { mapViewState.mCheatMenu.show(); mapViewState.mWindowStack.bringToFront(&mapViewState.mCheatMenu); };
+	Command mCommandResetUI = [](MapViewState& mapViewState) { mapViewState.clearMode(); mapViewState.resetUi(); };
+	Command mCommandNextTurn = [](MapViewState& mapViewState) { if (mapViewState.mBtnTurns.enabled()) { mapViewState.nextTurn(); } };
+
 };
