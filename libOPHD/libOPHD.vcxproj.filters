@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Technology">
       <UniqueIdentifier>{f03fdd93-09f6-4050-a5df-18305b27811d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{402a7397-db9d-4c85-9cde-d12b218e5932}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="XmlSerializer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapOffset.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

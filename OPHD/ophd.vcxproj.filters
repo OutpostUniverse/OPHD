@@ -332,9 +332,6 @@
     <ClInclude Include="Map\MapCoordinate.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Map\MapOffset.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Map\MapView.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
