@@ -402,4 +402,11 @@ private:
 
 	// KEY BINDINGS AND COMMANDS
 	using Command = std::function<void(MapViewState&)>;
+	struct KeyHash
+	{
+		std::size_t operator()(const std::pair<NAS2D::EventHandler::KeyModifier, NAS2D::EventHandler::KeyCode>& keyModCodePair) const
+		{
+			return std::hash<int>()(static_cast<int>(keyModCodePair.first)) ^ std::hash<int>()(static_cast<int>(keyModCodePair.second));
+		}
+	};
 };
