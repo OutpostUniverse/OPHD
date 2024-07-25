@@ -54,6 +54,7 @@
 #include <string>
 #include <memory>
 #include <map>
+#include <unordered_map>
 #include <functional>
 
 
@@ -409,4 +410,5 @@ private:
 			return std::hash<int>()(static_cast<int>(keyModCodePair.first)) ^ std::hash<int>()(static_cast<int>(keyModCodePair.second));
 		}
 	};
+	std::unordered_map<std::pair<NAS2D::EventHandler::KeyModifier, NAS2D::EventHandler::KeyCode>, Command, KeyHash> mKeyCodeMap;
 };
