@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapOffset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libOPHD\libOPHD.vcxproj">
