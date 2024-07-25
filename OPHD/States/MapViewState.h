@@ -291,6 +291,8 @@ private:
 
 	void onTakeMeThere(const MapCoordinate& position);
 
+	void initializeDefaultKeyBindings();
+
 private:
 	TileMap* mTileMap{nullptr};
 	CrimeRateUpdate mCrimeRateUpdate;

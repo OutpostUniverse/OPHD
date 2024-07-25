@@ -282,6 +282,54 @@ void MapViewState::initialize()
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap, 250, 6, false);
+	initializeDefaultKeyBindings();
+}
+
+
+void MapViewState::initializeDefaultKeyBindings()
+{
+	// Key Code Bindings
+
+	std::vector<std::tuple<NAS2D::EventHandler::KeyModifier, int>> moveScalars = {
+		{NAS2D::EventHandler::KeyModifier::None, 1},
+		{NAS2D::EventHandler::KeyModifier::Shift, 5},
+		{NAS2D::EventHandler::KeyModifier::Ctrl, 10},
+	};
+
+	for (auto& [keyModifier, scalar] : moveScalars)
+	{
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_w}] = makeCommandMoveView(MapOffsetNorthWest, scalar);
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_a}] = makeCommandMoveView(MapOffsetSouthWest, scalar);
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_s}] = makeCommandMoveView(MapOffsetSouthEast, scalar);
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_d}] = makeCommandMoveView(MapOffsetNorthEast, scalar);
+
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_UP}] = makeCommandMoveView(MapOffsetNorthWest, scalar);
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_LEFT}] = makeCommandMoveView(MapOffsetSouthWest, scalar);
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_DOWN}] = makeCommandMoveView(MapOffsetSouthEast, scalar);
+		mKeyCodeMap[{keyModifier, NAS2D::EventHandler::KeyCode::KEY_RIGHT}] = makeCommandMoveView(MapOffsetNorthEast, scalar);
+	}
+
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_PAGEUP}] = makeCommandMoveView(MapOffsetUp,1);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN}] = makeCommandMoveView(MapOffsetDown,1);
+
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_HOME}] = makeCommandChangeViewDepth(0);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_END}] = makeCommandChangeViewDepth(mTileMap->maxDepth());
+
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_F1}] = mCommandReportsUiSignal;
+
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::Ctrl | NAS2D::EventHandler::KeyModifier::Shift, NAS2D::EventHandler::KeyCode::KEY_F10}] = mCommandCheatMenu;
+
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_0}] = makeCommandChangeViewDepth(0);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_1}] = makeCommandChangeViewDepth(1);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_2}] = makeCommandChangeViewDepth(2);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_3}] = makeCommandChangeViewDepth(3);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_4}] = makeCommandChangeViewDepth(4);
+
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_F2}] = makeCommandFileIODialog(constants::SaveGamePath,FileIo::FileOperation::Save);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_F3}] = makeCommandFileIODialog(constants::SaveGamePath,FileIo::FileOperation::Load);
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_ESCAPE}] = mCommandResetUI;
+	mKeyCodeMap[{NAS2D::EventHandler::KeyModifier::None, NAS2D::EventHandler::KeyCode::KEY_ENTER}] = mCommandNextTurn;
+
 }
 
 
