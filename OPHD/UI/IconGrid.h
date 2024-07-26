@@ -48,6 +48,7 @@ public:
 	bool empty() const { return mIconItemList.empty(); }
 
 	void addItem(const Item&);
+	void addResourceCosts(std::string name, std::vector<std::tuple<std::string, int>>& resourceCost);
 
 	void removeItem(const std::string& item);
 	bool itemExists(const std::string& item);
@@ -108,6 +109,7 @@ private:
 	NAS2D::Vector<int> mGridSize; /**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
 	IconItemList mIconItemList; /**< List of items. */
+	std::map<std::string, std::vector<std::tuple<std::string, int>>> mResourceCosts; /**< List of resources required to build the item. */
 
 	Signal mSignal; /**< Signal whenever a selection is made. */
 };

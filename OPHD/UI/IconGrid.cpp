@@ -151,6 +151,12 @@ void IconGrid::addItem(const Item& item)
 }
 
 
+void IconGrid::addResourceCosts(std::string name, std::vector<std::tuple<std::string, int>>& resourceCost)
+{
+	mResourceCosts[name] = resourceCost;
+}
+
+
 /**
  * Set item availability
  */
