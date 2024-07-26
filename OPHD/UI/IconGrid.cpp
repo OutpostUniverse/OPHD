@@ -378,10 +378,40 @@ void IconGrid::update()
 		if (mShowTooltip)
 		{
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
-			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - 15}, {mFont.width(highlightedName) + 4, mFont.height()}};
-			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
+
+			int toolTipBoxWidth = mFont.width(highlightedName);
+			int toolTipBoxHeight = mFont.height();
+
+			auto resourceCostIterator = mResourceCosts.find(mIconItemList[mHighlightIndex].name);
+			if (resourceCostIterator != mResourceCosts.end())
+			{
+				for(auto& resourceCost: resourceCostIterator->second)
+				{
+					toolTipBoxWidth = std::max(toolTipBoxWidth, mFont.width(std::get<0>(resourceCost) + ": " + std::to_string(std::get<1>(resourceCost))));
+				}
+				toolTipBoxHeight = mFont.height() * static_cast<int>(resourceCostIterator->second.size() + 1);
+			}
+
+			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - toolTipBoxHeight}, {toolTipBoxWidth + 4, toolTipBoxHeight}};
+			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{225, 225, 225});
+
+			const auto toolTipHighlightRect = NAS2D::Rectangle<int>{{position.x, position.y - mFont.height()}, {toolTipBoxWidth + 4, mFont.height()}};
+			renderer.drawBoxFilled(toolTipHighlightRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
 			renderer.drawText(mFont, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+
+
+			if (resourceCostIterator != mResourceCosts.end())
+			{
+				const int numberOfLines = static_cast<int>(resourceCostIterator->second.size());
+				const int startOffset = static_cast<int>(-mFont.height() * numberOfLines);
+				int currentLine = 0;
+				for(auto& resourceCost: resourceCostIterator->second)
+				{
+					renderer.drawText(mFont, std::get<0>(resourceCost) + ": " + std::to_string(std::get<1>(resourceCost)), position + NAS2D::Vector{2, startOffset + (-15 + mFont.height() * currentLine)}, NAS2D::Color::Black);
+					currentLine++;
+				}
+			}
 		}
 	}
 }
