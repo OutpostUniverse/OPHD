@@ -18,6 +18,8 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
+#include "../MapObjects/StructureType.h"
+
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
@@ -155,6 +157,26 @@ namespace
 		fade.update();
 		fade.draw(renderer);
 	}
+
+
+	void fillResourceCosts(IconGrid& grid, const std::vector<IconGrid::Item>& itemList)
+	{
+		for (const auto& item : itemList)
+		{
+			const auto& structureType = StructureCatalogue::getType(static_cast<StructureID>(item.meta));
+			std::vector<std::tuple<std::string, int>> resourceCosts;
+			const auto& resourcesToBuild = structureType.buildCost.resources;
+			const auto& populationRequirements = structureType.populationRequirements;
+			for (std::vector<int>::size_type index = 0; index < resourcesToBuild.size(); ++index)
+			{
+				resourceCosts.push_back(std::make_tuple(ResourceNamesRefined[index], resourcesToBuild[index]));
+			}
+
+			resourceCosts.push_back(std::make_tuple("Workers", populationRequirements.workers));
+			resourceCosts.push_back(std::make_tuple("Scientists", populationRequirements.scientists));
+			grid.addResourceCosts(item.name, resourceCosts);
+		}
+	}
 }
 
 
@@ -282,6 +304,8 @@ void MapViewState::initialize()
 
 	delete mPathSolver;
 	mPathSolver = new micropather::MicroPather(mTileMap, 250, 6, false);
+	fillResourceCosts(mStructures, mStructureTracker.availableSurfaceStructures());
+	fillResourceCosts(mStructures, mStructureTracker.availableUndergroundStructures());
 }
 
 
