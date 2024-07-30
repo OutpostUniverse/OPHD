@@ -105,8 +105,8 @@ enum class IdleReason
 
 /**
  * Connector Direction.
- * 
- * \note	CONNECTOR_INTERSECTION is explicitely set to '1' to prevent
+ *
+ * \note	CONNECTOR_INTERSECTION is intentionally set to '1' to prevent
  *			breaking changes with save files.
  */
 enum ConnectorDir
@@ -120,7 +120,7 @@ enum ConnectorDir
 
 /**
  * Unique identifier code for each structure.
- * 
+ *
  * \note	Each individual structure is identified using a SID_ code as opposed
  *			the structure Class code which is used to group like structures into
  *			lists for structure updates.
@@ -174,17 +174,17 @@ enum StructureID
 
 /**
  * Factory Product enumeration
- * 
+ *
  * \note	Products are arranged to match the order in which they appear
  *			in the icon atlas (data/ui/factory.png). In order to allow
  *			for easy future additions, the icons are grouped into two
  *			sets of 32 icons. The first 32 are for above ground products,
  *			the second set for underground products.
- * 
+ *
  *			To easily map to icons in the atlas, padding entries with a
  *			'reserved' naming convention have been added. These can be
  *			replaced as additional products are added.
- * 
+ *
  * \remark	ASSUMPTION: Factories will never have more than 32 individual
  *			products that they can produce.
  */
