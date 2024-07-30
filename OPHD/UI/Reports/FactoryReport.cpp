@@ -414,6 +414,15 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
 	selectedProductType = selectedFactory->productType();
 
+	if (productTypeInRange(selectedProductType))
+	{
+		txtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+	}
+	else
+	{
+		txtProductDescription.text("");
+	}
+
 	StructureState state = selectedFactory->state();
 	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
 }
