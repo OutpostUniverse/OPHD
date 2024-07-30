@@ -277,6 +277,9 @@ enum ProductType
 };
 
 
+bool productTypeInRange(ProductType productType);
+
+
 enum class Morale
 {
 	Terrible,
