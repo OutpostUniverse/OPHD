@@ -38,6 +38,12 @@ std::string difficultyString(Difficulty difficulty)
 }
 
 
+bool productTypeInRange(ProductType productType)
+{
+	return ProductType::PRODUCT_NONE < productType && productType < ProductType::PRODUCT_COUNT;
+}
+
+
 const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
 {
 	{StructureState::UnderConstruction, Color{150, 150, 150, 100}},

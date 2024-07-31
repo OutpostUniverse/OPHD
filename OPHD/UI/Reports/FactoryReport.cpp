@@ -118,8 +118,8 @@ FactoryReport::FactoryReport() :
 
 	add(lstProducts, {cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x + 20, mRect.position.y + 230});
 
-	txtProductDescription.height(128);
-	txtProductDescription.textColor(constants::PrimaryTextColor);
+	mTxtProductDescription.height(128);
+	mTxtProductDescription.textColor(constants::PrimaryTextColor);
 
 	fillLists();
 }
@@ -140,7 +140,7 @@ void FactoryReport::clearSelected()
 {
 	lstFactoryList.clearSelected();
 	selectedFactory = nullptr;
-	txtProductDescription.text("");
+	mTxtProductDescription.text("");
 }
 
 
@@ -270,8 +270,8 @@ void FactoryReport::onResize()
 	lstProducts.size({detailPanelRect.size.x / 3, detailPanelRect.size.y - 219});
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
-	txtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
-	txtProductDescription.width(mRect.size.x - txtProductDescription.positionX() - 30);
+	mTxtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
+	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.positionX() - 30);
 }
 
 
@@ -289,7 +289,7 @@ void FactoryReport::onVisibilityChange(bool visible)
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		txtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+		mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
 	}
 }
 
@@ -414,6 +414,15 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
 	selectedProductType = selectedFactory->productType();
 
+	if (productTypeInRange(selectedProductType))
+	{
+		mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+	}
+	else
+	{
+		mTxtProductDescription.text("");
+	}
+
 	StructureState state = selectedFactory->state();
 	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
 }
@@ -422,7 +431,7 @@ void FactoryReport::onListSelectionChange()
 void FactoryReport::onProductSelectionChange()
 {
 	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
-	txtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+	mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
 }
 
 
@@ -485,7 +494,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	{
 		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
-		txtProductDescription.update();
+		mTxtProductDescription.update();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }

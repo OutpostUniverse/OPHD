@@ -97,7 +97,7 @@ private:
 
 	ListBox<> lstProducts;
 
-	TextArea txtProductDescription;
+	TextArea mTxtProductDescription;
 
 	Factory* selectedFactory = nullptr;
 	ProductType selectedProductType = ProductType::PRODUCT_NONE;
