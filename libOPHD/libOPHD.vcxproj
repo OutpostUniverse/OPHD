@@ -171,6 +171,7 @@
     <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Map\MapOffset.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="Population\Population.h" />
     <ClInclude Include="Population\PopulationTable.h" />

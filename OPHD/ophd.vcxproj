@@ -269,7 +269,6 @@
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
-    <ClInclude Include="Map\MapOffset.h" />
     <ClInclude Include="Map\MapView.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
