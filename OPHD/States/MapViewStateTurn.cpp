@@ -21,7 +21,6 @@
 #include <vector>
 #include <algorithm>
 
-
 namespace
 {
 	const std::map<std::string, IconGrid::Item> StructureItemFromString =
@@ -244,6 +243,13 @@ void MapViewState::updateMorale()
 		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
 		mCurrentMorale += moraleReason.second;
 	}
+}
+
+
+void MapViewState::notifyBirthsAndDeaths()
+{
+	const int birthCount = mPopulation.birthCount();
+	const int deathCount = mPopulation.deathCount();
 
 	// Push notifications
 	if (birthCount)
@@ -710,7 +716,10 @@ void MapViewState::nextTurn()
 
 	updateResidentialCapacity();
 
-	if (mPopulation.getPopulations().size() > 0)
+	int turnsSinceLanding = mTurnCount - mTurnNumberOfLanding; // If negative, landing has not yet occurred.
+
+	// Colony will not have a crime rate until at least n turns from landing, depending on difficulty
+	if (turnsSinceLanding > gracePeriod[mDifficulty])
 	{
 		mCrimeRateUpdate.update(mPoliceOverlays);
 		auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
@@ -723,7 +732,15 @@ void MapViewState::nextTurn()
 	updateMaintenance();
 	updateCommercial();
 	updateBiowasteRecycling();
-	updateMorale();
+
+	// Morale will not change until at least n turns from landing, depending on difficulty
+	if (turnsSinceLanding > gracePeriod[mDifficulty])
+	{
+		updateMorale();
+	}
+
+	notifyBirthsAndDeaths();
+
 	updateRobots();
 	updateResources();
 	updateStructuresAvailability();
@@ -746,6 +763,12 @@ void MapViewState::nextTurn()
 	checkWarehouseCapacity();
 
 	mMineOperationsWindow.updateTruckAvailability();
+
+	// If this is the first turn with population, then set mTurnNumberOfLanding
+	if (mPopulation.getPopulations().size() > 0 && mTurnCount < mTurnNumberOfLanding)
+	{
+		mTurnNumberOfLanding = mTurnCount;
+	}
 
 	// Check for Game Over conditions
 	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)

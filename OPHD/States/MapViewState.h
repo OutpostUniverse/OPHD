@@ -214,6 +214,7 @@ private:
 	void updateCommercial();
 	void updateMaintenance();
 	void updateMorale();
+	void notifyBirthsAndDeaths();
 	void updateResidentialCapacity();
 	void updateBiowasteRecycling();
 	void updateResources();
@@ -299,12 +300,25 @@ private:
 	TechnologyCatalog mTechnologyReader;
 
 	Planet::Attributes mPlanetAttributes;
-	Difficulty mDifficulty = Difficulty::Medium;
 
 	int mFood{0};
 
+	// DIFFICULTY
+	Difficulty mDifficulty = Difficulty::Medium;
+
+	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
+	std::map<Difficulty, int> gracePeriod
+	{
+		{Difficulty::Beginner, 30},
+		{Difficulty::Easy, 25},
+		{Difficulty::Medium, 20},
+		{Difficulty::Hard, 15}
+	};
+
 	// MISCELLANEOUS
 	int mTurnCount = 0;
+
+	int mTurnNumberOfLanding = std::numeric_limits<int>::max(); /**< First turn that human colonists landed. If never landed, default is int max (representing the future). */
 
 	int mCurrentMorale;
 	int mPreviousMorale;
