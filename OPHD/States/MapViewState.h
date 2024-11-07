@@ -11,6 +11,8 @@
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
+#include "../Constants/Numbers.h"
+
 #include "../Map/MapCoordinate.h"
 
 #include "../MapObjects/Robot.h"
@@ -318,7 +320,7 @@ private:
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 
-	int mTurnNumberOfLanding = std::numeric_limits<int>::max(); /**< First turn that human colonists landed. If never landed, default is int max (representing the future). */
+	int mTurnNumberOfLanding = constants::ColonyShipOrbitTime; /**< First turn that human colonists landed. */
 
 	int mCurrentMorale;
 	int mPreviousMorale;

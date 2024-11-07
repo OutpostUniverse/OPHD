@@ -716,10 +716,10 @@ void MapViewState::nextTurn()
 
 	updateResidentialCapacity();
 
-	int turnsSinceLanding = mTurnCount - mTurnNumberOfLanding; // If negative, landing has not yet occurred.
+	// Colony will not have morale or crime effects until at least n turns from landing, depending on difficulty
+	bool isMoraleEnabled = mTurnCount > mTurnNumberOfLanding + gracePeriod[mDifficulty];
 
-	// Colony will not have a crime rate until at least n turns from landing, depending on difficulty
-	if (turnsSinceLanding > gracePeriod[mDifficulty])
+	if (isMoraleEnabled)
 	{
 		mCrimeRateUpdate.update(mPoliceOverlays);
 		auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
@@ -733,8 +733,7 @@ void MapViewState::nextTurn()
 	updateCommercial();
 	updateBiowasteRecycling();
 
-	// Morale will not change until at least n turns from landing, depending on difficulty
-	if (turnsSinceLanding > gracePeriod[mDifficulty])
+	if (isMoraleEnabled)
 	{
 		updateMorale();
 	}
@@ -763,12 +762,6 @@ void MapViewState::nextTurn()
 	checkWarehouseCapacity();
 
 	mMineOperationsWindow.updateTruckAvailability();
-
-	// If this is the first turn with population, then set mTurnNumberOfLanding
-	if (mPopulation.getPopulations().size() > 0 && mTurnCount < mTurnNumberOfLanding)
-	{
-		mTurnNumberOfLanding = mTurnCount;
-	}
 
 	// Check for Game Over conditions
 	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)
