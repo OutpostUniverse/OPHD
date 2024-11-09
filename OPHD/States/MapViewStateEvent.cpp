@@ -89,7 +89,9 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
  */
 void MapViewState::onDeployColonistLander()
 {
-	mTurnNumberOfLanding = mTurnCount;
+	if (mTurnNumberOfLanding > mTurnCount) {
+		mTurnNumberOfLanding = mTurnCount;
+	}
 	mPopulation.addPopulation({0, 10, 20, 20, 0});
 }
 
