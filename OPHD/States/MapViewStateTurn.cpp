@@ -21,7 +21,6 @@
 #include <vector>
 #include <algorithm>
 
-
 namespace
 {
 	const std::map<std::string, IconGrid::Item> StructureItemFromString =
@@ -244,6 +243,13 @@ void MapViewState::updateMorale()
 		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
 		mCurrentMorale += moraleReason.second;
 	}
+}
+
+
+void MapViewState::notifyBirthsAndDeaths()
+{
+	const int birthCount = mPopulation.birthCount();
+	const int deathCount = mPopulation.deathCount();
 
 	// Push notifications
 	if (birthCount)
@@ -710,7 +716,10 @@ void MapViewState::nextTurn()
 
 	updateResidentialCapacity();
 
-	if (mPopulation.getPopulations().size() > 0)
+	// Colony will not have morale or crime effects until at least n turns from landing, depending on difficulty
+	bool isMoraleEnabled = mTurnCount > mTurnNumberOfLanding + gracePeriod[mDifficulty];
+
+	if (isMoraleEnabled)
 	{
 		mCrimeRateUpdate.update(mPoliceOverlays);
 		auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
@@ -723,7 +732,14 @@ void MapViewState::nextTurn()
 	updateMaintenance();
 	updateCommercial();
 	updateBiowasteRecycling();
-	updateMorale();
+
+	if (isMoraleEnabled)
+	{
+		updateMorale();
+	}
+
+	notifyBirthsAndDeaths();
+
 	updateRobots();
 	updateResources();
 	updateStructuresAvailability();

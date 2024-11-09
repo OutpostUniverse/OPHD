@@ -11,6 +11,8 @@
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
+#include "../Constants/Numbers.h"
+
 #include "../Map/MapCoordinate.h"
 
 #include "../MapObjects/Robot.h"
@@ -214,6 +216,7 @@ private:
 	void updateCommercial();
 	void updateMaintenance();
 	void updateMorale();
+	void notifyBirthsAndDeaths();
 	void updateResidentialCapacity();
 	void updateBiowasteRecycling();
 	void updateResources();
@@ -299,12 +302,25 @@ private:
 	TechnologyCatalog mTechnologyReader;
 
 	Planet::Attributes mPlanetAttributes;
-	Difficulty mDifficulty = Difficulty::Medium;
 
 	int mFood{0};
 
+	// DIFFICULTY
+	Difficulty mDifficulty = Difficulty::Medium;
+
+	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
+	std::map<Difficulty, int> gracePeriod
+	{
+		{Difficulty::Beginner, 30},
+		{Difficulty::Easy, 25},
+		{Difficulty::Medium, 20},
+		{Difficulty::Hard, 15}
+	};
+
 	// MISCELLANEOUS
 	int mTurnCount = 0;
+
+	int mTurnNumberOfLanding = constants::ColonyShipOrbitTime; /**< First turn that human colonists landed. */
 
 	int mCurrentMorale;
 	int mPreviousMorale;

@@ -171,6 +171,7 @@ void MapViewState::save(const std::string& filePath)
 			{"prev_morale", mPreviousMorale},
 			{"colonist_landers", mLandersColonist},
 			{"cargo_landers", mLandersCargo},
+			{"turn_number_of_landing", mTurnNumberOfLanding},
 			{"children", population.child},
 			{"students", population.student},
 			{"workers", population.worker},
@@ -565,6 +566,8 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 
 		mCurrentMorale = dictionary.get<int>("morale");
 		mPreviousMorale = dictionary.get<int>("prev_morale");
+
+		mTurnNumberOfLanding = dictionary.get<int>("turn_number_of_landing", constants::ColonyShipOrbitTime);
 
 		const auto meanCrimeRate = dictionary.get<int>("mean_crime", 0);
 
