@@ -45,6 +45,7 @@ namespace constants
 	inline constexpr int RobotCommandCapacity{10};
 
 	inline constexpr int DefaultStartingMorale{600};
+	inline constexpr int MaximumMorale{1000};
 
 	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
 

@@ -216,7 +216,7 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= structuresDestroyed;
 	mCurrentMorale -= foodProductionHit;
 
-	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
+	mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
 
 	mPopulationPanel.clearMoraleReasons();
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
