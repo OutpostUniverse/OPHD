@@ -158,6 +158,15 @@ namespace
 }
 
 
+const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultiplier
+{
+	{Difficulty::Beginner, 1},
+	{Difficulty::Easy, 3},
+	{Difficulty::Medium, 6},
+	{Difficulty::Hard, 10}
+};
+
+
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
