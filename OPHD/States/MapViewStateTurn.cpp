@@ -382,8 +382,8 @@ void MapViewState::checkColonyShip()
 	{
 		if (mLandersColonist > 0 || mLandersCargo > 0)
 		{
-			mCurrentMorale -= (mLandersColonist * 50) * 6; /// \todo apply a modifier to multiplier based on difficulty level.
-			if (mCurrentMorale < 0) { mCurrentMorale = 0; }
+			mCurrentMorale -= (mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty);
+			mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
 
 			mLandersColonist = 0;
 			mLandersCargo = 0;
