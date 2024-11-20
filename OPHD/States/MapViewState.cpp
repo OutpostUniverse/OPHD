@@ -158,6 +158,14 @@ namespace
 }
 
 
+const std::map<Difficulty, int> MapViewState::GracePeriod
+{
+	{Difficulty::Beginner, 30},
+	{Difficulty::Easy, 25},
+	{Difficulty::Medium, 20},
+	{Difficulty::Hard, 15}
+};
+
 const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultiplier
 {
 	{Difficulty::Beginner, 1},

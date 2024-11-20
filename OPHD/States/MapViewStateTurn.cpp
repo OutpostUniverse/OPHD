@@ -717,7 +717,7 @@ void MapViewState::nextTurn()
 	updateResidentialCapacity();
 
 	// Colony will not have morale or crime effects until at least n turns from landing, depending on difficulty
-	bool isMoraleEnabled = mTurnCount > mTurnNumberOfLanding + gracePeriod[mDifficulty];
+	bool isMoraleEnabled = mTurnCount > mTurnNumberOfLanding + GracePeriod.at(mDifficulty);
 
 	if (isMoraleEnabled)
 	{
