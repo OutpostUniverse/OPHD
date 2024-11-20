@@ -216,7 +216,7 @@ void MapViewState::updateMorale()
 	mCurrentMorale -= structuresDestroyed;
 	mCurrentMorale -= foodProductionHit;
 
-	mCurrentMorale = std::clamp(mCurrentMorale, 0, 1000);
+	mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
 
 	mPopulationPanel.clearMoraleReasons();
 	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
@@ -382,8 +382,8 @@ void MapViewState::checkColonyShip()
 	{
 		if (mLandersColonist > 0 || mLandersCargo > 0)
 		{
-			mCurrentMorale -= (mLandersColonist * 50) * 6; /// \todo apply a modifier to multiplier based on difficulty level.
-			if (mCurrentMorale < 0) { mCurrentMorale = 0; }
+			mCurrentMorale -= (mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty);
+			mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
 
 			mLandersColonist = 0;
 			mLandersCargo = 0;
@@ -717,7 +717,7 @@ void MapViewState::nextTurn()
 	updateResidentialCapacity();
 
 	// Colony will not have morale or crime effects until at least n turns from landing, depending on difficulty
-	bool isMoraleEnabled = mTurnCount > mTurnNumberOfLanding + gracePeriod[mDifficulty];
+	bool isMoraleEnabled = mTurnCount > mTurnNumberOfLanding + GracePeriod.at(mDifficulty);
 
 	if (isMoraleEnabled)
 	{

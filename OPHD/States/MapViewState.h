@@ -309,13 +309,10 @@ private:
 	Difficulty mDifficulty = Difficulty::Medium;
 
 	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
-	std::map<Difficulty, int> gracePeriod
-	{
-		{Difficulty::Beginner, 30},
-		{Difficulty::Easy, 25},
-		{Difficulty::Medium, 20},
-		{Difficulty::Hard, 15}
-	};
+	static const std::map<Difficulty, int> GracePeriod;
+
+	//Morale loss multiplier on colonist death due to colony ship de-orbit
+	static const std::map<Difficulty, int> ColonyShipDeorbitMoraleLossMultiplier;
 
 	// MISCELLANEOUS
 	int mTurnCount = 0;
