@@ -219,16 +219,16 @@ void MapViewState::updateMorale()
 	mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
 
 	mPopulationPanel.clearMoraleReasons();
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Deaths), -deathCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::NoFoodProduction), -foodProductionHit);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Parks), parkCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Recreation), recreationCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Commercial), commercialCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::ResidentialOverflow), -residentialOverCapacityHit);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Births), birthCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Deaths), -deathCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::NoFoodProduction), -foodProductionHit);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Parks), parkCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Recreation), recreationCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Commercial), commercialCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::ResidentialOverflow), -residentialOverCapacityHit);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::BiowasteOverflow), bioWasteAccumulation * -2);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDisabled), -structuresDisabled);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDestroyed), -structuresDestroyed);
 
 	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
 	{

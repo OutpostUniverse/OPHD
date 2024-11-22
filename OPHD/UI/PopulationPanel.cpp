@@ -165,7 +165,7 @@ void PopulationPanel::update()
 
 	position.y += fontBoldHeight;
 	const auto moraleLevel = moraleIndex(mMorale);
-	renderer.drawText(mFont, moraleString(Morale::Description) + moraleString(moraleLevel), position, moraleStringColor[moraleLevel]);
+	renderer.drawText(mFont, moraleString(MoraleIndexs::Description) + moraleString(moraleLevel), position, moraleStringColor[moraleLevel]);
 
 	position.y += fontHeight;
 	renderer.drawText(mFont, "Current: " + std::to_string(mMorale) + " / Previous: " + std::to_string(mPreviousMorale), position);
