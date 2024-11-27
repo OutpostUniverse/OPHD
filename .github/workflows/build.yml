@@ -58,9 +58,52 @@ jobs:
         path: nas2d-core/.build/
         key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
 
+    - name: Restore incremental build cache
+      uses: actions/cache/restore@v4
+      if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
+      with:
+        path: .build
+        key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
+        restore-keys: buildCache-${{ runner.os }}-${{ matrix.platform }}-
+
+    - name: Set modification times
+      if: ${{ hashFiles('.build/lastBuildSha.txt') != '' }}
+      shell: bash
+      run: |
+          # Determine SHA of last cached build (ignore cache if not marked)
+          lastBuildSha=$(<.build/lastBuildSha.txt) || exit 0
+          echo "Last build SHA: ${lastBuildSha}"
+
+          # Fetch source code for last build
+          # (exit successfully if not found, cache will be ignored)
+          git fetch --depth=1 origin "${lastBuildSha}" || exit 0
+          git switch --detach "${lastBuildSha}"
+
+          # Set last modification times to that of last build's committer time
+          # The committer time should pre-date any cached output modification time
+          commitTime=$(git log -1 --format="%cI")
+          echo "commitTime=${commitTime}"
+          find . -type f -exec touch -d "${commitTime}" '{}' +
+
+          # Re-check out current branch, which updates last modification times of modified files
+          git switch -
+
+    - name: Set build SHA
+      shell: bash
+      run: |
+          # Save copy of current SHA to be cached, and used for reference in future builds
+          mkdir --parents .build/
+          echo "${{ github.sha }}" > .build/lastBuildSha.txt
+
     - name: Build
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
         vcpkg integrate install
         msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Save incremental build cache
+      uses: actions/cache/save@v4
+      with:
+        path: .build
+        key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
