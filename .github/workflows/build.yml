@@ -40,6 +40,24 @@ jobs:
         path: vcpkg_installed
         key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
+    - name: Set NAS2D modification time
+      shell: bash
+      run: |
+        nas2dSha=$(git submodule status -- nas2d-core/ | awk '{print $1}')
+        echo "nas2dSha=${nas2dSha}" >> $GITHUB_ENV
+
+        # Set last modification times to that of last build's committer time
+        # The committer time should pre-date any cached output modification time
+        commitTime=$(git -C nas2d-core/ log -1 --format="%cI")
+        echo "commitTime=${commitTime}"
+        find nas2d-core/ -type f -exec touch -d "${commitTime}" '{}' +
+
+    - name: Restore NAS2D cache
+      uses: actions/cache@v4
+      with:
+        path: nas2d-core/.build/
+        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
+
     - name: Build
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
