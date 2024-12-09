@@ -41,6 +41,7 @@
 
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/Morale.h>
 
 #include <libOPHD/Technology/ResearchTracker.h>
 #include <libOPHD/Technology/TechnologyCatalog.h>
@@ -321,6 +322,7 @@ private:
 
 	int mCurrentMorale;
 	int mPreviousMorale;
+	Morale mMorale;
 
 	int mLandersColonist = 0;
 	int mLandersCargo = 0;
