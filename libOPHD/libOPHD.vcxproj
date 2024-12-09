@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libOPHD.cpp" />
+    <ClCompile Include="Population\Morale.cpp" />
     <ClCompile Include="Population\PopulationPool.cpp" />
     <ClCompile Include="Population\Population.cpp" />
     <ClCompile Include="Population\PopulationTable.cpp" />
