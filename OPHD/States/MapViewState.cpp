@@ -187,7 +187,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool},
-	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
+	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool}
 {
 	ccLocation() = CcNotPlaced;
@@ -208,7 +208,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool},
-	mResourceInfoBar{mResourcesCount, mPopulation, mCurrentMorale, mPreviousMorale, mFood},
+	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
