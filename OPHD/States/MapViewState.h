@@ -320,8 +320,6 @@ private:
 
 	int mTurnNumberOfLanding = constants::ColonyShipOrbitTime; /**< First turn that human colonists landed. */
 
-	int mCurrentMorale;
-	int mPreviousMorale;
 	Morale mMorale;
 
 	int mLandersColonist = 0;
