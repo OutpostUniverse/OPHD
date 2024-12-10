@@ -19,6 +19,14 @@ ToolTip::ToolTip():
 }
 
 
+ToolTip::ToolTip(unsigned int delay) :
+	mFont{getDefaultFont()},
+	mDelay{delay}
+{
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
+}
+
+
 ToolTip::~ToolTip()
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ToolTip::onMouseMove});
@@ -31,18 +39,28 @@ void ToolTip::add(Control& c, const std::string& str)
 	{
 		if (item.first == &c)
 		{
-			item.second = str;
+			item.second.push_back(str);
 			return;
 		}
 	}
 
-	mControls.push_back(std::make_pair(&c, str));
+	auto strVec = std::vector<std::string>{str};
+
+	mControls.push_back(std::make_pair(&c, strVec));
 }
 
 
-void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
+void ToolTip::buildDrawParams(std::pair<Control*, std::vector<std::string>>& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
+	auto toolTipSize = NAS2D::Vector{0, 0};
+
+	const auto& strVec = item.second;
+	for (const auto& str : strVec)
+	{
+		const auto textSize = mFont.size(str) + PaddingSize * 2;
+		toolTipSize.x = std::max(toolTipSize.x, textSize.x);
+		toolTipSize.y += textSize.y;
+	}
 
 	auto tooltipPosition = item.first->position();
 
@@ -87,7 +105,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 
 void ToolTip::update()
 {
-	if (mTimer.elapsedTicks() < 1000)
+	if (mTimer.elapsedTicks() < mDelay)
 	{
 		return;
 	}
@@ -102,6 +120,12 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+
+		auto linePosition = position();
+		for (const auto& str : mFocusedControl->second)
+		{
+			renderer.drawText(mFont, str, linePosition + PaddingSize);
+			linePosition.y += mFont.height() + PaddingSize.y * 2;
+		}
 	}
 }
