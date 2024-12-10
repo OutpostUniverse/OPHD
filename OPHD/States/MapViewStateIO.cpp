@@ -167,8 +167,8 @@ void MapViewState::save(const std::string& filePath)
 	root->linkEndChild(NAS2D::dictionaryToAttributes(
 		"population",
 		{{
-			{"morale", mCurrentMorale},
-			{"prev_morale", mPreviousMorale},
+			{"morale", mMorale.currentMorale()},
+			{"prev_morale", mMorale.previousMorale()},
 			{"colonist_landers", mLandersColonist},
 			{"cargo_landers", mLandersCargo},
 			{"turn_number_of_landing", mTurnNumberOfLanding},
@@ -564,8 +564,7 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 		mLandersColonist = dictionary.get<int>("colonist_landers");
 		mLandersCargo = dictionary.get<int>("cargo_landers");
 
-		mCurrentMorale = dictionary.get<int>("morale");
-		mPreviousMorale = dictionary.get<int>("prev_morale");
+		mMorale = Morale(dictionary.get<int>("morale"), dictionary.get<int>("prev_morale"));
 
 		mTurnNumberOfLanding = dictionary.get<int>("turn_number_of_landing", constants::ColonyShipOrbitTime);
 
@@ -577,8 +576,8 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 		const auto scientists = dictionary.get<int>("scientists");
 		const auto retired = dictionary.get<int>("retired");
 
-		mPopulationPanel.morale(mCurrentMorale);
-		mPopulationPanel.old_morale(mPreviousMorale);
+		mPopulationPanel.morale(mMorale.currentMorale());
+		mPopulationPanel.old_morale(mMorale.previousMorale());
 		mPopulationPanel.crimeRate(meanCrimeRate);
 
 		mPopulation.addPopulation({children, students, workers, scientists, retired});

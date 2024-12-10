@@ -51,6 +51,9 @@
     <ClCompile Include="XmlSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Population\Morale.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNumberGenerator.h">
@@ -83,8 +86,5 @@
     <ClInclude Include="Map\MapOffset.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.clang-format" />
   </ItemGroup>
 </Project>

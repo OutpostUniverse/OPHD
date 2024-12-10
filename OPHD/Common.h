@@ -280,7 +280,7 @@ enum ProductType
 bool productTypeInRange(ProductType productType);
 
 
-enum class Morale
+enum class MoraleIndexs
 {
 	Terrible,
 	Poor,
@@ -333,7 +333,7 @@ const std::string& idleReason(IdleReason);
  * Gets a morale string based on value;
  */
 const std::string& moraleString(std::size_t index);
-const std::string& moraleString(Morale morale);
+const std::string& moraleString(MoraleIndexs morale);
 std::size_t moraleStringTableCount();
 
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding = 4);
