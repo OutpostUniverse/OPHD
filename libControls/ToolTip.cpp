@@ -112,6 +112,12 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+
+		auto linePosition = position();
+		for (const auto& str : mFocusedControl->second)
+		{
+			renderer.drawText(mFont, str, linePosition + PaddingSize);
+			linePosition.y += mFont.height() + PaddingSize.y * 2;
+		}
 	}
 }
