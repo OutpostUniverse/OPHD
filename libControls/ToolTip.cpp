@@ -42,9 +42,17 @@ void ToolTip::add(Control& c, const std::string& str)
 }
 
 
-void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
+void ToolTip::buildDrawParams(std::pair<Control*, std::vector<std::string>>& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
+	auto toolTipSize = NAS2D::Vector{0, 0};
+
+	const auto& strVec = item.second;
+	for (const auto& str : strVec)
+	{
+		const auto textSize = mFont.size(str) + PaddingSize * 2;
+		toolTipSize.x = std::max(toolTipSize.x, textSize.x);
+		toolTipSize.y += textSize.y;
+	}
 
 	auto tooltipPosition = item.first->position();
 

@@ -25,7 +25,7 @@ public:
 private:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
-	void buildDrawParams(std::pair<Control*, std::string>&, int);
+	void buildDrawParams(std::pair<Control*, std::vector<std::string>>&, int);
 
 private:
 	const NAS2D::Font& mFont;
