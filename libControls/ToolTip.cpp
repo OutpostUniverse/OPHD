@@ -31,12 +31,14 @@ void ToolTip::add(Control& c, const std::string& str)
 	{
 		if (item.first == &c)
 		{
-			item.second = str;
+			item.second.push_back(str);
 			return;
 		}
 	}
 
-	mControls.push_back(std::make_pair(&c, str));
+	auto strVec = std::vector<std::string>{str};
+
+	mControls.push_back(std::make_pair(&c, strVec));
 }
 
 
