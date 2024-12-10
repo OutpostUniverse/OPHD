@@ -19,6 +19,14 @@ ToolTip::ToolTip():
 }
 
 
+ToolTip::ToolTip(unsigned int delay) :
+	mFont{getDefaultFont()},
+	mDelay{delay}
+{
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
+}
+
+
 ToolTip::~ToolTip()
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ToolTip::onMouseMove});
@@ -97,7 +105,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 
 void ToolTip::update()
 {
-	if (mTimer.elapsedTicks() < 1000)
+	if (mTimer.elapsedTicks() < mDelay)
 	{
 		return;
 	}

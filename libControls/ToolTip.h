@@ -14,7 +14,9 @@
 class ToolTip : public Control
 {
 public:
+	static constexpr unsigned int DEFAULT_DELAY = 1000;
 	ToolTip();
+	ToolTip(unsigned int delay);
 	~ToolTip() override;
 
 	void add(Control&, const std::string&);
@@ -30,6 +32,7 @@ private:
 private:
 	const NAS2D::Font& mFont;
 	NAS2D::Timer mTimer;
+	unsigned int mDelay = DEFAULT_DELAY;
 
 	std::pair<Control*, std::vector<std::string>>* mFocusedControl{nullptr};
 
