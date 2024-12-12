@@ -24,9 +24,6 @@ class PopulationPanel : public Control
 public:
 	PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale);
 
-	void morale(int val) { mCurrentMorale = val; }
-	void old_morale(int val) { mPreviousMorale = val; }
-
 	void residentialCapacity(int val) { mResidentialCapacity = val; }
 
 	void crimeRate(int val) { mCrimeRate = val; }
@@ -52,8 +49,6 @@ private:
 	const PopulationPool& mPopulationPool;
 	const Morale& mMorale;
 
-	int mCurrentMorale{0};
-	int mPreviousMorale{0};
 	int mResidentialCapacity{0};
 	int mCrimeRate{0};
 	int mPopulationPanelWidth{0};

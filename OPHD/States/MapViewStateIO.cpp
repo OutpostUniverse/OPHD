@@ -576,8 +576,6 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 		const auto scientists = dictionary.get<int>("scientists");
 		const auto retired = dictionary.get<int>("retired");
 
-		mPopulationPanel.morale(mMorale.currentMorale());
-		mPopulationPanel.old_morale(mMorale.previousMorale());
 		mPopulationPanel.crimeRate(meanCrimeRate);
 
 		mPopulation.addPopulation({children, students, workers, scientists, retired});

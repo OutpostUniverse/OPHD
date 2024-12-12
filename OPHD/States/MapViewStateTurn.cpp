@@ -768,9 +768,6 @@ void MapViewState::nextTurn()
 
 	mMorale.commitMoraleChanges();
 
-	mPopulationPanel.morale(mMorale.currentMorale());
-	mPopulationPanel.old_morale(mMorale.previousMorale());
-
 	mTurnCount++;
 
 	mResourceInfoBar.ignoreGlow(false);
