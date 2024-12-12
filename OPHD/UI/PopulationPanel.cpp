@@ -166,11 +166,11 @@ void PopulationPanel::update()
 	renderer.drawText(mFontBold, constants::MoraleBreakdown, position);
 
 	position.y += fontBoldHeight;
-	const auto moraleLevel = moraleIndex(mCurrentMorale);
+	const auto moraleLevel = moraleIndex(mMorale.currentMorale());
 	renderer.drawText(mFont, moraleString(MoraleIndexs::Description) + moraleString(moraleLevel), position, moraleStringColor[moraleLevel]);
 
 	position.y += fontHeight;
-	renderer.drawText(mFont, "Current: " + std::to_string(mCurrentMorale) + " / Previous: " + std::to_string(mPreviousMorale), position);
+	renderer.drawText(mFont, "Current: " + std::to_string(mMorale.currentMorale()) + " / Previous: " + std::to_string(mMorale.previousMorale()), position);
 
 	position.y += fontHeight;
 	int capacityPercent = (mResidentialCapacity > 0) ? (population.size() * 100 / mResidentialCapacity) : 0;
