@@ -11,6 +11,7 @@
 
 class Population;
 class PopulationPool;
+class Morale;
 
 namespace NAS2D
 {
@@ -21,7 +22,7 @@ namespace NAS2D
 class PopulationPanel : public Control
 {
 public:
-	PopulationPanel(const Population& pop, const PopulationPool& popPool);
+	PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale);
 
 	void morale(int val) { mCurrentMorale = val; }
 	void old_morale(int val) { mPreviousMorale = val; }
@@ -49,6 +50,7 @@ private:
 
 	const Population& mPopulation;
 	const PopulationPool& mPopulationPool;
+	const Morale& mMorale;
 
 	int mCurrentMorale{0};
 	int mPreviousMorale{0};
