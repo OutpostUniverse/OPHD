@@ -22,7 +22,7 @@ public:
 	int previousMorale() const;
 	void adjustMorale(int diff);
 
-	//Should be called after all morale calculations are done for the turn to apply the morale changes but before its needed to update the UI
+	// Should be called after all morale calculations are done for the turn to apply the morale changes but before its needed to update the UI
 	void commitMoraleChanges();
 
 
