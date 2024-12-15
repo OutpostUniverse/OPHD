@@ -1129,7 +1129,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	{
 		if (tile.depth() > constants::DepthSurface)
 		{
-			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) //air shaft
+			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) // Air shaft
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 				return;

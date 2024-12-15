@@ -21,19 +21,19 @@ namespace
 
 	static const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
 	{
-		{"goldrush", CheatMenu::CheatCode::AddResources },         //Add 1000 of each resource.
-		{"orderpizza", CheatMenu::CheatCode::AddFood},             //Refill your food supply completely
-		{"waveofbabies", CheatMenu::CheatCode::AddChildren},       //Add ten children to the population
-		{"savedbythebell", CheatMenu::CheatCode::AddStudents},     //Add ten students to the population
-		{"gettowork", CheatMenu::CheatCode::AddWorkers},           //Add ten workers to the population
-		{"smartypants", CheatMenu::CheatCode::AddScientists},      //Add ten scientists to the population
-		{"electronicoldmen", CheatMenu::CheatCode::AddRetired},    //Add ten retired colonists to the population
-		{"dropchildren", CheatMenu::CheatCode::RemoveChildren},    //Remove ten children from the population
-		{"dropstudents", CheatMenu::CheatCode::RemoveStudents},    //Remove ten students from the population
-		{"dropworkers", CheatMenu::CheatCode::RemoveWorkers},      //Remove ten workers from the population
-		{"dropscientists", CheatMenu::CheatCode::RemoveScientists},//Remove ten scientists from the population
-		{"dropretirees", CheatMenu::CheatCode::RemoveRetired},     //Remove ten retired colonists from the population
-		{"beepboop", CheatMenu::CheatCode::AddRobots}              //Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
+		{"goldrush", CheatMenu::CheatCode::AddResources },         // Add 1000 of each resource.
+		{"orderpizza", CheatMenu::CheatCode::AddFood},             // Refill your food supply completely
+		{"waveofbabies", CheatMenu::CheatCode::AddChildren},       // Add ten children to the population
+		{"savedbythebell", CheatMenu::CheatCode::AddStudents},     // Add ten students to the population
+		{"gettowork", CheatMenu::CheatCode::AddWorkers},           // Add ten workers to the population
+		{"smartypants", CheatMenu::CheatCode::AddScientists},      // Add ten scientists to the population
+		{"electronicoldmen", CheatMenu::CheatCode::AddRetired},    // Add ten retired colonists to the population
+		{"dropchildren", CheatMenu::CheatCode::RemoveChildren},    // Remove ten children from the population
+		{"dropstudents", CheatMenu::CheatCode::RemoveStudents},    // Remove ten students from the population
+		{"dropworkers", CheatMenu::CheatCode::RemoveWorkers},      // Remove ten workers from the population
+		{"dropscientists", CheatMenu::CheatCode::RemoveScientists},// Remove ten scientists from the population
+		{"dropretirees", CheatMenu::CheatCode::RemoveRetired},     // Remove ten retired colonists from the population
+		{"beepboop", CheatMenu::CheatCode::AddRobots}              // Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
 }
 
