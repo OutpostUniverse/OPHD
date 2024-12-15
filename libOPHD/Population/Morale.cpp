@@ -5,7 +5,7 @@
 
 
 Morale::Morale() :
-	Morale(constants::DefaultStartingMorale,constants::DefaultStartingMorale)
+	Morale(constants::DefaultStartingMorale, constants::DefaultStartingMorale)
 {
 }
 
