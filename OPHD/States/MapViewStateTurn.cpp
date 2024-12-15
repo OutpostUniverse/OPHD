@@ -113,7 +113,7 @@ void MapViewState::updatePopulation()
 	const auto& commandCenters = structureManager.getStructures<CommandCenter>();
 	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
-	int amountToConsume = mPopulation.update(mCurrentMorale, mFood, residences, universities, nurseries, hospitals);
+	int amountToConsume = mPopulation.update(mMorale.currentMorale(), mFood, residences, universities, nurseries, hospitals);
 	consumeFood(foodProducers, amountToConsume);
 }
 
@@ -171,7 +171,7 @@ void MapViewState::updateCommercial()
 		}
 	}
 
-	mCurrentMorale += commercialCount - luxuryCount;
+	mMorale.adjustMorale(commercialCount - luxuryCount);
 }
 
 
@@ -203,37 +203,35 @@ void MapViewState::updateMorale()
 	}
 
 	// positive
-	mCurrentMorale += birthCount;
-	mCurrentMorale += parkCount;
-	mCurrentMorale += recreationCount;
-	mCurrentMorale += commercialCount;
+	mMorale.adjustMorale(birthCount);
+	mMorale.adjustMorale(parkCount);
+	mMorale.adjustMorale(recreationCount);
+	mMorale.adjustMorale(commercialCount);
 
 	// negative
-	mCurrentMorale -= deathCount;
-	mCurrentMorale -= residentialOverCapacityHit;
-	mCurrentMorale -= bioWasteAccumulation * 2;
-	mCurrentMorale -= structuresDisabled;
-	mCurrentMorale -= structuresDestroyed;
-	mCurrentMorale -= foodProductionHit;
-
-	mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
+	mMorale.adjustMorale(-deathCount);
+	mMorale.adjustMorale(-residentialOverCapacityHit);
+	mMorale.adjustMorale(-bioWasteAccumulation * 2);
+	mMorale.adjustMorale(-structuresDisabled);
+	mMorale.adjustMorale(-structuresDestroyed);
+	mMorale.adjustMorale(-foodProductionHit);
 
 	mPopulationPanel.clearMoraleReasons();
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Births), birthCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Deaths), -deathCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::NoFoodProduction), -foodProductionHit);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Parks), parkCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Recreation), recreationCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::Commercial), commercialCount);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::ResidentialOverflow), -residentialOverCapacityHit);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::BiowasteOverflow), bioWasteAccumulation * -2);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDisabled), -structuresDisabled);
-	mPopulationPanel.addMoraleReason(moraleString(Morale::StructuresDestroyed), -structuresDestroyed);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Births), birthCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Deaths), -deathCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::NoFoodProduction), -foodProductionHit);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Parks), parkCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Recreation), recreationCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Commercial), commercialCount);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::ResidentialOverflow), -residentialOverCapacityHit);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::BiowasteOverflow), bioWasteAccumulation * -2);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDisabled), -structuresDisabled);
+	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDestroyed), -structuresDestroyed);
 
 	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
 	{
 		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
-		mCurrentMorale += moraleReason.second;
+		mMorale.adjustMorale(moraleReason.second);
 	}
 
 	mPopulationPanel.crimeRate(mCrimeRateUpdate.meanCrimeRate());
@@ -241,7 +239,7 @@ void MapViewState::updateMorale()
 	for (const auto& moraleReason : mCrimeExecution.moraleChanges())
 	{
 		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
-		mCurrentMorale += moraleReason.second;
+		mMorale.adjustMorale(moraleReason.second);
 	}
 }
 
@@ -382,8 +380,7 @@ void MapViewState::checkColonyShip()
 	{
 		if (mLandersColonist > 0 || mLandersCargo > 0)
 		{
-			mCurrentMorale -= (mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty);
-			mCurrentMorale = std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
+			mMorale.adjustMorale(-(mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty));
 
 			mLandersColonist = 0;
 			mLandersCargo = 0;
@@ -710,8 +707,6 @@ void MapViewState::nextTurn()
 	checkAgingStructures();
 	checkNewlyBuiltStructures();
 
-	mPreviousMorale = mCurrentMorale;
-
 	transferFoodToCommandCenter();
 
 	updateResidentialCapacity();
@@ -770,8 +765,8 @@ void MapViewState::nextTurn()
 		mGameOverDialog.show();
 	}
 
-	mPopulationPanel.morale(mCurrentMorale);
-	mPopulationPanel.old_morale(mPreviousMorale);
+
+	mMorale.commitMoraleChanges();
 
 	mTurnCount++;
 

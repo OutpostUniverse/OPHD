@@ -139,7 +139,7 @@ const std::string& moraleString(std::size_t index)
 }
 
 
-const std::string& moraleString(Morale morale)
+const std::string& moraleString(MoraleIndexs morale)
 {
 	return MoraleStringTable[static_cast<std::size_t>(morale)];
 }

@@ -7,6 +7,7 @@
 #include "../StructureManager.h"
 
 #include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/Morale.h>
 
 #include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
@@ -55,12 +56,11 @@ namespace
 }
 
 
-ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Population& population, const int& currentMorale, const int& previousMorale, const int& food) :
+ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food) :
 	UIContainer{{&mToolTip}},
 	mResourcesCount{resources},
 	mPopulation{population},
-	mCurrentMorale{currentMorale},
-	mPreviousMorale{previousMorale},
+	mMorale{morale},
 	mFood{food},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
@@ -178,13 +178,13 @@ void ResourceInfoBar::draw() const
 	// Population / Morale
 	position.x -= 13;
 	position.y += 4;
-	int popMoraleDeltaImageOffsetX = mCurrentMorale < mPreviousMorale ? 0 : (mCurrentMorale > mPreviousMorale ? 8 : 16);
+	int popMoraleDeltaImageOffsetX = mMorale.currentMorale() < mMorale.previousMorale() ? 0 : (mMorale.currentMorale() > mMorale.previousMorale() ? 8 : 16);
 	const auto popMoraleDirectionImageRect = NAS2D::Rectangle<int>{{popMoraleDeltaImageOffsetX, 64}, {8, 8}};
 	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
 
 	position.x += 13;
 	position.y -= 4;
-	const auto moraleLevel = (std::clamp(mCurrentMorale, 1, 999) / 200);
+	const auto moraleLevel = (std::clamp(mMorale.currentMorale(), 1, 999) / 200);
 	const auto popMoraleImageRect = NAS2D::Rectangle<int>{{176 + moraleLevel * constants::ResourceIconSize, 0}, {constants::ResourceIconSize, constants::ResourceIconSize}};
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
 	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);

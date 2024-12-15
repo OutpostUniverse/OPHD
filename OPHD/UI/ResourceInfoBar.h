@@ -12,12 +12,13 @@
 
 struct StorableResources;
 class Population;
+class Morale;
 
 
 class ResourceInfoBar : public UIContainer
 {
 public:
-	ResourceInfoBar(const StorableResources& resources, const Population& population, const int& currentMorale, const int& previousMorale, const int& food);
+	ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food);
 
 	bool isResourcePanelVisible() const;
 	bool isPopulationPanelVisible() const;
@@ -35,8 +36,7 @@ protected:
 private:
 	const StorableResources& mResourcesCount;
 	const Population& mPopulation;
-	const int& mCurrentMorale;
-	const int& mPreviousMorale;
+	const Morale& mMorale;
 	const int& mFood;
 
 	const NAS2D::Image& mUiIcons;
