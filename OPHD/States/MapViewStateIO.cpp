@@ -239,8 +239,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mStructureTracker.reset();
 
-	delete mTileMap;
-	mTileMap = nullptr;
+	mTileMap.reset();
 
 	auto xmlDocument = openSavegame(filePath);
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
@@ -258,7 +257,7 @@ void MapViewState::load(const std::string& filePath)
 
 	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
 
-	mTileMap = new TileMap(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);
+	mTileMap = std::make_unique<TileMap>(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
@@ -267,7 +266,7 @@ void MapViewState::load(const std::string& filePath)
 	mNavControl = std::make_unique<NavControl>(*mMapView, *mTileMap);
 
 	delete mPathSolver;
-	mPathSolver = new micropather::MicroPather(mTileMap, 250, 6, false);
+	mPathSolver = new micropather::MicroPather(mTileMap.get(), 250, 6, false);
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	routeTable.clear();
 

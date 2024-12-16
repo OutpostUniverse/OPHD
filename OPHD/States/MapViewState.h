@@ -293,7 +293,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
-	TileMap* mTileMap{nullptr};
+	std::unique_ptr<TileMap> mTileMap;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 

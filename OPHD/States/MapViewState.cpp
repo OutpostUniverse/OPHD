@@ -194,7 +194,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
-	mTileMap(new TileMap(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
+	mTileMap(std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
@@ -222,7 +222,6 @@ MapViewState::~MapViewState()
 	delete mPathSolver;
 
 	scrubRobotList();
-	delete mTileMap;
 
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
 
@@ -294,7 +293,7 @@ void MapViewState::initialize()
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
 	delete mPathSolver;
-	mPathSolver = new micropather::MicroPather(mTileMap, 250, 6, false);
+	mPathSolver = new micropather::MicroPather(mTileMap.get(), 250, 6, false);
 }
 
 
