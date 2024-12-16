@@ -219,8 +219,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 
 MapViewState::~MapViewState()
 {
-	delete mPathSolver;
-
 	scrubRobotList();
 
 	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
@@ -292,8 +290,7 @@ void MapViewState::initialize()
 
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
-	delete mPathSolver;
-	mPathSolver = new micropather::MicroPather(mTileMap.get(), 250, 6, false);
+	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
 }
 
 

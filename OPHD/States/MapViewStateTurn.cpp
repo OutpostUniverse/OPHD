@@ -291,7 +291,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver, mine, smelterList);
+			auto routeList = findRoutes(mPathSolver.get(), mine, smelterList);
 			auto newRoute = findLowestCostRoute(routeList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine
