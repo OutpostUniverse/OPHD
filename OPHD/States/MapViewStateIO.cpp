@@ -262,7 +262,7 @@ void MapViewState::load(const std::string& filePath)
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
-	mMiniMap = std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
+	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView, *mTileMap);
 

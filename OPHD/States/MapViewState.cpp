@@ -206,7 +206,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, mTileMap, mRobotList, planetAttributes.mapImagePath)},
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
 {

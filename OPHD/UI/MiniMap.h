@@ -22,7 +22,7 @@ class MapViewState;
 class MiniMap : public Control
 {
 public:
-	MiniMap(MapView& mapView, TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName);
+	MiniMap(MapView& mapView, TileMap& tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName);
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
@@ -39,7 +39,7 @@ protected:
 
 private:
 	MapView& mMapView;
-	TileMap* mTileMap;
+	TileMap& mTileMap;
 	const std::map<Robot*, Tile*>& mRobotList;
 	bool mIsHeightMapVisible;
 	NAS2D::Image mBackgroundSatellite;
