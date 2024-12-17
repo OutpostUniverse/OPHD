@@ -61,6 +61,5 @@ private:
 
 	NAS2D::State* mReturnState = this;
 
-	std::vector<Planet::Attributes> PlanetAttributes;
 	std::vector<Planet*> mPlanets;
 };
