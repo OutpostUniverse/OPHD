@@ -47,6 +47,9 @@ PlanetSelectState::PlanetSelectState() :
 		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
 		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
+
+	mQuit.size({100, 20});
+	mPlanetDescription.size({550, 200});
 }
 
 
@@ -70,10 +73,7 @@ void PlanetSelectState::initialize()
 	const auto viewportSize = renderer.size().to<int>();
 	onWindowResized(viewportSize);
 
-	mQuit.size({100, 20});
-
 	mPlanetDescription.text("");
-	mPlanetDescription.size({550, 200});
 
 	renderer.showSystemPointer(true);
 	mFade.fadeIn(constants::FadeSpeed);
