@@ -293,7 +293,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
-	TileMap* mTileMap{nullptr};
+	std::unique_ptr<TileMap> mTileMap;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
@@ -336,7 +336,7 @@ private:
 	Population mPopulation;
 
 	// ROUTING
-	micropather::MicroPather* mPathSolver = nullptr;
+	std::unique_ptr<micropather::MicroPather> mPathSolver;
 
 	bool mLoadingExisting = false;
 	std::string mExistingToLoad; /**< Filename of the existing game to load. */

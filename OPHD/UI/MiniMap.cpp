@@ -23,7 +23,7 @@ namespace
 }
 
 
-MiniMap::MiniMap(MapView& mapView, TileMap* tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName) :
 	mMapView{mapView},
 	mTileMap{tileMap},
 	mRobotList{robotList},
@@ -77,9 +77,9 @@ void MiniMap::draw() const
 		}
 	}
 
-	for (auto minePosition : mTileMap->mineLocations())
+	for (auto minePosition : mTileMap.mineLocations())
 	{
-		Mine* mine = mTileMap->getTile({minePosition, 0}).mine();
+		Mine* mine = mTileMap.getTile({minePosition, 0}).mine();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
 
 		auto mineBeaconStatusOffsetX = 0;
