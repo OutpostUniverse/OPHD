@@ -60,17 +60,17 @@ void PlanetSelectState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
-	const auto centralPlanetPosition = NAS2D::Point{-64, -64} + viewportSize / 2;
 	const auto sidePlanetOffset = NAS2D::Vector{viewportSize.x / 4, 0};
-	mPlanets[0]->position(centralPlanetPosition - sidePlanetOffset);
+	const auto startPlanetPosition = NAS2D::Point{-64, -64} + viewportSize / 2 - sidePlanetOffset;
+	mPlanets[0]->position(startPlanetPosition);
 	mPlanets[0]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
 	mPlanets[0]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 
-	mPlanets[1]->position(centralPlanetPosition);
+	mPlanets[1]->position(startPlanetPosition + sidePlanetOffset);
 	mPlanets[1]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
 	mPlanets[1]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 
-	mPlanets[2]->position(centralPlanetPosition + sidePlanetOffset);
+	mPlanets[2]->position(startPlanetPosition + sidePlanetOffset * 2);
 	mPlanets[2]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
 	mPlanets[2]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 
