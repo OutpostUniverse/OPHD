@@ -36,7 +36,7 @@ PlanetSelectState::PlanetSelectState() :
 	mBgMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
-	mQuit{"Main Menu", {this, &PlanetSelectState::onQuit}},
+	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
@@ -48,7 +48,6 @@ PlanetSelectState::PlanetSelectState() :
 		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
 
-	mQuit.size({100, 20});
 	mPlanetDescription.size({550, 200});
 }
 
