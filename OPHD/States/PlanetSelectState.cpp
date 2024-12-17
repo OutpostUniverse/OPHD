@@ -71,11 +71,9 @@ void PlanetSelectState::initialize()
 	onWindowResized(viewportSize);
 
 	mQuit.size({100, 20});
-	mQuit.position({renderer.size().x - 105, 30});
 
 	mPlanetDescription.text("");
 	mPlanetDescription.size({550, 200});
-	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
 	renderer.showSystemPointer(true);
 	mFade.fadeIn(constants::FadeSpeed);
