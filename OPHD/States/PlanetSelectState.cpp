@@ -159,11 +159,11 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (auto* planet : mPlanets)
 	{
-		if (mPlanets[i]->mouseHovering())
+		if (planet->mouseHovering())
 		{
-			mPlanetDescription.text(mPlanets[i]->attributes().description);
+			mPlanetDescription.text(planet->attributes().description);
 			break;
 		}
 	}
