@@ -93,10 +93,6 @@ NAS2D::State* PlanetSelectState::update()
 	for (auto* planet : mPlanets)
 	{
 		planet->update();
-	}
-
-	for (auto* planet : mPlanets)
-	{
 		renderer.drawText(mFontBold, planet->attributes().name, planet->position() + NAS2D::Vector{64 - (mFontBold.width(planet->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 	}
 
