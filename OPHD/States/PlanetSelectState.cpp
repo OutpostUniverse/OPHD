@@ -41,7 +41,13 @@ PlanetSelectState::PlanetSelectState() :
 	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
 	mPlanets{attributesToPlanets(parsePlanetAttributes())}
-{}
+{
+	for (auto& planet : mPlanets)
+	{
+		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+	}
+}
 
 
 PlanetSelectState::~PlanetSelectState()
@@ -59,12 +65,6 @@ void PlanetSelectState::initialize()
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &PlanetSelectState::onMouseDown});
 	eventHandler.windowResized().connect({this, &PlanetSelectState::onWindowResized});
-
-	for (auto& planet : mPlanets)
-	{
-		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
-	}
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
