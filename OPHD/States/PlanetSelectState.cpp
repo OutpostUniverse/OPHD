@@ -36,12 +36,20 @@ PlanetSelectState::PlanetSelectState() :
 	mBgMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
-	mQuit{"Main Menu", {this, &PlanetSelectState::onQuit}},
+	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
 	mPlanets{attributesToPlanets(parsePlanetAttributes())}
-{}
+{
+	for (auto& planet : mPlanets)
+	{
+		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+	}
+
+	mPlanetDescription.size({550, 200});
+}
 
 
 PlanetSelectState::~PlanetSelectState()
@@ -60,22 +68,11 @@ void PlanetSelectState::initialize()
 	eventHandler.mouseButtonDown().connect({this, &PlanetSelectState::onMouseDown});
 	eventHandler.windowResized().connect({this, &PlanetSelectState::onWindowResized});
 
-	for (auto& planet : mPlanets)
-	{
-		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
-	}
-
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
 	onWindowResized(viewportSize);
 
-	mQuit.size({100, 20});
-	mQuit.position({renderer.size().x - 105, 30});
-
 	mPlanetDescription.text("");
-	mPlanetDescription.size({550, 200});
-	mPlanetDescription.position(NAS2D::Point{viewportSize.x / 2 - 275, viewportSize.y - 225});
 
 	renderer.showSystemPointer(true);
 	mFade.fadeIn(constants::FadeSpeed);
@@ -151,7 +148,7 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (auto& planet : mPlanets)
+	for (const auto& planet : mPlanets)
 	{
 		if (planet.mouseHovering())
 		{
