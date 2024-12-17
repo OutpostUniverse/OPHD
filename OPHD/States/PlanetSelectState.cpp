@@ -56,23 +56,14 @@ void PlanetSelectState::initialize()
 	for (const auto& planetAttribute : PlanetAttributes)
 	{
 		mPlanets.push_back(new Planet(planetAttribute));
+		auto* planet = mPlanets.back();
+		planet->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+		planet->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto viewportSize = renderer.size().to<int>();
-	const auto centralPlanetPosition = NAS2D::Point{-64, -64} + viewportSize / 2;
-	const auto sidePlanetOffset = NAS2D::Vector{viewportSize.x / 4, 0};
-	mPlanets[0]->position(centralPlanetPosition - sidePlanetOffset);
-	mPlanets[0]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-	mPlanets[0]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
-
-	mPlanets[1]->position(centralPlanetPosition);
-	mPlanets[1]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-	mPlanets[1]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
-
-	mPlanets[2]->position(centralPlanetPosition + sidePlanetOffset);
-	mPlanets[2]->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-	mPlanets[2]->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+	onWindowResized(viewportSize);
 
 	mQuit.size({100, 20});
 	mQuit.position({renderer.size().x - 105, 30});
@@ -102,11 +93,8 @@ NAS2D::State* PlanetSelectState::update()
 	for (auto* planet : mPlanets)
 	{
 		planet->update();
+		renderer.drawText(mFontBold, planet->attributes().name, planet->position() + NAS2D::Vector{64 - (mFontBold.width(planet->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 	}
-
-	renderer.drawText(mFontBold, PlanetAttributes[0].name, mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[0].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
-	renderer.drawText(mFontBold, PlanetAttributes[1].name, mPlanets[1]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[1].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
-	renderer.drawText(mFontBold, PlanetAttributes[2].name, mPlanets[2]->position() + NAS2D::Vector{64 - (mFontBold.width(PlanetAttributes[2].name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 
 	mQuit.update();
 
@@ -158,11 +146,11 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (auto* planet : mPlanets)
 	{
-		if (mPlanets[i]->mouseHovering())
+		if (planet->mouseHovering())
 		{
-			mPlanetDescription.text(mPlanets[i]->attributes().description);
+			mPlanetDescription.text(planet->attributes().description);
 			break;
 		}
 	}
@@ -177,11 +165,13 @@ void PlanetSelectState::onMousePlanetExit()
 
 void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 {
-	const auto middlePosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2;
 	const auto offset = NAS2D::Vector{newSize.x / 4, 0};
-	mPlanets[0]->position(middlePosition - offset);
-	mPlanets[1]->position(middlePosition);
-	mPlanets[2]->position(middlePosition + offset);
+	auto planetPosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2 - offset;
+	for (auto* planet : mPlanets)
+	{
+		planet->position(planetPosition);
+		planetPosition += offset;
+	}
 
 	mQuit.position(NAS2D::Point{newSize.x - 105, 30});
 	mPlanetDescription.position(NAS2D::Point{(newSize.x / 2) - 275, newSize.y - 225});
