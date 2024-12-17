@@ -31,7 +31,7 @@ PlanetSelectState::PlanetSelectState() :
 	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
-	PlanetAttributes(parsePlanetAttributes())
+	PlanetAttributes{parsePlanetAttributes()}
 {}
 
 
