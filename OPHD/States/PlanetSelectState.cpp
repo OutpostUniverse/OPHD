@@ -18,6 +18,20 @@
 #include <limits>
 
 
+namespace
+{
+	auto attributesToPlanets(const std::vector<Planet::Attributes>& attributes)
+	{
+		std::vector<Planet*> planets;
+		for (const auto& planetAttribute : attributes)
+		{
+			planets.push_back(new Planet(planetAttribute));
+		}
+		return planets;
+	}
+}
+
+
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
 	mTinyFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
@@ -31,7 +45,8 @@ PlanetSelectState::PlanetSelectState() :
 	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
-	PlanetAttributes{parsePlanetAttributes()}
+	PlanetAttributes{parsePlanetAttributes()},
+	mPlanets{attributesToPlanets(PlanetAttributes)}
 {}
 
 
@@ -53,10 +68,8 @@ void PlanetSelectState::initialize()
 	eventHandler.mouseButtonDown().connect({this, &PlanetSelectState::onMouseDown});
 	eventHandler.windowResized().connect({this, &PlanetSelectState::onWindowResized});
 
-	for (const auto& planetAttribute : PlanetAttributes)
+	for (auto* planet : mPlanets)
 	{
-		mPlanets.push_back(new Planet(planetAttribute));
-		auto* planet = mPlanets.back();
 		planet->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
 		planet->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
