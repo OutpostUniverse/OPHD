@@ -104,9 +104,10 @@ NAS2D::State* PlanetSelectState::update()
 		planet->update();
 	}
 
-	renderer.drawText(mFontBold, mPlanets[0]->attributes().name, mPlanets[0]->position() + NAS2D::Vector{64 - (mFontBold.width(mPlanets[0]->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
-	renderer.drawText(mFontBold, mPlanets[1]->attributes().name, mPlanets[1]->position() + NAS2D::Vector{64 - (mFontBold.width(mPlanets[1]->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
-	renderer.drawText(mFontBold, mPlanets[2]->attributes().name, mPlanets[2]->position() + NAS2D::Vector{64 - (mFontBold.width(mPlanets[2]->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	for (auto* planet : mPlanets)
+	{
+		renderer.drawText(mFontBold, planet->attributes().name, planet->position() + NAS2D::Vector{64 - (mFontBold.width(planet->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+	}
 
 	mQuit.update();
 
