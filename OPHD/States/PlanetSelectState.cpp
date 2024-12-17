@@ -176,10 +176,12 @@ void PlanetSelectState::onMousePlanetExit()
 void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	const auto offset = NAS2D::Vector{newSize.x / 4, 0};
-	const auto planetPosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2 - offset;
-	mPlanets[0]->position(planetPosition);
-	mPlanets[1]->position(planetPosition + offset);
-	mPlanets[2]->position(planetPosition + offset * 2);
+	auto planetPosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2 - offset;
+	for (auto* planet : mPlanets)
+	{
+		planet->position(planetPosition);
+		planetPosition += offset;
+	}
 
 	mQuit.position(NAS2D::Point{newSize.x - 105, 30});
 	mPlanetDescription.position(NAS2D::Point{(newSize.x / 2) - 275, newSize.y - 225});
