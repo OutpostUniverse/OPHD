@@ -56,10 +56,7 @@ void PlanetSelectState::initialize()
 	for (const auto& planetAttribute : PlanetAttributes)
 	{
 		mPlanets.push_back(new Planet(planetAttribute));
-	}
-
-	for (auto* planet : mPlanets)
-	{
+		auto* planet = mPlanets.back();
 		planet->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
 		planet->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
