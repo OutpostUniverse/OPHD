@@ -22,12 +22,7 @@ namespace
 {
 	auto attributesToPlanets(const std::vector<Planet::Attributes>& attributes)
 	{
-		std::vector<Planet*> planets;
-		for (const auto& planetAttribute : attributes)
-		{
-			planets.push_back(new Planet(planetAttribute));
-		}
-		return planets;
+		return std::vector<Planet>{attributes.cbegin(), attributes.cend()};
 	}
 }
 
@@ -55,8 +50,6 @@ PlanetSelectState::~PlanetSelectState()
 	eventHandler.mouseButtonDown().disconnect({this, &PlanetSelectState::onMouseDown});
 	eventHandler.windowResized().disconnect({this, &PlanetSelectState::onWindowResized});
 
-	for (auto* planet : mPlanets) { delete planet; }
-
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
@@ -67,10 +60,10 @@ void PlanetSelectState::initialize()
 	eventHandler.mouseButtonDown().connect({this, &PlanetSelectState::onMouseDown});
 	eventHandler.windowResized().connect({this, &PlanetSelectState::onWindowResized});
 
-	for (auto* planet : mPlanets)
+	for (auto& planet : mPlanets)
 	{
-		planet->mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-		planet->mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -102,10 +95,10 @@ NAS2D::State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	for (auto* planet : mPlanets)
+	for (auto& planet : mPlanets)
 	{
-		planet->update();
-		renderer.drawText(mFontBold, planet->attributes().name, planet->position() + NAS2D::Vector{64 - (mFontBold.width(planet->attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+		planet.update();
+		renderer.drawText(mFontBold, planet.attributes().name, planet.position() + NAS2D::Vector{64 - (mFontBold.width(planet.attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 	}
 
 	mQuit.update();
@@ -124,7 +117,7 @@ NAS2D::State* PlanetSelectState::update()
 	else if (mPlanetSelection != constants::NoSelection)
 	{
 		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), mPlanets[mPlanetSelection]->attributes(), Difficulty::Medium);
+		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
 		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
 		mapview->_initialize();
 		mapview->activate();
@@ -142,7 +135,7 @@ void PlanetSelectState::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/,
 {
 	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
-		if (mPlanets[i]->mouseHovering())
+		if (mPlanets[i].mouseHovering())
 		{
 			NAS2D::Utility<NAS2D::Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
@@ -158,11 +151,11 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (auto* planet : mPlanets)
+	for (auto& planet : mPlanets)
 	{
-		if (planet->mouseHovering())
+		if (planet.mouseHovering())
 		{
-			mPlanetDescription.text(planet->attributes().description);
+			mPlanetDescription.text(planet.attributes().description);
 			break;
 		}
 	}
@@ -179,9 +172,9 @@ void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	const auto offset = NAS2D::Vector{newSize.x / 4, 0};
 	auto planetPosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2 - offset;
-	for (auto* planet : mPlanets)
+	for (auto& planet : mPlanets)
 	{
-		planet->position(planetPosition);
+		planet.position(planetPosition);
 		planetPosition += offset;
 	}
 
