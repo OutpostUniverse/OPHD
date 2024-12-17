@@ -151,7 +151,7 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (auto& planet : mPlanets)
+	for (const auto& planet : mPlanets)
 	{
 		if (planet.mouseHovering())
 		{
