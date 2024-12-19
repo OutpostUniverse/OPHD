@@ -25,6 +25,9 @@ namespace constants
 
 	inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
+	inline constexpr unsigned int StructureIconSize{46};
+	inline constexpr unsigned int RobotIconSize{46};
+
 	// ROBOT SELECTION UI SHEET ID
 	inline constexpr int RobodiggerSheetId{1};
 	inline constexpr int RobodozerSheetId{0};
