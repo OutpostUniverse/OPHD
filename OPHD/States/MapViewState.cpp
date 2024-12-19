@@ -204,6 +204,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
+	mPoliceOverlays(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth())),
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
@@ -270,7 +271,6 @@ void MapViewState::initialize()
 	mResourceInfoBar.ignoreGlow(mTurnCount == 0);
 
 	setupUiPositions(renderer.size());
-	resetPoliceOverlays();
 
 	mMainReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
 
