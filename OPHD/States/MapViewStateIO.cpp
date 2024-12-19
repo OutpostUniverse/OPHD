@@ -218,6 +218,11 @@ void MapViewState::load(const std::string& filePath)
 {
 	resetUi();
 
+	mBtnToggleConnectedness.toggle(false);
+	mBtnToggleCommRangeOverlay.toggle(false);
+	mBtnToggleRouteOverlay.toggle(false);
+	mBtnTogglePoliceOverlay.toggle(false);
+
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{{0, 0}, renderer.size()}, NAS2D::Color{0, 0, 0, 100});
 	const auto imageLoading = &imageCache.load("sys/loading.png");

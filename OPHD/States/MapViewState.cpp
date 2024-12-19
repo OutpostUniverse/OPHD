@@ -208,6 +208,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
+	mPoliceOverlays(static_cast<int>(mTileMap->maxDepth())),
 	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
@@ -270,7 +271,6 @@ void MapViewState::initialize()
 	mResourceInfoBar.ignoreGlow(mTurnCount == 0);
 
 	setupUiPositions(renderer.size());
-	resetPoliceOverlays();
 
 	mMainReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
 
