@@ -155,6 +155,21 @@ namespace
 		fade.update();
 		fade.draw(renderer);
 	}
+
+
+	const Planet::Attributes DefaultPlanetAttributes{
+		.type = Planet::PlanetType::None,
+		.imagePath = "planets / planet_c.png",
+		.hostility = Planet::Hostility::Low,
+		.maxDepth = 4,
+		.maxMines = 10,
+		.mapImagePath = "maps/mars_04",
+		.tilesetPath = "tsets/mars.png",
+		.name = "Unknown",
+		.meanSolarDistance = 1.0,
+		.description = "Unknown"
+		};
+
 }
 
 
@@ -176,20 +191,10 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
-	mCrimeExecution(mNotificationArea),
-	mTechnologyReader("tech0-1.xml"),
-	mLoadingExisting(true),
-	mExistingToLoad(savegame),
-	mMainReportsState(mainReportsState),
-	mStructures{"ui/structures.png", 46, constants::MarginTight},
-	mRobots{"ui/robots.png", 46, constants::MarginTight},
-	mConnections{"ui/structures.png", 46, constants::MarginTight},
-	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
-	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool}
+	MapViewState(mainReportsState, DefaultPlanetAttributes, Difficulty::Medium)
 {
-	ccLocation() = CcNotPlaced;
-	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
+	mLoadingExisting = true;
+	mExistingToLoad = savegame;
 }
 
 
