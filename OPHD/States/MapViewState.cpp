@@ -199,26 +199,18 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
-	mTileMap(std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
 	mCrimeExecution(mNotificationArea),
 	mTechnologyReader("tech0-1.xml"),
 	mPlanetAttributes(planetAttributes),
 	mMainReportsState(mainReportsState),
-	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mStructures{"ui/structures.png", 46, constants::MarginTight},
 	mRobots{"ui/robots.png", 46, constants::MarginTight},
 	mConnections{"ui/structures.png", 46, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
-	mPoliceOverlays(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth())),
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
-	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
+	mRobotDeploymentSummary{mRobotPool}
 {
-	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	difficulty(selectedDifficulty);
-	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 
@@ -272,6 +264,10 @@ void MapViewState::initialize()
 	{
 		load(mExistingToLoad);
 	}
+	else
+	{
+		createNewGame();
+	}
 
 	mResourceInfoBar.ignoreGlow(mTurnCount == 0);
 
@@ -311,6 +307,19 @@ void MapViewState::_deactivate()
 	mGameOptionsDialog.enabled(false);
 
 	hideUi();
+}
+
+
+void MapViewState::createNewGame()
+{
+	ccLocation() = CcNotPlaced;
+	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
+	mTileMap = std::make_unique<TileMap>(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth, mPlanetAttributes.maxMines, HostilityMineYields.at(mPlanetAttributes.hostility));
+	mMapView = std::make_unique<MapView>(*mTileMap);
+	mPoliceOverlays.resize(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()));
+	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
+	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
+	mNavControl = std::make_unique<NavControl>(*mMapView, *mTileMap);
 }
 
 

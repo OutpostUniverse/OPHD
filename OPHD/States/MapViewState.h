@@ -189,6 +189,7 @@ private:
 	void setStructureID(StructureID type, InsertMode mode);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
+	void createNewGame();
 	void updateFood();
 	void transferFoodToCommandCenter();
 
