@@ -194,7 +194,6 @@ private:
 
 	void updateCommRangeOverlay();
 	void updatePoliceOverlay();
-	void resetPoliceOverlays();
 	void updateConnectedness();
 	void changeViewDepth(int);
 	void moveView(MapOffset offset);

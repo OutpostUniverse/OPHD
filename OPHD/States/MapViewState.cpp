@@ -1401,18 +1401,14 @@ void MapViewState::updateCommRangeOverlay()
 
 void MapViewState::updatePoliceOverlay()
 {
-	resetPoliceOverlays();
+	for (auto& policeOverlayLevel : mPoliceOverlays)
+	{
+		policeOverlayLevel.clear();
+	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	fillOverlay(*mTileMap, mPoliceOverlays[0], structureManager.getStructures<SurfacePolice>());
 	fillOverlay(*mTileMap, mPoliceOverlays, structureManager.getStructures<UndergroundPolice>());
-}
-
-
-void MapViewState::resetPoliceOverlays()
-{
-	const auto adjustedZ = mTileMap->maxDepth() + 1;
-	mPoliceOverlays = std::vector<std::vector<Tile*>>(static_cast<std::size_t>(adjustedZ));
 }
 
 

@@ -333,6 +333,7 @@ void MapViewState::load(const std::string& filePath)
 	}
 
 	updateCommRangeOverlay();
+	mPoliceOverlays.resize(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()));
 	updatePoliceOverlay();
 
 	mMapChangedSignal();
