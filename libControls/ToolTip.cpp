@@ -4,11 +4,23 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <string>
+#include <sstream>
+#include <functional>
 
 namespace
 {
 	constexpr int MarginTight{2};
 	constexpr auto PaddingSize = NAS2D::Vector{MarginTight, MarginTight};
+
+	void processLines(const std::string& text, const std::function<void(const std::string&)>& lineProcessor)
+	{
+		std::istringstream stream(text);
+		for (std::string line; std::getline(stream, line);)
+		{
+			lineProcessor(line);
+		}
+	}
 }
 
 
@@ -42,7 +54,13 @@ void ToolTip::add(Control& c, const std::string& str)
 
 void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
+	const auto toolTipLineHeight = mFont.height();
+	const auto numberOfLines = static_cast<int>(std::count(item.second.begin(), item.second.end(), '\n') + 1);
+	const auto toolTipTextHeight = toolTipLineHeight * numberOfLines;
+
+	const auto toolTipTextWidth = calculateMaxWidthStringSize(item.second);
+
+	const auto toolTipSize = NAS2D::Vector{toolTipTextWidth, toolTipTextHeight} + PaddingSize * 2;
 
 	auto tooltipPosition = item.first->position();
 
@@ -102,6 +120,22 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+
+		auto linePosition = position() + PaddingSize;
+
+		processLines(mFocusedControl->second, [this, &renderer, &linePosition](const std::string& lineStr) {
+			renderer.drawText(mFont, lineStr, linePosition);
+			linePosition.y += mFont.height();
+		});
 	}
+}
+
+
+int ToolTip::calculateMaxWidthStringSize(const std::string& text)
+{
+	int maxWidthStringSize = 0;
+	processLines(text, [&maxWidthStringSize, this](const std::string& lineStr) {
+		maxWidthStringSize = std::max(maxWidthStringSize, mFont.size(lineStr).x);
+	});
+	return maxWidthStringSize;
 }

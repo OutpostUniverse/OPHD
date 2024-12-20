@@ -34,4 +34,6 @@ private:
 	std::pair<Control*, std::string>* mFocusedControl{nullptr};
 
 	std::vector<std::pair<Control*, std::string>> mControls;
+
+	int calculateMaxWidthStringSize(const std::string& text);
 };
