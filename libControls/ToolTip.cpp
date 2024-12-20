@@ -4,6 +4,9 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <string>
+#include <ranges>
+#include <iostream>
 
 namespace
 {
@@ -42,7 +45,24 @@ void ToolTip::add(Control& c, const std::string& str)
 
 void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
+	const auto toolTipLineHeight = mFont.height();
+	const auto numberOfLines = static_cast<int>(std::count(item.second.begin(), item.second.end(), '\n') + 1);
+	const auto toolTipTextHeight = toolTipLineHeight * numberOfLines;
+
+	auto calculateMaxWidth = [this](const std::string& text) {
+		int maxWidth = 0;
+		auto view = text | std::views::split('\n');
+		for (auto it = view.begin(); it != view.end(); ++it)
+		{
+			std::string lineStr((*it).begin(), (*it).end());
+			maxWidth = std::max(maxWidth, mFont.size(lineStr).x);
+		}
+		return maxWidth;
+	};
+
+	const auto toolTipTextWidth = calculateMaxWidth(item.second);
+
+	const auto toolTipSize = NAS2D::Vector{toolTipTextWidth, toolTipTextHeight} + PaddingSize * 2;
 
 	auto tooltipPosition = item.first->position();
 
@@ -102,6 +122,15 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+
+		auto linePosition = position() + PaddingSize;
+
+		auto view = mFocusedControl->second | std::views::split('\n');
+		for (auto it = view.begin(); it != view.end(); ++it)
+		{
+			std::string lineStr((*it).begin(), (*it).end());
+			renderer.drawText(mFont, lineStr, linePosition);
+			linePosition.y += mFont.height();
+		}
 	}
 }
