@@ -4,11 +4,34 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <string>
+#include <sstream>
+#include <functional>
 
 namespace
 {
 	constexpr int MarginTight{2};
 	constexpr auto PaddingSize = NAS2D::Vector{MarginTight, MarginTight};
+
+	void forEachLine(const std::string& text, const std::function<void(const std::string&)>& lineHandler)
+	{
+		std::istringstream stream(text);
+		for (std::string line; std::getline(stream, line);)
+		{
+			lineHandler(line);
+		}
+	}
+
+
+	// Returns the maximum width of the largest string from the string stream in pixels.
+	int calculateMaxWidthStringSize(const std::string& text, const NAS2D::Font& font)
+	{
+		int maxWidthStringSize = 0;
+		forEachLine(text, [&font, &maxWidthStringSize](const std::string& lineStr) {
+			maxWidthStringSize = std::max(maxWidthStringSize, font.size(lineStr).x);
+		});
+		return maxWidthStringSize;
+	}
 }
 
 
@@ -42,7 +65,11 @@ void ToolTip::add(Control& c, const std::string& str)
 
 void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
+	const auto toolTipLineHeight = mFont.height();
+	const auto numberOfLines = static_cast<int>(std::count(item.second.begin(), item.second.end(), '\n') + 1);
+	const auto toolTipTextHeight = toolTipLineHeight * numberOfLines;
+	const auto toolTipTextWidth = calculateMaxWidthStringSize(item.second, mFont);
+	const auto toolTipSize = NAS2D::Vector{toolTipTextWidth, toolTipTextHeight} + PaddingSize * 2;
 
 	auto tooltipPosition = item.first->position();
 
@@ -102,6 +129,12 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(rect(), NAS2D::Color::DarkGray);
 		renderer.drawBox(rect(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+
+		auto linePosition = position() + PaddingSize;
+
+		forEachLine(mFocusedControl->second, [this, &renderer, &linePosition](const std::string& lineStr) {
+			renderer.drawText(mFont, lineStr, linePosition);
+			linePosition.y += mFont.height();
+		});
 	}
 }
