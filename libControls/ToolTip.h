@@ -9,6 +9,7 @@
 
 #include <utility>
 #include <vector>
+#include <functional>
 
 
 class ToolTip : public Control
@@ -34,4 +35,6 @@ private:
 	std::pair<Control*, std::string>* mFocusedControl{nullptr};
 
 	std::vector<std::pair<Control*, std::string>> mControls;
+
+	void processLines(const std::string& text, const std::function<void(const std::string&)>& lineProcessor) const;
 };
