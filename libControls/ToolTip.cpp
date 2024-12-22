@@ -18,7 +18,8 @@ namespace
 	{
 		for (const auto& line : text | std::views::split('\n'))
 		{
-			std::string lineStr(line.begin(), line.end());
+			std::string lineStr;
+			std::ranges::copy(line, std::back_inserter(lineStr));
 			lineProcessor(lineStr);
 		}
 	}
