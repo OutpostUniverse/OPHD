@@ -7,11 +7,21 @@
 #include <string>
 #include <ranges>
 #include <iostream>
+#include <functional>
 
 namespace
 {
 	constexpr int MarginTight{2};
 	constexpr auto PaddingSize = NAS2D::Vector{MarginTight, MarginTight};
+
+	void processLines(const std::string& text, const std::function<void(const std::string&)>& lineProcessor)
+	{
+		for (const auto& line : text | std::views::split('\n'))
+		{
+			std::string lineStr(line.begin(), line.end());
+			lineProcessor(lineStr);
+		}
+	}
 }
 
 
@@ -51,11 +61,10 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 	auto calculateMaxWidth = [this](const std::string& text) {
 		int maxWidth = 0;
-		for (const auto& line : std::string_view{text} | std::views::split('\n'))
+		processLines(text, [&maxWidth, this](const std::string& line)
 		{
-			std::string lineStr(line.begin(), line.end());
-			maxWidth = std::max(maxWidth, mFont.size(lineStr).x);
-		}
+			maxWidth = std::max(maxWidth, mFont.size(line).x);
+		});
 		return maxWidth;
 	};
 
@@ -124,11 +133,10 @@ void ToolTip::draw() const
 
 		auto linePosition = position() + PaddingSize;
 
-		for (const auto& line : std::string_view{mFocusedControl->second} | std::views::split('\n'))
+		processLines(mFocusedControl->second, [&renderer, &linePosition, this](const std::string& line)
 		{
-			std::string lineStr(line.begin(), line.end());
-			renderer.drawText(mFont, lineStr, linePosition);
+			renderer.drawText(mFont, line, linePosition);
 			linePosition.y += mFont.height();
-		}
+		});
 	}
 }
