@@ -51,10 +51,9 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 	auto calculateMaxWidth = [this](const std::string& text) {
 		int maxWidth = 0;
-		auto view = text | std::views::split('\n');
-		for (auto it = view.begin(); it != view.end(); ++it)
+		for (const auto& line : std::string_view{text} | std::views::split('\n'))
 		{
-			std::string lineStr((*it).begin(), (*it).end());
+			std::string lineStr(line.begin(), line.end());
 			maxWidth = std::max(maxWidth, mFont.size(lineStr).x);
 		}
 		return maxWidth;
@@ -125,10 +124,9 @@ void ToolTip::draw() const
 
 		auto linePosition = position() + PaddingSize;
 
-		auto view = mFocusedControl->second | std::views::split('\n');
-		for (auto it = view.begin(); it != view.end(); ++it)
+		for (const auto& line : std::string_view{mFocusedControl->second} | std::views::split('\n'))
 		{
-			std::string lineStr((*it).begin(), (*it).end());
+			std::string lineStr(line.begin(), line.end());
 			renderer.drawText(mFont, lineStr, linePosition);
 			linePosition.y += mFont.height();
 		}
