@@ -24,7 +24,7 @@ private:
 	const int buttonWidth = 200;
 	const int buttonHorizontalMargin = 5;
 	const int buttonVerticalMargin = 3;
-	
+
 	void onLoad();
 	void onSave();
 	void onHelp();

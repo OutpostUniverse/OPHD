@@ -11,7 +11,7 @@
 /**
  * Function class used to get around the limitation in NAS2D's EventHandler
  *			Delegate system that prevents connecting stand alone functions.
- * 
+ *
  * This class handles updating the configuration settings as various window
  * events occur.
  */

@@ -47,7 +47,7 @@ struct Technology
 
 	std::string name{""};
 	std::string description{""};
-	
+
 	int id{};
 	int labType{};
 	int cost{};

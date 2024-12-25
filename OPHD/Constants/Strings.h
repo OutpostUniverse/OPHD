@@ -7,7 +7,7 @@
 
 /**
  * Defines string constants used throughout the game.
- * 
+ *
  * The strings in this file are here to help translation/localization. These
  * are not UTF-8 strings and so only the first 255 values ASCII character
  * set are used.

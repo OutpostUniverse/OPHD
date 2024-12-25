@@ -2,23 +2,23 @@
 Copyright (c) 2000-2013 Lee Thomason (www.grinninglizard.com)
 Micropather
 
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any
 damages arising from the use of this software.
 
-Permission is granted to anyone to use this software for any 
-purpose, including commercial applications, and to alter it and 
+Permission is granted to anyone to use this software for any
+purpose, including commercial applications, and to alter it and
 redistribute it freely, subject to the following restrictions:
 
-1. The origin of this software must not be misrepresented; you must 
-not claim that you wrote the original software. If you use this 
-software in a product, an acknowledgment in the product documentation 
+1. The origin of this software must not be misrepresented; you must
+not claim that you wrote the original software. If you use this
+software in a product, an acknowledgment in the product documentation
 would be appreciated but is not required.
 
-2. Altered source versions must be plainly marked as such, and 
+2. Altered source versions must be plainly marked as such, and
 must not be misrepresented as being the original software.
 
-3. This notice may not be removed or altered from any source 
+3. This notice may not be removed or altered from any source
 distribution.
 */
 
@@ -32,9 +32,9 @@ distribution.
 
 /** @mainpage MicroPather
 
-	MicroPather is a path finder and A* solver (astar or a-star) written in platform independent 
-	C++ that can be easily integrated into existing code. MicroPather focuses on being a path 
-	finding engine for video games but is a generic A* solver. MicroPather is open source, with 
+	MicroPather is a path finder and A* solver (astar or a-star) written in platform independent
+	C++ that can be easily integrated into existing code. MicroPather focuses on being a path
+	finding engine for video games but is a generic A* solver. MicroPather is open source, with
 	a license suitable for open source or commercial use.
 */
 
@@ -238,7 +238,7 @@ namespace micropather
 		//		pNode = New();
 		//
 		// Get the PathNode associated with this state. If the PathNode already
-		// exists (allocated and is on the current frame), it will be returned. 
+		// exists (allocated and is on the current frame), it will be returned.
 		// Else a new PathNode is allocated and returned. The returned object
 		// is always fully initialized.
 		//
@@ -436,7 +436,7 @@ namespace micropather
 		*/
 		void Reset();
 
-		// Debugging function to return all states that were used by the last "solve" 
+		// Debugging function to return all states that were used by the last "solve"
 		void StatesInPool(std::vector<void*>* stateVec);
 		void GetCacheData(CacheData* data);
 

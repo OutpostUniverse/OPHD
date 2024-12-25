@@ -21,7 +21,7 @@ public:
 		return mCompleted;
 	}
 
-	
+
 	const std::map<int, ResearchProgress>& currentResearch() const
 	{
 		return mTechnologiesBeingResearched;

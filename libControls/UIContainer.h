@@ -11,7 +11,7 @@
 
 /**
  * UI Object that contains other UI Controls.
- * 
+ *
  * Generally not intended to be used by itself.
  */
 class UIContainer : public Control
