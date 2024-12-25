@@ -16,7 +16,7 @@ namespace NAS2D
 
 /**
  * Implements a base for all GUI Controls to derive from.
- * 
+ *
  * The Control class is the base class from which all GUI controls inherit
  * from.
  */
@@ -84,7 +84,7 @@ public:
 protected:
 	/**
 	 * Called whenever the Control's position is changed.
-	 * 
+	 *
 	 * \param	displacement	Difference in position.
 	 */
 	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }

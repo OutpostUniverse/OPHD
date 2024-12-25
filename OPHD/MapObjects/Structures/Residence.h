@@ -13,7 +13,7 @@ const int ResidentialColonistCapacityBase = 25;
 
 /**
  * Base Residential structure.
- * 
+ *
  * Implements the base Residence structures. Upgraded residences should derive
  * from this class and override the definition of mCapacity.
  */

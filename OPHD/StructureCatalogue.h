@@ -10,13 +10,13 @@ struct StructureType;
 struct StorableResources;
 
 
-/** 
+/**
  * Provides a means of instantiating new structures and getting build
  *			cost / recycle value / population requirements.
- * 
+ *
  * StructureCatalogue is implemented as a static class and should never be
  * instantiated.
- * 
+ *
  * \note	StructureCatalogue::init() must be called prior to use.
  */
 class StructureCatalogue

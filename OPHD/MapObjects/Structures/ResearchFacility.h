@@ -48,7 +48,7 @@ public:
 		return mMaxScientstsAllowed - mActualScientstsEmployed;
 	}
 
-	
+
 	void assignScientsts(int count)
 	{
 		mActualScientstsEmployed = std::clamp(count, 0, mMaxScientstsAllowed);

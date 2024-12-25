@@ -8,7 +8,7 @@ class Structure;
 
 /**
  * Provides an abstract interface for Report UIs used in the MainReportsUiState.
- * 
+ *
  * \note	Inherits from UIContainer as the report classes are treated as UI objects.
  */
 class ReportInterface : public UIContainer
@@ -43,7 +43,7 @@ public:
 
 	/**
 	 * Instructs a Report UI to set its primary selection to a specified Structure.
-	 * 
+	 *
 	 * \note	Casting may be necessary depending on implementation of inheriting
 	 *			classes. Be mindful to pass pointers to objects that can be safely
 	 *			downcasted to a more derived type (take advantage of dynamic_cast)
