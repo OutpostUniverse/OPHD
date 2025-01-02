@@ -9,6 +9,7 @@
 
 #include <utility>
 #include <vector>
+#include <optional>
 
 
 class ToolTip : public Control
@@ -22,6 +23,10 @@ public:
 	void update() override;
 	void draw() const override;
 
+	void commandSize(int width, int height);
+	void commandWidth(int width);
+	void commandHeight(int height);
+
 private:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
@@ -34,4 +39,9 @@ private:
 	std::pair<Control*, std::string>* mFocusedControl{nullptr};
 
 	std::vector<std::pair<Control*, std::string>> mControls;
+
+	std::optional<int> mCommandedHeight{std::nullopt};
+	std::optional<int> mCommandedWidth{std::nullopt};
+
+	bool mTruncated{false};
 };

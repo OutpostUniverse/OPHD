@@ -138,3 +138,22 @@ void ToolTip::draw() const
 		});
 	}
 }
+
+
+void ToolTip::commandSize(int width, int height)
+{
+	mCommandedWidth = width;
+	mCommandedHeight = height;
+}
+
+
+void ToolTip::commandWidth(int width)
+{
+	mCommandedWidth = width;
+}
+
+
+void ToolTip::commandHeight(int height)
+{
+	mCommandedHeight = height;
+}
