@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 #include <optional>
+#include <unordered_map>
 
 
 class ToolTip : public Control
@@ -39,6 +40,8 @@ private:
 	std::pair<Control*, std::string>* mFocusedControl{nullptr};
 
 	std::vector<std::pair<Control*, std::string>> mControls;
+
+	std::unordered_map<Control*, std::string> mWrappedText;
 
 	std::optional<int> mCommandedHeight{std::nullopt};
 	std::optional<int> mCommandedWidth{std::nullopt};
