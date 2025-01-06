@@ -36,7 +36,7 @@ jobs:
       - build
   build-linux-clang:
     docker:
-      - image: outpostuniverse/nas2d-clang:1.4
+      - image: ghcr.io/lairworks/build-env-nas2d-clang:1.5
     environment:
       WARN_EXTRA: -Wunknown-pragmas -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wcovered-switch-default -Wshadow-field -Wextra-semi -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wdocumentation-unknown-command -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
     steps:
