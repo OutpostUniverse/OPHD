@@ -70,7 +70,7 @@ jobs:
         find nas2d-core/ -type f -exec touch -d "${commitTime}" '{}' +
 
     - name: Restore NAS2D cache
-      uses: actions/cache@v4
+      uses: actions/cache/restore@v4
       with:
         path: nas2d-core/.build/
         key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
