@@ -42,7 +42,7 @@ jobs:
 
     - name: Copy vcpkg cache to NAS2D folder
       run: |
-        xcopy vcpkg_installed nas2d-core /s /e
+        xcopy vcpkg_installed nas2d-core\vcpkg_installed\ /s /e
 
     - name: Set NAS2D modification time
       shell: bash
