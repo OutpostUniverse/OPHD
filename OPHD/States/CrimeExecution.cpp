@@ -11,8 +11,8 @@
 
 namespace
 {
-	const static inline int stealingScale = 4;
-	const static inline std::map<Difficulty, int> stealingMultipliers
+	const int stealingScale = 4;
+	const std::map<Difficulty, int> stealingMultipliers
 	{
 		{Difficulty::Beginner, 2},
 		{Difficulty::Easy, 3},
@@ -20,7 +20,7 @@ namespace
 		{Difficulty::Hard, 6}
 	};
 
-	const static inline std::vector<std::string> stealingResoureReasons
+	const std::vector<std::string> stealingResoureReasons
 	{
 		"There are no identified suspects",
 		"An investigation has been opened",
