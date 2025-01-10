@@ -20,12 +20,13 @@ public:
 
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
 
+	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
+
+protected:
 	void stealFood(FoodProduction& structure);
 	void stealRefinedResources(Structure& structure);
 	void stealRawResources(Structure& structure);
 	void vandalize(Structure& structure);
-
-	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
 
 private:
 	const Difficulty& mDifficulty;
