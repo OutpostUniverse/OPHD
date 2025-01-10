@@ -11,7 +11,7 @@
 
 namespace
 {
-	const int stealingScale = 4;
+	constexpr int stealingScale = 4;
 	const std::map<Difficulty, int> stealingMultipliers
 	{
 		{Difficulty::Beginner, 2},
