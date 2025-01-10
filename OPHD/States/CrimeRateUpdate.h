@@ -21,7 +21,6 @@ public:
 
 	int meanCrimeRate() const { return mMeanCrimeRate; }
 	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
-	void difficulty(Difficulty difficulty) { mDifficulty = difficulty; }
 	std::vector<Structure*> structuresCommittingCrimes() const { return mStructuresCommittingCrimes; }
 
 private:
@@ -34,7 +33,7 @@ private:
 		{Difficulty::Hard, 2.0f}
 	};
 
-	Difficulty mDifficulty;
+	const Difficulty& mDifficulty;
 	int mMeanCrimeRate{0};
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 	std::vector<Structure*> mStructuresCommittingCrimes;

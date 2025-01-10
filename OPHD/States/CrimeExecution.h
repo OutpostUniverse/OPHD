@@ -18,8 +18,6 @@ class CrimeExecution
 public:
 	CrimeExecution(NotificationArea& notificationArea, const Difficulty& difficulty);
 
-	void difficulty(Difficulty difficulty) { mDifficulty = difficulty; }
-
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
 
 	void stealFood(FoodProduction& structure);
@@ -30,7 +28,7 @@ public:
 	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
 
 private:
-	Difficulty mDifficulty;
+	const Difficulty& mDifficulty;
 	NotificationArea& mNotificationArea;
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 

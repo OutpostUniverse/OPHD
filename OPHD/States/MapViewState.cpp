@@ -321,8 +321,6 @@ void MapViewState::focusOnStructure(Structure* structure)
 void MapViewState::difficulty(Difficulty difficulty)
 {
 	mDifficulty = difficulty;
-	mCrimeRateUpdate.difficulty(difficulty);
-	mCrimeExecution.difficulty(difficulty);
 }
 
 
