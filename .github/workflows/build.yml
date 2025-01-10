@@ -34,15 +34,28 @@ jobs:
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
     - name: Restore vcpkg dependency cache
-      uses: actions/cache@v4
-      id: cache
+      uses: actions/cache/restore@v4
+      with:
+        path: vcpkg_installed
+        key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
+
+    - name: Pre-install vcpkg dependencies - OPHD
+      run: |
+        vcpkg install
+
+    - name: Save vcpkg dependency cache
+      uses: actions/cache/save@v4
       with:
         path: vcpkg_installed
         key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
     - name: Copy vcpkg cache to NAS2D folder
       run: |
-        xcopy vcpkg_installed nas2d-core /s /e
+        xcopy vcpkg_installed nas2d-core\vcpkg_installed\ /s /e
+
+    - name: Pre-install vcpkg dependencies - NAS2D
+      run: |
+        vcpkg install --x-manifest-root=nas2d-core
 
     - name: Set NAS2D modification time
       shell: bash
@@ -57,7 +70,20 @@ jobs:
         find nas2d-core/ -type f -exec touch -d "${commitTime}" '{}' +
 
     - name: Restore NAS2D cache
-      uses: actions/cache@v4
+      uses: actions/cache/restore@v4
+      with:
+        path: nas2d-core/.build/
+        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
+
+    - name: Build NAS2D
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: |
+        vcpkg integrate install
+        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
+
+    - name: Save build cache - NAS2D
+      uses: actions/cache/save@v4
       with:
         path: nas2d-core/.build/
         key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
@@ -98,19 +124,6 @@ jobs:
           # Save copy of current SHA to be cached, and used for reference in future builds
           mkdir --parents .build/
           echo "${{ github.sha }}" > .build/lastBuildSha.txt
-
-    - name: Build NAS2D
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: |
-        vcpkg integrate install
-        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
-
-    - name: Save build cache - NAS2D
-      uses: actions/cache/save@v4
-      with:
-        path: nas2d-core/.build/
-        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
 
     - name: Build OPHD
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
