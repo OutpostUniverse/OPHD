@@ -16,7 +16,7 @@ class NotificationArea;
 class CrimeExecution
 {
 public:
-	CrimeExecution(NotificationArea& notificationArea);
+	CrimeExecution(NotificationArea& notificationArea, Difficulty difficulty = Difficulty::Medium);
 
 	void difficulty(Difficulty difficulty) { mDifficulty = difficulty; }
 
@@ -30,7 +30,7 @@ public:
 	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
 
 private:
-	Difficulty mDifficulty{Difficulty::Medium};
+	Difficulty mDifficulty;
 	NotificationArea& mNotificationArea;
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 
