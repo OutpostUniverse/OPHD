@@ -9,7 +9,48 @@
 #include <NAS2D/Utility.h>
 
 
-CrimeExecution::CrimeExecution(NotificationArea& notificationArea) : mNotificationArea(notificationArea) {}
+namespace
+{
+	constexpr int stealingScale = 4;
+	const std::map<Difficulty, int> stealingMultipliers
+	{
+		{Difficulty::Beginner, 2},
+		{Difficulty::Easy, 3},
+		{Difficulty::Medium, 4},
+		{Difficulty::Hard, 6}
+	};
+
+	const std::vector<std::string> stealingResoureReasons
+	{
+		"There are no identified suspects",
+		"An investigation has been opened",
+		"A local crime syndicate is under investigation",
+		"A suspect was aprehended but the goods remain unaccounted for",
+		"A separatist political movement has claimed responsibility",
+		"The rebel faction is suspected in preparation for a splinter colony"
+	};
+
+
+	std::string getReasonForStealing()
+	{
+		return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
+	}
+
+
+	int calcAmountForStealing(Difficulty difficulty, int low, int high, int max)
+	{
+		auto stealRandom = randomNumber.generate(low, high);
+		auto stealModified = stealRandom * stealingMultipliers.at(difficulty) / stealingScale;
+		auto stealClipped = std::min(stealModified, max);
+		return stealClipped;
+	}
+}
+
+
+CrimeExecution::CrimeExecution(NotificationArea& notificationArea) :
+	mNotificationArea{notificationArea}
+{
+}
 
 
 void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresCommittingCrime)
@@ -18,11 +59,6 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 
 	for (auto& structure : structuresCommittingCrime)
 	{
-		if (structure == nullptr)
-		{
-			continue;
-		}
-
 		switch (structure->structureId())
 		{
 		case StructureID::SID_AGRIDOME:
@@ -48,13 +84,8 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
-		int foodStolen = calcAmountForStealing(5, 15);
-		if (foodStolen > structure.foodLevel())
-		{
-			foodStolen = structure.foodLevel();
-		}
-
-		structure.foodLevel(-foodStolen);
+		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15, structure.foodLevel());
+		structure.foodLevel(structure.foodLevel() - foodStolen);
 
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
@@ -90,12 +121,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
-	int amountStolen = calcAmountForStealing(2, 5);
-	if (amountStolen > structure.storage().resources[indexToStealFrom])
-	{
-		amountStolen = structure.storage().resources[indexToStealFrom];
-	}
-
+	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
 	structure.storage().resources[indexToStealFrom] -= amountStolen;
 
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
@@ -119,18 +145,4 @@ void CrimeExecution::vandalize(Structure& structure)
 		"A " + structure.name() + " was vandalized.",
 		structureTile.xyz(),
 		NotificationArea::NotificationType::Warning});
-}
-
-
-int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
-{
-	auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
-
-	return static_cast<int>(stealingMultipliers.at(mDifficulty) * amountToSteal);
-}
-
-
-std::string CrimeExecution::getReasonForStealing()
-{
-	return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
 }
