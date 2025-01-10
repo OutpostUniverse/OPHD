@@ -99,7 +99,14 @@ jobs:
           mkdir --parents .build/
           echo "${{ github.sha }}" > .build/lastBuildSha.txt
 
-    - name: Build
+    - name: Build NAS2D
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: |
+        vcpkg integrate install
+        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
+
+    - name: Build OPHD
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
