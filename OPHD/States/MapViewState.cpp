@@ -176,11 +176,11 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
-	mCrimeExecution(mNotificationArea),
-	mTechnologyReader("tech0-1.xml"),
-	mLoadingExisting(true),
-	mExistingToLoad(savegame),
-	mMainReportsState(mainReportsState),
+	mCrimeExecution{mNotificationArea},
+	mTechnologyReader{"tech0-1.xml"},
+	mLoadingExisting{true},
+	mExistingToLoad{savegame},
+	mMainReportsState{mainReportsState},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
@@ -194,17 +194,17 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
-	mTileMap(std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
-	mCrimeExecution(mNotificationArea),
-	mTechnologyReader("tech0-1.xml"),
-	mPlanetAttributes(planetAttributes),
-	mMainReportsState(mainReportsState),
+	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
+	mCrimeExecution{mNotificationArea},
+	mTechnologyReader{"tech0-1.xml"},
+	mPlanetAttributes{planetAttributes},
+	mMainReportsState{mainReportsState},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
-	mPoliceOverlays(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()+1)),
+	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()+1)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
