@@ -34,8 +34,7 @@ jobs:
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
     - name: Restore vcpkg dependency cache
-      uses: actions/cache@v4
-      id: cache
+      uses: actions/cache/restore@v4
       with:
         path: vcpkg_installed
         key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
@@ -43,6 +42,12 @@ jobs:
     - name: Pre-install vcpkg dependencies
       run: |
         vcpkg install
+
+    - name: Save vcpkg dependency cache
+      uses: actions/cache/save@v4
+      with:
+        path: vcpkg_installed
+        key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
     - name: Copy vcpkg cache to NAS2D folder
       run: |
