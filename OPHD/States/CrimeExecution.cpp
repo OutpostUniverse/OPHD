@@ -34,6 +34,14 @@ namespace
 	{
 		return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
 	}
+
+
+	int calcAmountForStealing(Difficulty difficulty, int unadjustedMin, int unadjustedMax)
+	{
+		auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
+
+		return static_cast<int>(stealingMultipliers.at(difficulty) * amountToSteal);
+	}
 }
 
 
@@ -76,7 +84,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
-		int foodStolen = calcAmountForStealing(5, 15);
+		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15);
 		if (foodStolen > structure.foodLevel())
 		{
 			foodStolen = structure.foodLevel();
@@ -118,7 +126,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
-	int amountStolen = calcAmountForStealing(2, 5);
+	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5);
 	if (amountStolen > structure.storage().resources[indexToStealFrom])
 	{
 		amountStolen = structure.storage().resources[indexToStealFrom];
@@ -147,12 +155,4 @@ void CrimeExecution::vandalize(Structure& structure)
 		"A " + structure.name() + " was vandalized.",
 		structureTile.xyz(),
 		NotificationArea::NotificationType::Warning});
-}
-
-
-int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
-{
-	auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
-
-	return static_cast<int>(stealingMultipliers.at(mDifficulty) * amountToSteal);
 }
