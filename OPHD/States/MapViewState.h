@@ -205,6 +205,8 @@ private:
 
 	void onMineFacilityExtend(MineFacility* mf);
 
+	void onCrimeEvent(std::string title, std::string text, const Structure& structure);
+
 	void updatePlayerResources();
 	void updateResearch();
 
