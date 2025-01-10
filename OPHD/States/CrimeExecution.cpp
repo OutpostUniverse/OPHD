@@ -56,11 +56,6 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 
 	for (auto& structure : structuresCommittingCrime)
 	{
-		if (structure == nullptr)
-		{
-			continue;
-		}
-
 		switch (structure->structureId())
 		{
 		case StructureID::SID_AGRIDOME:
