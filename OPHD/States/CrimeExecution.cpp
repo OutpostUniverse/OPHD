@@ -28,6 +28,12 @@ namespace
 		"A separatist political movement has claimed responsibility",
 		"The rebel faction is suspected in preparation for a splinter colony"
 	};
+
+
+	std::string getReasonForStealing()
+	{
+		return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
+	}
 }
 
 
@@ -149,10 +155,4 @@ int CrimeExecution::calcAmountForStealing(int unadjustedMin, int unadjustedMax)
 	auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
 
 	return static_cast<int>(stealingMultipliers.at(mDifficulty) * amountToSteal);
-}
-
-
-std::string CrimeExecution::getReasonForStealing()
-{
-	return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
 }
