@@ -9,6 +9,28 @@
 #include <NAS2D/Utility.h>
 
 
+namespace
+{
+	const static inline std::map<Difficulty, double> stealingMultipliers
+	{
+		{Difficulty::Beginner, 0.5f},
+		{Difficulty::Easy, 0.75f},
+		{Difficulty::Medium, 1.0f},
+		{Difficulty::Hard, 1.5f}
+	};
+
+	const static inline std::vector<std::string> stealingResoureReasons
+	{
+		"There are no identified suspects",
+		"An investigation has been opened",
+		"A local crime syndicate is under investigation",
+		"A suspect was aprehended but the goods remain unaccounted for",
+		"A separatist political movement has claimed responsibility",
+		"The rebel faction is suspected in preparation for a splinter colony"
+	};
+}
+
+
 CrimeExecution::CrimeExecution(NotificationArea& notificationArea) : mNotificationArea(notificationArea) {}
 
 
