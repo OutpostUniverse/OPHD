@@ -75,6 +75,19 @@ jobs:
         path: nas2d-core/.build/
         key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
 
+    - name: Build NAS2D
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: |
+        vcpkg integrate install
+        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
+
+    - name: Save build cache - NAS2D
+      uses: actions/cache/save@v4
+      with:
+        path: nas2d-core/.build/
+        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
+
     - name: Restore incremental build cache
       uses: actions/cache/restore@v4
       if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
@@ -111,19 +124,6 @@ jobs:
           # Save copy of current SHA to be cached, and used for reference in future builds
           mkdir --parents .build/
           echo "${{ github.sha }}" > .build/lastBuildSha.txt
-
-    - name: Build NAS2D
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: |
-        vcpkg integrate install
-        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
-
-    - name: Save build cache - NAS2D
-      uses: actions/cache/save@v4
-      with:
-        path: nas2d-core/.build/
-        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
 
     - name: Build OPHD
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
