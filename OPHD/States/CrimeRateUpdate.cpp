@@ -9,6 +9,12 @@
 #include <NAS2D/Utility.h>
 
 
+CrimeRateUpdate::CrimeRateUpdate(Difficulty difficulty) :
+	mDifficulty{difficulty}
+{
+}
+
+
 void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverlays)
 {
 	mMeanCrimeRate = 0;

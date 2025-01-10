@@ -15,6 +15,8 @@ class Tile;
 class CrimeRateUpdate
 {
 public:
+	CrimeRateUpdate(Difficulty difficulty = Difficulty::Medium);
+
 	void update(const std::vector<std::vector<Tile*>>& policeOverlays);
 
 	int meanCrimeRate() const { return mMeanCrimeRate; }
@@ -32,7 +34,7 @@ private:
 		{Difficulty::Hard, 2.0f}
 	};
 
-	Difficulty mDifficulty{Difficulty::Medium};
+	Difficulty mDifficulty;
 	int mMeanCrimeRate{0};
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
 	std::vector<Structure*> mStructuresCommittingCrimes;
