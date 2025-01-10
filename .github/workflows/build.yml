@@ -46,7 +46,7 @@ jobs:
 
     - name: Save vcpkg dependency cache
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreVcpkg.outputs.cache-hit == 'false'
+      if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
       with:
         path: vcpkg_installed
         key: ${{ steps.cacheRestoreVcpkg.outputs.cache-primary-key }}
@@ -87,7 +87,7 @@ jobs:
 
     - name: Save build cache - NAS2D
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreNas2d.outputs.cache-hit == 'false'
+      if: steps.cacheRestoreNas2d.outputs.cache-hit != 'true'
       with:
         path: nas2d-core/.build/
         key: ${{ steps.cacheRestoreNas2d.outputs.cache-primary-key }}
@@ -139,7 +139,7 @@ jobs:
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit == 'false'
+      if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit != 'true'
       with:
         path: .build
         key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
