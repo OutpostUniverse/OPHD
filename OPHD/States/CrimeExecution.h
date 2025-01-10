@@ -26,12 +26,11 @@ protected:
 	void stealFood(FoodProduction& structure);
 	void stealRefinedResources(Structure& structure);
 	void stealRawResources(Structure& structure);
+	void stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames);
 	void vandalize(Structure& structure);
 
 private:
 	const Difficulty& mDifficulty;
 	NotificationArea& mNotificationArea;
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
-
-	void stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames);
 };
