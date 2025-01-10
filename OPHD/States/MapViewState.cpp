@@ -176,7 +176,8 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
-	mCrimeExecution{mNotificationArea},
+	mCrimeRateUpdate{mDifficulty},
+	mCrimeExecution{mNotificationArea, mDifficulty},
 	mTechnologyReader{"tech0-1.xml"},
 	mLoadingExisting{true},
 	mExistingToLoad{savegame},
@@ -194,8 +195,10 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
-	mCrimeExecution{mNotificationArea},
+	mCrimeRateUpdate{mDifficulty},
+	mCrimeExecution{mNotificationArea, mDifficulty},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
 	mMainReportsState{mainReportsState},
@@ -212,7 +215,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
-	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
