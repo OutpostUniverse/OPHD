@@ -204,7 +204,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
-	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()+1)},
+	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
