@@ -36,11 +36,12 @@ namespace
 	}
 
 
-	int calcAmountForStealing(Difficulty difficulty, int unadjustedMin, int unadjustedMax)
+	int calcAmountForStealing(Difficulty difficulty, int low, int high, int max)
 	{
-		auto amountToSteal = randomNumber.generate(unadjustedMin, unadjustedMax);
-
-		return static_cast<int>(stealingMultipliers.at(difficulty) * amountToSteal);
+		auto stealRandom = randomNumber.generate(low, high);
+		auto stealModified = static_cast<int>(stealingMultipliers.at(difficulty) * stealRandom);
+		auto stealClipped = std::min(stealModified, max);
+		return stealClipped;
 	}
 }
 
@@ -84,12 +85,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 {
 	if (structure.foodLevel() > 0)
 	{
-		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15);
-		if (foodStolen > structure.foodLevel())
-		{
-			foodStolen = structure.foodLevel();
-		}
-
+		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15, structure.foodLevel());
 		structure.foodLevel(-foodStolen);
 
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
@@ -126,12 +122,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
-	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5);
-	if (amountStolen > structure.storage().resources[indexToStealFrom])
-	{
-		amountStolen = structure.storage().resources[indexToStealFrom];
-	}
-
+	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
 	structure.storage().resources[indexToStealFrom] -= amountStolen;
 
 	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
