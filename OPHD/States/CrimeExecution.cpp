@@ -47,7 +47,10 @@ namespace
 }
 
 
-CrimeExecution::CrimeExecution(NotificationArea& notificationArea) : mNotificationArea(notificationArea) {}
+CrimeExecution::CrimeExecution(NotificationArea& notificationArea) :
+	mNotificationArea{notificationArea}
+{
+}
 
 
 void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresCommittingCrime)
