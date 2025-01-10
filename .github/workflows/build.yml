@@ -40,6 +40,10 @@ jobs:
         path: vcpkg_installed
         key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
+    - name: Copy vcpkg cache to NAS2D folder
+      run: |
+        xcopy vcpkg_installed nas2d-core /s /e
+
     - name: Set NAS2D modification time
       shell: bash
       run: |
