@@ -16,7 +16,6 @@ jobs:
       BUILD_CONFIGURATION: Release
       SOLUTION_FILE_PATH: .
       VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
-      VcpkgManifestInstall: false
 
     steps:
     - uses: actions/checkout@v4
