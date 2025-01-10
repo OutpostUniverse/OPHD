@@ -86,7 +86,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 	if (structure.foodLevel() > 0)
 	{
 		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15, structure.foodLevel());
-		structure.foodLevel(-foodStolen);
+		structure.foodLevel(structure.foodLevel() - foodStolen);
 
 		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
 
