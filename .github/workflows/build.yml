@@ -26,6 +26,9 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
 
+    - name: Integrate vcpkg
+      run: vcpkg integrate install
+
     - name: Export GitHub Actions cache environment variables
       uses: actions/github-script@v7
       with:
@@ -83,7 +86,6 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        vcpkg integrate install
         msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
 
     - name: Save build cache - NAS2D
@@ -135,7 +137,6 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        vcpkg integrate install
         msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
     - name: Save incremental build cache - OPHD
