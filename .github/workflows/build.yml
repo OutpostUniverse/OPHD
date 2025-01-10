@@ -16,7 +16,6 @@ jobs:
       BUILD_CONFIGURATION: Release
       SOLUTION_FILE_PATH: .
       VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
-      VcpkgManifestInstall: false
 
     steps:
     - uses: actions/checkout@v4
@@ -26,6 +25,9 @@ jobs:
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.3.2
+
+    - name: Integrate vcpkg
+      run: vcpkg integrate install
 
     - name: Export GitHub Actions cache environment variables
       uses: actions/github-script@v7
@@ -47,7 +49,7 @@ jobs:
 
     - name: Save vcpkg dependency cache
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreVcpkg.outputs.cache-hit == 'false'
+      if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
       with:
         path: vcpkg_installed
         key: ${{ steps.cacheRestoreVcpkg.outputs.cache-primary-key }}
@@ -57,8 +59,9 @@ jobs:
         xcopy vcpkg_installed nas2d-core\vcpkg_installed\ /s /e
 
     - name: Pre-install vcpkg dependencies - NAS2D
+      working-directory: nas2d-core
       run: |
-        vcpkg install --x-manifest-root=nas2d-core
+        vcpkg install
 
     - name: Set NAS2D modification time
       shell: bash
@@ -83,12 +86,11 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        vcpkg integrate install
         msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
 
     - name: Save build cache - NAS2D
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreNas2d.outputs.cache-hit == 'false'
+      if: steps.cacheRestoreNas2d.outputs.cache-hit != 'true'
       with:
         path: nas2d-core/.build/
         key: ${{ steps.cacheRestoreNas2d.outputs.cache-primary-key }}
@@ -135,12 +137,11 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        vcpkg integrate install
         msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit == 'false'
+      if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit != 'true'
       with:
         path: .build
         key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
