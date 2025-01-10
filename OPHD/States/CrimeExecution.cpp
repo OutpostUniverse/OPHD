@@ -47,7 +47,7 @@ namespace
 }
 
 
-CrimeExecution::CrimeExecution(NotificationArea& notificationArea, Difficulty difficulty) :
+CrimeExecution::CrimeExecution(NotificationArea& notificationArea, const Difficulty& difficulty) :
 	mDifficulty{difficulty},
 	mNotificationArea{notificationArea}
 {

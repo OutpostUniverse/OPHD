@@ -15,7 +15,7 @@ class Tile;
 class CrimeRateUpdate
 {
 public:
-	CrimeRateUpdate(Difficulty difficulty);
+	CrimeRateUpdate(const Difficulty& difficulty);
 
 	void update(const std::vector<std::vector<Tile*>>& policeOverlays);
 

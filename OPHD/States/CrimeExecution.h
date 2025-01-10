@@ -16,7 +16,7 @@ class NotificationArea;
 class CrimeExecution
 {
 public:
-	CrimeExecution(NotificationArea& notificationArea, Difficulty difficulty);
+	CrimeExecution(NotificationArea& notificationArea, const Difficulty& difficulty);
 
 	void difficulty(Difficulty difficulty) { mDifficulty = difficulty; }
 

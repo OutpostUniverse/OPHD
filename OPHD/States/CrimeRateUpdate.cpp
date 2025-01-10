@@ -9,7 +9,7 @@
 #include <NAS2D/Utility.h>
 
 
-CrimeRateUpdate::CrimeRateUpdate(Difficulty difficulty) :
+CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
 	mDifficulty{difficulty}
 {
 }
