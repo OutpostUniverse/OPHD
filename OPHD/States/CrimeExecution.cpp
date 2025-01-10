@@ -11,12 +11,13 @@
 
 namespace
 {
-	const static inline std::map<Difficulty, double> stealingMultipliers
+	const static inline int stealingScale = 4;
+	const static inline std::map<Difficulty, int> stealingMultipliers
 	{
-		{Difficulty::Beginner, 0.5f},
-		{Difficulty::Easy, 0.75f},
-		{Difficulty::Medium, 1.0f},
-		{Difficulty::Hard, 1.5f}
+		{Difficulty::Beginner, 2},
+		{Difficulty::Easy, 3},
+		{Difficulty::Medium, 4},
+		{Difficulty::Hard, 6}
 	};
 
 	const static inline std::vector<std::string> stealingResoureReasons
@@ -39,7 +40,7 @@ namespace
 	int calcAmountForStealing(Difficulty difficulty, int low, int high, int max)
 	{
 		auto stealRandom = randomNumber.generate(low, high);
-		auto stealModified = static_cast<int>(stealingMultipliers.at(difficulty) * stealRandom);
+		auto stealModified = stealRandom * stealingMultipliers.at(difficulty) / stealingScale;
 		auto stealClipped = std::min(stealModified, max);
 		return stealClipped;
 	}
