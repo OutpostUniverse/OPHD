@@ -56,8 +56,9 @@ jobs:
         xcopy vcpkg_installed nas2d-core\vcpkg_installed\ /s /e
 
     - name: Pre-install vcpkg dependencies - NAS2D
+      working-directory: nas2d-core
       run: |
-        vcpkg install --x-manifest-root=nas2d-core
+        vcpkg install
 
     - name: Set NAS2D modification time
       shell: bash
