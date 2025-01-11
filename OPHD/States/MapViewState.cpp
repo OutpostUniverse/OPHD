@@ -176,11 +176,12 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
-	mCrimeExecution(mNotificationArea),
-	mTechnologyReader("tech0-1.xml"),
-	mLoadingExisting(true),
-	mExistingToLoad(savegame),
-	mMainReportsState(mainReportsState),
+	mCrimeRateUpdate{mDifficulty},
+	mCrimeExecution{mNotificationArea, mDifficulty},
+	mTechnologyReader{"tech0-1.xml"},
+	mLoadingExisting{true},
+	mExistingToLoad{savegame},
+	mMainReportsState{mainReportsState},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
@@ -194,17 +195,19 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
-	mTileMap(std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))),
-	mCrimeExecution(mNotificationArea),
-	mTechnologyReader("tech0-1.xml"),
-	mPlanetAttributes(planetAttributes),
-	mMainReportsState(mainReportsState),
+	mDifficulty{selectedDifficulty},
+	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
+	mCrimeRateUpdate{mDifficulty},
+	mCrimeExecution{mNotificationArea, mDifficulty},
+	mTechnologyReader{"tech0-1.xml"},
+	mPlanetAttributes{planetAttributes},
+	mMainReportsState{mainReportsState},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
-	mPoliceOverlays(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()+1)),
+	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
@@ -212,7 +215,6 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
-	difficulty(selectedDifficulty);
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
@@ -319,8 +321,6 @@ void MapViewState::focusOnStructure(Structure* structure)
 void MapViewState::difficulty(Difficulty difficulty)
 {
 	mDifficulty = difficulty;
-	mCrimeRateUpdate.difficulty(difficulty);
-	mCrimeExecution.difficulty(difficulty);
 }
 
 

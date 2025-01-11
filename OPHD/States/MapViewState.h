@@ -292,6 +292,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
+	Difficulty mDifficulty = Difficulty::Medium;
 	std::unique_ptr<TileMap> mTileMap;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
@@ -304,9 +305,6 @@ private:
 	Planet::Attributes mPlanetAttributes;
 
 	int mFood{0};
-
-	// DIFFICULTY
-	Difficulty mDifficulty = Difficulty::Medium;
 
 	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
 	static const std::map<Difficulty, int> GracePeriod;
