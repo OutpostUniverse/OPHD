@@ -53,6 +53,12 @@ CrimeExecution::CrimeExecution(const Difficulty& difficulty) :
 }
 
 
+CrimeExecution::CrimeExecution(const Difficulty& difficulty, Signal::DelegateType onCrimeEvent) : CrimeExecution{difficulty}
+{
+	mCrimeEventSignal.connect(onCrimeEvent);
+}
+
+
 void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresCommittingCrime)
 {
 	mMoraleChanges.clear();
