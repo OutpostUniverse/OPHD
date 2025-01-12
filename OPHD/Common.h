@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EnumDirection.h"
+
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 
@@ -34,24 +36,6 @@ inline const std::map<std::string, Difficulty> difficultyTable
 
 
 std::string difficultyString(Difficulty difficulty);
-
-
-/**
- * Digger robot digging direction.
- */
-enum class Direction
-{
-	Up,
-	Down,
-	East,
-	West,
-	North,
-	South,
-	NorthWest,
-	NorthEast,
-	SouthWest,
-	SouthEast
-};
 
 
 /**
