@@ -266,7 +266,7 @@ void MapViewState::load(const std::string& filePath)
 	mMapView->deserialize(root);
 	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
-	mNavControl = std::make_unique<NavControl>(*mMapView, *mTileMap);
+	mNavControl = std::make_unique<NavControl>(*mMapView);
 
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();

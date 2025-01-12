@@ -12,7 +12,6 @@ namespace NAS2D
 	class Image;
 }
 
-class TileMap;
 class MapView;
 class MapViewState;
 
@@ -20,7 +19,7 @@ class MapViewState;
 class NavControl : public Control
 {
 public:
-	NavControl(MapView& mapView, TileMap& tileMap);
+	NavControl(MapView& mapView);
 
 	void draw() const override;
 
@@ -32,7 +31,6 @@ protected:
 
 private:
 	MapView& mMapView;
-	TileMap& mTileMap;
 	const NAS2D::Image& mUiIcons;
 
 	NAS2D::Rectangle<int> mMoveNorthIconRect;

@@ -212,7 +212,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mMapView, *mTileMap)}
+	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	ccLocation() = CcNotPlaced;
