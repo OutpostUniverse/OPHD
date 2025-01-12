@@ -122,7 +122,6 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	}
 
 	auto resourceIndicesWithStock = structure.storage().getIndicesWithStock();
-
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
 	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
