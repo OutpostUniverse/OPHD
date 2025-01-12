@@ -25,7 +25,7 @@ namespace
 		"There are no identified suspects",
 		"An investigation has been opened",
 		"A local crime syndicate is under investigation",
-		"A suspect was aprehended but the goods remain unaccounted for",
+		"A suspect was apprehended but the goods remain unaccounted for",
 		"A separatist political movement has claimed responsibility",
 		"The rebel faction is suspected in preparation for a splinter colony"
 	};
@@ -122,7 +122,6 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	}
 
 	auto resourceIndicesWithStock = structure.storage().getIndicesWithStock();
-
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
 	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
