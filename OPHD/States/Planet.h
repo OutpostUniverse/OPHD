@@ -64,7 +64,7 @@ public:
 	void update();
 
 protected:
-	bool pointInCircle(NAS2D::Point<int> point);
+	bool pointInCircle(NAS2D::Point<int> point) const;
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:

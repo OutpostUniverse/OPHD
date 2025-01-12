@@ -54,7 +54,7 @@ namespace
 			}
 		}
 
-		bool Selected()
+		bool Selected() const
 		{
 			return mIsSelected;
 		}

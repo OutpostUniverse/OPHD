@@ -25,7 +25,7 @@ public:
 
 	int productStorageRequirement(ProductType type) const;
 
-	bool canStore(ProductType type, int count);
+	bool canStore(ProductType type, int count) const;
 	bool empty() const;
 	bool atCapacity() const;
 
