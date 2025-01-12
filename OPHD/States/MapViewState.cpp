@@ -177,7 +177,7 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 
 MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
 	mCrimeRateUpdate{mDifficulty},
-	mCrimeExecution{mNotificationArea, mDifficulty},
+	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mLoadingExisting{true},
 	mExistingToLoad{savegame},
@@ -198,7 +198,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
-	mCrimeExecution{mNotificationArea, mDifficulty},
+	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
 	mMainReportsState{mainReportsState},

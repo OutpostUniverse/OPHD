@@ -251,3 +251,16 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
 }
+
+
+void MapViewState::onCrimeEvent(std::string title, std::string text, const Structure& structure)
+{
+	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
+
+	mNotificationArea.push({
+		std::move(title),
+		std::move(text),
+		structureTile.xyz(),
+		NotificationArea::NotificationType::Warning
+	});
+}

@@ -47,10 +47,15 @@ namespace
 }
 
 
-CrimeExecution::CrimeExecution(NotificationArea& notificationArea, const Difficulty& difficulty) :
-	mDifficulty{difficulty},
-	mNotificationArea{notificationArea}
+CrimeExecution::CrimeExecution(const Difficulty& difficulty) :
+	mDifficulty{difficulty}
 {
+}
+
+
+CrimeExecution::CrimeExecution(const Difficulty& difficulty, Signal::DelegateType onCrimeEvent) : CrimeExecution{difficulty}
+{
+	mCrimeEventSignal.connect(onCrimeEvent);
 }
 
 
@@ -88,13 +93,11 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15, structure.foodLevel());
 		structure.foodLevel(structure.foodLevel() - foodStolen);
 
-		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
-
-		mNotificationArea.push({
+		mCrimeEventSignal.emit(
 			"Food Stolen",
 			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
-			structureTile.xyz(),
-			NotificationArea::NotificationType::Warning});
+			structure
+		);
 	}
 }
 
@@ -125,13 +128,11 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
 	structure.storage().resources[indexToStealFrom] -= amountStolen;
 
-	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
-
-	mNotificationArea.push({
+	mCrimeEventSignal.emit(
 		"Resources Stolen",
 		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
-		structureTile.xyz(),
-		NotificationArea::NotificationType::Warning});
+		structure
+	);
 }
 
 
@@ -139,11 +140,9 @@ void CrimeExecution::vandalize(Structure& structure)
 {
 	mMoraleChanges.push_back(std::make_pair("Vandalism", -1));
 
-	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(&structure);
-
-	mNotificationArea.push({
+	mCrimeEventSignal.emit(
 		"Vandalism",
 		"A " + structure.name() + " was vandalized.",
-		structureTile.xyz(),
-		NotificationArea::NotificationType::Warning});
+		structure
+	);
 }
