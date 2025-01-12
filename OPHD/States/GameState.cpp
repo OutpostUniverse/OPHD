@@ -42,7 +42,7 @@ GameState::~GameState()
 
 	mMainReportsState->hideReports().disconnect({this, &GameState::onHideReports});
 	mMapView->quit().disconnect({this, &GameState::onQuit});
-	mMapView->showReporstUi().disconnect({this, &GameState::onShowReports});
+	mMapView->showReportsUi().disconnect({this, &GameState::onShowReports});
 	mMapView->mapChanged().disconnect({this, &GameState::onMapChange});
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
@@ -84,7 +84,7 @@ void GameState::mapviewstate(MapViewState* state)
 	mActiveState = mMapView.get();
 
 	mMapView->quit().connect({this, &GameState::onQuit});
-	mMapView->showReporstUi().connect({this, &GameState::onShowReports});
+	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapView->mapChanged().connect({this, &GameState::onMapChange});
 }
 

@@ -86,7 +86,7 @@ void RobotInspector::onCancelOrders()
 
 void RobotInspector::onSelfDestruct()
 {
-	mRobot->seldDestruct(true);
+	mRobot->selfDestruct(true);
 	hide();
 }
 

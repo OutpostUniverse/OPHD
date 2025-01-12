@@ -122,7 +122,7 @@ public:
 
 	void setPopulationLevel(PopulationLevel popLevel);
 
-	ReportsUiSignal::Source& showReporstUi() { return mReportsUiSignal; }
+	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
 	QuitSignal::Source& quit() { return mQuitSignal; }
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
 
