@@ -795,7 +795,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 {
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
-		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir paramter.");
+		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir parameter.");
 	}
 
 	NAS2D::Utility<StructureManager>::get().addStructure(*new Tube(dir, depth != 0), tile);
