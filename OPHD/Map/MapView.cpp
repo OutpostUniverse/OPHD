@@ -82,7 +82,7 @@ int MapView::viewSize() const
 void MapView::viewSize(int edgeSizeInTiles)
 {
 	// Set a cap on view size at the smallest map dimension
-	// The view diamond needs to be square, and we don't want to overflow map bounds when drawing the sqaure
+	// The view diamond needs to be square, and we don't want to overflow map bounds when drawing the square
 	const auto sizeInTiles = mTileMap.size();
 	const auto maxViewSize = std::min(sizeInTiles.x, sizeInTiles.y);
 	mEdgeLength = std::clamp(edgeSizeInTiles, 3, maxViewSize);

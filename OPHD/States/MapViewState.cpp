@@ -1100,7 +1100,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		return;
 	}
 
-	// Check for obstructions underneath the the digger location.
+	// Check for obstructions underneath the digger location.
 	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile({tile.xy(), tile.depth() + 1}).empty())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerBlockedBelow);
@@ -1243,7 +1243,7 @@ void MapViewState::populateRobotMenu()
 
 /**
  * Checks that the clicked tile is a suitable spot for the SEED Lander and
- * then inserts it into the the TileMap.
+ * then inserts it into the TileMap.
  */
 void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 {

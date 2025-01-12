@@ -239,7 +239,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	/**
 	 * \note	We are not setting the tile inspector window's position here because it's something that can be
-	 *			move arround by the user. Re-centering it here could annoy the user.
+	 *			moved around by the user. Re-centering it here could annoy the user.
 	 */
 }
 

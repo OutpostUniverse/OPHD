@@ -207,7 +207,7 @@ void IconGrid::removeItem(const std::string& item)
 
 
 /**
- * Indicates wether a named item exists in the IconGrid.
+ * Indicates whether a named item exists in the IconGrid.
  */
 bool IconGrid::itemExists(const std::string& item)
 {

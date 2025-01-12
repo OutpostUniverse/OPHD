@@ -1,6 +1,6 @@
 // ==================================================================================
 // = This file implements the non-UI event handlers like factory production, robot
-// = task completeion, etc.
+// = task completion, etc.
 // ==================================================================================
 #include "MapViewState.h"
 
