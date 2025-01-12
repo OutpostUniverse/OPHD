@@ -105,7 +105,7 @@ void NavControl::draw() const
 	const auto& font = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 	const auto stepSizeWidth = font.width("IX");
 	auto position = mRect.endPoint() - NAS2D::Vector{5, 30 - constants::Margin};
-	for (int i = mTileMap.maxDepth(); i >= 0; i--)
+	for (int i = mMapView.maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);
 		const auto textSize = font.size(levelString);
