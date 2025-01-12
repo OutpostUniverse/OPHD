@@ -1,6 +1,6 @@
 #include "Robodigger.h"
 
-#include "../../Common.h"
+#include "../../EnumDirection.h"
 #include "../../Constants/Strings.h"
 
 

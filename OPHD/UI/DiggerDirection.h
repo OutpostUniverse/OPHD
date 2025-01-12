@@ -2,7 +2,7 @@
 
 #include <libControls/Window.h>
 #include <libControls/Button.h>
-#include "../Common.h"
+#include "../EnumDirection.h"
 
 
 class Tile;
