@@ -67,6 +67,12 @@ void MapView::currentDepth(int i)
 }
 
 
+int MapView::maxDepth() const
+{
+	return mTileMap.maxDepth();
+}
+
+
 int MapView::viewSize() const
 {
 	return mEdgeLength;

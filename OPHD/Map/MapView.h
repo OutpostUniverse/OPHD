@@ -36,6 +36,8 @@ public:
 	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
 
+	int maxDepth() const;
+
 	int viewSize() const;
 	void viewSize(int edgeSizeInTiles);
 
