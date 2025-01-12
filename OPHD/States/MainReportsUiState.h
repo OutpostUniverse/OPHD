@@ -34,7 +34,7 @@ public:
 	void selectWarehousePanel(Structure*);
 	void selectMinePanel(Structure*);
 
-    void injectTechnology(TechnologyCatalog&, ResearchTracker&);
+	void injectTechnology(TechnologyCatalog&, ResearchTracker&);
 
 	void clearLists();
 
