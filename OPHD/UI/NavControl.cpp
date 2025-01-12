@@ -4,7 +4,6 @@
 #include "../DirectionOffset.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
 #include <NAS2D/Utility.h>
@@ -29,9 +28,8 @@ namespace
 }
 
 
-NavControl::NavControl(MapView& mapView, TileMap& tileMap) :
+NavControl::NavControl(MapView& mapView) :
 	mMapView{mapView},
-	mTileMap{tileMap},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
 	onMove({0, 0});
