@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Common.h"
+#include "EnumProductType.h"
 
 #include <NAS2D/Dictionary.h>
 
