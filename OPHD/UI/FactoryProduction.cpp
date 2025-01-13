@@ -2,6 +2,7 @@
 
 #include "StringTable.h"
 
+#include "../Common.h"
 #include "../ProductCatalogue.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Structures/Factory.h"

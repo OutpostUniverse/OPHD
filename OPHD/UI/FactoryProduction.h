@@ -6,7 +6,7 @@
 #include "IconGrid.h"
 
 #include "../Constants/UiConstants.h"
-#include "../Common.h"
+#include "../EnumProductType.h"
 #include "../ProductionCost.h"
 
 
