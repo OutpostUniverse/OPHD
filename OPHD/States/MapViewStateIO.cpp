@@ -182,7 +182,7 @@ void MapViewState::save(const std::string& filePath)
 	));
 
 	auto moraleChangeReasons = new NAS2D::Xml::XmlElement("morale_change");
-	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
+	auto& moraleChangeList = mMorale.moraleChangeJournal();
 	for (auto& [message, value] : moraleChangeList)
 	{
 		moraleChangeReasons->linkEndChild(NAS2D::dictionaryToAttributes(
