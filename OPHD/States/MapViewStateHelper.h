@@ -10,6 +10,7 @@
 #pragma once
 
 #include "../Common.h"
+#include "../EnumDirection.h"
 
 #include "../Map/MapCoordinate.h"
 

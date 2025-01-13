@@ -1,3 +1,4 @@
+#include "EnumDirection.h"
 #include "GraphWalker.h"
 #include "DirectionOffset.h"
 

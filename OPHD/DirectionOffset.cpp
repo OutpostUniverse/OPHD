@@ -1,6 +1,6 @@
 
 #include "DirectionOffset.h"
-#include "Common.h"
+#include "EnumDirection.h"
 
 #include <map>
 
