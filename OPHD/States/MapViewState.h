@@ -7,7 +7,6 @@
 
 #include "Planet.h"
 
-#include "../Common.h"
 #include "../EnumDirection.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
