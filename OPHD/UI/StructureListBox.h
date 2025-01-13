@@ -2,11 +2,10 @@
 
 #include <libControls/ListBoxBase.h>
 
-#include "../Common.h"
-
 #include <NAS2D/Signal/Signal.h>
 
 
+enum class StructureState;
 class Structure;
 
 
