@@ -1,11 +1,16 @@
 #include "Morale.h"
-#include "../OPHD/Constants/Numbers.h"
 
 #include <algorithm>
 
+namespace
+{
+	constexpr int MinimumMorale = 0;
+	constexpr int MaximumMorale = 1000;
+	constexpr int DefaultStartingMorale = 600;
+}
 
 Morale::Morale() :
-	Morale(constants::DefaultStartingMorale, constants::DefaultStartingMorale)
+	Morale(DefaultStartingMorale, DefaultStartingMorale)
 {
 }
 
@@ -20,13 +25,13 @@ Morale::Morale(int currentMorale, int previousMorale) :
 
 int Morale::currentMorale() const
 {
-	return std::clamp(mCurrentMorale, 0, constants::MaximumMorale);
+	return std::clamp(mCurrentMorale, MinimumMorale, MaximumMorale);
 }
 
 
 int Morale::previousMorale() const
 {
-	return std::clamp(mPreviousMorale, 0, constants::MaximumMorale);
+	return std::clamp(mPreviousMorale, MinimumMorale, MaximumMorale);
 }
 
 
@@ -56,6 +61,6 @@ void Morale::commitMoraleChanges()
 		mMoraleAccumulator += entry.value;
 	}
 
-	mCurrentMorale = std::clamp(mCurrentMorale + mMoraleAccumulator, 0, constants::MaximumMorale);
+	mCurrentMorale = std::clamp(mCurrentMorale + mMoraleAccumulator, MinimumMorale, MaximumMorale);
 	mMoraleAccumulator = 0;
 }
