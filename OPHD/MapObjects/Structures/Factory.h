@@ -2,6 +2,7 @@
 
 #include "../Structure.h"
 
+#include "../../EnumProductType.h"
 #include "../../StorableResources.h"
 
 

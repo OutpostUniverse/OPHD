@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Common.h"
-
 #include "../UI/IconGrid.h"
 
 #include <string>

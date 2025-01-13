@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../Common.h"
 #include "../Structure.h"
 #include <string>
 #include <array>

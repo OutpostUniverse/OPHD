@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../MapObjects/Structures/FoodProduction.h"
-#include "../Common.h"
 
 #include <NAS2D/Signal/Signal.h>
 
@@ -12,6 +11,7 @@
 #include <utility>
 
 
+enum class Difficulty;
 class NotificationArea;
 
 
