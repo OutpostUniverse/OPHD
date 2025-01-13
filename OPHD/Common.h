@@ -1,7 +1,6 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
-#include "EnumDifficulty.h"
 #include "EnumDisabledReason.h"
 #include "EnumIdleReason.h"
 #include "EnumMineProductionRate.h"

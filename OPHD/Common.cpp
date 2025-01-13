@@ -1,5 +1,6 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
+#include "EnumDifficulty.h"
 #include "StructureManager.h"
 
 #include "MapObjects/Structure.h"
