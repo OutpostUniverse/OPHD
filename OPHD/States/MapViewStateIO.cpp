@@ -182,7 +182,7 @@ void MapViewState::save(const std::string& filePath)
 	));
 
 	auto moraleChangeReasons = new NAS2D::Xml::XmlElement("morale_change");
-	auto& moraleChangeList = mPopulationPanel.moraleReasonList();
+	auto& moraleChangeList = mMorale.moraleChangeJournal();
 	for (auto& [message, value] : moraleChangeList)
 	{
 		moraleChangeReasons->linkEndChild(NAS2D::dictionaryToAttributes(
@@ -229,7 +229,7 @@ void MapViewState::load(const std::string& filePath)
 	mBtnToggleRouteOverlay.toggle(false);
 	mBtnTogglePoliceOverlay.toggle(false);
 	mBtnToggleHeightmap.toggle(false);
-	mPopulationPanel.clearMoraleReasons();
+	mMorale.closeJournal();
 
 	if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
 	{
@@ -596,6 +596,6 @@ void MapViewState::readMoraleChanges(NAS2D::Xml::XmlElement* moraleChangeElement
 		const auto message = dictionary.get("message");
 		const auto val = dictionary.get<int>("val");
 
-		mPopulationPanel.addMoraleReason(message, val);
+		mMorale.journalMoraleChange({message, val});
 	}
 }

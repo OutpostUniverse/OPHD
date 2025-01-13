@@ -30,15 +30,32 @@ int Morale::previousMorale() const
 }
 
 
-void Morale::adjustMorale(int diff)
+void Morale::journalMoraleChange(const MoraleChangeEntry& entry)
 {
-	mMoraleAccumulator += diff;
+	mMoraleChangeJournal.push_back(entry);
+}
+
+const std::vector<MoraleChangeEntry>& Morale::moraleChangeJournal() const
+{
+	return mMoraleChangeJournal;
+}
+
+
+void Morale::closeJournal()
+{
+	mMoraleChangeJournal.clear();
 }
 
 
 void Morale::commitMoraleChanges()
 {
 	mPreviousMorale = currentMorale();
+
+	for (const auto& entry : mMoraleChangeJournal)
+	{
+		mMoraleAccumulator += entry.value;
+	}
+
 	mCurrentMorale = std::clamp(mCurrentMorale + mMoraleAccumulator, 0, constants::MaximumMorale);
 	mMoraleAccumulator = 0;
 }

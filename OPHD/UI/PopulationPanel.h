@@ -28,13 +28,6 @@ public:
 
 	void crimeRate(int val) { mCrimeRate = val; }
 	int crimeRate() const { return mCrimeRate; }
-
-	void addMoraleReason(const std::string& str, int val);
-
-	const auto& moraleReasonList() const { return mMoraleChangeReasons; }
-
-	void clearMoraleReasons() { mMoraleChangeReasons.clear(); }
-
 	void update() override;
 
 private:

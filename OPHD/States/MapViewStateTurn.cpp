@@ -171,7 +171,7 @@ void MapViewState::updateCommercial()
 		}
 	}
 
-	mMorale.adjustMorale(commercialCount - luxuryCount);
+	mMorale.journalMoraleChange({"Commercial - Luxury", commercialCount - luxuryCount});
 }
 
 
@@ -203,43 +203,30 @@ void MapViewState::updateMorale()
 	}
 
 	// positive
-	mMorale.adjustMorale(birthCount);
-	mMorale.adjustMorale(parkCount);
-	mMorale.adjustMorale(recreationCount);
-	mMorale.adjustMorale(commercialCount);
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::Births), birthCount});
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::Parks), parkCount});
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::Recreation), recreationCount});
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::Commercial), commercialCount});
 
 	// negative
-	mMorale.adjustMorale(-deathCount);
-	mMorale.adjustMorale(-residentialOverCapacityHit);
-	mMorale.adjustMorale(-bioWasteAccumulation * 2);
-	mMorale.adjustMorale(-structuresDisabled);
-	mMorale.adjustMorale(-structuresDestroyed);
-	mMorale.adjustMorale(-foodProductionHit);
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::Deaths), -deathCount});
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::ResidentialOverflow), -residentialOverCapacityHit});
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::BiowasteOverflow), -bioWasteAccumulation * 2}); // TODO 2 is a magic number
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::StructuresDisabled), -structuresDisabled});
+	mMorale.journalMoraleChange({moraleString(MoraleIndexs::StructuresDestroyed), -structuresDestroyed});
+	mMorale.journalMoraleChange({"Food Production Issues", -foodProductionHit});
 
-	mPopulationPanel.clearMoraleReasons();
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Births), birthCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Deaths), -deathCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::NoFoodProduction), -foodProductionHit);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Parks), parkCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Recreation), recreationCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Commercial), commercialCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::ResidentialOverflow), -residentialOverCapacityHit);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::BiowasteOverflow), bioWasteAccumulation * -2);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDisabled), -structuresDisabled);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDestroyed), -structuresDestroyed);
 
 	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
 	{
-		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
-		mMorale.adjustMorale(moraleReason.second);
+		mMorale.journalMoraleChange({moraleReason.first, moraleReason.second});
 	}
 
 	mPopulationPanel.crimeRate(mCrimeRateUpdate.meanCrimeRate());
 
 	for (const auto& moraleReason : mCrimeExecution.moraleChanges())
 	{
-		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
-		mMorale.adjustMorale(moraleReason.second);
+		mMorale.journalMoraleChange({moraleReason.first, moraleReason.second});
 	}
 }
 
@@ -380,7 +367,7 @@ void MapViewState::checkColonyShip()
 	{
 		if (mLandersColonist > 0 || mLandersCargo > 0)
 		{
-			mMorale.adjustMorale(-(mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty));
+			mMorale.journalMoraleChange({"Deorbit Disaster!", -(mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty)});
 
 			mLandersColonist = 0;
 			mLandersCargo = 0;
@@ -694,6 +681,8 @@ void MapViewState::nextTurn()
 
 	mNotificationWindow.hide();
 	mNotificationArea.clear();
+
+	mMorale.closeJournal();
 
 	clearMode();
 
