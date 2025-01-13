@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
+#include "EnumDifficulty.h"
 #include "EnumDisabledReason.h"
 #include "EnumIdleReason.h"
 #include "EnumMineProductionRate.h"
@@ -23,14 +24,6 @@ namespace NAS2D::Xml
 }
 
 enum class StructureState;
-
-enum class Difficulty
-{
-	Beginner,
-	Easy,
-	Medium,
-	Hard,
-};
 
 
 inline const std::map<std::string, Difficulty> difficultyTable

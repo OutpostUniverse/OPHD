@@ -267,6 +267,7 @@
     <ClInclude Include="Constants\UiConstants.h" />
     <ClInclude Include="DirectionOffset.h" />
     <ClInclude Include="EnumConnectorDir.h" />
+    <ClInclude Include="EnumDifficulty.h" />
     <ClInclude Include="EnumDirection.h" />
     <ClInclude Include="EnumDisabledReason.h" />
     <ClInclude Include="EnumIdleReason.h" />
