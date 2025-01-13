@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
+#include "EnumMoraleIndex.h"
 #include "EnumProductType.h"
 #include "EnumStructureID.h"
 
@@ -91,28 +92,6 @@ enum class IdleReason
 
 
 bool productTypeInRange(ProductType productType);
-
-
-enum class MoraleIndexs
-{
-	Terrible,
-	Poor,
-	Fair,
-	Good,
-	Excellent,
-
-	Description,
-	Births,
-	Deaths,
-	NoFoodProduction,
-	Parks,
-	Recreation,
-	Commercial,
-	ResidentialOverflow,
-	BiowasteOverflow,
-	StructuresDisabled,
-	StructuresDestroyed
-};
 
 
 extern const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION;
