@@ -3,8 +3,6 @@
 #include <libControls/Button.h>
 #include <libControls/Window.h>
 
-#include "../Common.h"
-
 #include "../MapObjects/Robot.h"
 
 
