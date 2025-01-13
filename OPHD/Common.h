@@ -3,6 +3,7 @@
 #include "EnumConnectorDir.h"
 #include "EnumDisabledReason.h"
 #include "EnumIdleReason.h"
+#include "EnumMineProductionRate.h"
 #include "EnumMoraleIndex.h"
 #include "EnumProductType.h"
 #include "EnumStructureID.h"
@@ -53,14 +54,6 @@ enum class TerrainType
 	Rough,
 	Difficult,
 	Impassable
-};
-
-
-enum class MineProductionRate
-{
-	Low,
-	Medium,
-	High,
 };
 
 
