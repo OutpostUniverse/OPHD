@@ -93,12 +93,6 @@ PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& po
 	size({windowWidth, windowHeight});
 }
 
-void PopulationPanel::addMoraleReason(const std::string& str, int val)
-{
-	if (val == 0) { return; }
-	mMoraleChangeReasons.push_back(std::make_pair(str, val));
-}
-
 
 void PopulationPanel::update()
 {

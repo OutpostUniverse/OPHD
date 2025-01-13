@@ -217,20 +217,9 @@ void MapViewState::updateMorale()
 	mMorale.journalMoraleChange({"Food Production Issues", -foodProductionHit});
 
 	mPopulationPanel.clearMoraleReasons();
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Births), birthCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Deaths), -deathCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::NoFoodProduction), -foodProductionHit);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Parks), parkCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Recreation), recreationCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::Commercial), commercialCount);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::ResidentialOverflow), -residentialOverCapacityHit);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::BiowasteOverflow), bioWasteAccumulation * -2);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDisabled), -structuresDisabled);
-	mPopulationPanel.addMoraleReason(moraleString(MoraleIndexs::StructuresDestroyed), -structuresDestroyed);
 
 	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
 	{
-		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
 		mMorale.journalMoraleChange({moraleReason.first, moraleReason.second});
 	}
 
@@ -238,7 +227,6 @@ void MapViewState::updateMorale()
 
 	for (const auto& moraleReason : mCrimeExecution.moraleChanges())
 	{
-		mPopulationPanel.addMoraleReason(moraleReason.first, moraleReason.second);
 		mMorale.journalMoraleChange({moraleReason.first, moraleReason.second});
 	}
 }

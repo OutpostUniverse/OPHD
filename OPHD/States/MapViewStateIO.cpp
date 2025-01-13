@@ -596,6 +596,6 @@ void MapViewState::readMoraleChanges(NAS2D::Xml::XmlElement* moraleChangeElement
 		const auto message = dictionary.get("message");
 		const auto val = dictionary.get<int>("val");
 
-		mPopulationPanel.addMoraleReason(message, val);
+		mMorale.journalMoraleChange({message, val});
 	}
 }
