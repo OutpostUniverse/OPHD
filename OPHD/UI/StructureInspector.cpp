@@ -1,6 +1,7 @@
 #include "StructureInspector.h"
 
 #include "../Cache.h"
+#include "../Common.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Structure.h"
 #include "StringTable.h"
