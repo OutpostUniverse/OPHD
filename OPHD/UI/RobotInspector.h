@@ -3,7 +3,8 @@
 #include <libControls/Button.h>
 #include <libControls/Window.h>
 
-#include "../MapObjects/Robot.h"
+
+class Robot;
 
 
 class RobotInspector : public Window
