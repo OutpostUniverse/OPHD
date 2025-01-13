@@ -1,14 +1,6 @@
 #pragma once
 
-#include "EnumConnectorDir.h"
-#include "EnumDifficulty.h"
-#include "EnumDisabledReason.h"
-#include "EnumIdleReason.h"
-#include "EnumMineProductionRate.h"
-#include "EnumMoraleIndex.h"
 #include "EnumProductType.h"
-#include "EnumStructureID.h"
-#include "EnumTerrainType.h"
 
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
@@ -23,17 +15,16 @@ namespace NAS2D::Xml
 	class XmlDocument;
 }
 
+enum class Difficulty;
+enum class DisabledReason;
+enum class IdleReason;
+enum class MineProductionRate;
+enum class MoraleIndexs;
 enum class StructureState;
+enum class TerrainType;
 
 
-inline const std::map<std::string, Difficulty> difficultyTable
-{
-	{"Beginner", Difficulty::Beginner},
-	{"Easy", Difficulty::Easy},
-	{"Medium", Difficulty::Medium},
-	{"Hard", Difficulty::Hard}
-};
-
+extern const std::map<std::string, Difficulty> difficultyTable;
 
 std::string difficultyString(Difficulty difficulty);
 

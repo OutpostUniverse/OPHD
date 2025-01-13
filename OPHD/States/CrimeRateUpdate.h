@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common.h"
+#include "../EnumDifficulty.h"
 
 #include <vector>
 #include <map>

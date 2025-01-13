@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common.h"
+#include "../EnumTerrainType.h"
 
 #include "MapCoordinate.h"
 

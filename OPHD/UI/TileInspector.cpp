@@ -1,6 +1,7 @@
 #include "TileInspector.h"
 
 #include "TextRender.h"
+#include "../Common.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Mine.h"
 

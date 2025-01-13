@@ -1,5 +1,6 @@
 #include "StructureTracker.h"
 
+#include "../EnumStructureID.h"
 #include "../Constants/Strings.h"
 
 namespace

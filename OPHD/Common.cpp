@@ -1,5 +1,11 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
+#include "EnumDifficulty.h"
+#include "EnumDisabledReason.h"
+#include "EnumIdleReason.h"
+#include "EnumMineProductionRate.h"
+#include "EnumMoraleIndex.h"
+#include "EnumTerrainType.h"
 #include "StructureManager.h"
 
 #include "MapObjects/Structure.h"
@@ -22,6 +28,15 @@ namespace
 {
 	float meanSolarDistance = 1;
 }
+
+
+const std::map<std::string, Difficulty> difficultyTable
+{
+	{"Beginner", Difficulty::Beginner},
+	{"Easy", Difficulty::Easy},
+	{"Medium", Difficulty::Medium},
+	{"Hard", Difficulty::Hard}
+};
 
 
 std::string difficultyString(Difficulty difficulty)
