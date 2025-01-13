@@ -42,6 +42,12 @@ void Morale::journalMoraleChange(const MoraleChangeEntry& entry)
 }
 
 
+void Morale::closeJournal()
+{
+	mMoraleChangeJournal.clear();
+}
+
+
 void Morale::commitMoraleChanges()
 {
 	mPreviousMorale = currentMorale();

@@ -32,6 +32,9 @@ public:
 	void adjustMorale(int diff);
 	void journalMoraleChange(const MoraleChangeEntry& entry);
 
+	// Clears the morale change journal vector of all entries
+	void closeJournal();
+
 	// Should be called after all morale calculations are done for the turn to apply the morale changes but before its needed to update the UI
 	void commitMoraleChanges();
 
