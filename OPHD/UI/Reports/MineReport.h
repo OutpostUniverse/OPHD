@@ -5,7 +5,6 @@
 #include <libControls/Button.h>
 #include <libControls/CheckBox.h>
 #include "../StructureListBox.h"
-#include "../../Common.h"
 
 #include <NAS2D/Math/Rectangle.h>
 
