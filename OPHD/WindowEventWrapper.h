@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Common.h"
-
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Configuration.h>
