@@ -7,6 +7,7 @@
 #include "EnumMoraleIndex.h"
 #include "EnumProductType.h"
 #include "EnumStructureID.h"
+#include "EnumTerrainType.h"
 
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
@@ -42,19 +43,6 @@ inline const std::map<std::string, Difficulty> difficultyTable
 
 
 std::string difficultyString(Difficulty difficulty);
-
-
-/**
- * Terrain type enumeration
- */
-enum class TerrainType
-{
-	Dozed,
-	Clear,
-	Rough,
-	Difficult,
-	Impassable
-};
 
 
 bool productTypeInRange(ProductType productType);

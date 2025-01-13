@@ -347,6 +347,9 @@
     <ClInclude Include="EnumStructureID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnumTerrainType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GraphWalker.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -274,6 +274,7 @@
     <ClInclude Include="EnumMoraleIndex.h" />
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
+    <ClInclude Include="EnumTerrainType.h" />
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
