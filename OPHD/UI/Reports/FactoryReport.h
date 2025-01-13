@@ -6,7 +6,6 @@
 #include <libControls/ComboBox.h>
 #include <libControls/TextArea.h>
 #include "../FactoryListBox.h"
-#include "../../Common.h"
 #include "../../ProductCatalogue.h"
 
 #include <NAS2D/Math/Rectangle.h>
@@ -18,6 +17,7 @@ namespace NAS2D
 	class Image;
 }
 
+enum class StructureState;
 class Factory;
 
 
