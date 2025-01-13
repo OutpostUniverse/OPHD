@@ -28,8 +28,6 @@ public:
 	Morale(int currentMorale, int previousMorale);
 	int currentMorale() const;
 	int previousMorale() const;
-	// adjustMorale is deprecated in favor of journalMoraleChange
-	void adjustMorale(int diff);
 	void journalMoraleChange(const MoraleChangeEntry& entry);
 	const std::vector<MoraleChangeEntry>& moraleChangeJournal() const;
 

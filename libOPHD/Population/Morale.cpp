@@ -30,12 +30,6 @@ int Morale::previousMorale() const
 }
 
 
-void Morale::adjustMorale(int diff)
-{
-	mMoraleAccumulator += diff;
-}
-
-
 void Morale::journalMoraleChange(const MoraleChangeEntry& entry)
 {
 	mMoraleChangeJournal.push_back(entry);
