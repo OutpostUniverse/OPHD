@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
+#include "EnumStructureID.h"
 
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
@@ -85,60 +86,6 @@ enum class IdleReason
 	MineExhausted,
 	MineInactive,
 	InsufficientLuxuryProduct
-};
-
-
-/**
- * Unique identifier code for each structure.
- *
- * \note	Each individual structure is identified using a SID_ code as opposed
- *			the structure Class code which is used to group like structures into
- *			lists for structure updates.
- */
-enum StructureID
-{
-	SID_NONE,
-
-	SID_AGRIDOME,
-	SID_AIR_SHAFT,
-	SID_CARGO_LANDER,
-	SID_CHAP,
-	SID_COLONIST_LANDER,
-	SID_COMMAND_CENTER,
-	SID_COMMERCIAL,
-	SID_COMM_TOWER,
-	SID_FUSION_REACTOR,
-	SID_HOT_LABORATORY,
-	SID_LABORATORY,
-	SID_MEDICAL_CENTER,
-	SID_MINE_FACILITY,
-	SID_MINE_SHAFT,
-	SID_NURSERY,
-	SID_PARK,
-	SID_RECREATION_CENTER,
-	SID_RED_LIGHT_DISTRICT,
-	SID_RESIDENCE,
-	SID_ROAD,
-	SID_ROBOT_COMMAND,
-	SID_SEED_FACTORY,
-	SID_SEED_LANDER,
-	SID_SEED_POWER,
-	SID_SEED_SMELTER,
-	SID_SMELTER,
-	SID_SOLAR_PANEL1,
-	SID_SOLAR_PLANT,
-	SID_STORAGE_TANKS,
-	SID_SURFACE_FACTORY,
-	SID_SURFACE_POLICE,
-	SID_TUBE,
-	SID_UNDERGROUND_FACTORY,
-	SID_UNDERGROUND_POLICE,
-	SID_UNIVERSITY,
-	SID_WAREHOUSE,
-	SID_RECYCLING,
-	SID_MAINTENANCE_FACILITY,
-
-	SID_COUNT
 };
 
 
