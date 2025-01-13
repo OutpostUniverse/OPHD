@@ -36,6 +36,12 @@ void Morale::adjustMorale(int diff)
 }
 
 
+void Morale::journalMoraleChange(const MoraleChangeEntry& entry)
+{
+	mMoraleChangeJournal.push_back(entry);
+}
+
+
 void Morale::commitMoraleChanges()
 {
 	mPreviousMorale = currentMorale();

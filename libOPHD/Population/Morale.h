@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 #include <string>
 
 /**
@@ -27,7 +28,9 @@ public:
 	Morale(int currentMorale, int previousMorale);
 	int currentMorale() const;
 	int previousMorale() const;
+	// adjustMorale is deprecated in favor of journalMoraleChange
 	void adjustMorale(int diff);
+	void journalMoraleChange(const MoraleChangeEntry& entry);
 
 	// Should be called after all morale calculations are done for the turn to apply the morale changes but before its needed to update the UI
 	void commitMoraleChanges();
@@ -37,4 +40,5 @@ private:
 	int mCurrentMorale;
 	int mPreviousMorale;
 	int mMoraleAccumulator;
+	std::vector<MoraleChangeEntry> mMoraleChangeJournal;
 };
