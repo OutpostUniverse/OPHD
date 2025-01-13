@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common.h"
+#include "../EnumMineProductionRate.h"
 #include "../StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
