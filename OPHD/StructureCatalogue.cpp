@@ -366,7 +366,7 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
 
 /**
  * Indicates that the source ResourcePool has enough resources to accommodate
- * the resource requirements of the specificed structure.
+ * the resource requirements of the specified structure.
  */
 bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {

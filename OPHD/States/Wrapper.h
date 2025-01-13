@@ -31,7 +31,7 @@ public:
 
 	void deactivate() { mIsActive = false; _deactivate(); }
 	void activate() { mIsActive = true; _activate(); }
-	bool active() { return mIsActive; }
+	bool active() const { return mIsActive; }
 
 private:
 

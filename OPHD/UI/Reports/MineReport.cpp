@@ -133,7 +133,7 @@ void MineReport::fillLists()
 
 	mSelectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(mSelectedFacility);
 	mAvailableTrucks = getTruckAvailability();
-	updateManagementButtonsVisiblity();
+	updateManagementButtonsVisibility();
 }
 
 
@@ -162,7 +162,7 @@ void MineReport::onResize()
 
 void MineReport::onVisibilityChange(bool /*visible*/)
 {
-	updateManagementButtonsVisiblity();
+	updateManagementButtonsVisibility();
 }
 
 
@@ -295,7 +295,7 @@ void MineReport::onCheckBoxRareMineralsChange()
 }
 
 
-void MineReport::updateManagementButtonsVisiblity()
+void MineReport::updateManagementButtonsVisibility()
 {
 	bool isVisible = visible() && mSelectedFacility;
 
@@ -320,7 +320,7 @@ void MineReport::onMineFacilitySelectionChange()
 {
 	mSelectedFacility = lstMineFacilities.selectedStructure();
 
-	updateManagementButtonsVisiblity();
+	updateManagementButtonsVisibility();
 
 	if (!mSelectedFacility) { return; }
 
@@ -412,7 +412,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 }
 
 
-void MineReport::drawTruckMangementPane(const NAS2D::Point<int>& origin)
+void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
 	const auto miningFacility = static_cast<MineFacility*>(mSelectedFacility);
 
@@ -526,7 +526,7 @@ void MineReport::update()
 	{
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
 		drawOreProductionPane(startPoint + NAS2D::Vector{10, 170});
-		drawTruckMangementPane(startPoint + NAS2D::Vector{10, r.size().y - 214});
+		drawTruckManagementPane(startPoint + NAS2D::Vector{10, r.size().y - 214});
 	}
 
 	UIContainer::update();

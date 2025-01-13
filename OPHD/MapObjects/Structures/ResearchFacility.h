@@ -32,45 +32,45 @@ public:
 	int regularResearchProduced() const
 	{
 		return static_cast<int>(
-			std::floor(static_cast<float>(mActualScientstsEmployed) * mRegularPointsPerScientist));
+			std::floor(static_cast<float>(mActualScientistsEmployed) * mRegularPointsPerScientist));
 	}
 
 
 	int hotResearchProduced() const
 	{
 		return static_cast<int>(
-			std::floor(static_cast<float>(mActualScientstsEmployed) * mHotPointsPerScientist));
+			std::floor(static_cast<float>(mActualScientistsEmployed) * mHotPointsPerScientist));
 	}
 
 
 	int scientistsNeeded() const
 	{
-		return mMaxScientstsAllowed - mActualScientstsEmployed;
+		return mMaxScientistsAllowed - mActualScientistsEmployed;
 	}
 
 
-	void assignScientsts(int count)
+	void assignScientists(int count)
 	{
-		mActualScientstsEmployed = std::clamp(count, 0, mMaxScientstsAllowed);
+		mActualScientistsEmployed = std::clamp(count, 0, mMaxScientistsAllowed);
 	}
 
 
 	int assignedScientists() const
 	{
-		return mActualScientstsEmployed;
+		return mActualScientistsEmployed;
 	}
 
 
 protected:
-	void maxScientistsAllowed(int count) { mMaxScientstsAllowed = count; }
+	void maxScientistsAllowed(int count) { mMaxScientistsAllowed = count; }
 
 	void regularPointsPerScientist(float count) { mRegularPointsPerScientist = count; }
 	void hotPointsPerScientist(float count) { mHotPointsPerScientist = count; }
 
 
 private:
-	int mMaxScientstsAllowed{0};
-	int mActualScientstsEmployed{0};
+	int mMaxScientistsAllowed{0};
+	int mActualScientistsEmployed{0};
 
 	float mRegularPointsPerScientist{0.0f};
 	float mHotPointsPerScientist{0.0f};

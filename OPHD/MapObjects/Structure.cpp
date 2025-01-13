@@ -289,7 +289,7 @@ bool Structure::repairable() const
  * Called when a building is finished being built.
  *
  * Sets the animation state of the Structure to Operational,
- * sets the building state to Opeational and sets resource
+ * sets the building state to Operational and sets resource
  * requirements.
  */
 void Structure::activate()
@@ -403,7 +403,7 @@ void Structure::forced_state_change(StructureState structureState, DisabledReaso
 
 
 /**
- * Special overidding of MapObject::die for Structure.
+ * Special overriding of MapObject::die for Structure.
  *
  * There is no conceivable situation in which a Structure should be marked as 'dead' or have its
  * 'die' function be called. Such cases should be treated as bad logic and immediately and very

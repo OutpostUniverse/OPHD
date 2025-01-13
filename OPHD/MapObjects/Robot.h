@@ -38,7 +38,7 @@ public:
 	int turnsToCompleteTask() const { return mTurnsToCompleteTask; }
 
 	bool selfDestruct() const { return mSelfDestruct; }
-	void seldDestruct(bool value) { mSelfDestruct = value; }
+	void selfDestruct(bool value) { mSelfDestruct = value; }
 
 	bool idle() const { return turnsToCompleteTask() == 0; }
 	void cancelTask() { mCancelTask = true; }

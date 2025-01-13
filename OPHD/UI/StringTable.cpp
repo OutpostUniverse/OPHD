@@ -176,7 +176,7 @@ void StringTable::accountForCellJustification(std::size_t index, int columnWidth
 	switch (cell.justification)
 	{
 	case (Justification::Left):
-		return; // No modification required for left justifited
+		return; // No modification required for left justification
 	case (Justification::Right):
 		cell.textOffset.x += columnWidth - getCellFont(index)->width(cell.text);
 		return;

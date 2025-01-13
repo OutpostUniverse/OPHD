@@ -34,6 +34,6 @@ private:
 				(underground ? &constants::UgTubeRight : &constants::AgTubeRight) :
 			(dir == ConnectorDir::CONNECTOR_LEFT) ?
 				(underground ? &constants::UgTubelLeft : &constants::AgTubeLeft) :
-			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction paramter."));
+			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter."));
 	}
 };

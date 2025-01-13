@@ -55,14 +55,14 @@ private:
 
 	void onMineFacilitySelectionChange();
 
-	void updateManagementButtonsVisiblity();
+	void updateManagementButtonsVisibility();
 
 	void onResize() override;
 	void onVisibilityChange(bool visible) override;
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawOreProductionPane(const NAS2D::Point<int>&);
-	void drawTruckMangementPane(const NAS2D::Point<int>&);
+	void drawTruckManagementPane(const NAS2D::Point<int>&);
 	void drawTruckHaulInfo(const NAS2D::Point<int>&);
 
 	const NAS2D::Font& font;

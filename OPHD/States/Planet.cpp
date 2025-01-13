@@ -37,7 +37,7 @@ Planet::~Planet()
 }
 
 
-bool Planet::pointInCircle(NAS2D::Point<int> point)
+bool Planet::pointInCircle(NAS2D::Point<int> point) const
 {
 	const auto offset = point - mPosition - PlanetSize / 2;
 	constexpr auto radiusSquared = PlanetRadius * PlanetRadius;

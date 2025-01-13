@@ -15,7 +15,7 @@ struct ProductionCost;
  * the underlying factory production code. Exactly what a factory is capable of
  * producing is up to the derived factory type.
  *
- * \note	The Factory interface defines two public functions: resourcePool() and robotoPool().
+ * \note	The Factory interface defines two public functions: resourcePool() and robotPool().
  *			These must be called manually whenever a derived factory type is added to the game as
  *			there are no manager objects that do this (by design).
  *

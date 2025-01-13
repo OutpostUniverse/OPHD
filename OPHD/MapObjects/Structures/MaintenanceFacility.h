@@ -113,7 +113,7 @@ public:
 
 
 protected:
-	bool canMakeRepairs()
+	bool canMakeRepairs() const
 	{
 		return (personnelAvailable() && suppliesAvailable());
 	}

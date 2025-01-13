@@ -69,7 +69,7 @@ bool CrimeRateUpdate::isProtectedByPolice(const std::vector<std::vector<Tile*>>&
 }
 
 
-int CrimeRateUpdate::calculateMoraleChange()
+int CrimeRateUpdate::calculateMoraleChange() const
 {
 	if (mMeanCrimeRate > 50)
 	{

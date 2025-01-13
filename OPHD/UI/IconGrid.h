@@ -87,7 +87,7 @@ private:
 	using Index = IconItemList::size_type;
 
 	void updateGrid();
-	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset);
+	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
 	void raiseChangedEvent();
 
