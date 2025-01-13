@@ -5,6 +5,7 @@
 #include "EnumIdleReason.h"
 #include "EnumMineProductionRate.h"
 #include "EnumMoraleIndex.h"
+#include "EnumTerrainType.h"
 #include "StructureManager.h"
 
 #include "MapObjects/Structure.h"
