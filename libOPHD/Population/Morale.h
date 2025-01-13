@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 /**
  * Morale modifier values.
@@ -11,6 +12,12 @@ struct MoraleModifier
 	int productionBonus{0};
 	int fertilityRate{0};
 	int mortalityRate{0};
+};
+
+struct MoraleChangeEntry
+{
+	std::string description{};
+	int value{0};
 };
 
 class Morale
