@@ -2,9 +2,10 @@
 
 #include "ReportInterface.h"
 
+#include "../StructureListBox.h"
+
 #include <libControls/Button.h>
 #include <libControls/CheckBox.h>
-#include "../StructureListBox.h"
 
 #include <NAS2D/Math/Rectangle.h>
 
