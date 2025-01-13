@@ -24,6 +24,15 @@ namespace
 }
 
 
+const std::map<std::string, Difficulty> difficultyTable
+{
+	{"Beginner", Difficulty::Beginner},
+	{"Easy", Difficulty::Easy},
+	{"Medium", Difficulty::Medium},
+	{"Hard", Difficulty::Hard}
+};
+
+
 std::string difficultyString(Difficulty difficulty)
 {
 	for (const auto& difficultyPair : difficultyTable)

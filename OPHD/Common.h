@@ -31,14 +31,8 @@ enum class MoraleIndexs;
 enum class StructureState;
 enum class TerrainType;
 
-inline const std::map<std::string, Difficulty> difficultyTable
-{
-	{"Beginner", Difficulty::Beginner},
-	{"Easy", Difficulty::Easy},
-	{"Medium", Difficulty::Medium},
-	{"Hard", Difficulty::Hard}
-};
 
+extern const std::map<std::string, Difficulty> difficultyTable;
 
 std::string difficultyString(Difficulty difficulty);
 
