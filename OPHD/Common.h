@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
+#include "EnumIdleReason.h"
 #include "EnumMoraleIndex.h"
 #include "EnumProductType.h"
 #include "EnumStructureID.h"
@@ -72,22 +73,6 @@ enum class DisabledReason
 	Population, /**< Insufficient workers or scientists (or both) */
 	RefinedResources, /**< Insufficient mined and refined resources */
 	StructuralIntegrity /**< Structural integrity out of operating tolerances (damaged structure) */
-};
-
-
-enum class IdleReason
-{
-	None,
-
-	PlayerSet,
-	InternalStorageFull,
-	FactoryProductionComplete,
-	FactoryInsufficientResources,
-	FactoryInsufficientRobotCommandCapacity,
-	FactoryInsufficientWarehouseSpace,
-	MineExhausted,
-	MineInactive,
-	InsufficientLuxuryProduct
 };
 
 

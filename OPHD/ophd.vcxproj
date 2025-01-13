@@ -268,6 +268,7 @@
     <ClInclude Include="DirectionOffset.h" />
     <ClInclude Include="EnumConnectorDir.h" />
     <ClInclude Include="EnumDirection.h" />
+    <ClInclude Include="EnumIdleReason.h" />
     <ClInclude Include="EnumMoraleIndex.h" />
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
