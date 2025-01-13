@@ -1,13 +1,14 @@
 #pragma once
 
-#include <libControls/Window.h>
-#include <libControls/Button.h>
-#include <libControls/CheckBox.h>
 #include "IconGrid.h"
 
 #include "../Constants/UiConstants.h"
 #include "../EnumProductType.h"
 #include "../ProductionCost.h"
+
+#include <libControls/Window.h>
+#include <libControls/Button.h>
+#include <libControls/CheckBox.h>
 
 
 class Factory;
