@@ -1,7 +1,6 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
-#include "EnumMoraleIndex.h"
 #include "EnumProductType.h"
 #include "EnumStructureID.h"
 #include "EnumTerrainType.h"

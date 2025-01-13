@@ -4,6 +4,7 @@
 #include "EnumDisabledReason.h"
 #include "EnumIdleReason.h"
 #include "EnumMineProductionRate.h"
+#include "EnumMoraleIndex.h"
 #include "StructureManager.h"
 
 #include "MapObjects/Structure.h"

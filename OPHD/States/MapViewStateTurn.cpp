@@ -12,6 +12,7 @@
 #include "../Cache.h"
 #include "../Common.h"
 #include "../DirectionOffset.h"
+#include "../EnumMoraleIndex.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
 
