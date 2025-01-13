@@ -229,7 +229,7 @@ void MapViewState::load(const std::string& filePath)
 	mBtnToggleRouteOverlay.toggle(false);
 	mBtnTogglePoliceOverlay.toggle(false);
 	mBtnToggleHeightmap.toggle(false);
-	mPopulationPanel.clearMoraleReasons();
+	mMorale.closeJournal();
 
 	if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
 	{

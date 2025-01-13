@@ -28,9 +28,6 @@ public:
 
 	void crimeRate(int val) { mCrimeRate = val; }
 	int crimeRate() const { return mCrimeRate; }
-
-	void clearMoraleReasons() { mMoraleChangeReasons.clear(); }
-
 	void update() override;
 
 private:

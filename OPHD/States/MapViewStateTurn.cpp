@@ -216,7 +216,6 @@ void MapViewState::updateMorale()
 	mMorale.journalMoraleChange({moraleString(MoraleIndexs::StructuresDestroyed), -structuresDestroyed});
 	mMorale.journalMoraleChange({"Food Production Issues", -foodProductionHit});
 
-	mPopulationPanel.clearMoraleReasons();
 
 	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
 	{
