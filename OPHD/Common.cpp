@@ -2,6 +2,7 @@
 #include "Constants/Numbers.h"
 #include "EnumDifficulty.h"
 #include "EnumDisabledReason.h"
+#include "EnumIdleReason.h"
 #include "StructureManager.h"
 
 #include "MapObjects/Structure.h"

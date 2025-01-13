@@ -4,6 +4,7 @@
 
 #include "../Common.h"
 #include "../EnumDisabledReason.h"
+#include "../EnumIdleReason.h"
 #include "../StorableResources.h"
 #include "../UI/StringTable.h"
 
