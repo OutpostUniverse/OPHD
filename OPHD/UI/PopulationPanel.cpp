@@ -187,14 +187,15 @@ void PopulationPanel::update()
 
 	position.y += constants::Margin;
 
-	for (auto& item : mMoraleChangeReasons)
+	for (auto& entry : mMorale.moraleChangeJournal())
 	{
-		renderer.drawText(mFont, item.first, position);
+		if (entry.value == 0) { continue; }
+		renderer.drawText(mFont, entry.description , position);
 
-		const auto text = formatDiff(item.second);
+		const auto text = formatDiff(entry.value);
 		const NAS2D::Point<int> labelPosition = {rect().position.x + rect().size.x - mFont.width(text) - 5 , position.y};
 
-		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(item.second)]);
+		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(entry.value)]);
 		position.y += fontHeight;
 	}
 }
