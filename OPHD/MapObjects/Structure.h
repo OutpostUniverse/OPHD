@@ -3,6 +3,7 @@
 #include "MapObject.h"
 
 #include "../Common.h"
+#include "../EnumConnectorDir.h"
 #include "../EnumDisabledReason.h"
 #include "../EnumIdleReason.h"
 #include "../StorableResources.h"
