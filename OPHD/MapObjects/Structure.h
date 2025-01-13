@@ -6,6 +6,7 @@
 #include "../EnumConnectorDir.h"
 #include "../EnumDisabledReason.h"
 #include "../EnumIdleReason.h"
+#include "../EnumStructureID.h"
 #include "../StorableResources.h"
 #include "../UI/StringTable.h"
 
