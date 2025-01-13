@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EnumConnectorDir.h"
+#include "EnumProductType.h"
 #include "EnumStructureID.h"
 
 #include <NAS2D/Math/Rectangle.h>
@@ -86,111 +87,6 @@ enum class IdleReason
 	MineExhausted,
 	MineInactive,
 	InsufficientLuxuryProduct
-};
-
-
-/**
- * Factory Product enumeration
- *
- * \note	Products are arranged to match the order in which they appear
- *			in the icon atlas (data/ui/factory.png). In order to allow
- *			for easy future additions, the icons are grouped into two
- *			sets of 32 icons. The first 32 are for above ground products,
- *			the second set for underground products.
- *
- *			To easily map to icons in the atlas, padding entries with a
- *			'reserved' naming convention have been added. These can be
- *			replaced as additional products are added.
- *
- * \remark	ASSUMPTION: Factories will never have more than 32 individual
- *			products that they can produce.
- */
-enum ProductType
-{
-	PRODUCT_NONE = -1,
-
-	// =====================================
-	// = SURFACE FACTORIES
-	// =====================================
-	PRODUCT_DIGGER,
-	PRODUCT_DOZER,
-	PRODUCT_MINER,
-	PRODUCT_EXPLORER,
-	PRODUCT_TRUCK,
-
-	PRODUCT_RESERVED_AG_05,
-	PRODUCT_RESERVED_AG_06,
-	PRODUCT_RESERVED_AG_07,
-
-	PRODUCT_RESERVED_AG_08,
-	PRODUCT_MAINTENANCE_PARTS,
-
-	PRODUCT_RESERVED_AG_10,
-	PRODUCT_RESERVED_AG_11,
-	PRODUCT_RESERVED_AG_12,
-	PRODUCT_RESERVED_AG_13,
-	PRODUCT_RESERVED_AG_14,
-	PRODUCT_RESERVED_AG_15,
-
-	PRODUCT_RESERVED_AG_16,
-	PRODUCT_RESERVED_AG_17,
-	PRODUCT_RESERVED_AG_18,
-	PRODUCT_RESERVED_AG_19,
-	PRODUCT_RESERVED_AG_20,
-	PRODUCT_RESERVED_AG_21,
-	PRODUCT_RESERVED_AG_22,
-	PRODUCT_RESERVED_AG_23,
-
-	PRODUCT_RESERVED_AG_24,
-	PRODUCT_RESERVED_AG_25,
-	PRODUCT_RESERVED_AG_26,
-	PRODUCT_RESERVED_AG_27,
-	PRODUCT_RESERVED_AG_28,
-	PRODUCT_RESERVED_AG_29,
-	PRODUCT_RESERVED_AG_30,
-	PRODUCT_RESERVED_AG_31,
-
-
-	// =====================================
-	// = UNDERGROUND FACTORIES
-	// =====================================
-	PRODUCT_CLOTHING,
-	PRODUCT_MEDICINE,
-	PRODUCT_RESERVED_UG_34,
-	PRODUCT_RESERVED_UG_35,
-	PRODUCT_RESERVED_UG_36,
-	PRODUCT_RESERVED_UG_37,
-	PRODUCT_RESERVED_UG_38,
-	PRODUCT_RESERVED_UG_39,
-
-	PRODUCT_RESERVED_UG_40,
-	PRODUCT_RESERVED_UG_41,
-	PRODUCT_RESERVED_UG_42,
-	PRODUCT_RESERVED_UG_43,
-	PRODUCT_RESERVED_UG_44,
-	PRODUCT_RESERVED_UG_45,
-	PRODUCT_RESERVED_UG_46,
-	PRODUCT_RESERVED_UG_47,
-
-	PRODUCT_RESERVED_UG_48,
-	PRODUCT_RESERVED_UG_49,
-	PRODUCT_RESERVED_UG_50,
-	PRODUCT_RESERVED_UG_51,
-	PRODUCT_RESERVED_UG_52,
-	PRODUCT_RESERVED_UG_53,
-	PRODUCT_RESERVED_UG_54,
-	PRODUCT_RESERVED_UG_55,
-
-	PRODUCT_RESERVED_UG_56,
-	PRODUCT_RESERVED_UG_57,
-	PRODUCT_RESERVED_UG_58,
-	PRODUCT_RESERVED_UG_59,
-	PRODUCT_RESERVED_UG_60,
-	PRODUCT_RESERVED_UG_61,
-	PRODUCT_RESERVED_UG_62,
-	PRODUCT_RESERVED_UG_63,
-
-	PRODUCT_COUNT
 };
 
 

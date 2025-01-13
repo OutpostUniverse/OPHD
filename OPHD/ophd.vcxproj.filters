@@ -329,6 +329,9 @@
     <ClInclude Include="EnumDirection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnumProductType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="EnumStructureID.h">
       <Filter>Header Files</Filter>
     </ClInclude>
