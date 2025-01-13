@@ -45,6 +45,12 @@ void Morale::journalMoraleChange(const MoraleChangeEntry& entry)
 void Morale::commitMoraleChanges()
 {
 	mPreviousMorale = currentMorale();
+
+	for (const auto& entry : mMoraleChangeJournal)
+	{
+		mMoraleAccumulator += entry.value;
+	}
+
 	mCurrentMorale = std::clamp(mCurrentMorale + mMoraleAccumulator, 0, constants::MaximumMorale);
 	mMoraleAccumulator = 0;
 }
