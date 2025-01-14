@@ -135,6 +135,12 @@
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\Structures\SolarPlant.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
