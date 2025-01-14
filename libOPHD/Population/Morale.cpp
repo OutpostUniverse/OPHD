@@ -35,6 +35,7 @@ void Morale::journalMoraleChange(MoraleChangeEntry entry)
 	mMoraleChangeJournal.push_back(std::move(entry));
 }
 
+
 const std::vector<MoraleChangeEntry>& Morale::moraleChangeJournal() const
 {
 	return mMoraleChangeJournal;
