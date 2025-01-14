@@ -6,9 +6,6 @@
 #include "../../Constants/Strings.h"
 
 
-const int StorageTanksCapacity = 1000;
-
-
 class StorageTanks : public Structure
 {
 public:
