@@ -137,12 +137,12 @@ void PopulationPanel::update()
 	renderer.drawLine(position, position + NAS2D::Vector<int>{mFont.width(constants::PopulationBreakdown) + constants::Margin, 0}, Color::DarkGray);
 	position.y += constants::Margin;
 
-	const std::array populationAvailablitiyStatistics{
+	const std::array populationAvailabilityStatistics{
 		std::tuple{"Available Workers: ", mPopulationPool.availableWorkers()},
 		std::tuple{"Available Scientists: ", mPopulationPool.availableScientists()},
 	};
 
-	for (const auto& [statisticLabel, personCount] : populationAvailablitiyStatistics)
+	for (const auto& [statisticLabel, personCount] : populationAvailabilityStatistics)
 	{
 		const auto personCountString = std::to_string(personCount);
 		const Color statusColor = personCount <= 0 ? Color::Red : Color::White;
