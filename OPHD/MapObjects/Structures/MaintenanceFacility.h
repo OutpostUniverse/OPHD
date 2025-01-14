@@ -2,12 +2,12 @@
 
 #include "../Structure.h"
 
-#include <algorithm>
-
 #include "../../Constants/Strings.h"
 #include "../../StorableResources.h"
 
 #include "../../States/MapViewStateHelper.h" // yuck
+
+#include <algorithm>
 
 
 class MaintenanceFacility : public Structure

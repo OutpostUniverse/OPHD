@@ -7,6 +7,7 @@
 #include "../../Constants/UiConstants.h"
 
 #include "../../Cache.h"
+#include "../../Common.h"
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
 
