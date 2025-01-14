@@ -165,7 +165,7 @@ const StructureType& StructureCatalogue::getType(StructureID type)
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalogue::get(StructureID type)
+Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 {
 	Structure* structure = nullptr;
 
@@ -183,7 +183,7 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		case StructureID::SID_CARGO_LANDER: // only here for loading games
-			structure = new CargoLander(nullptr);
+			structure = new CargoLander(tile);
 			break;
 
 		case StructureID::SID_CHAP:
@@ -191,7 +191,7 @@ Structure* StructureCatalogue::get(StructureID type)
 			break;
 
 		case StructureID::SID_COLONIST_LANDER: // only here for loading games
-			structure = new ColonistLander(nullptr);
+			structure = new ColonistLander(tile);
 			break;
 
 		case StructureID::SID_COMMAND_CENTER:
