@@ -420,6 +420,16 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		auto& structure = *StructureCatalogue::get(structureId, &tile);
 
+		if (structureId == StructureID::SID_COLONIST_LANDER)
+		{
+			static_cast<ColonistLander*>(&structure)->deploySignal().connect({this, &MapViewState::onDeployColonistLander});
+		}
+
+		if (structureId == StructureID::SID_CARGO_LANDER)
+		{
+			static_cast<CargoLander*>(&structure)->deploySignal().connect({this, &MapViewState::onDeployCargoLander});
+		}
+
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
 			ccLocation() = mapCoordinate.xy;
