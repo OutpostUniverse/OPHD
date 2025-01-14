@@ -35,10 +35,11 @@ int Morale::previousMorale() const
 }
 
 
-void Morale::journalMoraleChange(const MoraleChangeEntry& entry)
+void Morale::journalMoraleChange(MoraleChangeEntry entry)
 {
-	mMoraleChangeJournal.push_back(entry);
+	mMoraleChangeJournal.push_back(std::move(entry));
 }
+
 
 const std::vector<MoraleChangeEntry>& Morale::moraleChangeJournal() const
 {

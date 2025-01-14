@@ -28,7 +28,7 @@ public:
 	Morale(int currentMorale, int previousMorale);
 	int currentMorale() const;
 	int previousMorale() const;
-	void journalMoraleChange(const MoraleChangeEntry& entry);
+	void journalMoraleChange(MoraleChangeEntry entry);
 	const std::vector<MoraleChangeEntry>& moraleChangeJournal() const;
 
 	// Clears the morale change journal vector of all entries
