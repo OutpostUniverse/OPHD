@@ -418,7 +418,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			continue; // FIXME: ugly
 		}
 
-		auto& structure = *StructureCatalogue::get(structureId);
+		auto& structure = *StructureCatalogue::get(structureId, &tile);
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
