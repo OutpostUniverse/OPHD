@@ -1,5 +1,6 @@
 #include "CrimeExecution.h"
 
+#include "../Common.h"
 #include "../EnumDifficulty.h"
 #include "../StructureManager.h"
 #include "../UI/NotificationArea.h"
