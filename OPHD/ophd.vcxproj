@@ -204,6 +204,7 @@
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
+    <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
