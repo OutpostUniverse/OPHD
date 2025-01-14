@@ -2,6 +2,7 @@
 
 #include "../Structure.h"
 
+#include "../../Common.h"
 #include "../../Constants/Strings.h"
 
 
