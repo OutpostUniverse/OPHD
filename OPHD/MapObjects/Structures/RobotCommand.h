@@ -4,8 +4,6 @@
 
 #include "../../Constants/Strings.h"
 
-#include <vector>
-
 
 /**
  * Implements the Robot Command structure.
