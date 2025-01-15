@@ -8,7 +8,7 @@
 #include <array>
 #include <map>
 #include <string>
-
+#include <vector>
 
 namespace NAS2D::Xml
 {
@@ -48,9 +48,6 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
 void setMeanSolarDistance(float newMeanSolarDistance);
 float getMeanSolarDistance();
-
-const std::string& disabledReasonToString(DisabledReason);
-const std::string& idleReasonToString(IdleReason);
 
 /**
  * Gets a morale string based on value;
