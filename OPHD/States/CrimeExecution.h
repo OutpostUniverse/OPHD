@@ -12,7 +12,6 @@
 
 
 enum class Difficulty;
-class NotificationArea;
 
 
 class CrimeExecution
