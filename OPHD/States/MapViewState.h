@@ -7,7 +7,6 @@
 
 #include "Planet.h"
 
-#include "../EnumDirection.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
@@ -71,6 +70,8 @@ namespace micropather
 {
 	class MicroPather;
 }
+
+enum class Direction;
 
 class Tile;
 class TileMap;

@@ -7,6 +7,7 @@
 #include "../../Constants/UiConstants.h"
 #include "../../StructureManager.h"
 #include "../../ProductionCost.h"
+#include "../../ProductCatalogue.h"
 
 #include "../../MapObjects/Structures/SurfaceFactory.h"
 #include "../../MapObjects/Structures/SeedFactory.h"

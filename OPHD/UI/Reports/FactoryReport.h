@@ -6,7 +6,7 @@
 #include <libControls/ComboBox.h>
 #include <libControls/TextArea.h>
 #include "../FactoryListBox.h"
-#include "../../ProductCatalogue.h"
+#include "../../EnumProductType.h"
 
 #include <NAS2D/Math/Rectangle.h>
 

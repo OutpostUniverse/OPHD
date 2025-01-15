@@ -3,7 +3,7 @@
 #include "../Common.h"
 #include "../EnumDifficulty.h"
 #include "../StructureManager.h"
-#include "../UI/NotificationArea.h"
+#include "../MapObjects/Structures/FoodProduction.h"
 
 #include <libOPHD/RandomNumberGenerator.h>
 

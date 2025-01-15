@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../MapObjects/Structures/FoodProduction.h"
-
 #include <NAS2D/Signal/Signal.h>
 
 #include <vector>
@@ -12,7 +10,8 @@
 
 
 enum class Difficulty;
-class NotificationArea;
+class Structure;
+class FoodProduction;
 
 
 class CrimeExecution

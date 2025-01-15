@@ -2,8 +2,6 @@
 
 #include "ReportInterface.h"
 
-#include "../../MapObjects/Structures/ResearchFacility.h"
-
 #include <libOPHD/Technology/TechnologyCatalog.h>
 #include <libOPHD/Technology/ResearchTracker.h>
 

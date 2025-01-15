@@ -2,11 +2,10 @@
 
 #include <libControls/Control.h>
 
-#include "../Map/MapCoordinate.h"
-
 #include <NAS2D/Resource/Image.h>
 
 
+struct MapCoordinate;
 class Tile;
 class TileMap;
 class MapView;

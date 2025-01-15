@@ -13,6 +13,7 @@
 #include "../Constants/Strings.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
+#include "../EnumDirection.h"
 #include "../DirectionOffset.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/StructureType.h"
