@@ -49,9 +49,6 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 void setMeanSolarDistance(float newMeanSolarDistance);
 float getMeanSolarDistance();
 
-/**
- * Gets a morale string based on value;
- */
 const std::string& moraleString(std::size_t index);
 const std::string& moraleString(MoraleIndexs morale);
 std::size_t moraleStringTableCount();
