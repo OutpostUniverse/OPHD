@@ -12,6 +12,7 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
+#include "../EnumDirection.h"
 #include "../DirectionOffset.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
