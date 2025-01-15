@@ -8,7 +8,7 @@
 #include <array>
 #include <map>
 #include <string>
-#include <vector>
+
 
 namespace NAS2D::Xml
 {
