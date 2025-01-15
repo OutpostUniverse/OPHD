@@ -9,9 +9,9 @@
 
 #pragma once
 
-#include "../Common.h"
 #include "../EnumConnectorDir.h"
 #include "../EnumDirection.h"
+#include "../EnumProductType.h"
 #include "../EnumStructureID.h"
 
 #include "../Map/MapCoordinate.h"
