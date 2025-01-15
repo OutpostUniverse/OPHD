@@ -10,7 +10,6 @@
 #pragma once
 
 #include "../EnumConnectorDir.h"
-#include "../EnumDirection.h"
 #include "../EnumProductType.h"
 #include "../EnumStructureID.h"
 
@@ -23,6 +22,7 @@ class Tile;
 class TileMap;
 class Warehouse;
 struct StorableResources;
+enum class Direction;
 
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
