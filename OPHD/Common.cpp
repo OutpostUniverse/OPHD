@@ -222,13 +222,13 @@ const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 };
 
 
-const std::string& disabledReason(DisabledReason disabledReason)
+const std::string& disabledReasonToString(DisabledReason disabledReason)
 {
 	return DISABLED_REASON_TABLE.at(disabledReason);
 }
 
 
-const std::string& idleReason(IdleReason idleReason)
+const std::string& idleReasonToString(IdleReason idleReason)
 {
 	return IDLE_REASON_TABLE.at(idleReason);
 }

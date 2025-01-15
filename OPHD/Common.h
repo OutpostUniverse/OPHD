@@ -49,15 +49,8 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 void setMeanSolarDistance(float newMeanSolarDistance);
 float getMeanSolarDistance();
 
-/**
- * Translates a DisabledReason enumeration into a string
- */
-const std::string& disabledReason(DisabledReason);
-
-/**
- * Translates an IdleReason enumeration into a string
- */
-const std::string& idleReason(IdleReason);
+const std::string& disabledReasonToString(DisabledReason);
+const std::string& idleReasonToString(IdleReason);
 
 /**
  * Gets a morale string based on value;

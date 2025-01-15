@@ -143,11 +143,11 @@ std::string StructureInspector::getDisabledReason() const
 {
 	if (mStructure->disabled())
 	{
-		return disabledReason(mStructure->disabledReason());
+		return disabledReasonToString(mStructure->disabledReason());
 	}
 	else if (mStructure->isIdle())
 	{
-		return idleReason(mStructure->idleReason());
+		return idleReasonToString(mStructure->idleReason());
 	}
 
 	return "";
