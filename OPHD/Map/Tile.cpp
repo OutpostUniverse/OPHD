@@ -51,6 +51,12 @@ Tile::~Tile()
 }
 
 
+bool Tile::isSurface()
+{
+	return mPosition.z == 0;
+}
+
+
 /**
  * Adds a new MapObject to the tile.
  *
