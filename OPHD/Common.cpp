@@ -97,35 +97,6 @@ const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 };
 
 
-const std::map<DisabledReason, std::string> DISABLED_REASON_TABLE =
-{
-	{DisabledReason::None, constants::StructureDisabledNone},
-
-	{DisabledReason::Chap, constants::StructureDisabledChap},
-	{DisabledReason::Disconnected, constants::StructureDisabledDisconnected},
-	{DisabledReason::Energy, constants::StructureDisabledEnergy},
-	{DisabledReason::Population, constants::StructureDisabledPopulation},
-	{DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources},
-	{DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity}
-};
-
-
-const std::map<IdleReason, std::string> IDLE_REASON_TABLE =
-{
-	{IdleReason::None, constants::StructureIdleNone},
-
-	{IdleReason::PlayerSet, constants::StructureIdlePlayerSet},
-	{IdleReason::InternalStorageFull, constants::StructureIdleInternalStorageFull},
-	{IdleReason::FactoryProductionComplete, constants::StructureIdleFactoryProductionComplete},
-	{IdleReason::FactoryInsufficientResources, constants::StructureIdleFactoryInsufficientResources},
-	{IdleReason::FactoryInsufficientRobotCommandCapacity, constants::StructureIdleFactoryInsufficientRobotCommandCapacity},
-	{IdleReason::FactoryInsufficientWarehouseSpace, constants::StructureIdleFactoryInsufficnetWarehouseCapacity},
-	{IdleReason::MineExhausted, constants::StructureIdleMineExhausted},
-	{IdleReason::MineInactive, constants::StructureIdleMineInactive},
-	{IdleReason::InsufficientLuxuryProduct, constants::StructureIdleInsufficientLuxuryProduct}
-};
-
-
 const std::array MoraleStringTable =
 {
 	std::string("Terrible"),
@@ -220,18 +191,6 @@ const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
 	{{true, true, false, true}, "intersection"},
 	{{true, true, true, false}, "intersection"}
 };
-
-
-const std::string& disabledReason(DisabledReason disabledReason)
-{
-	return DISABLED_REASON_TABLE.at(disabledReason);
-}
-
-
-const std::string& idleReason(IdleReason idleReason)
-{
-	return IDLE_REASON_TABLE.at(idleReason);
-}
 
 
 Color structureColorFromIndex(StructureState structureState)

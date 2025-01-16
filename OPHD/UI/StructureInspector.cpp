@@ -1,7 +1,6 @@
 #include "StructureInspector.h"
 
 #include "../Cache.h"
-#include "../Common.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Structure.h"
 #include "StringTable.h"
@@ -13,6 +12,49 @@
 
 
 using namespace NAS2D;
+
+
+namespace
+{
+	const std::map<DisabledReason, std::string> disabledReasonTable =
+	{
+		{DisabledReason::None, constants::StructureDisabledNone},
+
+		{DisabledReason::Chap, constants::StructureDisabledChap},
+		{DisabledReason::Disconnected, constants::StructureDisabledDisconnected},
+		{DisabledReason::Energy, constants::StructureDisabledEnergy},
+		{DisabledReason::Population, constants::StructureDisabledPopulation},
+		{DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources},
+		{DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity}
+	};
+
+	const std::map<IdleReason, std::string> idleReadonTable =
+	{
+		{IdleReason::None, constants::StructureIdleNone},
+
+		{IdleReason::PlayerSet, constants::StructureIdlePlayerSet},
+		{IdleReason::InternalStorageFull, constants::StructureIdleInternalStorageFull},
+		{IdleReason::FactoryProductionComplete, constants::StructureIdleFactoryProductionComplete},
+		{IdleReason::FactoryInsufficientResources, constants::StructureIdleFactoryInsufficientResources},
+		{IdleReason::FactoryInsufficientRobotCommandCapacity, constants::StructureIdleFactoryInsufficientRobotCommandCapacity},
+		{IdleReason::FactoryInsufficientWarehouseSpace, constants::StructureIdleFactoryInsufficnetWarehouseCapacity},
+		{IdleReason::MineExhausted, constants::StructureIdleMineExhausted},
+		{IdleReason::MineInactive, constants::StructureIdleMineInactive},
+		{IdleReason::InsufficientLuxuryProduct, constants::StructureIdleInsufficientLuxuryProduct}
+	};
+
+
+	const std::string& disabledReasonToString(DisabledReason disabledReason)
+	{
+		return disabledReasonTable.at(disabledReason);
+	}
+
+
+	const std::string& idleReasonToString(IdleReason idleReason)
+	{
+		return idleReadonTable.at(idleReason);
+	}
+}
 
 
 StructureInspector::StructureInspector() :
@@ -143,11 +185,11 @@ std::string StructureInspector::getDisabledReason() const
 {
 	if (mStructure->disabled())
 	{
-		return disabledReason(mStructure->disabledReason());
+		return disabledReasonToString(mStructure->disabledReason());
 	}
 	else if (mStructure->isIdle())
 	{
-		return idleReason(mStructure->idleReason());
+		return idleReasonToString(mStructure->idleReason());
 	}
 
 	return "";
