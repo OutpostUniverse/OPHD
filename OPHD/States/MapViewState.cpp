@@ -1150,7 +1150,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	mDiggerDirection.setParameters(tile);
 
 	// If we're placing on the top level we can only ever go down.
-	if (mMapView->currentDepth() == constants::DepthSurface)
+	if (mMapView->isSurface())
 	{
 		mDiggerDirection.selectDown();
 	}
@@ -1179,7 +1179,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed);
 		return;
 	}
-	if (mMapView->currentDepth() != constants::DepthSurface)
+	if (!mMapView->isSurface())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly);
 		return;

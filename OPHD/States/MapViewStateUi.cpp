@@ -319,12 +319,12 @@ void MapViewState::populateStructureMenu()
 	// Above Ground structures only
 	if (NAS2D::Utility<StructureManager>::get().count() == 0)
 	{
-		if (mMapView->currentDepth() == constants::DepthSurface)
+		if (mMapView->isSurface())
 		{
 			mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
 		}
 	}
-	else if (mMapView->currentDepth() == constants::DepthSurface)
+	else if (mMapView->isSurface())
 	{
 		fillList(mStructures, mStructureTracker.availableSurfaceStructures());
 
