@@ -61,6 +61,12 @@ void MapView::moveView(Direction direction)
 }
 
 
+int MapView::currentDepth() const
+{
+	return mOriginTilePosition.z;
+}
+
+
 void MapView::currentDepth(int i)
 {
 	mOriginTilePosition.z = std::clamp(i, 0, maxDepth());

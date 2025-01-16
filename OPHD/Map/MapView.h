@@ -33,7 +33,7 @@ public:
 	void moveView(MapOffset direction);
 	void moveView(Direction direction);
 
-	int currentDepth() const { return mOriginTilePosition.z; }
+	int currentDepth() const;
 	void currentDepth(int i);
 	bool isSurface() const;
 	int maxDepth() const;
