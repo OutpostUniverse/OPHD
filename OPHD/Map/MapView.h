@@ -35,7 +35,7 @@ public:
 
 	int currentDepth() const { return mOriginTilePosition.z; }
 	void currentDepth(int i);
-
+	bool isSurface() const;
 	int maxDepth() const;
 
 	int viewSize() const;

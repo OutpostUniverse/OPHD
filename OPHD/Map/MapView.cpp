@@ -67,6 +67,12 @@ void MapView::currentDepth(int i)
 }
 
 
+bool MapView::isSurface() const
+{
+	return mOriginTilePosition.z == 0;
+}
+
+
 int MapView::maxDepth() const
 {
 	return mTileMap.maxDepth();
