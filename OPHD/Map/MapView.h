@@ -34,7 +34,7 @@ public:
 	void moveView(Direction direction);
 
 	int currentDepth() const;
-	void currentDepth(int i);
+	void currentDepth(int newDepth);
 	bool isSurface() const;
 	int maxDepth() const;
 

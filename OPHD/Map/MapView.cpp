@@ -67,9 +67,9 @@ int MapView::currentDepth() const
 }
 
 
-void MapView::currentDepth(int i)
+void MapView::currentDepth(int newDepth)
 {
-	mOriginTilePosition.z = std::clamp(i, 0, maxDepth());
+	mOriginTilePosition.z = std::clamp(newDepth, 0, maxDepth());
 }
 
 
