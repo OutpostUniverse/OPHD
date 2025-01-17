@@ -136,16 +136,6 @@ namespace constants
 
 
 	// =====================================
-	// = SUB LEVEL STRINGS
-	// =====================================
-	const std::string LevelSurface = "Surface";
-	const std::string Levelunderground1 = "Underground 1";
-	const std::string Levelunderground2 = "Underground 2";
-	const std::string Levelunderground3 = "Underground 3";
-	const std::string Levelunderground4 = "Underground 4";
-
-
-	// =====================================
 	// = STRUCTURE ANIMATION STATES
 	// =====================================
 	const std::string StructureStateConstruction = "construction";

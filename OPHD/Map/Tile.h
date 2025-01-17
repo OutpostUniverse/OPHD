@@ -44,6 +44,8 @@ public:
 	int depth() const { return mPosition.z; }
 	void depth(int i) { mPosition.z = i; }
 
+	bool isSurface();
+
 	bool bulldozed() const { return index() == TerrainType::Dozed; }
 
 	bool excavated() const { return mExcavated; }

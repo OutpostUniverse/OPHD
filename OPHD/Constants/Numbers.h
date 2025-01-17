@@ -28,12 +28,6 @@ namespace constants
 	 */
 	inline constexpr float ShortestPathTraversalCount{100.0f};
 
-	inline constexpr int DepthSurface{0};
-	inline constexpr int DepthUnderground1{1};
-	inline constexpr int DepthUnderground2{2};
-	inline constexpr int DepthUnderground3{3};
-	inline constexpr int DepthUnderground4{4};
-
 	inline constexpr int ColonyShipOrbitTime{24};
 
 	inline constexpr int MinerTaskTime{6};
