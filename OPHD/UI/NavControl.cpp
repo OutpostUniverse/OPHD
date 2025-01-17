@@ -17,14 +17,14 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	std::map<int, std::string> LevelStringTable =
+	std::string levelString(int currentDepth)
 	{
-		{0, constants::LevelSurface},
-		{1, constants::Levelunderground1},
-		{2, constants::Levelunderground2},
-		{3, constants::Levelunderground3},
-		{4, constants::Levelunderground4}
-	};
+		if (currentDepth == 0)
+		{
+			return "Surface";
+		}
+		return "Underground " + std::to_string(currentDepth);
+	}
 }
 
 
@@ -114,7 +114,7 @@ void NavControl::draw() const
 	}
 
 	// Explicit current level
-	const auto& currentLevelString = LevelStringTable[mMapView.currentDepth()];
+	const auto& currentLevelString = levelString(mMapView.currentDepth());
 	const auto& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mRect.endPoint() - fontBoldMedium.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
 	renderer.drawText(fontBoldMedium, currentLevelString, currentLevelPosition, NAS2D::Color::White);
