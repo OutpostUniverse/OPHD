@@ -1124,7 +1124,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	// Die if tile is occupied or not excavated.
 	if (!tile.empty())
 	{
-		if (tile.depth() > constants::DepthSurface)
+		if (!tile.isSurface())
 		{
 			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) // Air shaft
 			{
