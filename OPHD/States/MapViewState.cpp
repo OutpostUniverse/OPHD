@@ -1344,7 +1344,7 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Canceled",
-					robot->name() + " canceled its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					robot->name() + " canceled its task at (" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
 					tile->xyz(),
 					NotificationArea::NotificationType::Information
 				});
