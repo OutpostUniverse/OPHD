@@ -4,10 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OPHD", "OPHD\ophd.vcxproj", "{230AB062-FDCA-4D56-A781-0D3B9E8AE310}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3350562D-6204-42FC-898A-C85FD62E04E8} = {3350562D-6204-42FC-898A-C85FD62E04E8}
-		{98C10163-D69F-4A70-A56F-FA8C41BE1D95} = {98C10163-D69F-4A70-A56F-FA8C41BE1D95}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NAS2D", "nas2d-core\NAS2D\NAS2D.vcxproj", "{3350562D-6204-42FC-898A-C85FD62E04E8}"
 EndProject
