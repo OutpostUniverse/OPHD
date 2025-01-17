@@ -19,11 +19,11 @@ namespace
 {
 	std::map<int, std::string> LevelStringTable =
 	{
-		{constants::DepthSurface, constants::LevelSurface},
-		{constants::DepthUnderground1, constants::Levelunderground1},
-		{constants::DepthUnderground2, constants::Levelunderground2},
-		{constants::DepthUnderground3, constants::Levelunderground3},
-		{constants::DepthUnderground4, constants::Levelunderground4}
+		{0, constants::LevelSurface},
+		{1, constants::Levelunderground1},
+		{2, constants::Levelunderground2},
+		{3, constants::Levelunderground3},
+		{4, constants::Levelunderground4}
 	};
 }
 
