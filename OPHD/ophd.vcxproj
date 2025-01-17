@@ -282,6 +282,8 @@
     <ClInclude Include="EnumTerrainType.h" />
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
+    <ClInclude Include="MapObjects\Structures\Deployable.h" />
+    <ClInclude Include="MapObjects\Structures\DeployableStructure.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
     <ClInclude Include="Map\MapView.h" />
     <ClInclude Include="Map\Tile.h" />

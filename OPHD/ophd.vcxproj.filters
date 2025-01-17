@@ -719,6 +719,12 @@
     <ClInclude Include="UI\Reports\SpaceportsReport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MapObjects\Structures\Deployable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjects\Structures\DeployableStructure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ophd.rc">
