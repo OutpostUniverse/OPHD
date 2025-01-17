@@ -46,6 +46,35 @@ namespace {
 			std::cout << "\t" << str << std::endl;
 		}
 	}
+
+
+	/**
+	 * Mount data folder(s) for static assets
+	 *
+	 * Prioritize data from working directory, fallback on data from executable path,
+	 * searching up to 2 levels above the executable
+	 *
+	 * @return Nonzero on success, zero on error.
+	 */
+	int mountDataFolder(Filesystem& filesystem)
+	{
+		// Current working directory may contain a partial data folder with customizations
+		int result = filesystem.mountSoftFail("data");
+
+		// Assuming above folder was partial, we still want full data loaded for static assets
+		// We find static assets folder with executable or in parent folders
+		auto basePath = filesystem.basePath();
+		for (int i = 0; i <= 2; ++i)
+		{
+			result = filesystem.mountSoftFail(basePath / "data");
+			if (result != 0)
+			{
+				return result;
+			}
+			basePath = basePath / "..";
+		}
+		return result;
+	}
 }
 
 
@@ -65,9 +94,7 @@ int main(int argc, char *argv[])
 	try
 	{
 		auto& filesystem = Utility<Filesystem>::init<Filesystem>("OutpostHD", "LairWorks");
-		// Prioritize data from working directory, fallback on data from executable path
-		filesystem.mountSoftFail("data");
-		filesystem.mountSoftFail(filesystem.basePath() / "data");
+		mountDataFolder(filesystem);
 		filesystem.mountReadWrite(filesystem.prefPath());
 
 		filesystem.makeDirectory(constants::SaveGamePath);
