@@ -57,6 +57,17 @@ namespace
 	};
 
 
+	std::string roadAnimationName(int integrity, const std::array<bool, 4>& surroundingTiles)
+	{
+		std::string tag = "";
+
+		if (integrity < constants::RoadIntegrityChange) { tag = "-decayed"; }
+		else if (integrity == 0) { tag = "-destroyed"; }
+
+		return IntersectionPatternTable.at(surroundingTiles) + tag;
+	}
+
+
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
 		const auto foodLevel = producer.foodLevel();
@@ -575,12 +586,7 @@ void MapViewState::updateRoads()
 			surroundingTiles[i] = tile.structure()->structureId() == StructureID::SID_ROAD;
 		}
 
-		std::string tag = "";
-
-		if (road->integrity() < constants::RoadIntegrityChange) { tag = "-decayed"; }
-		else if (road->integrity() == 0) { tag = "-destroyed"; }
-
-		road->sprite().play(IntersectionPatternTable.at(surroundingTiles) + tag);
+		road->sprite().play(roadAnimationName(road->integrity(), surroundingTiles));
 	}
 }
 
