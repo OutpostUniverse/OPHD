@@ -183,7 +183,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 			break;
 
 		case StructureID::SID_CARGO_LANDER: // only here for loading games
-			structure = new CargoLander(tile);
+			structure = new CargoLander(*tile);
 			break;
 
 		case StructureID::SID_CHAP:

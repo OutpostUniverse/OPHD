@@ -901,7 +901,7 @@ void MapViewState::placeStructure(Tile& tile)
 	{
 		if (!validLanderSite(tile)) { return; }
 
-		auto& cargoLander = *new CargoLander(&tile);
+		auto& cargoLander = *new CargoLander(tile);
 		cargoLander.deploySignal().connect({this, &MapViewState::onDeployCargoLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
 

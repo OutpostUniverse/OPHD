@@ -1,43 +1,16 @@
 #pragma once
 
-#include "../Structure.h"
+#include "DeployableStructure.h"
 
-#include "../../Constants/Strings.h"
-#include "../../Map/Tile.h"
+#include "OPHD/Map/Tile.h"
 
 
-class CargoLander : public Structure
+class CargoLander : public DeployableStructure
 {
 public:
-
-	using Signal = NAS2D::Signal<>;
-
-	CargoLander(Tile* tile) : Structure(
+	CargoLander(Tile& tile) : DeployableStructure(
 		StructureClass::Lander,
-		StructureID::SID_CARGO_LANDER),
-		mTile(tile)
-	{
-		enable();
-	}
-
-	Signal::Source& deploySignal() { return mDeploy; }
-
-protected:
-	void think() override
-	{
-		if (age() == turnsToBuild())
-		{
-			mDeploy();
-			mTile->index(TerrainType::Dozed);
-		}
-	}
-
-private:
-	CargoLander() = delete;
-	CargoLander(const CargoLander&) = delete;
-	CargoLander& operator=(const CargoLander&) = delete;
-
-private:
-	Signal mDeploy;
-	Tile* mTile = nullptr;
+		StructureID::SID_CARGO_LANDER,
+		tile)
+	{}
 };
