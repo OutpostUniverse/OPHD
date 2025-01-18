@@ -9,3 +9,12 @@ SeedLander::SeedLander(Tile& tile, TileMap& tileMap) :
 	mTileMap(tileMap)
 {
 }
+
+
+void SeedLander::bulldoze()
+{
+	for (const auto& direction : DirectionScan3x3)
+	{
+		mTileMap.getTile({mTile.xy() + direction, 0}).index(TerrainType::Dozed);
+	}
+}

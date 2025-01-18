@@ -22,9 +22,12 @@ protected:
 	{
 		if (age() == turnsToBuild())
 		{
+			bulldoze();
 			mSeedLanderDeploySignal(point());
 		}
 	}
+
+	void bulldoze() override;
 
 private:
 	SeedLanderSignal mSeedLanderDeploySignal;
