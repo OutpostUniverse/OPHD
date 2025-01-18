@@ -24,12 +24,14 @@ protected:
 		{
 			bulldoze();
 			placeTubes();
+			placeInitialStructures();
 			mSeedLanderDeploySignal(point());
 		}
 	}
 
 	void bulldoze() override;
 	void placeTubes();
+	void placeInitialStructures();
 
 private:
 	SeedLanderSignal mSeedLanderDeploySignal;

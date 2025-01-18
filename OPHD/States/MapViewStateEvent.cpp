@@ -119,27 +119,13 @@ void MapViewState::onDeployCargoLander()
 void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	auto& seedFactories = structureManager.getStructures<SeedFactory>();
 
-	constexpr std::array initialStructures{
-		std::tuple{DirectionNorthWest, StructureID::SID_SEED_POWER},
-		std::tuple{DirectionNorthEast, StructureID::SID_COMMAND_CENTER},
-		std::tuple{DirectionSouthWest, StructureID::SID_SEED_FACTORY},
-		std::tuple{DirectionSouthEast, StructureID::SID_SEED_SMELTER},
-	};
-
-	std::vector<Structure*> structures;
-	for (const auto& [direction, structureId] : initialStructures)
+	for (auto seedFactory : seedFactories)
 	{
-		auto* structure = StructureCatalogue::get(structureId);
-		structureManager.addStructure(*structure, mTileMap->getTile({point + direction, 0}));
-		structures.push_back(structure);
+		seedFactory->resourcePool(&mResourcesCount);
+		seedFactory->productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 	}
-
-	ccLocation() = point + DirectionNorthEast;
-
-	auto& seedFactory = *static_cast<SeedFactory*>(structures[2]);
-	seedFactory.resourcePool(&mResourcesCount);
-	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 
 	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect({this, &MapViewState::onDozerTaskComplete});
 	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect({this, &MapViewState::onDiggerTaskComplete});
