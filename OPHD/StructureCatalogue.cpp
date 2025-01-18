@@ -167,12 +167,19 @@ const StructureType& StructureCatalogue::getType(StructureID type)
  */
 Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 {
-	Structure* structure = nullptr;
+	StructureBuildData buildData{type, tile};
+	return get(buildData);
+}
+
+
+Structure* StructureCatalogue::get(StructureBuildData buildData)
+{
+		Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base
 	// object type has a static function that is used as an interface to instantiate
 	// derived types.
-	switch (type)
+	switch (buildData.type)
 	{
 		case StructureID::SID_AGRIDOME:
 			structure = new Agridome();
@@ -183,7 +190,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 			break;
 
 		case StructureID::SID_CARGO_LANDER: // only here for loading games
-			structure = new CargoLander(*tile);
+			structure = new CargoLander(*buildData.tile);
 			break;
 
 		case StructureID::SID_CHAP:
@@ -191,7 +198,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 			break;
 
 		case StructureID::SID_COLONIST_LANDER: // only here for loading games
-			structure = new ColonistLander(*tile);
+			structure = new ColonistLander(*buildData.tile);
 			break;
 
 		case StructureID::SID_COMMAND_CENTER:
@@ -279,7 +286,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 			break;
 
 		case StructureID::SID_SEED_LANDER: // only here for loading games
-		// 	structure = new SeedLander(*tile);
+		 	structure = new SeedLander(buildData);
 		break;
 
 		case StructureID::SID_SEED_POWER:
@@ -335,7 +342,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
+		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(buildData.type));
 	}
 
 	return structure;

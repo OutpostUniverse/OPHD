@@ -9,6 +9,7 @@ class Structure;
 class Tile;
 struct StructureType;
 struct StorableResources;
+struct StructureBuildData;
 
 
 /**
@@ -30,6 +31,7 @@ public:
 	static const StructureType& getType(StructureID type);
 
 	static Structure* get(StructureID type, Tile* tile = nullptr);
+	static Structure* get(StructureBuildData buildData);
 
 	static const StorableResources& costToBuild(StructureID type);
 	static const StorableResources& recyclingValue(StructureID type);

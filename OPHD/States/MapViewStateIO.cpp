@@ -419,7 +419,9 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			continue; // FIXME: ugly
 		}
 
-		auto& structure = *StructureCatalogue::get(structureId, &tile);
+		StructureBuildData buildData = {structureId, &tile, mTileMap.get()};
+
+		auto& structure = *StructureCatalogue::get(buildData);
 
 		if (structureId == StructureID::SID_COLONIST_LANDER)
 		{
