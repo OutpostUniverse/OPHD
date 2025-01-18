@@ -5,12 +5,13 @@
 #include "OPHD/DirectionOffset.h"
 #include "OPHD/StructureCatalogue.h"
 #include "OPHD/StructureManager.h"
+#include "OPHD/MapObjects/Structure.h"
 
 #include <NAS2D/Utility.h>
 
-SeedLander::SeedLander(Tile& tile, TileMap& tileMap) :
-	DeployableStructure(StructureClass::Lander, StructureID::SID_SEED_LANDER, tile),
-	mTileMap(tileMap)
+SeedLander::SeedLander(StructureBuildData buildData) :
+	DeployableStructure(StructureClass::Lander, StructureID::SID_SEED_LANDER, *buildData.tile),
+	mTileMap(*buildData.tileMap)
 {
 }
 

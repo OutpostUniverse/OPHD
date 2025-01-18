@@ -6,11 +6,12 @@
 
 class TileMap;
 class Tile;
+struct StructureBuildData;
 
 class SeedLander : public DeployableStructure
 {
 public:
-	SeedLander(Tile& tile, TileMap& tileMap);
+	SeedLander(StructureBuildData);
 
 protected:
 	void think() override
