@@ -4,6 +4,8 @@
 
 #include "OPHD/Map/Tile.h"
 
+class TileMap;
+class Tile;
 
 class SeedLander : public DeployableStructure
 {
@@ -11,11 +13,7 @@ public:
 using SeedLanderSignal = NAS2D::Signal<NAS2D::Point<int>>;
 
 public:
-	SeedLander(Tile& tile) : DeployableStructure(
-		StructureClass::Lander,
-		StructureID::SID_SEED_LANDER,
-		tile)
-	{}
+	SeedLander(Tile& tile, TileMap& tileMap);
 
 	SeedLanderSignal::Source& seedLanderDeploySignal() { return mSeedLanderDeploySignal; }
 
@@ -31,4 +29,5 @@ protected:
 private:
 	SeedLanderSignal mSeedLanderDeploySignal;
 	NAS2D::Point<int> point() { return mTile.xy(); }
+	TileMap& mTileMap;
 };

@@ -315,6 +315,9 @@
     <ClCompile Include="UI\Reports\SatellitesReport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\SeedLander.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">

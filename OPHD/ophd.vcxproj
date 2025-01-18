@@ -188,6 +188,7 @@
     <ClCompile Include="GraphWalker.cpp" />
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapObjects\Structures\SeedLander.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
     <ClCompile Include="Map\MapView.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
