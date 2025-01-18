@@ -68,6 +68,23 @@ namespace
 	}
 
 
+	auto getSurroundingRoads(const TileMap& tileMap, const NAS2D::Point<int>& tileLocation)
+	{
+		std::array<bool, 4> surroundingTiles{false, false, false, false};
+		for (size_t i = 0; i < 4; ++i)
+		{
+			const auto tileToInspect = tileLocation + DirectionClockwise4[i];
+			const auto surfacePosition = MapCoordinate{tileToInspect, 0};
+			if (!tileMap.isValidPosition(surfacePosition)) { continue; }
+			const auto& tile = tileMap.getTile(surfacePosition);
+			if (!tile.thingIsStructure()) { continue; }
+
+			surroundingTiles[i] = tile.structure()->structureId() == StructureID::SID_ROAD;
+		}
+		return surroundingTiles;
+	}
+
+
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
 		const auto foodLevel = producer.foodLevel();
@@ -573,18 +590,7 @@ void MapViewState::updateRoads()
 		if (!road->operational()) { continue; }
 
 		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(road).xy();
-
-		std::array<bool, 4> surroundingTiles{false, false, false, false};
-		for (size_t i = 0; i < 4; ++i)
-		{
-			const auto tileToInspect = tileLocation + DirectionClockwise4[i];
-			const auto surfacePosition = MapCoordinate{tileToInspect, 0};
-			if (!mTileMap->isValidPosition(surfacePosition)) { continue; }
-			const auto& tile = mTileMap->getTile(surfacePosition);
-			if (!tile.thingIsStructure()) { continue; }
-
-			surroundingTiles[i] = tile.structure()->structureId() == StructureID::SID_ROAD;
-		}
+		const auto surroundingTiles = getSurroundingRoads(*mTileMap, tileLocation);
 
 		road->sprite().play(roadAnimationName(road->integrity(), surroundingTiles));
 	}
