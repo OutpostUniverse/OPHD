@@ -219,6 +219,9 @@ int getTruckAvailability()
 }
 
 
+/**
+ * \return 1 on success, 0 otherwise.
+ */
 int pullTruckFromInventory()
 {
 	int trucksAvailable = getTruckAvailability();
@@ -238,6 +241,9 @@ int pullTruckFromInventory()
 }
 
 
+/**
+ * \return 1 on success, 0 otherwise.
+ */
 int pushTruckIntoInventory()
 {
 	const int storageNeededForTruck = storageRequiredPerUnit(ProductType::PRODUCT_TRUCK);
