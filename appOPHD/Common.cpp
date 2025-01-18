@@ -138,32 +138,6 @@ const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre =
 };
 
 
-const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
-{
-	{{true, false, true, false}, "left"},
-	{{true, false, false, false}, "left"},
-	{{false, false, true, false}, "left"},
-
-	{{false, true, false, true}, "right"},
-	{{false, true, false, false}, "right"},
-	{{false, false, false, true}, "right"},
-
-	{{false, false, false, false}, "intersection"},
-	{{true, true, false, false}, "intersection"},
-	{{false, false, true, true}, "intersection"},
-	{{false, true, true, true}, "intersection"},
-	{{true, true, true, false}, "intersection"},
-	{{true, true, true, true}, "intersection"},
-	{{true, false, false, true}, "intersection"},
-	{{false, true, true, false}, "intersection"},
-
-	{{false, true, true, true}, "intersection"},
-	{{true, false, true, true}, "intersection"},
-	{{true, true, false, true}, "intersection"},
-	{{true, true, true, false}, "intersection"}
-};
-
-
 Color structureColorFromIndex(StructureState structureState)
 {
 	return STRUCTURE_COLOR_TABLE.at(structureState);

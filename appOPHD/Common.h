@@ -33,8 +33,6 @@ extern const std::array<std::string, 4> ResourceNamesOre;
 extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsRefined;
 extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre;
 
-extern const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable;
-
 void checkSavegameVersion(const std::string& filename);
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
