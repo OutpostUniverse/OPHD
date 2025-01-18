@@ -24,10 +24,6 @@ enum class StructureState;
 enum class TerrainType;
 
 
-std::string difficultyEnumToString(Difficulty difficulty);
-Difficulty difficultyStringToEnum(const std::string& value);
-
-
 bool productTypeInRange(ProductType productType);
 
 

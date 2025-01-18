@@ -27,35 +27,6 @@ using namespace NAS2D;
 namespace
 {
 	float meanSolarDistance = 1;
-
-
-	const std::map<std::string, Difficulty> difficultyTable
-	{
-		{"Beginner", Difficulty::Beginner},
-		{"Easy", Difficulty::Easy},
-		{"Medium", Difficulty::Medium},
-		{"Hard", Difficulty::Hard}
-	};
-}
-
-
-std::string difficultyEnumToString(Difficulty difficulty)
-{
-	for (const auto& difficultyPair : difficultyTable)
-	{
-		if (difficultyPair.second == difficulty)
-		{
-			return difficultyPair.first;
-		}
-	}
-
-	throw std::runtime_error("Provided difficulty does not exist in the difficultyMap");
-}
-
-
-Difficulty difficultyStringToEnum(const std::string& value)
-{
-	return stringToEnum(difficultyTable, value);
 }
 
 
