@@ -39,3 +39,10 @@
 #include "Structures/UndergroundFactory.h"
 #include "Structures/University.h"
 #include "Structures/Warehouse.h"
+
+struct StructureBuildData
+{
+	StructureID type; 
+	Tile* tile = nullptr;
+	TileMap* tileMap = nullptr;
+};
