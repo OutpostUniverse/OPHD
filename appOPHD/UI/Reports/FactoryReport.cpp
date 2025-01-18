@@ -25,6 +25,12 @@ using namespace NAS2D;
 
 namespace
 {
+	bool productTypeInRange(ProductType productType)
+	{
+		return ProductType::PRODUCT_NONE < productType && productType < ProductType::PRODUCT_COUNT;
+	}
+
+
 	const NAS2D::Image& productImage(ProductType productType)
 	{
 		static const std::map<ProductType, const Image*> productImages{
@@ -416,14 +422,7 @@ void FactoryReport::onListSelectionChange()
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
 	selectedProductType = selectedFactory->productType();
 
-	if (productTypeInRange(selectedProductType))
-	{
-		mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
-	}
-	else
-	{
-		mTxtProductDescription.text("");
-	}
+	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalogue::get(selectedProductType).Description : "");
 
 	StructureState state = selectedFactory->state();
 	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);

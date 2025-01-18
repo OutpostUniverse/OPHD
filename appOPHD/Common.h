@@ -15,21 +15,10 @@ namespace NAS2D::Xml
 	class XmlDocument;
 }
 
-enum class Difficulty;
-enum class DisabledReason;
-enum class IdleReason;
 enum class MineProductionRate;
 enum class MoraleIndexs;
 enum class StructureState;
 enum class TerrainType;
-
-
-extern const std::map<std::string, Difficulty> difficultyTable;
-
-std::string difficultyString(Difficulty difficulty);
-
-
-bool productTypeInRange(ProductType productType);
 
 
 extern const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION;
@@ -40,8 +29,6 @@ extern const std::array<std::string, 4> ResourceNamesOre;
 
 extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsRefined;
 extern const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre;
-
-extern const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable;
 
 void checkSavegameVersion(const std::string& filename);
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);

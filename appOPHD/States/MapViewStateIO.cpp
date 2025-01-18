@@ -40,6 +40,35 @@
 
 namespace
 {
+	const std::map<std::string, Difficulty> difficultyTable
+	{
+		{"Beginner", Difficulty::Beginner},
+		{"Easy", Difficulty::Easy},
+		{"Medium", Difficulty::Medium},
+		{"Hard", Difficulty::Hard}
+	};
+
+
+	std::string difficultyEnumToString(Difficulty difficulty)
+	{
+		for (const auto& difficultyPair : difficultyTable)
+		{
+			if (difficultyPair.second == difficulty)
+			{
+				return difficultyPair.first;
+			}
+		}
+
+		throw std::runtime_error("Provided difficulty does not exist in the difficultyMap");
+	}
+
+
+	Difficulty difficultyStringToEnum(const std::string& value)
+	{
+		return stringToEnum(difficultyTable, value);
+	}
+
+
 	MapCoordinate loadMapCoordinate(const NAS2D::Dictionary& dictionary)
 	{
 		const auto x = dictionary.get<int>("x");
@@ -209,7 +238,7 @@ NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 			{"tset", mPlanetAttributes.tilesetPath},
 			{"diggingdepth", mPlanetAttributes.maxDepth},
 			{"meansolardistance", mPlanetAttributes.meanSolarDistance},
-			{"difficulty", difficultyString(difficulty())},
+			{"difficulty", difficultyEnumToString(difficulty())},
 		}}
 	);
 }
@@ -259,7 +288,7 @@ void MapViewState::load(const std::string& filePath)
 
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 
-	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
+	difficulty(difficultyStringToEnum(dictionary.get("difficulty", std::string{"Medium"})));
 
 	mTileMap = std::make_unique<TileMap>(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);
 	mTileMap->deserialize(root);

@@ -1,8 +1,5 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
-#include "EnumDifficulty.h"
-#include "EnumDisabledReason.h"
-#include "EnumIdleReason.h"
 #include "EnumMineProductionRate.h"
 #include "EnumMoraleIndex.h"
 #include "EnumTerrainType.h"
@@ -27,35 +24,6 @@ using namespace NAS2D;
 namespace
 {
 	float meanSolarDistance = 1;
-}
-
-
-const std::map<std::string, Difficulty> difficultyTable
-{
-	{"Beginner", Difficulty::Beginner},
-	{"Easy", Difficulty::Easy},
-	{"Medium", Difficulty::Medium},
-	{"Hard", Difficulty::Hard}
-};
-
-
-std::string difficultyString(Difficulty difficulty)
-{
-	for (const auto& difficultyPair : difficultyTable)
-	{
-		if (difficultyPair.second == difficulty)
-		{
-			return difficultyPair.first;
-		}
-	}
-
-	throw std::runtime_error("Provided difficulty does not exist in the difficultyMap");
-}
-
-
-bool productTypeInRange(ProductType productType)
-{
-	return ProductType::PRODUCT_NONE < productType && productType < ProductType::PRODUCT_COUNT;
 }
 
 
@@ -164,32 +132,6 @@ const std::array<NAS2D::Rectangle<int>, 4> ResourceImageRectsOre =
 	NAS2D::Rectangle<int>{{96, 0}, {16, 16}},
 	NAS2D::Rectangle<int>{{80, 0}, {16, 16}},
 	NAS2D::Rectangle<int>{{112, 0}, {16, 16}},
-};
-
-
-const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
-{
-	{{true, false, true, false}, "left"},
-	{{true, false, false, false}, "left"},
-	{{false, false, true, false}, "left"},
-
-	{{false, true, false, true}, "right"},
-	{{false, true, false, false}, "right"},
-	{{false, false, false, true}, "right"},
-
-	{{false, false, false, false}, "intersection"},
-	{{true, true, false, false}, "intersection"},
-	{{false, false, true, true}, "intersection"},
-	{{false, true, true, true}, "intersection"},
-	{{true, true, true, false}, "intersection"},
-	{{true, true, true, true}, "intersection"},
-	{{true, false, false, true}, "intersection"},
-	{{false, true, true, false}, "intersection"},
-
-	{{false, true, true, true}, "intersection"},
-	{{true, false, true, true}, "intersection"},
-	{{true, true, false, true}, "intersection"},
-	{{true, true, true, false}, "intersection"}
 };
 
 
