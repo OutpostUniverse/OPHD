@@ -1,8 +1,5 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
-#include "EnumDifficulty.h"
-#include "EnumDisabledReason.h"
-#include "EnumIdleReason.h"
 #include "EnumMineProductionRate.h"
 #include "EnumMoraleIndex.h"
 #include "EnumTerrainType.h"

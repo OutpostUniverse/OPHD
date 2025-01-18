@@ -15,9 +15,6 @@ namespace NAS2D::Xml
 	class XmlDocument;
 }
 
-enum class Difficulty;
-enum class DisabledReason;
-enum class IdleReason;
 enum class MineProductionRate;
 enum class MoraleIndexs;
 enum class StructureState;
