@@ -191,7 +191,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 			break;
 
 		case StructureID::SID_COLONIST_LANDER: // only here for loading games
-			structure = new ColonistLander(tile);
+			structure = new ColonistLander(*tile);
 			break;
 
 		case StructureID::SID_COMMAND_CENTER:

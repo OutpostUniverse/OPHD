@@ -1,40 +1,16 @@
 #pragma once
 
-#include "../Structure.h"
+#include "DeployableStructure.h"
 
-#include "../../Constants/Strings.h"
-#include "../../Map/Tile.h"
+#include "OPHD/Map/Tile.h"
 
 
-class ColonistLander : public Structure
+class ColonistLander : public DeployableStructure
 {
 public:
-	using Signal = NAS2D::Signal<>;
-
-public:
-
-	ColonistLander(Tile* tile) : Structure(
+	ColonistLander(Tile& tile) : DeployableStructure(
 		StructureClass::Lander,
-		StructureID::SID_COLONIST_LANDER),
-		mTile(tile)
-	{
-		enable();
-	}
-
-	Signal::Source& deploySignal() { return mDeploy; }
-
-protected:
-	void think() override
-	{
-		if (age() == turnsToBuild())
-		{
-			mDeploy();
-			mTile->index(TerrainType::Dozed);
-		}
-	}
-
-private:
-	Signal mDeploy;
-
-	Tile* mTile;
+		StructureID::SID_COLONIST_LANDER,
+		tile)
+	{}
 };

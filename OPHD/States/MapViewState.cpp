@@ -885,7 +885,7 @@ void MapViewState::placeStructure(Tile& tile)
 	{
 		if (!validLanderSite(tile)) { return; }
 
-		auto& s = *new ColonistLander(&tile);
+		auto& s = *new ColonistLander(tile);
 		s.deploySignal().connect({this, &MapViewState::onDeployColonistLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
 
