@@ -61,8 +61,8 @@ namespace
 	{
 		std::string tag = "";
 
-		if (integrity < constants::RoadIntegrityChange) { tag = "-decayed"; }
-		else if (integrity == 0) { tag = "-destroyed"; }
+		if (integrity == 0) { tag = "-destroyed"; }
+		else if (integrity < constants::RoadIntegrityChange) { tag = "-decayed"; }
 
 		return IntersectionPatternTable.at(surroundingTiles) + tag;
 	}
