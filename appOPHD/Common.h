@@ -24,9 +24,6 @@ enum class StructureState;
 enum class TerrainType;
 
 
-bool productTypeInRange(ProductType productType);
-
-
 extern const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION;
 extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 

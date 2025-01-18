@@ -25,6 +25,12 @@ using namespace NAS2D;
 
 namespace
 {
+	bool productTypeInRange(ProductType productType)
+	{
+		return ProductType::PRODUCT_NONE < productType && productType < ProductType::PRODUCT_COUNT;
+	}
+
+
 	const NAS2D::Image& productImage(ProductType productType)
 	{
 		static const std::map<ProductType, const Image*> productImages{
