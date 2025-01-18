@@ -2,8 +2,7 @@
 
 #include "DeployableStructure.h"
 
-#include "OPHD/Map/Tile.h"
-
+class Tile;
 
 class CargoLander : public DeployableStructure
 {
