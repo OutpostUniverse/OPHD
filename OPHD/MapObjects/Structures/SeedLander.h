@@ -23,11 +23,13 @@ protected:
 		if (age() == turnsToBuild())
 		{
 			bulldoze();
+			placeTubes();
 			mSeedLanderDeploySignal(point());
 		}
 	}
 
 	void bulldoze() override;
+	void placeTubes();
 
 private:
 	SeedLanderSignal mSeedLanderDeploySignal;
