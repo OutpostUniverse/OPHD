@@ -319,7 +319,7 @@ void MapViewState::load(const std::string& filePath)
 			SeedLander* seedLander = list[0];
 			if (!seedLander) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			seedLander->deploySignal().connect({this, &MapViewState::onDeploySeedLander});
+			seedLander->seedLanderDeploySignal().connect({this, &MapViewState::onDeploySeedLander});
 
 			mStructures.clear();
 			mConnections.clear();
@@ -465,11 +465,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		if (structureId == StructureID::SID_AIR_SHAFT && mapCoordinate.z != 0)
 		{
 			static_cast<AirShaft*>(&structure)->ug(); // force underground state
-		}
-
-		if (structureId == StructureID::SID_SEED_LANDER)
-		{
-			static_cast<SeedLander*>(&structure)->position(mapCoordinate.xy);
 		}
 
 		if (structureId == StructureID::SID_AGRIDOME ||

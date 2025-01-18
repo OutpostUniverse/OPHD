@@ -1,49 +1,34 @@
 #pragma once
 
-#include "../Structure.h"
+#include "DeployableStructure.h"
 
-#include "../../Constants/Strings.h"
-
-#include <NAS2D/Math/Point.h>
+#include "OPHD/Map/Tile.h"
 
 
-class SeedLander : public Structure
+class SeedLander : public DeployableStructure
 {
 public:
-	using Signal = NAS2D::Signal<NAS2D::Point<int>>;
+using SeedLanderSignal = NAS2D::Signal<NAS2D::Point<int>>;
 
 public:
-	SeedLander() = delete;
-	SeedLander(NAS2D::Point<int> position) :
-		Structure{
-			StructureClass::Lander,
-			StructureID::SID_SEED_LANDER
-		},
-		mPosition{position}
-	{
-		enable();
-	}
+	SeedLander(Tile& tile) : DeployableStructure(
+		StructureClass::Lander,
+		StructureID::SID_SEED_LANDER,
+		tile)
+	{}
 
-	void position(NAS2D::Point<int> position)
-	{
-		mPosition = position;
-	}
-
-	Signal::Source& deploySignal() { return mDeploy; }
+	SeedLanderSignal::Source& seedLanderDeploySignal() { return mSeedLanderDeploySignal; }
 
 protected:
 	void think() override
 	{
 		if (age() == turnsToBuild())
 		{
-			// Logic guard, probably not necessary.
-			if (mPosition == NAS2D::Point{0, 0}) { return; }
-
-			mDeploy(mPosition);
+			mSeedLanderDeploySignal(point());
 		}
 	}
 
 private:
-	Signal mDeploy;
-	NAS2D::Point<int> mPosition;
+	SeedLanderSignal mSeedLanderDeploySignal;
+	NAS2D::Point<int> point() { return mTile.xy(); }
 };
