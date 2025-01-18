@@ -53,6 +53,12 @@ std::string difficultyEnumToString(Difficulty difficulty)
 }
 
 
+Difficulty difficultyStringToEnum(const std::string& value)
+{
+	return stringToEnum(difficultyTable, value);
+}
+
+
 bool productTypeInRange(ProductType productType)
 {
 	return ProductType::PRODUCT_NONE < productType && productType < ProductType::PRODUCT_COUNT;

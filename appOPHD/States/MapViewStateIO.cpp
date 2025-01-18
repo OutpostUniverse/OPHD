@@ -259,7 +259,7 @@ void MapViewState::load(const std::string& filePath)
 
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 
-	difficulty(stringToEnum(difficultyTable, dictionary.get("difficulty", std::string{"Medium"})));
+	difficulty(difficultyStringToEnum(dictionary.get("difficulty", std::string{"Medium"})));
 
 	mTileMap = std::make_unique<TileMap>(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);
 	mTileMap->deserialize(root);
