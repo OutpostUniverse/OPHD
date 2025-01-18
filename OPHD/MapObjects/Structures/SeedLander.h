@@ -10,12 +10,7 @@ class Tile;
 class SeedLander : public DeployableStructure
 {
 public:
-using SeedLanderSignal = NAS2D::Signal<NAS2D::Point<int>>;
-
-public:
 	SeedLander(Tile& tile, TileMap& tileMap);
-
-	SeedLanderSignal::Source& seedLanderDeploySignal() { return mSeedLanderDeploySignal; }
 
 protected:
 	void think() override
@@ -25,7 +20,7 @@ protected:
 			bulldoze();
 			placeTubes();
 			placeInitialStructures();
-			mSeedLanderDeploySignal(point());
+			deploySignal();
 		}
 	}
 
@@ -34,7 +29,6 @@ protected:
 	void placeInitialStructures();
 
 private:
-	SeedLanderSignal mSeedLanderDeploySignal;
 	NAS2D::Point<int> point() { return mTile.xy(); }
 	TileMap& mTileMap;
 };

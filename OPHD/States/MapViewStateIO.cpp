@@ -319,7 +319,7 @@ void MapViewState::load(const std::string& filePath)
 			SeedLander* seedLander = list[0];
 			if (!seedLander) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			seedLander->seedLanderDeploySignal().connect({this, &MapViewState::onDeploySeedLander});
+			seedLander->deploySignal().connect({this, &MapViewState::onDeploySeedLander});
 
 			mStructures.clear();
 			mConnections.clear();
