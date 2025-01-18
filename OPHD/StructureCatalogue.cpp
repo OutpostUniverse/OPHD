@@ -279,8 +279,8 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 			break;
 
 		case StructureID::SID_SEED_LANDER: // only here for loading games
-			structure = new SeedLander(*tile);
-			break;
+		// 	structure = new SeedLander(*tile);
+		break;
 
 		case StructureID::SID_SEED_POWER:
 			structure = new SeedPower();
