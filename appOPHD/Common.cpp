@@ -39,7 +39,7 @@ const std::map<std::string, Difficulty> difficultyTable
 };
 
 
-std::string difficultyString(Difficulty difficulty)
+std::string difficultyEnumToString(Difficulty difficulty)
 {
 	for (const auto& difficultyPair : difficultyTable)
 	{

@@ -209,7 +209,7 @@ NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 			{"tset", mPlanetAttributes.tilesetPath},
 			{"diggingdepth", mPlanetAttributes.maxDepth},
 			{"meansolardistance", mPlanetAttributes.meanSolarDistance},
-			{"difficulty", difficultyString(difficulty())},
+			{"difficulty", difficultyEnumToString(difficulty())},
 		}}
 	);
 }

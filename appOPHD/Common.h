@@ -26,7 +26,7 @@ enum class TerrainType;
 
 extern const std::map<std::string, Difficulty> difficultyTable;
 
-std::string difficultyString(Difficulty difficulty);
+std::string difficultyEnumToString(Difficulty difficulty);
 
 
 bool productTypeInRange(ProductType productType);
