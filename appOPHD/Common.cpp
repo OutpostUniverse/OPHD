@@ -27,16 +27,16 @@ using namespace NAS2D;
 namespace
 {
 	float meanSolarDistance = 1;
+
+
+	const std::map<std::string, Difficulty> difficultyTable
+	{
+		{"Beginner", Difficulty::Beginner},
+		{"Easy", Difficulty::Easy},
+		{"Medium", Difficulty::Medium},
+		{"Hard", Difficulty::Hard}
+	};
 }
-
-
-const std::map<std::string, Difficulty> difficultyTable
-{
-	{"Beginner", Difficulty::Beginner},
-	{"Easy", Difficulty::Easy},
-	{"Medium", Difficulty::Medium},
-	{"Hard", Difficulty::Hard}
-};
 
 
 std::string difficultyEnumToString(Difficulty difficulty)

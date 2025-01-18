@@ -24,8 +24,6 @@ enum class StructureState;
 enum class TerrainType;
 
 
-extern const std::map<std::string, Difficulty> difficultyTable;
-
 std::string difficultyEnumToString(Difficulty difficulty);
 Difficulty difficultyStringToEnum(const std::string& value);
 
