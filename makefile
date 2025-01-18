@@ -190,7 +190,7 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ## OPHD project ##
 
-ophd_SRCDIR := OPHD/
+ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
 ophd_OUTPUT := ophd.exe
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')

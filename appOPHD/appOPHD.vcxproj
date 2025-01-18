@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>OPHD</ProjectName>
+    <ProjectName>appOPHD</ProjectName>
     <ProjectGuid>{230AB062-FDCA-4D56-A781-0D3B9E8AE310}</ProjectGuid>
     <RootNamespace>isoeng</RootNamespace>
     <Keyword>Win32Proj</Keyword>
