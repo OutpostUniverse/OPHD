@@ -2,6 +2,8 @@
 
 #include "EnumProductType.h"
 
+#include "UI/ProgressBar.h"
+
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 
@@ -39,8 +41,6 @@ float getMeanSolarDistance();
 const std::string& moraleString(std::size_t index);
 const std::string& moraleString(MoraleIndexs morale);
 std::size_t moraleStringTableCount();
-
-void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding = 4);
 
 NAS2D::Color structureColorFromIndex(StructureState structureState);
 NAS2D::Color structureTextColorFromIndex(StructureState structureState);

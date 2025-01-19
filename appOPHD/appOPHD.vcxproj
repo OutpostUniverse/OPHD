@@ -247,6 +247,7 @@
     <ClCompile Include="UI\NotificationWindow.cpp" />
     <ClCompile Include="UI\PopulationPanel.cpp" />
     <ClCompile Include="UI\ProductListBox.cpp" />
+    <ClCompile Include="UI\ProgressBar.cpp" />
     <ClCompile Include="UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="UI\Reports\MineReport.cpp" />
     <ClCompile Include="UI\Reports\ResearchReport.cpp" />
@@ -382,6 +383,7 @@
     <ClInclude Include="UI\NotificationWindow.h" />
     <ClInclude Include="UI\PopulationPanel.h" />
     <ClInclude Include="UI\ProductListBox.h" />
+    <ClInclude Include="UI\ProgressBar.h" />
     <ClInclude Include="UI\Reports\FactoryReport.h" />
     <ClInclude Include="UI\Reports\MineReport.h" />
     <ClInclude Include="UI\Reports\ReportInterface.h" />

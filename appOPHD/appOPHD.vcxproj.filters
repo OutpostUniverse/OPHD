@@ -270,6 +270,9 @@
     <ClCompile Include="UI\ProductListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
+    <ClCompile Include="UI\ProgressBar.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="UI\Reports\FactoryReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
@@ -670,6 +673,9 @@
     </ClInclude>
     <ClInclude Include="UI\ProductListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\ProgressBar.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\FactoryReport.h">
       <Filter>Header Files\UI\Reports</Filter>
