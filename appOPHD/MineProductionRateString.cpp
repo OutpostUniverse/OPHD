@@ -12,7 +12,7 @@ namespace
 	{
 		{MineProductionRate::High, constants::MineYieldHigh},
 		{MineProductionRate::Low, constants::MineYieldLow},
-		{MineProductionRate::Medium, constants::MineYieldMedium}
+		{MineProductionRate::Medium, constants::MineYieldMedium},
 	};
 }
 
