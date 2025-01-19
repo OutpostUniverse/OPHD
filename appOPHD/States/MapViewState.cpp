@@ -10,7 +10,7 @@
 
 #include "../DirectionOffset.h"
 #include "../Cache.h"
-#include "../Common.h"
+#include "../MeanSolarDistance.h"
 #include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"

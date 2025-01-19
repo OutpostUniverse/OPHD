@@ -1,6 +1,6 @@
 #include "SolarPlant.h"
 
-#include "../../Common.h"
+#include "../../MeanSolarDistance.h"
 #include "../../Constants/Strings.h"
 
 

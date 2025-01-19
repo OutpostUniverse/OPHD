@@ -10,6 +10,7 @@
 
 #include "../Cache.h"
 #include "../Common.h"
+#include "../MeanSolarDistance.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../ProductCatalogue.h"

@@ -9,12 +9,6 @@
 #include <stdexcept>
 
 
-namespace
-{
-	float meanSolarDistance = 1;
-}
-
-
 void checkSavegameVersion(const std::string& filename)
 {
 	// openSavegame checks version number after opening file
@@ -39,20 +33,4 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename)
 	}
 
 	return xmlDocument;
-}
-
-
-void setMeanSolarDistance(float newMeanSolarDistance)
-{
-	if (newMeanSolarDistance <= 0)
-	{
-		throw std::runtime_error("Must set a positive value for `meanSolarDistance`: " + std::to_string(newMeanSolarDistance));
-	}
-	meanSolarDistance = newMeanSolarDistance;
-}
-
-
-float getMeanSolarDistance()
-{
-	return meanSolarDistance;
 }
