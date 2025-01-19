@@ -1,7 +1,8 @@
 #include "ResourceBreakdownPanel.h"
 
+#include "TrendLabel.h"
+
 #include "../Cache.h"
-#include "../Common.h"
 #include "../Resources.h"
 #include "../Constants/UiConstants.h"
 

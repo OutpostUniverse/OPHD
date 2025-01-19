@@ -267,6 +267,7 @@
     <ClCompile Include="UI\StructureListBox.cpp" />
     <ClCompile Include="UI\TextRender.cpp" />
     <ClCompile Include="UI\TileInspector.cpp" />
+    <ClCompile Include="UI\TrendLabel.cpp" />
     <ClCompile Include="UI\WarehouseInspector.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +409,7 @@
     <ClInclude Include="UI\StructureListBox.h" />
     <ClInclude Include="UI\TextRender.h" />
     <ClInclude Include="UI\TileInspector.h" />
+    <ClInclude Include="UI\TrendLabel.h" />
     <ClInclude Include="UI\WarehouseInspector.h" />
     <ClInclude Include="WindowEventWrapper.h" />
   </ItemGroup>
