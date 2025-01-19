@@ -228,6 +228,7 @@
     <ClCompile Include="States\StructureTracker.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
     <ClCompile Include="StructureManager.cpp" />
+    <ClCompile Include="TruckAvailability.cpp" />
     <ClCompile Include="UI\CheatMenu.cpp" />
     <ClCompile Include="UI\DetailMap.cpp" />
     <ClCompile Include="UI\DiggerDirection.cpp" />
@@ -362,6 +363,7 @@
     <ClInclude Include="StorableResources.h" />
     <ClInclude Include="StructureCatalogue.h" />
     <ClInclude Include="StructureManager.h" />
+    <ClInclude Include="TruckAvailability.h" />
     <ClInclude Include="UI\CheatMenu.h" />
     <ClInclude Include="UI\DetailMap.h" />
     <ClInclude Include="UI\DiggerDirection.h" />

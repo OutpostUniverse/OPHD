@@ -213,6 +213,9 @@
     <ClCompile Include="StructureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TruckAvailability.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UI\CheatMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -609,6 +612,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StructureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TruckAvailability.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\CheatMenu.h">

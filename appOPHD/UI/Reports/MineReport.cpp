@@ -9,6 +9,7 @@
 #include "../../Cache.h"
 #include "../../Common.h"
 #include "../../StructureManager.h"
+#include "../../TruckAvailability.h"
 #include "../../ProductionCost.h"
 
 #include "../../States/Route.h"

@@ -45,10 +45,6 @@ void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding
 NAS2D::Color structureColorFromIndex(StructureState structureState);
 NAS2D::Color structureTextColorFromIndex(StructureState structureState);
 
-int getTruckAvailability();
-int pullTruckFromInventory();
-int pushTruckIntoInventory();
-
 
 const auto formatDiff = [](int diff)
 {
