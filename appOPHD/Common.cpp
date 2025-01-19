@@ -1,7 +1,5 @@
 #include "Common.h"
-#include "Constants/Numbers.h"
-
-#include "MapObjects/Structures/Warehouse.h"
+#include "Constants/Strings.h"
 
 #include <libOPHD/XmlSerializer.h>
 
@@ -9,10 +7,6 @@
 #include <NAS2D/Xml/XmlElement.h>
 
 #include <stdexcept>
-#include <algorithm>
-
-
-using namespace NAS2D;
 
 
 namespace

@@ -1,11 +1,7 @@
 #pragma once
 
-#include "EnumProductType.h"
-
-#include <NAS2D/Math/Rectangle.h>
-
 #include <string>
-#include <vector>
+
 
 namespace NAS2D::Xml
 {
