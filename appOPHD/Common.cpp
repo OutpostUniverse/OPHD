@@ -41,6 +41,12 @@ const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
 };
 
 
+const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate)
+{
+	return MINE_YIELD_TRANSLATION.at(mineProductionRate);
+}
+
+
 void checkSavegameVersion(const std::string& filename)
 {
 	// openSavegame checks version number after opening file
