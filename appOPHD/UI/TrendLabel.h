@@ -3,4 +3,4 @@
 #include <string>
 
 
-std::string formatDiff(int diff);
+std::string formatDiff(int changeValue);

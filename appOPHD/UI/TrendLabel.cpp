@@ -1,7 +1,7 @@
 #include "TrendLabel.h"
 
 
-std::string formatDiff(int diff)
+std::string formatDiff(int changeValue)
 {
-	return ((diff > 0) ? "+" : "") + std::to_string(diff);
+	return ((changeValue > 0) ? "+" : "") + std::to_string(changeValue);
 }
