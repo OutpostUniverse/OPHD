@@ -2,6 +2,7 @@
 
 #include "TextRender.h"
 #include "../Common.h"
+#include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Mine.h"
 
