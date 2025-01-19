@@ -28,14 +28,6 @@ namespace
 	static constexpr int IconSize = 32;
 
 
-	static const std::array trend
-	{
-		Color::Red,
-		constants::PrimaryColor,
-		constants::PrimaryColor,
-	};
-
-
 	static std::size_t moraleIndex(int morale)
 	{
 		return static_cast<std::size_t>(std::clamp(morale, 0, 999) / 200);
@@ -192,7 +184,7 @@ void PopulationPanel::update()
 		const auto text = formatDiff(entry.value);
 		const NAS2D::Point<int> labelPosition = {rect().position.x + rect().size.x - mFont.width(text) - 5 , position.y};
 
-		renderer.drawText(mFont, text, labelPosition, trend[trendIndex(entry.value)]);
+		drawTrendLabel(renderer, mFont, entry.value, labelPosition);
 		position.y += fontHeight;
 	}
 }
