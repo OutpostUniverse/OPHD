@@ -35,7 +35,7 @@ const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 
 namespace
 {
-	const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
+	const std::map<MineProductionRate, std::string> mineProductionRateStringTable =
 	{
 		{MineProductionRate::High, constants::MineYieldHigh},
 		{MineProductionRate::Low, constants::MineYieldLow},
@@ -46,7 +46,7 @@ namespace
 
 const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate)
 {
-	return MINE_YIELD_TRANSLATION.at(mineProductionRate);
+	return mineProductionRateStringTable.at(mineProductionRate);
 }
 
 
