@@ -23,35 +23,38 @@
 using namespace NAS2D;
 
 
-static constexpr int IconSize = 32;
-
-
-static const auto trendIndex = [](int value) -> std::size_t
+namespace
 {
-	return (value >= 0) ? 0 : 1;
-};
-
-static const std::array trend
-{
-	constants::PrimaryColor,
-	Color::Red
-};
+	static constexpr int IconSize = 32;
 
 
-static std::size_t moraleIndex(int morale)
-{
-	return static_cast<std::size_t>(std::clamp(morale, 0, 999) / 200);
+	static const auto trendIndex = [](int value) -> std::size_t
+	{
+		return (value >= 0) ? 0 : 1;
+	};
+
+	static const std::array trend
+	{
+		constants::PrimaryColor,
+		Color::Red
+	};
+
+
+	static std::size_t moraleIndex(int morale)
+	{
+		return static_cast<std::size_t>(std::clamp(morale, 0, 999) / 200);
+	}
+
+
+	static const std::array moraleStringColor
+	{
+		Color::Red,
+		Color::Orange,
+		Color::Yellow,
+		Color::White,
+		constants::PrimaryColor
+	};
 }
-
-
-static const std::array moraleStringColor
-{
-	Color::Red,
-	Color::Orange,
-	Color::Yellow,
-	Color::White,
-	constants::PrimaryColor
-};
 
 
 PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale) :
