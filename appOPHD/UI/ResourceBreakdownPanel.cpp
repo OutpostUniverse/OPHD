@@ -18,7 +18,7 @@ using namespace NAS2D;
 
 namespace
 {
-	const std::array changeIconImageRects{
+	constexpr std::array changeIconImageRects{
 		NAS2D::Rectangle{Point{0, 64},{8, 8}},
 		NAS2D::Rectangle{Point{16, 64},{8, 8}},
 		NAS2D::Rectangle{Point{8, 64},{8, 8}},
