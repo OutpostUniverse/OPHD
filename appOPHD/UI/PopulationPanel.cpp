@@ -15,6 +15,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
+#include <array>
 
 
 using namespace NAS2D;
