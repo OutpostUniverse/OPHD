@@ -18,7 +18,6 @@ enum class TerrainType;
 
 
 extern const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION;
-extern const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION;
 
 const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate);
 

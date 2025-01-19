@@ -33,12 +33,15 @@ const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 };
 
 
-const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
+namespace
 {
-	{MineProductionRate::High, constants::MineYieldHigh},
-	{MineProductionRate::Low, constants::MineYieldLow},
-	{MineProductionRate::Medium, constants::MineYieldMedium}
-};
+	const std::map<MineProductionRate, std::string> MINE_YIELD_TRANSLATION =
+	{
+		{MineProductionRate::High, constants::MineYieldHigh},
+		{MineProductionRate::Low, constants::MineYieldLow},
+		{MineProductionRate::Medium, constants::MineYieldMedium}
+	};
+}
 
 
 const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate)
