@@ -5,23 +5,23 @@
 
 const std::array MoraleStringTable =
 {
-	std::string("Terrible"),
-	std::string("Poor"),
-	std::string("Fair"),
-	std::string("Good"),
-	std::string("Excellent"),
+	std::string{"Terrible"},
+	std::string{"Poor"},
+	std::string{"Fair"},
+	std::string{"Good"},
+	std::string{"Excellent"},
 
-	std::string("Morale is "),
-	std::string("Births"),
-	std::string("Deaths"),
-	std::string("No active Food Production"),
-	std::string("Parks & Arboretums"),
-	std::string("Recreational Facilities"),
-	std::string("Luxury Availability"),
-	std::string("Residential Over Capacity"),
-	std::string("Biowaste Overflowing"),
-	std::string("Structures Disabled"),
-	std::string("Structures Destroyed")
+	std::string{"Morale is "},
+	std::string{"Births"},
+	std::string{"Deaths"},
+	std::string{"No active Food Production"},
+	std::string{"Parks & Arboretums"},
+	std::string{"Recreational Facilities"},
+	std::string{"Luxury Availability"},
+	std::string{"Residential Over Capacity"},
+	std::string{"Biowaste Overflowing"},
+	std::string{"Structures Disabled"},
+	std::string{"Structures Destroyed"},
 };
 
 
