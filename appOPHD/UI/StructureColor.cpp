@@ -5,24 +5,27 @@
 #include <map>
 
 
-const std::map<StructureState, NAS2D::Color> STRUCTURE_COLOR_TABLE
+namespace
 {
-	{StructureState::UnderConstruction, NAS2D::Color{150, 150, 150, 100}},
-	{StructureState::Operational, NAS2D::Color{0, 185, 0}},
-	{StructureState::Idle, NAS2D::Color{0, 185, 0, 100}},
-	{StructureState::Disabled, NAS2D::Color{220, 0, 0}},
-	{StructureState::Destroyed, NAS2D::Color{220, 0, 0}}
-};
+	const std::map<StructureState, NAS2D::Color> STRUCTURE_COLOR_TABLE
+	{
+		{StructureState::UnderConstruction, NAS2D::Color{150, 150, 150, 100}},
+		{StructureState::Operational, NAS2D::Color{0, 185, 0}},
+		{StructureState::Idle, NAS2D::Color{0, 185, 0, 100}},
+		{StructureState::Disabled, NAS2D::Color{220, 0, 0}},
+		{StructureState::Destroyed, NAS2D::Color{220, 0, 0}}
+	};
 
 
-const std::map<StructureState, NAS2D::Color> STRUCTURE_TEXT_COLOR_TABLE
-{
-	{StructureState::UnderConstruction, NAS2D::Color{185, 185, 185, 100}},
-	{StructureState::Operational, NAS2D::Color{0, 185, 0}},
-	{StructureState::Idle, NAS2D::Color{0, 185, 0, 100}},
-	{StructureState::Disabled, NAS2D::Color{220, 0, 0}},
-	{StructureState::Destroyed, NAS2D::Color{220, 0, 0}}
-};
+	const std::map<StructureState, NAS2D::Color> STRUCTURE_TEXT_COLOR_TABLE
+	{
+		{StructureState::UnderConstruction, NAS2D::Color{185, 185, 185, 100}},
+		{StructureState::Operational, NAS2D::Color{0, 185, 0}},
+		{StructureState::Idle, NAS2D::Color{0, 185, 0, 100}},
+		{StructureState::Disabled, NAS2D::Color{220, 0, 0}},
+		{StructureState::Destroyed, NAS2D::Color{220, 0, 0}}
+	};
+}
 
 
 NAS2D::Color structureColorFromIndex(StructureState structureState)
