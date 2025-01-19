@@ -300,6 +300,9 @@
     <ClCompile Include="UI\RobotInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\StructureColor.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="UI\StringTable.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -708,6 +711,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\RobotInspector.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\StructureColors.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\StringTable.h">

@@ -2,8 +2,9 @@
 
 #include "EnumProductType.h"
 
+#include "UI/StructureColor.h"
+
 #include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/Renderer/Color.h>
 
 #include <map>
 #include <string>
@@ -16,7 +17,6 @@ namespace NAS2D::Xml
 
 enum class MineProductionRate;
 enum class MoraleIndexs;
-enum class StructureState;
 enum class TerrainType;
 
 
@@ -32,9 +32,6 @@ float getMeanSolarDistance();
 const std::string& moraleString(std::size_t index);
 const std::string& moraleString(MoraleIndexs morale);
 std::size_t moraleStringTableCount();
-
-NAS2D::Color structureColorFromIndex(StructureState structureState);
-NAS2D::Color structureTextColorFromIndex(StructureState structureState);
 
 
 const auto formatDiff = [](int diff)

@@ -4,7 +4,6 @@
 #include "EnumMoraleIndex.h"
 #include "EnumTerrainType.h"
 
-#include "MapObjects/Structure.h"
 #include "MapObjects/Structures/Warehouse.h"
 
 #include <libOPHD/XmlSerializer.h>
@@ -23,26 +22,6 @@ namespace
 {
 	float meanSolarDistance = 1;
 }
-
-
-const std::map<StructureState, Color> STRUCTURE_COLOR_TABLE
-{
-	{StructureState::UnderConstruction, Color{150, 150, 150, 100}},
-	{StructureState::Operational, Color{0, 185, 0}},
-	{StructureState::Idle, Color{0, 185, 0, 100}},
-	{StructureState::Disabled, Color{220, 0, 0}},
-	{StructureState::Destroyed, Color{220, 0, 0}}
-};
-
-
-const std::map<StructureState, Color> STRUCTURE_TEXT_COLOR_TABLE
-{
-	{StructureState::UnderConstruction, Color{185, 185, 185, 100}},
-	{StructureState::Operational, Color{0, 185, 0}},
-	{StructureState::Idle, Color{0, 185, 0, 100}},
-	{StructureState::Disabled, Color{220, 0, 0}},
-	{StructureState::Destroyed, Color{220, 0, 0}}
-};
 
 
 const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
@@ -100,18 +79,6 @@ const std::string& moraleString(MoraleIndexs morale)
 std::size_t moraleStringTableCount()
 {
 	return MoraleStringTable.size();
-}
-
-
-Color structureColorFromIndex(StructureState structureState)
-{
-	return STRUCTURE_COLOR_TABLE.at(structureState);
-}
-
-
-Color structureTextColorFromIndex(StructureState structureState)
-{
-	return STRUCTURE_TEXT_COLOR_TABLE.at(structureState);
 }
 
 

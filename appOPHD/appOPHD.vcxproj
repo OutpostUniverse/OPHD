@@ -260,6 +260,7 @@
     <ClCompile Include="UI\RobotDeploymentSummary.cpp" />
     <ClCompile Include="UI\RobotInspector.cpp" />
     <ClCompile Include="UI\StringTable.cpp" />
+    <ClCompile Include="UI\StructureColor.cpp" />
     <ClCompile Include="UI\StructureInspector.cpp" />
     <ClCompile Include="UI\StructureListBox.cpp" />
     <ClCompile Include="UI\TextRender.cpp" />
@@ -397,6 +398,7 @@
     <ClInclude Include="UI\ResourceInfoBar.h" />
     <ClInclude Include="UI\RobotDeploymentSummary.h" />
     <ClInclude Include="UI\RobotInspector.h" />
+    <ClInclude Include="UI\StructureColor.h" />
     <ClInclude Include="UI\StringTable.h" />
     <ClInclude Include="UI\StructureInspector.h" />
     <ClInclude Include="UI\StructureListBox.h" />
