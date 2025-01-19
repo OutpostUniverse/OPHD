@@ -40,7 +40,7 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	const std::array trend{
+	const std::array changeIconImageRects{
 		NAS2D::Rectangle{Point{0, 64},{8, 8}},
 		NAS2D::Rectangle{Point{16, 64},{8, 8}},
 		NAS2D::Rectangle{Point{8, 64},{8, 8}},
@@ -62,7 +62,7 @@ void ResourceBreakdownPanel::update()
 		const auto valueString = std::to_string(value);
 		renderer.drawText(mFont, valueString, position + NAS2D::Vector{195 - mFont.width(valueString), 0}, NAS2D::Color::White);
 		const auto diff = value - oldValue;
-		const auto& changeIconImageRect = trend[trendIndex(diff)];
+		const auto& changeIconImageRect = changeIconImageRects[trendIndex(diff)];
 		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
 		drawTrendLabel(renderer, mFont, diff, position + NAS2D::Vector{235, 0});
 		position.y += 18;
