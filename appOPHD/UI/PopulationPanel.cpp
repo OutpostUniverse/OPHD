@@ -37,6 +37,7 @@ namespace
 	{
 		Color::Red,
 		constants::PrimaryColor,
+		constants::PrimaryColor,
 	};
 
 
