@@ -15,7 +15,7 @@ using namespace NAS2D;
 
 namespace
 {
-	const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
+	const std::map<TerrainType, std::string> terrainTypeStringTable =
 	{
 		{TerrainType::Dozed, constants::TileBulldozed},
 		{TerrainType::Clear, constants::TileClear},
@@ -66,7 +66,7 @@ void TileInspector::update()
 	drawLabelAndValue(position, "Location: ", std::to_string(tilePosition.x) + ", " + std::to_string(tilePosition.y));
 
 	position.y += 10;
-	drawLabelAndValue(position, "Terrain: ", TILE_INDEX_TRANSLATION.at(mTile->index()));
+	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 }
 
 
