@@ -3,6 +3,7 @@
 #include "../Cache.h"
 #include "../Common.h"
 #include "../EnumMoraleIndex.h"
+#include "../MoraleString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
@@ -15,6 +16,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
+#include <array>
 
 
 using namespace NAS2D;

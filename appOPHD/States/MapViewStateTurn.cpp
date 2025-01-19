@@ -10,9 +10,9 @@
 #include "../Map/TileMap.h"
 
 #include "../Cache.h"
-#include "../Common.h"
 #include "../DirectionOffset.h"
 #include "../EnumMoraleIndex.h"
+#include "../MoraleString.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
 

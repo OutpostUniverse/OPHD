@@ -1,7 +1,8 @@
 #include "TileInspector.h"
 
 #include "TextRender.h"
-#include "../Common.h"
+#include "../EnumTerrainType.h"
+#include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Mine.h"
 
@@ -10,6 +11,19 @@
 
 
 using namespace NAS2D;
+
+
+namespace
+{
+	const std::map<TerrainType, std::string> terrainTypeStringTable =
+	{
+		{TerrainType::Dozed, constants::TileBulldozed},
+		{TerrainType::Clear, constants::TileClear},
+		{TerrainType::Rough, constants::TileRough},
+		{TerrainType::Difficult, constants::TileDifficult},
+		{TerrainType::Impassable, constants::TileImpassable},
+	};
+}
 
 
 TileInspector::TileInspector() :
@@ -44,7 +58,7 @@ void TileInspector::update()
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
 		position.y += 10;
-		drawLabelAndValue(position, "Production Rate: ", MINE_YIELD_TRANSLATION.at(mTile->mine()->productionRate()));
+		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
 	}
 
 	position = mRect.position + NAS2D::Vector{5, 62};
@@ -52,7 +66,7 @@ void TileInspector::update()
 	drawLabelAndValue(position, "Location: ", std::to_string(tilePosition.x) + ", " + std::to_string(tilePosition.y));
 
 	position.y += 10;
-	drawLabelAndValue(position, "Terrain: ", TILE_INDEX_TRANSLATION.at(mTile->index()));
+	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 }
 
 

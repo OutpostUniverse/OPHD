@@ -1,14 +1,16 @@
 #include "MineReport.h"
 
 #include "../TextRender.h"
+#include "../ProgressBar.h"
 
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 
 #include "../../Cache.h"
-#include "../../Common.h"
+#include "../../Resources.h"
 #include "../../StructureManager.h"
+#include "../../TruckAvailability.h"
 #include "../../ProductionCost.h"
 
 #include "../../States/Route.h"

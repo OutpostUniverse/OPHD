@@ -147,10 +147,19 @@
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
+    <ClCompile Include="MineProductionRateString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoraleString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProductPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RobotPool.cpp">
@@ -213,6 +222,9 @@
     <ClCompile Include="StructureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TruckAvailability.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UI\CheatMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -267,6 +279,9 @@
     <ClCompile Include="UI\ProductListBox.cpp">
       <Filter>Source Files\UI\SpecializedListBox</Filter>
     </ClCompile>
+    <ClCompile Include="UI\ProgressBar.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="UI\Reports\FactoryReport.cpp">
       <Filter>Source Files\UI\Reports</Filter>
     </ClCompile>
@@ -289,6 +304,9 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\RobotInspector.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\StructureColor.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\StringTable.cpp">
@@ -545,6 +563,12 @@
     <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
     </ClInclude>
+    <ClInclude Include="MineProductionRateString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoraleString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -556,6 +580,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RobotPool.h">
       <Filter>Header Files</Filter>
@@ -609,6 +636,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StructureManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TruckAvailability.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\CheatMenu.h">
@@ -665,6 +695,9 @@
     <ClInclude Include="UI\ProductListBox.h">
       <Filter>Header Files\UI\SpecializedListBox</Filter>
     </ClInclude>
+    <ClInclude Include="UI\ProgressBar.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
     <ClInclude Include="UI\Reports\FactoryReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
@@ -690,6 +723,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\RobotInspector.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\StructureColors.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\StringTable.h">

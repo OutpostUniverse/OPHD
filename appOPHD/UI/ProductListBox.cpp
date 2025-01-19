@@ -1,7 +1,8 @@
 #include "ProductListBox.h"
 
+#include "ProgressBar.h"
+
 #include "../Cache.h"
-#include "../Common.h"
 #include "../Constants/UiConstants.h"
 #include "../ProductCatalogue.h"
 #include "../ProductPool.h"

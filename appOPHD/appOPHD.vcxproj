@@ -206,8 +206,11 @@
     <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
+    <ClCompile Include="MineProductionRateString.cpp" />
+    <ClCompile Include="MoraleString.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="RobotPool.cpp" />
     <ClCompile Include="ShellOpenPath.cpp" />
     <ClCompile Include="States\CrimeExecution.cpp" />
@@ -228,6 +231,7 @@
     <ClCompile Include="States\StructureTracker.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
     <ClCompile Include="StructureManager.cpp" />
+    <ClCompile Include="TruckAvailability.cpp" />
     <ClCompile Include="UI\CheatMenu.cpp" />
     <ClCompile Include="UI\DetailMap.cpp" />
     <ClCompile Include="UI\DiggerDirection.cpp" />
@@ -246,6 +250,7 @@
     <ClCompile Include="UI\NotificationWindow.cpp" />
     <ClCompile Include="UI\PopulationPanel.cpp" />
     <ClCompile Include="UI\ProductListBox.cpp" />
+    <ClCompile Include="UI\ProgressBar.cpp" />
     <ClCompile Include="UI\Reports\FactoryReport.cpp" />
     <ClCompile Include="UI\Reports\MineReport.cpp" />
     <ClCompile Include="UI\Reports\ResearchReport.cpp" />
@@ -257,6 +262,7 @@
     <ClCompile Include="UI\RobotDeploymentSummary.cpp" />
     <ClCompile Include="UI\RobotInspector.cpp" />
     <ClCompile Include="UI\StringTable.cpp" />
+    <ClCompile Include="UI\StructureColor.cpp" />
     <ClCompile Include="UI\StructureInspector.cpp" />
     <ClCompile Include="UI\StructureListBox.cpp" />
     <ClCompile Include="UI\TextRender.cpp" />
@@ -340,10 +346,13 @@
     <ClInclude Include="MapObjects\Structures\University.h" />
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
+    <ClInclude Include="MineProductionRateString.h" />
+    <ClInclude Include="MoraleString.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="RobotPool.h" />
     <ClInclude Include="ShellOpenPath.h" />
     <ClInclude Include="States\CrimeExecution.h" />
@@ -362,6 +371,7 @@
     <ClInclude Include="StorableResources.h" />
     <ClInclude Include="StructureCatalogue.h" />
     <ClInclude Include="StructureManager.h" />
+    <ClInclude Include="TruckAvailability.h" />
     <ClInclude Include="UI\CheatMenu.h" />
     <ClInclude Include="UI\DetailMap.h" />
     <ClInclude Include="UI\DiggerDirection.h" />
@@ -380,6 +390,7 @@
     <ClInclude Include="UI\NotificationWindow.h" />
     <ClInclude Include="UI\PopulationPanel.h" />
     <ClInclude Include="UI\ProductListBox.h" />
+    <ClInclude Include="UI\ProgressBar.h" />
     <ClInclude Include="UI\Reports\FactoryReport.h" />
     <ClInclude Include="UI\Reports\MineReport.h" />
     <ClInclude Include="UI\Reports\ReportInterface.h" />
@@ -391,6 +402,7 @@
     <ClInclude Include="UI\ResourceInfoBar.h" />
     <ClInclude Include="UI\RobotDeploymentSummary.h" />
     <ClInclude Include="UI\RobotInspector.h" />
+    <ClInclude Include="UI\StructureColor.h" />
     <ClInclude Include="UI\StringTable.h" />
     <ClInclude Include="UI\StructureInspector.h" />
     <ClInclude Include="UI\StructureListBox.h" />

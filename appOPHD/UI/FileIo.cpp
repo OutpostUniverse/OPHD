@@ -2,7 +2,6 @@
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../Common.h"
 #include "../ShellOpenPath.h"
 
 #include "MessageBox.h"

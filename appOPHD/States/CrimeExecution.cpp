@@ -1,6 +1,6 @@
 #include "CrimeExecution.h"
 
-#include "../Common.h"
+#include "../Resources.h"
 #include "../EnumDifficulty.h"
 #include "../StructureManager.h"
 #include "../MapObjects/Structures/FoodProduction.h"

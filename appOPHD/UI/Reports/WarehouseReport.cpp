@@ -1,7 +1,8 @@
 #include "WarehouseReport.h"
 
+#include "../ProgressBar.h"
+
 #include "../../Cache.h"
-#include "../../Common.h"
 #include "../../StructureManager.h"
 #include "../../MapObjects/Structure.h"
 #include "../../MapObjects/Structures/Warehouse.h"

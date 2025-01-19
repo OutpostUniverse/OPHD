@@ -1,8 +1,10 @@
 #include "FactoryReport.h"
 
+#include "../ProgressBar.h"
+
 #include "../TextRender.h"
 #include "../../Cache.h"
-#include "../../Common.h"
+#include "../../Resources.h"
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../StructureManager.h"
