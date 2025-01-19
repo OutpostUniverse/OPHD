@@ -3,13 +3,19 @@
 
 const std::array<std::string, 4> ResourceNamesRefined =
 {
-	{"Common Metals", "Common Minerals", "Rare Metals", "Rare Minerals"}
+	"Common Metals",
+	"Common Minerals",
+	"Rare Metals",
+	"Rare Minerals",
 };
 
 
 const std::array<std::string, 4> ResourceNamesOre =
 {
-	{"Common Metals Ore", "Common Minerals Ore", "Rare Metals Ore", "Rare Minerals Ore"}
+	"Common Metals Ore",
+	"Common Minerals Ore",
+	"Rare Metals Ore",
+	"Rare Minerals Ore",
 };
 
 
