@@ -324,6 +324,9 @@
     <ClCompile Include="UI\TileInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UI\TrendLabel.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
     <ClCompile Include="UI\WarehouseInspector.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
@@ -741,6 +744,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\TileInspector.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\TrendLabel.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\WarehouseInspector.h">

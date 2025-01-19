@@ -1,7 +1,8 @@
 #include "ResourceBreakdownPanel.h"
 
+#include "TrendLabel.h"
+
 #include "../Cache.h"
-#include "../Common.h"
 #include "../Resources.h"
 #include "../Constants/UiConstants.h"
 
@@ -13,6 +14,16 @@
 
 
 using namespace NAS2D;
+
+
+namespace
+{
+	constexpr std::array changeIconImageRects{
+		NAS2D::Rectangle{Point{0, 64},{8, 8}},
+		NAS2D::Rectangle{Point{16, 64},{8, 8}},
+		NAS2D::Rectangle{Point{8, 64},{8, 8}},
+	};
+}
 
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
@@ -39,17 +50,6 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	const auto trendIndex = [](int newValue, int oldValue) -> std::size_t {
-		return
-			(newValue == oldValue) ? 0 :
-			(newValue > oldValue) ? 1 : 2;
-	};
-	const std::array trend{
-		std::tuple{Color::White, Point{16, 64}},
-		std::tuple{constants::PrimaryTextColor, Point{8, 64}},
-		std::tuple{Color::Red, Point{0, 64}}
-	};
-
 	const std::array resources
 	{
 		std::tuple{ResourceImageRectsRefined[0], ResourceNamesRefined[0], mPlayerResources->resources[0], mPreviousResources.resources[0]},
@@ -65,10 +65,9 @@ void ResourceBreakdownPanel::update()
 		renderer.drawText(mFont, text, position + NAS2D::Vector{23, 0}, NAS2D::Color::White);
 		const auto valueString = std::to_string(value);
 		renderer.drawText(mFont, valueString, position + NAS2D::Vector{195 - mFont.width(valueString), 0}, NAS2D::Color::White);
-		const auto& [textColor, iconStartPoint] = trend[trendIndex(value, oldValue)];
-		const auto changeIconImageRect = NAS2D::Rectangle{iconStartPoint, {8, 8}};
-		renderer.drawSubImage(mIcons, position + NAS2D::Vector{215, 3}, changeIconImageRect);
-		renderer.drawText(mFont, formatDiff(value - oldValue), position + NAS2D::Vector{235, 0}, textColor);
+		const auto diff = value - oldValue;
+		drawTrendIcon(renderer, mIcons, changeIconImageRects, diff, position + NAS2D::Vector{215, 3});
+		drawTrendLabel(renderer, mFont, diff, position + NAS2D::Vector{235, 0});
 		position.y += 18;
 	}
 }
