@@ -153,6 +153,9 @@
     <ClCompile Include="ProductPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="RobotPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -562,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RobotPool.h">
       <Filter>Header Files</Filter>

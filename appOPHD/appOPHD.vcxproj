@@ -208,6 +208,7 @@
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="RobotPool.cpp" />
     <ClCompile Include="ShellOpenPath.cpp" />
     <ClCompile Include="States\CrimeExecution.cpp" />
@@ -346,6 +347,7 @@
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="RobotPool.h" />
     <ClInclude Include="ShellOpenPath.h" />
     <ClInclude Include="States\CrimeExecution.h" />
