@@ -1,7 +1,7 @@
 #include "StorageTanks.h"
 
 
-#include "../../Common.h"
+#include "../../Resources.h"
 #include "../../Constants/Strings.h"
 
 

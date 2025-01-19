@@ -2,8 +2,6 @@
 
 #include "EnumProductType.h"
 
-#include "Resources.h"
-
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 

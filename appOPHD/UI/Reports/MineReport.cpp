@@ -8,7 +8,7 @@
 #include "../../Constants/UiConstants.h"
 
 #include "../../Cache.h"
-#include "../../Common.h"
+#include "../../Resources.h"
 #include "../../StructureManager.h"
 #include "../../TruckAvailability.h"
 #include "../../ProductionCost.h"

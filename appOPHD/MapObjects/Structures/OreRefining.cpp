@@ -1,6 +1,6 @@
 #include "OreRefining.h"
 
-#include "../../Common.h"
+#include "../../Resources.h"
 #include "../../Constants/Numbers.h"
 
 

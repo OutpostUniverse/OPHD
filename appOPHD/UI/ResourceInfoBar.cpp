@@ -1,7 +1,7 @@
 #include "ResourceInfoBar.h"
 
 #include "../Cache.h"
-#include "../Common.h"
+#include "../Resources.h"
 #include "../Constants/UiConstants.h"
 
 #include "../StructureManager.h"

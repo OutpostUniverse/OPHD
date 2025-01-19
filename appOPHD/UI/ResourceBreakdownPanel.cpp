@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Common.h"
+#include "../Resources.h"
 #include "../Constants/UiConstants.h"
 
 #include <NAS2D/StringUtils.h>
