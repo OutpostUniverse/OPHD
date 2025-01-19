@@ -40,11 +40,6 @@ void ResourceBreakdownPanel::update()
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
-	const auto trendIndex = [](int diff) -> std::size_t {
-		return
-			(diff == 0) ? 1 :
-			(diff > 0) ? 2 : 0;
-	};
 	const std::array trend{
 		std::tuple{Color::Red, Point{0, 64}},
 		std::tuple{Color::White, Point{16, 64}},

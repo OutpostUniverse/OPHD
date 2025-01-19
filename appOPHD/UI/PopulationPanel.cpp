@@ -28,11 +28,6 @@ namespace
 	static constexpr int IconSize = 32;
 
 
-	static const auto trendIndex = [](int value) -> std::size_t
-	{
-		return (value < 0) ? 0 : 1;
-	};
-
 	static const std::array trend
 	{
 		Color::Red,
