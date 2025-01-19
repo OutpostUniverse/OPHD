@@ -2,8 +2,10 @@
 
 #include "../Constants/UiConstants.h"
 
+#include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Image.h>
 
 #include <array>
 
@@ -34,4 +36,11 @@ std::string formatDiff(int changeValue)
 void drawTrendLabel(NAS2D::Renderer& renderer, const NAS2D::Font& font, int changeValue, NAS2D::Point<int> position)
 {
 	renderer.drawText(font, formatDiff(changeValue), position, trendColor[trendIndex(changeValue)]);
+}
+
+
+void drawTrendIcon(NAS2D::Renderer& renderer, const NAS2D::Image& icons, const std::array<NAS2D::Rectangle<int>, 3>& iconImageRects, int changeValue, NAS2D::Point<int> position)
+{
+	const auto& changeIconImageRect = iconImageRects[trendIndex(changeValue)];
+	renderer.drawSubImage(icons, position, changeIconImageRect);
 }
