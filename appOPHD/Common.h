@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MeanSolarDistance.h"
+
 #include <string>
 
 
@@ -10,6 +12,3 @@ namespace NAS2D::Xml
 
 void checkSavegameVersion(const std::string& filename);
 NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
-
-void setMeanSolarDistance(float newMeanSolarDistance);
-float getMeanSolarDistance();
