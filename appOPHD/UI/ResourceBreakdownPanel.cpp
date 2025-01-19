@@ -16,6 +16,16 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	const std::array changeIconImageRects{
+		NAS2D::Rectangle{Point{0, 64},{8, 8}},
+		NAS2D::Rectangle{Point{16, 64},{8, 8}},
+		NAS2D::Rectangle{Point{8, 64},{8, 8}},
+	};
+}
+
+
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
 	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
 	mIcons{imageCache.load("ui/icons.png")},
@@ -39,12 +49,6 @@ void ResourceBreakdownPanel::update()
 {
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
-
-	const std::array changeIconImageRects{
-		NAS2D::Rectangle{Point{0, 64},{8, 8}},
-		NAS2D::Rectangle{Point{16, 64},{8, 8}},
-		NAS2D::Rectangle{Point{8, 64},{8, 8}},
-	};
 
 	const std::array resources
 	{
