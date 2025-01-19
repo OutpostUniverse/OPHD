@@ -1,6 +1,5 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
-#include "EnumMineProductionRate.h"
 #include "EnumTerrainType.h"
 
 #include "MapObjects/Structures/Warehouse.h"
@@ -31,23 +30,6 @@ const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
 	{TerrainType::Difficult, constants::TileDifficult},
 	{TerrainType::Impassable, constants::TileImpassable},
 };
-
-
-namespace
-{
-	const std::map<MineProductionRate, std::string> mineProductionRateStringTable =
-	{
-		{MineProductionRate::High, constants::MineYieldHigh},
-		{MineProductionRate::Low, constants::MineYieldLow},
-		{MineProductionRate::Medium, constants::MineYieldMedium}
-	};
-}
-
-
-const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate)
-{
-	return mineProductionRateStringTable.at(mineProductionRate);
-}
 
 
 void checkSavegameVersion(const std::string& filename)
