@@ -147,6 +147,9 @@
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
+    <ClCompile Include="MoraleString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
+    </ClInclude>
+    <ClInclude Include="MoraleString.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>

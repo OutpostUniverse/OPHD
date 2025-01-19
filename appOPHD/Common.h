@@ -2,6 +2,8 @@
 
 #include "EnumProductType.h"
 
+#include "MoraleString.h"
+
 #include <NAS2D/Math/Rectangle.h>
 
 #include <map>
@@ -14,7 +16,6 @@ namespace NAS2D::Xml
 }
 
 enum class MineProductionRate;
-enum class MoraleIndexs;
 enum class TerrainType;
 
 
@@ -26,10 +27,6 @@ NAS2D::Xml::XmlDocument openSavegame(const std::string& filename);
 
 void setMeanSolarDistance(float newMeanSolarDistance);
 float getMeanSolarDistance();
-
-const std::string& moraleString(std::size_t index);
-const std::string& moraleString(MoraleIndexs morale);
-std::size_t moraleStringTableCount();
 
 
 const auto formatDiff = [](int diff)
