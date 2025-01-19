@@ -1,6 +1,5 @@
 #include "Common.h"
 #include "Constants/Numbers.h"
-#include "EnumTerrainType.h"
 
 #include "MapObjects/Structures/Warehouse.h"
 
@@ -20,16 +19,6 @@ namespace
 {
 	float meanSolarDistance = 1;
 }
-
-
-const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
-{
-	{TerrainType::Dozed, constants::TileBulldozed},
-	{TerrainType::Clear, constants::TileClear},
-	{TerrainType::Rough, constants::TileRough},
-	{TerrainType::Difficult, constants::TileDifficult},
-	{TerrainType::Impassable, constants::TileImpassable},
-};
 
 
 void checkSavegameVersion(const std::string& filename)

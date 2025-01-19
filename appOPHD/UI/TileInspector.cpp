@@ -1,7 +1,7 @@
 #include "TileInspector.h"
 
 #include "TextRender.h"
-#include "../Common.h"
+#include "../EnumTerrainType.h"
 #include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Mine.h"
@@ -11,6 +11,19 @@
 
 
 using namespace NAS2D;
+
+
+namespace
+{
+	const std::map<TerrainType, std::string> TILE_INDEX_TRANSLATION =
+	{
+		{TerrainType::Dozed, constants::TileBulldozed},
+		{TerrainType::Clear, constants::TileClear},
+		{TerrainType::Rough, constants::TileRough},
+		{TerrainType::Difficult, constants::TileDifficult},
+		{TerrainType::Impassable, constants::TileImpassable},
+	};
+}
 
 
 TileInspector::TileInspector() :
