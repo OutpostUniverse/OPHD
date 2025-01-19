@@ -19,7 +19,4 @@ void setMeanSolarDistance(float newMeanSolarDistance);
 float getMeanSolarDistance();
 
 
-const auto formatDiff = [](int diff)
-{
-	return ((diff > 0) ? "+" : "") + std::to_string(diff);
-};
+std::string formatDiff(int diff);
