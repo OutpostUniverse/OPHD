@@ -44,7 +44,7 @@ void TileInspector::update()
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
 		position.y += 10;
-		drawLabelAndValue(position, "Production Rate: ", MINE_YIELD_TRANSLATION.at(mTile->mine()->productionRate()));
+		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
 	}
 
 	position = mRect.position + NAS2D::Vector{5, 62};

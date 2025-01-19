@@ -186,7 +186,7 @@ void MineOperationsWindow::update()
 	const auto origin = mRect.position;
 	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
-	const auto& mineYield = MINE_YIELD_TRANSLATION.at(mFacility->mine()->productionRate());
+	const auto& mineYield = mineProductionRateEnumToString(mFacility->mine()->productionRate());
 	drawLabelAndValue(origin + NAS2D::Vector{148, 30}, "Mine Yield: ", mineYield);
 
 	const std::string statusString =
