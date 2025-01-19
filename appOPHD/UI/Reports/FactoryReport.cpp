@@ -1,5 +1,7 @@
 #include "FactoryReport.h"
 
+#include "../ProgressBar.h"
+
 #include "../TextRender.h"
 #include "../../Cache.h"
 #include "../../Common.h"

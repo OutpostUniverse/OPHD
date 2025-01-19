@@ -1,5 +1,7 @@
 #include "FactoryListBox.h"
 
+#include "ProgressBar.h"
+
 #include "../MapObjects/Structures/Factory.h"
 
 #include "../Cache.h"
