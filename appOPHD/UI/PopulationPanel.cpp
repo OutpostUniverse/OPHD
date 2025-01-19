@@ -3,6 +3,7 @@
 #include "../Cache.h"
 #include "../Common.h"
 #include "../EnumMoraleIndex.h"
+#include "../MoraleString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
