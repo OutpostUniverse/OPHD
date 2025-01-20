@@ -1,4 +1,4 @@
-#include "Common.h"
+#include "OpenSaveGame.h"
 #include "Constants/Strings.h"
 
 #include <libOPHD/XmlSerializer.h>
