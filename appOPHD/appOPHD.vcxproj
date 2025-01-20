@@ -183,7 +183,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Common.cpp" />
     <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
     <ClCompile Include="IOHelper.cpp" />
@@ -209,6 +208,7 @@
     <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="MineProductionRateString.cpp" />
     <ClCompile Include="MoraleString.cpp" />
+    <ClCompile Include="OpenSaveGame.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="Resources.cpp" />
@@ -273,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h" />
-    <ClInclude Include="Common.h" />
     <ClInclude Include="Constants\Numbers.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />
@@ -351,6 +350,7 @@
     <ClInclude Include="MeanSolarDistance.h" />
     <ClInclude Include="MineProductionRateString.h" />
     <ClInclude Include="MoraleString.h" />
+    <ClInclude Include="OpenSaveGame.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />

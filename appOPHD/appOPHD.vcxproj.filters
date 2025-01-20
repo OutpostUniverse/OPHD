@@ -78,9 +78,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Common.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -154,6 +151,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MoraleString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenSaveGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
@@ -342,9 +342,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants\Numbers.h">
@@ -576,6 +573,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoraleString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenSaveGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCatalogue.h">
