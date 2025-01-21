@@ -1204,7 +1204,7 @@ void MapViewState::placeRobominer(Tile& tile)
 
 Robot& MapViewState::addRobot(Robot::Type type)
 {
-	const std::map<Robot::Type, void (MapViewState::*)(Robot*)> RobotTypeToHandler
+	const std::map<Robot::Type, void (MapViewState::*)(Robot&)> RobotTypeToHandler
 	{
 		{Robot::Type::Digger, &MapViewState::onDiggerTaskComplete},
 		{Robot::Type::Dozer, &MapViewState::onDozerTaskComplete},

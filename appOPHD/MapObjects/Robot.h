@@ -20,7 +20,7 @@ public:
 		None
 	};
 
-	using TaskSignal = NAS2D::Signal<Robot*>;
+	using TaskSignal = NAS2D::Signal<Robot&>;
 
 public:
 	Robot(const std::string&, const std::string&, Type);

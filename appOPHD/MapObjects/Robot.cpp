@@ -72,7 +72,7 @@ void Robot::update()
 
 	if (mTurnsToCompleteTask == 0)
 	{
-		mTaskCompleteSignal(this);
+		mTaskCompleteSignal(*this);
 	}
 
 	mFuelCellAge++;
