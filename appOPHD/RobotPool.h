@@ -11,6 +11,14 @@
 class Tile;
 using RobotList = std::vector<Robot*>;
 
+namespace NAS2D
+{
+	namespace Xml
+	{
+		class XmlElement;
+	}
+}
+
 
 class RobotPool
 {
@@ -53,6 +61,8 @@ public:
 	std::size_t currentControlCount() const { return mRobotControlCount; }
 
 	const RobotList& robots() const { return mRobots; }
+
+	NAS2D::Xml::XmlElement* writeRobots(RobotTileTable& robotMap);
 
 private:
 	DiggerList mDiggers;
