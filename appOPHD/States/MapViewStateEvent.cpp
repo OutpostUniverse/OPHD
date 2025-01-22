@@ -164,7 +164,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 /**
  * Called whenever a RoboDozer completes its task.
  */
-void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
+void MapViewState::onDozerTaskComplete(Robot& /*robot*/)
 {
 	populateRobotMenu();
 }
@@ -173,14 +173,14 @@ void MapViewState::onDozerTaskComplete(Robot* /*robot*/)
 /**
  * Called whenever a RoboDigger completes its task.
  */
-void MapViewState::onDiggerTaskComplete(Robot* robot)
+void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end())
+	if (mRobotList.find(&robot) == mRobotList.end())
 	{
 		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
 	}
 
-	auto& tile = *mRobotList[robot];
+	auto& tile = *mRobotList[&robot];
 	const auto& position = tile.xyz();
 
 	if (position.z > mTileMap->maxDepth())
@@ -188,7 +188,7 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	const auto dir = static_cast<Robodigger*>(robot)->direction(); // fugly
+	const auto dir = static_cast<Robodigger*>(&robot)->direction(); // fugly
 	auto newPosition = position;
 
 	if (dir == Direction::Down)
@@ -228,12 +228,12 @@ void MapViewState::onDiggerTaskComplete(Robot* robot)
 /**
  * Called whenever a RoboMiner completes its task.
  */
-void MapViewState::onMinerTaskComplete(Robot* robot)
+void MapViewState::onMinerTaskComplete(Robot& robot)
 {
-	if (mRobotList.find(robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
+	if (mRobotList.find(&robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
 
-	auto& robotTile = *mRobotList[robot];
-	auto& miner = *static_cast<Robominer*>(robot);
+	auto& robotTile = *mRobotList[&robot];
+	auto& miner = *static_cast<Robominer*>(&robot);
 
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
 	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});

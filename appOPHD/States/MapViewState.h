@@ -162,9 +162,9 @@ private:
 	void onSystemMenu();
 
 	// ROBOT EVENT HANDLERS
-	void onDozerTaskComplete(Robot* robot);
-	void onDiggerTaskComplete(Robot* robot);
-	void onMinerTaskComplete(Robot* robot);
+	void onDozerTaskComplete(Robot& robot);
+	void onDiggerTaskComplete(Robot& robot);
+	void onMinerTaskComplete(Robot& robot);
 
 	// DRAWING FUNCTIONS
 	void drawUI();
