@@ -5,7 +5,9 @@
 #include "MainReportsUiState.h"
 #include "Wrapper.h"
 #include "../StructureManager.h"
+#include "../UI/MessageBox.h"
 
+#include <NAS2D/Filesystem.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
@@ -162,6 +164,27 @@ void GameState::onHideReports()
 void GameState::onMapChange()
 {
 	mMainReportsState->clearLists();
+}
+
+
+void GameState::onLoadGame(const std::string& saveGameName)
+{
+	auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::get();
+	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
+	try
+	{
+		if (!filesystem.exists(saveGamePath))
+		{
+			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
+		}
+		mNewMapView = std::make_unique<MapViewState>(getMainReportsState(), saveGamePath);
+	}
+	catch (const std::exception& e)
+	{
+		doNonFatalErrorMessage("Load Failed", e.what());
+		return;
+	}
+	mNewMapView->_initialize();
 }
 
 
