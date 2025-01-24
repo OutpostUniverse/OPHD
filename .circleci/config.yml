@@ -11,6 +11,8 @@ commands:
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror"
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibOPHD
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
+      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
+      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
       - run: make package
       - store_artifacts:
           path: .build/package/
