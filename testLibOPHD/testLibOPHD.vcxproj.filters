@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MapOffset.cpp">
+    <ClCompile Include="MapOffset.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
