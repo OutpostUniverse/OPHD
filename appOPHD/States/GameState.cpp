@@ -221,5 +221,16 @@ NAS2D::State* GameState::update()
 		mReturnState = new MainMenuState();
 	}
 
+	if(mNewMapView)
+	{
+		mMapView = std::move(mNewMapView);
+		mActiveState = mMapView.get();
+		mActiveState->activate();
+		mMapView->quit().connect({this, &GameState::onQuit});
+		mMapView->showReportsUi().connect({this, &GameState::onShowReports});
+		mMapView->mapChanged().connect({this, &GameState::onMapChange});
+		mMapView->fileIoAction().connect({this, &GameState::onFileIOAction});
+	}
+
 	return mReturnState;
 }
