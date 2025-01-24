@@ -145,3 +145,6 @@ jobs:
       with:
         path: .build
         key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
+
+    - name: Run libOPHD unit tests
+      run: .build/${{env.BUILD_CONFIGURATION}}_${{env.PLATFORM}}_testLibOPHD/testLibOPHD.exe
