@@ -646,6 +646,7 @@ void MapViewState::onReturnToGame()
  */
 void MapViewState::onGameOver()
 {
+	mGameOver = true;
 	mFade.fadeOut(constants::FadeSpeed);
 	mQuitSignal();
 }
