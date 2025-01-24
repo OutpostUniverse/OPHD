@@ -4,6 +4,7 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Fade.h>
+#include "../UI/FileIo.h"
 
 #include <memory>
 
@@ -36,12 +37,14 @@ private:
 	void onShowReports();
 	void onHideReports();
 	void onMapChange();
+	void onFileIOAction(const std::string&, FileIo::FileOperation);
 
 	void onTakeMeThere(Structure*);
 
 private:
 	NAS2D::State* mReturnState = this;
 	std::unique_ptr<MapViewState> mMapView;
+	std::unique_ptr<MapViewState> mNewMapView;
 	Wrapper* mActiveState = nullptr;
 	std::unique_ptr<MainReportsUiState> mMainReportsState;
 	NAS2D::Fade mFade;

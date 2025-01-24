@@ -5,6 +5,7 @@
 #include "MainReportsUiState.h"
 #include "Wrapper.h"
 #include "../StructureManager.h"
+#include "../UI/MessageBox.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
@@ -162,6 +163,26 @@ void GameState::onHideReports()
 void GameState::onMapChange()
 {
 	mMainReportsState->clearLists();
+}
+
+
+void GameState::onFileIOAction(const std::string& saveGameName, FileIo::FileOperation fileOp)
+{
+	if (fileOp == FileIo::FileOperation::Load)
+	{
+		auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
+		try
+		{
+			mNewMapView = std::make_unique<MapViewState>(getMainReportsState(), saveGamePath);
+		}
+		catch (const std::exception& e)
+		{
+			doNonFatalErrorMessage("Load Failed", e.what());
+			return;
+		}
+
+		mNewMapView->_initialize();
+	}
 }
 
 
