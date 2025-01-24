@@ -87,6 +87,7 @@ void GameState::mapviewstate(MapViewState* state)
 	mMapView->quit().connect({this, &GameState::onQuit});
 	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapView->mapChanged().connect({this, &GameState::onMapChange});
+	mMapView->fileIoAction().connect({this, &GameState::onFileIOAction});
 }
 
 
