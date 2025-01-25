@@ -294,6 +294,8 @@ void MapViewState::initialize()
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
 
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
+
+	mEventBubbler.addChild(mCheatMenu.eventBubbler());
 }
 
 

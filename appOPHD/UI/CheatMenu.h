@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EventBubbler.h"
+
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 #include <libControls/TextField.h>
@@ -35,6 +37,14 @@ public:
 	void onOkay();
 	void update() override;
 
+
+	std::shared_ptr<EventBubbler> eventBubbler()
+	{
+		mEventBubbler->keyDownHandler([this](EventBubbler::KeyCode /*key*/, EventBubbler::KeyModifier  /*mod*/, bool /*repeat*/) { return this->visible() && this->hasFocus(); });
+		return mEventBubbler;
+	}
+
+
 	CheatMenu();
 
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
@@ -42,6 +52,8 @@ public:
 	CheatSignal::Source& cheatCodeEntered() { return mSignal; }
 
 private:
+	std::shared_ptr<EventBubbler> mEventBubbler;
+
 	CheatSignal mSignal;
 
 	Label mLabelCheatCode;

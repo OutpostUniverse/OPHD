@@ -40,7 +40,8 @@ namespace
 
 CheatMenu::CheatMenu() :
 	Window{"Cheating"},
-	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
+	btnOkay{"Okay", {this, &CheatMenu::onOkay}},
+	mEventBubbler{std::make_shared<EventBubbler>()}
 {
 	size({300, 88});
 
