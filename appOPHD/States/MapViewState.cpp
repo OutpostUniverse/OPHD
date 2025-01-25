@@ -425,11 +425,6 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 		return;
 	}
 
-	if (mCheatMenu.visible() && mCheatMenu.hasFocus())
-	{
-		return;
-	}
-
 	if (key == NAS2D::EventHandler::KeyCode::KEY_F1)
 	{
 		mReportsUiSignal();
