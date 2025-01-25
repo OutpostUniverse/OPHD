@@ -12,7 +12,6 @@
 #include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <map>
-#include <cmath>
 
 
 using namespace NAS2D;
@@ -41,13 +40,30 @@ namespace {
 		{Tile::Overlay::Police, NAS2D::Color{100, 180, 230}}
 	};
 
-	const double ThrobSpeed = 250.0; // Throb speed of mine beacon
 	NAS2D::Timer throbTimer;
-
 
 	const NAS2D::Color& overlayColor(Tile::Overlay overlay, bool isHighlighted)
 	{
 		return (isHighlighted ? OverlayHighlightColors : OverlayColors).at(overlay);
+	}
+
+
+	uint8_t glow()
+	{
+		constexpr int glowAmplitude = 120;
+		constexpr int glowOffset = 120;
+		constexpr int throbCycleTime = 2000;
+
+		int sawtooth = static_cast<int>(throbTimer.tick()) % throbCycleTime;
+		int triangle = sawtooth < throbCycleTime / 2 ? sawtooth : (throbCycleTime - sawtooth);
+		return static_cast<uint8_t>(triangle * glowAmplitude / (throbCycleTime / 2) + glowOffset);
+	}
+
+
+	NAS2D::Color glowColor()
+	{
+		uint8_t glowValue = glow();
+		return NAS2D::Color{glowValue, glowValue, glowValue};
 	}
 }
 
@@ -134,9 +150,11 @@ void DetailMap::draw() const
 			// Draw a beacon on an unoccupied tile with a mine
 			if (tile.mine() != nullptr && !tile.thing())
 			{
-				uint8_t glow = static_cast<uint8_t>(120 + std::sin(throbTimer.tick() / ThrobSpeed) * 57);
-				renderer.drawImage(mMineBeacon, position + NAS2D::Vector{0, -64});
-				renderer.drawSubImage(mMineBeacon, position + NAS2D::Vector{59, 15}, NAS2D::Rectangle<int>{{59, 79}, {10, 7}}, NAS2D::Color{glow, glow, glow});
+				constexpr NAS2D::Vector<int> beaconOffsetInTile{0, -64};
+				constexpr NAS2D::Vector<int> beaconLightOffsetInTile{59, 15};
+				constexpr NAS2D::Rectangle<int> beaconLightSubImageRect{{59, 79}, {10, 7}};
+				renderer.drawImage(mMineBeacon, position + beaconOffsetInTile);
+				renderer.drawSubImage(mMineBeacon, position + beaconLightOffsetInTile, beaconLightSubImageRect, glowColor());
 			}
 
 			// Tell an occupying thing to update itself.
