@@ -407,6 +407,14 @@ void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
  */
 void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool /*repeat*/)
 {
+	for (size_t index = 0; mEventBubbler.children(index); ++index)
+	{
+		if (mEventBubbler.children(index)->onKeyDown(key, mod, false))
+		{
+			return;
+		}
+	}
+
 	if (!active()) { return; }
 
 	// FIXME: Ugly / hacky

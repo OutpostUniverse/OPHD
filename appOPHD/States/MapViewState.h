@@ -20,6 +20,7 @@
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
 #include "../UI/DiggerDirection.h"
+#include "../UI/EventBubbler.h"
 #include "../UI/FactoryProduction.h"
 #include "../UI/FileIo.h"
 #include "../UI/GameOverDialog.h"
@@ -143,6 +144,8 @@ private:
 	void _activate() override;
 
 	// EVENT HANDLERS
+	EventBubbler mEventBubbler;
+
 	void onActivate(bool newActiveValue);
 	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
