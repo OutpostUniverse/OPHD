@@ -60,7 +60,7 @@ CPPFLAGS := $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute $(WARN_EXTRA)
 CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
 LDFLAGS := $(LDFLAGS_EXTRA) $(shell sdl2-config --libs)
-LDLIBS := $(LDLIBS_EXTRA) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf $(OpenGL_LIBS)
+LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
 
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
 PROJECT_LINKFLAGS := $(LDFLAGS) $(LDLIBS)
@@ -111,7 +111,7 @@ testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
 testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
 
 testLibOphd_CPPFLAGS := $(CPPFLAGS) -I./
-testLibOphd_LDLIBS := -lgtest -lgtest_main -lgmock -lgmock_main -lpthread $(LDLIBS)
+testLibOphd_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
 
 testLibOphd_PROJECT_FLAGS := $(testLibOphd_CPPFLAGS) $(CXXFLAGS)
 testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
@@ -141,7 +141,7 @@ testLibControls_SRCS := $(shell find $(testLibControls_SRCDIR) -name '*.cpp')
 testLibControls_OBJS := $(patsubst $(testLibControls_SRCDIR)%.cpp,$(testLibControls_OBJDIR)%.o,$(testLibControls_SRCS))
 
 testLibControls_CPPFLAGS := $(CPPFLAGS) -I./
-testLibControls_LDLIBS := -lgtest -lgtest_main -lgmock -lgmock_main -lpthread $(LDLIBS)
+testLibControls_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
 
 testLibControls_PROJECT_FLAGS := $(testLibControls_CPPFLAGS) $(CXXFLAGS)
 testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibControls_LDLIBS)
