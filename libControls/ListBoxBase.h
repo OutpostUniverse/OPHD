@@ -26,9 +26,6 @@
 class ListBoxBase : public Control
 {
 public:
-	/**
-	 * Signal signal fired whenever the list selection changes.
-	 */
 	using SelectionChangeSignal = NAS2D::Signal<>;
 
 	/**
@@ -86,7 +83,7 @@ protected:
 	void onVisibilityChange(bool) override;
 
 
-	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */
+	std::vector<ListBoxItem*> mItems;
 
 private:
 	void onSlideChange(ScrollBar::ValueType newPosition);
@@ -102,9 +99,9 @@ private:
 	std::size_t mSelectedIndex = NoSelection;
 	unsigned int mScrollOffsetInPixels = 0;
 
-	int mItemHeight = 1; /**< Height of a ListBoxItem. */
-	int mItemWidth = 0; /**< Width of a ListBoxItem. */
+	int mItemHeight = 1;
+	int mItemWidth = 0;
 
-	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
-	ScrollBar mScrollBar; /**< ScrollBar control. */
+	SelectionChangeSignal mSelectionChanged;
+	ScrollBar mScrollBar;
 };
