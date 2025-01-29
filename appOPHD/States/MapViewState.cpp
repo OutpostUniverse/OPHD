@@ -1329,7 +1329,7 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Completed",
-					robot->name() + " completed its task at" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					robot->name() + " completed its task at (" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
 					tile->xyz(),
 					NotificationArea::NotificationType::Success
 				});
