@@ -24,6 +24,7 @@ jobs:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
       CPPFLAGS_EXTRA: "-isystem /opt/homebrew/include"
+      LDFLAGS_EXTRA: "-L/opt/homebrew/lib"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
