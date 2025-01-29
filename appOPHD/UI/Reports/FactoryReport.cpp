@@ -442,7 +442,7 @@ void FactoryReport::onProductFilterSelectionChange()
 {
 	if (!cboFilterByProduct.isItemSelected()) { return; }
 	filterButtonClicked(false);
-	fillFactoryList(static_cast<ProductType>(cboFilterByProduct.selectionTag()));
+	fillFactoryList(static_cast<ProductType>(cboFilterByProduct.selectionUserData()));
 }
 
 
