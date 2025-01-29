@@ -78,7 +78,7 @@ protected:
 	unsigned int itemHeight() const { return static_cast<unsigned int>(mItemHeight); }
 	void itemHeight(int);
 
-	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
+	unsigned int drawOffset() const { return mScrollOffsetInPixels; }
 
 	void onVisibilityChange(bool) override;
 

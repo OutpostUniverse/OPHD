@@ -68,7 +68,7 @@ void ProductListBox::update()
 	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
 	const auto firstStop = itemSize.x / 3;
 	const auto secondStop = itemSize.x * 2 / 3;
-	const auto offset = static_cast<int>(draw_offset());
+	const auto offset = static_cast<int>(drawOffset());
 	const auto x = positionX();
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)

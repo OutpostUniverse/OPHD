@@ -136,7 +136,7 @@ void FactoryListBox::update()
 		drawItem(renderer, *static_cast<FactoryListBoxItem*>(mItems[i]),
 			{
 				{positionX(),
-				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset())},
+				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(drawOffset())},
 				{static_cast<int>(itemWidth()),
 				LIST_ITEM_HEIGHT}
 			},
