@@ -19,8 +19,6 @@ public:
 	void update() override;
 
 private:
-	using StringList = std::vector<std::string>;
-
 	void onResize() override;
 	void onTextChange() override;
 	virtual void onFontChange();
@@ -30,7 +28,7 @@ private:
 
 	std::size_t mNumLines = 0;
 
-	StringList mFormattedList;
+	std::vector<std::string> mFormattedList;
 
 	NAS2D::Color mTextColor = NAS2D::Color::White;
 
