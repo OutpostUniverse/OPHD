@@ -18,7 +18,7 @@ ProductListBox::ProductListBox() :
 	mFont{fontCache.load(constants::FONT_PRIMARY, 12)},
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, 12)}
 {
-	item_height(30);
+	itemHeight(30);
 }
 
 
@@ -65,7 +65,7 @@ void ProductListBox::update()
 
 	constexpr Color highlightColor{0, 185, 0, 75};
 
-	const auto itemSize = NAS2D::Vector{item_width(), item_height()}.to<int>();
+	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
 	const auto firstStop = itemSize.x / 3;
 	const auto secondStop = itemSize.x * 2 / 3;
 	const auto offset = static_cast<int>(draw_offset());

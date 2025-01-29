@@ -239,7 +239,7 @@ void ListBoxBase::clearSelected()
  * 
  * \note	Internal function for specialized types.
  */
-void ListBoxBase::item_height(int h)
+void ListBoxBase::itemHeight(int h)
 {
 	mItemHeight = h;
 }

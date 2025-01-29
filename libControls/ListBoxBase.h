@@ -74,9 +74,9 @@ protected:
 
 	void updateScrollLayout();
 
-	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
-	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }
-	void item_height(int);
+	unsigned int itemWidth() const { return static_cast<unsigned int>(mItemWidth); }
+	unsigned int itemHeight() const { return static_cast<unsigned int>(mItemHeight); }
+	void itemHeight(int);
 
 	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
 

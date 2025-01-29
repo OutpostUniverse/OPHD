@@ -47,7 +47,7 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 
 StructureListBox::StructureListBox()
 {
-	item_height(LIST_ITEM_HEIGHT);
+	itemHeight(LIST_ITEM_HEIGHT);
 	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
 	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
 }
@@ -127,7 +127,7 @@ void StructureListBox::update()
 			{
 				{positionX(),
 				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(draw_offset())},
-				{static_cast<int>(item_width()),
+				{static_cast<int>(itemWidth()),
 				LIST_ITEM_HEIGHT}
 			},
 			i == selectedIndex());
