@@ -105,10 +105,6 @@ private:
 	int mItemHeight = 1; /**< Height of a ListBoxItem. */
 	int mItemWidth = 0; /**< Width of a ListBoxItem. */
 
-	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
-	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
-	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
-
 	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
 	ScrollBar mScrollBar; /**< ScrollBar control. */
 };
