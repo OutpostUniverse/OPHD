@@ -174,7 +174,7 @@ const std::string& ComboBox::selectionText() const
  */
 int ComboBox::selectionTag() const
 {
-	return lstItems.isItemSelected() ? lstItems.selected().tag : 0;
+	return lstItems.isItemSelected() ? lstItems.selected().userData : 0;
 }
 
 

@@ -26,7 +26,7 @@ namespace NAS2D
 struct ListBoxItemText
 {
 	std::string text; /**< Text of the ListBoxItem. */
-	int tag = 0; /**< User defined int data attached to the item. */
+	int userData = 0; /**< User defined int data attached to the item. */
 
 	struct Context
 	{

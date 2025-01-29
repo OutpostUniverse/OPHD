@@ -421,7 +421,7 @@ void FactoryReport::onListSelectionChange()
 			lstProducts.add(ProductCatalogue::get(item).Name, static_cast<int>(item));
 		}
 	}
-	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.tag == productType; });
+	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.userData == productType; });
 	selectedProductType = selectedFactory->productType();
 
 	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalogue::get(selectedProductType).Description : "");
@@ -433,7 +433,7 @@ void FactoryReport::onListSelectionChange()
 
 void FactoryReport::onProductSelectionChange()
 {
-	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().tag : 0);
+	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().userData : 0);
 	mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
 }
 
