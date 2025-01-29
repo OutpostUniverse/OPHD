@@ -111,10 +111,10 @@ testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
 testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
 
 testLibOphd_CPPFLAGS := $(CPPFLAGS) -I./
-testLibOphd_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
+testLibOphd_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS_EXTRA)
 
 testLibOphd_PROJECT_FLAGS := $(testLibOphd_CPPFLAGS) $(CXXFLAGS)
-testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
+testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS_EXTRA) $(testLibOphd_LDLIBS)
 
 .PHONY: testLibOPHD
 testLibOPHD: $(testLibOphd_OUTPUT)
