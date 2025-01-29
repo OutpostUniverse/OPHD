@@ -32,7 +32,7 @@ public:
 	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
 
 	const std::string& selectionText() const;
-	int selectionTag() const;
+	int selectionUserData() const;
 
 	bool isItemSelected() const;
 	std::size_t selectedIndex() { return lstItems.selectedIndex(); }

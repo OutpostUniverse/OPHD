@@ -26,9 +26,6 @@
 class ListBoxBase : public Control
 {
 public:
-	/**
-	 * Signal signal fired whenever the list selection changes.
-	 */
 	using SelectionChangeSignal = NAS2D::Signal<>;
 
 	/**
@@ -77,16 +74,16 @@ protected:
 
 	void updateScrollLayout();
 
-	unsigned int item_width() const { return static_cast<unsigned int>(mItemWidth); }
-	unsigned int item_height() const { return static_cast<unsigned int>(mItemHeight); }
-	void item_height(int);
+	unsigned int itemWidth() const { return static_cast<unsigned int>(mItemWidth); }
+	unsigned int itemHeight() const { return static_cast<unsigned int>(mItemHeight); }
+	void itemHeight(int);
 
-	unsigned int draw_offset() const { return mScrollOffsetInPixels; }
+	unsigned int drawOffset() const { return mScrollOffsetInPixels; }
 
 	void onVisibilityChange(bool) override;
 
 
-	std::vector<ListBoxItem*> mItems; /**< List of Items. Pointers used for polymorphism. */
+	std::vector<ListBoxItem*> mItems;
 
 private:
 	void onSlideChange(ScrollBar::ValueType newPosition);
@@ -102,13 +99,9 @@ private:
 	std::size_t mSelectedIndex = NoSelection;
 	unsigned int mScrollOffsetInPixels = 0;
 
-	int mItemHeight = 1; /**< Height of a ListBoxItem. */
-	int mItemWidth = 0; /**< Width of a ListBoxItem. */
+	int mItemHeight = 1;
+	int mItemWidth = 0;
 
-	NAS2D::Color mText = NAS2D::Color::White; /**< Text Color */
-	NAS2D::Color mHighlightBg = NAS2D::Color::DarkGreen; /**< Highlight Background color. */
-	NAS2D::Color mHighlightText = NAS2D::Color::White; /**< Text Color for an item that is currently highlighted. */
-
-	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
-	ScrollBar mScrollBar; /**< ScrollBar control. */
+	SelectionChangeSignal mSelectionChanged;
+	ScrollBar mScrollBar;
 };

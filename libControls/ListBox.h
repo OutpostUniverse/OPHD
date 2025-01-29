@@ -25,8 +25,8 @@ namespace NAS2D
 
 struct ListBoxItemText
 {
-	std::string text; /**< Text of the ListBoxItem. */
-	int tag = 0; /**< User defined int data attached to the item. */
+	std::string text;
+	int userData = 0;
 
 	struct Context
 	{
@@ -55,9 +55,6 @@ struct ListBoxItemText
 };
 
 
-/**
- * Implements a ListBox control.
- */
 template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
@@ -182,7 +179,6 @@ public:
 
 	void update() override
 	{
-		// Ignore if menu is empty or invisible
 		if (!visible()) { return; }
 
 		draw();
@@ -323,10 +319,10 @@ private:
 	std::size_t mSelectedIndex = 0;
 	std::size_t mScrollOffsetInPixels = 0;
 
-	std::vector<ListBoxItem> mItems; /**< List of items preserved in the order in which they're added. */
+	std::vector<ListBoxItem> mItems;
 
 	NAS2D::Rectangle<int> mClientRect;
 
-	SelectionChangeSignal mSelectionChanged; /**< Signal for selection changed callback. */
+	SelectionChangeSignal mSelectionChanged;
 	ScrollBar mScrollBar;
 };

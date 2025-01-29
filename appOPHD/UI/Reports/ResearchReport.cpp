@@ -354,7 +354,7 @@ void ResearchReport::handleTopicChanged()
 		return;
 	}
 
-	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().tag);
+	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
 }

@@ -172,9 +172,9 @@ const std::string& ComboBox::selectionText() const
 /**
  * Gets the tag value of the selected item.
  */
-int ComboBox::selectionTag() const
+int ComboBox::selectionUserData() const
 {
-	return lstItems.isItemSelected() ? lstItems.selected().tag : 0;
+	return lstItems.isItemSelected() ? lstItems.selected().userData : 0;
 }
 
 
