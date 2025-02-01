@@ -398,8 +398,8 @@ void MapViewState::drawUI()
 
 	// Menus
 	mRobots.update();
-	mStructures.update();
 	mConnections.update();
+	mStructures.update();
 
 	// Windows
 	mFileIoDialog.update();
