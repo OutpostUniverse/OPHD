@@ -130,13 +130,11 @@ namespace
 
 	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
-		const auto robotLocationText = "(" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
-
 		if (robot->fuelCellAge() == 190) // FIXME: magic number
 		{
 			notificationArea.push({
 				"Aging Robot",
-				"Robot '" + robot->name() + "' at location " + robotLocationText + " is approaching its maximum age.",
+				"Robot '" + robot->name() + "' at location " + std::string{position.xy} + " is approaching its maximum age.",
 				position,
 				NotificationArea::NotificationType::Warning});
 		}
@@ -144,7 +142,7 @@ namespace
 		{
 			notificationArea.push({
 				"Aging Robot",
-				"Robot '" + robot->name() + "' at location " + robotLocationText + " will fail in a few turns. Replace immediately.",
+				"Robot '" + robot->name() + "' at location " + std::string{position.xy} + " will fail in a few turns. Replace immediately.",
 				position,
 				NotificationArea::NotificationType::Critical});
 		}
@@ -1115,7 +1113,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		const auto position = tile.xy();
 		mNotificationArea.push({
 			"Mine destroyed",
-			"Digger destroyed a Mine at (" + std::to_string(position.x) + ", " + std::to_string(position.y) + ").",
+			"Digger destroyed a Mine at " + std::string{position} + ".",
 			tile.xyz(),
 			NotificationArea::NotificationType::Information});
 		mTileMap->removeMineLocation(position);
@@ -1293,20 +1291,18 @@ void MapViewState::updateRobots()
 
 		if (robot->isDead())
 		{
-			const auto robotLocationText = "(" +  std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ")";
-
 			if (robot->selfDestruct())
 			{
 				mNotificationArea.push({
 					"Robot Self-Destructed",
-					robot->name() + " at location " + robotLocationText + " self destructed.",
+					robot->name() + " at location " + std::string{position.xy} + " self destructed.",
 					position,
 					NotificationArea::NotificationType::Critical
 				});
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
-				const auto text = "Your " + robot->name() + " at location " + robotLocationText + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
+				const auto text = "Your " + robot->name() + " at location " + std::string{position.xy} + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
 				robot->abortTask(*tile);
 			}
@@ -1329,7 +1325,7 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Completed",
-					robot->name() + " completed its task at (" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					robot->name() + " completed its task at " + std::string{tile->xy()} + ".",
 					tile->xyz(),
 					NotificationArea::NotificationType::Success
 				});
@@ -1344,7 +1340,7 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Canceled",
-					robot->name() + " canceled its task at (" + std::to_string(tile->xy().x) + ", " + std::to_string(tile->xy().y) + ").",
+					robot->name() + " canceled its task at " + std::string{tile->xy()} + ".",
 					tile->xyz(),
 					NotificationArea::NotificationType::Information
 				});
