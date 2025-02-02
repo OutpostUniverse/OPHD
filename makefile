@@ -154,7 +154,7 @@ testLibControls_CPPFLAGS := $(CPPFLAGS) -I./
 testLibControls_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
 
 testLibControls_PROJECT_FLAGS := $(testLibControls_CPPFLAGS) $(CXXFLAGS)
-testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibControls_LDLIBS)
+testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS_EXTRA) $(testLibControls_LDLIBS)
 
 .PHONY: testLibControls
 testLibControls: $(testLibControls_OUTPUT)
