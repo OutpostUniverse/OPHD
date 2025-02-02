@@ -734,9 +734,6 @@
     <ClInclude Include="UI\RobotInspector.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UI\StructureColors.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
     <ClInclude Include="UI\StringTable.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
@@ -765,6 +762,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\SpaceportsReport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\StructureColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
