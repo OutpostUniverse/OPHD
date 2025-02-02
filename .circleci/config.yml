@@ -51,10 +51,12 @@ jobs:
   build-linux-mingw:
     docker:
       - image: outpostuniverse/nas2d-mingw:1.11
+    environment:
+      LDFLAGS_EXTRA: -L/usr/local/x86_64-w64-mingw32/lib
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
-      - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" intermediate
+      - build
 
 workflows:
   build:
