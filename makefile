@@ -9,6 +9,12 @@ CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
+Windows_RUN_PREFIX := wine
+RUN_PREFIX := $($(TARGET_OS)_RUN_PREFIX)
+
+Windows_EXE_SUFFIX := .exe
+EXE_SUFFIX := $($(TARGET_OS)_EXE_SUFFIX)
+
 ROOTBUILDDIR := .build
 BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 
@@ -16,7 +22,7 @@ BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 ## Default and top-level targets ##
 
 .PHONY: all
-all: ophd
+all: ophd$(EXE_SUFFIX)
 
 .PHONY: test
 test: testLibOPHD testLibControls
@@ -56,10 +62,14 @@ Darwin_OpenGL_LIBS := -lGLEW -framework OpenGL
 Windows_OpenGL_LIBS := -lglew32 -lopengl32
 OpenGL_LIBS := $($(TARGET_OS)_OpenGL_LIBS)
 
+SDL_CONFIG := sdl2-config
+SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
+SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
+
 CPPFLAGS := $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute $(WARN_EXTRA)
-CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(shell sdl2-config --cflags)
-LDFLAGS := $(LDFLAGS_EXTRA) $(shell sdl2-config --libs)
+CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(SDL_CONFIG_CFLAGS)
+LDFLAGS := $(LDFLAGS_EXTRA) $(SDL_CONFIG_LIBS)
 LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
 
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
@@ -106,7 +116,7 @@ include $(wildcard $(patsubst %.o,%.d,$(libControls_OBJS)))
 
 testLibOphd_SRCDIR := testLibOPHD/
 testLibOphd_OBJDIR := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)Intermediate/
-testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD
+testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD$(EXE_SUFFIX)
 testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
 testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
 
@@ -121,7 +131,7 @@ testLibOPHD: $(testLibOphd_OUTPUT)
 
 .PHONY: checkOPHD
 checkOPHD: $(testLibOphd_OUTPUT)
-	$(testLibOphd_OUTPUT)
+	$(RUN_PREFIX) $(testLibOphd_OUTPUT)
 
 $(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
 $(testLibOphd_OUTPUT): $(testLibOphd_OBJS) $(libOPHD_OUTPUT) $(NAS2DLIB)
@@ -136,7 +146,7 @@ include $(wildcard $(patsubst %.o,%.d,$(testLibOphd_OBJS)))
 
 testLibControls_SRCDIR := testLibControls/
 testLibControls_OBJDIR := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)Intermediate/
-testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls
+testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls$(EXE_SUFFIX)
 testLibControls_SRCS := $(shell find $(testLibControls_SRCDIR) -name '*.cpp')
 testLibControls_OBJS := $(patsubst $(testLibControls_SRCDIR)%.cpp,$(testLibControls_OBJDIR)%.o,$(testLibControls_SRCS))
 
@@ -151,7 +161,7 @@ testLibControls: $(testLibControls_OUTPUT)
 
 .PHONY: checkControls
 checkControls: $(testLibControls_OUTPUT)
-	$(testLibControls_OUTPUT)
+	$(RUN_PREFIX) $(testLibControls_OUTPUT)
 
 $(testLibControls_OUTPUT): PROJECT_LINKFLAGS := $(testLibControls_PROJECT_LINKFLAGS)
 $(testLibControls_OUTPUT): $(testLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
@@ -166,7 +176,7 @@ include $(wildcard $(patsubst %.o,%.d,$(testLibControls_OBJS)))
 
 demoLibControls_SRCDIR := demoLibControls/
 demoLibControls_OBJDIR := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)Intermediate/
-demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls
+demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls$(EXE_SUFFIX)
 demoLibControls_SRCS := $(shell find $(demoLibControls_SRCDIR) -name '*.cpp')
 demoLibControls_OBJS := $(patsubst $(demoLibControls_SRCDIR)%.cpp,$(demoLibControls_OBJDIR)%.o,$(demoLibControls_SRCS))
 
@@ -178,7 +188,7 @@ demoLibControls: $(demoLibControls_OUTPUT)
 
 .PHONY: runDemoControls
 runDemoControls:
-	$(demoLibControls_OUTPUT)
+	$(RUN_PREFIX) $(demoLibControls_OUTPUT)
 
 $(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
 
@@ -192,7 +202,7 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
-ophd_OUTPUT := ophd
+ophd_OUTPUT := ophd$(EXE_SUFFIX)
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
