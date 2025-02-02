@@ -9,6 +9,9 @@ CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
+Windows_RUN_PREFIX := wine
+RUN_PREFIX := $($(TARGET_OS)_RUN_PREFIX)
+
 ROOTBUILDDIR := .build
 BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 
@@ -125,7 +128,7 @@ testLibOPHD: $(testLibOphd_OUTPUT)
 
 .PHONY: checkOPHD
 checkOPHD: $(testLibOphd_OUTPUT)
-	$(testLibOphd_OUTPUT)
+	$(RUN_PREFIX) $(testLibOphd_OUTPUT)
 
 $(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
 $(testLibOphd_OUTPUT): $(testLibOphd_OBJS) $(libOPHD_OUTPUT) $(NAS2DLIB)
@@ -155,7 +158,7 @@ testLibControls: $(testLibControls_OUTPUT)
 
 .PHONY: checkControls
 checkControls: $(testLibControls_OUTPUT)
-	$(testLibControls_OUTPUT)
+	$(RUN_PREFIX) $(testLibControls_OUTPUT)
 
 $(testLibControls_OUTPUT): PROJECT_LINKFLAGS := $(testLibControls_PROJECT_LINKFLAGS)
 $(testLibControls_OUTPUT): $(testLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
@@ -182,7 +185,7 @@ demoLibControls: $(demoLibControls_OUTPUT)
 
 .PHONY: runDemoControls
 runDemoControls:
-	$(demoLibControls_OUTPUT)
+	$(RUN_PREFIX) $(demoLibControls_OUTPUT)
 
 $(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
 
