@@ -9,7 +9,6 @@
 class StructureTracker
 {
 public:
-
 	StructureTracker();
 
 	const std::vector<IconGrid::Item>& surfaceTubes() const;
