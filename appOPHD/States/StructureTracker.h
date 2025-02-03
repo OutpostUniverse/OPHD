@@ -12,6 +12,9 @@ public:
 
 	StructureTracker();
 
+	const std::vector<IconGrid::Item>& surfaceTubes() const;
+	const std::vector<IconGrid::Item>& undergroundTubes() const;
+
 	const std::vector<IconGrid::Item>& availableSurfaceStructures() const;
 	const std::vector<IconGrid::Item>& availableUndergroundStructures() const;
 

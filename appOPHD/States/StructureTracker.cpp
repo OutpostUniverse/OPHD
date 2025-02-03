@@ -1,5 +1,6 @@
 #include "StructureTracker.h"
 
+#include "../EnumConnectorDir.h"
 #include "../EnumStructureID.h"
 #include "../Constants/Strings.h"
 
@@ -37,6 +38,19 @@ namespace
 		{constants::University, 63, StructureID::SID_UNIVERSITY},
 	};
 
+	const std::vector<IconGrid::Item> SurfaceTubes = {
+		{constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION},
+		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_RIGHT},
+		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_LEFT},
+	};
+
+	const std::vector<IconGrid::Item> UndergroundTubes = {
+		{constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION},
+		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_RIGHT},
+		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_LEFT},
+	};
+
+
 	void addItemToList(const IconGrid::Item& structureItem, std::vector<IconGrid::Item>& list)
 	{
 		for (const auto& item : list)
@@ -56,6 +70,18 @@ StructureTracker::StructureTracker() :
 	mAvailableSurfaceStructures{DefaultAvailableSurfaceStructures},
 	mAvailableUndergroundStructures{DefaultAvailableUndergroundStructures}
 {
+}
+
+
+const std::vector<IconGrid::Item>& StructureTracker::surfaceTubes() const
+{
+	return SurfaceTubes;
+}
+
+
+const std::vector<IconGrid::Item>& StructureTracker::undergroundTubes() const
+{
+	return UndergroundTubes;
 }
 
 
