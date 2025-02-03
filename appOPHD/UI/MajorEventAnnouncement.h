@@ -10,8 +10,8 @@ public:
 
 	enum class AnnouncementType
 	{
-		ANNOUNCEMENT_COLONY_SHIP_CRASH,
-		ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS
+		ColonyShipCrash,
+		ColonyShipCrashWithColonists,
 	};
 
 	MajorEventAnnouncement();
