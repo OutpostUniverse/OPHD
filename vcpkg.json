@@ -8,5 +8,6 @@
     "sdl2-ttf",
     "sdl2-mixer",
     "gtest"
-  ]
+  ],
+  "builtin-baseline": "f3a67b0c4d7b0ee4feaf912ed1729ed1c4419826"
 }
