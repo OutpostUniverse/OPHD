@@ -7,11 +7,11 @@
 
 void setCursor(PointerType pointerType)
 {
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(static_cast<int>(pointerType));
+	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(NAS2D::CursorId{static_cast<int>(pointerType)});
 }
 
 
 void addCursor(PointerType pointerType, const std::string& fileName, NAS2D::Vector<int> hotOffset)
 {
-	NAS2D::Utility<NAS2D::Renderer>::get().addCursor(fileName, static_cast<int>(pointerType), hotOffset.x, hotOffset.y);
+	NAS2D::Utility<NAS2D::Renderer>::get().addCursor(NAS2D::CursorId{static_cast<int>(pointerType)}, fileName, hotOffset);
 }
