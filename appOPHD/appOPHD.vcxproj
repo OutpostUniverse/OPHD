@@ -183,7 +183,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -277,7 +276,6 @@
     <ClInclude Include="Constants\Numbers.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />
-    <ClInclude Include="DirectionOffset.h" />
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\MapCoordinate.h" />

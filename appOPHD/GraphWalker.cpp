@@ -1,10 +1,10 @@
 #include "GraphWalker.h"
-#include "DirectionOffset.h"
 
 #include "Map/MapCoordinate.h"
 #include "Map/TileMap.h"
 #include "MapObjects/Structure.h"
 
+#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
 
 

@@ -13,13 +13,13 @@
 #include "../Constants/Strings.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
-#include "../DirectionOffset.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/StructureType.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
 
+#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
 
 #include <NAS2D/Utility.h>

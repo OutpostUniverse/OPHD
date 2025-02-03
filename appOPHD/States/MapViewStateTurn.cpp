@@ -10,11 +10,11 @@
 #include "../Map/TileMap.h"
 
 #include "../Cache.h"
-#include "../DirectionOffset.h"
 #include "../MoraleString.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
 
+#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumMoraleIndex.h>
 
 #include <NAS2D/Utility.h>

@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="libOPHD.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
     <ClCompile Include="Population\PopulationPool.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirectionOffset.h" />
     <ClInclude Include="EnumConnectorDir.h" />
     <ClInclude Include="EnumDifficulty.h" />
     <ClInclude Include="EnumDirection.h" />

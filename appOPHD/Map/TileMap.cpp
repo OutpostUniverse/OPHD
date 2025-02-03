@@ -1,9 +1,9 @@
 #include "TileMap.h"
 
-#include "../DirectionOffset.h"
 #include "../MapObjects/Mine.h"
 #include "../MapObjects/Structure.h"
 
+#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/RandomNumberGenerator.h>
 
 #include <NAS2D/Utility.h>

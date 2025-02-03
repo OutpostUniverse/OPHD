@@ -30,6 +30,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DirectionOffset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="libOPHD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -56,6 +59,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirectionOffset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="EnumConnectorDir.h">
       <Filter>Header Files</Filter>
     </ClInclude>

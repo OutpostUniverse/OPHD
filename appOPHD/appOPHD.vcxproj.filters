@@ -78,9 +78,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectionOffset.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GraphWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -355,9 +352,6 @@
     </ClInclude>
     <ClInclude Include="Constants\UiConstants.h">
       <Filter>Header Files\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectionOffset.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphWalker.h">
       <Filter>Header Files</Filter>

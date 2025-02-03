@@ -1,7 +1,7 @@
 
 #include "DirectionOffset.h"
 
-#include <libOPHD/EnumDirection.h>
+#include "EnumDirection.h"
 
 #include <map>
 
