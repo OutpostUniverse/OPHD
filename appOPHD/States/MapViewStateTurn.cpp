@@ -430,13 +430,13 @@ void MapViewState::checkColonyShip()
 			populateStructureMenu();
 
 			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH_WITH_COLONISTS);
+			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists);
 			mAnnouncement.show();
 		}
 		else
 		{
 			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ANNOUNCEMENT_COLONY_SHIP_CRASH);
+			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrash);
 			mAnnouncement.show();
 		}
 	}
