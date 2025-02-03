@@ -21,7 +21,6 @@ public:
 	void reset();
 
 private:
-
 	std::vector<IconGrid::Item> mAvailableSurfaceStructures;
 	std::vector<IconGrid::Item> mAvailableUndergroundStructures;
 };
