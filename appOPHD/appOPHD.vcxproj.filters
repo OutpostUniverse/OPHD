@@ -156,6 +156,9 @@
     <ClCompile Include="OpenSaveGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PointerType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
