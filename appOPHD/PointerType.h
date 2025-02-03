@@ -10,7 +10,7 @@ namespace NAS2D
 }
 
 
-enum PointerType
+enum class PointerType
 {
 	POINTER_NORMAL,
 	POINTER_PLACE_TILE
