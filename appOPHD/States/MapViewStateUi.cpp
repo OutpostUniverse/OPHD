@@ -569,7 +569,7 @@ void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 	mCurrentRobot = static_cast<Robot::Type>(item->meta);
 
 	mInsertMode = InsertMode::Robot;
-	setCursor(PointerType::POINTER_PLACE_TILE);
+	setCursor(PointerType::PlaceTile);
 }
 
 

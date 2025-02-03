@@ -224,7 +224,7 @@ MapViewState::~MapViewState()
 {
 	scrubRobotList();
 
-	setCursor(PointerType::POINTER_NORMAL);
+	setCursor(PointerType::Normal);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.activate().disconnect({this, &MapViewState::onActivate});
@@ -258,7 +258,7 @@ void MapViewState::initialize()
 	initUi();
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	setCursor(PointerType::POINTER_NORMAL);
+	setCursor(PointerType::Normal);
 
 	mPopulationPool.population(&mPopulation);
 
@@ -782,7 +782,7 @@ void MapViewState::changeViewDepth(int depth)
 void MapViewState::clearMode()
 {
 	mInsertMode = InsertMode::None;
-	setCursor(PointerType::POINTER_NORMAL);
+	setCursor(PointerType::Normal);
 
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = Robot::Type::None;
@@ -1371,7 +1371,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
-	setCursor(PointerType::POINTER_PLACE_TILE);
+	setCursor(PointerType::PlaceTile);
 }
 
 

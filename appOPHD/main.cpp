@@ -163,9 +163,9 @@ int main(int argc, char *argv[])
 		renderer.minimumSize(constants::MinimumWindowSize);
 		renderer.resizeable(true);
 
-		addCursor(PointerType::POINTER_NORMAL, constants::MousePointerNormal, {0, 0});
-		addCursor(PointerType::POINTER_PLACE_TILE, constants::MousePointerPlaceTile, {16, 16});
-		setCursor(PointerType::POINTER_NORMAL);
+		addCursor(PointerType::Normal, constants::MousePointerNormal, {0, 0});
+		addCursor(PointerType::PlaceTile, constants::MousePointerPlaceTile, {16, 16});
+		setCursor(PointerType::Normal);
 
 		Control::setDefaultFont(fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal));
 		Control::setDefaultFontBold(fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal));
