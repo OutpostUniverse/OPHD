@@ -29,9 +29,9 @@ private:
 		return *(
 			(dir == ConnectorDir::CONNECTOR_INTERSECTION) ?
 				(underground ? &constants::UgTubeIntersection : &constants::AgTubeIntersection) :
-			(dir == ConnectorDir::CONNECTOR_RIGHT) ?
+			(dir == ConnectorDir::CONNECTOR_EAST_WEST) ?
 				(underground ? &constants::UgTubeRight : &constants::AgTubeRight) :
-			(dir == ConnectorDir::CONNECTOR_LEFT) ?
+			(dir == ConnectorDir::CONNECTOR_NORTH_SOUTH) ?
 				(underground ? &constants::UgTubelLeft : &constants::AgTubeLeft) :
 			throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter."));
 	}

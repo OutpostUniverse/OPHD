@@ -40,14 +40,14 @@ namespace
 
 	const std::vector<IconGrid::Item> SurfaceTubes = {
 		{constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION},
-		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_RIGHT},
-		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_LEFT},
+		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_EAST_WEST},
+		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_NORTH_SOUTH},
 	};
 
 	const std::vector<IconGrid::Item> UndergroundTubes = {
 		{constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION},
-		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_RIGHT},
-		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_LEFT},
+		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_EAST_WEST},
+		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_NORTH_SOUTH},
 	};
 
 
