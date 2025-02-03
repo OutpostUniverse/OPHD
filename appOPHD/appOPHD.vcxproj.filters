@@ -5,8 +5,16 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\States">
-      <UniqueIdentifier>{4c338eac-6a16-447d-9675-0fb6f6775bda}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{8013e5ff-baf7-4499-bff7-a7e38570a994}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\MapObjects">
       <UniqueIdentifier>{52eb17f3-c971-4ead-bf0c-5c4e384abc52}</UniqueIdentifier>
@@ -17,18 +25,29 @@
     <Filter Include="Source Files\MapObjects\Structures">
       <UniqueIdentifier>{4ed844e6-1ccb-4e6f-887c-381f36561c0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MicroPather">
+      <UniqueIdentifier>{53d69791-75af-4014-99df-f2d2582597ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{4c338eac-6a16-447d-9675-0fb6f6775bda}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{53be18b8-eaba-46f1-98d9-72eaaeb9c314}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\UI\Core">
       <UniqueIdentifier>{a106ce63-62be-4ae0-956c-53b458bed822}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Source Files\UI\Reports">
+      <UniqueIdentifier>{463384e6-546b-4f3c-adda-f9c094bc326e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\States">
-      <UniqueIdentifier>{402a383d-3f20-4883-b636-09f71bc952da}</UniqueIdentifier>
+    <Filter Include="Source Files\UI\SpecializedListBox">
+      <UniqueIdentifier>{cd5e28df-9593-4566-86b8-d6e3a5c24335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Constants">
+      <UniqueIdentifier>{df1a7586-89dd-467f-b703-58d0b820cd47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{ef0f2f7d-e0aa-47f6-a564-6a2de9a2cef2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\MapObjects">
       <UniqueIdentifier>{f1567006-6b53-4e9f-a038-9e5e9d444cb3}</UniqueIdentifier>
@@ -39,42 +58,23 @@
     <Filter Include="Header Files\MapObjects\Structures">
       <UniqueIdentifier>{1d0c1304-94ea-4f94-b1e6-439408414946}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\MicroPather">
+      <UniqueIdentifier>{2edfd0b6-d405-4d57-954e-054f9de7cf34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{402a383d-3f20-4883-b636-09f71bc952da}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{7554b729-89ba-4834-bcb5-d29c59f0d91a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\UI\Core">
       <UniqueIdentifier>{50739b22-ad40-4252-9c5d-4fd92dfa3be7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Constants">
-      <UniqueIdentifier>{df1a7586-89dd-467f-b703-58d0b820cd47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Map">
-      <UniqueIdentifier>{ef0f2f7d-e0aa-47f6-a564-6a2de9a2cef2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Map">
-      <UniqueIdentifier>{8013e5ff-baf7-4499-bff7-a7e38570a994}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\UI\Reports">
       <UniqueIdentifier>{a44c6715-e1af-4914-a179-42b503304355}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\UI\Reports">
-      <UniqueIdentifier>{463384e6-546b-4f3c-adda-f9c094bc326e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UI\SpecializedListBox">
-      <UniqueIdentifier>{cd5e28df-9593-4566-86b8-d6e3a5c24335}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\UI\SpecializedListBox">
       <UniqueIdentifier>{cb143db0-8f9f-4ca0-b688-47c9e12cce98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\MicroPather">
-      <UniqueIdentifier>{2edfd0b6-d405-4d57-954e-054f9de7cf34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\MicroPather">
-      <UniqueIdentifier>{53d69791-75af-4014-99df-f2d2582597ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
