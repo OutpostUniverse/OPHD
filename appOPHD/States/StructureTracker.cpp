@@ -52,9 +52,10 @@ namespace
 }
 
 
-StructureTracker::StructureTracker()
+StructureTracker::StructureTracker() :
+	mAvailableSurfaceStructures{DefaultAvailableSurfaceStructures},
+	mAvailableUndergroundStructures{DefaultAvailableUndergroundStructures}
 {
-	reset();
 }
 
 
@@ -79,11 +80,4 @@ void StructureTracker::addUnlockedSurfaceStructure(const IconGrid::Item& structu
 void StructureTracker::addUnlockedUndergroundStructure(const IconGrid::Item& structureItem)
 {
 	addItemToList(structureItem, mAvailableUndergroundStructures);
-}
-
-
-void StructureTracker::reset()
-{
-	mAvailableSurfaceStructures = DefaultAvailableSurfaceStructures;
-	mAvailableUndergroundStructures = DefaultAvailableUndergroundStructures;
 }

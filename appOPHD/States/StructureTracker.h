@@ -18,8 +18,6 @@ public:
 	void addUnlockedSurfaceStructure(const IconGrid::Item& structureItem);
 	void addUnlockedUndergroundStructure(const IconGrid::Item& structureItem);
 
-	void reset();
-
 private:
 	std::vector<IconGrid::Item> mAvailableSurfaceStructures;
 	std::vector<IconGrid::Item> mAvailableUndergroundStructures;
