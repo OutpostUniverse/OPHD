@@ -8,7 +8,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include "../DirectionOffset.h"
 #include "../Cache.h"
 #include "../PointerType.h"
 #include "../MeanSolarDistance.h"
@@ -23,6 +22,8 @@
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
+
+#include <libOPHD/DirectionOffset.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>

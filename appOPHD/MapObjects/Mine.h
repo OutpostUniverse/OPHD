@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../EnumMineProductionRate.h"
 #include "../StorableResources.h"
+
+#include <libOPHD/EnumMineProductionRate.h>
 
 #include <NAS2D/Math/Point.h>
 

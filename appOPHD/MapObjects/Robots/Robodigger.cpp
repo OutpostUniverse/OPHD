@@ -1,7 +1,8 @@
 #include "Robodigger.h"
 
-#include "../../EnumDirection.h"
 #include "../../Constants/Strings.h"
+
+#include <libOPHD/EnumDirection.h>
 
 
 Robodigger::Robodigger() :

@@ -1,7 +1,8 @@
 #include "MapView.h"
 
 #include "TileMap.h"
-#include "../DirectionOffset.h"
+
+#include <libOPHD/DirectionOffset.h>
 
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>

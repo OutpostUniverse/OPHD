@@ -12,8 +12,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include "../EnumDirection.h"
-#include "../DirectionOffset.h"
 #include "../PointerType.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
@@ -24,6 +22,9 @@
 #include "../UI/MessageBox.h"
 #include "../UI/NavControl.h"
 #include "../UI/CheatMenu.h"
+
+#include <libOPHD/DirectionOffset.h>
+#include <libOPHD/EnumDirection.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

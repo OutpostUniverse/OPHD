@@ -2,8 +2,9 @@
 
 #include "../Structure.h"
 
-#include "../../EnumProductType.h"
 #include "../../StorableResources.h"
+
+#include <libOPHD/EnumProductType.h>
 
 
 struct ProductionCost;

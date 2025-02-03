@@ -1,8 +1,9 @@
 #pragma once
 
+#include <libOPHD/EnumDirection.h>
+
 #include <libControls/Window.h>
 #include <libControls/Button.h>
-#include "../EnumDirection.h"
 
 
 class Tile;

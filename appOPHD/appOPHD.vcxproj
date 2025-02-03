@@ -183,7 +183,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -277,17 +276,6 @@
     <ClInclude Include="Constants\Numbers.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />
-    <ClInclude Include="DirectionOffset.h" />
-    <ClInclude Include="EnumConnectorDir.h" />
-    <ClInclude Include="EnumDifficulty.h" />
-    <ClInclude Include="EnumDirection.h" />
-    <ClInclude Include="EnumDisabledReason.h" />
-    <ClInclude Include="EnumIdleReason.h" />
-    <ClInclude Include="EnumMineProductionRate.h" />
-    <ClInclude Include="EnumMoraleIndex.h" />
-    <ClInclude Include="EnumProductType.h" />
-    <ClInclude Include="EnumStructureID.h" />
-    <ClInclude Include="EnumTerrainType.h" />
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\MapCoordinate.h" />

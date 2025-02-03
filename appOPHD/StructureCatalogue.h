@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EnumStructureID.h"
+#include <libOPHD/EnumStructureID.h>
 
 #include <map>
 

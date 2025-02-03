@@ -2,11 +2,12 @@
 
 #include "../../Constants/Strings.h"
 
-#include "../../DirectionOffset.h"
 #include "../../Map/TileMap.h"
 #include "../../StructureManager.h"
 #include "../Structures/MineFacility.h"
 #include "../Structures/MineShaft.h"
+
+#include <libOPHD/DirectionOffset.h>
 
 #include <NAS2D/Utility.h>
 

@@ -1,7 +1,7 @@
 
 #include "MapCoordinate.h"
 
-#include "../DirectionOffset.h"
+#include <libOPHD/DirectionOffset.h>
 
 
 MapCoordinate MapCoordinate::translate(MapOffset mapOffset) const

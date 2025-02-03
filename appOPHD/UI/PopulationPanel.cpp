@@ -3,11 +3,11 @@
 #include "TrendLabel.h"
 
 #include "../Cache.h"
-#include "../EnumMoraleIndex.h"
 #include "../MoraleString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
+#include <libOPHD/EnumMoraleIndex.h>
 #include <libOPHD/Population/Population.h>
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Morale.h>

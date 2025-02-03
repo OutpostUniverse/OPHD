@@ -9,11 +9,11 @@
 
 #pragma once
 
-#include "../EnumConnectorDir.h"
-#include "../EnumProductType.h"
-#include "../EnumStructureID.h"
-
 #include "../Map/MapCoordinate.h"
+
+#include <libOPHD/EnumConnectorDir.h>
+#include <libOPHD/EnumProductType.h>
+#include <libOPHD/EnumStructureID.h>
 
 #include <map>
 
