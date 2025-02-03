@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{a106ce63-62be-4ae0-956c-53b458bed822}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Population">
       <UniqueIdentifier>{d903cae4-8bc6-462c-afb0-c731298b8840}</UniqueIdentifier>
     </Filter>
