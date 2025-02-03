@@ -81,13 +81,6 @@ class NavControl;
 class MainReportsUiState;
 
 
-enum PointerType
-{
-	POINTER_NORMAL,
-	POINTER_PLACE_TILE
-};
-
-
 enum class InsertMode
 {
 	None,

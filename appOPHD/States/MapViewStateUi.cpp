@@ -14,6 +14,7 @@
 
 #include "../EnumDirection.h"
 #include "../DirectionOffset.h"
+#include "../PointerType.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/MapCoordinate.h"
@@ -568,7 +569,7 @@ void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 	mCurrentRobot = static_cast<Robot::Type>(item->meta);
 
 	mInsertMode = InsertMode::Robot;
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
+	setCursor(PointerType::PlaceTile);
 }
 
 
