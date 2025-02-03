@@ -1,8 +1,9 @@
 #include "StructureTracker.h"
 
-#include "../EnumConnectorDir.h"
-#include "../EnumStructureID.h"
 #include "../Constants/Strings.h"
+
+#include <libOPHD/EnumConnectorDir.h>
+#include <libOPHD/EnumStructureID.h>
 
 
 namespace

@@ -1,7 +1,8 @@
 #include "MineProductionRateString.h"
 
-#include "EnumMineProductionRate.h"
 #include "Constants/Strings.h"
+
+#include <libOPHD/EnumMineProductionRate.h>
 
 #include <map>
 

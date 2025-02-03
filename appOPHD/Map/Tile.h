@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../EnumTerrainType.h"
-
 #include "MapCoordinate.h"
+
+#include <libOPHD/EnumTerrainType.h>
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>

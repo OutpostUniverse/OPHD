@@ -2,13 +2,13 @@
 
 #include "MapObject.h"
 
-#include "../EnumConnectorDir.h"
-#include "../EnumDisabledReason.h"
-#include "../EnumIdleReason.h"
-#include "../EnumStructureID.h"
 #include "../StorableResources.h"
 #include "../UI/StringTable.h"
 
+#include <libOPHD/EnumConnectorDir.h>
+#include <libOPHD/EnumDisabledReason.h>
+#include <libOPHD/EnumIdleReason.h>
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/Dictionary.h>

@@ -1,10 +1,11 @@
 #include "TileInspector.h"
 
 #include "TextRender.h"
-#include "../EnumTerrainType.h"
 #include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Mine.h"
+
+#include <libOPHD/EnumTerrainType.h>
 
 #include <map>
 #include <sstream>
