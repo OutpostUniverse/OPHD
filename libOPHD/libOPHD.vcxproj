@@ -163,14 +163,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
+    <ClCompile Include="XmlSerializer.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
-    <ClCompile Include="Population\PopulationPool.cpp" />
     <ClCompile Include="Population\Population.cpp" />
+    <ClCompile Include="Population\PopulationPool.cpp" />
     <ClCompile Include="Population\PopulationTable.cpp" />
     <ClCompile Include="Technology\ResearchTracker.cpp" />
     <ClCompile Include="Technology\TechnologyCatalog.cpp" />
-    <ClCompile Include="XmlSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectionOffset.h" />
@@ -184,17 +184,17 @@
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
     <ClInclude Include="EnumTerrainType.h" />
+    <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="XmlSerializer.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
     <ClInclude Include="Map\MapOffset.h" />
-    <ClInclude Include="RandomNumberGenerator.h" />
-    <ClInclude Include="Population\Population.h" />
-    <ClInclude Include="Population\PopulationTable.h" />
     <ClInclude Include="Population\Morale.h" />
+    <ClInclude Include="Population\Population.h" />
     <ClInclude Include="Population\PopulationPool.h" />
+    <ClInclude Include="Population\PopulationTable.h" />
     <ClInclude Include="Technology\ResearchTracker.h" />
     <ClInclude Include="Technology\Technology.h" />
     <ClInclude Include="Technology\TechnologyCatalog.h" />
-    <ClInclude Include="XmlSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nas2d-core\NAS2D\NAS2D.vcxproj">

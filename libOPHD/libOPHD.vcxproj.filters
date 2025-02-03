@@ -33,29 +33,29 @@
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XmlSerializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Map\MapCoordinate.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Population\PopulationPool.cpp">
-      <Filter>Source Files\Population</Filter>
+    <ClCompile Include="Population\Morale.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Population\Population.cpp">
+      <Filter>Source Files\Population</Filter>
+    </ClCompile>
+    <ClCompile Include="Population\PopulationPool.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
     <ClCompile Include="Population\PopulationTable.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
-    <ClCompile Include="Technology\TechnologyCatalog.cpp">
-      <Filter>Source Files\Technology</Filter>
-    </ClCompile>
     <ClCompile Include="Technology\ResearchTracker.cpp">
       <Filter>Source Files\Technology</Filter>
     </ClCompile>
-    <ClCompile Include="XmlSerializer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Population\Morale.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Technology\TechnologyCatalog.cpp">
+      <Filter>Source Files\Technology</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,16 +95,25 @@
     <ClInclude Include="RandomNumberGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Population\Population.h">
-      <Filter>Header Files\Population</Filter>
+    <ClInclude Include="XmlSerializer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Population\PopulationTable.h">
-      <Filter>Header Files\Population</Filter>
+    <ClInclude Include="Map\MapCoordinate.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\MapOffset.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Population\Morale.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
+    <ClInclude Include="Population\Population.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
     <ClInclude Include="Population\PopulationPool.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
+    <ClInclude Include="Population\PopulationTable.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
     <ClInclude Include="Technology\ResearchTracker.h">
@@ -115,15 +124,6 @@
     </ClInclude>
     <ClInclude Include="Technology\TechnologyCatalog.h">
       <Filter>Header Files\Technology</Filter>
-    </ClInclude>
-    <ClInclude Include="XmlSerializer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map\MapCoordinate.h">
-      <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Map\MapOffset.h">
-      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
