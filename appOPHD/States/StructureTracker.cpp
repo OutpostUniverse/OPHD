@@ -3,6 +3,7 @@
 #include "../EnumStructureID.h"
 #include "../Constants/Strings.h"
 
+
 namespace
 {
 	const std::vector<IconGrid::Item> DefaultAvailableSurfaceStructures = {
