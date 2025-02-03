@@ -10,6 +10,7 @@
 
 #include "../DirectionOffset.h"
 #include "../Cache.h"
+#include "../PointerType.h"
 #include "../MeanSolarDistance.h"
 #include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
@@ -223,7 +224,7 @@ MapViewState::~MapViewState()
 {
 	scrubRobotList();
 
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
+	setCursor(PointerType::POINTER_NORMAL);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.activate().disconnect({this, &MapViewState::onActivate});
@@ -257,7 +258,7 @@ void MapViewState::initialize()
 	initUi();
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.setCursor(PointerType::POINTER_NORMAL);
+	setCursor(PointerType::POINTER_NORMAL);
 
 	mPopulationPool.population(&mPopulation);
 
@@ -781,7 +782,7 @@ void MapViewState::changeViewDepth(int depth)
 void MapViewState::clearMode()
 {
 	mInsertMode = InsertMode::None;
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_NORMAL);
+	setCursor(PointerType::POINTER_NORMAL);
 
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = Robot::Type::None;
@@ -1370,7 +1371,7 @@ void MapViewState::setStructureID(StructureID type, InsertMode mode)
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
-	NAS2D::Utility<NAS2D::Renderer>::get().setCursor(PointerType::POINTER_PLACE_TILE);
+	setCursor(PointerType::POINTER_PLACE_TILE);
 }
 
 

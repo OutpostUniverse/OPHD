@@ -2,6 +2,7 @@
 #include "Constants/Strings.h"
 #include "Constants/Numbers.h"
 #include "WindowEventWrapper.h"
+#include "PointerType.h"
 
 #include "States/GameState.h"
 #include "States/SplashState.h"
@@ -161,9 +162,10 @@ int main(int argc, char *argv[])
 
 		renderer.minimumSize(constants::MinimumWindowSize);
 		renderer.resizeable(true);
-		renderer.addCursor(constants::MousePointerNormal, PointerType::POINTER_NORMAL, 0, 0);
-		renderer.addCursor(constants::MousePointerPlaceTile, PointerType::POINTER_PLACE_TILE, 16, 16);
-		renderer.setCursor(PointerType::POINTER_NORMAL);
+
+		addCursor(PointerType::POINTER_NORMAL, constants::MousePointerNormal, {0, 0});
+		addCursor(PointerType::POINTER_PLACE_TILE, constants::MousePointerPlaceTile, {16, 16});
+		setCursor(PointerType::POINTER_NORMAL);
 
 		Control::setDefaultFont(fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal));
 		Control::setDefaultFontBold(fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal));

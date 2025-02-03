@@ -7,7 +7,6 @@
 
 #include "Planet.h"
 
-#include "../PointerType.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
