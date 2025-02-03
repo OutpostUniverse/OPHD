@@ -12,8 +12,8 @@ public:
 
 	StructureTracker();
 
-	const std::vector<IconGrid::Item>& availableSurfaceStructures() const { return mAvailableSurfaceStructures; }
-	const std::vector<IconGrid::Item>& availableUndergroundStructures() const { return mAvailableUndergroundStructures; }
+	const std::vector<IconGrid::Item>& availableSurfaceStructures() const;
+	const std::vector<IconGrid::Item>& availableUndergroundStructures() const;
 
 	void addUnlockedSurfaceStructure(const IconGrid::Item& structureItem);
 	void addUnlockedUndergroundStructure(const IconGrid::Item& structureItem);

@@ -58,6 +58,18 @@ StructureTracker::StructureTracker()
 }
 
 
+const std::vector<IconGrid::Item>& StructureTracker::availableSurfaceStructures() const
+{
+	return mAvailableSurfaceStructures;
+}
+
+
+const std::vector<IconGrid::Item>& StructureTracker::availableUndergroundStructures() const
+{
+	return mAvailableUndergroundStructures;
+}
+
+
 void StructureTracker::addUnlockedSurfaceStructure(const IconGrid::Item& structureItem)
 {
 	addItemToList(structureItem, mAvailableSurfaceStructures);
