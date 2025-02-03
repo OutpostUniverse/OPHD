@@ -22,12 +22,12 @@ static bool checkSourceTubeAlignment(Structure* src, Direction direction)
 	}
 	else if (direction == Direction::East || direction == Direction::West)
 	{
-		if (src->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT)
+		if (src->connectorDirection() == ConnectorDir::CONNECTOR_EAST_WEST)
 			return true;
 	}
 	else if (direction == Direction::North || direction == Direction::South)
 	{
-		if (src->connectorDirection() == ConnectorDir::CONNECTOR_LEFT)
+		if (src->connectorDirection() == ConnectorDir::CONNECTOR_NORTH_SOUTH)
 			return true;
 	}
 
@@ -56,11 +56,11 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
-			return dst->connectorDirection() == ConnectorDir::CONNECTOR_RIGHT;
+			return dst->connectorDirection() == ConnectorDir::CONNECTOR_EAST_WEST;
 		}
 		else if (direction == Direction::North || direction == Direction::South)
 		{
-			return dst->connectorDirection() == ConnectorDir::CONNECTOR_LEFT;
+			return dst->connectorDirection() == ConnectorDir::CONNECTOR_NORTH_SOUTH;
 		}
 	}
 	else
