@@ -33,9 +33,6 @@
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="libOPHD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map\MapCoordinate.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>

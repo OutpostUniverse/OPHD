@@ -163,7 +163,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
-    <ClCompile Include="libOPHD.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
     <ClCompile Include="Population\PopulationPool.cpp" />
