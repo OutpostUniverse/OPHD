@@ -34,9 +34,6 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{53be18b8-eaba-46f1-98d9-72eaaeb9c314}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\UI\Core">
-      <UniqueIdentifier>{a106ce63-62be-4ae0-956c-53b458bed822}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\UI\Reports">
       <UniqueIdentifier>{463384e6-546b-4f3c-adda-f9c094bc326e}</UniqueIdentifier>
     </Filter>
@@ -66,9 +63,6 @@
     </Filter>
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{7554b729-89ba-4834-bcb5-d29c59f0d91a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\UI\Core">
-      <UniqueIdentifier>{50739b22-ad40-4252-9c5d-4fd92dfa3be7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\UI\Reports">
       <UniqueIdentifier>{a44c6715-e1af-4914-a179-42b503304355}</UniqueIdentifier>
