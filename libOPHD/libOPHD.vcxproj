@@ -164,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="libOPHD.cpp" />
+    <ClCompile Include="Map\MapCoordinate.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
     <ClCompile Include="Population\PopulationPool.cpp" />
     <ClCompile Include="Population\Population.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
     <ClInclude Include="EnumTerrainType.h" />
+    <ClInclude Include="Map\MapCoordinate.h" />
     <ClInclude Include="Map\MapOffset.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="Population\Population.h" />

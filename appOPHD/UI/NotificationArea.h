@@ -1,8 +1,8 @@
 #pragma once
 
-#include <libControls/Control.h>
+#include <libOPHD/Map/MapCoordinate.h>
 
-#include "../Map/MapCoordinate.h"
+#include <libControls/Control.h>
 
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
