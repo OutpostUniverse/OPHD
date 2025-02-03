@@ -578,6 +578,9 @@
     <ClInclude Include="OpenSaveGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PointerType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>

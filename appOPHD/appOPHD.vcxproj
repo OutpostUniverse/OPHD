@@ -351,6 +351,7 @@
     <ClInclude Include="MineProductionRateString.h" />
     <ClInclude Include="MoraleString.h" />
     <ClInclude Include="OpenSaveGame.h" />
+    <ClInclude Include="PointerType.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />

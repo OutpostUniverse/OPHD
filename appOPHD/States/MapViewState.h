@@ -7,6 +7,7 @@
 
 #include "Planet.h"
 
+#include "../PointerType.h"
 #include "../StorableResources.h"
 #include "../RobotPool.h"
 
@@ -79,13 +80,6 @@ class MapView;
 class DetailMap;
 class NavControl;
 class MainReportsUiState;
-
-
-enum PointerType
-{
-	POINTER_NORMAL,
-	POINTER_PLACE_TILE
-};
 
 
 enum class InsertMode
