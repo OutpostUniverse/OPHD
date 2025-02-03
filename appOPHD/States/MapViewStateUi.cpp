@@ -328,10 +328,7 @@ void MapViewState::populateStructureMenu()
 	else if (mMapView->isSurface())
 	{
 		fillList(mStructures, mStructureTracker.availableSurfaceStructures());
-
-		mConnections.addItem({constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION});
-		mConnections.addItem({constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_RIGHT});
-		mConnections.addItem({constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_LEFT});
+		fillList(mConnections, mStructureTracker.surfaceTubes());
 
 		// Special case code, not thrilled with this
 		if (mLandersColonist > 0) { mStructures.addItem({constants::ColonistLander, 2, StructureID::SID_COLONIST_LANDER}); }
@@ -340,10 +337,7 @@ void MapViewState::populateStructureMenu()
 	else
 	{
 		fillList(mStructures, mStructureTracker.availableUndergroundStructures());
-
-		mConnections.addItem({constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION});
-		mConnections.addItem({constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_RIGHT});
-		mConnections.addItem({constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_LEFT});
+		fillList(mConnections, mStructureTracker.undergroundTubes());
 	}
 
 	updateStructuresAvailability();
