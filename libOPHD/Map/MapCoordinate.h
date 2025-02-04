@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libOPHD/Map/MapOffset.h>
+#include "MapOffset.h"
 
 #include <NAS2D/Math/Point.h>
 

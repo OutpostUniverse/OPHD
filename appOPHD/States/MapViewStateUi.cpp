@@ -15,7 +15,6 @@
 #include "../PointerType.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
-#include "../Map/MapCoordinate.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
@@ -25,6 +24,8 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
+
+#include <libOPHD/Map/MapCoordinate.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

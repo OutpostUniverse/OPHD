@@ -12,8 +12,6 @@
 
 #include "../Constants/Numbers.h"
 
-#include "../Map/MapCoordinate.h"
-
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
@@ -37,6 +35,8 @@
 #include "../UI/RobotDeploymentSummary.h"
 #include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
+
+#include <libOPHD/Map/MapCoordinate.h>
 
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Population.h>

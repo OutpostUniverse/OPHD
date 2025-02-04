@@ -1,9 +1,9 @@
-
 #include "DirectionOffset.h"
 
 #include "EnumDirection.h"
 
 #include <map>
+
 
 namespace
 {

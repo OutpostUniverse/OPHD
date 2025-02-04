@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../Map/MapCoordinate.h"
-
+#include <libOPHD/Map/MapCoordinate.h>
 #include <libOPHD/Map/MapOffset.h>
 
 #include <NAS2D/Math/Rectangle.h>
