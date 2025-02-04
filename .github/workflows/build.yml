@@ -47,7 +47,7 @@ jobs:
 
     - name: Pre-install vcpkg dependencies - OPHD
       run: |
-        vcpkg install
+        vcpkg install --x-install-root=vcpkg_installed\${{ matrix.platform }}-windows
 
     - name: Save vcpkg dependency cache
       uses: actions/cache/save@v4
@@ -63,7 +63,7 @@ jobs:
     - name: Pre-install vcpkg dependencies - NAS2D
       working-directory: nas2d-core
       run: |
-        vcpkg install
+        vcpkg install --x-install-root=vcpkg_installed\${{ matrix.platform }}-windows
 
     - name: Set NAS2D modification time
       shell: bash
