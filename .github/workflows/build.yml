@@ -46,7 +46,7 @@ jobs:
 
     - name: Pre-install vcpkg dependencies - OPHD
       run: |
-        msbuild . /property:Configuration=${{env.CONFIGURATION}} /target:appOPHD:VcpkgInstallManifestDependencies
+        msbuild . /target:appOPHD:VcpkgInstallManifestDependencies
 
     - name: Save vcpkg dependency cache
       uses: actions/cache/save@v4
@@ -62,7 +62,7 @@ jobs:
     - name: Pre-install vcpkg dependencies - NAS2D
       working-directory: nas2d-core
       run: |
-        msbuild . /property:Configuration=${{env.CONFIGURATION}} /target:NAS2D:VcpkgInstallManifestDependencies
+        msbuild . /target:NAS2D:VcpkgInstallManifestDependencies
 
     - name: Set NAS2D modification time
       shell: bash
@@ -87,7 +87,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        msbuild . /maxCpuCount /warnAsError /property:Configuration=${{env.CONFIGURATION}} /target:NAS2D
+        msbuild . /maxCpuCount /warnAsError /target:NAS2D
 
     - name: Save build cache - NAS2D
       uses: actions/cache/save@v4
@@ -138,7 +138,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /property:Configuration=${{env.CONFIGURATION}}
+        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
