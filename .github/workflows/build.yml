@@ -14,7 +14,6 @@ jobs:
     env:
       PLATFORM: ${{ matrix.platform }}
       BUILD_CONFIGURATION: Release
-      SOLUTION_FILE_PATH: .
       VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
 
     steps:
@@ -88,7 +87,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
+        msbuild . /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} /target:NAS2D
 
     - name: Save build cache - NAS2D
       uses: actions/cache/save@v4
@@ -139,7 +138,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        msbuild /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /property:Configuration=${{env.BUILD_CONFIGURATION}}
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
