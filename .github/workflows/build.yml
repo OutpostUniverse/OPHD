@@ -12,9 +12,9 @@ jobs:
         platform: [x86, x64]
     runs-on: windows-latest
     env:
-      PLATFORM: ${{ matrix.platform }}
-      BUILD_CONFIGURATION: Release
-      SOLUTION_FILE_PATH: .
+      Platform: ${{ matrix.platform }}
+      Configuration: Release
+      VcpkgManifestInstall: false
       VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
 
     steps:
@@ -46,8 +46,10 @@ jobs:
         key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
     - name: Pre-install vcpkg dependencies - OPHD
+      env:
+        VcpkgManifestInstall: true
       run: |
-        msbuild . /property:Configuration=${{env.BUILD_CONFIGURATION}} /target:appOPHD:VcpkgInstallManifestDependencies
+        msbuild . /target:appOPHD:VcpkgInstallManifestDependencies
 
     - name: Save vcpkg dependency cache
       uses: actions/cache/save@v4
@@ -62,8 +64,10 @@ jobs:
 
     - name: Pre-install vcpkg dependencies - NAS2D
       working-directory: nas2d-core
+      env:
+        VcpkgManifestInstall: true
       run: |
-        msbuild . /property:Configuration=${{env.BUILD_CONFIGURATION}} /target:NAS2D:VcpkgInstallManifestDependencies
+        msbuild . /target:NAS2D:VcpkgInstallManifestDependencies
 
     - name: Set NAS2D modification time
       shell: bash
@@ -88,7 +92,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        msbuild /maxCpuCount /warnAsError /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /target:NAS2D
+        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /target:NAS2D
 
     - name: Save build cache - NAS2D
       uses: actions/cache/save@v4
@@ -139,7 +143,7 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
-        msbuild /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /property:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
@@ -149,7 +153,7 @@ jobs:
         key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
 
     - name: Run libOPHD unit tests
-      run: .build/${{env.BUILD_CONFIGURATION}}_${{env.PLATFORM}}_testLibOPHD/testLibOPHD.exe
+      run: .build/${{env.Configuration}}_${{env.Platform}}_testLibOPHD/testLibOPHD.exe
 
     - name: Run libControl unit tests
-      run: .build/${{env.BUILD_CONFIGURATION}}_${{env.PLATFORM}}_testLibControls/testLibControls.exe
+      run: .build/${{env.Configuration}}_${{env.Platform}}_testLibControls/testLibControls.exe
