@@ -14,6 +14,7 @@ jobs:
     env:
       Platform: ${{ matrix.platform }}
       Configuration: Release
+      VcpkgManifestInstall: false
       VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
 
     steps:
@@ -45,6 +46,8 @@ jobs:
         key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
 
     - name: Pre-install vcpkg dependencies - OPHD
+      env:
+        VcpkgManifestInstall: true
       run: |
         msbuild . /target:appOPHD:VcpkgInstallManifestDependencies
 
@@ -61,6 +64,8 @@ jobs:
 
     - name: Pre-install vcpkg dependencies - NAS2D
       working-directory: nas2d-core
+      env:
+        VcpkgManifestInstall: true
       run: |
         msbuild . /target:NAS2D:VcpkgInstallManifestDependencies
 
