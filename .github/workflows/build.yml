@@ -12,8 +12,8 @@ jobs:
         platform: [x86, x64]
     runs-on: windows-latest
     env:
-      PLATFORM: ${{ matrix.platform }}
-      CONFIGURATION: Release
+      Platform: ${{ matrix.platform }}
+      Configuration: Release
       VCPKG_BINARY_SOURCES: 'clear;x-gha,readwrite'
 
     steps:
@@ -148,7 +148,7 @@ jobs:
         key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
 
     - name: Run libOPHD unit tests
-      run: .build/${{env.CONFIGURATION}}_${{env.PLATFORM}}_testLibOPHD/testLibOPHD.exe
+      run: .build/${{env.Configuration}}_${{env.Platform}}_testLibOPHD/testLibOPHD.exe
 
     - name: Run libControl unit tests
-      run: .build/${{env.CONFIGURATION}}_${{env.PLATFORM}}_testLibControls/testLibControls.exe
+      run: .build/${{env.Configuration}}_${{env.Platform}}_testLibControls/testLibControls.exe
