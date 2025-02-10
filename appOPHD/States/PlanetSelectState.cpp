@@ -13,6 +13,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Math/Angle.h>
 
 #include <cstddef>
 #include <limits>
@@ -88,7 +89,7 @@ NAS2D::State* PlanetSelectState::update()
 	const auto size = renderer.size();
 	renderer.drawImageStretched(mBg, NAS2D::Rectangle{{0, 0}, size});
 
-	float rotation = static_cast<float>(mTimer.tick()) / 1200.0f;
+	auto rotation = NAS2D::Angle::degrees(static_cast<float>(mTimer.tick()) / 1200.0f);
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
