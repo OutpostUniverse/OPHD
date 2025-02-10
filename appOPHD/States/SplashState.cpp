@@ -4,6 +4,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Math/Angle.h>
 
 #include <algorithm>
 
@@ -120,7 +121,7 @@ NAS2D::State* SplashState::update()
 		const unsigned int tick = bylineTimer.elapsedTicks();
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
-		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, static_cast<float>(bylineTimer.tick()) / 600.0f);
+		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, NAS2D::Angle::degrees(static_cast<float>(bylineTimer.tick()) / 600.0f));
 		renderer.drawImage(mLogoOutpostHd, logoPosition);
 
 		const float bylineScaleStep = 0.000025f;
