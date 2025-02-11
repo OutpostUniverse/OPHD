@@ -9,9 +9,23 @@
 #include <algorithm>
 
 
-MaintenanceFacility::MaintenanceFacility() : Structure(
-	StructureClass::Maintenance,
-	StructureID::SID_MAINTENANCE_FACILITY)
+namespace
+{
+	constexpr int MaintenanceSuppliesCapacity{100};
+	constexpr int MaximumPersonnel{10};
+	constexpr int MinimumPersonnel{1};
+}
+
+
+MaintenanceFacility::MaintenanceFacility() :
+	Structure(
+		StructureClass::Maintenance,
+		StructureID::SID_MAINTENANCE_FACILITY
+	),
+	mMaterialsLevel{0},
+	mMaintenancePersonnel{MinimumPersonnel},
+	mAssignedPersonnel{0},
+	mResources{nullptr}
 {
 }
 

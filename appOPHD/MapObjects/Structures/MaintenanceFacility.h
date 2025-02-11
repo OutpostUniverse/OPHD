@@ -13,11 +13,6 @@
 class MaintenanceFacility : public Structure
 {
 public:
-	static constexpr int MaintenanceSuppliesCapacity{100};
-	static constexpr int MaximumPersonnel{10};
-	static constexpr int MinimumPersonnel{1};
-
-public:
 	MaintenanceFacility();
 
 	void resources(const StorableResources& resources);
@@ -49,11 +44,11 @@ protected:
 private:
 	const StorableResources& resources();
 
-	int mMaterialsLevel{0};
-	int mMaintenancePersonnel{MinimumPersonnel};
-	int mAssignedPersonnel{0};
+	int mMaterialsLevel;
+	int mMaintenancePersonnel;
+	int mAssignedPersonnel;
 
 	StructureList mPriorityList;
 
-	const StorableResources* mResources{nullptr};
+	const StorableResources* mResources;
 };
