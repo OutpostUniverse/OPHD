@@ -1,5 +1,7 @@
 #include "MapViewState.h"
 
+#include "MapViewStateHelper.h"
+
 #include "MainMenuState.h"
 #include "MainReportsUiState.h"
 #include "Route.h"

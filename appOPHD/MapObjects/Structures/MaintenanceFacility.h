@@ -2,12 +2,8 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/Strings.h"
-#include "../../StorableResources.h"
 
-#include "../../States/MapViewStateHelper.h" // yuck
-
-#include <algorithm>
+struct StorableResources;
 
 
 class MaintenanceFacility : public Structure

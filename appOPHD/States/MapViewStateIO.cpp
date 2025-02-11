@@ -6,6 +6,8 @@
 
 #include "MapViewState.h"
 
+#include "MapViewStateHelper.h"
+
 #include "Route.h"
 
 #include "../Cache.h"

@@ -4,7 +4,7 @@
 #include "../../Constants/Strings.h"
 #include "../../StorableResources.h"
 
-#include "../../States/MapViewStateHelper.h" // yuck
+#include "../../States/MapViewStateHelper.h"
 
 #include <algorithm>
 
