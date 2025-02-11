@@ -111,6 +111,9 @@
     <ClCompile Include="MapObjects\Structure.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\Agridome.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\Factory.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
