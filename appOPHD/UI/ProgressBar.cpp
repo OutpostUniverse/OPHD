@@ -4,6 +4,8 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
 
+#include <algorithm>
+
 
 void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding)
 {
