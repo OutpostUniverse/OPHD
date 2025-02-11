@@ -199,6 +199,7 @@
     <ClCompile Include="MapObjects\Structures\Factory.cpp" />
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp" />
+    <ClCompile Include="MapObjects\Structures\ResearchFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
