@@ -1,6 +1,5 @@
 #pragma once
 
-#include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -10,6 +9,13 @@
 #include <string>
 #include <vector>
 #include <cstddef>
+
+
+namespace NAS2D
+{
+	class Font;
+	class Renderer;
+}
 
 
 // Draw a 2 dimensional table of text. Determine cell size based on inserted text, font, and padding. Only allows one line of text per cell.
