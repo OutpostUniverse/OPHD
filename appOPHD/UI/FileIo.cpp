@@ -8,7 +8,6 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
-#include <NAS2D/Math/MathUtils.h>
 
 #include <string>
 #include <vector>
