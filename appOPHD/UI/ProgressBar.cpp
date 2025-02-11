@@ -3,6 +3,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
+#include <NAS2D/Math/Rectangle.h>
 
 #include <algorithm>
 
