@@ -15,6 +15,7 @@
 
 #include "../../States/Route.h"
 
+#include "../../MapObjects/Mine.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 
 #include <NAS2D/Utility.h>

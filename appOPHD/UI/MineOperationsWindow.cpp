@@ -10,6 +10,7 @@
 #include "../Constants/UiConstants.h"
 #include "../StructureManager.h"
 #include "../TruckAvailability.h"
+#include "../MapObjects/Mine.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
