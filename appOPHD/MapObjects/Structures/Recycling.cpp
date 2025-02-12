@@ -26,11 +26,7 @@ Recycling::Recycling() : Structure(
  */
 int Recycling::wasteProcessingCapacity() const
 {
-	if (!operational()) {
-		return 0;
-	}
-
-	return WasteProcessingCapacity;
+	return operational() ? WasteProcessingCapacity : 0;
 }
 
 
@@ -40,11 +36,7 @@ int Recycling::wasteProcessingCapacity() const
  */
 int Recycling::residentialSupportCount() const
 {
-	if (!operational()) {
-		return 0;
-	}
-
-	return ResidentialSupportCount;
+	return operational() ? ResidentialSupportCount : 0;
 }
 
 
