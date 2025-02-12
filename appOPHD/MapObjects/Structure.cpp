@@ -5,7 +5,11 @@
 #include "../StructureCatalogue.h"
 #include "../Constants/Strings.h"
 
+#include "../UI/StringTable.h"
+
 #include <libOPHD/RandomNumberGenerator.h>
+
+#include <NAS2D/Dictionary.h>
 
 #include <algorithm>
 
@@ -440,6 +444,12 @@ void Structure::increaseCrimeRate(int deltaCrimeRate)
 void Structure::integrity(int integrity)
 {
 	mIntegrity = integrity;
+}
+
+
+StringTable Structure::createInspectorViewTable()
+{
+	return StringTable(0, 0);
 }
 
 

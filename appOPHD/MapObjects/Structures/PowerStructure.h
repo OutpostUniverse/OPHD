@@ -2,10 +2,6 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/UiConstants.h"
-
-#include <string>
-
 
 /**
  * Virtual class for structures whose primary purpose is power production
@@ -15,31 +11,11 @@
 class PowerStructure : public Structure
 {
 public:
-	PowerStructure(StructureClass structureClass, StructureID id) :
-		Structure(structureClass, id) {}
+	PowerStructure(StructureClass structureClass, StructureID id);
 
-	StringTable createInspectorViewTable() override
-	{
-		StringTable stringTable(2, 1);
+	StringTable createInspectorViewTable() override;
 
-		stringTable[{0, 0}].text = "Power Produced:";
-
-		auto produced = energyProduced();
-
-		stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(calculateMaxEnergyProduction());
-
-		if (produced == 0)
-		{
-			stringTable[{1, 0}].textColor = constants::WarningTextColor;
-		}
-
-		return stringTable;
-	}
-
-	int energyProduced()
-	{
-		return operational() ? calculateMaxEnergyProduction() : 0;
-	}
+	int energyProduced();
 
 protected:
 	virtual int calculateMaxEnergyProduction() = 0;

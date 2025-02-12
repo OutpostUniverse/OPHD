@@ -4,10 +4,13 @@
 // ==================================================================================
 #include "MapViewState.h"
 
+#include "MapViewStateHelper.h"
+
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
+#include "../MapObjects/Mine.h"
 
 #include <libOPHD/DirectionOffset.h>
 

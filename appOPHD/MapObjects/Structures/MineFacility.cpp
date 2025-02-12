@@ -1,8 +1,12 @@
 #include "MineFacility.h"
 
+#include "../Mine.h"
+
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
 #include "../../StorableResources.h"
+
+#include <algorithm>
 
 
 namespace
@@ -26,6 +30,18 @@ MineFacility::MineFacility(Mine* mine) :
 	mMine(mine)
 {
 	sprite().play(constants::StructureStateConstruction);
+}
+
+
+void MineFacility::mine(Mine* mine)
+{
+	mMine = mine;
+}
+
+
+void MineFacility::maxDepth(int depth)
+{
+	mMaxDepth = depth;
 }
 
 
@@ -124,4 +140,52 @@ bool MineFacility::extending() const
 int MineFacility::digTimeRemaining() const
 {
 	return mDigTurnsRemaining;
+}
+
+
+int MineFacility::assignedTrucks() const
+{
+	return mAssignedTrucks;
+}
+
+
+int MineFacility::maxTruckCount() const
+{
+	return mMaxTruckCount;
+}
+
+
+void MineFacility::addTruck()
+{
+	mAssignedTrucks = std::clamp(mAssignedTrucks + 1, 1, mMaxTruckCount);
+}
+
+
+void MineFacility::removeTruck()
+{
+	mAssignedTrucks = std::clamp(mAssignedTrucks - 1, 1, mMaxTruckCount);
+}
+
+
+Mine* MineFacility::mine()
+{
+	return mMine;
+}
+
+
+MineFacility::ExtensionCompleteSignal::Source& MineFacility::extensionComplete()
+{
+	return mExtensionComplete;
+}
+
+
+void MineFacility::assignedTrucks(int count)
+{
+	mAssignedTrucks = count;
+}
+
+
+void MineFacility::digTimeRemaining(int count)
+{
+	mDigTurnsRemaining = count;
 }

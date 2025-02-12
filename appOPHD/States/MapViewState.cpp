@@ -1,5 +1,7 @@
 #include "MapViewState.h"
 
+#include "MapViewStateHelper.h"
+
 #include "MainMenuState.h"
 #include "MainReportsUiState.h"
 #include "Route.h"
@@ -18,6 +20,8 @@
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
+
+#include "../MapObjects/Mine.h"
 
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
