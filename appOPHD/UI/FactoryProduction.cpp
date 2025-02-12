@@ -173,10 +173,10 @@ void FactoryProduction::update()
 	stringTable.setColumnText(1,
 		{
 			std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild),
-			totalCost.resources[0],
-			totalCost.resources[1],
-			totalCost.resources[2],
-			totalCost.resources[3],
+			std::to_string(totalCost.resources[0]),
+			std::to_string(totalCost.resources[1]),
+			std::to_string(totalCost.resources[2]),
+			std::to_string(totalCost.resources[3]),
 		});
 
 	stringTable.computeRelativeCellPositions();
