@@ -95,14 +95,6 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 }
 
 
-void FileIo::setMode(FileOperation fileOp)
-{
-	mMode = fileOp;
-	title(mMode == FileOperation::Load ? constants::WindowFileIoTitleLoad : constants::WindowFileIoTitleSave);
-	mFileOperation.text(mMode == FileOperation::Load ? constants::WindowFileIoLoad : constants::WindowFileIoSave);
-}
-
-
 void FileIo::showOpen(const std::string& directory)
 {
 	scanDirectory(directory);
