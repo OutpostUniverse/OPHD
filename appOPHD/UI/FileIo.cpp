@@ -112,6 +112,16 @@ void FileIo::showOpen()
 }
 
 
+void FileIo::showSave()
+{
+	this->scanDirectory(constants::SaveGamePath);
+	mMode = FileOperation::Save;
+	title(constants::WindowFileIoTitleSave);
+	mFileOperation.text(constants::WindowFileIoSave);
+	this->show();
+}
+
+
 void FileIo::scanDirectory(const std::string& directory)
 {
 	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
