@@ -4,7 +4,6 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/StringValue.h>
 
 #include <string>
 #include <vector>
@@ -65,8 +64,8 @@ public:
 	void setHorizontalPadding(int horizontalPadding);
 	void setVerticalPadding(int verticalPadding);
 
-	void setColumnText(std::size_t column, const std::vector<NAS2D::StringValue>& rows);
-	void setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns);
+	void setColumnText(std::size_t column, const std::vector<std::string>& rows);
+	void setRowText(std::size_t row, const std::vector<std::string>& columns);
 	void setColumnJustification(std::size_t column, Justification justification);
 
 	void setColumnFont(std::size_t column, const NAS2D::Font* const font);

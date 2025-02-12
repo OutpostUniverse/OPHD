@@ -95,23 +95,23 @@ void StringTable::setVerticalPadding(int padding)
 	mVerticalPadding = padding;
 }
 
-void StringTable::setColumnText(std::size_t column, const std::vector<NAS2D::StringValue>& rows)
+void StringTable::setColumnText(std::size_t column, const std::vector<std::string>& rows)
 {
 	checkCellIndex({column, rows.size() - 1});
 
 	for (std::size_t row = 0; row < rows.size(); ++row)
 	{
-		mCells[getCellIndex({column, row})].text = rows[row].value;
+		mCells[getCellIndex({column, row})].text = rows[row];
 	}
 }
 
-void StringTable::setRowText(std::size_t row, const std::vector<NAS2D::StringValue>& columns)
+void StringTable::setRowText(std::size_t row, const std::vector<std::string>& columns)
 {
 	checkCellIndex({columns.size() - 1, row});
 
 	for (std::size_t column = 0; column < columns.size(); ++column)
 	{
-		mCells[getCellIndex({column, row})].text = columns[column].value;
+		mCells[getCellIndex({column, row})].text = columns[column];
 	}
 }
 

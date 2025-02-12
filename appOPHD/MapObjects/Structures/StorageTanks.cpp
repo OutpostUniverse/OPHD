@@ -30,10 +30,10 @@ StringTable StorageTanks::createInspectorViewTable()
 		1,
 		{
 			std::to_string(storage().total()) + " / " + std::to_string(storageCapacity()),
-			storage().resources[0],
-			storage().resources[1],
-			storage().resources[2],
-			storage().resources[3]
+			std::to_string(storage().resources[0]),
+			std::to_string(storage().resources[1]),
+			std::to_string(storage().resources[2]),
+			std::to_string(storage().resources[3]),
 		});
 
 	return stringTable;
