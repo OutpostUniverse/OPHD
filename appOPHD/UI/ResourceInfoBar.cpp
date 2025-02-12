@@ -1,6 +1,5 @@
 #include "ResourceInfoBar.h"
 
-
 #include "../Cache.h"
 #include "../Resources.h"
 #include "../Constants/UiConstants.h"
