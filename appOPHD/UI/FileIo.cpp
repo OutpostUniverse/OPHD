@@ -103,6 +103,16 @@ void FileIo::setMode(FileOperation fileOp)
 }
 
 
+void FileIo::showOpen(const std::string& directory)
+{
+	scanDirectory(directory);
+	mMode = FileOperation::Load;
+	title(constants::WindowFileIoTitleLoad);
+	mFileOperation.text(constants::WindowFileIoLoad);
+	show();
+}
+
+
 void FileIo::scanDirectory(const std::string& directory)
 {
 	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
