@@ -654,21 +654,7 @@ void MapViewState::onGameOver()
  */
 void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
 {
-	if (fileOp == FileIo::FileOperation::Load)
-	{
-		try
-		{
-			load(constants::SaveGamePath + filePath + ".xml");
-			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-			setupUiPositions(renderer.size());
-		}
-		catch (const std::exception& e)
-		{
-			doNonFatalErrorMessage("Load Failed", e.what());
-			return;
-		}
-	}
-	else
+	if (fileOp == FileIo::FileOperation::Save)
 	{
 		save(constants::SaveGamePath + filePath + ".xml");
 	}

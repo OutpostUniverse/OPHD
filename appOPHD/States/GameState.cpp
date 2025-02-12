@@ -5,6 +5,8 @@
 #include "MainReportsUiState.h"
 #include "Wrapper.h"
 #include "../StructureManager.h"
+#include "../UI/MessageBox.h"
+#include <NAS2D/Filesystem.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
@@ -86,6 +88,7 @@ void GameState::mapviewstate(MapViewState* state)
 	mMapView->quit().connect({this, &GameState::onQuit});
 	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapView->mapChanged().connect({this, &GameState::onMapChange});
+	mMapView->fileIoAction().connect({this, &GameState::onFileIOAction});
 }
 
 
@@ -165,6 +168,31 @@ void GameState::onMapChange()
 }
 
 
+void GameState::onFileIOAction(const std::string& saveGameName, FileIo::FileOperation fileOp)
+{
+	if (fileOp == FileIo::FileOperation::Load)
+	{
+		auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::get();
+		auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
+		try
+		{
+			if (!filesystem.exists(saveGamePath))
+			{
+				throw std::runtime_error("Save game file does not exist: " + saveGamePath);
+			}
+			mNewMapView = std::make_unique<MapViewState>(getMainReportsState(), saveGamePath);
+		}
+		catch (const std::exception& e)
+		{
+			doNonFatalErrorMessage("Load Failed", e.what());
+			return;
+		}
+
+		mNewMapView->_initialize();
+	}
+}
+
+
 /**
  * Event handler that responds to a 'take me there' event raised by the MainReportsUiState.
  *
@@ -191,6 +219,17 @@ NAS2D::State* GameState::update()
 	if (mMapView && mMapView->hasGameEnded())
 	{
 		mReturnState = new MainMenuState();
+	}
+
+	if(mNewMapView)
+	{
+		mMapView = std::move(mNewMapView);
+		mActiveState = mMapView.get();
+		mActiveState->activate();
+		mMapView->quit().connect({this, &GameState::onQuit});
+		mMapView->showReportsUi().connect({this, &GameState::onShowReports});
+		mMapView->mapChanged().connect({this, &GameState::onMapChange});
+		mMapView->fileIoAction().connect({this, &GameState::onFileIOAction});
 	}
 
 	return mReturnState;
