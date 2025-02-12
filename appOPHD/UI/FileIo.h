@@ -26,6 +26,7 @@ public:
 	~FileIo() override;
 
 	void setMode(FileOperation fileOp);
+	void showOpen();
 	void scanDirectory(const std::string& directory);
 
 	FileOperationSignal::Source& fileOperation() { return mSignal; }
