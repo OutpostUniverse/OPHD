@@ -2,6 +2,7 @@
 
 #include "../Structure.h"
 
+
 struct StorableResources;
 class Mine;
 
@@ -16,8 +17,8 @@ public:
 public:
 	MineFacility(Mine* mine);
 
-	void mine(Mine* mine) { mMine = mine; }
-	void maxDepth(int depth) { mMaxDepth = depth; }
+	void mine(Mine* mine);
+	void maxDepth(int depth);
 
 	bool extending() const;
 	bool canExtend() const;
@@ -25,26 +26,22 @@ public:
 
 	int digTimeRemaining() const;
 
-	int assignedTrucks() const { return mAssignedTrucks; }
-	int maxTruckCount() const { return mMaxTruckCount; }
+	int assignedTrucks() const;
+	int maxTruckCount() const;
 
-	void addTruck() { mAssignedTrucks = std::clamp(mAssignedTrucks + 1, 1, mMaxTruckCount); }
-	void removeTruck() { mAssignedTrucks = std::clamp(mAssignedTrucks - 1, 1, mMaxTruckCount); }
+	void addTruck();
+	void removeTruck();
+	Mine* mine();
 
-	/**
-	 * Gets a pointer to the mine the MineFacility manages.
-	 */
-	Mine* mine() { return mMine; }
-
-	ExtensionCompleteSignal::Source& extensionComplete() { return mExtensionComplete; }
+	ExtensionCompleteSignal::Source& extensionComplete();
 
 protected:
 	friend class MapViewState;
 
 	StorableResources maxTransferAmounts();
 
-	void assignedTrucks(int count) { mAssignedTrucks = count; }
-	void digTimeRemaining(int count) { mDigTurnsRemaining = count; }
+	void assignedTrucks(int count);
+	void digTimeRemaining(int count);
 
 protected:
 	void think() override;
