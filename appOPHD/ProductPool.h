@@ -2,9 +2,13 @@
 
 #include <libOPHD/EnumProductType.h>
 
-#include <NAS2D/Dictionary.h>
-
 #include <array>
+
+
+namespace NAS2D
+{
+	class Dictionary;
+}
 
 
 int storageRequiredPerUnit(ProductType type);

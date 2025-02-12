@@ -3,6 +3,7 @@
 #include "Constants/Numbers.h"
 #include "Constants/Strings.h"
 
+#include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
 
 #include <algorithm>
