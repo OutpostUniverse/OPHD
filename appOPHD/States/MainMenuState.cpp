@@ -211,9 +211,7 @@ void MainMenuState::onNewGame()
 void MainMenuState::onContinueGame()
 {
 	if (mFileIoDialog.visible()) { return; }
-
-	mFileIoDialog.scanDirectory(constants::SaveGamePath);
-	mFileIoDialog.show();
+	mFileIoDialog.showOpen();
 }
 
 
