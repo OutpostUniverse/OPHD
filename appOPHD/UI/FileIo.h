@@ -27,6 +27,7 @@ public:
 
 	void setMode(FileOperation fileOp);
 	void showOpen(const std::string& directory);
+	void showSave(const std::string& directory);
 	void scanDirectory(const std::string& directory);
 
 	FileOperationSignal::Source& fileOperation() { return mSignal; }
