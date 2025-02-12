@@ -126,6 +126,9 @@
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\Recycling.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\ResearchFacility.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
