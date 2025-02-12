@@ -55,7 +55,6 @@ void MainMenuState::initialize()
 		button.size({200, 30});
 	}
 
-	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect({this, &MainMenuState::onFileIoAction});
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
