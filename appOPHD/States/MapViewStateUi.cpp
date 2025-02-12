@@ -610,9 +610,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 void MapViewState::onSaveGame()
 {
 	mGameOptionsDialog.hide();
-	mFileIoDialog.scanDirectory(constants::SaveGamePath);
-	mFileIoDialog.setMode(FileIo::FileOperation::Save);
-	mFileIoDialog.show();
+	mFileIoDialog.showSave(constants::SaveGamePath);
 }
 
 
