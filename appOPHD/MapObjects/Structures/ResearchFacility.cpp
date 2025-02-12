@@ -1,5 +1,6 @@
 #include "ResearchFacility.h"
 
+#include "../../UI/StringTable.h"
 
 #include <algorithm>
 #include <cmath>

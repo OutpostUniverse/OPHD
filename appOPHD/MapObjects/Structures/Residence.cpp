@@ -2,6 +2,8 @@
 
 #include "../../Constants/Strings.h"
 
+#include "../../UI/StringTable.h"
+
 #include <algorithm>
 
 

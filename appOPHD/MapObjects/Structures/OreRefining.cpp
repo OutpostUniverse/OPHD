@@ -3,6 +3,8 @@
 #include "../../Resources.h"
 #include "../../Constants/Numbers.h"
 
+#include "../../UI/StringTable.h"
+
 
 OreRefining::OreRefining(StructureClass structureClass, StructureID id) :
 	Structure(structureClass, id)

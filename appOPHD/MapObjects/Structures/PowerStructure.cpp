@@ -1,7 +1,8 @@
 #include "PowerStructure.h"
 
-
 #include "../../Constants/UiConstants.h"
+
+#include "../../UI/StringTable.h"
 
 #include <string>
 

@@ -3,7 +3,6 @@
 #include "MapObject.h"
 
 #include "../StorableResources.h"
-#include "../UI/StringTable.h"
 
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
@@ -19,6 +18,7 @@ namespace NAS2D
 
 
 struct StructureType;
+class StringTable;
 
 
 /**
@@ -176,7 +176,7 @@ public:
 	/**
 	* Pass limited structure specific details for drawing. Use a custom UI window if needed.
 	*/
-	virtual StringTable createInspectorViewTable() { return StringTable(0, 0); }
+	virtual StringTable createInspectorViewTable();
 
 	virtual NAS2D::Dictionary getDataDict() const;
 

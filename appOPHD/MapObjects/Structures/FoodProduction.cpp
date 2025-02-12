@@ -1,5 +1,7 @@
 #include "FoodProduction.h"
 
+#include "../../UI/StringTable.h"
+
 
 FoodProduction::FoodProduction(StructureClass structureClass, StructureID id) :
 	Structure(structureClass, id)

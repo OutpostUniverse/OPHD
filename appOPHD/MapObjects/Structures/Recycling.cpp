@@ -4,6 +4,8 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 
+#include "../../UI/StringTable.h"
+
 #include <NAS2D/StringUtils.h>
 
 
