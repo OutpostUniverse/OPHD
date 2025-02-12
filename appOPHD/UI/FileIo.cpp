@@ -94,11 +94,23 @@ void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mo
 }
 
 
-void FileIo::setMode(FileOperation fileOp)
+void FileIo::showOpen()
 {
-	mMode = fileOp;
-	title(mMode == FileOperation::Load ? constants::WindowFileIoTitleLoad : constants::WindowFileIoTitleSave);
-	mFileOperation.text(mMode == FileOperation::Load ? constants::WindowFileIoLoad : constants::WindowFileIoSave);
+	this->scanDirectory(constants::SaveGamePath);
+	mMode = FileOperation::Load;
+	title(constants::WindowFileIoTitleLoad);
+	mFileOperation.text(constants::WindowFileIoLoad);
+	this->show();
+}
+
+
+void FileIo::showSave()
+{
+	this->scanDirectory(constants::SaveGamePath);
+	mMode = FileOperation::Save;
+	title(constants::WindowFileIoTitleSave);
+	mFileOperation.text(constants::WindowFileIoSave);
+	this->show();
 }
 
 
