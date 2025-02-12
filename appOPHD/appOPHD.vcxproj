@@ -201,6 +201,7 @@
     <ClCompile Include="MapObjects\Structures\MaintenanceFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp" />
+    <ClCompile Include="MapObjects\Structures\PowerStructure.cpp" />
     <ClCompile Include="MapObjects\Structures\Recycling.cpp" />
     <ClCompile Include="MapObjects\Structures\ResearchFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\Residence.cpp" />
