@@ -7,9 +7,6 @@ struct StorableResources;
 class Mine;
 
 
-/**
- * Implements the Mine Facility.
- */
 class MineFacility : public Structure
 {
 public:

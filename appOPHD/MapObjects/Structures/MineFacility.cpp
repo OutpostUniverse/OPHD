@@ -167,9 +167,6 @@ void MineFacility::removeTruck()
 }
 
 
-/**
- * Gets a pointer to the mine the MineFacility manages.
- */
 Mine* MineFacility::mine()
 {
 	return mMine;
