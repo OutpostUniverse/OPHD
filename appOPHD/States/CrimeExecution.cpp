@@ -134,16 +134,17 @@ void CrimeExecution::stealRawResources(Structure& structure)
 
 void CrimeExecution::stealResources(Structure& structure, const std::array<std::string, 4>& resourceNames)
 {
-	if (structure.storage().isEmpty())
+	auto& storage = structure.storage();
+	if (storage.isEmpty())
 	{
 		return;
 	}
 
-	auto resourceIndicesWithStock = getIndicesWithStock(structure.storage());
+	auto resourceIndicesWithStock = getIndicesWithStock(storage);
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
-	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
-	structure.storage().resources[indexToStealFrom] -= amountStolen;
+	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, storage.resources[indexToStealFrom]);
+	storage.resources[indexToStealFrom] -= amountStolen;
 
 	mCrimeEventSignal.emit(
 		"Resources Stolen",
