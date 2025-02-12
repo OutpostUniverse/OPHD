@@ -198,6 +198,7 @@
     <ClCompile Include="MapObjects\Structure.cpp" />
     <ClCompile Include="MapObjects\Structures\Agridome.cpp" />
     <ClCompile Include="MapObjects\Structures\Factory.cpp" />
+    <ClCompile Include="MapObjects\Structures\FoodProduction.cpp" />
     <ClCompile Include="MapObjects\Structures\MaintenanceFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp" />
