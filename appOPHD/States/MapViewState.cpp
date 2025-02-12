@@ -509,9 +509,7 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			break;
 
 		case NAS2D::KeyCode::F3:
-			mFileIoDialog.scanDirectory(constants::SaveGamePath);
-			mFileIoDialog.setMode(FileIo::FileOperation::Load);
-			mFileIoDialog.show();
+			mFileIoDialog.showOpen(constants::SaveGamePath);
 			break;
 
 		case NAS2D::KeyCode::Escape:

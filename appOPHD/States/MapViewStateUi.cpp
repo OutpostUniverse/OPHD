@@ -622,10 +622,7 @@ void MapViewState::onSaveGame()
 void MapViewState::onLoadGame()
 {
 	mGameOptionsDialog.hide();
-	mFileIoDialog.scanDirectory(constants::SaveGamePath);
-	mFileIoDialog.setMode(FileIo::FileOperation::Load);
-	mFileIoDialog.show();
-
+	mFileIoDialog.showOpen(constants::SaveGamePath);
 }
 
 
