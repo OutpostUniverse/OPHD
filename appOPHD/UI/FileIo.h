@@ -25,7 +25,6 @@ public:
 	FileIo();
 	~FileIo() override;
 
-	void setMode(FileOperation fileOp);
 	void showOpen();
 	void showSave();
 	void scanDirectory(const std::string& directory);
