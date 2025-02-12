@@ -39,6 +39,22 @@ namespace
 	}
 
 
+	std::vector<std::size_t> getIndicesWithStock(const StorableResources& storabeResources)
+	{
+		std::vector<std::size_t> indicesWithStock;
+
+		for (std::size_t i = 0; i < storabeResources.resources.size(); ++i)
+		{
+			if (storabeResources.resources[i] > 0)
+			{
+				indicesWithStock.push_back(i);
+			}
+		}
+
+		return indicesWithStock;
+	}
+
+
 	int calcAmountForStealing(Difficulty difficulty, int low, int high, int max)
 	{
 		auto stealRandom = randomNumber.generate(low, high);
@@ -123,7 +139,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 		return;
 	}
 
-	auto resourceIndicesWithStock = structure.storage().getIndicesWithStock();
+	auto resourceIndicesWithStock = getIndicesWithStock(structure.storage());
 	auto indexToStealFrom = randomNumber.generate<std::size_t>(0, resourceIndicesWithStock.size() - 1);
 
 	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, structure.storage().resources[indexToStealFrom]);
