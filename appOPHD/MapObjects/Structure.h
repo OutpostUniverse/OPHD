@@ -11,7 +11,11 @@
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/Population/PopulationPool.h>
 
-#include <NAS2D/Dictionary.h>
+
+namespace NAS2D
+{
+	class Dictionary;
+}
 
 
 struct StructureType;

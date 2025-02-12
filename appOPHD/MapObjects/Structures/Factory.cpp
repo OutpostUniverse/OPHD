@@ -3,6 +3,8 @@
 #include "../../ProductionCost.h"
 #include "../../States/MapViewStateHelper.h" // yuck
 
+#include <NAS2D/Dictionary.h>
+
 #include <algorithm>
 
 

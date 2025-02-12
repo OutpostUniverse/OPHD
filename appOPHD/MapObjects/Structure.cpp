@@ -7,6 +7,8 @@
 
 #include <libOPHD/RandomNumberGenerator.h>
 
+#include <NAS2D/Dictionary.h>
+
 #include <algorithm>
 
 
