@@ -457,23 +457,23 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			moveView(MapOffsetNorthEast * shiftMoveScalar);
 			break;
 
-		case NAS2D::KeyCode::Key0:
+		case NAS2D::KeyCode::KeyNum0:
 			changeViewDepth(0);
 			break;
 
-		case NAS2D::KeyCode::Key1:
+		case NAS2D::KeyCode::KeyNum1:
 			changeViewDepth(1);
 			break;
 
-		case NAS2D::KeyCode::Key2:
+		case NAS2D::KeyCode::KeyNum2:
 			changeViewDepth(2);
 			break;
 
-		case NAS2D::KeyCode::Key3:
+		case NAS2D::KeyCode::KeyNum3:
 			changeViewDepth(3);
 			break;
 
-		case NAS2D::KeyCode::Key4:
+		case NAS2D::KeyCode::KeyNum4:
 			changeViewDepth(4);
 			break;
 
