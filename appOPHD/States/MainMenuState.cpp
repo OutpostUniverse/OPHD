@@ -25,7 +25,8 @@ MainMenuState::MainMenuState() :
 		{constants::MainMenuQuit, {this, &MainMenuState::onQuit}}
 	}},
 	lblVersion{constants::Version},
-	mReturnState{this}
+	mReturnState{this},
+	mFade{{this, &MainMenuState::onFadeComplete}}
 {}
 
 
@@ -69,7 +70,6 @@ void MainMenuState::initialize()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.showSystemPointer(true);
-	mFade.fadeComplete().connect({this, &MainMenuState::onFadeComplete});
 	mFade.fadeIn(constants::FadeSpeed);
 
 	NAS2D::Mixer& mixer = NAS2D::Utility<NAS2D::Mixer>::get();
