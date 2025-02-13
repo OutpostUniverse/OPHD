@@ -159,13 +159,13 @@ NAS2D::State* SplashState::update()
 }
 
 
-void SplashState::onKeyDown(NAS2D::EventHandler::KeyCode /*key*/, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void SplashState::onKeyDown(NAS2D::KeyCode /*key*/, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	skipSplash();
 }
 
 
-void SplashState::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void SplashState::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	skipSplash();
 }

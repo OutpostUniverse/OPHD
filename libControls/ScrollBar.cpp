@@ -1,6 +1,6 @@
 #include "ScrollBar.h"
 
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -213,11 +213,11 @@ void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
 }
 
 
-void ScrollBar::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ScrollBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		if (mThumbRect.contains(position))
 		{
@@ -235,9 +235,9 @@ void ScrollBar::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Poin
 }
 
 
-void ScrollBar::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ScrollBar::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (button != NAS2D::EventHandler::MouseButton::Left) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
 	mButtonDecreaseHeld = false;
 	mButtonIncreaseHeld = false;

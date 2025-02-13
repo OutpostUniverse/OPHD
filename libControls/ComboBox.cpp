@@ -1,6 +1,6 @@
 #include "ComboBox.h"
 
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/StringUtils.h>
 
@@ -79,13 +79,13 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-void ComboBox::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	UIContainer::onMouseDown(button, position);
 
 	if (!enabled() || !visible()) { return; }
 
-	if (button != NAS2D::EventHandler::MouseButton::Left) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
 	if (mBarRect.contains(position))
 	{

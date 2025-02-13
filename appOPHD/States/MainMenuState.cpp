@@ -165,7 +165,7 @@ void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOper
 /**
  * Key down event handler.
  */
-void MainMenuState::onKeyDown(NAS2D::EventHandler::KeyCode /*key*/, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void MainMenuState::onKeyDown(NAS2D::KeyCode /*key*/, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {}
 
 

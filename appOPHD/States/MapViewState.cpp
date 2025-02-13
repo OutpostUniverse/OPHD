@@ -31,8 +31,8 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/EventHandlerKeyCode.h>
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
 
@@ -411,7 +411,7 @@ void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
 /**
  * Key down event handler.
  */
-void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool /*repeat*/)
+void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
 {
 	if (!active()) { return; }
 
@@ -426,7 +426,7 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 		return;
 	}
 
-	if (key == NAS2D::EventHandler::KeyCode::KEY_F1)
+	if (key == NAS2D::KeyCode::KEY_F1)
 	{
 		mReportsUiSignal();
 		return;
@@ -437,64 +437,64 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 	switch(key)
 	{
 
-		case NAS2D::EventHandler::KeyCode::KEY_w:
-		case NAS2D::EventHandler::KeyCode::KEY_UP:
+		case NAS2D::KeyCode::KEY_w:
+		case NAS2D::KeyCode::KEY_UP:
 			moveView(MapOffsetNorthWest * shiftMoveScalar);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_s:
-		case NAS2D::EventHandler::KeyCode::KEY_DOWN:
+		case NAS2D::KeyCode::KEY_s:
+		case NAS2D::KeyCode::KEY_DOWN:
 			moveView(MapOffsetSouthEast * shiftMoveScalar);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_a:
-		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
+		case NAS2D::KeyCode::KEY_a:
+		case NAS2D::KeyCode::KEY_LEFT:
 			moveView(MapOffsetSouthWest * shiftMoveScalar);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_d:
-		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
+		case NAS2D::KeyCode::KEY_d:
+		case NAS2D::KeyCode::KEY_RIGHT:
 			moveView(MapOffsetNorthEast * shiftMoveScalar);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_0:
+		case NAS2D::KeyCode::KEY_0:
 			changeViewDepth(0);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_1:
+		case NAS2D::KeyCode::KEY_1:
 			changeViewDepth(1);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_2:
+		case NAS2D::KeyCode::KEY_2:
 			changeViewDepth(2);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_3:
+		case NAS2D::KeyCode::KEY_3:
 			changeViewDepth(3);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_4:
+		case NAS2D::KeyCode::KEY_4:
 			changeViewDepth(4);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_PAGEUP:
+		case NAS2D::KeyCode::KEY_PAGEUP:
 			moveView(MapOffsetUp);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_PAGEDOWN:
+		case NAS2D::KeyCode::KEY_PAGEDOWN:
 			moveView(MapOffsetDown);
 			break;
 
 
-		case NAS2D::EventHandler::KeyCode::KEY_HOME:
+		case NAS2D::KeyCode::KEY_HOME:
 			changeViewDepth(0);
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_END:
+		case NAS2D::KeyCode::KEY_END:
 			changeViewDepth(mTileMap->maxDepth());
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_F10:
+		case NAS2D::KeyCode::KEY_F10:
 			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(mod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(mod))
 			{
 				mCheatMenu.show();
@@ -502,24 +502,24 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 			}
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_F2:
+		case NAS2D::KeyCode::KEY_F2:
 			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Save);
 			mFileIoDialog.show();
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_F3:
+		case NAS2D::KeyCode::KEY_F3:
 			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Load);
 			mFileIoDialog.show();
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_ESCAPE:
+		case NAS2D::KeyCode::KEY_ESCAPE:
 			clearMode();
 			resetUi();
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_ENTER:
+		case NAS2D::KeyCode::KEY_ENTER:
 			if (mBtnTurns.enabled()) { nextTurn(); }
 			break;
 
@@ -529,7 +529,7 @@ void MapViewState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandl
 }
 
 
-void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!active()) { return; }
 
@@ -541,7 +541,7 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 		return;
 	}
 
-	if (button == NAS2D::EventHandler::MouseButton::Right || button == NAS2D::EventHandler::MouseButton::Middle)
+	if (button == NAS2D::MouseButton::Right || button == NAS2D::MouseButton::Middle)
 	{
 		if (mInsertMode != InsertMode::None)
 		{
@@ -554,12 +554,12 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
 		const bool inspectModifier = NAS2D::Utility<NAS2D::EventHandler>::get().shift() ||
-			button == NAS2D::EventHandler::MouseButton::Middle;
+			button == NAS2D::MouseButton::Middle;
 
 		onInspect(tilePosition, inspectModifier);
 	}
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
 		{
@@ -585,11 +585,11 @@ void MapViewState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::P
 }
 
 
-void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> /*position*/)
+void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> /*position*/)
 {
 	if (!active()) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
 		if (!mDetailMap->isMouseOverTile()) { return; }
@@ -625,9 +625,9 @@ void MapViewState::onMouseDoubleClick(NAS2D::EventHandler::MouseButton button, N
 }
 
 
-void MapViewState::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void MapViewState::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		mMiniMap->onMouseUp(button, position);
 	}

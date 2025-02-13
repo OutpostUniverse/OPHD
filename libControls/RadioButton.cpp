@@ -1,6 +1,6 @@
 #include "RadioButtonGroup.h"
 
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Resource/Font.h>
 
 
@@ -81,11 +81,11 @@ void RadioButtonGroup::RadioButton::onTextChange()
 }
 
 
-void RadioButtonGroup::RadioButton::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void RadioButtonGroup::RadioButton::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Left && mRect.contains(position))
+	if (button == NAS2D::MouseButton::Left && mRect.contains(position))
 	{
 		mParentContainer.select(*this);
 		mSignal();

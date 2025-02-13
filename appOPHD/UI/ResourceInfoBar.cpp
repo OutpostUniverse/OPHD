@@ -10,7 +10,7 @@
 #include <libOPHD/Population/Population.h>
 #include <libOPHD/Population/Morale.h>
 
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Math/Point.h>
@@ -193,11 +193,11 @@ void ResourceInfoBar::draw() const
 }
 
 
-void ResourceInfoBar::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	UIContainer::onMouseDown(button, position);
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		if (RESOURCE_PANEL_PIN.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
 		if (POPULATION_PANEL_PIN.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }

@@ -50,8 +50,8 @@ private:
 	void _activate() override;
 
 private:
-	void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
+	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void deselectAllPanels();

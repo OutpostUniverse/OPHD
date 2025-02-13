@@ -33,8 +33,8 @@ public:
 	virtual void onTitleChanged() { mTitleChanged(this); }
 
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
-	void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
+	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	static constexpr int sWindowTitleBarHeight = 20;

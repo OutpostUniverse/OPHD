@@ -7,7 +7,7 @@
 
 #include "TextField.h"
 
-#include <NAS2D/EventHandlerKeyCode.h>
+#include <NAS2D/EnumKeyCode.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
@@ -148,14 +148,14 @@ void TextField::onTextInput(const std::string& newTextInput)
 }
 
 
-void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool /*repeat*/)
+void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
 {
 	if (!hasFocus() || !editable() || !visible()) { return; }
 
 	switch(key)
 	{
 		// COMMAND KEYS
-		case NAS2D::EventHandler::KeyCode::KEY_BACKSPACE:
+		case NAS2D::KeyCode::KEY_BACKSPACE:
 			if (!text().empty() && mCursorPosition > 0)
 			{
 				mCursorPosition--;
@@ -164,15 +164,15 @@ void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler:
 			}
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_HOME:
+		case NAS2D::KeyCode::KEY_HOME:
 			mCursorPosition = 0;
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_END:
+		case NAS2D::KeyCode::KEY_END:
 			mCursorPosition = text().length();
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_DELETE:
+		case NAS2D::KeyCode::KEY_DELETE:
 			if (text().length() > 0)
 			{
 				mText = mText.erase(mCursorPosition, 1);
@@ -181,30 +181,30 @@ void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler:
 			break;
 
 		// ARROW KEYS
-		case NAS2D::EventHandler::KeyCode::KEY_LEFT:
+		case NAS2D::KeyCode::KEY_LEFT:
 			if (mCursorPosition > 0)
 				--mCursorPosition;
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_RIGHT:
+		case NAS2D::KeyCode::KEY_RIGHT:
 			if (mCursorPosition < text().length())
 				++mCursorPosition;
 			break;
 
 		// KEYPAD ARROWS
-		case NAS2D::EventHandler::KeyCode::KEY_KP4:
+		case NAS2D::KeyCode::KEY_KP4:
 			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(mod))
 				--mCursorPosition;
 			break;
 
-		case NAS2D::EventHandler::KeyCode::KEY_KP6:
+		case NAS2D::KeyCode::KEY_KP6:
 			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
 				++mCursorPosition;
 			break;
 
 		// IGNORE ENTER/RETURN KEY
-		case NAS2D::EventHandler::KeyCode::KEY_ENTER:
-		case NAS2D::EventHandler::KeyCode::KEY_KP_ENTER:
+		case NAS2D::KeyCode::KEY_ENTER:
+		case NAS2D::KeyCode::KEY_KP_ENTER:
 			break;
 
 		// REGULAR KEYS
@@ -214,7 +214,7 @@ void TextField::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler:
 }
 
 
-void TextField::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
 

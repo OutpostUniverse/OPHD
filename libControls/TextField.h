@@ -61,8 +61,8 @@ public:
 	void draw() const override;
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
-	virtual void onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier mod, bool repeat);
+	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
+	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
 
 private:

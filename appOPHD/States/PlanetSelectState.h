@@ -28,7 +28,7 @@ protected:
 	State* update() override;
 
 private:
-	void onMouseDown(NAS2D::EventHandler::MouseButton, NAS2D::Point<int> position);
+	void onMouseDown(NAS2D::MouseButton, NAS2D::Point<int> position);
 
 	void onMousePlanetEnter();
 	void onMousePlanetExit();
