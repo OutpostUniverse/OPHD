@@ -12,8 +12,8 @@
 #include "../UI/Reports/SpaceportsReport.h"
 #include "../UI/Reports/WarehouseReport.h"
 
-#include <NAS2D/EventHandlerKeyCode.h>
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 

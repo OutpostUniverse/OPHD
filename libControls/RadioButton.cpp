@@ -1,6 +1,6 @@
 #include "RadioButtonGroup.h"
 
-#include <NAS2D/EventHandlerMouseButton.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Resource/Font.h>
 
 
