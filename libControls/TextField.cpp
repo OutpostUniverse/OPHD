@@ -192,19 +192,19 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		// KEYPAD ARROWS
-		case NAS2D::KeyCode::KeyKp4:
+		case NAS2D::KeyCode::KeyKeypad4:
 			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(mod))
 				--mCursorPosition;
 			break;
 
-		case NAS2D::KeyCode::KeyKp6:
+		case NAS2D::KeyCode::KeyKeypad6:
 			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
 				++mCursorPosition;
 			break;
 
 		// IGNORE ENTER/RETURN KEY
 		case NAS2D::KeyCode::KeyEnter:
-		case NAS2D::KeyCode::KeyKpEnter:
+		case NAS2D::KeyCode::KeyKeypadEnter:
 			break;
 
 		// REGULAR KEYS
