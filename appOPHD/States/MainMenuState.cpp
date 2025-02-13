@@ -37,7 +37,6 @@ MainMenuState::~MainMenuState()
 	eventHandler.keyDown().disconnect({this, &MainMenuState::onKeyDown});
 
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
-	mFade.fadeComplete().disconnect({this, &MainMenuState::onFadeComplete});
 }
 
 
