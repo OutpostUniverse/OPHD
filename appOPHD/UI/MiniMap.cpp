@@ -8,6 +8,7 @@
 #include "../States/Route.h"
 #include "../StructureManager.h"
 
+#include <NAS2D/EventHandlerMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>

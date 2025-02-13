@@ -10,6 +10,7 @@
 #include <libOPHD/Population/Population.h>
 #include <libOPHD/Population/Morale.h>
 
+#include <NAS2D/EventHandlerMouseButton.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Math/Point.h>
