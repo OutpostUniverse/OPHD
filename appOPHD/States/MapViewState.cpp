@@ -477,11 +477,11 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			changeViewDepth(4);
 			break;
 
-		case NAS2D::KeyCode::KeyPageup:
+		case NAS2D::KeyCode::KeyPageUp:
 			moveView(MapOffsetUp);
 			break;
 
-		case NAS2D::KeyCode::KeyPagedown:
+		case NAS2D::KeyCode::KeyPageDown:
 			moveView(MapOffsetDown);
 			break;
 
