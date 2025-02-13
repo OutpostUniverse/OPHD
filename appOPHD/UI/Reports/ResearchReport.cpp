@@ -173,11 +173,11 @@ void ResearchReport::onResize()
 }
 
 
-void ResearchReport::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ResearchReport::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!visible() ||
 		!rect().contains(position) ||
-		button != NAS2D::EventHandler::MouseButton::Left)
+		button != NAS2D::MouseButton::Left)
 	{
 		return;
 	}

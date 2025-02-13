@@ -56,7 +56,7 @@ private:
 	void fillListEmpty();
 	void fillListDisabled();
 
-	void onDoubleClick(NAS2D::EventHandler::MouseButton, NAS2D::Point<int> position);
+	void onDoubleClick(NAS2D::MouseButton, NAS2D::Point<int> position);
 
 	void onStructureSelectionChange();
 

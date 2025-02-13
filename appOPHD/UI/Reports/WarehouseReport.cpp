@@ -183,10 +183,10 @@ void WarehouseReport::fillListDisabled()
 }
 
 
-void WarehouseReport::onDoubleClick(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }
-	if (button != EventHandler::MouseButton::Left) { return; }
+	if (button != MouseButton::Left) { return; }
 
 	if (selectedWarehouse && lstStructures.rect().contains(position))
 	{

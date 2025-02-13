@@ -125,15 +125,15 @@ void MiniMap::onActivate()
 }
 
 
-void MiniMap::onMouseUp(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void MiniMap::onMouseUp(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 	mLeftButtonDown = false;
 }
 
 
-void MiniMap::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void MiniMap::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		mLeftButtonDown = true;
 		if (mRect.contains(position))

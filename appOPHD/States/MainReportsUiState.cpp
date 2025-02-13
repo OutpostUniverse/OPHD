@@ -237,21 +237,21 @@ void MainReportsUiState::_deactivate()
 }
 
 
-void MainReportsUiState::onKeyDown(NAS2D::EventHandler::KeyCode key, NAS2D::EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active())
 	{
 		return;
 	}
 
-	if (key == NAS2D::EventHandler::KeyCode::KEY_ESCAPE)
+	if (key == NAS2D::KeyCode::KEY_ESCAPE)
 	{
 		exit();
 	}
 }
 
 
-void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!active())
 	{
@@ -264,7 +264,7 @@ void MainReportsUiState::onMouseDown(NAS2D::EventHandler::MouseButton button, NA
 		return;
 	}
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		for (Panel& panel : Panels)
 		{

@@ -67,11 +67,11 @@ CheckBox::ClickSignal::Source& CheckBox::click()
 }
 
 
-void CheckBox::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void CheckBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Left && mRect.contains(position))
+	if (button == NAS2D::MouseButton::Left && mRect.contains(position))
 	{
 		mChecked = !mChecked;
 		mSignal();

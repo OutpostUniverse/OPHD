@@ -228,7 +228,7 @@ public:
 
 
 protected:
-	virtual void onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 	{
 		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))
 		{

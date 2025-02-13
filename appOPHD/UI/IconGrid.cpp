@@ -64,12 +64,12 @@ void IconGrid::updateGrid()
 }
 
 
-void IconGrid::onMouseDown(EventHandler::MouseButton button, NAS2D::Point<int> position)
+void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
 	// Don't respond to anything unless it's the left mouse button.
-	if (button != EventHandler::MouseButton::Left) { return; }
+	if (button != MouseButton::Left) { return; }
 
 	if (!visible())
 	{

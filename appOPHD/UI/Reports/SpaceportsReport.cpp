@@ -54,7 +54,7 @@ void SpaceportsReport::onResize()
 }
 
 
-void SpaceportsReport::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void SpaceportsReport::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 }
 

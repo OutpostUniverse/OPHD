@@ -95,13 +95,13 @@ void ListBoxBase::onResize()
 }
 
 
-void ListBoxBase::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (isEmpty() || button == NAS2D::EventHandler::MouseButton::Middle) { return; }
+	if (isEmpty() || button == NAS2D::MouseButton::Middle) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Right && mRect.contains(position))
+	if (button == NAS2D::MouseButton::Right && mRect.contains(position))
 	{
 		setSelection(NoSelection);
 		return;

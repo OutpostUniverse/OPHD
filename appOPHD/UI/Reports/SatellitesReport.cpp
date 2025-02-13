@@ -56,7 +56,7 @@ void SatellitesReport::onResize()
 }
 
 
-void SatellitesReport::onMouseDown(NAS2D::EventHandler::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void SatellitesReport::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
 }
 

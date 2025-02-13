@@ -29,7 +29,7 @@ public:
 	void draw() const override;
 
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 
 	int totalStorage(Structure::StructureClass, int) const;
 

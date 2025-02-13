@@ -32,8 +32,8 @@ public:
 protected:
 	friend MapViewState;
 	void onActivate();
-	void onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
+	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onSetView(NAS2D::Point<int> mousePixel);
 

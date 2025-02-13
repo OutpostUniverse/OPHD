@@ -118,11 +118,11 @@ bool Button::hasImage() const
 }
 
 
-void Button::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		if (mRect.contains(position))
 		{
@@ -140,11 +140,11 @@ void Button::onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<i
 }
 
 
-void Button::onMouseUp(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position)
+void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
 
-	if (button == NAS2D::EventHandler::MouseButton::Left)
+	if (button == NAS2D::MouseButton::Left)
 	{
 		if (mType == Type::Push)
 		{

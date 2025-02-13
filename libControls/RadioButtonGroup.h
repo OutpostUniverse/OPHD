@@ -39,7 +39,7 @@ private:
 	protected:
 		void onResize() override;
 		void onTextChange();
-		void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
+		void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
 	private:
 		const NAS2D::Font& mFont;

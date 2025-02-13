@@ -60,7 +60,7 @@ FileIo::~FileIo()
 }
 
 
-void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, NAS2D::Point<int> position)
+void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
 
@@ -77,18 +77,18 @@ void FileIo::onDoubleClick(EventHandler::MouseButton /*button*/, NAS2D::Point<in
 /**
  * Event handler for Key Down.
  */
-void FileIo::onKeyDown(EventHandler::KeyCode key, EventHandler::KeyModifier /*mod*/, bool /*repeat*/)
+void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
 
-	if (key == EventHandler::KeyCode::KEY_ENTER || key == EventHandler::KeyCode::KEY_KP_ENTER)
+	if (key == KeyCode::KEY_ENTER || key == KeyCode::KEY_KP_ENTER)
 	{
 		if (!mFileName.empty())
 		{
 			onFileIo();
 		}
 	}
-	else if (key == EventHandler::KeyCode::KEY_ESCAPE)
+	else if (key == KeyCode::KEY_ESCAPE)
 	{
 		onClose();
 	}

@@ -34,7 +34,7 @@ public:
 	void draw() const override;
 
 protected:
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position);
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
 	void onResize() override;
 	void onTextChange() override;

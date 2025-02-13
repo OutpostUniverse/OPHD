@@ -44,7 +44,7 @@ public:
 private:
 	void onResize() override;
 
-	void onMouseDown(NAS2D::EventHandler::MouseButton button, NAS2D::Point<int> position) override;
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
 
 	void setIconPositions();
