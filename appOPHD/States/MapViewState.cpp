@@ -426,7 +426,7 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 		return;
 	}
 
-	if (key == NAS2D::KeyCode::KEY_F1)
+	if (key == NAS2D::KeyCode::F1)
 	{
 		mReportsUiSignal();
 		return;
@@ -437,64 +437,64 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 	switch(key)
 	{
 
-		case NAS2D::KeyCode::KEY_w:
-		case NAS2D::KeyCode::KEY_UP:
+		case NAS2D::KeyCode::W:
+		case NAS2D::KeyCode::Up:
 			moveView(MapOffsetNorthWest * shiftMoveScalar);
 			break;
 
-		case NAS2D::KeyCode::KEY_s:
-		case NAS2D::KeyCode::KEY_DOWN:
+		case NAS2D::KeyCode::S:
+		case NAS2D::KeyCode::Down:
 			moveView(MapOffsetSouthEast * shiftMoveScalar);
 			break;
 
-		case NAS2D::KeyCode::KEY_a:
-		case NAS2D::KeyCode::KEY_LEFT:
+		case NAS2D::KeyCode::A:
+		case NAS2D::KeyCode::Left:
 			moveView(MapOffsetSouthWest * shiftMoveScalar);
 			break;
 
-		case NAS2D::KeyCode::KEY_d:
-		case NAS2D::KeyCode::KEY_RIGHT:
+		case NAS2D::KeyCode::D:
+		case NAS2D::KeyCode::Right:
 			moveView(MapOffsetNorthEast * shiftMoveScalar);
 			break;
 
-		case NAS2D::KeyCode::KEY_0:
+		case NAS2D::KeyCode::Num0:
 			changeViewDepth(0);
 			break;
 
-		case NAS2D::KeyCode::KEY_1:
+		case NAS2D::KeyCode::Num1:
 			changeViewDepth(1);
 			break;
 
-		case NAS2D::KeyCode::KEY_2:
+		case NAS2D::KeyCode::Num2:
 			changeViewDepth(2);
 			break;
 
-		case NAS2D::KeyCode::KEY_3:
+		case NAS2D::KeyCode::Num3:
 			changeViewDepth(3);
 			break;
 
-		case NAS2D::KeyCode::KEY_4:
+		case NAS2D::KeyCode::Num4:
 			changeViewDepth(4);
 			break;
 
-		case NAS2D::KeyCode::KEY_PAGEUP:
+		case NAS2D::KeyCode::PageUp:
 			moveView(MapOffsetUp);
 			break;
 
-		case NAS2D::KeyCode::KEY_PAGEDOWN:
+		case NAS2D::KeyCode::PageDown:
 			moveView(MapOffsetDown);
 			break;
 
 
-		case NAS2D::KeyCode::KEY_HOME:
+		case NAS2D::KeyCode::Home:
 			changeViewDepth(0);
 			break;
 
-		case NAS2D::KeyCode::KEY_END:
+		case NAS2D::KeyCode::End:
 			changeViewDepth(mTileMap->maxDepth());
 			break;
 
-		case NAS2D::KeyCode::KEY_F10:
+		case NAS2D::KeyCode::F10:
 			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(mod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(mod))
 			{
 				mCheatMenu.show();
@@ -502,24 +502,24 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			}
 			break;
 
-		case NAS2D::KeyCode::KEY_F2:
+		case NAS2D::KeyCode::F2:
 			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Save);
 			mFileIoDialog.show();
 			break;
 
-		case NAS2D::KeyCode::KEY_F3:
+		case NAS2D::KeyCode::F3:
 			mFileIoDialog.scanDirectory(constants::SaveGamePath);
 			mFileIoDialog.setMode(FileIo::FileOperation::Load);
 			mFileIoDialog.show();
 			break;
 
-		case NAS2D::KeyCode::KEY_ESCAPE:
+		case NAS2D::KeyCode::Escape:
 			clearMode();
 			resetUi();
 			break;
 
-		case NAS2D::KeyCode::KEY_ENTER:
+		case NAS2D::KeyCode::Enter:
 			if (mBtnTurns.enabled()) { nextTurn(); }
 			break;
 

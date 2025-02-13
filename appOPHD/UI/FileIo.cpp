@@ -81,14 +81,14 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
 
-	if (key == KeyCode::KEY_ENTER || key == KeyCode::KEY_KP_ENTER)
+	if (key == KeyCode::Enter || key == KeyCode::KeypadEnter)
 	{
 		if (!mFileName.empty())
 		{
 			onFileIo();
 		}
 	}
-	else if (key == KeyCode::KEY_ESCAPE)
+	else if (key == KeyCode::Escape)
 	{
 		onClose();
 	}
