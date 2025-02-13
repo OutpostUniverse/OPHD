@@ -244,7 +244,7 @@ void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*
 		return;
 	}
 
-	if (key == NAS2D::KeyCode::KeyEscape)
+	if (key == NAS2D::KeyCode::Escape)
 	{
 		exit();
 	}

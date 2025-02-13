@@ -155,7 +155,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 	switch(key)
 	{
 		// COMMAND KEYS
-		case NAS2D::KeyCode::KeyBackspace:
+		case NAS2D::KeyCode::Backspace:
 			if (!text().empty() && mCursorPosition > 0)
 			{
 				mCursorPosition--;
@@ -164,15 +164,15 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			}
 			break;
 
-		case NAS2D::KeyCode::KeyHome:
+		case NAS2D::KeyCode::Home:
 			mCursorPosition = 0;
 			break;
 
-		case NAS2D::KeyCode::KeyEnd:
+		case NAS2D::KeyCode::End:
 			mCursorPosition = text().length();
 			break;
 
-		case NAS2D::KeyCode::KeyDelete:
+		case NAS2D::KeyCode::Delete:
 			if (text().length() > 0)
 			{
 				mText = mText.erase(mCursorPosition, 1);
@@ -181,30 +181,30 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		// ARROW KEYS
-		case NAS2D::KeyCode::KeyLeft:
+		case NAS2D::KeyCode::Left:
 			if (mCursorPosition > 0)
 				--mCursorPosition;
 			break;
 
-		case NAS2D::KeyCode::KeyRight:
+		case NAS2D::KeyCode::Right:
 			if (mCursorPosition < text().length())
 				++mCursorPosition;
 			break;
 
 		// KEYPAD ARROWS
-		case NAS2D::KeyCode::KeyKeypad4:
+		case NAS2D::KeyCode::Keypad4:
 			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(mod))
 				--mCursorPosition;
 			break;
 
-		case NAS2D::KeyCode::KeyKeypad6:
+		case NAS2D::KeyCode::Keypad6:
 			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
 				++mCursorPosition;
 			break;
 
 		// IGNORE ENTER/RETURN KEY
-		case NAS2D::KeyCode::KeyEnter:
-		case NAS2D::KeyCode::KeyKeypadEnter:
+		case NAS2D::KeyCode::Enter:
+		case NAS2D::KeyCode::KeypadEnter:
 			break;
 
 		// REGULAR KEYS
