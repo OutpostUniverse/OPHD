@@ -74,7 +74,6 @@ void MapViewState::initUi()
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
-	mFileIoDialog.setMode(FileIo::FileOperation::Save);
 	mFileIoDialog.fileOperation().connect({this, &MapViewState::onFileIoAction});
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
@@ -610,9 +609,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 void MapViewState::onSaveGame()
 {
 	mGameOptionsDialog.hide();
-	mFileIoDialog.scanDirectory(constants::SaveGamePath);
-	mFileIoDialog.setMode(FileIo::FileOperation::Save);
-	mFileIoDialog.show();
+	mFileIoDialog.showSave(constants::SaveGamePath);
 }
 
 
@@ -622,10 +619,7 @@ void MapViewState::onSaveGame()
 void MapViewState::onLoadGame()
 {
 	mGameOptionsDialog.hide();
-	mFileIoDialog.scanDirectory(constants::SaveGamePath);
-	mFileIoDialog.setMode(FileIo::FileOperation::Load);
-	mFileIoDialog.show();
-
+	mFileIoDialog.showOpen(constants::SaveGamePath);
 }
 
 

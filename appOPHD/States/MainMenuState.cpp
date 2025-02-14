@@ -55,7 +55,6 @@ void MainMenuState::initialize()
 		button.size({200, 30});
 	}
 
-	mFileIoDialog.setMode(FileIo::FileOperation::Load);
 	mFileIoDialog.fileOperation().connect({this, &MainMenuState::onFileIoAction});
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
@@ -210,9 +209,7 @@ void MainMenuState::onNewGame()
 void MainMenuState::onContinueGame()
 {
 	if (mFileIoDialog.visible()) { return; }
-
-	mFileIoDialog.scanDirectory(constants::SaveGamePath);
-	mFileIoDialog.show();
+	mFileIoDialog.showOpen(constants::SaveGamePath);
 }
 
 

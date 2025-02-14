@@ -25,8 +25,8 @@ public:
 	FileIo();
 	~FileIo() override;
 
-	void setMode(FileOperation fileOp);
-	void scanDirectory(const std::string& directory);
+	void showOpen(const std::string& directory);
+	void showSave(const std::string& directory);
 
 	FileOperationSignal::Source& fileOperation() { return mSignal; }
 
@@ -37,6 +37,7 @@ protected:
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 
 private:
+	void scanDirectory(const std::string& directory);
 	void onOpenFolder() const;
 	void onClose();
 	void onFileIo();
