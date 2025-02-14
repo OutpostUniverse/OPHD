@@ -282,6 +282,7 @@ private:
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
 	void onSaveGame(const std::string& filePath);
+	void onLoadGame(const std::string& filePath);
 
 	void onTakeMeThere(const MapCoordinate& position);
 

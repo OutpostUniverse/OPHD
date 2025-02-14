@@ -644,30 +644,19 @@ void MapViewState::onGameOver()
 }
 
 
-/**
- * Handler for File I/O actions.
- */
-void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
+void MapViewState::onLoadGame(const std::string& filePath)
 {
-	if (fileOp == FileIo::FileOperation::Load)
+	try
 	{
-		try
-		{
-			load(constants::SaveGamePath + filePath + ".xml");
-			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-			setupUiPositions(renderer.size());
-		}
-		catch (const std::exception& e)
-		{
-			doNonFatalErrorMessage("Load Failed", e.what());
-			return;
-		}
+		load(constants::SaveGamePath + filePath + ".xml");
+		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+		setupUiPositions(renderer.size());
 	}
-	else
+	catch (const std::exception& e)
 	{
-		save(constants::SaveGamePath + filePath + ".xml");
+		doNonFatalErrorMessage("Load Failed", e.what());
+		return;
 	}
-
 	mFileIoDialog.hide();
 }
 
