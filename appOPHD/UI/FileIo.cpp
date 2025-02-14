@@ -187,7 +187,7 @@ void FileIo::onFileIo()
 
 	if(mMode == FileOperation::Load)
 	{
-		mSignal(mFileName.text(), mMode);
+		mLoadSignal(mFileName.text());
 	}
 	mFileName.text("");
 	mFileName.resetCursorPosition();
