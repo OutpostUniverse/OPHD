@@ -671,6 +671,13 @@ void MapViewState::onFileIoAction(const std::string& filePath, FileIo::FileOpera
 }
 
 
+void MapViewState::onSaveGame(const std::string& filePath)
+{
+	save(constants::SaveGamePath + filePath + ".xml");
+	mFileIoDialog.hide();
+}
+
+
 void MapViewState::onTakeMeThere(const MapCoordinate& position)
 {
 	mMapView->centerOn(position);

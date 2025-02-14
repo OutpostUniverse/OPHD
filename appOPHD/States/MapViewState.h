@@ -281,6 +281,7 @@ private:
 	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
 	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
+	void onSaveGame(const std::string& filePath);
 
 	void onTakeMeThere(const MapCoordinate& position);
 
