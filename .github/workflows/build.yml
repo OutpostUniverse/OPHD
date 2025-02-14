@@ -160,7 +160,7 @@ jobs:
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreOphd.outputs.cache-hit != 'true' || steps.cacheRestoreOphd.outcome == 'skipped'
+      if: steps.cacheRestoreOphd.outputs.cache-hit != 'true'
       with:
         path: .build
         key: ${{ env.cacheKeyOphd }}
