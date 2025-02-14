@@ -38,12 +38,31 @@ jobs:
           core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
+    - name: Set SHA env vars
+      shell: bash
+      run: |
+        vcpkgSha="${{ hashFiles('vcpkg.json') }}"
+        nas2dSha="$(git submodule status -- nas2d-core/ | awk '{print $1}')"
+        ophdSha="${{ github.sha }}"
+
+        config="${{ runner.os }}-${{ matrix.platform }}"
+        cacheKeyPrefixOphd="buildCache-${config}-"
+
+        cacheKeyVcpkg="vcpkgCache-${config}-${vcpkgSha}"
+        cacheKeyNas2d="nas2dCache-${config}-${nas2dSha}"
+        cacheKeyOphd="${cacheKeyPrefixOphd}-${ophdSha}"
+
+        echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
+        echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
+        echo "cacheKeyOphd=${cacheKeyOphd}" >> $GITHUB_ENV
+        echo "cacheKeyPrefixOphd=${cacheKeyPrefixOphd}" >> $GITHUB_ENV
+
     - name: Restore vcpkg dependency cache
       uses: actions/cache/restore@v4
       id: cacheRestoreVcpkg
       with:
         path: vcpkg_installed
-        key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
+        key: ${{ env.cacheKeyVcpkg }}
 
     - name: Pre-install vcpkg dependencies - OPHD
       env:
@@ -72,9 +91,6 @@ jobs:
     - name: Set NAS2D modification time
       shell: bash
       run: |
-        nas2dSha=$(git submodule status -- nas2d-core/ | awk '{print $1}')
-        echo "nas2dSha=${nas2dSha}" >> $GITHUB_ENV
-
         # Set last modification times to that of last build's committer time
         # The committer time should pre-date any cached output modification time
         commitTime=$(git -C nas2d-core/ log -1 --format="%cI")
@@ -87,11 +103,9 @@ jobs:
       if: steps.cacheRestoreVcpkg.outputs.cache-hit == 'true'
       with:
         path: nas2d-core/.build/
-        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
+        key: ${{ env.cacheKeyNas2d }}
 
     - name: Build NAS2D
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
         msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /target:NAS2D
 
@@ -108,8 +122,8 @@ jobs:
       if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch) && steps.cacheRestoreNas2d.outputs.cache-hit == 'true'
       with:
         path: .build
-        key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
-        restore-keys: buildCache-${{ runner.os }}-${{ matrix.platform }}-
+        key: ${{ env.cacheKeyOphd }}
+        restore-keys: ${{ env.cacheKeyPrefixOphd }}
 
     - name: Set modification times
       if: ${{ hashFiles('.build/lastBuildSha.txt') != '' }}
@@ -141,8 +155,6 @@ jobs:
           echo "${{ github.sha }}" > .build/lastBuildSha.txt
 
     - name: Build OPHD
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: |
         msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true
 
@@ -151,7 +163,7 @@ jobs:
       if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit != 'true'
       with:
         path: .build
-        key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
+        key: ${{ env.cacheKeyOphd }}
 
     - name: Run libOPHD unit tests
       run: .build/${{env.Configuration}}_${{env.Platform}}_testLibOPHD/testLibOPHD.exe
