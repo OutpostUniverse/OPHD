@@ -46,14 +46,16 @@ jobs:
         ophdSha="${{ github.sha }}"
 
         config="${{ runner.os }}-${{ matrix.platform }}"
+        cacheKeyPrefixOphd="buildCache-${config}-"
 
         cacheKeyVcpkg="vcpkgCache-${config}-${vcpkgSha}"
         cacheKeyNas2d="nas2dCache-${config}-${nas2dSha}"
-        cacheKeyOphd="buildCache-${config}-${ophdSha}"
+        cacheKeyOphd="${cacheKeyPrefixOphd}-${ophdSha}"
 
         echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
         echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
         echo "cacheKeyOphd=${cacheKeyOphd}" >> $GITHUB_ENV
+        echo "cacheKeyPrefixOphd=${cacheKeyPrefixOphd}" >> $GITHUB_ENV
 
     - name: Restore vcpkg dependency cache
       uses: actions/cache/restore@v4
@@ -121,7 +123,7 @@ jobs:
       with:
         path: .build
         key: ${{ env.cacheKeyOphd }}
-        restore-keys: buildCache-${{ runner.os }}-${{ matrix.platform }}-
+        restore-keys: ${{ env.cacheKeyPrefixOphd }}
 
     - name: Set modification times
       if: ${{ hashFiles('.build/lastBuildSha.txt') != '' }}
