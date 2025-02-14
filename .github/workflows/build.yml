@@ -119,7 +119,7 @@ jobs:
     - name: Restore incremental build cache
       uses: actions/cache/restore@v4
       id: cacheRestoreOphd
-      if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch) && steps.cacheRestoreNas2d.outputs.cache-hit == 'true'
+      if: steps.cacheRestoreNas2d.outputs.cache-hit == 'true' && github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
       with:
         path: .build
         key: ${{ env.cacheKeyOphd }}
@@ -160,7 +160,7 @@ jobs:
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit != 'true'
+      if: steps.cacheRestoreOphd.outputs.cache-hit != 'true' || steps.cacheRestoreOphd.outcome == 'skipped'
       with:
         path: .build
         key: ${{ env.cacheKeyOphd }}
