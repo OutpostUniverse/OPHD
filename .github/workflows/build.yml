@@ -41,11 +41,13 @@ jobs:
     - name: Set SHA env vars
       shell: bash
       run: |
-        nas2dSha=$(git submodule status -- nas2d-core/ | awk '{print $1}')
+        vcpkgSha="${{ hashFiles('vcpkg.json') }}"
+        nas2dSha="$(git submodule status -- nas2d-core/ | awk '{print $1}')"
+        ophdSha="${{ github.sha }}"
 
-        cacheKeyVcpkg="vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}"
+        cacheKeyVcpkg="vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${vcpkgSha}"
         cacheKeyNas2d="nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${nas2dSha}"
-        cacheKeyOphd="buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}"
+        cacheKeyOphd="buildCache-${{ runner.os }}-${{ matrix.platform }}-${ophdSha}"
 
         echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
         echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
