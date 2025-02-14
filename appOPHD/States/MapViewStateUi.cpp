@@ -75,6 +75,7 @@ void MapViewState::initUi()
 	mFactoryProduction.hide();
 
 	mFileIoDialog.fileOperation().connect({this, &MapViewState::onFileIoAction});
+	mFileIoDialog.fileSaveSignal().connect({this, &MapViewState::onSaveGame});
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
