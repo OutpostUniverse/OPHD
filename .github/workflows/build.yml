@@ -48,9 +48,9 @@ jobs:
         config="${{ runner.os }}-${{ matrix.platform }}"
         cacheKeyPrefixOphd="buildCache-${config}-"
 
-        cacheKeyVcpkg="vcpkgCache-${config}-${vcpkgSha}"
-        cacheKeyNas2d="nas2dCache-${config}-${nas2dSha}"
-        cacheKeyOphd="${cacheKeyPrefixOphd}-${ophdSha}"
+        cacheKeyVcpkg="vcpkgCache-${config}-${vcpkgSha::8}"
+        cacheKeyNas2d="nas2dCache-${config}-${vcpkgSha::8}-${nas2dSha::8}"
+        cacheKeyOphd="${cacheKeyPrefixOphd}-${vcpkgSha::8}-${nas2dSha::8}-${ophdSha::8}"
 
         echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
         echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
