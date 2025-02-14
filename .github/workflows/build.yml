@@ -38,6 +38,12 @@ jobs:
           core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
           core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
+    - name: Set SHA env vars
+      shell: bash
+      run: |
+        nas2dSha=$(git submodule status -- nas2d-core/ | awk '{print $1}')
+        echo "nas2dSha=${nas2dSha}" >> $GITHUB_ENV
+
     - name: Restore vcpkg dependency cache
       uses: actions/cache/restore@v4
       id: cacheRestoreVcpkg
@@ -72,9 +78,6 @@ jobs:
     - name: Set NAS2D modification time
       shell: bash
       run: |
-        nas2dSha=$(git submodule status -- nas2d-core/ | awk '{print $1}')
-        echo "nas2dSha=${nas2dSha}" >> $GITHUB_ENV
-
         # Set last modification times to that of last build's committer time
         # The committer time should pre-date any cached output modification time
         commitTime=$(git -C nas2d-core/ log -1 --format="%cI")
