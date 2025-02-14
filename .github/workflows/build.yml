@@ -75,7 +75,7 @@ jobs:
       if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
       with:
         path: vcpkg_installed
-        key: ${{ steps.cacheRestoreVcpkg.outputs.cache-primary-key }}
+        key: ${{ env.cacheKeyVcpkg }}
 
     - name: Copy vcpkg cache to NAS2D folder
       run: |
@@ -114,7 +114,7 @@ jobs:
       if: steps.cacheRestoreNas2d.outputs.cache-hit != 'true'
       with:
         path: nas2d-core/.build/
-        key: ${{ steps.cacheRestoreNas2d.outputs.cache-primary-key }}
+        key: ${{ env.cacheKeyNas2d }}
 
     - name: Restore incremental build cache
       uses: actions/cache/restore@v4
