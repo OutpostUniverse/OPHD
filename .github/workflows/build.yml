@@ -42,14 +42,21 @@ jobs:
       shell: bash
       run: |
         nas2dSha=$(git submodule status -- nas2d-core/ | awk '{print $1}')
-        echo "nas2dSha=${nas2dSha}" >> $GITHUB_ENV
+
+        cacheKeyVcpkg="vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}"
+        cacheKeyNas2d="nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${nas2dSha}"
+        cacheKeyOphd="buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}"
+
+        echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
+        echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
+        echo "cacheKeyOphd=${cacheKeyOphd}" >> $GITHUB_ENV
 
     - name: Restore vcpkg dependency cache
       uses: actions/cache/restore@v4
       id: cacheRestoreVcpkg
       with:
         path: vcpkg_installed
-        key: vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('vcpkg.json') }}
+        key: ${{ env.cacheKeyVcpkg }}
 
     - name: Pre-install vcpkg dependencies - OPHD
       env:
@@ -90,7 +97,7 @@ jobs:
       if: steps.cacheRestoreVcpkg.outputs.cache-hit == 'true'
       with:
         path: nas2d-core/.build/
-        key: nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${{ env.nas2dSha }}
+        key: ${{ env.cacheKeyNas2d }}
 
     - name: Build NAS2D
       run: |
@@ -109,7 +116,7 @@ jobs:
       if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch) && steps.cacheRestoreNas2d.outputs.cache-hit == 'true'
       with:
         path: .build
-        key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
+        key: ${{ env.cacheKeyOphd }}
         restore-keys: buildCache-${{ runner.os }}-${{ matrix.platform }}-
 
     - name: Set modification times
@@ -150,7 +157,7 @@ jobs:
       if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit != 'true'
       with:
         path: .build
-        key: buildCache-${{ runner.os }}-${{ matrix.platform }}-${{ github.sha }}
+        key: ${{ env.cacheKeyOphd }}
 
     - name: Run libOPHD unit tests
       run: .build/${{env.Configuration}}_${{env.Platform}}_testLibOPHD/testLibOPHD.exe
