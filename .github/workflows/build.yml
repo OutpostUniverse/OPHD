@@ -45,9 +45,11 @@ jobs:
         nas2dSha="$(git submodule status -- nas2d-core/ | awk '{print $1}')"
         ophdSha="${{ github.sha }}"
 
-        cacheKeyVcpkg="vcpkgCache-${{ runner.os }}-${{ matrix.platform }}-${vcpkgSha}"
-        cacheKeyNas2d="nas2dCache-${{ runner.os }}-${{ matrix.platform }}-${nas2dSha}"
-        cacheKeyOphd="buildCache-${{ runner.os }}-${{ matrix.platform }}-${ophdSha}"
+        config="${{ runner.os }}-${{ matrix.platform }}"
+
+        cacheKeyVcpkg="vcpkgCache-${config}-${vcpkgSha}"
+        cacheKeyNas2d="nas2dCache-${config}-${nas2dSha}"
+        cacheKeyOphd="buildCache-${config}-${ophdSha}"
 
         echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
         echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
