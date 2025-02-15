@@ -74,7 +74,7 @@ void MapViewState::initUi()
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
-	mFileIoDialog.fileOperation().connect({this, &MapViewState::onFileIoAction});
+	mFileIoDialog.fileLoadSignal().connect({this, &MapViewState::onLoadGame});
 	mFileIoDialog.fileSaveSignal().connect({this, &MapViewState::onSaveGame});
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
