@@ -72,8 +72,8 @@ MineOperationsWindow::MineOperationsWindow() :
 	// ORE TOGGLE BUTTONS
 	add(chkResources[0], {148, 140});
 	add(chkResources[1], {148, 160});
-	add(chkResources[2], {259, 140});
-	add(chkResources[3], {259, 160});
+	add(chkResources[2], {270, 140});
+	add(chkResources[3], {270, 160});
 }
 
 
