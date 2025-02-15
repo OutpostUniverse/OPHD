@@ -63,10 +63,10 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnOkay.size({60, 30});
 	add(btnOkay, {mRect.size.x - 70, 230});
 
-	btnAssignTruck.size({80, 20});
+	btnAssignTruck.size({105, 20});
 	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 
-	btnUnassignTruck.size({80, 20});
+	btnUnassignTruck.size({105, 20});
 	add(btnUnassignTruck, {148, 115});
 
 	// ORE TOGGLE BUTTONS
