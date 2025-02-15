@@ -46,11 +46,11 @@ jobs:
         ophdSha="${{ github.sha }}"
 
         config="${{ runner.os }}-${{ matrix.platform }}"
-        cacheKeyPrefixOphd="buildCache-${config}-"
+        cacheKeyPrefixOphd="ophd-${config}-"
 
-        cacheKeyVcpkg="vcpkgCache-${config}-${vcpkgSha}"
-        cacheKeyNas2d="nas2dCache-${config}-${nas2dSha}"
-        cacheKeyOphd="${cacheKeyPrefixOphd}-${ophdSha}"
+        cacheKeyVcpkg="vcpkg-${config}-${vcpkgSha::8}"
+        cacheKeyNas2d="nas2d-${config}-${vcpkgSha::8}-${nas2dSha::8}"
+        cacheKeyOphd="${cacheKeyPrefixOphd}-${vcpkgSha::8}-${nas2dSha::8}-${ophdSha::8}"
 
         echo "cacheKeyVcpkg=${cacheKeyVcpkg}" >> $GITHUB_ENV
         echo "cacheKeyNas2d=${cacheKeyNas2d}" >> $GITHUB_ENV
@@ -75,7 +75,7 @@ jobs:
       if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
       with:
         path: vcpkg_installed
-        key: ${{ steps.cacheRestoreVcpkg.outputs.cache-primary-key }}
+        key: ${{ env.cacheKeyVcpkg }}
 
     - name: Copy vcpkg cache to NAS2D folder
       run: |
@@ -114,12 +114,12 @@ jobs:
       if: steps.cacheRestoreNas2d.outputs.cache-hit != 'true'
       with:
         path: nas2d-core/.build/
-        key: ${{ steps.cacheRestoreNas2d.outputs.cache-primary-key }}
+        key: ${{ env.cacheKeyNas2d }}
 
     - name: Restore incremental build cache
       uses: actions/cache/restore@v4
       id: cacheRestoreOphd
-      if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch) && steps.cacheRestoreNas2d.outputs.cache-hit == 'true'
+      if: steps.cacheRestoreNas2d.outputs.cache-hit == 'true' && github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
       with:
         path: .build
         key: ${{ env.cacheKeyOphd }}
@@ -160,7 +160,7 @@ jobs:
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v4
-      if: steps.cacheRestoreOphd.outcome == 'skipped' || steps.cacheRestoreOphd.outputs.cache-hit != 'true'
+      if: steps.cacheRestoreOphd.outputs.cache-hit != 'true'
       with:
         path: .build
         key: ${{ env.cacheKeyOphd }}
