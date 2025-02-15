@@ -53,21 +53,21 @@ MineOperationsWindow::MineOperationsWindow() :
 	size({375, 270});
 
 	// Set up GUI Layout
-	add(btnIdle, {10, 230});
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({60, 30});
+	add(btnIdle, {10, 230});
 
-	add(btnExtendShaft, {72, 230});
 	btnExtendShaft.size({100, 30});
+	add(btnExtendShaft, {72, 230});
 
-	add(btnOkay, {mRect.size.x - 70, 230});
 	btnOkay.size({60, 30});
+	add(btnOkay, {mRect.size.x - 70, 230});
 
-	add(btnAssignTruck, {mRect.size.x - 85, 115});
 	btnAssignTruck.size({80, 20});
+	add(btnAssignTruck, {mRect.size.x - 85, 115});
 
-	add(btnUnassignTruck, {mRect.size.x - 170, 115});
 	btnUnassignTruck.size({80, 20});
+	add(btnUnassignTruck, {mRect.size.x - 170, 115});
 
 	// ORE TOGGLE BUTTONS
 	add(chkResources[0], {148, 140});
