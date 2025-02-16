@@ -16,22 +16,6 @@
 using namespace NAS2D;
 
 
-static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
-{
-	const auto structureState = item.structure->state();
-	const auto& structureColor = structureColorFromIndex(structureState);
-	const auto& structureTextColor = structureTextColorFromIndex(structureState);
-
-	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
-	renderer.drawBox(rect.inset(2), structureColor);
-
-	const auto yOffset = 15 - fontBold.height() / 2;
-	renderer.drawText(fontBold, item.text, rect.position + NAS2D::Vector{5, yOffset}, structureTextColor);
-	renderer.drawText(font, item.structureState, rect.crossXPoint() + NAS2D::Vector{-font.width(item.structureState) - 5, yOffset}, structureTextColor);
-}
-
-
 StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 	ListBoxItem{s->name()},
 	structure{s},
@@ -105,28 +89,21 @@ StructureListBox::StructureListBoxItem* StructureListBox::last()
 }
 
 
-/**
- * Draws the FactoryListBox
- */
-void StructureListBox::update()
+NAS2D::Color StructureListBox::itemBorderColor(std::size_t index) const
 {
-	if (!visible()) { return; }
-	ListBoxBase::update();
+	const auto& item = *static_cast<StructureListBoxItem*>(mItems[index]);
+	const auto structureState = item.structure->state();
+	return structureColorFromIndex(structureState);
+}
 
-	auto& renderer = Utility<Renderer>::get();
 
-	renderer.clipRect(mRect);
+void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
+{
+	const auto& item = *static_cast<StructureListBoxItem*>(mItems[index]);
+	const auto structureState = item.structure->state();
+	const auto& structureTextColor = structureTextColorFromIndex(structureState);
 
-	for (std::size_t index = 0; index < mItems.size(); ++index)
-	{
-		drawItem(
-			renderer,
-			mFont,
-			mFontBold,
-			*static_cast<StructureListBoxItem*>(mItems[index]),
-			itemDrawArea(index),
-			index == selectedIndex());
-	}
-
-	renderer.clipRectClear();
+	const auto yOffset = 15 - mFontBold.height() / 2;
+	renderer.drawText(mFontBold, item.text, drawArea.position + NAS2D::Vector{5, yOffset}, structureTextColor);
+	renderer.drawText(mFont, item.structureState, drawArea.crossXPoint() + NAS2D::Vector{-mFont.width(item.structureState) - 5, yOffset}, structureTextColor);
 }

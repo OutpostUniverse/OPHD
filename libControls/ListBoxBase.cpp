@@ -1,6 +1,5 @@
 #include "ListBoxBase.h"
 
-
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -289,14 +288,42 @@ NAS2D::Rectangle<int> ListBoxBase::itemDrawArea(std::size_t index) const
 }
 
 
+NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
+{
+	return {0, 185, 0};
+}
+
+
 /**
  * Draws the ListBox
  */
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
+
 	draw();
 	mScrollBar.update();
+
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	renderer.clipRect(mRect);
+
+	for (std::size_t index = 0; index < mItems.size(); ++index)
+	{
+		const auto drawArea = itemDrawArea(index);
+		const auto& borderColor = itemBorderColor(index);
+		if (index == selectedIndex())
+		{
+			// Draw background highlight (drawn first to avoid tinting everything else)
+			renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75));
+		}
+		// Draw border
+		renderer.drawBox(drawArea.inset(2), borderColor);
+
+		drawItem(renderer, drawArea, index);
+	}
+
+	renderer.clipRectClear();
 }
 
 

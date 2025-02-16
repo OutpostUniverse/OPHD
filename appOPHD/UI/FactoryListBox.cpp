@@ -19,36 +19,6 @@
 using namespace NAS2D;
 
 
-static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, const NAS2D::Image& structureIcons, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
-{
-	Factory* f = item.factory;
-
-	const auto productType = f->productType();
-	const auto factoryState = f->state();
-
-	const auto& structureColor = structureColorFromIndex(factoryState);
-	const auto& structureTextColor = structureTextColorFromIndex(factoryState);
-
-	// draw highlight rect so as not to tint/hue colors of everything else
-	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
-	renderer.drawBox(rect.inset(2), structureColor);
-
-	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
-	renderer.drawSubImage(structureIcons, rect.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
-	renderer.drawText(fontBold, f->name(), rect.position + NAS2D::Vector{64, 29 - fontBold.height() / 2}, structureTextColor);
-	if (productType != ProductType::PRODUCT_NONE)
-	{
-		renderer.drawText(font, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - fontBold.height() / 2}, structureTextColor);
-		drawProgressBar(
-			f->productionTurnsCompleted(),
-			f->productionTurnsToComplete(),
-			NAS2D::Rectangle{rect.crossXPoint() + NAS2D::Vector{-112, 30}, {105, 11}},
-			2
-		);
-	}
-}
-
-
 FactoryListBox::FactoryListBox() :
 	ListBoxBase{
 		fontCache.load(constants::FONT_PRIMARY, 12),
@@ -110,29 +80,35 @@ Factory* FactoryListBox::selectedFactory()
 }
 
 
-/**
- * Draws the FactoryListBox
- */
-void FactoryListBox::update()
+NAS2D::Color FactoryListBox::itemBorderColor(std::size_t index) const
 {
-	if (!visible()) { return; }
-	ListBoxBase::update();
+	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
+	const Factory& factory = *item.factory;
+	const auto factoryState = factory.state();
+	return structureColorFromIndex(factoryState);
+}
 
-	auto& renderer = Utility<Renderer>::get();
 
-	renderer.clipRect(mRect);
+void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
+{
+	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
+	const Factory& factory = *item.factory;
+	const auto productType = factory.productType();
+	const auto factoryState = factory.state();
+	const auto& structureTextColor = structureTextColorFromIndex(factoryState);
+	const auto& borderColor = itemBorderColor(index);
 
-	for (std::size_t index = 0; index < mItems.size(); ++index)
+	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
+	renderer.drawSubImage(mStructureIcons, drawArea.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(borderColor.alpha));
+	renderer.drawText(mFontBold, factory.name(), drawArea.position + NAS2D::Vector{64, 29 - mFontBold.height() / 2}, structureTextColor);
+	if (productType != ProductType::PRODUCT_NONE)
 	{
-		drawItem(
-			renderer,
-			mFont,
-			mFontBold,
-			mStructureIcons,
-			*static_cast<FactoryListBoxItem*>(mItems[index]),
-			itemDrawArea(index),
-			index == selectedIndex());
+		renderer.drawText(mFont, ProductCatalogue::get(productType).Name, drawArea.crossXPoint() + NAS2D::Vector{-112, 19 - mFontBold.height() / 2}, structureTextColor);
+		drawProgressBar(
+			factory.productionTurnsCompleted(),
+			factory.productionTurnsToComplete(),
+			NAS2D::Rectangle{drawArea.crossXPoint() + NAS2D::Vector{-112, 30}, {105, 11}},
+			2
+		);
 	}
-
-	renderer.clipRectClear();
 }

@@ -38,7 +38,10 @@ public:
 
 	Factory* selectedFactory();
 
-	void update() override;
+protected:
+	virtual NAS2D::Color itemBorderColor(std::size_t index) const override;
+
+	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
 	const NAS2D::Image& mStructureIcons;
