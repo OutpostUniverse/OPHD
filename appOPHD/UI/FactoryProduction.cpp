@@ -24,7 +24,7 @@ FactoryProduction::FactoryProduction() :
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}},
 	btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}},
 	btnApply{"Apply", {this, &FactoryProduction::onApply}},
-	chkIdle{"Idle"}
+	chkIdle{"Idle", {this, &FactoryProduction::onCheckBoxIdleChange}}
 {
 	size({320, 162});
 
@@ -49,7 +49,6 @@ FactoryProduction::FactoryProduction() :
 
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});
-	chkIdle.click().connect({this, &FactoryProduction::onCheckBoxIdleChange});
 }
 
 
