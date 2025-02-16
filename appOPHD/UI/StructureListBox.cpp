@@ -16,12 +16,6 @@
 using namespace NAS2D;
 
 
-namespace
-{
-	const int LIST_ITEM_HEIGHT = 30;
-}
-
-
 static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	const auto structureState = item.structure->state();
@@ -52,7 +46,7 @@ StructureListBox::StructureListBox() :
 		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
 	}
 {
-	itemHeight(LIST_ITEM_HEIGHT);
+	itemHeight(30);
 }
 
 
