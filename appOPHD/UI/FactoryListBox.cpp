@@ -21,7 +21,6 @@ using namespace NAS2D;
 
 namespace
 {
-	const int LIST_ITEM_HEIGHT = 58;
 	const Image* STRUCTURE_ICONS = nullptr;
 }
 
@@ -62,7 +61,7 @@ FactoryListBox::FactoryListBox() :
 		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
 	}
 {
-	itemHeight(LIST_ITEM_HEIGHT);
+	itemHeight(58);
 	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
 }
 
