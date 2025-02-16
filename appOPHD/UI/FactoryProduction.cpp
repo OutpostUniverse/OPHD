@@ -26,7 +26,7 @@ FactoryProduction::FactoryProduction() :
 	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}}
 {
-	size({320, 162});
+	size({320, 163});
 
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
@@ -37,7 +37,7 @@ FactoryProduction::FactoryProduction() :
 	chkIdle.size({50, 20});
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 
-	const auto buttonArea = Rectangle<int>::Create(mProductGrid.area().endPoint(), area().endPoint()).inset({constants::Margin, 3}, {constants::Margin, 4});
+	const auto buttonArea = Rectangle<int>::Create(mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, area().inset(constants::Margin).endPoint());
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
