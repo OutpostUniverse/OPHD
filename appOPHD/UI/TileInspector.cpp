@@ -3,6 +3,7 @@
 #include "TextRender.h"
 #include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 #include "../MapObjects/Mine.h"
 
 #include <libOPHD/EnumTerrainType.h>
@@ -16,6 +17,9 @@ using namespace NAS2D;
 
 namespace
 {
+	const auto lineSpacing = 12;
+	const auto sectionSpacing = constants::Margin;
+
 	const std::map<TerrainType, std::string> terrainTypeStringTable =
 	{
 		{TerrainType::Dozed, constants::TileBulldozed},
@@ -31,10 +35,10 @@ TileInspector::TileInspector() :
 	Window{constants::WindowTileInspector},
 	btnClose{"Close", {this, &TileInspector::onClose}}
 {
-	size({200, 88});
+	size({200, sWindowTitleBarHeight + lineSpacing * 5 + sectionSpacing + constants::Margin * 2});
 
-	add(btnClose, {145, 63});
 	btnClose.size({50, 20});
+	add(btnClose, size() - btnClose.size() - Vector{constants::Margin, constants::Margin});
 }
 
 
@@ -48,26 +52,26 @@ void TileInspector::update()
 
 	Window::update();
 
+	auto position = mRect.position + NAS2D::Vector{5, 25};
+	const auto tilePosition = mTile->xy();
+	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
+
+	position.y += lineSpacing;
+	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
+
 	const auto* mine = mTile->mine();
 
-	auto position = mRect.position + NAS2D::Vector{5, 25};
+	position.y += lineSpacing + sectionSpacing;
 	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
 
 	if (mine)
 	{
-		position.y += 10;
+		position.y += lineSpacing;
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
-		position.y += 10;
+		position.y += lineSpacing;
 		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
 	}
-
-	position = mRect.position + NAS2D::Vector{5, 62};
-	const auto tilePosition = mTile->xy();
-	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
-
-	position.y += 10;
-	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 }
 
 
