@@ -65,8 +65,6 @@ void ProductListBox::update()
 
 	renderer.clipRect(mRect);
 
-	constexpr Color highlightColor{0, 185, 0, 75};
-
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
 		const auto drawArea = itemDrawArea(index);
@@ -76,7 +74,7 @@ void ProductListBox::update()
 		const auto& item = *static_cast<ProductListBoxItem*>(mItems[index]);
 
 		// Draw highlight rect so as not to tint/hue colors of everything else
-		if (highlight) { renderer.drawBoxFilled(drawArea, highlightColor); }
+		if (highlight) { renderer.drawBoxFilled(drawArea, {0, 185, 0, 75}); }
 
 		// Draw item borders and column breaks
 		renderer.drawBox(drawArea.inset(2), constants::PrimaryColor);
