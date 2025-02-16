@@ -57,6 +57,19 @@ std::size_t ListBoxBase::count() const
 }
 
 
+/**
+ * Clears all items from the list.
+ */
+void ListBoxBase::clear()
+{
+	for (auto item : mItems) { delete item; }
+	mItems.clear();
+	mSelectedIndex = NoSelection;
+	mHighlightIndex = NoSelection;
+	updateScrollLayout();
+}
+
+
 void ListBoxBase::onVisibilityChange(bool)
 {
 	updateScrollLayout();
@@ -163,19 +176,6 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
  */
 void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
 {
-	updateScrollLayout();
-}
-
-
-/**
- * Clears all items from the list.
- */
-void ListBoxBase::clear()
-{
-	for (auto item : mItems) { delete item; }
-	mItems.clear();
-	mSelectedIndex = NoSelection;
-	mHighlightIndex = NoSelection;
 	updateScrollLayout();
 }
 
