@@ -71,11 +71,11 @@ void ProductListBox::update()
 	const auto firstStop = itemSize.x / 3;
 	const auto secondStop = itemSize.x * 2 / 3;
 
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto drawPosition = NAS2D::Point{positionX(), positionY() + (static_cast<int>(i) * itemSize.y) - static_cast<int>(drawOffset())};
-		const auto highlight = i == selectedIndex();
-		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
+		const auto drawPosition = NAS2D::Point{positionX(), positionY() + (static_cast<int>(index) * itemSize.y) - static_cast<int>(drawOffset())};
+		const auto highlight = index == selectedIndex();
+		const auto& item = *static_cast<ProductListBoxItem*>(mItems[index]);
 
 		// Draw highlight rect so as not to tint/hue colors of everything else
 		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{drawPosition, itemSize}, highlightColor); }
