@@ -83,7 +83,7 @@ Factory* FactoryListBox::selectedFactory()
 void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
 {
 	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
-	Factory* factory = item.factory;
+	const Factory* factory = item.factory;
 
 	const auto productType = factory->productType();
 	const auto factoryState = factory->state();
