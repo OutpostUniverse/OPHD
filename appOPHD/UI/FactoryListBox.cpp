@@ -126,7 +126,7 @@ void FactoryListBox::update()
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto drawPosition = NAS2D::Point{positionX(), positionY() + static_cast<int>(index * itemHeight() - drawOffset())};
+		const auto drawPosition = itemDrawPosition(index);
 		drawItem(
 			renderer,
 			mFont,

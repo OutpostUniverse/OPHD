@@ -80,6 +80,7 @@ protected:
 
 	unsigned int drawOffset() const { return mScrollOffsetInPixels; }
 	NAS2D::Vector<int> itemDrawSize() const;
+	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
 
 	void onVisibilityChange(bool) override;
 
