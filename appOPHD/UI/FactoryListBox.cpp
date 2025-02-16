@@ -19,13 +19,7 @@
 using namespace NAS2D;
 
 
-namespace
-{
-	const Image* STRUCTURE_ICONS = nullptr;
-}
-
-
-static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
+static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, const NAS2D::Image& structureIcons, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	Factory* f = item.factory;
 
@@ -40,7 +34,7 @@ static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::F
 	renderer.drawBox(rect.inset(2), structureColor);
 
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
-	renderer.drawSubImage(*STRUCTURE_ICONS, rect.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
+	renderer.drawSubImage(structureIcons, rect.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
 	renderer.drawText(fontBold, f->name(), rect.position + NAS2D::Vector{64, 29 - fontBold.height() / 2}, structureTextColor);
 	if (productType != ProductType::PRODUCT_NONE)
 	{
@@ -59,10 +53,10 @@ FactoryListBox::FactoryListBox() :
 	ListBoxBase{
 		fontCache.load(constants::FONT_PRIMARY, 12),
 		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
-	}
+	},
+	mStructureIcons{imageCache.load("ui/structures.png")}
 {
 	itemHeight(58);
-	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
 }
 
 
@@ -135,6 +129,7 @@ void FactoryListBox::update()
 			renderer,
 			mFont,
 			mFontBold,
+			mStructureIcons,
 			*static_cast<FactoryListBoxItem*>(mItems[i]),
 			{
 				{positionX(),
