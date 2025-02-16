@@ -122,20 +122,18 @@ void FactoryListBox::update()
 
 	renderer.clipRect(mRect);
 
+	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
+
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
+		const auto drawPosition = NAS2D::Point{positionX(), positionY() + static_cast<int>(index * itemHeight() - drawOffset())};
 		drawItem(
 			renderer,
 			mFont,
 			mFontBold,
 			mStructureIcons,
 			*static_cast<FactoryListBoxItem*>(mItems[index]),
-			{
-				{positionX(),
-				positionY() + static_cast<int>(index * itemHeight() - drawOffset())},
-				{static_cast<int>(itemWidth()),
-				static_cast<int>(itemHeight())}
-			},
+			{drawPosition, itemSize},
 			index == selectedIndex());
 	}
 
