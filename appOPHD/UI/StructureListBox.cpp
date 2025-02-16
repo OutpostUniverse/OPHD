@@ -15,10 +15,14 @@
 
 using namespace NAS2D;
 
-const int LIST_ITEM_HEIGHT = 30;
 
-static const Font* MAIN_FONT = nullptr;
-static const Font* MAIN_FONT_BOLD = nullptr;
+namespace
+{
+	const int LIST_ITEM_HEIGHT = 30;
+
+	const Font* MAIN_FONT = nullptr;
+	const Font* MAIN_FONT_BOLD = nullptr;
+}
 
 
 static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
