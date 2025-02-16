@@ -52,15 +52,14 @@ public:
 
 	void clear();
 
+	std::size_t currentHighlight() const;
+	std::size_t selectedIndex() const;
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
-	std::size_t selectedIndex() const;
 	void setSelection(std::size_t selection);
 	void clearSelected();
 
-	std::size_t currentHighlight() const;
-
-	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeSignal::Source& selectionChanged();
 
 	void update() override = 0;
 	void draw() const override;
@@ -74,16 +73,21 @@ protected:
 
 	void updateScrollLayout();
 
-	unsigned int itemWidth() const { return static_cast<unsigned int>(mItemWidth); }
-	unsigned int itemHeight() const { return static_cast<unsigned int>(mItemHeight); }
+	void onVisibilityChange(bool) override;
+	void onResize() override;
+	void onSlideChange(ScrollBar::ValueType newPosition);
+	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
+	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
+
+	unsigned int itemWidth() const;
+	unsigned int itemHeight() const;
 	void itemHeight(int);
 
-	unsigned int drawOffset() const { return mScrollOffsetInPixels; }
+	unsigned int drawOffset() const;
 	NAS2D::Vector<int> itemDrawSize() const;
 	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
 	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;
-
-	void onVisibilityChange(bool) override;
 
 
 	const NAS2D::Font& mFont;
@@ -92,15 +96,6 @@ protected:
 	std::vector<ListBoxItem*> mItems;
 
 private:
-	void onSlideChange(ScrollBar::ValueType newPosition);
-
-	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
-	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
-	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
-
-	void onResize() override;
-
-
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = NoSelection;
 	unsigned int mScrollOffsetInPixels = 0;

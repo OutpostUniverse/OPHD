@@ -57,9 +57,78 @@ std::size_t ListBoxBase::count() const
 }
 
 
-void ListBoxBase::onVisibilityChange(bool)
+/**
+ * Clears all items from the list.
+ */
+void ListBoxBase::clear()
 {
+	for (auto item : mItems) { delete item; }
+	mItems.clear();
+	mSelectedIndex = NoSelection;
+	mHighlightIndex = NoSelection;
 	updateScrollLayout();
+}
+
+
+/**
+ * Index of the current mouse hover highlight.
+ */
+std::size_t ListBoxBase::currentHighlight() const
+{
+	return mHighlightIndex;
+}
+
+
+/**
+ * Index of the current selection.
+ */
+std::size_t ListBoxBase::selectedIndex() const
+{
+	return mSelectedIndex;
+}
+
+
+bool ListBoxBase::isItemSelected() const
+{
+	return mSelectedIndex != NoSelection;
+}
+
+
+const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
+{
+	if (mSelectedIndex == NoSelection)
+	{
+		throw std::runtime_error("ListBox has no selected item");
+	}
+
+	return *mItems[mSelectedIndex];
+}
+
+
+/**
+ * Sets the current selection index.
+ *
+ * \note	Out of range selection indicies will set the ListBoxBase to no selection.
+ */
+void ListBoxBase::setSelection(std::size_t selection)
+{
+	mSelectedIndex = (selection < mItems.size()) ? selection : NoSelection;
+	mSelectionChanged();
+}
+
+
+/**
+ * Clears the current selection.
+ */
+void ListBoxBase::clearSelected()
+{
+	mSelectedIndex = NoSelection;
+}
+
+
+ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
+{
+	return mSelectionChanged;
 }
 
 
@@ -88,10 +157,25 @@ void ListBoxBase::updateScrollLayout()
 }
 
 
+void ListBoxBase::onVisibilityChange(bool)
+{
+	updateScrollLayout();
+}
+
+
 /**
  * Resized event handler.
  */
 void ListBoxBase::onResize()
+{
+	updateScrollLayout();
+}
+
+
+/**
+ * ScrollBar changed event handler.
+ */
+void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
 {
 	updateScrollLayout();
 }
@@ -158,92 +242,32 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 }
 
 
-/**
- * ScrollBar changed event handler.
- */
-void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
+unsigned int ListBoxBase::itemWidth() const
 {
-	updateScrollLayout();
+	return static_cast<unsigned int>(mItemWidth);
 }
 
 
-/**
- * Clears all items from the list.
- */
-void ListBoxBase::clear()
+unsigned int ListBoxBase::itemHeight() const
 {
-	for (auto item : mItems) { delete item; }
-	mItems.clear();
-	mSelectedIndex = NoSelection;
-	mHighlightIndex = NoSelection;
-	updateScrollLayout();
-}
-
-
-/**
- * Index of the current mouse hover highlight.
- */
-std::size_t ListBoxBase::currentHighlight() const
-{
-	return mHighlightIndex;
-}
-
-
-/**
- * Index of the current selection.
- */
-std::size_t ListBoxBase::selectedIndex() const
-{
-	return mSelectedIndex;
-}
-
-
-bool ListBoxBase::isItemSelected() const
-{
-	return mSelectedIndex != NoSelection;
-}
-
-
-const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
-{
-	if (mSelectedIndex == NoSelection)
-	{
-		throw std::runtime_error("ListBox has no selected item");
-	}
-
-	return *mItems[mSelectedIndex];
-}
-
-
-/**
- * Sets the current selection index.
- * 
- * \note	Out of range selection indicies will set the ListBoxBase to no selection.
- */
-void ListBoxBase::setSelection(std::size_t selection)
-{
-	mSelectedIndex = (selection < mItems.size()) ? selection : NoSelection;
-	mSelectionChanged();
-}
-
-
-/**
- * Clears the current selection.
- */
-void ListBoxBase::clearSelected()
-{
-	mSelectedIndex = NoSelection;
+	return static_cast<unsigned int>(mItemHeight);
 }
 
 
 /**
  * Sets item height.
- * 
+ *
  * \note	Internal function for specialized types.
  */
 void ListBoxBase::itemHeight(int h)
 {
 	mItemHeight = h;
+}
+
+
+unsigned int ListBoxBase::drawOffset() const
+{
+	return mScrollOffsetInPixels;
 }
 
 
