@@ -82,7 +82,7 @@ void ProductListBox::update()
 		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{drawPosition, itemSize}, highlightColor); }
 
 		// Draw item borders and column breaks
-		renderer.drawBox(NAS2D::Rectangle<int>{drawPosition + Vector{2, 2}, {itemSize.x - 4, itemSize.y - 4}}, constants::PrimaryColor);
+		renderer.drawBox(NAS2D::Rectangle{drawPosition, itemSize}.inset(2), constants::PrimaryColor);
 		renderer.drawLine(drawPosition + NAS2D::Vector{firstStop, 2}, drawPosition + NAS2D::Vector{firstStop, itemSize.y - 2}, constants::PrimaryColor);
 		renderer.drawLine(drawPosition + NAS2D::Vector{secondStop, 2}, drawPosition + NAS2D::Vector{secondStop, itemSize.y - 2}, constants::PrimaryColor);
 
