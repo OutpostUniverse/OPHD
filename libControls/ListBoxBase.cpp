@@ -70,6 +70,62 @@ void ListBoxBase::clear()
 }
 
 
+/**
+ * Index of the current mouse hover highlight.
+ */
+std::size_t ListBoxBase::currentHighlight() const
+{
+	return mHighlightIndex;
+}
+
+
+/**
+ * Index of the current selection.
+ */
+std::size_t ListBoxBase::selectedIndex() const
+{
+	return mSelectedIndex;
+}
+
+
+bool ListBoxBase::isItemSelected() const
+{
+	return mSelectedIndex != NoSelection;
+}
+
+
+const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
+{
+	if (mSelectedIndex == NoSelection)
+	{
+		throw std::runtime_error("ListBox has no selected item");
+	}
+
+	return *mItems[mSelectedIndex];
+}
+
+
+/**
+ * Sets the current selection index.
+ *
+ * \note	Out of range selection indicies will set the ListBoxBase to no selection.
+ */
+void ListBoxBase::setSelection(std::size_t selection)
+{
+	mSelectedIndex = (selection < mItems.size()) ? selection : NoSelection;
+	mSelectionChanged();
+}
+
+
+/**
+ * Clears the current selection.
+ */
+void ListBoxBase::clearSelected()
+{
+	mSelectedIndex = NoSelection;
+}
+
+
 void ListBoxBase::onVisibilityChange(bool)
 {
 	updateScrollLayout();
@@ -177,62 +233,6 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
 {
 	updateScrollLayout();
-}
-
-
-/**
- * Index of the current mouse hover highlight.
- */
-std::size_t ListBoxBase::currentHighlight() const
-{
-	return mHighlightIndex;
-}
-
-
-/**
- * Index of the current selection.
- */
-std::size_t ListBoxBase::selectedIndex() const
-{
-	return mSelectedIndex;
-}
-
-
-bool ListBoxBase::isItemSelected() const
-{
-	return mSelectedIndex != NoSelection;
-}
-
-
-const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
-{
-	if (mSelectedIndex == NoSelection)
-	{
-		throw std::runtime_error("ListBox has no selected item");
-	}
-
-	return *mItems[mSelectedIndex];
-}
-
-
-/**
- * Sets the current selection index.
- *
- * \note	Out of range selection indicies will set the ListBoxBase to no selection.
- */
-void ListBoxBase::setSelection(std::size_t selection)
-{
-	mSelectedIndex = (selection < mItems.size()) ? selection : NoSelection;
-	mSelectionChanged();
-}
-
-
-/**
- * Clears the current selection.
- */
-void ListBoxBase::clearSelected()
-{
-	mSelectedIndex = NoSelection;
 }
 
 

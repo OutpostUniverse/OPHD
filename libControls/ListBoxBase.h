@@ -52,13 +52,12 @@ public:
 
 	void clear();
 
+	std::size_t currentHighlight() const;
+	std::size_t selectedIndex() const;
 	bool isItemSelected() const;
 	const ListBoxItem& selected() const;
-	std::size_t selectedIndex() const;
 	void setSelection(std::size_t selection);
 	void clearSelected();
-
-	std::size_t currentHighlight() const;
 
 	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
 
