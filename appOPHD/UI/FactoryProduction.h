@@ -30,7 +30,7 @@ public:
 
 	void update() override;
 
-private:
+protected:
 	void onOkay();
 	void onCancel();
 	void onClearSelection();
@@ -41,6 +41,7 @@ private:
 
 	void onProductSelectionChange(const IconGrid::Item*);
 
+private:
 	Factory* mFactory;
 
 	ProductType mProduct;
