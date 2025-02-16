@@ -133,9 +133,9 @@ void StructureListBox::update()
 			*static_cast<StructureListBoxItem*>(mItems[i]),
 			{
 				{positionX(),
-				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(drawOffset())},
+				positionY() + static_cast<int>(i * itemHeight() - drawOffset())},
 				{static_cast<int>(itemWidth()),
-				LIST_ITEM_HEIGHT}
+				static_cast<int>(itemHeight())}
 			},
 			i == selectedIndex());
 	}
