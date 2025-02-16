@@ -35,7 +35,7 @@ TileInspector::TileInspector() :
 	Window{constants::WindowTileInspector},
 	btnClose{"Close", {this, &TileInspector::onClose}}
 {
-	size({200, 88});
+	size({200, sWindowTitleBarHeight + lineSpacing * 5 + sectionSpacing + constants::Margin * 2 - 1});
 
 	btnClose.size({50, 20});
 	add(btnClose, size() - btnClose.size() - Vector{constants::Margin, constants::Margin});
