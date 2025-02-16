@@ -34,7 +34,7 @@ TileInspector::TileInspector() :
 	size({200, 88});
 
 	btnClose.size({50, 20});
-	add(btnClose, {145, 63});
+	add(btnClose, size() - btnClose.size() - Vector{5, 5});
 }
 
 
