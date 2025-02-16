@@ -9,7 +9,9 @@
 #include <algorithm>
 
 
-ListBoxBase::ListBoxBase()
+ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :
+	mFont{font},
+	mFontBold{fontBold}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});

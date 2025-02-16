@@ -23,13 +23,10 @@ namespace
 {
 	const int LIST_ITEM_HEIGHT = 58;
 	const Image* STRUCTURE_ICONS = nullptr;
-
-	const Font* MAIN_FONT = nullptr;
-	const Font* MAIN_FONT_BOLD = nullptr;
 }
 
 
-static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
+static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, FactoryListBox::FactoryListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	Factory* f = item.factory;
 
@@ -45,10 +42,10 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
 	renderer.drawSubImage(*STRUCTURE_ICONS, rect.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
-	renderer.drawText(*MAIN_FONT_BOLD, f->name(), rect.position + NAS2D::Vector{64, 29 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
+	renderer.drawText(fontBold, f->name(), rect.position + NAS2D::Vector{64, 29 - fontBold.height() / 2}, structureTextColor);
 	if (productType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(*MAIN_FONT, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - MAIN_FONT_BOLD->height() / 2}, structureTextColor);
+		renderer.drawText(font, ProductCatalogue::get(productType).Name, rect.crossXPoint() + NAS2D::Vector{-112, 19 - fontBold.height() / 2}, structureTextColor);
 		drawProgressBar(
 			f->productionTurnsCompleted(),
 			f->productionTurnsToComplete(),
@@ -59,12 +56,14 @@ static void drawItem(Renderer& renderer, FactoryListBox::FactoryListBoxItem& ite
 }
 
 
-FactoryListBox::FactoryListBox()
+FactoryListBox::FactoryListBox() :
+	ListBoxBase{
+		fontCache.load(constants::FONT_PRIMARY, 12),
+		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
+	}
 {
 	itemHeight(LIST_ITEM_HEIGHT);
 	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 
@@ -133,7 +132,11 @@ void FactoryListBox::update()
 	// ITEMS
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(renderer, *static_cast<FactoryListBoxItem*>(mItems[i]),
+		drawItem(
+			renderer,
+			mFont,
+			mFontBold,
+			*static_cast<FactoryListBoxItem*>(mItems[i]),
 			{
 				{positionX(),
 				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(drawOffset())},

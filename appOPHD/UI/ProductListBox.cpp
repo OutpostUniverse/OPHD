@@ -15,8 +15,10 @@ using namespace NAS2D;
 
 
 ProductListBox::ProductListBox() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, 12)},
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, 12)}
+	ListBoxBase{
+		fontCache.load(constants::FONT_PRIMARY, 12),
+		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
+	}
 {
 	itemHeight(30);
 }

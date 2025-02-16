@@ -44,7 +44,7 @@ public:
 	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
-	ListBoxBase();
+	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold);
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
@@ -82,6 +82,9 @@ protected:
 
 	void onVisibilityChange(bool) override;
 
+
+	const NAS2D::Font& mFont;
+	const NAS2D::Font& mFontBold;
 
 	std::vector<ListBoxItem*> mItems;
 
