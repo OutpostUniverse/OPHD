@@ -95,7 +95,7 @@ void Window::draw() const
 	renderer.drawImageRepeated(mTitleBarCenter, NAS2D::Rectangle<int>{{mRect.position.x + 4, mRect.position.y}, {mRect.size.x - 8, sWindowTitleBarHeight}});
 	renderer.drawImage(mTitleBarRight, NAS2D::Point{mRect.position.x + mRect.size.x - 4, mRect.position.y});
 
-	mBody.draw(renderer, NAS2D::Rectangle<int>{{mRect.position.x, mRect.position.y + 20}, {mRect.size.x, mRect.size.y - 20}});
+	mBody.draw(renderer, NAS2D::Rectangle<int>{{mRect.position.x, mRect.position.y + sWindowTitleBarHeight}, {mRect.size.x, mRect.size.y - sWindowTitleBarHeight}});
 
 	renderer.drawText(mTitleFont, title(), NAS2D::Point{mRect.position.x + 5, mRect.position.y + 2}, NAS2D::Color::White);
 }
