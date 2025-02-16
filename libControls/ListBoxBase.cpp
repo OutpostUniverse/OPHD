@@ -247,6 +247,24 @@ void ListBoxBase::itemHeight(int h)
 }
 
 
+NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
+{
+	return NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
+}
+
+
+NAS2D::Point<int> ListBoxBase::itemDrawPosition(std::size_t index) const
+{
+	return {positionX(), positionY() + static_cast<int>(index * itemHeight() - drawOffset())};
+}
+
+
+NAS2D::Rectangle<int> ListBoxBase::itemDrawArea(std::size_t index) const
+{
+	return {itemDrawPosition(index), itemDrawSize()};
+}
+
+
 /**
  * Draws the ListBox
  */

@@ -117,21 +117,15 @@ void StructureListBox::update()
 
 	renderer.clipRect(mRect);
 
-	// ITEMS
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
 		drawItem(
 			renderer,
 			mFont,
 			mFontBold,
-			*static_cast<StructureListBoxItem*>(mItems[i]),
-			{
-				{positionX(),
-				positionY() + static_cast<int>(i * itemHeight() - drawOffset())},
-				{static_cast<int>(itemWidth()),
-				static_cast<int>(itemHeight())}
-			},
-			i == selectedIndex());
+			*static_cast<StructureListBoxItem*>(mItems[index]),
+			itemDrawArea(index),
+			index == selectedIndex());
 	}
 
 	renderer.clipRectClear();
