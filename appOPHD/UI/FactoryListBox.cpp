@@ -123,21 +123,21 @@ void FactoryListBox::update()
 	renderer.clipRect(mRect);
 
 	// ITEMS
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
 		drawItem(
 			renderer,
 			mFont,
 			mFontBold,
 			mStructureIcons,
-			*static_cast<FactoryListBoxItem*>(mItems[i]),
+			*static_cast<FactoryListBoxItem*>(mItems[index]),
 			{
 				{positionX(),
-				positionY() + static_cast<int>(i * itemHeight() - drawOffset())},
+				positionY() + static_cast<int>(index * itemHeight() - drawOffset())},
 				{static_cast<int>(itemWidth()),
 				static_cast<int>(itemHeight())}
 			},
-			i == selectedIndex());
+			index == selectedIndex());
 	}
 
 	renderer.clipRectClear();
