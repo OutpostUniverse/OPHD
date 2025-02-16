@@ -121,12 +121,24 @@ void StructureListBox::update()
 	{
 		drawItem(
 			renderer,
-			mFont,
-			mFontBold,
-			*static_cast<StructureListBoxItem*>(mItems[index]),
 			itemDrawArea(index),
-			index == selectedIndex());
+			index,
+			index == selectedIndex()
+		);
 	}
 
 	renderer.clipRectClear();
+}
+
+
+void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
+{
+	::drawItem(
+		renderer,
+		mFont,
+		mFontBold,
+		*static_cast<StructureListBoxItem*>(mItems[index]),
+		drawArea,
+		isSelected
+	);
 }
