@@ -122,7 +122,6 @@ void FactoryListBox::update()
 
 	renderer.clipRect(mRect);
 
-	// ITEMS
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
 		drawItem(
