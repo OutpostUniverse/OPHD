@@ -37,7 +37,7 @@ FactoryProduction::FactoryProduction() :
 	chkIdle.size({50, 20});
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 
-	const auto buttonArea = Rectangle<int>{{mProductGrid.size().x + 12, 138}, {162, 20}};
+	const auto buttonArea = Rectangle<int>::Create(mProductGrid.area().endPoint(), area().endPoint()).inset({constants::Margin, 3}, {constants::Margin, 4});
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
