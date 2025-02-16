@@ -217,7 +217,7 @@ const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
 
 /**
  * Sets the current selection index.
- * 
+ *
  * \note	Out of range selection indicies will set the ListBoxBase to no selection.
  */
 void ListBoxBase::setSelection(std::size_t selection)
@@ -238,7 +238,7 @@ void ListBoxBase::clearSelected()
 
 /**
  * Sets item height.
- * 
+ *
  * \note	Internal function for specialized types.
  */
 void ListBoxBase::itemHeight(int h)
