@@ -80,23 +80,30 @@ Factory* FactoryListBox::selectedFactory()
 }
 
 
+NAS2D::Color FactoryListBox::itemBorderColor(std::size_t index) const
+{
+	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
+	const Factory& factory = *item.factory;
+	const auto factoryState = factory.state();
+	return structureColorFromIndex(factoryState);
+}
+
+
 void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
 {
 	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
 	const Factory& factory = *item.factory;
-
 	const auto productType = factory.productType();
 	const auto factoryState = factory.state();
-
-	const auto& structureColor = structureColorFromIndex(factoryState);
 	const auto& structureTextColor = structureTextColorFromIndex(factoryState);
 
 	// draw highlight rect so as not to tint/hue colors of everything else
-	if (isSelected) { renderer.drawBoxFilled(drawArea, structureColor.alphaFade(75)); }
-	renderer.drawBox(drawArea.inset(2), structureColor);
+	const auto& borderColor = itemBorderColor(index);
+	if (isSelected) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
+	renderer.drawBox(drawArea.inset(2), borderColor);
 
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
-	renderer.drawSubImage(mStructureIcons, drawArea.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(structureColor.alpha));
+	renderer.drawSubImage(mStructureIcons, drawArea.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(borderColor.alpha));
 	renderer.drawText(mFontBold, factory.name(), drawArea.position + NAS2D::Vector{64, 29 - mFontBold.height() / 2}, structureTextColor);
 	if (productType != ProductType::PRODUCT_NONE)
 	{

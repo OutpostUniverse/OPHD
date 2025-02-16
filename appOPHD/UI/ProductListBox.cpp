@@ -60,10 +60,11 @@ void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> d
 	const auto& item = *static_cast<ProductListBoxItem*>(mItems[index]);
 
 	// Draw highlight rect so as not to tint/hue colors of everything else
-	if (isSelected) { renderer.drawBoxFilled(drawArea, {0, 185, 0, 75}); }
+	const auto& borderColor = itemBorderColor(index);
+	if (isSelected) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
+	renderer.drawBox(drawArea.inset(2), borderColor);
 
-	// Draw item borders and column breaks
-	renderer.drawBox(drawArea.inset(2), constants::PrimaryColor);
+	// Draw column breaks
 	renderer.drawLine(drawArea.position + NAS2D::Vector{firstStop, 2}, drawArea.position + NAS2D::Vector{firstStop, drawArea.size.y - 2}, constants::PrimaryColor);
 	renderer.drawLine(drawArea.position + NAS2D::Vector{secondStop, 2}, drawArea.position + NAS2D::Vector{secondStop, drawArea.size.y - 2}, constants::PrimaryColor);
 

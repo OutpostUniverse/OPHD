@@ -1,6 +1,5 @@
 #include "ListBoxBase.h"
 
-
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -286,6 +285,12 @@ NAS2D::Point<int> ListBoxBase::itemDrawPosition(std::size_t index) const
 NAS2D::Rectangle<int> ListBoxBase::itemDrawArea(std::size_t index) const
 {
 	return {itemDrawPosition(index), itemDrawSize()};
+}
+
+
+NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
+{
+	return {0, 185, 0};
 }
 
 

@@ -89,6 +89,8 @@ protected:
 	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
 	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;
 
+	virtual NAS2D::Color itemBorderColor(std::size_t index) const;
+
 	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const = 0;
 
 
