@@ -126,6 +126,12 @@ void ListBoxBase::clearSelected()
 }
 
 
+ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
+{
+	return mSelectionChanged;
+}
+
+
 void ListBoxBase::onVisibilityChange(bool)
 {
 	updateScrollLayout();

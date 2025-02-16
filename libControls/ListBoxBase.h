@@ -59,7 +59,7 @@ public:
 	void setSelection(std::size_t selection);
 	void clearSelected();
 
-	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
+	SelectionChangeSignal::Source& selectionChanged();
 
 	void update() override = 0;
 	void draw() const override;
