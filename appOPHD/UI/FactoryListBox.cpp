@@ -122,18 +122,15 @@ void FactoryListBox::update()
 
 	renderer.clipRect(mRect);
 
-	const auto itemSize = itemDrawSize();
-
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto drawPosition = itemDrawPosition(index);
 		drawItem(
 			renderer,
 			mFont,
 			mFontBold,
 			mStructureIcons,
 			*static_cast<FactoryListBoxItem*>(mItems[index]),
-			{drawPosition, itemSize},
+			itemDrawArea(index),
 			index == selectedIndex());
 	}
 

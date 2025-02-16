@@ -259,6 +259,12 @@ NAS2D::Point<int> ListBoxBase::itemDrawPosition(std::size_t index) const
 }
 
 
+NAS2D::Rectangle<int> ListBoxBase::itemDrawArea(std::size_t index) const
+{
+	return {itemDrawPosition(index), itemDrawSize()};
+}
+
+
 /**
  * Draws the ListBox
  */

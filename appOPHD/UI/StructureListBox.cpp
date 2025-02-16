@@ -117,17 +117,14 @@ void StructureListBox::update()
 
 	renderer.clipRect(mRect);
 
-	const auto itemSize = itemDrawSize();
-
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto drawPosition = itemDrawPosition(index);
 		drawItem(
 			renderer,
 			mFont,
 			mFontBold,
 			*static_cast<StructureListBoxItem*>(mItems[index]),
-			{drawPosition, itemSize},
+			itemDrawArea(index),
 			index == selectedIndex());
 	}
 
