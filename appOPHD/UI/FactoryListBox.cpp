@@ -57,8 +57,10 @@ static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::F
 
 
 FactoryListBox::FactoryListBox() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, 12)},
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, 12)}
+	ListBoxBase{
+		fontCache.load(constants::FONT_PRIMARY, 12),
+		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
+	}
 {
 	itemHeight(LIST_ITEM_HEIGHT);
 	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");

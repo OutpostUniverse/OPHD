@@ -47,8 +47,10 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 
 
 StructureListBox::StructureListBox() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, 12)},
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, 12)}
+	ListBoxBase{
+		fontCache.load(constants::FONT_PRIMARY, 12),
+		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
+	}
 {
 	itemHeight(LIST_ITEM_HEIGHT);
 }
