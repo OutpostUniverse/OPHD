@@ -67,8 +67,7 @@ void ProductListBox::update()
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto drawArea = itemDrawArea(index);
-		drawItem(renderer, drawArea, index, index == selectedIndex());
+		drawItem(renderer, itemDrawArea(index), index, index == selectedIndex());
 	}
 
 	renderer.clipRectClear();

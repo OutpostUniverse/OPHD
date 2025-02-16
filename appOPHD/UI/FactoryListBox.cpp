@@ -124,12 +124,7 @@ void FactoryListBox::update()
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		drawItem(
-			renderer,
-			itemDrawArea(index),
-			index,
-			index == selectedIndex()
-		);
+		drawItem(renderer, itemDrawArea(index), index, index == selectedIndex());
 	}
 
 	renderer.clipRectClear();
