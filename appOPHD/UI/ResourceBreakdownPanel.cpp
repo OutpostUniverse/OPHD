@@ -27,7 +27,7 @@ namespace
 
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{Control::getDefaultFont()},
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{
 		imageCache.load("ui/skin/window_top_left.png"),

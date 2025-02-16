@@ -297,7 +297,7 @@ void MapViewState::initialize()
 
 	eventHandler.textInputMode(true);
 
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	MAIN_FONT = &Control::getDefaultFont();
 
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
 }

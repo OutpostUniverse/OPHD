@@ -59,7 +59,7 @@ void MainMenuState::initialize()
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	const NAS2D::Font* tiny_font = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const NAS2D::Font* tiny_font = &Control::getDefaultFont();
 	lblVersion.font(tiny_font);
 	lblVersion.color(NAS2D::Color::White);
 

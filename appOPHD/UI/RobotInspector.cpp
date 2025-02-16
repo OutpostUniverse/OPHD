@@ -35,7 +35,7 @@ RobotInspector::RobotInspector() :
 	btnSelfDestruct{"Self Destruct", {this, &RobotInspector::onSelfDestruct}},
 	btnCancel{constants::Cancel, {this, &RobotInspector::onCancel}}
 {
-	const NAS2D::Font& mainFont = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const NAS2D::Font& mainFont = Control::getDefaultFont();
 	const NAS2D::Font& mainFontBold = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
 
 	constexpr int padding = constants::Margin * 2;

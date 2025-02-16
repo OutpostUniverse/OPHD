@@ -16,7 +16,7 @@ using namespace NAS2D;
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{Control::getDefaultFont()},
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},
 	mIconSheet{imageCache.load(filePath)},

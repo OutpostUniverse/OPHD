@@ -32,7 +32,7 @@ void MapViewState::drawSystemButton() const
 	// Turns
 	const auto turnImageRect = NAS2D::Rectangle<int>{{128, 0}, {constants::ResourceIconSize, constants::ResourceIconSize}};
 	renderer.drawSubImage(mUiIcons, position, turnImageRect);
-	const auto& font = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const auto& font = Control::getDefaultFont();
 	renderer.drawText(font, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
 	position = mTooltipSystemButton.rect().position + NAS2D::Vector{constants::MarginTight, constants::MarginTight};

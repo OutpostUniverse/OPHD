@@ -30,7 +30,7 @@ using namespace NAS2D;
 
 
 MineReport::MineReport() :
-	font{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	font{Control::getDefaultFont()},
 	fontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
 	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},

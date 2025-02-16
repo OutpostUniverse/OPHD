@@ -51,7 +51,7 @@ void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::Notifica
 
 NotificationArea::NotificationArea() :
 	mIcons{imageCache.load("ui/icons.png")},
-	mFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mFont{Control::getDefaultFont()},
 	mNotificationIndex{NoSelection}
 {
 	auto& eventhandler = Utility<EventHandler>::get();
