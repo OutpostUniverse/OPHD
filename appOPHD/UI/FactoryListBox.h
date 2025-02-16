@@ -39,4 +39,7 @@ public:
 	Factory* selectedFactory();
 
 	void update() override;
+
+private:
+	const NAS2D::Image& mStructureIcons;
 };
