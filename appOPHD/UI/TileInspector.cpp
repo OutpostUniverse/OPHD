@@ -3,6 +3,7 @@
 #include "TextRender.h"
 #include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 #include "../MapObjects/Mine.h"
 
 #include <libOPHD/EnumTerrainType.h>
@@ -34,7 +35,7 @@ TileInspector::TileInspector() :
 	size({200, 88});
 
 	btnClose.size({50, 20});
-	add(btnClose, size() - btnClose.size() - Vector{5, 5});
+	add(btnClose, size() - btnClose.size() - Vector{constants::Margin, constants::Margin});
 }
 
 
