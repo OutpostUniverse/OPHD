@@ -2,7 +2,6 @@
 
 #include "IconGrid.h"
 
-#include "../Constants/UiConstants.h"
 #include "../ProductionCost.h"
 
 #include <libOPHD/EnumProductType.h>

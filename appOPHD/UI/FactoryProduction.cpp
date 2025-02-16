@@ -2,6 +2,7 @@
 
 #include "StringTable.h"
 
+#include "../Constants/UiConstants.h"
 #include "../Resources.h"
 #include "../ProductCatalogue.h"
 #include "../Constants/Strings.h"
