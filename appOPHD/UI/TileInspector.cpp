@@ -49,10 +49,11 @@ void TileInspector::update()
 	Window::update();
 
 	auto position = mRect.position + NAS2D::Vector{5, 25};
+	const auto lineSpacing = 10;
 	const auto tilePosition = mTile->xy();
 	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
 
-	position.y += 10;
+	position.y += lineSpacing;
 	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 
 	const auto* mine = mTile->mine();
@@ -62,10 +63,10 @@ void TileInspector::update()
 
 	if (mine)
 	{
-		position.y += 10;
+		position.y += lineSpacing;
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
-		position.y += 10;
+		position.y += lineSpacing;
 		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
 	}
 }
