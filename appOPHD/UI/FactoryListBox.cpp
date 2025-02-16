@@ -21,7 +21,6 @@ using namespace NAS2D;
 
 namespace
 {
-	const int LIST_ITEM_HEIGHT = 58;
 	const Image* STRUCTURE_ICONS = nullptr;
 }
 
@@ -62,7 +61,7 @@ FactoryListBox::FactoryListBox() :
 		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
 	}
 {
-	itemHeight(LIST_ITEM_HEIGHT);
+	itemHeight(58);
 	STRUCTURE_ICONS = &imageCache.load("ui/structures.png");
 }
 
@@ -139,9 +138,9 @@ void FactoryListBox::update()
 			*static_cast<FactoryListBoxItem*>(mItems[i]),
 			{
 				{positionX(),
-				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(drawOffset())},
+				positionY() + static_cast<int>(i * itemHeight() - drawOffset())},
 				{static_cast<int>(itemWidth()),
-				LIST_ITEM_HEIGHT}
+				static_cast<int>(itemHeight())}
 			},
 			i == selectedIndex());
 	}
