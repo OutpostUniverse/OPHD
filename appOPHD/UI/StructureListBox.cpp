@@ -19,13 +19,10 @@ using namespace NAS2D;
 namespace
 {
 	const int LIST_ITEM_HEIGHT = 30;
-
-	const Font* MAIN_FONT = nullptr;
-	const Font* MAIN_FONT_BOLD = nullptr;
 }
 
 
-static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
+static void drawItem(Renderer& renderer, const NAS2D::Font& font, const NAS2D::Font& fontBold, StructureListBox::StructureListBoxItem& item, NAS2D::Rectangle<int> rect, bool highlight)
 {
 	const auto structureState = item.structure->state();
 	const auto& structureColor = structureColorFromIndex(structureState);
@@ -35,9 +32,9 @@ static void drawItem(Renderer& renderer, StructureListBox::StructureListBoxItem&
 	if (highlight) { renderer.drawBoxFilled(rect, structureColor.alphaFade(75)); }
 	renderer.drawBox(rect.inset(2), structureColor);
 
-	const auto yOffset = 15 - MAIN_FONT_BOLD->height() / 2;
-	renderer.drawText(*MAIN_FONT_BOLD, item.text, rect.position + NAS2D::Vector{5, yOffset}, structureTextColor);
-	renderer.drawText(*MAIN_FONT, item.structureState, rect.crossXPoint() + NAS2D::Vector{-MAIN_FONT->width(item.structureState) - 5, yOffset}, structureTextColor);
+	const auto yOffset = 15 - fontBold.height() / 2;
+	renderer.drawText(fontBold, item.text, rect.position + NAS2D::Vector{5, yOffset}, structureTextColor);
+	renderer.drawText(font, item.structureState, rect.crossXPoint() + NAS2D::Vector{-font.width(item.structureState) - 5, yOffset}, structureTextColor);
 }
 
 
@@ -49,11 +46,11 @@ StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
 {}
 
 
-StructureListBox::StructureListBox()
+StructureListBox::StructureListBox() :
+	mFont{fontCache.load(constants::FONT_PRIMARY, 12)},
+	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, 12)}
 {
 	itemHeight(LIST_ITEM_HEIGHT);
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, 12);
-	MAIN_FONT_BOLD = &fontCache.load(constants::FONT_PRIMARY_BOLD, 12);
 }
 
 
@@ -127,7 +124,11 @@ void StructureListBox::update()
 	// ITEMS
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
-		drawItem(renderer, *static_cast<StructureListBoxItem*>(mItems[i]),
+		drawItem(
+			renderer,
+			mFont,
+			mFontBold,
+			*static_cast<StructureListBoxItem*>(mItems[i]),
 			{
 				{positionX(),
 				positionY() + (static_cast<int>(i) * LIST_ITEM_HEIGHT) - static_cast<int>(drawOffset())},
