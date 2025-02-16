@@ -48,9 +48,16 @@ void TileInspector::update()
 
 	Window::update();
 
+	auto position = mRect.position + NAS2D::Vector{5, 25};
+	const auto tilePosition = mTile->xy();
+	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
+
+	position.y += 10;
+	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
+
 	const auto* mine = mTile->mine();
 
-	auto position = mRect.position + NAS2D::Vector{5, 52};
+	position = mRect.position + NAS2D::Vector{5, 52};
 	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
 
 	if (mine)
@@ -61,13 +68,6 @@ void TileInspector::update()
 		position.y += 10;
 		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
 	}
-
-	position = mRect.position + NAS2D::Vector{5, 25};
-	const auto tilePosition = mTile->xy();
-	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
-
-	position.y += 10;
-	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 }
 
 
