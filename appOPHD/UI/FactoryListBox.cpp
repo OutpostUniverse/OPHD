@@ -126,13 +126,25 @@ void FactoryListBox::update()
 	{
 		drawItem(
 			renderer,
-			mFont,
-			mFontBold,
-			mStructureIcons,
-			*static_cast<FactoryListBoxItem*>(mItems[index]),
 			itemDrawArea(index),
-			index == selectedIndex());
+			index,
+			index == selectedIndex()
+		);
 	}
 
 	renderer.clipRectClear();
+}
+
+
+void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
+{
+	::drawItem(
+		renderer,
+		mFont,
+		mFontBold,
+		mStructureIcons,
+		*static_cast<FactoryListBoxItem*>(mItems[index]),
+		drawArea,
+		isSelected
+	);
 }

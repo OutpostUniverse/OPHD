@@ -40,6 +40,9 @@ public:
 
 	void update() override;
 
+protected:
+	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const;
+
 private:
 	const NAS2D::Image& mStructureIcons;
 };
