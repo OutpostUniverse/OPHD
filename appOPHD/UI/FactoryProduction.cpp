@@ -38,7 +38,7 @@ FactoryProduction::FactoryProduction() :
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 
 	btnClearSelection.size({mProductGrid.size().x, 20});
-	add(btnClearSelection, {5, 138});
+	add(btnClearSelection, {constants::Margin, 138});
 
 	btnApply.size({40, 20});
 	add(btnApply, {mProductGrid.size().x + 12, 138});
