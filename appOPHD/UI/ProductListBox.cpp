@@ -70,12 +70,11 @@ void ProductListBox::update()
 	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
 	const auto firstStop = itemSize.x / 3;
 	const auto secondStop = itemSize.x * 2 / 3;
-	const auto offset = static_cast<int>(drawOffset());
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
 		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
-		const auto drawPosition = NAS2D::Point{positionX(), positionY() + (static_cast<int>(i) * itemSize.y) - offset};
+		const auto drawPosition = NAS2D::Point{positionX(), positionY() + (static_cast<int>(i) * itemSize.y) - static_cast<int>(drawOffset())};
 		const auto highlight = i == selectedIndex();
 
 		// Draw highlight rect so as not to tint/hue colors of everything else
