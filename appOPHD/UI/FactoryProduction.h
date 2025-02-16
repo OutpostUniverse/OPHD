@@ -48,10 +48,10 @@ private:
 
 	IconGrid mProductGrid;
 
-	Button btnOkay;
-	Button btnCancel;
+	CheckBox chkIdle;
+
 	Button btnClearSelection;
 	Button btnApply;
-
-	CheckBox chkIdle;
+	Button btnOkay;
+	Button btnCancel;
 };
