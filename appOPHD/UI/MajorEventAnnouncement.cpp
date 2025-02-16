@@ -53,6 +53,6 @@ void MajorEventAnnouncement::update()
 
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
-	const auto& font = fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	const auto& font = Control::getDefaultFont();
 	renderer.drawText(font, mMessage, position() + NAS2D::Vector{5, 290}, NAS2D::Color::White);
 }

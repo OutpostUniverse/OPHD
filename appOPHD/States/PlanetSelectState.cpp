@@ -30,7 +30,7 @@ namespace
 
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
-	mTinyFont{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal)},
+	mTinyFont{Control::getDefaultFont()},
 	mBg{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},

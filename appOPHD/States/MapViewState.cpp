@@ -10,7 +10,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include "../Cache.h"
 #include "../PointerType.h"
 #include "../MeanSolarDistance.h"
 #include "../ProductCatalogue.h"
@@ -297,7 +296,7 @@ void MapViewState::initialize()
 
 	eventHandler.textInputMode(true);
 
-	MAIN_FONT = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
+	MAIN_FONT = &Control::getDefaultFont();
 
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
 }

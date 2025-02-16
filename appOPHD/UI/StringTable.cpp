@@ -6,6 +6,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <libControls/Control.h>
+
 #include <stdexcept>
 #include <algorithm>
 
@@ -24,8 +26,8 @@ StringTable::StringTable(std::size_t columns, std::size_t rows) :
 {
 	mCells.resize(columns * rows);
 
-	mDefaultFont = &fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal);
-	mDefaultTitleFont = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
+	mDefaultFont = &Control::getDefaultFont();
+	mDefaultTitleFont = &Control::getDefaultFontBold();
 }
 
 void StringTable::draw(NAS2D::Renderer& renderer) const
