@@ -17,6 +17,9 @@ using namespace NAS2D;
 
 namespace
 {
+	const auto lineSpacing = 10;
+	const auto sectionSpacing = 7;
+
 	const std::map<TerrainType, std::string> terrainTypeStringTable =
 	{
 		{TerrainType::Dozed, constants::TileBulldozed},
@@ -50,7 +53,6 @@ void TileInspector::update()
 	Window::update();
 
 	auto position = mRect.position + NAS2D::Vector{5, 25};
-	const auto lineSpacing = 10;
 	const auto tilePosition = mTile->xy();
 	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
 
@@ -59,7 +61,7 @@ void TileInspector::update()
 
 	const auto* mine = mTile->mine();
 
-	position = mRect.position + NAS2D::Vector{5, 52};
+	position.y += lineSpacing + sectionSpacing;
 	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
 
 	if (mine)
