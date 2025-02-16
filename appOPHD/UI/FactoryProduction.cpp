@@ -37,16 +37,18 @@ FactoryProduction::FactoryProduction() :
 	chkIdle.size({50, 20});
 	add(chkIdle, {mProductGrid.size().x + 12, 115});
 
+	const auto buttonSize = Vector{40, 20};
+
 	btnClearSelection.size({mProductGrid.size().x, 20});
 	add(btnClearSelection, {constants::Margin, 138});
 
-	btnApply.size({40, 20});
+	btnApply.size(buttonSize);
 	add(btnApply, {mProductGrid.size().x + 12, 138});
 
-	btnOkay.size({40, 20});
+	btnOkay.size(buttonSize);
 	add(btnOkay, {233, 138});
 
-	btnCancel.size({40, 20});
+	btnCancel.size(buttonSize);
 	add(btnCancel, {276, 138});
 }
 
