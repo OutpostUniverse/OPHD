@@ -80,8 +80,8 @@ protected:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
-	unsigned int itemWidth() const { return static_cast<unsigned int>(mItemWidth); }
-	unsigned int itemHeight() const { return static_cast<unsigned int>(mItemHeight); }
+	unsigned int itemWidth() const;
+	unsigned int itemHeight() const;
 	void itemHeight(int);
 
 	unsigned int drawOffset() const { return mScrollOffsetInPixels; }
