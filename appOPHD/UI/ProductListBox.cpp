@@ -70,30 +70,28 @@ void ProductListBox::update()
 	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
 	const auto firstStop = itemSize.x / 3;
 	const auto secondStop = itemSize.x * 2 / 3;
-	const auto offset = static_cast<int>(drawOffset());
-	const auto x = positionX();
 
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto& item = *static_cast<ProductListBoxItem*>(mItems[i]);
-		const auto y = positionY() + (static_cast<int>(i) * itemSize.y);
-		const auto highlight = i == selectedIndex();
+		const auto drawPosition = NAS2D::Point{positionX(), positionY() + (static_cast<int>(index) * itemSize.y) - static_cast<int>(drawOffset())};
+		const auto highlight = index == selectedIndex();
+		const auto& item = *static_cast<ProductListBoxItem*>(mItems[index]);
 
 		// Draw highlight rect so as not to tint/hue colors of everything else
-		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{{x, y - offset}, itemSize}, highlightColor); }
+		if (highlight) { renderer.drawBoxFilled(NAS2D::Rectangle{drawPosition, itemSize}, highlightColor); }
 
 		// Draw item borders and column breaks
-		renderer.drawBox(NAS2D::Rectangle<int>{{x + 2, y + 2 - offset}, {itemSize.x - 4, itemSize.y - 4}}, constants::PrimaryColor);
-		renderer.drawLine(NAS2D::Point{x + firstStop, y + 2}, NAS2D::Point{x + firstStop, y + itemSize.y - 2}, constants::PrimaryColor);
-		renderer.drawLine(NAS2D::Point{x + secondStop, y + 2}, NAS2D::Point{x + secondStop, y + itemSize.y - 2}, constants::PrimaryColor);
+		renderer.drawBox(NAS2D::Rectangle{drawPosition, itemSize}.inset(2), constants::PrimaryColor);
+		renderer.drawLine(drawPosition + NAS2D::Vector{firstStop, 2}, drawPosition + NAS2D::Vector{firstStop, itemSize.y - 2}, constants::PrimaryColor);
+		renderer.drawLine(drawPosition + NAS2D::Vector{secondStop, 2}, drawPosition + NAS2D::Vector{secondStop, itemSize.y - 2}, constants::PrimaryColor);
 
 		// Draw item column contents
-		renderer.drawText(mFontBold, item.text, NAS2D::Point{x + 5, ((y + 15) - mFontBold.height() / 2) - offset}, constants::PrimaryColor);
-		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), NAS2D::Point{x + firstStop + 5, ((y + 15) - mFontBold.height() / 2)}, constants::PrimaryColor);
+		renderer.drawText(mFontBold, item.text, drawPosition + NAS2D::Vector{5, 15 - mFontBold.height() / 2}, constants::PrimaryColor);
+		renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), drawPosition + NAS2D::Vector{firstStop + 5, 15 - mFontBold.height() / 2}, constants::PrimaryColor);
 		drawProgressBar(
 			item.capacityUsed,
 			item.capacityTotal,
-			{{x + secondStop + 5, y + 10}, {firstStop - 10, 10}},
+			{drawPosition + NAS2D::Vector{secondStop + 5, 10}, {firstStop - 10, 10}},
 			2
 		);
 	}
