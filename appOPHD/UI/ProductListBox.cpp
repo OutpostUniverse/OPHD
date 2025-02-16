@@ -53,27 +53,6 @@ void ProductListBox::productPool(ProductPool& pool)
 }
 
 
-/**
- * Draws the FactoryListBox
- */
-void ProductListBox::update()
-{
-	if (!visible()) { return; }
-	ListBoxBase::update();
-
-	auto& renderer = Utility<Renderer>::get();
-
-	renderer.clipRect(mRect);
-
-	for (std::size_t index = 0; index < mItems.size(); ++index)
-	{
-		drawItem(renderer, itemDrawArea(index), index, index == selectedIndex());
-	}
-
-	renderer.clipRectClear();
-}
-
-
 void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
 {
 	const auto firstStop = drawArea.size.x / 3;

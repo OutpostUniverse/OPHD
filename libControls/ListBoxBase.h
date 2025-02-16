@@ -61,7 +61,7 @@ public:
 
 	SelectionChangeSignal::Source& selectionChanged();
 
-	void update() override = 0;
+	void update() override;
 	void draw() const override;
 
 protected:

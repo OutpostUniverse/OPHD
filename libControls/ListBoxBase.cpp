@@ -295,8 +295,20 @@ NAS2D::Rectangle<int> ListBoxBase::itemDrawArea(std::size_t index) const
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
+
 	draw();
 	mScrollBar.update();
+
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	renderer.clipRect(mRect);
+
+	for (std::size_t index = 0; index < mItems.size(); ++index)
+	{
+		drawItem(renderer, itemDrawArea(index), index, index == selectedIndex());
+	}
+
+	renderer.clipRectClear();
 }
 
 

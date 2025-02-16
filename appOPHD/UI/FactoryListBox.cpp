@@ -110,27 +110,6 @@ Factory* FactoryListBox::selectedFactory()
 }
 
 
-/**
- * Draws the FactoryListBox
- */
-void FactoryListBox::update()
-{
-	if (!visible()) { return; }
-	ListBoxBase::update();
-
-	auto& renderer = Utility<Renderer>::get();
-
-	renderer.clipRect(mRect);
-
-	for (std::size_t index = 0; index < mItems.size(); ++index)
-	{
-		drawItem(renderer, itemDrawArea(index), index, index == selectedIndex());
-	}
-
-	renderer.clipRectClear();
-}
-
-
 void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
 {
 	::drawItem(
