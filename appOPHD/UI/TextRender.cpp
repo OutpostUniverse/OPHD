@@ -14,34 +14,34 @@ void drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, con
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const NAS2D::Font* FONT = &Control::getDefaultFont();
-	const NAS2D::Font* FONT_BOLD = &Control::getDefaultFontBold();
+	const auto& font = Control::getDefaultFont();
+	const auto& fontBold = Control::getDefaultFontBold();
 
-	renderer.drawText(*FONT_BOLD, title, position, color);
-	position.x += FONT_BOLD->width(title);
-	renderer.drawText(*FONT, text, position, color);
+	renderer.drawText(fontBold, title, position, color);
+	position.x += fontBold.width(title);
+	renderer.drawText(font, text, position, color);
 }
 
 void drawLabelAndValueLeftJustify(NAS2D::Point<int> position, int labelWidth, const std::string& title, const std::string& text, NAS2D::Color color)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const NAS2D::Font* FONT = &Control::getDefaultFont();
-	const NAS2D::Font* FONT_BOLD = &Control::getDefaultFontBold();
+	const auto& font = Control::getDefaultFont();
+	const auto& fontBold = Control::getDefaultFontBold();
 
-	renderer.drawText(*FONT_BOLD, title, position, color);
+	renderer.drawText(fontBold, title, position, color);
 	position.x += labelWidth;
-	renderer.drawText(*FONT, text, position, color);
+	renderer.drawText(font, text, position, color);
 }
 
 void drawLabelAndValueRightJustify(NAS2D::Point<int> position, int labelWidth, const std::string& title, const std::string& text, NAS2D::Color color)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const NAS2D::Font* FONT = &Control::getDefaultFont();
-	const NAS2D::Font* FONT_BOLD = &Control::getDefaultFontBold();
+	const auto& font = Control::getDefaultFont();
+	const auto& fontBold = Control::getDefaultFontBold();
 
-	renderer.drawText(*FONT_BOLD, title, position, color);
-	position.x += labelWidth - FONT->width(text);
-	renderer.drawText(*FONT, text, position, color);
+	renderer.drawText(fontBold, title, position, color);
+	position.x += labelWidth - font.width(text);
+	renderer.drawText(font, text, position, color);
 }
