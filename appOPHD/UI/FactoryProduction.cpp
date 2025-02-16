@@ -41,7 +41,7 @@ FactoryProduction::FactoryProduction() :
 	add(btnClearSelection, {5, 138});
 
 	btnApply.size({40, 20});
-	add(btnApply, {mProductGrid.size().x + 12, btnClearSelection.positionY()});
+	add(btnApply, {mProductGrid.size().x + 12, 138});
 
 	btnOkay.size({40, 20});
 	add(btnOkay, {233, 138});
