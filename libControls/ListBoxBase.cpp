@@ -247,6 +247,12 @@ void ListBoxBase::itemHeight(int h)
 }
 
 
+NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
+{
+	return NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
+}
+
+
 /**
  * Draws the ListBox
  */

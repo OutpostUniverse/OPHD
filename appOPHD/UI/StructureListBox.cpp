@@ -117,7 +117,7 @@ void StructureListBox::update()
 
 	renderer.clipRect(mRect);
 
-	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
+	const auto itemSize = itemDrawSize();
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{

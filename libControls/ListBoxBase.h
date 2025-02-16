@@ -79,6 +79,7 @@ protected:
 	void itemHeight(int);
 
 	unsigned int drawOffset() const { return mScrollOffsetInPixels; }
+	NAS2D::Vector<int> itemDrawSize() const;
 
 	void onVisibilityChange(bool) override;
 

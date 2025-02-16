@@ -67,7 +67,7 @@ void ProductListBox::update()
 
 	constexpr Color highlightColor{0, 185, 0, 75};
 
-	const auto itemSize = NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
+	const auto itemSize = itemDrawSize();
 	const auto firstStop = itemSize.x / 3;
 	const auto secondStop = itemSize.x * 2 / 3;
 
