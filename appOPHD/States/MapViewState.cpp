@@ -10,7 +10,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include "../Cache.h"
 #include "../PointerType.h"
 #include "../MeanSolarDistance.h"
 #include "../ProductCatalogue.h"
