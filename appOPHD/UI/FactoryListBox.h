@@ -39,4 +39,8 @@ public:
 	Factory* selectedFactory();
 
 	void update() override;
+
+private:
+	const NAS2D::Font& mFont;
+	const NAS2D::Font& mFontBold;
 };
