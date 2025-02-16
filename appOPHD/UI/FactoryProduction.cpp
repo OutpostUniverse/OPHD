@@ -46,10 +46,10 @@ FactoryProduction::FactoryProduction() :
 	add(btnApply, {mProductGrid.size().x + 12, 138});
 
 	btnOkay.size(buttonSize);
-	add(btnOkay, {233, 138});
+	add(btnOkay, {mProductGrid.size().x + 12 + buttonSize.x + constants::MarginTight, 138});
 
 	btnCancel.size(buttonSize);
-	add(btnCancel, {276, 138});
+	add(btnCancel, {mProductGrid.size().x + 12 + (buttonSize.x + constants::MarginTight) * 2, 138});
 }
 
 
