@@ -18,7 +18,7 @@ using namespace NAS2D;
 namespace
 {
 	const auto lineSpacing = 10;
-	const auto sectionSpacing = 7;
+	const auto sectionSpacing = constants::Margin;
 
 	const std::map<TerrainType, std::string> terrainTypeStringTable =
 	{
@@ -35,7 +35,7 @@ TileInspector::TileInspector() :
 	Window{constants::WindowTileInspector},
 	btnClose{"Close", {this, &TileInspector::onClose}}
 {
-	size({200, sWindowTitleBarHeight + lineSpacing * 5 + sectionSpacing + constants::Margin * 2 - 1});
+	size({200, sWindowTitleBarHeight + lineSpacing * 5 + sectionSpacing + constants::Margin * 2});
 
 	btnClose.size({50, 20});
 	add(btnClose, size() - btnClose.size() - Vector{constants::Margin, constants::Margin});
