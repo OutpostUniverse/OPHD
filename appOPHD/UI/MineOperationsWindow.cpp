@@ -24,7 +24,7 @@ using namespace NAS2D;
 MineOperationsWindow::MineOperationsWindow() :
 	Window{constants::WindowMineOperations},
 	mFont{Control::getDefaultFont()},
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
+	mFontBold{Control::getDefaultFontBold()},
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{

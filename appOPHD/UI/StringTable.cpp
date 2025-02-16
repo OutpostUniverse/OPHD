@@ -27,7 +27,7 @@ StringTable::StringTable(std::size_t columns, std::size_t rows) :
 	mCells.resize(columns * rows);
 
 	mDefaultFont = &Control::getDefaultFont();
-	mDefaultTitleFont = &fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal);
+	mDefaultTitleFont = &Control::getDefaultFontBold();
 }
 
 void StringTable::draw(NAS2D::Renderer& renderer) const

@@ -47,7 +47,7 @@ namespace
 
 PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale) :
 	mFont{Control::getDefaultFont()},
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal)},
+	mFontBold{Control::getDefaultFontBold()},
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin
 	{
