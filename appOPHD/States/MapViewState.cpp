@@ -42,8 +42,6 @@
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
-const NAS2D::Font* MAIN_FONT = nullptr;
-
 
 namespace
 {
@@ -295,8 +293,6 @@ void MapViewState::initialize()
 	eventHandler.mouseWheel().connect({this, &MapViewState::onMouseWheel});
 
 	eventHandler.textInputMode(true);
-
-	MAIN_FONT = &Control::getDefaultFont();
 
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
 }
