@@ -22,7 +22,6 @@
 
 
 extern NAS2D::Point<int> MOUSE_COORDS;
-extern const NAS2D::Font* MAIN_FONT; /// yuck
 
 
 namespace
@@ -150,11 +149,13 @@ void ResourceInfoBar::draw() const
 		std::tuple{ResourceImageRectsRefined[3], mResourcesCount.resources[3], 0},
 	};
 
+	const auto& font = Control::getDefaultFont();
+
 	for (const auto& [imageRect, amount, spacing] : resources)
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = (amount <= 10 && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
-		renderer.drawText(*MAIN_FONT, std::to_string(amount), position + textOffset, color);
+		renderer.drawText(font, std::to_string(amount), position + textOffset, color);
 		position.x += spacing;
 	}
 
@@ -173,7 +174,7 @@ void ResourceInfoBar::draw() const
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = (isHighlighted  && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
-		renderer.drawText(*MAIN_FONT, text, position + textOffset, color);
+		renderer.drawText(font, text, position + textOffset, color);
 		position.x += (x + offsetX) * 2;
 	}
 
@@ -189,7 +190,7 @@ void ResourceInfoBar::draw() const
 	const auto moraleLevel = (std::clamp(mMorale.currentMorale(), 1, 999) / 200);
 	const auto popMoraleImageRect = NAS2D::Rectangle<int>{{176 + moraleLevel * constants::ResourceIconSize, 0}, {constants::ResourceIconSize, constants::ResourceIconSize}};
 	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
-	renderer.drawText(*MAIN_FONT, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
+	renderer.drawText(font, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
 }
 
 

@@ -11,9 +11,6 @@
 #include <array>
 
 
-extern const NAS2D::Font* MAIN_FONT; /// yuck
-
-
 RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
 	mRobotPool{robotPool},
 	mUiIcons{imageCache.load("ui/icons.png")}
@@ -45,7 +42,7 @@ void RobotDeploymentSummary::draw() const
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto text = std::to_string(parts) + "/" + std::to_string(total);
-		renderer.drawText(*MAIN_FONT, text, position + textOffset, NAS2D::Color::White);
+		renderer.drawText(Control::getDefaultFont(), text, position + textOffset, NAS2D::Color::White);
 		position.y += 25;
 	}
 }
