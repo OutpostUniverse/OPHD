@@ -17,7 +17,7 @@ using namespace NAS2D;
 
 namespace
 {
-	const auto lineSpacing = 10;
+	const auto lineSpacing = 12;
 	const auto sectionSpacing = constants::Margin;
 
 	const std::map<TerrainType, std::string> terrainTypeStringTable =
