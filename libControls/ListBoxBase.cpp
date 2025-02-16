@@ -310,7 +310,17 @@ void ListBoxBase::update()
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		drawItem(renderer, itemDrawArea(index), index, index == selectedIndex());
+		const auto drawArea = itemDrawArea(index);
+		const auto& borderColor = itemBorderColor(index);
+		if (index == selectedIndex())
+		{
+			// Draw background highlight (drawn first to avoid tinting everything else)
+			renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75));
+		}
+		// Draw border
+		renderer.drawBox(drawArea.inset(2), borderColor);
+
+		drawItem(renderer, drawArea, index);
 	}
 
 	renderer.clipRectClear();

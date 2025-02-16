@@ -97,16 +97,11 @@ NAS2D::Color StructureListBox::itemBorderColor(std::size_t index) const
 }
 
 
-void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
+void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
 {
 	const auto& item = *static_cast<StructureListBoxItem*>(mItems[index]);
 	const auto structureState = item.structure->state();
 	const auto& structureTextColor = structureTextColorFromIndex(structureState);
-
-	// draw highlight rect so as not to tint/hue colors of everything else
-	const auto& borderColor = itemBorderColor(index);
-	if (isSelected) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
-	renderer.drawBox(drawArea.inset(2), borderColor);
 
 	const auto yOffset = 15 - mFontBold.height() / 2;
 	renderer.drawText(mFontBold, item.text, drawArea.position + NAS2D::Vector{5, yOffset}, structureTextColor);

@@ -91,7 +91,7 @@ protected:
 
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const;
 
-	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const = 0;
+	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 
 	const NAS2D::Font& mFont;

@@ -53,16 +53,11 @@ void ProductListBox::productPool(ProductPool& pool)
 }
 
 
-void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const
+void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
 {
 	const auto firstStop = drawArea.size.x / 3;
 	const auto secondStop = drawArea.size.x * 2 / 3;
 	const auto& item = *static_cast<ProductListBoxItem*>(mItems[index]);
-
-	// Draw highlight rect so as not to tint/hue colors of everything else
-	const auto& borderColor = itemBorderColor(index);
-	if (isSelected) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
-	renderer.drawBox(drawArea.inset(2), borderColor);
 
 	// Draw column breaks
 	renderer.drawLine(drawArea.position + NAS2D::Vector{firstStop, 2}, drawArea.position + NAS2D::Vector{firstStop, drawArea.size.y - 2}, constants::PrimaryColor);

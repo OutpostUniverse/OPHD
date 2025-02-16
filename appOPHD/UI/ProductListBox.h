@@ -29,5 +29,5 @@ public:
 	void productPool(ProductPool&);
 
 protected:
-	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index, bool isSelected) const override;
+	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 };
