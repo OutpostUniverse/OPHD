@@ -132,12 +132,6 @@ ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
 }
 
 
-void ListBoxBase::onVisibilityChange(bool)
-{
-	updateScrollLayout();
-}
-
-
 /**
  * Updates values required for properly displaying list items.
  */
@@ -163,10 +157,25 @@ void ListBoxBase::updateScrollLayout()
 }
 
 
+void ListBoxBase::onVisibilityChange(bool)
+{
+	updateScrollLayout();
+}
+
+
 /**
  * Resized event handler.
  */
 void ListBoxBase::onResize()
+{
+	updateScrollLayout();
+}
+
+
+/**
+ * ScrollBar changed event handler.
+ */
+void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
 {
 	updateScrollLayout();
 }
@@ -230,15 +239,6 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 	auto change = static_cast<ScrollBar::ValueType>(mItemHeight);
 
 	mScrollBar.changeValue((scrollAmount.y < 0 ? change : -change));
-}
-
-
-/**
- * ScrollBar changed event handler.
- */
-void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
-{
-	updateScrollLayout();
 }
 
 

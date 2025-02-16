@@ -73,6 +73,13 @@ protected:
 
 	void updateScrollLayout();
 
+	void onVisibilityChange(bool) override;
+	void onResize() override;
+	void onSlideChange(ScrollBar::ValueType newPosition);
+	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
+	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
+
 	unsigned int itemWidth() const { return static_cast<unsigned int>(mItemWidth); }
 	unsigned int itemHeight() const { return static_cast<unsigned int>(mItemHeight); }
 	void itemHeight(int);
@@ -82,8 +89,6 @@ protected:
 	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
 	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;
 
-	void onVisibilityChange(bool) override;
-
 
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;
@@ -91,15 +96,6 @@ protected:
 	std::vector<ListBoxItem*> mItems;
 
 private:
-	void onSlideChange(ScrollBar::ValueType newPosition);
-
-	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
-	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
-	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
-
-	void onResize() override;
-
-
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = NoSelection;
 	unsigned int mScrollOffsetInPixels = 0;
