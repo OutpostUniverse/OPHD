@@ -2,6 +2,7 @@
 
 #include "StringTable.h"
 
+#include "../Constants/UiConstants.h"
 #include "../Resources.h"
 #include "../ProductCatalogue.h"
 #include "../Constants/Strings.h"
@@ -15,32 +16,38 @@ using namespace NAS2D;
 
 
 FactoryProduction::FactoryProduction() :
-	Window{constants::WindowFactoryProduction}
+	Window{constants::WindowFactoryProduction},
+	mFactory{nullptr},
+	mProduct{ProductType::PRODUCT_NONE},
+	mProductGrid{"ui/factory.png", 32, constants::MarginTight},
+	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
+	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}},
+	btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}},
+	btnApply{"Apply", {this, &FactoryProduction::onApply}},
+	chkIdle{"Idle", {this, &FactoryProduction::onCheckBoxIdleChange}}
 {
 	size({320, 162});
 
-	// Set up GUI Layout
-	add(mProductGrid, {constants::Margin, 25});
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
+	add(mProductGrid, {constants::Margin, 25});
 
-	add(btnOkay, {233, 138});
 	btnOkay.size({40, 20});
+	add(btnOkay, {233, 138});
 
-	add(btnCancel, {276, 138});
 	btnCancel.size({40, 20});
+	add(btnCancel, {276, 138});
 
-	add(btnClearSelection, {5, 138});
 	btnClearSelection.size({mProductGrid.size().x, 20});
+	add(btnClearSelection, {5, 138});
 
-	add(btnApply, {mProductGrid.size().x + 12, btnClearSelection.positionY()});
 	btnApply.size({40, 20});
+	add(btnApply, {mProductGrid.size().x + 12, btnClearSelection.positionY()});
 
-	add(chkIdle, {mProductGrid.size().x + 12, 115});
 	chkIdle.size({50, 20});
-	chkIdle.click().connect({this, &FactoryProduction::onCheckBoxIdleChange});
+	add(chkIdle, {mProductGrid.size().x + 12, 115});
 }
 
 
