@@ -41,17 +41,17 @@ private:
 
 	void onProductSelectionChange(const IconGrid::Item*);
 
-	Factory* mFactory = nullptr;
+	Factory* mFactory;
 
-	ProductType mProduct = ProductType::PRODUCT_NONE;
+	ProductType mProduct;
 	ProductionCost mProductCost;
 
-	IconGrid mProductGrid{"ui/factory.png", 32, constants::MarginTight};
+	IconGrid mProductGrid;
 
-	Button btnOkay{"Okay", {this, &FactoryProduction::onOkay}};
-	Button btnCancel{"Cancel", {this, &FactoryProduction::onCancel}};
-	Button btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}};
-	Button btnApply{"Apply", {this, &FactoryProduction::onApply}};
+	Button btnOkay;
+	Button btnCancel;
+	Button btnClearSelection;
+	Button btnApply;
 
-	CheckBox chkIdle{"Idle"};
+	CheckBox chkIdle;
 };

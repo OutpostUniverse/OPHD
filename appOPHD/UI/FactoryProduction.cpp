@@ -15,7 +15,15 @@ using namespace NAS2D;
 
 
 FactoryProduction::FactoryProduction() :
-	Window{constants::WindowFactoryProduction}
+	Window{constants::WindowFactoryProduction},
+	mFactory{nullptr},
+	mProduct{ProductType::PRODUCT_NONE},
+	mProductGrid{"ui/factory.png", 32, constants::MarginTight},
+	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
+	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}},
+	btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}},
+	btnApply{"Apply", {this, &FactoryProduction::onApply}},
+	chkIdle{"Idle"}
 {
 	size({320, 162});
 
