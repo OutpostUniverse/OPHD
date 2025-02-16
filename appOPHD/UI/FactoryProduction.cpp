@@ -41,8 +41,8 @@ FactoryProduction::FactoryProduction() :
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
-	btnClearSelection.size({mProductGrid.size().x, 20});
-	add(btnClearSelection, {constants::Margin, 138});
+	btnClearSelection.size({mProductGrid.size().x, buttonSize.y});
+	add(btnClearSelection, {constants::Margin, buttonArea.position.y});
 
 	btnApply.size(buttonSize);
 	add(btnApply, {buttonArea.position.x, buttonArea.position.y});
