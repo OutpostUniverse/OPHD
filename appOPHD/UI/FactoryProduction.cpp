@@ -26,7 +26,7 @@ FactoryProduction::FactoryProduction() :
 	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}}
 {
-	size({320, 163});
+	size({320, 165});
 
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
