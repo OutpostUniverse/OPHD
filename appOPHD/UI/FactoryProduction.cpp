@@ -28,7 +28,6 @@ FactoryProduction::FactoryProduction() :
 {
 	size({320, 162});
 
-	// Set up GUI Layout
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
