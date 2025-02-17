@@ -55,7 +55,6 @@ public:
 	std::size_t currentHighlight() const;
 	std::size_t selectedIndex() const;
 	bool isItemSelected() const;
-	const ListBoxItem& selected() const;
 	void setSelection(std::size_t selection);
 	void clearSelected();
 

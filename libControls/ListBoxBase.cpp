@@ -93,17 +93,6 @@ bool ListBoxBase::isItemSelected() const
 }
 
 
-const ListBoxBase::ListBoxItem& ListBoxBase::selected() const
-{
-	if (mSelectedIndex == NoSelection)
-	{
-		throw std::runtime_error("ListBox has no selected item");
-	}
-
-	return *mItems[mSelectedIndex];
-}
-
-
 /**
  * Sets the current selection index.
  *
