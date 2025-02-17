@@ -20,7 +20,8 @@ public:
 		Save
 	};
 
-	using FileOperationSignal = NAS2D::Signal<const std::string&, FileOperation>;
+	using FileSaveSignal = NAS2D::Signal<const std::string&>;
+	using FileLoadSignal = NAS2D::Signal<const std::string&>;
 
 	FileIo();
 	~FileIo() override;
@@ -28,7 +29,8 @@ public:
 	void showOpen(const std::string& directory);
 	void showSave(const std::string& directory);
 
-	FileOperationSignal::Source& fileOperation() { return mSignal; }
+	FileSaveSignal::Source& fileSaveSignal() { return mSaveSignal; }
+	FileLoadSignal::Source& fileLoadSignal() { return mLoadSignal; }
 
 	void update() override;
 
@@ -46,7 +48,8 @@ private:
 	void onFileSelect();
 	void onFileNameChange(TextControl* control);
 
-	FileOperationSignal mSignal;
+	FileSaveSignal mSaveSignal;
+	FileLoadSignal mLoadSignal;
 
 	FileOperation mMode{FileOperation::Load};
 

@@ -180,11 +180,20 @@ void FileIo::onClose()
 
 void FileIo::onFileIo()
 {
-	mSignal(mFileName.text(), mMode);
+	if(mMode == FileOperation::Save)
+	{
+		mSaveSignal(mFileName.text());
+	}
+
+	if(mMode == FileOperation::Load)
+	{
+		mLoadSignal(mFileName.text());
+	}
 	mFileName.text("");
 	mFileName.resetCursorPosition();
 	mFileOperation.enabled(false);
 }
+
 
 void FileIo::onFileDelete()
 {

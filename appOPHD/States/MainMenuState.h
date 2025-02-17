@@ -38,7 +38,7 @@ private:
 	void onHelp();
 	void onQuit();
 
-	void onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp);
+	void onLoadGame(const std::string& filePath);
 
 private:
 	const NAS2D::Image mBgImage;

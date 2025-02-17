@@ -55,7 +55,7 @@ void MainMenuState::initialize()
 		button.size({200, 30});
 	}
 
-	mFileIoDialog.fileOperation().connect({this, &MainMenuState::onFileIoAction});
+	mFileIoDialog.fileLoadSignal().connect({this, &MainMenuState::onLoadGame});
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
@@ -124,13 +124,8 @@ void MainMenuState::enableButtons()
 /**
  * Event handler for file I/O operations via the FileIO Window.
  */
-void MainMenuState::onFileIoAction(const std::string& filePath, FileIo::FileOperation fileOp)
+void MainMenuState::onLoadGame(const std::string& filePath)
 {
-	if (fileOp == FileIo::FileOperation::Save)
-	{
-		return;
-	}
-
 	if (filePath.empty())
 	{
 		return;
