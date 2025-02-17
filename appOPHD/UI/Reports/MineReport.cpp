@@ -350,7 +350,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	auto& r = Utility<Renderer>::get();
 
 	r.drawImage(mineFacility, origin);
-	const auto text = lstMineFacilities.isItemSelected() ? lstMineFacilities.selected().text : "";
+	const auto text = lstMineFacilities.isItemSelected() ? getStructureDescription(*lstMineFacilities.selectedStructure()) : "";
 	r.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
 
 	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
