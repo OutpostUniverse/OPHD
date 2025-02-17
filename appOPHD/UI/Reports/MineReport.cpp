@@ -119,20 +119,12 @@ void MineReport::refresh()
 void MineReport::fillLists()
 {
 	lstMineFacilities.clear();
-	std::size_t id = 1;
-	for (auto* facility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	for (auto* facility : structureManager.getStructures<MineFacility>())
 	{
 		lstMineFacilities.addItem(facility);
-
-		/**
-		 * Add a numeric ID to the text to avoid a monotonous look in the structure list.
-		 * Since numeric structure ID's were done away with this is purely a cosmetic thing
-		 * that could haunt us later if the player is looking to search for a mine by id
-		 * as these are going to change between play/save/load sessions and most during
-		 * gameplay as well since list position is not guaranteed.
-		 */
-		lstMineFacilities.last()->text = facility->name() + " #" + std::to_string(id);
-		++id;
+		const auto& surfaceLocation = structureManager.tileFromStructure(facility).xy();
+		lstMineFacilities.last()->text = facility->name() + " at " + std::string{surfaceLocation};
 	}
 
 	mSelectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(mSelectedFacility);
