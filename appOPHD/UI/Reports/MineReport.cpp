@@ -29,6 +29,17 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	std::string getStructureDescription(const Structure& structure)
+	{
+		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		const auto& surfaceLocation = structureManager.tileFromStructure(&structure).xy();
+		return structure.name() + " at " + std::string{surfaceLocation};
+	}
+}
+
+
 MineReport::MineReport() :
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
@@ -123,8 +134,7 @@ void MineReport::fillLists()
 	for (auto* facility : structureManager.getStructures<MineFacility>())
 	{
 		lstMineFacilities.addItem(facility);
-		const auto& surfaceLocation = structureManager.tileFromStructure(facility).xy();
-		lstMineFacilities.last()->text = facility->name() + " at " + std::string{surfaceLocation};
+		lstMineFacilities.last()->text = getStructureDescription(*facility);
 	}
 
 	mSelectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(mSelectedFacility);
