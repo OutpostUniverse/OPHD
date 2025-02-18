@@ -74,7 +74,6 @@ void MapViewState::initUi()
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
-	mFileIoDialog.fileLoadSignal().connect({this, &MapViewState::onLoadGame});
 	mFileIoDialog.fileSaveSignal().connect({this, &MapViewState::onSaveGame});
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
@@ -641,23 +640,6 @@ void MapViewState::onGameOver()
 	mGameOver = true;
 	mFade.fadeOut(constants::FadeSpeed);
 	mQuitSignal();
-}
-
-
-void MapViewState::onLoadGame(const std::string& filePath)
-{
-	try
-	{
-		load(constants::SaveGamePath + filePath + ".xml");
-		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-		setupUiPositions(renderer.size());
-	}
-	catch (const std::exception& e)
-	{
-		doNonFatalErrorMessage("Load Failed", e.what());
-		return;
-	}
-	mFileIoDialog.hide();
 }
 
 

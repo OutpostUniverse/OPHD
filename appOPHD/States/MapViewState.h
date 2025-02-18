@@ -283,7 +283,6 @@ private:
 	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
 	void onSaveGame(const std::string& filePath);
-	void onLoadGame(const std::string& filePath);
 
 	void onTakeMeThere(const MapCoordinate& position);
 
