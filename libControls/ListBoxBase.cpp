@@ -39,28 +39,7 @@ ListBoxBase::~ListBoxBase()
  */
 bool ListBoxBase::isEmpty() const
 {
-	return mItems.empty();
-}
-
-
-/**
- * Number of items in the ListBoxBase.
- */
-std::size_t ListBoxBase::count() const
-{
-	return mItems.size();
-}
-
-
-/**
- * Clears all items from the list.
- */
-void ListBoxBase::clear()
-{
-	mItems.clear();
-	mSelectedIndex = NoSelection;
-	mHighlightIndex = NoSelection;
-	updateScrollLayout();
+	return count() == 0;
 }
 
 
@@ -95,7 +74,7 @@ bool ListBoxBase::isItemSelected() const
  */
 void ListBoxBase::setSelection(std::size_t selection)
 {
-	mSelectedIndex = (selection < mItems.size()) ? selection : NoSelection;
+	mSelectedIndex = (selection < count()) ? selection : NoSelection;
 	mSelectionChanged();
 }
 
@@ -116,17 +95,28 @@ ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
 
 
 /**
+ * Clears all items from the list.
+ */
+void ListBoxBase::clear()
+{
+	mSelectedIndex = NoSelection;
+	mHighlightIndex = NoSelection;
+	updateScrollLayout();
+}
+
+
+/**
  * Updates values required for properly displaying list items.
  */
 void ListBoxBase::updateScrollLayout()
 {
 	mItemWidth = mRect.size.x;
 
-	if ((mItemHeight * static_cast<int>(mItems.size())) > mRect.size.y)
+	if ((mItemHeight * static_cast<int>(count())) > mRect.size.y)
 	{
 		mScrollBar.position({rect().position.x + mRect.size.x - 14, mRect.position.y});
 		mScrollBar.size({14, mRect.size.y});
-		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemHeight * static_cast<int>(mItems.size()) - mRect.size.y));
+		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemHeight * static_cast<int>(count()) - mRect.size.y));
 		mScrollOffsetInPixels = static_cast<unsigned int>(mScrollBar.value());
 		mItemWidth -= mScrollBar.size().x;
 		mScrollBar.visible(true);
@@ -179,7 +169,7 @@ void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posit
 	// A few basic checks
 	if (!rect().contains(position) || mHighlightIndex == NoSelection) { return; }
 	if (mScrollBar.visible() && mScrollBar.rect().contains(position)) { return; }
-	if (mHighlightIndex >= mItems.size()) { return; }
+	if (mHighlightIndex >= count()) { return; }
 
 	setSelection(mHighlightIndex);
 }
@@ -207,7 +197,7 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 
 	mHighlightIndex = (static_cast<unsigned int>(position.y - positionY()) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
 
-	if (mHighlightIndex >= mItems.size())
+	if (mHighlightIndex >= count())
 	{
 		mHighlightIndex = NoSelection;
 	}
@@ -292,7 +282,7 @@ void ListBoxBase::update()
 
 	renderer.clipRect(mRect);
 
-	for (std::size_t index = 0; index < mItems.size(); ++index)
+	for (std::size_t index = 0; index < count(); ++index)
 	{
 		const auto drawArea = itemDrawArea(index);
 		const auto& borderColor = itemBorderColor(index);

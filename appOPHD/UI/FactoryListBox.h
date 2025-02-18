@@ -18,14 +18,9 @@ class Factory;
 class FactoryListBox : public ListBoxBase
 {
 public:
-	struct FactoryListBoxItem : public ListBoxItem
+	struct FactoryListBoxItem
 	{
-		FactoryListBoxItem(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) :
-			ListBoxItem{textDescription},
-			factory{newFactory},
-			icon_slice{iconPosition}
-		{}
-
+		std::string text;
 		Factory* factory = nullptr;
 		NAS2D::Point<int> icon_slice;
 	};
@@ -38,7 +33,13 @@ public:
 
 	Factory* selectedFactory();
 
+	void clear();
+
 protected:
+	void add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition);
+
+	virtual std::size_t count() const override;
+
 	const FactoryListBoxItem& getItem(std::size_t index) const;
 
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const override;
@@ -46,5 +47,7 @@ protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
+	std::vector<FactoryListBoxItem> mItems;
+
 	const NAS2D::Image& mStructureIcons;
 };

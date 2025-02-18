@@ -16,13 +16,6 @@
 using namespace NAS2D;
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string initialStateDescription) :
-	ListBoxItem{s->name()},
-	structure{s},
-	stateDescription{std::move(initialStateDescription)}
-{}
-
-
 StructureListBox::StructureListBox() :
 	ListBoxBase{
 		fontCache.load(constants::FONT_PRIMARY, 12),
@@ -30,6 +23,12 @@ StructureListBox::StructureListBox() :
 	}
 {
 	itemHeight(30);
+}
+
+
+std::size_t StructureListBox::count() const
+{
+	return mItems.size();
 }
 
 
@@ -42,13 +41,13 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
 {
 	for (const auto& item : mItems)
 	{
-		if (static_cast<StructureListBoxItem*>(item.get())->structure == structure)
+		if (item.structure == structure)
 		{
 			throw std::runtime_error("StructureListBox::addItem(): Can't add structure multiple times");
 		}
 	}
 
-	add<StructureListBoxItem>(structure, std::move(stateDescription));
+	add(structure, std::move(stateDescription));
 }
 
 
@@ -84,13 +83,27 @@ Structure* StructureListBox::selectedStructure()
  */
 StructureListBox::StructureListBoxItem* StructureListBox::last()
 {
-	return static_cast<StructureListBoxItem*>(mItems.back().get());
+	return &mItems.back();
+}
+
+
+void StructureListBox::clear()
+{
+	mItems.clear();
+	ListBoxBase::clear();
+}
+
+
+void StructureListBox::add(Structure* s, std::string stateDescription)
+{
+	mItems.emplace_back(StructureListBoxItem{s->name(), s, std::move(stateDescription)});
+	updateScrollLayout();
 }
 
 
 const StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
-	return *static_cast<StructureListBoxItem*>(mItems[index].get());
+	return mItems[index];
 }
 
 

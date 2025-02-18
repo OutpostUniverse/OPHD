@@ -30,6 +30,19 @@ FactoryListBox::FactoryListBox() :
 }
 
 
+void FactoryListBox::add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition)
+{
+	mItems.emplace_back(FactoryListBoxItem{textDescription, newFactory, iconPosition});
+	updateScrollLayout();
+}
+
+
+std::size_t FactoryListBox::count() const
+{
+	return mItems.size();
+}
+
+
 /**
  * Adds a Factory to the FactoryListBox.
  *
@@ -39,7 +52,7 @@ void FactoryListBox::addItem(Factory* factory)
 {
 	for (const auto& item : mItems)
 	{
-		if (static_cast<FactoryListBoxItem*>(item.get())->factory == factory)
+		if (item.factory == factory)
 		{
 			throw std::runtime_error("FactoryListBox::addItem(): Can't add factory multiple times");
 		}
@@ -50,7 +63,7 @@ void FactoryListBox::addItem(Factory* factory)
 		(text == constants::UndergroundFactory) ? NAS2D::Point<int>{138, 276} :
 		(text == constants::SeedFactory) ? NAS2D::Point<int>{460, 368} :
 		NAS2D::Point<int>{0, 46}; // Surface factory
-	add<FactoryListBoxItem>(text, factory, iconPosition);
+	add(text, factory, iconPosition);
 }
 
 
@@ -80,9 +93,16 @@ Factory* FactoryListBox::selectedFactory()
 }
 
 
+void FactoryListBox::clear()
+{
+	mItems.clear();
+	ListBoxBase::clear();
+}
+
+
 const FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
 {
-	return *static_cast<FactoryListBoxItem*>(mItems[index].get());
+	return mItems[index];
 }
 
 

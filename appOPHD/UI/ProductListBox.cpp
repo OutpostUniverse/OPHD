@@ -24,6 +24,12 @@ ProductListBox::ProductListBox() :
 }
 
 
+std::size_t ProductListBox::count() const
+{
+	return mItems.size();
+}
+
+
 /**
  * Fills the ProductListBox with Products in a ProductPool object.
  */
@@ -40,12 +46,12 @@ void ProductListBox::productPool(const ProductPool& pool)
 
 		if (productCount > 0)
 		{
-			mItems.emplace_back(std::make_unique<ProductListBoxItem>(
+			mItems.emplace_back(ProductListBoxItem{
 				ProductCatalogue::get(productType).Name,
 				productCount,
 				productCount * pool.productStorageRequirement(productType),
 				pool.capacity()
-			));
+			});
 		}
 	}
 
@@ -53,9 +59,23 @@ void ProductListBox::productPool(const ProductPool& pool)
 }
 
 
+void ProductListBox::clear()
+{
+	mItems.clear();
+	ListBoxBase::clear();
+}
+
+
+void ProductListBox::add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal)
+{
+	mItems.emplace_back(ProductListBoxItem{initialText, initialProductCount, initialCapacityUsed, initialCapacityTotal});
+	updateScrollLayout();
+}
+
+
 const ProductListBox::ProductListBoxItem& ProductListBox::getItem(std::size_t index) const
 {
-	return *static_cast<ProductListBoxItem*>(mItems[index].get());
+	return mItems[index];
 }
 
 

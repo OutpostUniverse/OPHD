@@ -17,15 +17,9 @@ class ProductPool;
 class ProductListBox : public ListBoxBase
 {
 public:
-	struct ProductListBoxItem : public ListBoxItem
+	struct ProductListBoxItem
 	{
-		ProductListBoxItem(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal) :
-			ListBoxItem{initialText},
-			productCount{initialProductCount},
-			capacityUsed{initialCapacityUsed},
-			capacityTotal{initialCapacityTotal}
-		{}
-
+		std::string text;
 		int productCount = 0;
 		int capacityUsed = 0;
 		int capacityTotal = 0;
@@ -35,8 +29,17 @@ public:
 
 	void productPool(const ProductPool&);
 
+	void clear();
+
 protected:
+	void add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal);
+
+	virtual std::size_t count() const override;
+
 	const ProductListBoxItem& getItem(std::size_t index) const;
 
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
+
+private:
+	std::vector<ProductListBoxItem> mItems;
 };
