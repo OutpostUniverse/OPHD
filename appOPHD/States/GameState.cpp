@@ -42,11 +42,6 @@ GameState::~GameState()
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
 
-	for (auto takeMeThere : mMainReportsState->takeMeThere())
-	{
-		takeMeThere->disconnect({this, &GameState::onTakeMeThere});
-	}
-
 	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().disconnect({this, &GameState::onMusicComplete});
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
