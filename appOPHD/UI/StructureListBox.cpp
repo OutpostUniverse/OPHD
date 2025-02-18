@@ -42,7 +42,7 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
 {
 	for (const auto& item : mItems)
 	{
-		if (static_cast<StructureListBoxItem*>(item)->structure == structure)
+		if (static_cast<StructureListBoxItem*>(item.get())->structure == structure)
 		{
 			throw std::runtime_error("StructureListBox::addItem(): Can't add structure multiple times");
 		}
@@ -84,13 +84,13 @@ Structure* StructureListBox::selectedStructure()
  */
 StructureListBox::StructureListBoxItem* StructureListBox::last()
 {
-	return static_cast<StructureListBoxItem*>(mItems.back());
+	return static_cast<StructureListBoxItem*>(mItems.back().get());
 }
 
 
 const StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
-	return *static_cast<StructureListBoxItem*>(mItems[index]);
+	return *static_cast<StructureListBoxItem*>(mItems[index].get());
 }
 
 

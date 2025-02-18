@@ -40,12 +40,12 @@ void ProductListBox::productPool(const ProductPool& pool)
 
 		if (productCount > 0)
 		{
-			mItems.emplace_back(new ProductListBoxItem{
+			mItems.emplace_back(std::make_unique<ProductListBoxItem>(
 				ProductCatalogue::get(productType).Name,
 				productCount,
 				productCount * pool.productStorageRequirement(productType),
-				pool.capacity(),
-			});
+				pool.capacity()
+			));
 		}
 	}
 
@@ -55,7 +55,7 @@ void ProductListBox::productPool(const ProductPool& pool)
 
 const ProductListBox::ProductListBoxItem& ProductListBox::getItem(std::size_t index) const
 {
-	return *static_cast<ProductListBoxItem*>(mItems[index]);
+	return *static_cast<ProductListBoxItem*>(mItems[index].get());
 }
 
 

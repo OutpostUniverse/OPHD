@@ -31,8 +31,6 @@ ListBoxBase::~ListBoxBase()
 	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().disconnect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().disconnect({this, &ListBoxBase::onMouseMove});
-
-	for (auto item : mItems) { delete item; }
 }
 
 
@@ -59,7 +57,6 @@ std::size_t ListBoxBase::count() const
  */
 void ListBoxBase::clear()
 {
-	for (auto item : mItems) { delete item; }
 	mItems.clear();
 	mSelectedIndex = NoSelection;
 	mHighlightIndex = NoSelection;
