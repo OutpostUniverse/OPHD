@@ -30,7 +30,7 @@ public:
 	StructureListBox();
 
 	void addItem(Structure*);
-	void setSelected(Structure*);
+	void setSelected(const Structure*);
 
 	Structure* selectedStructure();
 

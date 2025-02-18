@@ -58,7 +58,7 @@ void StructureListBox::addItem(Structure* structure)
  *
  * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
  */
-void StructureListBox::setSelected(Structure* structure)
+void StructureListBox::setSelected(const Structure* structure)
 {
 	if (mItems.empty() || structure == nullptr) { return; }
 
