@@ -38,6 +38,12 @@ public:
 	void clear();
 
 protected:
+	template <typename ItemType, typename... Args>
+	void add(Args&&... args) {
+		mItems.emplace_back(new ItemType{std::forward<Args>(args)...});
+		updateScrollLayout();
+	}
+
 	virtual std::size_t count() const override;
 
 	const StructureListBoxItem& getItem(std::size_t index) const;

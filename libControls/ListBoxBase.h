@@ -63,12 +63,6 @@ public:
 	void draw() const override;
 
 protected:
-	template <typename ItemType, typename... Args>
-	void add(Args&&... args) {
-		mItems.emplace_back(new ItemType{std::forward<Args>(args)...});
-		updateScrollLayout();
-	}
-
 	void clear();
 	void updateScrollLayout();
 
