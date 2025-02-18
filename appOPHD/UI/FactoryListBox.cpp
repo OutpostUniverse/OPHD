@@ -39,7 +39,7 @@ void FactoryListBox::addItem(Factory* factory)
 {
 	for (const auto& item : mItems)
 	{
-		if (static_cast<FactoryListBoxItem*>(item)->factory == factory)
+		if (static_cast<FactoryListBoxItem*>(item.get())->factory == factory)
 		{
 			throw std::runtime_error("FactoryListBox::addItem(): Can't add factory multiple times");
 		}
@@ -82,7 +82,7 @@ Factory* FactoryListBox::selectedFactory()
 
 const FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
 {
-	return *static_cast<FactoryListBoxItem*>(mItems[index]);
+	return *static_cast<FactoryListBoxItem*>(mItems[index].get());
 }
 
 

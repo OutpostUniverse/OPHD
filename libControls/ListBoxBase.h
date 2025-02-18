@@ -13,6 +13,7 @@
 #include <vector>
 #include <cstddef>
 #include <limits>
+#include <memory>
 
 
 /**
@@ -96,7 +97,7 @@ protected:
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;
 
-	std::vector<ListBoxItem*> mItems;
+	std::vector<std::unique_ptr<ListBoxItem>> mItems;
 
 private:
 	std::size_t mHighlightIndex = NoSelection;
