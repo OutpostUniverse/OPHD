@@ -62,12 +62,12 @@ void FactoryListBox::addItem(Factory* factory)
 void FactoryListBox::setSelected(Factory* f)
 {
 	if (mItems.empty() || f == nullptr) { return; }
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto& item = getItem(i);
+		const auto& item = getItem(index);
 		if (item.factory == f)
 		{
-			setSelection(i);
+			setSelection(index);
 			return;
 		}
 	}

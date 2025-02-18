@@ -61,12 +61,12 @@ void StructureListBox::setSelected(const Structure* structure)
 {
 	if (mItems.empty() || structure == nullptr) { return; }
 
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		const auto& item = getItem(i);
+		const auto& item = getItem(index);
 		if (item.structure == structure)
 		{
-			setSelection(i);
+			setSelection(index);
 			return;
 		}
 	}
