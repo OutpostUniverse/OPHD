@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../UI/FileIo.h"
+
 #include <NAS2D/State.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -36,12 +38,14 @@ private:
 	void onShowReports();
 	void onHideReports();
 	void onMapChange();
+	void onLoadGame(const std::string&);
 
 	void onTakeMeThere(const Structure*);
 
 private:
 	NAS2D::State* mReturnState = this;
 	std::unique_ptr<MapViewState> mMapView;
+	std::unique_ptr<MapViewState> mNewMapView;
 	Wrapper* mActiveState = nullptr;
 	std::unique_ptr<MainReportsUiState> mMainReportsState;
 	NAS2D::Fade mFade;

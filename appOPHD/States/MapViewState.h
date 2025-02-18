@@ -105,6 +105,7 @@ public:
 	using QuitSignal = NAS2D::Signal<>;
 	using ReportsUiSignal = NAS2D::Signal<>;
 	using MapChangedSignal = NAS2D::Signal<>;
+	using FileLoadSignal = NAS2D::Signal<const std::string&>;
 
 public:
 	MapViewState(MainReportsUiState&, const std::string& savegame);
@@ -116,6 +117,7 @@ public:
 	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
 	QuitSignal::Source& quit() { return mQuitSignal; }
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
+	FileLoadSignal::Source& fileLoadSignal() { return mFileIoDialog.fileLoadSignal(); }
 
 	void focusOnStructure(const Structure* s);
 
@@ -281,7 +283,6 @@ private:
 	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
 	void onSaveGame(const std::string& filePath);
-	void onLoadGame(const std::string& filePath);
 
 	void onTakeMeThere(const MapCoordinate& position);
 
