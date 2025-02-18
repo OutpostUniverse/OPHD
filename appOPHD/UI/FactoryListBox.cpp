@@ -57,15 +57,15 @@ void FactoryListBox::addItem(Factory* factory)
 /**
  * Sets the current selection.
  *
- * \param f	Pointer to a Factory object. Safe to pass \c nullptr.
+ * \param factory	Pointer to a Factory object. Safe to pass \c nullptr.
  */
-void FactoryListBox::setSelected(Factory* f)
+void FactoryListBox::setSelected(Factory* factory)
 {
-	if (mItems.empty() || f == nullptr) { return; }
+	if (mItems.empty() || factory == nullptr) { return; }
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
 		const auto& item = getItem(index);
-		if (item.factory == f)
+		if (item.factory == factory)
 		{
 			setSelection(index);
 			return;
