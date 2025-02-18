@@ -99,7 +99,6 @@ ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
  */
 void ListBoxBase::clear()
 {
-	mItems.clear();
 	mSelectedIndex = NoSelection;
 	mHighlightIndex = NoSelection;
 	updateScrollLayout();

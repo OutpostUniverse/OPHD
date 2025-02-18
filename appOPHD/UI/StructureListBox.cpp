@@ -96,6 +96,7 @@ StructureListBox::StructureListBoxItem* StructureListBox::last()
 
 void StructureListBox::clear()
 {
+	mItems.clear();
 	ListBoxBase::clear();
 }
 

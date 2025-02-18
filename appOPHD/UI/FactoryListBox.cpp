@@ -88,6 +88,7 @@ Factory* FactoryListBox::selectedFactory()
 
 void FactoryListBox::clear()
 {
+	mItems.clear();
 	ListBoxBase::clear();
 }
 

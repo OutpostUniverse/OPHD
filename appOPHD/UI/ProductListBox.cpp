@@ -61,6 +61,7 @@ void ProductListBox::productPool(const ProductPool& pool)
 
 void ProductListBox::clear()
 {
+	mItems.clear();
 	ListBoxBase::clear();
 }
 
