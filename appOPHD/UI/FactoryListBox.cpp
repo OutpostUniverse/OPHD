@@ -57,17 +57,17 @@ void FactoryListBox::addItem(Factory* factory)
 /**
  * Sets the current selection.
  *
- * \param f	Pointer to a Factory object. Safe to pass \c nullptr.
+ * \param factory	Pointer to a Factory object. Safe to pass \c nullptr.
  */
-void FactoryListBox::setSelected(Factory* f)
+void FactoryListBox::setSelected(Factory* factory)
 {
-	if (mItems.empty() || f == nullptr) { return; }
-	for (std::size_t i = 0; i < mItems.size(); ++i)
+	if (mItems.empty() || factory == nullptr) { return; }
+	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
-		FactoryListBoxItem* item = static_cast<FactoryListBoxItem*>(mItems[i]);
-		if (item->factory == f)
+		const auto& item = getItem(index);
+		if (item.factory == factory)
 		{
-			setSelection(i);
+			setSelection(index);
 			return;
 		}
 	}
@@ -76,13 +76,19 @@ void FactoryListBox::setSelected(Factory* f)
 
 Factory* FactoryListBox::selectedFactory()
 {
-	return !isItemSelected() ? nullptr : static_cast<FactoryListBoxItem*>(mItems[selectedIndex()])->factory;
+	return !isItemSelected() ? nullptr : getItem(selectedIndex()).factory;
+}
+
+
+const FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
+{
+	return *static_cast<FactoryListBoxItem*>(mItems[index]);
 }
 
 
 NAS2D::Color FactoryListBox::itemBorderColor(std::size_t index) const
 {
-	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
+	const auto& item = getItem(index);
 	const Factory& factory = *item.factory;
 	const auto factoryState = factory.state();
 	return structureColorFromIndex(factoryState);
@@ -91,7 +97,7 @@ NAS2D::Color FactoryListBox::itemBorderColor(std::size_t index) const
 
 void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
 {
-	const auto& item = *static_cast<FactoryListBoxItem*>(mItems[index]);
+	const auto& item = getItem(index);
 	const Factory& factory = *item.factory;
 	const auto productType = factory.productType();
 	const auto factoryState = factory.state();
