@@ -41,7 +41,7 @@ StructureListBox::StructureListBox() :
  */
 void StructureListBox::addItem(Structure* structure)
 {
-	for (auto item : mItems)
+	for (const auto& item : mItems)
 	{
 		if (static_cast<StructureListBoxItem*>(item)->structure == structure)
 		{
@@ -58,7 +58,7 @@ void StructureListBox::addItem(Structure* structure)
  *
  * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
  */
-void StructureListBox::setSelected(Structure* structure)
+void StructureListBox::setSelected(const Structure* structure)
 {
 	if (mItems.empty() || structure == nullptr) { return; }
 

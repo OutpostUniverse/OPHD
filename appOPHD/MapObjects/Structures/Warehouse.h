@@ -16,6 +16,7 @@ public:
 	}
 
 	ProductPool& products() { return mProducts; }
+	const ProductPool& products() const { return mProducts; }
 
 private:
 	ProductPool mProducts;

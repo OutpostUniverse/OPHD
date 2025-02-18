@@ -44,7 +44,7 @@ namespace
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeStructure(Structure& structure, Tile& tile)
+	NAS2D::Xml::XmlElement* serializeStructure(const Structure& structure, Tile& tile)
 	{
 		const auto& position = tile.xyz();
 		NAS2D::Dictionary dictionary =
@@ -73,7 +73,7 @@ namespace
 		{
 			structureElement->linkEndChild(NAS2D::dictionaryToAttributes(
 				"warehouse_products",
-				static_cast<Warehouse&>(structure).products().serialize()
+				static_cast<const Warehouse&>(structure).products().serialize()
 			));
 		}
 
@@ -82,14 +82,14 @@ namespace
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"food",
-					{{{"level", static_cast<FoodProduction&>(structure).foodLevel()}}}
+					{{{"level", static_cast<const FoodProduction&>(structure).foodLevel()}}}
 				)
 			);
 		}
 
 		if (structure.structureClass() == Structure::StructureClass::Residence)
 		{
-			Residence& residence = static_cast<Residence&>(structure);
+			const auto& residence = static_cast<const Residence&>(structure);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"waste",
@@ -103,7 +103,7 @@ namespace
 
 		if (structure.isMineFacility())
 		{
-			MineFacility& facility = static_cast<MineFacility&>(structure);
+			const auto& facility = static_cast<const MineFacility&>(structure);
 
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
@@ -121,7 +121,7 @@ namespace
 
 		if (structure.structureClass() == Structure::StructureClass::Maintenance)
 		{
-			auto& maintenance = static_cast<MaintenanceFacility&>(structure);
+			auto& maintenance = static_cast<const MaintenanceFacility&>(structure);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"personnel",

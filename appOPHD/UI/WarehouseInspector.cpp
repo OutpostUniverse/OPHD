@@ -23,7 +23,7 @@ WarehouseInspector::WarehouseInspector() :
 }
 
 
-void WarehouseInspector::warehouse(Warehouse* w)
+void WarehouseInspector::warehouse(const Warehouse* w)
 {
 	mWarehouse = w;
 }
@@ -48,7 +48,7 @@ void WarehouseInspector::update()
 
 	Window::update();
 
-	ProductPool& pool = mWarehouse->products();
+	const auto& pool = mWarehouse->products();
 
 	const int labelWidth = 100;
 

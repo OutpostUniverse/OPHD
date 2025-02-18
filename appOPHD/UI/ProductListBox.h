@@ -26,7 +26,7 @@ public:
 
 	ProductListBox();
 
-	void productPool(ProductPool&);
+	void productPool(const ProductPool&);
 
 protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;

@@ -15,7 +15,7 @@ class WarehouseInspector : public Window
 public:
 	WarehouseInspector();
 
-	void warehouse(Warehouse* w);
+	void warehouse(const Warehouse* w);
 
 	void hide() override;
 	void update() override;
@@ -23,6 +23,6 @@ public:
 private:
 	void onClose();
 
-	Warehouse* mWarehouse = nullptr;
+	const Warehouse* mWarehouse = nullptr;
 	Button btnClose;
 };

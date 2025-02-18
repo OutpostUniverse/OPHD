@@ -217,7 +217,7 @@ int ProductPool::pull(ProductType type, int c)
 }
 
 
-int ProductPool::count(ProductType type)
+int ProductPool::count(ProductType type) const
 {
 	return mProducts[static_cast<std::size_t>(type)];
 }
@@ -229,7 +229,7 @@ void ProductPool::verifyCount()
 }
 
 
-NAS2D::Dictionary ProductPool::serialize()
+NAS2D::Dictionary ProductPool::serialize() const
 {
 	return NAS2D::Dictionary{{
 		{constants::SaveGameProductDigger, count(ProductType::PRODUCT_DIGGER)},

@@ -37,7 +37,7 @@ FactoryListBox::FactoryListBox() :
  */
 void FactoryListBox::addItem(Factory* factory)
 {
-	for (auto item : mItems)
+	for (const auto& item : mItems)
 	{
 		if (static_cast<FactoryListBoxItem*>(item)->factory == factory)
 		{
