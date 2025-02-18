@@ -19,7 +19,7 @@ class ProductListBox : public ListBoxBase
 public:
 	struct ProductListBoxItem : public ListBoxItem
 	{
-		int count = 0; /**< Count of the product. */
+		int productCount = 0;
 		int capacityUsed = 0;
 		int capacityTotal = 0;
 	};

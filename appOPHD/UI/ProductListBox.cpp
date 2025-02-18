@@ -42,7 +42,7 @@ void ProductListBox::productPool(const ProductPool& pool)
 		{
 			ProductListBoxItem* item = new ProductListBoxItem();
 			item->text = ProductCatalogue::get(productType).Name;
-			item->count = productCount;
+			item->productCount = productCount;
 			item->capacityUsed = productCount * pool.productStorageRequirement(productType);
 			item->capacityTotal = pool.capacity();
 			mItems.push_back(item);
@@ -65,7 +65,7 @@ void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> d
 
 	// Draw item column contents
 	renderer.drawText(mFontBold, item.text, drawArea.position + NAS2D::Vector{5, 15 - mFontBold.height() / 2}, constants::PrimaryColor);
-	renderer.drawText(mFont, "Quantity: " + std::to_string(item.count), drawArea.position + NAS2D::Vector{firstStop + 5, 15 - mFontBold.height() / 2}, constants::PrimaryColor);
+	renderer.drawText(mFont, "Quantity: " + std::to_string(item.productCount), drawArea.position + NAS2D::Vector{firstStop + 5, 15 - mFontBold.height() / 2}, constants::PrimaryColor);
 	drawProgressBar(
 		item.capacityUsed,
 		item.capacityTotal,
