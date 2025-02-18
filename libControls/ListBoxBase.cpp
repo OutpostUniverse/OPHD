@@ -6,6 +6,10 @@
 #include <NAS2D/Math/Point.h>
 
 #include <algorithm>
+#include <limits>
+
+
+std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :
