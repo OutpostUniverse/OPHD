@@ -41,7 +41,7 @@ public:
 	int availableStorage() const;
 	int availableStoragePercent() const;
 
-	NAS2D::Dictionary serialize();
+	NAS2D::Dictionary serialize() const;
 	void deserialize(const NAS2D::Dictionary& dictionary);
 
 	void verifyCount();

@@ -229,7 +229,7 @@ void ProductPool::verifyCount()
 }
 
 
-NAS2D::Dictionary ProductPool::serialize()
+NAS2D::Dictionary ProductPool::serialize() const
 {
 	return NAS2D::Dictionary{{
 		{constants::SaveGameProductDigger, count(ProductType::PRODUCT_DIGGER)},
