@@ -27,7 +27,7 @@ ProductListBox::ProductListBox() :
 /**
  * Fills the ProductListBox with Products in a ProductPool object.
  */
-void ProductListBox::productPool(ProductPool& pool)
+void ProductListBox::productPool(const ProductPool& pool)
 {
 	clear();
 
