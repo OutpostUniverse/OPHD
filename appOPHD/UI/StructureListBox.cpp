@@ -16,10 +16,10 @@
 using namespace NAS2D;
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string stateDescription) :
 	ListBoxItem{s->name()},
 	structure{s},
-	structureState{""},
+	structureState{std::move(stateDescription)},
 	colorIndex{s->state()}
 {}
 
@@ -39,7 +39,7 @@ StructureListBox::StructureListBox() :
  *
  * Specialized version of the default addItem(ListBoxItem*) function.
  */
-void StructureListBox::addItem(Structure* structure)
+void StructureListBox::addItem(Structure* structure, std::string stateDescription)
 {
 	for (const auto& item : mItems)
 	{
@@ -49,7 +49,7 @@ void StructureListBox::addItem(Structure* structure)
 		}
 	}
 
-	add<StructureListBoxItem>(structure);
+	add<StructureListBoxItem>(structure, std::move(stateDescription));
 }
 
 

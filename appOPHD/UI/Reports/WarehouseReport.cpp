@@ -128,9 +128,7 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 
 	for (auto* warehouse : warehouses)
 	{
-		lstStructures.addItem(warehouse);
-		StructureListBox::StructureListBoxItem* item = lstStructures.last();
-		item->structureState = structureStateDescription(*warehouse);
+		lstStructures.addItem(warehouse, structureStateDescription(*warehouse));
 	}
 
 	lstStructures.setSelection(0);
