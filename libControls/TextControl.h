@@ -20,6 +20,7 @@ public:
 
 protected:
 	TextChangeSignal mTextChanged;
+	const NAS2D::Font* mFont = nullptr;
 
 	std::string mText; /**< Internal text string. */
 };
