@@ -36,7 +36,7 @@ public:
 	void transferAllTo(ProductPool& destination);
 	void store(ProductType type, int count);
 	int pull(ProductType type, int count);
-	int count(ProductType type);
+	int count(ProductType type) const;
 
 	int availableStorage() const;
 	int availableStoragePercent() const;

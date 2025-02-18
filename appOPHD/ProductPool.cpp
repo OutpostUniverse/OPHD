@@ -217,7 +217,7 @@ int ProductPool::pull(ProductType type, int c)
 }
 
 
-int ProductPool::count(ProductType type)
+int ProductPool::count(ProductType type) const
 {
 	return mProducts[static_cast<std::size_t>(type)];
 }
