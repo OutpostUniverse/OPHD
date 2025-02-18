@@ -48,4 +48,7 @@ protected:
 	const ProductListBoxItem& getItem(std::size_t index) const;
 
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
+
+private:
+	std::vector<std::unique_ptr<ListBoxItem>> mItems;
 };

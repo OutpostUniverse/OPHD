@@ -90,8 +90,6 @@ protected:
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;
 
-	std::vector<std::unique_ptr<ListBoxItem>> mItems;
-
 private:
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = NoSelection;

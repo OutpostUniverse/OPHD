@@ -55,5 +55,7 @@ protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
+	std::vector<std::unique_ptr<ListBoxItem>> mItems;
+
 	const NAS2D::Image& mStructureIcons;
 };
