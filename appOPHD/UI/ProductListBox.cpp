@@ -59,6 +59,12 @@ void ProductListBox::productPool(const ProductPool& pool)
 }
 
 
+void ProductListBox::clear()
+{
+	ListBoxBase::clear();
+}
+
+
 const ProductListBox::ProductListBoxItem& ProductListBox::getItem(std::size_t index) const
 {
 	return *static_cast<ProductListBoxItem*>(mItems[index].get());

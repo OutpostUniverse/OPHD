@@ -44,18 +44,6 @@ bool ListBoxBase::isEmpty() const
 
 
 /**
- * Clears all items from the list.
- */
-void ListBoxBase::clear()
-{
-	mItems.clear();
-	mSelectedIndex = NoSelection;
-	mHighlightIndex = NoSelection;
-	updateScrollLayout();
-}
-
-
-/**
  * Index of the current mouse hover highlight.
  */
 std::size_t ListBoxBase::currentHighlight() const
@@ -103,6 +91,18 @@ void ListBoxBase::clearSelected()
 ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
 {
 	return mSelectionChanged;
+}
+
+
+/**
+ * Clears all items from the list.
+ */
+void ListBoxBase::clear()
+{
+	mItems.clear();
+	mSelectedIndex = NoSelection;
+	mHighlightIndex = NoSelection;
+	updateScrollLayout();
 }
 
 

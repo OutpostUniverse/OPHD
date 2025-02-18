@@ -51,8 +51,6 @@ public:
 	bool isEmpty() const;
 	virtual std::size_t count() const = 0;
 
-	void clear();
-
 	std::size_t currentHighlight() const;
 	std::size_t selectedIndex() const;
 	bool isItemSelected() const;
@@ -71,6 +69,7 @@ protected:
 		updateScrollLayout();
 	}
 
+	void clear();
 	void updateScrollLayout();
 
 	void onVisibilityChange(bool) override;

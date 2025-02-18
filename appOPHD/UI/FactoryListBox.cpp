@@ -86,6 +86,12 @@ Factory* FactoryListBox::selectedFactory()
 }
 
 
+void FactoryListBox::clear()
+{
+	ListBoxBase::clear();
+}
+
+
 const FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
 {
 	return *static_cast<FactoryListBoxItem*>(mItems[index].get());

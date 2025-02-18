@@ -94,6 +94,12 @@ StructureListBox::StructureListBoxItem* StructureListBox::last()
 }
 
 
+void StructureListBox::clear()
+{
+	ListBoxBase::clear();
+}
+
+
 const StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
 	return *static_cast<StructureListBoxItem*>(mItems[index].get());

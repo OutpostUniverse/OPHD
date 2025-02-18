@@ -35,6 +35,8 @@ public:
 
 	StructureListBoxItem* last();
 
+	void clear();
+
 protected:
 	virtual std::size_t count() const override;
 

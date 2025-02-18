@@ -38,6 +38,8 @@ public:
 
 	Factory* selectedFactory();
 
+	void clear();
+
 protected:
 	virtual std::size_t count() const override;
 

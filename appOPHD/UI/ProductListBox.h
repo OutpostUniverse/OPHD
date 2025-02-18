@@ -35,6 +35,8 @@ public:
 
 	void productPool(const ProductPool&);
 
+	void clear();
+
 protected:
 	virtual std::size_t count() const override;
 
