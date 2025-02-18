@@ -36,6 +36,8 @@ public:
 	StructureListBoxItem* last();
 
 protected:
+	StructureListBoxItem* getItem(std::size_t index) const;
+
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const override;
 
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
