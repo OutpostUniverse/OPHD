@@ -42,10 +42,7 @@ public:
 	void clear();
 
 protected:
-	void add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) {
-		mItems.emplace_back(FactoryListBoxItem{textDescription, newFactory, iconPosition});
-		updateScrollLayout();
-	}
+	void add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition);
 
 	virtual std::size_t count() const override;
 

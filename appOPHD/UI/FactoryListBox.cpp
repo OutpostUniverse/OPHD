@@ -30,6 +30,13 @@ FactoryListBox::FactoryListBox() :
 }
 
 
+void FactoryListBox::add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition)
+{
+	mItems.emplace_back(FactoryListBoxItem{textDescription, newFactory, iconPosition});
+	updateScrollLayout();
+}
+
+
 std::size_t FactoryListBox::count() const
 {
 	return mItems.size();

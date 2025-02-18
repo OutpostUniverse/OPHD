@@ -66,6 +66,13 @@ void ProductListBox::clear()
 }
 
 
+void ProductListBox::add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal)
+{
+	mItems.emplace_back(ProductListBoxItem{initialText, initialProductCount, initialCapacityUsed, initialCapacityTotal});
+	updateScrollLayout();
+}
+
+
 const ProductListBox::ProductListBoxItem& ProductListBox::getItem(std::size_t index) const
 {
 	return mItems[index];

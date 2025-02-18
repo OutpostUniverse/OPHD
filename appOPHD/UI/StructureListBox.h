@@ -39,10 +39,7 @@ public:
 	void clear();
 
 protected:
-	void add(Structure* s, std::string stateDescription) {
-		mItems.emplace_back(StructureListBoxItem{s, stateDescription});
-		updateScrollLayout();
-	}
+	void add(Structure* s, std::string stateDescription);
 
 	virtual std::size_t count() const override;
 

@@ -101,6 +101,13 @@ void StructureListBox::clear()
 }
 
 
+void StructureListBox::add(Structure* s, std::string stateDescription)
+{
+	mItems.emplace_back(StructureListBoxItem{s, stateDescription});
+	updateScrollLayout();
+}
+
+
 const StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
 	return mItems[index];

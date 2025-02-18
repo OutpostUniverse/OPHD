@@ -39,10 +39,7 @@ public:
 	void clear();
 
 protected:
-	void add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal) {
-		mItems.emplace_back(ProductListBoxItem{initialText, initialProductCount, initialCapacityUsed, initialCapacityTotal});
-		updateScrollLayout();
-	}
+	void add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal);
 
 	virtual std::size_t count() const override;
 
