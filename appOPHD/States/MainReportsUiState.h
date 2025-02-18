@@ -22,8 +22,8 @@ class MainReportsUiState : public Wrapper
 {
 public:
 	using ReportsUiSignal = NAS2D::Signal<>;
-	using TakeMeThere = NAS2D::Signal<const Structure*>;
-	using TakeMeThereList = std::vector<TakeMeThere*>;
+	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
+	using TakeMeThereList = std::vector<TakeMeThereSignal*>;
 
 public:
 	MainReportsUiState();
