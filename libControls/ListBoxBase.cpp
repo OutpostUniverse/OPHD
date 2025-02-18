@@ -39,7 +39,7 @@ ListBoxBase::~ListBoxBase()
  */
 bool ListBoxBase::isEmpty() const
 {
-	return mItems.empty();
+	return count() == 0;
 }
 
 
