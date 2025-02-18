@@ -39,7 +39,7 @@ public:
 	Factory* selectedFactory();
 
 protected:
-	FactoryListBoxItem* getItem(std::size_t index) const;
+	FactoryListBoxItem& getItem(std::size_t index) const;
 
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const override;
 

@@ -64,8 +64,8 @@ void FactoryListBox::setSelected(Factory* f)
 	if (mItems.empty() || f == nullptr) { return; }
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
-		FactoryListBoxItem* item = getItem(i);
-		if (item->factory == f)
+		const auto& item = getItem(i);
+		if (item.factory == f)
 		{
 			setSelection(i);
 			return;
@@ -76,19 +76,19 @@ void FactoryListBox::setSelected(Factory* f)
 
 Factory* FactoryListBox::selectedFactory()
 {
-	return !isItemSelected() ? nullptr : getItem(selectedIndex())->factory;
+	return !isItemSelected() ? nullptr : getItem(selectedIndex()).factory;
 }
 
 
-FactoryListBox::FactoryListBoxItem* FactoryListBox::getItem(std::size_t index) const
+FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
 {
-	return static_cast<FactoryListBoxItem*>(mItems[index]);
+	return *static_cast<FactoryListBoxItem*>(mItems[index]);
 }
 
 
 NAS2D::Color FactoryListBox::itemBorderColor(std::size_t index) const
 {
-	const auto& item = *getItem(index);
+	const auto& item = getItem(index);
 	const Factory& factory = *item.factory;
 	const auto factoryState = factory.state();
 	return structureColorFromIndex(factoryState);
@@ -97,7 +97,7 @@ NAS2D::Color FactoryListBox::itemBorderColor(std::size_t index) const
 
 void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
 {
-	const auto& item = *getItem(index);
+	const auto& item = getItem(index);
 	const Factory& factory = *item.factory;
 	const auto productType = factory.productType();
 	const auto factoryState = factory.state();

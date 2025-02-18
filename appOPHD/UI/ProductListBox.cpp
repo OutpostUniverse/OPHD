@@ -53,9 +53,9 @@ void ProductListBox::productPool(const ProductPool& pool)
 }
 
 
-ProductListBox::ProductListBoxItem* ProductListBox::getItem(std::size_t index) const
+ProductListBox::ProductListBoxItem& ProductListBox::getItem(std::size_t index) const
 {
-	return static_cast<ProductListBoxItem*>(mItems[index]);
+	return *static_cast<ProductListBoxItem*>(mItems[index]);
 }
 
 
@@ -63,7 +63,7 @@ void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> d
 {
 	const auto firstStop = drawArea.size.x / 3;
 	const auto secondStop = drawArea.size.x * 2 / 3;
-	const auto& item = *getItem(index);
+	const auto& item = getItem(index);
 
 	// Draw column breaks
 	renderer.drawLine(drawArea.position + NAS2D::Vector{firstStop, 2}, drawArea.position + NAS2D::Vector{firstStop, drawArea.size.y - 2}, constants::PrimaryColor);

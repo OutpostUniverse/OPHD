@@ -63,8 +63,8 @@ void StructureListBox::setSelected(const Structure* structure)
 
 	for (std::size_t i = 0; i < mItems.size(); ++i)
 	{
-		StructureListBoxItem* item = getItem(i);
-		if (item->structure == structure)
+		const auto& item = getItem(i);
+		if (item.structure == structure)
 		{
 			setSelection(i);
 			return;
@@ -75,7 +75,7 @@ void StructureListBox::setSelected(const Structure* structure)
 
 Structure* StructureListBox::selectedStructure()
 {
-	return !isItemSelected() ? nullptr : getItem(selectedIndex())->structure;
+	return !isItemSelected() ? nullptr : getItem(selectedIndex()).structure;
 }
 
 
@@ -88,15 +88,15 @@ StructureListBox::StructureListBoxItem* StructureListBox::last()
 }
 
 
-StructureListBox::StructureListBoxItem* StructureListBox::getItem(std::size_t index) const
+StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
-	return static_cast<StructureListBoxItem*>(mItems[index]);
+	return *static_cast<StructureListBoxItem*>(mItems[index]);
 }
 
 
 NAS2D::Color StructureListBox::itemBorderColor(std::size_t index) const
 {
-	const auto& item = *getItem(index);
+	const auto& item = getItem(index);
 	const auto structureState = item.structure->state();
 	return structureColorFromIndex(structureState);
 }
@@ -104,7 +104,7 @@ NAS2D::Color StructureListBox::itemBorderColor(std::size_t index) const
 
 void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
 {
-	const auto& item = *getItem(index);
+	const auto& item = getItem(index);
 	const auto structureState = item.structure->state();
 	const auto& structureTextColor = structureTextColorFromIndex(structureState);
 
