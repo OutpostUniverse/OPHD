@@ -116,6 +116,9 @@ public:
 	StorableResources& storage() { return mStoragePool; }
 	StorableResources& production() { return mProductionPool; }
 
+	const StorableResources& storage() const { return mStoragePool; }
+	const StorableResources& production() const { return mProductionPool; }
+
 	const PopulationRequirements& populationRequirements() const;
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
 
