@@ -24,6 +24,12 @@ ProductListBox::ProductListBox() :
 }
 
 
+std::size_t ProductListBox::count() const
+{
+	return mItems.size();
+}
+
+
 /**
  * Fills the ProductListBox with Products in a ProductPool object.
  */

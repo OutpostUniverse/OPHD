@@ -36,6 +36,8 @@ public:
 	StructureListBoxItem* last();
 
 protected:
+	virtual std::size_t count() const override;
+
 	const StructureListBoxItem& getItem(std::size_t index) const;
 
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const override;

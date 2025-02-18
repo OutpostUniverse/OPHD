@@ -36,6 +36,8 @@ public:
 	void productPool(const ProductPool&);
 
 protected:
+	virtual std::size_t count() const override;
+
 	const ProductListBoxItem& getItem(std::size_t index) const;
 
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;

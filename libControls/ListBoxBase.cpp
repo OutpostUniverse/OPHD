@@ -44,15 +44,6 @@ bool ListBoxBase::isEmpty() const
 
 
 /**
- * Number of items in the ListBoxBase.
- */
-std::size_t ListBoxBase::count() const
-{
-	return mItems.size();
-}
-
-
-/**
  * Clears all items from the list.
  */
 void ListBoxBase::clear()

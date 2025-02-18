@@ -30,6 +30,12 @@ FactoryListBox::FactoryListBox() :
 }
 
 
+std::size_t FactoryListBox::count() const
+{
+	return mItems.size();
+}
+
+
 /**
  * Adds a Factory to the FactoryListBox.
  *

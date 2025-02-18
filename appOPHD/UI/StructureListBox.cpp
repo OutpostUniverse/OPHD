@@ -33,6 +33,12 @@ StructureListBox::StructureListBox() :
 }
 
 
+std::size_t StructureListBox::count() const
+{
+	return mItems.size();
+}
+
+
 /**
  * Adds a Factory to the FactoryListBox.
  *

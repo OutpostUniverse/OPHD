@@ -49,7 +49,7 @@ public:
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
-	std::size_t count() const;
+	virtual std::size_t count() const = 0;
 
 	void clear();
 
