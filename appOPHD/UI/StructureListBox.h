@@ -4,6 +4,8 @@
 
 #include <NAS2D/Signal/Signal.h>
 
+#include <vector>
+
 
 enum class StructureState;
 class Structure;

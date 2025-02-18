@@ -10,7 +10,6 @@
 #include <NAS2D/Renderer/Color.h>
 
 #include <string>
-#include <vector>
 #include <cstddef>
 
 

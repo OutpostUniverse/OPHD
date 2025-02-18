@@ -2,6 +2,8 @@
 
 #include <libControls/ListBoxBase.h>
 
+#include <vector>
+
 
 namespace NAS2D
 {
