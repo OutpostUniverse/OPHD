@@ -29,8 +29,6 @@ ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :
 
 ListBoxBase::~ListBoxBase()
 {
-	mScrollBar.change().disconnect({this, &ListBoxBase::onSlideChange});
-
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().disconnect({this, &ListBoxBase::onMouseDown});
