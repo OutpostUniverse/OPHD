@@ -17,15 +17,16 @@ class ProductPool;
 class ProductListBox : public ListBoxBase
 {
 public:
-	struct ProductListBoxItem : public ListBoxItem
+	struct ProductListBoxItem
 	{
 		ProductListBoxItem(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal) :
-			ListBoxItem{initialText},
+			text{initialText},
 			productCount{initialProductCount},
 			capacityUsed{initialCapacityUsed},
 			capacityTotal{initialCapacityTotal}
 		{}
 
+		std::string text;
 		int productCount = 0;
 		int capacityUsed = 0;
 		int capacityTotal = 0;

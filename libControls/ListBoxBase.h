@@ -28,19 +28,6 @@ class ListBoxBase : public Control
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
 
-	/**
-	 * Derived SpecialListBox types can inherit from this struct
-	 * for specialized information needed for derived types.
-	 */
-	struct ListBoxItem
-	{
-		ListBoxItem() = default;
-		ListBoxItem(std::string initialText) : text(initialText) {}
-		virtual ~ListBoxItem() = default;
-
-		std::string text;
-	};
-
 	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 

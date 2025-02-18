@@ -17,7 +17,7 @@ using namespace NAS2D;
 
 
 StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string initialStateDescription) :
-	ListBoxItem{s->name()},
+	text{s->name()},
 	structure{s},
 	stateDescription{std::move(initialStateDescription)}
 {}

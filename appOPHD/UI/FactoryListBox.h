@@ -18,14 +18,15 @@ class Factory;
 class FactoryListBox : public ListBoxBase
 {
 public:
-	struct FactoryListBoxItem : public ListBoxItem
+	struct FactoryListBoxItem
 	{
 		FactoryListBoxItem(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) :
-			ListBoxItem{textDescription},
+			text{textDescription},
 			factory{newFactory},
 			icon_slice{iconPosition}
 		{}
 
+		std::string text;
 		Factory* factory = nullptr;
 		NAS2D::Point<int> icon_slice;
 	};

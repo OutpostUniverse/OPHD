@@ -17,10 +17,11 @@ class StructureListBox : public ListBoxBase
 public:
 	using SelectionChangedSignal = NAS2D::Signal<Structure*>;
 
-	struct StructureListBoxItem : public ListBoxItem
+	struct StructureListBoxItem
 	{
 		StructureListBoxItem(Structure* s, std::string stateDescription = std::string{});
 
+		std::string text;
 		Structure* structure = nullptr;
 		std::string stateDescription;
 	};
