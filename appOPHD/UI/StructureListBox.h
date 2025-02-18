@@ -21,8 +21,8 @@ public:
 	{
 		StructureListBoxItem(Structure* s, std::string stateDescription = std::string{});
 
-		Structure* structure = nullptr; /**< Pointer to a Structure. */
-		std::string stateDescription; /**< String description of the state of a Structure. */
+		Structure* structure = nullptr;
+		std::string stateDescription;
 	};
 
 
