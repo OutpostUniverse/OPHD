@@ -12,7 +12,6 @@
 #include <string>
 #include <vector>
 #include <cstddef>
-#include <limits>
 
 
 /**
@@ -28,7 +27,7 @@ class ListBoxBase : public Control
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
 
-	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
+	static std::size_t NoSelection;
 
 
 	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold);
