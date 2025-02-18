@@ -313,7 +313,7 @@ void MapViewState::_deactivate()
 }
 
 
-void MapViewState::focusOnStructure(Structure* structure)
+void MapViewState::focusOnStructure(const Structure* structure)
 {
 	if (!structure) { return; }
 	onTakeMeThere(NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).xyz());

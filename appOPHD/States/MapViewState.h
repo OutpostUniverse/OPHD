@@ -117,7 +117,7 @@ public:
 	QuitSignal::Source& quit() { return mQuitSignal; }
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
 
-	void focusOnStructure(Structure* s);
+	void focusOnStructure(const Structure* s);
 
 	Difficulty difficulty() { return mDifficulty; }
 	void difficulty(Difficulty difficulty);

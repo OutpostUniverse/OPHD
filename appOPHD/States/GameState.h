@@ -37,7 +37,7 @@ private:
 	void onHideReports();
 	void onMapChange();
 
-	void onTakeMeThere(Structure*);
+	void onTakeMeThere(const Structure*);
 
 private:
 	NAS2D::State* mReturnState = this;

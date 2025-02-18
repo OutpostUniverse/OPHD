@@ -18,7 +18,7 @@ public:
 	 * Signal used to handle clicks of a "Take Me There" button to center
 	 * the map view on a given structure.
 	 */
-	using TakeMeThere = NAS2D::Signal<Structure*>;
+	using TakeMeThere = NAS2D::Signal<const Structure*>;
 
 	ReportInterface() {}
 
