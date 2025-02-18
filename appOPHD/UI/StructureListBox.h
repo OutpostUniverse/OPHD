@@ -22,7 +22,7 @@ public:
 		StructureListBoxItem(Structure* s, std::string stateDescription = std::string{});
 
 		Structure* structure = nullptr; /**< Pointer to a Structure. */
-		std::string structureState; /**< String description of the state of a Structure. */
+		std::string stateDescription; /**< String description of the state of a Structure. */
 		StructureState colorIndex; /**< Index to use from the listbox color table. */
 	};
 

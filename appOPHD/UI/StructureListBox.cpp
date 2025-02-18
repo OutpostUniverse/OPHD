@@ -16,10 +16,10 @@
 using namespace NAS2D;
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string stateDescription) :
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string initialStateDescription) :
 	ListBoxItem{s->name()},
 	structure{s},
-	structureState{std::move(stateDescription)},
+	stateDescription{std::move(initialStateDescription)},
 	colorIndex{s->state()}
 {}
 
@@ -105,5 +105,5 @@ void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int>
 
 	const auto yOffset = 15 - mFontBold.height() / 2;
 	renderer.drawText(mFontBold, item.text, drawArea.position + NAS2D::Vector{5, yOffset}, structureTextColor);
-	renderer.drawText(mFont, item.structureState, drawArea.crossXPoint() + NAS2D::Vector{-mFont.width(item.structureState) - 5, yOffset}, structureTextColor);
+	renderer.drawText(mFont, item.stateDescription, drawArea.crossXPoint() + NAS2D::Vector{-mFont.width(item.stateDescription) - 5, yOffset}, structureTextColor);
 }
