@@ -5,6 +5,7 @@
 #include <libControls/TextField.h>
 #include <libControls/ListBox.h>
 #include <libControls/Label.h>
+#include <libControls/VerticalLayout.h>
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
@@ -63,4 +64,6 @@ private:
 	TextField mFileName;
 
 	ListBox<> mListBox;
+
+	VerticalLayout mLayout;
 };

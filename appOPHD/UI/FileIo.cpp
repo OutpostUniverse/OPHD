@@ -3,6 +3,7 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../ShellOpenPath.h"
+#include "../Cache.h"
 
 #include "MessageBox.h"
 
@@ -24,31 +25,38 @@ FileIo::FileIo() : Window{"File I/O"}
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
 	eventHandler.keyDown().connect({this, &FileIo::onKeyDown});
 
-	size({700, 350});
+	add(mLayout, {5,5});
 
-	add(mOpenSaveFolder, {590, 22});
-	mOpenSaveFolder.size({105, 20});
+	mLayout.addRow(sWindowTitleBarHeight);
 
-	add(mFileOperation, {645, 325});
+	mOpenSaveFolder.font(fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium));
+	mOpenSaveFolder.size(mOpenSaveFolder.minimumSize());
+	mLayout.add(mOpenSaveFolder, {0, 0});
+
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
+	mLayout.add(mFileOperation, {0, 0});
 
-	add(mDeleteFile, {5, 325});
 	mDeleteFile.size({50, 20});
 	mDeleteFile.enabled(false);
+	mLayout.add(mDeleteFile, {0, 0});
 
-	add(mClose, {590, 325});
 	mClose.size({50, 20});
+	mLayout.add(mClose, {0, 0});
 
-	add(mFileName, {5, 302});
 	mFileName.size({690, 18});
 	mFileName.maxCharacters(50);
 	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
+	mLayout.add(mFileName, {0, 0});
 
-	add(mListBox, {5, 45});
 	mListBox.size({690, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
+	mLayout.add(mListBox, {0, 0});
+
+	size(mLayout.minimumSize() + NAS2D::Vector<int>{10, 10});
+
+	bringToFront(&mLayout);
 }
 
 
