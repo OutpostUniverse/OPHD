@@ -40,13 +40,12 @@ void ProductListBox::productPool(const ProductPool& pool)
 
 		if (productCount > 0)
 		{
-			ProductListBoxItem* item = new ProductListBoxItem{
+			mItems.emplace_back(new ProductListBoxItem{
 				ProductCatalogue::get(productType).Name,
 				productCount,
 				productCount * pool.productStorageRequirement(productType),
 				pool.capacity(),
-			};
-			mItems.push_back(item);
+			});
 		}
 	}
 
