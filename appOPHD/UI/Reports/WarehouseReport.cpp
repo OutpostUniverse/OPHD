@@ -34,6 +34,19 @@ namespace
 
 		return output;
 	}
+
+
+	std::string structureStateDescription(const Warehouse& warehouse)
+	{
+		const auto& productPool = warehouse.products();
+
+		if (warehouse.state() != StructureState::Operational) { return warehouse.stateDescription(); }
+		else if (productPool.empty()) { return constants::WarehouseEmpty; }
+		else if (productPool.atCapacity()) { return constants::WarehouseFull; }
+		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseSpaceAvailable; }
+
+		return std::string{};
+	}
 }
 
 
@@ -115,16 +128,7 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 
 	for (auto* warehouse : warehouses)
 	{
-		lstStructures.addItem(warehouse);
-		StructureListBox::StructureListBoxItem* item = lstStructures.last();
-
-		// \fixme	Abuse of interface to achieve custom results.
-		const auto& products = warehouse->products();
-
-		if (warehouse->state() != StructureState::Operational) { item->structureState = warehouse->stateDescription(); }
-		else if (products.empty()) { item->structureState = constants::WarehouseEmpty; }
-		else if (products.atCapacity()) { item->structureState = constants::WarehouseFull; }
-		else if (!products.empty() && !products.atCapacity()) { item->structureState = constants::WarehouseSpaceAvailable; }
+		lstStructures.addItem(warehouse, structureStateDescription(*warehouse));
 	}
 
 	lstStructures.setSelection(0);

@@ -19,17 +19,16 @@ public:
 
 	struct StructureListBoxItem : public ListBoxItem
 	{
-		StructureListBoxItem(Structure* s);
+		StructureListBoxItem(Structure* s, std::string stateDescription = std::string{});
 
-		Structure* structure = nullptr; /**< Pointer to a Structure. */
-		std::string structureState; /**< String description of the state of a Structure. */
-		StructureState colorIndex; /**< Index to use from the listbox color table. */
+		Structure* structure = nullptr;
+		std::string stateDescription;
 	};
 
 
 	StructureListBox();
 
-	void addItem(Structure*);
+	void addItem(Structure* structure, std::string stateDescription = std::string{});
 	void setSelected(const Structure*);
 
 	Structure* selectedStructure();

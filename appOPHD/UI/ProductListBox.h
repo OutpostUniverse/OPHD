@@ -19,7 +19,14 @@ class ProductListBox : public ListBoxBase
 public:
 	struct ProductListBoxItem : public ListBoxItem
 	{
-		int count = 0; /**< Count of the product. */
+		ProductListBoxItem(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal) :
+			ListBoxItem{initialText},
+			productCount{initialProductCount},
+			capacityUsed{initialCapacityUsed},
+			capacityTotal{initialCapacityTotal}
+		{}
+
+		int productCount = 0;
 		int capacityUsed = 0;
 		int capacityTotal = 0;
 	};

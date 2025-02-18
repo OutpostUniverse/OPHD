@@ -16,11 +16,10 @@
 using namespace NAS2D;
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s) :
+StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string initialStateDescription) :
 	ListBoxItem{s->name()},
 	structure{s},
-	structureState{""},
-	colorIndex{s->state()}
+	stateDescription{std::move(initialStateDescription)}
 {}
 
 
@@ -39,7 +38,7 @@ StructureListBox::StructureListBox() :
  *
  * Specialized version of the default addItem(ListBoxItem*) function.
  */
-void StructureListBox::addItem(Structure* structure)
+void StructureListBox::addItem(Structure* structure, std::string stateDescription)
 {
 	for (const auto& item : mItems)
 	{
@@ -49,7 +48,7 @@ void StructureListBox::addItem(Structure* structure)
 		}
 	}
 
-	add<StructureListBoxItem>(structure);
+	add<StructureListBoxItem>(structure, std::move(stateDescription));
 }
 
 
@@ -105,5 +104,5 @@ void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int>
 
 	const auto yOffset = 15 - mFontBold.height() / 2;
 	renderer.drawText(mFontBold, item.text, drawArea.position + NAS2D::Vector{5, yOffset}, structureTextColor);
-	renderer.drawText(mFont, item.structureState, drawArea.crossXPoint() + NAS2D::Vector{-mFont.width(item.structureState) - 5, yOffset}, structureTextColor);
+	renderer.drawText(mFont, item.stateDescription, drawArea.crossXPoint() + NAS2D::Vector{-mFont.width(item.stateDescription) - 5, yOffset}, structureTextColor);
 }

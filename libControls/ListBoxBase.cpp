@@ -20,8 +20,6 @@ ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :
 	mScrollBar.max(0);
 	mScrollBar.value(0);
 	mScrollBar.change().connect({this, &ListBoxBase::onSlideChange});
-
-	updateScrollLayout();
 }
 
 
