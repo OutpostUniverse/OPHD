@@ -52,6 +52,6 @@ public:
 
 	TakeMeThereSignal& takeMeThereSignal() { return mTakeMeThereSignal; }
 
-private:
+protected:
 	TakeMeThereSignal mTakeMeThereSignal;
 };
