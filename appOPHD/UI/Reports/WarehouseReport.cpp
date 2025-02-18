@@ -290,7 +290,7 @@ void WarehouseReport::onTakeMeThere()
 
 void WarehouseReport::onStructureSelectionChange()
 {
-	selectedWarehouse = static_cast<Warehouse*>(lstStructures.selectedStructure());
+	selectedWarehouse = static_cast<const Warehouse*>(lstStructures.selectedStructure());
 
 	if (selectedWarehouse != nullptr)
 	{
