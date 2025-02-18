@@ -19,8 +19,6 @@ public:
 
 	struct StructureListBoxItem
 	{
-		StructureListBoxItem(Structure* s, std::string stateDescription = std::string{});
-
 		std::string text;
 		Structure* structure = nullptr;
 		std::string stateDescription;

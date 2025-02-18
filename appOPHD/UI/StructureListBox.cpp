@@ -16,13 +16,6 @@
 using namespace NAS2D;
 
 
-StructureListBox::StructureListBoxItem::StructureListBoxItem(Structure* s, std::string initialStateDescription) :
-	text{s->name()},
-	structure{s},
-	stateDescription{std::move(initialStateDescription)}
-{}
-
-
 StructureListBox::StructureListBox() :
 	ListBoxBase{
 		fontCache.load(constants::FONT_PRIMARY, 12),
@@ -103,7 +96,7 @@ void StructureListBox::clear()
 
 void StructureListBox::add(Structure* s, std::string stateDescription)
 {
-	mItems.emplace_back(StructureListBoxItem{s, stateDescription});
+	mItems.emplace_back(StructureListBoxItem{s->name(), s, std::move(stateDescription)});
 	updateScrollLayout();
 }
 
