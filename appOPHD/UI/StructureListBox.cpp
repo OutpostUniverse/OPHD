@@ -41,7 +41,7 @@ StructureListBox::StructureListBox() :
  */
 void StructureListBox::addItem(Structure* structure)
 {
-	for (auto item : mItems)
+	for (const auto& item : mItems)
 	{
 		if (static_cast<StructureListBoxItem*>(item)->structure == structure)
 		{
