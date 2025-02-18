@@ -10,7 +10,6 @@ public:
 	using ClickSignal = NAS2D::Signal<>;
 
 	GameOptionsDialog();
-	~GameOptionsDialog() override;
 
 	void update() override;
 

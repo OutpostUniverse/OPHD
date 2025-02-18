@@ -30,11 +30,6 @@ GameOptionsDialog::GameOptionsDialog() :
 }
 
 
-GameOptionsDialog::~GameOptionsDialog()
-{
-}
-
-
 void GameOptionsDialog::onEnableChange()
 {
 	btnSave.enabled(enabled());
