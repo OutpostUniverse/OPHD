@@ -42,11 +42,6 @@ GameState::~GameState()
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
 
-	mMainReportsState->hideReports().disconnect({this, &GameState::onHideReports});
-	mMapView->quit().disconnect({this, &GameState::onQuit});
-	mMapView->showReportsUi().disconnect({this, &GameState::onShowReports});
-	mMapView->mapChanged().disconnect({this, &GameState::onMapChange});
-
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
 	{
 		takeMeThere->disconnect({this, &GameState::onTakeMeThere});
