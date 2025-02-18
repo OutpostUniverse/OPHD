@@ -39,7 +39,7 @@ public:
 
 protected:
 	void add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal) {
-		mItems.emplace_back(new ProductListBoxItem{initialText, initialProductCount, initialCapacityUsed, initialCapacityTotal});
+		mItems.emplace_back(ProductListBoxItem{initialText, initialProductCount, initialCapacityUsed, initialCapacityTotal});
 		updateScrollLayout();
 	}
 
@@ -50,5 +50,5 @@ protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
-	std::vector<std::unique_ptr<ProductListBoxItem>> mItems;
+	std::vector<ProductListBoxItem> mItems;
 };

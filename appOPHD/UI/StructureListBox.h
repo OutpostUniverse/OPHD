@@ -39,7 +39,7 @@ public:
 
 protected:
 	void add(Structure* s, std::string stateDescription) {
-		mItems.emplace_back(new StructureListBoxItem{s, stateDescription});
+		mItems.emplace_back(StructureListBoxItem{s, stateDescription});
 		updateScrollLayout();
 	}
 
@@ -52,5 +52,5 @@ protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
-	std::vector<std::unique_ptr<StructureListBoxItem>> mItems;
+	std::vector<StructureListBoxItem> mItems;
 };

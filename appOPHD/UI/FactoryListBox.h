@@ -42,7 +42,7 @@ public:
 
 protected:
 	void add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) {
-		mItems.emplace_back(new FactoryListBoxItem{textDescription, newFactory, iconPosition});
+		mItems.emplace_back(FactoryListBoxItem{textDescription, newFactory, iconPosition});
 		updateScrollLayout();
 	}
 
@@ -55,7 +55,7 @@ protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
-	std::vector<std::unique_ptr<FactoryListBoxItem>> mItems;
+	std::vector<FactoryListBoxItem> mItems;
 
 	const NAS2D::Image& mStructureIcons;
 };
