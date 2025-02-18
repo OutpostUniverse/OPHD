@@ -41,9 +41,8 @@ public:
 	void clear();
 
 protected:
-	template <typename ItemType, typename... Args>
-	void add(Args&&... args) {
-		mItems.emplace_back(new ItemType{std::forward<Args>(args)...});
+	void add(std::string textDescription, Factory* newFactory, NAS2D::Point<int> iconPosition) {
+		mItems.emplace_back(new FactoryListBoxItem{textDescription, newFactory, iconPosition});
 		updateScrollLayout();
 	}
 

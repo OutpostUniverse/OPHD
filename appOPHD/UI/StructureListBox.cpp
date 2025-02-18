@@ -54,7 +54,7 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
 		}
 	}
 
-	add<StructureListBoxItem>(structure, std::move(stateDescription));
+	add(structure, std::move(stateDescription));
 }
 
 

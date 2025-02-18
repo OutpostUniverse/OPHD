@@ -56,7 +56,7 @@ void FactoryListBox::addItem(Factory* factory)
 		(text == constants::UndergroundFactory) ? NAS2D::Point<int>{138, 276} :
 		(text == constants::SeedFactory) ? NAS2D::Point<int>{460, 368} :
 		NAS2D::Point<int>{0, 46}; // Surface factory
-	add<FactoryListBoxItem>(text, factory, iconPosition);
+	add(text, factory, iconPosition);
 }
 
 
