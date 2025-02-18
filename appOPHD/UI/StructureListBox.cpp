@@ -88,7 +88,7 @@ StructureListBox::StructureListBoxItem* StructureListBox::last()
 }
 
 
-StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
+const StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
 	return *static_cast<StructureListBoxItem*>(mItems[index]);
 }

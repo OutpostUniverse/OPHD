@@ -80,7 +80,7 @@ Factory* FactoryListBox::selectedFactory()
 }
 
 
-FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
+const FactoryListBox::FactoryListBoxItem& FactoryListBox::getItem(std::size_t index) const
 {
 	return *static_cast<FactoryListBoxItem*>(mItems[index]);
 }
