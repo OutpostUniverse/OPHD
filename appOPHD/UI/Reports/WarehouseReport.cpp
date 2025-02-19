@@ -194,7 +194,7 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 
 	if (selectedWarehouse && lstStructures.rect().contains(position))
 	{
-		takeMeThereSignal()(selectedWarehouse);
+		mTakeMeThereSignal(selectedWarehouse);
 	}
 }
 
@@ -288,7 +288,7 @@ void WarehouseReport::onDisabled()
 
 void WarehouseReport::onTakeMeThere()
 {
-	takeMeThereSignal()(selectedWarehouse);
+	mTakeMeThereSignal(selectedWarehouse);
 }
 
 
