@@ -51,7 +51,7 @@ void MainMenuState::initialize()
 
 	for (auto& button : buttons)
 	{
-		button.font(fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium));
+		button.font(fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium));
 		button.size({200, 30});
 	}
 

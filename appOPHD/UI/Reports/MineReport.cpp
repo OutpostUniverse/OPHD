@@ -43,9 +43,9 @@ namespace
 MineReport::MineReport() :
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
+	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	mineFacility{imageCache.load("ui/interface/mine.png")},
 	uiIcons{imageCache.load("ui/icons.png")},
 	btnShowAll{"All", {this, &MineReport::onShowAll}},

@@ -57,8 +57,8 @@ namespace constants
 	// =====================================
 	// = FONT STRINGS
 	// =====================================
-	const std::string FONT_PRIMARY = "fonts/opensans.ttf";
-	const std::string FONT_PRIMARY_BOLD = "fonts/opensans-bold.ttf";
+	const std::string FontPrimary = "fonts/opensans.ttf";
+	const std::string FontPrimaryBold = "fonts/opensans-bold.ttf";
 
 
 	// =====================================

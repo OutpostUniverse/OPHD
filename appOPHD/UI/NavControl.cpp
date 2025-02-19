@@ -116,7 +116,7 @@ void NavControl::draw() const
 
 	// Explicit current level
 	const auto& currentLevelString = levelString(mMapView.currentDepth());
-	const auto& fontBoldMedium = fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium);
+	const auto& fontBoldMedium = fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium);
 	const auto currentLevelPosition = mRect.endPoint() - fontBoldMedium.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
 	renderer.drawText(fontBoldMedium, currentLevelString, currentLevelPosition, NAS2D::Color::White);
 }

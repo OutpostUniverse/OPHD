@@ -29,7 +29,7 @@ namespace
 
 
 PlanetSelectState::PlanetSelectState() :
-	mFontBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
+	mFontBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	mTinyFont{Control::getDefaultFont()},
 	mBg{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
@@ -38,7 +38,7 @@ PlanetSelectState::PlanetSelectState() :
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
-	mPlanetDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
+	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{constants::NoSelection},
 	mReturnState{this},
 	mPlanets{attributesToPlanets(parsePlanetAttributes())}

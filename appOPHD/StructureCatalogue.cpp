@@ -52,7 +52,7 @@ namespace
 		}
 
 		// Set recycling values for landers and automatically built structures.
-		// RESOURCES: COMM_MET_ORE, COMM_MIN_ORE, RARE_MET_ORE, RARE_MIN_ORE, COMM_MET, COMM_MIN, RARE_MET, RARE_MIN
+		// Resources: {Common Metals, Common Minerals, Rare Metals, Rare Minerals}
 		structureRecycleValueTable[StructureID::SID_MINE_FACILITY] = {15, 10, 5, 5};
 		structureRecycleValueTable[StructureID::SID_CARGO_LANDER] = {15, 10, 5, 5};
 		structureRecycleValueTable[StructureID::SID_COLONIST_LANDER] = {15, 10, 5, 5};

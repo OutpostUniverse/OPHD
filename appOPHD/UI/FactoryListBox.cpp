@@ -21,8 +21,8 @@ using namespace NAS2D;
 
 FactoryListBox::FactoryListBox() :
 	ListBoxBase{
-		fontCache.load(constants::FONT_PRIMARY, 12),
-		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
+		fontCache.load(constants::FontPrimary, 12),
+		fontCache.load(constants::FontPrimaryBold, 12)
 	},
 	mStructureIcons{imageCache.load("ui/structures.png")}
 {

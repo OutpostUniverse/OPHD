@@ -86,14 +86,14 @@ namespace
 
 
 ResearchReport::ResearchReport() :
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
+	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageLab{imageCache.load("ui/interface/lab_ug.png")},
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
-	txtTopicDescription{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)}
+	txtTopicDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
