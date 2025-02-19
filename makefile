@@ -30,7 +30,7 @@ all: ophd test demoLibControls
 test: testLibOPHD testLibControls
 
 .PHONY: check
-check: checkOPHD checkControls
+check: all checkOPHD checkControls
 
 
 ## NAS2D project ##
