@@ -167,8 +167,8 @@ int main(int argc, char *argv[])
 		addCursor(PointerType::PlaceTile, constants::MousePointerPlaceTile, {16, 16});
 		setCursor(PointerType::Normal);
 
-		Control::setDefaultFont(fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryNormal));
-		Control::setDefaultFontBold(fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryNormal));
+		Control::setDefaultFont(fontCache.load(constants::FontPrimary, constants::FontPrimaryNormal));
+		Control::setDefaultFontBold(fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryNormal));
 		Control::setImageCache(imageCache);
 
 		const auto& options = cf["options"];

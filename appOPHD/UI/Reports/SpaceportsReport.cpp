@@ -9,9 +9,9 @@
 using namespace NAS2D;
 
 SpaceportsReport::SpaceportsReport() :
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
+	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageNotImplemented{imageCache.load("ui/interface/ni.png")}
 {
 }

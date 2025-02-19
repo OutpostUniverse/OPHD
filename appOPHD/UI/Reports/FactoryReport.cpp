@@ -52,9 +52,9 @@ namespace
 
 FactoryReport::FactoryReport() :
 	font{Control::getDefaultFont()},
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
+	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
 	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
 	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},

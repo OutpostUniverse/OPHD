@@ -157,7 +157,7 @@ namespace
 
 
 MainReportsUiState::MainReportsUiState() :
-	fontMain{fontCache.load(constants::FONT_PRIMARY_BOLD, 16)}
+	fontMain{fontCache.load(constants::FontPrimaryBold, 16)}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});

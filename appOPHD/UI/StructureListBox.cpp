@@ -18,8 +18,8 @@ using namespace NAS2D;
 
 StructureListBox::StructureListBox() :
 	ListBoxBase{
-		fontCache.load(constants::FONT_PRIMARY, 12),
-		fontCache.load(constants::FONT_PRIMARY_BOLD, 12)
+		fontCache.load(constants::FontPrimary, 12),
+		fontCache.load(constants::FontPrimaryBold, 12)
 	}
 {
 	itemHeight(30);

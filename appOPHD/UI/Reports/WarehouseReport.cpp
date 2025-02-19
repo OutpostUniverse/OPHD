@@ -51,9 +51,9 @@ namespace
 
 
 WarehouseReport::WarehouseReport() :
-	fontMedium{fontCache.load(constants::FONT_PRIMARY, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FONT_PRIMARY_BOLD, constants::FontPrimaryHuge)},
+	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
+	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
+	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
 	btnSpaceAvailable{"Space Available", {this, &WarehouseReport::onSpaceAvailable}},
