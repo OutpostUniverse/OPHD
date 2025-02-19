@@ -120,6 +120,9 @@
     <ClCompile Include="MapObjects\Structures\CargoLander.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\CommandCenter.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\CommTower.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
