@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Resources.h"
+#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../States/MapViewStateHelper.h"
 

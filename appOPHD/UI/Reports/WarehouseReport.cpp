@@ -4,6 +4,7 @@
 
 #include "../../Cache.h"
 #include "../../StructureManager.h"
+#include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../MapObjects/Structure.h"
 #include "../../MapObjects/Structures/Warehouse.h"
