@@ -3,7 +3,7 @@
 #include "PowerStructure.h"
 
 
-const int FusionReactorBaseProduction = 1000;
+constexpr int FusionReactorBaseProduction = 1000;
 
 
 class FusionReactor : public PowerStructure
