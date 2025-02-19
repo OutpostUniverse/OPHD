@@ -3,7 +3,7 @@
 #include "PowerStructure.h"
 
 
-const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
+const int FusionReactorBaseProduction = 1000;
 
 
 class FusionReactor : public PowerStructure
@@ -18,6 +18,6 @@ public:
 protected:
 	int calculateMaxEnergyProduction() override
 	{
-		return FUSION_REACTOR_BASE_PRODUCUCTION;
+		return FusionReactorBaseProduction;
 	}
 };
