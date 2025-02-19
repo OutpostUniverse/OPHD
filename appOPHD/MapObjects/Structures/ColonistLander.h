@@ -2,8 +2,8 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/Strings.h"
-#include "../../Map/Tile.h"
+
+class Tile;
 
 
 class ColonistLander : public Structure
@@ -12,26 +12,12 @@ public:
 	using Signal = NAS2D::Signal<>;
 
 public:
+	ColonistLander(Tile* tile);
 
-	ColonistLander(Tile* tile) : Structure(
-		StructureClass::Lander,
-		StructureID::SID_COLONIST_LANDER),
-		mTile(tile)
-	{
-		enable();
-	}
-
-	Signal::Source& deploySignal() { return mDeploy; }
+	Signal::Source& deploySignal();
 
 protected:
-	void think() override
-	{
-		if (age() == turnsToBuild())
-		{
-			mDeploy();
-			mTile->index(TerrainType::Dozed);
-		}
-	}
+	void think() override;
 
 private:
 	Signal mDeploy;
