@@ -2,34 +2,21 @@
 
 #include "../Structure.h"
 
-#include "../../Map/Tile.h"
+
+class Tile;
 
 
 class CargoLander : public Structure
 {
 public:
-
 	using Signal = NAS2D::Signal<>;
 
-	CargoLander(Tile* tile) : Structure(
-		StructureClass::Lander,
-		StructureID::SID_CARGO_LANDER),
-		mTile(tile)
-	{
-		enable();
-	}
+	CargoLander(Tile* tile);
 
-	Signal::Source& deploySignal() { return mDeploy; }
+	Signal::Source& deploySignal();
 
 protected:
-	void think() override
-	{
-		if (age() == turnsToBuild())
-		{
-			mDeploy();
-			mTile->index(TerrainType::Dozed);
-		}
-	}
+	void think() override;
 
 private:
 	CargoLander() = delete;

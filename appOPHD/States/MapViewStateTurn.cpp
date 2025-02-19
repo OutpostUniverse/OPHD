@@ -13,6 +13,7 @@
 #include "../MoraleString.h"
 #include "../StorableResources.h"
 #include "../StructureManager.h"
+#include "../Constants/Strings.h"
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumMoraleIndex.h>

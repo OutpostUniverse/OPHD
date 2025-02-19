@@ -197,6 +197,10 @@
     <ClCompile Include="MapObjects\Robots\Robominer.cpp" />
     <ClCompile Include="MapObjects\Structure.cpp" />
     <ClCompile Include="MapObjects\Structures\Agridome.cpp" />
+    <ClCompile Include="MapObjects\Structures\AirShaft.cpp" />
+    <ClCompile Include="MapObjects\Structures\CargoLander.cpp" />
+    <ClCompile Include="MapObjects\Structures\ColonistLander.cpp" />
+    <ClCompile Include="MapObjects\Structures\CommandCenter.cpp" />
     <ClCompile Include="MapObjects\Structures\CommTower.cpp" />
     <ClCompile Include="MapObjects\Structures\Factory.cpp" />
     <ClCompile Include="MapObjects\Structures\FoodProduction.cpp" />
@@ -210,6 +214,7 @@
     <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
+    <ClCompile Include="MapObjects\Structures\Tube.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="MineProductionRateString.cpp" />

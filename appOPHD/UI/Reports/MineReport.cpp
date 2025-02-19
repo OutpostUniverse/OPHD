@@ -15,6 +15,7 @@
 
 #include "../../States/Route.h"
 
+#include "../../Map/Tile.h"
 #include "../../MapObjects/Mine.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 

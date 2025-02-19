@@ -114,6 +114,18 @@
     <ClCompile Include="MapObjects\Structures\Agridome.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\AirShaft.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\Structures\CargoLander.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\Structures\ColonistLander.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\Structures\CommandCenter.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\CommTower.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
@@ -151,6 +163,9 @@
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\Structures\Tube.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
     <ClCompile Include="MicroPather\micropather.cpp">

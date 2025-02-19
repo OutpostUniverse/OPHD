@@ -2,8 +2,6 @@
 
 #include "FoodProduction.h"
 
-#include "../../Constants/Numbers.h"
-
 
 /**
  * Implements the Command Center structure.
@@ -11,25 +9,12 @@
 class CommandCenter : public FoodProduction
 {
 public:
-	CommandCenter() : FoodProduction(
-		StructureClass::Command,
-		StructureID::SID_COMMAND_CENTER)
-	{
-	}
+	CommandCenter();
 
-	int foodCapacity() override
-	{
-		return constants::BaseStorageCapacity;
-	}
+	int foodCapacity() override;
 
-	int getRange() const
-	{
-		return operational() ? constants::RobotCommRange : 0;
-	}
+	int getRange() const;
 
 protected:
-	int calculateProduction() override
-	{
-		return 0;
-	}
+	int calculateProduction() override;
 };
