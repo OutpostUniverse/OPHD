@@ -30,7 +30,7 @@ const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
 /**
  * Translation table for Structure Classes.
  */
-const std::map<Structure::StructureClass, std::string> STRUCTURE_CLASS_TRANSLATION =
+const std::map<Structure::StructureClass, std::string> StructureClassNames =
 {
 	{Structure::StructureClass::Command, "Command"},
 	{Structure::StructureClass::Communication, "Communication"},
@@ -115,7 +115,7 @@ std::string StructureName(StructureID id)
 std::vector<Structure::StructureClass> allStructureClasses()
 {
 	std::vector<Structure::StructureClass> result;
-	for (const auto& entry : STRUCTURE_CLASS_TRANSLATION)
+	for (const auto& entry : StructureClassNames)
 	{
 		result.push_back(entry.first);
 	}
@@ -241,7 +241,7 @@ const std::string& Structure::classDescription() const
 
 const std::string& Structure::classDescription(StructureClass structureClass)
 {
-	return STRUCTURE_CLASS_TRANSLATION.at(structureClass);
+	return StructureClassNames.at(structureClass);
 }
 
 int Structure::turnsToBuild() const
