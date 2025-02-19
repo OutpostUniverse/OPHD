@@ -22,7 +22,7 @@ BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 ## Default and top-level targets ##
 
 .PHONY: all
-all: ophd$(EXE_SUFFIX)
+all: ophd
 
 .PHONY: test
 test: testLibOPHD testLibControls
@@ -202,7 +202,7 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
-ophd_OUTPUT := ophd$(EXE_SUFFIX)
+ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(EXE_SUFFIX)
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
@@ -219,6 +219,9 @@ include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
 
 .PHONY: intermediate
 intermediate: $(ophd_OBJS)
+
+.PHONY: ophd
+ophd: $(ophd_OUTPUT)
 
 .PHONY: run
 run: $(ophd_OUTPUT)
