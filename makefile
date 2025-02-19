@@ -21,14 +21,16 @@ BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 
 ## Default and top-level targets ##
 
+.DEFAULT_GOAL := ophd
+
 .PHONY: all
-all: ophd$(EXE_SUFFIX)
+all: ophd test demoLibControls
 
 .PHONY: test
 test: testLibOPHD testLibControls
 
 .PHONY: check
-check: checkOPHD checkControls
+check: all checkOPHD checkControls
 
 
 ## NAS2D project ##
@@ -187,7 +189,7 @@ demoLibControls_PROJECT_FLAGS := $(demoLibControls_CPPFLAGS) $(CXXFLAGS)
 demoLibControls: $(demoLibControls_OUTPUT)
 
 .PHONY: runDemoControls
-runDemoControls:
+runDemoControls: $(demoLibControls_OUTPUT)
 	$(RUN_PREFIX) $(demoLibControls_OUTPUT)
 
 $(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
@@ -202,7 +204,7 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
-ophd_OUTPUT := ophd$(EXE_SUFFIX)
+ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(EXE_SUFFIX)
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
@@ -219,6 +221,13 @@ include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
 
 .PHONY: intermediate
 intermediate: $(ophd_OBJS)
+
+.PHONY: ophd
+ophd: $(ophd_OUTPUT)
+
+.PHONY: run
+run: $(ophd_OUTPUT)
+	$(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
 
 
 ## Compile rules ##

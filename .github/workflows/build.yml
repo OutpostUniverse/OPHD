@@ -168,5 +168,5 @@ jobs:
     - name: Run libOPHD unit tests
       run: .build/${{env.Configuration}}_${{env.Platform}}_testLibOPHD/testLibOPHD.exe
 
-    - name: Run libControl unit tests
+    - name: Run libControls unit tests
       run: .build/${{env.Configuration}}_${{env.Platform}}_testLibControls/testLibControls.exe
