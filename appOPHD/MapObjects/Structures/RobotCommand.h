@@ -2,8 +2,6 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/Strings.h"
-
 
 /**
  * Implements the Robot Command structure.

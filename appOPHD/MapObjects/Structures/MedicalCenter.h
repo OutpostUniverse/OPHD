@@ -2,8 +2,6 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/Strings.h"
-
 
 class MedicalCenter : public Structure
 {

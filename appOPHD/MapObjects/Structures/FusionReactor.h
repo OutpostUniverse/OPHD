@@ -2,12 +2,8 @@
 
 #include "PowerStructure.h"
 
-#include "../../Constants/Strings.h"
 
-#include <string>
-
-
-const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
+constexpr int FusionReactorBaseProduction = 1000;
 
 
 class FusionReactor : public PowerStructure
@@ -22,6 +18,6 @@ public:
 protected:
 	int calculateMaxEnergyProduction() override
 	{
-		return FUSION_REACTOR_BASE_PRODUCUCTION;
+		return FusionReactorBaseProduction;
 	}
 };

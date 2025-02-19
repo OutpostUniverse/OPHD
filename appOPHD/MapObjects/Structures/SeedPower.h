@@ -2,12 +2,8 @@
 
 #include "PowerStructure.h"
 
-#include "../../Constants/Strings.h"
 
-#include <string>
-
-
-const int SEED_POWER_PRODUCTION = 50;
+const int SeedPowerProduction = 50;
 
 class SeedPower : public PowerStructure
 {
@@ -21,6 +17,6 @@ public:
 private:
 	int calculateMaxEnergyProduction() override
 	{
-		return SEED_POWER_PRODUCTION;
+		return SeedPowerProduction;
 	}
 };

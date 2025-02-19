@@ -2,8 +2,6 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/Strings.h"
-
 #include <NAS2D/Math/Point.h>
 
 

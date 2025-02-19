@@ -1,7 +1,5 @@
 #include "CommTower.h"
 
-
-#include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 
 #include "../../UI/StringTable.h"

@@ -5,11 +5,6 @@
 #include <vector>
 
 
-namespace NAS2D
-{
-	class Font;
-}
-
 class ProductPool;
 
 
