@@ -61,6 +61,7 @@ protected:
 private:
 	const ButtonSkin mButtonSkin;
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
+	NAS2D::Vector<int> mMargin = {2, 2};
 
 	ClickSignal mSignal; /**< Object to notify when the Button is activated. */
 
