@@ -5,7 +5,7 @@
 
 namespace
 {
-	const int SOLAR_PLANT_BASE_PRODUCUCTION = 2000;
+	const int SolarPlantBaseProduction = 2000;
 }
 
 
@@ -21,5 +21,5 @@ SolarPlant::SolarPlant() :
 
 int SolarPlant::calculateMaxEnergyProduction()
 {
-	return static_cast<int>(SOLAR_PLANT_BASE_PRODUCUCTION / getMeanSolarDistance());
+	return static_cast<int>(SolarPlantBaseProduction / getMeanSolarDistance());
 }

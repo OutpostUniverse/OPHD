@@ -5,7 +5,7 @@
 
 namespace
 {
-	const int SOLAR_PANEL_BASE_PRODUCUCTION = 50;
+	const int SolarPanelBaseProduction = 50;
 }
 
 
@@ -21,5 +21,5 @@ SolarPanelArray::SolarPanelArray() :
 
 int SolarPanelArray::calculateMaxEnergyProduction()
 {
-	return static_cast<int>(SOLAR_PANEL_BASE_PRODUCUCTION / getMeanSolarDistance());
+	return static_cast<int>(SolarPanelBaseProduction / getMeanSolarDistance());
 }
