@@ -2,10 +2,6 @@
 
 #include "PowerStructure.h"
 
-#include "../../Constants/Strings.h"
-
-#include <string>
-
 
 const int FUSION_REACTOR_BASE_PRODUCUCTION = 1000;
 
