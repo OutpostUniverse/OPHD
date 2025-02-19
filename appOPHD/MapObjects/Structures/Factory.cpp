@@ -5,7 +5,8 @@
 
 #include <NAS2D/Dictionary.h>
 
-#include <algorithm>
+#include <map>
+#include <stdexcept>
 
 
 /**
