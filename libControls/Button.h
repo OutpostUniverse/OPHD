@@ -37,6 +37,8 @@ public:
 	Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler);
 	~Button() override;
 
+	NAS2D::Vector<int> minimumSize() const { return mFont->size(text()) + mMargin * 2; };
+
 	void type(Type type);
 
 	void toggle(bool toggle);
