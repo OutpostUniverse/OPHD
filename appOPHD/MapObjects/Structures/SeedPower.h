@@ -2,8 +2,6 @@
 
 #include "PowerStructure.h"
 
-#include <string>
-
 
 const int SeedPowerProduction = 50;
 
