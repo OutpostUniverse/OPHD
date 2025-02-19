@@ -26,8 +26,8 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	constexpr NAS2D::Rectangle<int> RESOURCE_PANEL_PIN{{0, 1}, {8, 19}};
-	constexpr NAS2D::Rectangle<int> POPULATION_PANEL_PIN{{675, 1}, {8, 19}};
+	constexpr NAS2D::Rectangle<int> ResourcePanelPinRect{{0, 1}, {8, 19}};
+	constexpr NAS2D::Rectangle<int> PopulationPanelPinRect{{675, 1}, {8, 19}};
 
 
 	uint8_t calcGlowIntensity()
@@ -200,8 +200,8 @@ void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> p
 
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (RESOURCE_PANEL_PIN.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
-		if (POPULATION_PANEL_PIN.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
+		if (ResourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
+		if (PopulationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 	}
 }
 
