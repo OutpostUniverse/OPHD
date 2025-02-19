@@ -2,35 +2,15 @@
 
 #include "../Structure.h"
 
-#include "../../Constants/Strings.h"
-
 
 class AirShaft : public Structure
 {
 public:
-	AirShaft() : Structure(
-		constants::StructureStateOperational,
-		StructureClass::Tube,
-		StructureID::SID_AIR_SHAFT)
-	{
-		connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);
+	AirShaft();
 
-		state(StructureState::Operational);
-	}
+	void ug();
 
-	void ug()
-	{
-		sprite().play(constants::StructureStateOperationalUg);
-		mIsUnderground = true;
-	}
-
-	void forced_state_change(StructureState, DisabledReason, IdleReason) override
-	{
-		if (mIsUnderground)
-		{
-			return;
-		}
-	}
+	void forced_state_change(StructureState, DisabledReason, IdleReason) override;
 
 private:
 	bool mIsUnderground = false;
