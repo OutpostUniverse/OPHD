@@ -17,6 +17,7 @@ public:
 	const std::string& text() const { return mText; }
 	TextChangeSignal::Source& textChanged() { return mTextChanged; }
 	NAS2D::Vector<int> minimumSize() const { return mTextSize; }
+	void font(const NAS2D::Font& font);
 
 	virtual void onTextChange();
 

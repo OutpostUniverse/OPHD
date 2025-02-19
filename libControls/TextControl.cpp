@@ -20,3 +20,9 @@ void TextControl::onTextChange()
 	}
 	mTextChanged(this);
 }
+
+
+void TextControl::font(const NAS2D::Font& font)
+{
+	mFont = &font;
+}
