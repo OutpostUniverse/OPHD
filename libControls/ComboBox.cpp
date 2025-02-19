@@ -35,7 +35,6 @@ ComboBox::ComboBox() :
 
 ComboBox::~ComboBox()
 {
-	lstItems.selectionChanged().disconnect({this, &ComboBox::onListSelectionChange});
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().disconnect({this, &ComboBox::onMouseWheel});
 }
