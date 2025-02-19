@@ -2,8 +2,6 @@
 
 #include "ResearchFacility.h"
 
-#include "../../Constants/Strings.h"
-
 
 class Laboratory : public ResearchFacility
 {

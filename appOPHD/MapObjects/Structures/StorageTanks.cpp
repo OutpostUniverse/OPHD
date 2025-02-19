@@ -1,7 +1,6 @@
 #include "StorageTanks.h"
 
 #include "../../Resources.h"
-#include "../../Constants/Strings.h"
 
 #include "../../UI/StringTable.h"
 

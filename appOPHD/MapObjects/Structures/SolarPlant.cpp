@@ -1,7 +1,6 @@
 #include "SolarPlant.h"
 
 #include "../../MeanSolarDistance.h"
-#include "../../Constants/Strings.h"
 
 
 namespace

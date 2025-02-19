@@ -2,8 +2,6 @@
 
 #include "PowerStructure.h"
 
-#include "../../Constants/Strings.h"
-
 #include <string>
 
 

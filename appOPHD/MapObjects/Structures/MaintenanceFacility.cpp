@@ -1,7 +1,6 @@
 #include "MaintenanceFacility.h"
 
 
-#include "../../Constants/Strings.h"
 #include "../../StorableResources.h"
 
 #include "../../States/MapViewStateHelper.h"

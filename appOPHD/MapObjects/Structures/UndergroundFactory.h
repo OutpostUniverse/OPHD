@@ -2,8 +2,6 @@
 
 #include "Factory.h"
 
-#include "../../Constants/Strings.h"
-
 
 class UndergroundFactory : public Factory
 {
