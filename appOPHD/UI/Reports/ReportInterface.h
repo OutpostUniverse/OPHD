@@ -50,7 +50,7 @@ public:
 	 */
 	virtual void selectStructure(Structure*) = 0;
 
-	TakeMeThereSignal& takeMeThereSignal() { return mTakeMeThereSignal; }
+	TakeMeThereSignal::Source& takeMeThereSignal() { return mTakeMeThereSignal; }
 
 protected:
 	TakeMeThereSignal mTakeMeThereSignal;
