@@ -21,6 +21,8 @@ BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 
 ## Default and top-level targets ##
 
+.DEFAULT_GOAL := ophd
+
 .PHONY: all
 all: ophd
 
