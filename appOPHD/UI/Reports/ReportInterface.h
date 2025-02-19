@@ -18,7 +18,7 @@ public:
 	 * Signal used to handle clicks of a "Take Me There" button to center
 	 * the map view on a given structure.
 	 */
-	using TakeMeThere = NAS2D::Signal<const Structure*>;
+	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
 
 	ReportInterface() {}
 
@@ -50,8 +50,8 @@ public:
 	 */
 	virtual void selectStructure(Structure*) = 0;
 
-	TakeMeThere& takeMeThereSignal() { return mTakeMeThereSignal; }
+	TakeMeThereSignal::Source& takeMeThereSignal() { return mTakeMeThereSignal; }
 
-private:
-	TakeMeThere mTakeMeThereSignal;
+protected:
+	TakeMeThereSignal mTakeMeThereSignal;
 };

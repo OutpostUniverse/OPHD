@@ -22,8 +22,8 @@ class MainReportsUiState : public Wrapper
 {
 public:
 	using ReportsUiSignal = NAS2D::Signal<>;
-	using TakeMeThere = NAS2D::Signal<const Structure*>;
-	using TakeMeThereList = std::vector<TakeMeThere*>;
+	using TakeMeThereSignalSource = NAS2D::SignalSource<const Structure*>;
+	using TakeMeThereSignalSourceList = std::vector<TakeMeThereSignalSource*>;
 
 public:
 	MainReportsUiState();
@@ -39,7 +39,7 @@ public:
 	void clearLists();
 
 	ReportsUiSignal::Source& hideReports() { return mReportsUiSignal; }
-	TakeMeThereList takeMeThere();
+	TakeMeThereSignalSourceList takeMeThere();
 
 protected:
 	void initialize() override;

@@ -377,9 +377,9 @@ void MainReportsUiState::clearLists()
  *
  * Acts as a pass-through for GameState.
  */
-MainReportsUiState::TakeMeThereList MainReportsUiState::takeMeThere()
+MainReportsUiState::TakeMeThereSignalSourceList MainReportsUiState::takeMeThere()
 {
-	TakeMeThereList takeMeThereList;
+	TakeMeThereSignalSourceList takeMeThereList;
 	for (auto& panel : Panels)
 	{
 		if (panel.UiPanel)
