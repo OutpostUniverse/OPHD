@@ -24,7 +24,7 @@ BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 .DEFAULT_GOAL := ophd
 
 .PHONY: all
-all: ophd
+all: ophd test demoLibControls
 
 .PHONY: test
 test: testLibOPHD testLibControls
