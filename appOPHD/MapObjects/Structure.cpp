@@ -17,7 +17,7 @@
 /**
  * Translation table for Structure States.
  */
-const std::map<StructureState, std::string> STRUCTURE_STATE_TRANSLATION =
+const std::map<StructureState, std::string> StructureStateDescriptions =
 {
 	{StructureState::UnderConstruction, "Under Construction"},
 	{StructureState::Operational, "Operational"},
@@ -231,7 +231,7 @@ const std::string& Structure::stateDescription() const
 
 const std::string& Structure::stateDescription(StructureState state)
 {
-	return STRUCTURE_STATE_TRANSLATION.at(state);
+	return StructureStateDescriptions.at(state);
 }
 
 const std::string& Structure::classDescription() const
