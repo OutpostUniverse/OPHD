@@ -4,8 +4,6 @@
 
 #include "../../UI/StringTable.h"
 
-#include <string>
-
 
 PowerStructure::PowerStructure(StructureClass structureClass, StructureID id) :
 	Structure(structureClass, id)
