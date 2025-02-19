@@ -2,12 +2,11 @@
 
 #include "../Structure.h"
 
-#include "../../StorableResources.h"
-
 #include <libOPHD/EnumProductType.h>
 
 
 struct ProductionCost;
+struct StorableResources;
 
 
 /**
