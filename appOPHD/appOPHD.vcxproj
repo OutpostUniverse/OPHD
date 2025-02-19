@@ -210,6 +210,7 @@
     <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
+    <ClCompile Include="MapObjects\Structures\Tube.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="MineProductionRateString.cpp" />

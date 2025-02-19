@@ -153,6 +153,9 @@
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\Tube.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
