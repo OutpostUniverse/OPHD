@@ -220,6 +220,10 @@ include $(wildcard $(patsubst %.o,%.d,$(ophd_OBJS)))
 .PHONY: intermediate
 intermediate: $(ophd_OBJS)
 
+.PHONY: run
+run: $(ophd_OUTPUT)
+	./$(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
+
 
 ## Compile rules ##
 
