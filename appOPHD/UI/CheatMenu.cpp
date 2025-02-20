@@ -79,6 +79,14 @@ CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 }
 
 
+bool CheatMenu::handleEvent()
+{
+	if (visible() && hasFocus()) { return true; }
+
+	return false;
+}
+
+
 void CheatMenu::update()
 {
 	if (!visible()) { return; }

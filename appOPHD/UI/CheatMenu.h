@@ -43,7 +43,7 @@ public:
 
 	CheatSignal::Source& cheatCodeEntered() { return mSignal; }
 
-	bool handleEvent() override { return false; };
+	bool handleEvent() override;
 
 private:
 	CheatSignal mSignal;
