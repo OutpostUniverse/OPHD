@@ -259,6 +259,9 @@ void MapViewState::initialize()
 {
 	// UI
 	initUi();
+
+	addChild(mCheatMenu);
+
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	setCursor(PointerType::Normal);
