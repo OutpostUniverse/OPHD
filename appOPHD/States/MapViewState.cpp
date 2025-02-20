@@ -303,6 +303,12 @@ void MapViewState::_activate()
 }
 
 
+void MapViewState::addChild(EventBubbler& child)
+{
+	mChildEventBubblers.push_back(&child);
+}
+
+
 void MapViewState::_deactivate()
 {
 	mGameOverDialog.enabled(false);

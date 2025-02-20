@@ -35,6 +35,7 @@
 #include "../UI/RobotDeploymentSummary.h"
 #include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
+#include "../UI/EventBubbler.h"
 
 #include <libOPHD/Map/MapCoordinate.h>
 
@@ -92,7 +93,7 @@ enum class InsertMode
 using RobotTileTable = std::map<Robot*, Tile*>;
 
 
-class MapViewState : public Wrapper
+class MapViewState : public Wrapper, public EventBubbler
 {
 public:
 	enum class PopulationLevel
@@ -134,7 +135,10 @@ private:
 	void _deactivate() override;
 	void _activate() override;
 
-	// EVENT HANDLERS
+	// EventBubbler Interface
+	void addChild(EventBubbler&) override;
+
+	//Event Handlers
 	void onActivate(bool newActiveValue);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
@@ -404,4 +408,7 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
+
+	//Event Bubbler
+	std::vector<EventBubbler*> mChildEventBubblers;
 };
