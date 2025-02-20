@@ -127,6 +127,8 @@ public:
 
 	bool hasGameEnded();
 
+	bool handleEvent() override {return false; };
+
 protected:
 	void initialize() override;
 	State* update() override;
