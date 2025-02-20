@@ -28,6 +28,7 @@ using namespace NAS2D;
 namespace
 {
 	const auto viewFilterButtonSize = NAS2D::Vector{75, 20};
+	const auto mainButtonSize = NAS2D::Vector{140, 30};
 
 	bool productTypeInRange(ProductType productType)
 	{
@@ -96,16 +97,16 @@ FactoryReport::FactoryReport() :
 	int position_x = Utility<Renderer>::get().size().x - 110;
 	add(btnIdle, {position_x, 35});
 	btnIdle.type(Button::Type::Toggle);
-	btnIdle.size({140, 30});
+	btnIdle.size(mainButtonSize);
 
 	add(btnClearProduction, {position_x, 75});
-	btnClearProduction.size({140, 30});
+	btnClearProduction.size(mainButtonSize);
 
 	add(btnTakeMeThere, {position_x, 115});
-	btnTakeMeThere.size({140, 30});
+	btnTakeMeThere.size(mainButtonSize);
 
 	add(btnApply, {0, 0});
-	btnApply.size({140, 30});
+	btnApply.size(mainButtonSize);
 
 	add(cboFilterByProduct, {250, 33});
 	cboFilterByProduct.size({200, 20});
