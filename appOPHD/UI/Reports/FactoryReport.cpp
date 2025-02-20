@@ -27,8 +27,8 @@ using namespace NAS2D;
 
 namespace
 {
-	const auto viewFilterButtonSize = NAS2D::Vector{75, 20};
-	const auto mainButtonSize = NAS2D::Vector{140, 30};
+	constexpr auto viewFilterButtonSize = NAS2D::Vector{75, 20};
+	constexpr auto mainButtonSize = NAS2D::Vector{140, 30};
 
 	bool productTypeInRange(ProductType productType)
 	{
