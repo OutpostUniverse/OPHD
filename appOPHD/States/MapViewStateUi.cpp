@@ -355,7 +355,6 @@ void MapViewState::populateStructureMenu()
 bool MapViewState::modalUiElementDisplayed() const
 {
 	return mGameOptionsDialog.visible() ||
-		mFileIoDialog.visible() ||
 		mGameOverDialog.visible();
 }
 

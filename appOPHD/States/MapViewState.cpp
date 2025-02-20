@@ -261,6 +261,7 @@ void MapViewState::initialize()
 	initUi();
 
 	addChild(mCheatMenu);
+	addChild(mFileIoDialog);
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
