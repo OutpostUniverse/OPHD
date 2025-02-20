@@ -27,6 +27,8 @@ using namespace NAS2D;
 
 namespace
 {
+	const auto viewFilterButtonSize = NAS2D::Vector{75, 20};
+
 	bool productTypeInRange(ProductType productType)
 	{
 		return ProductType::PRODUCT_NONE < productType && productType < ProductType::PRODUCT_COUNT;
@@ -73,28 +75,28 @@ FactoryReport::FactoryReport() :
 	lstFactoryList.selectionChanged().connect({this, &FactoryReport::onListSelectionChange});
 
 	add(btnShowAll, {10, 10});
-	btnShowAll.size({75, 20});
+	btnShowAll.size(viewFilterButtonSize);
 	btnShowAll.type(Button::Type::Toggle);
 	btnShowAll.toggle(true);
 
 	add(btnShowSurface, {87, 10});
-	btnShowSurface.size({75, 20});
+	btnShowSurface.size(viewFilterButtonSize);
 	btnShowSurface.type(Button::Type::Toggle);
 
 	add(btnShowUnderground, {164, 10});
-	btnShowUnderground.size({75, 20});
+	btnShowUnderground.size(viewFilterButtonSize);
 	btnShowUnderground.type(Button::Type::Toggle);
 
 	add(btnShowActive, {10, 33});
-	btnShowActive.size({75, 20});
+	btnShowActive.size(viewFilterButtonSize);
 	btnShowActive.type(Button::Type::Toggle);
 
 	add(btnShowIdle, {87, 33});
-	btnShowIdle.size({75, 20});
+	btnShowIdle.size(viewFilterButtonSize);
 	btnShowIdle.type(Button::Type::Toggle);
 
 	add(btnShowDisabled, {164, 33});
-	btnShowDisabled.size({75, 20});
+	btnShowDisabled.size(viewFilterButtonSize);
 	btnShowDisabled.type(Button::Type::Toggle);
 
 	int position_x = Utility<Renderer>::get().size().x - 110;
