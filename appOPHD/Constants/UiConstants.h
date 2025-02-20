@@ -1,15 +1,15 @@
 #pragma once
 
+#include <NAS2D/Duration.h>
 #include <NAS2D/Renderer/Color.h>
 
-#include <chrono>
 #include <limits>
 #include <string>
 
 
 namespace constants
 {
-	inline constexpr std::chrono::milliseconds FadeSpeed{300};
+	inline constexpr Duration FadeSpeed{300};
 
 	inline constexpr int BottomUiHeight{162};
 
