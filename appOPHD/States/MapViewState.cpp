@@ -424,7 +424,8 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 		return;
 	}
 
-	if (mCheatMenu.visible() && mCheatMenu.hasFocus())
+	bool eventHandled = handleEvent();
+	if (eventHandled)
 	{
 		return;
 	}
