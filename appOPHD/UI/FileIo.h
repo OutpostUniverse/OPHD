@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EventBubbler.h"
+
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 #include <libControls/TextField.h>
@@ -11,7 +13,7 @@
 #include <NAS2D/Math/Point.h>
 
 
-class FileIo : public Window
+class FileIo : public Window, public EventBubbler
 {
 public:
 	enum class FileOperation
@@ -34,6 +36,8 @@ public:
 
 	void update() override;
 
+	bool handleEvent() override;
+
 protected:
 	void onDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
@@ -47,6 +51,8 @@ private:
 
 	void onFileSelect();
 	void onFileNameChange(TextControl* control);
+
+	void addChild(EventBubbler&) override { return; }
 
 	FileSaveSignal mSaveSignal;
 	FileLoadSignal mLoadSignal;

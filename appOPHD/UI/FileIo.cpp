@@ -225,3 +225,11 @@ void FileIo::update()
 
 	Window::update();
 }
+
+
+bool FileIo::handleEvent()
+{
+	if (visible()) { return true; }
+
+	return false;
+}
