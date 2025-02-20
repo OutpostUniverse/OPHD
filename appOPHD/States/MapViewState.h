@@ -127,7 +127,7 @@ public:
 
 	bool hasGameEnded();
 
-	bool handleEvent() override {return false; };
+	bool handleEvent() override;
 
 protected:
 	void initialize() override;

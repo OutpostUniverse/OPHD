@@ -1433,3 +1433,19 @@ bool MapViewState::hasGameEnded()
 {
 	return mFade.isFaded() && mGameOver;
 }
+
+
+bool MapViewState::handleEvent()
+{
+	bool eventHandled = false;
+	for (auto eventBubblers : mChildEventBubblers)
+	{
+		if (eventBubblers->handleEvent())
+		{
+			eventHandled = true;
+			break;
+		}
+	}
+
+	return eventHandled;
+}
