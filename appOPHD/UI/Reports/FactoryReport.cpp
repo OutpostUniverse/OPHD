@@ -67,10 +67,10 @@ FactoryReport::FactoryReport() :
 	btnShowActive{"Active", viewFilterButtonSize, {this, &FactoryReport::onShowActive}},
 	btnShowIdle{"Idle", viewFilterButtonSize, {this, &FactoryReport::onShowIdle}},
 	btnShowDisabled{"Disabled", viewFilterButtonSize, {this, &FactoryReport::onShowDisabled}},
-	btnIdle{"Idle", {this, &FactoryReport::onIdle}},
-	btnClearProduction{"Clear Production", {this, &FactoryReport::onClearProduction}},
-	btnTakeMeThere{constants::TakeMeThere, {this, &FactoryReport::onTakeMeThere}},
-	btnApply{"Apply", {this, &FactoryReport::onApply}}
+	btnIdle{"Idle", mainButtonSize, {this, &FactoryReport::onIdle}},
+	btnClearProduction{"Clear Production", mainButtonSize, {this, &FactoryReport::onClearProduction}},
+	btnTakeMeThere{constants::TakeMeThere, mainButtonSize, {this, &FactoryReport::onTakeMeThere}},
+	btnApply{"Apply", mainButtonSize, {this, &FactoryReport::onApply}}
 {
 	add(lstFactoryList, {10, 63});
 	lstFactoryList.selectionChanged().connect({this, &FactoryReport::onListSelectionChange});
@@ -97,16 +97,12 @@ FactoryReport::FactoryReport() :
 	int position_x = Utility<Renderer>::get().size().x - 110;
 	add(btnIdle, {position_x, 35});
 	btnIdle.type(Button::Type::Toggle);
-	btnIdle.size(mainButtonSize);
 
 	add(btnClearProduction, {position_x, 75});
-	btnClearProduction.size(mainButtonSize);
 
 	add(btnTakeMeThere, {position_x, 115});
-	btnTakeMeThere.size(mainButtonSize);
 
 	add(btnApply, {0, 0});
-	btnApply.size(mainButtonSize);
 
 	add(cboFilterByProduct, {250, 33});
 	cboFilterByProduct.size({200, 20});
