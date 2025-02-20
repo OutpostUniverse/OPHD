@@ -60,12 +60,12 @@ FactoryReport::FactoryReport() :
 	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
 	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
 	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},
-	btnShowAll{"All", {this, &FactoryReport::onShowAll}},
-	btnShowSurface{"Surface", {this, &FactoryReport::onShowSurface}},
-	btnShowUnderground{"Underground", {this, &FactoryReport::onShowUnderground}},
-	btnShowActive{"Active", {this, &FactoryReport::onShowActive}},
-	btnShowIdle{"Idle", {this, &FactoryReport::onShowIdle}},
-	btnShowDisabled{"Disabled", {this, &FactoryReport::onShowDisabled}},
+	btnShowAll{"All", viewFilterButtonSize, {this, &FactoryReport::onShowAll}},
+	btnShowSurface{"Surface", viewFilterButtonSize, {this, &FactoryReport::onShowSurface}},
+	btnShowUnderground{"Underground", viewFilterButtonSize, {this, &FactoryReport::onShowUnderground}},
+	btnShowActive{"Active", viewFilterButtonSize, {this, &FactoryReport::onShowActive}},
+	btnShowIdle{"Idle", viewFilterButtonSize, {this, &FactoryReport::onShowIdle}},
+	btnShowDisabled{"Disabled", viewFilterButtonSize, {this, &FactoryReport::onShowDisabled}},
 	btnIdle{"Idle", {this, &FactoryReport::onIdle}},
 	btnClearProduction{"Clear Production", {this, &FactoryReport::onClearProduction}},
 	btnTakeMeThere{constants::TakeMeThere, {this, &FactoryReport::onTakeMeThere}},
@@ -75,28 +75,22 @@ FactoryReport::FactoryReport() :
 	lstFactoryList.selectionChanged().connect({this, &FactoryReport::onListSelectionChange});
 
 	add(btnShowAll, {10, 10});
-	btnShowAll.size(viewFilterButtonSize);
 	btnShowAll.type(Button::Type::Toggle);
 	btnShowAll.toggle(true);
 
 	add(btnShowSurface, {87, 10});
-	btnShowSurface.size(viewFilterButtonSize);
 	btnShowSurface.type(Button::Type::Toggle);
 
 	add(btnShowUnderground, {164, 10});
-	btnShowUnderground.size(viewFilterButtonSize);
 	btnShowUnderground.type(Button::Type::Toggle);
 
 	add(btnShowActive, {10, 33});
-	btnShowActive.size(viewFilterButtonSize);
 	btnShowActive.type(Button::Type::Toggle);
 
 	add(btnShowIdle, {87, 33});
-	btnShowIdle.size(viewFilterButtonSize);
 	btnShowIdle.type(Button::Type::Toggle);
 
 	add(btnShowDisabled, {164, 33});
-	btnShowDisabled.size(viewFilterButtonSize);
 	btnShowDisabled.type(Button::Type::Toggle);
 
 	int position_x = Utility<Renderer>::get().size().x - 110;
