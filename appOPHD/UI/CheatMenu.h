@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EventBubbler.h"
+
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 #include <libControls/TextField.h>
@@ -9,7 +11,7 @@
 
 #include <map>
 
-class CheatMenu : public Window
+class CheatMenu : public Window, public EventBubbler
 {
 public:
 	enum class CheatCode
@@ -49,4 +51,6 @@ private:
 	Button btnOkay;
 
 	TextField txtCheatCode;
+
+	void addChild(EventBubbler&) override { return; }
 };
