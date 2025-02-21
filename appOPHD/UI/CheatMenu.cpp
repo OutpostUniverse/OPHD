@@ -56,6 +56,8 @@ CheatMenu::CheatMenu() :
 	txtCheatCode.size({150, 20});
 	txtCheatCode.maxCharacters(50);
 	add(txtCheatCode, {40, 34});
+
+	addChild(&txtCheatCode);
 }
 
 
@@ -101,7 +103,6 @@ void CheatMenu::onKeyDown(Event& event)
 			{
 				hide();
 			}
-
 			event.stopPropagation = true;
 			event.eventHandled = true;
 			break;

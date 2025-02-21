@@ -60,9 +60,11 @@ public:
 	void update() override;
 	void draw() const override;
 
+	void handleEvent(Event& event) override;
+
 protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
-	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
+	virtual void onKeyDown(Event& event);
 	void onTextInput(const std::string& newTextInput);
 
 private:

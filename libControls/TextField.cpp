@@ -49,7 +49,6 @@ TextField::TextField() :
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
-	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
 	eventHandler.textInputMode(true);
@@ -62,7 +61,6 @@ TextField::~TextField()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &TextField::onMouseDown});
-	eventHandler.keyDown().disconnect({this, &TextField::onKeyDown});
 	eventHandler.textInput().disconnect({this, &TextField::onTextInput});
 }
 
@@ -148,11 +146,9 @@ void TextField::onTextInput(const std::string& newTextInput)
 }
 
 
-void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
+void TextField::onKeyDown(Event& event)
 {
-	if (!hasFocus() || !editable() || !visible()) { return; }
-
-	switch(key)
+	switch(event.keyCode)
 	{
 		// COMMAND KEYS
 		case NAS2D::KeyCode::Backspace:
@@ -193,12 +189,12 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 
 		// KEYPAD ARROWS
 		case NAS2D::KeyCode::Keypad4:
-			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(mod))
+			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(event.keyMod))
 				--mCursorPosition;
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
-			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
+			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(event.keyMod))
 				++mCursorPosition;
 			break;
 
@@ -323,4 +319,18 @@ void TextField::draw() const
 	drawCursor();
 
 	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+}
+
+
+void TextField::handleEvent(Event& event)
+{
+	if (!hasFocus() || !editable() || !visible()) 
+	{ 
+		return; 
+	}
+
+	if(event.type == Event::Type::KeyDown)
+	{
+		onKeyDown(event);
+	}
 }
