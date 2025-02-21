@@ -120,6 +120,7 @@ public:
 	const StorableResources& production() const { return mProductionPool; }
 
 	const PopulationRequirements& populationRequirements() const;
+	const PopulationRequirements& populationAvailable() const { return mPopulationAvailable; }
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
 
 	// ATTRIBUTES
