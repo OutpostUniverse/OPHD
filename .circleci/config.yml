@@ -20,15 +20,18 @@ commands:
 jobs:
   build-macos:
     macos:
-      xcode: "15.4.0"
+      xcode: "16.2.0"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
-      CPPFLAGS_EXTRA: "-isystem /opt/homebrew/include"
-      LDFLAGS_EXTRA: "-L/opt/homebrew/lib"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
       - brew-install
+      - run:
+          name: Add Brew include path to system include paths
+          command: |
+            echo "export CPLUS_INCLUDE_PATH=${CPLUS_INCLUDE_PATH}:$(brew --prefix)/include" >> "${BASH_ENV}"
+            echo "export LDFLAGS_EXTRA=-L$(brew --prefix)/lib" >> "${BASH_ENV}"
       - build
   build-linux-gcc:
     docker:
@@ -50,9 +53,10 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: outpostuniverse/nas2d-mingw:1.11
+      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.12
     environment:
-      LDFLAGS_EXTRA: -L/usr/local/x86_64-w64-mingw32/lib
+      WARN_EXTRA: "-Wno-redundant-decls -Wno-dangling-reference"
+      LDFLAGS_EXTRA: "-L/usr/local/x86_64-w64-mingw32/lib"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
