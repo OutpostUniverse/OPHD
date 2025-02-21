@@ -189,6 +189,7 @@
     <ClCompile Include="Map\MapView.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
+    <ClCompile Include="Map\MapControl.cpp" />
     <ClCompile Include="MapObjects\MapObject.cpp" />
     <ClCompile Include="MapObjects\Mine.cpp" />
     <ClCompile Include="MapObjects\Robot.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="Map\MapView.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
+    <ClInclude Include="Map\MapControl.h" />
     <ClInclude Include="MapObjects\MapObject.h" />
     <ClInclude Include="MapObjects\Mine.h" />
     <ClInclude Include="MapObjects\Robots\Robodigger.h" />
