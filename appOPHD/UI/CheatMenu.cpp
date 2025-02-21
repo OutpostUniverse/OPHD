@@ -2,6 +2,8 @@
 
 #include <libOPHD/XmlSerializer.h>
 
+#include <NAS2D/Utility.h>
+
 using namespace NAS2D;
 
 namespace
@@ -84,7 +86,7 @@ void CheatMenu::handleEvent(Event& event)
 	if(visible() && hasFocus())
 	{
 		if (event.type == Event::Type::KeyDown) { onKeyDown(event); }
-		if(event.eventHandled) { return; }
+		if (event.eventHandled) { return; }
 		dispatchEvent(event);
 	}
 }

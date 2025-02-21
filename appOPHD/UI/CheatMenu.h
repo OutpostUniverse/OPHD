@@ -44,6 +44,8 @@ public:
 
 	virtual void handleEvent(Event& event) override;
 
+	void onKeyDown(Event& event);
+
 private:
 	CheatSignal mSignal;
 
