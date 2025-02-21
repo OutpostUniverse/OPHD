@@ -155,6 +155,8 @@ void StructureInspector::structure(Structure* structure)
 
 	if (!mStructure) { return; }
 
+	title(mStructure->name());
+
 	auto stringTable = buildGenericStringTable();
 
 	auto windowWidth = stringTable.screenRect().size.x + 10;
@@ -199,7 +201,6 @@ void StructureInspector::update()
 	{
 		throw std::runtime_error("Null pointer to structure within StructureInspector");
 	}
-	title(mStructure->name());
 
 	const auto genericStructureAttributes = buildGenericStringTable();
 	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
