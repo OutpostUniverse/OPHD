@@ -186,8 +186,6 @@ void StructureInspector::update()
 	if (!visible()) { return; }
 	Window::update();
 
-	auto& renderer = Utility<Renderer>::get();
-
 	if (mStructure == nullptr)
 	{
 		throw std::runtime_error("Null pointer to structure within StructureInspector");
@@ -195,11 +193,12 @@ void StructureInspector::update()
 	title(mStructure->name());
 
 	const auto genericStructureAttributes = buildStringTable();
-	genericStructureAttributes.draw(renderer);
-
 	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
 	StringTable specificStructureAttributes = mStructure->createInspectorViewTable();
 	specificStructureAttributes.computeRelativeCellPositions();
 	specificStructureAttributes.position(specificAttributeTablePosition);
+
+	auto& renderer = Utility<Renderer>::get();
+	genericStructureAttributes.draw(renderer);
 	specificStructureAttributes.draw(renderer);
 }
