@@ -24,7 +24,7 @@ public:
 protected:
 	void onClose();
 
-	StringTable buildStringTable() const;
+	StringTable buildGenericStringTable() const;
 
 private:
 	Button btnClose;

@@ -155,7 +155,7 @@ void StructureInspector::structure(Structure* structure)
 
 	if (!mStructure) { return; }
 
-	auto stringTable = buildStringTable();
+	auto stringTable = buildGenericStringTable();
 
 	auto windowWidth = stringTable.screenRect().size.x + 10;
 	size({windowWidth < 350 ? 350 : windowWidth, rect().size.y});
@@ -170,7 +170,7 @@ void StructureInspector::onClose()
 }
 
 
-StringTable StructureInspector::buildStringTable() const
+StringTable StructureInspector::buildGenericStringTable() const
 {
 	auto stringTable = buildGenericStructureAttributesStringTable(*mStructure);
 	stringTable.position(mRect.position + NAS2D::Vector{5, 25});
@@ -192,7 +192,7 @@ void StructureInspector::update()
 	}
 	title(mStructure->name());
 
-	const auto genericStructureAttributes = buildStringTable();
+	const auto genericStructureAttributes = buildGenericStringTable();
 	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
 	StringTable specificStructureAttributes = mStructure->createInspectorViewTable();
 	specificStructureAttributes.computeRelativeCellPositions();
