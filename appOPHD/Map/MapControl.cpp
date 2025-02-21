@@ -23,6 +23,18 @@ MapControl::~MapControl()
 }
 
 
+void MapControl::handleEvent(Event& event)
+{
+	dispatchEvent(event);
+	if(event.eventHandled) { return; }
+
+	if(event.type == Event::Type::KeyDown)
+	{
+		onKeyDown(event);
+	}
+}
+
+
 void MapControl::onKeyDownEvent(NAS2D::KeyCode keyCode, NAS2D::KeyModifier keyMod, bool repeat)
 {
 	Event event;
@@ -30,4 +42,23 @@ void MapControl::onKeyDownEvent(NAS2D::KeyCode keyCode, NAS2D::KeyModifier keyMo
 	event.keyCode = keyCode;
 	event.keyMod = keyMod;
 	event.repeat = repeat;
+
+	handleEvent(event);
+}
+
+void MapControl::onKeyDown(Event& event)
+{
+	switch (event.keyCode)
+	{
+		case NAS2D::KeyCode::F10:
+			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(event.keyMod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(event.keyMod))
+			{
+				mCheatMenu.show();
+				mWindowStack.bringToFront(&mCheatMenu);
+			}
+			break;
+
+		default:
+			break;
+	}
 }

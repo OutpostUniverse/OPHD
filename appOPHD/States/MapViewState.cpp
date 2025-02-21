@@ -490,14 +490,6 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			changeViewDepth(mTileMap->maxDepth());
 			break;
 
-		case NAS2D::KeyCode::F10:
-			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(mod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(mod))
-			{
-				mCheatMenu.show();
-				mWindowStack.bringToFront(&mCheatMenu);
-			}
-			break;
-
 		case NAS2D::KeyCode::F2:
 			mFileIoDialog.showSave(constants::SaveGamePath);
 			break;
