@@ -181,6 +181,15 @@ StringTable StructureInspector::buildGenericStringTable() const
 }
 
 
+StringTable StructureInspector::buildSpecificStringTable(NAS2D::Point<int> position) const
+{
+	auto stringTable = mStructure->createInspectorViewTable();
+	stringTable.computeRelativeCellPositions();
+	stringTable.position(position);
+	return stringTable;
+}
+
+
 void StructureInspector::update()
 {
 	if (!visible()) { return; }
@@ -194,9 +203,7 @@ void StructureInspector::update()
 
 	const auto genericStructureAttributes = buildGenericStringTable();
 	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
-	StringTable specificStructureAttributes = mStructure->createInspectorViewTable();
-	specificStructureAttributes.computeRelativeCellPositions();
-	specificStructureAttributes.position(specificAttributeTablePosition);
+	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
 	auto& renderer = Utility<Renderer>::get();
 	genericStructureAttributes.draw(renderer);

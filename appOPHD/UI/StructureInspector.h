@@ -25,6 +25,7 @@ protected:
 	void onClose();
 
 	StringTable buildGenericStringTable() const;
+	StringTable buildSpecificStringTable(NAS2D::Point<int> position) const;
 
 private:
 	Button btnClose;
