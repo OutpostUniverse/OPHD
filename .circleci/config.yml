@@ -50,9 +50,10 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: outpostuniverse/nas2d-mingw:1.11
+      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.12
     environment:
-      LDFLAGS_EXTRA: -L/usr/local/x86_64-w64-mingw32/lib
+      WARN_EXTRA: "-Wno-redundant-decls -Wno-dangling-reference"
+      LDFLAGS_EXTRA: "-L/usr/local/x86_64-w64-mingw32/lib"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
