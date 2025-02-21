@@ -6,6 +6,7 @@
 #include "StructureTracker.h"
 
 #include "Planet.h"
+#include "../Map/MapControl.h"
 
 #include "../StorableResources.h"
 #include "../RobotPool.h"
@@ -79,6 +80,7 @@ class MapView;
 class DetailMap;
 class NavControl;
 class MainReportsUiState;
+class MapControl;
 
 
 enum class InsertMode
@@ -403,5 +405,7 @@ private:
 	std::unique_ptr<DetailMap> mDetailMap;
 	std::unique_ptr<NavControl> mNavControl;
 
+	MapControl mMapControl;
+	
 	NAS2D::Fade mFade;
 };

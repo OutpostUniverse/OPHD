@@ -190,7 +190,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool}
+	mRobotDeploymentSummary{mRobotPool},
+	mMapControl(mCheatMenu, mWindowStack)
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -215,7 +216,8 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mMapView)}
+	mNavControl{std::make_unique<NavControl>(*mMapView)},
+	mMapControl(mCheatMenu, mWindowStack)
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	ccLocation() = CcNotPlaced;
