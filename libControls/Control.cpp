@@ -155,6 +155,24 @@ Control::ResizeSignal::Source& Control::resized()
 }
 
 
+void Control::handleEvent(Event& Event)
+{
+	dispatchEvent(Event);
+	return;
+}
+
+
+void Control::dispatchEvent(Event& event)
+{
+	for(auto control : mChildren)
+	{
+		control->handleEvent(event);
+		if(event.stopPropagation) { return; }
+	}
+	return;
+}
+
+
 /**
  * Gets the rectangular area that the Control occupies.
  * 

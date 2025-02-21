@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Event.h"
+
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -81,6 +83,8 @@ public:
 
 	virtual void update() {}
 
+	virtual void handleEvent(Event& Event);
+
 protected:
 	/**
 	 * Called whenever the Control's position is changed.
@@ -106,6 +110,10 @@ protected:
 	bool mEnabled = true; /**< Flag indicating whether or not the Control is enabled. */
 	bool mHasFocus = false; /**< Flag indicating that the Control has input focus. */
 	bool mHighlight = false; /**< Flag indicating that this Control is highlighted. */
+
+	std::vector<Control*> mChildren; /**< List of child Controls. */
+	void addChild(Control* child) { mChildren.push_back(child); }
+	virtual void dispatchEvent(Event& event);
 
 private:
 	virtual void draw() const {}
