@@ -192,13 +192,8 @@ void StructureInspector::update()
 	genericStructureAttributes.draw(renderer);
 
 	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
-	drawStructureSpecificTable(specificAttributeTablePosition, renderer);
-}
-
-void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer)
-{
 	StringTable specificStructureAttributes = mStructure->createInspectorViewTable();
 	specificStructureAttributes.computeRelativeCellPositions();
-	specificStructureAttributes.position(position);
+	specificStructureAttributes.position(specificAttributeTablePosition);
 	specificStructureAttributes.draw(renderer);
 }
