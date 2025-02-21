@@ -4,6 +4,7 @@
 #include <libControls/Button.h>
 #include <libControls/TextField.h>
 #include <libControls/Label.h>
+#include <libControls/Event.h>
 
 #include <NAS2D/Signal/Signal.h>
 
@@ -40,6 +41,8 @@ public:
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 
 	CheatSignal::Source& cheatCodeEntered() { return mSignal; }
+
+	virtual void handleEvent(Event& event) override;
 
 private:
 	CheatSignal mSignal;

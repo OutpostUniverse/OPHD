@@ -79,6 +79,37 @@ CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 }
 
 
+void CheatMenu::handleEvent(Event& event)
+{
+	if(visible() && hasFocus())
+	{
+		if (event.type == Event::Type::KeyDown) { onKeyDown(event); }
+		if(event.eventHandled) { return; }
+		dispatchEvent(event);
+	}
+}
+
+
+void CheatMenu::onKeyDown(Event& event)
+{
+	switch(event.keyCode)
+	{
+		case NAS2D::KeyCode::F10:
+			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(event.keyMod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(event.keyMod))
+			{
+				hide();
+			}
+
+			event.stopPropagation = true;
+			event.eventHandled = true;
+			break;
+		
+		default:
+			break;
+	}
+}
+
+
 void CheatMenu::update()
 {
 	if (!visible()) { return; }
