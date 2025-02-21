@@ -23,7 +23,6 @@ public:
 
 protected:
 	void onClose();
-	std::string getDisabledReason() const;
 	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
 
 	StringTable buildStringTable() const;

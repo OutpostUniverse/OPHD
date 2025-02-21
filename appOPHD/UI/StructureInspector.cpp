@@ -56,6 +56,21 @@ namespace
 	}
 
 
+	std::string getDisabledReason(const Structure& structure)
+	{
+		if (structure.disabled())
+		{
+			return disabledReasonToString(structure.disabledReason());
+		}
+		else if (structure.isIdle())
+		{
+			return idleReasonToString(structure.idleReason());
+		}
+
+		return "";
+	}
+
+
 	std::string formatAge(const Structure& structure)
 	{
 		return structure.ages() ? std::to_string(structure.age()) + " of " + std::to_string(structure.maxAge()) : "N/A";
@@ -123,7 +138,7 @@ StringTable StructureInspector::buildStringTable() const
 	stringTable[{2, 1}].text = "State:";
 	stringTable[{3, 1}].text = mStructure->stateDescription(mStructure->state());
 
-	stringTable[{3, 2}].text = getDisabledReason();
+	stringTable[{3, 2}].text = getDisabledReason(*mStructure);
 
 	if (!mStructure->underConstruction() && !mStructure->destroyed())
 	{
@@ -185,18 +200,4 @@ void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, 
 	stringTable.computeRelativeCellPositions();
 	stringTable.position(position);
 	stringTable.draw(renderer);
-}
-
-std::string StructureInspector::getDisabledReason() const
-{
-	if (mStructure->disabled())
-	{
-		return disabledReasonToString(mStructure->disabledReason());
-	}
-	else if (mStructure->isIdle())
-	{
-		return idleReasonToString(mStructure->idleReason());
-	}
-
-	return "";
 }
