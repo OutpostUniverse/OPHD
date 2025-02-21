@@ -75,6 +75,65 @@ namespace
 	{
 		return structure.ages() ? std::to_string(structure.age()) + " of " + std::to_string(structure.maxAge()) : "N/A";
 	}
+
+
+	StringTable buildGenericStructureAttributesStringTable(const Structure& structure)
+	{
+		StringTable stringTable{4, 6};
+
+		stringTable[{0, 0}].text = "Type:";
+		stringTable[{1, 0}].text = structure.classDescription();
+
+		if (structure.underConstruction())
+		{
+			stringTable[{2, 0}].text = "Turns Remaining:";
+			stringTable[{3, 0}].text = std::to_string(structure.turnsToBuild() - structure.age());
+		}
+		else
+		{
+			stringTable[{2, 0}].text = "Age:";
+			stringTable[{3, 0}].text = formatAge(structure);
+		}
+
+		stringTable[{0, 1}].text = "Power Required:";
+		stringTable[{1, 1}].text = std::to_string(structure.energyRequirement());
+
+		stringTable[{2, 1}].text = "State:";
+		stringTable[{3, 1}].text = structure.stateDescription(structure.state());
+
+		stringTable[{3, 2}].text = getDisabledReason(structure);
+
+		if (!structure.underConstruction() && !structure.destroyed())
+		{
+			stringTable[{0, 2}].text = "Integrity:";
+			stringTable[{1, 2}].text = std::to_string(structure.integrity());
+		}
+
+		const auto& populationAvailable = structure.populationAvailable();
+		const auto& populationRequirements = structure.populationRequirements();
+
+		if (populationRequirements.workers > 0)
+		{
+			stringTable[{0, 3}].text = "Workers:";
+			stringTable[{1, 3}].text = std::to_string(populationAvailable.workers) + " / " + std::to_string(populationRequirements.workers);
+			stringTable[{1, 3}].textColor = populationAvailable.workers >= populationRequirements.workers ? Color::White : Color::Red;
+		}
+
+		if (populationRequirements.scientists > 0)
+		{
+			stringTable[{0, 4}].text = "Scientists:";
+			stringTable[{1, 4}].text = std::to_string(populationAvailable.scientists) + " / " + std::to_string(populationRequirements.scientists);
+			stringTable[{1, 4}].textColor = populationAvailable.scientists >= populationRequirements.scientists ? Color::White : Color::Red;
+		}
+
+		if (structure.hasCrime())
+		{
+			stringTable[{0, 5}].text = "Crime Rate:";
+			stringTable[{1, 5}].text = std::to_string(structure.crimeRate()) + "%";
+		}
+
+		return stringTable;
+	}
 }
 
 
@@ -113,64 +172,11 @@ void StructureInspector::onClose()
 
 StringTable StructureInspector::buildStringTable() const
 {
-	StringTable stringTable(4, 6);
+	auto stringTable = buildGenericStructureAttributesStringTable(*mStructure);
 	stringTable.position(mRect.position + NAS2D::Vector{5, 25});
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
-
-	stringTable[{0, 0}].text = "Type:";
-	stringTable[{1, 0}].text = mStructure->classDescription();
-
-	if (mStructure->underConstruction())
-	{
-		stringTable[{2, 0}].text = "Turns Remaining:";
-		stringTable[{3, 0}].text = std::to_string(mStructure->turnsToBuild() - mStructure->age());
-	}
-	else
-	{
-		stringTable[{2, 0}].text = "Age:";
-		stringTable[{3, 0}].text = formatAge(*mStructure);
-	}
-
-	stringTable[{0, 1}].text = "Power Required:";
-	stringTable[{1, 1}].text = std::to_string(mStructure->energyRequirement());
-
-	stringTable[{2, 1}].text = "State:";
-	stringTable[{3, 1}].text = mStructure->stateDescription(mStructure->state());
-
-	stringTable[{3, 2}].text = getDisabledReason(*mStructure);
-
-	if (!mStructure->underConstruction() && !mStructure->destroyed())
-	{
-		stringTable[{0, 2}].text = "Integrity:";
-		stringTable[{1, 2}].text = std::to_string(mStructure->integrity());
-	}
-
-	const auto& populationAvailable = mStructure->populationAvailable();
-	const auto& populationRequirements = mStructure->populationRequirements();
-
-	if (populationRequirements.workers > 0)
-	{
-		stringTable[{0, 3}].text = "Workers:";
-		stringTable[{1, 3}].text = std::to_string(populationAvailable.workers) + " / " + std::to_string(populationRequirements.workers);
-		stringTable[{1, 3}].textColor = populationAvailable.workers >= populationRequirements.workers ? Color::White : Color::Red;
-	}
-
-	if (populationRequirements.scientists > 0)
-	{
-		stringTable[{0, 4}].text = "Scientists:";
-		stringTable[{1, 4}].text = std::to_string(populationAvailable.scientists) + " / " + std::to_string(populationRequirements.scientists);
-		stringTable[{1, 4}].textColor = populationAvailable.scientists >= populationRequirements.scientists ? Color::White : Color::Red;
-	}
-
-	if (mStructure->hasCrime())
-	{
-		stringTable[{0, 5}].text = "Crime Rate:";
-		stringTable[{1, 5}].text = std::to_string(mStructure->crimeRate()) + "%";
-	}
-
 	stringTable.computeRelativeCellPositions();
-
 	return stringTable;
 }
 
