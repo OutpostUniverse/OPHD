@@ -188,16 +188,16 @@ void StructureInspector::update()
 	}
 	title(mStructure->name());
 
-	auto stringTable = buildStringTable();
-	stringTable.draw(renderer);
+	auto genericStructureAttributes = buildStringTable();
+	genericStructureAttributes.draw(renderer);
 
-	drawStructureSpecificTable({stringTable.position().x, stringTable.screenRect().endPoint().y + 25}, renderer);
+	drawStructureSpecificTable({genericStructureAttributes.position().x, genericStructureAttributes.screenRect().endPoint().y + 25}, renderer);
 }
 
 void StructureInspector::drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer)
 {
-	StringTable stringTable = mStructure->createInspectorViewTable();
-	stringTable.computeRelativeCellPositions();
-	stringTable.position(position);
-	stringTable.draw(renderer);
+	StringTable specificStructureAttributes = mStructure->createInspectorViewTable();
+	specificStructureAttributes.computeRelativeCellPositions();
+	specificStructureAttributes.position(position);
+	specificStructureAttributes.draw(renderer);
 }
