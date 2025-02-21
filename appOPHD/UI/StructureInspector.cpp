@@ -58,10 +58,7 @@ namespace
 
 	std::string formatAge(const Structure& structure)
 	{
-		if (structure.ages()) {
-			return std::to_string(structure.age()) + " of " + std::to_string(structure.maxAge());
-		}
-		return "N/A";
+		return structure.ages() ? std::to_string(structure.age()) + " of " + std::to_string(structure.maxAge()) : "N/A";
 	}
 }
 
