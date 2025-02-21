@@ -21,7 +21,7 @@ public:
 
 	void update() override;
 
-private:
+protected:
 	void onClose();
 	std::string getDisabledReason() const;
 	void drawStructureSpecificTable(NAS2D::Point<int> position, NAS2D::Renderer& renderer);
@@ -29,6 +29,7 @@ private:
 
 	StringTable buildStringTable() const;
 
+private:
 	Button btnClose;
 	const NAS2D::Image& mIcons;
 	Structure* mStructure = nullptr;
