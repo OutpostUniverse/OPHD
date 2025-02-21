@@ -23,12 +23,15 @@ jobs:
       xcode: "15.4.0"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
-      CPPFLAGS_EXTRA: "-isystem /opt/homebrew/include"
-      LDFLAGS_EXTRA: "-L/opt/homebrew/lib"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
       - brew-install
+      - run:
+          name: Add Brew include path to system include paths
+          command: |
+            echo "export CPLUS_INCLUDE_PATH=${CPLUS_INCLUDE_PATH}:$(brew --prefix)/include" >> "${BASH_ENV}"
+            echo "export LDFLAGS_EXTRA=-L$(brew --prefix)/lib" >> "${BASH_ENV}"
       - build
   build-linux-gcc:
     docker:
