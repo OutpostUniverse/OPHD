@@ -194,7 +194,7 @@ void StructureInspector::update()
 	}
 	title(mStructure->name());
 
-	auto genericStructureAttributes = buildStringTable();
+	const auto genericStructureAttributes = buildStringTable();
 	genericStructureAttributes.draw(renderer);
 
 	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
