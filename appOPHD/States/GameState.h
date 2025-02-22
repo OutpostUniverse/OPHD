@@ -7,6 +7,7 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Fade.h>
 
+#include <string>
 #include <memory>
 
 
@@ -20,6 +21,7 @@ class GameState : public NAS2D::State
 {
 public:
 	GameState();
+	GameState(const std::string& savedGameFilename);
 	~GameState() override;
 
 	void mapviewstate(MapViewState*);

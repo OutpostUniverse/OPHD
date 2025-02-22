@@ -194,12 +194,7 @@ int main(int argc, char *argv[])
 
 			Utility<Mixer>::get().stopMusic();
 
-			GameState* gameState = new GameState();
-			MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
-			mapview->_initialize();
-			mapview->activate();
-
-			gameState->mapviewstate(mapview);
+			GameState* gameState = new GameState(filename);
 			stateManager.setState(gameState);
 		}
 		else if (!options.get<bool>("skip-splash"))

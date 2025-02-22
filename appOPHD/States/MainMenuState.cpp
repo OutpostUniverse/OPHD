@@ -137,12 +137,7 @@ void MainMenuState::onLoadGame(const std::string& filePath)
 	{
 		checkSavegameVersion(filename);
 
-		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
-		mapview->_initialize();
-		mapview->activate();
-
-		gameState->mapviewstate(mapview);
+		GameState* gameState = new GameState(filename);
 		mReturnState = gameState;
 
 		mFade.fadeOut(constants::FadeSpeed);

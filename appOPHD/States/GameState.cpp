@@ -28,7 +28,15 @@ GameState::GameState():
 	{
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
+}
 
+
+GameState::GameState(const std::string& savedGameFilename) : GameState()
+{
+	auto* mapView = new MapViewState(*mMainReportsState.get(), savedGameFilename);
+	mapView->_initialize();
+	mapView->activate();
+	mapviewstate(mapView);
 }
 
 
