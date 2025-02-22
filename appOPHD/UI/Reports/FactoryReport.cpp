@@ -94,13 +94,13 @@ FactoryReport::FactoryReport() :
 	add(btnShowDisabled, {164, 33});
 	btnShowDisabled.type(Button::Type::Toggle);
 
-	int position_x = Utility<Renderer>::get().size().x - 110;
-	add(btnIdle, {position_x, 35});
+	int positionX = Utility<Renderer>::get().size().x - 110;
+	add(btnIdle, {positionX, 35});
 	btnIdle.type(Button::Type::Toggle);
 
-	add(btnClearProduction, {position_x, 75});
+	add(btnClearProduction, {positionX, 75});
 
-	add(btnTakeMeThere, {position_x, 115});
+	add(btnTakeMeThere, {positionX, 115});
 
 	add(btnApply, {0, 0});
 
