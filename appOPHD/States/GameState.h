@@ -29,7 +29,6 @@ public:
 	~GameState() override;
 
 	void mapviewstate(MapViewState*);
-	MainReportsUiState& getMainReportsState();
 
 	void initialize() override;
 	State* update() override;

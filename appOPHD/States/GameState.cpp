@@ -94,12 +94,6 @@ void GameState::mapviewstate(MapViewState* state)
 }
 
 
-MainReportsUiState& GameState::getMainReportsState()
-{
-	return *mMainReportsState;
-}
-
-
 void GameState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	MOUSE_COORDS = position;
