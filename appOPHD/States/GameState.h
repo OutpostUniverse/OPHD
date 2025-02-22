@@ -43,10 +43,10 @@ private:
 	void onTakeMeThere(const Structure*);
 
 private:
-	NAS2D::State* mReturnState = this;
+	std::unique_ptr<MainReportsUiState> mMainReportsState;
 	std::unique_ptr<MapViewState> mMapView;
 	std::unique_ptr<MapViewState> mNewMapView;
 	Wrapper* mActiveState = nullptr;
-	std::unique_ptr<MainReportsUiState> mMainReportsState;
+	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
 };
