@@ -82,11 +82,6 @@ public:
 	virtual void update() {}
 
 protected:
-	/**
-	 * Called whenever the Control's position is changed.
-	 *
-	 * \param	displacement	Difference in position.
-	 */
 	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
 
 	virtual void onResize() { mOnResizeSignal(this); }
