@@ -18,10 +18,6 @@
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
 
 
-// Explicit constructor needed in implementation file
-// If a default constructor was used instead, construction would happen in importing translation unit
-// The header uses forward declares for some types, so only incomplete types are available to importing code
-// Complete types are needed to construct the std::unique_ptr members
 GameState::GameState():
 	mMainReportsState{std::make_unique<MainReportsUiState>()}
 {
