@@ -134,25 +134,6 @@ void Control::height(int h)
 
 
 /**
- * Sets the focus of the Control.
- */
-void Control::hasFocus(bool focus)
-{
-	mHasFocus = focus;
-	onFocusChange();
-}
-
-
-/**
- * Gets whether the Control is in focus or not.
- */
-bool Control::hasFocus() const
-{
-	return mHasFocus;
-}
-
-
-/**
  * Sets highlighting of the Control.
  *
  * \param	highlight		True highlights the Control. False turns off highlighting.
@@ -217,4 +198,23 @@ void Control::visible(bool visible)
 bool Control::visible() const
 {
 	return mVisible;
+}
+
+
+/**
+ * Sets the focus of the Control.
+ */
+void Control::hasFocus(bool focus)
+{
+	mHasFocus = focus;
+	onFocusChange();
+}
+
+
+/**
+ * Gets whether the Control is in focus or not.
+ */
+bool Control::hasFocus() const
+{
+	return mHasFocus;
 }
