@@ -264,9 +264,9 @@ void FactoryReport::onResize()
 	};
 
 	int position_x = mRect.size.x - 150;
-	btnIdle.position({position_x, btnIdle.positionY()});
-	btnClearProduction.position({position_x, btnClearProduction.positionY()});
-	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});
+	btnIdle.position({position_x, btnIdle.position().y});
+	btnClearProduction.position({position_x, btnClearProduction.position().y});
+	btnTakeMeThere.position({position_x, btnTakeMeThere.position().y});
 
 	btnApply.position({position_x, mRect.size.y + 8});
 
@@ -274,7 +274,7 @@ void FactoryReport::onResize()
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
 	mTxtProductDescription.position(lstProducts.area().crossXPoint() + NAS2D::Vector{158, 0});
-	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.positionX() - 30);
+	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 30);
 }
 
 
@@ -489,7 +489,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
 		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
-		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
+		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.position().y});
 		mTxtProductDescription.update();
 	}
 

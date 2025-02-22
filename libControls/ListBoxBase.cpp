@@ -197,7 +197,7 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 		return;
 	}
 
-	mHighlightIndex = (static_cast<unsigned int>(position.y - positionY()) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
+	mHighlightIndex = (static_cast<unsigned int>(position.y - this->position().y) + mScrollOffsetInPixels) / static_cast<unsigned int>(mItemHeight);
 
 	if (mHighlightIndex >= count())
 	{
@@ -315,8 +315,8 @@ void ListBoxBase::draw() const
 	renderer.clipRect(mRect);
 
 	// MOUSE HIGHLIGHT
-	int highlight_y = positionY() + (static_cast<int>(mHighlightIndex) * mItemHeight) - static_cast<int>(mScrollOffsetInPixels);
-	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{positionX(), highlight_y}, {mItemWidth, mItemHeight}}, NAS2D::Color{0, 185, 0, 50});
+	const auto highlightPosition = position() + NAS2D::Vector{0, static_cast<int>(mHighlightIndex) * mItemHeight - static_cast<int>(mScrollOffsetInPixels)};
+	renderer.drawBoxFilled(NAS2D::Rectangle<int>{highlightPosition, {mItemWidth, mItemHeight}}, NAS2D::Color{0, 185, 0, 50});
 
 	renderer.clipRectClear();
 }

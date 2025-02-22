@@ -121,7 +121,7 @@ void PopulationPanel::update()
 		renderer.drawText(mFont, personRole + ": ", position + textOffset);
 
 		const auto personCountString = std::to_string(personCount);
-		const NAS2D::Point<int> labelPosition = {positionX() + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y + textOffset.y};
+		const NAS2D::Point<int> labelPosition = {this->position().x + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y + textOffset.y};
 		renderer.drawText(mFont, personCountString, labelPosition);
 
 		position.y += IconSize + constants::Margin;
@@ -141,7 +141,7 @@ void PopulationPanel::update()
 		const auto personCountString = std::to_string(personCount);
 		const Color statusColor = personCount <= 0 ? Color::Red : Color::White;
 		renderer.drawText(mFont, statisticLabel, position, Color::White);
-		const NAS2D::Point<int> labelPosition = {positionX() + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y};
+		const NAS2D::Point<int> labelPosition = {this->position().x + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y};
 		renderer.drawText(mFont, personCountString, labelPosition, statusColor);
 		position.y += fontBoldHeight + constants::Margin;
 	}
