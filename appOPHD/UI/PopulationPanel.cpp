@@ -97,7 +97,7 @@ void PopulationPanel::update()
 	const int fontHeight = mFont.height();
 	const int fontBoldHeight = mFontBold.height();
 
-	auto position = NAS2D::Point{positionX() + constants::Margin, positionY() + constants::Margin};
+	auto position = this->position() + NAS2D::Vector{constants::Margin, constants::Margin};
 
 	// POPULATION Statistics
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
@@ -147,7 +147,7 @@ void PopulationPanel::update()
 	}
 
 	// DIVIDER LINE Between population statistics and morale statistics
-	position = NAS2D::Point{positionX() + mPopulationPanelWidth, positionY() + constants::Margin};
+	position = this->position() + NAS2D::Vector{mPopulationPanelWidth, constants::Margin};
 	renderer.drawLine(position, position + NAS2D::Vector<int>{0, area().size.y - 10}, Color::DarkGray);
 
 	// MORALE

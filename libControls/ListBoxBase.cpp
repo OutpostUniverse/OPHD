@@ -254,7 +254,7 @@ NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
 
 NAS2D::Point<int> ListBoxBase::itemDrawPosition(std::size_t index) const
 {
-	return {positionX(), positionY() + static_cast<int>(index * itemHeight() - drawOffset())};
+	return position() + NAS2D::Vector{0, static_cast<int>(index * itemHeight() - drawOffset())};
 }
 
 
