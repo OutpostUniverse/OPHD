@@ -41,9 +41,6 @@ public:
 	NAS2D::Point<int> position() const { return mRect.position; }
 	void position(NAS2D::Point<int> pos);
 
-	int positionX() const;
-	int positionY() const;
-
 	void highlight(bool highlight);
 	bool highlight() const;
 

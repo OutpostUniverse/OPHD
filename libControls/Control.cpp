@@ -96,24 +96,6 @@ void Control::position(NAS2D::Point<int> pos)
 }
 
 
-/**
- * Gets the X Position of the Control.
- */
-int Control::positionX() const
-{
-	return mRect.position.x;
-}
-
-
-/**
- * Gets the Y Position of the Control.
- */
-int Control::positionY() const
-{
-	return mRect.position.y;
-}
-
-
 void Control::size(NAS2D::Vector<int> newSize)
 {
 	mRect.size = newSize;
