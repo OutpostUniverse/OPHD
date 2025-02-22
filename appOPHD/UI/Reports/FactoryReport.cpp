@@ -94,7 +94,7 @@ FactoryReport::FactoryReport() :
 	add(btnShowDisabled, {164, 33});
 	btnShowDisabled.type(Button::Type::Toggle);
 
-	int positionX = Utility<Renderer>::get().size().x - 110;
+	const auto positionX = Utility<Renderer>::get().size().x - 110;
 	add(btnIdle, {positionX, 35});
 	btnIdle.type(Button::Type::Toggle);
 
