@@ -116,7 +116,7 @@ void UIContainer::update()
 		/*
 		if (control->hasFocus())
 		{
-			NAS2D::Utility<NAS2D::Renderer>::get().drawBox(control->area(), 255, 0, 255);
+			NAS2D::Utility<NAS2D::Renderer>::get().drawBox(control->area(), {255, 0, 255});
 		}
 		*/
 	}
