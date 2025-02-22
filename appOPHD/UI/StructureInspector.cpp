@@ -162,7 +162,7 @@ void StructureInspector::structure(Structure* structure)
 	auto windowWidth = stringTable.screenRect().size.x + 10;
 	size({windowWidth < 350 ? 350 : windowWidth, rect().size.y});
 
-	btnClose.position({positionX() + rect().size.x - 55, btnClose.positionY()});
+	btnClose.position(rect().endPoint() - btnClose.size() - NAS2D::Vector{5, 5});
 }
 
 
