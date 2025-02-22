@@ -142,7 +142,7 @@ void ResearchReport::refresh()
 	setSectionRects();
 	setIconPositions();
 
-	mCategoryHeaderTextPosition = {rect().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
+	mCategoryHeaderTextPosition = {area().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
 
 	lstResearchTopics.area(mResearchTopicArea);
 
@@ -176,7 +176,7 @@ void ResearchReport::onResize()
 void ResearchReport::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!visible() ||
-		!rect().contains(position) ||
+		!area().contains(position) ||
 		button != NAS2D::MouseButton::Left)
 	{
 		return;
@@ -220,7 +220,7 @@ void ResearchReport::setIconPositions()
 	const auto startPoint{mTopicDetailsHeaderArea.startPoint()};
 
 	mHotLabIconPosition = {startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
-	mStdLabIconPosition = {startPoint + Vector<int>{(rect().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
+	mStdLabIconPosition = {startPoint + Vector<int>{(area().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
 	mStdLabTextPosition = {mStdLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 	mHotLabTextPosition = {mHotLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 }
@@ -240,22 +240,22 @@ void ResearchReport::setSectionRects()
 	mResearchTopicArea =
 	{
 		{
-			rect().position.x + MarginSize * 3 + CategoryIconSize.x,
-			rect().position.y + fontBigBold.height() + MarginSize * 3
+			area().position.x + MarginSize * 3 + CategoryIconSize.x,
+			area().position.y + fontBigBold.height() + MarginSize * 3
 		},
 
 		{
-			((rect().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize.x,
-			rect().size.y - MarginSize * 4 - fontBigBold.height()
+			((area().size.x / 3) * 2) - (MarginSize * 4) - CategoryIconSize.x,
+			area().size.y - MarginSize * 4 - fontBigBold.height()
 		}
 	};
 
 	
 	mTopicDetailsHeaderArea =
 	{
-		rect().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
+		area().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
 		{
-			rect().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
+			area().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
 			100
 		}
 	};
@@ -272,7 +272,7 @@ void ResearchReport::setSectionRects()
 		topicDetailStart,
 		{
 			mTopicDetailsHeaderArea.size.x,
-			rect().size.y - topicDetailStart.y + SectionPadding.x * 4
+			area().size.y - topicDetailStart.y + SectionPadding.x * 4
 		}
 	};
 }
@@ -281,14 +281,14 @@ void ResearchReport::setSectionRects()
 void ResearchReport::adjustCategoryIconSpacing()
 {
 	const int minimumHeight = CategoryIconSize.x * (static_cast<int>(mCategoryPanels.size()));
-	const int padding = ((rect().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
+	const int padding = ((area().size.y - 20) - minimumHeight) / static_cast<int>(mCategoryPanels.size() - 1);
 
 	for (size_t i = 0; i < mCategoryPanels.size(); ++i)
 	{
 		const NAS2D::Point<int> point
 		{
-			rect().position.x + MarginSize,
-			rect().position.y + MarginSize + static_cast<int>(i) * CategoryIconSize.y + static_cast<int>(i) * padding
+			area().position.x + MarginSize,
+			area().position.y + MarginSize + static_cast<int>(i) * CategoryIconSize.y + static_cast<int>(i) * padding
 		};
 		
 		mCategoryPanels[i].rect = {point, CategoryIconSize};
@@ -396,8 +396,8 @@ void ResearchReport::drawVerticalSectionSpacer(const int startX) const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	const Point<int> start{startX, rect().position.y + SectionPadding.y};
-	const Point<int> end{startX, rect().position.y + rect().size.y - SectionPadding.y};
+	const Point<int> start{startX, area().position.y + SectionPadding.y};
+	const Point<int> end{startX, area().position.y + area().size.y - SectionPadding.y};
 	renderer.drawLine(start, end, constants::PrimaryColor);
 }
 
@@ -438,7 +438,7 @@ void ResearchReport::draw() const
 	drawCategories();
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
 	drawCategoryHeader();
-	drawVerticalSectionSpacer((rect().size.x / 3) * 2);
+	drawVerticalSectionSpacer((area().size.x / 3) * 2);
 	drawTopicHeaderPanel();
 	drawTopicDetailsPanel();
 }

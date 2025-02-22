@@ -148,9 +148,9 @@ void MineReport::onResize()
 {
 	Control::onResize();
 
-	lstMineFacilities.size({rect().center().x - 20, rect().size.y - 51});
+	lstMineFacilities.size({area().center().x - 20, area().size.y - 51});
 
-	int position_x = rect().size.x - 150;
+	int position_x = area().size.x - 150;
 	btnIdle.position({position_x, btnIdle.positionY()});
 	btnDigNewLevel.position({position_x, btnDigNewLevel.positionY()});
 	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});
@@ -525,9 +525,9 @@ void MineReport::update()
 
 	auto& r = Utility<Renderer>::get();
 
-	const auto startPoint = NAS2D::Point{rect().center().x , rect().position.y + 10};
+	const auto startPoint = NAS2D::Point{area().center().x , area().position.y + 10};
 
-	r.drawLine(startPoint, startPoint + NAS2D::Vector{0, rect().size.y - 20}, constants::PrimaryTextColor);
+	r.drawLine(startPoint, startPoint + NAS2D::Vector{0, area().size.y - 20}, constants::PrimaryTextColor);
 
 	if (mSelectedFacility)
 	{

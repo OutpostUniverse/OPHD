@@ -106,6 +106,6 @@ void RobotInspector::update()
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
 
-	const auto labelPosition = rect().position + Vector{mContentRect.position.x, mContentRect.position.y};
+	const auto labelPosition = area().position + Vector{mContentRect.position.x, mContentRect.position.y};
 	drawLabelAndValueRightJustify(labelPosition, mContentRect.size.x, "Age", std::to_string(mRobot->fuelCellAge()));
 }

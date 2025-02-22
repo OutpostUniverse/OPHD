@@ -253,7 +253,7 @@ NAS2D::State* MainMenuState::update()
 	if (!mFileIoDialog.visible())
 	{
 		const auto padding = NAS2D::Vector{5, 5};
-		const auto menuRect = NAS2D::Rectangle<int>::Create(buttons.front().rect().position - padding, buttons.back().rect().endPoint() + padding);
+		const auto menuRect = NAS2D::Rectangle<int>::Create(buttons.front().area().position - padding, buttons.back().area().endPoint() + padding);
 		renderer.drawBoxFilled(menuRect, NAS2D::Color{0, 0, 0, 150});
 		renderer.drawBox(menuRect, constants::PrimaryColor);
 

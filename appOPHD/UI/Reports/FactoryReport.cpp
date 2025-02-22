@@ -119,7 +119,7 @@ FactoryReport::FactoryReport() :
 
 	cboFilterByProduct.selectionChanged().connect({this, &FactoryReport::onProductFilterSelectionChange});
 
-	add(lstProducts, {cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x + 20, mRect.position.y + 230});
+	add(lstProducts, {cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x + 20, mRect.position.y + 230});
 
 	mTxtProductDescription.height(128);
 	mTxtProductDescription.textColor(constants::PrimaryTextColor);
@@ -254,13 +254,13 @@ void FactoryReport::onResize()
 {
 	Control::onResize();
 
-	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
+	const auto comboEndPoint = cboFilterByProduct.area().endPoint();
 
 	lstFactoryList.size({comboEndPoint.x - 10, mRect.size.y - 74});
 
 	detailPanelRect = {
-		{ comboEndPoint.x + 20, rect().position.y + 10},
-		{rect().size.x - comboEndPoint.x - 30, rect().position.y + mRect.size.y - 69}
+		{ comboEndPoint.x + 20, area().position.y + 10},
+		{area().size.x - comboEndPoint.x - 30, area().position.y + mRect.size.y - 69}
 	};
 
 	int position_x = mRect.size.x - 150;
@@ -273,7 +273,7 @@ void FactoryReport::onResize()
 	lstProducts.size({detailPanelRect.size.x / 3, detailPanelRect.size.y - 219});
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
-	mTxtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
+	mTxtProductDescription.position(lstProducts.area().crossXPoint() + NAS2D::Vector{158, 0});
 	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.positionX() - 30);
 }
 
@@ -518,7 +518,7 @@ void FactoryReport::update()
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto positionX = cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x;
+	const auto positionX = cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);
 	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + 10}, constants::PrimaryTextColor);
 

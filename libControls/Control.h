@@ -35,8 +35,7 @@ public:
 	Control(Control&&) = default;
 	virtual ~Control() = default;
 
-	const NAS2D::Rectangle<int>& rect() const;
-	const NAS2D::Rectangle<int>& area() const { return mRect; }
+	const NAS2D::Rectangle<int>& area() const;
 	void area(const NAS2D::Rectangle<int>& area);
 
 	NAS2D::Point<int> position() const { return mRect.position; }

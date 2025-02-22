@@ -193,7 +193,7 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 	if (!visible()) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	if (selectedWarehouse && lstStructures.rect().contains(position))
+	if (selectedWarehouse && lstStructures.area().contains(position))
 	{
 		mTakeMeThereSignal(selectedWarehouse);
 	}

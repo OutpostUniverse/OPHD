@@ -68,7 +68,7 @@ const NAS2D::Image& Control::getImage(const std::string& filename)
  *
  * \return	A const reference to a Rectangle<int> object.
  */
-const NAS2D::Rectangle<int>& Control::rect() const
+const NAS2D::Rectangle<int>& Control::area() const
 {
 	return mRect;
 }
