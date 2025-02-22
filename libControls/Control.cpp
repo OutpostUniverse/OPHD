@@ -74,7 +74,7 @@ void Control::area(const NAS2D::Rectangle<int>& newRect)
 
 /**
  * Sets the position of the Control.
- * 
+ *
  * \param pos	2D Coordinate to position the Control at.
  */
 void Control::position(NAS2D::Point<int> pos)
@@ -118,7 +118,7 @@ void Control::size(int newSize)
 
 /**
  * Sets the width of the Control.
- * 
+ *
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
@@ -130,7 +130,7 @@ void Control::width(int w)
 
 /**
  * Sets the height of the Control.
- * 
+ *
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
@@ -142,7 +142,7 @@ void Control::height(int h)
 
 /**
  * Gets the rectangular area that the Control occupies.
- * 
+ *
  * \return	A const reference to a Rectangle<int> object.
  */
 const NAS2D::Rectangle<int>& Control::rect() const
@@ -172,9 +172,9 @@ bool Control::hasFocus() const
 
 /**
  * Sets highlighting of the Control.
- * 
+ *
  * \param	highlight		True highlights the Control. False turns off highlighting.
- * 
+ *
  * \note	Some controls may ignore this setting.
  */
 void Control::highlight(bool highlight)
@@ -194,9 +194,9 @@ bool Control::highlight() const
 
 /**
  * Enables/Disabled the Control.
- * 
+ *
  * \param	enabled		True enables the Control. False disables the Control.
- * 
+ *
  * \note	Some controls may ignore this setting.
  */
 void Control::enabled(bool enabled)
@@ -217,9 +217,9 @@ bool Control::enabled() const
 
 /**
  * Sets vibility of the Control.
- * 
+ *
  * \param	visible	True sets Control to visible. False hides the Control.
- * 
+ *
  * \note	Some controls may ignore this setting.
  */
 void Control::visible(bool visible)
