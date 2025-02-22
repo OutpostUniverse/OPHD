@@ -45,8 +45,8 @@ public:
 	void size(NAS2D::Vector<int> newSize);
 	void size(int newSize);
 
-	void width(int w);
-	void height(int h);
+	void width(int newWidth);
+	void height(int newHeight);
 
 	void highlight(bool highlight);
 	bool highlight() const;

@@ -115,9 +115,9 @@ void Control::size(int newSize)
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
-void Control::width(int w)
+void Control::width(int newWidth)
 {
-	size({w, size().y});
+	size({newWidth, size().y});
 }
 
 
@@ -127,9 +127,9 @@ void Control::width(int w)
  * \note	This is an internal function and may not be
  *			called outside of the Control class.
  */
-void Control::height(int h)
+void Control::height(int newHeight)
 {
-	size({size().x, h});
+	size({size().x, newHeight});
 }
 
 
