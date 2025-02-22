@@ -57,8 +57,8 @@ public:
 	void visible(bool visible);
 	bool visible() const;
 
-	virtual void hide() { visible(false); }
-	virtual void show() { visible(true); }
+	virtual void hide();
+	virtual void show();
 
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;

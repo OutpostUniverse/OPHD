@@ -201,6 +201,18 @@ bool Control::visible() const
 }
 
 
+void Control::hide()
+{
+	visible(false);
+}
+
+
+void Control::show()
+{
+	visible(true);
+}
+
+
 /**
  * Sets the focus of the Control.
  */
