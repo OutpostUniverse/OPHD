@@ -140,12 +140,10 @@ namespace
 
 StructureInspector::StructureInspector() :
 	Window{constants::WindowStructureInspector},
-	btnClose{"Close", {this, &StructureInspector::onClose}},
+	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
 	size({350, 250});
-
-	btnClose.size({50, 20});
 	add(btnClose, rect().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
