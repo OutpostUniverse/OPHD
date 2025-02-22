@@ -41,6 +41,13 @@ public:
 	NAS2D::Point<int> position() const { return mRect.position; }
 	void position(NAS2D::Point<int> pos);
 
+	NAS2D::Vector<int> size() const { return mRect.size; }
+	void size(NAS2D::Vector<int> newSize);
+	void size(int newSize);
+
+	void width(int w);
+	void height(int h);
+
 	void highlight(bool highlight);
 	bool highlight() const;
 
@@ -55,13 +62,6 @@ public:
 
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
-
-	NAS2D::Vector<int> size() const { return mRect.size; }
-	void size(NAS2D::Vector<int> newSize);
-	void size(int newSize);
-
-	void width(int w);
-	void height(int h);
 
 	virtual void update() {}
 
