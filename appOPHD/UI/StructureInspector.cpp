@@ -145,7 +145,7 @@ StructureInspector::StructureInspector() :
 	size({350, 250});
 
 	btnClose.size({50, 20});
-	add(btnClose, {rect().size.x - btnClose.rect().size.x - 5, rect().size.y - btnClose.rect().size.y - 5,});
+	add(btnClose, rect().size - btnClose.size() - NAS2D::Vector{5, 5});
 }
 
 
