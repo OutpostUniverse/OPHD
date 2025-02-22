@@ -148,22 +148,22 @@ void MineReport::onResize()
 {
 	Control::onResize();
 
-	lstMineFacilities.size({rect().center().x - 20, rect().size.y - 51});
+	lstMineFacilities.size({area().center().x - 20, area().size.y - 51});
 
-	int position_x = rect().size.x - 150;
-	btnIdle.position({position_x, btnIdle.positionY()});
-	btnDigNewLevel.position({position_x, btnDigNewLevel.positionY()});
-	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});
+	int positionX = area().size.x - 150;
+	btnIdle.position({positionX, btnIdle.position().y});
+	btnDigNewLevel.position({positionX, btnDigNewLevel.position().y});
+	btnTakeMeThere.position({positionX, btnTakeMeThere.position().y});
 
 	auto& renderer = NAS2D::Utility<Renderer>::get();
-	btnAddTruck.position({position_x, renderer.size().y - 130});
-	btnRemoveTruck.position({position_x, renderer.size().y - 95});
+	btnAddTruck.position({positionX, renderer.size().y - 130});
+	btnRemoveTruck.position({positionX, renderer.size().y - 95});
 
-	position_x -= 20;
-	chkResources[0].position({position_x, chkResources[0].positionY()});
-	chkResources[1].position({position_x, chkResources[1].positionY()});
-	chkResources[2].position({position_x, chkResources[2].positionY()});
-	chkResources[3].position({position_x, chkResources[3].positionY()});
+	positionX -= 20;
+	chkResources[0].position({positionX, chkResources[0].position().y});
+	chkResources[1].position({positionX, chkResources[1].position().y});
+	chkResources[2].position({positionX, chkResources[2].position().y});
+	chkResources[3].position({positionX, chkResources[3].position().y});
 }
 
 
@@ -366,7 +366,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	const auto& mine = *facility->mine();
 
 	const auto barOrigin = resourceTextOrigin.x + 125;
-	const auto barWidth = btnIdle.positionX() - barOrigin - 10;
+	const auto barWidth = btnIdle.position().x - barOrigin - 10;
 
 	const auto oreAvailable = mine.availableResources();
 	const auto oreTotalYield = mine.totalYield();
@@ -435,7 +435,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{0, 30}, constants::PrimaryTextColor);
 
-	const auto labelWidth = btnAddTruck.positionX() - origin.x - 10;
+	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility->assignedTrucks()), constants::PrimaryTextColor);
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 45}, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), constants::PrimaryTextColor);
 
@@ -466,7 +466,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 
 	auto& route = routeTable[mFacility];
 	drawLabelAndValueRightJustify(origin,
-		btnAddTruck.positionX() - origin.x - 10,
+		btnAddTruck.position().x - origin.x - 10,
 		"Route Cost",
 		std::to_string(route.cost).substr(0, std::to_string(route.cost).find(".") + 3), // hack-ish and probably slow, this could be cached
 		constants::PrimaryTextColor);
@@ -525,9 +525,9 @@ void MineReport::update()
 
 	auto& r = Utility<Renderer>::get();
 
-	const auto startPoint = NAS2D::Point{rect().center().x , rect().position.y + 10};
+	const auto startPoint = NAS2D::Point{area().center().x , area().position.y + 10};
 
-	r.drawLine(startPoint, startPoint + NAS2D::Vector{0, rect().size.y - 20}, constants::PrimaryTextColor);
+	r.drawLine(startPoint, startPoint + NAS2D::Vector{0, area().size.y - 20}, constants::PrimaryTextColor);
 
 	if (mSelectedFacility)
 	{

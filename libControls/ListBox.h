@@ -295,7 +295,7 @@ private:
 		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
 		if (neededDisplaySize > static_cast<std::size_t>(mRect.size.y))
 		{
-			mScrollBar.position({rect().position.x + mRect.size.x - 14, mRect.position.y});
+			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
 			mScrollBar.size({14, mRect.size.y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.size.y));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());

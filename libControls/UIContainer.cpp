@@ -90,7 +90,7 @@ void UIContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> p
 	for (auto it = mControls.rbegin(); it != mControls.rend(); ++it)
 	{
 		control = (*it);
-		if (control->visible() && control->rect().contains(position))
+		if (control->visible() && control->area().contains(position))
 		{
 			if (control == mControls.back()) { return; }
 			bringToFront(control);
@@ -116,7 +116,7 @@ void UIContainer::update()
 		/*
 		if (control->hasFocus())
 		{
-			NAS2D::Utility<NAS2D::Renderer>::get().drawBox(control->rect(), 255, 0, 255);
+			NAS2D::Utility<NAS2D::Renderer>::get().drawBox(control->area(), {255, 0, 255});
 		}
 		*/
 	}

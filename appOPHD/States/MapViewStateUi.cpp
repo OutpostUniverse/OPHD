@@ -148,17 +148,17 @@ void MapViewState::initUi()
 	mBtnTogglePoliceOverlay.click().connect({this, &MapViewState::onTogglePoliceOverlay});
 
 	// Menus
-	mRobots.position({mBtnTurns.positionX() - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
+	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
 	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect({this, &MapViewState::onRobotsSelectionChange});
 
-	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
+	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
 	mConnections.selectionChanged().connect({this, &MapViewState::onConnectionsSelectionChange});
 
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
-	mStructures.size({mConnections.positionX() - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
+	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect({this, &MapViewState::onStructuresSelectionChange});
 
@@ -209,18 +209,18 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
-	mBtnToggleHeightmap.position({mBtnTurns.positionX(), mMiniMapRect.position.y});
-	mBtnToggleConnectedness.position({mBtnTurns.positionX(), mMiniMapRect.position.y + constants::MainButtonSize});
-	mBtnToggleCommRangeOverlay.position({mBtnTurns.positionX(), mMiniMapRect.position.y + (constants::MainButtonSize * 2)});
-	mBtnToggleRouteOverlay.position({mBtnTurns.positionX(), mMiniMapRect.position.y + (constants::MainButtonSize * 3)});
-	mBtnTogglePoliceOverlay.position({mBtnTurns.positionX() - constants::MainButtonSize, mMiniMapRect.position.y});
+	mBtnToggleHeightmap.position({mBtnTurns.position().x, mMiniMapRect.position.y});
+	mBtnToggleConnectedness.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize});
+	mBtnToggleCommRangeOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + (constants::MainButtonSize * 2)});
+	mBtnToggleRouteOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + (constants::MainButtonSize * 3)});
+	mBtnTogglePoliceOverlay.position({mBtnTurns.position().x - constants::MainButtonSize, mMiniMapRect.position.y});
 
 	// UI Panels
-	mRobots.position({mBtnTogglePoliceOverlay.positionX() - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mConnections.position({mRobots.positionX() - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
+	mRobots.position({mBtnTogglePoliceOverlay.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
+	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
 
-	mStructures.size({mConnections.positionX() - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
+	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();

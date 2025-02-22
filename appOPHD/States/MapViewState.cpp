@@ -551,7 +551,7 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (mTooltipSystemButton.rect().contains(MOUSE_COORDS))
+		if (mTooltipSystemButton.area().contains(MOUSE_COORDS))
 		{
 			onSystemMenu();
 		}

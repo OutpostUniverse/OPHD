@@ -94,13 +94,13 @@ FactoryReport::FactoryReport() :
 	add(btnShowDisabled, {164, 33});
 	btnShowDisabled.type(Button::Type::Toggle);
 
-	int position_x = Utility<Renderer>::get().size().x - 110;
-	add(btnIdle, {position_x, 35});
+	const auto positionX = Utility<Renderer>::get().size().x - 110;
+	add(btnIdle, {positionX, 35});
 	btnIdle.type(Button::Type::Toggle);
 
-	add(btnClearProduction, {position_x, 75});
+	add(btnClearProduction, {positionX, 75});
 
-	add(btnTakeMeThere, {position_x, 115});
+	add(btnTakeMeThere, {positionX, 115});
 
 	add(btnApply, {0, 0});
 
@@ -119,7 +119,7 @@ FactoryReport::FactoryReport() :
 
 	cboFilterByProduct.selectionChanged().connect({this, &FactoryReport::onProductFilterSelectionChange});
 
-	add(lstProducts, {cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x + 20, mRect.position.y + 230});
+	add(lstProducts, {cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x + 20, mRect.position.y + 230});
 
 	mTxtProductDescription.height(128);
 	mTxtProductDescription.textColor(constants::PrimaryTextColor);
@@ -254,27 +254,27 @@ void FactoryReport::onResize()
 {
 	Control::onResize();
 
-	const auto comboEndPoint = cboFilterByProduct.rect().endPoint();
+	const auto comboEndPoint = cboFilterByProduct.area().endPoint();
 
 	lstFactoryList.size({comboEndPoint.x - 10, mRect.size.y - 74});
 
 	detailPanelRect = {
-		{ comboEndPoint.x + 20, rect().position.y + 10},
-		{rect().size.x - comboEndPoint.x - 30, rect().position.y + mRect.size.y - 69}
+		{ comboEndPoint.x + 20, area().position.y + 10},
+		{area().size.x - comboEndPoint.x - 30, area().position.y + mRect.size.y - 69}
 	};
 
-	int position_x = mRect.size.x - 150;
-	btnIdle.position({position_x, btnIdle.positionY()});
-	btnClearProduction.position({position_x, btnClearProduction.positionY()});
-	btnTakeMeThere.position({position_x, btnTakeMeThere.positionY()});
+	int positionX = mRect.size.x - 150;
+	btnIdle.position({positionX, btnIdle.position().y});
+	btnClearProduction.position({positionX, btnClearProduction.position().y});
+	btnTakeMeThere.position({positionX, btnTakeMeThere.position().y});
 
-	btnApply.position({position_x, mRect.size.y + 8});
+	btnApply.position({positionX, mRect.size.y + 8});
 
 	lstProducts.size({detailPanelRect.size.x / 3, detailPanelRect.size.y - 219});
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
-	mTxtProductDescription.position(lstProducts.rect().crossXPoint() + NAS2D::Vector{158, 0});
-	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.positionX() - 30);
+	mTxtProductDescription.position(lstProducts.area().crossXPoint() + NAS2D::Vector{158, 0});
+	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 30);
 }
 
 
@@ -484,31 +484,31 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 {
 	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.position.x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
 
-	int position_x = detailPanelRect.position.x + lstProducts.size().x + 20;
+	int positionX = detailPanelRect.position.x + lstProducts.size().x + 20;
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
-		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{position_x, lstProducts.positionY()});
+		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{positionX, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
+		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{positionX, lstProducts.position().y});
 		mTxtProductDescription.update();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
-	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{position_x, detailPanelRect.position.y + 358}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{position_x, detailPanelRect.position.y + 393}, constants::PrimaryTextColor);
+	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{positionX, detailPanelRect.position.y + 358}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{positionX, detailPanelRect.position.y + 393}, constants::PrimaryTextColor);
 
 	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
 	{
 		drawProgressBar(
 			selectedFactory->productionTurnsCompleted(),
 			selectedFactory->productionTurnsToComplete(),
-			{{position_x, detailPanelRect.position.y + 413}, {mRect.size.x - position_x - 10, 30}}
+			{{positionX, detailPanelRect.position.y + 413}, {mRect.size.x - positionX - 10, 30}}
 		);
 	}
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
-	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{position_x, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{positionX, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
 	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.size.x - fontMedium.width(text) - 10, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
 }
 
@@ -518,7 +518,7 @@ void FactoryReport::update()
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
-	const auto positionX = cboFilterByProduct.rect().position.x + cboFilterByProduct.rect().size.x;
+	const auto positionX = cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);
 	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + 10}, constants::PrimaryTextColor);
 

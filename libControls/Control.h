@@ -1,31 +1,26 @@
 #pragma once
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/Resource/ResourceCache.h>
 
 
 namespace NAS2D
 {
 	class Font;
 	class Image;
+
+	template <typename Resource, typename... Params>
+	class ResourceCache;
 }
 
 
 /**
  * Implements a base for all GUI Controls to derive from.
- *
- * The Control class is the base class from which all GUI controls inherit
- * from.
  */
 class Control
 {
 public:
-	using ResizeSignal = NAS2D::Signal<Control*>;
-	using OnMoveSignal = NAS2D::Signal<NAS2D::Vector<int>>;
-
 	using ControlImageCache = NAS2D::ResourceCache<NAS2D::Image, std::string>;
 
 	static void setDefaultFont(const NAS2D::Font& font);
@@ -42,16 +37,18 @@ public:
 	Control(Control&&) = default;
 	virtual ~Control() = default;
 
-	const NAS2D::Rectangle<int>& area() const { return mRect; }
+	const NAS2D::Rectangle<int>& area() const;
 	void area(const NAS2D::Rectangle<int>& area);
 
 	NAS2D::Point<int> position() const { return mRect.position; }
 	void position(NAS2D::Point<int> pos);
 
-	int positionX() const;
-	int positionY() const;
+	NAS2D::Vector<int> size() const { return mRect.size; }
+	void size(NAS2D::Vector<int> newSize);
+	void size(int newSize);
 
-	OnMoveSignal::Source& moved();
+	void width(int newWidth);
+	void height(int newHeight);
 
 	void highlight(bool highlight);
 	bool highlight() const;
@@ -62,43 +59,20 @@ public:
 	void visible(bool visible);
 	bool visible() const;
 
-	virtual void hide() { visible(false); }
-	virtual void show() { visible(true); }
-
-	const NAS2D::Rectangle<int>& rect() const;
+	virtual void hide();
+	virtual void show();
 
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
 
-	NAS2D::Vector<int> size() const { return mRect.size; }
-	void size(NAS2D::Vector<int> newSize);
-	void size(int newSize);
-
-	void width(int w);
-	void height(int h);
-
-	ResizeSignal::Source& resized();
-
 	virtual void update() {}
 
 protected:
-	/**
-	 * Called whenever the Control's position is changed.
-	 *
-	 * \param	displacement	Difference in position.
-	 */
-	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
-
-	virtual void onResize() { mOnResizeSignal(this); }
-
+	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
+	virtual void onResize() {}
 	virtual void onVisibilityChange(bool /*visible*/) {}
-
 	virtual void onEnableChange() {}
-
 	virtual void onFocusChange() {}
-
-	OnMoveSignal mOnMoveSignal; /**< Signal fired whenever the position of the Control changes. */
-	ResizeSignal mOnResizeSignal;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 

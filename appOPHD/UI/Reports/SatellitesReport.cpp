@@ -65,7 +65,7 @@ void SatellitesReport::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(imageNotImplemented, rect().startPoint() + Vector<int>{10, 10});
-	renderer.drawText(fontBigBold, "Satellites Report", rect().startPoint() + Vector<int>{148, 10}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "This panel intentionally left blank.", rect().startPoint() + Vector<int>{148, 20 + fontBigBold.height()}, constants::PrimaryTextColor);
+	renderer.drawImage(imageNotImplemented, area().startPoint() + Vector<int>{10, 10});
+	renderer.drawText(fontBigBold, "Satellites Report", area().startPoint() + Vector<int>{148, 10}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "This panel intentionally left blank.", area().startPoint() + Vector<int>{148, 20 + fontBigBold.height()}, constants::PrimaryTextColor);
 }

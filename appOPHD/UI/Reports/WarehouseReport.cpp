@@ -193,7 +193,7 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 	if (!visible()) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	if (selectedWarehouse && lstStructures.rect().contains(position))
+	if (selectedWarehouse && lstStructures.area().contains(position))
 	{
 		mTakeMeThereSignal(selectedWarehouse);
 	}
@@ -226,9 +226,9 @@ void WarehouseReport::onResize()
 
 	lstStructures.size({(mRect.size.x / 2) - 20, mRect.size.y - 126});
 	lstProducts.size({(mRect.size.x / 2) - 20, mRect.size.y - 184});
-	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.positionY()});
+	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.position().y});
 
-	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, positionY() + 35});
+	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, position().y + 35});
 }
 
 
@@ -308,24 +308,24 @@ void WarehouseReport::onStructureSelectionChange()
 
 void WarehouseReport::drawLeftPanel(Renderer& renderer)
 {
-	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, positionY() + 40}, constants::PrimaryTextColor);
-	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, positionY() + 62}, constants::PrimaryTextColor);
-	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, positionY() + 84}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, position().y + 40}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, position().y + 62}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, position().y + 84}, constants::PrimaryTextColor);
 
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
 	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
-	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, positionY() + 35}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, positionY() + 57}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, position().y + 35}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, position().y + 57}, constants::PrimaryTextColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.size.x / 2 - 30 - capacityUsedTextWidth;
-	const auto capacityBarPositionX = 20 + capacityUsedTextWidth;
+	const auto capacityBarPosition = NAS2D::Point{20 + capacityUsedTextWidth, position().y + 84};
 	drawProgressBar(
 		warehouseCapacityUsed,
 		warehouseCapacityTotal,
-		{{capacityBarPositionX, positionY() + 84}, {capacityBarWidth, 20}}
+		{capacityBarPosition, {capacityBarWidth, 20}}
 	);
 }
 
@@ -334,9 +334,9 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
 	if (!selectedWarehouse) { return; }
 
-	const auto positionX = renderer.center().x + 10;
-	renderer.drawText(fontBigBold, selectedWarehouse->name(), NAS2D::Point{positionX, positionY() + 2}, constants::PrimaryTextColor);
-	renderer.drawImage(imageWarehouse, NAS2D::Point{positionX, positionY() + 35});
+	const auto position = NAS2D::Point{renderer.center().x + 10, this->position().y};
+	renderer.drawText(fontBigBold, selectedWarehouse->name(), position + NAS2D::Vector{0, 2}, constants::PrimaryTextColor);
+	renderer.drawImage(imageWarehouse, position + NAS2D::Vector{0, 35});
 }
 
 
@@ -347,8 +347,8 @@ void WarehouseReport::update()
 
 	// Left Panel
 	drawLeftPanel(renderer);
-	const auto positionX = renderer.center().x;
-	renderer.drawLine(NAS2D::Point{positionX, positionY() + 10}, NAS2D::Point{positionX, positionY() + mRect.size.y - 10}, constants::PrimaryColor);
+	const auto position = NAS2D::Point{renderer.center().x, this->position().y};
+	renderer.drawLine(position + NAS2D::Vector{0, 10}, position + NAS2D::Vector{0, mRect.size.y - 10}, constants::PrimaryColor);
 	drawRightPanel(renderer);
 
 	UIContainer::update();

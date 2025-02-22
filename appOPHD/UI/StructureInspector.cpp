@@ -145,7 +145,7 @@ StructureInspector::StructureInspector() :
 	mIcons{imageCache.load("ui/icons.png")}
 {
 	size({350, 250});
-	add(btnClose, rect().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
+	add(btnClose, area().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 
@@ -168,7 +168,7 @@ void StructureInspector::structure(Structure* structure)
 
 	size(windowSize);
 
-	btnClose.position(rect().endPoint() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
+	btnClose.position(area().endPoint() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 

@@ -54,10 +54,10 @@ void ComboBox::onResize()
 	}
 
 	txtField.size(size() - NAS2D::Vector{20, 0});
-	btnDown.position(txtField.rect().crossXPoint());
+	btnDown.position(txtField.area().crossXPoint());
 	btnDown.height(mRect.size.y);
 	lstItems.width(mRect.size.x);
-	lstItems.position(rect().crossYPoint());
+	lstItems.position(area().crossYPoint());
 
 	mBarRect = NAS2D::Rectangle{position(), {mRect.size.x, btnDown.size().y}};
 }
@@ -71,8 +71,8 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 	Control::onMove(displacement);
 
 	txtField.position(position());
-	btnDown.position(txtField.rect().crossXPoint());
-	lstItems.position(rect().crossYPoint());
+	btnDown.position(txtField.area().crossXPoint());
+	lstItems.position(area().crossYPoint());
 
 	mBarRect = NAS2D::Rectangle{position(), {mRect.size.x, btnDown.size().y}};
 }
@@ -98,7 +98,7 @@ void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 			mRect = mBarRect;
 		}
 	}
-	else if (!lstItems.rect().contains(position))
+	else if (!lstItems.area().contains(position))
 	{
 		lstItems.visible(false);
 		mRect = mBarRect;
