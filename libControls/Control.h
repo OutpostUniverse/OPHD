@@ -3,13 +3,15 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/Resource/ResourceCache.h>
 
 
 namespace NAS2D
 {
 	class Font;
 	class Image;
+
+	template <typename Resource, typename... Params>
+	class ResourceCache;
 }
 
 
