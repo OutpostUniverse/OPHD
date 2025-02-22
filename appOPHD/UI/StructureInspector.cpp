@@ -2,12 +2,14 @@
 
 #include "../Cache.h"
 #include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 #include "StringTable.h"
 #include "TextRender.h"
 
 #include <NAS2D/Utility.h>
 
+#include <algorithm>
 #include <stdexcept>
 
 
@@ -139,13 +141,11 @@ namespace
 
 StructureInspector::StructureInspector() :
 	Window{constants::WindowStructureInspector},
-	btnClose{"Close", {this, &StructureInspector::onClose}},
+	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
 	size({350, 250});
-
-	btnClose.size({50, 20});
-	add(btnClose, {rect().size.x - btnClose.rect().size.x - 5, rect().size.y - btnClose.rect().size.y - 5,});
+	add(btnClose, rect().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 
@@ -157,12 +157,18 @@ void StructureInspector::structure(Structure* structure)
 
 	title(mStructure->name());
 
-	auto stringTable = buildGenericStringTable();
+	const auto genericStructureAttributes = buildGenericStringTable();
+	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
+	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
-	auto windowWidth = stringTable.screenRect().size.x + 10;
-	size({windowWidth < 350 ? 350 : windowWidth, rect().size.y});
+	auto windowSize = NAS2D::Vector{
+		std::max({350, genericStructureAttributes.screenRect().size.x, specificStructureAttributes.screenRect().size.x}),
+		std::max({250, specificStructureAttributes.screenRect().endPoint().y - genericStructureAttributes.screenRect().position.y + btnClose.size().y})
+	} + NAS2D::Vector{constants::Margin, constants::Margin} * 2;
 
-	btnClose.position({positionX() + rect().size.x - 55, btnClose.positionY()});
+	size(windowSize);
+
+	btnClose.position(rect().endPoint() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 
@@ -175,7 +181,7 @@ void StructureInspector::onClose()
 StringTable StructureInspector::buildGenericStringTable() const
 {
 	auto stringTable = buildGenericStructureAttributesStringTable(*mStructure);
-	stringTable.position(mRect.position + NAS2D::Vector{5, 25});
+	stringTable.position(mRect.position + NAS2D::Vector{constants::Margin, sWindowTitleBarHeight + constants::Margin});
 	stringTable.setVerticalPadding(5);
 	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 	stringTable.computeRelativeCellPositions();
@@ -203,7 +209,7 @@ void StructureInspector::update()
 	}
 
 	const auto genericStructureAttributes = buildGenericStringTable();
-	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
+	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 20 + constants::Margin};
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
 	auto& renderer = Utility<Renderer>::get();
