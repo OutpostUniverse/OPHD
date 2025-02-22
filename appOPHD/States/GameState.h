@@ -29,7 +29,7 @@ public:
 
 	State* update() override;
 
-private:
+protected:
 	GameState();
 	void mapviewstate(MapViewState*);
 	void initialize() override;
