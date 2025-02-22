@@ -150,20 +150,20 @@ void MineReport::onResize()
 
 	lstMineFacilities.size({area().center().x - 20, area().size.y - 51});
 
-	int position_x = area().size.x - 150;
-	btnIdle.position({position_x, btnIdle.position().y});
-	btnDigNewLevel.position({position_x, btnDigNewLevel.position().y});
-	btnTakeMeThere.position({position_x, btnTakeMeThere.position().y});
+	int positionX = area().size.x - 150;
+	btnIdle.position({positionX, btnIdle.position().y});
+	btnDigNewLevel.position({positionX, btnDigNewLevel.position().y});
+	btnTakeMeThere.position({positionX, btnTakeMeThere.position().y});
 
 	auto& renderer = NAS2D::Utility<Renderer>::get();
-	btnAddTruck.position({position_x, renderer.size().y - 130});
-	btnRemoveTruck.position({position_x, renderer.size().y - 95});
+	btnAddTruck.position({positionX, renderer.size().y - 130});
+	btnRemoveTruck.position({positionX, renderer.size().y - 95});
 
-	position_x -= 20;
-	chkResources[0].position({position_x, chkResources[0].position().y});
-	chkResources[1].position({position_x, chkResources[1].position().y});
-	chkResources[2].position({position_x, chkResources[2].position().y});
-	chkResources[3].position({position_x, chkResources[3].position().y});
+	positionX -= 20;
+	chkResources[0].position({positionX, chkResources[0].position().y});
+	chkResources[1].position({positionX, chkResources[1].position().y});
+	chkResources[2].position({positionX, chkResources[2].position().y});
+	chkResources[3].position({positionX, chkResources[3].position().y});
 }
 
 
