@@ -44,9 +44,6 @@ GameState::~GameState()
 }
 
 
-/**
- * Internal initializer function.
- */
 void GameState::initialize()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
