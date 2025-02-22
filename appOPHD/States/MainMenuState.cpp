@@ -1,5 +1,4 @@
 #include "GameState.h"
-#include "MapViewState.h"
 #include "MainMenuState.h"
 #include "PlanetSelectState.h"
 

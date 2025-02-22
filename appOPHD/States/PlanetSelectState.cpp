@@ -1,13 +1,13 @@
 #include "PlanetSelectState.h"
 
 #include "GameState.h"
-#include "MapViewState.h"
 #include "MainMenuState.h"
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Cache.h"
 
+#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>

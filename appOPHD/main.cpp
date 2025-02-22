@@ -1,13 +1,13 @@
 #include "Cache.h"
 #include "Constants/Strings.h"
 #include "Constants/Numbers.h"
+#include "Constants/UiConstants.h"
 #include "WindowEventWrapper.h"
 #include "PointerType.h"
 
 #include "States/GameState.h"
 #include "States/SplashState.h"
 #include "States/MainMenuState.h"
-#include "States/MapViewState.h"
 #include "States/MainReportsUiState.h"
 
 #include "UI/MessageBox.h"
