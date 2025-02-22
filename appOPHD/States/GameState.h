@@ -23,17 +23,17 @@ class Wrapper;
 class GameState : public NAS2D::State
 {
 public:
-	GameState();
 	GameState(const std::string& savedGameFilename);
 	GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~GameState() override;
 
-	void mapviewstate(MapViewState*);
-
-	void initialize() override;
 	State* update() override;
 
 private:
+	GameState();
+	void mapviewstate(MapViewState*);
+	void initialize() override;
+
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void onFadeComplete();
