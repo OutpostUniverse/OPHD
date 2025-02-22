@@ -24,8 +24,6 @@ class Control
 {
 public:
 	using ResizeSignal = NAS2D::Signal<Control*>;
-	using OnMoveSignal = NAS2D::Signal<NAS2D::Vector<int>>;
-
 	using ControlImageCache = NAS2D::ResourceCache<NAS2D::Image, std::string>;
 
 	static void setDefaultFont(const NAS2D::Font& font);
@@ -50,8 +48,6 @@ public:
 
 	int positionX() const;
 	int positionY() const;
-
-	OnMoveSignal::Source& moved();
 
 	void highlight(bool highlight);
 	bool highlight() const;
@@ -82,13 +78,12 @@ public:
 	virtual void update() {}
 
 protected:
-	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
+	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
 	virtual void onResize() { mOnResizeSignal(this); }
 	virtual void onVisibilityChange(bool /*visible*/) {}
 	virtual void onEnableChange() {}
 	virtual void onFocusChange() {}
 
-	OnMoveSignal mOnMoveSignal; /**< Signal fired whenever the position of the Control changes. */
 	ResizeSignal mOnResizeSignal;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */

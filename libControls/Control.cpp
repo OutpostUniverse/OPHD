@@ -103,15 +103,6 @@ int Control::positionY() const
 }
 
 
-/**
- * Signal fired whenever the Control's position changes.
- */
-Control::OnMoveSignal::Source& Control::moved()
-{
-	return mOnMoveSignal;
-}
-
-
 void Control::size(NAS2D::Vector<int> newSize)
 {
 	mRect.size = newSize;
