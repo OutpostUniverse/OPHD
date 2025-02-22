@@ -63,6 +63,17 @@ const NAS2D::Image& Control::getImage(const std::string& filename)
 
 // Control member functions
 
+/**
+ * Gets the rectangular area that the Control occupies.
+ *
+ * \return	A const reference to a Rectangle<int> object.
+ */
+const NAS2D::Rectangle<int>& Control::rect() const
+{
+	return mRect;
+}
+
+
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
 	const auto displacement = newRect.position - mRect.position;
@@ -137,17 +148,6 @@ void Control::width(int w)
 void Control::height(int h)
 {
 	size({size().x, h});
-}
-
-
-/**
- * Gets the rectangular area that the Control occupies.
- *
- * \return	A const reference to a Rectangle<int> object.
- */
-const NAS2D::Rectangle<int>& Control::rect() const
-{
-	return mRect;
 }
 
 
