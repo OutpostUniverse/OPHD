@@ -194,8 +194,7 @@ int main(int argc, char *argv[])
 
 			Utility<Mixer>::get().stopMusic();
 
-			GameState* gameState = new GameState(filename);
-			stateManager.setState(gameState);
+			stateManager.setState(new GameState(filename));
 		}
 		else if (!options.get<bool>("skip-splash"))
 		{

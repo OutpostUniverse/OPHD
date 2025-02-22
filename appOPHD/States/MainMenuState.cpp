@@ -136,9 +136,7 @@ void MainMenuState::onLoadGame(const std::string& filePath)
 	try
 	{
 		checkSavegameVersion(filename);
-
-		GameState* gameState = new GameState(filename);
-		mReturnState = gameState;
+		mReturnState = new GameState(filename);
 
 		mFade.fadeOut(constants::FadeSpeed);
 		NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
