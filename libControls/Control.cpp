@@ -140,12 +140,6 @@ void Control::height(int h)
 }
 
 
-Control::ResizeSignal::Source& Control::resized()
-{
-	return mOnResizeSignal;
-}
-
-
 /**
  * Gets the rectangular area that the Control occupies.
  * 

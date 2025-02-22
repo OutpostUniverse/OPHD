@@ -23,7 +23,6 @@ namespace NAS2D
 class Control
 {
 public:
-	using ResizeSignal = NAS2D::Signal<Control*>;
 	using ControlImageCache = NAS2D::ResourceCache<NAS2D::Image, std::string>;
 
 	static void setDefaultFont(const NAS2D::Font& font);
@@ -73,18 +72,14 @@ public:
 	void width(int w);
 	void height(int h);
 
-	ResizeSignal::Source& resized();
-
 	virtual void update() {}
 
 protected:
 	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
-	virtual void onResize() { mOnResizeSignal(this); }
+	virtual void onResize() {}
 	virtual void onVisibilityChange(bool /*visible*/) {}
 	virtual void onEnableChange() {}
 	virtual void onFocusChange() {}
-
-	ResizeSignal mOnResizeSignal;
 
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 
