@@ -9,6 +9,7 @@
 
 #include <NAS2D/Utility.h>
 
+#include <algorithm>
 #include <stdexcept>
 
 
@@ -156,10 +157,16 @@ void StructureInspector::structure(Structure* structure)
 
 	title(mStructure->name());
 
-	auto stringTable = buildGenericStringTable();
+	const auto genericStructureAttributes = buildGenericStringTable();
+	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
+	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
-	auto windowWidth = stringTable.screenRect().size.x + 10;
-	size({windowWidth < 350 ? 350 : windowWidth, rect().size.y});
+	auto windowSize = NAS2D::Vector{
+		std::max({350, genericStructureAttributes.screenRect().size.x, specificStructureAttributes.screenRect().size.x}),
+		std::max({250, specificStructureAttributes.screenRect().endPoint().y - genericStructureAttributes.screenRect().position.y + btnClose.size().y})
+	} + NAS2D::Vector{constants::Margin, constants::Margin} * 2;
+
+	size(windowSize);
 
 	btnClose.position(rect().endPoint() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
