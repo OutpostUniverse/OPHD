@@ -114,14 +114,7 @@ NAS2D::State* PlanetSelectState::update()
 	}
 	else if (mPlanetSelection != constants::NoSelection)
 	{
-		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
-		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
-		mapview->_initialize();
-		mapview->activate();
-
-		gameState->mapviewstate(mapview);
-
+		GameState* gameState = new GameState(mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
 		return gameState;
 	}
 

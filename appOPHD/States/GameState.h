@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Planet.h"
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>
@@ -10,6 +11,8 @@
 #include <string>
 #include <memory>
 
+
+enum class Difficulty;
 
 class MainReportsUiState;
 class MapViewState;
@@ -22,6 +25,7 @@ class GameState : public NAS2D::State
 public:
 	GameState();
 	GameState(const std::string& savedGameFilename);
+	GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~GameState() override;
 
 	void mapviewstate(MapViewState*);

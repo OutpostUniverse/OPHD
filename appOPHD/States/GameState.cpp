@@ -40,6 +40,16 @@ GameState::GameState(const std::string& savedGameFilename) : GameState()
 }
 
 
+GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) : GameState()
+{
+	auto* mapView = new MapViewState(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
+	mapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
+	mapView->_initialize();
+	mapView->activate();
+	mapviewstate(mapView);
+}
+
+
 GameState::~GameState()
 {
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
