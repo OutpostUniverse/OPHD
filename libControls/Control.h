@@ -83,13 +83,9 @@ public:
 
 protected:
 	virtual void onMove(NAS2D::Vector<int> displacement) { mOnMoveSignal(displacement); }
-
 	virtual void onResize() { mOnResizeSignal(this); }
-
 	virtual void onVisibilityChange(bool /*visible*/) {}
-
 	virtual void onEnableChange() {}
-
 	virtual void onFocusChange() {}
 
 	OnMoveSignal mOnMoveSignal; /**< Signal fired whenever the position of the Control changes. */
