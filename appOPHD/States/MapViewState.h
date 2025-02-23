@@ -130,7 +130,7 @@ public:
 	State* update() override;
 
 private:
-	void _deactivate() override;
+	void onDeactivate() override;
 	void _activate() override;
 
 	// EVENT HANDLERS

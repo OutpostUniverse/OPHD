@@ -222,7 +222,7 @@ void MainReportsUiState::_activate()
 }
 
 
-void MainReportsUiState::_deactivate()
+void MainReportsUiState::onDeactivate()
 {
 	for (auto& panel : Panels)
 	{

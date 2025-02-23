@@ -28,7 +28,7 @@ public:
 	using NAS2D::State::initialize;
 	using NAS2D::State::update;
 
-	void deactivate() { mIsActive = false; _deactivate(); }
+	void deactivate() { mIsActive = false; onDeactivate(); }
 	void activate() { mIsActive = true; _activate(); }
 	bool active() const { return mIsActive; }
 
@@ -39,7 +39,7 @@ private:
 	 *
 	 * \note	This is the place to unhook event handlers.
 	 */
-	virtual void _deactivate() = 0;
+	virtual void onDeactivate() = 0;
 
 	/**
 	 * Called when the state is being reactivated and being set as the active state.
