@@ -218,6 +218,7 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::A
 	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
+	setPopulationLevel(PopulationLevel::Large);
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }

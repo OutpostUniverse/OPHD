@@ -18,36 +18,19 @@
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
 
 
-GameState::GameState():
-	mMainReportsState{std::make_unique<MainReportsUiState>()}
+GameState::GameState(const std::string& savedGameFilename) :
+	mMainReportsState{std::make_unique<MainReportsUiState>()},
+	mMapView{std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename)}
 {
-	mMainReportsState->_initialize();
-	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
-
-	for (auto takeMeThere : mMainReportsState->takeMeThere())
-	{
-		takeMeThere->connect({this, &GameState::onTakeMeThere});
-	}
-
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
-
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
+	initializeGameState();
 }
 
 
-GameState::GameState(const std::string& savedGameFilename) : GameState()
+GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+	mMainReportsState{std::make_unique<MainReportsUiState>()},
+	mMapView{std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty)}
 {
-	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename);
-	initializeMapViewState();
-}
-
-
-GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) : GameState()
-{
-	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
-	mMapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
-	initializeMapViewState();
+	initializeGameState();
 }
 
 
@@ -63,23 +46,41 @@ GameState::~GameState()
 }
 
 
-void GameState::initialize()
+void GameState::initializeGameState()
 {
-	mFade.fadeIn(constants::FadeSpeed);
+	mMainReportsState->_initialize();
+	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
+
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
+	{
+		takeMeThere->connect({this, &GameState::onTakeMeThere});
+	}
+
+	mMapView->_initialize();
+	initializeMapViewState();
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
+
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 }
 
 
 void GameState::initializeMapViewState()
 {
 	mActiveState = mMapView.get();
-
-	mMapView->_initialize();
 	mMapView->activate();
 
 	mMapView->quit().connect({this, &GameState::onQuit});
 	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapView->mapChanged().connect({this, &GameState::onMapChange});
 	mMapView->fileLoadSignal().connect({this, &GameState::onLoadGame});
+}
+
+
+void GameState::initialize()
+{
+	mFade.fadeIn(constants::FadeSpeed);
 }
 
 
@@ -163,14 +164,15 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		{
 			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
 		}
-		mNewMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
+		auto newMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
+		newMapView->_initialize();
+		mNewMapView = std::move(newMapView);
 	}
 	catch (const std::exception& e)
 	{
 		doNonFatalErrorMessage("Load Failed", e.what());
 		return;
 	}
-	mNewMapView->_initialize();
 }
 
 
@@ -205,12 +207,7 @@ NAS2D::State* GameState::update()
 	if (mNewMapView)
 	{
 		mMapView = std::move(mNewMapView);
-		mActiveState = mMapView.get();
-		mActiveState->activate();
-		mMapView->quit().connect({this, &GameState::onQuit});
-		mMapView->showReportsUi().connect({this, &GameState::onShowReports});
-		mMapView->mapChanged().connect({this, &GameState::onMapChange});
-		mMapView->fileLoadSignal().connect({this, &GameState::onLoadGame});
+		initializeMapViewState();
 	}
 
 	return mReturnState;
