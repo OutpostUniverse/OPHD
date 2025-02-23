@@ -38,16 +38,16 @@ GameState::GameState():
 
 GameState::GameState(const std::string& savedGameFilename) : GameState()
 {
-	auto* mapView = new MapViewState(*mMainReportsState.get(), savedGameFilename);
-	initializeMapViewState(mapView);
+	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename);
+	initializeMapViewState();
 }
 
 
 GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) : GameState()
 {
-	auto* mapView = new MapViewState(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
-	mapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
-	initializeMapViewState(mapView);
+	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
+	mMapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
+	initializeMapViewState();
 }
 
 
@@ -69,19 +69,8 @@ void GameState::initialize()
 }
 
 
-/**
- * Sets a pointer for the MapViewState.
- *
- * Since the MapViewState is created outside of the GameState, this function
- * takes a pointer to an already instatiated MapViewState object.
- *
- * \param	state	Pointer to a MapViewState. Ownership is transfered to GameState.
- *
- * \note	GameState will handle correct destruction of the MapViewState object.
- */
-void GameState::initializeMapViewState(MapViewState* state)
+void GameState::initializeMapViewState()
 {
-	mMapView.reset(state);
 	mActiveState = mMapView.get();
 
 	mMapView->_initialize();
