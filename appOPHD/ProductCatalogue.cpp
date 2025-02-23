@@ -4,7 +4,7 @@
 
 #include <NAS2D/ParserHelper.h>
 
-#include <iostream>
+#include <stdexcept>
 
 
 namespace
@@ -49,7 +49,7 @@ void ProductCatalogue::init(const std::string& filename)
 
 		if (mProductTable.find(productId) != mProductTable.end())
 		{
-			std::cout << "ProductID (" << product.Id << ") already found in table: " << mProductTable[productId].Name << ". Previous entry will be overwritten with new entry '" << product.Name << "'" << std::endl;
+			throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.Id) + ", Name = " + product.Name + ", filename = " + filename);
 		}
 
 		mProductTable[productId] = product;
