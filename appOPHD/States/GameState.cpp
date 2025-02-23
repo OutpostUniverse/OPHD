@@ -39,8 +39,6 @@ GameState::GameState():
 GameState::GameState(const std::string& savedGameFilename) : GameState()
 {
 	auto* mapView = new MapViewState(*mMainReportsState.get(), savedGameFilename);
-	mapView->_initialize();
-	mapView->activate();
 	initializeMapViewState(mapView);
 }
 
@@ -49,8 +47,6 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 {
 	auto* mapView = new MapViewState(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
 	mapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
-	mapView->_initialize();
-	mapView->activate();
 	initializeMapViewState(mapView);
 }
 
@@ -87,6 +83,9 @@ void GameState::initializeMapViewState(MapViewState* state)
 {
 	mMapView.reset(state);
 	mActiveState = mMapView.get();
+
+	mMapView->_initialize();
+	mMapView->activate();
 
 	mMapView->quit().connect({this, &GameState::onQuit});
 	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
