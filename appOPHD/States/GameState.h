@@ -30,7 +30,6 @@ public:
 	State* update() override;
 
 protected:
-	GameState();
 	void initializeGameState();
 	void initializeMapViewState();
 	void initialize() override;

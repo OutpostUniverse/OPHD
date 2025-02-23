@@ -18,24 +18,21 @@
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
 
 
-GameState::GameState():
-	mMainReportsState{std::make_unique<MainReportsUiState>()}
+GameState::GameState(const std::string& savedGameFilename) :
+	mMainReportsState{std::make_unique<MainReportsUiState>()},
+	mMapView{std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename)}
 {
 	initializeGameState();
-}
-
-
-GameState::GameState(const std::string& savedGameFilename) : GameState()
-{
-	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename);
 	initializeMapViewState();
 }
 
 
-GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) : GameState()
+GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+	mMainReportsState{std::make_unique<MainReportsUiState>()},
+	mMapView{std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty)}
 {
-	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
 	mMapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
+	initializeGameState();
 	initializeMapViewState();
 }
 
