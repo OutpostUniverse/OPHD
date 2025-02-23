@@ -23,7 +23,6 @@ GameState::GameState(const std::string& savedGameFilename) :
 	mMapView{std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename)}
 {
 	initializeGameState();
-	initializeMapViewState();
 }
 
 
@@ -33,7 +32,6 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 {
 	mMapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
 	initializeGameState();
-	initializeMapViewState();
 }
 
 
@@ -64,6 +62,8 @@ void GameState::initializeGameState()
 	{
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
+
+	initializeMapViewState();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
