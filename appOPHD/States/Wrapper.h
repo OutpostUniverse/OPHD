@@ -29,7 +29,7 @@ public:
 	using NAS2D::State::update;
 
 	void deactivate() { mIsActive = false; onDeactivate(); }
-	void activate() { mIsActive = true; _activate(); }
+	void activate() { mIsActive = true; onActivate(); }
 	bool active() const { return mIsActive; }
 
 private:
@@ -47,7 +47,7 @@ private:
 	 * \note	This function is called whenever the Wrapper is pushed onto the top
 	 *			of the stack. This is the place to rehook event handlers.
 	 */
-	virtual void _activate() = 0;
+	virtual void onActivate() = 0;
 
 
 private:

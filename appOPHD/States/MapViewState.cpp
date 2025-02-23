@@ -298,7 +298,7 @@ void MapViewState::initialize()
 }
 
 
-void MapViewState::_activate()
+void MapViewState::onActivate()
 {
 	unhideUi();
 }

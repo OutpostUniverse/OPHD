@@ -208,7 +208,7 @@ void MainReportsUiState::initialize()
 }
 
 
-void MainReportsUiState::_activate()
+void MainReportsUiState::onActivate()
 {
 	for (auto& panel : Panels)
 	{

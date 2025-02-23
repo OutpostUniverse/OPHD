@@ -131,7 +131,7 @@ public:
 
 private:
 	void onDeactivate() override;
-	void _activate() override;
+	void onActivate() override;
 
 	// EVENT HANDLERS
 	void onActivate(bool newActiveValue);

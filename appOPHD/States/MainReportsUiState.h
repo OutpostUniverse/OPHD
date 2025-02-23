@@ -46,7 +46,7 @@ public:
 
 private:
 	void onDeactivate() override;
-	void _activate() override;
+	void onActivate() override;
 
 private:
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
