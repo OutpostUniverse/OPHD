@@ -28,6 +28,11 @@ GameState::GameState():
 	{
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
+
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 }
 
 
@@ -64,10 +69,6 @@ GameState::~GameState()
 
 void GameState::initialize()
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
-
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 	mFade.fadeIn(constants::FadeSpeed);
 }
 
