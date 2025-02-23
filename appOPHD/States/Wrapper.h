@@ -2,8 +2,6 @@
 
 #include <NAS2D/State.h>
 
-#include <stack>
-
 
 /**
  * Implements a simple wrapper interface around the NAS2D::State object
@@ -53,6 +51,3 @@ private:
 private:
 	bool mIsActive;
 };
-
-
-using WrapperStack = std::stack<Wrapper*>;
