@@ -47,12 +47,6 @@ GameState::~GameState()
 }
 
 
-void GameState::initialize()
-{
-	mFade.fadeIn(constants::FadeSpeed);
-}
-
-
 void GameState::initializeGameState()
 {
 	mMainReportsState->_initialize();
@@ -82,6 +76,12 @@ void GameState::initializeMapViewState()
 	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapView->mapChanged().connect({this, &GameState::onMapChange});
 	mMapView->fileLoadSignal().connect({this, &GameState::onLoadGame});
+}
+
+
+void GameState::initialize()
+{
+	mFade.fadeIn(constants::FadeSpeed);
 }
 
 
