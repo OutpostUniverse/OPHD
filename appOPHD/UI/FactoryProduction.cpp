@@ -15,6 +15,42 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	StringTable factoryProductionStringTable(const ProductionCost& productionCost, int turnsCompleted)
+	{
+		const auto totalCost = productionCost.resourceCost * productionCost.turnsToBuild;
+
+		StringTable stringTable(2, 5);
+		stringTable.setColumnJustification(1, StringTable::Justification::Right);
+
+		stringTable.setColumnText(
+			0,
+			{
+				"Turns Completed:",
+				ResourceNamesRefined[0] + ":",
+				ResourceNamesRefined[1] + ":",
+				ResourceNamesRefined[2] + ":",
+				ResourceNamesRefined[3] + ":",
+			}
+		);
+
+		stringTable.setColumnText(
+			1,
+			{
+				std::to_string(turnsCompleted) + " of " + std::to_string(productionCost.turnsToBuild),
+				std::to_string(totalCost.resources[0]),
+				std::to_string(totalCost.resources[1]),
+				std::to_string(totalCost.resources[2]),
+				std::to_string(totalCost.resources[3]),
+			}
+		);
+
+		return stringTable;
+	}
+}
+
+
 FactoryProduction::FactoryProduction() :
 	Window{constants::WindowFactoryProduction},
 	mFactory{nullptr},
@@ -167,29 +203,8 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	StringTable stringTable(2, 5);
+	auto stringTable = factoryProductionStringTable(mProductCost, mFactory->productionTurnsCompleted());
 	stringTable.position(mRect.position + NAS2D::Vector{constants::Margin * 2 + mProductGrid.size().x, 25});
-	stringTable.setColumnJustification(1, StringTable::Justification::Right);
-
-	stringTable.setColumnText(0,
-		{
-			"Turns Completed:",
-			ResourceNamesRefined[0] + ":",
-			ResourceNamesRefined[1] + ":",
-			ResourceNamesRefined[2] + ":",
-			ResourceNamesRefined[3] + ":",
-		});
-
-	const auto totalCost = mProductCost.resourceCost * mProductCost.turnsToBuild;
-	stringTable.setColumnText(1,
-		{
-			std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild),
-			std::to_string(totalCost.resources[0]),
-			std::to_string(totalCost.resources[1]),
-			std::to_string(totalCost.resources[2]),
-			std::to_string(totalCost.resources[3]),
-		});
-
 	stringTable.computeRelativeCellPositions();
 	stringTable.draw(Utility<Renderer>::get());
 }
