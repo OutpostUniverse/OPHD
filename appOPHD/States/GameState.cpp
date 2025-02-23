@@ -63,6 +63,7 @@ void GameState::initializeGameState()
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
 
+	mMapView->_initialize();
 	initializeMapViewState();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -75,8 +76,6 @@ void GameState::initializeGameState()
 void GameState::initializeMapViewState()
 {
 	mActiveState = mMapView.get();
-
-	mMapView->_initialize();
 	mMapView->activate();
 
 	mMapView->quit().connect({this, &GameState::onQuit});
@@ -209,12 +208,7 @@ NAS2D::State* GameState::update()
 	if (mNewMapView)
 	{
 		mMapView = std::move(mNewMapView);
-		mActiveState = mMapView.get();
-		mActiveState->activate();
-		mMapView->quit().connect({this, &GameState::onQuit});
-		mMapView->showReportsUi().connect({this, &GameState::onShowReports});
-		mMapView->mapChanged().connect({this, &GameState::onMapChange});
-		mMapView->fileLoadSignal().connect({this, &GameState::onLoadGame});
+		initializeMapViewState();
 	}
 
 	return mReturnState;
