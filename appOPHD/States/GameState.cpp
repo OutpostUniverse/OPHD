@@ -193,7 +193,7 @@ NAS2D::State* GameState::update()
 {
 	if (mActiveState)
 	{
-		mActiveState->_update();
+		mActiveState->update();
 	}
 
 	mFade.update();

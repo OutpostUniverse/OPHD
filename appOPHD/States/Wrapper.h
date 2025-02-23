@@ -25,7 +25,7 @@ class Wrapper : public NAS2D::State
 public:
 	Wrapper() : mIsActive(false) {}
 
-	State* _update() { return update(); }
+	using NAS2D::State::update;
 
 	void _initialize() { initialize(); }
 
