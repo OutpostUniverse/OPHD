@@ -163,14 +163,15 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		{
 			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
 		}
-		mNewMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
+		auto newMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
+		newMapView->_initialize();
+		mNewMapView = std::move(newMapView);
 	}
 	catch (const std::exception& e)
 	{
 		doNonFatalErrorMessage("Load Failed", e.what());
 		return;
 	}
-	mNewMapView->_initialize();
 }
 
 
