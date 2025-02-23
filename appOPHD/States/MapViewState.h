@@ -126,13 +126,12 @@ public:
 
 	bool hasGameEnded();
 
-protected:
 	void initialize() override;
 	State* update() override;
 
 private:
-	void _deactivate() override;
-	void _activate() override;
+	void onDeactivate() override;
+	void onActivate() override;
 
 	// EVENT HANDLERS
 	void onActivate(bool newActiveValue);

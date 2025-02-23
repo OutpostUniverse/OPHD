@@ -208,7 +208,7 @@ void MainReportsUiState::initialize()
 }
 
 
-void MainReportsUiState::_activate()
+void MainReportsUiState::onActivate()
 {
 	for (auto& panel : Panels)
 	{
@@ -222,7 +222,7 @@ void MainReportsUiState::_activate()
 }
 
 
-void MainReportsUiState::_deactivate()
+void MainReportsUiState::onDeactivate()
 {
 	for (auto& panel : Panels)
 	{

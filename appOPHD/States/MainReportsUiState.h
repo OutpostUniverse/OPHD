@@ -41,13 +41,12 @@ public:
 	ReportsUiSignal::Source& hideReports() { return mReportsUiSignal; }
 	TakeMeThereSignalSourceList takeMeThere();
 
-protected:
 	void initialize() override;
 	State* update() override;
 
 private:
-	void _deactivate() override;
-	void _activate() override;
+	void onDeactivate() override;
+	void onActivate() override;
 
 private:
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);

@@ -298,13 +298,13 @@ void MapViewState::initialize()
 }
 
 
-void MapViewState::_activate()
+void MapViewState::onActivate()
 {
 	unhideUi();
 }
 
 
-void MapViewState::_deactivate()
+void MapViewState::onDeactivate()
 {
 	mGameOverDialog.enabled(false);
 	mGameOptionsDialog.enabled(false);

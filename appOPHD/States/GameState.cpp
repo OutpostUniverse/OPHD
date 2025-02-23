@@ -48,7 +48,7 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
-	mMainReportsState->_initialize();
+	mMainReportsState->initialize();
 	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
 	for (auto takeMeThere : mMainReportsState->takeMeThere())
@@ -56,7 +56,7 @@ void GameState::initializeGameState()
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
 
-	mMapView->_initialize();
+	mMapView->initialize();
 	initializeMapViewState();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -165,7 +165,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
 		}
 		auto newMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
-		newMapView->_initialize();
+		newMapView->initialize();
 		mNewMapView = std::move(newMapView);
 	}
 	catch (const std::exception& e)
@@ -193,7 +193,7 @@ NAS2D::State* GameState::update()
 {
 	if (mActiveState)
 	{
-		mActiveState->_update();
+		mActiveState->update();
 	}
 
 	mFade.update();
