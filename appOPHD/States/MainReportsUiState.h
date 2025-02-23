@@ -41,7 +41,6 @@ public:
 	ReportsUiSignal::Source& hideReports() { return mReportsUiSignal; }
 	TakeMeThereSignalSourceList takeMeThere();
 
-protected:
 	void initialize() override;
 	State* update() override;
 
