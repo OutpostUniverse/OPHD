@@ -21,18 +21,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 GameState::GameState():
 	mMainReportsState{std::make_unique<MainReportsUiState>()}
 {
-	mMainReportsState->_initialize();
-	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
-
-	for (auto takeMeThere : mMainReportsState->takeMeThere())
-	{
-		takeMeThere->connect({this, &GameState::onTakeMeThere});
-	}
-
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
-
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
+	initializeGameState();
 }
 
 
@@ -66,6 +55,23 @@ GameState::~GameState()
 void GameState::initialize()
 {
 	mFade.fadeIn(constants::FadeSpeed);
+}
+
+
+void GameState::initializeGameState()
+{
+	mMainReportsState->_initialize();
+	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
+
+	for (auto takeMeThere : mMainReportsState->takeMeThere())
+	{
+		takeMeThere->connect({this, &GameState::onTakeMeThere});
+	}
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
+
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 }
 
 

@@ -31,6 +31,7 @@ public:
 
 protected:
 	GameState();
+	void initializeGameState();
 	void initializeMapViewState();
 	void initialize() override;
 
