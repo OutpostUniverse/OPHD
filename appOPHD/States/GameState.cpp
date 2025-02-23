@@ -41,7 +41,7 @@ GameState::GameState(const std::string& savedGameFilename) : GameState()
 	auto* mapView = new MapViewState(*mMainReportsState.get(), savedGameFilename);
 	mapView->_initialize();
 	mapView->activate();
-	mapviewstate(mapView);
+	initializeMapViewState(mapView);
 }
 
 
@@ -51,7 +51,7 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 	mapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
 	mapView->_initialize();
 	mapView->activate();
-	mapviewstate(mapView);
+	initializeMapViewState(mapView);
 }
 
 
@@ -83,7 +83,7 @@ void GameState::initialize()
  *
  * \note	GameState will handle correct destruction of the MapViewState object.
  */
-void GameState::mapviewstate(MapViewState* state)
+void GameState::initializeMapViewState(MapViewState* state)
 {
 	mMapView.reset(state);
 	mActiveState = mMapView.get();

@@ -31,7 +31,7 @@ public:
 
 protected:
 	GameState();
-	void mapviewstate(MapViewState*);
+	void initializeMapViewState(MapViewState*);
 	void initialize() override;
 
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
