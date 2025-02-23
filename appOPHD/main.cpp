@@ -1,13 +1,13 @@
 #include "Cache.h"
 #include "Constants/Strings.h"
 #include "Constants/Numbers.h"
+#include "Constants/UiConstants.h"
 #include "WindowEventWrapper.h"
 #include "PointerType.h"
 
 #include "States/GameState.h"
 #include "States/SplashState.h"
 #include "States/MainMenuState.h"
-#include "States/MapViewState.h"
 #include "States/MainReportsUiState.h"
 
 #include "UI/MessageBox.h"
@@ -194,13 +194,7 @@ int main(int argc, char *argv[])
 
 			Utility<Mixer>::get().stopMusic();
 
-			GameState* gameState = new GameState();
-			MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
-			mapview->_initialize();
-			mapview->activate();
-
-			gameState->mapviewstate(mapview);
-			stateManager.setState(gameState);
+			stateManager.setState(new GameState(filename));
 		}
 		else if (!options.get<bool>("skip-splash"))
 		{

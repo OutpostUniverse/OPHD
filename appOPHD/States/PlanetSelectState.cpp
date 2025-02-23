@@ -1,13 +1,13 @@
 #include "PlanetSelectState.h"
 
 #include "GameState.h"
-#include "MapViewState.h"
 #include "MainMenuState.h"
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Cache.h"
 
+#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
@@ -114,15 +114,7 @@ NAS2D::State* PlanetSelectState::update()
 	}
 	else if (mPlanetSelection != constants::NoSelection)
 	{
-		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
-		mapview->setPopulationLevel(MapViewState::PopulationLevel::Large);
-		mapview->_initialize();
-		mapview->activate();
-
-		gameState->mapviewstate(mapview);
-
-		return gameState;
+		return new GameState(mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
 	}
 
 	return mReturnState;

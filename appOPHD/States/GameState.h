@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Planet.h"
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>
@@ -7,8 +8,11 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Fade.h>
 
+#include <string>
 #include <memory>
 
+
+enum class Difficulty;
 
 class MainReportsUiState;
 class MapViewState;
@@ -19,16 +23,17 @@ class Wrapper;
 class GameState : public NAS2D::State
 {
 public:
-	GameState();
+	GameState(const std::string& savedGameFilename);
+	GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~GameState() override;
 
-	void mapviewstate(MapViewState*);
-	MainReportsUiState& getMainReportsState();
-
-	void initialize() override;
 	State* update() override;
 
-private:
+protected:
+	GameState();
+	void initializeMapViewState();
+	void initialize() override;
+
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void onFadeComplete();
@@ -43,10 +48,10 @@ private:
 	void onTakeMeThere(const Structure*);
 
 private:
-	NAS2D::State* mReturnState = this;
+	std::unique_ptr<MainReportsUiState> mMainReportsState;
 	std::unique_ptr<MapViewState> mMapView;
 	std::unique_ptr<MapViewState> mNewMapView;
 	Wrapper* mActiveState = nullptr;
-	std::unique_ptr<MainReportsUiState> mMainReportsState;
+	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
 };

@@ -18,10 +18,6 @@
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
 
 
-// Explicit constructor needed in implementation file
-// If a default constructor was used instead, construction would happen in importing translation unit
-// The header uses forward declares for some types, so only incomplete types are available to importing code
-// Complete types are needed to construct the std::unique_ptr members
 GameState::GameState():
 	mMainReportsState{std::make_unique<MainReportsUiState>()}
 {
@@ -33,6 +29,25 @@ GameState::GameState():
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
 
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
+
+	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
+}
+
+
+GameState::GameState(const std::string& savedGameFilename) : GameState()
+{
+	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename);
+	initializeMapViewState();
+}
+
+
+GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) : GameState()
+{
+	mMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty);
+	mMapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
+	initializeMapViewState();
 }
 
 
@@ -48,44 +63,23 @@ GameState::~GameState()
 }
 
 
-/**
- * Internal initializer function.
- */
 void GameState::initialize()
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
-
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
 	mFade.fadeIn(constants::FadeSpeed);
 }
 
 
-/**
- * Sets a pointer for the MapViewState.
- *
- * Since the MapViewState is created outside of the GameState, this function
- * takes a pointer to an already instatiated MapViewState object.
- *
- * \param	state	Pointer to a MapViewState. Ownership is transfered to GameState.
- *
- * \note	GameState will handle correct destruction of the MapViewState object.
- */
-void GameState::mapviewstate(MapViewState* state)
+void GameState::initializeMapViewState()
 {
-	mMapView.reset(state);
 	mActiveState = mMapView.get();
+
+	mMapView->_initialize();
+	mMapView->activate();
 
 	mMapView->quit().connect({this, &GameState::onQuit});
 	mMapView->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapView->mapChanged().connect({this, &GameState::onMapChange});
 	mMapView->fileLoadSignal().connect({this, &GameState::onLoadGame});
-}
-
-
-MainReportsUiState& GameState::getMainReportsState()
-{
-	return *mMainReportsState;
 }
 
 
@@ -169,7 +163,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		{
 			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
 		}
-		mNewMapView = std::make_unique<MapViewState>(getMainReportsState(), saveGamePath);
+		mNewMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
 	}
 	catch (const std::exception& e)
 	{

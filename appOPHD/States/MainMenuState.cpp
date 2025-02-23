@@ -1,5 +1,4 @@
 #include "GameState.h"
-#include "MapViewState.h"
 #include "MainMenuState.h"
 #include "PlanetSelectState.h"
 
@@ -136,14 +135,7 @@ void MainMenuState::onLoadGame(const std::string& filePath)
 	try
 	{
 		checkSavegameVersion(filename);
-
-		GameState* gameState = new GameState();
-		MapViewState* mapview = new MapViewState(gameState->getMainReportsState(), filename);
-		mapview->_initialize();
-		mapview->activate();
-
-		gameState->mapviewstate(mapview);
-		mReturnState = gameState;
+		mReturnState = new GameState(filename);
 
 		mFade.fadeOut(constants::FadeSpeed);
 		NAS2D::Utility<NAS2D::Mixer>::get().fadeOutMusic(constants::FadeSpeed);
