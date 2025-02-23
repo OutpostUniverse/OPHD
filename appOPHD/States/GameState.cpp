@@ -30,7 +30,6 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
 	mMapView{std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty)}
 {
-	mMapView->setPopulationLevel(MapViewState::PopulationLevel::Large);
 	initializeGameState();
 }
 
