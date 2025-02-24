@@ -42,14 +42,13 @@ Button::Button(std::string newText) :
 		}
 	}
 {
-	text(newText);
-
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 
 	mFont = &getDefaultFont();
+	text(newText);
 }
 
 
