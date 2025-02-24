@@ -64,7 +64,9 @@ MineReport::MineReport() :
 		{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
 		{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
 		{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
-	}}
+	}},
+	mSelectedFacility{nullptr},
+	mAvailableTrucks{0}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
@@ -137,9 +139,8 @@ void MineReport::fillLists()
 		lstMineFacilities.last()->text = getStructureDescription(*facility);
 	}
 
-	mSelectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(mSelectedFacility);
+	lstMineFacilities.setSelected(mSelectedFacility);
 	mAvailableTrucks = getTruckAvailability();
-	updateManagementButtonsVisibility();
 }
 
 
@@ -168,140 +169,11 @@ void MineReport::onResize()
 
 void MineReport::onVisibilityChange(bool /*visible*/)
 {
-	updateManagementButtonsVisibility();
+	onManagementButtonsVisibilityChange();
 }
 
 
-void MineReport::filterButtonClicked()
-{
-	btnShowAll.toggle(false);
-	btnShowActive.toggle(false);
-	btnShowIdle.toggle(false);
-	btnShowTappedOut.toggle(false);
-	btnShowDisabled.toggle(false);
-}
-
-
-void MineReport::onShowAll()
-{
-	filterButtonClicked();
-	btnShowAll.toggle(true);
-
-	fillLists();
-}
-
-
-void MineReport::onShowActive()
-{
-	filterButtonClicked();
-	btnShowActive.toggle(true);
-}
-
-
-void MineReport::onShowIdle()
-{
-	filterButtonClicked();
-	btnShowIdle.toggle(true);
-}
-
-
-void MineReport::onShowTappedOut()
-{
-	filterButtonClicked();
-	btnShowTappedOut.toggle(true);
-}
-
-
-void MineReport::onShowDisabled()
-{
-	filterButtonClicked();
-	btnShowDisabled.toggle(true);
-}
-
-
-void MineReport::onIdle()
-{
-	mSelectedFacility->forceIdle(btnIdle.isPressed());
-}
-
-
-void MineReport::onDigNewLevel()
-{
-	auto facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->extend();
-
-	btnDigNewLevel.toggle(facility->extending());
-	btnDigNewLevel.enabled(facility->canExtend());
-}
-
-
-void MineReport::onTakeMeThere()
-{
-	mTakeMeThereSignal(mSelectedFacility);
-}
-
-
-void MineReport::onAddTruck()
-{
-	if (!mSelectedFacility) { return; }
-
-	auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
-
-	if (mFacility->assignedTrucks() == mFacility->maxTruckCount()) { return; }
-
-	if (pullTruckFromInventory())
-	{
-		mFacility->addTruck();
-		mAvailableTrucks = getTruckAvailability();
-	}
-}
-
-
-void MineReport::onRemoveTruck()
-{
-	auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
-
-	if (!mSelectedFacility) { return; }
-
-	if (mFacility->assignedTrucks() == 1) { return; }
-
-	if (pushTruckIntoInventory())
-	{
-		mFacility->removeTruck();
-		mAvailableTrucks = getTruckAvailability();
-	}
-}
-
-
-void MineReport::onCheckBoxCommonMetalsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
-}
-
-
-void MineReport::onCheckBoxCommonMineralsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
-}
-
-
-void MineReport::onCheckBoxRareMetalsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
-}
-
-
-void MineReport::onCheckBoxRareMineralsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
-}
-
-
-void MineReport::updateManagementButtonsVisibility()
+void MineReport::onManagementButtonsVisibilityChange()
 {
 	bool isVisible = visible() && mSelectedFacility;
 
@@ -322,26 +194,151 @@ void MineReport::updateManagementButtonsVisibility()
 }
 
 
+void MineReport::onFilterButtonClicked()
+{
+	btnShowAll.toggle(false);
+	btnShowActive.toggle(false);
+	btnShowIdle.toggle(false);
+	btnShowTappedOut.toggle(false);
+	btnShowDisabled.toggle(false);
+}
+
+
+void MineReport::onShowAll()
+{
+	onFilterButtonClicked();
+	btnShowAll.toggle(true);
+
+	fillLists();
+}
+
+
+void MineReport::onShowActive()
+{
+	onFilterButtonClicked();
+	btnShowActive.toggle(true);
+}
+
+
+void MineReport::onShowIdle()
+{
+	onFilterButtonClicked();
+	btnShowIdle.toggle(true);
+}
+
+
+void MineReport::onShowTappedOut()
+{
+	onFilterButtonClicked();
+	btnShowTappedOut.toggle(true);
+}
+
+
+void MineReport::onShowDisabled()
+{
+	onFilterButtonClicked();
+	btnShowDisabled.toggle(true);
+}
+
+
 void MineReport::onMineFacilitySelectionChange()
 {
-	mSelectedFacility = lstMineFacilities.selectedStructure();
+	mSelectedFacility = dynamic_cast<MineFacility*>(lstMineFacilities.selectedStructure());
 
-	updateManagementButtonsVisibility();
+	onManagementButtonsVisibilityChange();
 
 	if (!mSelectedFacility) { return; }
 
-	auto facility = static_cast<MineFacility*>(mSelectedFacility);
-	btnIdle.toggle(mSelectedFacility->isIdle());
-	btnIdle.enabled(mSelectedFacility->operational() || mSelectedFacility->isIdle());
+	const auto& facility = *mSelectedFacility;
+	btnIdle.toggle(facility.isIdle());
+	btnIdle.enabled(facility.operational() || facility.isIdle());
 
-	btnDigNewLevel.toggle(facility->extending());
-	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
+	btnDigNewLevel.toggle(facility.extending());
+	btnDigNewLevel.enabled(facility.canExtend() && (facility.operational() || facility.isIdle()));
 
-	const auto enabledBits = facility->mine()->miningEnabled();
+	const auto enabledBits = facility.mine().miningEnabled();
 	chkResources[0].checked(enabledBits[0]);
 	chkResources[1].checked(enabledBits[1]);
 	chkResources[2].checked(enabledBits[2]);
 	chkResources[3].checked(enabledBits[3]);
+}
+
+
+void MineReport::onIdle()
+{
+	mSelectedFacility->forceIdle(btnIdle.isPressed());
+}
+
+
+void MineReport::onDigNewLevel()
+{
+	auto& facility = *mSelectedFacility;
+	facility.extend();
+
+	btnDigNewLevel.toggle(facility.extending());
+	btnDigNewLevel.enabled(facility.canExtend());
+}
+
+
+void MineReport::onTakeMeThere()
+{
+	mTakeMeThereSignal(mSelectedFacility);
+}
+
+
+void MineReport::onCheckBoxCommonMetalsChange()
+{
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+}
+
+
+void MineReport::onCheckBoxCommonMineralsChange()
+{
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+}
+
+
+void MineReport::onCheckBoxRareMetalsChange()
+{
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+}
+
+
+void MineReport::onCheckBoxRareMineralsChange()
+{
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+}
+
+
+void MineReport::onAddTruck()
+{
+	if (!mSelectedFacility) { return; }
+
+	auto& facility = *mSelectedFacility;
+
+	if (facility.assignedTrucks() == facility.maxTruckCount()) { return; }
+
+	if (pullTruckFromInventory())
+	{
+		facility.addTruck();
+		mAvailableTrucks = getTruckAvailability();
+	}
+}
+
+
+void MineReport::onRemoveTruck()
+{
+	if (!mSelectedFacility) { return; }
+
+	auto& facility = *mSelectedFacility;
+
+	if (facility.assignedTrucks() == 1) { return; }
+
+	if (pushTruckIntoInventory())
+	{
+		facility.removeTruck();
+		mAvailableTrucks = getTruckAvailability();
+	}
 }
 
 
@@ -355,14 +352,14 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
 
-	bool isStatusHighlighted = mSelectedFacility->disabled() || mSelectedFacility->destroyed();
-	auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(mSelectedFacility->stateDescription()) + 5, 0};
-	r.drawText(fontMedium, mSelectedFacility->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
+	const auto& facility = *mSelectedFacility;
+	bool isStatusHighlighted = facility.disabled() || facility.destroyed();
+	auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
+	r.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
 
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	const auto& mine = *facility->mine();
+	const auto& mine = facility.mine();
 
 	const auto barOrigin = resourceTextOrigin.x + 125;
 	const auto barWidth = btnIdle.position().x - barOrigin - 10;
@@ -387,7 +384,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 {
 	auto& renderer = Utility<Renderer>::get();
-	const auto& mine = *static_cast<MineFacility*>(mSelectedFacility)->mine();
+	const auto& mine = mSelectedFacility->mine();
 
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
 	renderer.drawLine(origin + NAS2D::Vector{0, 21}, {static_cast<float>(renderer.size().x - 10), static_cast<float>(origin.y + 21)}, constants::PrimaryTextColor, 1);
@@ -420,10 +417,10 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
-	const auto miningFacility = static_cast<MineFacility*>(mSelectedFacility);
+	const auto& miningFacility = *mSelectedFacility;
 
-	if (miningFacility->destroyed() ||
-		miningFacility->underConstruction())
+	if (miningFacility.destroyed() ||
+		miningFacility.underConstruction())
 	{
 		return;
 	}
@@ -435,13 +432,13 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{0, 30}, constants::PrimaryTextColor);
 
 	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility->assignedTrucks()), constants::PrimaryTextColor);
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility.assignedTrucks()), constants::PrimaryTextColor);
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 45}, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), constants::PrimaryTextColor);
 
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(miningFacility) != routeTable.end();
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
-	if (miningFacility->operational() || miningFacility->isIdle())
+	if (miningFacility.operational() || miningFacility.isIdle())
 	{
 		drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 65},
 			labelWidth,
@@ -460,10 +457,9 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 {
 	auto& r = Utility<Renderer>::get();
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	const auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 
-	auto& route = routeTable[mFacility];
+	const auto& route = routeTable.at(mSelectedFacility);
 	drawLabelAndValueRightJustify(origin,
 		btnAddTruck.position().x - origin.x - 10,
 		"Route Cost",
@@ -472,7 +468,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 
 
 	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
-	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mFacility->assignedTrucks();
+	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
 	const int oreMovementLabelWidth = r.size().x - origin.x - 10;
 	const int oreMovementPart = totalOreMovement / 4;
 	const int oreLabelWidth = (oreMovementLabelWidth - 10) / 2;

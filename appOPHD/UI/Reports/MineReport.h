@@ -18,6 +18,8 @@ namespace NAS2D
 	class Image;
 }
 
+class MineFacility;
+
 
 class MineReport : public ReportInterface
 {
@@ -32,39 +34,38 @@ public:
 
 	void update() override;
 
-private:
+protected:
+	void onResize() override;
+	void onVisibilityChange(bool visible) override;
+	void onManagementButtonsVisibilityChange();
+
+	void onFilterButtonClicked();
 	void onShowAll();
 	void onShowActive();
 	void onShowIdle();
 	void onShowTappedOut();
 	void onShowDisabled();
 
+	void onMineFacilitySelectionChange();
+
 	void onIdle();
 	void onDigNewLevel();
 	void onTakeMeThere();
-
-	void onAddTruck();
-	void onRemoveTruck();
 
 	void onCheckBoxCommonMetalsChange();
 	void onCheckBoxCommonMineralsChange();
 	void onCheckBoxRareMetalsChange();
 	void onCheckBoxRareMineralsChange();
 
-	void filterButtonClicked();
-
-	void onMineFacilitySelectionChange();
-
-	void updateManagementButtonsVisibility();
-
-	void onResize() override;
-	void onVisibilityChange(bool visible) override;
+	void onAddTruck();
+	void onRemoveTruck();
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawOreProductionPane(const NAS2D::Point<int>&);
 	void drawTruckManagementPane(const NAS2D::Point<int>&);
 	void drawTruckHaulInfo(const NAS2D::Point<int>&);
 
+private:
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontBold;
 	const NAS2D::Font& fontMedium;
@@ -90,8 +91,6 @@ private:
 	std::array<CheckBox, 4> chkResources;
 
 	StructureListBox lstMineFacilities;
-
-	Structure* mSelectedFacility{nullptr};
-
-	int mAvailableTrucks{0};
+	MineFacility* mSelectedFacility;
+	int mAvailableTrucks;
 };

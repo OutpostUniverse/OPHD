@@ -54,11 +54,15 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
 /**
  * Sets the current selection.
  *
- * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
+ * \param structure		Pointer to a Structure object. Safe to pass \c nullptr.
  */
 void StructureListBox::setSelected(const Structure* structure)
 {
-	if (mItems.empty() || structure == nullptr) { return; }
+	if (structure == nullptr)
+	{
+		setSelection(NoSelection);
+		return;
+	}
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
@@ -69,6 +73,8 @@ void StructureListBox::setSelected(const Structure* structure)
 			return;
 		}
 	}
+
+	setSelection(NoSelection);
 }
 
 
