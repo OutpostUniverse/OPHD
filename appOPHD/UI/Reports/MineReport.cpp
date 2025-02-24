@@ -358,8 +358,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
 
-	MineFacility* facility = mSelectedFacility;
-	const auto& mine = *facility->mine();
+	const auto& mine = *mSelectedFacility->mine();
 
 	const auto barOrigin = resourceTextOrigin.x + 125;
 	const auto barWidth = btnIdle.position().x - barOrigin - 10;
