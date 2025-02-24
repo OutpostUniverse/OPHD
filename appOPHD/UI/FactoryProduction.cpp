@@ -204,7 +204,7 @@ void FactoryProduction::update()
 	Window::update();
 
 	auto stringTable = factoryProductionStringTable(mProductCost, mFactory->productionTurnsCompleted());
-	stringTable.position(mRect.position + NAS2D::Vector{constants::Margin * 2 + mProductGrid.size().x, 25});
+	stringTable.position(mProductGrid.area().crossXPoint() + NAS2D::Vector{constants::Margin, 0});
 	stringTable.computeRelativeCellPositions();
 	stringTable.draw(Utility<Renderer>::get());
 }
