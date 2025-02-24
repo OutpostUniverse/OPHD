@@ -249,14 +249,14 @@ void MineReport::onMineFacilitySelectionChange()
 
 	if (!mSelectedFacility) { return; }
 
-	auto facility = mSelectedFacility;
-	btnIdle.toggle(mSelectedFacility->isIdle());
-	btnIdle.enabled(mSelectedFacility->operational() || mSelectedFacility->isIdle());
+	const auto& facility = *mSelectedFacility;
+	btnIdle.toggle(facility.isIdle());
+	btnIdle.enabled(facility.operational() || facility.isIdle());
 
-	btnDigNewLevel.toggle(facility->extending());
-	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
+	btnDigNewLevel.toggle(facility.extending());
+	btnDigNewLevel.enabled(facility.canExtend() && (facility.operational() || facility.isIdle()));
 
-	const auto enabledBits = facility->mine()->miningEnabled();
+	const auto enabledBits = facility.mine()->miningEnabled();
 	chkResources[0].checked(enabledBits[0]);
 	chkResources[1].checked(enabledBits[1]);
 	chkResources[2].checked(enabledBits[2]);
@@ -272,11 +272,11 @@ void MineReport::onIdle()
 
 void MineReport::onDigNewLevel()
 {
-	auto facility = mSelectedFacility;
-	facility->extend();
+	auto& facility = *mSelectedFacility;
+	facility.extend();
 
-	btnDigNewLevel.toggle(facility->extending());
-	btnDigNewLevel.enabled(facility->canExtend());
+	btnDigNewLevel.toggle(facility.extending());
+	btnDigNewLevel.enabled(facility.canExtend());
 }
 
 
