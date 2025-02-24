@@ -64,7 +64,9 @@ MineReport::MineReport() :
 		{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
 		{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
 		{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
-	}}
+	}},
+	mSelectedFacility{nullptr},
+	mAvailableTrucks{0}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};

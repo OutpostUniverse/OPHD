@@ -91,6 +91,6 @@ private:
 	std::array<CheckBox, 4> chkResources;
 
 	StructureListBox lstMineFacilities;
-	Structure* mSelectedFacility{nullptr};
-	int mAvailableTrucks{0};
+	Structure* mSelectedFacility;
+	int mAvailableTrucks;
 };
