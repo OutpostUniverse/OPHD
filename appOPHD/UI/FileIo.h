@@ -51,7 +51,7 @@ private:
 	FileSaveSignal mSaveSignal;
 	FileLoadSignal mLoadSignal;
 
-	FileOperation mMode{FileOperation::Load};
+	FileOperation mMode;
 
 	std::string mScanPath;
 

@@ -20,6 +20,7 @@ using namespace NAS2D;
 
 FileIo::FileIo() :
 	Window{"File I/O"},
+	mMode{FileOperation::Load},
 	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
 	mCancel{"Cancel", {this, &FileIo::onClose}},
 	mFileOperation{"FileOp", {this, &FileIo::onFileIo}},
