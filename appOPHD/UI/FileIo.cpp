@@ -34,10 +34,10 @@ FileIo::FileIo() : Window{"File I/O"}
 	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
 	add(mListBox, {5, 45});
 
-	mFileName.size({690, 18});
+	mFileName.size({mListBox.size().x, 18});
 	mFileName.maxCharacters(50);
 	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
-	add(mFileName, {5, 302});
+	add(mFileName, mListBox.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, 4});
 
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
