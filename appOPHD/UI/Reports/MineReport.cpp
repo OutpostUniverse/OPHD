@@ -417,10 +417,10 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
-	const auto miningFacility = mSelectedFacility;
+	const auto& miningFacility = *mSelectedFacility;
 
-	if (miningFacility->destroyed() ||
-		miningFacility->underConstruction())
+	if (miningFacility.destroyed() ||
+		miningFacility.underConstruction())
 	{
 		return;
 	}
@@ -432,13 +432,13 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{0, 30}, constants::PrimaryTextColor);
 
 	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility->assignedTrucks()), constants::PrimaryTextColor);
+	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility.assignedTrucks()), constants::PrimaryTextColor);
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 45}, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), constants::PrimaryTextColor);
 
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(miningFacility) != routeTable.end();
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
-	if (miningFacility->operational() || miningFacility->isIdle())
+	if (miningFacility.operational() || miningFacility.isIdle())
 	{
 		drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 65},
 			labelWidth,
