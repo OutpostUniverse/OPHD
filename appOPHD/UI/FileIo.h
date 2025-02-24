@@ -35,10 +35,11 @@ public:
 	void update() override;
 
 protected:
+	void scanDirectory(const std::string& directory);
+
 	void onDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 
-	void scanDirectory(const std::string& directory);
 	void onOpenFolder() const;
 	void onClose();
 	void onFileIo();

@@ -87,6 +87,25 @@ void FileIo::showSave(const std::string& directory)
 }
 
 
+void FileIo::scanDirectory(const std::string& directory)
+{
+	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
+
+	const auto& filesystem = Utility<Filesystem>::get();
+	auto dirList = filesystem.directoryList(directory);
+	std::sort(dirList.begin(), dirList.end());
+
+	mListBox.clear();
+	for (auto& dir : dirList)
+	{
+		if (!filesystem.isDirectory(directory + dir.string()))
+		{
+			mListBox.add(dir.stem().string());
+		}
+	}
+}
+
+
 void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
@@ -118,25 +137,6 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 	else if (key == KeyCode::Escape)
 	{
 		onClose();
-	}
-}
-
-
-void FileIo::scanDirectory(const std::string& directory)
-{
-	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
-
-	const auto& filesystem = Utility<Filesystem>::get();
-	auto dirList = filesystem.directoryList(directory);
-	std::sort(dirList.begin(), dirList.end());
-
-	mListBox.clear();
-	for (auto& dir : dirList)
-	{
-		if (!filesystem.isDirectory(directory + dir.string()))
-		{
-			mListBox.add(dir.stem().string());
-		}
 	}
 }
 
