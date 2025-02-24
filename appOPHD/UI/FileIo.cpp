@@ -32,7 +32,7 @@ FileIo::FileIo() : Window{"File I/O"}
 	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
 	add(mListBox, {5, 45});
 
-	mFileName.size({mListBox.size().x, 18});
+	mFileName.size({mListBox.size().x, std::max(18, mFileName.size().y)});
 	mFileName.maxCharacters(50);
 	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
 	add(mFileName, mListBox.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, 4});
