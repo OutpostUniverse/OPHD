@@ -35,6 +35,7 @@ public:
 protected:
 	void onResize() override;
 	void onVisibilityChange(bool visible) override;
+	void onManagementButtonsVisibilityChange();
 
 	void onFilterButtonClicked();
 	void onShowAll();
@@ -56,8 +57,6 @@ protected:
 	void onCheckBoxCommonMineralsChange();
 	void onCheckBoxRareMetalsChange();
 	void onCheckBoxRareMineralsChange();
-
-	void onManagementButtonsVisibilityChange();
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawOreProductionPane(const NAS2D::Point<int>&);

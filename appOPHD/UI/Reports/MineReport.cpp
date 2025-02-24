@@ -173,6 +173,27 @@ void MineReport::onVisibilityChange(bool /*visible*/)
 }
 
 
+void MineReport::onManagementButtonsVisibilityChange()
+{
+	bool isVisible = visible() && mSelectedFacility;
+
+	btnIdle.visible(isVisible);
+	btnDigNewLevel.visible(isVisible);
+	btnTakeMeThere.visible(isVisible);
+
+	bool isTruckButtonVisible = isVisible &&
+		!(mSelectedFacility->destroyed() || mSelectedFacility->underConstruction());
+
+	btnAddTruck.visible(isTruckButtonVisible);
+	btnRemoveTruck.visible(isTruckButtonVisible);
+
+	for (auto& chkResource : chkResources)
+	{
+		chkResource.visible(isVisible);
+	}
+}
+
+
 void MineReport::onFilterButtonClicked()
 {
 	btnShowAll.toggle(false);
@@ -322,27 +343,6 @@ void MineReport::onCheckBoxRareMineralsChange()
 {
 	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
 	facility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
-}
-
-
-void MineReport::onManagementButtonsVisibilityChange()
-{
-	bool isVisible = visible() && mSelectedFacility;
-
-	btnIdle.visible(isVisible);
-	btnDigNewLevel.visible(isVisible);
-	btnTakeMeThere.visible(isVisible);
-
-	bool isTruckButtonVisible = isVisible &&
-		!(mSelectedFacility->destroyed() || mSelectedFacility->underConstruction());
-
-	btnAddTruck.visible(isTruckButtonVisible);
-	btnRemoveTruck.visible(isTruckButtonVisible);
-
-	for (auto& chkResource : chkResources)
-	{
-		chkResource.visible(isVisible);
-	}
 }
 
 
