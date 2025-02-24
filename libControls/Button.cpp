@@ -5,6 +5,12 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
+namespace
+{
+	constexpr auto internalPadding = NAS2D::Vector{2, 2};
+}
+
+
 Button::Button(std::string newText) :
 	mButtonSkin{
 		{
@@ -49,6 +55,7 @@ Button::Button(std::string newText) :
 
 	mFont = &getDefaultFont();
 	text(newText);
+	size(mFont->size(text()) + internalPadding * 2);
 }
 
 
