@@ -33,6 +33,7 @@ public:
 	void update() override;
 
 protected:
+	void onFilterButtonClicked();
 	void onShowAll();
 	void onShowActive();
 	void onShowIdle();
@@ -50,8 +51,6 @@ protected:
 	void onCheckBoxCommonMineralsChange();
 	void onCheckBoxRareMetalsChange();
 	void onCheckBoxRareMineralsChange();
-
-	void onFilterButtonClicked();
 
 	void onMineFacilitySelectionChange();
 
