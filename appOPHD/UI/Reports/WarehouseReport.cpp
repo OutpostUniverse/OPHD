@@ -66,7 +66,7 @@ WarehouseReport::WarehouseReport() :
 	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
 	{
-		button->size({75, 20});
+		button->size({89, 20});
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
 	}
