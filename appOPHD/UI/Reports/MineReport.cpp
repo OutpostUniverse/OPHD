@@ -458,9 +458,8 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 {
 	auto& r = Utility<Renderer>::get();
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	const auto facility = mSelectedFacility;
 
-	auto& route = routeTable[facility];
+	auto& route = routeTable[mSelectedFacility];
 	drawLabelAndValueRightJustify(origin,
 		btnAddTruck.position().x - origin.x - 10,
 		"Route Cost",
@@ -469,7 +468,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 
 
 	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
-	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * facility->assignedTrucks();
+	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
 	const int oreMovementLabelWidth = r.size().x - origin.x - 10;
 	const int oreMovementPart = totalOreMovement / 4;
 	const int oreLabelWidth = (oreMovementLabelWidth - 10) / 2;
