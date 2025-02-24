@@ -67,6 +67,26 @@ FileIo::~FileIo()
 }
 
 
+void FileIo::showOpen(const std::string& directory)
+{
+	scanDirectory(directory);
+	mMode = FileOperation::Load;
+	title(constants::WindowFileIoTitleLoad);
+	mFileOperation.text(constants::WindowFileIoLoad);
+	show();
+}
+
+
+void FileIo::showSave(const std::string& directory)
+{
+	scanDirectory(directory);
+	mMode = FileOperation::Save;
+	title(constants::WindowFileIoTitleSave);
+	mFileOperation.text(constants::WindowFileIoSave);
+	show();
+}
+
+
 void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
@@ -99,26 +119,6 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 	{
 		onClose();
 	}
-}
-
-
-void FileIo::showOpen(const std::string& directory)
-{
-	scanDirectory(directory);
-	mMode = FileOperation::Load;
-	title(constants::WindowFileIoTitleLoad);
-	mFileOperation.text(constants::WindowFileIoLoad);
-	show();
-}
-
-
-void FileIo::showSave(const std::string& directory)
-{
-	scanDirectory(directory);
-	mMode = FileOperation::Save;
-	title(constants::WindowFileIoTitleSave);
-	mFileOperation.text(constants::WindowFileIoSave);
-	show();
 }
 
 
