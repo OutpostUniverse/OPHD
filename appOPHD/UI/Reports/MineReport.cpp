@@ -288,29 +288,25 @@ void MineReport::onTakeMeThere()
 
 void MineReport::onCheckBoxCommonMetalsChange()
 {
-	MineFacility* facility = mSelectedFacility;
-	facility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+	mSelectedFacility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
-	MineFacility* facility = mSelectedFacility;
-	facility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+	mSelectedFacility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
-	MineFacility* facility = mSelectedFacility;
-	facility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+	mSelectedFacility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
-	MineFacility* facility = mSelectedFacility;
-	facility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+	mSelectedFacility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
 }
 
 
