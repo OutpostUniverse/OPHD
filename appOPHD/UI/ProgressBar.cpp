@@ -17,7 +17,7 @@ void drawProgressBar(int value, int max, NAS2D::Rectangle<int> rect, int padding
 	if (max > 0)
 	{
 		auto innerRect = rect.inset(padding);
-		innerRect.size.x *= clippedValue / max;
+		innerRect.size.x = innerRect.size.x * clippedValue / max;
 		renderer.drawBoxFilled(innerRect, NAS2D::Color{0, 100, 0});
 	}
 }
