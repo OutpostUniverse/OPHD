@@ -173,6 +173,12 @@ Mine* MineFacility::mine()
 }
 
 
+const Mine* MineFacility::mine() const
+{
+	return mMine;
+}
+
+
 MineFacility::ExtensionCompleteSignal::Source& MineFacility::extensionComplete()
 {
 	return mExtensionComplete;
