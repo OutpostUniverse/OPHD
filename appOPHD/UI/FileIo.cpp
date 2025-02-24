@@ -21,7 +21,7 @@ using namespace NAS2D;
 FileIo::FileIo() :
 	Window{"File I/O"},
 	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
-	mClose{"Cancel", {this, &FileIo::onClose}},
+	mCancel{"Cancel", {this, &FileIo::onClose}},
 	mFileOperation{"FileOp", {this, &FileIo::onFileIo}},
 	mDeleteFile{"Delete", {this, &FileIo::onFileDelete}}
 {
@@ -52,8 +52,8 @@ FileIo::FileIo() :
 	mDeleteFile.enabled(false);
 	add(mDeleteFile, {bottomButtonArea.position.x, bottomButtonArea.position.y});
 
-	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
-	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, bottomButtonArea.position.y});
+	mCancel.size({std::max(50, mCancel.size().x + constants::Margin), 20});
+	add(mCancel, {mFileOperation.position().x - mCancel.size().x - 5, bottomButtonArea.position.y});
 
 	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
 }

@@ -56,7 +56,7 @@ private:
 	std::string mScanPath;
 
 	Button mOpenSaveFolder;
-	Button mClose;
+	Button mCancel;
 	Button mFileOperation;
 	Button mDeleteFile;
 
