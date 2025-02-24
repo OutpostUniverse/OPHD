@@ -30,15 +30,14 @@ public:
 	void update() override;
 
 protected:
+	void onProductSelectionChange(const IconGrid::Item*);
+	void onClearSelection();
+	void onApply();
 	void onOkay();
 	void onCancel();
-	void onClearSelection();
 	void onCheckBoxIdleChange();
-	void onApply();
 
 	void clearProduct();
-
-	void onProductSelectionChange(const IconGrid::Item*);
 
 private:
 	Factory* mFactory;

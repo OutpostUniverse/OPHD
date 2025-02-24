@@ -91,14 +91,6 @@ FactoryProduction::FactoryProduction() :
 }
 
 
-void FactoryProduction::clearProduct()
-{
-	mProduct = ProductType::PRODUCT_NONE;
-	mProductCost = {};
-	mProductGrid.clearSelection();
-}
-
-
 void FactoryProduction::hide()
 {
 	Control::hide();
@@ -122,10 +114,10 @@ void FactoryProduction::onProductSelectionChange(const IconGrid::Item* item)
 }
 
 
-void FactoryProduction::onOkay()
+void FactoryProduction::onClearSelection()
 {
-	mFactory->productType(mProduct);
-	hide();
+	clearProduct();
+	onApply();
 }
 
 
@@ -135,16 +127,16 @@ void FactoryProduction::onApply()
 }
 
 
-void FactoryProduction::onCancel()
+void FactoryProduction::onOkay()
 {
+	mFactory->productType(mProduct);
 	hide();
 }
 
 
-void FactoryProduction::onClearSelection()
+void FactoryProduction::onCancel()
 {
-	clearProduct();
-	onApply();
+	hide();
 }
 
 
@@ -153,6 +145,14 @@ void FactoryProduction::onCheckBoxIdleChange()
 	if (!mFactory) { return; }
 
 	mFactory->forceIdle(chkIdle.checked());
+}
+
+
+void FactoryProduction::clearProduct()
+{
+	mProduct = ProductType::PRODUCT_NONE;
+	mProductCost = {};
+	mProductGrid.clearSelection();
 }
 
 
