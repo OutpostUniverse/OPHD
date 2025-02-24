@@ -41,12 +41,11 @@ protected:
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 
 	void onOpenFolder() const;
+	void onFileSelect();
+	void onFileNameChange(TextControl* control);
 	void onClose();
 	void onFileIo();
 	void onFileDelete();
-
-	void onFileSelect();
-	void onFileNameChange(TextControl* control);
 
 private:
 	FileSaveSignal mSaveSignal;

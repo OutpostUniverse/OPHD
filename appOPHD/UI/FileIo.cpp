@@ -141,6 +141,12 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 }
 
 
+void FileIo::onOpenFolder() const
+{
+	shellOpenPath(mScanPath);
+}
+
+
 void FileIo::onFileSelect()
 {
 	mFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
@@ -168,12 +174,6 @@ void FileIo::onFileNameChange(TextControl* control)
 		mFileOperation.enabled(true);
 		mDeleteFile.enabled(true);
 	}
-}
-
-
-void FileIo::onOpenFolder() const
-{
-	shellOpenPath(mScanPath);
 }
 
 
