@@ -27,18 +27,18 @@ FileIo::FileIo() : Window{"File I/O"}
 	size({700, 350});
 
 	mOpenSaveFolder.size({105, 20});
-	add(mOpenSaveFolder, {590, 22});
+	add(mOpenSaveFolder, {area().size.x - mOpenSaveFolder.size().x - 5, 22});
 
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
-	add(mFileOperation, {645, 325});
+	add(mFileOperation, {area().size.x - mFileOperation.size().x - 5, 325});
 
 	mDeleteFile.size({50, 20});
 	mDeleteFile.enabled(false);
 	add(mDeleteFile, {5, 325});
 
 	mClose.size({50, 20});
-	add(mClose, {590, 325});
+	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, 325});
 
 	mFileName.size({690, 18});
 	mFileName.maxCharacters(50);
