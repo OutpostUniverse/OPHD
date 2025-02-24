@@ -457,9 +457,9 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 {
 	auto& r = Utility<Renderer>::get();
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 
-	auto& route = routeTable[mSelectedFacility];
+	const auto& route = routeTable.at(mSelectedFacility);
 	drawLabelAndValueRightJustify(origin,
 		btnAddTruck.position().x - origin.x - 10,
 		"Route Cost",
