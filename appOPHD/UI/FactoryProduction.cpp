@@ -11,6 +11,8 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <algorithm>
+
 
 using namespace NAS2D;
 
@@ -67,10 +69,17 @@ FactoryProduction::FactoryProduction() :
 	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
 	add(mProductGrid, {constants::Margin, sWindowTitleBarHeight + constants::Margin});
 
-	chkIdle.size({50, 20});
-	add(chkIdle, {mProductGrid.size().x + 12, 116});
+	// Create dummy object for sizing purposes
+	auto stringTable = factoryProductionStringTable({99, {}}, 99);
+	stringTable.position(mProductGrid.area().crossXPoint() + NAS2D::Vector{constants::Margin, 0});
+	stringTable.computeRelativeCellPositions();
 
-	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {162, 22}};
+	chkIdle.size({50, 20});
+	add(chkIdle, stringTable.screenRect().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, constants::Margin});
+
+	mProductGrid.height(chkIdle.area().endPoint().y - mProductGrid.area().position.y);
+
+	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {std::max(162, stringTable.screenRect().size.x), 22}};
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
