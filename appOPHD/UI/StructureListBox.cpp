@@ -54,7 +54,7 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
 /**
  * Sets the current selection.
  *
- * \param structure		Pointer to a Structure object. Save to pass \c nullptr.
+ * \param structure		Pointer to a Structure object. Safe to pass \c nullptr.
  */
 void StructureListBox::setSelected(const Structure* structure)
 {
