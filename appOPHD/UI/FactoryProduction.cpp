@@ -62,16 +62,16 @@ FactoryProduction::FactoryProduction() :
 	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}}
 {
-	size({320, 165});
+	size({320, 166});
 
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
-	add(mProductGrid, {constants::Margin, 25});
+	add(mProductGrid, {constants::Margin, sWindowTitleBarHeight + constants::Margin});
 
 	chkIdle.size({50, 20});
-	add(chkIdle, {mProductGrid.size().x + 12, 115});
+	add(chkIdle, {mProductGrid.size().x + 12, 116});
 
 	const auto buttonArea = Rectangle<int>::Create(mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, area().inset(constants::Margin).endPoint());
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
