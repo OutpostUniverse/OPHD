@@ -50,13 +50,13 @@ protected:
 	void onDigNewLevel();
 	void onTakeMeThere();
 
-	void onAddTruck();
-	void onRemoveTruck();
-
 	void onCheckBoxCommonMetalsChange();
 	void onCheckBoxCommonMineralsChange();
 	void onCheckBoxRareMetalsChange();
 	void onCheckBoxRareMineralsChange();
+
+	void onAddTruck();
+	void onRemoveTruck();
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawOreProductionPane(const NAS2D::Point<int>&);

@@ -286,6 +286,34 @@ void MineReport::onTakeMeThere()
 }
 
 
+void MineReport::onCheckBoxCommonMetalsChange()
+{
+	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	facility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+}
+
+
+void MineReport::onCheckBoxCommonMineralsChange()
+{
+	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	facility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+}
+
+
+void MineReport::onCheckBoxRareMetalsChange()
+{
+	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	facility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+}
+
+
+void MineReport::onCheckBoxRareMineralsChange()
+{
+	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	facility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+}
+
+
 void MineReport::onAddTruck()
 {
 	if (!mSelectedFacility) { return; }
@@ -315,34 +343,6 @@ void MineReport::onRemoveTruck()
 		mFacility->removeTruck();
 		mAvailableTrucks = getTruckAvailability();
 	}
-}
-
-
-void MineReport::onCheckBoxCommonMetalsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
-}
-
-
-void MineReport::onCheckBoxCommonMineralsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
-}
-
-
-void MineReport::onCheckBoxRareMetalsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
-}
-
-
-void MineReport::onCheckBoxRareMineralsChange()
-{
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
-	facility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
 }
 
 
