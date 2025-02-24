@@ -33,6 +33,9 @@ public:
 	void update() override;
 
 protected:
+	void onResize() override;
+	void onVisibilityChange(bool visible) override;
+
 	void onFilterButtonClicked();
 	void onShowAll();
 	void onShowActive();
@@ -55,9 +58,6 @@ protected:
 	void onMineFacilitySelectionChange();
 
 	void updateManagementButtonsVisibility();
-
-	void onResize() override;
-	void onVisibilityChange(bool visible) override;
 
 	void drawMineFacilityPane(const NAS2D::Point<int>&);
 	void drawOreProductionPane(const NAS2D::Point<int>&);
