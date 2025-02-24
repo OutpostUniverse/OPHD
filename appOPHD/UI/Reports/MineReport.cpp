@@ -328,9 +328,9 @@ void MineReport::onAddTruck()
 
 void MineReport::onRemoveTruck()
 {
-	auto mFacility = mSelectedFacility;
-
 	if (!mSelectedFacility) { return; }
+
+	auto mFacility = mSelectedFacility;
 
 	if (mFacility->assignedTrucks() == 1) { return; }
 
