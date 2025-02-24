@@ -27,7 +27,7 @@ FileIo::FileIo() : Window{"File I/O"}
 	size({700, 350});
 
 	mOpenSaveFolder.size({std::max(105, mOpenSaveFolder.size().x + constants::Margin), 20});
-	add(mOpenSaveFolder, {area().size.x - mOpenSaveFolder.size().x - 5, 22});
+	add(mOpenSaveFolder, {5 + 690 - mOpenSaveFolder.size().x, sWindowTitleBarHeight + 2});
 
 	mListBox.size({690, 253});
 	mListBox.visible(true);
