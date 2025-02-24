@@ -353,8 +353,8 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	renderer.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
 
 	const auto& facility = *mSelectedFacility;
-	bool isStatusHighlighted = facility.disabled() || facility.destroyed();
-	auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
+	const bool isStatusHighlighted = facility.disabled() || facility.destroyed();
+	const auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
 	renderer.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
