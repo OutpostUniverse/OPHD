@@ -440,11 +440,13 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 	if (miningFacility.operational() || miningFacility.isIdle())
 	{
-		drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 65},
+		drawLabelAndValueRightJustify(
+			origin + NAS2D::Vector{0, 65},
 			labelWidth,
 			"Route Available",
 			routeAvailable ? "Yes" : "No",
-			routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red);
+			routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
+		);
 
 		if (routeAvailable)
 		{
@@ -460,11 +462,13 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 
 	const auto& route = routeTable.at(mSelectedFacility);
-	drawLabelAndValueRightJustify(origin,
+	drawLabelAndValueRightJustify(
+		origin,
 		btnAddTruck.position().x - origin.x - 10,
 		"Route Cost",
 		std::to_string(route.cost).substr(0, std::to_string(route.cost).find(".") + 3), // hack-ish and probably slow, this could be cached
-		constants::PrimaryTextColor);
+		constants::PrimaryTextColor
+	);
 
 
 	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
@@ -482,35 +486,45 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 	renderer.drawLine(origin + NAS2D::Vector{0, 50}, origin + NAS2D::Vector{oreMovementLabelWidth, 50}, constants::PrimaryTextColor);
 	renderer.drawLine(origin + NAS2D::Vector{oreLabelWidth + 5, 37}, origin + NAS2D::Vector{oreLabelWidth + 5, 63}, constants::PrimaryTextColor);
 
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 20},
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{0, 20},
 		oreMovementLabelWidth,
 		"Total Haul Capacity per Turn",
 		std::to_string(totalOreMovement),
-		constants::PrimaryTextColor);
+		constants::PrimaryTextColor
+	);
 
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 35},
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{0, 35},
 		oreLabelWidth,
 		ResourceNamesOre[0] + " Haul Capacity",
 		std::to_string(oreMovementPart),
-		constants::PrimaryTextColor);
+		constants::PrimaryTextColor
+	);
 
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{oreLabelWidth + 10, 35},
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{oreLabelWidth + 10, 35},
 		oreLabelWidth,
 		ResourceNamesOre[1] + " Haul Capacity",
 		std::to_string(oreMovementPart),
-		constants::PrimaryTextColor);
+		constants::PrimaryTextColor
+	);
 
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 50},
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{0, 50},
 		oreLabelWidth,
 		ResourceNamesOre[2] + " Haul Capacity",
 		std::to_string(oreMovementPart),
-		constants::PrimaryTextColor);
+		constants::PrimaryTextColor
+	);
 
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{oreLabelWidth + 10, 50},
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{oreLabelWidth + 10, 50},
 		oreLabelWidth,
 		ResourceNamesOre[3] + " Haul Capacity",
 		std::to_string(oreMovementPart + (totalOreMovement % 4)),
-		constants::PrimaryTextColor);
+		constants::PrimaryTextColor
+	);
 }
 
 
