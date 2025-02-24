@@ -432,8 +432,20 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	renderer.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{0, 30}, constants::PrimaryTextColor);
 
 	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility.assignedTrucks()), constants::PrimaryTextColor);
-	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 45}, labelWidth, "Trucks Available in Storage", std::to_string(mAvailableTrucks), constants::PrimaryTextColor);
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{0, 30},
+		labelWidth,
+		"Trucks Assigned to Facility",
+		std::to_string(miningFacility.assignedTrucks()),
+		constants::PrimaryTextColor
+	);
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{0, 45},
+		labelWidth,
+		"Trucks Available in Storage",
+		std::to_string(mAvailableTrucks),
+		constants::PrimaryTextColor
+	);
 
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
