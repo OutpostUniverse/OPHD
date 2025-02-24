@@ -11,9 +11,46 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <algorithm>
+
 
 using namespace NAS2D;
 
+
+namespace
+{
+	StringTable factoryProductionStringTable(const ProductionCost& productionCost, int turnsCompleted)
+	{
+		const auto totalCost = productionCost.resourceCost * productionCost.turnsToBuild;
+
+		StringTable stringTable(2, 5);
+		stringTable.setColumnJustification(1, StringTable::Justification::Right);
+
+		stringTable.setColumnText(
+			0,
+			{
+				"Turns Completed:",
+				ResourceNamesRefined[0] + ":",
+				ResourceNamesRefined[1] + ":",
+				ResourceNamesRefined[2] + ":",
+				ResourceNamesRefined[3] + ":",
+			}
+		);
+
+		stringTable.setColumnText(
+			1,
+			{
+				std::to_string(turnsCompleted) + " of " + std::to_string(productionCost.turnsToBuild),
+				std::to_string(totalCost.resources[0]),
+				std::to_string(totalCost.resources[1]),
+				std::to_string(totalCost.resources[2]),
+				std::to_string(totalCost.resources[3]),
+			}
+		);
+
+		return stringTable;
+	}
+}
 
 FactoryProduction::FactoryProduction() :
 	Window{constants::WindowFactoryProduction},
@@ -26,18 +63,23 @@ FactoryProduction::FactoryProduction() :
 	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}}
 {
-	size({320, 165});
-
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
-	add(mProductGrid, {constants::Margin, 25});
+	add(mProductGrid, {constants::Margin, sWindowTitleBarHeight + constants::Margin});
+
+	// Create dummy object for sizing purposes
+	auto stringTable = factoryProductionStringTable({99, {}}, 99);
+	stringTable.position(mProductGrid.area().crossXPoint() + NAS2D::Vector{constants::Margin, 0});
+	stringTable.computeRelativeCellPositions();
 
 	chkIdle.size({50, 20});
-	add(chkIdle, {mProductGrid.size().x + 12, 115});
+	add(chkIdle, stringTable.screenRect().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, constants::Margin});
 
-	const auto buttonArea = Rectangle<int>::Create(mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, area().inset(constants::Margin).endPoint());
+	mProductGrid.height(chkIdle.area().endPoint().y - mProductGrid.area().position.y);
+
+	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {std::max(162, stringTable.screenRect().size.x), 22}};
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
@@ -52,14 +94,8 @@ FactoryProduction::FactoryProduction() :
 
 	btnCancel.size(buttonSize);
 	add(btnCancel, {buttonArea.position.x + buttonSpacing * 2, buttonArea.position.y});
-}
 
-
-void FactoryProduction::clearProduct()
-{
-	mProduct = ProductType::PRODUCT_NONE;
-	mProductCost = {};
-	mProductGrid.clearSelection();
+	size(buttonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 
@@ -86,10 +122,10 @@ void FactoryProduction::onProductSelectionChange(const IconGrid::Item* item)
 }
 
 
-void FactoryProduction::onOkay()
+void FactoryProduction::onClearSelection()
 {
-	mFactory->productType(mProduct);
-	hide();
+	clearProduct();
+	onApply();
 }
 
 
@@ -99,16 +135,16 @@ void FactoryProduction::onApply()
 }
 
 
-void FactoryProduction::onCancel()
+void FactoryProduction::onOkay()
 {
+	mFactory->productType(mProduct);
 	hide();
 }
 
 
-void FactoryProduction::onClearSelection()
+void FactoryProduction::onCancel()
 {
-	clearProduct();
-	onApply();
+	hide();
 }
 
 
@@ -117,6 +153,14 @@ void FactoryProduction::onCheckBoxIdleChange()
 	if (!mFactory) { return; }
 
 	mFactory->forceIdle(chkIdle.checked());
+}
+
+
+void FactoryProduction::clearProduct()
+{
+	mProduct = ProductType::PRODUCT_NONE;
+	mProductCost = {};
+	mProductGrid.clearSelection();
 }
 
 
@@ -167,29 +211,8 @@ void FactoryProduction::update()
 
 	Window::update();
 
-	StringTable stringTable(2, 5);
-	stringTable.position(mRect.position + NAS2D::Vector{constants::Margin * 2 + mProductGrid.size().x, 25});
-	stringTable.setColumnJustification(1, StringTable::Justification::Right);
-
-	stringTable.setColumnText(0,
-		{
-			"Turns Completed:",
-			ResourceNamesRefined[0] + ":",
-			ResourceNamesRefined[1] + ":",
-			ResourceNamesRefined[2] + ":",
-			ResourceNamesRefined[3] + ":",
-		});
-
-	const auto totalCost = mProductCost.resourceCost * mProductCost.turnsToBuild;
-	stringTable.setColumnText(1,
-		{
-			std::to_string(mFactory->productionTurnsCompleted()) + " of " + std::to_string(mProductCost.turnsToBuild),
-			std::to_string(totalCost.resources[0]),
-			std::to_string(totalCost.resources[1]),
-			std::to_string(totalCost.resources[2]),
-			std::to_string(totalCost.resources[3]),
-		});
-
+	auto stringTable = factoryProductionStringTable(mProductCost, mFactory->productionTurnsCompleted());
+	stringTable.position(mProductGrid.area().crossXPoint() + NAS2D::Vector{constants::Margin, 0});
 	stringTable.computeRelativeCellPositions();
 	stringTable.draw(Utility<Renderer>::get());
 }
