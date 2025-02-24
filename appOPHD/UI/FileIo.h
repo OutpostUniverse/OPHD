@@ -55,10 +55,10 @@ private:
 
 	std::string mScanPath;
 
-	Button mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}};
-	Button mClose{"Cancel", {this, &FileIo::onClose}};
-	Button mFileOperation{"FileOp", {this, &FileIo::onFileIo}};
-	Button mDeleteFile{"Delete", {this, &FileIo::onFileDelete}};
+	Button mOpenSaveFolder;
+	Button mClose;
+	Button mFileOperation;
+	Button mDeleteFile;
 
 	TextField mFileName;
 
