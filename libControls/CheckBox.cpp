@@ -27,7 +27,8 @@ namespace
 	constexpr auto iconSize = NAS2D::Vector{13, 13};
 	constexpr auto uncheckedIconRect = NAS2D::Rectangle{{0, 0}, iconSize};
 	constexpr auto checkedIconRect = NAS2D::Rectangle{{13, 0}, iconSize};
-	constexpr auto textOffset = NAS2D::Vector{20, 0};
+	constexpr auto internalSpacing = 2;
+	constexpr auto textOffset = NAS2D::Vector{iconSize.x + internalSpacing, 0};
 }
 
 
