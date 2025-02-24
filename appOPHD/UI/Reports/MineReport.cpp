@@ -70,7 +70,7 @@ MineReport::MineReport() :
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
 	for (auto button : buttons)
 	{
-		button->size({75, 20});
+		button->size({94, 20});
 		button->type(Button::Type::Toggle);
 		add(*button, buttonOffset);
 		buttonOffset.x += button->size().x + constants::MarginTight;
