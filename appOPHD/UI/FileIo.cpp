@@ -39,16 +39,18 @@ FileIo::FileIo() : Window{"File I/O"}
 	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
 	add(mFileName, mListBox.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, 4});
 
+	const auto bottomButtonArea = NAS2D::Rectangle{mFileName.area().crossYPoint() + NAS2D::Vector{0, 5}, {mFileName.size().x, 20}};
+
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
-	add(mFileOperation, {area().size.x - mFileOperation.size().x - 5, 325});
+	add(mFileOperation, {bottomButtonArea.endPoint().x - mFileOperation.size().x, bottomButtonArea.position.y});
 
 	mDeleteFile.size({std::max(50, mDeleteFile.size().x + constants::Margin), 20});
 	mDeleteFile.enabled(false);
-	add(mDeleteFile, {5, 325});
+	add(mDeleteFile, {bottomButtonArea.position.x, bottomButtonArea.position.y});
 
 	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
-	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, 325});
+	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, bottomButtonArea.position.y});
 }
 
 
