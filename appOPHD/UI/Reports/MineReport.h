@@ -51,7 +51,7 @@ protected:
 	void onCheckBoxRareMetalsChange();
 	void onCheckBoxRareMineralsChange();
 
-	void filterButtonClicked();
+	void onFilterButtonClicked();
 
 	void onMineFacilitySelectionChange();
 

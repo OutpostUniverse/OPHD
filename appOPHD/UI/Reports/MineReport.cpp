@@ -174,7 +174,7 @@ void MineReport::onVisibilityChange(bool /*visible*/)
 }
 
 
-void MineReport::filterButtonClicked()
+void MineReport::onFilterButtonClicked()
 {
 	btnShowAll.toggle(false);
 	btnShowActive.toggle(false);
@@ -186,7 +186,7 @@ void MineReport::filterButtonClicked()
 
 void MineReport::onShowAll()
 {
-	filterButtonClicked();
+	onFilterButtonClicked();
 	btnShowAll.toggle(true);
 
 	fillLists();
@@ -195,28 +195,28 @@ void MineReport::onShowAll()
 
 void MineReport::onShowActive()
 {
-	filterButtonClicked();
+	onFilterButtonClicked();
 	btnShowActive.toggle(true);
 }
 
 
 void MineReport::onShowIdle()
 {
-	filterButtonClicked();
+	onFilterButtonClicked();
 	btnShowIdle.toggle(true);
 }
 
 
 void MineReport::onShowTappedOut()
 {
-	filterButtonClicked();
+	onFilterButtonClicked();
 	btnShowTappedOut.toggle(true);
 }
 
 
 void MineReport::onShowDisabled()
 {
-	filterButtonClicked();
+	onFilterButtonClicked();
 	btnShowDisabled.toggle(true);
 }
 
