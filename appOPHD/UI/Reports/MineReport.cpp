@@ -139,9 +139,8 @@ void MineReport::fillLists()
 		lstMineFacilities.last()->text = getStructureDescription(*facility);
 	}
 
-	mSelectedFacility == nullptr ? lstMineFacilities.setSelection(0) : lstMineFacilities.setSelected(mSelectedFacility);
+	lstMineFacilities.setSelected(mSelectedFacility);
 	mAvailableTrucks = getTruckAvailability();
-	updateManagementButtonsVisibility();
 }
 
 
