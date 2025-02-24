@@ -249,7 +249,7 @@ void MineReport::onMineFacilitySelectionChange()
 
 	if (!mSelectedFacility) { return; }
 
-	auto facility = static_cast<MineFacility*>(mSelectedFacility);
+	auto facility = mSelectedFacility;
 	btnIdle.toggle(mSelectedFacility->isIdle());
 	btnIdle.enabled(mSelectedFacility->operational() || mSelectedFacility->isIdle());
 
@@ -272,7 +272,7 @@ void MineReport::onIdle()
 
 void MineReport::onDigNewLevel()
 {
-	auto facility = static_cast<MineFacility*>(mSelectedFacility);
+	auto facility = mSelectedFacility;
 	facility->extend();
 
 	btnDigNewLevel.toggle(facility->extending());
@@ -288,28 +288,28 @@ void MineReport::onTakeMeThere()
 
 void MineReport::onCheckBoxCommonMetalsChange()
 {
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	MineFacility* facility = mSelectedFacility;
 	facility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	MineFacility* facility = mSelectedFacility;
 	facility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	MineFacility* facility = mSelectedFacility;
 	facility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	MineFacility* facility = mSelectedFacility;
 	facility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
 }
 
@@ -318,7 +318,7 @@ void MineReport::onAddTruck()
 {
 	if (!mSelectedFacility) { return; }
 
-	auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
+	auto mFacility = mSelectedFacility;
 
 	if (mFacility->assignedTrucks() == mFacility->maxTruckCount()) { return; }
 
@@ -332,7 +332,7 @@ void MineReport::onAddTruck()
 
 void MineReport::onRemoveTruck()
 {
-	auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
+	auto mFacility = mSelectedFacility;
 
 	if (!mSelectedFacility) { return; }
 
@@ -362,7 +362,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
 
-	MineFacility* facility = static_cast<MineFacility*>(mSelectedFacility);
+	MineFacility* facility = mSelectedFacility;
 	const auto& mine = *facility->mine();
 
 	const auto barOrigin = resourceTextOrigin.x + 125;
@@ -388,7 +388,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 {
 	auto& renderer = Utility<Renderer>::get();
-	const auto& mine = *static_cast<MineFacility*>(mSelectedFacility)->mine();
+	const auto& mine = *mSelectedFacility->mine();
 
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
 	renderer.drawLine(origin + NAS2D::Vector{0, 21}, {static_cast<float>(renderer.size().x - 10), static_cast<float>(origin.y + 21)}, constants::PrimaryTextColor, 1);
@@ -421,7 +421,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
-	const auto miningFacility = static_cast<MineFacility*>(mSelectedFacility);
+	const auto miningFacility = mSelectedFacility;
 
 	if (miningFacility->destroyed() ||
 		miningFacility->underConstruction())
@@ -462,7 +462,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 {
 	auto& r = Utility<Renderer>::get();
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	const auto mFacility = static_cast<MineFacility*>(mSelectedFacility);
+	const auto mFacility = mSelectedFacility;
 
 	auto& route = routeTable[mFacility];
 	drawLabelAndValueRightJustify(origin,
