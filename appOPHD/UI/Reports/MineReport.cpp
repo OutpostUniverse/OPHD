@@ -344,18 +344,18 @@ void MineReport::onRemoveTruck()
 
 void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 {
-	auto& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
-	r.drawImage(mineFacility, origin);
+	renderer.drawImage(mineFacility, origin);
 	const auto text = lstMineFacilities.isItemSelected() ? getStructureDescription(*lstMineFacilities.selectedStructure()) : "";
-	r.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
+	renderer.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
 
-	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
 
 	const auto& facility = *mSelectedFacility;
 	bool isStatusHighlighted = facility.disabled() || facility.destroyed();
 	auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
-	r.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
+	renderer.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
 
@@ -368,7 +368,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	const auto oreTotalYield = mine.totalYield();
 	for (size_t i = 0; i < ResourceNamesOre.size(); ++i)
 	{
-		r.drawText(font, ResourceNamesOre[i], resourceTextOrigin, constants::PrimaryTextColor);
+		renderer.drawText(font, ResourceNamesOre[i], resourceTextOrigin, constants::PrimaryTextColor);
 
 		drawProgressBar(
 			oreAvailable.resources[i],
@@ -425,11 +425,11 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		return;
 	}
 
-	auto& r = Utility<Renderer>::get();
-	r.drawText(fontMediumBold, "Trucks & Routing", origin, constants::PrimaryTextColor);
-	r.drawLine(origin + NAS2D::Vector{0, 21}, {static_cast<float>(r.size().x - 10), static_cast<float>(origin.y + 21)}, constants::PrimaryTextColor, 1);
+	auto& renderer = Utility<Renderer>::get();
+	renderer.drawText(fontMediumBold, "Trucks & Routing", origin, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{0, 21}, {static_cast<float>(renderer.size().x - 10), static_cast<float>(origin.y + 21)}, constants::PrimaryTextColor, 1);
 
-	r.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{0, 30}, constants::PrimaryTextColor);
+	renderer.drawText(fontBold, "Trucks Assigned to Facility", origin + NAS2D::Vector{0, 30}, constants::PrimaryTextColor);
 
 	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 30}, labelWidth, "Trucks Assigned to Facility", std::to_string(miningFacility.assignedTrucks()), constants::PrimaryTextColor);
@@ -456,7 +456,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 {
-	auto& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 
 	const auto& route = routeTable.at(mSelectedFacility);
@@ -469,18 +469,18 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 
 	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
 	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
-	const int oreMovementLabelWidth = r.size().x - origin.x - 10;
+	const int oreMovementLabelWidth = renderer.size().x - origin.x - 10;
 	const int oreMovementPart = totalOreMovement / 4;
 	const int oreLabelWidth = (oreMovementLabelWidth - 10) / 2;
 
 	const NAS2D::Rectangle<int> tableRect({{origin.x - 2, origin.y + 18}, {oreMovementLabelWidth + 5, 47}});
 
-	r.drawBoxFilled(tableRect, {0, 0, 0, 100});
-	r.drawBox(tableRect, constants::PrimaryTextColor);
+	renderer.drawBoxFilled(tableRect, {0, 0, 0, 100});
+	renderer.drawBox(tableRect, constants::PrimaryTextColor);
 
-	r.drawLine(origin + NAS2D::Vector{0, 34}, origin + NAS2D::Vector{oreMovementLabelWidth, 34}, constants::PrimaryTextColor);
-	r.drawLine(origin + NAS2D::Vector{0, 50}, origin + NAS2D::Vector{oreMovementLabelWidth, 50}, constants::PrimaryTextColor);
-	r.drawLine(origin + NAS2D::Vector{oreLabelWidth + 5, 37}, origin + NAS2D::Vector{oreLabelWidth + 5, 63}, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{0, 34}, origin + NAS2D::Vector{oreMovementLabelWidth, 34}, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{0, 50}, origin + NAS2D::Vector{oreMovementLabelWidth, 50}, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{oreLabelWidth + 5, 37}, origin + NAS2D::Vector{oreLabelWidth + 5, 63}, constants::PrimaryTextColor);
 
 	drawLabelAndValueRightJustify(origin + NAS2D::Vector{0, 20},
 		oreMovementLabelWidth,
@@ -518,17 +518,17 @@ void MineReport::update()
 {
 	if (!visible()) { return; }
 
-	auto& r = Utility<Renderer>::get();
+	auto& renderer = Utility<Renderer>::get();
 
 	const auto startPoint = NAS2D::Point{area().center().x , area().position.y + 10};
 
-	r.drawLine(startPoint, startPoint + NAS2D::Vector{0, area().size.y - 20}, constants::PrimaryTextColor);
+	renderer.drawLine(startPoint, startPoint + NAS2D::Vector{0, area().size.y - 20}, constants::PrimaryTextColor);
 
 	if (mSelectedFacility)
 	{
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
 		drawOreProductionPane(startPoint + NAS2D::Vector{10, 170});
-		drawTruckManagementPane(startPoint + NAS2D::Vector{10, r.size().y - 214});
+		drawTruckManagementPane(startPoint + NAS2D::Vector{10, renderer.size().y - 214});
 	}
 
 	UIContainer::update();
