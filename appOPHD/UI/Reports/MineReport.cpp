@@ -314,13 +314,13 @@ void MineReport::onAddTruck()
 {
 	if (!mSelectedFacility) { return; }
 
-	auto facility = mSelectedFacility;
+	auto& facility = *mSelectedFacility;
 
-	if (facility->assignedTrucks() == facility->maxTruckCount()) { return; }
+	if (facility.assignedTrucks() == facility.maxTruckCount()) { return; }
 
 	if (pullTruckFromInventory())
 	{
-		facility->addTruck();
+		facility.addTruck();
 		mAvailableTrucks = getTruckAvailability();
 	}
 }
@@ -330,13 +330,13 @@ void MineReport::onRemoveTruck()
 {
 	if (!mSelectedFacility) { return; }
 
-	auto facility = mSelectedFacility;
+	auto& facility = *mSelectedFacility;
 
-	if (facility->assignedTrucks() == 1) { return; }
+	if (facility.assignedTrucks() == 1) { return; }
 
 	if (pushTruckIntoInventory())
 	{
-		facility->removeTruck();
+		facility.removeTruck();
 		mAvailableTrucks = getTruckAvailability();
 	}
 }
