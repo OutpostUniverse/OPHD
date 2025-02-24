@@ -38,7 +38,6 @@ protected:
 	void onDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 
-private:
 	void scanDirectory(const std::string& directory);
 	void onOpenFolder() const;
 	void onClose();
@@ -48,6 +47,7 @@ private:
 	void onFileSelect();
 	void onFileNameChange(TextControl* control);
 
+private:
 	FileSaveSignal mSaveSignal;
 	FileLoadSignal mLoadSignal;
 
