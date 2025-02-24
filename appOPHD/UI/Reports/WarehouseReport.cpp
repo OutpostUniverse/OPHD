@@ -66,7 +66,7 @@ WarehouseReport::WarehouseReport() :
 	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
 	{
-		button->size({75, 20});
+		button->size({89, 20});
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
 	}
@@ -83,11 +83,10 @@ WarehouseReport::WarehouseReport() :
 	fillLists();
 
 	auto buttonOffset = NAS2D::Vector{10, 10};
-	const auto margin = 5;
 	for (auto button : buttons)
 	{
 		add(*button, buttonOffset);
-		buttonOffset.x += button->size().x + margin;
+		buttonOffset.x += button->size().x + constants::Margin;
 	}
 	add(btnTakeMeThere, {10, 10});
 	add(lstStructures, {10, 115});
