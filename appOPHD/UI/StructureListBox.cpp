@@ -58,7 +58,7 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
  */
 void StructureListBox::setSelected(const Structure* structure)
 {
-	if (mItems.empty() || structure == nullptr)
+	if (structure == nullptr)
 	{
 		setSelection(NoSelection);
 		return;
@@ -73,6 +73,8 @@ void StructureListBox::setSelected(const Structure* structure)
 			return;
 		}
 	}
+
+	setSelection(NoSelection);
 }
 
 
