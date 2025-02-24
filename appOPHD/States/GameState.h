@@ -49,7 +49,7 @@ protected:
 
 private:
 	std::unique_ptr<MainReportsUiState> mMainReportsState;
-	std::unique_ptr<MapViewState> mMapView;
+	std::unique_ptr<MapViewState> mMapViewState;
 	std::unique_ptr<MapViewState> mNewMapView;
 	Wrapper* mActiveState = nullptr;
 	NAS2D::State* mReturnState = this;
