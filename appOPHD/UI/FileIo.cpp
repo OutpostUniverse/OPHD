@@ -24,8 +24,6 @@ FileIo::FileIo() : Window{"File I/O"}
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
 	eventHandler.keyDown().connect({this, &FileIo::onKeyDown});
 
-	size({700, 350});
-
 	mOpenSaveFolder.size({std::max(105, mOpenSaveFolder.size().x + constants::Margin), 20});
 	add(mOpenSaveFolder, {5 + 690 - mOpenSaveFolder.size().x, sWindowTitleBarHeight + 2});
 
@@ -51,6 +49,8 @@ FileIo::FileIo() : Window{"File I/O"}
 
 	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
 	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, bottomButtonArea.position.y});
+
+	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
 }
 
 
