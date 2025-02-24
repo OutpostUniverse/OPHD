@@ -221,6 +221,29 @@ void MineReport::onShowDisabled()
 }
 
 
+void MineReport::onMineFacilitySelectionChange()
+{
+	mSelectedFacility = lstMineFacilities.selectedStructure();
+
+	updateManagementButtonsVisibility();
+
+	if (!mSelectedFacility) { return; }
+
+	auto facility = static_cast<MineFacility*>(mSelectedFacility);
+	btnIdle.toggle(mSelectedFacility->isIdle());
+	btnIdle.enabled(mSelectedFacility->operational() || mSelectedFacility->isIdle());
+
+	btnDigNewLevel.toggle(facility->extending());
+	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
+
+	const auto enabledBits = facility->mine()->miningEnabled();
+	chkResources[0].checked(enabledBits[0]);
+	chkResources[1].checked(enabledBits[1]);
+	chkResources[2].checked(enabledBits[2]);
+	chkResources[3].checked(enabledBits[3]);
+}
+
+
 void MineReport::onIdle()
 {
 	mSelectedFacility->forceIdle(btnIdle.isPressed());
@@ -321,29 +344,6 @@ void MineReport::updateManagementButtonsVisibility()
 	{
 		chkResource.visible(isVisible);
 	}
-}
-
-
-void MineReport::onMineFacilitySelectionChange()
-{
-	mSelectedFacility = lstMineFacilities.selectedStructure();
-
-	updateManagementButtonsVisibility();
-
-	if (!mSelectedFacility) { return; }
-
-	auto facility = static_cast<MineFacility*>(mSelectedFacility);
-	btnIdle.toggle(mSelectedFacility->isIdle());
-	btnIdle.enabled(mSelectedFacility->operational() || mSelectedFacility->isIdle());
-
-	btnDigNewLevel.toggle(facility->extending());
-	btnDigNewLevel.enabled(facility->canExtend() && (mSelectedFacility->operational() || mSelectedFacility->isIdle()));
-
-	const auto enabledBits = facility->mine()->miningEnabled();
-	chkResources[0].checked(enabledBits[0]);
-	chkResources[1].checked(enabledBits[1]);
-	chkResources[2].checked(enabledBits[2]);
-	chkResources[3].checked(enabledBits[3]);
 }
 
 

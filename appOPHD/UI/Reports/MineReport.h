@@ -43,6 +43,8 @@ protected:
 	void onShowTappedOut();
 	void onShowDisabled();
 
+	void onMineFacilitySelectionChange();
+
 	void onIdle();
 	void onDigNewLevel();
 	void onTakeMeThere();
@@ -54,8 +56,6 @@ protected:
 	void onCheckBoxCommonMineralsChange();
 	void onCheckBoxRareMetalsChange();
 	void onCheckBoxRareMineralsChange();
-
-	void onMineFacilitySelectionChange();
 
 	void updateManagementButtonsVisibility();
 
