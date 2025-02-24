@@ -27,7 +27,7 @@ using namespace NAS2D;
 
 namespace
 {
-	constexpr auto viewFilterButtonSize = NAS2D::Vector{75, 20};
+	constexpr auto viewFilterButtonSize = NAS2D::Vector{85, 20};
 	constexpr auto viewFilterSpacing = NAS2D::Vector{viewFilterButtonSize.x + constants::MarginTight, 0};
 	constexpr auto viewFilterOriginRow1 = NAS2D::Vector{10, 10};
 	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, 33};
