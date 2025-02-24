@@ -96,11 +96,11 @@ void CheckBox::onTextChange()
 
 
 /**
- * Enforces minimum and maximum sizes.
+ * Enforces minimum sizes.
  */
 void CheckBox::onResize()
 {
-	mRect.size = {std::max(mRect.size.x, iconSize.x), iconSize.y};
+	mRect.size = {std::max(mRect.size.x, iconSize.x), std::max({mRect.size.y, iconSize.y, mFont.height()})};
 }
 
 
