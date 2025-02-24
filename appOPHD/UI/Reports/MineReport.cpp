@@ -243,7 +243,7 @@ void MineReport::onShowDisabled()
 
 void MineReport::onMineFacilitySelectionChange()
 {
-	mSelectedFacility = lstMineFacilities.selectedStructure();
+	mSelectedFacility = dynamic_cast<MineFacility*>(lstMineFacilities.selectedStructure());
 
 	onManagementButtonsVisibilityChange();
 

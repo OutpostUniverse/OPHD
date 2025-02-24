@@ -18,6 +18,8 @@ namespace NAS2D
 	class Image;
 }
 
+class MineFacility;
+
 
 class MineReport : public ReportInterface
 {
@@ -89,6 +91,6 @@ private:
 	std::array<CheckBox, 4> chkResources;
 
 	StructureListBox lstMineFacilities;
-	Structure* mSelectedFacility;
+	MineFacility* mSelectedFacility;
 	int mAvailableTrucks;
 };
