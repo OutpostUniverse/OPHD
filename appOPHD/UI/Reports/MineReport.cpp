@@ -352,13 +352,14 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	r.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
 
-	bool isStatusHighlighted = mSelectedFacility->disabled() || mSelectedFacility->destroyed();
-	auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(mSelectedFacility->stateDescription()) + 5, 0};
-	r.drawText(fontMedium, mSelectedFacility->stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
+	const auto& facility = *mSelectedFacility;
+	bool isStatusHighlighted = facility.disabled() || facility.destroyed();
+	auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
+	r.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
 
-	const auto& mine = *mSelectedFacility->mine();
+	const auto& mine = *facility.mine();
 
 	const auto barOrigin = resourceTextOrigin.x + 125;
 	const auto barWidth = btnIdle.position().x - barOrigin - 10;
