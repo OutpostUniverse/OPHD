@@ -50,7 +50,6 @@ namespace
 	}
 }
 
-
 FactoryProduction::FactoryProduction() :
 	Window{constants::WindowFactoryProduction},
 	mFactory{nullptr},
@@ -62,8 +61,6 @@ FactoryProduction::FactoryProduction() :
 	btnOkay{"Okay", {this, &FactoryProduction::onOkay}},
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}}
 {
-	size({320, 166});
-
 	mProductGrid.size({140, 110});
 	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
@@ -73,7 +70,7 @@ FactoryProduction::FactoryProduction() :
 	chkIdle.size({50, 20});
 	add(chkIdle, {mProductGrid.size().x + 12, 116});
 
-	const auto buttonArea = Rectangle<int>::Create(mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, area().inset(constants::Margin).endPoint());
+	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {162, 22}};
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
@@ -88,6 +85,8 @@ FactoryProduction::FactoryProduction() :
 
 	btnCancel.size(buttonSize);
 	add(btnCancel, {buttonArea.position.x + buttonSpacing * 2, buttonArea.position.y});
+
+	size(buttonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 
