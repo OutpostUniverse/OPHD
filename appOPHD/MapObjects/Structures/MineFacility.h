@@ -28,8 +28,8 @@ public:
 
 	void addTruck();
 	void removeTruck();
-	Mine* mine();
-	const Mine* mine() const;
+	Mine& mine();
+	const Mine& mine() const;
 
 	ExtensionCompleteSignal::Source& extensionComplete();
 

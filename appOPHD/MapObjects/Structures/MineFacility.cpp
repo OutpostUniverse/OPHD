@@ -167,15 +167,15 @@ void MineFacility::removeTruck()
 }
 
 
-Mine* MineFacility::mine()
+Mine& MineFacility::mine()
 {
-	return mMine;
+	return *mMine;
 }
 
 
-const Mine* MineFacility::mine() const
+const Mine& MineFacility::mine() const
 {
-	return mMine;
+	return *mMine;
 }
 
 

@@ -256,7 +256,7 @@ void MineReport::onMineFacilitySelectionChange()
 	btnDigNewLevel.toggle(facility.extending());
 	btnDigNewLevel.enabled(facility.canExtend() && (facility.operational() || facility.isIdle()));
 
-	const auto enabledBits = facility.mine()->miningEnabled();
+	const auto enabledBits = facility.mine().miningEnabled();
 	chkResources[0].checked(enabledBits[0]);
 	chkResources[1].checked(enabledBits[1]);
 	chkResources[2].checked(enabledBits[2]);
@@ -288,25 +288,25 @@ void MineReport::onTakeMeThere()
 
 void MineReport::onCheckBoxCommonMetalsChange()
 {
-	mSelectedFacility->mine()->miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
-	mSelectedFacility->mine()->miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
-	mSelectedFacility->mine()->miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
-	mSelectedFacility->mine()->miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
 }
 
 
@@ -359,7 +359,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
 
-	const auto& mine = *facility.mine();
+	const auto& mine = facility.mine();
 
 	const auto barOrigin = resourceTextOrigin.x + 125;
 	const auto barWidth = btnIdle.position().x - barOrigin - 10;
@@ -384,7 +384,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 {
 	auto& renderer = Utility<Renderer>::get();
-	const auto& mine = *mSelectedFacility->mine();
+	const auto& mine = mSelectedFacility->mine();
 
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
 	renderer.drawLine(origin + NAS2D::Vector{0, 21}, {static_cast<float>(renderer.size().x - 10), static_cast<float>(origin.y + 21)}, constants::PrimaryTextColor, 1);
