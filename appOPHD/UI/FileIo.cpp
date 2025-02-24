@@ -24,31 +24,33 @@ FileIo::FileIo() : Window{"File I/O"}
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
 	eventHandler.keyDown().connect({this, &FileIo::onKeyDown});
 
-	size({700, 350});
+	mOpenSaveFolder.size({std::max(105, mOpenSaveFolder.size().x + constants::Margin), 20});
+	add(mOpenSaveFolder, {5 + 690 - mOpenSaveFolder.size().x, sWindowTitleBarHeight + 2});
 
-	add(mOpenSaveFolder, {590, 22});
-	mOpenSaveFolder.size({105, 20});
-
-	add(mFileOperation, {645, 325});
-	mFileOperation.size({50, 20});
-	mFileOperation.enabled(false);
-
-	add(mDeleteFile, {5, 325});
-	mDeleteFile.size({50, 20});
-	mDeleteFile.enabled(false);
-
-	add(mClose, {590, 325});
-	mClose.size({50, 20});
-
-	add(mFileName, {5, 302});
-	mFileName.size({690, 18});
-	mFileName.maxCharacters(50);
-	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
-
-	add(mListBox, {5, 45});
 	mListBox.size({690, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
+	add(mListBox, {5, 45});
+
+	mFileName.size({mListBox.size().x, std::max(18, mFileName.size().y)});
+	mFileName.maxCharacters(50);
+	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
+	add(mFileName, mListBox.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, 4});
+
+	const auto bottomButtonArea = NAS2D::Rectangle{mFileName.area().crossYPoint() + NAS2D::Vector{0, 5}, {mFileName.size().x, 20}};
+
+	mFileOperation.size({50, 20});
+	mFileOperation.enabled(false);
+	add(mFileOperation, {bottomButtonArea.endPoint().x - mFileOperation.size().x, bottomButtonArea.position.y});
+
+	mDeleteFile.size({std::max(50, mDeleteFile.size().x + constants::Margin), 20});
+	mDeleteFile.enabled(false);
+	add(mDeleteFile, {bottomButtonArea.position.x, bottomButtonArea.position.y});
+
+	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
+	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, bottomButtonArea.position.y});
+
+	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
 }
 
 
