@@ -166,7 +166,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		}
 		auto newMapView = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
 		newMapView->initialize();
-		mNewMapView = std::move(newMapView);
+		mNewMapViewState = std::move(newMapView);
 	}
 	catch (const std::exception& e)
 	{
@@ -204,9 +204,9 @@ NAS2D::State* GameState::update()
 		mReturnState = new MainMenuState();
 	}
 
-	if (mNewMapView)
+	if (mNewMapViewState)
 	{
-		mMapViewState = std::move(mNewMapView);
+		mMapViewState = std::move(mNewMapViewState);
 		initializeMapViewState();
 	}
 
