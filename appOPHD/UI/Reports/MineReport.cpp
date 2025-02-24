@@ -358,12 +358,10 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	renderer.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
 	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
-
-	const auto& mine = facility.mine();
-
 	const auto barOrigin = resourceTextOrigin.x + 125;
 	const auto barWidth = btnIdle.position().x - barOrigin - 10;
 
+	const auto& mine = facility.mine();
 	const auto oreAvailable = mine.availableResources();
 	const auto oreTotalYield = mine.totalYield();
 	for (size_t i = 0; i < ResourceNamesOre.size(); ++i)
@@ -384,11 +382,11 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 {
 	auto& renderer = Utility<Renderer>::get();
-	const auto& mine = mSelectedFacility->mine();
 
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
 	renderer.drawLine(origin + NAS2D::Vector{0, 21}, NAS2D::Point{renderer.size().x - 10, origin.y + 21}, constants::PrimaryTextColor, 1);
 
+	const auto& mine = mSelectedFacility->mine();
 	const auto oreAvailable = mine.availableResources();
 	const auto oreTotalYield = mine.totalYield();
 
@@ -471,8 +469,8 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 {
 	auto& renderer = Utility<Renderer>::get();
-	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	const auto& route = routeTable.at(mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		origin,
