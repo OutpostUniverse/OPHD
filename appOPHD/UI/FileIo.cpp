@@ -26,29 +26,29 @@ FileIo::FileIo() : Window{"File I/O"}
 
 	size({700, 350});
 
-	add(mOpenSaveFolder, {590, 22});
 	mOpenSaveFolder.size({105, 20});
+	add(mOpenSaveFolder, {590, 22});
 
-	add(mFileOperation, {645, 325});
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
+	add(mFileOperation, {645, 325});
 
-	add(mDeleteFile, {5, 325});
 	mDeleteFile.size({50, 20});
 	mDeleteFile.enabled(false);
+	add(mDeleteFile, {5, 325});
 
-	add(mClose, {590, 325});
 	mClose.size({50, 20});
+	add(mClose, {590, 325});
 
-	add(mFileName, {5, 302});
 	mFileName.size({690, 18});
 	mFileName.maxCharacters(50);
 	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
+	add(mFileName, {5, 302});
 
-	add(mListBox, {5, 45});
 	mListBox.size({690, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
+	add(mListBox, {5, 45});
 }
 
 
