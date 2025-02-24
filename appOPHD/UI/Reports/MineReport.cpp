@@ -169,7 +169,7 @@ void MineReport::onResize()
 
 void MineReport::onVisibilityChange(bool /*visible*/)
 {
-	updateManagementButtonsVisibility();
+	onManagementButtonsVisibilityChange();
 }
 
 
@@ -224,7 +224,7 @@ void MineReport::onMineFacilitySelectionChange()
 {
 	mSelectedFacility = lstMineFacilities.selectedStructure();
 
-	updateManagementButtonsVisibility();
+	onManagementButtonsVisibilityChange();
 
 	if (!mSelectedFacility) { return; }
 
@@ -325,7 +325,7 @@ void MineReport::onCheckBoxRareMineralsChange()
 }
 
 
-void MineReport::updateManagementButtonsVisibility()
+void MineReport::onManagementButtonsVisibilityChange()
 {
 	bool isVisible = visible() && mSelectedFacility;
 
