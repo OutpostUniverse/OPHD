@@ -26,18 +26,18 @@ FileIo::FileIo() : Window{"File I/O"}
 
 	size({700, 350});
 
-	mOpenSaveFolder.size({105, 20});
+	mOpenSaveFolder.size({std::max(105, mOpenSaveFolder.size().x + constants::Margin), 20});
 	add(mOpenSaveFolder, {area().size.x - mOpenSaveFolder.size().x - 5, 22});
 
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
 	add(mFileOperation, {area().size.x - mFileOperation.size().x - 5, 325});
 
-	mDeleteFile.size({50, 20});
+	mDeleteFile.size({std::max(50, mDeleteFile.size().x + constants::Margin), 20});
 	mDeleteFile.enabled(false);
 	add(mDeleteFile, {5, 325});
 
-	mClose.size({50, 20});
+	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
 	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, 325});
 
 	mFileName.size({690, 18});
