@@ -58,7 +58,11 @@ void StructureListBox::addItem(Structure* structure, std::string stateDescriptio
  */
 void StructureListBox::setSelected(const Structure* structure)
 {
-	if (mItems.empty() || structure == nullptr) { return; }
+	if (mItems.empty() || structure == nullptr)
+	{
+		setSelection(NoSelection);
+		return;
+	}
 
 	for (std::size_t index = 0; index < mItems.size(); ++index)
 	{
