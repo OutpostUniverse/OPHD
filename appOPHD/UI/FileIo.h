@@ -35,30 +35,30 @@ public:
 	void update() override;
 
 protected:
+	void scanDirectory(const std::string& directory);
+
 	void onDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 
-private:
-	void scanDirectory(const std::string& directory);
 	void onOpenFolder() const;
+	void onFileSelect();
+	void onFileNameChange(TextControl* control);
 	void onClose();
 	void onFileIo();
 	void onFileDelete();
 
-	void onFileSelect();
-	void onFileNameChange(TextControl* control);
-
+private:
 	FileSaveSignal mSaveSignal;
 	FileLoadSignal mLoadSignal;
 
-	FileOperation mMode{FileOperation::Load};
+	FileOperation mMode;
 
 	std::string mScanPath;
 
-	Button mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}};
-	Button mClose{"Cancel", {this, &FileIo::onClose}};
-	Button mFileOperation{"FileOp", {this, &FileIo::onFileIo}};
-	Button mDeleteFile{"Delete", {this, &FileIo::onFileDelete}};
+	Button mOpenSaveFolder;
+	Button mCancel;
+	Button mFileOperation;
+	Button mDeleteFile;
 
 	TextField mFileName;
 

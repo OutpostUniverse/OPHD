@@ -18,7 +18,13 @@
 using namespace NAS2D;
 
 
-FileIo::FileIo() : Window{"File I/O"}
+FileIo::FileIo() :
+	Window{"File I/O"},
+	mMode{FileOperation::Load},
+	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
+	mCancel{"Cancel", {this, &FileIo::onClose}},
+	mFileOperation{"FileOp", {this, &FileIo::onFileIo}},
+	mDeleteFile{"Delete", {this, &FileIo::onFileDelete}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
@@ -47,8 +53,8 @@ FileIo::FileIo() : Window{"File I/O"}
 	mDeleteFile.enabled(false);
 	add(mDeleteFile, {bottomButtonArea.position.x, bottomButtonArea.position.y});
 
-	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
-	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, bottomButtonArea.position.y});
+	mCancel.size({std::max(50, mCancel.size().x + constants::Margin), 20});
+	add(mCancel, {mFileOperation.position().x - mCancel.size().x - 5, bottomButtonArea.position.y});
 
 	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
 }
@@ -59,41 +65,6 @@ FileIo::~FileIo()
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseDoubleClick().disconnect({this, &FileIo::onDoubleClick});
 	eventHandler.keyDown().disconnect({this, &FileIo::onKeyDown});
-}
-
-
-void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
-{
-	if (!visible()) { return; } // ignore key presses when hidden.
-
-	if (mListBox.area().contains(position))
-	{
-		if (mListBox.isItemSelected() && !mFileName.empty())
-		{
-			onFileIo();
-		}
-	}
-}
-
-
-/**
- * Event handler for Key Down.
- */
-void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
-{
-	if (!visible()) { return; } // ignore key presses when hidden.
-
-	if (key == KeyCode::Enter || key == KeyCode::KeypadEnter)
-	{
-		if (!mFileName.empty())
-		{
-			onFileIo();
-		}
-	}
-	else if (key == KeyCode::Escape)
-	{
-		onClose();
-	}
 }
 
 
@@ -136,6 +107,47 @@ void FileIo::scanDirectory(const std::string& directory)
 }
 
 
+void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
+{
+	if (!visible()) { return; } // ignore key presses when hidden.
+
+	if (mListBox.area().contains(position))
+	{
+		if (mListBox.isItemSelected() && !mFileName.empty())
+		{
+			onFileIo();
+		}
+	}
+}
+
+
+/**
+ * Event handler for Key Down.
+ */
+void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
+{
+	if (!visible()) { return; } // ignore key presses when hidden.
+
+	if (key == KeyCode::Enter || key == KeyCode::KeypadEnter)
+	{
+		if (!mFileName.empty())
+		{
+			onFileIo();
+		}
+	}
+	else if (key == KeyCode::Escape)
+	{
+		onClose();
+	}
+}
+
+
+void FileIo::onOpenFolder() const
+{
+	shellOpenPath(mScanPath);
+}
+
+
 void FileIo::onFileSelect()
 {
 	mFileName.text(mListBox.isItemSelected() ? mListBox.selected().text : "");
@@ -163,12 +175,6 @@ void FileIo::onFileNameChange(TextControl* control)
 		mFileOperation.enabled(true);
 		mDeleteFile.enabled(true);
 	}
-}
-
-
-void FileIo::onOpenFolder() const
-{
-	shellOpenPath(mScanPath);
 }
 
 
