@@ -29,6 +29,16 @@ FileIo::FileIo() : Window{"File I/O"}
 	mOpenSaveFolder.size({std::max(105, mOpenSaveFolder.size().x + constants::Margin), 20});
 	add(mOpenSaveFolder, {area().size.x - mOpenSaveFolder.size().x - 5, 22});
 
+	mListBox.size({690, 253});
+	mListBox.visible(true);
+	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
+	add(mListBox, {5, 45});
+
+	mFileName.size({690, 18});
+	mFileName.maxCharacters(50);
+	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
+	add(mFileName, {5, 302});
+
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
 	add(mFileOperation, {area().size.x - mFileOperation.size().x - 5, 325});
@@ -39,16 +49,6 @@ FileIo::FileIo() : Window{"File I/O"}
 
 	mClose.size({std::max(50, mClose.size().x + constants::Margin), 20});
 	add(mClose, {mFileOperation.position().x - mClose.size().x - 5, 325});
-
-	mFileName.size({690, 18});
-	mFileName.maxCharacters(50);
-	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
-	add(mFileName, {5, 302});
-
-	mListBox.size({690, 253});
-	mListBox.visible(true);
-	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
-	add(mListBox, {5, 45});
 }
 
 
