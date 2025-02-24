@@ -67,14 +67,13 @@ MineReport::MineReport() :
 	}}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
-	const auto margin = 2;
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
 	for (auto button : buttons)
 	{
 		button->size({75, 20});
 		button->type(Button::Type::Toggle);
 		add(*button, buttonOffset);
-		buttonOffset.x += button->size().x + margin;
+		buttonOffset.x += button->size().x + constants::MarginTight;
 	}
 
 	btnShowAll.toggle(true);
