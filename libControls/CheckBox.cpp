@@ -22,6 +22,15 @@
 #include <algorithm>
 
 
+namespace
+{
+	constexpr auto iconSize = NAS2D::Vector{13, 13};
+	constexpr auto uncheckedIconRect = NAS2D::Rectangle{{0, 0}, iconSize};
+	constexpr auto checkedIconRect = NAS2D::Rectangle{{13, 0}, iconSize};
+	constexpr auto textOffset = NAS2D::Vector{20, 0};
+}
+
+
 CheckBox::CheckBox(std::string newText) :
 	mFont{getDefaultFont()},
 	mSkin{getImage("ui/skin/checkbox.png")}
@@ -82,7 +91,7 @@ void CheckBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 void CheckBox::onTextChange()
 {
 	const auto textWidth = mFont.width(text());
-	width((textWidth > 0) ? 20 + textWidth : 13);
+	width((textWidth > 0) ? textOffset.x + textWidth : iconSize.x);
 }
 
 
@@ -91,7 +100,7 @@ void CheckBox::onTextChange()
  */
 void CheckBox::onResize()
 {
-	mRect.size = {std::max(mRect.size.x, 13), 13};
+	mRect.size = {std::max(mRect.size.x, iconSize.x), iconSize.y};
 }
 
 
@@ -105,10 +114,6 @@ void CheckBox::update()
 void CheckBox::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	const auto uncheckedIconRect = NAS2D::Rectangle<int>{{0, 0}, {13, 13}};
-	const auto checkedIconRect = NAS2D::Rectangle<int>{{13, 0}, {13, 13}};
-
 	renderer.drawSubImage(mSkin, position(), (mChecked ? checkedIconRect : uncheckedIconRect));
-	renderer.drawText(mFont, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
+	renderer.drawText(mFont, text(), position() + textOffset, NAS2D::Color::White);
 }
