@@ -151,22 +151,22 @@ void MineReport::onResize()
 
 	lstMineFacilities.size({area().center().x - 20, area().size.y - 51});
 
-	int positionX = area().size.x - 150;
-	btnIdle.position({positionX, btnIdle.position().y});
-	btnDigNewLevel.position({positionX, btnDigNewLevel.position().y});
-	btnTakeMeThere.position({positionX, btnTakeMeThere.position().y});
+	const auto buttonPositionX = area().size.x - 150;
+	btnIdle.position({buttonPositionX, btnIdle.position().y});
+	btnDigNewLevel.position({buttonPositionX, btnDigNewLevel.position().y});
+	btnTakeMeThere.position({buttonPositionX, btnTakeMeThere.position().y});
 
 	auto& renderer = NAS2D::Utility<Renderer>::get();
-	btnAddTruck.position({positionX, renderer.size().y - 130});
-	btnRemoveTruck.position({positionX, renderer.size().y - 95});
+	btnAddTruck.position({buttonPositionX, renderer.size().y - 130});
+	btnRemoveTruck.position({buttonPositionX, renderer.size().y - 95});
 
 	const auto checkBoxWidths = std::views::transform(chkResources, [](const CheckBox& checkBox){ return checkBox.size().x; });
 	const auto maxCheckBoxWidth = std::ranges::max(checkBoxWidths);
-	positionX = area().size.x - maxCheckBoxWidth - 10;
-	chkResources[0].position({positionX, chkResources[0].position().y});
-	chkResources[1].position({positionX, chkResources[1].position().y});
-	chkResources[2].position({positionX, chkResources[2].position().y});
-	chkResources[3].position({positionX, chkResources[3].position().y});
+	const auto checkBoxPositionX = area().size.x - maxCheckBoxWidth - 10;
+	chkResources[0].position({checkBoxPositionX, chkResources[0].position().y});
+	chkResources[1].position({checkBoxPositionX, chkResources[1].position().y});
+	chkResources[2].position({checkBoxPositionX, chkResources[2].position().y});
+	chkResources[3].position({checkBoxPositionX, chkResources[3].position().y});
 }
 
 
