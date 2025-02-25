@@ -485,34 +485,39 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 
 void FactoryReport::drawProductPane(Renderer& renderer)
 {
-	renderer.drawText(fontBigBold, "Production", NAS2D::Point{detailPanelRect.position.x, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
+	const auto originLeft = detailPanelRect.position + NAS2D::Vector{0, 180};
+	renderer.drawText(fontBigBold, "Production", originLeft, constants::PrimaryTextColor);
 
-	int positionX = detailPanelRect.position.x + lstProducts.size().x + 20;
+	const auto originRight = originLeft + NAS2D::Vector{lstProducts.size().x + 20, 0};
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, NAS2D::Point{positionX, detailPanelRect.position.y + 180}, constants::PrimaryTextColor);
-		renderer.drawImage(productImage(selectedProductType), NAS2D::Point{positionX, lstProducts.position().y});
+		const auto productImagePosition = NAS2D::Point{originRight.x, lstProducts.position().y};
+		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
+		renderer.drawImage(productImage(selectedProductType), productImagePosition);
 		mTxtProductDescription.update();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
-	renderer.drawText(fontBigBold, "Progress", NAS2D::Point{positionX, detailPanelRect.position.y + 358}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, NAS2D::Point{positionX, detailPanelRect.position.y + 393}, constants::PrimaryTextColor);
+	const auto progressTextPosition = originRight + NAS2D::Vector{0, 178};
+	const auto buildingProductNamePosition = progressTextPosition + NAS2D::Vector{0, 35};
+	renderer.drawText(fontBigBold, "Progress", progressTextPosition, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
 
-	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
-	{
-		drawProgressBar(
-			selectedFactory->productionTurnsCompleted(),
-			selectedFactory->productionTurnsToComplete(),
-			{{positionX, detailPanelRect.position.y + 413}, {mRect.size.x - positionX - 10, 30}}
-		);
-	}
+	const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, fontMedium.height()};
+	const auto progressBarSize = NAS2D::Vector{mRect.size.x - originRight.x - 10, 30};
+	drawProgressBar(
+		selectedFactory->productionTurnsCompleted(),
+		selectedFactory->productionTurnsToComplete(),
+		{progressBarPosition, progressBarSize}
+	);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
-	renderer.drawText(fontMediumBold, "Turns", NAS2D::Point{positionX, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, text, NAS2D::Point{mRect.size.x - fontMedium.width(text) - 10, detailPanelRect.position.y + 449}, constants::PrimaryTextColor);
+	const auto turnsTitlePosition = progressBarPosition + NAS2D::Vector{0, 36};
+	const auto turnsTextPosition = NAS2D::Point{mRect.size.x - fontMedium.width(text) - 10, turnsTitlePosition.y};
+	renderer.drawText(fontMediumBold, "Turns", turnsTitlePosition, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, text, turnsTextPosition, constants::PrimaryTextColor);
 }
 
 
