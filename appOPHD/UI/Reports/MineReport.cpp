@@ -391,7 +391,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const auto oreTotalYield = mine.totalYield();
 
 	int offsetY = 0;
-	const int barWidth = renderer.size().x - origin.x - 10;
+	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, 25};
 	for (size_t i = 0; i < 4; ++i)
 	{
 		const auto resourceIconPosition = origin + NAS2D::Vector{0, 30 + offsetY};
@@ -399,7 +399,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		renderer.drawText(fontBold, ResourceNamesOre[i], resourceIconPosition + NAS2D::Vector{20, 0}, constants::PrimaryTextColor);
 
 		const auto progressBarPosition = origin + NAS2D::Vector{0, 50 + offsetY};
-		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, {barWidth, 25}};
+		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
 		drawProgressBar(
 			oreAvailable.resources[i],
 			oreTotalYield.resources[i],
@@ -407,7 +407,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		);
 
 		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
-		const auto strOffset = NAS2D::Vector{(barWidth - fontBold.width(str)) / 2, fontBold.height() / 2 - 1};
+		const auto strOffset = NAS2D::Vector{(progressBarSize.x - fontBold.width(str)) / 2, fontBold.height() / 2 - 1};
 		renderer.drawText(fontBold, str, progressBarPosition + strOffset);
 
 		offsetY += 70;
