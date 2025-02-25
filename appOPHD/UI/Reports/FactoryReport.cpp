@@ -514,7 +514,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
-	const auto turnsTitlePosition = buildingProductNamePosition + NAS2D::Vector{0, 56};
+	const auto turnsTitlePosition = progressBarPosition + NAS2D::Vector{0, 36};
 	const auto turnsTextPosition = NAS2D::Point{mRect.size.x - fontMedium.width(text) - 10, turnsTitlePosition.y};
 	renderer.drawText(fontMediumBold, "Turns", turnsTitlePosition, constants::PrimaryTextColor);
 	renderer.drawText(fontMedium, text, turnsTextPosition, constants::PrimaryTextColor);
