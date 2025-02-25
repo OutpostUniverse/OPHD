@@ -25,6 +25,7 @@
 #include <array>
 #include <cfloat>
 #include <map>
+#include <ranges>
 
 
 using namespace NAS2D;
@@ -159,7 +160,9 @@ void MineReport::onResize()
 	btnAddTruck.position({positionX, renderer.size().y - 130});
 	btnRemoveTruck.position({positionX, renderer.size().y - 95});
 
-	positionX -= 20;
+	const auto checkBoxWidths = std::views::transform(chkResources, [](const CheckBox& checkBox){ return checkBox.size().x; });
+	const auto maxCheckBoxWidth = std::ranges::max(checkBoxWidths);
+	positionX = area().size.x - maxCheckBoxWidth - 10;
 	chkResources[0].position({positionX, chkResources[0].position().y});
 	chkResources[1].position({positionX, chkResources[1].position().y});
 	chkResources[2].position({positionX, chkResources[2].position().y});
