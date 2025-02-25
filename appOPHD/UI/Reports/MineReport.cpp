@@ -363,26 +363,6 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	const bool isStatusHighlighted = facility.disabled() || facility.destroyed();
 	const auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
 	renderer.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
-
-	auto resourceTextOrigin = origin + NAS2D::Vector{138, 30};
-	const auto barOrigin = resourceTextOrigin.x + 125;
-	const auto barWidth = btnIdle.position().x - barOrigin - 10;
-
-	const auto& mine = facility.mine();
-	const auto oreAvailable = mine.availableResources();
-	const auto oreTotalYield = mine.totalYield();
-	for (size_t i = 0; i < ResourceNamesOre.size(); ++i)
-	{
-		renderer.drawText(font, ResourceNamesOre[i], resourceTextOrigin, constants::PrimaryTextColor);
-
-		drawProgressBar(
-			oreAvailable.resources[i],
-			oreTotalYield.resources[i],
-			{{barOrigin, resourceTextOrigin.y}, {barWidth, 12}},
-			2
-		);
-		resourceTextOrigin.y += 20;
-	}
 }
 
 
