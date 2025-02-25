@@ -391,7 +391,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const auto oreTotalYield = mine.totalYield();
 
 	int offsetY = 0;
-	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, 25};
+	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
 	for (size_t i = 0; i < 4; ++i)
 	{
 		const auto resourceIconPosition = origin + NAS2D::Vector{0, 30 + offsetY};
