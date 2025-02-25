@@ -78,7 +78,8 @@ void MapViewState::initUi()
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
-	mPopulationPanel.position({675, constants::ResourceIconSize + 4 + constants::MarginTight});
+	const auto populationPanelX = std::min(675, renderer.size().x - mPopulationPanel.size().x);
+	mPopulationPanel.position({populationPanelX, constants::ResourceIconSize + 4 + constants::MarginTight});
 
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);
@@ -185,6 +186,9 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
+	const auto populationPanelX = std::min(675, size.x - mPopulationPanel.size().x);
+	mPopulationPanel.position({populationPanelX, constants::ResourceIconSize + 4 + constants::MarginTight});
+
 	// Bottom UI Area
 	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
 
