@@ -505,7 +505,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	renderer.drawText(fontBigBold, "Progress", progressTextPosition, constants::PrimaryTextColor);
 	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
 
-	const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, 20};
+	const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, fontMedium.height()};
 	const auto progressBarSize = NAS2D::Vector{mRect.size.x - originRight.x - 10, 30};
 	drawProgressBar(
 		selectedFactory->productionTurnsCompleted(),
