@@ -384,7 +384,8 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
-	renderer.drawLine(origin + NAS2D::Vector{0, 21}, NAS2D::Point{renderer.size().x - 10, origin.y + 21}, constants::PrimaryTextColor, 1);
+	const auto lineOrigin = origin + NAS2D::Vector{0, 21};
+	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{renderer.size().x - lineOrigin.x - 10, 0}, constants::PrimaryTextColor, 1);
 
 	const auto& mine = mSelectedFacility->mine();
 	const auto oreAvailable = mine.availableResources();
