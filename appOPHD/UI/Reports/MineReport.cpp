@@ -412,7 +412,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		const auto strOffset = (progressBarSize - fontBold.size(str)) / 2;
 		renderer.drawText(fontBold, str, progressBarPosition + strOffset);
 
-		resourceOffset.y += 70;
+		resourceOffset.y += resourceNameHeight + progressBarSize.y + constants::Margin + 23;
 	}
 }
 
