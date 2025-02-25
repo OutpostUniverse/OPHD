@@ -505,16 +505,13 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 	renderer.drawText(fontBigBold, "Progress", progressTextPosition, constants::PrimaryTextColor);
 	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
 
-	if (selectedFactory->productType() != ProductType::PRODUCT_NONE)
-	{
-		const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, 20};
-		const auto progressBarSize = NAS2D::Vector{mRect.size.x - originRight.x - 10, 30};
-		drawProgressBar(
-			selectedFactory->productionTurnsCompleted(),
-			selectedFactory->productionTurnsToComplete(),
-			{progressBarPosition, progressBarSize}
-		);
-	}
+	const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, 20};
+	const auto progressBarSize = NAS2D::Vector{mRect.size.x - originRight.x - 10, 30};
+	drawProgressBar(
+		selectedFactory->productionTurnsCompleted(),
+		selectedFactory->productionTurnsToComplete(),
+		{progressBarPosition, progressBarSize}
+	);
 
 	const auto text = std::to_string(selectedFactory->productionTurnsCompleted()) + " / " + std::to_string(selectedFactory->productionTurnsToComplete());
 	const auto turnsTitlePosition = buildingProductNamePosition + NAS2D::Vector{0, 56};
