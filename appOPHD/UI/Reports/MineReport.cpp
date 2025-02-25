@@ -390,11 +390,11 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const auto oreAvailable = mine.availableResources();
 	const auto oreTotalYield = mine.totalYield();
 
-	int offsetY = 0;
+	auto resourceOffset = NAS2D::Vector{0, 30};
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
 	for (size_t i = 0; i < 4; ++i)
 	{
-		const auto resourceIconPosition = origin + NAS2D::Vector{0, 30 + offsetY};
+		const auto resourceIconPosition = origin + resourceOffset;
 		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
 		renderer.drawText(fontBold, ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
@@ -412,7 +412,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		const auto strOffset = (progressBarSize - fontBold.size(str)) / 2;
 		renderer.drawText(fontBold, str, progressBarPosition + strOffset);
 
-		offsetY += 70;
+		resourceOffset.y += 70;
 	}
 }
 
