@@ -407,7 +407,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		);
 
 		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
-		const auto strOffset = NAS2D::Vector{(progressBarSize.x - fontBold.width(str)) / 2, fontBold.height() / 2 - 1};
+		const auto strOffset = NAS2D::Vector{(progressBarSize.x - fontBold.width(str)) / 2, (progressBarSize.y - fontBold.height()) / 2};
 		renderer.drawText(fontBold, str, progressBarPosition + strOffset);
 
 		offsetY += 70;
