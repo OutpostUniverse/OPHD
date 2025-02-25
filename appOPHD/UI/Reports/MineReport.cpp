@@ -95,10 +95,11 @@ MineReport::MineReport() :
 	add(btnDigNewLevel, {0, 75});
 	add(btnTakeMeThere, {0, 110});
 
-	add(chkResources[0], {0, 210});
-	add(chkResources[1], {0, 280});
-	add(chkResources[2], {0, 350});
-	add(chkResources[3], {0, 420});
+	const auto checkBoxOriginY = 170 + fontMediumBold.height() + 10 + 10;
+	add(chkResources[0], {0, checkBoxOriginY});
+	add(chkResources[1], {0, checkBoxOriginY + 70});
+	add(chkResources[2], {0, checkBoxOriginY + 70 * 2});
+	add(chkResources[3], {0, checkBoxOriginY + 70 * 3});
 
 	// Truck Management Pane
 	btnAddTruck.size({140, 30});
