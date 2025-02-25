@@ -399,7 +399,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
 		renderer.drawText(fontBold, ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
 
-		const auto progressBarPosition = origin + NAS2D::Vector{0, 50 + offsetY};
+		const auto progressBarPosition = resourceIconPosition + NAS2D::Vector{0, 20};
 		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
 		drawProgressBar(
 			oreAvailable.resources[i],
