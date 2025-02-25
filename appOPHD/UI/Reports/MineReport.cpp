@@ -96,10 +96,13 @@ MineReport::MineReport() :
 	add(btnTakeMeThere, {0, 110});
 
 	const auto checkBoxOriginY = 170 + fontMediumBold.height() + 10 + 10;
+	const auto resourceNameHeight = std::max({ResourceImageRectsOre[0].size.y, fontBold.height(), chkResources[0].size().y});
+	const auto resourceProgressBarHeight = std::max(25, fontBold.height() + constants::MarginTight * 2);
+	const auto checkBoxSpacingY = resourceNameHeight + resourceProgressBarHeight + constants::Margin + 23;
 	add(chkResources[0], {0, checkBoxOriginY});
-	add(chkResources[1], {0, checkBoxOriginY + 70});
-	add(chkResources[2], {0, checkBoxOriginY + 70 * 2});
-	add(chkResources[3], {0, checkBoxOriginY + 70 * 3});
+	add(chkResources[1], {0, checkBoxOriginY + checkBoxSpacingY});
+	add(chkResources[2], {0, checkBoxOriginY + checkBoxSpacingY * 2});
+	add(chkResources[3], {0, checkBoxOriginY + checkBoxSpacingY * 3});
 
 	// Truck Management Pane
 	btnAddTruck.size({140, 30});
