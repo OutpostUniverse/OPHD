@@ -294,6 +294,12 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 }
 
 
+bool TileMap::isTileBlockedByMine(const Tile& tile) const
+{
+	return getTile({tile.xy(), 0}).hasMine();
+}
+
+
 std::size_t TileMap::linearSize() const
 {
 	const auto convertedSize = mSizeInTiles.to<std::size_t>();

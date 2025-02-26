@@ -56,6 +56,8 @@ public:
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
 	void PrintStateInfo(void* /*state*/) override {}
 
+	bool isTileBlockedByMine(const Tile&) const;
+
 private:
 	std::size_t linearSize() const;
 	std::size_t linearIndex(const MapCoordinate& position) const;
