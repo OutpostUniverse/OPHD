@@ -64,10 +64,10 @@ namespace constants
 	// =====================================
 	// = FONT SIZES
 	// =====================================
-	inline constexpr int FontPrimaryNormal{10};
-	inline constexpr int FontPrimaryMedium{14};
-	inline constexpr int FontPrimaryLarge{16};
-	inline constexpr int FontPrimaryHuge{20};
+	inline constexpr int FontPrimaryNormal{12};
+	inline constexpr int FontPrimaryMedium{16};
+	inline constexpr int FontPrimaryLarge{18};
+	inline constexpr int FontPrimaryHuge{22};
 
 	// =====================================
 	// = FONT COLORS
