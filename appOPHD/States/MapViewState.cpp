@@ -842,7 +842,7 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if (tile.mine())
+	if (mTileMap->isTileBlockedByMine(tile))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureMineInWay);
 		return;
