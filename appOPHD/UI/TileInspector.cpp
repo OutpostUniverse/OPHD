@@ -50,6 +50,12 @@ void TileInspector::update()
 	if (!mTile)
 		return;
 
+	if(!mTile->excavated())
+	{
+		visible(false);
+		return;
+	}
+
 	Window::update();
 
 	auto position = mRect.position + NAS2D::Vector{5, 25};
