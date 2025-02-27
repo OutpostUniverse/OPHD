@@ -51,6 +51,7 @@ protected:
 	void onTakeMeThere(const Structure*);
 
 private:
+	FileIo::FileLoadHandler mFileLoadHandler = [this](const std::string& saveGameName) { onLoadGame(saveGameName); };
 	std::unique_ptr<MainReportsUiState> mMainReportsState;
 	std::unique_ptr<MapViewState> mMapViewState;
 	std::unique_ptr<MapViewState> mNewMapViewState;
