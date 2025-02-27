@@ -19,7 +19,6 @@
 #include "../UI/NotificationWindow.h"
 #include "../UI/DiggerDirection.h"
 #include "../UI/FactoryProduction.h"
-#include "../UI/FileIo.h"
 #include "../UI/GameOverDialog.h"
 #include "../UI/GameOptionsDialog.h"
 #include "../UI/IconGrid.h"
@@ -80,6 +79,7 @@ class DetailMap;
 class NavControl;
 class MainReportsUiState;
 class GameState;
+class FileIo;
 
 
 enum class InsertMode
@@ -106,7 +106,6 @@ public:
 	using QuitSignal = NAS2D::Signal<>;
 	using ReportsUiSignal = NAS2D::Signal<>;
 	using MapChangedSignal = NAS2D::Signal<>;
-	using FileLoadSignal = NAS2D::Signal<const std::string&>;
 
 public:
 	MapViewState(GameState& gameState, const std::string& savegame);
@@ -118,7 +117,6 @@ public:
 	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
 	QuitSignal::Source& quit() { return mQuitSignal; }
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
-	FileLoadSignal::Source& fileLoadSignal() { return mFileIoDialog.fileLoadSignal(); }
 
 	void focusOnStructure(const Structure* s);
 
@@ -369,7 +367,7 @@ private:
 	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;
 	FactoryProduction mFactoryProduction;
-	FileIo mFileIoDialog;
+	FileIo& mFileIoDialog;
 	GameOverDialog mGameOverDialog;
 	GameOptionsDialog mGameOptionsDialog;
 	MajorEventAnnouncement mAnnouncement;

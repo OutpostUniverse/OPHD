@@ -48,6 +48,7 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
+	mFileIoDialog.fileLoadSignal().connect({this, &GameState::onLoadGame});
 	mMainReportsState->initialize();
 	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
@@ -74,7 +75,6 @@ void GameState::initializeMapViewState()
 	mMapViewState->quit().connect({this, &GameState::onQuit});
 	mMapViewState->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapViewState->mapChanged().connect({this, &GameState::onMapChange});
-	mMapViewState->fileLoadSignal().connect({this, &GameState::onLoadGame});
 }
 
 

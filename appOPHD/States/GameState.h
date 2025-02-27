@@ -30,6 +30,7 @@ public:
 	State* update() override;
 
 	MainReportsUiState& mainReportsState() { return *mMainReportsState; }
+	FileIo& fileIoDialog() { return mFileIoDialog; }
 
 protected:
 	void initializeGameState();
@@ -56,4 +57,5 @@ private:
 	Wrapper* mActiveState = nullptr;
 	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
+	FileIo mFileIoDialog;
 };
