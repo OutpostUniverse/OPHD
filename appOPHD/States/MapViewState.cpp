@@ -244,6 +244,7 @@ MapViewState::~MapViewState()
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
 	NAS2D::Utility<std::map<class MineFacility*, Route>>::get().clear();
+	mFileIoDialog.fileSaveSignal().disconnect({this, &MapViewState::onSaveGame});
 }
 
 
