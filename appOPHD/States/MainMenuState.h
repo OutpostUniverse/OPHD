@@ -41,9 +41,10 @@ private:
 	void onLoadGame(const std::string& filePath);
 
 private:
-	const NAS2D::Image mBgImage;
+	FileIo::FileLoadHandler mFileLoadHandler = [this](const std::string& saveGameName) { onLoadGame(saveGameName); };
+	FileIo mFileIoDialog;
 
-	FileIo mFileIoDialog; /**< File IO window. */
+	const NAS2D::Image mBgImage;
 
 	std::array<Button, 4> buttons;
 
