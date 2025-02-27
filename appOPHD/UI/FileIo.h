@@ -10,6 +10,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 
+#include <functional>
 
 class FileIo : public Window
 {
@@ -22,8 +23,10 @@ public:
 
 	using FileSaveSignal = NAS2D::Signal<const std::string&>;
 	using FileLoadSignal = NAS2D::Signal<const std::string&>;
+	using FileLoadHandler = std::function<void(const std::string&)>;
 
 	FileIo();
+	FileIo(FileLoadHandler fileLoadHandler);
 	~FileIo() override;
 
 	void showOpen(const std::string& directory);
@@ -63,4 +66,6 @@ private:
 	TextField mFileName;
 
 	ListBox<> mListBox;
+
+	FileLoadHandler mFileLoadHandler = nullptr;
 };

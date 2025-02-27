@@ -60,6 +60,12 @@ FileIo::FileIo() :
 }
 
 
+FileIo::FileIo(FileLoadHandler fileLoadHandler) : FileIo()
+{
+	mFileLoadHandler = fileLoadHandler;
+}
+
+
 FileIo::~FileIo()
 {
 	auto& eventHandler = Utility<EventHandler>::get();
