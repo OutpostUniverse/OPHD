@@ -240,8 +240,6 @@ MapViewState::~MapViewState()
 	eventHandler.mouseWheel().disconnect({this, &MapViewState::onMouseWheel});
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
-	eventHandler.textInputMode(false);
-
 	NAS2D::Utility<std::map<class MineFacility*, Route>>::get().clear();
 }
 
