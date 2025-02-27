@@ -29,6 +29,8 @@ public:
 
 	State* update() override;
 
+	MainReportsUiState& mainReportsState() { return *mMainReportsState; }
+
 protected:
 	void initializeGameState();
 	void initializeMapViewState();

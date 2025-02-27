@@ -79,6 +79,7 @@ class MapView;
 class DetailMap;
 class NavControl;
 class MainReportsUiState;
+class GameState;
 
 
 enum class InsertMode
@@ -108,8 +109,8 @@ public:
 	using FileLoadSignal = NAS2D::Signal<const std::string&>;
 
 public:
-	MapViewState(MainReportsUiState&, const std::string& savegame);
-	MapViewState(MainReportsUiState&, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
+	MapViewState(GameState& gameState, const std::string& savegame);
+	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
 	void setPopulationLevel(PopulationLevel popLevel);

@@ -4,6 +4,7 @@
 
 #include "MainMenuState.h"
 #include "MainReportsUiState.h"
+#include "GameState.h"
 #include "Route.h"
 
 #include "../Constants/Strings.h"
@@ -178,13 +179,13 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 };
 
 
-MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::string& savegame) :
+MapViewState::MapViewState(GameState& gameState, const std::string& savegame) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mLoadingExisting{true},
 	mExistingToLoad{savegame},
-	mMainReportsState{mainReportsState},
+	mMainReportsState{gameState.mainReportsState()},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
@@ -197,14 +198,14 @@ MapViewState::MapViewState(MainReportsUiState& mainReportsState, const std::stri
 }
 
 
-MapViewState::MapViewState(MainReportsUiState& mainReportsState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
-	mMainReportsState{mainReportsState},
+	mMainReportsState{gameState.mainReportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
