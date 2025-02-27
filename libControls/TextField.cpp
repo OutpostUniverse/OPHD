@@ -52,8 +52,6 @@ TextField::TextField() :
 	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
-	eventHandler.textInputMode(true);
-
 	height(mFont.height() + fieldPadding * 2);
 }
 

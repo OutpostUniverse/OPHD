@@ -205,6 +205,8 @@ int main(int argc, char *argv[])
 			stateManager.setState(new MainMenuState());
 		}
 
+		Utility<EventHandler>::get().textInputMode(true);
+
 		// Game Loop
 		while (stateManager.update())
 		{
