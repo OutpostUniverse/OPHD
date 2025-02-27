@@ -290,8 +290,6 @@ void MapViewState::initialize()
 	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
 	eventHandler.mouseWheel().connect({this, &MapViewState::onMouseWheel});
 
-	eventHandler.textInputMode(true);
-
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
 }
 
