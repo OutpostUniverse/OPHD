@@ -4,6 +4,7 @@
 #include "CrimeRateUpdate.h"
 #include "CrimeExecution.h"
 #include "StructureTracker.h"
+#include "GameRules.h"
 
 #include "Planet.h"
 
@@ -402,4 +403,5 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
+	GameRules& mGameRules;
 };
