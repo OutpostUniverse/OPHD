@@ -87,10 +87,10 @@ void MapViewState::initUi()
 	mGameOverDialog.returnToMainMenu().connect({this, &MapViewState::onGameOver});
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.SaveGame().connect({this, &MapViewState::onSaveGame});
-	mGameOptionsDialog.LoadGame().connect({this, &MapViewState::onLoadGame});
-	mGameOptionsDialog.returnToGame().connect({this, &MapViewState::onReturnToGame});
-	mGameOptionsDialog.returnToMainMenu().connect({this, &MapViewState::onGameOver});
+	mGameOptionsDialog.saveGameDialogButtonSignal().connect({this, &MapViewState::onSaveGame});
+	mGameOptionsDialog.loadGameDialogButtonSignal().connect({this, &MapViewState::onLoadGame});
+	mGameOptionsDialog.returnToGameButtonSignal().connect({this, &MapViewState::onReturnToGame});
+	mGameOptionsDialog.returnToMainMenuButtonSignal().connect({this, &MapViewState::onGameOver});
 	mGameOptionsDialog.hide();
 
 	mAnnouncement.hide();

@@ -49,12 +49,12 @@ void GameOptionsDialog::update()
 
 void GameOptionsDialog::onSave()
 {
-	mSignalSave();
+	mSignalSaveDialog();
 }
 
 void GameOptionsDialog::onLoad()
 {
-	mSignalLoad();
+	mSignalLoadDialog();
 }
 
 void GameOptionsDialog::onHelp()
