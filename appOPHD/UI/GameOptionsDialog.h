@@ -13,10 +13,10 @@ public:
 
 	void update() override;
 
-	ClickSignal::Source& SaveGame() { return mSignalSave; }
-	ClickSignal::Source& LoadGame() { return mSignalLoad; }
-	ClickSignal::Source& returnToGame() { return mSignalReturn; }
-	ClickSignal::Source& returnToMainMenu() { return mSignalClose; }
+	ClickSignal::Source& saveGameDialogButtonSignal() { return mSignalSaveDialog; }
+	ClickSignal::Source& loadGameDialogButtonSignal() { return mSignalLoadDialog; }
+	ClickSignal::Source& returnToGameButtonSignal() { return mSignalReturn; }
+	ClickSignal::Source& returnToMainMenuButtonSignal() { return mSignalClose; }
 
 private:
 	const int buttonHeight = 25;
@@ -38,8 +38,8 @@ private:
 	Button btnReturn;
 	Button btnClose;
 
-	ClickSignal mSignalSave;
-	ClickSignal mSignalLoad;
+	ClickSignal mSignalSaveDialog;
+	ClickSignal mSignalLoadDialog;
 	ClickSignal mSignalReturn;
 	ClickSignal mSignalClose;
 };
