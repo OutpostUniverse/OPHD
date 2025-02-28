@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Planet.h"
+#include "GameRules.h"
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>
@@ -31,6 +32,7 @@ public:
 
 	MainReportsUiState& mainReportsState() { return *mMainReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
+	GameRules& gameRules() { return mGameRules; }
 
 protected:
 	void initializeGameState();
@@ -58,4 +60,5 @@ private:
 	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
 	FileIo mFileIoDialog;
+	GameRules mGameRules;
 };
