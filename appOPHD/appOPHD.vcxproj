@@ -228,6 +228,7 @@
     <ClCompile Include="ShellOpenPath.cpp" />
     <ClCompile Include="States\CrimeExecution.cpp" />
     <ClCompile Include="States\CrimeRateUpdate.cpp" />
+    <ClCompile Include="States\GameRules.cpp" />
     <ClCompile Include="States\GameState.cpp" />
     <ClCompile Include="States\MapViewState.cpp" />
     <ClCompile Include="States\MainMenuState.cpp" />
@@ -362,6 +363,7 @@
     <ClInclude Include="ShellOpenPath.h" />
     <ClInclude Include="States\CrimeExecution.h" />
     <ClInclude Include="States\CrimeRateUpdate.h" />
+    <ClInclude Include="States\GameRules.h" />
     <ClInclude Include="States\GameState.h" />
     <ClInclude Include="States\MainMenuState.h" />
     <ClInclude Include="States\MainReportsUiState.h" />

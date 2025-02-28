@@ -207,6 +207,9 @@
     <ClCompile Include="States\CrimeRateUpdate.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="States\GameRules.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
     <ClCompile Include="States\GameState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -603,6 +606,9 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="States\CrimeRateUpdate.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\GameRules.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="States\GameState.h">
