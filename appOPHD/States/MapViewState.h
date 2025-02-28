@@ -202,7 +202,7 @@ private:
 	void updateResearch();
 
 	// TURN LOGIC
-	void checkColonyShip();
+	void updateColonyShip();
 	void checkWarehouseCapacity();
 	void nextTurn();
 	void updatePopulation();
