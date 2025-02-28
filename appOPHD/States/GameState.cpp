@@ -20,7 +20,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 GameState::GameState(const std::string& savedGameFilename) :
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
-	mMapViewState{std::make_unique<MapViewState>(*mMainReportsState.get(), savedGameFilename)}
+	mMapViewState{std::make_unique<MapViewState>(*this, savedGameFilename)}
 {
 	initializeGameState();
 }
@@ -28,7 +28,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
-	mMapViewState{std::make_unique<MapViewState>(*mMainReportsState.get(), planetAttributes, selectedDifficulty)}
+	mMapViewState{std::make_unique<MapViewState>(*this, planetAttributes, selectedDifficulty)}
 {
 	initializeGameState();
 }
@@ -48,6 +48,7 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
+	mFileIoDialog.fileLoadSignal().connect({this, &GameState::onLoadGame});
 	mMainReportsState->initialize();
 	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
@@ -74,7 +75,6 @@ void GameState::initializeMapViewState()
 	mMapViewState->quit().connect({this, &GameState::onQuit});
 	mMapViewState->showReportsUi().connect({this, &GameState::onShowReports});
 	mMapViewState->mapChanged().connect({this, &GameState::onMapChange});
-	mMapViewState->fileLoadSignal().connect({this, &GameState::onLoadGame});
 }
 
 
@@ -164,7 +164,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		{
 			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
 		}
-		auto newMapViewState = std::make_unique<MapViewState>(*mMainReportsState.get(), saveGamePath);
+		auto newMapViewState = std::make_unique<MapViewState>(*this, saveGamePath);
 		newMapViewState->initialize();
 		mNewMapViewState = std::move(newMapViewState);
 	}
