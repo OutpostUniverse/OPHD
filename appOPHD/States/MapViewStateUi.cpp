@@ -87,8 +87,8 @@ void MapViewState::initUi()
 	mGameOverDialog.returnToMainMenu().connect({this, &MapViewState::onGameOver});
 	mGameOverDialog.hide();
 
-	mGameOptionsDialog.saveGameDialogButtonSignal().connect({this, &MapViewState::onSaveGame});
-	mGameOptionsDialog.loadGameDialogButtonSignal().connect({this, &MapViewState::onLoadGame});
+	mGameOptionsDialog.saveGameDialogButtonSignal().connect({this, &MapViewState::onOpenSaveGameDialog});
+	mGameOptionsDialog.loadGameDialogButtonSignal().connect({this, &MapViewState::onOpenLoadGameDialog});
 	mGameOptionsDialog.returnToGameButtonSignal().connect({this, &MapViewState::onReturnToGame});
 	mGameOptionsDialog.returnToMainMenuButtonSignal().connect({this, &MapViewState::onGameOver});
 	mGameOptionsDialog.hide();
@@ -610,7 +610,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 /**
  * Click handler for the main menu Save Game button.
  */
-void MapViewState::onSaveGame()
+void MapViewState::onOpenSaveGameDialog()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.showSave(constants::SaveGamePath);
@@ -620,7 +620,7 @@ void MapViewState::onSaveGame()
 /**
  * Click handler for the main menu Load Game button.
  */
-void MapViewState::onLoadGame()
+void MapViewState::onOpenLoadGameDialog()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.showOpen(constants::SaveGamePath);
