@@ -269,8 +269,8 @@ private:
 
 	void onNotificationClicked(const NotificationArea::Notification&);
 
-	void onSaveGame();
-	void onLoadGame();
+	void onOpenSaveGameDialog();
+	void onOpenLoadGameDialog();
 	void onReturnToGame();
 	void onGameOver();
 
