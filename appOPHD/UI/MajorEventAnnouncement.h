@@ -12,6 +12,8 @@ public:
 	{
 		ColonyShipCrash,
 		ColonyShipCrashWithColonists,
+		ColonyShipCrashWithCargo,
+		ColonyShipCrashWithColonistsAndCargo,
 	};
 
 	MajorEventAnnouncement();
