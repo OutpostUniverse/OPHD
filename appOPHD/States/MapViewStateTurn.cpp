@@ -414,10 +414,6 @@ void MapViewState::updateResources()
 }
 
 
-/**
- * Check for colony ship deorbiting; if any colonists are remaining, kill
- * them and reduce morale by an appropriate amount.
- */
 void MapViewState::updateColonyShip()
 {
 	const ColonyShipDeorbitEffects& effects = mGameRules.colonyShipDeorbitEffects(mDifficulty, mLandersColonist, mLandersCargo);
