@@ -16,3 +16,12 @@ NAS2D::Vector<int> maxSize(const std::vector<Control*>& controls)
 	}
 	return maxSize;
 }
+
+
+void setSize(const std::vector<Control*>& controls, NAS2D::Vector<int> newSize)
+{
+	for (auto* control : controls)
+	{
+		control->size(newSize);
+	}
+}
