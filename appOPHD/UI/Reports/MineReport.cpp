@@ -19,13 +19,14 @@
 #include "../../MapObjects/Mine.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 
+#include <libControls/Layout.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <array>
 #include <cfloat>
 #include <map>
-#include <ranges>
 
 
 using namespace NAS2D;
@@ -164,13 +165,10 @@ void MineReport::onResize()
 	btnAddTruck.position({buttonPositionX, renderer.size().y - 130});
 	btnRemoveTruck.position({buttonPositionX, renderer.size().y - 95});
 
-	const auto checkBoxWidths = std::views::transform(chkResources, [](const CheckBox& checkBox){ return checkBox.size().x; });
-	const auto maxCheckBoxWidth = std::ranges::max(checkBoxWidths);
-	const auto checkBoxPositionX = area().size.x - maxCheckBoxWidth - 10;
-	chkResources[0].position({checkBoxPositionX, chkResources[0].position().y});
-	chkResources[1].position({checkBoxPositionX, chkResources[1].position().y});
-	chkResources[2].position({checkBoxPositionX, chkResources[2].position().y});
-	chkResources[3].position({checkBoxPositionX, chkResources[3].position().y});
+	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
+	const auto maxCheckBoxSize = maxSize(checkBoxes);
+	const auto checkBoxPositionX = area().size.x - maxCheckBoxSize.x - 10;
+	setPositionX(checkBoxes, checkBoxPositionX);
 }
 
 
