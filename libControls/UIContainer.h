@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Control.h"
+#include "ContainerPolicy.h"
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -16,6 +17,9 @@
  */
 class UIContainer : public Control
 {
+public:
+	void applyContainerPolicy(ContainerPolicy::ContainerPolicyFunction policy);
+
 protected:
 	UIContainer();
 	UIContainer(std::vector<Control*> controls);

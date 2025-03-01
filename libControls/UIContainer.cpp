@@ -6,7 +6,14 @@
 #include <stdexcept>
 
 
-UIContainer::UIContainer() : UIContainer{{}}
+void UIContainer::applyContainerPolicy(ContainerPolicy::ContainerPolicyFunction policy)
+{
+	policy(mControls);
+}
+
+
+UIContainer::UIContainer() :
+	UIContainer{{}}
 {
 }
 
