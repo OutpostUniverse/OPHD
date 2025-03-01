@@ -14,7 +14,7 @@ public:
 
 protected:
 
-	void initFactory() override
+	void initFactory()
 	{
 		// Robot digger for now. Need to be replaced by non robot/surface goods
 		// Produces luxuries, clothing, or medicine

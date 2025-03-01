@@ -13,7 +13,7 @@ public:
 	}
 
 protected:
-	void initFactory() override
+	void initFactory()
 	{
 		addProduct(ProductType::PRODUCT_DIGGER);
 		addProduct(ProductType::PRODUCT_DOZER);

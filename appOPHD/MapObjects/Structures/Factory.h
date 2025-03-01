@@ -53,8 +53,6 @@ public:
 
 	const ProductionTypeList& productList() const { return mAvailableProducts; }
 
-	virtual void initFactory() = 0;
-
 	ProductionSignal::Source& productionComplete() { return mProductionComplete; }
 
 	NAS2D::Dictionary getDataDict() const override;
