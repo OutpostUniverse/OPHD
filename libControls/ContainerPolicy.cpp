@@ -3,7 +3,8 @@
 
 namespace ContainerPolicy
 {
-	ContainerPolicy::ContainerPolicyFunction layoutVertical = [](std::vector<Control*>& controls) {
+	void layoutVertical(std::vector<Control*>& controls) 
+	{
 		int y = 0;
 		for (auto& control : controls)
 		{
