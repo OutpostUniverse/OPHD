@@ -24,7 +24,6 @@ namespace
 			}
 		}
 	}
-}
 
 
 /**
@@ -49,6 +48,7 @@ const std::map<ProductType, ProductionCost> ProductionCostTable =
 	{ProductType::PRODUCT_CLOTHING, ProductionCost{1, {0, 1, 0, 0}}},
 	{ProductType::PRODUCT_MEDICINE, ProductionCost{1, {0, 2, 0, 1}}},
 };
+}
 
 
 const ProductionCost& productCost(ProductType productType)
