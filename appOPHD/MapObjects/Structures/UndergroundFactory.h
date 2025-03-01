@@ -9,13 +9,6 @@ public:
 	UndergroundFactory() : Factory(
 		StructureID::SID_UNDERGROUND_FACTORY)
 	{
-		initFactory();
-	}
-
-protected:
-
-	void initFactory()
-	{
 		// Need to be replaced by non robot/surface goods
 		// Produces luxuries, clothing, or medicine
 		addProduct(ProductType::PRODUCT_CLOTHING);

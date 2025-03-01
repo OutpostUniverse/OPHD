@@ -9,12 +9,6 @@ public:
 	SeedFactory() : Factory(
 		StructureID::SID_SEED_FACTORY)
 	{
-		initFactory();
-	}
-
-protected:
-	void initFactory()
-	{
 		addProduct(ProductType::PRODUCT_DIGGER);
 		addProduct(ProductType::PRODUCT_DOZER);
 		addProduct(ProductType::PRODUCT_MINER);
