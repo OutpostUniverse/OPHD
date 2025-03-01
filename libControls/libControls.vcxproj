@@ -148,6 +148,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="ComboBox.cpp" />
+    <ClCompile Include="ContainerPolicy.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="ListBox.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="ComboBox.h" />
+    <ClInclude Include="ContainerPolicy.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="ListBox.h" />
