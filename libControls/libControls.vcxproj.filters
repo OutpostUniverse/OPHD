@@ -30,6 +30,9 @@
     <ClCompile Include="Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ListBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListBox.h">
