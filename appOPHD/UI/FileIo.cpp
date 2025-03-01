@@ -61,6 +61,7 @@ FileIo::FileIo() :
 	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
 
 	this->applyContainerPolicy(ContainerPolicy::layoutVertical);
+	this->applyContainerPolicy(ContainerPolicy::rightJustify({mOpenSaveFolder}, *this));
 }
 
 
