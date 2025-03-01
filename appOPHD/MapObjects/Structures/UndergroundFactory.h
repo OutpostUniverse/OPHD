@@ -6,12 +6,16 @@
 class UndergroundFactory : public Factory
 {
 public:
-	UndergroundFactory() : Factory(
-		StructureID::SID_UNDERGROUND_FACTORY)
+	UndergroundFactory() :
+	Factory(
+		StructureID::SID_UNDERGROUND_FACTORY,
+		{
+			// Need to be replaced by non robot/surface goods
+			// Produces luxuries, clothing, or medicine
+			ProductType::PRODUCT_CLOTHING,
+			ProductType::PRODUCT_MEDICINE,
+		}
+	)
 	{
-		// Need to be replaced by non robot/surface goods
-		// Produces luxuries, clothing, or medicine
-		addProduct(ProductType::PRODUCT_CLOTHING);
-		addProduct(ProductType::PRODUCT_MEDICINE);
 	}
 };
