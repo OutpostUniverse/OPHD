@@ -26,28 +26,28 @@ namespace
 	}
 
 
-/**
- * Table with production information for each product that factories can produce.
- *
- * \note	This table defines parameters for -all- products that any factory can
- *			produce. It is up to the individual factory to determine what they are
- *			allowed to build.
- */
-const std::map<ProductType, ProductionCost> ProductionCostTable =
-{
-	{ProductType::PRODUCT_NONE, ProductionCost{}},
+	/**
+	 * Table with production information for each product that factories can produce.
+	 *
+	 * \note	This table defines parameters for -all- products that any factory can
+	 *			produce. It is up to the individual factory to determine what they are
+	 *			allowed to build.
+	 */
+	const std::map<ProductType, ProductionCost> ProductionCostTable =
+	{
+		{ProductType::PRODUCT_NONE, ProductionCost{}},
 
-	{ProductType::PRODUCT_DIGGER, ProductionCost{5, {3, 1, 1, 0}}},
-	{ProductType::PRODUCT_DOZER, ProductionCost{5, {3, 1, 1, 0}}},
-	{ProductType::PRODUCT_EXPLORER, ProductionCost{5, {5, 2, 1, 1}}},
-	{ProductType::PRODUCT_MINER, ProductionCost{5, {3, 2, 1, 1}}},
-	{ProductType::PRODUCT_TRUCK, ProductionCost{3, {2, 1, 1, 0}}},
+		{ProductType::PRODUCT_DIGGER, ProductionCost{5, {3, 1, 1, 0}}},
+		{ProductType::PRODUCT_DOZER, ProductionCost{5, {3, 1, 1, 0}}},
+		{ProductType::PRODUCT_EXPLORER, ProductionCost{5, {5, 2, 1, 1}}},
+		{ProductType::PRODUCT_MINER, ProductionCost{5, {3, 2, 1, 1}}},
+		{ProductType::PRODUCT_TRUCK, ProductionCost{3, {2, 1, 1, 0}}},
 
-	{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost{2, {2, 2, 1, 1}}},
+		{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost{2, {2, 2, 1, 1}}},
 
-	{ProductType::PRODUCT_CLOTHING, ProductionCost{1, {0, 1, 0, 0}}},
-	{ProductType::PRODUCT_MEDICINE, ProductionCost{1, {0, 2, 0, 1}}},
-};
+		{ProductType::PRODUCT_CLOTHING, ProductionCost{1, {0, 1, 0, 0}}},
+		{ProductType::PRODUCT_MEDICINE, ProductionCost{1, {0, 2, 0, 1}}},
+	};
 }
 
 
