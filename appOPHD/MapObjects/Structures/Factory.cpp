@@ -9,6 +9,24 @@
 #include <stdexcept>
 
 
+namespace
+{
+	void assertNoDuplicates(const std::vector<ProductType>& products)
+	{
+		for (std::size_t i = 0; i < products.size(); ++i)
+		{
+			for (std::size_t j = i + 1; j < products.size(); ++j)
+			{
+				if (products[i] == products[j])
+				{
+					throw std::runtime_error("Duplicate product added to factory list: " + std::to_string(products[j]));
+				}
+			}
+		}
+	}
+}
+
+
 /**
  * Table with production information for each product that factories can produce.
  *
@@ -39,9 +57,12 @@ const ProductionCost& productCost(ProductType productType)
 }
 
 
-Factory::Factory(StructureID id) :
-	Structure(StructureClass::Factory, id)
-{}
+Factory::Factory(StructureID id, std::vector<ProductType> products) :
+	Structure(StructureClass::Factory, id),
+	mAvailableProducts{std::move(products)}
+{
+	assertNoDuplicates(mAvailableProducts);
+}
 
 
 void Factory::productType(ProductType type)
