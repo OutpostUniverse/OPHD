@@ -60,8 +60,10 @@ FileIo::FileIo() :
 
 	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
 
+	std::vector<Control*> rightJustifyGroup = {&mOpenSaveFolder, &mCancel};
+
 	this->applyContainerPolicy(ContainerPolicy::layoutVertical);
-	this->applyContainerPolicy(ContainerPolicy::rightJustify({mOpenSaveFolder}, *this));
+	this->applyContainerPolicy(ContainerPolicy::rightJustify(rightJustifyGroup, *this));
 }
 
 
