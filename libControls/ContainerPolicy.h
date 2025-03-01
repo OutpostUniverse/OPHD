@@ -11,4 +11,5 @@ namespace ContainerPolicy
 	using ContainerPolicyFunction = std::function<void(std::vector<Control*>&)>;
 	void layoutVertical(std::vector<Control*>& controls);
 	ContainerPolicyFunction rightJustify(Control& controlsToJustify, UIContainer& container);
+	ContainerPolicyFunction rightJustify(std::vector<Control*>& controlsToJustify, UIContainer& container);
 }

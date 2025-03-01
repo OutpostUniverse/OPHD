@@ -27,4 +27,16 @@ namespace ContainerPolicy
 			}
 		};
 	}
+	ContainerPolicyFunction rightJustify(std::vector<Control*>& controlsToJustify, UIContainer& container)
+	{
+		return [&controlsToJustify, &container](std::vector<Control*>& controls) {
+			for (auto& control : controls)
+			{
+				if(std::find(controlsToJustify.begin(), controlsToJustify.end(), control) != controlsToJustify.end())
+				{
+					control->position({container.size().x - control->size().x, control->position().y});
+				}
+			}
+		};
+	}
 }
