@@ -6,6 +6,8 @@
 
 #include "MessageBox.h"
 
+#include <libControls/ContainerPolicy.h>
+
 #include <NAS2D/EnumKeyCode.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -57,6 +59,8 @@ FileIo::FileIo() :
 	add(mCancel, {mFileOperation.position().x - mCancel.size().x - 5, bottomButtonArea.position.y});
 
 	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
+
+	this->applyContainerPolicy(ContainerPolicy::layoutVertical);
 }
 
 
