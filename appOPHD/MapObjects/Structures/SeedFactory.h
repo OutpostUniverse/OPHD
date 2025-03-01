@@ -6,18 +6,16 @@
 class SeedFactory : public Factory
 {
 public:
-	SeedFactory() : Factory(
-		StructureID::SID_SEED_FACTORY)
+	SeedFactory() :
+	Factory(
+		StructureID::SID_SEED_FACTORY,
+		{
+			ProductType::PRODUCT_DIGGER,
+			ProductType::PRODUCT_DOZER,
+			ProductType::PRODUCT_MINER,
+			ProductType::PRODUCT_TRUCK,
+		}
+	)
 	{
-		initFactory();
-	}
-
-protected:
-	void initFactory() override
-	{
-		addProduct(ProductType::PRODUCT_DIGGER);
-		addProduct(ProductType::PRODUCT_DOZER);
-		addProduct(ProductType::PRODUCT_MINER);
-		addProduct(ProductType::PRODUCT_TRUCK);
 	}
 };

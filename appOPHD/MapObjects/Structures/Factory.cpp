@@ -9,28 +9,46 @@
 #include <stdexcept>
 
 
-/**
- * Table with production information for each product that factories can produce.
- *
- * \note	This table defines parameters for -all- products that any factory can
- *			produce. It is up to the individual factory to determine what they are
- *			allowed to build.
- */
-const std::map<ProductType, ProductionCost> ProductionCostTable =
+namespace
 {
-	{ProductType::PRODUCT_NONE, ProductionCost{}},
+	void assertNoDuplicates(const std::vector<ProductType>& products)
+	{
+		for (std::size_t i = 0; i < products.size(); ++i)
+		{
+			for (std::size_t j = i + 1; j < products.size(); ++j)
+			{
+				if (products[i] == products[j])
+				{
+					throw std::runtime_error("Duplicate product added to factory list: " + std::to_string(products[j]));
+				}
+			}
+		}
+	}
 
-	{ProductType::PRODUCT_DIGGER, ProductionCost{5, {3, 1, 1, 0}}},
-	{ProductType::PRODUCT_DOZER, ProductionCost{5, {3, 1, 1, 0}}},
-	{ProductType::PRODUCT_EXPLORER, ProductionCost{5, {5, 2, 1, 1}}},
-	{ProductType::PRODUCT_MINER, ProductionCost{5, {3, 2, 1, 1}}},
-	{ProductType::PRODUCT_TRUCK, ProductionCost{3, {2, 1, 1, 0}}},
 
-	{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost{2, {2, 2, 1, 1}}},
+	/**
+	 * Table with production information for each product that factories can produce.
+	 *
+	 * \note	This table defines parameters for -all- products that any factory can
+	 *			produce. It is up to the individual factory to determine what they are
+	 *			allowed to build.
+	 */
+	const std::map<ProductType, ProductionCost> ProductionCostTable =
+	{
+		{ProductType::PRODUCT_NONE, ProductionCost{}},
 
-	{ProductType::PRODUCT_CLOTHING, ProductionCost{1, {0, 1, 0, 0}}},
-	{ProductType::PRODUCT_MEDICINE, ProductionCost{1, {0, 2, 0, 1}}},
-};
+		{ProductType::PRODUCT_DIGGER, ProductionCost{5, {3, 1, 1, 0}}},
+		{ProductType::PRODUCT_DOZER, ProductionCost{5, {3, 1, 1, 0}}},
+		{ProductType::PRODUCT_EXPLORER, ProductionCost{5, {5, 2, 1, 1}}},
+		{ProductType::PRODUCT_MINER, ProductionCost{5, {3, 2, 1, 1}}},
+		{ProductType::PRODUCT_TRUCK, ProductionCost{3, {2, 1, 1, 0}}},
+
+		{ProductType::PRODUCT_MAINTENANCE_PARTS, ProductionCost{2, {2, 2, 1, 1}}},
+
+		{ProductType::PRODUCT_CLOTHING, ProductionCost{1, {0, 1, 0, 0}}},
+		{ProductType::PRODUCT_MEDICINE, ProductionCost{1, {0, 2, 0, 1}}},
+	};
+}
 
 
 const ProductionCost& productCost(ProductType productType)
@@ -39,9 +57,12 @@ const ProductionCost& productCost(ProductType productType)
 }
 
 
-Factory::Factory(StructureID id) :
-	Structure(StructureClass::Factory, id)
-{}
+Factory::Factory(StructureID id, std::vector<ProductType> products) :
+	Structure(StructureClass::Factory, id),
+	mAvailableProducts{std::move(products)}
+{
+	assertNoDuplicates(mAvailableProducts);
+}
 
 
 void Factory::productType(ProductType type)

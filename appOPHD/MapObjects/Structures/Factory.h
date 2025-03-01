@@ -32,7 +32,7 @@ public:
 	using ProductionTypeList = std::vector<ProductType>;
 
 public:
-	Factory(StructureID id);
+	Factory(StructureID id, std::vector<ProductType> products = {});
 
 	virtual void updateProduction();
 
@@ -52,8 +52,6 @@ public:
 	ProductType pullProduct();
 
 	const ProductionTypeList& productList() const { return mAvailableProducts; }
-
-	virtual void initFactory() = 0;
 
 	ProductionSignal::Source& productionComplete() { return mProductionComplete; }
 
