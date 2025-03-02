@@ -59,6 +59,22 @@ void ControlGroup::applyOffset(NAS2D::Vector<int> offset)
 }
 
 
+void ControlGroup::applyCommonXJustify(int x)
+{
+	for(auto control : mControlList)
+	{
+		if(std::holds_alternative<Control*>(control))
+		{
+			std::get<Control*>(control)->position({x, std::get<Control*>(control)->position().y});
+		}
+		else
+		{
+			std::get<ControlGroup*>(control)->applyCommonXJustify(x);
+		}
+	}
+}
+
+
 NAS2D::Rectangle<int> ControlGroup::calculateBoundary()
 {
 	NAS2D::Rectangle<int> boundary = {0, 0, 0, 0};

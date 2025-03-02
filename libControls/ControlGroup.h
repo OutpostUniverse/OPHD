@@ -13,6 +13,7 @@ public:
 	void applyVerticalLayout();
 	void applyHorizontalLayout();
 	void applyOffset(NAS2D::Vector<int> offset);
+	void applyCommonXJustify(int);
 	NAS2D::Rectangle<int> calculateBoundary();
 
 private:
