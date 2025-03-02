@@ -53,7 +53,7 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.12
+      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.13
     environment:
       WARN_EXTRA: "-Wno-redundant-decls -Wno-dangling-reference"
       LDFLAGS_EXTRA: "-L/usr/local/x86_64-w64-mingw32/lib"
