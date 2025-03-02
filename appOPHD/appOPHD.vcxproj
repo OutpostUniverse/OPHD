@@ -286,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h" />
+    <ClInclude Include="CacheMusic.h" />
     <ClInclude Include="Constants\Numbers.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />
