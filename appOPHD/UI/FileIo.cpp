@@ -31,32 +31,38 @@ FileIo::FileIo() :
 	eventHandler.keyDown().connect({this, &FileIo::onKeyDown});
 
 	mOpenSaveFolder.size({std::max(105, mOpenSaveFolder.size().x + constants::Margin), 20});
-	add(mOpenSaveFolder, {5 + 690 - mOpenSaveFolder.size().x, sWindowTitleBarHeight + 2});
+	add(mOpenSaveFolder, {0,0});
 
 	mListBox.size({690, 253});
 	mListBox.visible(true);
 	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
-	add(mListBox, {5, 45});
+	add(mListBox, {0, 0});
 
 	mFileName.size({mListBox.size().x, std::max(18, mFileName.size().y)});
 	mFileName.maxCharacters(50);
 	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
-	add(mFileName, mListBox.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, 4});
-
-	const auto bottomButtonArea = NAS2D::Rectangle{mFileName.area().crossYPoint() + NAS2D::Vector{0, 5}, {mFileName.size().x, 20}};
+	add(mFileName, {0, 0});
 
 	mFileOperation.size({50, 20});
 	mFileOperation.enabled(false);
-	add(mFileOperation, {bottomButtonArea.endPoint().x - mFileOperation.size().x, bottomButtonArea.position.y});
+	add(mFileOperation, {0, 0});
 
 	mDeleteFile.size({std::max(50, mDeleteFile.size().x + constants::Margin), 20});
 	mDeleteFile.enabled(false);
-	add(mDeleteFile, {bottomButtonArea.position.x, bottomButtonArea.position.y});
+	add(mDeleteFile, {0, 0});
 
 	mCancel.size({std::max(50, mCancel.size().x + constants::Margin), 20});
-	add(mCancel, {mFileOperation.position().x - mCancel.size().x - 5, bottomButtonArea.position.y});
+	add(mCancel, {0, 0});
 
-	size(bottomButtonArea.endPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{5, 5});
+	ControlGroup bottomButtonGroup = ControlGroup{ControlGroup::ControlList{&mFileOperation, &mDeleteFile, &mCancel}};
+	ControlGroup verticalGroup = ControlGroup{ControlGroup::ControlList{&mOpenSaveFolder, &mListBox, &mFileName, &bottomButtonGroup}};
+	ControlGroup commonJustify = ControlGroup{ControlGroup::ControlList{&mOpenSaveFolder, &mCancel}};
+	verticalGroup.applyVerticalLayout();
+	verticalGroup.applyOffset({4 , sWindowTitleBarHeight + 2});
+	bottomButtonGroup.applyHorizontalLayout();
+
+	size(verticalGroup.calculateBoundary().size + NAS2D::Vector<int>{4, 4});
+	commonJustify.applyCommonXJustify(size().x - mOpenSaveFolder.size().x - 4);
 }
 
 
