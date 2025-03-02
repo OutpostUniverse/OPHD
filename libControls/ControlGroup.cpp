@@ -24,6 +24,25 @@ void ControlGroup::applyVerticalLayout()
 }
 
 
+void ControlGroup::applyHorizontalLayout()
+{
+	NAS2D::Vector<int> xPositionOffset = {0, 0};
+	for (auto control : mControlList)
+	{
+		if(std::holds_alternative<Control*>(control))
+		{
+			std::get<Control*>(control)->position(std::get<Control*>(control)->position() + xPositionOffset);
+			xPositionOffset = xPositionOffset + NAS2D::Vector<int>{std::get<Control*>(control)->size().x, 0};
+		}
+		else
+		{
+			std::get<ControlGroup*>(control)->applyOffset(xPositionOffset);
+			xPositionOffset = xPositionOffset + NAS2D::Vector<int>{std::get<ControlGroup*>(control)->calculateBoundary().size.x, 0};
+		}
+	}
+}
+
+
 NAS2D::Rectangle<int> ControlGroup::calculateBoundary()
 {
 	NAS2D::Rectangle<int> boundary = {0, 0, 0, 0};
