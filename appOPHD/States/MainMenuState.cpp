@@ -3,6 +3,7 @@
 #include "PlanetSelectState.h"
 
 #include "../Cache.h"
+#include "../CacheMusic.h"
 #include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
