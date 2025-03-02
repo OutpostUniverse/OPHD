@@ -43,6 +43,22 @@ void ControlGroup::applyHorizontalLayout()
 }
 
 
+void ControlGroup::applyOffset(NAS2D::Vector<int> offset)
+{
+	for (auto control : mControlList)
+	{
+		if(std::holds_alternative<Control*>(control))
+		{
+			std::get<Control*>(control)->position(std::get<Control*>(control)->position() + offset);
+		}
+		else
+		{
+			std::get<ControlGroup*>(control)->applyOffset(offset);
+		}
+	}
+}
+
+
 NAS2D::Rectangle<int> ControlGroup::calculateBoundary()
 {
 	NAS2D::Rectangle<int> boundary = {0, 0, 0, 0};
