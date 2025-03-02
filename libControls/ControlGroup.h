@@ -10,6 +10,9 @@ class ControlGroup
 public:
 	using ControlList = std::vector<std::variant<Control*, ControlGroup*>>;
 	ControlGroup(ControlList);
+	void applyVerticalLayout();
+	NAS2D::Rectangle<int> calculateBoundary();
+
 private:
 	ControlList mControlList;
 };
