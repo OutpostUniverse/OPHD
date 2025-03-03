@@ -49,7 +49,6 @@ TextField::TextField() :
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
-	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
 	height(mFont.height() + fieldPadding * 2);
@@ -60,7 +59,6 @@ TextField::~TextField()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &TextField::onMouseDown});
-	eventHandler.keyDown().disconnect({this, &TextField::onKeyDown});
 	eventHandler.textInput().disconnect({this, &TextField::onTextInput});
 }
 
@@ -321,4 +319,9 @@ void TextField::draw() const
 	drawCursor();
 
 	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+}
+
+void TextField::handleEvent(Event::Event& event)
+{
+	if (event.type == Event::Event::Type::KeyDown) { onKeyDown(event.keyCode, event.keyMod, event.repeat); }
 }
