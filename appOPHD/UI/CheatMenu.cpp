@@ -2,6 +2,8 @@
 
 #include <libOPHD/XmlSerializer.h>
 
+#include <NAS2D/Utility.h>
+
 using namespace NAS2D;
 
 namespace
@@ -75,6 +77,34 @@ CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 	catch (const std::runtime_error&)
 	{
 		return CheatCode::Invalid;
+	}
+}
+
+
+void CheatMenu::handleEvent(Event::Event& event)
+{
+	if (!visible() || !hasFocus()) { return; }
+
+	if (event.type == Event::Event::Type::KeyDown) { onKeyDown(event); }
+
+	dispatchEvent(event);
+	event.handled = true;
+}
+
+
+void CheatMenu::onKeyDown(Event::Event& event)
+{
+	switch(event.keyCode)
+	{
+		case NAS2D::KeyCode::F10 :
+			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(event.keyMod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(event.keyMod))
+			{
+				hide();
+			}
+			break;
+
+		default:
+			break;
 	}
 }
 

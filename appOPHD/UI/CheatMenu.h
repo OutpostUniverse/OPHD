@@ -41,6 +41,10 @@ public:
 
 	CheatSignal::Source& cheatCodeEntered() { return mSignal; }
 
+	virtual void handleEvent(Event::Event&) override;
+
+	void onKeyDown(Event::Event&);
+
 private:
 	CheatSignal mSignal;
 

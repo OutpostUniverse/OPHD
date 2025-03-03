@@ -411,15 +411,13 @@ void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
  */
 void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
 {
+	Event::Event event = {Event::Event::Type::KeyDown, key, mod};
+	Event::dispatchEvent(event, mControls);
+	if (event.handled) { return; }
 	if (!active()) { return; }
 
 	// FIXME: Ugly / hacky
 	if (modalUiElementDisplayed())
-	{
-		return;
-	}
-
-	if (mCheatMenu.visible() && mCheatMenu.hasFocus())
 	{
 		return;
 	}
