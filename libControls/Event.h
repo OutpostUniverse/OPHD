@@ -3,16 +3,24 @@
 #include <NAS2D/EnumKeyCode.h>
 #include <NAS2D/EnumKeyModifier.h>
 
-struct Event
+#include <vector>
+
+class Control;
+namespace Event
 {
-	enum class Type
+	struct Event
 	{
-		None,
-		KeyDown
+		enum class Type
+		{
+			None,
+			KeyDown
+		};
+
+		Type type = Type::None;
+		NAS2D::KeyCode keyCode = NAS2D::KeyCode::Unknown;
+		NAS2D::KeyModifier keyMod = NAS2D::KeyModifier::None;
+		bool repeat = false;
 	};
 
-	Type type = Type::None;
-	NAS2D::KeyCode keyCode = NAS2D::KeyCode::Unknown;
-	NAS2D::KeyModifier keyMod = NAS2D::KeyModifier::None;
-	bool repeat = false;
-};
+	void dispatchEvent(Event&, std::vector<Control*>);
+}
