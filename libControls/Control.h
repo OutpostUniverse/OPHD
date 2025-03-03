@@ -4,6 +4,7 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 
+#include "Event.h"
 
 namespace NAS2D
 {
@@ -67,6 +68,7 @@ public:
 
 	virtual void update() {}
 
+	virtual void handleEvent(Event::Event&) {}
 protected:
 	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
 	virtual void onResize() {}
