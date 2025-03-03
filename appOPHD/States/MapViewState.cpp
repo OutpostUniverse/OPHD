@@ -28,6 +28,8 @@
 
 #include <libOPHD/DirectionOffset.h>
 
+#include <libControls/Event.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumKeyCode.h>
@@ -260,6 +262,7 @@ void MapViewState::setPopulationLevel(PopulationLevel popLevel)
  */
 void MapViewState::initialize()
 {
+	mControls.push_back(&mFileIoDialog);
 	// UI
 	initUi();
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();

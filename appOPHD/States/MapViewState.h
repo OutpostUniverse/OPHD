@@ -383,6 +383,36 @@ private:
 
 	WindowStack mWindowStack;
 
+	std::vector<Control*> mControls = {
+		&mBtnTurns,
+		&mBtnToggleHeightmap,
+		&mBtnToggleConnectedness,
+		&mBtnToggleCommRangeOverlay,
+		&mBtnToggleRouteOverlay,
+		&mBtnTogglePoliceOverlay,
+		&mTooltipSystemButton,
+		&mTooltipCurrentTurns,
+		&mToolTip,
+		&mStructures,
+		&mRobots,
+		&mConnections,
+		&mCheatMenu,
+		&mDiggerDirection,
+		&mFactoryProduction,
+		&mGameOverDialog,
+		&mGameOptionsDialog,
+		&mAnnouncement,
+		&mMineOperationsWindow,
+		&mNotificationArea,
+		&mNotificationWindow,
+		&mPopulationPanel,
+		&mResourceBreakdownPanel,
+		&mRobotInspector,
+		&mStructureInspector,
+		&mTileInspector,
+		&mWarehouseInspector		
+	};
+
 	NAS2D::Rectangle<int> mBottomUiRect;
 
 	// SIGNALS
