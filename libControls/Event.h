@@ -20,6 +20,7 @@ namespace Event
 		NAS2D::KeyCode keyCode = NAS2D::KeyCode::Unknown;
 		NAS2D::KeyModifier keyMod = NAS2D::KeyModifier::None;
 		bool repeat = false;
+		bool handled = false;
 	};
 
 	void dispatchEvent(Event&, std::vector<Control*>);
