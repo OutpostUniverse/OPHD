@@ -56,7 +56,6 @@ void MainMenuState::initialize()
 		button.size({200, 30});
 	}
 
-	mFileIoDialog.fileLoadSignal().connect({this, &MainMenuState::onLoadGame});
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 

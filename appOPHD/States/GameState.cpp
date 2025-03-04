@@ -50,7 +50,6 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
-	mFileIoDialog.fileLoadSignal().connect({this, &GameState::onLoadGame});
 	mMainReportsState->initialize();
 	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
