@@ -26,7 +26,8 @@ MainMenuState::MainMenuState() :
 	}},
 	lblVersion{constants::Version},
 	mReturnState{this},
-	mFade{{this, &MainMenuState::onFadeComplete}}
+	mFade{{this, &MainMenuState::onFadeComplete}},
+	mFileIoDialog{{this, &MainMenuState::onLoadGame}}
 {}
 
 

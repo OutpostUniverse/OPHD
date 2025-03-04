@@ -18,8 +18,9 @@
 using namespace NAS2D;
 
 
-FileIo::FileIo() :
+FileIo::FileIo(FileLoadDelegate fileLoadDelegate) :
 	Window{"File I/O"},
+	mFileLoadDelegate{fileLoadDelegate},
 	mMode{FileOperation::Load},
 	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
 	mCancel{"Cancel", {this, &FileIo::onClose}},
@@ -195,6 +196,7 @@ void FileIo::onFileIo()
 
 	if(mMode == FileOperation::Load)
 	{
+		mFileLoadDelegate(mFileName.text());
 		mLoadSignal(mFileName.text());
 	}
 	mFileName.text("");
