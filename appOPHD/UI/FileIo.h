@@ -22,7 +22,6 @@ public:
 	};
 
 	using FileSaveSignal = NAS2D::Signal<const std::string&>;
-	using FileLoadSignal = NAS2D::Signal<const std::string&>;
 	using FileLoadDelegate = NAS2D::Delegate<void(const std::string&)>;
 
 	FileIo(FileLoadDelegate);
@@ -32,7 +31,6 @@ public:
 	void showSave(const std::string& directory);
 
 	FileSaveSignal::Source& fileSaveSignal() { return mSaveSignal; }
-	FileLoadSignal::Source& fileLoadSignal() { return mLoadSignal; }
 
 	void update() override;
 
@@ -51,8 +49,6 @@ protected:
 
 private:
 	FileSaveSignal mSaveSignal;
-	FileLoadSignal mLoadSignal;
-
 	FileLoadDelegate mFileLoadDelegate;
 
 	FileOperation mMode;
