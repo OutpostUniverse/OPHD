@@ -164,7 +164,6 @@ void MapViewState::initUi()
 	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
 
 	mTooltipCurrentTurns.size({45, hudHeight});
-	mTooltipSystemButton.size({hudHeight, hudHeight});
 
 	// Tool Tips
 	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
@@ -174,7 +173,6 @@ void MapViewState::initUi()
 	mToolTip.add(mBtnToggleRouteOverlay, constants::ToolTipBtnRoutes);
 	mToolTip.add(mBtnTogglePoliceOverlay, constants::ToolTipBtnPolice);
 	mToolTip.add(mTooltipCurrentTurns, constants::ToolTipCurrentTurns);
-	mToolTip.add(mTooltipSystemButton, constants::ToolTipSystemMenu);
 }
 
 
@@ -187,7 +185,6 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
 
 	// Menu / System Icon
-	mTooltipSystemButton.position({size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0});
 	mTooltipCurrentTurns.position({size.x - 80 , 0});
 
 	mRobotDeploymentSummary.area({{8, size.y - constants::BottomUiHeight - 8 - 100}, {200, 100}});
