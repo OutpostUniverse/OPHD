@@ -87,7 +87,6 @@ void MapViewState::initUi()
 
 	mGameOptionsDialog.saveGameDialogButtonSignal().connect({this, &MapViewState::onOpenSaveGameDialog});
 	mGameOptionsDialog.loadGameDialogButtonSignal().connect({this, &MapViewState::onOpenLoadGameDialog});
-	mGameOptionsDialog.returnToGameButtonSignal().connect({this, &MapViewState::onReturnToGame});
 	mGameOptionsDialog.returnToMainMenuButtonSignal().connect({this, &MapViewState::onGameOver});
 	mGameOptionsDialog.hide();
 
@@ -623,15 +622,6 @@ void MapViewState::onOpenLoadGameDialog()
 {
 	mGameOptionsDialog.hide();
 	mFileIoDialog.showOpen(constants::SaveGamePath);
-}
-
-
-/**
- * Click handler for the main menu Return to Game button.
- */
-void MapViewState::onReturnToGame()
-{
-	mGameOptionsDialog.hide();
 }
 
 
