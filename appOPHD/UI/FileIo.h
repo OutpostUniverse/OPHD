@@ -23,8 +23,10 @@ public:
 
 	using FileSaveSignal = NAS2D::Signal<const std::string&>;
 	using FileLoadDelegate = NAS2D::Delegate<void(const std::string&)>;
+	using FileSaveDelegate = NAS2D::Delegate<void(const std::string&)>;
 
 	FileIo(FileLoadDelegate);
+	FileIo(FileLoadDelegate, FileSaveDelegate);
 	~FileIo() override;
 
 	void showOpen(const std::string& directory);
@@ -50,6 +52,7 @@ protected:
 private:
 	FileSaveSignal mSaveSignal;
 	FileLoadDelegate mFileLoadDelegate;
+	FileSaveDelegate mFileSaveDelegate;
 
 	FileOperation mMode;
 
