@@ -198,7 +198,6 @@ void FileIo::onFileIo()
 	if(mMode == FileOperation::Save)
 	{
 		if(mFileSaveDelegate) { mFileSaveDelegate(mFileName.text()); }
-		mSaveSignal(mFileName.text());
 	}
 
 	if(mMode == FileOperation::Load)

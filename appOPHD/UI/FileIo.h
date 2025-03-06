@@ -21,7 +21,6 @@ public:
 		Save
 	};
 
-	using FileSaveSignal = NAS2D::Signal<const std::string&>;
 	using FileLoadDelegate = NAS2D::Delegate<void(const std::string&)>;
 	using FileSaveDelegate = NAS2D::Delegate<void(const std::string&)>;
 
@@ -31,8 +30,6 @@ public:
 
 	void showOpen(const std::string& directory);
 	void showSave(const std::string& directory);
-
-	FileSaveSignal::Source& fileSaveSignal() { return mSaveSignal; }
 
 	void update() override;
 
@@ -50,7 +47,6 @@ protected:
 	void onFileDelete();
 
 private:
-	FileSaveSignal mSaveSignal;
 	FileLoadDelegate mFileLoadDelegate;
 	FileSaveDelegate mFileSaveDelegate;
 
