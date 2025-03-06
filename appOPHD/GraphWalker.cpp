@@ -8,6 +8,8 @@
 
 #include <libOPHD/Map/MapCoordinate.h>
 
+#include <stdexcept>
+
 
 using namespace NAS2D;
 
