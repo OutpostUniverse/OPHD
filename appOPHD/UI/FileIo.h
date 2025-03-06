@@ -7,6 +7,7 @@
 #include <libControls/Label.h>
 
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 
@@ -20,17 +21,15 @@ public:
 		Save
 	};
 
-	using FileSaveSignal = NAS2D::Signal<const std::string&>;
-	using FileLoadSignal = NAS2D::Signal<const std::string&>;
+	using FileLoadDelegate = NAS2D::Delegate<void(const std::string&)>;
+	using FileSaveDelegate = NAS2D::Delegate<void(const std::string&)>;
 
-	FileIo();
+	FileIo(FileLoadDelegate);
+	FileIo(FileLoadDelegate, FileSaveDelegate);
 	~FileIo() override;
 
 	void showOpen(const std::string& directory);
 	void showSave(const std::string& directory);
-
-	FileSaveSignal::Source& fileSaveSignal() { return mSaveSignal; }
-	FileLoadSignal::Source& fileLoadSignal() { return mLoadSignal; }
 
 	void update() override;
 
@@ -48,8 +47,8 @@ protected:
 	void onFileDelete();
 
 private:
-	FileSaveSignal mSaveSignal;
-	FileLoadSignal mLoadSignal;
+	FileLoadDelegate mFileLoadDelegate;
+	FileSaveDelegate mFileSaveDelegate;
 
 	FileOperation mMode;
 

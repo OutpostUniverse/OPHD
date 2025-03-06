@@ -74,7 +74,6 @@ void MapViewState::initUi()
 	mFactoryProduction.position(NAS2D::Point{renderer.center().x - mFactoryProduction.size().x / 2.0f, 175.0f});
 	mFactoryProduction.hide();
 
-	mFileIoDialog.fileSaveSignal().connect({this, &MapViewState::onSaveGame});
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
@@ -643,13 +642,6 @@ void MapViewState::onGameOver()
 {
 	mFade.fadeOut(constants::FadeSpeed);
 	mQuitSignal();
-}
-
-
-void MapViewState::onSaveGame(const std::string& filePath)
-{
-	save(constants::SaveGamePath + filePath + ".xml");
-	mFileIoDialog.hide();
 }
 
 

@@ -42,12 +42,9 @@ private:
 
 private:
 	const NAS2D::Image mBgImage;
-
-	FileIo mFileIoDialog; /**< File IO window. */
-
 	std::array<Button, 4> buttons;
-
 	Label lblVersion;
 	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
+	FileIo mFileIoDialog;
 };

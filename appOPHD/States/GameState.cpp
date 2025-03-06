@@ -20,7 +20,8 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 GameState::GameState(const std::string& savedGameFilename) :
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
-	mMapViewState{std::make_unique<MapViewState>(*this, savedGameFilename)}
+	mMapViewState{std::make_unique<MapViewState>(*this, savedGameFilename)},
+	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {
 	initializeGameState();
 }
@@ -28,7 +29,8 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
-	mMapViewState{std::make_unique<MapViewState>(*this, planetAttributes, selectedDifficulty)}
+	mMapViewState{std::make_unique<MapViewState>(*this, planetAttributes, selectedDifficulty)},
+	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {
 	initializeGameState();
 }
@@ -48,7 +50,6 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
-	mFileIoDialog.fileLoadSignal().connect({this, &GameState::onLoadGame});
 	mMainReportsState->initialize();
 	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
 
@@ -173,6 +174,13 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		doNonFatalErrorMessage("Load Failed", e.what());
 		return;
 	}
+}
+
+
+void GameState::onSaveGame(const std::string& saveGameName)
+{
+	mMapViewState->save(constants::SaveGamePath + saveGameName + ".xml");
+	mFileIoDialog.hide();
 }
 
 

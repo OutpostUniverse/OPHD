@@ -47,6 +47,7 @@ protected:
 	void onHideReports();
 	void onMapChange();
 	void onLoadGame(const std::string&);
+	void onSaveGame(const std::string&);
 
 	void onTakeMeThere(const Structure*);
 

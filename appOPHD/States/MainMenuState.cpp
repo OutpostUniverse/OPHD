@@ -26,7 +26,8 @@ MainMenuState::MainMenuState() :
 	}},
 	lblVersion{constants::Version},
 	mReturnState{this},
-	mFade{{this, &MainMenuState::onFadeComplete}}
+	mFade{{this, &MainMenuState::onFadeComplete}},
+	mFileIoDialog{{this, &MainMenuState::onLoadGame}}
 {}
 
 
@@ -55,7 +56,6 @@ void MainMenuState::initialize()
 		button.size({200, 30});
 	}
 
-	mFileIoDialog.fileLoadSignal().connect({this, &MainMenuState::onLoadGame});
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
