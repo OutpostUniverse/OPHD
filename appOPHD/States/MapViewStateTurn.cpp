@@ -3,6 +3,8 @@
 // ==================================================================================
 
 #include "MapViewState.h"
+#include "ColonyShip.h"
+
 #include "MapViewStateHelper.h"
 
 #include "Route.h"
@@ -418,29 +420,16 @@ void MapViewState::updateResources()
  * Check for colony ship deorbiting; if any colonists are remaining, kill
  * them and reduce morale by an appropriate amount.
  */
-void MapViewState::checkColonyShip()
+void MapViewState::updateColonyShip()
 {
-	if (mTurnCount == constants::ColonyShipOrbitTime)
+	ColonyShip::ColonyShipUpdate update = mColonyShip.updateColonyShip(mDifficulty);
+	if (update)
 	{
-		if (mLandersColonist > 0 || mLandersCargo > 0)
-		{
-			mMorale.journalMoraleChange({"Deorbit Disaster!", -(mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty)});
-
-			mLandersColonist = 0;
-			mLandersCargo = 0;
-
-			populateStructureMenu();
-
-			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists);
-			mAnnouncement.show();
-		}
-		else
-		{
-			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrash);
-			mAnnouncement.show();
-		}
+		ColonyShip::ColonyShipCrashEffects crashEffects = update.value();
+		mMorale.journalMoraleChanges(crashEffects.moraleChangeEntries);
+		mWindowStack.bringToFront(&mAnnouncement);
+		mAnnouncement.announcement(crashEffects.announcementType);
+		mAnnouncement.show();
 	}
 }
 
@@ -783,13 +772,13 @@ void MapViewState::nextTurn()
 	populateRobotMenu();
 	populateStructureMenu();
 
-	checkColonyShip();
+	updateColonyShip();
 	checkWarehouseCapacity();
 
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
-	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)
+	if (mPopulation.getPopulations().size() <= 0 && !mColonyShip.colonistLanders())
 	{
 		hideUi();
 		mGameOverDialog.show();
