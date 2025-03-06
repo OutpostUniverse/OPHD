@@ -285,7 +285,6 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
-	bool mGameOver = false;
 	Difficulty mDifficulty = Difficulty::Medium;
 	std::unique_ptr<TileMap> mTileMap;
 	CrimeRateUpdate mCrimeRateUpdate;

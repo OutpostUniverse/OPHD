@@ -1423,5 +1423,5 @@ void MapViewState::scrubRobotList()
 
 bool MapViewState::hasGameEnded()
 {
-	return mFade.isFaded() && mGameOver;
+	return mFade.isFaded();
 }
