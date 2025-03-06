@@ -308,7 +308,6 @@ void MapViewState::onActivate()
 void MapViewState::onDeactivate()
 {
 	mGameOverDialog.enabled(false);
-	mGameOptionsDialog.enabled(false);
 
 	hideUi();
 }
