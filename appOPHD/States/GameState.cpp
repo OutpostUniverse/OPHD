@@ -19,6 +19,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 
 GameState::GameState(const std::string& savedGameFilename) :
+	mColonyShip{std::make_unique<ColonyShip>(colonyShipDataFromFile(savedGameFilename))},
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
 	mMapViewState{std::make_unique<MapViewState>(*this, savedGameFilename)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -28,6 +29,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 
 GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+	mColonyShip{std::make_unique<ColonyShip>()},
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
 	mMapViewState{std::make_unique<MapViewState>(*this, planetAttributes, selectedDifficulty)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -159,12 +161,14 @@ void GameState::onLoadGame(const std::string& saveGameName)
 {
 	auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::get();
 	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
+	auto currentColonyShip = std::move(mColonyShip);
 	try
 	{
 		if (!filesystem.exists(saveGamePath))
 		{
 			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
 		}
+		mColonyShip = std::make_unique<ColonyShip>(colonyShipDataFromFile(saveGamePath));
 		auto newMapViewState = std::make_unique<MapViewState>(*this, saveGamePath);
 		newMapViewState->initialize();
 		mNewMapViewState = std::move(newMapViewState);
@@ -173,6 +177,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 	{
 		doNonFatalErrorMessage("Load Failed", e.what());
 		return;
+		mColonyShip = std::move(currentColonyShip);
 	}
 }
 

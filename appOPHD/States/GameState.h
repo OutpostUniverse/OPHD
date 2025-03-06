@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Planet.h"
+#include "ColonyShip.h"
+
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>
@@ -31,6 +33,7 @@ public:
 
 	MainReportsUiState& mainReportsState() { return *mMainReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
+	ColonyShip& colonyShip() { return *mColonyShip; }
 
 protected:
 	void initializeGameState();
@@ -52,6 +55,7 @@ protected:
 	void onTakeMeThere(const Structure*);
 
 private:
+	std::unique_ptr<ColonyShip> mColonyShip;
 	std::unique_ptr<MainReportsUiState> mMainReportsState;
 	std::unique_ptr<MapViewState> mMapViewState;
 	std::unique_ptr<MapViewState> mNewMapViewState;
