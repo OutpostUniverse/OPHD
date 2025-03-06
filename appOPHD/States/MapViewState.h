@@ -128,6 +128,8 @@ public:
 	void initialize() override;
 	State* update() override;
 
+	void save(const std::string& filePath);
+
 private:
 	void onDeactivate() override;
 	void onActivate() override;
@@ -233,7 +235,6 @@ private:
 	void scrubRobotList();
 
 	void load(const std::string& filePath);
-	void save(const std::string& filePath);
 	NAS2D::Xml::XmlElement* serializeProperties();
 
 	// UI MANAGEMENT FUNCTIONS
