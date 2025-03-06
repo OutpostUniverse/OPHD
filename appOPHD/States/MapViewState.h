@@ -113,8 +113,6 @@ public:
 	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
-	void setPopulationLevel(PopulationLevel popLevel);
-
 	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
 	QuitSignal::Source& quit() { return mQuitSignal; }
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
@@ -312,9 +310,6 @@ private:
 	int mTurnNumberOfLanding = constants::ColonyShipOrbitTime; /**< First turn that human colonists landed. */
 
 	Morale mMorale;
-
-	int mLandersColonist = 0;
-	int mLandersCargo = 0;
 
 	int mResidentialCapacity = 0;
 

@@ -780,9 +780,6 @@ void MapViewState::nextTurn()
 
 	updateResearch();
 
-	populateRobotMenu();
-	populateStructureMenu();
-
 	if (!mColonyShip.crashed())
 	{
 		mColonyShip.onTurn();
@@ -794,12 +791,14 @@ void MapViewState::nextTurn()
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
-	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)
+	if (mPopulation.getPopulations().size() <= 0 && mColonyShip.colonistLanders() == 0)
 	{
 		hideUi();
 		mGameOverDialog.show();
 	}
 
+	populateRobotMenu();
+	populateStructureMenu();
 
 	mMorale.commitMoraleChanges();
 
