@@ -19,15 +19,15 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 
 GameState::GameState(const std::string& savedGameFilename) :
-	mMainReportsState{std::make_unique<MainReportsUiState>()},
-	mMapViewState{std::make_unique<MapViewState>(*this, savedGameFilename)},
+	mMainReportsState{},
+	mMapViewState{*this, savedGameFilename},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
 
 
 GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
-	mMainReportsState{std::make_unique<MainReportsUiState>()},
-	mMapViewState{std::make_unique<MapViewState>(*this, planetAttributes, selectedDifficulty)},
+	mMainReportsState{},
+	mMapViewState{*this, planetAttributes, selectedDifficulty},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
 
@@ -45,15 +45,15 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
-	mMainReportsState->initialize();
-	mMainReportsState->hideReports().connect({this, &GameState::onHideReports});
+	mMainReportsState.initialize();
+	mMainReportsState.hideReports().connect({this, &GameState::onHideReports});
 
-	for (auto takeMeThere : mMainReportsState->takeMeThere())
+	for (auto takeMeThere : mMainReportsState.takeMeThere())
 	{
 		takeMeThere->connect({this, &GameState::onTakeMeThere});
 	}
 
-	mMapViewState->initialize();
+	mMapViewState.initialize();
 	initializeMapViewState();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -65,12 +65,12 @@ void GameState::initializeGameState()
 
 void GameState::initializeMapViewState()
 {
-	mActiveState = mMapViewState.get();
-	mMapViewState->activate();
+	mActiveState = &mMapViewState;
+	mMapViewState.activate();
 
-	mMapViewState->quit().connect({this, &GameState::onQuit});
-	mMapViewState->showReportsUi().connect({this, &GameState::onShowReports});
-	mMapViewState->mapChanged().connect({this, &GameState::onMapChange});
+	mMapViewState.quit().connect({this, &GameState::onQuit});
+	mMapViewState.showReportsUi().connect({this, &GameState::onShowReports});
+	mMapViewState.mapChanged().connect({this, &GameState::onMapChange});
 }
 
 
@@ -107,8 +107,8 @@ void GameState::onMusicComplete()
  */
 void GameState::onQuit()
 {
-	mMapViewState->deactivate();
-	mMainReportsState->deactivate();
+	mMapViewState.deactivate();
+	mMainReportsState.deactivate();
 }
 
 
@@ -119,12 +119,9 @@ void GameState::onQuit()
  */
 void GameState::onShowReports()
 {
-	if (mMainReportsState)
-	{
-		mActiveState->deactivate();
-		mActiveState = mMainReportsState.get();
-		mActiveState->activate();
-	}
+	mActiveState->deactivate();
+	mActiveState = &mMainReportsState;
+	mActiveState->activate();
 }
 
 
@@ -136,18 +133,15 @@ void GameState::onShowReports()
  */
 void GameState::onHideReports()
 {
-	if (mMapViewState)
-	{
-		mActiveState->deactivate();
-		mActiveState = mMapViewState.get();
-		mActiveState->activate();
-	}
+	mActiveState->deactivate();
+	mActiveState = &mMapViewState;
+	mActiveState->activate();
 }
 
 
 void GameState::onMapChange()
 {
-	mMainReportsState->clearLists();
+	mMainReportsState.clearLists();
 }
 
 
@@ -172,7 +166,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 
 void GameState::onSaveGame(const std::string& saveGameName)
 {
-	mMapViewState->save(constants::SaveGamePath + saveGameName + ".xml");
+	mMapViewState.save(constants::SaveGamePath + saveGameName + ".xml");
 	mFileIoDialog.hide();
 }
 
@@ -186,7 +180,7 @@ void GameState::onSaveGame(const std::string& saveGameName)
 void GameState::onTakeMeThere(const Structure* structure)
 {
 	onHideReports();
-	mMapViewState->focusOnStructure(structure);
+	mMapViewState.focusOnStructure(structure);
 }
 
 
@@ -200,7 +194,7 @@ NAS2D::State* GameState::update()
 	mFade.update();
 	mFade.draw(NAS2D::Utility<NAS2D::Renderer>::get());
 
-	if (mMapViewState && mMapViewState->hasGameEnded())
+	if (mMapViewState.hasGameEnded())
 	{
 		mReturnState = new MainMenuState();
 	}
