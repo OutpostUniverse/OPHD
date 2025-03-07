@@ -75,6 +75,24 @@ ColonyShip::ColonyShip(const ColonyShipData& colonyShipData) :
 {}
 
 
+ColonyShip::ColonyShipUpdate ColonyShip::updateColonyShip(Difficulty difficulty)
+{
+	if (mCrashed) { return std::nullopt; }
+
+	if (mTurnsOfManeuveringFuel > 0) { --mTurnsOfManeuveringFuel; }
+
+	if(mTurnsOfManeuveringFuel == 0)
+	{
+		ColonyShipCrashEffects effects = colonyShipCrashEffects(difficulty);
+		mColonistLanders = 0;
+		mCargoLanders = 0;
+		return effects;
+	}
+
+	return std::nullopt;
+}
+
+
 ColonyShip::ColonyShipCrashEffects ColonyShip::colonyShipCrashEffects(Difficulty difficulty)
 {
 	ColonyShipCrashEffects effects;
