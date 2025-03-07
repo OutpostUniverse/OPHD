@@ -4,7 +4,7 @@
 
 #include "../../UI/StringTable.h"
 
-#include <NAS2D/StringUtils.h>
+#include <NAS2D/StringFrom.h>
 
 
 namespace

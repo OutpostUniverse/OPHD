@@ -7,7 +7,7 @@
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/RandomNumberGenerator.h>
 
-#include <NAS2D/StringUtils.h>
+#include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
 
 
