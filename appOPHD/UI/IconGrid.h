@@ -6,7 +6,6 @@
 
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
-#include <NAS2D/StringUtils.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
