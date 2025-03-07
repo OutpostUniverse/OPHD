@@ -22,19 +22,14 @@ GameState::GameState(const std::string& savedGameFilename) :
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
 	mMapViewState{std::make_unique<MapViewState>(*this, savedGameFilename)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
-{
-	initializeGameState();
-}
+{}
 
 
 GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState{std::make_unique<MainReportsUiState>()},
 	mMapViewState{std::make_unique<MapViewState>(*this, planetAttributes, selectedDifficulty)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
-{
-	initializeGameState();
-}
-
+{}
 
 GameState::~GameState()
 {
@@ -82,6 +77,7 @@ void GameState::initializeMapViewState()
 void GameState::initialize()
 {
 	mFade.fadeIn(constants::FadeSpeed);
+	initializeGameState();
 }
 
 
@@ -161,19 +157,16 @@ void GameState::onLoadGame(const std::string& saveGameName)
 	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
 	try
 	{
-		if (!filesystem.exists(saveGamePath))
-		{
-			throw std::runtime_error("Save game file does not exist: " + saveGamePath);
-		}
-		auto newMapViewState = std::make_unique<MapViewState>(*this, saveGamePath);
-		newMapViewState->initialize();
-		mNewMapViewState = std::move(newMapViewState);
+		if (!filesystem.exists(saveGamePath)) { throw std::runtime_error("Save game file does not exist: " + saveGamePath); }
 	}
 	catch (const std::exception& e)
 	{
 		doNonFatalErrorMessage("Load Failed", e.what());
 		return;
 	}
+
+	auto newGameState = std::make_unique<GameState>(saveGamePath);
+	mReturnState = newGameState.release();
 }
 
 
@@ -210,12 +203,6 @@ NAS2D::State* GameState::update()
 	if (mMapViewState && mMapViewState->hasGameEnded())
 	{
 		mReturnState = new MainMenuState();
-	}
-
-	if (mNewMapViewState)
-	{
-		mMapViewState = std::move(mNewMapViewState);
-		initializeMapViewState();
 	}
 
 	return mReturnState;
