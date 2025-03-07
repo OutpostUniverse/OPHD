@@ -4,6 +4,8 @@
 
 #include <libOPHD/Population/Morale.h>
 
+#include <optional>
+
 struct ColonyShipData
 {
 	int colonistLanders = 0;
@@ -36,6 +38,9 @@ public:
 	void onDeployColonistLander() { --mColonistLanders; }
 	void onDeployCargoLander() { --mCargoLanders; }
 	bool crashed() const { return mCrashed; }
+
+	using ColonyShipUpdate = std::optional<ColonyShipCrashEffects>;
+	ColonyShipUpdate updateColonyShip(Difficulty);
 
 private:
 	ColonyShipCrashEffects colonyShipCrashEffects(Difficulty);
