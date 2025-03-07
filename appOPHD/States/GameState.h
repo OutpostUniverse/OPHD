@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Planet.h"
+#include "MapViewState.h"
+#include "MainReportsUiState.h"
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>
@@ -14,8 +16,6 @@
 
 enum class Difficulty;
 
-class MainReportsUiState;
-class MapViewState;
 class Structure;
 class Wrapper;
 
@@ -29,7 +29,7 @@ public:
 
 	State* update() override;
 
-	MainReportsUiState& mainReportsState() { return *mMainReportsState; }
+	MainReportsUiState& mainReportsState() { return mMainReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
 
 protected:
@@ -52,8 +52,8 @@ protected:
 	void onTakeMeThere(const Structure*);
 
 private:
-	std::unique_ptr<MainReportsUiState> mMainReportsState;
-	std::unique_ptr<MapViewState> mMapViewState;
+	MainReportsUiState mMainReportsState;
+	MapViewState mMapViewState;
 	Wrapper* mActiveState = nullptr;
 	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
