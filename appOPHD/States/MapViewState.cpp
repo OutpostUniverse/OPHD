@@ -28,6 +28,7 @@
 
 #include <libOPHD/DirectionOffset.h>
 
+#include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumKeyCode.h>
@@ -139,7 +140,7 @@ namespace
 		{
 			notificationArea.push({
 				"Aging Robot",
-				"Robot '" + robot->name() + "' at location " + std::string{position.xy} + " is approaching its maximum age.",
+				"Robot '" + robot->name() + "' at location " + NAS2D::stringFrom(position.xy) + " is approaching its maximum age.",
 				position,
 				NotificationArea::NotificationType::Warning});
 		}
@@ -147,7 +148,7 @@ namespace
 		{
 			notificationArea.push({
 				"Aging Robot",
-				"Robot '" + robot->name() + "' at location " + std::string{position.xy} + " will fail in a few turns. Replace immediately.",
+				"Robot '" + robot->name() + "' at location " + NAS2D::stringFrom(position.xy) + " will fail in a few turns. Replace immediately.",
 				position,
 				NotificationArea::NotificationType::Critical});
 		}
@@ -1111,7 +1112,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		const auto position = tile.xy();
 		mNotificationArea.push({
 			"Mine destroyed",
-			"Digger destroyed a Mine at " + std::string{position} + ".",
+			"Digger destroyed a Mine at " + NAS2D::stringFrom(position) + ".",
 			tile.xyz(),
 			NotificationArea::NotificationType::Information});
 		mTileMap->removeMineLocation(position);
@@ -1293,14 +1294,14 @@ void MapViewState::updateRobots()
 			{
 				mNotificationArea.push({
 					"Robot Self-Destructed",
-					robot->name() + " at location " + std::string{position.xy} + " self destructed.",
+					robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " self destructed.",
 					position,
 					NotificationArea::NotificationType::Critical
 				});
 			}
 			else if (robot->type() != Robot::Type::Miner)
 			{
-				const auto text = "Your " + robot->name() + " at location " + std::string{position.xy} + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
+				const auto text = "Your " + robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
 				robot->abortTask(*tile);
 			}
@@ -1323,7 +1324,7 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Completed",
-					robot->name() + " completed its task at " + std::string{tile->xy()} + ".",
+					robot->name() + " completed its task at " + NAS2D::stringFrom(tile->xy()) + ".",
 					tile->xyz(),
 					NotificationArea::NotificationType::Success
 				});
@@ -1338,7 +1339,7 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Canceled",
-					robot->name() + " canceled its task at " + std::string{tile->xy()} + ".",
+					robot->name() + " canceled its task at " + NAS2D::stringFrom(tile->xy()) + ".",
 					tile->xyz(),
 					NotificationArea::NotificationType::Information
 				});

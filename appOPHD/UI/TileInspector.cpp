@@ -8,6 +8,8 @@
 
 #include <libOPHD/EnumTerrainType.h>
 
+#include <NAS2D/StringFrom.h>
+
 #include <map>
 #include <sstream>
 
@@ -60,7 +62,7 @@ void TileInspector::update()
 
 	auto position = mRect.position + NAS2D::Vector{5, 25};
 	const auto tilePosition = mTile->xy();
-	drawLabelAndValue(position, "Location: ", std::string{tilePosition});
+	drawLabelAndValue(position, "Location: ", NAS2D::stringFrom(tilePosition));
 
 	position.y += lineSpacing;
 	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));

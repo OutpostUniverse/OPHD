@@ -21,6 +21,7 @@
 
 #include <libControls/Layout.h>
 
+#include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -38,7 +39,7 @@ namespace
 	{
 		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		const auto& surfaceLocation = structureManager.tileFromStructure(&structure).xy();
-		return structure.name() + " at " + std::string{surfaceLocation};
+		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
 	}
 }
 

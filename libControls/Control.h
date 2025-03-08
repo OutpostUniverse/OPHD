@@ -4,6 +4,8 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 
+#include <string>
+
 
 namespace NAS2D
 {
