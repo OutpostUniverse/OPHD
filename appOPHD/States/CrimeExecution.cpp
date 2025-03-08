@@ -7,7 +7,6 @@
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/RandomNumberGenerator.h>
 
-#include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
 
 
@@ -113,7 +112,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 
 		mCrimeEventSignal.emit(
 			"Food Stolen",
-			NAS2D::stringFrom(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
+			std::to_string(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
 			structure
 		);
 	}
@@ -148,7 +147,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 	mCrimeEventSignal.emit(
 		"Resources Stolen",
-		NAS2D::stringFrom(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
+		std::to_string(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
 		structure
 	);
 }
