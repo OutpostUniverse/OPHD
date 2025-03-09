@@ -14,15 +14,15 @@ test: testLibOPHD testLibControls
 check: all checkOPHD checkControls
 
 
+# Determine OS (Linux, Darwin, ...)
+CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
+TARGET_OS ?= $(CURRENT_OS)
+
 # Build configuration
 CONFIG := Debug
 Debug_CXX_FLAGS := -Og -g
 Release_CXX_FLAGS := -O3
 CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
-
-# Determine OS (Linux, Darwin, ...)
-CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
-TARGET_OS ?= $(CURRENT_OS)
 
 Windows_RUN_PREFIX := wine
 RUN_PREFIX := $($(TARGET_OS)_RUN_PREFIX)
