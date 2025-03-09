@@ -1,5 +1,20 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
+## Default and top-level targets ##
+
+.DEFAULT_GOAL := ophd
+
+.PHONY: all
+all: ophd test demoLibControls
+
+.PHONY: test
+test: testLibOPHD testLibControls
+
+.PHONY: check
+check: all checkOPHD checkControls
+
+
+# Build configuration
 CONFIG := Debug
 Debug_CXX_FLAGS := -Og -g
 Release_CXX_FLAGS := -O3
@@ -17,20 +32,6 @@ EXE_SUFFIX := $($(TARGET_OS)_EXE_SUFFIX)
 
 ROOTBUILDDIR := .build
 BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
-
-
-## Default and top-level targets ##
-
-.DEFAULT_GOAL := ophd
-
-.PHONY: all
-all: ophd test demoLibControls
-
-.PHONY: test
-test: testLibOPHD testLibControls
-
-.PHONY: check
-check: all checkOPHD checkControls
 
 
 ## NAS2D project ##
