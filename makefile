@@ -24,11 +24,11 @@ Debug_CXX_FLAGS := -Og -g
 Release_CXX_FLAGS := -O3
 CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 
-Windows_EXE_SUFFIX := .exe
-Windows_RUN_PREFIX := wine
+WindowsExeSuffix := .exe
+WindowsRunPrefix := wine
 
-EXE_SUFFIX := $($(TARGET_OS)_EXE_SUFFIX)
-RUN_PREFIX := $($(TARGET_OS)_RUN_PREFIX)
+ExeSuffix := $($(TARGET_OS)ExeSuffix)
+RunPrefix := $($(TARGET_OS)RunPrefix)
 
 ROOTBUILDDIR := .build
 BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
@@ -119,7 +119,7 @@ include $(wildcard $(patsubst %.o,%.d,$(libControls_OBJS)))
 
 testLibOphd_SRCDIR := testLibOPHD/
 testLibOphd_OBJDIR := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)Intermediate/
-testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD$(EXE_SUFFIX)
+testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD$(ExeSuffix)
 testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
 testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
 
@@ -134,7 +134,7 @@ testLibOPHD: $(testLibOphd_OUTPUT)
 
 .PHONY: checkOPHD
 checkOPHD: $(testLibOphd_OUTPUT)
-	$(RUN_PREFIX) $(testLibOphd_OUTPUT)
+	$(RunPrefix) $(testLibOphd_OUTPUT)
 
 $(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
 $(testLibOphd_OUTPUT): $(testLibOphd_OBJS) $(libOPHD_OUTPUT) $(NAS2DLIB)
@@ -149,7 +149,7 @@ include $(wildcard $(patsubst %.o,%.d,$(testLibOphd_OBJS)))
 
 testLibControls_SRCDIR := testLibControls/
 testLibControls_OBJDIR := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)Intermediate/
-testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls$(EXE_SUFFIX)
+testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls$(ExeSuffix)
 testLibControls_SRCS := $(shell find $(testLibControls_SRCDIR) -name '*.cpp')
 testLibControls_OBJS := $(patsubst $(testLibControls_SRCDIR)%.cpp,$(testLibControls_OBJDIR)%.o,$(testLibControls_SRCS))
 
@@ -164,7 +164,7 @@ testLibControls: $(testLibControls_OUTPUT)
 
 .PHONY: checkControls
 checkControls: $(testLibControls_OUTPUT)
-	$(RUN_PREFIX) $(testLibControls_OUTPUT)
+	$(RunPrefix) $(testLibControls_OUTPUT)
 
 $(testLibControls_OUTPUT): PROJECT_LINKFLAGS := $(testLibControls_PROJECT_LINKFLAGS)
 $(testLibControls_OUTPUT): $(testLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
@@ -179,7 +179,7 @@ include $(wildcard $(patsubst %.o,%.d,$(testLibControls_OBJS)))
 
 demoLibControls_SRCDIR := demoLibControls/
 demoLibControls_OBJDIR := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)Intermediate/
-demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls$(EXE_SUFFIX)
+demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls$(ExeSuffix)
 demoLibControls_SRCS := $(shell find $(demoLibControls_SRCDIR) -name '*.cpp')
 demoLibControls_OBJS := $(patsubst $(demoLibControls_SRCDIR)%.cpp,$(demoLibControls_OBJDIR)%.o,$(demoLibControls_SRCS))
 
@@ -191,7 +191,7 @@ demoLibControls: $(demoLibControls_OUTPUT)
 
 .PHONY: runDemoControls
 runDemoControls: $(demoLibControls_OUTPUT)
-	$(RUN_PREFIX) $(demoLibControls_OUTPUT)
+	$(RunPrefix) $(demoLibControls_OUTPUT)
 
 $(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
 
@@ -205,7 +205,7 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
-ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(EXE_SUFFIX)
+ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(ExeSuffix)
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
