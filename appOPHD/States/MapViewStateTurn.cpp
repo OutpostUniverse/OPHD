@@ -4,6 +4,7 @@
 
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
+#include "ColonyShip.h"
 
 #include "Route.h"
 
@@ -154,6 +155,10 @@ namespace
 
 		return false;
 	}
+
+
+	constexpr inline int ColonistsPerLander = 50;
+	constexpr inline int CargoMoraleLossPerLander = 25;
 }
 
 
@@ -441,6 +446,22 @@ void MapViewState::checkColonyShip()
 			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrash);
 			mAnnouncement.show();
 		}
+	}
+}
+
+
+void MapViewState::onColonyShipCrash(const ColonyShipData& colonyShipData)
+{
+	if(colonyShipData.colonistLanders > 0)
+	{
+		int moraleChange = -1 * colonyShipData.colonistLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * ColonistsPerLander;
+		mMorale.journalMoraleChange({moraleString(MoraleIndexs::ColonistLanderLost), moraleChange});
+	}
+
+	if (colonyShipData.cargoLanders > 0)
+	{
+		int moraleChange = -1 * colonyShipData.cargoLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * CargoMoraleLossPerLander;
+		mMorale.journalMoraleChange({moraleString(MoraleIndexs::CargoLanderLost), moraleChange});
 	}
 }
 

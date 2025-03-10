@@ -22,6 +22,8 @@ const std::array MoraleStringTable =
 	std::string{"Biowaste Overflowing"},
 	std::string{"Structures Disabled"},
 	std::string{"Structures Destroyed"},
+	std::string{"Colonist Lander Lost In Crash"},
+	std::string{"Cargo Lander Lost In Crash"},
 };
 
 

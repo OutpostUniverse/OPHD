@@ -19,5 +19,7 @@ enum class MoraleIndexs
 	ResidentialOverflow,
 	BiowasteOverflow,
 	StructuresDisabled,
-	StructuresDestroyed
+	StructuresDestroyed,
+	ColonistLanderLost,
+	CargoLanderLost,
 };

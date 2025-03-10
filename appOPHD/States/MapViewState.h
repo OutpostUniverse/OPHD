@@ -206,6 +206,7 @@ private:
 
 	// TURN LOGIC
 	void checkColonyShip();
+	void onColonyShipCrash(const ColonyShipData&);
 	void checkWarehouseCapacity();
 	void nextTurn();
 	void updatePopulation();
