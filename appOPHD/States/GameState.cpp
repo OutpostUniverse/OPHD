@@ -89,6 +89,12 @@ GameState::~GameState()
 }
 
 
+GameState::ReturnToMainMenuDelegate GameState::onReturnToMainMenuDelegate()
+{
+	return {&mMapViewState, &MapViewState::onGameOver};
+}
+
+
 void GameState::initializeGameState()
 {
 	mMainReportsState.initialize();
