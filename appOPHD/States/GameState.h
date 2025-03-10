@@ -6,6 +6,7 @@
 #include "ColonyShip.h"
 
 #include "../UI/FileIo.h"
+#include "../UI/GameViewContainer.h"
 
 #include <NAS2D/State.h>
 #include <NAS2D/Math/Point.h>
@@ -33,10 +34,13 @@ public:
 	State* update() override;
 
 	MainReportsUiState& mainReportsState() { return mMainReportsState; }
-	FileIo& fileIoDialog() { return mFileIoDialog; }
 	ColonyShip& colonyShip() { return mColonyShip; }
+	FileIo& fileIoDialog() { return mGameViewContainer.fileIoDialog(); }
 	FileIo::FileLoadDelegate fileLoadDelegate() { return {this, &GameState::onLoadGame}; }
 	FileIo::FileSaveDelegate fileSaveDelegate() { return {this, &GameState::onSaveGame}; }
+	GameViewContainer& gameViewContainer() { return mGameViewContainer; }
+	using ReturnToMainMenuDelegate = NAS2D::Delegate<void()>;
+	ReturnToMainMenuDelegate onReturnToMainMenuDelegate();
 
 protected:
 	void initializeGameState();
@@ -64,5 +68,5 @@ private:
 	Wrapper* mActiveState = nullptr;
 	NAS2D::State* mReturnState = this;
 	NAS2D::Fade mFade;
-	FileIo mFileIoDialog;
+	GameViewContainer mGameViewContainer;
 };

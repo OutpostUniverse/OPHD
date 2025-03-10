@@ -65,7 +65,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 	mMainReportsState{},
 	mMapViewState{*this, savedGameFilename},
 	mColonyShip{colonyShipDataFromFile(savedGameFilename)},
-	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
+	mGameViewContainer{*this}
 {}
 
 
@@ -73,8 +73,9 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 	mMainReportsState{},
 	mMapViewState{*this, planetAttributes, selectedDifficulty},
 	mColonyShip{},
-	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
+	mGameViewContainer{*this}
 {}
+
 
 GameState::~GameState()
 {
@@ -212,7 +213,6 @@ void GameState::onLoadGame(const std::string& saveGameName)
 void GameState::onSaveGame(const std::string& saveGameName)
 {
 	mMapViewState.save(constants::SaveGamePath + saveGameName + ".xml");
-	mFileIoDialog.hide();
 }
 
 
