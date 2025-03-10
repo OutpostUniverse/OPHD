@@ -26,9 +26,11 @@ CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
 
 WindowsExeSuffix := .exe
 WindowsRunPrefix := wine
+WindowsRunSuffixUnitTest := --gtest_color=yes | cat -
 
 ExeSuffix := $($(TARGET_OS)ExeSuffix)
 RunPrefix := $($(TARGET_OS)RunPrefix)
+RunSuffixUnitTest := $($(TARGET_OS)RunSuffixUnitTest)
 
 ROOTBUILDDIR := .build
 BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
@@ -134,7 +136,7 @@ testLibOPHD: $(testLibOphd_OUTPUT)
 
 .PHONY: checkOPHD
 checkOPHD: $(testLibOphd_OUTPUT)
-	$(RunPrefix) $(testLibOphd_OUTPUT)
+	$(RunPrefix) $(testLibOphd_OUTPUT) $(GTEST_OPTIONS) $(RunSuffixUnitTest)
 
 $(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
 $(testLibOphd_OUTPUT): $(testLibOphd_OBJS) $(libOPHD_OUTPUT) $(NAS2DLIB)
@@ -164,7 +166,7 @@ testLibControls: $(testLibControls_OUTPUT)
 
 .PHONY: checkControls
 checkControls: $(testLibControls_OUTPUT)
-	$(RunPrefix) $(testLibControls_OUTPUT)
+	$(RunPrefix) $(testLibControls_OUTPUT) $(GTEST_OPTIONS) $(RunSuffixUnitTest)
 
 $(testLibControls_OUTPUT): PROJECT_LINKFLAGS := $(testLibControls_PROJECT_LINKFLAGS)
 $(testLibControls_OUTPUT): $(testLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
