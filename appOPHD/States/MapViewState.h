@@ -80,6 +80,7 @@ class NavControl;
 class MainReportsUiState;
 class GameState;
 class FileIo;
+class ColonyShip;
 
 
 enum class InsertMode
@@ -111,8 +112,6 @@ public:
 	MapViewState(GameState& gameState, const std::string& savegame);
 	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
-
-	void setPopulationLevel(PopulationLevel popLevel);
 
 	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
 	QuitSignal::Source& quit() { return mQuitSignal; }
@@ -205,6 +204,7 @@ private:
 
 	// TURN LOGIC
 	void checkColonyShip();
+	void onColonyShipCrash(const ColonyShipData&);
 	void checkWarehouseCapacity();
 	void nextTurn();
 	void updatePopulation();
@@ -311,9 +311,6 @@ private:
 
 	Morale mMorale;
 
-	int mLandersColonist = 0;
-	int mLandersCargo = 0;
-
 	int mResidentialCapacity = 0;
 
 	// POOLS
@@ -400,4 +397,6 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
+
+	ColonyShip& mColonyShip;
 };

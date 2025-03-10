@@ -1,7 +1,10 @@
 #include "MajorEventAnnouncement.h"
 
+#include "appOPHD/States/ColonyShip.h"
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
+
+#include <libControls/WindowStack.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -29,6 +32,21 @@ void MajorEventAnnouncement::onClose()
 }
 
 
+MajorEventAnnouncement::AnnouncementType MajorEventAnnouncement::colonyShipCrashAnnouncement(const ColonyShipData& colonyShipData)
+{
+	if (colonyShipData.colonistLanders && colonyShipData.cargoLanders)
+		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonistsAndCargo;
+
+	if (colonyShipData.colonistLanders)
+		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists;
+
+	if (colonyShipData.cargoLanders)
+		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithCargo;
+
+	return MajorEventAnnouncement::AnnouncementType::ColonyShipCrash;
+}
+
+
 void MajorEventAnnouncement::announcement(AnnouncementType a)
 {
 	switch (a)
@@ -46,6 +64,14 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists and cargo on board!";
 		break;
 	}
+}
+
+
+void MajorEventAnnouncement::onColonyShipCrash(WindowStack& windowStack, const ColonyShipData& colonyShipData)
+{
+	windowStack.bringToFront(this);
+	announcement(colonyShipCrashAnnouncement(colonyShipData));
+	show();
 }
 
 

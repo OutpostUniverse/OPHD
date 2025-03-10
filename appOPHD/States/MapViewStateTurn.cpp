@@ -4,6 +4,7 @@
 
 #include "MapViewState.h"
 #include "MapViewStateHelper.h"
+#include "ColonyShip.h"
 
 #include "Route.h"
 
@@ -154,6 +155,10 @@ namespace
 
 		return false;
 	}
+
+
+	constexpr inline int ColonistsPerLander = 50;
+	constexpr inline int CargoMoraleLossPerLander = 25;
 }
 
 
@@ -414,33 +419,28 @@ void MapViewState::updateResources()
 }
 
 
-/**
- * Check for colony ship deorbiting; if any colonists are remaining, kill
- * them and reduce morale by an appropriate amount.
- */
 void MapViewState::checkColonyShip()
 {
-	if (mTurnCount == constants::ColonyShipOrbitTime)
+	if (mColonyShip.crashed() && mColonyShip.crashData().has_value())
 	{
-		if (mLandersColonist > 0 || mLandersCargo > 0)
-		{
-			mMorale.journalMoraleChange({"Deorbit Disaster!", -(mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty)});
+		onColonyShipCrash(mColonyShip.crashData().value());
+		mAnnouncement.onColonyShipCrash(mWindowStack, mColonyShip.crashData().value());
+	}
+}
 
-			mLandersColonist = 0;
-			mLandersCargo = 0;
 
-			populateStructureMenu();
+void MapViewState::onColonyShipCrash(const ColonyShipData& colonyShipData)
+{
+	if(colonyShipData.colonistLanders > 0)
+	{
+		int moraleChange = -1 * colonyShipData.colonistLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * ColonistsPerLander;
+		mMorale.journalMoraleChange({moraleString(MoraleIndexs::ColonistLanderLost), moraleChange});
+	}
 
-			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists);
-			mAnnouncement.show();
-		}
-		else
-		{
-			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrash);
-			mAnnouncement.show();
-		}
+	if (colonyShipData.cargoLanders > 0)
+	{
+		int moraleChange = -1 * colonyShipData.cargoLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * CargoMoraleLossPerLander;
+		mMorale.journalMoraleChange({moraleString(MoraleIndexs::CargoLanderLost), moraleChange});
 	}
 }
 
@@ -780,21 +780,25 @@ void MapViewState::nextTurn()
 
 	updateResearch();
 
-	populateRobotMenu();
-	populateStructureMenu();
+	if (!mColonyShip.crashed())
+	{
+		mColonyShip.onTurn();
+		checkColonyShip();
+	}
 
-	checkColonyShip();
 	checkWarehouseCapacity();
 
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
-	if (mPopulation.getPopulations().size() <= 0 && mLandersColonist == 0)
+	if (mPopulation.getPopulations().size() <= 0 && mColonyShip.colonistLanders() == 0)
 	{
 		hideUi();
 		mGameOverDialog.show();
 	}
 
+	populateRobotMenu();
+	populateStructureMenu();
 
 	mMorale.commitMoraleChanges();
 

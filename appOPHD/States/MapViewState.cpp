@@ -5,6 +5,7 @@
 #include "MainMenuState.h"
 #include "MainReportsUiState.h"
 #include "GameState.h"
+#include "ColonyShip.h"
 #include "Route.h"
 
 #include "../Constants/Strings.h"
@@ -193,7 +194,8 @@ MapViewState::MapViewState(GameState& gameState, const std::string& savegame) :
 	mFileIoDialog{gameState.fileIoDialog()},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool}
+	mRobotDeploymentSummary{mRobotPool},
+	mColonyShip{gameState.colonyShip()}
 {
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -219,10 +221,10 @@ MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& plane
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mMapView)}
+	mNavControl{std::make_unique<NavControl>(*mMapView)},
+	mColonyShip{gameState.colonyShip()}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
-	setPopulationLevel(PopulationLevel::Large);
 	ccLocation() = CcNotPlaced;
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
@@ -245,13 +247,6 @@ MapViewState::~MapViewState()
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
 	NAS2D::Utility<std::map<class MineFacility*, Route>>::get().clear();
-}
-
-
-void MapViewState::setPopulationLevel(PopulationLevel popLevel)
-{
-	mLandersColonist = static_cast<int>(popLevel);
-	mLandersCargo = 2; ///\todo This should be set based on difficulty level.
 }
 
 
@@ -886,8 +881,8 @@ void MapViewState::placeStructure(Tile& tile)
 		s.deploySignal().connect({this, &MapViewState::onDeployColonistLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
 
-		--mLandersColonist;
-		if (mLandersColonist == 0)
+		mColonyShip.onDeployColonistLander();
+		if (mColonyShip.colonistLanders() == 0)
 		{
 			clearMode();
 			resetUi();
@@ -902,8 +897,8 @@ void MapViewState::placeStructure(Tile& tile)
 		cargoLander.deploySignal().connect({this, &MapViewState::onDeployCargoLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
 
-		--mLandersCargo;
-		if (mLandersCargo == 0)
+		mColonyShip.onDeployCargoLander();
+		if (mColonyShip.cargoLanders() == 0)
 		{
 			clearMode();
 			resetUi();
