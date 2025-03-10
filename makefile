@@ -1,24 +1,5 @@
 # Source http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 
-CONFIG := Debug
-Debug_CXX_FLAGS := -Og -g
-Release_CXX_FLAGS := -O3
-CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
-
-# Determine OS (Linux, Darwin, ...)
-CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
-TARGET_OS ?= $(CURRENT_OS)
-
-Windows_RUN_PREFIX := wine
-RUN_PREFIX := $($(TARGET_OS)_RUN_PREFIX)
-
-Windows_EXE_SUFFIX := .exe
-EXE_SUFFIX := $($(TARGET_OS)_EXE_SUFFIX)
-
-ROOTBUILDDIR := .build
-BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
-
-
 ## Default and top-level targets ##
 
 .DEFAULT_GOAL := ophd
@@ -31,6 +12,66 @@ test: testLibOPHD testLibControls
 
 .PHONY: check
 check: all checkOPHD checkControls
+
+
+# Determine OS (Linux, Darwin, ...)
+CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
+TARGET_OS ?= $(CURRENT_OS)
+
+# Toolchain: gcc, clang, mingw, (or blank for environment default)
+Toolchain ?=
+
+PkgConfig := pkg-config
+WarnFlags := -Wall -Wextra -Wpedantic -Wzero-as-null-pointer-constant -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-declarations -Wmissing-include-dirs -Winvalid-pch -Wno-unknown-pragmas -Wmissing-format-attribute -Wredundant-decls -Wformat=2
+
+gccCXX := g++
+gccWarnFlags := $(WarnFlags) -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -Weffc++
+gccPkgConfig := $(PkgConfig)
+gccTARGET_OS := $(TARGET_OS)
+
+clangCXX := clang++
+clangWarnNotInterested := -Wno-c++98-compat-pedantic -Wno-pre-c++17-compat
+clangWarnAllowed := -Wno-padded -Wno-cast-function-type-strict
+clangWarnKnown := -Wno-unsafe-buffer-usage -Wno-global-constructors -Wno-exit-time-destructors -Wno-unused-member-function
+clangWarnShow := -Weverything $(clangWarnNotInterested)
+clangWarnFlags := $(clangWarnShow) $(clangWarnAllowed) $(clangWarnKnown)
+clangPkgConfig := $(PkgConfig)
+clangTARGET_OS := $(TARGET_OS)
+
+mingwCXX := x86_64-w64-mingw32-g++
+mingwWarnFlags := $(WarnFlags)
+mingwPkgConfig := x86_64-w64-mingw32-pkg-config
+mingwTARGET_OS := Windows
+
+CXX := $($(Toolchain)CXX)
+WarnFlags := $($(Toolchain)WarnFlags)
+PkgConfig := $($(Toolchain)PkgConfig)
+TARGET_OS := $($(Toolchain)TARGET_OS)
+
+# Build configuration
+CONFIG := Debug
+Debug_CXX_FLAGS := -Og -g
+Release_CXX_FLAGS := -O3
+CONFIG_CXX_FLAGS := $($(CONFIG)_CXX_FLAGS)
+
+# Target specific settings
+WindowsSpecialPreprocessorFlags = -DGLEW_STATIC -DSDL_MAIN_HANDLED
+WindowsSpecialWarnFlags = -Wno-redundant-decls
+WindowsExeSuffix := .exe
+WindowsRunPrefix := wine
+WindowsRunSuffixUnitTest := --gtest_color=yes | cat -
+
+DarwinIncludeSearchFlags = -isystem$(shell brew --prefix)/include
+
+IncludeSearchFlags := $($(TARGET_OS)IncludeSearchFlags)
+SpecialPreprocessorFlags := $($(TARGET_OS)SpecialPreprocessorFlags)
+SpecialWarnFlags := $($(TARGET_OS)SpecialWarnFlags)
+ExeSuffix := $($(TARGET_OS)ExeSuffix)
+RunPrefix := $($(TARGET_OS)RunPrefix)
+RunSuffixUnitTest := $($(TARGET_OS)RunSuffixUnitTest)
+
+ROOTBUILDDIR := .build
+BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
 
 
 ## NAS2D project ##
@@ -58,20 +99,19 @@ $(NAS2DDIR)makefile:
 
 ## Default project flags ##
 
+IncludeSearchFlags := $(shell type $(PkgConfig) >/dev/null 2>&1 && $(PkgConfig) --cflags-only-I sdl2) $(IncludeSearchFlags)
+LibrarySearchFlags := $(shell type $(PkgConfig) >/dev/null 2>&1 && $(PkgConfig) --libs-only-L sdl2)
+
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
 Darwin_OpenGL_LIBS := -lGLEW -framework OpenGL
 Windows_OpenGL_LIBS := -lglew32 -lopengl32
 OpenGL_LIBS := $($(TARGET_OS)_OpenGL_LIBS)
 
-SDL_CONFIG := sdl2-config
-SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
-SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
-
-CPPFLAGS := $(CPPFLAGS_EXTRA)
-CXXFLAGS_WARN := -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute $(WARN_EXTRA)
-CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(SDL_CONFIG_CFLAGS)
-LDFLAGS := $(LDFLAGS_EXTRA) $(SDL_CONFIG_LIBS)
+CPPFLAGS := -I$(NAS2DINCLUDEDIR) $(IncludeSearchFlags) $(SpecialPreprocessorFlags) $(CPPFLAGS_EXTRA)
+CXXFLAGS_WARN := $(WarnFlags) $(SpecialWarnFlags) $(WARN_EXTRA)
+CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN)
+LDFLAGS := $(LibrarySearchFlags) $(LDFLAGS_EXTRA)
 LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
 
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
@@ -118,22 +158,22 @@ include $(wildcard $(patsubst %.o,%.d,$(libControls_OBJS)))
 
 testLibOphd_SRCDIR := testLibOPHD/
 testLibOphd_OBJDIR := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)Intermediate/
-testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD$(EXE_SUFFIX)
+testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD$(ExeSuffix)
 testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
 testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
 
-testLibOphd_CPPFLAGS := $(CPPFLAGS) -I./
+testLibOphd_CPPFLAGS := -I./ $(CPPFLAGS)
 testLibOphd_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS_EXTRA)
 
 testLibOphd_PROJECT_FLAGS := $(testLibOphd_CPPFLAGS) $(CXXFLAGS)
-testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS_EXTRA) $(testLibOphd_LDLIBS)
+testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
 
 .PHONY: testLibOPHD
 testLibOPHD: $(testLibOphd_OUTPUT)
 
 .PHONY: checkOPHD
 checkOPHD: $(testLibOphd_OUTPUT)
-	$(RUN_PREFIX) $(testLibOphd_OUTPUT)
+	$(RunPrefix) $(testLibOphd_OUTPUT) $(GTEST_OPTIONS) $(RunSuffixUnitTest)
 
 $(testLibOphd_OUTPUT): PROJECT_LINKFLAGS := $(testLibOphd_PROJECT_LINKFLAGS)
 $(testLibOphd_OUTPUT): $(testLibOphd_OBJS) $(libOPHD_OUTPUT) $(NAS2DLIB)
@@ -148,22 +188,22 @@ include $(wildcard $(patsubst %.o,%.d,$(testLibOphd_OBJS)))
 
 testLibControls_SRCDIR := testLibControls/
 testLibControls_OBJDIR := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)Intermediate/
-testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls$(EXE_SUFFIX)
+testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibControls$(ExeSuffix)
 testLibControls_SRCS := $(shell find $(testLibControls_SRCDIR) -name '*.cpp')
 testLibControls_OBJS := $(patsubst $(testLibControls_SRCDIR)%.cpp,$(testLibControls_OBJDIR)%.o,$(testLibControls_SRCS))
 
-testLibControls_CPPFLAGS := $(CPPFLAGS) -I./
+testLibControls_CPPFLAGS := -I./ $(CPPFLAGS)
 testLibControls_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
 
 testLibControls_PROJECT_FLAGS := $(testLibControls_CPPFLAGS) $(CXXFLAGS)
-testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS_EXTRA) $(testLibControls_LDLIBS)
+testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibControls_LDLIBS)
 
 .PHONY: testLibControls
 testLibControls: $(testLibControls_OUTPUT)
 
 .PHONY: checkControls
 checkControls: $(testLibControls_OUTPUT)
-	$(RUN_PREFIX) $(testLibControls_OUTPUT)
+	$(RunPrefix) $(testLibControls_OUTPUT) $(GTEST_OPTIONS) $(RunSuffixUnitTest)
 
 $(testLibControls_OUTPUT): PROJECT_LINKFLAGS := $(testLibControls_PROJECT_LINKFLAGS)
 $(testLibControls_OUTPUT): $(testLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
@@ -178,11 +218,11 @@ include $(wildcard $(patsubst %.o,%.d,$(testLibControls_OBJS)))
 
 demoLibControls_SRCDIR := demoLibControls/
 demoLibControls_OBJDIR := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)Intermediate/
-demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls$(EXE_SUFFIX)
+demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibControls$(ExeSuffix)
 demoLibControls_SRCS := $(shell find $(demoLibControls_SRCDIR) -name '*.cpp')
 demoLibControls_OBJS := $(patsubst $(demoLibControls_SRCDIR)%.cpp,$(demoLibControls_OBJDIR)%.o,$(demoLibControls_SRCS))
 
-demoLibControls_CPPFLAGS := $(CPPFLAGS) -I./
+demoLibControls_CPPFLAGS := -I./ $(CPPFLAGS)
 demoLibControls_PROJECT_FLAGS := $(demoLibControls_CPPFLAGS) $(CXXFLAGS)
 
 .PHONY: demoLibControls
@@ -190,7 +230,7 @@ demoLibControls: $(demoLibControls_OUTPUT)
 
 .PHONY: runDemoControls
 runDemoControls: $(demoLibControls_OUTPUT)
-	$(RUN_PREFIX) $(demoLibControls_OUTPUT)
+	$(RunPrefix) $(demoLibControls_OUTPUT)
 
 $(demoLibControls_OUTPUT): $(demoLibControls_OBJS) $(libControls_OUTPUT) $(NAS2DLIB)
 
@@ -204,11 +244,11 @@ include $(wildcard $(patsubst %.o,%.d,$(demoLibControls_OBJS)))
 
 ophd_SRCDIR := appOPHD/
 ophd_OBJDIR := $(BUILDDIRPREFIX)$(ophd_SRCDIR)Intermediate/
-ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(EXE_SUFFIX)
+ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(ExeSuffix)
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
-ophd_CPPFLAGS := $(CPPFLAGS) -I./
+ophd_CPPFLAGS := -I./ $(CPPFLAGS)
 ophd_PROJECT_FLAGS := $(ophd_CPPFLAGS) $(CXXFLAGS)
 
 $(ophd_OUTPUT): $(ophd_OBJS) $(libOPHD_OUTPUT) $(libControls_OUTPUT) $(NAS2DLIB)
@@ -227,7 +267,7 @@ ophd: $(ophd_OUTPUT)
 
 .PHONY: run
 run: $(ophd_OUTPUT)
-	$(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
+	$(RunPrefix) $(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
 
 
 ## Compile rules ##
@@ -295,7 +335,7 @@ install-dependencies:
 .PHONY: show-warnings
 show-warnings:
 	@$(MAKE) clean > /dev/null
-	$(MAKE) --output-sync all CXX=clang++ CXXFLAGS_WARN=-Weverything 2>&1 >/dev/null | grep -o "\[-W.*\]" | sort | uniq
+	$(MAKE) --output-sync all CXX=clang++ CXXFLAGS_WARN="$(clangWarnShow)" 2>&1 >/dev/null | grep -o "\[-W.*\]" | sort | uniq
 	@$(MAKE) clean > /dev/null
 
 .PHONY: lint
