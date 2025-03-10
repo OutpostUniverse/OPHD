@@ -91,15 +91,15 @@ $(NAS2DDIR)makefile:
 
 ## Default project flags ##
 
+SDL_CONFIG := sdl2-config
+SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
+SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
+
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
 Darwin_OpenGL_LIBS := -lGLEW -framework OpenGL
 Windows_OpenGL_LIBS := -lglew32 -lopengl32
 OpenGL_LIBS := $($(TARGET_OS)_OpenGL_LIBS)
-
-SDL_CONFIG := sdl2-config
-SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
-SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
 
 CPPFLAGS := $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := $(WarnFlags) $(WARN_EXTRA)
