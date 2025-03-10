@@ -419,33 +419,12 @@ void MapViewState::updateResources()
 }
 
 
-/**
- * Check for colony ship deorbiting; if any colonists are remaining, kill
- * them and reduce morale by an appropriate amount.
- */
 void MapViewState::checkColonyShip()
 {
-	if (mTurnCount == constants::ColonyShipOrbitTime)
+	if (mColonyShip.crashed() && mColonyShip.crashData().has_value())
 	{
-		if (mLandersColonist > 0 || mLandersCargo > 0)
-		{
-			mMorale.journalMoraleChange({"Deorbit Disaster!", -(mLandersColonist * 50) * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty)});
-
-			mLandersColonist = 0;
-			mLandersCargo = 0;
-
-			populateStructureMenu();
-
-			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists);
-			mAnnouncement.show();
-		}
-		else
-		{
-			mWindowStack.bringToFront(&mAnnouncement);
-			mAnnouncement.announcement(MajorEventAnnouncement::AnnouncementType::ColonyShipCrash);
-			mAnnouncement.show();
-		}
+		onColonyShipCrash(mColonyShip.crashData().value());
+		mAnnouncement.onColonyShipCrash(mWindowStack, mColonyShip.crashData().value());
 	}
 }
 
@@ -804,7 +783,12 @@ void MapViewState::nextTurn()
 	populateRobotMenu();
 	populateStructureMenu();
 
-	checkColonyShip();
+	if (!mColonyShip.crashed())
+	{
+		mColonyShip.onTurn();
+		checkColonyShip();
+	}
+
 	checkWarehouseCapacity();
 
 	mMineOperationsWindow.updateTruckAvailability();
