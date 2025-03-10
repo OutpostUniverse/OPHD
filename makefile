@@ -162,7 +162,7 @@ testLibOphd_OUTPUT := $(BUILDDIRPREFIX)$(testLibOphd_SRCDIR)testLibOPHD$(ExeSuff
 testLibOphd_SRCS := $(shell find $(testLibOphd_SRCDIR) -name '*.cpp')
 testLibOphd_OBJS := $(patsubst $(testLibOphd_SRCDIR)%.cpp,$(testLibOphd_OBJDIR)%.o,$(testLibOphd_SRCS))
 
-testLibOphd_CPPFLAGS := $(CPPFLAGS) -I./
+testLibOphd_CPPFLAGS := -I./ $(CPPFLAGS)
 testLibOphd_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS_EXTRA)
 
 testLibOphd_PROJECT_FLAGS := $(testLibOphd_CPPFLAGS) $(CXXFLAGS)
@@ -192,7 +192,7 @@ testLibControls_OUTPUT := $(BUILDDIRPREFIX)$(testLibControls_SRCDIR)testLibContr
 testLibControls_SRCS := $(shell find $(testLibControls_SRCDIR) -name '*.cpp')
 testLibControls_OBJS := $(patsubst $(testLibControls_SRCDIR)%.cpp,$(testLibControls_OBJDIR)%.o,$(testLibControls_SRCS))
 
-testLibControls_CPPFLAGS := $(CPPFLAGS) -I./
+testLibControls_CPPFLAGS := -I./ $(CPPFLAGS)
 testLibControls_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
 
 testLibControls_PROJECT_FLAGS := $(testLibControls_CPPFLAGS) $(CXXFLAGS)
@@ -222,7 +222,7 @@ demoLibControls_OUTPUT := $(BUILDDIRPREFIX)$(demoLibControls_SRCDIR)demoLibContr
 demoLibControls_SRCS := $(shell find $(demoLibControls_SRCDIR) -name '*.cpp')
 demoLibControls_OBJS := $(patsubst $(demoLibControls_SRCDIR)%.cpp,$(demoLibControls_OBJDIR)%.o,$(demoLibControls_SRCS))
 
-demoLibControls_CPPFLAGS := $(CPPFLAGS) -I./
+demoLibControls_CPPFLAGS := -I./ $(CPPFLAGS)
 demoLibControls_PROJECT_FLAGS := $(demoLibControls_CPPFLAGS) $(CXXFLAGS)
 
 .PHONY: demoLibControls
@@ -248,7 +248,7 @@ ophd_OUTPUT := $(BUILDDIRPREFIX)$(ophd_SRCDIR)ophd$(ExeSuffix)
 ophd_SRCS := $(shell find $(ophd_SRCDIR) -name '*.cpp')
 ophd_OBJS := $(patsubst $(ophd_SRCDIR)%.cpp,$(ophd_OBJDIR)%.o,$(ophd_SRCS))
 
-ophd_CPPFLAGS := $(CPPFLAGS) -I./
+ophd_CPPFLAGS := -I./ $(CPPFLAGS)
 ophd_PROJECT_FLAGS := $(ophd_CPPFLAGS) $(CXXFLAGS)
 
 $(ophd_OUTPUT): $(ophd_OBJS) $(libOPHD_OUTPUT) $(libControls_OUTPUT) $(NAS2DLIB)
