@@ -79,6 +79,7 @@ class DetailMap;
 class NavControl;
 class MainReportsUiState;
 class GameState;
+class GameViewContainer;
 class FileIo;
 class ColonyShip;
 
@@ -362,6 +363,7 @@ private:
 	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;
 	FactoryProduction mFactoryProduction;
+	GameViewContainer& mGameViewContainer;
 	FileIo& mFileIoDialog;
 	GameOverDialog mGameOverDialog;
 	GameOptionsDialog mGameOptionsDialog;
