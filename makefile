@@ -18,6 +18,36 @@ check: all checkOPHD checkControls
 CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
+# Toolchain: gcc, clang, mingw, (or blank for environment default)
+Toolchain ?=
+
+PkgConfig := pkg-config
+WarnFlags := -Wall -Wextra -Wpedantic -Wzero-as-null-pointer-constant -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-declarations -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute -Wredundant-decls -Wformat=2
+
+gccCXX := g++
+gccWarnFlags := $(WarnFlags) -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -Weffc++
+gccPkgConfig := $(PkgConfig)
+gccTARGET_OS := $(TARGET_OS)
+
+clangCXX := clang++
+clangWarnNotInterested := -Wno-c++98-compat-pedantic -Wno-pre-c++17-compat
+clangWarnAllowed := -Wno-padded -Wno-cast-function-type-strict
+clangWarnKnown := -Wno-unsafe-buffer-usage -Wno-global-constructors -Wno-exit-time-destructors -Wno-unused-member-function
+clangWarnShow := -Weverything $(clangWarnNotInterested)
+clangWarnFlags := $(clangWarnShow) $(clangWarnAllowed) $(clangWarnKnown)
+clangPkgConfig := $(PkgConfig)
+clangTARGET_OS := $(TARGET_OS)
+
+mingwCXX := x86_64-w64-mingw32-g++
+mingwWarnFlags := $(WarnFlags)
+mingwPkgConfig := x86_64-w64-mingw32-pkg-config
+mingwTARGET_OS := Windows
+
+CXX := $($(Toolchain)CXX)
+WarnFlags := $($(Toolchain)WarnFlags)
+PkgConfig := $($(Toolchain)PkgConfig)
+TARGET_OS := $($(Toolchain)TARGET_OS)
+
 # Build configuration
 CONFIG := Debug
 Debug_CXX_FLAGS := -Og -g
@@ -72,7 +102,7 @@ SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
 
 CPPFLAGS := $(CPPFLAGS_EXTRA)
-CXXFLAGS_WARN := -Wall -Wextra -Wpedantic -Wno-unknown-pragmas -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute $(WARN_EXTRA)
+CXXFLAGS_WARN := -Wno-unknown-pragmas -Wfloat-conversion -Wsign-conversion $(WarnFlags) $(WARN_EXTRA)
 CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(SDL_CONFIG_CFLAGS)
 LDFLAGS := $(LDFLAGS_EXTRA) $(SDL_CONFIG_LIBS)
 LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
@@ -298,7 +328,7 @@ install-dependencies:
 .PHONY: show-warnings
 show-warnings:
 	@$(MAKE) clean > /dev/null
-	$(MAKE) --output-sync all CXX=clang++ CXXFLAGS_WARN=-Weverything 2>&1 >/dev/null | grep -o "\[-W.*\]" | sort | uniq
+	$(MAKE) --output-sync all CXX=clang++ CXXFLAGS_WARN="$(clangWarnShow)" 2>&1 >/dev/null | grep -o "\[-W.*\]" | sort | uniq
 	@$(MAKE) clean > /dev/null
 
 .PHONY: lint
