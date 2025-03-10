@@ -27,17 +27,13 @@ jobs:
       - checkout
       - run: git submodule update --init nas2d-core/
       - brew-install
-      - run:
-          name: Add Brew include path to system include paths
-          command: |
-            echo "export CPLUS_INCLUDE_PATH=${CPLUS_INCLUDE_PATH}:$(brew --prefix)/include" >> "${BASH_ENV}"
-            echo "export LDFLAGS_EXTRA=-L$(brew --prefix)/lib" >> "${BASH_ENV}"
       - build
   build-linux-gcc:
     docker:
       - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.6
     environment:
-      WARN_EXTRA: -Wsuggest-override -Wno-dangling-reference
+      Toolchain: "gcc"
+      WARN_EXTRA: "-Wno-dangling-reference  -Wno-useless-cast -Wno-effc++"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -46,7 +42,8 @@ jobs:
     docker:
       - image: ghcr.io/lairworks/build-env-nas2d-clang:1.5
     environment:
-      WARN_EXTRA: -Wunknown-pragmas -Wimplicit-int-conversion -Wunreachable-code -Wunreachable-code-return -Wunreachable-code-break -Wcovered-switch-default -Wshadow-field -Wextra-semi -Wextra-semi-stmt -Wnewline-eof -Wdocumentation -Wdocumentation-unknown-command -Wheader-hygiene -Winconsistent-missing-destructor-override -Wdeprecated-copy-dtor -Wformat-nonliteral
+      Toolchain: "clang"
+      WARN_EXTRA: "-Wno-weak-vtables -Wno-switch-enum -Wno-switch-default -Wno-missing-variable-declarations -Wno-float-equal -Wno-comma"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -55,8 +52,8 @@ jobs:
     docker:
       - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.13
     environment:
-      WARN_EXTRA: "-Wno-redundant-decls -Wno-dangling-reference"
-      LDFLAGS_EXTRA: "-L/usr/local/x86_64-w64-mingw32/lib"
+      Toolchain: "mingw"
+      WARN_EXTRA: "-Wno-dangling-reference  -Wno-useless-cast -Wno-effc++"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
