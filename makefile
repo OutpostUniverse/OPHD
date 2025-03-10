@@ -228,7 +228,7 @@ ophd: $(ophd_OUTPUT)
 
 .PHONY: run
 run: $(ophd_OUTPUT)
-	$(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
+	$(RunPrefix) $(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
 
 
 ## Compile rules ##
