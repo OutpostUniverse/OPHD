@@ -1,6 +1,8 @@
 #pragma once
 
 #include "appOPHD/Constants/Numbers.h"
+
+#include <optional>
 struct ColonyShipData
 {
 	int colonistLanders = 0;
@@ -23,6 +25,7 @@ public:
 	void onDeployCargoLander() { --mColonyShipData.cargoLanders; }
 	bool crashed() const { return mColonyShipData.turnsOfManeuveringFuel == 0; }
 
+	const std::optional<ColonyShipData>& crashData() const { return mCrashData; }
 private:
 	ColonyShipData mColonyShipData = 
 	{
@@ -30,4 +33,5 @@ private:
 		.cargoLanders = 2,
 		.turnsOfManeuveringFuel = constants::ColonyShipOrbitTime + 1
 	};
+	std::optional<ColonyShipData> mCrashData = std::nullopt;
 };
