@@ -58,6 +58,9 @@ WindowsExeSuffix := .exe
 WindowsRunPrefix := wine
 WindowsRunSuffixUnitTest := --gtest_color=yes | cat -
 
+DarwinIncludeSearchFlags = -isystem$(shell brew --prefix)/include
+
+IncludeSearchFlags := $($(TARGET_OS)IncludeSearchFlags)
 ExeSuffix := $($(TARGET_OS)ExeSuffix)
 RunPrefix := $($(TARGET_OS)RunPrefix)
 RunSuffixUnitTest := $($(TARGET_OS)RunSuffixUnitTest)
@@ -91,9 +94,8 @@ $(NAS2DDIR)makefile:
 
 ## Default project flags ##
 
-SDL_CONFIG := sdl2-config
-SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
-SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
+IncludeSearchFlags := $(shell type $(PkgConfig) >/dev/null 2>&1 && $(PkgConfig) --cflags-only-I sdl2) $(IncludeSearchFlags)
+LibrarySearchFlags := $(shell type $(PkgConfig) >/dev/null 2>&1 && $(PkgConfig) --libs-only-L sdl2)
 
 Linux_OpenGL_LIBS := -lGLEW -lGL
 FreeBSD_OpenGL_LIBS := $(Linux_OpenGL_LIBS)
@@ -101,10 +103,10 @@ Darwin_OpenGL_LIBS := -lGLEW -framework OpenGL
 Windows_OpenGL_LIBS := -lglew32 -lopengl32
 OpenGL_LIBS := $($(TARGET_OS)_OpenGL_LIBS)
 
-CPPFLAGS := $(CPPFLAGS_EXTRA)
+CPPFLAGS := -I$(NAS2DINCLUDEDIR) $(IncludeSearchFlags) $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := $(WarnFlags) $(WARN_EXTRA)
-CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(SDL_CONFIG_CFLAGS)
-LDFLAGS := $(LDFLAGS_EXTRA) $(SDL_CONFIG_LIBS)
+CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN)
+LDFLAGS := $(LibrarySearchFlags) $(LDFLAGS_EXTRA)
 LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
 
 PROJECT_FLAGS := $(CPPFLAGS) $(CXXFLAGS)
@@ -159,7 +161,7 @@ testLibOphd_CPPFLAGS := $(CPPFLAGS) -I./
 testLibOphd_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS_EXTRA)
 
 testLibOphd_PROJECT_FLAGS := $(testLibOphd_CPPFLAGS) $(CXXFLAGS)
-testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS_EXTRA) $(testLibOphd_LDLIBS)
+testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
 
 .PHONY: testLibOPHD
 testLibOPHD: $(testLibOphd_OUTPUT)
@@ -189,7 +191,7 @@ testLibControls_CPPFLAGS := $(CPPFLAGS) -I./
 testLibControls_LDLIBS := -lgmock_main -lgmock -lgtest -lpthread $(LDLIBS)
 
 testLibControls_PROJECT_FLAGS := $(testLibControls_CPPFLAGS) $(CXXFLAGS)
-testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS_EXTRA) $(testLibControls_LDLIBS)
+testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibControls_LDLIBS)
 
 .PHONY: testLibControls
 testLibControls: $(testLibControls_OUTPUT)
