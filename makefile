@@ -22,7 +22,7 @@ TARGET_OS ?= $(CURRENT_OS)
 Toolchain ?=
 
 PkgConfig := pkg-config
-WarnFlags := -Wall -Wextra -Wpedantic -Wzero-as-null-pointer-constant -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-declarations -Wmissing-include-dirs -Winvalid-pch -Wmissing-format-attribute -Wredundant-decls -Wformat=2
+WarnFlags := -Wall -Wextra -Wpedantic -Wzero-as-null-pointer-constant -Wnull-dereference -Wold-style-cast -Wcast-qual -Wcast-align -Wdouble-promotion -Wfloat-conversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -Woverloaded-virtual -Wmissing-declarations -Wmissing-include-dirs -Winvalid-pch -Wno-unknown-pragmas -Wmissing-format-attribute -Wredundant-decls -Wformat=2
 
 gccCXX := g++
 gccWarnFlags := $(WarnFlags) -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -Weffc++
@@ -102,7 +102,7 @@ SDL_CONFIG_CFLAGS = $(shell $(SDL_CONFIG) --cflags)
 SDL_CONFIG_LIBS = $(shell $(SDL_CONFIG) --libs)
 
 CPPFLAGS := $(CPPFLAGS_EXTRA)
-CXXFLAGS_WARN := -Wno-unknown-pragmas -Wfloat-conversion -Wsign-conversion $(WarnFlags) $(WARN_EXTRA)
+CXXFLAGS_WARN := $(WarnFlags) $(WARN_EXTRA)
 CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN) -I$(NAS2DINCLUDEDIR) $(SDL_CONFIG_CFLAGS)
 LDFLAGS := $(LDFLAGS_EXTRA) $(SDL_CONFIG_LIBS)
 LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
