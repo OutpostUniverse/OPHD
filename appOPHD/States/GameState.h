@@ -35,6 +35,8 @@ public:
 	MainReportsUiState& mainReportsState() { return mMainReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
 	ColonyShip& colonyShip() { return mColonyShip; }
+	FileIo::FileLoadDelegate fileLoadDelegate() { return {this, &GameState::onLoadGame}; }
+	FileIo::FileSaveDelegate fileSaveDelegate() { return {this, &GameState::onSaveGame}; }
 
 protected:
 	void initializeGameState();
