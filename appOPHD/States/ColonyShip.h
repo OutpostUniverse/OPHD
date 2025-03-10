@@ -24,6 +24,7 @@ public:
 	void onDeployColonistLander() { --mColonyShipData.colonistLanders; }
 	void onDeployCargoLander() { --mColonyShipData.cargoLanders; }
 	bool crashed() const { return mColonyShipData.turnsOfManeuveringFuel == 0; }
+	void onTurn();
 
 	const std::optional<ColonyShipData>& crashData() const { return mCrashData; }
 private:
