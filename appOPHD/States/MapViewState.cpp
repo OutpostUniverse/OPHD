@@ -837,7 +837,7 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if (mTileMap->isTileBlockedByMine(tile))
+	if (mTileMap->isTileBlockedByOreDeposit(tile))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureMineInWay);
 		return;
@@ -992,7 +992,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		mMineOperationsWindow.hide();
 		const auto tilePosition = mDetailMap->mouseTilePosition().xy;
-		mTileMap->removeMineLocation(tilePosition);
+		mTileMap->removeOreDepositLocation(tilePosition);
 		tile.placeOreDeposit(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
@@ -1110,7 +1110,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 			"Digger destroyed a Mine at " + NAS2D::stringFrom(position) + ".",
 			tile.xyz(),
 			NotificationArea::NotificationType::Information});
-		mTileMap->removeMineLocation(position);
+		mTileMap->removeOreDepositLocation(position);
 	}
 
 	// Die if tile is occupied or not excavated.

@@ -79,7 +79,7 @@ void MiniMap::draw() const
 		}
 	}
 
-	for (auto minePosition : mTileMap.mineLocations())
+	for (auto minePosition : mTileMap.oreDepositLocations())
 	{
 		OreDeposit* mine = mTileMap.getTile({minePosition, 0}).oreDeposit();
 		if (!mine) { break; } // avoids potential race condition where a mine is destroyed during an updated cycle.
