@@ -93,7 +93,7 @@
     <ClCompile Include="MapObjects\MapObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\Mine.cpp">
+    <ClCompile Include="MapObjects\OreDeposit.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Robot.cpp">
@@ -174,7 +174,7 @@
     <ClCompile Include="MeanSolarDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MineProductionRateString.cpp">
+    <ClCompile Include="OreDepositYieldString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MoraleString.cpp">
@@ -410,7 +410,7 @@
     <ClInclude Include="MapObjects\MapObject.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Mine.h">
+    <ClInclude Include="MapObjects\OreDeposit.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Robots\Robodigger.h">
@@ -572,7 +572,7 @@
     <ClInclude Include="MeanSolarDistance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MineProductionRateString.h">
+    <ClInclude Include="OreDepositYieldString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoraleString.h">

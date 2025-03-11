@@ -1,6 +1,6 @@
 #include "TileMap.h"
 
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/DirectionOffset.h>
@@ -39,7 +39,7 @@ namespace {
 	}
 
 
-	std::vector<NAS2D::Point<int>> generateMineLocations(NAS2D::Vector<int> mapSize, std::size_t mineCount)
+	std::vector<NAS2D::Point<int>> generateOreDeposits(NAS2D::Vector<int> mapSize, std::size_t oreDepositCount)
 	{
 		auto randPoint = [mapSize]() {
 			return NAS2D::Point{
@@ -49,13 +49,13 @@ namespace {
 		};
 
 		std::vector<NAS2D::Point<int>> locations;
-		locations.reserve(mineCount);
+		locations.reserve(oreDepositCount);
 
 		// Some locations might not be acceptable, so try up to twice as many locations
-		// A high density of mines could result in many rejected locations
+		// A high density of ore deposits could result in many rejected locations
 		// Don't try indefinitely to avoid possibility of infinite loop
 		std::vector<bool> usedLocations(linearSize(mapSize));
-		for (std::size_t i = 0; (locations.size() < mineCount) && (i < mineCount * 2); ++i)
+		for (std::size_t i = 0; (locations.size() < oreDepositCount) && (i < oreDepositCount * 2); ++i)
 		{
 			// Generate a location and check surroundings for minimum spacing
 			const auto point = randPoint();
@@ -74,32 +74,32 @@ namespace {
 	}
 
 
-	void placeMines(TileMap& tileMap, const std::vector<NAS2D::Point<int>>& locations, const TileMap::MineYields& mineYields)
+	void placeOreDeposits(TileMap& tileMap, const std::vector<NAS2D::Point<int>>& locations, const TileMap::OreDepositYields& oreDepositYields)
 	{
-		const auto total = std::accumulate(mineYields.begin(), mineYields.end(), 0);
+		const auto total = std::accumulate(oreDepositYields.begin(), oreDepositYields.end(), 0);
 
-		const auto randYield = [mineYields, total]() {
+		const auto randYield = [oreDepositYields, total]() {
 			const auto randValue = randomNumber.generate<int>(1, total);
-			return (randValue <= mineYields[0]) ? MineProductionRate::Low :
-				(randValue <= mineYields[0] + mineYields[1]) ? MineProductionRate::Medium :
-				MineProductionRate::High;
+			return (randValue <= oreDepositYields[0]) ? OreDepositYield::Low :
+				(randValue <= oreDepositYields[0] + oreDepositYields[1]) ? OreDepositYield::Medium :
+				OreDepositYield::High;
 		};
 
 		for (const auto& location : locations)
 		{
 			auto& tile = tileMap.getTile({location, 0});
-			tile.pushMine(new Mine(randYield()));
+			tile.placeOreDeposit(new OreDeposit(randYield()));
 			tile.index(TerrainType::Dozed);
 		}
 	}
 }
 
 
-TileMap::TileMap(const std::string& mapPath, int maxDepth, std::size_t mineCount, const MineYields& mineYields) :
+TileMap::TileMap(const std::string& mapPath, int maxDepth, std::size_t oreDepositCount, const OreDepositYields& oreDepositYields) :
 	TileMap{mapPath, maxDepth}
 {
-	mMineLocations = generateMineLocations(mSizeInTiles, mineCount);
-	placeMines(*this, mMineLocations, mineYields);
+	mOreDepositLocations = generateOreDeposits(mSizeInTiles, oreDepositCount);
+	placeOreDeposits(*this, mOreDepositLocations, oreDepositYields);
 }
 
 
@@ -111,16 +111,16 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 }
 
 
-void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
+void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
 {
 	auto& tile = getTile({pt, 0});
-	if (!tile.hasMine())
+	if (!tile.hasOreDeposit())
 	{
-		throw std::runtime_error("No mine found to remove");
+		throw std::runtime_error("No ore deposit found to remove");
 	}
 
-	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	tile.pushMine(nullptr);
+	mOreDepositLocations.erase(find(mOreDepositLocations.begin(), mOreDepositLocations.end(), pt));
+	tile.placeOreDeposit(nullptr);
 }
 
 
@@ -177,15 +177,15 @@ void TileMap::buildTerrainMap(const std::string& path)
 void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 {
 	// ==========================================
-	// MINES
+	// ORE DEPOSITS (MINES)
 	// ==========================================
-	auto* mines = new NAS2D::Xml::XmlElement("mines");
-	element->linkEndChild(mines);
+	auto* oreDeposits = new NAS2D::Xml::XmlElement("mines");
+	element->linkEndChild(oreDeposits);
 
-	for (const auto& location : mMineLocations)
+	for (const auto& location : mOreDepositLocations)
 	{
-		auto& mine = *getTile({location, 0}).mine();
-		mines->linkEndChild(mine.serialize(location));
+		auto& oreDeposit = *getTile({location, 0}).oreDeposit();
+		oreDeposits->linkEndChild(oreDeposit.serialize(location));
 	}
 
 
@@ -204,7 +204,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 			auto& tile = getTile({point, depth});
 			if (
 				((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
-				(tile.empty() && tile.mine() == nullptr)
+				(tile.empty() && tile.oreDeposit() == nullptr)
 			)
 			{
 				tiles->linkEndChild(
@@ -226,21 +226,22 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 
 void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
-	for (auto* mineElement = element->firstChildElement("mines")->firstChildElement("mine"); mineElement; mineElement = mineElement->nextSiblingElement())
+	// ORE DEPOSITS (MINES)
+	for (auto* oreDepositElement = element->firstChildElement("mines")->firstChildElement("mine"); oreDepositElement; oreDepositElement = oreDepositElement->nextSiblingElement())
 	{
-		const auto mineDictionary = NAS2D::attributesToDictionary(*mineElement);
+		const auto oreDepositDictionary = NAS2D::attributesToDictionary(*oreDepositElement);
 
-		const auto x = mineDictionary.get<int>("x");
-		const auto y = mineDictionary.get<int>("y");
+		const auto x = oreDepositDictionary.get<int>("x");
+		const auto y = oreDepositDictionary.get<int>("y");
 
-		Mine* mine = new Mine();
-		mine->deserialize(mineElement);
+		OreDeposit* oreDeposit = new OreDeposit();
+		oreDeposit->deserialize(oreDepositElement);
 
 		auto& tile = getTile({{x, y}, 0});
-		tile.pushMine(mine);
+		tile.placeOreDeposit(oreDeposit);
 		tile.index(TerrainType::Dozed);
 
-		mMineLocations.push_back(Point{x, y});
+		mOreDepositLocations.push_back(Point{x, y});
 	}
 
 	// TILES AT INDEX 0 WITH NO THINGS
@@ -294,9 +295,9 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 }
 
 
-bool TileMap::isTileBlockedByMine(const Tile& tile) const
+bool TileMap::isTileBlockedByOreDeposit(const Tile& tile) const
 {
-	return getTile({tile.xy(), 0}).hasMine();
+	return getTile({tile.xy(), 0}).hasOreDeposit();
 }
 
 

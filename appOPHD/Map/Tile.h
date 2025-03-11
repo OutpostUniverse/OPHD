@@ -7,7 +7,7 @@
 #include <NAS2D/Math/Vector.h>
 
 
-class Mine;
+class OreDeposit;
 class MapObject;
 class Robot;
 class Structure;
@@ -54,7 +54,7 @@ public:
 
 	bool empty() const { return mMapObject == nullptr; }
 
-	bool hasMine() const { return mMine != nullptr; }
+	bool hasOreDeposit() const { return mOreDeposit != nullptr; }
 
 	Structure* structure() const;
 	Robot* robot() const;
@@ -67,9 +67,9 @@ public:
 
 	void removeMapObject();
 
-	const Mine* mine() const { return mMine; }
-	Mine* mine() { return mMine; }
-	void pushMine(Mine*);
+	const OreDeposit* oreDeposit() const { return mOreDeposit; }
+	OreDeposit* oreDeposit() { return mOreDeposit; }
+	void placeOreDeposit(OreDeposit*);
 
 	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }
@@ -82,7 +82,7 @@ private:
 	MapCoordinate mPosition;
 
 	MapObject* mMapObject = nullptr;
-	Mine* mMine = nullptr;
+	OreDeposit* mOreDeposit = nullptr;
 
 	Overlay mOverlay{Overlay::None};
 

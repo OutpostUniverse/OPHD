@@ -21,7 +21,7 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
@@ -47,8 +47,8 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	// Relative proportion of mines with yields {low, med, high}
-	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
+	// Relative proportion of Ore Deposits with yields {low, med, high}
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityOreDepositYields =
 	{
 		{Planet::Hostility::Low, {30, 50, 20}},
 		{Planet::Hostility::Medium, {45, 35, 20}},
@@ -204,7 +204,7 @@ MapViewState::MapViewState(GameState& gameState, const std::string& savegame) :
 
 MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mDifficulty{selectedDifficulty},
-	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
+	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
@@ -802,7 +802,7 @@ void MapViewState::placeTubes(Tile& tile)
 		return;
 	}
 
-	if (tile.thing() || tile.mine() || !tile.excavated()) { return; }
+	if (tile.thing() || tile.oreDeposit() || !tile.excavated()) { return; }
 
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
@@ -837,9 +837,9 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if (mTileMap->isTileBlockedByMine(tile))
+	if (mTileMap->isTileBlockedByOreDeposit(tile))
 	{
-		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureMineInWay);
+		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOreDepositInWay);
 		return;
 	}
 
@@ -982,9 +982,9 @@ void MapViewState::placeRobodozer(Tile& tile)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;
 	}
-	else if (tile.mine())
+	else if (tile.oreDeposit())
 	{
-		if (tile.mine()->depth() != mTileMap->maxDepth() || !tile.mine()->exhausted())
+		if (tile.oreDeposit()->depth() != mTileMap->maxDepth() || !tile.oreDeposit()->exhausted())
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMineNotExhausted);
 			return;
@@ -992,8 +992,8 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		mMineOperationsWindow.hide();
 		const auto tilePosition = mDetailMap->mouseTilePosition().xy;
-		mTileMap->removeMineLocation(tilePosition);
-		tile.pushMine(nullptr);
+		mTileMap->removeOreDepositLocation(tilePosition);
+		tile.placeOreDeposit(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
@@ -1100,7 +1100,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		return;
 	}
 
-	if (tile.hasMine())
+	if (tile.hasOreDeposit())
 	{
 		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
@@ -1110,7 +1110,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 			"Digger destroyed a Mine at " + NAS2D::stringFrom(position) + ".",
 			tile.xyz(),
 			NotificationArea::NotificationType::Information});
-		mTileMap->removeMineLocation(position);
+		mTileMap->removeOreDepositLocation(position);
 	}
 
 	// Die if tile is occupied or not excavated.
@@ -1176,7 +1176,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly);
 		return;
 	}
-	if (!tile.mine())
+	if (!tile.oreDeposit())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine);
 		return;

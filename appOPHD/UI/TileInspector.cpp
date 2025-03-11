@@ -1,10 +1,10 @@
 #include "TileInspector.h"
 
 #include "TextRender.h"
-#include "../MineProductionRateString.h"
+#include "../OreDepositYieldString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 
 #include <libOPHD/EnumTerrainType.h>
 
@@ -67,18 +67,18 @@ void TileInspector::update()
 	position.y += lineSpacing;
 	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 
-	const auto* mine = mTile->mine();
+	const auto* oreDeposit = mTile->oreDeposit();
 
 	position.y += lineSpacing + sectionSpacing;
-	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
+	drawLabelAndValue(position, "Has Ore Deposit: ", (oreDeposit ? "Yes" : "No"));
 
-	if (mine)
+	if (oreDeposit)
 	{
 		position.y += lineSpacing;
-		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
+		drawLabelAndValue(position, "Active: ", (oreDeposit->active() ? "Yes" : "No"));
 
 		position.y += lineSpacing;
-		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
+		drawLabelAndValue(position, "Yield: ", oreDepositYieldEnumToString(mTile->oreDeposit()->yield()));
 	}
 }
 

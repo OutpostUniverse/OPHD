@@ -1,4 +1,4 @@
-#include "Mine.h"
+#include "OreDeposit.h"
 
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
@@ -20,11 +20,11 @@ namespace
 	 * [2] Rare Metals
 	 * [3] Rare Minerals
 	 */
-	const std::map<MineProductionRate, StorableResources> YieldTable =
+	const std::map<OreDepositYield, StorableResources> YieldTable =
 	{
-		{MineProductionRate::Low, {800, 800, 800, 800}},
-		{MineProductionRate::Medium, {1000, 1000, 1000, 1000}},
-		{MineProductionRate::High, {1250, 1250, 1250, 1250}}
+		{OreDepositYield::Low, {800, 800, 800, 800}},
+		{OreDepositYield::Medium, {1000, 1000, 1000, 1000}},
+		{OreDepositYield::High, {1250, 1250, 1250, 1250}}
 	};
 
 
@@ -39,39 +39,39 @@ namespace
 }
 
 
-Mine::Mine() :
+OreDeposit::OreDeposit() :
 	mFlags{DefaultFlags}
 {
 }
 
 
-Mine::Mine(MineProductionRate rate) :
-	mProductionRate{rate},
+OreDeposit::OreDeposit(OreDepositYield yield) :
+	mOreDepositYield{yield},
 	mFlags{DefaultFlags}
 {
 }
 
 
-bool Mine::active() const
+bool OreDeposit::active() const
 {
 	return mFlags[4];
 }
 
 
-void Mine::active(bool newActive)
+void OreDeposit::active(bool newActive)
 {
 	mFlags[4] = newActive;
 }
 
 
-std::bitset<4> Mine::miningEnabled() const
+std::bitset<4> OreDeposit::miningEnabled() const
 {
 	// We only want ore mining enabled bits
 	return {mFlags.to_ulong() & 0xF};
 }
 
 
-void Mine::miningEnabled(OreType oreType, bool value)
+void OreDeposit::miningEnabled(OreType oreType, bool value)
 {
 	mFlags[static_cast<std::size_t>(oreType)] = value;
 }
@@ -83,38 +83,38 @@ void Mine::miningEnabled(OreType oreType, bool value)
  * \note	This function only modifies the Mine. It has no knowledge of the
  *			maximum digging depth of a planet and doesn't modify any tiles.
  */
-void Mine::increaseDepth()
+void OreDeposit::increaseDepth()
 {
 	mCurrentDepth++;
-	mTappedReserves += YieldTable.at(productionRate());
+	mTappedReserves += YieldTable.at(yield());
 }
 
 
 /**
  * Gets the current depth of the mine.
  */
-int Mine::depth() const
+int OreDeposit::depth() const
 {
 	return mCurrentDepth;
 }
 
 
-StorableResources Mine::availableResources() const
+StorableResources OreDeposit::availableResources() const
 {
 	return mTappedReserves;
 }
 
 
-StorableResources Mine::totalYield() const
+StorableResources OreDeposit::totalYield() const
 {
-	return YieldTable.at(productionRate()) * depth();
+	return YieldTable.at(yield()) * depth();
 }
 
 
 /**
  * Indicates that there are no resources available at this mine.
  */
-bool Mine::exhausted() const
+bool OreDeposit::exhausted() const
 {
 	return mTappedReserves.isEmpty();
 }
@@ -124,7 +124,7 @@ bool Mine::exhausted() const
  * Pulls the specified quantities of Ore from the Mine. If
  * insufficient ore is available, only pulls what's available.
  */
-StorableResources Mine::pull(const StorableResources& maxTransfer)
+StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
 {
 	const auto transferAmount = mTappedReserves.cap(maxTransfer);
 	mTappedReserves -= transferAmount;
@@ -139,7 +139,7 @@ StorableResources Mine::pull(const StorableResources& maxTransfer)
 /**
  * Serializes current mine information.
  */
-NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
+NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
@@ -148,7 +148,7 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 			{"y", location.y},
 			{"depth", depth()},
 			{"active", active()},
-			{"yield", static_cast<int>(productionRate())},
+			{"yield", static_cast<int>(yield())},
 			{"flags", mFlags.to_string()},
 		}}
 	);
@@ -170,12 +170,12 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 }
 
 
-void Mine::deserialize(NAS2D::Xml::XmlElement* element)
+void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
 	mCurrentDepth = dictionary.get<int>("depth");
-	mProductionRate = static_cast<MineProductionRate>(dictionary.get<int>("yield"));
+	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
 	mFlags = std::bitset<5>(dictionary.get("flags"));
 

@@ -1,6 +1,6 @@
 #include "MineFacility.h"
 
-#include "../Mine.h"
+#include "../OreDeposit.h"
 
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
@@ -22,20 +22,20 @@ namespace
 }
 
 
-MineFacility::MineFacility(Mine* mine) :
+MineFacility::MineFacility(OreDeposit* oreDeposit) :
 	Structure(
 		StructureClass::Mine,
 		StructureID::SID_MINE_FACILITY
 	),
-	mMine(mine)
+	mOreDeposit(oreDeposit)
 {
 	sprite().play(constants::StructureStateConstruction);
 }
 
 
-void MineFacility::mine(Mine* mine)
+void MineFacility::oreDeposit(OreDeposit* oreDeposit)
 {
-	mMine = mine;
+	mOreDeposit = oreDeposit;
 }
 
 
@@ -47,8 +47,8 @@ void MineFacility::maxDepth(int depth)
 
 void MineFacility::activated()
 {
-	mMine->increaseDepth();
-	mMine->active(true);
+	mOreDeposit->increaseDepth();
+	mOreDeposit->active(true);
 }
 
 
@@ -57,7 +57,7 @@ StorableResources MineFacility::maxTransferAmounts()
 	const auto remainingCapacity = MaxCapacity - production();
 	auto maxTransfer = remainingCapacity.cap(constants::BaseMineProductionRate);
 
-	const auto enabledBits = mMine->miningEnabled();
+	const auto enabledBits = mOreDeposit->miningEnabled();
 	for (std::size_t i = 0; i < maxTransfer.resources.size(); ++i)
 	{
 		if (!enabledBits[i])
@@ -80,14 +80,14 @@ void MineFacility::think()
 
 		if (mDigTurnsRemaining == 0)
 		{
-			mMine->increaseDepth();
+			mOreDeposit->increaseDepth();
 			mExtensionComplete(this);
 		}
 
 		return;
 	}
 
-	if (isIdle() && mMine->active())
+	if (isIdle() && mOreDeposit->active())
 	{
 		if (storage() < MaxCapacity)
 		{
@@ -95,13 +95,13 @@ void MineFacility::think()
 		}
 	}
 
-	if (mMine->exhausted())
+	if (mOreDeposit->exhausted())
 	{
 		idle(IdleReason::MineExhausted);
 		return;
 	}
 
-	if (mMine->active())
+	if (mOreDeposit->active())
 	{
 		if (storage() >= MaxCapacity)
 		{
@@ -109,7 +109,7 @@ void MineFacility::think()
 			return;
 		}
 
-		storage() += mMine->pull(maxTransferAmounts());
+		storage() += mOreDeposit->pull(maxTransferAmounts());
 	}
 	else if (!isIdle())
 	{
@@ -120,7 +120,7 @@ void MineFacility::think()
 
 bool MineFacility::canExtend() const
 {
-	return (mMine->depth() < mMaxDepth) && (mDigTurnsRemaining == 0);
+	return (mOreDeposit->depth() < mMaxDepth) && (mDigTurnsRemaining == 0);
 }
 
 
@@ -167,15 +167,15 @@ void MineFacility::removeTruck()
 }
 
 
-Mine& MineFacility::mine()
+OreDeposit& MineFacility::oreDeposit()
 {
-	return *mMine;
+	return *mOreDeposit;
 }
 
 
-const Mine& MineFacility::mine() const
+const OreDeposit& MineFacility::oreDeposit() const
 {
-	return *mMine;
+	return *mOreDeposit;
 }
 
 

@@ -4,13 +4,13 @@
 #include "TextRender.h"
 
 #include "../Cache.h"
-#include "../MineProductionRateString.h"
+#include "../OreDepositYieldString.h"
 #include "../Resources.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../StructureManager.h"
 #include "../TruckAvailability.h"
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
@@ -89,7 +89,7 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 	mFacility = facility;
 	if (!mFacility) { return; }
 
-	const auto enabledBits = mFacility->mine().miningEnabled();
+	const auto enabledBits = mFacility->oreDeposit().miningEnabled();
 	chkResources[0].checked(enabledBits[0]);
 	chkResources[1].checked(enabledBits[1]);
 	chkResources[2].checked(enabledBits[2]);
@@ -148,25 +148,25 @@ void MineOperationsWindow::onUnassignTruck()
 
 void MineOperationsWindow::onCheckBoxCommonMetalsChange()
 {
-	mFacility->mine().miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxCommonMineralsChange()
 {
-	mFacility->mine().miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMetalsChange()
 {
-	mFacility->mine().miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineOperationsWindow::onCheckBoxRareMineralsChange()
 {
-	mFacility->mine().miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
 }
 
 
@@ -187,12 +187,12 @@ void MineOperationsWindow::update()
 	const auto origin = mRect.position;
 	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 
-	const auto& mineYield = mineProductionRateEnumToString(mFacility->mine().productionRate());
+	const auto& mineYield = oreDepositYieldEnumToString(mFacility->oreDeposit().yield());
 	drawLabelAndValue(origin + NAS2D::Vector{148, 30}, "Mine Yield: ", mineYield);
 
 	const std::string statusString =
 		mFacility->extending() ? "Digging New Level" :
-		mFacility->mine().exhausted() ? "Exhausted" :
+		mFacility->oreDeposit().exhausted() ? "Exhausted" :
 		mFacility->stateDescription();
 
 	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
@@ -203,7 +203,7 @@ void MineOperationsWindow::update()
 		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", extensionTimeRemaining);
 	}
 
-	const auto mineDepth = std::to_string(mFacility->mine().depth());
+	const auto mineDepth = std::to_string(mFacility->oreDeposit().depth());
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// TRUCK ASSIGNMENT
@@ -223,7 +223,7 @@ void MineOperationsWindow::update()
 
 	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
 
-	const auto availableResources = mFacility->mine().availableResources();
+	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
 	{
 		std::tuple{46,  ResourceImageRectsOre[0], availableResources.resources[0]},

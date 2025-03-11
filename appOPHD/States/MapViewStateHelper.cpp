@@ -50,7 +50,7 @@ NAS2D::Point<int>& ccLocation()
  */
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir)
 {
-	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure())
+	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure())
 	{
 		return false;
 	}
@@ -84,7 +84,7 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
 	Structure* structure = tile.structure();
-	if (tile.mine() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !structure->connected() || !structure->isConnector())
+	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !structure->connected() || !structure->isConnector())
 	{
 		return false;
 	}
@@ -166,9 +166,9 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedTerrain);
 			return false;
 		}
-		else if (tile.mine())
+		else if (tile.oreDeposit())
 		{
-			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedMine);
+			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedOreDeposit);
 			return false;
 		}
 		else if (tile.thing())

@@ -190,7 +190,7 @@
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
     <ClCompile Include="MapObjects\MapObject.cpp" />
-    <ClCompile Include="MapObjects\Mine.cpp" />
+    <ClCompile Include="MapObjects\OreDeposit.cpp" />
     <ClCompile Include="MapObjects\Robot.cpp" />
     <ClCompile Include="MapObjects\Robots\Robodigger.cpp" />
     <ClCompile Include="MapObjects\Robots\Robodozer.cpp" />
@@ -217,7 +217,7 @@
     <ClCompile Include="MapObjects\Structures\Tube.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="MeanSolarDistance.cpp" />
-    <ClCompile Include="MineProductionRateString.cpp" />
+    <ClCompile Include="OreDepositYieldString.cpp" />
     <ClCompile Include="MoraleString.cpp" />
     <ClCompile Include="OpenSaveGame.cpp" />
     <ClCompile Include="PointerType.cpp" />
@@ -297,7 +297,7 @@
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
     <ClInclude Include="MapObjects\MapObject.h" />
-    <ClInclude Include="MapObjects\Mine.h" />
+    <ClInclude Include="MapObjects\OreDeposit.h" />
     <ClInclude Include="MapObjects\Robots\Robodigger.h" />
     <ClInclude Include="MapObjects\Robots\Robodozer.h" />
     <ClInclude Include="MapObjects\Robots\Robominer.h" />
@@ -351,7 +351,7 @@
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="MeanSolarDistance.h" />
-    <ClInclude Include="MineProductionRateString.h" />
+    <ClInclude Include="OreDepositYieldString.h" />
     <ClInclude Include="MoraleString.h" />
     <ClInclude Include="OpenSaveGame.h" />
     <ClInclude Include="PointerType.h" />

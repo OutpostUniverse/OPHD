@@ -10,7 +10,7 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 
 #include <libOPHD/DirectionOffset.h>
 
@@ -249,7 +249,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	auto& mineFacilityTile = structureManager.tileFromStructure(mineFacility);
-	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->mine().depth()});
+	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->oreDeposit().depth()});
 	structureManager.addStructure(*new MineShaft(), mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);

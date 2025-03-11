@@ -108,10 +108,10 @@ namespace
 	}
 
 
-	RouteList findRoutes(micropather::MicroPather* solver, Structure* mine, const std::vector<OreRefining*>& smelters)
+	RouteList findRoutes(micropather::MicroPather* solver, Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		auto& start = structureManager.tileFromStructure(mine);
+		auto& start = structureManager.tileFromStructure(mineFacility);
 
 		RouteList routeList;
 
@@ -325,27 +325,27 @@ void MapViewState::findMineRoutes()
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	mTruckRouteOverlay.clear();
 
-	for (auto* mine : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	for (auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
-		if (!mine->operational() && !mine->isIdle()) { continue; } // consider a different control path.
+		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; } // consider a different control path.
 
-		auto routeIt = routeTable.find(mine);
+		auto routeIt = routeTable.find(mineFacility);
 		bool findNewRoute = routeIt == routeTable.end();
 
 		if (!findNewRoute && routeObstructed(routeIt->second))
 		{
-			routeTable.erase(mine);
+			routeTable.erase(mineFacility);
 			findNewRoute = true;
 		}
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver.get(), mine, smelterList);
+			auto routeList = findRoutes(mPathSolver.get(), mineFacility, smelterList);
 			auto newRoute = findLowestCostRoute(routeList);
 
-			if (newRoute.empty()) { continue; } // give up and move on to the next mine
+			if (newRoute.empty()) { continue; } // give up and move on to the next mine facility.
 
-			routeTable[mine] = newRoute;
+			routeTable[mineFacility] = newRoute;
 
 			for (auto tile : newRoute.path)
 			{
@@ -359,9 +359,9 @@ void MapViewState::findMineRoutes()
 void MapViewState::transportOreFromMines()
 {
 	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	for (auto* mine : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	for (auto* mineFacilityPtr : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
-		auto routeIt = routeTable.find(mine);
+		auto routeIt = routeTable.find(mineFacilityPtr);
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
@@ -380,14 +380,14 @@ void MapViewState::transportOreFromMines()
 			const int oreMovementRemainder = totalOreMovement % 4;
 			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
 
-			auto& mineStored = mineFacility.storage();
+			auto& mineStorage = mineFacility.storage();
 			auto& smelterStored = smelter.production();
 
-			const auto oreAvailable = smelterStored + mineStored.cap(movementCap);
+			const auto oreAvailable = smelterStored + mineStorage.cap(movementCap);
 			const auto newSmelterStored = oreAvailable.cap(250);
 			const auto movedOre = newSmelterStored - smelterStored;
 
-			mineStored -= movedOre;
+			mineStorage -= movedOre;
 			smelterStored = newSmelterStored;
 		}
 	}

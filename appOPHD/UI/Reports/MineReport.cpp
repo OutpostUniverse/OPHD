@@ -16,7 +16,7 @@
 #include "../../States/Route.h"
 
 #include "../../Map/Tile.h"
-#include "../../MapObjects/Mine.h"
+#include "../../MapObjects/OreDeposit.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 
 #include <libControls/Layout.h>
@@ -262,7 +262,7 @@ void MineReport::onMineFacilitySelectionChange()
 	btnDigNewLevel.toggle(facility.extending());
 	btnDigNewLevel.enabled(facility.canExtend() && (facility.operational() || facility.isIdle()));
 
-	const auto enabledBits = facility.mine().miningEnabled();
+	const auto enabledBits = facility.oreDeposit().miningEnabled();
 	chkResources[0].checked(enabledBits[0]);
 	chkResources[1].checked(enabledBits[1]);
 	chkResources[2].checked(enabledBits[2]);
@@ -294,25 +294,25 @@ void MineReport::onTakeMeThere()
 
 void MineReport::onCheckBoxCommonMetalsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
 }
 
 
@@ -374,9 +374,9 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const auto lineOrigin = origin + lineOffset;
 	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{renderer.size().x - lineOrigin.x - 10, 0}, constants::PrimaryTextColor, 1);
 
-	const auto& mine = mSelectedFacility->mine();
-	const auto oreAvailable = mine.availableResources();
-	const auto oreTotalYield = mine.totalYield();
+	const auto& oreDeposit = mSelectedFacility->oreDeposit();
+	const auto oreAvailable = oreDeposit.availableResources();
+	const auto oreTotalYield = oreDeposit.totalYield();
 
 	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};

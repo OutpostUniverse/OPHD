@@ -29,9 +29,9 @@ enum class Direction;
 class TileMap : public micropather::Graph
 {
 public:
-	using MineYields = std::array<int, 3>; // {low, med, high}
+	using OreDepositYields = std::array<int, 3>; // {low, med, high}
 
-	TileMap(const std::string& mapPath, int maxDepth, std::size_t mineCount, const MineYields& mineYields);
+	TileMap(const std::string& mapPath, int maxDepth, std::size_t oreDepositCount, const OreDepositYields& oreDepositYields);
 	TileMap(const std::string& mapPath, int maxDepth);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
@@ -44,8 +44,8 @@ public:
 	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
 
-	const std::vector<NAS2D::Point<int>>& mineLocations() const { return mMineLocations; }
-	void removeMineLocation(const NAS2D::Point<int>& pt);
+	const std::vector<NAS2D::Point<int>>& oreDepositLocations() const { return mOreDepositLocations; }
+	void removeOreDepositLocation(const NAS2D::Point<int>& pt);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
@@ -56,7 +56,7 @@ public:
 	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
 	void PrintStateInfo(void* /*state*/) override {}
 
-	bool isTileBlockedByMine(const Tile&) const;
+	bool isTileBlockedByOreDeposit(const Tile&) const;
 
 private:
 	std::size_t linearSize() const;
@@ -68,7 +68,7 @@ private:
 	const NAS2D::Vector<int> mSizeInTiles;
 	const int mMaxDepth = 0;
 	std::vector<Tile> mTileMap;
-	std::vector<NAS2D::Point<int>> mMineLocations;
+	std::vector<NAS2D::Point<int>> mOreDepositLocations;
 
 	std::string mMapPath;
 };

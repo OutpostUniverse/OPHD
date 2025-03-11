@@ -2,7 +2,7 @@
 
 #include "../StorableResources.h"
 
-#include <libOPHD/EnumMineProductionRate.h>
+#include <libOPHD/EnumOreDepositYield.h>
 
 #include <NAS2D/Math/Point.h>
 
@@ -18,7 +18,7 @@ namespace NAS2D
 }
 
 
-class Mine
+class OreDeposit
 {
 public:
 	enum class OreType
@@ -30,15 +30,15 @@ public:
 	};
 
 public:
-	Mine();
-	Mine(MineProductionRate rate);
+	OreDeposit();
+	OreDeposit(OreDepositYield yield);
 
 	bool active() const;
 	void active(bool newActive);
 
 	bool exhausted() const;
 
-	MineProductionRate productionRate() const { return mProductionRate; }
+	OreDepositYield yield() const { return mOreDepositYield; }
 
 	int depth() const;
 	void increaseDepth();
@@ -56,13 +56,13 @@ public:
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
-	Mine(const Mine&) = delete;
-	Mine& operator=(const Mine&) = delete;
+	OreDeposit(const OreDeposit&) = delete;
+	OreDeposit& operator=(const OreDeposit&) = delete;
 
 private:
 	StorableResources mTappedReserves;
 	int mCurrentDepth{0};
-	MineProductionRate mProductionRate = MineProductionRate::Low;
+	OreDepositYield mOreDepositYield = OreDepositYield::Low;
 
 	/**
 	 * Flags indicating several states for the mine:

@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
@@ -19,12 +19,12 @@ Tile::Tile(Tile&& other) noexcept :
 	mIndex{other.mIndex},
 	mPosition{other.mPosition},
 	mMapObject{other.mMapObject},
-	mMine{other.mMine},
+	mOreDeposit{other.mOreDeposit},
 	mOverlay{other.mOverlay},
 	mExcavated{other.mExcavated}
 {
 	other.mMapObject = nullptr;
-	other.mMine = nullptr;
+	other.mOreDeposit = nullptr;
 }
 
 
@@ -33,12 +33,12 @@ Tile& Tile::operator=(Tile&& other) noexcept
 	mIndex = other.mIndex;
 	mPosition = other.mPosition;
 	mMapObject = other.mMapObject;
-	mMine = other.mMine;
+	mOreDeposit = other.mOreDeposit;
 	mOverlay = other.mOverlay;
 	mExcavated = other.mExcavated;
 
 	other.mMapObject = nullptr;
-	other.mMine = nullptr;
+	other.mOreDeposit = nullptr;
 
 	return *this;
 }
@@ -46,7 +46,7 @@ Tile& Tile::operator=(Tile&& other) noexcept
 
 Tile::~Tile()
 {
-	delete mMine;
+	delete mOreDeposit;
 	delete mMapObject;
 }
 
@@ -100,10 +100,10 @@ void Tile::removeMapObject()
 }
 
 
-void Tile::pushMine(Mine* mine)
+void Tile::placeOreDeposit(OreDeposit* oreDeposit)
 {
-	delete mMine;
-	mMine = mine;
+	delete mOreDeposit;
+	mOreDeposit = oreDeposit;
 }
 
 

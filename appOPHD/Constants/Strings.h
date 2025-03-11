@@ -25,9 +25,9 @@ namespace constants
 	const std::string TileDifficult = "Difficult";
 	const std::string TileImpassable = "Impassable";
 
-	const std::string MineYieldLow = "Low";
-	const std::string MineYieldMedium = "Medium";
-	const std::string MineYieldHigh = "High";
+	const std::string OreDepositYieldLow = "Low";
+	const std::string OreDepositYieldMedium = "Medium";
+	const std::string OreDepositYieldHigh = "High";
 
 	const std::string ProductTransferTitle = "Remaining Product";
 	const std::string ProductTransferMessage = "Bulldozing this Warehouse will result in some products being discarded due to insufficient storage space at other warehouses.\n\nDo you want to discard these products?";
@@ -262,7 +262,7 @@ namespace constants
 
 	const std::string AlertLanderLocation = "Lander Location";
 	const std::string AlertSeedTerrain = "The " + SeedLander + " cannot be placed on or near Impassable terrain.";
-	const std::string AlertSeedMine = "The " + SeedLander + " cannot be placed on or near a tile flagged with a Mine.";
+	const std::string AlertSeedOreDeposit = "The " + SeedLander + " cannot be placed on or near a tile flagged with a mine beacon.";
 	const std::string AlertSeedEdgeBuffer = SeedLander + "'s cannot be placed within 3 tiles of the edge of the site map.";
 
 	const std::string AlertLanderTileObstructed = "Cannot place Lander because there is an object on the selected tile.";
@@ -273,7 +273,7 @@ namespace constants
 	const std::string AlertStructureTileObstructed = "The selected tile already has a structure on it. You must bulldoze the existing structure in order to build here.";
 	const std::string AlertStructureTileMapObject = "The selected tile is occupied by another object.";
 	const std::string AlertStructureTerrain = "The selected tile is not bulldozed. Structures can only be built on bulldozed tiles.";
-	const std::string AlertStructureMineInWay = "The selected tile contains a Mine. Structures cannot be built on Mines.";
+	const std::string AlertStructureOreDepositInWay = "The selected tile contains an ore deposit. Structures cannot be built on ore deposits.";
 	const std::string AlertStructureExcavated = "Structures can only be placed on a tile that has been excavated and bulldozed.";
 	const std::string AlertStructureNoTube = "The selected tile has no connection to the Command Center.";
 	const std::string AlertStructureInsufficientResources = "You have insufficient resources to build this Structure. To build this structure, you will need an additional:\n\n";
