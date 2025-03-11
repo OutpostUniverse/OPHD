@@ -88,7 +88,7 @@ namespace {
 		for (const auto& location : locations)
 		{
 			auto& tile = tileMap.getTile({location, 0});
-			tile.pushMine(new OreDeposit(randYield()));
+			tile.placeOreDeposit(new OreDeposit(randYield()));
 			tile.index(TerrainType::Dozed);
 		}
 	}
@@ -114,13 +114,13 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 void TileMap::removeMineLocation(const NAS2D::Point<int>& pt)
 {
 	auto& tile = getTile({pt, 0});
-	if (!tile.hasMine())
+	if (!tile.hasOreDeposit())
 	{
 		throw std::runtime_error("No mine found to remove");
 	}
 
 	mMineLocations.erase(find(mMineLocations.begin(), mMineLocations.end(), pt));
-	tile.pushMine(nullptr);
+	tile.placeOreDeposit(nullptr);
 }
 
 
@@ -184,7 +184,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 
 	for (const auto& location : mMineLocations)
 	{
-		auto& mine = *getTile({location, 0}).mine();
+		auto& mine = *getTile({location, 0}).oreDeposit();
 		mines->linkEndChild(mine.serialize(location));
 	}
 
@@ -204,7 +204,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 			auto& tile = getTile({point, depth});
 			if (
 				((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
-				(tile.empty() && tile.mine() == nullptr)
+				(tile.empty() && tile.oreDeposit() == nullptr)
 			)
 			{
 				tiles->linkEndChild(
@@ -237,7 +237,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		mine->deserialize(mineElement);
 
 		auto& tile = getTile({{x, y}, 0});
-		tile.pushMine(mine);
+		tile.placeOreDeposit(mine);
 		tile.index(TerrainType::Dozed);
 
 		mMineLocations.push_back(Point{x, y});
@@ -296,7 +296,7 @@ void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adj
 
 bool TileMap::isTileBlockedByMine(const Tile& tile) const
 {
-	return getTile({tile.xy(), 0}).hasMine();
+	return getTile({tile.xy(), 0}).hasOreDeposit();
 }
 
 

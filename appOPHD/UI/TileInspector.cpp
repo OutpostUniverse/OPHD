@@ -67,7 +67,7 @@ void TileInspector::update()
 	position.y += lineSpacing;
 	drawLabelAndValue(position, "Terrain: ", terrainTypeStringTable.at(mTile->index()));
 
-	const auto* mine = mTile->mine();
+	const auto* mine = mTile->oreDeposit();
 
 	position.y += lineSpacing + sectionSpacing;
 	drawLabelAndValue(position, "Has Mine: ", (mine ? "Yes" : "No"));
@@ -78,7 +78,7 @@ void TileInspector::update()
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
 		position.y += lineSpacing;
-		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->mine()->productionRate()));
+		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->oreDeposit()->productionRate()));
 	}
 }
 

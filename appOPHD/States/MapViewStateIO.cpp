@@ -437,7 +437,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			auto* mine = mTileMap->getTile({mapCoordinate.xy, 0}).mine();
+			auto* mine = mTileMap->getTile({mapCoordinate.xy, 0}).oreDeposit();
 			if (mine == nullptr)
 			{
 				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");

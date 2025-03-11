@@ -802,7 +802,7 @@ void MapViewState::placeTubes(Tile& tile)
 		return;
 	}
 
-	if (tile.thing() || tile.mine() || !tile.excavated()) { return; }
+	if (tile.thing() || tile.oreDeposit() || !tile.excavated()) { return; }
 
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
@@ -982,9 +982,9 @@ void MapViewState::placeRobodozer(Tile& tile)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;
 	}
-	else if (tile.mine())
+	else if (tile.oreDeposit())
 	{
-		if (tile.mine()->depth() != mTileMap->maxDepth() || !tile.mine()->exhausted())
+		if (tile.oreDeposit()->depth() != mTileMap->maxDepth() || !tile.oreDeposit()->exhausted())
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMineNotExhausted);
 			return;
@@ -993,7 +993,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		mMineOperationsWindow.hide();
 		const auto tilePosition = mDetailMap->mouseTilePosition().xy;
 		mTileMap->removeMineLocation(tilePosition);
-		tile.pushMine(nullptr);
+		tile.placeOreDeposit(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
@@ -1100,7 +1100,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		return;
 	}
 
-	if (tile.hasMine())
+	if (tile.hasOreDeposit())
 	{
 		if (!doYesNoMessage(constants::AlertDiggerMineTile, constants::AlertDiggerMine)) { return; }
 
@@ -1176,7 +1176,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerSurfaceOnly);
 		return;
 	}
-	if (!tile.mine())
+	if (!tile.oreDeposit())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerNotOnMine);
 		return;
