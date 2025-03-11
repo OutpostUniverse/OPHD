@@ -204,7 +204,7 @@ MapViewState::MapViewState(GameState& gameState, const std::string& savegame) :
 
 MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mDifficulty{selectedDifficulty},
-	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityOreDepositYields.at(planetAttributes.hostility))},
+	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
