@@ -168,7 +168,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 		}
 		else if (tile.oreDeposit())
 		{
-			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedMine);
+			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedOreDeposit);
 			return false;
 		}
 		else if (tile.thing())

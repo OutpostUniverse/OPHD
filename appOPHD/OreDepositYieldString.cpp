@@ -11,9 +11,9 @@ namespace
 {
 	const std::map<OreDepositYield, std::string> oreDepositYieldStringTable =
 	{
-		{OreDepositYield::High, constants::MineYieldHigh},
-		{OreDepositYield::Low, constants::MineYieldLow},
-		{OreDepositYield::Medium, constants::MineYieldMedium},
+		{OreDepositYield::High, constants::OreDepositYieldHigh},
+		{OreDepositYield::Low, constants::OreDepositYieldLow},
+		{OreDepositYield::Medium, constants::OreDepositYieldMedium},
 	};
 }
 
