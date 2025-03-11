@@ -374,9 +374,9 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const auto lineOrigin = origin + lineOffset;
 	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{renderer.size().x - lineOrigin.x - 10, 0}, constants::PrimaryTextColor, 1);
 
-	const auto& mine = mSelectedFacility->oreDeposit();
-	const auto oreAvailable = mine.availableResources();
-	const auto oreTotalYield = mine.totalYield();
+	const auto& oreDeposit = mSelectedFacility->oreDeposit();
+	const auto oreAvailable = oreDeposit.availableResources();
+	const auto oreTotalYield = oreDeposit.totalYield();
 
 	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
