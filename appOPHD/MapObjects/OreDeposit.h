@@ -2,7 +2,7 @@
 
 #include "../StorableResources.h"
 
-#include <libOPHD/EnumMineProductionRate.h>
+#include <libOPHD/EnumOreDepositYield.h>
 
 #include <NAS2D/Math/Point.h>
 

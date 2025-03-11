@@ -2,7 +2,7 @@
 
 #include "Constants/Strings.h"
 
-#include <libOPHD/EnumMineProductionRate.h>
+#include <libOPHD/EnumOreDepositYield.h>
 
 #include <map>
 

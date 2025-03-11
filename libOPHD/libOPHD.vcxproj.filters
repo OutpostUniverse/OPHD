@@ -80,7 +80,7 @@
     <ClInclude Include="EnumIdleReason.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnumMineProductionRate.h">
+    <ClInclude Include="EnumOreDepositYield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnumMoraleIndex.h">
