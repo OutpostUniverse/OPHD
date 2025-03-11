@@ -437,14 +437,14 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
 		{
-			auto* mine = mTileMap->getTile({mapCoordinate.xy, 0}).oreDeposit();
-			if (mine == nullptr)
+			auto* oreDeposit = mTileMap->getTile({mapCoordinate.xy, 0}).oreDeposit();
+			if (oreDeposit == nullptr)
 			{
-				throw std::runtime_error("Mine Facility is located on a Tile with no Mine.");
+				throw std::runtime_error("Mine Facility is located on a Tile with no Ore Deposit.");
 			}
 
 			auto& mineFacility = *static_cast<MineFacility*>(&structure);
-			mineFacility.oreDeposit(mine);
+			mineFacility.oreDeposit(oreDeposit);
 			mineFacility.maxDepth(mTileMap->maxDepth());
 			mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
 

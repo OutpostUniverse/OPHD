@@ -47,8 +47,8 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	// Relative proportion of mines with yields {low, med, high}
-	const std::map<Planet::Hostility, std::array<int, 3>> HostilityMineYields =
+	// Relative proportion of Ore Deposits with yields {low, med, high}
+	const std::map<Planet::Hostility, std::array<int, 3>> HostilityOreDepositYields =
 	{
 		{Planet::Hostility::Low, {30, 50, 20}},
 		{Planet::Hostility::Medium, {45, 35, 20}},
@@ -204,7 +204,7 @@ MapViewState::MapViewState(GameState& gameState, const std::string& savegame) :
 
 MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
 	mDifficulty{selectedDifficulty},
-	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityMineYields.at(planetAttributes.hostility))},
+	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxMines, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
