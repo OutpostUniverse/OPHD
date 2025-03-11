@@ -9,16 +9,16 @@
 
 namespace
 {
-	const std::map<MineProductionRate, std::string> mineProductionRateStringTable =
+	const std::map<OreDepositYield, std::string> mineProductionRateStringTable =
 	{
-		{MineProductionRate::High, constants::MineYieldHigh},
-		{MineProductionRate::Low, constants::MineYieldLow},
-		{MineProductionRate::Medium, constants::MineYieldMedium},
+		{OreDepositYield::High, constants::MineYieldHigh},
+		{OreDepositYield::Low, constants::MineYieldLow},
+		{OreDepositYield::Medium, constants::MineYieldMedium},
 	};
 }
 
 
-const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate)
+const std::string& mineProductionRateEnumToString(OreDepositYield mineProductionRate)
 {
 	return mineProductionRateStringTable.at(mineProductionRate);
 }

@@ -20,11 +20,11 @@ namespace
 	 * [2] Rare Metals
 	 * [3] Rare Minerals
 	 */
-	const std::map<MineProductionRate, StorableResources> YieldTable =
+	const std::map<OreDepositYield, StorableResources> YieldTable =
 	{
-		{MineProductionRate::Low, {800, 800, 800, 800}},
-		{MineProductionRate::Medium, {1000, 1000, 1000, 1000}},
-		{MineProductionRate::High, {1250, 1250, 1250, 1250}}
+		{OreDepositYield::Low, {800, 800, 800, 800}},
+		{OreDepositYield::Medium, {1000, 1000, 1000, 1000}},
+		{OreDepositYield::High, {1250, 1250, 1250, 1250}}
 	};
 
 
@@ -45,8 +45,8 @@ OreDeposit::OreDeposit() :
 }
 
 
-OreDeposit::OreDeposit(MineProductionRate rate) :
-	mProductionRate{rate},
+OreDeposit::OreDeposit(OreDepositYield yield) :
+	mProductionRate{yield},
 	mFlags{DefaultFlags}
 {
 }
@@ -175,7 +175,7 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
 	mCurrentDepth = dictionary.get<int>("depth");
-	mProductionRate = static_cast<MineProductionRate>(dictionary.get<int>("yield"));
+	mProductionRate = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
 	mFlags = std::bitset<5>(dictionary.get("flags"));
 

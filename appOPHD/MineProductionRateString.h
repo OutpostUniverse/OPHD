@@ -2,7 +2,7 @@
 
 #include <string>
 
-enum class MineProductionRate;
+enum class OreDepositYield;
 
 
-const std::string& mineProductionRateEnumToString(MineProductionRate mineProductionRate);
+const std::string& mineProductionRateEnumToString(OreDepositYield mineProductionRate);

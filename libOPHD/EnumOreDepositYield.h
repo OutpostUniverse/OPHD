@@ -1,7 +1,7 @@
 #pragma once
 
 
-enum class MineProductionRate
+enum class OreDepositYield
 {
 	Low,
 	Medium,

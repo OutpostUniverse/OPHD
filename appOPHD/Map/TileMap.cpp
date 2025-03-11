@@ -80,9 +80,9 @@ namespace {
 
 		const auto randYield = [oreDepositYields, total]() {
 			const auto randValue = randomNumber.generate<int>(1, total);
-			return (randValue <= oreDepositYields[0]) ? MineProductionRate::Low :
-				(randValue <= oreDepositYields[0] + oreDepositYields[1]) ? MineProductionRate::Medium :
-				MineProductionRate::High;
+			return (randValue <= oreDepositYields[0]) ? OreDepositYield::Low :
+				(randValue <= oreDepositYields[0] + oreDepositYields[1]) ? OreDepositYield::Medium :
+				OreDepositYield::High;
 		};
 
 		for (const auto& location : locations)
