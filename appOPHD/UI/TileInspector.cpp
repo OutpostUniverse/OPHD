@@ -1,7 +1,7 @@
 #include "TileInspector.h"
 
 #include "TextRender.h"
-#include "../MineProductionRateString.h"
+#include "../OreDepositYieldString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/OreDeposit.h"

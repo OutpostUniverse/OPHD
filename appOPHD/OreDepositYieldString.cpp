@@ -1,4 +1,4 @@
-#include "MineProductionRateString.h"
+#include "OreDepositYieldString.h"
 
 #include "Constants/Strings.h"
 

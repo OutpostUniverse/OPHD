@@ -174,7 +174,7 @@
     <ClCompile Include="MeanSolarDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MineProductionRateString.cpp">
+    <ClCompile Include="OreDepositYieldString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MoraleString.cpp">
@@ -572,7 +572,7 @@
     <ClInclude Include="MeanSolarDistance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MineProductionRateString.h">
+    <ClInclude Include="OreDepositYieldString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoraleString.h">

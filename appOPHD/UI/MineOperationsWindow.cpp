@@ -4,7 +4,7 @@
 #include "TextRender.h"
 
 #include "../Cache.h"
-#include "../MineProductionRateString.h"
+#include "../OreDepositYieldString.h"
 #include "../Resources.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
