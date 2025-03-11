@@ -22,7 +22,7 @@ namespace
 }
 
 
-MineFacility::MineFacility(Mine* mine) :
+MineFacility::MineFacility(OreDeposit* mine) :
 	Structure(
 		StructureClass::Mine,
 		StructureID::SID_MINE_FACILITY
@@ -33,7 +33,7 @@ MineFacility::MineFacility(Mine* mine) :
 }
 
 
-void MineFacility::mine(Mine* mine)
+void MineFacility::mine(OreDeposit* mine)
 {
 	mMine = mine;
 }
@@ -167,13 +167,13 @@ void MineFacility::removeTruck()
 }
 
 
-Mine& MineFacility::mine()
+OreDeposit& MineFacility::mine()
 {
 	return *mMine;
 }
 
 
-const Mine& MineFacility::mine() const
+const OreDeposit& MineFacility::mine() const
 {
 	return *mMine;
 }

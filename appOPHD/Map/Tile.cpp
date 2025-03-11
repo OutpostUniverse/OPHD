@@ -100,7 +100,7 @@ void Tile::removeMapObject()
 }
 
 
-void Tile::pushMine(Mine* mine)
+void Tile::pushMine(OreDeposit* mine)
 {
 	delete mMine;
 	mMine = mine;

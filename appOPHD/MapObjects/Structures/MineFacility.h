@@ -4,7 +4,7 @@
 
 
 struct StorableResources;
-class Mine;
+class OreDeposit;
 
 
 class MineFacility : public Structure
@@ -12,9 +12,9 @@ class MineFacility : public Structure
 public:
 	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
 public:
-	MineFacility(Mine* mine);
+	MineFacility(OreDeposit* mine);
 
-	void mine(Mine* mine);
+	void mine(OreDeposit* mine);
 	void maxDepth(int depth);
 
 	bool extending() const;
@@ -28,8 +28,8 @@ public:
 
 	void addTruck();
 	void removeTruck();
-	Mine& mine();
-	const Mine& mine() const;
+	OreDeposit& mine();
+	const OreDeposit& mine() const;
 
 	ExtensionCompleteSignal::Source& extensionComplete();
 
@@ -58,7 +58,7 @@ private:
 	int mAssignedTrucks = 1; /**< All mine facilities are built with at least one truck. */
 	int mMaxTruckCount = 10;
 
-	Mine* mMine = nullptr; /**< Mine that this facility manages. */
+	OreDeposit* mMine = nullptr; /**< Mine that this facility manages. */
 
 	ExtensionCompleteSignal mExtensionComplete; /**< Called whenever an extension is completed. */
 };

@@ -39,39 +39,39 @@ namespace
 }
 
 
-Mine::Mine() :
+OreDeposit::OreDeposit() :
 	mFlags{DefaultFlags}
 {
 }
 
 
-Mine::Mine(MineProductionRate rate) :
+OreDeposit::OreDeposit(MineProductionRate rate) :
 	mProductionRate{rate},
 	mFlags{DefaultFlags}
 {
 }
 
 
-bool Mine::active() const
+bool OreDeposit::active() const
 {
 	return mFlags[4];
 }
 
 
-void Mine::active(bool newActive)
+void OreDeposit::active(bool newActive)
 {
 	mFlags[4] = newActive;
 }
 
 
-std::bitset<4> Mine::miningEnabled() const
+std::bitset<4> OreDeposit::miningEnabled() const
 {
 	// We only want ore mining enabled bits
 	return {mFlags.to_ulong() & 0xF};
 }
 
 
-void Mine::miningEnabled(OreType oreType, bool value)
+void OreDeposit::miningEnabled(OreType oreType, bool value)
 {
 	mFlags[static_cast<std::size_t>(oreType)] = value;
 }
@@ -83,7 +83,7 @@ void Mine::miningEnabled(OreType oreType, bool value)
  * \note	This function only modifies the Mine. It has no knowledge of the
  *			maximum digging depth of a planet and doesn't modify any tiles.
  */
-void Mine::increaseDepth()
+void OreDeposit::increaseDepth()
 {
 	mCurrentDepth++;
 	mTappedReserves += YieldTable.at(productionRate());
@@ -93,19 +93,19 @@ void Mine::increaseDepth()
 /**
  * Gets the current depth of the mine.
  */
-int Mine::depth() const
+int OreDeposit::depth() const
 {
 	return mCurrentDepth;
 }
 
 
-StorableResources Mine::availableResources() const
+StorableResources OreDeposit::availableResources() const
 {
 	return mTappedReserves;
 }
 
 
-StorableResources Mine::totalYield() const
+StorableResources OreDeposit::totalYield() const
 {
 	return YieldTable.at(productionRate()) * depth();
 }
@@ -114,7 +114,7 @@ StorableResources Mine::totalYield() const
 /**
  * Indicates that there are no resources available at this mine.
  */
-bool Mine::exhausted() const
+bool OreDeposit::exhausted() const
 {
 	return mTappedReserves.isEmpty();
 }
@@ -124,7 +124,7 @@ bool Mine::exhausted() const
  * Pulls the specified quantities of Ore from the Mine. If
  * insufficient ore is available, only pulls what's available.
  */
-StorableResources Mine::pull(const StorableResources& maxTransfer)
+StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
 {
 	const auto transferAmount = mTappedReserves.cap(maxTransfer);
 	mTappedReserves -= transferAmount;
@@ -139,7 +139,7 @@ StorableResources Mine::pull(const StorableResources& maxTransfer)
 /**
  * Serializes current mine information.
  */
-NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
+NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
@@ -170,7 +170,7 @@ NAS2D::Xml::XmlElement* Mine::serialize(NAS2D::Point<int> location)
 }
 
 
-void Mine::deserialize(NAS2D::Xml::XmlElement* element)
+void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 

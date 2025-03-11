@@ -18,7 +18,7 @@ namespace NAS2D
 }
 
 
-class Mine
+class OreDeposit
 {
 public:
 	enum class OreType
@@ -30,8 +30,8 @@ public:
 	};
 
 public:
-	Mine();
-	Mine(MineProductionRate rate);
+	OreDeposit();
+	OreDeposit(MineProductionRate rate);
 
 	bool active() const;
 	void active(bool newActive);
@@ -56,8 +56,8 @@ public:
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
-	Mine(const Mine&) = delete;
-	Mine& operator=(const Mine&) = delete;
+	OreDeposit(const OreDeposit&) = delete;
+	OreDeposit& operator=(const OreDeposit&) = delete;
 
 private:
 	StorableResources mTappedReserves;

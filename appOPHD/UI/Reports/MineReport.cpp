@@ -294,25 +294,25 @@ void MineReport::onTakeMeThere()
 
 void MineReport::onCheckBoxCommonMetalsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMetals, chkResources[0].checked());
+	mSelectedFacility->mine().miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
 }
 
 
 void MineReport::onCheckBoxCommonMineralsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::CommonMinerals, chkResources[1].checked());
+	mSelectedFacility->mine().miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
 }
 
 
 void MineReport::onCheckBoxRareMetalsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMetals, chkResources[2].checked());
+	mSelectedFacility->mine().miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
 }
 
 
 void MineReport::onCheckBoxRareMineralsChange()
 {
-	mSelectedFacility->mine().miningEnabled(Mine::OreType::RareMinerals, chkResources[3].checked());
+	mSelectedFacility->mine().miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
 }
 
 

@@ -88,7 +88,7 @@ namespace {
 		for (const auto& location : locations)
 		{
 			auto& tile = tileMap.getTile({location, 0});
-			tile.pushMine(new Mine(randYield()));
+			tile.pushMine(new OreDeposit(randYield()));
 			tile.index(TerrainType::Dozed);
 		}
 	}
@@ -233,7 +233,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		const auto x = mineDictionary.get<int>("x");
 		const auto y = mineDictionary.get<int>("y");
 
-		Mine* mine = new Mine();
+		OreDeposit* mine = new OreDeposit();
 		mine->deserialize(mineElement);
 
 		auto& tile = getTile({{x, y}, 0});
