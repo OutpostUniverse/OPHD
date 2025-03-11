@@ -12,9 +12,9 @@ class MineFacility : public Structure
 public:
 	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
 public:
-	MineFacility(OreDeposit* mine);
+	MineFacility(OreDeposit* oreDeposit);
 
-	void mine(OreDeposit* mine);
+	void oreDeposit(OreDeposit* oreDeposit);
 	void maxDepth(int depth);
 
 	bool extending() const;
@@ -28,8 +28,8 @@ public:
 
 	void addTruck();
 	void removeTruck();
-	OreDeposit& mine();
-	const OreDeposit& mine() const;
+	OreDeposit& oreDeposit();
+	const OreDeposit& oreDeposit() const;
 
 	ExtensionCompleteSignal::Source& extensionComplete();
 
@@ -58,7 +58,7 @@ private:
 	int mAssignedTrucks = 1; /**< All mine facilities are built with at least one truck. */
 	int mMaxTruckCount = 10;
 
-	OreDeposit* mMine = nullptr; /**< Mine that this facility manages. */
+	OreDeposit* mOreDeposit = nullptr; /**< OreDeposit that this facility manages. */
 
 	ExtensionCompleteSignal mExtensionComplete; /**< Called whenever an extension is completed. */
 };

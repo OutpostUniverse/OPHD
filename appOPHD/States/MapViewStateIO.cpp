@@ -444,7 +444,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 
 			auto& mineFacility = *static_cast<MineFacility*>(&structure);
-			mineFacility.mine(mine);
+			mineFacility.oreDeposit(mine);
 			mineFacility.maxDepth(mTileMap->maxDepth());
 			mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
 
