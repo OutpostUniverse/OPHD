@@ -78,7 +78,7 @@ void TileInspector::update()
 		drawLabelAndValue(position, "Active: ", (mine->active() ? "Yes" : "No"));
 
 		position.y += lineSpacing;
-		drawLabelAndValue(position, "Production Rate: ", mineProductionRateEnumToString(mTile->oreDeposit()->productionRate()));
+		drawLabelAndValue(position, "Yield: ", mineProductionRateEnumToString(mTile->oreDeposit()->yield()));
 	}
 }
 

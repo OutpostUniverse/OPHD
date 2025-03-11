@@ -38,7 +38,7 @@ public:
 
 	bool exhausted() const;
 
-	OreDepositYield productionRate() const { return mProductionRate; }
+	OreDepositYield yield() const { return mOreDepositYield; }
 
 	int depth() const;
 	void increaseDepth();
@@ -62,7 +62,7 @@ private:
 private:
 	StorableResources mTappedReserves;
 	int mCurrentDepth{0};
-	OreDepositYield mProductionRate = OreDepositYield::Low;
+	OreDepositYield mOreDepositYield = OreDepositYield::Low;
 
 	/**
 	 * Flags indicating several states for the mine:

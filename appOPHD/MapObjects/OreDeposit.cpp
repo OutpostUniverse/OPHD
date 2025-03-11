@@ -46,7 +46,7 @@ OreDeposit::OreDeposit() :
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
-	mProductionRate{yield},
+	mOreDepositYield{yield},
 	mFlags{DefaultFlags}
 {
 }
@@ -86,7 +86,7 @@ void OreDeposit::miningEnabled(OreType oreType, bool value)
 void OreDeposit::increaseDepth()
 {
 	mCurrentDepth++;
-	mTappedReserves += YieldTable.at(productionRate());
+	mTappedReserves += YieldTable.at(yield());
 }
 
 
@@ -107,7 +107,7 @@ StorableResources OreDeposit::availableResources() const
 
 StorableResources OreDeposit::totalYield() const
 {
-	return YieldTable.at(productionRate()) * depth();
+	return YieldTable.at(yield()) * depth();
 }
 
 
@@ -148,7 +148,7 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 			{"y", location.y},
 			{"depth", depth()},
 			{"active", active()},
-			{"yield", static_cast<int>(productionRate())},
+			{"yield", static_cast<int>(yield())},
 			{"flags", mFlags.to_string()},
 		}}
 	);
@@ -175,7 +175,7 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
 	mCurrentDepth = dictionary.get<int>("depth");
-	mProductionRate = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
+	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
 	mFlags = std::bitset<5>(dictionary.get("flags"));
 
