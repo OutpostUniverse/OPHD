@@ -5,4 +5,4 @@
 enum class OreDepositYield;
 
 
-const std::string& mineProductionRateEnumToString(OreDepositYield mineProductionRate);
+const std::string& oreDepositYieldEnumToString(OreDepositYield oreDepositYield);
