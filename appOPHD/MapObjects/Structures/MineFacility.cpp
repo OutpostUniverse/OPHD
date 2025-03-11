@@ -1,6 +1,6 @@
 #include "MineFacility.h"
 
-#include "../Mine.h"
+#include "../OreDeposit.h"
 
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"

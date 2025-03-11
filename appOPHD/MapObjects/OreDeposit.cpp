@@ -1,4 +1,4 @@
-#include "Mine.h"
+#include "OreDeposit.h"
 
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>

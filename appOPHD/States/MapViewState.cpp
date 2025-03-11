@@ -21,7 +21,7 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"

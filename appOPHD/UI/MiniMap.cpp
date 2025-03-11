@@ -3,7 +3,7 @@
 #include "../Cache.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Robot.h"
 #include "../States/Route.h"
 #include "../StructureManager.h"

@@ -4,7 +4,7 @@
 #include "../MineProductionRateString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 
 #include <libOPHD/EnumTerrainType.h>
 

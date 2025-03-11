@@ -1,6 +1,6 @@
 #include "TileMap.h"
 
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/DirectionOffset.h>

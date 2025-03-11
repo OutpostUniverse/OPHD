@@ -10,7 +10,7 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 
 #include <libOPHD/DirectionOffset.h>
 

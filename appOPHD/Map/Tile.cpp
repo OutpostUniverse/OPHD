@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-#include "../MapObjects/Mine.h"
+#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
