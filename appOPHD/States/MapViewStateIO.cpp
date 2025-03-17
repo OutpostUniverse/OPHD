@@ -495,15 +495,14 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");
 
-		if (structure.structureClass() == Structure::StructureClass::Residence)
+		if (auto* residence = dynamic_cast<Residence*>(&structure))
 		{
 			auto waste = structureElement->firstChildElement("waste");
 			if (waste)
 			{
-				auto& residence = *static_cast<Residence*>(&structure);
 				const auto wasteDictionary = NAS2D::attributesToDictionary(*waste);
-				residence.wasteAccumulated(wasteDictionary.get<int>("accumulated"));
-				residence.wasteOverflow(wasteDictionary.get<int>("overflow"));
+				residence->wasteAccumulated(wasteDictionary.get<int>("accumulated"));
+				residence->wasteOverflow(wasteDictionary.get<int>("overflow"));
 			}
 		}
 
