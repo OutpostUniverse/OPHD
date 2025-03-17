@@ -497,8 +497,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (auto* residence = dynamic_cast<Residence*>(&structure))
 		{
-			auto waste = structureElement->firstChildElement("waste");
-			if (waste)
+			if (const auto* waste = structureElement->firstChildElement("waste"))
 			{
 				const auto wasteDictionary = NAS2D::attributesToDictionary(*waste);
 				residence->wasteAccumulated(wasteDictionary.get<int>("accumulated"));
