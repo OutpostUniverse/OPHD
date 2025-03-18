@@ -86,15 +86,14 @@ namespace
 			);
 		}
 
-		if (structure.structureClass() == Structure::StructureClass::Residence)
+		if (const auto* residence = dynamic_cast<const Residence*>(&structure))
 		{
-			const auto& residence = static_cast<const Residence&>(structure);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"waste",
 					{{
-						{"accumulated", residence.wasteAccumulated()},
-						{"overflow", residence.wasteOverflow()},
+						{"accumulated", residence->wasteAccumulated()},
+						{"overflow", residence->wasteOverflow()},
 					}}
 				)
 			);
