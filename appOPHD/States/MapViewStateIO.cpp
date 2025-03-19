@@ -138,7 +138,7 @@ namespace
 }
 
 
-void MapViewState::save(const std::string& filePath)
+void MapViewState::save(NAS2D::Xml::XmlDocument& saveGameDocument)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{{0, 0}, renderer.size()}, NAS2D::Color{0, 0, 0, 100});
@@ -146,13 +146,11 @@ void MapViewState::save(const std::string& filePath)
 	renderer.drawImage(*imageSaving, renderer.center() - imageSaving->size() / 2);
 	renderer.update();
 
-	NAS2D::Xml::XmlDocument doc;
-
 	auto* root = NAS2D::dictionaryToAttributes(
 		constants::SaveGameRootNode,
 		{{{"version", constants::SaveGameVersion}}}
 	);
-	doc.linkEndChild(root);
+	saveGameDocument.linkEndChild(root);
 
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
@@ -190,12 +188,6 @@ void MapViewState::save(const std::string& filePath)
 		));
 	}
 	root->linkEndChild(moraleChangeReasons);
-
-	// Write out the XML file.
-	NAS2D::Xml::XmlMemoryBuffer buff;
-	doc.accept(&buff);
-
-	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(filePath, buff.buffer());
 }
 
 

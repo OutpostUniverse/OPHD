@@ -184,8 +184,16 @@ void GameState::onLoadGame(const std::string& saveGameName)
 
 void GameState::onSaveGame(const std::string& saveGameName)
 {
-	mMapViewState.save(constants::SaveGamePath + saveGameName + ".xml");
 	mFileIoDialog.hide();
+	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
+	NAS2D::Xml::XmlDocument saveGameDocument;
+	mMapViewState.save(saveGameDocument);
+
+	// Write out the XML file.
+	NAS2D::Xml::XmlMemoryBuffer buff;
+	saveGameDocument.accept(&buff);
+
+	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(saveGamePath, buff.buffer());
 }
 
 

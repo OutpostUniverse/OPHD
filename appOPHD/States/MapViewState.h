@@ -128,7 +128,7 @@ public:
 	void initialize() override;
 	State* update() override;
 
-	void save(const std::string& filePath);
+	void save(NAS2D::Xml::XmlDocument&);
 
 private:
 	void onDeactivate() override;
