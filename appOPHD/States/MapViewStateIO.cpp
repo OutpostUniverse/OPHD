@@ -214,8 +214,12 @@ NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 }
 
 
-void MapViewState::load(const std::string& filePath)
+void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 {
+	if (!xmlDocument)
+	{
+		throw std::runtime_error("MapViewState::load(): Invalid XML document.");
+	}
 	resetUi();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -231,11 +235,6 @@ void MapViewState::load(const std::string& filePath)
 	mBtnToggleHeightmap.toggle(false);
 	mMorale.closeJournal();
 
-	if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
-	{
-		throw std::runtime_error("File '" + filePath + "' was not found.");
-	}
-
 	scrubRobotList();
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
 	ccLocation() = CcNotPlaced;
@@ -244,8 +243,7 @@ void MapViewState::load(const std::string& filePath)
 
 	mTileMap.reset();
 
-	auto xmlDocument = openSavegame(filePath);
-	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
+	auto* root = xmlDocument->firstChildElement(constants::SaveGameRootNode);
 
 	NAS2D::Xml::XmlElement* map = root->firstChildElement("properties");
 	const auto dictionary = NAS2D::attributesToDictionary(*map);
