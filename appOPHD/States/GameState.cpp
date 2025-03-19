@@ -49,6 +49,7 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
 
+
 GameState::~GameState()
 {
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
