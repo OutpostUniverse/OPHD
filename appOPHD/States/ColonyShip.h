@@ -3,6 +3,17 @@
 #include "appOPHD/Constants/Numbers.h"
 
 #include <optional>
+
+
+namespace NAS2D
+{
+	namespace Xml
+	{
+		class XmlDocument;
+	}
+}
+class GameState;
+
 struct ColonyShipData
 {
 	int colonistLanders = 0;
@@ -10,7 +21,7 @@ struct ColonyShipData
 	int turnsOfManeuveringFuel = 0;
 };
 
-class GameState;
+ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument&);
 
 class ColonyShip
 {

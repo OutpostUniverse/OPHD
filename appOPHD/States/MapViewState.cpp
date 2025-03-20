@@ -181,12 +181,12 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 };
 
 
-MapViewState::MapViewState(GameState& gameState, const std::string& savegame) :
+MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mLoadingExisting{true},
-	mExistingToLoad{savegame},
+	mExistingToLoad{&saveGameDocument},
 	mMainReportsState{gameState.mainReportsState()},
 	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},

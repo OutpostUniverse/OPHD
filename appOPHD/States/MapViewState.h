@@ -50,6 +50,7 @@
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/ParserHelper.h>
 #include <NAS2D/Renderer/Fade.h>
 
 #include <string>
@@ -109,7 +110,7 @@ public:
 	using MapChangedSignal = NAS2D::Signal<>;
 
 public:
-	MapViewState(GameState& gameState, const std::string& savegame);
+	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument);
 	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
@@ -127,7 +128,7 @@ public:
 	void initialize() override;
 	State* update() override;
 
-	void save(const std::string& filePath);
+	void save(NAS2D::Xml::XmlDocument&);
 
 private:
 	void onDeactivate() override;
@@ -234,7 +235,7 @@ private:
 
 	void scrubRobotList();
 
-	void load(const std::string& filePath);
+	void load(NAS2D::Xml::XmlDocument*);
 	NAS2D::Xml::XmlElement* serializeProperties();
 
 	// UI MANAGEMENT FUNCTIONS
@@ -325,7 +326,7 @@ private:
 	std::unique_ptr<micropather::MicroPather> mPathSolver;
 
 	bool mLoadingExisting = false;
-	std::string mExistingToLoad; /**< Filename of the existing game to load. */
+	NAS2D::Xml::XmlDocument* mExistingToLoad = nullptr; 
 
 	MainReportsUiState& mMainReportsState;
 	std::unique_ptr<MapView> mMapView;

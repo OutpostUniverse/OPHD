@@ -15,46 +15,18 @@
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Filesystem.h>
-#include <NAS2D/ParserHelper.h>
 
 namespace
 {
-	void setLanders(ColonyShipData& colonyShipData, NAS2D::Xml::XmlElement* element)
+	NAS2D::Xml::XmlDocument saveGameDocument(const std::string& filePath)
 	{
-		if (element)
+		if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
 		{
-			const auto dictionary = NAS2D::attributesToDictionary(*element);
-			colonyShipData.colonistLanders = dictionary.get<int>("colonist_landers");
-			colonyShipData.cargoLanders = dictionary.get<int>("cargo_landers");
+			throw std::runtime_error("File '" + filePath + "' was not found.");
 		}
+		auto xmlDocument = openSavegame(filePath);
+		return xmlDocument;
 	}
-
-	void setManeuveringFuel(ColonyShipData& colonyShipData, NAS2D::Xml::XmlElement* element)
-	{
-		if (element)
-		{
-			auto turnCount = NAS2D::attributesToDictionary(*element).get<int>("count");
-
-			colonyShipData.turnsOfManeuveringFuel = turnCount > constants::ColonyShipOrbitTime ? 0 : constants::ColonyShipOrbitTime - turnCount + 1;
-		}
-	}
-}
-
-
-ColonyShipData colonyShipDataFromFile(const std::string& filePath)
-{
-	if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
-	{
-		throw std::runtime_error("File '" + filePath + "' was not found.");
-	}
-	auto xmlDocument = openSavegame(filePath);
-	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
-
-	ColonyShipData colonyShipData;
-	setLanders(colonyShipData, root->firstChildElement("population"));
-	setManeuveringFuel(colonyShipData, root->firstChildElement("turns"));
-
-	return colonyShipData;
 }
 
 
@@ -62,9 +34,10 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 
 GameState::GameState(const std::string& savedGameFilename) :
+	mSaveGameDocument{saveGameDocument(savedGameFilename)},
 	mMainReportsState{},
-	mMapViewState{*this, savedGameFilename},
-	mColonyShip{colonyShipDataFromFile(savedGameFilename)},
+	mMapViewState{*this, mSaveGameDocument},
+	mColonyShip{colonyShipDataFromSave(mSaveGameDocument)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
 
@@ -75,6 +48,7 @@ GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty sele
 	mColonyShip{},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
+
 
 GameState::~GameState()
 {
@@ -211,8 +185,16 @@ void GameState::onLoadGame(const std::string& saveGameName)
 
 void GameState::onSaveGame(const std::string& saveGameName)
 {
-	mMapViewState.save(constants::SaveGamePath + saveGameName + ".xml");
 	mFileIoDialog.hide();
+	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
+	NAS2D::Xml::XmlDocument saveGameDocument;
+	mMapViewState.save(saveGameDocument);
+
+	// Write out the XML file.
+	NAS2D::Xml::XmlMemoryBuffer buff;
+	saveGameDocument.accept(&buff);
+
+	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(saveGamePath, buff.buffer());
 }
 
 
