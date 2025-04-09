@@ -31,7 +31,15 @@ public:
 
 	static const NAS2D::Font& getDefaultFont();
 	static const NAS2D::Font& getDefaultFontBold();
+
+	#if __GNUC__ >= 13
+		#pragma GCC diagnostic push
+		#pragma GCC diagnostic ignored "-Wdangling-reference"
+	#endif
 	static const NAS2D::Image& getImage(const std::string& filename);
+	#if __GNUC__ >= 13
+		#pragma GCC diagnostic pop
+	#endif
 
 
 	Control() = default;
