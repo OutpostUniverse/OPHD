@@ -33,7 +33,7 @@ jobs:
       - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.6
     environment:
       Toolchain: "gcc"
-      WARN_EXTRA: "-Wno-dangling-reference  -Wno-useless-cast -Wno-effc++"
+      WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -53,7 +53,7 @@ jobs:
       - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.13
     environment:
       Toolchain: "mingw"
-      WARN_EXTRA: "-Wno-dangling-reference  -Wno-useless-cast -Wno-effc++"
+      WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
