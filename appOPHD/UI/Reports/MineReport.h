@@ -26,7 +26,7 @@ class MineReport : public ReportInterface
 public:
 	MineReport();
 
-	void selectStructure(Structure*) override;
+	void selectStructure(Structure* structure) override;
 	void refresh() override;
 
 	void fillLists() override;
