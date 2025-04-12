@@ -409,8 +409,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
 	const auto& miningFacility = *mSelectedFacility;
 
-	if (miningFacility.destroyed() ||
-		miningFacility.underConstruction())
+	if (miningFacility.destroyed() || miningFacility.underConstruction())
 	{
 		return;
 	}
