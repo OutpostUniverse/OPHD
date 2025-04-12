@@ -26,7 +26,7 @@ class MineReport : public ReportInterface
 public:
 	MineReport();
 
-	void selectStructure(Structure*) override;
+	void selectStructure(Structure* structure) override;
 	void refresh() override;
 
 	void fillLists() override;
@@ -60,10 +60,10 @@ protected:
 	void onAddTruck();
 	void onRemoveTruck();
 
-	void drawMineFacilityPane(const NAS2D::Point<int>&);
-	void drawOreProductionPane(const NAS2D::Point<int>&);
-	void drawTruckManagementPane(const NAS2D::Point<int>&);
-	void drawTruckHaulInfo(const NAS2D::Point<int>&);
+	void drawMineFacilityPane(const NAS2D::Point<int>& origin);
+	void drawOreProductionPane(const NAS2D::Point<int>& origin);
+	void drawTruckManagementPane(const NAS2D::Point<int>& origin);
+	void drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOreMovement);
 
 private:
 	const NAS2D::Font& font;
