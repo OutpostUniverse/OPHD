@@ -41,6 +41,12 @@ namespace
 		const auto& surfaceLocation = structureManager.tileFromStructure(&structure).xy();
 		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
 	}
+
+	std::string formatRouteCost(float routeCost)
+	{
+		const auto routeCostString = std::to_string(routeCost);
+		return routeCostString.substr(0, routeCostString.find(".") + 3);
+	}
 }
 
 
@@ -465,7 +471,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 		origin,
 		btnAddTruck.position().x - origin.x - 10,
 		"Route Cost",
-		std::to_string(route.cost).substr(0, std::to_string(route.cost).find(".") + 3), // hack-ish and probably slow, this could be cached
+		formatRouteCost(route.cost),
 		constants::PrimaryTextColor
 	);
 
