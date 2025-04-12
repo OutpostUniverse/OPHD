@@ -443,21 +443,25 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
-	if (miningFacility.operational() || miningFacility.isIdle())
+	if (!(miningFacility.operational() || miningFacility.isIdle()))
 	{
-		drawLabelAndValueRightJustify(
-			origin + NAS2D::Vector{0, 65},
-			labelWidth,
-			"Route Available",
-			routeAvailable ? "Yes" : "No",
-			routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
-		);
-
-		if (routeAvailable)
-		{
-			drawTruckHaulInfo(origin + NAS2D::Vector{0, 80});
-		}
+		return;
 	}
+
+	drawLabelAndValueRightJustify(
+		origin + NAS2D::Vector{0, 65},
+		labelWidth,
+		"Route Available",
+		routeAvailable ? "Yes" : "No",
+		routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
+	);
+
+	if (!routeAvailable)
+	{
+		return;
+	}
+
+	drawTruckHaulInfo(origin + NAS2D::Vector{0, 80});
 }
 
 
