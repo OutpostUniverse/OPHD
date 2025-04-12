@@ -60,10 +60,10 @@ protected:
 	void onAddTruck();
 	void onRemoveTruck();
 
-	void drawMineFacilityPane(const NAS2D::Point<int>&);
-	void drawOreProductionPane(const NAS2D::Point<int>&);
-	void drawTruckManagementPane(const NAS2D::Point<int>&);
-	void drawTruckHaulInfo(const NAS2D::Point<int>&);
+	void drawMineFacilityPane(const NAS2D::Point<int>& origin);
+	void drawOreProductionPane(const NAS2D::Point<int>& origin);
+	void drawTruckManagementPane(const NAS2D::Point<int>& origin);
+	void drawTruckHaulInfo(const NAS2D::Point<int>& origin);
 
 private:
 	const NAS2D::Font& font;
