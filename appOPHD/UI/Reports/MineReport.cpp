@@ -476,7 +476,7 @@ void MineReport::drawTruckHaulInfo(const NAS2D::Point<int>& origin)
 	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
 	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
 
-	drawTruckHaulTable(origin, totalOreMovement);
+	drawTruckHaulTable(origin + NAS2D::Vector{0, 18}, totalOreMovement);
 }
 
 
@@ -488,17 +488,17 @@ void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOr
 	const int oreMovementPart = totalOreMovement / 4;
 	const int oreLabelWidth = (oreMovementLabelWidth - 10) / 2;
 
-	const NAS2D::Rectangle<int> tableRect({{origin.x - 2, origin.y + 18}, {oreMovementLabelWidth + 5, 47}});
+	const NAS2D::Rectangle<int> tableRect({{origin.x - 2, origin.y}, {oreMovementLabelWidth + 5, 47}});
 
 	renderer.drawBoxFilled(tableRect, {0, 0, 0, 100});
 	renderer.drawBox(tableRect, constants::PrimaryTextColor);
 
-	renderer.drawLine(origin + NAS2D::Vector{0, 34}, origin + NAS2D::Vector{oreMovementLabelWidth, 34}, constants::PrimaryTextColor);
-	renderer.drawLine(origin + NAS2D::Vector{0, 50}, origin + NAS2D::Vector{oreMovementLabelWidth, 50}, constants::PrimaryTextColor);
-	renderer.drawLine(origin + NAS2D::Vector{oreLabelWidth + 5, 37}, origin + NAS2D::Vector{oreLabelWidth + 5, 63}, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{0, 16}, origin + NAS2D::Vector{oreMovementLabelWidth, 16}, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{0, 32}, origin + NAS2D::Vector{oreMovementLabelWidth, 32}, constants::PrimaryTextColor);
+	renderer.drawLine(origin + NAS2D::Vector{oreLabelWidth + 5, 19}, origin + NAS2D::Vector{oreLabelWidth + 5, 45}, constants::PrimaryTextColor);
 
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 20},
+		origin + NAS2D::Vector{0, 2},
 		oreMovementLabelWidth,
 		"Total Haul Capacity per Turn",
 		std::to_string(totalOreMovement),
@@ -506,7 +506,7 @@ void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOr
 	);
 
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 35},
+		origin + NAS2D::Vector{0, 17},
 		oreLabelWidth,
 		ResourceNamesOre[0] + " Haul Capacity",
 		std::to_string(oreMovementPart),
@@ -514,7 +514,7 @@ void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOr
 	);
 
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{oreLabelWidth + 10, 35},
+		origin + NAS2D::Vector{oreLabelWidth + 10, 17},
 		oreLabelWidth,
 		ResourceNamesOre[1] + " Haul Capacity",
 		std::to_string(oreMovementPart),
@@ -522,7 +522,7 @@ void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOr
 	);
 
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 50},
+		origin + NAS2D::Vector{0, 32},
 		oreLabelWidth,
 		ResourceNamesOre[2] + " Haul Capacity",
 		std::to_string(oreMovementPart),
@@ -530,7 +530,7 @@ void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOr
 	);
 
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{oreLabelWidth + 10, 50},
+		origin + NAS2D::Vector{oreLabelWidth + 10, 32},
 		oreLabelWidth,
 		ResourceNamesOre[3] + " Haul Capacity",
 		std::to_string(oreMovementPart + (totalOreMovement % 4)),
