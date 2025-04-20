@@ -146,10 +146,10 @@ void MineReport::fillLists()
 {
 	lstMineFacilities.clear();
 	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	for (auto* facility : structureManager.getStructures<MineFacility>())
+	for (auto* mineFacility : structureManager.getStructures<MineFacility>())
 	{
-		lstMineFacilities.addItem(facility);
-		lstMineFacilities.last()->text = getStructureDescription(*facility);
+		lstMineFacilities.addItem(mineFacility);
+		lstMineFacilities.last()->text = getStructureDescription(*mineFacility);
 	}
 
 	lstMineFacilities.setSelected(mSelectedFacility);
@@ -261,14 +261,14 @@ void MineReport::onMineFacilitySelectionChange()
 
 	if (!mSelectedFacility) { return; }
 
-	const auto& facility = *mSelectedFacility;
-	btnIdle.toggle(facility.isIdle());
-	btnIdle.enabled(facility.operational() || facility.isIdle());
+	const auto& mineFacility = *mSelectedFacility;
+	btnIdle.toggle(mineFacility.isIdle());
+	btnIdle.enabled(mineFacility.operational() || mineFacility.isIdle());
 
-	btnDigNewLevel.toggle(facility.extending());
-	btnDigNewLevel.enabled(facility.canExtend() && (facility.operational() || facility.isIdle()));
+	btnDigNewLevel.toggle(mineFacility.extending());
+	btnDigNewLevel.enabled(mineFacility.canExtend() && (mineFacility.operational() || mineFacility.isIdle()));
 
-	const auto enabledBits = facility.oreDeposit().miningEnabled();
+	const auto enabledBits = mineFacility.oreDeposit().miningEnabled();
 	chkResources[0].checked(enabledBits[0]);
 	chkResources[1].checked(enabledBits[1]);
 	chkResources[2].checked(enabledBits[2]);
@@ -284,11 +284,11 @@ void MineReport::onIdle()
 
 void MineReport::onDigNewLevel()
 {
-	auto& facility = *mSelectedFacility;
-	facility.extend();
+	auto& mineFacility = *mSelectedFacility;
+	mineFacility.extend();
 
-	btnDigNewLevel.toggle(facility.extending());
-	btnDigNewLevel.enabled(facility.canExtend());
+	btnDigNewLevel.toggle(mineFacility.extending());
+	btnDigNewLevel.enabled(mineFacility.canExtend());
 }
 
 
@@ -326,13 +326,13 @@ void MineReport::onAddTruck()
 {
 	if (!mSelectedFacility) { return; }
 
-	auto& facility = *mSelectedFacility;
+	auto& mineFacility = *mSelectedFacility;
 
-	if (facility.assignedTrucks() == facility.maxTruckCount()) { return; }
+	if (mineFacility.assignedTrucks() == mineFacility.maxTruckCount()) { return; }
 
 	if (pullTruckFromInventory())
 	{
-		facility.addTruck();
+		mineFacility.addTruck();
 		mAvailableTrucks = getTruckAvailability();
 	}
 }
@@ -342,13 +342,13 @@ void MineReport::onRemoveTruck()
 {
 	if (!mSelectedFacility) { return; }
 
-	auto& facility = *mSelectedFacility;
+	auto& mineFacility = *mSelectedFacility;
 
-	if (facility.assignedTrucks() == 1) { return; }
+	if (mineFacility.assignedTrucks() == 1) { return; }
 
 	if (pushTruckIntoInventory())
 	{
-		facility.removeTruck();
+		mineFacility.removeTruck();
 		mAvailableTrucks = getTruckAvailability();
 	}
 }
@@ -364,10 +364,10 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 
 	renderer.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
 
-	const auto& facility = *mSelectedFacility;
-	const bool isStatusHighlighted = facility.disabled() || facility.destroyed();
-	const auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(facility.stateDescription()) + 5, 0};
-	renderer.drawText(fontMedium, facility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
+	const auto& mineFacility = *mSelectedFacility;
+	const bool isStatusHighlighted = mineFacility.disabled() || mineFacility.destroyed();
+	const auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(mineFacility.stateDescription()) + 5, 0};
+	renderer.drawText(fontMedium, mineFacility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 }
 
 
@@ -413,9 +413,9 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
-	const auto& miningFacility = *mSelectedFacility;
+	const auto& mineFacility = *mSelectedFacility;
 
-	if (miningFacility.destroyed() || miningFacility.underConstruction())
+	if (mineFacility.destroyed() || mineFacility.underConstruction())
 	{
 		return;
 	}
@@ -429,7 +429,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		origin + NAS2D::Vector{0, 30},
 		labelWidth,
 		"Trucks Assigned to Facility",
-		std::to_string(miningFacility.assignedTrucks()),
+		std::to_string(mineFacility.assignedTrucks()),
 		constants::PrimaryTextColor
 	);
 	drawLabelAndValueRightJustify(
@@ -443,7 +443,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
-	if (!(miningFacility.operational() || miningFacility.isIdle()))
+	if (!(mineFacility.operational() || mineFacility.isIdle()))
 	{
 		return;
 	}
