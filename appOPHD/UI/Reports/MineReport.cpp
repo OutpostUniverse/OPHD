@@ -56,7 +56,7 @@ MineReport::MineReport() :
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
-	mineFacility{imageCache.load("ui/interface/mine.png")},
+	mineFacilityImage{imageCache.load("ui/interface/mine.png")},
 	uiIcons{imageCache.load("ui/icons.png")},
 	btnShowAll{"All", {this, &MineReport::onShowAll}},
 	btnShowActive{"Active", {this, &MineReport::onShowActive}},
@@ -358,7 +358,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 {
 	auto& renderer = Utility<Renderer>::get();
 
-	renderer.drawImage(mineFacility, origin);
+	renderer.drawImage(mineFacilityImage, origin);
 	const auto text = lstMineFacilities.isItemSelected() ? getStructureDescription(*lstMineFacilities.selectedStructure()) : "";
 	renderer.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
 
