@@ -362,7 +362,15 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	const auto text = lstMineFacilities.isItemSelected() ? getStructureDescription(*lstMineFacilities.selectedStructure()) : "";
 	renderer.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
 
-	renderer.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
+	drawStatusPane(origin + NAS2D::Vector{138, 0});
+}
+
+
+void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	renderer.drawText(fontMediumBold, "Status", origin, constants::PrimaryTextColor);
 
 	const auto& mineFacility = *mSelectedFacility;
 	const bool isStatusHighlighted = mineFacility.disabled() || mineFacility.destroyed();
