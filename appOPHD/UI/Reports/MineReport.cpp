@@ -478,15 +478,17 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		constants::PrimaryTextColor
 	);
 
-	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
-	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
-
-	drawTruckHaulTable(origin + NAS2D::Vector{0, 98}, totalOreMovement);
+	drawTruckHaulTable(origin + NAS2D::Vector{0, 98});
 }
 
 
-void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOreMovement)
+void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin)
 {
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	const auto& route = routeTable.at(mSelectedFacility);
+	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
+	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
+
 	auto& renderer = Utility<Renderer>::get();
 
 	const int oreMovementLabelWidth = renderer.size().x - origin.x - 10;
