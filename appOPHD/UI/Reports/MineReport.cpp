@@ -430,7 +430,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawText(fontMediumBold, "Trucks & Routing", origin, constants::PrimaryTextColor);
-	renderer.drawLine(origin + NAS2D::Vector{0, 21}, NAS2D::Point{renderer.size().x - 10, origin.y + 21}, constants::PrimaryTextColor, 1);
+	renderer.drawLine(origin + NAS2D::Vector{0, 21}, NAS2D::Point{btnAddTruck.position().x - 10, origin.y + 21}, constants::PrimaryTextColor, 1);
 
 	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
 	drawLabelAndValueRightJustify(
