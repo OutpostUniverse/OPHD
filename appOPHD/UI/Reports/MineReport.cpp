@@ -359,10 +359,18 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(mineFacilityImage, origin);
-	const auto text = lstMineFacilities.isItemSelected() ? getStructureDescription(*lstMineFacilities.selectedStructure()) : "";
+	const auto text = mSelectedFacility ? getStructureDescription(*mSelectedFacility) : "";
 	renderer.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
 
-	renderer.drawText(fontMediumBold, "Status", origin + NAS2D::Vector{138, 0}, constants::PrimaryTextColor);
+	drawStatusPane(origin + NAS2D::Vector{138, 0});
+}
+
+
+void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	renderer.drawText(fontMediumBold, "Status", origin, constants::PrimaryTextColor);
 
 	const auto& mineFacility = *mSelectedFacility;
 	const bool isStatusHighlighted = mineFacility.disabled() || mineFacility.destroyed();
@@ -440,13 +448,13 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		constants::PrimaryTextColor
 	);
 
-	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
-
 	if (!(mineFacility.operational() || mineFacility.isIdle()))
 	{
 		return;
 	}
+
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
 	drawLabelAndValueRightJustify(
 		origin + NAS2D::Vector{0, 65},
@@ -469,16 +477,23 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		formatRouteCost(route.cost),
 		constants::PrimaryTextColor
 	);
-
-	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
-	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
-
-	drawTruckHaulTable(origin + NAS2D::Vector{0, 98}, totalOreMovement);
 }
 
 
-void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin, int totalOreMovement)
+void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin)
 {
+	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
+
+	if (!routeAvailable)
+	{
+		return;
+	}
+
+	const auto& route = routeTable.at(mSelectedFacility);
+	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
+	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
+
 	auto& renderer = Utility<Renderer>::get();
 
 	const int oreMovementLabelWidth = renderer.size().x - origin.x - 10;
@@ -551,6 +566,7 @@ void MineReport::update()
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
 		drawOreProductionPane(startPoint + NAS2D::Vector{10, 170});
 		drawTruckManagementPane(startPoint + NAS2D::Vector{10, renderer.size().y - 214});
+		drawTruckHaulTable(startPoint + NAS2D::Vector{10, renderer.size().y - 214 + 98});
 	}
 
 	UIContainer::update();
