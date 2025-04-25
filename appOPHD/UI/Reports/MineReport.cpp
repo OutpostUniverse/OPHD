@@ -425,21 +425,24 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	}
 
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawText(fontMediumBold, "Trucks & Routing", origin, constants::PrimaryTextColor);
-	renderer.drawLine(origin + NAS2D::Vector{0, 21}, NAS2D::Point{btnAddTruck.position().x - 10, origin.y + 21}, constants::PrimaryTextColor, 1);
+	const auto titleSpacing = NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
+	const auto trucksOrigin = origin;
+	renderer.drawText(fontMediumBold, "Trucks", trucksOrigin, constants::PrimaryTextColor);
 
-	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
+	const auto truckValueOrigin = trucksOrigin + titleSpacing;
+	const auto valueSpacing = NAS2D::Vector{0, font.height() + constants::MarginTight};
+	const auto labelWidth = btnAddTruck.position().x - trucksOrigin.x - 10;
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 30},
+		truckValueOrigin,
 		labelWidth,
-		"Trucks Assigned to Facility",
+		"Assigned to Facility",
 		std::to_string(mineFacility.assignedTrucks()),
 		constants::PrimaryTextColor
 	);
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 45},
+		truckValueOrigin + valueSpacing,
 		labelWidth,
-		"Trucks Available in Storage",
+		"Available in Storage",
 		std::to_string(mAvailableTrucks),
 		constants::PrimaryTextColor
 	);
@@ -449,13 +452,17 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		return;
 	}
 
+	const auto routeOrigin = truckValueOrigin + valueSpacing * 2;
+	renderer.drawText(fontMediumBold, "Route", routeOrigin, constants::PrimaryTextColor);
+
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
+	const auto routeValueOrigin = routeOrigin + titleSpacing;
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 65},
+		routeValueOrigin,
 		labelWidth,
-		"Route Available",
+		"Available",
 		routeAvailable ? "Yes" : "No",
 		routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
 	);
@@ -467,9 +474,9 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 	const auto& route = routeTable.at(mSelectedFacility);
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 80},
-		btnAddTruck.position().x - origin.x - 10,
-		"Route Cost",
+		routeValueOrigin + valueSpacing,
+		btnAddTruck.position().x - routeOrigin.x - 10,
+		"Cost",
 		formatRouteCost(route.cost),
 		constants::PrimaryTextColor
 	);
