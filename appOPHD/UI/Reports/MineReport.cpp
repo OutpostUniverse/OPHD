@@ -103,7 +103,7 @@ MineReport::MineReport() :
 	add(btnDigNewLevel, {0, 75});
 	add(btnTakeMeThere, {0, 110});
 
-	const auto checkBoxOriginY = 170 + fontMediumBold.height() + 10 + 10;
+	const auto checkBoxOriginY = 200 + fontMediumBold.height() + 10 + 10;
 	const auto resourceNameHeight = std::max({ResourceImageRectsOre[0].size.y, fontBold.height(), chkResources[0].size().y});
 	const auto resourceProgressBarHeight = std::max(25, fontBold.height() + constants::MarginTight * 2);
 	const auto checkBoxSpacingY = resourceNameHeight + resourceProgressBarHeight + constants::Margin + 23;
@@ -566,7 +566,7 @@ void MineReport::update()
 	if (mSelectedFacility)
 	{
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
-		drawOreProductionPane(startPoint + NAS2D::Vector{10, 170});
+		drawOreProductionPane(startPoint + NAS2D::Vector{10, 200});
 		drawTruckHaulTable(startPoint + NAS2D::Vector{10, renderer.size().y - 116});
 	}
 
