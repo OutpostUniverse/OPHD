@@ -95,13 +95,16 @@ MineReport::MineReport() :
 	// DETAIL PANE
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({140, 30});
-
 	btnDigNewLevel.size({140, 30});
 	btnTakeMeThere.size({140, 30});
+	btnAddTruck.size({140, 30});
+	btnRemoveTruck.size({140, 30});
 
 	add(btnIdle, {0, 40});
 	add(btnDigNewLevel, {0, 75});
 	add(btnTakeMeThere, {0, 110});
+	add(btnAddTruck, {0, 145});
+	add(btnRemoveTruck, {0, 180});
 
 	const auto checkBoxOriginY = 200 + fontMediumBold.height() + 10 + 10;
 	const auto resourceNameHeight = std::max({ResourceImageRectsOre[0].size.y, fontBold.height(), chkResources[0].size().y});
@@ -111,13 +114,6 @@ MineReport::MineReport() :
 	add(chkResources[1], {0, checkBoxOriginY + checkBoxSpacingY});
 	add(chkResources[2], {0, checkBoxOriginY + checkBoxSpacingY * 2});
 	add(chkResources[3], {0, checkBoxOriginY + checkBoxSpacingY * 3});
-
-	// Truck Management Pane
-	btnAddTruck.size({140, 30});
-	btnRemoveTruck.size({140, 30});
-
-	add(btnAddTruck, {0, 215});
-	add(btnRemoveTruck, {0, 250});
 
 	fillLists();
 }
@@ -167,10 +163,8 @@ void MineReport::onResize()
 	btnIdle.position({buttonPositionX, btnIdle.position().y});
 	btnDigNewLevel.position({buttonPositionX, btnDigNewLevel.position().y});
 	btnTakeMeThere.position({buttonPositionX, btnTakeMeThere.position().y});
-
-	auto& renderer = NAS2D::Utility<Renderer>::get();
-	btnAddTruck.position({buttonPositionX, renderer.size().y - 130});
-	btnRemoveTruck.position({buttonPositionX, renderer.size().y - 95});
+	btnAddTruck.position({buttonPositionX, btnAddTruck.position().y});
+	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
 
 	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
 	const auto maxCheckBoxSize = maxSize(checkBoxes);
