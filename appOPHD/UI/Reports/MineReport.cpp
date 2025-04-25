@@ -477,14 +477,19 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		formatRouteCost(route.cost),
 		constants::PrimaryTextColor
 	);
-
-	drawTruckHaulTable(origin + NAS2D::Vector{0, 98});
 }
 
 
 void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin)
 {
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
+
+	if (!routeAvailable)
+	{
+		return;
+	}
+
 	const auto& route = routeTable.at(mSelectedFacility);
 	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
 	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
@@ -561,6 +566,7 @@ void MineReport::update()
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
 		drawOreProductionPane(startPoint + NAS2D::Vector{10, 170});
 		drawTruckManagementPane(startPoint + NAS2D::Vector{10, renderer.size().y - 214});
+		drawTruckHaulTable(startPoint + NAS2D::Vector{10, renderer.size().y - 214 + 98});
 	}
 
 	UIContainer::update();
