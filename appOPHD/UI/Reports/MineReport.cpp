@@ -95,15 +95,18 @@ MineReport::MineReport() :
 	// DETAIL PANE
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({140, 30});
-
 	btnDigNewLevel.size({140, 30});
 	btnTakeMeThere.size({140, 30});
+	btnAddTruck.size({140, 30});
+	btnRemoveTruck.size({140, 30});
 
 	add(btnIdle, {0, 40});
 	add(btnDigNewLevel, {0, 75});
 	add(btnTakeMeThere, {0, 110});
+	add(btnAddTruck, {0, 145});
+	add(btnRemoveTruck, {0, 180});
 
-	const auto checkBoxOriginY = 170 + fontMediumBold.height() + 10 + 10;
+	const auto checkBoxOriginY = 230 + fontMediumBold.height() + 10 + 10;
 	const auto resourceNameHeight = std::max({ResourceImageRectsOre[0].size.y, fontBold.height(), chkResources[0].size().y});
 	const auto resourceProgressBarHeight = std::max(25, fontBold.height() + constants::MarginTight * 2);
 	const auto checkBoxSpacingY = resourceNameHeight + resourceProgressBarHeight + constants::Margin + 23;
@@ -111,13 +114,6 @@ MineReport::MineReport() :
 	add(chkResources[1], {0, checkBoxOriginY + checkBoxSpacingY});
 	add(chkResources[2], {0, checkBoxOriginY + checkBoxSpacingY * 2});
 	add(chkResources[3], {0, checkBoxOriginY + checkBoxSpacingY * 3});
-
-	// Truck Management Pane
-	btnAddTruck.size({140, 30});
-	btnRemoveTruck.size({140, 30});
-
-	add(btnAddTruck, {0, 215});
-	add(btnRemoveTruck, {0, 250});
 
 	fillLists();
 }
@@ -167,10 +163,8 @@ void MineReport::onResize()
 	btnIdle.position({buttonPositionX, btnIdle.position().y});
 	btnDigNewLevel.position({buttonPositionX, btnDigNewLevel.position().y});
 	btnTakeMeThere.position({buttonPositionX, btnTakeMeThere.position().y});
-
-	auto& renderer = NAS2D::Utility<Renderer>::get();
-	btnAddTruck.position({buttonPositionX, renderer.size().y - 130});
-	btnRemoveTruck.position({buttonPositionX, renderer.size().y - 95});
+	btnAddTruck.position({buttonPositionX, btnAddTruck.position().y});
+	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
 
 	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
 	const auto maxCheckBoxSize = maxSize(checkBoxes);
@@ -374,8 +368,10 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 
 	const auto& mineFacility = *mSelectedFacility;
 	const bool isStatusHighlighted = mineFacility.disabled() || mineFacility.destroyed();
-	const auto statusPosition = btnIdle.position() - NAS2D::Vector{fontMedium.width(mineFacility.stateDescription()) + 5, 0};
+	const auto statusPosition = origin + NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
 	renderer.drawText(fontMedium, mineFacility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
+
+	drawTruckManagementPane(origin + NAS2D::Vector{0, fontMediumBold.height() + fontMedium.height() + constants::MarginTight * 2});
 }
 
 
@@ -429,21 +425,24 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	}
 
 	auto& renderer = Utility<Renderer>::get();
-	renderer.drawText(fontMediumBold, "Trucks & Routing", origin, constants::PrimaryTextColor);
-	renderer.drawLine(origin + NAS2D::Vector{0, 21}, NAS2D::Point{renderer.size().x - 10, origin.y + 21}, constants::PrimaryTextColor, 1);
+	const auto titleSpacing = NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
+	const auto trucksOrigin = origin;
+	renderer.drawText(fontMediumBold, "Trucks", trucksOrigin, constants::PrimaryTextColor);
 
-	const auto labelWidth = btnAddTruck.position().x - origin.x - 10;
+	const auto truckValueOrigin = trucksOrigin + titleSpacing;
+	const auto valueSpacing = NAS2D::Vector{0, font.height() + constants::MarginTight};
+	const auto labelWidth = btnAddTruck.position().x - trucksOrigin.x - 10;
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 30},
+		truckValueOrigin,
 		labelWidth,
-		"Trucks Assigned to Facility",
+		"Assigned to Facility",
 		std::to_string(mineFacility.assignedTrucks()),
 		constants::PrimaryTextColor
 	);
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 45},
+		truckValueOrigin + valueSpacing,
 		labelWidth,
-		"Trucks Available in Storage",
+		"Available in Storage",
 		std::to_string(mAvailableTrucks),
 		constants::PrimaryTextColor
 	);
@@ -453,13 +452,17 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		return;
 	}
 
+	const auto routeOrigin = truckValueOrigin + valueSpacing * 2;
+	renderer.drawText(fontMediumBold, "Route", routeOrigin, constants::PrimaryTextColor);
+
 	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
 	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
 
+	const auto routeValueOrigin = routeOrigin + titleSpacing;
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 65},
+		routeValueOrigin,
 		labelWidth,
-		"Route Available",
+		"Available",
 		routeAvailable ? "Yes" : "No",
 		routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
 	);
@@ -471,9 +474,9 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 	const auto& route = routeTable.at(mSelectedFacility);
 	drawLabelAndValueRightJustify(
-		origin + NAS2D::Vector{0, 80},
-		btnAddTruck.position().x - origin.x - 10,
-		"Route Cost",
+		routeValueOrigin + valueSpacing,
+		btnAddTruck.position().x - routeOrigin.x - 10,
+		"Cost",
 		formatRouteCost(route.cost),
 		constants::PrimaryTextColor
 	);
@@ -564,9 +567,8 @@ void MineReport::update()
 	if (mSelectedFacility)
 	{
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
-		drawOreProductionPane(startPoint + NAS2D::Vector{10, 170});
-		drawTruckManagementPane(startPoint + NAS2D::Vector{10, renderer.size().y - 214});
-		drawTruckHaulTable(startPoint + NAS2D::Vector{10, renderer.size().y - 214 + 98});
+		drawOreProductionPane(startPoint + NAS2D::Vector{10, 230});
+		drawTruckHaulTable(startPoint + NAS2D::Vector{10, renderer.size().y - 116});
 	}
 
 	UIContainer::update();
