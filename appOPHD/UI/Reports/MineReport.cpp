@@ -157,7 +157,8 @@ void MineReport::onResize()
 {
 	Control::onResize();
 
-	lstMineFacilities.size({area().center().x - 20, area().size.y - 51});
+	const auto centerX = area().center().x;
+	lstMineFacilities.size({centerX - 20, area().size.y - 51});
 
 	const auto buttonPositionX = area().size.x - 150;
 	btnIdle.position({buttonPositionX, btnIdle.position().y});
