@@ -69,10 +69,10 @@ MineReport::MineReport() :
 	btnAddTruck{constants::AddTruck, {this, &MineReport::onAddTruck}},
 	btnRemoveTruck{constants::RemoveTruck, {this, &MineReport::onRemoveTruck}},
 	chkResources{{
-		{"Mine " + ResourceNamesRefined[0], {this, &MineReport::onCheckBoxCommonMetalsChange}},
-		{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
-		{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
-		{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
+		{"", {this, &MineReport::onCheckBoxCommonMetalsChange}},
+		{"", {this, &MineReport::onCheckBoxCommonMineralsChange}},
+		{"", {this, &MineReport::onCheckBoxRareMetalsChange}},
+		{"", {this, &MineReport::onCheckBoxRareMineralsChange}}
 	}},
 	mSelectedFacility{nullptr},
 	mAvailableTrucks{0}
@@ -398,7 +398,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 		const auto resourceIconPosition = resourcePosition;
 		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
-		renderer.drawText(fontBold, ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
+		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
 
 		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height(), chkResources[i].size().y});
 		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
