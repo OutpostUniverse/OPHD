@@ -69,10 +69,10 @@ MineReport::MineReport() :
 	btnAddTruck{constants::AddTruck, {this, &MineReport::onAddTruck}},
 	btnRemoveTruck{constants::RemoveTruck, {this, &MineReport::onRemoveTruck}},
 	chkResources{{
-		{"Mine " + ResourceNamesRefined[0], {this, &MineReport::onCheckBoxCommonMetalsChange}},
-		{"Mine " + ResourceNamesRefined[1], {this, &MineReport::onCheckBoxCommonMineralsChange}},
-		{"Mine " + ResourceNamesRefined[2], {this, &MineReport::onCheckBoxRareMetalsChange}},
-		{"Mine " + ResourceNamesRefined[3], {this, &MineReport::onCheckBoxRareMineralsChange}}
+		{"", {this, &MineReport::onCheckBoxCommonMetalsChange}},
+		{"", {this, &MineReport::onCheckBoxCommonMineralsChange}},
+		{"", {this, &MineReport::onCheckBoxRareMetalsChange}},
+		{"", {this, &MineReport::onCheckBoxRareMineralsChange}}
 	}},
 	mSelectedFacility{nullptr},
 	mAvailableTrucks{0}
@@ -157,7 +157,8 @@ void MineReport::onResize()
 {
 	Control::onResize();
 
-	lstMineFacilities.size({area().center().x - 20, area().size.y - 51});
+	const auto centerX = area().center().x;
+	lstMineFacilities.size({centerX - 20, area().size.y - 51});
 
 	const auto buttonPositionX = area().size.x - 150;
 	btnIdle.position({buttonPositionX, btnIdle.position().y});
@@ -167,8 +168,7 @@ void MineReport::onResize()
 	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
 
 	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
-	const auto maxCheckBoxSize = maxSize(checkBoxes);
-	const auto checkBoxPositionX = area().size.x - maxCheckBoxSize.x - 10;
+	const auto checkBoxPositionX = area().center().x + 10;
 	setPositionX(checkBoxes, checkBoxPositionX);
 }
 
@@ -380,9 +380,10 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
+	const auto panelWidth = renderer.size().x - origin.x - 10;
 	const auto lineOffset = NAS2D::Vector{0, fontMediumBold.height() + 1};
 	const auto lineOrigin = origin + lineOffset;
-	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{renderer.size().x - lineOrigin.x - 10, 0}, constants::PrimaryTextColor, 1);
+	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{panelWidth, 0}, constants::PrimaryTextColor, 1);
 
 	const auto& oreDeposit = mSelectedFacility->oreDeposit();
 	const auto oreAvailable = oreDeposit.availableResources();
@@ -392,13 +393,14 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
 	for (size_t i = 0; i < 4; ++i)
 	{
-		const auto resourceIconPosition = origin + resourceOffset;
+		const auto resourcePosition = origin + resourceOffset;
+		const auto resourceIconPosition = resourcePosition + NAS2D::Vector{chkResources[0].size().x + constants::Margin, 0};
 		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
-		renderer.drawText(fontBold, ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
+		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
 
 		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height(), chkResources[i].size().y});
-		const auto progressBarPosition = resourceIconPosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
+		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
 		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
 		drawProgressBar(
 			oreAvailable.resources[i],
