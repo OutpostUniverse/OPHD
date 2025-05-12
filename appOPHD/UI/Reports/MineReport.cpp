@@ -168,7 +168,7 @@ void MineReport::onResize()
 	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
 
 	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
-	const auto checkBoxPositionX = area().center().x + 10;
+	const auto checkBoxPositionX = centerX + 10;
 	setPositionX(checkBoxes, checkBoxPositionX);
 }
 
