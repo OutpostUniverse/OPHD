@@ -168,8 +168,7 @@ void MineReport::onResize()
 	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
 
 	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
-	const auto maxCheckBoxSize = maxSize(checkBoxes);
-	const auto checkBoxPositionX = area().size.x - maxCheckBoxSize.x - 10;
+	const auto checkBoxPositionX = area().center().x + 10;
 	setPositionX(checkBoxes, checkBoxPositionX);
 }
 
@@ -395,7 +394,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 	for (size_t i = 0; i < 4; ++i)
 	{
 		const auto resourcePosition = origin + resourceOffset;
-		const auto resourceIconPosition = resourcePosition;
+		const auto resourceIconPosition = resourcePosition + NAS2D::Vector{chkResources[0].size().x + constants::Margin, 0};
 		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
 		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
