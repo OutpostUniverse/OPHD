@@ -392,48 +392,6 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 }
 
 
-void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
-{
-	auto& renderer = Utility<Renderer>::get();
-
-	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
-	const auto panelWidth = renderer.size().x - origin.x - 10;
-	const auto lineOffset = NAS2D::Vector{0, fontMediumBold.height() + 1};
-	const auto lineOrigin = origin + lineOffset;
-	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{panelWidth, 0}, constants::PrimaryTextColor, 1);
-
-	const auto& oreDeposit = mSelectedFacility->oreDeposit();
-	const auto oreAvailable = oreDeposit.availableResources();
-	const auto oreTotalYield = oreDeposit.totalYield();
-
-	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
-	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
-	for (size_t i = 0; i < 4; ++i)
-	{
-		const auto resourcePosition = origin + resourceOffset;
-		const auto resourceIconPosition = resourcePosition + NAS2D::Vector{chkResources[0].size().x + constants::Margin, 0};
-		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
-		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
-		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
-
-		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height(), chkResources[i].size().y});
-		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
-		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
-		drawProgressBar(
-			oreAvailable.resources[i],
-			oreTotalYield.resources[i],
-			progressBarArea
-		);
-
-		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
-		const auto strOffset = (progressBarSize - fontBold.size(str)) / 2;
-		renderer.drawText(fontBold, str, progressBarPosition + strOffset);
-
-		resourceOffset.y += resourceNameHeight + progressBarSize.y + constants::Margin + 23;
-	}
-}
-
-
 void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 {
 	const auto& mineFacility = *mSelectedFacility;
@@ -498,6 +456,48 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		formatRouteCost(routeCost),
 		constants::PrimaryTextColor
 	);
+}
+
+
+void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
+{
+	auto& renderer = Utility<Renderer>::get();
+
+	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
+	const auto panelWidth = renderer.size().x - origin.x - 10;
+	const auto lineOffset = NAS2D::Vector{0, fontMediumBold.height() + 1};
+	const auto lineOrigin = origin + lineOffset;
+	renderer.drawLine(lineOrigin, lineOrigin + NAS2D::Vector{panelWidth, 0}, constants::PrimaryTextColor, 1);
+
+	const auto& oreDeposit = mSelectedFacility->oreDeposit();
+	const auto oreAvailable = oreDeposit.availableResources();
+	const auto oreTotalYield = oreDeposit.totalYield();
+
+	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
+	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
+	for (size_t i = 0; i < 4; ++i)
+	{
+		const auto resourcePosition = origin + resourceOffset;
+		const auto resourceIconPosition = resourcePosition + NAS2D::Vector{chkResources[0].size().x + constants::Margin, 0};
+		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
+		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
+		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
+
+		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height(), chkResources[i].size().y});
+		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
+		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
+		drawProgressBar(
+			oreAvailable.resources[i],
+			oreTotalYield.resources[i],
+			progressBarArea
+		);
+
+		const std::string str = std::to_string(oreAvailable.resources[i]) + " of " + std::to_string(oreTotalYield.resources[i]) + " Remaining";
+		const auto strOffset = (progressBarSize - fontBold.size(str)) / 2;
+		renderer.drawText(fontBold, str, progressBarPosition + strOffset);
+
+		resourceOffset.y += resourceNameHeight + progressBarSize.y + constants::Margin + 23;
+	}
 }
 
 
