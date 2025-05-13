@@ -42,6 +42,23 @@ namespace
 		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
 	}
 
+	bool hasRoute(MineFacility* mineFacility)
+	{
+		const auto& routeTable = NAS2D::Utility<std::map<MineFacility*, Route>>::get();
+		return routeTable.find(mineFacility) != routeTable.end();
+	}
+
+	float getRouteCost(MineFacility* mineFacility)
+	{
+		const auto& routeTable = NAS2D::Utility<std::map<MineFacility*, Route>>::get();
+		if (routeTable.find(mineFacility) == routeTable.end())
+		{
+			return FLT_MAX;
+		}
+		const auto& route = routeTable.at(mineFacility);
+		return std::clamp(route.cost, 1.0f, FLT_MAX);
+	}
+
 	std::string formatRouteCost(float routeCost)
 	{
 		const auto routeCostString = std::to_string(routeCost);
@@ -168,7 +185,7 @@ void MineReport::onResize()
 	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
 
 	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
-	const auto checkBoxPositionX = area().center().x + 10;
+	const auto checkBoxPositionX = centerX + 10;
 	setPositionX(checkBoxes, checkBoxPositionX);
 }
 
@@ -371,7 +388,65 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 	const auto statusPosition = origin + NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
 	renderer.drawText(fontMedium, mineFacility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
-	drawTruckManagementPane(origin + NAS2D::Vector{0, fontMediumBold.height() + fontMedium.height() + constants::MarginTight * 2});
+	if (mineFacility.destroyed() || mineFacility.underConstruction())
+	{
+		return;
+	}
+
+	const auto titleSpacing = NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
+	const auto trucksOrigin = origin + NAS2D::Vector{0, fontMediumBold.height() + fontMedium.height() + constants::MarginTight * 2};
+	renderer.drawText(fontMediumBold, "Trucks", trucksOrigin, constants::PrimaryTextColor);
+
+	const auto truckValueOrigin = trucksOrigin + titleSpacing;
+	const auto valueSpacing = NAS2D::Vector{0, font.height() + constants::MarginTight};
+	const auto labelWidth = btnAddTruck.position().x - trucksOrigin.x - 10;
+	drawLabelAndValueRightJustify(
+		truckValueOrigin,
+		labelWidth,
+		"Assigned to Facility",
+		std::to_string(mineFacility.assignedTrucks()),
+		constants::PrimaryTextColor
+	);
+	drawLabelAndValueRightJustify(
+		truckValueOrigin + valueSpacing,
+		labelWidth,
+		"Available in Storage",
+		std::to_string(mAvailableTrucks),
+		constants::PrimaryTextColor
+	);
+
+	if (!(mineFacility.operational() || mineFacility.isIdle()))
+	{
+		return;
+	}
+
+	const auto routeOrigin = truckValueOrigin + valueSpacing * 2;
+	renderer.drawText(fontMediumBold, "Route", routeOrigin, constants::PrimaryTextColor);
+
+	bool routeAvailable = hasRoute(mSelectedFacility);
+
+	const auto routeValueOrigin = routeOrigin + titleSpacing;
+	drawLabelAndValueRightJustify(
+		routeValueOrigin,
+		labelWidth,
+		"Available",
+		routeAvailable ? "Yes" : "No",
+		routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
+	);
+
+	if (!routeAvailable)
+	{
+		return;
+	}
+
+	const auto routeCost = getRouteCost(mSelectedFacility);
+	drawLabelAndValueRightJustify(
+		routeValueOrigin + valueSpacing,
+		btnAddTruck.position().x - routeOrigin.x - 10,
+		"Cost",
+		formatRouteCost(routeCost),
+		constants::PrimaryTextColor
+	);
 }
 
 
@@ -417,86 +492,14 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 }
 
 
-void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
-{
-	const auto& mineFacility = *mSelectedFacility;
-
-	if (mineFacility.destroyed() || mineFacility.underConstruction())
-	{
-		return;
-	}
-
-	auto& renderer = Utility<Renderer>::get();
-	const auto titleSpacing = NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
-	const auto trucksOrigin = origin;
-	renderer.drawText(fontMediumBold, "Trucks", trucksOrigin, constants::PrimaryTextColor);
-
-	const auto truckValueOrigin = trucksOrigin + titleSpacing;
-	const auto valueSpacing = NAS2D::Vector{0, font.height() + constants::MarginTight};
-	const auto labelWidth = btnAddTruck.position().x - trucksOrigin.x - 10;
-	drawLabelAndValueRightJustify(
-		truckValueOrigin,
-		labelWidth,
-		"Assigned to Facility",
-		std::to_string(mineFacility.assignedTrucks()),
-		constants::PrimaryTextColor
-	);
-	drawLabelAndValueRightJustify(
-		truckValueOrigin + valueSpacing,
-		labelWidth,
-		"Available in Storage",
-		std::to_string(mAvailableTrucks),
-		constants::PrimaryTextColor
-	);
-
-	if (!(mineFacility.operational() || mineFacility.isIdle()))
-	{
-		return;
-	}
-
-	const auto routeOrigin = truckValueOrigin + valueSpacing * 2;
-	renderer.drawText(fontMediumBold, "Route", routeOrigin, constants::PrimaryTextColor);
-
-	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
-
-	const auto routeValueOrigin = routeOrigin + titleSpacing;
-	drawLabelAndValueRightJustify(
-		routeValueOrigin,
-		labelWidth,
-		"Available",
-		routeAvailable ? "Yes" : "No",
-		routeAvailable ? constants::PrimaryTextColor : NAS2D::Color::Red
-	);
-
-	if (!routeAvailable)
-	{
-		return;
-	}
-
-	const auto& route = routeTable.at(mSelectedFacility);
-	drawLabelAndValueRightJustify(
-		routeValueOrigin + valueSpacing,
-		btnAddTruck.position().x - routeOrigin.x - 10,
-		"Cost",
-		formatRouteCost(route.cost),
-		constants::PrimaryTextColor
-	);
-}
-
-
 void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin)
 {
-	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
-
-	if (!routeAvailable)
+	if (!hasRoute(mSelectedFacility))
 	{
 		return;
 	}
 
-	const auto& route = routeTable.at(mSelectedFacility);
-	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
+	const float routeCost = getRouteCost(mSelectedFacility);
 	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
 
 	auto& renderer = Utility<Renderer>::get();

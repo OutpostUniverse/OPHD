@@ -63,7 +63,6 @@ protected:
 	void drawMineFacilityPane(const NAS2D::Point<int>& origin);
 	void drawStatusPane(const NAS2D::Point<int>& origin);
 	void drawOreProductionPane(const NAS2D::Point<int>& origin);
-	void drawTruckManagementPane(const NAS2D::Point<int>& origin);
 	void drawTruckHaulTable(const NAS2D::Point<int>& origin);
 
 private:
