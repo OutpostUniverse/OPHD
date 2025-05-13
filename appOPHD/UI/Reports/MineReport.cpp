@@ -388,22 +388,13 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 	const auto statusPosition = origin + NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
 	renderer.drawText(fontMedium, mineFacility.stateDescription(), statusPosition, (isStatusHighlighted ? NAS2D::Color::Red : constants::PrimaryTextColor));
 
-	drawTruckManagementPane(origin + NAS2D::Vector{0, fontMediumBold.height() + fontMedium.height() + constants::MarginTight * 2});
-}
-
-
-void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
-{
-	const auto& mineFacility = *mSelectedFacility;
-
 	if (mineFacility.destroyed() || mineFacility.underConstruction())
 	{
 		return;
 	}
 
-	auto& renderer = Utility<Renderer>::get();
 	const auto titleSpacing = NAS2D::Vector{0, fontMediumBold.height() + constants::MarginTight};
-	const auto trucksOrigin = origin;
+	const auto trucksOrigin = origin + NAS2D::Vector{0, fontMediumBold.height() + fontMedium.height() + constants::MarginTight * 2};
 	renderer.drawText(fontMediumBold, "Trucks", trucksOrigin, constants::PrimaryTextColor);
 
 	const auto truckValueOrigin = trucksOrigin + titleSpacing;
