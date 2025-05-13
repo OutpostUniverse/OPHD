@@ -448,7 +448,7 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 	const auto routeCost = getRouteCost(mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		routeValueOrigin + valueSpacing,
-		btnAddTruck.position().x - routeOrigin.x - 10,
+		labelWidth,
 		"Cost",
 		formatRouteCost(routeCost),
 		constants::PrimaryTextColor
@@ -457,7 +457,7 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 	const auto oreMovementTotal = getOreHaulCapacity(mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		routeValueOrigin + valueSpacing * 2,
-		btnAddTruck.position().x - routeOrigin.x - 10,
+		labelWidth,
 		"Total Haul Capacity",
 		std::to_string(oreMovementTotal),
 		constants::PrimaryTextColor
