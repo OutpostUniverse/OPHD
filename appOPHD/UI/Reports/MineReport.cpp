@@ -59,6 +59,12 @@ namespace
 		return std::clamp(route.cost, 1.0f, FLT_MAX);
 	}
 
+	int getOreHaulCapacity(MineFacility* mineFacility)
+	{
+		const float routeCost = getRouteCost(mineFacility);
+		return static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility->assignedTrucks();
+	}
+
 	std::string formatRouteCost(float routeCost)
 	{
 		const auto routeCostString = std::to_string(routeCost);
@@ -499,8 +505,7 @@ void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin)
 		return;
 	}
 
-	const float routeCost = getRouteCost(mSelectedFacility);
-	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
+	const int totalOreMovement = getOreHaulCapacity(mSelectedFacility);
 
 	auto& renderer = Utility<Renderer>::get();
 
