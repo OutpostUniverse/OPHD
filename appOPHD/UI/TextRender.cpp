@@ -7,6 +7,15 @@
 #include <libControls/Control.h>
 
 
+void drawLabelRightJustify(NAS2D::Point<int> position, int labelWidth, const NAS2D::Font& font, const std::string& text, NAS2D::Color color)
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	const auto offset = NAS2D::Vector{labelWidth - font.width(text), 0};
+	renderer.drawText(font, text, position + offset, color);
+}
+
+
 void drawLabelAndValue(NAS2D::Point<int> position, const std::string& title, const std::string& text, NAS2D::Color color)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
