@@ -42,6 +42,19 @@ namespace
 		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
 	}
 
+	bool hasRoute(MineFacility* mineFacility)
+	{
+		const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+		return routeTable.find(mineFacility) != routeTable.end();
+	}
+
+	float getRouteCost(MineFacility* mineFacility)
+	{
+		const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+		const auto& route = routeTable.at(mineFacility);
+		return std::clamp(route.cost, 1.0f, FLT_MAX);
+	}
+
 	std::string formatRouteCost(float routeCost)
 	{
 		const auto routeCostString = std::to_string(routeCost);
@@ -457,8 +470,7 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 	const auto routeOrigin = truckValueOrigin + valueSpacing * 2;
 	renderer.drawText(fontMediumBold, "Route", routeOrigin, constants::PrimaryTextColor);
 
-	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
+	bool routeAvailable = hasRoute(mSelectedFacility);
 
 	const auto routeValueOrigin = routeOrigin + titleSpacing;
 	drawLabelAndValueRightJustify(
@@ -474,12 +486,12 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 		return;
 	}
 
-	const auto& route = routeTable.at(mSelectedFacility);
+	const auto routeCost = getRouteCost(mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		routeValueOrigin + valueSpacing,
 		btnAddTruck.position().x - routeOrigin.x - 10,
 		"Cost",
-		formatRouteCost(route.cost),
+		formatRouteCost(routeCost),
 		constants::PrimaryTextColor
 	);
 }
@@ -487,16 +499,12 @@ void MineReport::drawTruckManagementPane(const NAS2D::Point<int>& origin)
 
 void MineReport::drawTruckHaulTable(const NAS2D::Point<int>& origin)
 {
-	const auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	bool routeAvailable = routeTable.find(mSelectedFacility) != routeTable.end();
-
-	if (!routeAvailable)
+	if (!hasRoute(mSelectedFacility))
 	{
 		return;
 	}
 
-	const auto& route = routeTable.at(mSelectedFacility);
-	const float routeCost = std::clamp(route.cost, 1.0f, FLT_MAX);
+	const float routeCost = getRouteCost(mSelectedFacility);
 	const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mSelectedFacility->assignedTrucks();
 
 	auto& renderer = Utility<Renderer>::get();
