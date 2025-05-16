@@ -112,7 +112,7 @@ FactoryReport::FactoryReport() :
 
 	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
 	cboFilterByProduct.addItem(constants::Clothing, ProductType::PRODUCT_CLOTHING);
-	cboFilterByProduct.addItem(constants::MaintenanceSupplies, ProductType::PRODUCT_MAINTENANCE_PARTS);
+	cboFilterByProduct.addItem(constants::Maintenance, ProductType::PRODUCT_MAINTENANCE_PARTS);
 	cboFilterByProduct.addItem(constants::Medicine, ProductType::PRODUCT_MEDICINE);
 	cboFilterByProduct.addItem(constants::Robodigger, ProductType::PRODUCT_DIGGER);
 	cboFilterByProduct.addItem(constants::Robodozer, ProductType::PRODUCT_DOZER);
