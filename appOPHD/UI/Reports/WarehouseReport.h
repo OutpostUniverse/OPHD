@@ -44,14 +44,14 @@ private:
 	void onResize() override;
 
 	void onShowAll();
-	void onSpaceAvailable();
+	void onVacancy();
 	void onFull();
 	void onEmpty();
 	void onDisabled();
 
 	void onTakeMeThere();
 
-	void fillListSpaceAvailable();
+	void fillListVacancy();
 	void fillListFull();
 	void fillListEmpty();
 	void fillListDisabled();

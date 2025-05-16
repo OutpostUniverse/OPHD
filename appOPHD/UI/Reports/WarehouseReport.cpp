@@ -57,7 +57,7 @@ WarehouseReport::WarehouseReport() :
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
-	btnVacancy{"Vacancy", {this, &WarehouseReport::onSpaceAvailable}},
+	btnVacancy{"Vacancy", {this, &WarehouseReport::onVacancy}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
@@ -146,7 +146,7 @@ void WarehouseReport::fillLists()
 }
 
 
-void WarehouseReport::fillListSpaceAvailable()
+void WarehouseReport::fillListVacancy()
 {
 	const auto predicate = [](Warehouse* wh) {
 		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
@@ -250,12 +250,12 @@ void WarehouseReport::onShowAll()
 }
 
 
-void WarehouseReport::onSpaceAvailable()
+void WarehouseReport::onVacancy()
 {
 	filterButtonClicked();
 	btnVacancy.toggle(true);
 
-	fillListSpaceAvailable();
+	fillListVacancy();
 }
 
 
