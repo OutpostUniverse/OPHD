@@ -73,7 +73,7 @@ namespace constants
 	const std::string Robodozer = "Robodozer";
 	const std::string Roboexplorer = "Roboexplorer";
 	const std::string Robominer = "Robominer";
-	const std::string MaintenanceSupplies = "Maintenance Supplies";
+	const std::string Maintenance = "Maintenance";
 	const std::string Truck = "Truck";
 
 	const std::string Clothing = "Clothing";

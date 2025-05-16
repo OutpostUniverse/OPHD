@@ -27,7 +27,7 @@ using namespace NAS2D;
 
 namespace
 {
-	constexpr auto viewFilterButtonSize = NAS2D::Vector{85, 20};
+	constexpr auto viewFilterButtonSize = NAS2D::Vector{104, 20};
 	constexpr auto viewFilterSpacing = NAS2D::Vector{viewFilterButtonSize.x + constants::MarginTight, 0};
 	constexpr auto viewFilterOriginRow1 = NAS2D::Vector{10, 10};
 	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, 33};
@@ -107,12 +107,12 @@ FactoryReport::FactoryReport() :
 
 	add(btnApply, {0, 0});
 
-	add(cboFilterByProduct, {280, 33});
-	cboFilterByProduct.size({170, 20});
+	add(cboFilterByProduct, {330, 33});
+	cboFilterByProduct.size({120, 20});
 
 	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
 	cboFilterByProduct.addItem(constants::Clothing, ProductType::PRODUCT_CLOTHING);
-	cboFilterByProduct.addItem(constants::MaintenanceSupplies, ProductType::PRODUCT_MAINTENANCE_PARTS);
+	cboFilterByProduct.addItem(constants::Maintenance, ProductType::PRODUCT_MAINTENANCE_PARTS);
 	cboFilterByProduct.addItem(constants::Medicine, ProductType::PRODUCT_MEDICINE);
 	cboFilterByProduct.addItem(constants::Robodigger, ProductType::PRODUCT_DIGGER);
 	cboFilterByProduct.addItem(constants::Robodozer, ProductType::PRODUCT_DOZER);
