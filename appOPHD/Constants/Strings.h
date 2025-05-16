@@ -174,7 +174,7 @@ namespace constants
 	// =====================================
 	const std::string WarehouseEmpty = "Empty";
 	const std::string WarehouseFull = "At Capacity";
-	const std::string WarehouseSpaceAvailable = "Space Available";
+	const std::string WarehouseVacancy = "Space Available";
 
 	const std::string ResearchReportTopicDetails = "Research Topic Details";
 

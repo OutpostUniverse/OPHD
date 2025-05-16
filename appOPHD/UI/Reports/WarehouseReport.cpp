@@ -44,7 +44,7 @@ namespace
 		if (warehouse.state() != StructureState::Operational) { return warehouse.stateDescription(); }
 		else if (productPool.empty()) { return constants::WarehouseEmpty; }
 		else if (productPool.atCapacity()) { return constants::WarehouseFull; }
-		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseSpaceAvailable; }
+		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseVacancy; }
 
 		return std::string{};
 	}
