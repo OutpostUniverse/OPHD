@@ -73,7 +73,7 @@ private:
 	const Warehouse* selectedWarehouse = nullptr;
 
 	Button btnShowAll;
-	Button btnSpaceAvailable;
+	Button btnVacancy;
 	Button btnFull;
 	Button btnEmpty;
 	Button btnDisabled;

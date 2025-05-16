@@ -57,13 +57,13 @@ WarehouseReport::WarehouseReport() :
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
-	btnSpaceAvailable{"Vacancy", {this, &WarehouseReport::onSpaceAvailable}},
+	btnVacancy{"Vacancy", {this, &WarehouseReport::onSpaceAvailable}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}}
 {
-	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
+	const auto buttons = std::array{&btnShowAll, &btnVacancy, &btnFull, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
 	{
 		button->size({89, 20});
@@ -72,7 +72,7 @@ WarehouseReport::WarehouseReport() :
 	}
 
 	btnShowAll.toggle(true);
-	btnSpaceAvailable.size({100, 20});
+	btnVacancy.size({100, 20});
 
 	btnTakeMeThere.size({140, 30});
 
@@ -234,7 +234,7 @@ void WarehouseReport::onResize()
 void WarehouseReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);
-	btnSpaceAvailable.toggle(false);
+	btnVacancy.toggle(false);
 	btnFull.toggle(false);
 	btnEmpty.toggle(false);
 	btnDisabled.toggle(false);
@@ -253,7 +253,7 @@ void WarehouseReport::onShowAll()
 void WarehouseReport::onSpaceAvailable()
 {
 	filterButtonClicked();
-	btnSpaceAvailable.toggle(true);
+	btnVacancy.toggle(true);
 
 	fillListSpaceAvailable();
 }
