@@ -84,7 +84,7 @@ MineReport::MineReport() :
 	btnShowAll{"All", {this, &MineReport::onShowAll}},
 	btnShowActive{"Active", {this, &MineReport::onShowActive}},
 	btnShowIdle{"Idle", {this, &MineReport::onShowIdle}},
-	btnShowTappedOut{"Tapped Out", {this, &MineReport::onShowTappedOut}},
+	btnShowExhausted{"Exhausted", {this, &MineReport::onShowExhausted}},
 	btnShowDisabled{"Disabled", {this, &MineReport::onShowDisabled}},
 	btnIdle{constants::Idle, {this, &MineReport::onIdle}},
 	btnDigNewLevel{"Dig New Level", {this, &MineReport::onDigNewLevel}},
@@ -101,7 +101,7 @@ MineReport::MineReport() :
 	mAvailableTrucks{0}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
-	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowTappedOut, &btnShowDisabled};
+	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowExhausted, &btnShowDisabled};
 	for (auto button : buttons)
 	{
 		button->size({94, 20});
@@ -228,7 +228,7 @@ void MineReport::onFilterButtonClicked()
 	btnShowAll.toggle(false);
 	btnShowActive.toggle(false);
 	btnShowIdle.toggle(false);
-	btnShowTappedOut.toggle(false);
+	btnShowExhausted.toggle(false);
 	btnShowDisabled.toggle(false);
 }
 
@@ -256,10 +256,10 @@ void MineReport::onShowIdle()
 }
 
 
-void MineReport::onShowTappedOut()
+void MineReport::onShowExhausted()
 {
 	onFilterButtonClicked();
-	btnShowTappedOut.toggle(true);
+	btnShowExhausted.toggle(true);
 }
 
 

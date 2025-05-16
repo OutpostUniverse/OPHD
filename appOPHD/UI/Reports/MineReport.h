@@ -43,7 +43,7 @@ protected:
 	void onShowAll();
 	void onShowActive();
 	void onShowIdle();
-	void onShowTappedOut();
+	void onShowExhausted();
 	void onShowDisabled();
 
 	void onMineFacilitySelectionChange();
@@ -77,7 +77,7 @@ private:
 	Button btnShowAll;
 	Button btnShowActive;
 	Button btnShowIdle;
-	Button btnShowTappedOut;
+	Button btnShowExhausted;
 	Button btnShowDisabled;
 
 	Button btnIdle;
