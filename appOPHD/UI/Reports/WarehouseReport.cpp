@@ -57,7 +57,7 @@ WarehouseReport::WarehouseReport() :
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
-	btnSpaceAvailable{"Space Available", {this, &WarehouseReport::onSpaceAvailable}},
+	btnSpaceAvailable{"Vacancy", {this, &WarehouseReport::onSpaceAvailable}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
