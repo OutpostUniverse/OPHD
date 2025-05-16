@@ -107,8 +107,8 @@ FactoryReport::FactoryReport() :
 
 	add(btnApply, {0, 0});
 
-	add(cboFilterByProduct, {280, 33});
-	cboFilterByProduct.size({170, 20});
+	add(cboFilterByProduct, {330, 33});
+	cboFilterByProduct.size({120, 20});
 
 	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
 	cboFilterByProduct.addItem(constants::Clothing, ProductType::PRODUCT_CLOTHING);
