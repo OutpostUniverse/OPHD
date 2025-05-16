@@ -77,7 +77,7 @@ private:
 	Button btnShowAll;
 	Button btnShowActive;
 	Button btnShowIdle;
-	Button btnShowTappedOut;
+	Button btnShowExhausted;
 	Button btnShowDisabled;
 
 	Button btnIdle;
