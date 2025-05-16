@@ -72,7 +72,6 @@ WarehouseReport::WarehouseReport() :
 	}
 
 	btnShowAll.toggle(true);
-	btnVacancy.size({100, 20});
 
 	btnTakeMeThere.size({140, 30});
 
