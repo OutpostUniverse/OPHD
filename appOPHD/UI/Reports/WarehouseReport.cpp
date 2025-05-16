@@ -71,7 +71,7 @@ WarehouseReport::WarehouseReport() :
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
 		add(*button, buttonOffset);
-		buttonOffset.x += button->size().x + constants::Margin;
+		buttonOffset.x += button->size().x + constants::MarginTight;
 	}
 
 	btnShowAll.toggle(true);
