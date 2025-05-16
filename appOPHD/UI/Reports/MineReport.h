@@ -43,7 +43,7 @@ protected:
 	void onShowAll();
 	void onShowActive();
 	void onShowIdle();
-	void onShowTappedOut();
+	void onShowExhausted();
 	void onShowDisabled();
 
 	void onMineFacilitySelectionChange();

@@ -84,7 +84,7 @@ MineReport::MineReport() :
 	btnShowAll{"All", {this, &MineReport::onShowAll}},
 	btnShowActive{"Active", {this, &MineReport::onShowActive}},
 	btnShowIdle{"Idle", {this, &MineReport::onShowIdle}},
-	btnShowExhausted{"Exhausted", {this, &MineReport::onShowTappedOut}},
+	btnShowExhausted{"Exhausted", {this, &MineReport::onShowExhausted}},
 	btnShowDisabled{"Disabled", {this, &MineReport::onShowDisabled}},
 	btnIdle{constants::Idle, {this, &MineReport::onIdle}},
 	btnDigNewLevel{"Dig New Level", {this, &MineReport::onDigNewLevel}},
@@ -256,7 +256,7 @@ void MineReport::onShowIdle()
 }
 
 
-void MineReport::onShowTappedOut()
+void MineReport::onShowExhausted()
 {
 	onFilterButtonClicked();
 	btnShowExhausted.toggle(true);
