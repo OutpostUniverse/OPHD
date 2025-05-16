@@ -63,7 +63,7 @@ WarehouseReport::WarehouseReport() :
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}}
 {
-	const auto buttons = std::array{&btnShowAll, &btnVacancy, &btnFull, &btnEmpty, &btnDisabled};
+	const auto buttons = std::array{&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
 	{
 		button->size({89, 20});
