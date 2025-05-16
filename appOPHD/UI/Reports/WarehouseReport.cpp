@@ -44,7 +44,7 @@ namespace
 		if (warehouse.state() != StructureState::Operational) { return warehouse.stateDescription(); }
 		else if (productPool.empty()) { return constants::WarehouseEmpty; }
 		else if (productPool.atCapacity()) { return constants::WarehouseFull; }
-		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseSpaceAvailable; }
+		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseVacancy; }
 
 		return std::string{};
 	}
@@ -57,22 +57,24 @@ WarehouseReport::WarehouseReport() :
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
-	btnSpaceAvailable{"Space Available", {this, &WarehouseReport::onSpaceAvailable}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
+	btnVacancy{"Vacancy", {this, &WarehouseReport::onVacancy}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}}
 {
-	const auto buttons = std::array{&btnShowAll, &btnSpaceAvailable, &btnFull, &btnEmpty, &btnDisabled};
+	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto buttons = std::array{&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
 	{
-		button->size({89, 20});
+		button->size({94, 20});
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
+		add(*button, buttonOffset);
+		buttonOffset.x += button->size().x + constants::MarginTight;
 	}
 
 	btnShowAll.toggle(true);
-	btnSpaceAvailable.size({100, 20});
 
 	btnTakeMeThere.size({140, 30});
 
@@ -82,12 +84,6 @@ WarehouseReport::WarehouseReport() :
 
 	fillLists();
 
-	auto buttonOffset = NAS2D::Vector{10, 10};
-	for (auto button : buttons)
-	{
-		add(*button, buttonOffset);
-		buttonOffset.x += button->size().x + constants::Margin;
-	}
 	add(btnTakeMeThere, {10, 10});
 	add(lstStructures, {10, 115});
 	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
@@ -146,17 +142,6 @@ void WarehouseReport::fillLists()
 }
 
 
-void WarehouseReport::fillListSpaceAvailable()
-{
-	const auto predicate = [](Warehouse* wh) {
-		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
-	};
-
-	fillListFromStructureList(selectWarehouses(predicate));
-}
-
-
-
 void WarehouseReport::fillListFull()
 {
 	const auto predicate = [](Warehouse* wh) {
@@ -165,6 +150,17 @@ void WarehouseReport::fillListFull()
 
 	fillListFromStructureList(selectWarehouses(predicate));
 }
+
+
+void WarehouseReport::fillListVacancy()
+{
+	const auto predicate = [](Warehouse* wh) {
+		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
+	};
+
+	fillListFromStructureList(selectWarehouses(predicate));
+}
+
 
 
 void WarehouseReport::fillListEmpty()
@@ -234,7 +230,7 @@ void WarehouseReport::onResize()
 void WarehouseReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);
-	btnSpaceAvailable.toggle(false);
+	btnVacancy.toggle(false);
 	btnFull.toggle(false);
 	btnEmpty.toggle(false);
 	btnDisabled.toggle(false);
@@ -250,21 +246,21 @@ void WarehouseReport::onShowAll()
 }
 
 
-void WarehouseReport::onSpaceAvailable()
-{
-	filterButtonClicked();
-	btnSpaceAvailable.toggle(true);
-
-	fillListSpaceAvailable();
-}
-
-
 void WarehouseReport::onFull()
 {
 	filterButtonClicked();
 	btnFull.toggle(true);
 
 	fillListFull();
+}
+
+
+void WarehouseReport::onVacancy()
+{
+	filterButtonClicked();
+	btnVacancy.toggle(true);
+
+	fillListVacancy();
 }
 
 
