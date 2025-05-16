@@ -84,7 +84,7 @@ MineReport::MineReport() :
 	btnShowAll{"All", {this, &MineReport::onShowAll}},
 	btnShowActive{"Active", {this, &MineReport::onShowActive}},
 	btnShowIdle{"Idle", {this, &MineReport::onShowIdle}},
-	btnShowTappedOut{"Tapped Out", {this, &MineReport::onShowTappedOut}},
+	btnShowTappedOut{"Exhausted", {this, &MineReport::onShowTappedOut}},
 	btnShowDisabled{"Disabled", {this, &MineReport::onShowDisabled}},
 	btnIdle{constants::Idle, {this, &MineReport::onIdle}},
 	btnDigNewLevel{"Dig New Level", {this, &MineReport::onDigNewLevel}},
