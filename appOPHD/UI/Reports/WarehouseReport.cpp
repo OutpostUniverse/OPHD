@@ -57,8 +57,8 @@ WarehouseReport::WarehouseReport() :
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
-	btnVacancy{"Vacancy", {this, &WarehouseReport::onVacancy}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
+	btnVacancy{"Vacancy", {this, &WarehouseReport::onVacancy}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}}
@@ -146,6 +146,16 @@ void WarehouseReport::fillLists()
 }
 
 
+void WarehouseReport::fillListFull()
+{
+	const auto predicate = [](Warehouse* wh) {
+		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
+	};
+
+	fillListFromStructureList(selectWarehouses(predicate));
+}
+
+
 void WarehouseReport::fillListVacancy()
 {
 	const auto predicate = [](Warehouse* wh) {
@@ -155,16 +165,6 @@ void WarehouseReport::fillListVacancy()
 	fillListFromStructureList(selectWarehouses(predicate));
 }
 
-
-
-void WarehouseReport::fillListFull()
-{
-	const auto predicate = [](Warehouse* wh) {
-		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
-	};
-
-	fillListFromStructureList(selectWarehouses(predicate));
-}
 
 
 void WarehouseReport::fillListEmpty()
@@ -250,21 +250,21 @@ void WarehouseReport::onShowAll()
 }
 
 
-void WarehouseReport::onVacancy()
-{
-	filterButtonClicked();
-	btnVacancy.toggle(true);
-
-	fillListVacancy();
-}
-
-
 void WarehouseReport::onFull()
 {
 	filterButtonClicked();
 	btnFull.toggle(true);
 
 	fillListFull();
+}
+
+
+void WarehouseReport::onVacancy()
+{
+	filterButtonClicked();
+	btnVacancy.toggle(true);
+
+	fillListVacancy();
 }
 
 

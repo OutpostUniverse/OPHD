@@ -44,15 +44,15 @@ private:
 	void onResize() override;
 
 	void onShowAll();
-	void onVacancy();
 	void onFull();
+	void onVacancy();
 	void onEmpty();
 	void onDisabled();
 
 	void onTakeMeThere();
 
-	void fillListVacancy();
 	void fillListFull();
+	void fillListVacancy();
 	void fillListEmpty();
 	void fillListDisabled();
 
@@ -73,8 +73,8 @@ private:
 	const Warehouse* selectedWarehouse = nullptr;
 
 	Button btnShowAll;
-	Button btnVacancy;
 	Button btnFull;
+	Button btnVacancy;
 	Button btnEmpty;
 	Button btnDisabled;
 
