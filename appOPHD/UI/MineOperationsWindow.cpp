@@ -214,29 +214,30 @@ void MineOperationsWindow::update()
 	// REMAINING ORE PANEL
 	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
+	const auto tableOrigin = origin + NAS2D::Vector{10, 180};
 	const auto width = mRect.size.x;
-	mPanel.draw(renderer, NAS2D::Rectangle{origin + NAS2D::Vector{10, 180}, {width - 20, 40}});
+	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, {width - 20, 40}});
 
-	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(origin + NAS2D::Vector{187, 180}, origin + NAS2D::Vector{187, 219}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(origin + NAS2D::Vector{275, 180}, origin + NAS2D::Vector{275, 219}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{88, 0}, tableOrigin + NAS2D::Vector{88, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{177, 0}, tableOrigin + NAS2D::Vector{177, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{265, 0}, tableOrigin + NAS2D::Vector{265, 39}, NAS2D::Color{22, 22, 22});
 
-	renderer.drawLine(origin + NAS2D::Vector{11, 200}, origin + NAS2D::Vector{width - 11, 200}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{1, 20}, tableOrigin + NAS2D::Vector{width - 21, 20}, NAS2D::Color{22, 22, 22});
 
 	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
 	{
-		std::tuple{46,  ResourceImageRectsOre[0], availableResources.resources[0]},
-		std::tuple{135, ResourceImageRectsOre[1], availableResources.resources[1]},
-		std::tuple{224, ResourceImageRectsOre[2], availableResources.resources[2]},
-		std::tuple{313, ResourceImageRectsOre[3], availableResources.resources[3]}
+		std::tuple{36,  ResourceImageRectsOre[0], availableResources.resources[0]},
+		std::tuple{125, ResourceImageRectsOre[1], availableResources.resources[1]},
+		std::tuple{214, ResourceImageRectsOre[2], availableResources.resources[2]},
+		std::tuple{303, ResourceImageRectsOre[3], availableResources.resources[3]}
 	};
 
 	for (const auto& [offsetX, iconRect, resourceCount] : resources)
 	{
 		const auto resourceCountString = std::to_string(resourceCount);
 		const auto textOffsetX = offsetX - (mFont.width(resourceCountString) / 2) + 8;
-		renderer.drawSubImage(mIcons, origin + NAS2D::Vector{offsetX, 183}, iconRect);
-		renderer.drawText(mFont, resourceCountString, origin + NAS2D::Vector{textOffsetX, 202}, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, tableOrigin + NAS2D::Vector{offsetX, 3}, iconRect);
+		renderer.drawText(mFont, resourceCountString, tableOrigin + NAS2D::Vector{textOffsetX, 22}, NAS2D::Color::White);
 	}
 }
