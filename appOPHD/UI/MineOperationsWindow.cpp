@@ -64,9 +64,9 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
 	btnAssignTruck.size({105, 20});
-	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
-
 	btnUnassignTruck.size({105, 20});
+
+	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 	add(btnUnassignTruck, {148, 115});
 
 	// ORE TOGGLE BUTTONS
