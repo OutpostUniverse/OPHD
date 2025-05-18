@@ -58,9 +58,10 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnExtendShaft.size({100, 30});
 	btnOkay.size({60, 30});
 
-	add(btnIdle, {10, 230});
-	add(btnExtendShaft, {72, 230});
-	add(btnOkay, {mRect.size.x - 70, 230});
+	const auto buttonBottomRowY = mRect.size.y - btnIdle.size().y - 10;
+	add(btnIdle, {10, buttonBottomRowY});
+	add(btnExtendShaft, {72, buttonBottomRowY});
+	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
 	btnAssignTruck.size({105, 20});
 	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
