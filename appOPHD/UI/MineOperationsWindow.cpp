@@ -212,9 +212,9 @@ void MineOperationsWindow::update()
 	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
-	const auto width = mRect.size.x;
 	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
+	const auto width = mRect.size.x;
 	mPanel.draw(renderer, NAS2D::Rectangle{origin + NAS2D::Vector{10, 180}, {width - 20, 40}});
 
 	renderer.drawLine(origin + NAS2D::Vector{98, 180}, origin + NAS2D::Vector{98, 219}, NAS2D::Color{22, 22, 22});
