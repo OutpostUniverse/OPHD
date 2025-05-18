@@ -55,12 +55,11 @@ MineOperationsWindow::MineOperationsWindow() :
 	// Set up GUI Layout
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({60, 30});
-	add(btnIdle, {10, 230});
-
 	btnExtendShaft.size({100, 30});
-	add(btnExtendShaft, {72, 230});
-
 	btnOkay.size({60, 30});
+
+	add(btnIdle, {10, 230});
+	add(btnExtendShaft, {72, 230});
 	add(btnOkay, {mRect.size.x - 70, 230});
 
 	btnAssignTruck.size({105, 20});
