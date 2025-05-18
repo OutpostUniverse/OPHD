@@ -236,12 +236,12 @@ void MineOperationsWindow::update()
 		std::tuple{ResourceImageRectsOre[3], availableResources.resources[3]}
 	};
 
-	auto columnOrigin = tableOrigin;
+	auto columnOrigin = tableOrigin + NAS2D::Vector{0, 1};
 	for (const auto& [iconRect, resourceCount] : resources)
 	{
 		const auto resourceCountString = std::to_string(resourceCount);
-		renderer.drawSubImage(mIcons, columnOrigin + (cellSize - iconRect.size) / 2 + NAS2D::Vector{0, 1}, iconRect);
-		renderer.drawText(mFont, resourceCountString, columnOrigin + (cellSize - mFont.size(resourceCountString)) / 2 + NAS2D::Vector{0, cellSize.y + 1}, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, columnOrigin + (cellSize - iconRect.size) / 2, iconRect);
+		renderer.drawText(mFont, resourceCountString, columnOrigin + (cellSize - mFont.size(resourceCountString)) / 2 + NAS2D::Vector{0, cellSize.y}, NAS2D::Color::White);
 		columnOrigin.x += cellSize.x;
 	}
 }
