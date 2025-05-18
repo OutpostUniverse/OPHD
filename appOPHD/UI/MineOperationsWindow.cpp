@@ -219,9 +219,9 @@ void MineOperationsWindow::update()
 	const auto cellSize = NAS2D::Vector{(tableWidth + 1) / 4, 20};
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, {tableWidth, 40}});
 
-	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x - 1, 0}, tableOrigin + NAS2D::Vector{cellSize.x - 1, 39}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 0}, tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 39}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 0}, tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x - 1, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 39}, NAS2D::Color{22, 22, 22});
 
 	renderer.drawLine(tableOrigin + NAS2D::Vector{1, 20}, tableOrigin + NAS2D::Vector{tableWidth - 1, 20}, NAS2D::Color{22, 22, 22});
 
