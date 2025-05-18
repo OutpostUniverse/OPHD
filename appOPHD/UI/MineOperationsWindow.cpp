@@ -216,28 +216,30 @@ void MineOperationsWindow::update()
 
 	const auto tableOrigin = origin + NAS2D::Vector{10, 180};
 	const auto tableWidth = mRect.size.x - 20;
+	const auto cellSize = NAS2D::Vector{(tableWidth + 1) / 4, 20};
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, {tableWidth, 40}});
 
-	renderer.drawLine(tableOrigin + NAS2D::Vector{88, 0}, tableOrigin + NAS2D::Vector{88, 39}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(tableOrigin + NAS2D::Vector{177, 0}, tableOrigin + NAS2D::Vector{177, 39}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(tableOrigin + NAS2D::Vector{265, 0}, tableOrigin + NAS2D::Vector{265, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x - 1, 0}, tableOrigin + NAS2D::Vector{cellSize.x - 1, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 0}, tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 39}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 0}, tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 39}, NAS2D::Color{22, 22, 22});
 
 	renderer.drawLine(tableOrigin + NAS2D::Vector{1, 20}, tableOrigin + NAS2D::Vector{tableWidth - 1, 20}, NAS2D::Color{22, 22, 22});
 
 	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
 	{
-		std::tuple{36,  ResourceImageRectsOre[0], availableResources.resources[0]},
-		std::tuple{125, ResourceImageRectsOre[1], availableResources.resources[1]},
-		std::tuple{214, ResourceImageRectsOre[2], availableResources.resources[2]},
-		std::tuple{303, ResourceImageRectsOre[3], availableResources.resources[3]}
+		std::tuple{ResourceImageRectsOre[0], availableResources.resources[0]},
+		std::tuple{ResourceImageRectsOre[1], availableResources.resources[1]},
+		std::tuple{ResourceImageRectsOre[2], availableResources.resources[2]},
+		std::tuple{ResourceImageRectsOre[3], availableResources.resources[3]}
 	};
 
-	for (const auto& [offsetX, iconRect, resourceCount] : resources)
+	auto columnOrigin = tableOrigin;
+	for (const auto& [iconRect, resourceCount] : resources)
 	{
 		const auto resourceCountString = std::to_string(resourceCount);
-		const auto textOffsetX = offsetX - (mFont.width(resourceCountString) / 2) + 8;
-		renderer.drawSubImage(mIcons, tableOrigin + NAS2D::Vector{offsetX, 3}, iconRect);
-		renderer.drawText(mFont, resourceCountString, tableOrigin + NAS2D::Vector{textOffsetX, 22}, NAS2D::Color::White);
+		renderer.drawSubImage(mIcons, columnOrigin + (cellSize - iconRect.size) / 2 + NAS2D::Vector{0, 1}, iconRect);
+		renderer.drawText(mFont, resourceCountString, columnOrigin + (cellSize - mFont.size(resourceCountString)) / 2 + NAS2D::Vector{0, cellSize.y + 1}, NAS2D::Color::White);
+		columnOrigin.x += cellSize.x;
 	}
 }
