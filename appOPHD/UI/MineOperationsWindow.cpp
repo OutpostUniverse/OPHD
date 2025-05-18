@@ -219,11 +219,13 @@ void MineOperationsWindow::update()
 	const auto cellSize = NAS2D::Vector{(tableSize.x + 1) / 4, tableSize.y / 2};
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, tableSize});
 
-	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x - 1, tableSize.y - 1}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, tableSize.y - 1}, NAS2D::Color{22, 22, 22});
-	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, tableSize.y - 1}, NAS2D::Color{22, 22, 22});
+	const auto dividerLineColor = NAS2D::Color{22, 22, 22};
 
-	renderer.drawLine(tableOrigin + NAS2D::Vector{1, cellSize.y}, tableOrigin + NAS2D::Vector{tableSize.x - 1, cellSize.y}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x - 1, tableSize.y - 1}, dividerLineColor);
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, tableSize.y - 1}, dividerLineColor);
+	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, tableSize.y - 1}, dividerLineColor);
+
+	renderer.drawLine(tableOrigin + NAS2D::Vector{1, cellSize.y}, tableOrigin + NAS2D::Vector{tableSize.x - 1, cellSize.y}, dividerLineColor);
 
 	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
