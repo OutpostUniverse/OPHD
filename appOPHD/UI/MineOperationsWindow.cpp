@@ -223,10 +223,12 @@ void MineOperationsWindow::update()
 
 	for (int i = 1; i < 4; ++i)
 	{
-		renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * i, 1}, tableOrigin + NAS2D::Vector{cellSize.x * i, tableSize.y - 1}, dividerLineColor);
+		const auto columnOrigin = tableOrigin + NAS2D::Vector{cellSize.x * i, 1};
+		renderer.drawLine(columnOrigin, columnOrigin + NAS2D::Vector{0, tableSize.y - 2}, dividerLineColor);
 	}
 
-	renderer.drawLine(tableOrigin + NAS2D::Vector{1, cellSize.y}, tableOrigin + NAS2D::Vector{tableSize.x - 1, cellSize.y}, dividerLineColor);
+	const auto rowOrigin = tableOrigin + NAS2D::Vector{1, cellSize.y};
+	renderer.drawLine(rowOrigin, rowOrigin + NAS2D::Vector{tableSize.x - 2, 0}, dividerLineColor);
 
 	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
