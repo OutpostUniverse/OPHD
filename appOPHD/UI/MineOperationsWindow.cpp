@@ -212,11 +212,13 @@ void MineOperationsWindow::update()
 	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
-	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
-
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
 	const auto cellSize = NAS2D::Vector{tableSize.x / 4, tableSize.y / 2};
 	const auto tableOrigin = btnIdle.position() - NAS2D::Vector{0, tableSize.y + 10};
+	const auto tableTitleOrigin = tableOrigin - NAS2D::Vector{0, mFontBold.height() - 1};
+
+	renderer.drawText(mFontBold, "Remaining Resources", tableTitleOrigin, NAS2D::Color::White);
+
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, tableSize});
 
 	const auto dividerLineColor = NAS2D::Color{22, 22, 22};
