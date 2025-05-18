@@ -244,7 +244,8 @@ void MineOperationsWindow::update()
 	{
 		const auto resourceCountString = std::to_string(resourceCount);
 		renderer.drawSubImage(mIcons, columnOrigin + (cellSize - iconRect.size) / 2, iconRect);
-		renderer.drawText(mFont, resourceCountString, columnOrigin + (cellSize - mFont.size(resourceCountString)) / 2 + NAS2D::Vector{0, cellSize.y}, NAS2D::Color::White);
+		const auto textPosition = columnOrigin + NAS2D::Vector{0, cellSize.y} + (cellSize - mFont.size(resourceCountString)) / 2;
+		renderer.drawText(mFont, resourceCountString, textPosition, NAS2D::Color::White);
 		columnOrigin.x += cellSize.x;
 	}
 }
