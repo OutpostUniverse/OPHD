@@ -216,7 +216,7 @@ void MineOperationsWindow::update()
 
 	const auto tableOrigin = origin + NAS2D::Vector{10, 180};
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
-	const auto cellSize = NAS2D::Vector{(tableSize.x + 1) / 4, tableSize.y / 2};
+	const auto cellSize = NAS2D::Vector{tableSize.x / 4, tableSize.y / 2};
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, tableSize});
 
 	const auto dividerLineColor = NAS2D::Color{22, 22, 22};
