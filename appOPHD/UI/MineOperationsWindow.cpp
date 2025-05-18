@@ -214,9 +214,9 @@ void MineOperationsWindow::update()
 	// REMAINING ORE PANEL
 	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
-	const auto tableOrigin = origin + NAS2D::Vector{10, 180};
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
 	const auto cellSize = NAS2D::Vector{tableSize.x / 4, tableSize.y / 2};
+	const auto tableOrigin = btnIdle.position() - NAS2D::Vector{0, tableSize.y + 10};
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, tableSize});
 
 	const auto dividerLineColor = NAS2D::Color{22, 22, 22};
