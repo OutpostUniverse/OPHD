@@ -221,14 +221,14 @@ void MineOperationsWindow::update()
 
 	const auto dividerLineColor = NAS2D::Color{22, 22, 22};
 
+	const auto rowOrigin = tableOrigin + NAS2D::Vector{1, cellSize.y};
+	renderer.drawLine(rowOrigin, rowOrigin + NAS2D::Vector{tableSize.x - 2, 0}, dividerLineColor);
+
 	for (int i = 1; i < 4; ++i)
 	{
 		const auto columnOrigin = tableOrigin + NAS2D::Vector{cellSize.x * i, 1};
 		renderer.drawLine(columnOrigin, columnOrigin + NAS2D::Vector{0, tableSize.y - 2}, dividerLineColor);
 	}
-
-	const auto rowOrigin = tableOrigin + NAS2D::Vector{1, cellSize.y};
-	renderer.drawLine(rowOrigin, rowOrigin + NAS2D::Vector{tableSize.x - 2, 0}, dividerLineColor);
 
 	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
