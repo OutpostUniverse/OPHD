@@ -215,15 +215,15 @@ void MineOperationsWindow::update()
 	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
 
 	const auto tableOrigin = origin + NAS2D::Vector{10, 180};
-	const auto tableWidth = mRect.size.x - 20;
-	const auto cellSize = NAS2D::Vector{(tableWidth + 1) / 4, 20};
-	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, {tableWidth, 40}});
+	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
+	const auto cellSize = NAS2D::Vector{(tableSize.x + 1) / 4, 20};
+	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, tableSize});
 
 	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x - 1, 39}, NAS2D::Color{22, 22, 22});
 	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 2 - 1, 39}, NAS2D::Color{22, 22, 22});
 	renderer.drawLine(tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 1}, tableOrigin + NAS2D::Vector{cellSize.x * 3 - 2, 39}, NAS2D::Color{22, 22, 22});
 
-	renderer.drawLine(tableOrigin + NAS2D::Vector{1, 20}, tableOrigin + NAS2D::Vector{tableWidth - 1, 20}, NAS2D::Color{22, 22, 22});
+	renderer.drawLine(tableOrigin + NAS2D::Vector{1, 20}, tableOrigin + NAS2D::Vector{tableSize.x - 1, 20}, NAS2D::Color{22, 22, 22});
 
 	const auto availableResources = mFacility->oreDeposit().availableResources();
 	const std::array resources
