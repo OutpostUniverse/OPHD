@@ -49,28 +49,28 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnAssignTruck{"Add Truck", {this, &MineOperationsWindow::onAssignTruck}},
 	btnUnassignTruck{"Remove Truck", {this, &MineOperationsWindow::onUnassignTruck}}
 {
-	size({376, 270});
+	size({420, 290});
 
 	// Set up GUI Layout
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({60, 30});
-	btnExtendShaft.size({100, 30});
+	btnExtendShaft.size({120, 30});
 	btnOkay.size({60, 30});
 
 	const auto buttonBottomRowY = mRect.size.y - btnIdle.size().y - 10;
 	add(btnIdle, {10, buttonBottomRowY});
-	add(btnExtendShaft, {72, buttonBottomRowY});
+	add(btnExtendShaft, {76, buttonBottomRowY});
 	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
-	btnAssignTruck.size({105, 20});
-	btnUnassignTruck.size({105, 20});
+	btnAssignTruck.size({128, 25});
+	btnUnassignTruck.size({128, 25});
 
 	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 	add(btnUnassignTruck, {148, 115});
 
 	// ORE TOGGLE BUTTONS
-	const auto checkBoxOrigin = NAS2D::Vector{148, 140};
-	const auto checkBoxOffset = NAS2D::Vector{122, 20};
+	const auto checkBoxOrigin = NAS2D::Vector{148, 145};
+	const auto checkBoxOffset = NAS2D::Vector{152, 20};
 	add(chkResources[0], checkBoxOrigin);
 	add(chkResources[1], checkBoxOrigin + NAS2D::Vector{0, checkBoxOffset.y});
 	add(chkResources[2], checkBoxOrigin + NAS2D::Vector{checkBoxOffset.x, 0});
@@ -210,13 +210,13 @@ void MineOperationsWindow::update()
 	// TRUCK ASSIGNMENT
 	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{148, 80}, NAS2D::Color::White);
 	drawLabelAndValue(origin + NAS2D::Vector{148, 95}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
-	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
+	drawLabelAndValue(origin + NAS2D::Vector{285, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
 	const auto cellSize = NAS2D::Vector{tableSize.x / 4, tableSize.y / 2};
 	const auto tableOrigin = btnIdle.position() - NAS2D::Vector{0, tableSize.y + 10};
-	const auto tableTitleOrigin = tableOrigin - NAS2D::Vector{0, mFontBold.height() - 1};
+	const auto tableTitleOrigin = tableOrigin - NAS2D::Vector{0, mFontBold.height() + constants::MarginTight};
 
 	renderer.drawText(mFontBold, "Remaining Resources", tableTitleOrigin, NAS2D::Color::White);
 
