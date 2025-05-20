@@ -54,7 +54,7 @@ MineOperationsWindow::MineOperationsWindow() :
 	// Set up GUI Layout
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({60, 30});
-	btnExtendShaft.size({100, 30});
+	btnExtendShaft.size({120, 30});
 	btnOkay.size({60, 30});
 
 	const auto buttonBottomRowY = mRect.size.y - btnIdle.size().y - 10;
