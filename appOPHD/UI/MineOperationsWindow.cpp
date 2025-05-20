@@ -216,7 +216,7 @@ void MineOperationsWindow::update()
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
 	const auto cellSize = NAS2D::Vector{tableSize.x / 4, tableSize.y / 2};
 	const auto tableOrigin = btnIdle.position() - NAS2D::Vector{0, tableSize.y + 10};
-	const auto tableTitleOrigin = tableOrigin - NAS2D::Vector{0, mFontBold.height() - 1};
+	const auto tableTitleOrigin = tableOrigin - NAS2D::Vector{0, mFontBold.height() + constants::MarginTight};
 
 	renderer.drawText(mFontBold, "Remaining Resources", tableTitleOrigin, NAS2D::Color::White);
 
