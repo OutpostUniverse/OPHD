@@ -17,7 +17,6 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-
 using namespace NAS2D;
 
 
@@ -55,25 +54,27 @@ MineOperationsWindow::MineOperationsWindow() :
 	// Set up GUI Layout
 	btnIdle.type(Button::Type::Toggle);
 	btnIdle.size({60, 30});
-	add(btnIdle, {10, 230});
-
 	btnExtendShaft.size({100, 30});
-	add(btnExtendShaft, {72, 230});
-
 	btnOkay.size({60, 30});
-	add(btnOkay, {mRect.size.x - 70, 230});
+
+	const auto buttonBottomRowY = mRect.size.y - btnIdle.size().y - 10;
+	add(btnIdle, {10, buttonBottomRowY});
+	add(btnExtendShaft, {72, buttonBottomRowY});
+	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
 	btnAssignTruck.size({105, 20});
-	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
-
 	btnUnassignTruck.size({105, 20});
+
+	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 	add(btnUnassignTruck, {148, 115});
 
 	// ORE TOGGLE BUTTONS
-	add(chkResources[0], {148, 140});
-	add(chkResources[1], {148, 160});
-	add(chkResources[2], {270, 140});
-	add(chkResources[3], {270, 160});
+	const auto checkBoxOrigin = NAS2D::Vector{148, 140};
+	const auto checkBoxOffset = NAS2D::Vector{122, 20};
+	add(chkResources[0], checkBoxOrigin);
+	add(chkResources[1], checkBoxOrigin + NAS2D::Vector{0, checkBoxOffset.y});
+	add(chkResources[2], checkBoxOrigin + NAS2D::Vector{checkBoxOffset.x, 0});
+	add(chkResources[3], checkBoxOrigin + checkBoxOffset);
 }
 
 
@@ -212,11 +213,13 @@ void MineOperationsWindow::update()
 	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
-	renderer.drawText(mFontBold, "Remaining Resources", origin + NAS2D::Vector{10, 164}, NAS2D::Color::White);
-
-	const auto tableOrigin = origin + NAS2D::Vector{10, 180};
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
 	const auto cellSize = NAS2D::Vector{tableSize.x / 4, tableSize.y / 2};
+	const auto tableOrigin = btnIdle.position() - NAS2D::Vector{0, tableSize.y + 10};
+	const auto tableTitleOrigin = tableOrigin - NAS2D::Vector{0, mFontBold.height() - 1};
+
+	renderer.drawText(mFontBold, "Remaining Resources", tableTitleOrigin, NAS2D::Color::White);
+
 	mPanel.draw(renderer, NAS2D::Rectangle{tableOrigin, tableSize});
 
 	const auto dividerLineColor = NAS2D::Color{22, 22, 22};
