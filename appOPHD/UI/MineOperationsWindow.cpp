@@ -62,8 +62,8 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnExtendShaft, {72, buttonBottomRowY});
 	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
-	btnAssignTruck.size({105, 20});
-	btnUnassignTruck.size({105, 20});
+	btnAssignTruck.size({128, 25});
+	btnUnassignTruck.size({128, 25});
 
 	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 	add(btnUnassignTruck, {148, 115});
