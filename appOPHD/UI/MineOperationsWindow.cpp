@@ -210,7 +210,7 @@ void MineOperationsWindow::update()
 	// TRUCK ASSIGNMENT
 	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{148, 80}, NAS2D::Color::White);
 	drawLabelAndValue(origin + NAS2D::Vector{148, 95}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
-	drawLabelAndValue(origin + NAS2D::Vector{260, 95}, "Available: ", std::to_string(mAvailableTrucks));
+	drawLabelAndValue(origin + NAS2D::Vector{285, 95}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
