@@ -49,7 +49,7 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnAssignTruck{"Add Truck", {this, &MineOperationsWindow::onAssignTruck}},
 	btnUnassignTruck{"Remove Truck", {this, &MineOperationsWindow::onUnassignTruck}}
 {
-	size({420, 290});
+	size({420, 300});
 
 	// Set up GUI Layout
 	btnIdle.type(Button::Type::Toggle);
