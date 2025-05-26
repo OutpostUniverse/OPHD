@@ -87,6 +87,7 @@ void ListBoxBase::setSelection(std::size_t selection)
 void ListBoxBase::clearSelected()
 {
 	mSelectedIndex = NoSelection;
+	mSelectionChanged();
 }
 
 
