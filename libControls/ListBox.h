@@ -147,6 +147,7 @@ public:
 	void clearSelected()
 	{
 		mSelectedIndex = NoSelection;
+		mSelectionChanged();
 	}
 
 	template <typename UnaryPredicate>
