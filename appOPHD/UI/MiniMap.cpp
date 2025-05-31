@@ -95,7 +95,7 @@ void MiniMap::draw() const
 
 	// Temporary debug aid, will be slow with high numbers of mines
 	// especially with routes of longer lengths.
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	for (auto route : routeTable)
 	{
 		for (auto tile : route.second.path)

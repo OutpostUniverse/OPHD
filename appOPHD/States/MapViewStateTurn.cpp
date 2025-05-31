@@ -108,7 +108,7 @@ namespace
 	}
 
 
-	RouteList findRoutes(micropather::MicroPather* solver, Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+	RouteList findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		auto& start = structureManager.tileFromStructure(mineFacility);
@@ -322,10 +322,10 @@ void MapViewState::notifyBirthsAndDeaths()
 void MapViewState::findMineRoutes()
 {
 	const auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	mTruckRouteOverlay.clear();
 
-	for (auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	for (const auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
 		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; } // consider a different control path.
 
@@ -358,8 +358,8 @@ void MapViewState::findMineRoutes()
 
 void MapViewState::transportOreFromMines()
 {
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
-	for (auto* mineFacilityPtr : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
+	for (const auto* mineFacilityPtr : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
 		auto routeIt = routeTable.find(mineFacilityPtr);
 		if (routeIt != routeTable.end())
