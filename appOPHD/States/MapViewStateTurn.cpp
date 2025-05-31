@@ -325,7 +325,7 @@ void MapViewState::findMineRoutes()
 	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	mTruckRouteOverlay.clear();
 
-	for (auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	for (const auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
 		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; } // consider a different control path.
 
