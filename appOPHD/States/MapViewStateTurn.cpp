@@ -358,7 +358,7 @@ void MapViewState::findMineRoutes()
 
 void MapViewState::transportOreFromMines()
 {
-	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
+	const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	for (auto* mineFacilityPtr : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
 		auto routeIt = routeTable.find(mineFacilityPtr);
