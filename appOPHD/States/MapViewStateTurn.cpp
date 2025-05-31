@@ -108,7 +108,7 @@ namespace
 	}
 
 
-	RouteList findRoutes(micropather::MicroPather* solver, Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+	RouteList findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		auto& start = structureManager.tileFromStructure(mineFacility);
