@@ -322,7 +322,7 @@ void MapViewState::notifyBirthsAndDeaths()
 void MapViewState::findMineRoutes()
 {
 	const auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	mTruckRouteOverlay.clear();
 
 	for (auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
@@ -358,7 +358,7 @@ void MapViewState::findMineRoutes()
 
 void MapViewState::transportOreFromMines()
 {
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	for (auto* mineFacilityPtr : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
 	{
 		auto routeIt = routeTable.find(mineFacilityPtr);

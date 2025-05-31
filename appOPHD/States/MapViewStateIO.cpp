@@ -259,7 +259,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mNavControl = std::make_unique<NavControl>(*mMapView);
 
 	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
-	auto& routeTable = NAS2D::Utility<std::map<class MineFacility*, Route>>::get();
+	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	routeTable.clear();
 
 	readRobots(root->firstChildElement("robots"));
