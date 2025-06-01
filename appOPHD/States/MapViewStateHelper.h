@@ -26,6 +26,7 @@ enum class Direction;
 
 extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int>& ccLocation();
+void ccLocation(NAS2D::Point<int> position);
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);

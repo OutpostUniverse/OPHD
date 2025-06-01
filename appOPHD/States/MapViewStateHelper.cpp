@@ -45,6 +45,12 @@ NAS2D::Point<int>& ccLocation()
 }
 
 
+void ccLocation(NAS2D::Point<int> position)
+{
+	commandCenterLocation = position;
+}
+
+
 /**
  * Checks to see if a given tube connection is valid.
  */
