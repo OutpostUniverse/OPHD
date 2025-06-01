@@ -11,7 +11,7 @@ CommandCenter::CommandCenter() : FoodProduction(
 }
 
 
-int CommandCenter::foodCapacity()
+int CommandCenter::foodCapacity() const
 {
 	return constants::BaseStorageCapacity;
 }
