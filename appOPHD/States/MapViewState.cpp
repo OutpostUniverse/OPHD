@@ -197,7 +197,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mRobotDeploymentSummary{mRobotPool},
 	mColonyShip{gameState.colonyShip()}
 {
-	ccLocation() = CcNotPlaced;
+	ccLocation(CcNotPlaced);
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 
@@ -225,7 +225,7 @@ MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& plane
 	mColonyShip{gameState.colonyShip()}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
-	ccLocation() = CcNotPlaced;
+	ccLocation(CcNotPlaced);
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 

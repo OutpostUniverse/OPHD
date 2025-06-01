@@ -229,7 +229,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	scrubRobotList();
 	NAS2D::Utility<StructureManager>::get().dropAllStructures();
-	ccLocation() = CcNotPlaced;
+	ccLocation(CcNotPlaced);
 
 	mStructureTracker = StructureTracker{};
 
@@ -422,7 +422,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_COMMAND_CENTER)
 		{
-			ccLocation() = mapCoordinate.xy;
+			ccLocation(mapCoordinate.xy);
 		}
 
 		if (structureId == StructureID::SID_MINE_FACILITY)

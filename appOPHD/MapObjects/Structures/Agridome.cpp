@@ -34,13 +34,13 @@ void Agridome::disabledStateSet()
 }
 
 
-int Agridome::foodCapacity()
+int Agridome::foodCapacity() const
 {
 	return AGRIDOME_CAPACITY;
 }
 
 
-int Agridome::calculateProduction()
+int Agridome::calculateProduction() const
 {
 	if (!operational())
 	{

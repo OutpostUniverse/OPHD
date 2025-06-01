@@ -13,10 +13,10 @@ protected:
 
 	void disabledStateSet() override;
 
-	virtual int foodCapacity() override;
+	virtual int foodCapacity() const override;
 
 private:
-	virtual int calculateProduction() override;
+	virtual int calculateProduction() const override;
 
 	bool isStorageFull();
 };

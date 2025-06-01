@@ -102,7 +102,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityAvailable = 0;
 
 	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
-	for (auto* warehouse : warehouses)
+	for (const auto* warehouse : warehouses)
 	{
 		if (warehouse->operational())
 		{

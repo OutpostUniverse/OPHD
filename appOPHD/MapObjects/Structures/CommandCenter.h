@@ -11,10 +11,10 @@ class CommandCenter : public FoodProduction
 public:
 	CommandCenter();
 
-	int foodCapacity() override;
+	int foodCapacity() const override;
 
 	int getRange() const;
 
 protected:
-	int calculateProduction() override;
+	int calculateProduction() const override;
 };
