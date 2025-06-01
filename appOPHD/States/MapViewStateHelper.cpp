@@ -39,7 +39,7 @@ constexpr std::array AllDirections4{
 };
 
 
-NAS2D::Point<int>& ccLocation()
+NAS2D::Point<int> ccLocation()
 {
 	return commandCenterLocation;
 }
