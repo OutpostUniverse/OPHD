@@ -23,7 +23,7 @@ int CommandCenter::getRange() const
 }
 
 
-int CommandCenter::calculateProduction()
+int CommandCenter::calculateProduction() const
 {
 	return 0;
 }

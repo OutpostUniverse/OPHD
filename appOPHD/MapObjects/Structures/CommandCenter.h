@@ -16,5 +16,5 @@ public:
 	int getRange() const;
 
 protected:
-	int calculateProduction() override;
+	int calculateProduction() const override;
 };

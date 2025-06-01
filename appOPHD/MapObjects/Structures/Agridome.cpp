@@ -40,7 +40,7 @@ int Agridome::foodCapacity() const
 }
 
 
-int Agridome::calculateProduction()
+int Agridome::calculateProduction() const
 {
 	if (!operational())
 	{

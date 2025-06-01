@@ -21,7 +21,7 @@ public:
 	virtual int foodCapacity() const = 0;
 
 protected:
-	virtual int calculateProduction() = 0;
+	virtual int calculateProduction() const = 0;
 
 	int mFoodLevel = 0;
 };
