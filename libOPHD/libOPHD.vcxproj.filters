@@ -36,6 +36,9 @@
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StorableResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="XmlSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +99,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RandomNumberGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StorableResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="XmlSerializer.h">

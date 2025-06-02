@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../StorableResources.h"
-
+#include <libOPHD/StorableResources.h>
 #include <libOPHD/Population/PopulationPool.h>
 
 

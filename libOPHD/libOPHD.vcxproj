@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
+    <ClCompile Include="StorableResources.cpp" />
     <ClCompile Include="XmlSerializer.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="EnumStructureID.h" />
     <ClInclude Include="EnumTerrainType.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="StorableResources.h" />
     <ClInclude Include="XmlSerializer.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
     <ClInclude Include="Map\MapOffset.h" />

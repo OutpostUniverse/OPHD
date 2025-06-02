@@ -2,7 +2,7 @@
 
 #include "Constants/Strings.h"
 
-#include "StorableResources.h"
+#include <libOPHD/StorableResources.h>
 
 #include <NAS2D/ParserHelper.h>
 

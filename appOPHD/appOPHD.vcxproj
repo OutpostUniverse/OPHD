@@ -243,7 +243,6 @@
     <ClCompile Include="States\PlanetSelectState.cpp" />
     <ClCompile Include="States\SplashState.cpp" />
     <ClCompile Include="States\StructureTracker.cpp" />
-    <ClCompile Include="StorableResources.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
     <ClCompile Include="StructureManager.cpp" />
     <ClCompile Include="TruckAvailability.cpp" />
@@ -376,7 +375,6 @@
     <ClInclude Include="States\SplashState.h" />
     <ClInclude Include="States\StructureTracker.h" />
     <ClInclude Include="States\Wrapper.h" />
-    <ClInclude Include="StorableResources.h" />
     <ClInclude Include="StructureCatalogue.h" />
     <ClInclude Include="StructureManager.h" />
     <ClInclude Include="TruckAvailability.h" />

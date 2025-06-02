@@ -1,10 +1,10 @@
 #include "StructureCatalogue.h"
 
-#include "StorableResources.h"
 #include "MapObjects/Structures.h"
 #include "MapObjects/StructureType.h"
 #include "IOHelper.h"
 
+#include <libOPHD/StorableResources.h>
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
