@@ -2,9 +2,8 @@
 
 #include "IconGrid.h"
 
-#include "../ProductionCost.h"
-
 #include <libOPHD/EnumProductType.h>
+#include <libOPHD/ProductionCost.h>
 
 #include <libControls/Window.h>
 #include <libControls/Button.h>

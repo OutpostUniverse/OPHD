@@ -350,7 +350,6 @@
     <ClInclude Include="OpenSaveGame.h" />
     <ClInclude Include="PointerType.h" />
     <ClInclude Include="ProductCatalogue.h" />
-    <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="ProductPool.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />

@@ -187,6 +187,7 @@
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
     <ClInclude Include="EnumTerrainType.h" />
+    <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="StorableResources.h" />
     <ClInclude Include="XmlSerializer.h" />

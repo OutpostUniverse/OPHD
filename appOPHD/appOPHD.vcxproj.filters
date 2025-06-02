@@ -569,9 +569,6 @@
     <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProductionCost.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ProductPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -104,6 +104,9 @@
     <ClInclude Include="EnumTerrainType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ProductionCost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="RandomNumberGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
