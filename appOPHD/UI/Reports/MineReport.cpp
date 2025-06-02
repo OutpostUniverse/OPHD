@@ -44,13 +44,13 @@ namespace
 
 	bool hasRoute(MineFacility* mineFacility)
 	{
-		const auto& routeTable = NAS2D::Utility<std::map<MineFacility*, Route>>::get();
+		const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 		return routeTable.find(mineFacility) != routeTable.end();
 	}
 
 	float getRouteCost(MineFacility* mineFacility)
 	{
-		const auto& routeTable = NAS2D::Utility<std::map<MineFacility*, Route>>::get();
+		const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 		if (routeTable.find(mineFacility) == routeTable.end())
 		{
 			return FLT_MAX;
