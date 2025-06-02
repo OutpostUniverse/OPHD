@@ -211,7 +211,6 @@ void WarehouseReport::refresh()
 void WarehouseReport::selectStructure(Structure* structure)
 {
 	lstStructures.setSelected(structure);
-	selectedWarehouse = static_cast<Warehouse*>(structure);
 }
 
 
