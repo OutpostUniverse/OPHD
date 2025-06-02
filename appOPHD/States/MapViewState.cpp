@@ -21,13 +21,12 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
-#include "../MapObjects/OreDeposit.h"
-
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>

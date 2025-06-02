@@ -1,11 +1,10 @@
 #include "MineFacility.h"
 
-#include "../OreDeposit.h"
-
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
 
 #include <libOPHD/StorableResources.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <algorithm>
 

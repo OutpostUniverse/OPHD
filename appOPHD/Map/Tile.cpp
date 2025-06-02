@@ -1,10 +1,11 @@
 #include "Tile.h"
 
-#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
 #include "../Constants/Numbers.h"
+
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <cfloat>
 

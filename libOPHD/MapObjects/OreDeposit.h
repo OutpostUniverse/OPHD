@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libOPHD/EnumOreDepositYield.h>
-#include <libOPHD/StorableResources.h>
+#include "../EnumOreDepositYield.h"
+#include "../StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
 

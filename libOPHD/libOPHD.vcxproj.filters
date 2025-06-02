@@ -45,6 +45,9 @@
     <ClCompile Include="Map\MapCoordinate.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\OreDeposit.cpp">
+      <Filter>Source Files\MapObjects</Filter>
+    </ClCompile>
     <ClCompile Include="Population\Morale.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="MapObjects\StructureType.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjects\OreDeposit.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="Population\Morale.h">
       <Filter>Header Files\Population</Filter>

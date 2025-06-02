@@ -10,9 +10,9 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
-#include "../MapObjects/OreDeposit.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/Utility.h>
 
