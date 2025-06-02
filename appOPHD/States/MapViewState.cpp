@@ -12,7 +12,6 @@
 #include "../Constants/UiConstants.h"
 
 #include "../PointerType.h"
-#include "../MeanSolarDistance.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 
@@ -25,6 +24,7 @@
 #include "../UI/NavControl.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalogue.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 

@@ -13,7 +13,6 @@
 
 #include "../Cache.h"
 #include "../OpenSaveGame.h"
-#include "../MeanSolarDistance.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
@@ -24,6 +23,7 @@
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 
+#include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalogue.h>
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Technology/ResearchTracker.h>

@@ -214,7 +214,6 @@
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
     <ClCompile Include="MapObjects\Structures\Tube.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
-    <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="OreDepositYieldString.cpp" />
     <ClCompile Include="MoraleString.cpp" />
     <ClCompile Include="OpenSaveGame.cpp" />
@@ -343,7 +342,6 @@
     <ClInclude Include="MapObjects\Structures\University.h" />
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
-    <ClInclude Include="MeanSolarDistance.h" />
     <ClInclude Include="OreDepositYieldString.h" />
     <ClInclude Include="MoraleString.h" />
     <ClInclude Include="OpenSaveGame.h" />

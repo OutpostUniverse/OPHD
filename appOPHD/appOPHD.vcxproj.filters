@@ -165,9 +165,6 @@
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
-    <ClCompile Include="MeanSolarDistance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="OreDepositYieldString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -547,9 +544,6 @@
     </ClInclude>
     <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
-    </ClInclude>
-    <ClInclude Include="MeanSolarDistance.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OreDepositYieldString.h">
       <Filter>Header Files</Filter>

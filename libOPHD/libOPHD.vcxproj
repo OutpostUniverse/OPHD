@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
+    <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="StorableResources.cpp" />
     <ClCompile Include="XmlSerializer.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
     <ClInclude Include="EnumTerrainType.h" />
+    <ClInclude Include="MeanSolarDistance.h" />
     <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
