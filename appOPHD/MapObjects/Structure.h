@@ -1,12 +1,11 @@
 #pragma once
 
-#include "MapObject.h"
-
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/StorableResources.h>
+#include <libOPHD/MapObjects/MapObject.h>
 #include <libOPHD/Population/PopulationPool.h>
 
 

@@ -90,9 +90,6 @@
     <ClCompile Include="Map\TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\MapObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MapObjects\Robot.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
@@ -400,9 +397,6 @@
     </ClInclude>
     <ClInclude Include="Map\TileMap.h">
       <Filter>Header Files\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\MapObject.h">
-      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Robots\Robodigger.h">
       <Filter>Header Files\MapObjects\Robots</Filter>
