@@ -37,6 +37,7 @@ public:
 	void update() override;
 
 private:
+	Warehouse* selectedWarehouse();
 	void computeTotalWarehouseCapacity();
 
 	void fillListFromStructureList(const std::vector<Warehouse*>&);
@@ -69,8 +70,6 @@ private:
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;
 	const NAS2D::Image& imageWarehouse;
-
-	const Warehouse* selectedWarehouse = nullptr;
 
 	Button btnShowAll;
 	Button btnFull;
