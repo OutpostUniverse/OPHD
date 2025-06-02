@@ -47,6 +47,8 @@ namespace constants
 	const NAS2D::Color PrimaryTextColor{PrimaryColor};
 	const NAS2D::Color PrimaryTextColorVariant{PrimaryColorVariant};
 
+	const NAS2D::Color WarningTextColor = NAS2D::Color::Red;
+
 	// =====================================
 	// = MOUSE POINTERS
 	// =====================================
@@ -68,9 +70,4 @@ namespace constants
 	inline constexpr int FontPrimaryMedium{18};
 	inline constexpr int FontPrimaryLarge{20};
 	inline constexpr int FontPrimaryHuge{24};
-
-	// =====================================
-	// = FONT COLORS
-	// =====================================
-	const auto WarningTextColor = NAS2D::Color::Red;
 }
