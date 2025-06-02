@@ -8,12 +8,12 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../StructureManager.h"
-#include "../../ProductCatalogue.h"
 
 #include "../../MapObjects/Structures/SurfaceFactory.h"
 #include "../../MapObjects/Structures/SeedFactory.h"
 #include "../../MapObjects/Structures/UndergroundFactory.h"
 
+#include <libOPHD/ProductCatalogue.h>
 #include <libOPHD/ProductionCost.h>
 
 #include <NAS2D/Utility.h>

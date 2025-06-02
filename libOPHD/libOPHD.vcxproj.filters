@@ -36,6 +36,9 @@
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProductCatalogue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="StorableResources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnumTerrainType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductionCost.h">

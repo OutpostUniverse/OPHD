@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libOPHD/EnumProductType.h>
+#include "EnumProductType.h"
 
 #include <map>
 #include <string>

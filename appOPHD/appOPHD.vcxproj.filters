@@ -180,9 +180,6 @@
     <ClCompile Include="PointerType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProductCatalogue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProductPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -564,9 +561,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointerType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductCatalogue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductPool.h">

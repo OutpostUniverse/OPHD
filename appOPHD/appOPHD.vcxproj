@@ -219,7 +219,6 @@
     <ClCompile Include="MoraleString.cpp" />
     <ClCompile Include="OpenSaveGame.cpp" />
     <ClCompile Include="PointerType.cpp" />
-    <ClCompile Include="ProductCatalogue.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="RobotPool.cpp" />
@@ -349,7 +348,6 @@
     <ClInclude Include="MoraleString.h" />
     <ClInclude Include="OpenSaveGame.h" />
     <ClInclude Include="PointerType.h" />
-    <ClInclude Include="ProductCatalogue.h" />
     <ClInclude Include="ProductPool.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />
