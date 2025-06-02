@@ -113,6 +113,9 @@
     <ClInclude Include="Map\MapOffset.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="MapObjects\StructureType.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
     <ClInclude Include="Population\Morale.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>

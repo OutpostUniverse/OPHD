@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libOPHD/StorableResources.h>
-#include <libOPHD/Population/PopulationPool.h>
+#include "../StorableResources.h"
+#include "../Population/PopulationPool.h"
 
 
 struct StructureType

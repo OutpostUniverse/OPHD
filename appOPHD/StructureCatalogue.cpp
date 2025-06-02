@@ -1,9 +1,9 @@
 #include "StructureCatalogue.h"
 
 #include "MapObjects/Structures.h"
-#include "MapObjects/StructureType.h"
 #include "IOHelper.h"
 
+#include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/XmlSerializer.h>
 
