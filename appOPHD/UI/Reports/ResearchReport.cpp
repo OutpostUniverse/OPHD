@@ -377,7 +377,7 @@ void ResearchReport::drawCategories() const
 		}
 		else if (panel.rect.contains(MOUSE_COORDS))
 		{
-			renderer.drawBoxFilled(panelRect, constants::HighliteColor);
+			renderer.drawBoxFilled(panelRect, constants::HighlightColor);
 		}
 
 		renderer.drawSubImage(imageCategoryIcons, panel.rect.position, panel.imageSlice);
