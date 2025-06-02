@@ -115,7 +115,7 @@ namespace
 	{
 		if (panel.Rect.contains(MOUSE_COORDS))
 		{
-			renderer.drawBoxFilled(panel.Rect, constants::HighliteColor);
+			renderer.drawBoxFilled(panel.Rect, constants::HighlightColor);
 		}
 
 		auto drawColor = panel.Selected() ? constants::PrimaryColor : constants::SecondaryColor;
