@@ -7,7 +7,6 @@
 
 #include "Planet.h"
 
-#include "../StorableResources.h"
 #include "../RobotPool.h"
 
 #include "../Constants/Numbers.h"
@@ -34,6 +33,8 @@
 #include "../UI/RobotDeploymentSummary.h"
 #include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
+
+#include <libOPHD/StorableResources.h>
 
 #include <libOPHD/Map/MapCoordinate.h>
 

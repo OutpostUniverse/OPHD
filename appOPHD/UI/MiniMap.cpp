@@ -3,10 +3,11 @@
 #include "../Cache.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
-#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Robot.h"
 #include "../States/Route.h"
 #include "../StructureManager.h"
+
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>

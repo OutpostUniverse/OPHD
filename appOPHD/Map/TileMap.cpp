@@ -1,10 +1,10 @@
 #include "TileMap.h"
 
-#include "../MapObjects/OreDeposit.h"
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/RandomNumberGenerator.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>

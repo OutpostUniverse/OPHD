@@ -1,6 +1,6 @@
 #include "SolarPlant.h"
 
-#include "../../MeanSolarDistance.h"
+#include <libOPHD/MeanSolarDistance.h>
 
 
 namespace

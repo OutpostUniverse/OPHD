@@ -1,9 +1,8 @@
 #include "MaintenanceFacility.h"
 
-
-#include "../../StorableResources.h"
-
 #include "../../States/MapViewStateHelper.h"
+
+#include <libOPHD/StorableResources.h>
 
 #include <algorithm>
 

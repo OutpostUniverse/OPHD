@@ -163,8 +163,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
+    <ClCompile Include="MeanSolarDistance.cpp" />
+    <ClCompile Include="ProductCatalogue.cpp" />
+    <ClCompile Include="StorableResources.cpp" />
     <ClCompile Include="XmlSerializer.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
+    <ClCompile Include="MapObjects\MapObject.cpp" />
+    <ClCompile Include="MapObjects\OreDeposit.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
     <ClCompile Include="Population\Population.cpp" />
     <ClCompile Include="Population\PopulationPool.cpp" />
@@ -184,10 +189,17 @@
     <ClInclude Include="EnumProductType.h" />
     <ClInclude Include="EnumStructureID.h" />
     <ClInclude Include="EnumTerrainType.h" />
+    <ClInclude Include="MeanSolarDistance.h" />
+    <ClInclude Include="ProductCatalogue.h" />
+    <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
+    <ClInclude Include="StorableResources.h" />
     <ClInclude Include="XmlSerializer.h" />
     <ClInclude Include="Map\MapCoordinate.h" />
     <ClInclude Include="Map\MapOffset.h" />
+    <ClInclude Include="MapObjects\MapObject.h" />
+    <ClInclude Include="MapObjects\OreDeposit.h" />
+    <ClInclude Include="MapObjects\StructureType.h" />
     <ClInclude Include="Population\Morale.h" />
     <ClInclude Include="Population\Population.h" />
     <ClInclude Include="Population\PopulationPool.h" />

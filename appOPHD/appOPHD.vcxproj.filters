@@ -90,12 +90,6 @@
     <ClCompile Include="Map\TileMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\MapObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObjects\OreDeposit.cpp">
-      <Filter>Source Files\MapObjects</Filter>
-    </ClCompile>
     <ClCompile Include="MapObjects\Robot.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
@@ -171,9 +165,6 @@
     <ClCompile Include="MicroPather\micropather.cpp">
       <Filter>Source Files\MicroPather</Filter>
     </ClCompile>
-    <ClCompile Include="MeanSolarDistance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="OreDepositYieldString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -184,9 +175,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PointerType.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProductPool.cpp">
@@ -251,9 +239,6 @@
     </ClCompile>
     <ClCompile Include="States\StructureTracker.cpp">
       <Filter>Source Files\States</Filter>
-    </ClCompile>
-    <ClCompile Include="StorableResources.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StructureCatalogue.cpp">
       <Filter>Source Files</Filter>
@@ -407,12 +392,6 @@
     <ClInclude Include="Map\TileMap.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\MapObject.h">
-      <Filter>Header Files\MapObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\OreDeposit.h">
-      <Filter>Header Files\MapObjects</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Robots\Robodigger.h">
       <Filter>Header Files\MapObjects\Robots</Filter>
     </ClInclude>
@@ -426,9 +405,6 @@
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Robots.h">
-      <Filter>Header Files\MapObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\StructureType.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structure.h">
@@ -569,9 +545,6 @@
     <ClInclude Include="MicroPather\micropather.h">
       <Filter>Header Files\MicroPather</Filter>
     </ClInclude>
-    <ClInclude Include="MeanSolarDistance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OreDepositYieldString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -582,12 +555,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointerType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductCatalogue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductionCost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductPool.h">
@@ -646,9 +613,6 @@
     </ClInclude>
     <ClInclude Include="States\Wrapper.h">
       <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="StorableResources.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StructureCatalogue.h">
       <Filter>Header Files</Filter>

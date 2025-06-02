@@ -12,8 +12,6 @@
 #include "../Constants/UiConstants.h"
 
 #include "../PointerType.h"
-#include "../MeanSolarDistance.h"
-#include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 
@@ -21,13 +19,14 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 
-#include "../MapObjects/OreDeposit.h"
-
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/MeanSolarDistance.h>
+#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>

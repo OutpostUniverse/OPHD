@@ -4,9 +4,9 @@
 #include "../OreDepositYieldString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../MapObjects/OreDeposit.h"
 
 #include <libOPHD/EnumTerrainType.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
 

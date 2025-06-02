@@ -11,13 +11,14 @@
 #include "../../Resources.h"
 #include "../../StructureManager.h"
 #include "../../TruckAvailability.h"
-#include "../../ProductionCost.h"
 
 #include "../../States/Route.h"
 
 #include "../../Map/Tile.h"
-#include "../../MapObjects/OreDeposit.h"
 #include "../../MapObjects/Structures/MineFacility.h"
+
+#include <libOPHD/ProductionCost.h>
+#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <libControls/Layout.h>
 

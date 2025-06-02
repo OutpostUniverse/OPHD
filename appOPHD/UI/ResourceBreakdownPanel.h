@@ -1,7 +1,8 @@
 #pragma once
 
+#include <libOPHD/StorableResources.h>
+
 #include <libControls/Control.h>
-#include "../StorableResources.h"
 
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>

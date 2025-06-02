@@ -13,10 +13,8 @@
 
 #include "../Cache.h"
 #include "../OpenSaveGame.h"
-#include "../MeanSolarDistance.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
-#include "../ProductCatalogue.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
@@ -25,8 +23,10 @@
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
 
-#include <libOPHD/Technology/ResearchTracker.h>
+#include <libOPHD/MeanSolarDistance.h>
+#include <libOPHD/ProductCatalogue.h>
 #include <libOPHD/XmlSerializer.h>
+#include <libOPHD/Technology/ResearchTracker.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>

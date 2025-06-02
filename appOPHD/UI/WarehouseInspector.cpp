@@ -2,12 +2,12 @@
 
 #include "TextRender.h"
 
-#include "../ProductCatalogue.h"
-
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
 #include "../MapObjects/Structures/Warehouse.h"
+
+#include <libOPHD/ProductCatalogue.h>
 
 
 using namespace NAS2D;

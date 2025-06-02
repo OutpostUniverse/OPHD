@@ -4,9 +4,10 @@
 
 #include "../Constants/UiConstants.h"
 #include "../Resources.h"
-#include "../ProductCatalogue.h"
 #include "../Constants/Strings.h"
 #include "../MapObjects/Structures/Factory.h"
+
+#include <libOPHD/ProductCatalogue.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

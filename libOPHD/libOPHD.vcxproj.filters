@@ -36,11 +36,26 @@
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MeanSolarDistance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProductCatalogue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StorableResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="XmlSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map\MapCoordinate.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\MapObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObjects\OreDeposit.cpp">
+      <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
     <ClCompile Include="Population\Morale.cpp">
       <Filter>Source Files</Filter>
@@ -95,7 +110,19 @@
     <ClInclude Include="EnumTerrainType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MeanSolarDistance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductCatalogue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionCost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="RandomNumberGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StorableResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="XmlSerializer.h">
@@ -106,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="Map\MapOffset.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjects\MapObject.h">
+      <Filter>Header Files\MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjects\StructureType.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjects\OreDeposit.h">
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="Population\Morale.h">
       <Filter>Header Files\Population</Filter>
