@@ -239,7 +239,9 @@ void WarehouseReport::onVisibilityChange(bool /*visible*/)
 
 void WarehouseReport::setVisibility()
 {
-	btnTakeMeThere.visible(lstStructures.isItemSelected());
+	const auto isWarehouseSelected = lstStructures.isItemSelected();
+	btnTakeMeThere.visible(isWarehouseSelected);
+	lstProducts.visible(isWarehouseSelected);
 }
 
 
