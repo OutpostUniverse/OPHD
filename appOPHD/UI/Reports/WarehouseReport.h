@@ -44,6 +44,7 @@ private:
 
 	void onResize() override;
 	void onVisibilityChange(bool visible) override;
+	void setVisibility();
 
 	void onShowAll();
 	void onFull();

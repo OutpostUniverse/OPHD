@@ -233,6 +233,12 @@ void WarehouseReport::onResize()
 
 void WarehouseReport::onVisibilityChange(bool /*visible*/)
 {
+	setVisibility();
+}
+
+
+void WarehouseReport::setVisibility()
+{
 	btnTakeMeThere.visible(lstStructures.isItemSelected());
 }
 
@@ -301,13 +307,11 @@ void WarehouseReport::onTakeMeThere()
 void WarehouseReport::onStructureSelectionChange()
 {
 	const auto* warehouse = selectedWarehouse();
-
 	if (warehouse != nullptr)
 	{
 		lstProducts.productPool(warehouse->products());
 	}
-
-	btnTakeMeThere.visible(warehouse != nullptr);
+	setVisibility();
 }
 
 
