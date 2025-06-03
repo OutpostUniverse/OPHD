@@ -233,7 +233,7 @@ void WarehouseReport::onResize()
 
 void WarehouseReport::onVisibilityChange(bool /*visible*/)
 {
-	btnTakeMeThere.visible(selectedWarehouse() != nullptr);
+	btnTakeMeThere.visible(lstStructures.isItemSelected());
 }
 
 
