@@ -231,6 +231,12 @@ void WarehouseReport::onResize()
 }
 
 
+void WarehouseReport::onVisibilityChange(bool /*visible*/)
+{
+	btnTakeMeThere.visible(selectedWarehouse() != nullptr);
+}
+
+
 void WarehouseReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);

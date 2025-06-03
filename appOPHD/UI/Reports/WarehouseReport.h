@@ -43,6 +43,7 @@ private:
 	void fillListFromStructureList(const std::vector<Warehouse*>&);
 
 	void onResize() override;
+	void onVisibilityChange(bool visible) override;
 
 	void onShowAll();
 	void onFull();
