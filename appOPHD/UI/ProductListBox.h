@@ -31,7 +31,7 @@ public:
 protected:
 	void add(std::string initialText, int initialProductCount, int initialCapacityUsed, int initialCapacityTotal);
 
-	virtual std::size_t count() const override;
+	std::size_t count() const override;
 
 	const ProductListBoxItem& getItem(std::size_t index) const;
 

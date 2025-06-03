@@ -165,7 +165,7 @@ void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posit
 
 	if (button == NAS2D::MouseButton::Right && mRect.contains(position))
 	{
-		setSelection(NoSelection);
+		clearSelected();
 		return;
 	}
 

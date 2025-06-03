@@ -60,7 +60,7 @@ void StructureListBox::setSelected(const Structure* structure)
 {
 	if (structure == nullptr)
 	{
-		setSelection(NoSelection);
+		clearSelected();
 		return;
 	}
 
@@ -74,7 +74,7 @@ void StructureListBox::setSelected(const Structure* structure)
 		}
 	}
 
-	setSelection(NoSelection);
+	clearSelected();
 }
 
 

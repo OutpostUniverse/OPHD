@@ -96,6 +96,12 @@ WarehouseReport::~WarehouseReport()
 }
 
 
+Warehouse* WarehouseReport::selectedWarehouse()
+{
+	return dynamic_cast<Warehouse*>(lstStructures.selectedStructure());
+}
+
+
 void WarehouseReport::computeTotalWarehouseCapacity()
 {
 	int capacityTotal = 0;
@@ -188,9 +194,9 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 	if (!visible()) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	if (selectedWarehouse && lstStructures.area().contains(position))
+	if (lstStructures.area().contains(position) && selectedWarehouse())
 	{
-		mTakeMeThereSignal(selectedWarehouse);
+		mTakeMeThereSignal(selectedWarehouse());
 	}
 }
 
@@ -198,7 +204,6 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 void WarehouseReport::clearSelected()
 {
 	lstStructures.clearSelected();
-	selectedWarehouse = nullptr;
 }
 
 
@@ -211,7 +216,6 @@ void WarehouseReport::refresh()
 void WarehouseReport::selectStructure(Structure* structure)
 {
 	lstStructures.setSelected(structure);
-	selectedWarehouse = static_cast<Warehouse*>(structure);
 }
 
 
@@ -284,20 +288,20 @@ void WarehouseReport::onDisabled()
 
 void WarehouseReport::onTakeMeThere()
 {
-	mTakeMeThereSignal(selectedWarehouse);
+	mTakeMeThereSignal(selectedWarehouse());
 }
 
 
 void WarehouseReport::onStructureSelectionChange()
 {
-	selectedWarehouse = static_cast<const Warehouse*>(lstStructures.selectedStructure());
+	const auto* warehouse = selectedWarehouse();
 
-	if (selectedWarehouse != nullptr)
+	if (warehouse != nullptr)
 	{
-		lstProducts.productPool(selectedWarehouse->products());
+		lstProducts.productPool(warehouse->products());
 	}
 
-	btnTakeMeThere.visible(selectedWarehouse != nullptr);
+	btnTakeMeThere.visible(warehouse != nullptr);
 }
 
 
@@ -327,10 +331,11 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 
 void WarehouseReport::drawRightPanel(Renderer& renderer)
 {
-	if (!selectedWarehouse) { return; }
+	const auto* warehouse = selectedWarehouse();
+	if (!warehouse) { return; }
 
 	const auto position = NAS2D::Point{renderer.center().x + 10, this->position().y};
-	renderer.drawText(fontBigBold, selectedWarehouse->name(), position + NAS2D::Vector{0, 2}, constants::PrimaryTextColor);
+	renderer.drawText(fontBigBold, warehouse->name(), position + NAS2D::Vector{0, 2}, constants::PrimaryTextColor);
 	renderer.drawImage(imageWarehouse, position + NAS2D::Vector{0, 35});
 }
 
