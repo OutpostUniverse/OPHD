@@ -231,6 +231,20 @@ void WarehouseReport::onResize()
 }
 
 
+void WarehouseReport::onVisibilityChange(bool /*visible*/)
+{
+	setVisibility();
+}
+
+
+void WarehouseReport::setVisibility()
+{
+	const auto isWarehouseSelected = lstStructures.isItemSelected();
+	btnTakeMeThere.visible(isWarehouseSelected);
+	lstProducts.visible(isWarehouseSelected);
+}
+
+
 void WarehouseReport::filterButtonClicked()
 {
 	btnShowAll.toggle(false);
@@ -295,13 +309,11 @@ void WarehouseReport::onTakeMeThere()
 void WarehouseReport::onStructureSelectionChange()
 {
 	const auto* warehouse = selectedWarehouse();
-
 	if (warehouse != nullptr)
 	{
 		lstProducts.productPool(warehouse->products());
 	}
-
-	btnTakeMeThere.visible(warehouse != nullptr);
+	setVisibility();
 }
 
 
