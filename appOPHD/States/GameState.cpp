@@ -1,20 +1,18 @@
 #include "GameState.h"
 
 #include "MainMenuState.h"
-#include "MapViewState.h"
-#include "MainReportsUiState.h"
 #include "Wrapper.h"
 #include "../StructureManager.h"
 #include "../UI/MessageBox.h"
 #include "../Constants/Strings.h"
-#include "appOPHD/OpenSaveGame.h"
+#include "../OpenSaveGame.h"
 
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Filesystem.h>
+
 
 namespace
 {

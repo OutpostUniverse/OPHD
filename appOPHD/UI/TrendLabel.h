@@ -11,7 +11,6 @@ namespace NAS2D
 	class Image;
 
 	template <typename BaseType> struct Point;
-	template <typename BaseType> struct Vector;
 	template <typename BaseType> struct Rectangle;
 }
 

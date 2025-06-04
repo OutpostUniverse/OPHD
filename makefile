@@ -347,7 +347,7 @@ cppcheck:
 
 .PHONY: cppclean
 cppclean:
-	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" "$(ophd_SRCDIR)"
+	cppclean --quiet --include-path "$(NAS2DINCLUDEDIR)" --include-path "/usr/include/SDL2" --exclude "MicroPather" --exclude "Structures.h" --exclude "Robots.h" "$(ophd_SRCDIR)"
 
 .PHONY: cppinclude
 cppinclude:
