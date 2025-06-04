@@ -125,7 +125,7 @@ FactoryReport::FactoryReport() :
 
 	add(lstProducts, {cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x + 20, mRect.position.y + 230});
 
-	mTxtProductDescription.height(128);
+	mTxtProductDescription.height(260);
 	mTxtProductDescription.textColor(constants::PrimaryTextColor);
 
 	fillLists();
@@ -278,7 +278,7 @@ void FactoryReport::onResize()
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
 	mTxtProductDescription.position(lstProducts.area().crossXPoint() + NAS2D::Vector{158, 0});
-	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 30);
+	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 10);
 }
 
 
@@ -501,7 +501,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
 
-	const auto progressTextPosition = originRight + NAS2D::Vector{0, 178};
+	const auto progressTextPosition = originRight + NAS2D::Vector{0, mRect.size.y - originRight.y - 115};
 	const auto buildingProductNamePosition = progressTextPosition + NAS2D::Vector{0, 35};
 	renderer.drawText(fontBigBold, "Progress", progressTextPosition, constants::PrimaryTextColor);
 	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
