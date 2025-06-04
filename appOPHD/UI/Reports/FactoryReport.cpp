@@ -278,7 +278,7 @@ void FactoryReport::onResize()
 	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
 	mTxtProductDescription.position(lstProducts.area().crossXPoint() + NAS2D::Vector{158, 0});
-	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 30);
+	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 10);
 }
 
 
