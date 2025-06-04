@@ -1,8 +1,6 @@
 #include "GameState.h"
 
 #include "MainMenuState.h"
-#include "MapViewState.h"
-#include "MainReportsUiState.h"
 #include "Wrapper.h"
 #include "../StructureManager.h"
 #include "../UI/MessageBox.h"
