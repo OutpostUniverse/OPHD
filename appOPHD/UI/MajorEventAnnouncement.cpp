@@ -1,8 +1,8 @@
 #include "MajorEventAnnouncement.h"
 
-#include "appOPHD/States/ColonyShip.h"
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
+#include "../States/ColonyShip.h"
 
 #include <libControls/WindowStack.h>
 

@@ -1,6 +1,6 @@
 #include "ColonyShip.h"
 
-#include "appOPHD/Constants/Strings.h"
+#include "../Constants/Strings.h"
 
 #include <NAS2D/ParserHelper.h>
 

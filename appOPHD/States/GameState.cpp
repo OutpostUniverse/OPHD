@@ -7,7 +7,7 @@
 #include "../StructureManager.h"
 #include "../UI/MessageBox.h"
 #include "../Constants/Strings.h"
-#include "appOPHD/OpenSaveGame.h"
+#include "../OpenSaveGame.h"
 
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/Utility.h>
