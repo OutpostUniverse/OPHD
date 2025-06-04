@@ -12,7 +12,7 @@ namespace NAS2D
 		class XmlDocument;
 	}
 }
-class GameState;
+
 
 struct ColonyShipData
 {
@@ -21,7 +21,9 @@ struct ColonyShipData
 	int turnsOfManeuveringFuel = 0;
 };
 
+
 ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument&);
+
 
 class ColonyShip
 {
