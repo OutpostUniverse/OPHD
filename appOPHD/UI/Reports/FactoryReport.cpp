@@ -125,7 +125,7 @@ FactoryReport::FactoryReport() :
 
 	add(lstProducts, {cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x + 20, mRect.position.y + 230});
 
-	mTxtProductDescription.height(128);
+	mTxtProductDescription.height(260);
 	mTxtProductDescription.textColor(constants::PrimaryTextColor);
 
 	fillLists();
