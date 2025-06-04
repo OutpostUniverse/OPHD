@@ -4,20 +4,13 @@
 
 #include "MapViewState.h"
 
-#include "Route.h"
-
 #include "../Constants/UiConstants.h"
-#include "../StructureManager.h"
-#include "../Map/TileMap.h"
-
-#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <string>
-#include <vector>
-#include <algorithm>
+
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 
