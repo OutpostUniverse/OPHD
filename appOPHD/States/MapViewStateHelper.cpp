@@ -63,14 +63,14 @@ bool isPointInCcRange(NAS2D::Point<int> position, int range)
 }
 
 
-CommandCenter* firstCc()
+CommandCenter& firstCc()
 {
 	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 	if (ccList.empty())
 	{
 		throw std::runtime_error("firstCc() called with no active CommandCenter");
 	}
-	return ccList.at(0);
+	return *ccList.at(0);
 }
 
 
