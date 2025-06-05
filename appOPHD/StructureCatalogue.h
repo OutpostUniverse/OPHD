@@ -3,7 +3,6 @@
 #include <libOPHD/EnumStructureID.h>
 
 #include <string>
-#include <map>
 
 
 class Structure;
