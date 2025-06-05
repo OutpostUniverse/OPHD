@@ -27,12 +27,12 @@ public:
 
 	static void init(const std::string& filename);
 
-	static const StructureType& getType(StructureID type);
+	static const StructureType& getType(StructureID id);
 
-	static Structure* get(StructureID type, Tile* tile = nullptr);
+	static Structure* get(StructureID id, Tile* tile = nullptr);
 
-	static const StorableResources& costToBuild(StructureID type);
-	static const StorableResources& recyclingValue(StructureID type);
+	static const StorableResources& costToBuild(StructureID id);
+	static const StorableResources& recyclingValue(StructureID id);
 
-	static bool canBuild(const StorableResources& source, StructureID type);
+	static bool canBuild(const StorableResources& source, StructureID id);
 };
