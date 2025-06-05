@@ -913,7 +913,7 @@ void MapViewState::placeStructure(Tile& tile)
 		}
 
 		// Check build cost
-		if (!StructureCatalogue::canBuild(mResourcesCount, mCurrentStructure))
+		if (!StructureCatalogue::canBuild(mCurrentStructure, mResourcesCount))
 		{
 			resourceShortageMessage(mResourcesCount, mCurrentStructure);
 			return;

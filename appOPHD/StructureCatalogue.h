@@ -34,5 +34,5 @@ public:
 	static const StorableResources& costToBuild(StructureID id);
 	static const StorableResources& recyclingValue(StructureID id);
 
-	static bool canBuild(const StorableResources& source, StructureID id);
+	static bool canBuild(StructureID id, const StorableResources& source);
 };
