@@ -29,6 +29,7 @@ NAS2D::Point<int> ccLocation();
 void ccLocation(NAS2D::Point<int> position);
 
 bool isCcPlaced();
+bool isPointInCcRange(NAS2D::Point<int> position, int range);
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);

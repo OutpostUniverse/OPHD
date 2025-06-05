@@ -57,6 +57,12 @@ bool isCcPlaced()
 }
 
 
+bool isPointInCcRange(NAS2D::Point<int> position, int range)
+{
+	return isPointInRange(position, ccLocation(), range);
+}
+
+
 /**
  * Checks to see if a given tube connection is valid.
  */
@@ -142,7 +148,7 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isPointInRange(tile.xy(), ccLocation(), constants::LanderCommRange))
+	if (!isPointInCcRange(tile.xy(), constants::LanderCommRange))
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;
