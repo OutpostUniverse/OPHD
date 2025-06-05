@@ -20,6 +20,7 @@
 
 class Tile;
 class TileMap;
+class CommandCenter;
 class Warehouse;
 struct StorableResources;
 enum class Direction;
@@ -30,6 +31,7 @@ void ccLocation(NAS2D::Point<int> position);
 
 bool isCcPlaced();
 bool isPointInCcRange(NAS2D::Point<int> position, int range);
+CommandCenter* firstCc();
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);
