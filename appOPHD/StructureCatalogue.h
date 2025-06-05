@@ -29,7 +29,7 @@ public:
 
 	static const StructureType& getType(StructureID id);
 
-	static Structure* get(StructureID id, Tile* tile = nullptr);
+	static Structure* create(StructureID id, Tile* tile = nullptr);
 
 	static const StorableResources& costToBuild(StructureID id);
 	static const StorableResources& recyclingValue(StructureID id);

@@ -919,7 +919,7 @@ void MapViewState::placeStructure(Tile& tile)
 			return;
 		}
 
-		auto& structure = *StructureCatalogue::get(mCurrentStructure);
+		auto& structure = *StructureCatalogue::create(mCurrentStructure);
 		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 
 		if (structure.isFactory())

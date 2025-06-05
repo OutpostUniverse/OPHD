@@ -165,7 +165,7 @@ const StructureType& StructureCatalogue::getType(StructureID id)
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalogue::get(StructureID id, Tile* tile)
+Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 {
 	Structure* structure = nullptr;
 
@@ -335,7 +335,7 @@ Structure* StructureCatalogue::get(StructureID id, Tile* tile)
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(id));
+		throw std::runtime_error("StructureCatalogue::create(): Unsupported structure type: " + std::to_string(id));
 	}
 
 	return structure;
