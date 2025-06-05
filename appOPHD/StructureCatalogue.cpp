@@ -370,5 +370,5 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
  */
 bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
 {
-	return StructureCatalogue::costToBuild(type) <= source;
+	return costToBuild(type) <= source;
 }
