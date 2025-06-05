@@ -151,8 +151,6 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 		structures.push_back(structure);
 	}
 
-	ccLocation(point + DirectionNorthEast);
-
 	auto& seedFactory = *static_cast<SeedFactory*>(structures[2]);
 	seedFactory.resourcePool(&mResourcesCount);
 	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});

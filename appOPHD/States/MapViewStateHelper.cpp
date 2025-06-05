@@ -27,28 +27,12 @@
 #include <algorithm>
 
 
-const NAS2D::Point<int> CcNotPlaced{-1, -1};
-static NAS2D::Point<int> commandCenterLocation = CcNotPlaced;
-
-
 constexpr std::array AllDirections4{
 	Direction::North,
 	Direction::East,
 	Direction::South,
 	Direction::West,
 };
-
-
-NAS2D::Point<int> ccLocation()
-{
-	return commandCenterLocation;
-}
-
-
-void ccLocation(NAS2D::Point<int> position)
-{
-	commandCenterLocation = position;
-}
 
 
 bool isCcPlaced()

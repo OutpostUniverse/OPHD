@@ -25,10 +25,6 @@ class Warehouse;
 struct StorableResources;
 enum class Direction;
 
-extern const NAS2D::Point<int> CcNotPlaced;
-NAS2D::Point<int> ccLocation();
-void ccLocation(NAS2D::Point<int> position);
-
 bool isCcPlaced();
 bool isPointInCcRange(NAS2D::Point<int> position, int range);
 CommandCenter& firstCc();
