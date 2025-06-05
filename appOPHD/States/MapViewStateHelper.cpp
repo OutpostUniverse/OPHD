@@ -53,7 +53,8 @@ void ccLocation(NAS2D::Point<int> position)
 
 bool isCcPlaced()
 {
-	return commandCenterLocation != CcNotPlaced;
+	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	return !ccList.empty();
 }
 
 
