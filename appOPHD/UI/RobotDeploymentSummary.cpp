@@ -19,7 +19,7 @@ RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
 
 void RobotDeploymentSummary::draw() const
 {
-	if (ccLocation() == CcNotPlaced) { return; }
+	if (!isCcPlaced()) { return; }
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 

@@ -105,9 +105,9 @@ void MapViewState::onDeployColonistLander()
  */
 void MapViewState::onDeployCargoLander()
 {
-	auto cc = static_cast<CommandCenter*>(mTileMap->getTile({ccLocation(), 0}).structure());
-	cc->foodLevel(cc->foodLevel() + 125);
-	cc->storage() += StorableResources{25, 25, 15, 15};
+	auto& cc = firstCc();
+	cc.foodLevel(cc.foodLevel() + 125);
+	cc.storage() += StorableResources{25, 25, 15, 15};
 
 	updateStructuresAvailability();
 }
@@ -150,8 +150,6 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 		structureManager.addStructure(*structure, mTileMap->getTile({point + direction, 0}));
 		structures.push_back(structure);
 	}
-
-	ccLocation(point + DirectionNorthEast);
 
 	auto& seedFactory = *static_cast<SeedFactory*>(structures[2]);
 	seedFactory.resourcePool(&mResourcesCount);

@@ -27,10 +27,6 @@
 #include <algorithm>
 
 
-const NAS2D::Point<int> CcNotPlaced{-1, -1};
-static NAS2D::Point<int> commandCenterLocation = CcNotPlaced;
-
-
 constexpr std::array AllDirections4{
 	Direction::North,
 	Direction::East,
@@ -39,15 +35,37 @@ constexpr std::array AllDirections4{
 };
 
 
-NAS2D::Point<int> ccLocation()
+bool isCcPlaced()
 {
-	return commandCenterLocation;
+	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	return !ccList.empty();
 }
 
 
-void ccLocation(NAS2D::Point<int> position)
+bool isPointInCcRange(NAS2D::Point<int> position, int range)
 {
-	commandCenterLocation = position;
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto& ccList = structureManager.getStructures<CommandCenter>();
+	for (const auto* commandCenter : ccList)
+	{
+		const auto location = structureManager.tileFromStructure(commandCenter).xy();
+		if (isPointInRange(position, location, range))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+CommandCenter& firstCc()
+{
+	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	if (ccList.empty())
+	{
+		throw std::runtime_error("firstCc() called with no active CommandCenter");
+	}
+	return *ccList.at(0);
 }
 
 
@@ -136,7 +154,7 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isPointInRange(tile.xy(), ccLocation(), constants::LanderCommRange))
+	if (!isPointInCcRange(tile.xy(), constants::LanderCommRange))
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;

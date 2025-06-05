@@ -196,7 +196,6 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mRobotDeploymentSummary{mRobotPool},
 	mColonyShip{gameState.colonyShip()}
 {
-	ccLocation(CcNotPlaced);
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 
@@ -224,7 +223,6 @@ MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& plane
 	mColonyShip{gameState.colonyShip()}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
-	ccLocation(CcNotPlaced);
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
 
@@ -830,7 +828,7 @@ void MapViewState::placeStructure(Tile& tile)
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
 	if (!structureIsLander(mCurrentStructure) && !selfSustained(mCurrentStructure) &&
-		!isPointInRange(tile.xy(), ccLocation(), constants::RobotCommRange))
+		!isPointInCcRange(tile.xy(), constants::RobotCommRange))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
