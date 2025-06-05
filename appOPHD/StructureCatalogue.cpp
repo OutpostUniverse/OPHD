@@ -11,7 +11,7 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
 
-#include <string>
+#include <map>
 #include <stdexcept>
 
 
@@ -143,36 +143,36 @@ namespace
 /**
  * Initializes StructureCatalogue.
  */
-void StructureCatalogue::init()
+void StructureCatalogue::init(const std::string& filename)
 {
-	structureTypes = loadStructureTypes("StructureTypes.xml");
+	structureTypes = loadStructureTypes(filename);
 	idToType = buildStructureTypeLookup();
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
 
-const StructureType& StructureCatalogue::getType(StructureID type)
+const StructureType& StructureCatalogue::getType(StructureID id)
 {
-	return idToType.at(type);
+	return idToType.at(id);
 }
 
 
 /**
  * Gets a new Structure object given a StructureID.
  *
- * \param	type	A valid StructureID value.
+ * \param	id	A valid StructureID value.
  *
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalogue::get(StructureID type, Tile* tile)
+Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 {
 	Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base
 	// object type has a static function that is used as an interface to instantiate
 	// derived types.
-	switch (type)
+	switch (id)
 	{
 		case StructureID::SID_AGRIDOME:
 			structure = new Agridome();
@@ -335,7 +335,7 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalogue::get(): Unsupported structure type: " + std::to_string(type));
+		throw std::runtime_error("StructureCatalogue::create(): Unsupported structure type: " + std::to_string(id));
 	}
 
 	return structure;
@@ -345,22 +345,22 @@ Structure* StructureCatalogue::get(StructureID type, Tile* tile)
 /**
  * Gets the cost in resources required to build a given Structure.
  *
- * \param	type	A valid StructureID value.
+ * \param	id	A valid StructureID value.
  */
-const StorableResources& StructureCatalogue::costToBuild(StructureID type)
+const StorableResources& StructureCatalogue::costToBuild(StructureID id)
 {
-	return getType(type).buildCost;
+	return getType(id).buildCost;
 }
 
 
 /**
  * Gets the recycling value of a specified structure type.
  *
- * \param	type	A valid StructureID value.
+ * \param	id	A valid StructureID value.
  */
-const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
+const StorableResources& StructureCatalogue::recyclingValue(StructureID id)
 {
-	return findOrDefault(StructureRecycleValueTable, type);
+	return findOrDefault(StructureRecycleValueTable, id);
 }
 
 
@@ -368,7 +368,7 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID type)
  * Indicates that the source ResourcePool has enough resources to accommodate
  * the resource requirements of the specified structure.
  */
-bool StructureCatalogue::canBuild(const StorableResources& source, StructureID type)
+bool StructureCatalogue::canBuild(StructureID id, const StorableResources& source)
 {
-	return StructureCatalogue::costToBuild(type) <= source;
+	return costToBuild(id) <= source;
 }

@@ -262,7 +262,7 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
-	StructureCatalogue::init();
+	StructureCatalogue::init("StructureTypes.xml");
 	ProductCatalogue::init("factory_products.xml");
 
 	if (mLoadingExisting)
@@ -913,13 +913,13 @@ void MapViewState::placeStructure(Tile& tile)
 		}
 
 		// Check build cost
-		if (!StructureCatalogue::canBuild(mResourcesCount, mCurrentStructure))
+		if (!StructureCatalogue::canBuild(mCurrentStructure, mResourcesCount))
 		{
 			resourceShortageMessage(mResourcesCount, mCurrentStructure);
 			return;
 		}
 
-		auto& structure = *StructureCatalogue::get(mCurrentStructure);
+		auto& structure = *StructureCatalogue::create(mCurrentStructure);
 		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 
 		if (structure.isFactory())

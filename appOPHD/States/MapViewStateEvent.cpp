@@ -146,7 +146,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	std::vector<Structure*> structures;
 	for (const auto& [direction, structureId] : initialStructures)
 	{
-		auto* structure = StructureCatalogue::get(structureId);
+		auto* structure = StructureCatalogue::create(structureId);
 		structureManager.addStructure(*structure, mTileMap->getTile({point + direction, 0}));
 		structures.push_back(structure);
 	}
