@@ -59,7 +59,17 @@ bool isCcPlaced()
 
 bool isPointInCcRange(NAS2D::Point<int> position, int range)
 {
-	return isPointInRange(position, ccLocation(), range);
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto& ccList = structureManager.getStructures<CommandCenter>();
+	for (const auto* commandCenter : ccList)
+	{
+		const auto location = structureManager.tileFromStructure(commandCenter).xy();
+		if (isPointInRange(position, location, range))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 
