@@ -28,6 +28,8 @@ extern const NAS2D::Point<int> CcNotPlaced;
 NAS2D::Point<int> ccLocation();
 void ccLocation(NAS2D::Point<int> position);
 
+bool isCcPlaced();
+
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir);

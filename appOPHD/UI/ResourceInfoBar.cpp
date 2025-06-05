@@ -216,7 +216,7 @@ int ResourceInfoBar::totalStorage(Structure::StructureClass structureClass, int 
 	int storageCapacity = 0;
 
 	// Command Center has a limited amount of storage for when colonists first land.
-	if (ccLocation() != CcNotPlaced)
+	if (isCcPlaced())
 	{
 		storageCapacity += constants::BaseStorageCapacity;
 	}
