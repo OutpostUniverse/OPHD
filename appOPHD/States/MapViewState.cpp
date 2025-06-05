@@ -262,7 +262,7 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
-	StructureCatalogue::init();
+	StructureCatalogue::init("StructureTypes.xml");
 	ProductCatalogue::init("factory_products.xml");
 
 	if (mLoadingExisting)

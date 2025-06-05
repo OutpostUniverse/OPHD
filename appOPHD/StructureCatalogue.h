@@ -2,6 +2,7 @@
 
 #include <libOPHD/EnumStructureID.h>
 
+#include <string>
 #include <map>
 
 
@@ -25,7 +26,7 @@ class StructureCatalogue
 public:
 	StructureCatalogue() = delete;
 
-	static void init();
+	static void init(const std::string& filename);
 
 	static const StructureType& getType(StructureID type);
 

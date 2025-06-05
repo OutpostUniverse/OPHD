@@ -11,7 +11,6 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
 
-#include <string>
 #include <stdexcept>
 
 
@@ -143,9 +142,9 @@ namespace
 /**
  * Initializes StructureCatalogue.
  */
-void StructureCatalogue::init()
+void StructureCatalogue::init(const std::string& filename)
 {
-	structureTypes = loadStructureTypes("StructureTypes.xml");
+	structureTypes = loadStructureTypes(filename);
 	idToType = buildStructureTypeLookup();
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
