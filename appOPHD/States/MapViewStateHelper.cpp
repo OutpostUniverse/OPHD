@@ -231,33 +231,11 @@ bool inCommRange(NAS2D::Point<int> position)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& seedLanders = structureManager.getStructures<SeedLander>();
-	for (const auto* lander : seedLanders)
+	const auto& structures = structureManager.allStructures();
+	for (const auto* structure : structures)
 	{
-		if (!lander->operational()) { continue; }
-		if (isPointInRange(position, structureManager.tileFromStructure(lander).xy(), lander->commRange()))
-		{
-			return true;
-		}
-	}
-
-	const auto& command = structureManager.getStructures<CommandCenter>();
-	for (const auto* cc : command)
-	{
-		if (!cc->operational()) { continue; }
-
-		if (isPointInRange(position, structureManager.tileFromStructure(cc).xy(), cc->commRange()))
-		{
-			return true;
-		}
-	}
-
-	const auto& commTowers = structureManager.getStructures<CommTower>();
-	for (const auto* tower : commTowers)
-	{
-		if (!tower->operational()) { continue; }
-
-		if (isPointInRange(position, structureManager.tileFromStructure(tower).xy(), tower->commRange()))
+		if (!structure->operational()) { continue; }
+		if (isPointInRange(position, structureManager.tileFromStructure(structure).xy(), structure->commRange()))
 		{
 			return true;
 		}
