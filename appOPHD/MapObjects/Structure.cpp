@@ -263,6 +263,11 @@ int Structure::storageCapacity() const
 	return mStructureType.oreStorageCapacity;
 }
 
+int Structure::commRange() const
+{
+	return operational() ? mStructureType.commRange : 0;
+}
+
 bool Structure::hasCrime() const
 {
 	return mStructureType.isCrimeTarget;
