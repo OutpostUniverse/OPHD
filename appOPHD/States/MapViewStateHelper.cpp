@@ -42,6 +42,12 @@ bool isCcPlaced()
 }
 
 
+bool isPointInCcRange(NAS2D::Point<int> position)
+{
+	return isPointInCcRange(position, StructureCatalogue::getType(StructureID::SID_COMMAND_CENTER).commRange);
+}
+
+
 bool isPointInCcRange(NAS2D::Point<int> position, int range)
 {
 	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -231,33 +237,11 @@ bool inCommRange(NAS2D::Point<int> position)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	const auto& seedLanders = structureManager.getStructures<SeedLander>();
-	for (const auto* lander : seedLanders)
+	const auto& structures = structureManager.allStructures();
+	for (const auto* structure : structures)
 	{
-		if (!lander->operational()) { continue; }
-		if (isPointInRange(position, structureManager.tileFromStructure(lander).xy(), 5)) // \fixme magic number
-		{
-			return true;
-		}
-	}
-
-	const auto& command = structureManager.getStructures<CommandCenter>();
-	for (const auto* cc : command)
-	{
-		if (!cc->operational()) { continue; }
-
-		if (isPointInRange(position, structureManager.tileFromStructure(cc).xy(), cc->getRange()))
-		{
-			return true;
-		}
-	}
-
-	const auto& commTowers = structureManager.getStructures<CommTower>();
-	for (const auto* tower : commTowers)
-	{
-		if (!tower->operational()) { continue; }
-
-		if (isPointInRange(position, structureManager.tileFromStructure(tower).xy(), tower->getRange()))
+		const auto commRange = structure->commRange();
+		if (commRange > 0 && isPointInRange(position, structureManager.tileFromStructure(structure).xy(), commRange))
 		{
 			return true;
 		}

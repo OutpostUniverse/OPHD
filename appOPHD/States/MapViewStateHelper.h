@@ -15,7 +15,7 @@
 
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <map>
+#include <cstddef>
 
 
 class Tile;
@@ -26,6 +26,7 @@ struct StorableResources;
 enum class Direction;
 
 bool isCcPlaced();
+bool isPointInCcRange(NAS2D::Point<int> position);
 bool isPointInCcRange(NAS2D::Point<int> position, int range);
 CommandCenter& firstCc();
 

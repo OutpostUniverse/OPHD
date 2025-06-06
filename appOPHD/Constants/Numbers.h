@@ -40,7 +40,6 @@ namespace constants
 
 	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
 
-	inline constexpr int RobotCommRange{15};
 	inline constexpr int LanderCommRange{5};
 
 	inline constexpr int RoadIntegrityChange{80};
