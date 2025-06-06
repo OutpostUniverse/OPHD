@@ -235,7 +235,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	for (const auto* lander : seedLanders)
 	{
 		if (!lander->operational()) { continue; }
-		if (isPointInRange(position, structureManager.tileFromStructure(lander).xy(), 5)) // \fixme magic number
+		if (isPointInRange(position, structureManager.tileFromStructure(lander).xy(), lander->commRange()))
 		{
 			return true;
 		}
@@ -246,7 +246,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!cc->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(cc).xy(), cc->getRange()))
+		if (isPointInRange(position, structureManager.tileFromStructure(cc).xy(), cc->commRange()))
 		{
 			return true;
 		}
@@ -257,7 +257,7 @@ bool inCommRange(NAS2D::Point<int> position)
 	{
 		if (!tower->operational()) { continue; }
 
-		if (isPointInRange(position, structureManager.tileFromStructure(tower).xy(), tower->getRange()))
+		if (isPointInRange(position, structureManager.tileFromStructure(tower).xy(), tower->commRange()))
 		{
 			return true;
 		}
