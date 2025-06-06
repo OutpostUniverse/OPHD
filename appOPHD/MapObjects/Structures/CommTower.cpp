@@ -5,12 +5,6 @@
 #include "../../UI/StringTable.h"
 
 
-namespace
-{
-	const int BaseRange = 10;
-}
-
-
 CommTower::CommTower() : Structure(
 	StructureClass::Communication,
 	StructureID::SID_COMM_TOWER)
