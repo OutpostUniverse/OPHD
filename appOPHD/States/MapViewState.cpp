@@ -827,8 +827,7 @@ void MapViewState::placeStructure(Tile& tile)
 {
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
-	if (!selfSustained(mCurrentStructure) &&
-		!isPointInCcRange(tile.xy()))
+	if (!selfSustained(mCurrentStructure) && !isPointInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
