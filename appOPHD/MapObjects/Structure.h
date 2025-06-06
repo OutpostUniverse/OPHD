@@ -136,6 +136,7 @@ public:
 
 	int energyRequirement() const;
 	int storageCapacity() const;
+	int commRange() const;
 
 	bool hasCrime() const;
 	int crimeRate() const { return mCrimeRate; }
