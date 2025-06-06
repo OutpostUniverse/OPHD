@@ -20,7 +20,7 @@ CommTower::CommTower() : Structure(
 
 int CommTower::getRange() const
 {
-	return operational() ? BaseRange : 0;
+	return commRange();
 }
 
 

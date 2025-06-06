@@ -19,7 +19,7 @@ int CommandCenter::foodCapacity() const
 
 int CommandCenter::getRange() const
 {
-	return operational() ? constants::RobotCommRange : 0;
+	return commRange();
 }
 
 
