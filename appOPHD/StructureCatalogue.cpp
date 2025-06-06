@@ -71,7 +71,7 @@ namespace
 		const auto& structuresElement = *document.firstChildElement("Structures");
 
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
-		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "CommRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
 		std::vector<StructureType> structureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
@@ -96,6 +96,7 @@ namespace
 				dictionary.get<int>("FoodProduced"),
 				dictionary.get<int>("FoodStorageCapacity"),
 				dictionary.get<int>("OreStorageCapacity"),
+				dictionary.get<int>("CommRange", 0),
 				dictionary.get<int>("IntegrityDecayRate"),
 				dictionary.get<bool>("IsSelfSustained"),
 				dictionary.get<bool>("IsRepairable"),
