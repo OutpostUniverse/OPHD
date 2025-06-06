@@ -15,7 +15,7 @@
 
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <map>
+#include <cstddef>
 
 
 class Tile;
