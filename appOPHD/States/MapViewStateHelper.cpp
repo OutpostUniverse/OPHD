@@ -234,8 +234,8 @@ bool inCommRange(NAS2D::Point<int> position)
 	const auto& structures = structureManager.allStructures();
 	for (const auto* structure : structures)
 	{
-		if (!structure->operational()) { continue; }
-		if (isPointInRange(position, structureManager.tileFromStructure(structure).xy(), structure->commRange()))
+		const auto commRange = structure->commRange();
+		if (commRange > 0 && isPointInRange(position, structureManager.tileFromStructure(structure).xy(), commRange))
 		{
 			return true;
 		}
