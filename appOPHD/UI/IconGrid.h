@@ -35,6 +35,7 @@ public:
 	};
 
 	using Signal = NAS2D::Signal<const Item*>;
+	using Index = std::vector<Item>::size_type;
 
 	static const std::size_t NoSelection;
 
@@ -84,8 +85,6 @@ protected:
 	void onResize() override;
 
 private:
-	using Index = std::vector<Item>::size_type;
-
 	void updateGrid();
 	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
