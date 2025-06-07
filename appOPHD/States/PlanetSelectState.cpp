@@ -28,6 +28,9 @@ namespace
 }
 
 
+std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t>::max()};
+
+
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	mTinyFont{Control::getDefaultFont()},
@@ -39,7 +42,7 @@ PlanetSelectState::PlanetSelectState() :
 	mHover{"sfx/menu4.ogg"},
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
-	mPlanetSelection{constants::NoSelection},
+	mPlanetSelection{NoSelection},
 	mReturnState{this},
 	mPlanets{attributesToPlanets(parsePlanetAttributes())}
 {
@@ -112,7 +115,7 @@ NAS2D::State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (mPlanetSelection != constants::NoSelection)
+	else if (mPlanetSelection != NoSelection)
 	{
 		return new GameState(mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
 	}
