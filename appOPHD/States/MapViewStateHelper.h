@@ -27,7 +27,6 @@ enum class Direction;
 
 bool isCcPlaced();
 bool isPointInCcRange(NAS2D::Point<int> position);
-bool isPointInCcRange(NAS2D::Point<int> position, int range);
 CommandCenter& firstCc();
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);

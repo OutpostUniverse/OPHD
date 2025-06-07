@@ -44,12 +44,7 @@ bool isCcPlaced()
 
 bool isPointInCcRange(NAS2D::Point<int> position)
 {
-	return isPointInCcRange(position, StructureCatalogue::getType(StructureID::SID_COMMAND_CENTER).commRange);
-}
-
-
-bool isPointInCcRange(NAS2D::Point<int> position, int range)
-{
+	const auto range = StructureCatalogue::getType(StructureID::SID_COMMAND_CENTER).commRange;
 	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto& ccList = structureManager.getStructures<CommandCenter>();
 	for (const auto* commandCenter : ccList)
