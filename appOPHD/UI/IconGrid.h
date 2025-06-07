@@ -77,19 +77,18 @@ public:
 
 	void update() override;
 
-
 protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void onResize() override;
 
-private:
 	void updateGrid();
 	Index translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
 	void raiseChangedEvent();
 
+private:
 	const NAS2D::Font& mFont;
 
 	Index mHighlightIndex = NoSelection;
