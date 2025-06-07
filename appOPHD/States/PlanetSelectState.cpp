@@ -28,7 +28,7 @@ namespace
 }
 
 
-std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t>::max()};
+const std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 PlanetSelectState::PlanetSelectState() :

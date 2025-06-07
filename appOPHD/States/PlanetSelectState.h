@@ -20,7 +20,7 @@
 class PlanetSelectState : public NAS2D::State
 {
 public:
-	static std::size_t NoSelection;
+	static const std::size_t NoSelection;
 
 
 	PlanetSelectState();

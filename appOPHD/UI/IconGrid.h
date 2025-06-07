@@ -36,7 +36,7 @@ public:
 
 	using Signal = NAS2D::Signal<const Item*>;
 
-	static std::size_t NoSelection;
+	static const std::size_t NoSelection;
 
 public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);

@@ -9,7 +9,7 @@
 #include <limits>
 
 
-std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max()};
+const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :

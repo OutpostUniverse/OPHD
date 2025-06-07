@@ -17,7 +17,7 @@
 using namespace NAS2D;
 
 
-std::size_t IconGrid::NoSelection{std::numeric_limits<std::size_t>::max()};
+const std::size_t IconGrid::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
