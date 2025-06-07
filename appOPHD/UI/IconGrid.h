@@ -45,7 +45,7 @@ public:
 
 	const std::string& itemName(Index index) const { return mIconItemList[index].name; }
 
-	Index selectionIndex() const { return mSelectedIndex; }
+	Index selectedIndex() const { return mSelectedIndex; }
 
 	bool empty() const { return mIconItemList.empty(); }
 

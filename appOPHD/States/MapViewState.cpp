@@ -804,7 +804,7 @@ void MapViewState::placeTubes(Tile& tile)
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
 	 */
-	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
 
 	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{
