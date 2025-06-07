@@ -94,21 +94,21 @@ private:
 
 	const NAS2D::Font& mFont;
 
-	Index mHighlightIndex = NoSelection; /**< Current highlight index. */
-	Index mSelectedIndex = NoSelection; /**< Currently selected item index. */
+	Index mHighlightIndex = NoSelection;
+	Index mSelectedIndex = NoSelection;
 
-	int mIconSize = 1; /**< Size of the icons. */
-	int mIconMargin = 0; /**< Spacing between icons and edges of the IconGrid. */
+	int mIconSize = 1;
+	int mIconMargin = 0;
 
-	bool mShowTooltip = false; /**< Flag indicating that we want a tooltip drawn near an icon when hovering over it. */
+	bool mShowTooltip = false;
 
-	const NAS2D::Image& mIconSheet; /**< Image containing the icons. */
+	const NAS2D::Image& mIconSheet;
 
 	NAS2D::RectangleSkin mSkin;
 
 	NAS2D::Vector<int> mGridSize; /**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
 
-	IconItemList mIconItemList; /**< List of items. */
+	IconItemList mIconItemList;
 
 	Signal mSignal; /**< Signal whenever a selection is made. */
 };
