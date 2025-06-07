@@ -319,11 +319,11 @@ void IconGrid::raiseChangedEvent()
 {
 	if (mSelectedIndex != NoSelection)
 	{
-		mSignal(&mIconItemList[mSelectedIndex]);
+		mSelectionChangedSignal(&mIconItemList[mSelectedIndex]);
 	}
 	else
 	{
-		mSignal(nullptr);
+		mSelectionChangedSignal(nullptr);
 	}
 }
 

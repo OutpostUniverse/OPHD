@@ -68,7 +68,7 @@ public:
 	void incrementSelection();
 	void decrementSelection();
 
-	Signal::Source& selectionChanged() { return mSignal; }
+	Signal::Source& selectionChanged() { return mSelectionChangedSignal; }
 
 	void hide() override;
 
@@ -110,5 +110,5 @@ private:
 
 	IconItemList mIconItemList;
 
-	Signal mSignal; /**< Signal whenever a selection is made. */
+	Signal mSelectionChangedSignal;
 };
