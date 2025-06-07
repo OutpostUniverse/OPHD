@@ -4,6 +4,10 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
+#include <limits>
+
+
+const std::size_t RadioButtonGroup::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)

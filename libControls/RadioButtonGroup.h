@@ -12,7 +12,6 @@
 
 #include <algorithm>
 #include <string>
-#include <limits>
 
 
 class RadioButtonGroup : public Control
@@ -57,7 +56,7 @@ public:
 		NAS2D::Delegate<void()> delegate;
 	};
 
-	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
+	static const std::size_t NoSelection;
 
 
 	RadioButtonGroup() = default;
