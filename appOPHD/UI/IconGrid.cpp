@@ -61,75 +61,6 @@ IconGrid::~IconGrid()
 }
 
 
-void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
-{
-	if (!enabled() || !visible()) { return; }
-
-	// Don't respond to anything unless it's the left mouse button.
-	if (button != MouseButton::Left) { return; }
-
-	if (!visible())
-	{
-		return;
-	}
-
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
-	{
-		return;
-	}
-
-	auto previousIndex = mSelectedIndex;
-	mSelectedIndex = translateCoordsToIndex(position - startPoint);
-
-	if (mSelectedIndex >= mIconItemList.size())
-	{
-		mSelectedIndex = NoSelection;
-	}
-
-	if (previousIndex != mSelectedIndex)
-	{
-		raiseChangedEvent();
-	}
-}
-
-
-void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
-{
-	if (!enabled() || !visible()) { return; }
-
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
-	{
-		mHighlightIndex = NoSelection;
-		return;
-	}
-
-	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(position - startPoint);
-
-	if (mHighlightIndex >= mIconItemList.size())
-	{
-		mHighlightIndex = NoSelection;
-	}
-}
-
-
-IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
-{
-	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
-	return gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
-}
-
-
-void IconGrid::onResize()
-{
-	Control::onResize();
-
-	mGridSizeInIcons = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
-}
-
-
 void IconGrid::addItem(const Item& item)
 {
 	mIconItemList.push_back(item);
@@ -141,27 +72,28 @@ void IconGrid::addItem(const Item& item)
 }
 
 
-void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
+void IconGrid::sort()
 {
-	for (auto& iconItem : mIconItemList)
-	{
-		if (iconItem.name == itemName)
-		{
-			iconItem.available = isItemAvailable;
-			return;
-		}
-	}
+	const auto iconItemCompare = [](const auto& left, const auto& right){ return left.name < right.name; };
+	std::sort(mIconItemList.begin(), mIconItemList.end(), iconItemCompare);
 }
 
 
-bool IconGrid::itemAvailable(const std::string& itemName) const
+void IconGrid::clear()
+{
+	mIconItemList.clear();
+	clearSelection();
+}
+
+
+bool IconGrid::itemExists(const std::string& itemName) const
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
 		if (toLowercase(iconItem.name) == lowerCaseTarget)
 		{
-			return iconItem.available;
+			return true;
 		}
 	}
 	return false;
@@ -187,24 +119,30 @@ void IconGrid::removeItem(const std::string& itemName)
 }
 
 
-bool IconGrid::itemExists(const std::string& itemName) const
+bool IconGrid::itemAvailable(const std::string& itemName) const
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
 		if (toLowercase(iconItem.name) == lowerCaseTarget)
 		{
-			return true;
+			return iconItem.available;
 		}
 	}
 	return false;
 }
 
 
-void IconGrid::clear()
+void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 {
-	mIconItemList.clear();
-	clearSelection();
+	for (auto& iconItem : mIconItemList)
+	{
+		if (iconItem.name == itemName)
+		{
+			iconItem.available = isItemAvailable;
+			return;
+		}
+	}
 }
 
 
@@ -345,8 +283,70 @@ void IconGrid::update()
 }
 
 
-void IconGrid::sort()
+void IconGrid::onResize()
 {
-	const auto iconItemCompare = [](const auto& left, const auto& right){ return left.name < right.name; };
-	std::sort(mIconItemList.begin(), mIconItemList.end(), iconItemCompare);
+	Control::onResize();
+
+	mGridSizeInIcons = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
+}
+
+
+void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
+{
+	if (!enabled() || !visible()) { return; }
+
+	// Don't respond to anything unless it's the left mouse button.
+	if (button != MouseButton::Left) { return; }
+
+	if (!visible())
+	{
+		return;
+	}
+
+	auto startPoint = mRect.position;
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
+	{
+		return;
+	}
+
+	auto previousIndex = mSelectedIndex;
+	mSelectedIndex = translateCoordsToIndex(position - startPoint);
+
+	if (mSelectedIndex >= mIconItemList.size())
+	{
+		mSelectedIndex = NoSelection;
+	}
+
+	if (previousIndex != mSelectedIndex)
+	{
+		raiseChangedEvent();
+	}
+}
+
+
+void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	if (!enabled() || !visible()) { return; }
+
+	auto startPoint = mRect.position;
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
+	{
+		mHighlightIndex = NoSelection;
+		return;
+	}
+
+	// Assumes all coordinates are not negative.
+	mHighlightIndex = translateCoordsToIndex(position - startPoint);
+
+	if (mHighlightIndex >= mIconItemList.size())
+	{
+		mHighlightIndex = NoSelection;
+	}
+}
+
+
+IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
+{
+	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
+	return gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
 }
