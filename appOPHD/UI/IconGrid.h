@@ -36,6 +36,8 @@ public:
 
 	using Signal = NAS2D::Signal<const Item*>;
 
+	static std::size_t NoSelection;
+
 public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);
 	~IconGrid() override;
@@ -92,8 +94,8 @@ private:
 
 	const NAS2D::Font& mFont;
 
-	Index mHighlightIndex = constants::NoSelection; /**< Current highlight index. */
-	Index mSelectedIndex = constants::NoSelection; /**< Currently selected item index. */
+	Index mHighlightIndex = NoSelection; /**< Current highlight index. */
+	Index mSelectedIndex = NoSelection; /**< Currently selected item index. */
 
 	int mIconSize = 1; /**< Size of the icons. */
 	int mIconMargin = 0; /**< Spacing between icons and edges of the IconGrid. */
