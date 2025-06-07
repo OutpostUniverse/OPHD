@@ -89,23 +89,20 @@ protected:
 	void raiseChangedEvent();
 
 private:
+	const NAS2D::RectangleSkin mSkin;
 	const NAS2D::Font& mFont;
+	const NAS2D::Image& mIconSheet;
+
+	int mIconSize = 1;
+	int mIconMargin = 0;
+	NAS2D::Vector<int> mGridSizeInIcons;
+
+	std::vector<Item> mIconItemList;
 
 	Index mHighlightIndex = NoSelection;
 	Index mSelectedIndex = NoSelection;
 
-	int mIconSize = 1;
-	int mIconMargin = 0;
-
 	bool mShowTooltip = false;
-
-	const NAS2D::Image& mIconSheet;
-
-	const NAS2D::RectangleSkin mSkin;
-
-	NAS2D::Vector<int> mGridSizeInIcons;
-
-	std::vector<Item> mIconItemList;
 
 	Signal mSelectionChangedSignal;
 };

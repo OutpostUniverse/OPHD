@@ -21,10 +21,6 @@ const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
-	mFont{Control::getDefaultFont()},
-	mIconSize{iconEdgeSize},
-	mIconMargin{margin},
-	mIconSheet{imageCache.load(filePath)},
 	mSkin{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -35,7 +31,11 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 		imageCache.load("ui/skin/textbox_bottom_left.png"),
 		imageCache.load("ui/skin/textbox_bottom_middle.png"),
 		imageCache.load("ui/skin/textbox_bottom_right.png")
-	}
+	},
+	mFont{Control::getDefaultFont()},
+	mIconSheet{imageCache.load(filePath)},
+	mIconSize{iconEdgeSize},
+	mIconMargin{margin}
 {
 	if (iconEdgeSize <= 0)
 	{
