@@ -944,7 +944,7 @@ void MapViewState::placeRobot(Tile& tile)
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
 
-	if (!inCommRange(tile.xy()))
+	if (!isInCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;

@@ -29,7 +29,7 @@ CommandCenter& firstCc();
 bool isCcPlaced();
 bool isInCcRange(NAS2D::Point<int> position);
 
-bool inCommRange(NAS2D::Point<int> position);
+bool isInCommRange(NAS2D::Point<int> position);
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
