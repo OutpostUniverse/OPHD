@@ -3,7 +3,6 @@
 #include <NAS2D/Duration.h>
 #include <NAS2D/Renderer/Color.h>
 
-#include <limits>
 #include <string>
 
 
@@ -22,8 +21,6 @@ namespace constants
 	inline constexpr int ResourceIconSize{16};
 
 	inline constexpr int ResourceBoxWidth{200};
-
-	inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 	inline constexpr unsigned int StructureIconSize{46};
 	inline constexpr unsigned int RobotIconSize{46};

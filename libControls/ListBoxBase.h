@@ -26,7 +26,7 @@ class ListBoxBase : public Control
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
 
-	static std::size_t NoSelection;
+	static const std::size_t NoSelection;
 
 
 	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold);
