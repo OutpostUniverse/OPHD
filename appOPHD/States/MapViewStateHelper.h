@@ -25,9 +25,9 @@ class Warehouse;
 struct StorableResources;
 enum class Direction;
 
+CommandCenter& firstCc();
 bool isCcPlaced();
 bool isPointInCcRange(NAS2D::Point<int> position);
-CommandCenter& firstCc();
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);
