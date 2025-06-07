@@ -187,8 +187,8 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mMainReportsState{gameState.mainReportsState()},
-	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
-	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
+	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
+	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mFileIoDialog{gameState.fileIoDialog()},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
@@ -209,8 +209,8 @@ MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& plane
 	mPlanetAttributes{planetAttributes},
 	mMainReportsState{gameState.mainReportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
-	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
-	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight},
+	mStructures{"ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
+	mRobots{"ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{"ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mFileIoDialog{gameState.fileIoDialog()},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
@@ -804,7 +804,7 @@ void MapViewState::placeTubes(Tile& tile)
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
 	 */
-	auto cd = static_cast<ConnectorDir>(mConnections.selectionIndex() + 1);
+	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
 
 	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
 	{

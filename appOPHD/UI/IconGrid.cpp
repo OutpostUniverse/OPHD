@@ -17,14 +17,10 @@
 using namespace NAS2D;
 
 
-const std::size_t IconGrid::NoSelection{std::numeric_limits<std::size_t>::max()};
+const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
-IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
-	mFont{Control::getDefaultFont()},
-	mIconSize{iconEdgeSize},
-	mIconMargin{margin},
-	mIconSheet{imageCache.load(filePath)},
+IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
 	mSkin{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -35,7 +31,12 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 		imageCache.load("ui/skin/textbox_bottom_left.png"),
 		imageCache.load("ui/skin/textbox_bottom_middle.png"),
 		imageCache.load("ui/skin/textbox_bottom_right.png")
-	}
+	},
+	mFont{Control::getDefaultFont()},
+	mIconSheet{imageCache.load(filePath)},
+	mShowTooltip{showTooltip},
+	mIconSize{iconEdgeSize},
+	mIconMargin{margin}
 {
 	if (iconEdgeSize <= 0)
 	{
@@ -60,91 +61,6 @@ IconGrid::~IconGrid()
 }
 
 
-/**
- * Updates the icon grid.
- */
-void IconGrid::updateGrid()
-{
-	mGridSize = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
-}
-
-
-void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
-{
-	if (!enabled() || !visible()) { return; }
-
-	// Don't respond to anything unless it's the left mouse button.
-	if (button != MouseButton::Left) { return; }
-
-	if (!visible())
-	{
-		return;
-	}
-
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSize * (mIconSize + mIconMargin)}.contains(position))
-	{
-		return;
-	}
-
-	auto previousIndex = mSelectedIndex;
-	mSelectedIndex = translateCoordsToIndex(position - startPoint);
-
-	if (mSelectedIndex >= mIconItemList.size())
-	{
-		mSelectedIndex = NoSelection;
-	}
-
-	if (previousIndex != mSelectedIndex)
-	{
-		raiseChangedEvent();
-	}
-}
-
-
-void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
-{
-	if (!enabled() || !visible()) { return; }
-
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSize * (mIconSize + mIconMargin)}.contains(position))
-	{
-		mHighlightIndex = NoSelection;
-		return;
-	}
-
-	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(position - startPoint);
-
-	if (mHighlightIndex >= mIconItemList.size())
-	{
-		mHighlightIndex = NoSelection;
-	}
-}
-
-
-/**
- * Utility function that translates mouse coordinates into
- * an index value.
- */
-std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
-{
-	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<std::size_t>();
-	return gridOffset.x + (static_cast<std::size_t>(mGridSize.x) * gridOffset.y);
-}
-
-
-/**
- * Called whenever the size of the IconGrid is changed.
- */
-void IconGrid::onResize()
-{
-	Control::onResize();
-
-	updateGrid();
-}
-
-
 void IconGrid::addItem(const Item& item)
 {
 	mIconItemList.push_back(item);
@@ -156,45 +72,37 @@ void IconGrid::addItem(const Item& item)
 }
 
 
-/**
- * Set item availability
- */
-void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
+void IconGrid::sort()
 {
-	for (auto& iconItem : mIconItemList)
-	{
-		if (iconItem.name == item)
-		{
-			iconItem.available = isItemAvailable;
-			return;
-		}
-	}
+	const auto iconItemCompare = [](const auto& left, const auto& right){ return left.name < right.name; };
+	std::sort(mIconItemList.begin(), mIconItemList.end(), iconItemCompare);
 }
 
 
-/**
- * Get item availability
- */
-bool IconGrid::itemAvailable(const std::string& item)
+void IconGrid::clear()
 {
-	const auto lowerCaseTarget = toLowercase(item);
+	mIconItemList.clear();
+	clearSelection();
+}
+
+
+bool IconGrid::itemExists(const std::string& itemName) const
+{
+	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
 		if (toLowercase(iconItem.name) == lowerCaseTarget)
 		{
-			return iconItem.available;
+			return true;
 		}
 	}
 	return false;
 }
 
 
-/**
- * Removes an item from the IconGrid by name.
- */
-void IconGrid::removeItem(const std::string& item)
+void IconGrid::removeItem(const std::string& itemName)
 {
-	const auto lowerCaseTarget = toLowercase(item);
+	const auto lowerCaseTarget = toLowercase(itemName);
 
 	const auto iter = std::find_if(
 		mIconItemList.begin(),
@@ -211,36 +119,33 @@ void IconGrid::removeItem(const std::string& item)
 }
 
 
-/**
- * Indicates whether a named item exists in the IconGrid.
- */
-bool IconGrid::itemExists(const std::string& item)
+bool IconGrid::itemAvailable(const std::string& itemName) const
 {
-	const auto lowerCaseTarget = toLowercase(item);
+	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
 		if (toLowercase(iconItem.name) == lowerCaseTarget)
 		{
-			return true;
+			return iconItem.available;
 		}
 	}
 	return false;
 }
 
 
-/**
- * Drops all items from the IconGrid.
- */
-void IconGrid::clear()
+void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 {
-	mIconItemList.clear();
-	clearSelection();
+	for (auto& iconItem : mIconItemList)
+	{
+		if (iconItem.name == itemName)
+		{
+			iconItem.available = isItemAvailable;
+			return;
+		}
+	}
 }
 
 
-/**
- * Clears the Highlight Index and the Selection Index.
- */
 void IconGrid::clearSelection()
 {
 	mHighlightIndex = NoSelection;
@@ -248,10 +153,7 @@ void IconGrid::clearSelection()
 }
 
 
-/**
- * Sets the current selection index.
- */
-void IconGrid::selection(std::size_t newSelection)
+void IconGrid::setSelection(Index newSelection)
 {
 	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : NoSelection;
 }
@@ -268,9 +170,9 @@ void IconGrid::selection(std::size_t newSelection)
  *			of 0 for IconGrid::Item's that don't use a meta value will
  *			effectively set the index to 0.
  */
-void IconGrid::selection_meta(int selectionMetaValue)
+void IconGrid::setSelectionByMeta(int selectionMetaValue)
 {
-	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
+	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
 		if (mIconItemList[i].meta == selectionMetaValue)
 		{
@@ -315,21 +217,19 @@ void IconGrid::decrementSelection()
 }
 
 
-void IconGrid::raiseChangedEvent()
+void IconGrid::raiseChangedEvent() const
 {
 	if (mSelectedIndex != NoSelection)
 	{
-		mSignal(&mIconItemList[mSelectedIndex]);
+		mSelectionChangedSignal(&mIconItemList[mSelectedIndex]);
 	}
 	else
 	{
-		mSignal(nullptr);
+		mSelectionChangedSignal(nullptr);
 	}
 }
 
-/**
- * Hide override -- clears selections whenever IconGrid is hidden.
- */
+
 void IconGrid::hide()
 {
 	Control::hide();
@@ -337,9 +237,6 @@ void IconGrid::hide()
 }
 
 
-/**
- * Draws the IconGrid.
- */
 void IconGrid::update()
 {
 	if (!visible()) { return; }
@@ -348,14 +245,14 @@ void IconGrid::update()
 
 	mSkin.draw(renderer, mRect);
 
-	if (mGridSize.x == 0) { return; }
-	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.position, spacing = mIconSize + mIconMargin](std::size_t index) {
+	if (mGridSizeInIcons.x == 0) { return; }
+	const auto indexToGridPosition = [gridSize = mGridSizeInIcons, startPoint = mRect.position, spacing = mIconSize + mIconMargin](Index index) {
 		const auto linearOffset = static_cast<int>(index);
 		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
 		return startPoint + offset * spacing;
 	};
 
-	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
+	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
 		const auto position = indexToGridPosition(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
@@ -386,8 +283,70 @@ void IconGrid::update()
 }
 
 
-void IconGrid::sort()
+void IconGrid::onResize()
 {
-	const auto iconItemCompare = [](const auto& left, const auto& right){ return left.name < right.name; };
-	std::sort(mIconItemList.begin(), mIconItemList.end(), iconItemCompare);
+	Control::onResize();
+
+	mGridSizeInIcons = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
+}
+
+
+void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
+{
+	if (!enabled() || !visible()) { return; }
+
+	// Don't respond to anything unless it's the left mouse button.
+	if (button != MouseButton::Left) { return; }
+
+	if (!visible())
+	{
+		return;
+	}
+
+	auto startPoint = mRect.position;
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
+	{
+		return;
+	}
+
+	auto previousIndex = mSelectedIndex;
+	mSelectedIndex = translateCoordsToIndex(position - startPoint);
+
+	if (mSelectedIndex >= mIconItemList.size())
+	{
+		mSelectedIndex = NoSelection;
+	}
+
+	if (previousIndex != mSelectedIndex)
+	{
+		raiseChangedEvent();
+	}
+}
+
+
+void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	if (!enabled() || !visible()) { return; }
+
+	auto startPoint = mRect.position;
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
+	{
+		mHighlightIndex = NoSelection;
+		return;
+	}
+
+	// Assumes all coordinates are not negative.
+	mHighlightIndex = translateCoordsToIndex(position - startPoint);
+
+	if (mHighlightIndex >= mIconItemList.size())
+	{
+		mHighlightIndex = NoSelection;
+	}
+}
+
+
+IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
+{
+	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
+	return gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
 }
