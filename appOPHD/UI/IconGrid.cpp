@@ -159,11 +159,11 @@ void IconGrid::addItem(const Item& item)
 /**
  * Set item availability
  */
-void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
+void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 {
 	for (auto& iconItem : mIconItemList)
 	{
-		if (iconItem.name == item)
+		if (iconItem.name == itemName)
 		{
 			iconItem.available = isItemAvailable;
 			return;
@@ -175,9 +175,9 @@ void IconGrid::itemAvailable(const std::string& item, bool isItemAvailable)
 /**
  * Get item availability
  */
-bool IconGrid::itemAvailable(const std::string& item)
+bool IconGrid::itemAvailable(const std::string& itemName)
 {
-	const auto lowerCaseTarget = toLowercase(item);
+	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
 		if (toLowercase(iconItem.name) == lowerCaseTarget)
@@ -192,9 +192,9 @@ bool IconGrid::itemAvailable(const std::string& item)
 /**
  * Removes an item from the IconGrid by name.
  */
-void IconGrid::removeItem(const std::string& item)
+void IconGrid::removeItem(const std::string& itemName)
 {
-	const auto lowerCaseTarget = toLowercase(item);
+	const auto lowerCaseTarget = toLowercase(itemName);
 
 	const auto iter = std::find_if(
 		mIconItemList.begin(),
@@ -214,9 +214,9 @@ void IconGrid::removeItem(const std::string& item)
 /**
  * Indicates whether a named item exists in the IconGrid.
  */
-bool IconGrid::itemExists(const std::string& item)
+bool IconGrid::itemExists(const std::string& itemName)
 {
-	const auto lowerCaseTarget = toLowercase(item);
+	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
 		if (toLowercase(iconItem.name) == lowerCaseTarget)

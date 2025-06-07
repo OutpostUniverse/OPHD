@@ -50,14 +50,14 @@ public:
 
 	void addItem(const Item&);
 
-	void removeItem(const std::string& item);
-	bool itemExists(const std::string& item);
+	void removeItem(const std::string& itemName);
+	bool itemExists(const std::string& itemName);
 	void clear();
 
 	// Setter
-	void itemAvailable(const std::string& item, bool isItemAvailable);
+	void itemAvailable(const std::string& itemName, bool isItemAvailable);
 	// Getter
-	bool itemAvailable(const std::string& item);
+	bool itemAvailable(const std::string& itemName);
 
 	void showTooltip(bool value) { mShowTooltip = value; }
 
