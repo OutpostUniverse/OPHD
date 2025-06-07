@@ -27,7 +27,7 @@ enum class Direction;
 
 CommandCenter& firstCc();
 bool isCcPlaced();
-bool isPointInCcRange(NAS2D::Point<int> position);
+bool isInCcRange(NAS2D::Point<int> position);
 
 bool inCommRange(NAS2D::Point<int> position);
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
