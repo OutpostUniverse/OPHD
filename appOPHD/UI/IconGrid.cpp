@@ -115,10 +115,6 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 }
 
 
-/**
- * Utility function that translates mouse coordinates into
- * an index value.
- */
 IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
 {
 	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
@@ -126,9 +122,6 @@ IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffs
 }
 
 
-/**
- * Called whenever the size of the IconGrid is changed.
- */
 void IconGrid::onResize()
 {
 	Control::onResize();
@@ -148,9 +141,6 @@ void IconGrid::addItem(const Item& item)
 }
 
 
-/**
- * Set item availability
- */
 void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 {
 	for (auto& iconItem : mIconItemList)
@@ -164,9 +154,6 @@ void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 }
 
 
-/**
- * Get item availability
- */
 bool IconGrid::itemAvailable(const std::string& itemName) const
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
@@ -181,9 +168,6 @@ bool IconGrid::itemAvailable(const std::string& itemName) const
 }
 
 
-/**
- * Removes an item from the IconGrid by name.
- */
 void IconGrid::removeItem(const std::string& itemName)
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
@@ -203,9 +187,6 @@ void IconGrid::removeItem(const std::string& itemName)
 }
 
 
-/**
- * Indicates whether a named item exists in the IconGrid.
- */
 bool IconGrid::itemExists(const std::string& itemName) const
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
@@ -220,9 +201,6 @@ bool IconGrid::itemExists(const std::string& itemName) const
 }
 
 
-/**
- * Drops all items from the IconGrid.
- */
 void IconGrid::clear()
 {
 	mIconItemList.clear();
@@ -230,9 +208,6 @@ void IconGrid::clear()
 }
 
 
-/**
- * Clears the Highlight Index and the Selection Index.
- */
 void IconGrid::clearSelection()
 {
 	mHighlightIndex = NoSelection;
@@ -240,9 +215,6 @@ void IconGrid::clearSelection()
 }
 
 
-/**
- * Sets the current selection index.
- */
 void IconGrid::setSelection(Index newSelection)
 {
 	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : NoSelection;
@@ -319,9 +291,7 @@ void IconGrid::raiseChangedEvent() const
 	}
 }
 
-/**
- * Hide override -- clears selections whenever IconGrid is hidden.
- */
+
 void IconGrid::hide()
 {
 	Control::hide();
@@ -329,9 +299,6 @@ void IconGrid::hide()
 }
 
 
-/**
- * Draws the IconGrid.
- */
 void IconGrid::update()
 {
 	if (!visible()) { return; }

@@ -15,16 +15,9 @@
 #include <algorithm>
 
 
-/**
- * Represents a 2D grid of Icon items that can be selected with a mouse.
- */
 class IconGrid : public Control
 {
 public:
-
-	/**
-	 * Item used within the IconGrid.
-	 */
 	struct Item
 	{
 		std::string name{};
