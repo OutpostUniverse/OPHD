@@ -17,7 +17,7 @@
 using namespace NAS2D;
 
 
-const std::size_t IconGrid::NoSelection{std::numeric_limits<std::size_t>::max()};
+const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
 IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
@@ -127,10 +127,10 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
  * Utility function that translates mouse coordinates into
  * an index value.
  */
-std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
+IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
 {
-	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<std::size_t>();
-	return gridOffset.x + (static_cast<std::size_t>(mGridSizeInIcons.x) * gridOffset.y);
+	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
+	return gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
 }
 
 
@@ -251,7 +251,7 @@ void IconGrid::clearSelection()
 /**
  * Sets the current selection index.
  */
-void IconGrid::selection(std::size_t newSelection)
+void IconGrid::selection(Index newSelection)
 {
 	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : NoSelection;
 }
@@ -270,7 +270,7 @@ void IconGrid::selection(std::size_t newSelection)
  */
 void IconGrid::selection_meta(int selectionMetaValue)
 {
-	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
+	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
 		if (mIconItemList[i].meta == selectionMetaValue)
 		{
@@ -349,13 +349,13 @@ void IconGrid::update()
 	mSkin.draw(renderer, mRect);
 
 	if (mGridSizeInIcons.x == 0) { return; }
-	const auto indexToGridPosition = [gridSize = mGridSizeInIcons, startPoint = mRect.position, spacing = mIconSize + mIconMargin](std::size_t index) {
+	const auto indexToGridPosition = [gridSize = mGridSizeInIcons, startPoint = mRect.position, spacing = mIconSize + mIconMargin](Index index) {
 		const auto linearOffset = static_cast<int>(index);
 		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
 		return startPoint + offset * spacing;
 	};
 
-	for (std::size_t i = 0; i < mIconItemList.size(); ++i)
+	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
 		const auto position = indexToGridPosition(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;

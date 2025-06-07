@@ -37,13 +37,13 @@ public:
 	using Signal = NAS2D::Signal<const Item*>;
 	using Index = std::vector<Item>::size_type;
 
-	static const std::size_t NoSelection;
+	static const Index NoSelection;
 
 public:
 	IconGrid(const std::string& filePath, int iconSize, int margin);
 	~IconGrid() override;
 
-	const std::string& itemName(std::size_t index) const { return mIconItemList[index].name; }
+	const std::string& itemName(Index index) const { return mIconItemList[index].name; }
 
 	int selectionIndex() const { return static_cast<int>(mSelectedIndex); }
 
@@ -63,7 +63,7 @@ public:
 	void showTooltip(bool value) { mShowTooltip = value; }
 
 	void clearSelection();
-	void selection(std::size_t newSelection);
+	void selection(Index newSelection);
 	void selection_meta(int selectionMetaValue);
 
 	void incrementSelection();
@@ -86,7 +86,7 @@ protected:
 
 private:
 	void updateGrid();
-	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
+	Index translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
 	void raiseChangedEvent();
 
