@@ -84,8 +84,7 @@ protected:
 	void onResize() override;
 
 private:
-	using IconItemList = std::vector<Item>;
-	using Index = IconItemList::size_type;
+	using Index = std::vector<Item>::size_type;
 
 	void updateGrid();
 	std::size_t translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
@@ -108,7 +107,7 @@ private:
 
 	NAS2D::Vector<int> mGridSizeInIcons;
 
-	IconItemList mIconItemList;
+	std::vector<Item> mIconItemList;
 
 	Signal mSelectionChangedSignal;
 };
