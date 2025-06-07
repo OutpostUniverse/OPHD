@@ -57,7 +57,7 @@ FactoryProduction::FactoryProduction() :
 	Window{constants::WindowFactoryProduction},
 	mFactory{nullptr},
 	mProduct{ProductType::PRODUCT_NONE},
-	mProductGrid{"ui/factory.png", 32, constants::MarginTight},
+	mProductGrid{"ui/factory.png", 32, constants::MarginTight, true},
 	chkIdle{"Idle", {this, &FactoryProduction::onCheckBoxIdleChange}},
 	btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}},
 	btnApply{"Apply", {this, &FactoryProduction::onApply}},
@@ -65,7 +65,6 @@ FactoryProduction::FactoryProduction() :
 	btnCancel{"Cancel", {this, &FactoryProduction::onCancel}}
 {
 	mProductGrid.size({140, 110});
-	mProductGrid.showTooltip(true);
 	mProductGrid.hide();
 	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
 	add(mProductGrid, {constants::Margin, sWindowTitleBarHeight + constants::Margin});

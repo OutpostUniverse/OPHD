@@ -20,7 +20,7 @@ using namespace NAS2D;
 const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
-IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
+IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
 	mSkin{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -34,6 +34,7 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin) :
 	},
 	mFont{Control::getDefaultFont()},
 	mIconSheet{imageCache.load(filePath)},
+	mShowTooltip{showTooltip},
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin}
 {

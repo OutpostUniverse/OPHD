@@ -151,7 +151,6 @@ void MapViewState::initUi()
 	// Menus
 	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
-	mRobots.showTooltip(true);
 	mRobots.selectionChanged().connect({this, &MapViewState::onRobotsSelectionChange});
 
 	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
@@ -160,7 +159,6 @@ void MapViewState::initUi()
 
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
 	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
-	mStructures.showTooltip(true);
 	mStructures.selectionChanged().connect({this, &MapViewState::onStructuresSelectionChange});
 
 	// Initial Structures

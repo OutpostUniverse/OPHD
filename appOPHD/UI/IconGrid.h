@@ -40,7 +40,7 @@ public:
 	static const Index NoSelection;
 
 public:
-	IconGrid(const std::string& filePath, int iconSize, int margin);
+	IconGrid(const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
 	~IconGrid() override;
 
 	const std::string& itemName(Index index) const { return mIconItemList[index].name; }
@@ -59,8 +59,6 @@ public:
 	void itemAvailable(const std::string& itemName, bool isItemAvailable);
 	// Getter
 	bool itemAvailable(const std::string& itemName);
-
-	void showTooltip(bool value) { mShowTooltip = value; }
 
 	void clearSelection();
 	void setSelection(Index newSelection);
@@ -91,6 +89,7 @@ private:
 	const NAS2D::RectangleSkin mSkin;
 	const NAS2D::Font& mFont;
 	const NAS2D::Image& mIconSheet;
+	const bool mShowTooltip;
 
 	int mIconSize = 1;
 	int mIconMargin = 0;
@@ -100,8 +99,6 @@ private:
 
 	Index mHighlightIndex = NoSelection;
 	Index mSelectedIndex = NoSelection;
-
-	bool mShowTooltip = false;
 
 	Signal mSelectionChangedSignal;
 };
