@@ -251,7 +251,7 @@ void IconGrid::clearSelection()
 /**
  * Sets the current selection index.
  */
-void IconGrid::selection(Index newSelection)
+void IconGrid::setSelection(Index newSelection)
 {
 	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : NoSelection;
 }
@@ -268,7 +268,7 @@ void IconGrid::selection(Index newSelection)
  *			of 0 for IconGrid::Item's that don't use a meta value will
  *			effectively set the index to 0.
  */
-void IconGrid::selection_meta(int selectionMetaValue)
+void IconGrid::setSelectionByMeta(int selectionMetaValue)
 {
 	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{

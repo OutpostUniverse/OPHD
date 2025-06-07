@@ -63,8 +63,8 @@ public:
 	void showTooltip(bool value) { mShowTooltip = value; }
 
 	void clearSelection();
-	void selection(Index newSelection);
-	void selection_meta(int selectionMetaValue);
+	void setSelection(Index newSelection);
+	void setSelectionByMeta(int selectionMetaValue);
 
 	void incrementSelection();
 	void decrementSelection();
