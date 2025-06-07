@@ -40,8 +40,6 @@ namespace constants
 
 	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
 
-	inline constexpr int LanderCommRange{5};
-
 	inline constexpr int RoadIntegrityChange{80};
 
 	inline constexpr float RouteBaseCost{0.5f};

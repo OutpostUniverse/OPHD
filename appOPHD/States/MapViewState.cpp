@@ -827,7 +827,7 @@ void MapViewState::placeStructure(Tile& tile)
 {
 	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
 
-	if (!selfSustained(mCurrentStructure) && !isPointInCcRange(tile.xy()))
+	if (!selfSustained(mCurrentStructure) && !isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -944,7 +944,7 @@ void MapViewState::placeRobot(Tile& tile)
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
 
-	if (!inCommRange(tile.xy()))
+	if (!isInCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;
@@ -1383,6 +1383,7 @@ void MapViewState::updateCommRangeOverlay()
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommandCenter>());
 	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommTower>());
+	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<SeedLander>());
 }
 
 

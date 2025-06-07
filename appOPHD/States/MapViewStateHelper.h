@@ -25,10 +25,12 @@ class Warehouse;
 struct StorableResources;
 enum class Direction;
 
-bool isCcPlaced();
-bool isPointInCcRange(NAS2D::Point<int> position);
-bool isPointInCcRange(NAS2D::Point<int> position, int range);
 CommandCenter& firstCc();
+bool isCcPlaced();
+bool isInCcRange(NAS2D::Point<int> position);
+
+bool isInCommRange(NAS2D::Point<int> position);
+bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
 
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);
@@ -37,8 +39,6 @@ bool validStructurePlacement(TileMap& tilemap, MapCoordinate position);
 bool validLanderSite(Tile& t);
 bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position);
 bool structureIsLander(StructureID id);
-bool inCommRange(NAS2D::Point<int> position);
-bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
 bool selfSustained(StructureID id);
 
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
