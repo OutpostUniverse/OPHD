@@ -43,22 +43,21 @@ public:
 	IconGrid(const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
 	~IconGrid() override;
 
-	const std::string& itemName(Index index) const { return mIconItemList[index].name; }
-
-	Index selectedIndex() const { return mSelectedIndex; }
-
+	void addItem(const Item&);
+	void sort();
+	void clear();
 	bool isEmpty() const { return mIconItemList.empty(); }
 
-	void addItem(const Item&);
-
-	void removeItem(const std::string& itemName);
+	const std::string& itemName(Index index) const { return mIconItemList[index].name; }
 	bool itemExists(const std::string& itemName);
-	void clear();
+	void removeItem(const std::string& itemName);
 
-	// Setter
-	void itemAvailable(const std::string& itemName, bool isItemAvailable);
 	// Getter
 	bool itemAvailable(const std::string& itemName);
+	// Setter
+	void itemAvailable(const std::string& itemName, bool isItemAvailable);
+
+	Index selectedIndex() const { return mSelectedIndex; }
 
 	void clearSelection();
 	void setSelection(Index newSelection);
@@ -70,16 +69,13 @@ public:
 	Signal::Source& selectionChanged() { return mSelectionChangedSignal; }
 
 	void hide() override;
-
-	void sort();
-
 	void update() override;
 
 protected:
+	void onResize() override;
+
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
-
-	void onResize() override;
 
 	Index translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
