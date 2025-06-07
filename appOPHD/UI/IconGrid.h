@@ -91,8 +91,8 @@ private:
 	const NAS2D::Image& mIconSheet;
 	const bool mShowTooltip;
 
-	int mIconSize = 1;
-	int mIconMargin = 0;
+	const int mIconSize;
+	const int mIconMargin;
 	NAS2D::Vector<int> mGridSizeInIcons;
 
 	std::vector<Item> mIconItemList;
