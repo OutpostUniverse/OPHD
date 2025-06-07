@@ -106,7 +106,7 @@ private:
 
 	NAS2D::RectangleSkin mSkin;
 
-	NAS2D::Vector<int> mGridSize; /**< Dimensions of the grid that can be contained in the IconGrid with the current Icon Size and Icon Margin. */
+	NAS2D::Vector<int> mGridSizeInIcons;
 
 	IconItemList mIconItemList;
 

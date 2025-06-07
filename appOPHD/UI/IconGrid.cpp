@@ -65,7 +65,7 @@ IconGrid::~IconGrid()
  */
 void IconGrid::updateGrid()
 {
-	mGridSize = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
+	mGridSizeInIcons = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
 }
 
 
@@ -82,7 +82,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	}
 
 	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSize * (mIconSize + mIconMargin)}.contains(position))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
 	{
 		return;
 	}
@@ -107,7 +107,7 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 	if (!enabled() || !visible()) { return; }
 
 	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSize * (mIconSize + mIconMargin)}.contains(position))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
 	{
 		mHighlightIndex = NoSelection;
 		return;
@@ -130,7 +130,7 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 std::size_t IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
 {
 	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<std::size_t>();
-	return gridOffset.x + (static_cast<std::size_t>(mGridSize.x) * gridOffset.y);
+	return gridOffset.x + (static_cast<std::size_t>(mGridSizeInIcons.x) * gridOffset.y);
 }
 
 
@@ -348,8 +348,8 @@ void IconGrid::update()
 
 	mSkin.draw(renderer, mRect);
 
-	if (mGridSize.x == 0) { return; }
-	const auto indexToGridPosition = [gridSize = mGridSize, startPoint = mRect.position, spacing = mIconSize + mIconMargin](std::size_t index) {
+	if (mGridSizeInIcons.x == 0) { return; }
+	const auto indexToGridPosition = [gridSize = mGridSizeInIcons, startPoint = mRect.position, spacing = mIconSize + mIconMargin](std::size_t index) {
 		const auto linearOffset = static_cast<int>(index);
 		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
 		return startPoint + offset * spacing;
