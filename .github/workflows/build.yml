@@ -64,7 +64,8 @@ jobs:
         path: vcpkg_installed
         key: ${{ env.cacheKeyVcpkg }}
 
-    - name: Pre-install vcpkg dependencies - OPHD
+    - name: Install vcpkg dependencies - OPHD
+      if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
       env:
         VcpkgManifestInstall: true
       run: |
@@ -81,7 +82,8 @@ jobs:
       run: |
         xcopy vcpkg_installed nas2d-core\vcpkg_installed\ /s /e
 
-    - name: Pre-install vcpkg dependencies - NAS2D
+    - name: Install vcpkg dependencies - NAS2D
+      if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
       working-directory: nas2d-core
       env:
         VcpkgManifestInstall: true
