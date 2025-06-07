@@ -49,11 +49,11 @@ public:
 	bool isEmpty() const { return mIconItemList.empty(); }
 
 	const std::string& itemName(Index index) const { return mIconItemList[index].name; }
-	bool itemExists(const std::string& itemName);
+	bool itemExists(const std::string& itemName) const;
 	void removeItem(const std::string& itemName);
 
 	// Getter
-	bool itemAvailable(const std::string& itemName);
+	bool itemAvailable(const std::string& itemName) const;
 	// Setter
 	void itemAvailable(const std::string& itemName, bool isItemAvailable);
 
@@ -79,7 +79,7 @@ protected:
 
 	Index translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
-	void raiseChangedEvent();
+	void raiseChangedEvent() const;
 
 private:
 	const NAS2D::RectangleSkin mSkin;

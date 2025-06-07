@@ -167,7 +167,7 @@ void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 /**
  * Get item availability
  */
-bool IconGrid::itemAvailable(const std::string& itemName)
+bool IconGrid::itemAvailable(const std::string& itemName) const
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
@@ -206,7 +206,7 @@ void IconGrid::removeItem(const std::string& itemName)
 /**
  * Indicates whether a named item exists in the IconGrid.
  */
-bool IconGrid::itemExists(const std::string& itemName)
+bool IconGrid::itemExists(const std::string& itemName) const
 {
 	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
@@ -307,7 +307,7 @@ void IconGrid::decrementSelection()
 }
 
 
-void IconGrid::raiseChangedEvent()
+void IconGrid::raiseChangedEvent() const
 {
 	if (mSelectedIndex != NoSelection)
 	{
