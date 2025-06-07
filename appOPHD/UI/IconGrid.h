@@ -47,7 +47,7 @@ public:
 
 	Index selectedIndex() const { return mSelectedIndex; }
 
-	bool empty() const { return mIconItemList.empty(); }
+	bool isEmpty() const { return mIconItemList.empty(); }
 
 	void addItem(const Item&);
 
