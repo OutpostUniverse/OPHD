@@ -71,6 +71,33 @@ bool isPointInCcRange(NAS2D::Point<int> position)
 
 
 /**
+ * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
+ */
+bool inCommRange(NAS2D::Point<int> position)
+{
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+
+	const auto& structures = structureManager.allStructures();
+	for (const auto* structure : structures)
+	{
+		const auto commRange = structure->commRange();
+		if (commRange > 0 && isPointInRange(position, structureManager.tileFromStructure(structure).xy(), commRange))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
+{
+	return (point2 - point1).lengthSquared() <= distance * distance;
+}
+
+
+/**
  * Checks to see if a given tube connection is valid.
  */
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir)
@@ -222,33 +249,6 @@ bool structureIsLander(StructureID id)
 bool selfSustained(StructureID id)
 {
 	return StructureCatalogue::getType(id).isSelfSustained;
-}
-
-
-/**
- * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
- */
-bool inCommRange(NAS2D::Point<int> position)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& structures = structureManager.allStructures();
-	for (const auto* structure : structures)
-	{
-		const auto commRange = structure->commRange();
-		if (commRange > 0 && isPointInRange(position, structureManager.tileFromStructure(structure).xy(), commRange))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
-bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
-{
-	return (point2 - point1).lengthSquared() <= distance * distance;
 }
 
 
