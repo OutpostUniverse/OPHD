@@ -1383,6 +1383,7 @@ void MapViewState::updateCommRangeOverlay()
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommandCenter>());
 	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommTower>());
+	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<SeedLander>());
 }
 
 
