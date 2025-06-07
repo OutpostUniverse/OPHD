@@ -83,7 +83,6 @@ protected:
 
 	void onResize() override;
 
-	void updateGrid();
 	Index translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const;
 
 	void raiseChangedEvent();

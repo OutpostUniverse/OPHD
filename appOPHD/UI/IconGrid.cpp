@@ -60,15 +60,6 @@ IconGrid::~IconGrid()
 }
 
 
-/**
- * Updates the icon grid.
- */
-void IconGrid::updateGrid()
-{
-	mGridSizeInIcons = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
-}
-
-
 void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -141,7 +132,7 @@ void IconGrid::onResize()
 {
 	Control::onResize();
 
-	updateGrid();
+	mGridSizeInIcons = (mRect.size - NAS2D::Vector{mIconMargin, mIconMargin} * 2) / (mIconSize + mIconMargin);
 }
 
 
