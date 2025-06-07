@@ -160,7 +160,7 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isPointInCcRange(tile.xy(), constants::LanderCommRange))
+	if (!inCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;
