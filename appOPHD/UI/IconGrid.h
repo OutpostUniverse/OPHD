@@ -101,7 +101,7 @@ private:
 
 	const NAS2D::Image& mIconSheet;
 
-	NAS2D::RectangleSkin mSkin;
+	const NAS2D::RectangleSkin mSkin;
 
 	NAS2D::Vector<int> mGridSizeInIcons;
 
