@@ -293,7 +293,7 @@ void IconGrid::onResize()
 
 void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 {
-	if (!enabled() || !visible()) { return; }
+	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 
 	// Don't respond to anything unless it's the left mouse button.
 	if (button != MouseButton::Left) { return; }
