@@ -298,8 +298,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	// Don't respond to anything unless it's the left mouse button.
 	if (button != MouseButton::Left) { return; }
 
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{mRect.position, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
 	{
 		return;
 	}
@@ -318,8 +317,7 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 {
 	if (!enabled() || !visible()) { return; }
 
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
+	if (mIconItemList.empty() || !NAS2D::Rectangle{mRect.position, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
 	{
 		mHighlightIndex = NoSelection;
 		return;
