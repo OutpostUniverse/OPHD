@@ -59,8 +59,6 @@ public:
 	void incrementSelection();
 	void decrementSelection();
 
-	Signal::Source& selectionChanged() { return mSelectionChangedSignal; }
-
 	void hide() override;
 	void update() override;
 
