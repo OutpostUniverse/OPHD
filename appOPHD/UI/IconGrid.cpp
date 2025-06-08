@@ -20,7 +20,7 @@ using namespace NAS2D;
 const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
-IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
+IconGrid::IconGrid(NAS2D::Delegate<void(const Item*)> selectionChangedHandler, const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
 	mSkin{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -50,6 +50,8 @@ IconGrid::IconGrid(const std::string& filePath, int iconEdgeSize, int margin, bo
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &IconGrid::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &IconGrid::onMouseMove});
+
+	mSelectionChangedSignal.connect(selectionChangedHandler);
 }
 
 

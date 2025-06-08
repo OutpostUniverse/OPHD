@@ -57,7 +57,7 @@ FactoryProduction::FactoryProduction() :
 	Window{constants::WindowFactoryProduction},
 	mFactory{nullptr},
 	mProduct{ProductType::PRODUCT_NONE},
-	mProductGrid{"ui/factory.png", 32, constants::MarginTight, true},
+	mProductGrid{{this, &FactoryProduction::onProductSelectionChange}, "ui/factory.png", 32, constants::MarginTight, true},
 	chkIdle{"Idle", {this, &FactoryProduction::onCheckBoxIdleChange}},
 	btnClearSelection{"Clear Selection", {this, &FactoryProduction::onClearSelection}},
 	btnApply{"Apply", {this, &FactoryProduction::onApply}},
@@ -66,7 +66,6 @@ FactoryProduction::FactoryProduction() :
 {
 	mProductGrid.size({140, 110});
 	mProductGrid.hide();
-	mProductGrid.selectionChanged().connect({this, &FactoryProduction::onProductSelectionChange});
 	add(mProductGrid, {constants::Margin, sWindowTitleBarHeight + constants::Margin});
 
 	// Create dummy object for sizing purposes

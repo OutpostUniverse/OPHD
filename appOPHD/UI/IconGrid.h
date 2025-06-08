@@ -33,7 +33,7 @@ public:
 	static const Index NoSelection;
 
 public:
-	IconGrid(const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
+	IconGrid(NAS2D::Delegate<void(const Item*)> selectionChangedHandler, const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
 	~IconGrid() override;
 
 	void addItem(const Item&);
