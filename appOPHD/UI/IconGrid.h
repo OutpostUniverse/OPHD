@@ -4,7 +4,7 @@
 
 #include "../Constants/UiConstants.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -27,13 +27,13 @@ public:
 		NAS2D::Point<int> pos{};
 	};
 
-	using Signal = NAS2D::Signal<const Item*>;
+	using Delegate = NAS2D::Delegate<void(const Item*)>;
 	using Index = std::vector<Item>::size_type;
 
 	static const Index NoSelection;
 
 public:
-	IconGrid(const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
+	IconGrid(Delegate selectionChangedHandler, const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
 	~IconGrid() override;
 
 	void addItem(const Item&);
@@ -58,8 +58,6 @@ public:
 
 	void incrementSelection();
 	void decrementSelection();
-
-	Signal::Source& selectionChanged() { return mSelectionChangedSignal; }
 
 	void hide() override;
 	void update() override;
@@ -90,5 +88,5 @@ private:
 	Index mHighlightIndex = NoSelection;
 	Index mSelectedIndex = NoSelection;
 
-	Signal mSelectionChangedSignal;
+	Delegate mSelectionChangedDelegate;
 };
