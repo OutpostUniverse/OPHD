@@ -6,6 +6,7 @@
 #include "../StructureManager.h"
 #include "../UI/MessageBox.h"
 #include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/Utility.h>
