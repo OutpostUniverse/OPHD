@@ -20,7 +20,7 @@ using namespace NAS2D;
 const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
-IconGrid::IconGrid(NAS2D::Delegate<void(const Item*)> selectionChangedHandler, const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
+IconGrid::IconGrid(Delegate selectionChangedHandler, const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
 	mSkin{
 		imageCache.load("ui/skin/textbox_top_left.png"),
 		imageCache.load("ui/skin/textbox_top_middle.png"),
@@ -36,7 +36,8 @@ IconGrid::IconGrid(NAS2D::Delegate<void(const Item*)> selectionChangedHandler, c
 	mIconSheet{imageCache.load(filePath)},
 	mShowTooltip{showTooltip},
 	mIconSize{iconEdgeSize},
-	mIconMargin{margin}
+	mIconMargin{margin},
+	mSelectionChangedDelegate{selectionChangedHandler}
 {
 	if (iconEdgeSize <= 0)
 	{
@@ -50,8 +51,6 @@ IconGrid::IconGrid(NAS2D::Delegate<void(const Item*)> selectionChangedHandler, c
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &IconGrid::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &IconGrid::onMouseMove});
-
-	mSelectionChangedSignal.connect(selectionChangedHandler);
 }
 
 
@@ -223,11 +222,11 @@ void IconGrid::raiseChangedEvent() const
 {
 	if (mSelectedIndex != NoSelection)
 	{
-		mSelectionChangedSignal(&mIconItemList[mSelectedIndex]);
+		mSelectionChangedDelegate(&mIconItemList[mSelectedIndex]);
 	}
 	else
 	{
-		mSelectionChangedSignal(nullptr);
+		mSelectionChangedDelegate(nullptr);
 	}
 }
 
