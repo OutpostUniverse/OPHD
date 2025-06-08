@@ -293,32 +293,13 @@ void IconGrid::onResize()
 
 void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 {
-	if (!enabled() || !visible()) { return; }
-
-	// Don't respond to anything unless it's the left mouse button.
+	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	if (!visible())
+	const auto iconIndex = positionToIndex(position);
+	if (mSelectedIndex != iconIndex)
 	{
-		return;
-	}
-
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
-	{
-		return;
-	}
-
-	auto previousIndex = mSelectedIndex;
-	mSelectedIndex = translateCoordsToIndex(position - startPoint);
-
-	if (mSelectedIndex >= mIconItemList.size())
-	{
-		mSelectedIndex = NoSelection;
-	}
-
-	if (previousIndex != mSelectedIndex)
-	{
+		mSelectedIndex = iconIndex;
 		raiseChangedEvent();
 	}
 }
@@ -328,25 +309,21 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 {
 	if (!enabled() || !visible()) { return; }
 
-	auto startPoint = mRect.position;
-	if (mIconItemList.empty() || !NAS2D::Rectangle{startPoint, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position))
-	{
-		mHighlightIndex = NoSelection;
-		return;
-	}
-
-	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(position - startPoint);
-
-	if (mHighlightIndex >= mIconItemList.size())
-	{
-		mHighlightIndex = NoSelection;
-	}
+	mHighlightIndex = positionToIndex(position);
 }
 
 
-IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
+bool IconGrid::isInGridArea(NAS2D::Point<int> position) const
 {
+	return !mIconItemList.empty() && NAS2D::Rectangle{mRect.position, mGridSizeInIcons * (mIconSize + mIconMargin)}.contains(position);
+}
+
+
+IconGrid::Index IconGrid::positionToIndex(NAS2D::Point<int> position) const
+{
+	if (!isInGridArea(position)) { return NoSelection; }
+	const auto relativeOffset = position - mRect.position;
 	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
-	return gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
+	const auto index = gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
+	return (index >= mIconItemList.size()) ? NoSelection : index;
 }
