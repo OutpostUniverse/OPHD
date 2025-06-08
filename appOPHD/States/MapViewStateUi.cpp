@@ -522,15 +522,17 @@ void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 
 	if (!item) { return; }
 
+	const auto structureId = static_cast<StructureID>(item->meta);
+
 	// Check availability
 	if (!item->available)
 	{
-		resourceShortageMessage(mResourcesCount, static_cast<StructureID>(item->meta));
+		resourceShortageMessage(mResourcesCount, structureId);
 		mStructures.clearSelection();
 		return;
 	}
 
-	setStructureID(static_cast<StructureID>(item->meta), InsertMode::Structure);
+	setStructureID(structureId, InsertMode::Structure);
 }
 
 
