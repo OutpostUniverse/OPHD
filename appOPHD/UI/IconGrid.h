@@ -71,7 +71,7 @@ protected:
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	bool isInGridArea(NAS2D::Point<int> position) const;
-	Index translateCoordsToIndex(NAS2D::Point<int> position) const;
+	Index positionToIndex(NAS2D::Point<int> position) const;
 
 	void raiseChangedEvent() const;
 

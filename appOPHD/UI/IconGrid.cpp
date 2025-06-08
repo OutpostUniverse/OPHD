@@ -296,7 +296,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	const auto iconIndex = translateCoordsToIndex(position);
+	const auto iconIndex = positionToIndex(position);
 	if (mSelectedIndex != iconIndex)
 	{
 		mSelectedIndex = iconIndex;
@@ -309,7 +309,7 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 {
 	if (!enabled() || !visible()) { return; }
 
-	mHighlightIndex = translateCoordsToIndex(position);
+	mHighlightIndex = positionToIndex(position);
 }
 
 
@@ -319,7 +319,7 @@ bool IconGrid::isInGridArea(NAS2D::Point<int> position) const
 }
 
 
-IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Point<int> position) const
+IconGrid::Index IconGrid::positionToIndex(NAS2D::Point<int> position) const
 {
 	if (!isInGridArea(position)) { return NoSelection; }
 	const auto relativeOffset = position - mRect.position;
