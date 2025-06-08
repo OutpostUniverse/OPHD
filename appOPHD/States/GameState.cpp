@@ -2,10 +2,11 @@
 
 #include "MainMenuState.h"
 #include "Wrapper.h"
+#include "../OpenSaveGame.h"
 #include "../StructureManager.h"
 #include "../UI/MessageBox.h"
 #include "../Constants/Strings.h"
-#include "../OpenSaveGame.h"
+#include "../Constants/UiConstants.h"
 
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/Utility.h>

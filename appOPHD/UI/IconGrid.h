@@ -2,10 +2,8 @@
 
 #include <libControls/Control.h>
 
-#include "../Constants/UiConstants.h"
-
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
