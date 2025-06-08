@@ -511,10 +511,6 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 }
 
 
-/**
-* Currently uses a text comparison function. Not inherently bad but
-* should really be turned into a key/value pair table for easier lookups.
-*/
 void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 {
 	mConnections.clearSelection();
