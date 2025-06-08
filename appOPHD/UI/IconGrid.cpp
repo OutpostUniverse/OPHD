@@ -298,11 +298,6 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	// Don't respond to anything unless it's the left mouse button.
 	if (button != MouseButton::Left) { return; }
 
-	if (!isInGridArea(position))
-	{
-		return;
-	}
-
 	auto previousIndex = mSelectedIndex;
 	mSelectedIndex = translateCoordsToIndex(position);
 
