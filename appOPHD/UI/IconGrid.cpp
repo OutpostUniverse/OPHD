@@ -305,7 +305,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	}
 
 	auto previousIndex = mSelectedIndex;
-	mSelectedIndex = translateCoordsToIndex(position - startPoint);
+	mSelectedIndex = translateCoordsToIndex(position);
 
 	if (previousIndex != mSelectedIndex)
 	{
@@ -326,12 +326,13 @@ void IconGrid::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rela
 	}
 
 	// Assumes all coordinates are not negative.
-	mHighlightIndex = translateCoordsToIndex(position - startPoint);
+	mHighlightIndex = translateCoordsToIndex(position);
 }
 
 
-IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Vector<int> relativeOffset) const
+IconGrid::Index IconGrid::translateCoordsToIndex(NAS2D::Point<int> position) const
 {
+	const auto relativeOffset = position - mRect.position;
 	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
 	const auto index = gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
 	return (index >= mIconItemList.size()) ? NoSelection : index;
