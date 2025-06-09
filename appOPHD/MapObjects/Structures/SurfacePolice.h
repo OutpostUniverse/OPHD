@@ -14,6 +14,6 @@ public:
 
 	int getRange() const
 	{
-		return 5;
+		return policeRange();
 	}
 };
