@@ -27,11 +27,6 @@ public:
 		mPosition = position;
 	}
 
-	int getRange() const
-	{
-		return commRange();
-	}
-
 	Signal::Source& deploySignal() { return mDeploy; }
 
 protected:

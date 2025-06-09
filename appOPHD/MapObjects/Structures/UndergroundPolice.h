@@ -11,9 +11,4 @@ public:
 		StructureID::SID_UNDERGROUND_POLICE)
 	{
 	}
-
-	int getRange() const
-	{
-		return policeRange();
-	}
 };

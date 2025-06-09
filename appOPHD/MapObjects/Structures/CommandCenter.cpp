@@ -11,12 +11,6 @@ CommandCenter::CommandCenter() : FoodProduction(
 }
 
 
-int CommandCenter::getRange() const
-{
-	return commRange();
-}
-
-
 int CommandCenter::calculateProduction() const
 {
 	return foodProduced();

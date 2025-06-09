@@ -12,12 +12,6 @@ CommTower::CommTower() : Structure(
 }
 
 
-int CommTower::getRange() const
-{
-	return commRange();
-}
-
-
 StringTable CommTower::createInspectorViewTable()
 {
 	StringTable stringTable(2, 1);
