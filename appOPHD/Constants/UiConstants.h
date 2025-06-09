@@ -11,7 +11,7 @@ namespace constants
 {
 	inline constexpr Duration FadeSpeed{300};
 
-	inline constexpr int PlanetAnimationSpeed{35};
+	inline constexpr Duration PlanetAnimationSpeed{35};
 
 	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
 
