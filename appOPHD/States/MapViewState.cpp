@@ -88,7 +88,7 @@ namespace
 	}
 
 
-	void fillOverlayCircle(TileMap& tileMap, std::vector<Tile*>& tileList, Tile& centerTile, int range)
+	void fillOverlayCircle(TileMap& tileMap, std::vector<Tile*>& tileList, const Tile& centerTile, int range)
 	{
 		const auto center = centerTile.xy();
 		const auto depth = centerTile.depth();
