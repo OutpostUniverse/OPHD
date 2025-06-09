@@ -62,12 +62,10 @@ IconGrid::~IconGrid()
 
 void IconGrid::addItem(const Item& item)
 {
-	mIconItemList.push_back(item);
+	auto& newItem = mIconItemList.emplace_back(item);
 
-	const int x_pos = (item.sheetId % (mIconSheet.size().x / mIconSize)) * mIconSize;
-	const int y_pos = (item.sheetId / (mIconSheet.size().x / mIconSize)) * mIconSize;
-
-	mIconItemList.back().pos = {x_pos, y_pos};
+	const auto divisor = mIconSheet.size().x / mIconSize;
+	newItem.pos = {(item.sheetId % divisor) * mIconSize, (item.sheetId / divisor) * mIconSize};
 }
 
 
@@ -180,16 +178,10 @@ void IconGrid::setSelectionByMeta(int selectionMetaValue)
 
 void IconGrid::incrementSelection()
 {
-	++mSelectedIndex;
-	if (mSelectedIndex >= mIconItemList.size())
-	{
-		mSelectedIndex = 0;
-	}
+	if (mSelectedIndex == NoSelection) { return; }
 
-	if (mIconItemList.empty())
-	{
-		mSelectedIndex = NoSelection;
-	}
+	const auto nextIndex = (mSelectedIndex + 1 >= mIconItemList.size()) ? 0 : mSelectedIndex + 1;
+	mSelectedIndex = nextIndex;
 
 	raiseChangedEvent();
 }
@@ -197,16 +189,10 @@ void IconGrid::incrementSelection()
 
 void IconGrid::decrementSelection()
 {
-	if (mSelectedIndex == 0)
-	{
-		mSelectedIndex = mIconItemList.size();
-	}
-	--mSelectedIndex;
+	if (mSelectedIndex == NoSelection) { return; }
 
-	if (mIconItemList.empty())
-	{
-		mSelectedIndex = NoSelection;
-	}
+	const auto nextIndex = ((mSelectedIndex == 0) ? mIconItemList.size() : mSelectedIndex) - 1;
+	mSelectedIndex = nextIndex;
 
 	raiseChangedEvent();
 }
@@ -246,7 +232,7 @@ void IconGrid::update()
 	{
 		const auto iconArea = indexToArea(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
-		renderer.drawSubImage(mIconSheet, iconArea.position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, iconArea.size}, highlightColor);
+		renderer.drawSubImage(mIconSheet, iconArea.position, NAS2D::Rectangle{mIconItemList[i].pos, iconArea.size}, highlightColor);
 	}
 
 	if (mSelectedIndex != NoSelection)
