@@ -249,7 +249,7 @@ void IconGrid::update()
 
 	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
-		const auto position = indexToGridPosition(i);
+		const auto position = indexToGridPosition(i) + NAS2D::Vector{mIconMargin, mIconMargin};
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
 		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, {mIconSize, mIconSize}}, highlightColor);
 	}
