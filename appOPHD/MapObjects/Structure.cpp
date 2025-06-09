@@ -278,6 +278,11 @@ int Structure::commRange() const
 	return operational() ? mStructureType.commRange : 0;
 }
 
+int Structure::policeRange() const
+{
+	return operational() ? mStructureType.policeRange : 0;
+}
+
 bool Structure::hasCrime() const
 {
 	return mStructureType.isCrimeTarget;
