@@ -19,5 +19,5 @@ int CommandCenter::getRange() const
 
 int CommandCenter::calculateProduction() const
 {
-	return 0;
+	return foodProduced();
 }
