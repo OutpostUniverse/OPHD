@@ -1035,7 +1035,8 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		if (structure->isWarehouse())
 		{
-			if (simulateMoveProducts(dynamic_cast<Warehouse*>(structure))) { moveProducts(dynamic_cast<Warehouse*>(structure)); }
+			auto* warehouse = dynamic_cast<Warehouse*>(structure);
+			if (simulateMoveProducts(warehouse)) { moveProducts(warehouse); }
 			else { return; }
 		}
 
