@@ -126,22 +126,17 @@ bool Button::hasImage() const
 
 void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!enabled() || !visible()) { return; }
+	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
-	if (button == NAS2D::MouseButton::Left)
+	if (mType == Type::Push)
 	{
-		if (mRect.contains(position))
-		{
-			if (mType == Type::Push)
-			{
-				mIsPressed = true;
-			}
-			else
-			{
-				mIsPressed = !mIsPressed;
-				mSignal();
-			}
-		}
+		mIsPressed = true;
+	}
+	else
+	{
+		mIsPressed = !mIsPressed;
+		mSignal();
 	}
 }
 
@@ -149,17 +144,15 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
-	if (button == NAS2D::MouseButton::Left)
+	if (mType == Type::Push)
 	{
-		if (mType == Type::Push)
-		{
-			mIsPressed = false;
+		mIsPressed = false;
 
-			if (mRect.contains(position))
-			{
-				mSignal();
-			}
+		if (mRect.contains(position))
+		{
+			mSignal();
 		}
 	}
 }
@@ -177,9 +170,6 @@ void Button::update()
 }
 
 
-/**
- * Draws the button.
- */
 void Button::draw() const
 {
 	if (!visible()) { return; }
