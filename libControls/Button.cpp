@@ -15,7 +15,7 @@ namespace
 
 Button::Button(std::string newText) :
 	mButtonSkin{
-		loadRectangleSkin("ui/skin/button"),
+		loadRectangleSkin("ui/skin/button_normal"),
 		loadRectangleSkin("ui/skin/button_hover"),
 		loadRectangleSkin("ui/skin/button_pressed"),
 	}

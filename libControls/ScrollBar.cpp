@@ -1,5 +1,7 @@
 #include "ScrollBar.h"
 
+#include "LoadRectangleSkin.h"
+
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -14,99 +16,19 @@ namespace
 		if (scrollBarType == ScrollBar::ScrollBarType::Vertical)
 		{
 			return {
-				{ // Track
-					Control::getImage("ui/skin/sv_sa_tl.png"),
-					Control::getImage("ui/skin/sv_sa_tm.png"),
-					Control::getImage("ui/skin/sv_sa_tr.png"),
-					Control::getImage("ui/skin/sv_sa_ml.png"),
-					Control::getImage("ui/skin/sv_sa_mm.png"),
-					Control::getImage("ui/skin/sv_sa_mr.png"),
-					Control::getImage("ui/skin/sv_sa_bl.png"),
-					Control::getImage("ui/skin/sv_sa_bm.png"),
-					Control::getImage("ui/skin/sv_sa_br.png")
-				},
-				{ // Thumb
-					Control::getImage("ui/skin/sv_sl_tl.png"),
-					Control::getImage("ui/skin/sv_sl_tm.png"),
-					Control::getImage("ui/skin/sv_sl_tr.png"),
-					Control::getImage("ui/skin/sv_sl_ml.png"),
-					Control::getImage("ui/skin/sv_sl_mm.png"),
-					Control::getImage("ui/skin/sv_sl_mr.png"),
-					Control::getImage("ui/skin/sv_sl_bl.png"),
-					Control::getImage("ui/skin/sv_sl_bm.png"),
-					Control::getImage("ui/skin/sv_sl_br.png")
-				},
-				{ // ButtonDecrease
-					Control::getImage("ui/skin/sv_bu_tl.png"),
-					Control::getImage("ui/skin/sv_bu_tm.png"),
-					Control::getImage("ui/skin/sv_bu_tr.png"),
-					Control::getImage("ui/skin/sv_bu_ml.png"),
-					Control::getImage("ui/skin/sv_bu_mm.png"),
-					Control::getImage("ui/skin/sv_bu_mr.png"),
-					Control::getImage("ui/skin/sv_bu_bl.png"),
-					Control::getImage("ui/skin/sv_bu_bm.png"),
-					Control::getImage("ui/skin/sv_bu_br.png")
-				},
-				{ // ButtonIncrease
-					Control::getImage("ui/skin/sv_bd_tl.png"),
-					Control::getImage("ui/skin/sv_bd_tm.png"),
-					Control::getImage("ui/skin/sv_bd_tr.png"),
-					Control::getImage("ui/skin/sv_bd_ml.png"),
-					Control::getImage("ui/skin/sv_bd_mm.png"),
-					Control::getImage("ui/skin/sv_bd_mr.png"),
-					Control::getImage("ui/skin/sv_bd_bl.png"),
-					Control::getImage("ui/skin/sv_bd_bm.png"),
-					Control::getImage("ui/skin/sv_bd_br.png")
-				},
+				loadRectangleSkin("ui/skin/scrollbar_vertical_track"),
+				loadRectangleSkin("ui/skin/scrollbar_vertical_thumb"),
+				loadRectangleSkin("ui/skin/scrollbar_vertical_button_decrease"),
+				loadRectangleSkin("ui/skin/scrollbar_vertical_button_increase"),
 			};
 		}
 		else
 		{
 			return {
-				{ // Track
-					Control::getImage("ui/skin/sh_sa_tl.png"),
-					Control::getImage("ui/skin/sh_sa_tm.png"),
-					Control::getImage("ui/skin/sh_sa_tr.png"),
-					Control::getImage("ui/skin/sh_sa_ml.png"),
-					Control::getImage("ui/skin/sh_sa_mm.png"),
-					Control::getImage("ui/skin/sh_sa_mr.png"),
-					Control::getImage("ui/skin/sh_sa_bl.png"),
-					Control::getImage("ui/skin/sh_sa_bm.png"),
-					Control::getImage("ui/skin/sh_sa_br.png")
-				},
-				{ // Thumb
-					Control::getImage("ui/skin/sh_sl_tl.png"),
-					Control::getImage("ui/skin/sh_sl_tm.png"),
-					Control::getImage("ui/skin/sh_sl_tr.png"),
-					Control::getImage("ui/skin/sh_sl_ml.png"),
-					Control::getImage("ui/skin/sh_sl_mm.png"),
-					Control::getImage("ui/skin/sh_sl_mr.png"),
-					Control::getImage("ui/skin/sh_sl_bl.png"),
-					Control::getImage("ui/skin/sh_sl_bm.png"),
-					Control::getImage("ui/skin/sh_sl_br.png")
-				},
-				{ // ButtonDecrease
-					Control::getImage("ui/skin/sh_bl_tl.png"),
-					Control::getImage("ui/skin/sh_bl_tm.png"),
-					Control::getImage("ui/skin/sh_bl_tr.png"),
-					Control::getImage("ui/skin/sh_bl_ml.png"),
-					Control::getImage("ui/skin/sh_bl_mm.png"),
-					Control::getImage("ui/skin/sh_bl_mr.png"),
-					Control::getImage("ui/skin/sh_bl_bl.png"),
-					Control::getImage("ui/skin/sh_bl_bm.png"),
-					Control::getImage("ui/skin/sh_bl_br.png")
-				},
-				{ // ButtonIncrease
-					Control::getImage("ui/skin/sh_br_tl.png"),
-					Control::getImage("ui/skin/sh_br_tm.png"),
-					Control::getImage("ui/skin/sh_br_tr.png"),
-					Control::getImage("ui/skin/sh_br_ml.png"),
-					Control::getImage("ui/skin/sh_br_mm.png"),
-					Control::getImage("ui/skin/sh_br_mr.png"),
-					Control::getImage("ui/skin/sh_br_bl.png"),
-					Control::getImage("ui/skin/sh_br_bm.png"),
-					Control::getImage("ui/skin/sh_br_br.png")
-				},
+				loadRectangleSkin("ui/skin/scrollbar_horizontal_track"),
+				loadRectangleSkin("ui/skin/scrollbar_horizontal_thumb"),
+				loadRectangleSkin("ui/skin/scrollbar_horizontal_button_decrease"),
+				loadRectangleSkin("ui/skin/scrollbar_horizontal_button_increase"),
 			};
 		}
 	}

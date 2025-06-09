@@ -15,6 +15,8 @@
 
 #include <libOPHD/MapObjects/OreDeposit.h>
 
+#include <libControls/LoadRectangleSkin.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -27,17 +29,7 @@ MineOperationsWindow::MineOperationsWindow() :
 	mFontBold{Control::getDefaultFontBold()},
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
-	mPanel{
-		imageCache.load("ui/skin/textbox_top_left.png"),
-		imageCache.load("ui/skin/textbox_top_middle.png"),
-		imageCache.load("ui/skin/textbox_top_right.png"),
-		imageCache.load("ui/skin/textbox_middle_left.png"),
-		imageCache.load("ui/skin/textbox_middle_middle.png"),
-		imageCache.load("ui/skin/textbox_middle_right.png"),
-		imageCache.load("ui/skin/textbox_bottom_left.png"),
-		imageCache.load("ui/skin/textbox_bottom_middle.png"),
-		imageCache.load("ui/skin/textbox_bottom_right.png")
-	},
+	mPanel{loadRectangleSkin("ui/skin/textbox_normal")},
 	chkResources{{
 		{ResourceNamesRefined[0], {this, &MineOperationsWindow::onCheckBoxCommonMetalsChange}},
 		{ResourceNamesRefined[1], {this, &MineOperationsWindow::onCheckBoxCommonMineralsChange}},
