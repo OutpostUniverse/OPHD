@@ -1,8 +1,5 @@
 #include "Agridome.h"
 
-
-#include "../../Constants/Strings.h"
-
 #include <algorithm>
 
 
