@@ -139,6 +139,7 @@ public:
 	int foodStorageCapacity() const;
 	int storageCapacity() const;
 	int commRange() const;
+	int policeRange() const;
 
 	bool hasCrime() const;
 	int crimeRate() const { return mCrimeRate; }
