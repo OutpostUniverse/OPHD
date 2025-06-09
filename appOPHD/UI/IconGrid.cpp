@@ -180,11 +180,8 @@ void IconGrid::incrementSelection()
 {
 	if (mSelectedIndex == NoSelection) { return; }
 
-	++mSelectedIndex;
-	if (mSelectedIndex >= mIconItemList.size())
-	{
-		mSelectedIndex = 0;
-	}
+	const auto nextIndex = (mSelectedIndex + 1 >= mIconItemList.size()) ? 0 : mSelectedIndex + 1;
+	mSelectedIndex = nextIndex;
 
 	raiseChangedEvent();
 }
@@ -194,11 +191,8 @@ void IconGrid::decrementSelection()
 {
 	if (mSelectedIndex == NoSelection) { return; }
 
-	if (mSelectedIndex == 0)
-	{
-		mSelectedIndex = mIconItemList.size();
-	}
-	--mSelectedIndex;
+	const auto nextIndex = ((mSelectedIndex == 0) ? mIconItemList.size() : mSelectedIndex) - 1;
+	mSelectedIndex = nextIndex;
 
 	raiseChangedEvent();
 }
