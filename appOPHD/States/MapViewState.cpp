@@ -108,19 +108,6 @@ namespace
 	}
 
 
-	template <typename StructureType>
-	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*>& structures)
-	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (const auto* structure : structures)
-		{
-			if (!structure->operational()) { continue; }
-			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillOverlayCircle(tileMap, overlay, centerTile, structure->getRange());
-		}
-	}
-
-
 	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
 		if (robot->fuelCellAge() == 190) // FIXME: magic number
@@ -1369,9 +1356,15 @@ void MapViewState::updateCommRangeOverlay()
 	mCommRangeOverlay.clear();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommandCenter>());
-	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommTower>());
-	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<SeedLander>());
+	for (const auto* structure : structureManager.allStructures())
+	{
+		const auto commRange = structure->commRange();
+		if (commRange > 0)
+		{
+			const auto& centerTile = structureManager.tileFromStructure(structure);
+			fillOverlayCircle(*mTileMap, mCommRangeOverlay, centerTile, commRange);
+		}
+	}
 }
 
 
