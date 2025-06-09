@@ -166,7 +166,7 @@ void ResourceInfoBar::draw() const
 	const std::array storageCapacities
 	{
 		std::tuple{NAS2D::Rectangle<int>{{96, 32}, {iconSize, iconSize}}, mResourcesCount.total(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - mResourcesCount.total() <= 100},
-		std::tuple{NAS2D::Rectangle<int>{{64, 32}, {iconSize, iconSize}}, mFood, totalStorage(Structure::StructureClass::FoodProduction, 1000), mFood <= 10},
+		std::tuple{NAS2D::Rectangle<int>{{64, 32}, {iconSize, iconSize}}, mFood, sm.totalFoodStorageCapacity(), mFood <= 10},
 		std::tuple{NAS2D::Rectangle<int>{{80, 32}, {iconSize, iconSize}}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
 	};
 

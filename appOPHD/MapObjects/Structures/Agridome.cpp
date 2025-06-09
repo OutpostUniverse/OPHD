@@ -6,7 +6,6 @@
 #include <algorithm>
 
 
-const int AGRIDOME_CAPACITY = 1000;
 const int AGRIDOME_BASE_PRODUCUCTION = 10;
 
 
@@ -19,7 +18,7 @@ void Agridome::think()
 {
 	if (isIdle()) { return; }
 
-	mFoodLevel = std::clamp(mFoodLevel + calculateProduction(), 0, AGRIDOME_CAPACITY);
+	mFoodLevel = std::clamp(mFoodLevel + calculateProduction(), 0, foodStorageCapacity());
 
 	if (isStorageFull())
 	{
@@ -34,12 +33,6 @@ void Agridome::disabledStateSet()
 }
 
 
-int Agridome::foodCapacity() const
-{
-	return AGRIDOME_CAPACITY;
-}
-
-
 int Agridome::calculateProduction() const
 {
 	if (!operational())
@@ -47,11 +40,11 @@ int Agridome::calculateProduction() const
 		return 0;
 	}
 
-	return std::min(AGRIDOME_BASE_PRODUCUCTION, AGRIDOME_CAPACITY - mFoodLevel);
+	return std::min(AGRIDOME_BASE_PRODUCUCTION, foodStorageCapacity() - mFoodLevel);
 }
 
 
 bool Agridome::isStorageFull()
 {
-	return mFoodLevel >= AGRIDOME_CAPACITY;
+	return mFoodLevel >= foodStorageCapacity();
 }
