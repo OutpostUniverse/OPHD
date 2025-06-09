@@ -151,7 +151,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 		structures.push_back(structure);
 	}
 
-	auto& seedFactory = *static_cast<SeedFactory*>(structures[2]);
+	auto& seedFactory = *dynamic_cast<SeedFactory*>(structures[2]);
 	seedFactory.resourcePool(&mResourcesCount);
 	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 
@@ -190,7 +190,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	const auto dir = static_cast<Robodigger*>(&robot)->direction(); // fugly
+	const auto dir = dynamic_cast<Robodigger*>(&robot)->direction(); // fugly
 	auto newPosition = position.translate(dir);
 
 	if (dir == Direction::Down)
@@ -234,7 +234,7 @@ void MapViewState::onMinerTaskComplete(Robot& robot)
 	if (mRobotList.find(&robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	auto& robotTile = *mRobotList[&robot];
-	auto& miner = *static_cast<Robominer*>(&robot);
+	auto& miner = *dynamic_cast<Robominer*>(&robot);
 
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
 	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
