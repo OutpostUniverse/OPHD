@@ -129,15 +129,15 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 	if (button != NAS2D::MouseButton::Left) { return; }
 
-			if (mType == Type::Push)
-			{
-				mIsPressed = true;
-			}
-			else
-			{
-				mIsPressed = !mIsPressed;
-				mSignal();
-			}
+	if (mType == Type::Push)
+	{
+		mIsPressed = true;
+	}
+	else
+	{
+		mIsPressed = !mIsPressed;
+		mSignal();
+	}
 }
 
 
