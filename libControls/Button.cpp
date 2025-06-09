@@ -126,12 +126,10 @@ bool Button::hasImage() const
 
 void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!enabled() || !visible()) { return; }
+	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (mRect.contains(position))
-		{
 			if (mType == Type::Push)
 			{
 				mIsPressed = true;
@@ -141,7 +139,6 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 				mIsPressed = !mIsPressed;
 				mSignal();
 			}
-		}
 	}
 }
 
