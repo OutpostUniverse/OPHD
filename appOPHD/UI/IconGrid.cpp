@@ -246,7 +246,7 @@ void IconGrid::update()
 	{
 		const auto iconArea = indexToArea(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
-		renderer.drawSubImage(mIconSheet, iconArea.position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, iconArea.size}, highlightColor);
+		renderer.drawSubImage(mIconSheet, iconArea.position, NAS2D::Rectangle<int>{mIconItemList[i].pos, iconArea.size}, highlightColor);
 	}
 
 	if (mSelectedIndex != NoSelection)
