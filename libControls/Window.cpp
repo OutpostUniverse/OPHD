@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include "LoadRectangleSkin.h"
+
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -10,17 +12,7 @@ Window::Window(std::string newTitle, const NAS2D::Font& titleFont) :
 	mTitleBarLeft{getImage("ui/skin/window_title_left.png")},
 	mTitleBarCenter{getImage("ui/skin/window_title_middle.png")},
 	mTitleBarRight{getImage("ui/skin/window_title_right.png")},
-	mBody{
-		getImage("ui/skin/window_top_left.png"),
-		getImage("ui/skin/window_top_middle.png"),
-		getImage("ui/skin/window_top_right.png"),
-		getImage("ui/skin/window_middle_left.png"),
-		getImage("ui/skin/window_middle_middle.png"),
-		getImage("ui/skin/window_middle_right.png"),
-		getImage("ui/skin/window_bottom_left.png"),
-		getImage("ui/skin/window_bottom_middle.png"),
-		getImage("ui/skin/window_bottom_right.png")
-	}
+	mBody{loadRectangleSkin("ui/skin/window")}
 {
 	title(newTitle);
 
