@@ -150,6 +150,8 @@ public:
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
+	int totalFoodStorageCapacity() const;
+
 	void assignColonistsToResidences(PopulationPool&);
 	void assignScientistsToResearchFacilities(PopulationPool&);
 

@@ -394,6 +394,22 @@ void StructureManager::updateEnergyConsumed()
 }
 
 
+int StructureManager::totalFoodStorageCapacity() const
+{
+	int storageCapacity = 0;
+
+	for (const auto* structure : allStructures())
+	{
+		if (structure->operational() || structure->isIdle())
+		{
+			storageCapacity += structure->foodCapacity();
+		}
+	}
+
+	return storageCapacity;
+}
+
+
 void StructureManager::assignColonistsToResidences(PopulationPool& population)
 {
 	int populationCount = population.size();
