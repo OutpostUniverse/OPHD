@@ -190,7 +190,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	const auto dir = dynamic_cast<Robodigger*>(&robot)->direction(); // fugly
+	const auto dir = dynamic_cast<Robodigger&>(robot).direction(); // fugly
 	auto newPosition = position.translate(dir);
 
 	if (dir == Direction::Down)
@@ -234,7 +234,7 @@ void MapViewState::onMinerTaskComplete(Robot& robot)
 	if (mRobotList.find(&robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
 
 	auto& robotTile = *mRobotList[&robot];
-	auto& miner = *dynamic_cast<Robominer*>(&robot);
+	auto& miner = dynamic_cast<Robominer&>(robot);
 
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
 	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
