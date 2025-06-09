@@ -2,6 +2,8 @@
 
 #include "../Cache.h"
 
+#include <libControls/LoadRectangleSkin.h>
+
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -19,17 +21,7 @@ const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
 IconGrid::IconGrid(Delegate selectionChangedHandler, const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
-	mSkin{
-		imageCache.load("ui/skin/textbox_top_left.png"),
-		imageCache.load("ui/skin/textbox_top_middle.png"),
-		imageCache.load("ui/skin/textbox_top_right.png"),
-		imageCache.load("ui/skin/textbox_middle_left.png"),
-		imageCache.load("ui/skin/textbox_middle_middle.png"),
-		imageCache.load("ui/skin/textbox_middle_right.png"),
-		imageCache.load("ui/skin/textbox_bottom_left.png"),
-		imageCache.load("ui/skin/textbox_bottom_middle.png"),
-		imageCache.load("ui/skin/textbox_bottom_right.png")
-	},
+	mSkin{loadRectangleSkin("ui/skin/textbox_normal")},
 	mFont{Control::getDefaultFont()},
 	mIconSheet{imageCache.load(filePath)},
 	mShowTooltip{showTooltip},

@@ -153,6 +153,7 @@
     <ClCompile Include="Layout.cpp" />
     <ClCompile Include="ListBox.cpp" />
     <ClCompile Include="ListBoxBase.cpp" />
+    <ClCompile Include="LoadRectangleSkin.cpp" />
     <ClCompile Include="RadioButton.cpp" />
     <ClCompile Include="RadioButtonGroup.cpp" />
     <ClCompile Include="ScrollBar.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Layout.h" />
     <ClInclude Include="ListBox.h" />
     <ClInclude Include="ListBoxBase.h" />
+    <ClInclude Include="LoadRectangleSkin.h" />
     <ClInclude Include="RadioButtonGroup.h" />
     <ClInclude Include="ScrollBar.h" />
     <ClInclude Include="TextArea.h" />

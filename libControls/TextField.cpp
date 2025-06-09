@@ -7,6 +7,8 @@
 
 #include "TextField.h"
 
+#include "LoadRectangleSkin.h"
+
 #include <NAS2D/EnumKeyCode.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -24,28 +26,8 @@ namespace
 
 TextField::TextField() :
 	mFont{getDefaultFont()},
-	mSkinNormal{
-		getImage("ui/skin/textbox_top_left.png"),
-		getImage("ui/skin/textbox_top_middle.png"),
-		getImage("ui/skin/textbox_top_right.png"),
-		getImage("ui/skin/textbox_middle_left.png"),
-		getImage("ui/skin/textbox_middle_middle.png"),
-		getImage("ui/skin/textbox_middle_right.png"),
-		getImage("ui/skin/textbox_bottom_left.png"),
-		getImage("ui/skin/textbox_bottom_middle.png"),
-		getImage("ui/skin/textbox_bottom_right.png")
-	},
-	mSkinFocus{
-		getImage("ui/skin/textbox_top_left_highlight.png"),
-		getImage("ui/skin/textbox_top_middle_highlight.png"),
-		getImage("ui/skin/textbox_top_right_highlight.png"),
-		getImage("ui/skin/textbox_middle_left_highlight.png"),
-		getImage("ui/skin/textbox_middle_middle_highlight.png"),
-		getImage("ui/skin/textbox_middle_right_highlight.png"),
-		getImage("ui/skin/textbox_bottom_left_highlight.png"),
-		getImage("ui/skin/textbox_bottom_middle_highlight.png"),
-		getImage("ui/skin/textbox_bottom_right_highlight.png")
-	}
+	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
+	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
