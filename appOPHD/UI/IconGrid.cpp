@@ -264,11 +264,13 @@ void IconGrid::update()
 		if (mShowTooltip)
 		{
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
-			const auto& position = iconArea.position;
-			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - 15}, {mFont.width(highlightedName) + 4, mFont.height()}};
+			const auto textMargin = NAS2D::Vector{2, 0};
+			const auto textBoxSize = mFont.size(highlightedName) + textMargin * 2;
+			const auto textBoxOffset = NAS2D::Vector{0, -15};
+			const auto tooltipRect = NAS2D::Rectangle{iconArea.position + textBoxOffset, textBoxSize};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
-			renderer.drawText(mFont, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+			renderer.drawText(mFont, highlightedName, tooltipRect.position + textMargin, NAS2D::Color::Black);
 		}
 	}
 }
