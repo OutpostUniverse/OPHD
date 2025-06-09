@@ -64,8 +64,9 @@ void IconGrid::addItem(const Item& item)
 {
 	mIconItemList.push_back(item);
 
-	const int x_pos = (item.sheetId % (mIconSheet.size().x / mIconSize)) * mIconSize;
-	const int y_pos = (item.sheetId / (mIconSheet.size().x / mIconSize)) * mIconSize;
+	const auto divisor = mIconSheet.size().x / mIconSize;
+	const int x_pos = (item.sheetId % divisor) * mIconSize;
+	const int y_pos = (item.sheetId / divisor) * mIconSize;
 
 	mIconItemList.back().pos = {x_pos, y_pos};
 }
