@@ -6,6 +6,8 @@
 #include "../Resources.h"
 #include "../Constants/UiConstants.h"
 
+#include <libControls/LoadRectangleSkin.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -28,17 +30,7 @@ namespace
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
 	mFont{Control::getDefaultFont()},
 	mIcons{imageCache.load("ui/icons.png")},
-	mSkin{
-		imageCache.load("ui/skin/window_top_left.png"),
-		imageCache.load("ui/skin/window_top_middle.png"),
-		imageCache.load("ui/skin/window_top_right.png"),
-		imageCache.load("ui/skin/window_middle_left.png"),
-		imageCache.load("ui/skin/window_middle_middle.png"),
-		imageCache.load("ui/skin/window_middle_right.png"),
-		imageCache.load("ui/skin/window_bottom_left.png"),
-		imageCache.load("ui/skin/window_bottom_middle.png"),
-		imageCache.load("ui/skin/window_bottom_right.png")
-	}
+	mSkin{loadRectangleSkin("ui/skin/window")}
 {
 	size({270, 80});
 }

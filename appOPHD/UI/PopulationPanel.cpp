@@ -12,6 +12,8 @@
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Morale.h>
 
+#include <libControls/LoadRectangleSkin.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -49,18 +51,7 @@ PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& po
 	mFont{Control::getDefaultFont()},
 	mFontBold{Control::getDefaultFontBold()},
 	mIcons{imageCache.load("ui/icons.png")},
-	mSkin
-	{
-		imageCache.load("ui/skin/window_top_left.png"),
-		imageCache.load("ui/skin/window_top_middle.png"),
-		imageCache.load("ui/skin/window_top_right.png"),
-		imageCache.load("ui/skin/window_middle_left.png"),
-		imageCache.load("ui/skin/window_middle_middle.png"),
-		imageCache.load("ui/skin/window_middle_right.png"),
-		imageCache.load("ui/skin/window_bottom_left.png"),
-		imageCache.load("ui/skin/window_bottom_middle.png"),
-		imageCache.load("ui/skin/window_bottom_right.png")
-	},
+	mSkin{loadRectangleSkin("ui/skin/window")},
 	mPopulation(pop),
 	mPopulationPool(popPool),
 	mMorale(morale)
