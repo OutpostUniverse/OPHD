@@ -170,9 +170,6 @@ void Button::update()
 }
 
 
-/**
- * Draws the button.
- */
 void Button::draw() const
 {
 	if (!visible()) { return; }
