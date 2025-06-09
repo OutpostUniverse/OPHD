@@ -68,6 +68,7 @@ protected:
 
 	bool isInGridArea(NAS2D::Point<int> position) const;
 	Index positionToIndex(NAS2D::Point<int> position) const;
+	NAS2D::Point<int> indexToPosition(Index index) const;
 
 	void raiseChangedEvent() const;
 
