@@ -1,5 +1,7 @@
 #include "Button.h"
 
+#include "LoadRectangleSkin.h"
+
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -13,39 +15,9 @@ namespace
 
 Button::Button(std::string newText) :
 	mButtonSkin{
-		{
-			getImage("ui/skin/button_top_left.png"),
-			getImage("ui/skin/button_top_middle.png"),
-			getImage("ui/skin/button_top_right.png"),
-			getImage("ui/skin/button_middle_left.png"),
-			getImage("ui/skin/button_middle_middle.png"),
-			getImage("ui/skin/button_middle_right.png"),
-			getImage("ui/skin/button_bottom_left.png"),
-			getImage("ui/skin/button_bottom_middle.png"),
-			getImage("ui/skin/button_bottom_right.png")
-		},
-		{
-			getImage("ui/skin/button_hover_top_left.png"),
-			getImage("ui/skin/button_hover_top_middle.png"),
-			getImage("ui/skin/button_hover_top_right.png"),
-			getImage("ui/skin/button_hover_middle_left.png"),
-			getImage("ui/skin/button_hover_middle_middle.png"),
-			getImage("ui/skin/button_hover_middle_right.png"),
-			getImage("ui/skin/button_hover_bottom_left.png"),
-			getImage("ui/skin/button_hover_bottom_middle.png"),
-			getImage("ui/skin/button_hover_bottom_right.png")
-		},
-		{
-			getImage("ui/skin/button_pressed_top_left.png"),
-			getImage("ui/skin/button_pressed_top_middle.png"),
-			getImage("ui/skin/button_pressed_top_right.png"),
-			getImage("ui/skin/button_pressed_middle_left.png"),
-			getImage("ui/skin/button_pressed_middle_middle.png"),
-			getImage("ui/skin/button_pressed_middle_right.png"),
-			getImage("ui/skin/button_pressed_bottom_left.png"),
-			getImage("ui/skin/button_pressed_bottom_middle.png"),
-			getImage("ui/skin/button_pressed_bottom_right.png")
-		}
+		loadRectangleSkin("ui/skin/button"),
+		loadRectangleSkin("ui/skin/button_hover"),
+		loadRectangleSkin("ui/skin/button_pressed"),
 	}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
