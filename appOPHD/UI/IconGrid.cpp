@@ -244,26 +244,27 @@ void IconGrid::update()
 
 	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
-		const auto position = indexToPosition(i);
+		const auto iconArea = indexToArea(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
-		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, {mIconSize, mIconSize}}, highlightColor);
+		renderer.drawSubImage(mIconSheet, iconArea.position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, iconArea.size}, highlightColor);
 	}
 
 	if (mSelectedIndex != NoSelection)
 	{
-		const auto position = indexToPosition(mSelectedIndex);
-		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 100, 255});
+		const auto iconArea = indexToArea(mSelectedIndex);
+		renderer.drawBox(iconArea, NAS2D::Color{0, 100, 255});
 	}
 
 	if (mHighlightIndex != NoSelection)
 	{
-		const auto position = indexToPosition(mHighlightIndex);
-		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 180, 0});
+		const auto iconArea = indexToArea(mHighlightIndex);
+		renderer.drawBox(iconArea, NAS2D::Color{0, 180, 0});
 
 		// Name Tooltip
 		if (mShowTooltip)
 		{
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
+			const auto& position = iconArea.position;
 			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - 15}, {mFont.width(highlightedName) + 4, mFont.height()}};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
@@ -326,4 +327,10 @@ NAS2D::Point<int> IconGrid::indexToPosition(Index index) const
 	const auto linearOffset = static_cast<int>(index);
 	const auto offset = NAS2D::Vector{linearOffset % divisor, linearOffset / divisor};
 	return mRect.position + NAS2D::Vector{mIconMargin, mIconMargin} + offset * (mIconSize + mIconMargin);
+}
+
+
+NAS2D::Rectangle<int> IconGrid::indexToArea(Index index) const
+{
+	return NAS2D::Rectangle{indexToPosition(index), {mIconSize, mIconSize}};
 }
