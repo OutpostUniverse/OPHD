@@ -5,7 +5,6 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/StringUtils.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -88,10 +87,9 @@ void IconGrid::clear()
 
 bool IconGrid::itemExists(const std::string& itemName) const
 {
-	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
-		if (toLowercase(iconItem.name) == lowerCaseTarget)
+		if (iconItem.name == itemName)
 		{
 			return true;
 		}
@@ -102,13 +100,11 @@ bool IconGrid::itemExists(const std::string& itemName) const
 
 void IconGrid::removeItem(const std::string& itemName)
 {
-	const auto lowerCaseTarget = toLowercase(itemName);
-
 	const auto iter = std::find_if(
 		mIconItemList.begin(),
 		mIconItemList.end(),
-		[&lowerCaseTarget](const auto& iconItem) {
-			return toLowercase(iconItem.name) == lowerCaseTarget;
+		[&itemName](const auto& iconItem) {
+			return iconItem.name == itemName;
 		}
 	);
 	if (iter != mIconItemList.end())
@@ -121,10 +117,9 @@ void IconGrid::removeItem(const std::string& itemName)
 
 bool IconGrid::itemAvailable(const std::string& itemName) const
 {
-	const auto lowerCaseTarget = toLowercase(itemName);
 	for (const auto& iconItem : mIconItemList)
 	{
-		if (toLowercase(iconItem.name) == lowerCaseTarget)
+		if (iconItem.name == itemName)
 		{
 			return iconItem.available;
 		}
