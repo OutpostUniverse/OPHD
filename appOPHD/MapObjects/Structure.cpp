@@ -258,6 +258,11 @@ int Structure::energyRequirement() const
 	return mStructureType.energyRequired;
 }
 
+int Structure::foodCapacity() const
+{
+	return mStructureType.foodStorageCapacity;
+}
+
 int Structure::storageCapacity() const
 {
 	return mStructureType.oreStorageCapacity;
