@@ -11,9 +11,4 @@ public:
 		StructureID::SID_SURFACE_POLICE)
 	{
 	}
-
-	int getRange() const
-	{
-		return policeRange();
-	}
 };

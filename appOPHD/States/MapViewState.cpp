@@ -88,7 +88,7 @@ namespace
 	}
 
 
-	void fillOverlayCircle(TileMap& tileMap, std::vector<Tile*>& tileList, Tile& centerTile, int range)
+	void fillOverlayCircle(TileMap& tileMap, std::vector<Tile*>& tileList, const Tile& centerTile, int range)
 	{
 		const auto center = centerTile.xy();
 		const auto depth = centerTile.depth();
@@ -104,32 +104,6 @@ namespace
 					tileList.push_back(&tile);
 				}
 			}
-		}
-	}
-
-
-	template <typename StructureType>
-	void fillOverlay(TileMap& tileMap, std::vector<Tile*>& overlay, const std::vector<StructureType*>& structures)
-	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (const auto* structure : structures)
-		{
-			if (!structure->operational()) { continue; }
-			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillOverlayCircle(tileMap, overlay, centerTile, structure->getRange());
-		}
-	}
-
-
-	template <typename StructureType>
-	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*>& structures)
-	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (const auto* structure : structures)
-		{
-			if (!structure->operational()) { continue; }
-			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillOverlayCircle(tileMap, overlays[static_cast<std::size_t>(centerTile.depth())], centerTile, structure->getRange());
 		}
 	}
 
@@ -1382,9 +1356,15 @@ void MapViewState::updateCommRangeOverlay()
 	mCommRangeOverlay.clear();
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommandCenter>());
-	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<CommTower>());
-	fillOverlay(*mTileMap, mCommRangeOverlay, structureManager.getStructures<SeedLander>());
+	for (const auto* structure : structureManager.allStructures())
+	{
+		const auto commRange = structure->commRange();
+		if (commRange > 0)
+		{
+			const auto& centerTile = structureManager.tileFromStructure(structure);
+			fillOverlayCircle(*mTileMap, mCommRangeOverlay, centerTile, commRange);
+		}
+	}
 }
 
 
@@ -1396,8 +1376,16 @@ void MapViewState::updatePoliceOverlay()
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	fillOverlay(*mTileMap, mPoliceOverlays[0], structureManager.getStructures<SurfacePolice>());
-	fillOverlay(*mTileMap, mPoliceOverlays, structureManager.getStructures<UndergroundPolice>());
+	for (const auto* structure : structureManager.allStructures())
+	{
+		const auto policeRange = structure->policeRange();
+		if (policeRange > 0)
+		{
+			const auto& centerTile = structureManager.tileFromStructure(structure);
+			const auto depth = static_cast<std::size_t>(centerTile.depth());
+			fillOverlayCircle(*mTileMap, mPoliceOverlays[depth], centerTile, policeRange);
+		}
+	}
 }
 
 

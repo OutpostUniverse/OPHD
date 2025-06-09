@@ -12,19 +12,13 @@ CommTower::CommTower() : Structure(
 }
 
 
-int CommTower::getRange() const
-{
-	return commRange();
-}
-
-
 StringTable CommTower::createInspectorViewTable()
 {
 	StringTable stringTable(2, 1);
 
 	stringTable[{0, 0}].text = "Communication Range:";
 
-	auto communicationRange = getRange();
+	auto communicationRange = commRange();
 	stringTable[{1, 0}].text = std::to_string(communicationRange);
 
 	if (communicationRange == 0)
