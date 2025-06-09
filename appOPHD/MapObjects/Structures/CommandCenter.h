@@ -11,8 +11,6 @@ class CommandCenter : public FoodProduction
 public:
 	CommandCenter();
 
-	int foodCapacity() const override;
-
 	int getRange() const;
 
 protected:

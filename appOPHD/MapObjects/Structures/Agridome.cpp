@@ -6,7 +6,6 @@
 #include <algorithm>
 
 
-const int AGRIDOME_CAPACITY = 1000;
 const int AGRIDOME_BASE_PRODUCUCTION = 10;
 
 
@@ -31,12 +30,6 @@ void Agridome::think()
 void Agridome::disabledStateSet()
 {
 	mFoodLevel = 0;
-}
-
-
-int Agridome::foodCapacity() const
-{
-	return AGRIDOME_CAPACITY;
 }
 
 

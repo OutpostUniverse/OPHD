@@ -18,8 +18,6 @@ public:
 	int foodLevel() const;
 	void foodLevel(int level);
 
-	virtual int foodCapacity() const = 0;
-
 protected:
 	virtual int calculateProduction() const = 0;
 
