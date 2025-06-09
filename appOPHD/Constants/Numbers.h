@@ -1,15 +1,11 @@
 #pragma once
 
-#include <NAS2D/Math/Vector.h>
-
 
 /**
  * Numeric constants
  */
 namespace constants
 {
-	inline constexpr int PlanetAnimationSpeed{35};
-
 	inline constexpr int SmeltingMinimumResourcesCount{20};
 
 	inline constexpr int BaseStorageCapacity{250};
@@ -37,8 +33,6 @@ namespace constants
 	inline constexpr int CommandCenterPopulationCapacity{10};
 
 	inline constexpr int RobotCommandCapacity{10};
-
-	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
 
 	inline constexpr int RoadIntegrityChange{80};
 

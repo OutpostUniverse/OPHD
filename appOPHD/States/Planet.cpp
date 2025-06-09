@@ -1,6 +1,6 @@
 #include "Planet.h"
 
-#include "../Constants/Numbers.h"
+#include "../Constants/UiConstants.h"
 
 #include <libOPHD/XmlSerializer.h>
 

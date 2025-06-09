@@ -1,6 +1,7 @@
 #pragma once
 
 #include <NAS2D/Duration.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Color.h>
 
 #include <string>
@@ -9,6 +10,10 @@
 namespace constants
 {
 	inline constexpr Duration FadeSpeed{300};
+
+	inline constexpr int PlanetAnimationSpeed{35};
+
+	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
 
 	inline constexpr int BottomUiHeight{162};
 
