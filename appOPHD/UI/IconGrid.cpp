@@ -178,7 +178,7 @@ void IconGrid::setSelectionByMeta(int selectionMetaValue)
 
 void IconGrid::incrementSelection()
 {
-	if (mIconItemList.empty()) { return; }
+	if (mSelectedIndex == NoSelection) { return; }
 
 	++mSelectedIndex;
 	if (mSelectedIndex >= mIconItemList.size())
@@ -192,7 +192,7 @@ void IconGrid::incrementSelection()
 
 void IconGrid::decrementSelection()
 {
-	if (mIconItemList.empty()) { return; }
+	if (mSelectedIndex == NoSelection) { return; }
 
 	if (mSelectedIndex == 0)
 	{
