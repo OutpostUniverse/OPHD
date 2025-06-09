@@ -674,7 +674,7 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 
 			for (auto* foodProducer : foodProducers)
 			{
-				foodProducer->foodLevel(foodProducer->foodCapacity());
+				foodProducer->foodLevel(foodProducer->foodStorageCapacity());
 			}
 		}
 		break;

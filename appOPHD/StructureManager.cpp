@@ -402,7 +402,7 @@ int StructureManager::totalFoodStorageCapacity() const
 	{
 		if (structure->operational() || structure->isIdle())
 		{
-			storageCapacity += structure->foodCapacity();
+			storageCapacity += structure->foodStorageCapacity();
 		}
 	}
 

@@ -561,7 +561,7 @@ void MapViewState::transferFoodToCommandCenter()
 	{
 		if (!commandCenter->operational()) { continue; }
 
-		int foodToMove = commandCenter->foodCapacity() - commandCenter->foodLevel();
+		int foodToMove = commandCenter->foodStorageCapacity() - commandCenter->foodLevel();
 
 		while (foodProducerIterator != foodProducers.end())
 		{

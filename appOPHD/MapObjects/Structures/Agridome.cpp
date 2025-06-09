@@ -18,7 +18,7 @@ void Agridome::think()
 {
 	if (isIdle()) { return; }
 
-	mFoodLevel = std::clamp(mFoodLevel + calculateProduction(), 0, foodCapacity());
+	mFoodLevel = std::clamp(mFoodLevel + calculateProduction(), 0, foodStorageCapacity());
 
 	if (isStorageFull())
 	{
@@ -40,11 +40,11 @@ int Agridome::calculateProduction() const
 		return 0;
 	}
 
-	return std::min(AGRIDOME_BASE_PRODUCUCTION, foodCapacity() - mFoodLevel);
+	return std::min(AGRIDOME_BASE_PRODUCUCTION, foodStorageCapacity() - mFoodLevel);
 }
 
 
 bool Agridome::isStorageFull()
 {
-	return mFoodLevel >= foodCapacity();
+	return mFoodLevel >= foodStorageCapacity();
 }

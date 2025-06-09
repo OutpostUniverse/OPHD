@@ -14,7 +14,7 @@ StringTable FoodProduction::createInspectorViewTable()
 	StringTable stringTable(2, 2);
 
 	stringTable[{0, 0}].text = "Food Stored:";
-	stringTable[{1, 0}].text = std::to_string(mFoodLevel) + " / " + std::to_string(foodCapacity());
+	stringTable[{1, 0}].text = std::to_string(mFoodLevel) + " / " + std::to_string(foodStorageCapacity());
 
 	stringTable[{0, 1}].text = "Production Rate:";
 	stringTable[{1, 1}].text = std::to_string(calculateProduction());
@@ -31,5 +31,5 @@ int FoodProduction::foodLevel() const
 
 void FoodProduction::foodLevel(int level)
 {
-	mFoodLevel = std::clamp(level, 0, foodCapacity());
+	mFoodLevel = std::clamp(level, 0, foodStorageCapacity());
 }
