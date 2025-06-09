@@ -121,19 +121,6 @@ namespace
 	}
 
 
-	template <typename StructureType>
-	void fillOverlay(TileMap& tileMap, std::vector<std::vector<Tile*>>& overlays, const std::vector<StructureType*>& structures)
-	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (const auto* structure : structures)
-		{
-			if (!structure->operational()) { continue; }
-			auto& centerTile = structureManager.tileFromStructure(structure);
-			fillOverlayCircle(tileMap, overlays[static_cast<std::size_t>(centerTile.depth())], centerTile, structure->getRange());
-		}
-	}
-
-
 	void pushAgingRobotMessage(const Robot* robot, const MapCoordinate& position, NotificationArea& notificationArea)
 	{
 		if (robot->fuelCellAge() == 190) // FIXME: magic number
@@ -1396,8 +1383,16 @@ void MapViewState::updatePoliceOverlay()
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	fillOverlay(*mTileMap, mPoliceOverlays[0], structureManager.getStructures<SurfacePolice>());
-	fillOverlay(*mTileMap, mPoliceOverlays, structureManager.getStructures<UndergroundPolice>());
+	for (const auto* structure : structureManager.allStructures())
+	{
+		const auto policeRange = structure->policeRange();
+		if (policeRange > 0)
+		{
+			const auto& centerTile = structureManager.tileFromStructure(structure);
+			const auto depth = static_cast<std::size_t>(centerTile.depth());
+			fillOverlayCircle(*mTileMap, mPoliceOverlays[depth], centerTile, policeRange);
+		}
+	}
 }
 
 
