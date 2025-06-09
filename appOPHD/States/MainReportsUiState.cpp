@@ -355,8 +355,8 @@ void MainReportsUiState::selectMinePanel(Structure* structure)
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-	auto researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].UiPanel;
-	static_cast<ResearchReport*>(researchPanel)->injectTechReferences(catalog, tracker);
+	auto* researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].UiPanel;
+	dynamic_cast<ResearchReport&>(*researchPanel).injectTechReferences(catalog, tracker);
 }
 
 

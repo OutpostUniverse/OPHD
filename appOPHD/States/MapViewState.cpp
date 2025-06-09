@@ -658,19 +658,19 @@ void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier
 
 	if (structure.isFactory() && preferStructureSpecificView)
 	{
-		mFactoryProduction.factory(&static_cast<Factory&>(structure));
+		mFactoryProduction.factory(&dynamic_cast<Factory&>(structure));
 		mFactoryProduction.show();
 		mWindowStack.bringToFront(&mFactoryProduction);
 	}
 	else if (structure.isWarehouse() && preferStructureSpecificView)
 	{
-		mWarehouseInspector.warehouse(&static_cast<Warehouse&>(structure));
+		mWarehouseInspector.warehouse(&dynamic_cast<Warehouse&>(structure));
 		mWarehouseInspector.show();
 		mWindowStack.bringToFront(&mWarehouseInspector);
 	}
 	else if (structure.isMineFacility() && preferStructureSpecificView)
 	{
-		mMineOperationsWindow.mineFacility(&static_cast<MineFacility&>(structure));
+		mMineOperationsWindow.mineFacility(&dynamic_cast<MineFacility&>(structure));
 		mMineOperationsWindow.show();
 		mWindowStack.bringToFront(&mMineOperationsWindow);
 	}
@@ -921,14 +921,14 @@ void MapViewState::placeStructure(Tile& tile)
 
 		if (structure.isFactory())
 		{
-			auto& factory = static_cast<Factory&>(structure);
+			auto& factory = dynamic_cast<Factory&>(structure);
 			factory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 			factory.resourcePool(&mResourcesCount);
 		}
 
 		if (structure.structureId() == StructureID::SID_MAINTENANCE_FACILITY)
 		{
-			static_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
+			dynamic_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
 
 		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
@@ -1028,14 +1028,15 @@ void MapViewState::placeRobodozer(Tile& tile)
 			}
 		}
 
-		if (structure->isFactory() && static_cast<Factory*>(structure) == mFactoryProduction.factory())
+		if (structure->isFactory() && dynamic_cast<Factory*>(structure) == mFactoryProduction.factory())
 		{
 			mFactoryProduction.hide();
 		}
 
 		if (structure->isWarehouse())
 		{
-			if (simulateMoveProducts(static_cast<Warehouse*>(structure))) { moveProducts(static_cast<Warehouse*>(structure)); }
+			auto* warehouse = dynamic_cast<Warehouse*>(structure);
+			if (simulateMoveProducts(warehouse)) { moveProducts(warehouse); }
 			else { return; }
 		}
 

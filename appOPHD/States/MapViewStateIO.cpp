@@ -349,7 +349,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		auto& robot = addRobot(robotType);
 		if (robotType == Robot::Type::Digger)
 		{
-			static_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
+			dynamic_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
 		}
 
 		robot.fuelCellAge(age);
@@ -411,12 +411,12 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_COLONIST_LANDER)
 		{
-			static_cast<ColonistLander*>(&structure)->deploySignal().connect({this, &MapViewState::onDeployColonistLander});
+			dynamic_cast<ColonistLander&>(structure).deploySignal().connect({this, &MapViewState::onDeployColonistLander});
 		}
 
 		if (structureId == StructureID::SID_CARGO_LANDER)
 		{
-			static_cast<CargoLander*>(&structure)->deploySignal().connect({this, &MapViewState::onDeployCargoLander});
+			dynamic_cast<CargoLander&>(structure).deploySignal().connect({this, &MapViewState::onDeployCargoLander});
 		}
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
@@ -427,7 +427,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 				throw std::runtime_error("Mine Facility is located on a Tile with no Ore Deposit.");
 			}
 
-			auto& mineFacility = *static_cast<MineFacility*>(&structure);
+			auto& mineFacility = dynamic_cast<MineFacility&>(structure);
 			mineFacility.oreDeposit(oreDeposit);
 			mineFacility.maxDepth(mTileMap->maxDepth());
 			mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
@@ -447,18 +447,18 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_AIR_SHAFT && mapCoordinate.z != 0)
 		{
-			static_cast<AirShaft*>(&structure)->ug(); // force underground state
+			dynamic_cast<AirShaft&>(structure).ug(); // force underground state
 		}
 
 		if (structureId == StructureID::SID_SEED_LANDER)
 		{
-			static_cast<SeedLander*>(&structure)->position(mapCoordinate.xy);
+			dynamic_cast<SeedLander&>(structure).position(mapCoordinate.xy);
 		}
 
 		if (structureId == StructureID::SID_AGRIDOME ||
 			structureId == StructureID::SID_COMMAND_CENTER)
 		{
-			auto& foodProduction = *static_cast<FoodProduction*>(&structure);
+			auto& foodProduction = dynamic_cast<FoodProduction&>(structure);
 
 			auto foodStorage = structureElement->firstChildElement("food");
 			if (foodStorage == nullptr)
@@ -494,7 +494,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)
 			{
-				auto& maintenanceFacility = *static_cast<MaintenanceFacility*>(&structure);
+				auto& maintenanceFacility = dynamic_cast<MaintenanceFacility&>(structure);
 				maintenanceFacility.personnel(NAS2D::attributesToDictionary(*personnel).get<int>("assigned", 0));
 				maintenanceFacility.resources(mResourcesCount);
 			}
@@ -502,7 +502,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structure.isWarehouse())
 		{
-			auto& warehouse = *static_cast<Warehouse*>(&structure);
+			auto& warehouse = dynamic_cast<Warehouse&>(structure);
 			warehouse.products().deserialize(NAS2D::attributesToDictionary(
 				*structureElement->firstChildElement("warehouse_products")
 			));
@@ -510,7 +510,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structure.isFactory())
 		{
-			auto& factory = *static_cast<Factory*>(&structure);
+			auto& factory = dynamic_cast<Factory&>(structure);
 			factory.productType(static_cast<ProductType>(production_type));
 			factory.productionTurnsCompleted(production_completed);
 			factory.resourcePool(&mResourcesCount);

@@ -72,7 +72,7 @@ namespace
 		{
 			structureElement->linkEndChild(NAS2D::dictionaryToAttributes(
 				"warehouse_products",
-				static_cast<const Warehouse&>(structure).products().serialize()
+				dynamic_cast<const Warehouse&>(structure).products().serialize()
 			));
 		}
 
@@ -81,7 +81,7 @@ namespace
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"food",
-					{{{"level", static_cast<const FoodProduction&>(structure).foodLevel()}}}
+					{{{"level", dynamic_cast<const FoodProduction&>(structure).foodLevel()}}}
 				)
 			);
 		}
@@ -101,7 +101,7 @@ namespace
 
 		if (structure.isMineFacility())
 		{
-			const auto& facility = static_cast<const MineFacility&>(structure);
+			const auto& facility = dynamic_cast<const MineFacility&>(structure);
 
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
@@ -119,7 +119,7 @@ namespace
 
 		if (structure.structureClass() == Structure::StructureClass::Maintenance)
 		{
-			auto& maintenance = static_cast<const MaintenanceFacility&>(structure);
+			auto& maintenance = dynamic_cast<const MaintenanceFacility&>(structure);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"personnel",
@@ -364,7 +364,7 @@ void StructureManager::updateEnergyProduction()
 
 	for (auto* structure : mStructureLists[Structure::StructureClass::EnergyProduction])
 	{
-		auto powerStructure = static_cast<PowerStructure*>(structure);
+		auto* powerStructure = dynamic_cast<PowerStructure*>(structure);
 		if (powerStructure->operational())
 		{
 			mTotalEnergyOutput += powerStructure->energyProduced();
@@ -414,7 +414,7 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 	int availableScientists = population.availableScientists();
 	for (auto* laboratory : mStructureLists[Structure::StructureClass::Laboratory])
 	{
-		ResearchFacility* lab = static_cast<ResearchFacility*>(laboratory);
+		auto* lab = dynamic_cast<ResearchFacility*>(laboratory);
 		lab->assignScientists(0);
 		if (lab->operational())
 		{

@@ -365,8 +365,8 @@ void MapViewState::transportOreFromMines()
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
-			auto& smelter = *static_cast<OreRefining*>(static_cast<Tile*>(route.path.back())->structure());
-			auto& mineFacility = *static_cast<MineFacility*>(static_cast<Tile*>(route.path.front())->structure());
+			auto& smelter = dynamic_cast<OreRefining&>(*static_cast<Tile*>(route.path.back())->structure());
+			auto& mineFacility = dynamic_cast<MineFacility&>(*static_cast<Tile*>(route.path.front())->structure());
 
 			if (!smelter.operational()) { break; }
 
@@ -524,8 +524,8 @@ void MapViewState::updateBiowasteRecycling()
 				return; // No more residences, so don't waste time iterating over remaining recycling facilities
 			}
 
-			Residence* residence = static_cast<Residence*>(*residenceIterator);
-			residence->pullWaste(recycling->wasteProcessingCapacity());
+			auto& residence = dynamic_cast<Residence&>(**residenceIterator);
+			residence.pullWaste(recycling->wasteProcessingCapacity());
 			++residenceIterator;
 		}
 	}
@@ -565,7 +565,7 @@ void MapViewState::transferFoodToCommandCenter()
 
 		while (foodProducerIterator != foodProducers.end())
 		{
-			auto foodProducer = static_cast<FoodProduction*>(*foodProducerIterator);
+			auto foodProducer = dynamic_cast<FoodProduction*>(*foodProducerIterator);
 			const int foodMoved = std::clamp(foodToMove, 0, foodProducer->foodLevel());
 			foodProducer->foodLevel(foodProducer->foodLevel() - foodMoved);
 			commandCenter->foodLevel(commandCenter->foodLevel() + foodMoved);

@@ -85,7 +85,7 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 		switch (structure->structureId())
 		{
 		case StructureID::SID_AGRIDOME:
-			stealFood(static_cast<FoodProduction&>(*structure));
+			stealFood(dynamic_cast<FoodProduction&>(*structure));
 			break;
 		case StructureID::SID_SMELTER:
 			stealRawResources(*structure);
