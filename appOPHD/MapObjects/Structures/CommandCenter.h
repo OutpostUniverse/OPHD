@@ -3,9 +3,6 @@
 #include "FoodProduction.h"
 
 
-/**
- * Implements the Command Center structure.
- */
 class CommandCenter : public FoodProduction
 {
 public:
