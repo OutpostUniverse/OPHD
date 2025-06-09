@@ -3,9 +3,6 @@
 #include "../Structure.h"
 
 
-/**
- * Implements a Tube Structure.
- */
 class Tube : public Structure
 {
 public:
