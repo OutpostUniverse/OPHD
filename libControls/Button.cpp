@@ -144,9 +144,8 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
-	if (button == NAS2D::MouseButton::Left)
-	{
 		if (mType == Type::Push)
 		{
 			mIsPressed = false;
@@ -156,7 +155,6 @@ void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 				mSignal();
 			}
 		}
-	}
 }
 
 
