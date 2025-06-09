@@ -266,7 +266,7 @@ void IconGrid::update()
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
 			const auto textMargin = NAS2D::Vector{2, 0};
 			const auto textBoxSize = mFont.size(highlightedName) + textMargin * 2;
-			const auto textBoxOffset = NAS2D::Vector{0, -15};
+			const auto textBoxOffset = NAS2D::Vector{0, -textBoxSize.y};
 			const auto tooltipRect = NAS2D::Rectangle{iconArea.position + textBoxOffset, textBoxSize};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
