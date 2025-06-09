@@ -32,11 +32,6 @@ void Agridome::disabledStateSet()
 
 int Agridome::calculateProduction() const
 {
-	if (!operational())
-	{
-		return 0;
-	}
-
 	return std::min(foodProduced(), foodStorageCapacity() - mFoodLevel);
 }
 
