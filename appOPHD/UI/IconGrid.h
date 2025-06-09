@@ -6,6 +6,7 @@
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
+#include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
@@ -68,6 +69,8 @@ protected:
 
 	bool isInGridArea(NAS2D::Point<int> position) const;
 	Index positionToIndex(NAS2D::Point<int> position) const;
+	NAS2D::Point<int> indexToPosition(Index index) const;
+	NAS2D::Rectangle<int> indexToArea(Index index) const;
 
 	void raiseChangedEvent() const;
 

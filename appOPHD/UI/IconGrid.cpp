@@ -241,38 +241,36 @@ void IconGrid::update()
 	mSkin.draw(renderer, mRect);
 
 	if (mGridSizeInIcons.x == 0) { return; }
-	const auto indexToGridPosition = [gridSize = mGridSizeInIcons, startPoint = mRect.position, spacing = mIconSize + mIconMargin](Index index) {
-		const auto linearOffset = static_cast<int>(index);
-		const auto offset = NAS2D::Vector{linearOffset % gridSize.x, linearOffset / gridSize.x};
-		return startPoint + offset * spacing;
-	};
 
 	for (Index i = 0; i < mIconItemList.size(); ++i)
 	{
-		const auto position = indexToGridPosition(i);
+		const auto iconArea = indexToArea(i);
 		const auto highlightColor = mIconItemList[i].available ? NAS2D::Color::White : NAS2D::Color::Red;
-		renderer.drawSubImage(mIconSheet, position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, {mIconSize, mIconSize}}, highlightColor);
+		renderer.drawSubImage(mIconSheet, iconArea.position, NAS2D::Rectangle<int>{{mIconItemList[i].pos.x, mIconItemList[i].pos.y}, iconArea.size}, highlightColor);
 	}
 
 	if (mSelectedIndex != NoSelection)
 	{
-		const auto position = indexToGridPosition(mSelectedIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
-		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 100, 255});
+		const auto iconArea = indexToArea(mSelectedIndex);
+		renderer.drawBox(iconArea, NAS2D::Color{0, 100, 255});
 	}
 
 	if (mHighlightIndex != NoSelection)
 	{
-		const auto position = indexToGridPosition(mHighlightIndex) + NAS2D::Vector{mIconMargin, mIconMargin};
-		renderer.drawBox(NAS2D::Rectangle{position, {mIconSize, mIconSize}}, NAS2D::Color{0, 180, 0});
+		const auto iconArea = indexToArea(mHighlightIndex);
+		renderer.drawBox(iconArea, NAS2D::Color{0, 180, 0});
 
 		// Name Tooltip
 		if (mShowTooltip)
 		{
 			const auto& highlightedName = mIconItemList[mHighlightIndex].name;
-			const auto tooltipRect = NAS2D::Rectangle<int>{{position.x, position.y - 15}, {mFont.width(highlightedName) + 4, mFont.height()}};
+			const auto textMargin = NAS2D::Vector{2, 0};
+			const auto textBoxSize = mFont.size(highlightedName) + textMargin * 2;
+			const auto textBoxOffset = NAS2D::Vector{0, -textBoxSize.y};
+			const auto tooltipRect = NAS2D::Rectangle{iconArea.position + textBoxOffset, textBoxSize};
 			renderer.drawBoxFilled(tooltipRect, NAS2D::Color{245, 245, 245});
 			renderer.drawBox(tooltipRect, NAS2D::Color{175, 175, 175});
-			renderer.drawText(mFont, highlightedName, position + NAS2D::Vector{2, -15}, NAS2D::Color::Black);
+			renderer.drawText(mFont, highlightedName, tooltipRect.position + textMargin, NAS2D::Color::Black);
 		}
 	}
 }
@@ -321,4 +319,20 @@ IconGrid::Index IconGrid::positionToIndex(NAS2D::Point<int> position) const
 	const auto gridOffset = (relativeOffset / (mIconSize + mIconMargin)).to<Index>();
 	const auto index = gridOffset.x + (static_cast<Index>(mGridSizeInIcons.x) * gridOffset.y);
 	return (index >= mIconItemList.size()) ? NoSelection : index;
+}
+
+
+NAS2D::Point<int> IconGrid::indexToPosition(Index index) const
+{
+	// Assume a width of a least one grid icon, so we avoid division by 0
+	const auto divisor = std::max(mGridSizeInIcons.x, 1);
+	const auto linearOffset = static_cast<int>(index);
+	const auto offset = NAS2D::Vector{linearOffset % divisor, linearOffset / divisor};
+	return mRect.position + NAS2D::Vector{mIconMargin, mIconMargin} + offset * (mIconSize + mIconMargin);
+}
+
+
+NAS2D::Rectangle<int> IconGrid::indexToArea(Index index) const
+{
+	return NAS2D::Rectangle{indexToPosition(index), {mIconSize, mIconSize}};
 }
