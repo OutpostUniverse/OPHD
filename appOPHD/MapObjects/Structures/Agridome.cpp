@@ -6,9 +6,6 @@
 #include <algorithm>
 
 
-const int AGRIDOME_BASE_PRODUCUCTION = 10;
-
-
 Agridome::Agridome() : FoodProduction(StructureClass::FoodProduction, StructureID::SID_AGRIDOME)
 {
 }
@@ -35,12 +32,7 @@ void Agridome::disabledStateSet()
 
 int Agridome::calculateProduction() const
 {
-	if (!operational())
-	{
-		return 0;
-	}
-
-	return std::min(AGRIDOME_BASE_PRODUCUCTION, foodStorageCapacity() - mFoodLevel);
+	return std::min(foodProduced(), foodStorageCapacity() - mFoodLevel);
 }
 
 
