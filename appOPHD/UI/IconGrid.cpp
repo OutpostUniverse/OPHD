@@ -62,10 +62,10 @@ IconGrid::~IconGrid()
 
 void IconGrid::addItem(const Item& item)
 {
-	mIconItemList.push_back(item);
+	auto& newItem = mIconItemList.emplace_back(item);
 
 	const auto divisor = mIconSheet.size().x / mIconSize;
-	mIconItemList.back().pos = {(item.sheetId % divisor) * mIconSize, (item.sheetId / divisor) * mIconSize};
+	newItem.pos = {(item.sheetId % divisor) * mIconSize, (item.sheetId / divisor) * mIconSize};
 }
 
 
