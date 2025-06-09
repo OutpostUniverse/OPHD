@@ -135,6 +135,7 @@ public:
 	bool ages() const { return maxAge() > 0; }
 
 	int energyRequirement() const;
+	int foodProduced() const;
 	int foodStorageCapacity() const;
 	int storageCapacity() const;
 	int commRange() const;
