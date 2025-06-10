@@ -34,6 +34,12 @@ void Label::font(const NAS2D::Font* font)
 }
 
 
+void Label::color(const NAS2D::Color& color)
+{
+	mTextColor = color;
+}
+
+
 void Label::update()
 {
 	if (!visible()) { return; }
@@ -53,12 +59,6 @@ void Label::draw() const
 NAS2D::Vector<int> Label::textSize() const
 {
 	return mFont->size(text());
-}
-
-
-void Label::color(const NAS2D::Color& color)
-{
-	mTextColor = color;
 }
 
 

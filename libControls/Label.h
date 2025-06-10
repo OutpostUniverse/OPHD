@@ -32,13 +32,12 @@ public:
 	const std::string& text() const;
 
 	void font(const NAS2D::Font* font);
+	void color(const NAS2D::Color& color);
 
 	void update() override;
 	void draw() const override;
 
 	NAS2D::Vector<int> textSize() const;
-
-	void color(const NAS2D::Color& color);
 
 protected:
 	void autoSize();
