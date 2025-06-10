@@ -10,14 +10,14 @@ Label::Label(std::string newText) :
 	mFont{&getDefaultFont()}
 {
 	text(newText);
-	autosize();
+	autoSize();
 }
 
 
 void Label::text(const std::string& text)
 {
 	TextControl::text(text);
-	autosize();
+	autoSize();
 }
 
 
@@ -27,7 +27,7 @@ const std::string& Label::text() const
 }
 
 
-void Label::autosize()
+void Label::autoSize()
 {
 	size(textSize() + NAS2D::Vector{mPadding, mPadding} * 2);
 }
@@ -36,7 +36,7 @@ void Label::autosize()
 void Label::font(const NAS2D::Font* font)
 {
 	mFont = font;
-	autosize();
+	autoSize();
 }
 
 

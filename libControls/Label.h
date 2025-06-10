@@ -31,7 +31,7 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-	void autosize();
+	void autoSize();
 	void font(const NAS2D::Font* font);
 
 	void update() override;
