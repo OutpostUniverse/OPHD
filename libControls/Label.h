@@ -37,9 +37,8 @@ public:
 	void update() override;
 	void draw() const override;
 
-	NAS2D::Vector<int> textSize() const;
-
 protected:
+	NAS2D::Vector<int> textSize() const;
 	void autoSize();
 
 private:
