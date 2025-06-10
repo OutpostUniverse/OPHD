@@ -134,7 +134,7 @@ void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 void IconGrid::clearSelection()
 {
 	mHighlightIndex = NoSelection;
-	mSelectedIndex = NoSelection;
+	setSelectionInternal(NoSelection);
 }
 
 
