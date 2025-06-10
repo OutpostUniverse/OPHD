@@ -188,19 +188,6 @@ void IconGrid::decrementSelection()
 }
 
 
-void IconGrid::raiseChangedEvent() const
-{
-	if (mSelectedIndex != NoSelection)
-	{
-		mSelectionChangedDelegate(&mIconItemList[mSelectedIndex]);
-	}
-	else
-	{
-		mSelectionChangedDelegate(nullptr);
-	}
-}
-
-
 void IconGrid::hide()
 {
 	Control::hide();
@@ -315,5 +302,18 @@ void IconGrid::setSelectionInternal(Index newSelection)
 	{
 		mSelectedIndex = newSelection;
 		raiseChangedEvent();
+	}
+}
+
+
+void IconGrid::raiseChangedEvent() const
+{
+	if (mSelectedIndex != NoSelection)
+	{
+		mSelectionChangedDelegate(&mIconItemList[mSelectedIndex]);
+	}
+	else
+	{
+		mSelectionChangedDelegate(nullptr);
 	}
 }
