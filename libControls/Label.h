@@ -38,7 +38,6 @@ public:
 	void draw() const override;
 
 protected:
-	NAS2D::Vector<int> textSize() const;
 	void autoSize();
 
 private:

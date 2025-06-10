@@ -56,13 +56,7 @@ void Label::draw() const
 }
 
 
-NAS2D::Vector<int> Label::textSize() const
-{
-	return mFont->size(text());
-}
-
-
 void Label::autoSize()
 {
-	size(textSize() + NAS2D::Vector{mPadding, mPadding} * 2);
+	size(mFont->size(text()) + NAS2D::Vector{mPadding, mPadding} * 2);
 }
