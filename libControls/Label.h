@@ -30,8 +30,6 @@ public:
 
 	void autosize();
 	void font(const NAS2D::Font* font);
-	bool isEmpty() const { return text().empty(); }
-	void clear() { mText.clear(); }
 
 	void update() override;
 	void draw() const override;
