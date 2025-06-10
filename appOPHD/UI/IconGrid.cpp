@@ -144,7 +144,7 @@ void IconGrid::setSelection(Index newSelection)
 	{
 		throw std::runtime_error("IconGrid selection is out of bounds: " + std::to_string(newSelection));
 	}
-	mSelectedIndex = newSelection;
+	setSelectionInternal(newSelection);
 }
 
 
@@ -165,7 +165,7 @@ void IconGrid::setSelectionByMeta(int selectionMetaValue)
 	{
 		if (mIconItemList[i].meta == selectionMetaValue)
 		{
-			mSelectedIndex = i;
+			setSelectionInternal(i);
 			return;
 		}
 	}
