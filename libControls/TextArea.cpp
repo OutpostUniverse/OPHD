@@ -87,9 +87,10 @@ void TextArea::draw() const
 
 	if (!mFont) { return; }
 
-	const auto maxLineCount = static_cast<std::size_t>(mRect.size.y / mFont->height());
+	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont->height());
+	const auto lineCount = (displayAreaLineCount < mFormattedList.size()) ? displayAreaLineCount : mFormattedList.size();
 	auto textPosition = mRect.position;
-	for (std::size_t i = 0; i < mFormattedList.size() && i < maxLineCount; ++i)
+	for (std::size_t i = 0; i < lineCount; ++i)
 	{
 		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
 		textPosition.y += mFont->height();
