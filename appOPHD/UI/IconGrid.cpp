@@ -268,8 +268,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	const auto iconIndex = positionToIndex(position);
 	if (mSelectedIndex != iconIndex)
 	{
-		mSelectedIndex = iconIndex;
-		raiseChangedEvent();
+		setSelectionInternal(iconIndex);
 	}
 }
 
