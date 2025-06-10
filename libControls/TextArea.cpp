@@ -57,8 +57,6 @@ void TextArea::processString()
 		w = 0;
 		mFormattedList.push_back(line);
 	}
-
-	mNumLines = static_cast<std::size_t>(mRect.size.y / mFont->height());
 }
 
 
@@ -89,8 +87,9 @@ void TextArea::draw() const
 
 	if (!mFont) { return; }
 
+	const auto maxLineCount = static_cast<std::size_t>(mRect.size.y / mFont->height());
 	auto textPosition = mRect.position;
-	for (std::size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
+	for (std::size_t i = 0; i < mFormattedList.size() && i < maxLineCount; ++i)
 	{
 		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
 		textPosition.y += mFont->height();

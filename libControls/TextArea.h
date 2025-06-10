@@ -25,8 +25,6 @@ private:
 	void draw() const override;
 	void processString();
 
-	std::size_t mNumLines = 0;
-
 	std::vector<std::string> mFormattedList;
 
 	NAS2D::Color mTextColor = NAS2D::Color::White;
