@@ -511,26 +511,24 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 }
 
 
-/**
-* Currently uses a text comparison function. Not inherently bad but
-* should really be turned into a key/value pair table for easier lookups.
-*/
 void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 {
+	if (!item) { return; }
+
 	mConnections.clearSelection();
 	mRobots.clearSelection();
 
-	if (!item) { return; }
+	const auto structureId = static_cast<StructureID>(item->meta);
 
 	// Check availability
 	if (!item->available)
 	{
-		resourceShortageMessage(mResourcesCount, static_cast<StructureID>(item->meta));
+		resourceShortageMessage(mResourcesCount, structureId);
 		mStructures.clearSelection();
 		return;
 	}
 
-	setStructureID(static_cast<StructureID>(item->meta), InsertMode::Structure);
+	setStructureID(structureId, InsertMode::Structure);
 }
 
 
