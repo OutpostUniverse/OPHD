@@ -748,8 +748,6 @@ void MapViewState::clearMode()
 
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = Robot::Type::None;
-
-	clearSelections();
 }
 
 
