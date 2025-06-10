@@ -31,7 +31,6 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-	void autoSize();
 	void font(const NAS2D::Font* font);
 
 	void update() override;
@@ -40,6 +39,9 @@ public:
 	NAS2D::Vector<int> textSize() const;
 
 	void color(const NAS2D::Color& color);
+
+protected:
+	void autoSize();
 
 private:
 	NAS2D::Color mTextColor{NAS2D::Color::White};

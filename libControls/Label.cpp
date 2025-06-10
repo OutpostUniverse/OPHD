@@ -27,12 +27,6 @@ const std::string& Label::text() const
 }
 
 
-void Label::autoSize()
-{
-	size(textSize() + NAS2D::Vector{mPadding, mPadding} * 2);
-}
-
-
 void Label::font(const NAS2D::Font* font)
 {
 	mFont = font;
@@ -65,4 +59,10 @@ NAS2D::Vector<int> Label::textSize() const
 void Label::color(const NAS2D::Color& color)
 {
 	mTextColor = color;
+}
+
+
+void Label::autoSize()
+{
+	size(textSize() + NAS2D::Vector{mPadding, mPadding} * 2);
 }
