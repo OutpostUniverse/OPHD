@@ -7,35 +7,49 @@
 
 
 Label::Label(std::string newText) :
-	mFont(&getDefaultFont())
+	mFont{&getDefaultFont()}
 {
 	text(newText);
-	autosize();
+	autoSize();
 }
 
 
-void Label::autosize()
+void Label::text(const std::string& text)
 {
-	size(textSize() + NAS2D::Vector{mPadding * 2, mPadding * 2});
+	TextControl::text(text);
+	autoSize();
+}
+
+
+const std::string& Label::text() const
+{
+	return TextControl::text();
 }
 
 
 void Label::font(const NAS2D::Font* font)
 {
 	mFont = font;
-	autosize();
+	autoSize();
+}
+
+
+void Label::color(const NAS2D::Color& color)
+{
+	mTextColor = color;
 }
 
 
 void Label::update()
 {
-	if (!visible()) { return; }
 	draw();
 }
 
 
 void Label::draw() const
 {
+	if (!visible()) { return; }
+
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto textPosition = mRect.position + NAS2D::Vector{mPadding, mPadding};
@@ -43,19 +57,7 @@ void Label::draw() const
 }
 
 
-int Label::textWidth() const
+void Label::autoSize()
 {
-	return mFont->width(text());
-}
-
-
-NAS2D::Vector<int> Label::textSize() const
-{
-	return mFont->size(text());
-}
-
-
-void Label::color(const NAS2D::Color& color)
-{
-	mTextColor = color;
+	size(mFont->size(text()) + NAS2D::Vector{mPadding, mPadding} * 2);
 }
