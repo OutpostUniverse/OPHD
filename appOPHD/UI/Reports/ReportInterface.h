@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libControls/UIContainer.h>
+#include <libControls/ControlContainer.h>
 
 
 class Structure;
@@ -9,9 +9,9 @@ class Structure;
 /**
  * Provides an abstract interface for Report UIs used in the MainReportsUiState.
  *
- * \note	Inherits from UIContainer as the report classes are treated as UI objects.
+ * \note	Inherits from ControlContainer as the report classes are treated as Control objects.
  */
-class ReportInterface : public UIContainer
+class ReportInterface : public ControlContainer
 {
 public:
 	/**
@@ -22,7 +22,7 @@ public:
 
 	ReportInterface() {}
 
-	using UIContainer::update;
+	using ControlContainer::update;
 
 	/**
 	 * Instructs the Report UI to clear any selections it may have.

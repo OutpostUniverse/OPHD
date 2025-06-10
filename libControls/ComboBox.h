@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UIContainer.h"
+#include "ControlContainer.h"
 #include "Button.h"
 #include "ListBox.h"
 #include "TextField.h"
@@ -14,7 +14,7 @@
 #include <cstddef>
 
 
-class ComboBox : public UIContainer
+class ComboBox : public ControlContainer
 {
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;

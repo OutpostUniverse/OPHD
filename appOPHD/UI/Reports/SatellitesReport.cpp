@@ -47,7 +47,7 @@ void SatellitesReport::selectStructure(Structure*)
 void SatellitesReport::update()
 {
 	draw();
-	UIContainer::update();
+	ControlContainer::update();
 }
 
 

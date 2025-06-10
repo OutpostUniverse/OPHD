@@ -531,5 +531,5 @@ void MineReport::update()
 		drawOreProductionPane(startPoint + NAS2D::Vector{10, 260});
 	}
 
-	UIContainer::update();
+	ControlContainer::update();
 }

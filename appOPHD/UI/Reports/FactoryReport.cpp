@@ -537,5 +537,5 @@ void FactoryReport::update()
 		drawProductPane(renderer);
 	}
 
-	UIContainer::update();
+	ControlContainer::update();
 }

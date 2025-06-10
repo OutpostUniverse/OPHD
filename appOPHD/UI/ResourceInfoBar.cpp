@@ -60,7 +60,7 @@ namespace
 
 
 ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food) :
-	UIContainer{{&mToolTip}},
+	ControlContainer{{&mToolTip}},
 	mResourcesCount{resources},
 	mPopulation{population},
 	mMorale{morale},
@@ -111,7 +111,7 @@ void ResourceInfoBar::ignoreGlow(const bool ignore)
 
 void ResourceInfoBar::update()
 {
-	UIContainer::update();
+	ControlContainer::update();
 	draw();
 }
 
@@ -198,7 +198,7 @@ void ResourceInfoBar::draw() const
 
 void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	UIContainer::onMouseDown(button, position);
+	ControlContainer::onMouseDown(button, position);
 
 	if (button == NAS2D::MouseButton::Left)
 	{

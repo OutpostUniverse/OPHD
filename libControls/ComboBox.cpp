@@ -16,7 +16,7 @@ namespace
 
 
 ComboBox::ComboBox() :
-	UIContainer{{&btnDown, &txtField, &lstItems}},
+	ControlContainer{{&btnDown, &txtField, &lstItems}},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -80,7 +80,7 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 
 void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	UIContainer::onMouseDown(button, position);
+	ControlContainer::onMouseDown(button, position);
 
 	if (!enabled() || !visible()) { return; }
 
