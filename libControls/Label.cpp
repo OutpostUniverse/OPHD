@@ -43,12 +43,6 @@ void Label::draw() const
 }
 
 
-int Label::textWidth() const
-{
-	return mFont->width(text());
-}
-
-
 NAS2D::Vector<int> Label::textSize() const
 {
 	return mFont->size(text());
