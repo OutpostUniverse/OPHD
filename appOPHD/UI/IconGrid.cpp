@@ -308,12 +308,6 @@ void IconGrid::setSelectionInternal(Index newSelection)
 
 void IconGrid::raiseChangedEvent() const
 {
-	if (mSelectedIndex != NoSelection)
-	{
-		mSelectionChangedDelegate(&mIconItemList[mSelectedIndex]);
-	}
-	else
-	{
-		mSelectionChangedDelegate(nullptr);
-	}
+	const auto* item = (mSelectedIndex == NoSelection) ? nullptr : &mIconItemList[mSelectedIndex];
+	mSelectionChangedDelegate(item);
 }
