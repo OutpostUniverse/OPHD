@@ -26,7 +26,7 @@ namespace NAS2D
 class Label : public TextControl
 {
 public:
-	Label(std::string newText = "");
+	Label(std::string newText = {});
 
 	void autosize();
 	void font(const NAS2D::Font* font);
