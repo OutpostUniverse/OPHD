@@ -180,8 +180,6 @@ private:
 
 	Robot& addRobot(Robot::Type type);
 
-	void setStructureID(StructureID type, InsertMode mode);
-
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
 	void transferFoodToCommandCenter();

@@ -528,7 +528,9 @@ void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 		return;
 	}
 
-	setStructureID(structureId, InsertMode::Structure);
+	mCurrentStructure = structureId;
+	mInsertMode = InsertMode::Structure;
+	setCursor(PointerType::PlaceTile);
 }
 
 
@@ -540,7 +542,9 @@ void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* /*item*/)
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	setStructureID(StructureID::SID_TUBE, InsertMode::Tube);
+	mCurrentStructure = StructureID::SID_TUBE;
+	mInsertMode = InsertMode::Tube;
+	setCursor(PointerType::PlaceTile);
 }
 
 
@@ -559,7 +563,6 @@ void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 	}
 
 	mCurrentRobot = static_cast<Robot::Type>(item->meta);
-
 	mInsertMode = InsertMode::Robot;
 	setCursor(PointerType::PlaceTile);
 }

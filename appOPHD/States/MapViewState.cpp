@@ -1322,18 +1322,6 @@ void MapViewState::updateRobots()
 
 
 /**
- * Checks and sets the current structure mode.
- */
-void MapViewState::setStructureID(StructureID type, InsertMode mode)
-{
-	mCurrentStructure = type;
-
-	mInsertMode = mode;
-	setCursor(PointerType::PlaceTile);
-}
-
-
-/**
  * Checks the connectedness of all tiles surrounding
  * the Command Center.
  */
