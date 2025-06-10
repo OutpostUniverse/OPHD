@@ -7,7 +7,7 @@
 
 
 Label::Label(std::string newText) :
-	mFont(&getDefaultFont())
+	mFont{&getDefaultFont()}
 {
 	text(newText);
 	autosize();
