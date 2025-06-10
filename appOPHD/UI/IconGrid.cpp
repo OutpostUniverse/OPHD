@@ -140,7 +140,11 @@ void IconGrid::clearSelection()
 
 void IconGrid::setSelection(Index newSelection)
 {
-	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : NoSelection;
+	if (newSelection >= mIconItemList.size())
+	{
+		throw std::runtime_error("IconGrid selection is out of bounds: " + std::to_string(newSelection));
+	}
+	mSelectedIndex = newSelection;
 }
 
 
