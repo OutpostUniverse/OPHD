@@ -73,7 +73,6 @@ protected:
 	NAS2D::Rectangle<int> indexToArea(Index index) const;
 
 	void setSelectionInternal(Index newSelection);
-	void raiseChangedEvent() const;
 
 private:
 	const NAS2D::RectangleSkin mSkin;
