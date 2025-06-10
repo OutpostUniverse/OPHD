@@ -1326,12 +1326,6 @@ void MapViewState::updateRobots()
  */
 void MapViewState::setStructureID(StructureID type, InsertMode mode)
 {
-	if (type == StructureID::SID_NONE)
-	{
-		clearMode();
-		return;
-	}
-
 	mCurrentStructure = type;
 
 	mInsertMode = mode;
