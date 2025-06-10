@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UIContainer.h"
+#include "ControlContainer.h"
 
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
@@ -11,7 +11,7 @@
 #include <string>
 
 
-class Window : public UIContainer
+class Window : public ControlContainer
 {
 public:
 	Window(std::string newTitle = "", const NAS2D::Font& titleFont = getDefaultFontBold());

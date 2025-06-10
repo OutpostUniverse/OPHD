@@ -161,7 +161,7 @@
     <ClCompile Include="TextControl.cpp" />
     <ClCompile Include="TextField.cpp" />
     <ClCompile Include="ToolTip.cpp" />
-    <ClCompile Include="UIContainer.cpp" />
+    <ClCompile Include="ControlContainer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowStack.cpp" />
   </ItemGroup>
@@ -181,7 +181,7 @@
     <ClInclude Include="TextControl.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="ToolTip.h" />
-    <ClInclude Include="UIContainer.h" />
+    <ClInclude Include="ControlContainer.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowStack.h" />
   </ItemGroup>

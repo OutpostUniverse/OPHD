@@ -45,7 +45,7 @@ void SpaceportsReport::selectStructure(Structure*)
 void SpaceportsReport::update()
 {
 	draw();
-	UIContainer::update();
+	ControlContainer::update();
 }
 
 

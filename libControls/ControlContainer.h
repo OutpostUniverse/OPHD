@@ -10,16 +10,16 @@
 
 
 /**
- * UI Object that contains other UI Controls.
+ * Control Object that contains other Control objects.
  *
  * Generally not intended to be used by itself.
  */
-class UIContainer : public Control
+class ControlContainer : public Control
 {
 protected:
-	UIContainer();
-	UIContainer(std::vector<Control*> controls);
-	~UIContainer() override;
+	ControlContainer();
+	ControlContainer(std::vector<Control*> controls);
+	~ControlContainer() override;
 
 	void add(Control& control, NAS2D::Vector<int> offset);
 	void clear();

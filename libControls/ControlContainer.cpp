@@ -1,4 +1,4 @@
-#include "UIContainer.h"
+#include "ControlContainer.h"
 
 #include <NAS2D/Utility.h>
 
@@ -6,29 +6,29 @@
 #include <stdexcept>
 
 
-UIContainer::UIContainer() : UIContainer{{}}
+ControlContainer::ControlContainer() : ControlContainer{{}}
 {
 }
 
 
-UIContainer::UIContainer(std::vector<Control*> controls) :
+ControlContainer::ControlContainer(std::vector<Control*> controls) :
 	mControls{std::move(controls)}
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &UIContainer::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ControlContainer::onMouseDown});
 }
 
 
-UIContainer::~UIContainer()
+ControlContainer::~ControlContainer()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &UIContainer::onMouseDown});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ControlContainer::onMouseDown});
 }
 
 
-void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
+void ControlContainer::add(Control& control, NAS2D::Vector<int> offset)
 {
 	if (std::find(mControls.begin(), mControls.end(), &control) != mControls.end())
 	{
-		throw std::runtime_error("UIContainer::add(): Duplicate control");
+		throw std::runtime_error("ControlContainer::add(): Duplicate control");
 	}
 
 	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
@@ -43,18 +43,18 @@ void UIContainer::add(Control& control, NAS2D::Vector<int> offset)
 /**
  * Drops all controls.
  */
-void UIContainer::clear()
+void ControlContainer::clear()
 {
 	mControls.clear();
 }
 
 
-void UIContainer::bringToFront(Control* control)
+void ControlContainer::bringToFront(Control* control)
 {
 	auto control_iterator = std::find(mControls.begin(), mControls.end(), control);
 	if (control_iterator == mControls.end())
 	{
-		throw std::runtime_error("UIContainer::bringToFront(): Control is not managed by this container.");
+		throw std::runtime_error("ControlContainer::bringToFront(): Control is not managed by this container.");
 	}
 
 	mControls.back()->hasFocus(false);
@@ -65,13 +65,13 @@ void UIContainer::bringToFront(Control* control)
 }
 
 
-void UIContainer::onVisibilityChange(bool visible)
+void ControlContainer::onVisibilityChange(bool visible)
 {
 	for (auto control : mControls) { control->visible(visible); }
 }
 
 
-void UIContainer::onMove(NAS2D::Vector<int> displacement)
+void ControlContainer::onMove(NAS2D::Vector<int> displacement)
 {
 	Control::onMove(displacement);
 
@@ -82,7 +82,7 @@ void UIContainer::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-void UIContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
+void ControlContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }
 
@@ -101,13 +101,13 @@ void UIContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> p
 
 
 /**
- * Updates all Controls in the UIContainer.
+ * Updates all Controls in the ControlContainer.
  * 
  * \note	This function can be overridden in derived types
  *			but if done, don't forget to update all contained
  *			Controls.
  */
-void UIContainer::update()
+void ControlContainer::update()
 {
 	if (!visible()) { return; }
 	for (auto control : mControls)
@@ -123,6 +123,6 @@ void UIContainer::update()
 }
 
 
-const std::vector<Control*>& UIContainer::controls() const {
+const std::vector<Control*>& ControlContainer::controls() const {
 	return mControls;
 }

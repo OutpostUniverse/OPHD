@@ -363,5 +363,5 @@ void WarehouseReport::update()
 	renderer.drawLine(position + NAS2D::Vector{0, 10}, position + NAS2D::Vector{0, mRect.size.y - 10}, constants::PrimaryColor);
 	drawRightPanel(renderer);
 
-	UIContainer::update();
+	ControlContainer::update();
 }

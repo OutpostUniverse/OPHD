@@ -2,7 +2,7 @@
 
 #include "../MapObjects/Structure.h"
 
-#include <libControls/UIContainer.h>
+#include <libControls/ControlContainer.h>
 #include <libControls/ToolTip.h>
 
 #include <NAS2D/EventHandler.h>
@@ -15,7 +15,7 @@ class Population;
 class Morale;
 
 
-class ResourceInfoBar : public UIContainer
+class ResourceInfoBar : public ControlContainer
 {
 public:
 	ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food);

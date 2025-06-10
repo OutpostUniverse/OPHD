@@ -163,7 +163,7 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 void ResearchReport::update()
 {
 	draw();
-	UIContainer::update();
+	ControlContainer::update();
 }
 
 

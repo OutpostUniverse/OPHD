@@ -63,7 +63,7 @@
     <ClCompile Include="ToolTip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UIContainer.cpp">
+    <ClCompile Include="ControlContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="ToolTip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UIContainer.h">
+    <ClInclude Include="ControlContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
