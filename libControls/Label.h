@@ -28,6 +28,9 @@ class Label : public TextControl
 public:
 	Label(std::string newText = {});
 
+	void text(const std::string& text);
+	const std::string& text() const;
+
 	void autosize();
 	void font(const NAS2D::Font* font);
 

@@ -14,6 +14,19 @@ Label::Label(std::string newText) :
 }
 
 
+void Label::text(const std::string& text)
+{
+	TextControl::text(text);
+	autosize();
+}
+
+
+const std::string& Label::text() const
+{
+	return TextControl::text();
+}
+
+
 void Label::autosize()
 {
 	size(textSize() + NAS2D::Vector{mPadding, mPadding} * 2);
