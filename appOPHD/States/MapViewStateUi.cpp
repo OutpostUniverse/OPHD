@@ -555,14 +555,14 @@ void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* item)
  */
 void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 {
-	mConnections.clearSelection();
-	mStructures.clearSelection();
-
 	if (!item)
 	{
 		clearMode();
 		return;
 	}
+
+	mConnections.clearSelection();
+	mStructures.clearSelection();
 
 	mCurrentRobot = static_cast<Robot::Type>(item->meta);
 	mInsertMode = InsertMode::Robot;
