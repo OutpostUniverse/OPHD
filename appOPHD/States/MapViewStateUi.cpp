@@ -513,7 +513,11 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 
 void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 {
-	if (!item) { return; }
+	if (!item)
+	{
+		clearMode();
+		return;
+	}
 
 	mConnections.clearSelection();
 	mRobots.clearSelection();
@@ -539,7 +543,11 @@ void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
  */
 void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* item)
 {
-	if (!item) { return; }
+	if (!item)
+	{
+		clearMode();
+		return;
+	}
 
 	mRobots.clearSelection();
 	mStructures.clearSelection();
