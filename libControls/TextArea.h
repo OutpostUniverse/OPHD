@@ -21,7 +21,6 @@ public:
 private:
 	void onResize() override;
 	void onTextChange() override;
-	virtual void onFontChange();
 
 	void draw() const override;
 	void processString();

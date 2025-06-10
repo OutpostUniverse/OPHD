@@ -75,12 +75,6 @@ void TextArea::onTextChange()
 }
 
 
-void TextArea::onFontChange()
-{
-	processString();
-}
-
-
 void TextArea::update()
 {
 	draw();
