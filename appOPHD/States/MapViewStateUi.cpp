@@ -513,7 +513,11 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 
 void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 {
-	if (!item) { return; }
+	if (!item)
+	{
+		clearMode();
+		return;
+	}
 
 	mConnections.clearSelection();
 	mRobots.clearSelection();
@@ -528,19 +532,29 @@ void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 		return;
 	}
 
-	setStructureID(structureId, InsertMode::Structure);
+	mCurrentStructure = structureId;
+	mInsertMode = InsertMode::Structure;
+	setCursor(PointerType::PlaceTile);
 }
 
 
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* /*item*/)
+void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* item)
 {
+	if (!item)
+	{
+		clearMode();
+		return;
+	}
+
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	setStructureID(StructureID::SID_TUBE, InsertMode::Tube);
+	mCurrentStructure = StructureID::SID_TUBE;
+	mInsertMode = InsertMode::Tube;
+	setCursor(PointerType::PlaceTile);
 }
 
 
@@ -549,17 +563,16 @@ void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* /*item*/)
  */
 void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 {
-	mConnections.clearSelection();
-	mStructures.clearSelection();
-
 	if (!item)
 	{
 		clearMode();
 		return;
 	}
 
-	mCurrentRobot = static_cast<Robot::Type>(item->meta);
+	mConnections.clearSelection();
+	mStructures.clearSelection();
 
+	mCurrentRobot = static_cast<Robot::Type>(item->meta);
 	mInsertMode = InsertMode::Robot;
 	setCursor(PointerType::PlaceTile);
 }

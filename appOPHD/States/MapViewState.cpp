@@ -472,7 +472,6 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			break;
 
 		case NAS2D::KeyCode::Escape:
-			clearMode();
 			resetUi();
 			break;
 
@@ -667,7 +666,6 @@ void MapViewState::onInspectRobot(Robot& robot)
 
 void MapViewState::onInspectTile(Tile& tile)
 {
-	clearSelections();
 	mTileInspector.tile(tile);
 	mTileInspector.show();
 	mWindowStack.bringToFront(&mTileInspector);
@@ -750,8 +748,6 @@ void MapViewState::clearMode()
 
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = Robot::Type::None;
-
-	clearSelections();
 }
 
 
@@ -854,7 +850,6 @@ void MapViewState::placeStructure(Tile& tile)
 		mColonyShip.onDeployColonistLander();
 		if (mColonyShip.colonistLanders() == 0)
 		{
-			clearMode();
 			resetUi();
 			populateStructureMenu();
 		}
@@ -870,7 +865,6 @@ void MapViewState::placeStructure(Tile& tile)
 		mColonyShip.onDeployCargoLander();
 		if (mColonyShip.cargoLanders() == 0)
 		{
-			clearMode();
 			resetUi();
 			populateStructureMenu();
 		}
@@ -1224,7 +1218,6 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		s.deploySignal().connect({this, &MapViewState::onDeploySeedLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, mTileMap->getTile({point, 0})); // Can only ever be placed on depth level 0
 
-		clearMode();
 		resetUi();
 
 		mStructures.clear();
@@ -1318,24 +1311,6 @@ void MapViewState::updateRobots()
 	}
 
 	mRobotPool.update();
-}
-
-
-/**
- * Checks and sets the current structure mode.
- */
-void MapViewState::setStructureID(StructureID type, InsertMode mode)
-{
-	if (type == StructureID::SID_NONE)
-	{
-		clearMode();
-		return;
-	}
-
-	mCurrentStructure = type;
-
-	mInsertMode = mode;
-	setCursor(PointerType::PlaceTile);
 }
 
 

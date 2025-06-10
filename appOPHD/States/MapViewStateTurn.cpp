@@ -726,6 +726,7 @@ void MapViewState::nextTurn()
 	mMorale.closeJournal();
 
 	clearMode();
+	clearSelections();
 
 	mPopulationPool.clear();
 
