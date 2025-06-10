@@ -42,13 +42,14 @@ void Label::color(const NAS2D::Color& color)
 
 void Label::update()
 {
-	if (!visible()) { return; }
 	draw();
 }
 
 
 void Label::draw() const
 {
+	if (!visible()) { return; }
+
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto textPosition = mRect.position + NAS2D::Vector{mPadding, mPadding};
