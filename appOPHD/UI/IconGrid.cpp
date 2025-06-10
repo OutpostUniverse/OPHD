@@ -134,13 +134,17 @@ void IconGrid::itemAvailable(const std::string& itemName, bool isItemAvailable)
 void IconGrid::clearSelection()
 {
 	mHighlightIndex = NoSelection;
-	mSelectedIndex = NoSelection;
+	setSelectionInternal(NoSelection);
 }
 
 
 void IconGrid::setSelection(Index newSelection)
 {
-	mSelectedIndex = (newSelection < mIconItemList.size()) ? newSelection : NoSelection;
+	if (newSelection >= mIconItemList.size())
+	{
+		throw std::runtime_error("IconGrid selection is out of bounds: " + std::to_string(newSelection));
+	}
+	setSelectionInternal(newSelection);
 }
 
 
@@ -161,7 +165,7 @@ void IconGrid::setSelectionByMeta(int selectionMetaValue)
 	{
 		if (mIconItemList[i].meta == selectionMetaValue)
 		{
-			mSelectedIndex = i;
+			setSelectionInternal(i);
 			return;
 		}
 	}
@@ -172,10 +176,7 @@ void IconGrid::incrementSelection()
 {
 	if (mSelectedIndex == NoSelection) { return; }
 
-	const auto nextIndex = (mSelectedIndex + 1 >= mIconItemList.size()) ? 0 : mSelectedIndex + 1;
-	mSelectedIndex = nextIndex;
-
-	raiseChangedEvent();
+	setSelectionInternal((mSelectedIndex + 1 >= mIconItemList.size()) ? 0 : mSelectedIndex + 1);
 }
 
 
@@ -183,23 +184,7 @@ void IconGrid::decrementSelection()
 {
 	if (mSelectedIndex == NoSelection) { return; }
 
-	const auto nextIndex = ((mSelectedIndex == 0) ? mIconItemList.size() : mSelectedIndex) - 1;
-	mSelectedIndex = nextIndex;
-
-	raiseChangedEvent();
-}
-
-
-void IconGrid::raiseChangedEvent() const
-{
-	if (mSelectedIndex != NoSelection)
-	{
-		mSelectionChangedDelegate(&mIconItemList[mSelectedIndex]);
-	}
-	else
-	{
-		mSelectionChangedDelegate(nullptr);
-	}
+	setSelectionInternal(((mSelectedIndex == 0) ? mIconItemList.size() : mSelectedIndex) - 1);
 }
 
 
@@ -267,12 +252,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	const auto iconIndex = positionToIndex(position);
-	if (mSelectedIndex != iconIndex)
-	{
-		mSelectedIndex = iconIndex;
-		raiseChangedEvent();
-	}
+	setSelectionInternal(positionToIndex(position));
 }
 
 
@@ -313,4 +293,15 @@ NAS2D::Point<int> IconGrid::indexToPosition(Index index) const
 NAS2D::Rectangle<int> IconGrid::indexToArea(Index index) const
 {
 	return NAS2D::Rectangle{indexToPosition(index), {mIconSize, mIconSize}};
+}
+
+
+void IconGrid::setSelectionInternal(Index newSelection)
+{
+	if (mSelectedIndex != newSelection)
+	{
+		mSelectedIndex = newSelection;
+		const auto* item = (mSelectedIndex == NoSelection) ? nullptr : &mIconItemList[mSelectedIndex];
+		mSelectionChangedDelegate(item);
+	}
 }
