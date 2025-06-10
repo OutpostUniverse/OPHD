@@ -513,10 +513,10 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 
 void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 {
+	if (!item) { return; }
+
 	mConnections.clearSelection();
 	mRobots.clearSelection();
-
-	if (!item) { return; }
 
 	const auto structureId = static_cast<StructureID>(item->meta);
 
