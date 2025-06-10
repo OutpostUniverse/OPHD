@@ -40,12 +40,12 @@ namespace
 
 CheatMenu::CheatMenu() :
 	Window{"Cheating"},
+	mLabelCheatCode{"Code:"},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
 	size({300, 88});
 
 	mLabelCheatCode.size({30, 20});
-	mLabelCheatCode.text("Code:");
 	add(mLabelCheatCode, {5, 34});
 
 	btnOkay.size({40, 20});
