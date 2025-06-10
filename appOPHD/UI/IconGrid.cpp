@@ -265,11 +265,7 @@ void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
 	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 	if (button != MouseButton::Left) { return; }
 
-	const auto iconIndex = positionToIndex(position);
-	if (mSelectedIndex != iconIndex)
-	{
-		setSelectionInternal(iconIndex);
-	}
+	setSelectionInternal(positionToIndex(position));
 }
 
 
