@@ -72,6 +72,7 @@ protected:
 	NAS2D::Point<int> indexToPosition(Index index) const;
 	NAS2D::Rectangle<int> indexToArea(Index index) const;
 
+	void setSelectionInternal(Index newSelection);
 	void raiseChangedEvent() const;
 
 private:

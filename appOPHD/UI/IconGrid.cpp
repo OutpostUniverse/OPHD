@@ -314,3 +314,13 @@ NAS2D::Rectangle<int> IconGrid::indexToArea(Index index) const
 {
 	return NAS2D::Rectangle{indexToPosition(index), {mIconSize, mIconSize}};
 }
+
+
+void IconGrid::setSelectionInternal(Index newSelection)
+{
+	if (mSelectedIndex != newSelection)
+	{
+		mSelectedIndex = newSelection;
+		raiseChangedEvent();
+	}
+}
