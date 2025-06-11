@@ -2,7 +2,6 @@
 
 #include "Control.h"
 #include "Label.h"
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resource/Image.h>
@@ -20,7 +19,7 @@ private:
 	class RadioButton : public Control
 	{
 	public:
-		RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
+		RadioButton(RadioButtonGroup& parentContainer, std::string newText);
 		~RadioButton() override;
 
 		// TODO: Best to delete these, but they need to exist for now
@@ -46,24 +45,17 @@ private:
 		Label mLabel;
 		RadioButtonGroup& mParentContainer;
 		bool mChecked{false};
-		NAS2D::Signal<> mSignal;
 	};
 
 public:
-	struct ButtonInfo
-	{
-		std::string name;
-		NAS2D::Delegate<void()> delegate;
-	};
-
 	static const std::size_t NoSelection;
 
+	using SelectDelegate = NAS2D::Delegate<void(std::size_t)>;
 
-	RadioButtonGroup() = default;
-	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
+
+	RadioButtonGroup(std::vector<std::string> options = {}, SelectDelegate selectHandler = {});
 
 	void clear();
-
 	void select(std::size_t index);
 	void select(RadioButtonGroup::RadioButton& button);
 
@@ -72,8 +64,11 @@ public:
 
 protected:
 	void onMove(NAS2D::Vector<int> displacement) override;
+	void onClearSelection();
+	void onSetSelection(std::size_t index);
 
 private:
+	const SelectDelegate mSelectHandler;
 	std::size_t mIndex = NoSelection;
 	std::vector<RadioButton> mRadioButtons;
 };

@@ -14,7 +14,7 @@ public:
 
 protected:
 	void onButtonClick();
-	void onRadioButtonClick();
+	void onRadioButtonSelect(std::size_t index);
 
 private:
 	Button button;
