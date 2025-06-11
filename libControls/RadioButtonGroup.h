@@ -5,7 +5,6 @@
 
 #include <NAS2D/Signal/Delegate.h>
 
-#include <algorithm>
 #include <string>
 
 

@@ -1,6 +1,5 @@
 #include "RadioButtonGroup.h"
 
-#include <algorithm>
 #include <limits>
 
 
