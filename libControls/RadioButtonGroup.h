@@ -56,7 +56,6 @@ public:
 	RadioButtonGroup(std::vector<std::string> options = {}, SelectDelegate selectHandler = {});
 
 	void clear();
-
 	void select(std::size_t index);
 	void select(RadioButtonGroup::RadioButton& button);
 

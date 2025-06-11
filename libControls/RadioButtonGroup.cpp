@@ -26,39 +26,6 @@ RadioButtonGroup::RadioButtonGroup(std::vector<std::string> options, SelectDeleg
 }
 
 
-void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
-{
-	Control::onMove(displacement);
-
-	for (auto &control : mRadioButtons)
-	{
-		control.position(control.position() + displacement);
-	}
-}
-
-
-void RadioButtonGroup::onClearSelection()
-{
-	if (mIndex != NoSelection)
-	{
-		mRadioButtons[mIndex].checked(false);
-	}
-}
-
-
-void RadioButtonGroup::onSetSelection(std::size_t index)
-{
-	if (mIndex != index)
-	{
-		mIndex = index;
-		if (mSelectHandler)
-		{
-			mSelectHandler(mIndex);
-		}
-	}
-}
-
-
 void RadioButtonGroup::clear()
 {
 	onClearSelection();
@@ -93,5 +60,38 @@ void RadioButtonGroup::draw() const
 	for (auto &control : mRadioButtons)
 	{
 		control.draw();
+	}
+}
+
+
+void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
+{
+	Control::onMove(displacement);
+
+	for (auto &control : mRadioButtons)
+	{
+		control.position(control.position() + displacement);
+	}
+}
+
+
+void RadioButtonGroup::onClearSelection()
+{
+	if (mIndex != NoSelection)
+	{
+		mRadioButtons[mIndex].checked(false);
+	}
+}
+
+
+void RadioButtonGroup::onSetSelection(std::size_t index)
+{
+	if (mIndex != index)
+	{
+		mIndex = index;
+		if (mSelectHandler)
+		{
+			mSelectHandler(mIndex);
+		}
 	}
 }
