@@ -37,6 +37,15 @@ void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 }
 
 
+void RadioButtonGroup::onClearSelection()
+{
+	if (mIndex != NoSelection)
+	{
+		mRadioButtons[mIndex].checked(false);
+	}
+}
+
+
 void RadioButtonGroup::onSetSelection(std::size_t index)
 {
 	if (mIndex != index)
@@ -52,17 +61,14 @@ void RadioButtonGroup::onSetSelection(std::size_t index)
 
 void RadioButtonGroup::clear()
 {
-	if (mIndex != NoSelection)
-	{
-		mRadioButtons[mIndex].checked(false);
-	}
+	onClearSelection();
 	onSetSelection(NoSelection);
 }
 
 
 void RadioButtonGroup::select(std::size_t index)
 {
-	clear();
+	onClearSelection();
 	mRadioButtons[index].checked(true);
 	onSetSelection(index);
 }

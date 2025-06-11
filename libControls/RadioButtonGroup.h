@@ -65,6 +65,7 @@ public:
 
 protected:
 	void onMove(NAS2D::Vector<int> displacement) override;
+	void onClearSelection();
 	void onSetSelection(std::size_t index);
 
 private:
