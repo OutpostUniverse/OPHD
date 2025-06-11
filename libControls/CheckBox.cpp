@@ -32,18 +32,13 @@ namespace
 }
 
 
-CheckBox::CheckBox(std::string newText) :
+CheckBox::CheckBox(std::string newText, ClickDelegate clickHandler) :
 	mFont{getDefaultFont()},
-	mSkin{getImage("ui/skin/checkbox.png")}
+	mSkin{getImage("ui/skin/checkbox.png")},
+	mClickHandler{clickHandler}
 {
 	text(newText);
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &CheckBox::onMouseDown});
-}
-
-
-CheckBox::CheckBox(std::string newText, ClickSignal::DelegateType clickHandler) : CheckBox(newText)
-{
-	mSignal.connect({clickHandler});
 }
 
 
@@ -71,12 +66,6 @@ bool CheckBox::checked() const
 }
 
 
-CheckBox::ClickSignal::Source& CheckBox::click()
-{
-	return mSignal;
-}
-
-
 void CheckBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
@@ -84,7 +73,10 @@ void CheckBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 	if (button == NAS2D::MouseButton::Left && mRect.contains(position))
 	{
 		mChecked = !mChecked;
-		mSignal();
+		if (mClickHandler)
+		{
+			mClickHandler();
+		}
 	}
 }
 
