@@ -74,7 +74,8 @@ FactoryReport::FactoryReport() :
 	btnIdle{"Idle", mainButtonSize, {this, &FactoryReport::onIdle}},
 	btnClearProduction{"Clear Production", mainButtonSize, {this, &FactoryReport::onClearProduction}},
 	btnTakeMeThere{constants::TakeMeThere, mainButtonSize, {this, &FactoryReport::onTakeMeThere}},
-	btnApply{"Apply", mainButtonSize, {this, &FactoryReport::onApply}}
+	btnApply{"Apply", mainButtonSize, {this, &FactoryReport::onApply}},
+	mTxtProductDescription{constants::PrimaryTextColor}
 {
 	add(lstFactoryList, {10, 63});
 	lstFactoryList.selectionChanged().connect({this, &FactoryReport::onListSelectionChange});
@@ -126,7 +127,6 @@ FactoryReport::FactoryReport() :
 	add(lstProducts, {cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x + 20, mRect.position.y + 230});
 
 	mTxtProductDescription.height(260);
-	mTxtProductDescription.textColor(constants::PrimaryTextColor);
 
 	fillLists();
 }
