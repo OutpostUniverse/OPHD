@@ -5,8 +5,11 @@
 
 
 MainWindow::MainWindow() :
-	Window{"Main Window"}
+	Window{"Main Window"},
+	button{"Button"}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
+
+	add(button, {10, 30});
 }
