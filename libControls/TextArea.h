@@ -26,9 +26,7 @@ protected:
 	void processString();
 
 private:
-	std::vector<std::string> mFormattedList;
-
-	NAS2D::Color mTextColor = NAS2D::Color::White;
-
 	const NAS2D::Font& mFont;
+	NAS2D::Color mTextColor = NAS2D::Color::White;
+	std::vector<std::string> mFormattedList;
 };
