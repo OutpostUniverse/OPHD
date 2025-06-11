@@ -2,15 +2,18 @@
 
 #include "Control.h"
 #include "Label.h"
-#include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
-#include <NAS2D/Resource/Image.h>
-#include <NAS2D/Utility.h>
-#include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Math/Point.h>
 
-#include <algorithm>
+#include <NAS2D/Signal/Delegate.h>
+
 #include <string>
+#include <vector>
+
+
+namespace NAS2D
+{
+	enum class MouseButton;
+	class Image;
+}
 
 
 class RadioButtonGroup : public Control
