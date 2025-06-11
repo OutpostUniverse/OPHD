@@ -8,11 +8,13 @@ MainWindow::MainWindow() :
 	Window{"Main Window"},
 	button{"Button", {this, &MainWindow::onButtonClick}},
 	label{"Label: Waiting for button"},
-	radioButtonGroup{{
-		{"Option 1", {this, &MainWindow::onRadioButtonClick}},
-		{"Option 2", {this, &MainWindow::onRadioButtonClick}},
-		{"Option 3", {this, &MainWindow::onRadioButtonClick}},
-	}}
+	radioButtonGroup{
+		{
+			{"Option 1", {this, &MainWindow::onRadioButtonClick}},
+			{"Option 2", {this, &MainWindow::onRadioButtonClick}},
+			{"Option 3", {this, &MainWindow::onRadioButtonClick}},
+		}
+	}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
