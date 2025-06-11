@@ -10,10 +10,11 @@ MainWindow::MainWindow() :
 	label{"Label: Waiting for button"},
 	radioButtonGroup{
 		{
-			{"Option 1", {this, &MainWindow::onRadioButtonClick}},
-			{"Option 2", {this, &MainWindow::onRadioButtonClick}},
-			{"Option 3", {this, &MainWindow::onRadioButtonClick}},
-		}
+			{"Option 1", {}},
+			{"Option 2", {}},
+			{"Option 3", {}},
+		},
+		{this, &MainWindow::onRadioButtonSelect}
 	}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -32,7 +33,7 @@ void MainWindow::onButtonClick()
 }
 
 
-void MainWindow::onRadioButtonClick()
+void MainWindow::onRadioButtonSelect(std::size_t index)
 {
-	label.text("Label: RadioButton was clicked");
+	label.text("Label: RadioButton was selected : " + std::to_string(index));
 }
