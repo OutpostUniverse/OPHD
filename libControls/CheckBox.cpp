@@ -71,12 +71,6 @@ bool CheckBox::checked() const
 }
 
 
-CheckBox::ClickSignal::Source& CheckBox::click()
-{
-	return mSignal;
-}
-
-
 void CheckBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }

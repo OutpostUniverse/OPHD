@@ -28,8 +28,6 @@ public:
 	void checked(bool toggle);
 	bool checked() const;
 
-	ClickSignal::Source& click();
-
 	void update() override;
 	void draw() const override;
 
