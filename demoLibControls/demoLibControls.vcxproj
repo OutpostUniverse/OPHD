@@ -159,6 +159,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainWindowState.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MainWindowState.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libControls\libControls.vcxproj">
