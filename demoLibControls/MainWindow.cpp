@@ -10,9 +10,9 @@ MainWindow::MainWindow() :
 	label{"Label: Waiting for button"},
 	radioButtonGroup{
 		{
-			{"Option 1", {}},
-			{"Option 2", {}},
-			{"Option 3", {}},
+			"Option 1",
+			"Option 2",
+			"Option 3",
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	}

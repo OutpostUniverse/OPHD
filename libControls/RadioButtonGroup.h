@@ -19,9 +19,7 @@ private:
 	class RadioButton : public Control
 	{
 	public:
-		using ClickDelegate = NAS2D::Delegate<void()>;
-
-		RadioButton(RadioButtonGroup& parentContainer, std::string newText, ClickDelegate clickHandler);
+		RadioButton(RadioButtonGroup& parentContainer, std::string newText);
 		~RadioButton() override;
 
 		// TODO: Best to delete these, but they need to exist for now
@@ -47,22 +45,15 @@ private:
 		Label mLabel;
 		RadioButtonGroup& mParentContainer;
 		bool mChecked{false};
-		ClickDelegate mClickHandler;
 	};
 
 public:
-	struct ButtonInfo
-	{
-		std::string name;
-		RadioButton::ClickDelegate clickHandler;
-	};
-
 	static const std::size_t NoSelection;
 
 	using SelectDelegate = NAS2D::Delegate<void(std::size_t)>;
 
 
-	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos = {}, SelectDelegate selectHandler = {});
+	RadioButtonGroup(std::vector<std::string> options = {}, SelectDelegate selectHandler = {});
 
 	void clear();
 
