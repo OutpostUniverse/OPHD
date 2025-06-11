@@ -5,15 +5,53 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-TextArea::TextArea() :
-	mFont{&getDefaultFont()}
+TextArea::TextArea(NAS2D::Color textColor) :
+	mFont{getDefaultFont()},
+	mTextColor{textColor}
 {
 }
 
 
-TextArea::TextArea(const NAS2D::Font& font) :
-	mFont{&font}
+TextArea::TextArea(const NAS2D::Font& font, NAS2D::Color textColor) :
+	mFont{font},
+	mTextColor{textColor}
 {
+}
+
+
+void TextArea::onResize()
+{
+	Control::onResize();
+	processString();
+}
+
+
+void TextArea::onTextChange()
+{
+	processString();
+}
+
+
+void TextArea::update()
+{
+	draw();
+}
+
+
+void TextArea::draw() const
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
+
+	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont.height());
+	const auto lineCount = (displayAreaLineCount < mFormattedList.size()) ? displayAreaLineCount : mFormattedList.size();
+	auto textPosition = mRect.position;
+	for (std::size_t i = 0; i < lineCount; ++i)
+	{
+		renderer.drawText(mFont, mFormattedList[i], textPosition, mTextColor);
+		textPosition.y += mFont.height();
+	}
 }
 
 
@@ -21,7 +59,7 @@ void TextArea::processString()
 {
 	mFormattedList.clear();
 
-	if (mRect.size.x < 10 || !mFont || text().empty()) { return; }
+	if (mRect.size.x < 10 || text().empty()) { return; }
 
 	const auto tokenList = NAS2D::split(text(), ' ');
 
@@ -32,7 +70,7 @@ void TextArea::processString()
 		std::string line;
 		while (w < mRect.size.x && i < tokenList.size())
 		{
-			int tokenWidth = mFont->width(tokenList[i] + " ");
+			int tokenWidth = mFont.width(tokenList[i] + " ");
 			w += tokenWidth;
 			if (w >= mRect.size.x)
 			{
@@ -56,49 +94,5 @@ void TextArea::processString()
 		}
 		w = 0;
 		mFormattedList.push_back(line);
-	}
-
-	mNumLines = static_cast<std::size_t>(mRect.size.y / mFont->height());
-}
-
-
-void TextArea::onResize()
-{
-	Control::onResize();
-	processString();
-}
-
-
-void TextArea::onTextChange()
-{
-	processString();
-}
-
-
-void TextArea::onFontChange()
-{
-	processString();
-}
-
-
-void TextArea::update()
-{
-	draw();
-}
-
-
-void TextArea::draw() const
-{
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
-
-	if (!mFont) { return; }
-
-	auto textPosition = mRect.position;
-	for (std::size_t i = 0; i < mFormattedList.size() && i < mNumLines; ++i)
-	{
-		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
-		textPosition.y += mFont->height();
 	}
 }

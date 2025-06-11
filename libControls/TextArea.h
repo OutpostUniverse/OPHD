@@ -11,26 +11,20 @@
 class TextArea : public TextControl
 {
 public:
-	TextArea();
-	TextArea(const NAS2D::Font& font);
-
-	void textColor(const NAS2D::Color& color) { mTextColor = color; }
+	TextArea(NAS2D::Color textColor = NAS2D::Color::White);
+	TextArea(const NAS2D::Font& font, NAS2D::Color textColor = NAS2D::Color::White);
 
 	void update() override;
 
-private:
+protected:
 	void onResize() override;
 	void onTextChange() override;
-	virtual void onFontChange();
 
 	void draw() const override;
 	void processString();
 
-	std::size_t mNumLines = 0;
-
+private:
+	const NAS2D::Font& mFont;
+	const NAS2D::Color mTextColor;
 	std::vector<std::string> mFormattedList;
-
-	NAS2D::Color mTextColor = NAS2D::Color::White;
-
-	const NAS2D::Font* mFont = nullptr;
 };
