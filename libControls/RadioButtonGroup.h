@@ -4,7 +4,6 @@
 #include "Label.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Math/Point.h>
 
 #include <algorithm>
 #include <string>
