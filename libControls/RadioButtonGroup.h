@@ -6,6 +6,7 @@
 #include <NAS2D/Signal/Delegate.h>
 
 #include <string>
+#include <vector>
 
 
 namespace NAS2D
