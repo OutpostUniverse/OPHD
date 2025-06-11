@@ -6,6 +6,18 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
 
+#include <algorithm>
+
+
+namespace
+{
+	constexpr auto iconSize = NAS2D::Vector{13, 13};
+	constexpr auto unselectedIconRect = NAS2D::Rectangle{{0, 0}, iconSize};
+	constexpr auto selectedIconRect = NAS2D::Rectangle{{13, 0}, iconSize};
+	constexpr auto internalSpacing = 2;
+	constexpr auto textOffset = NAS2D::Vector{iconSize.x + internalSpacing, 0};
+}
+
 
 RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText) :
 	mFont{getDefaultFont()},
@@ -58,28 +70,25 @@ const std::string& RadioButtonGroup::RadioButton::text() const
 void RadioButtonGroup::RadioButton::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	const auto unselectedIconRect = NAS2D::Rectangle<int>{{0, 0}, {13, 13}};
-	const auto selectedIconRect = NAS2D::Rectangle<int>{{13, 0}, {13, 13}};
-
-	renderer.drawSubImage(mSkin, position(), (mChecked ? selectedIconRect : unselectedIconRect));
-	renderer.drawText(mFont, text(), position() + NAS2D::Vector{20, 0}, NAS2D::Color::White);
+	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y + 1) / 2};
+	renderer.drawSubImage(mSkin, iconPosition, (mChecked ? selectedIconRect : unselectedIconRect));
+	renderer.drawText(mFont, text(), position() + textOffset, NAS2D::Color::White);
 }
 
 
 /**
- * Enforces minimum and maximum sizes.
+ * Enforces minimum sizes.
  */
 void RadioButtonGroup::RadioButton::onResize()
 {
-	mRect.size = {std::max(mRect.size.x, 13), 13};
+	mRect.size = {std::max(mRect.size.x, iconSize.x), std::max({iconSize.y, mFont.height()})};
 }
 
 
 void RadioButtonGroup::RadioButton::onTextChange()
 {
 	const auto textWidth = mFont.width(text());
-	width((textWidth > 0) ? 20 + textWidth : 13);
+	width((textWidth > 0) ? textOffset.x + textWidth : iconSize.x);
 }
 
 
