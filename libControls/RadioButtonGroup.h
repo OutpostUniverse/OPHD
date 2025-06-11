@@ -56,7 +56,7 @@ public:
 	using SelectDelegate = NAS2D::Delegate<void(std::size_t)>;
 
 
-	RadioButtonGroup(std::vector<std::string> options = {}, SelectDelegate selectHandler = {});
+	RadioButtonGroup(std::vector<std::string> options = {}, SelectDelegate selectHandler = {}, int verticalSpacing = 6);
 
 	void clear();
 	void select(std::size_t index);

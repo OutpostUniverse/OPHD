@@ -3,16 +3,22 @@
 #include <limits>
 
 
+namespace
+{
+	constexpr auto iconHeight = 13;
+}
+
+
 const std::size_t RadioButtonGroup::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
-RadioButtonGroup::RadioButtonGroup(std::vector<std::string> options, SelectDelegate selectHandler) :
+RadioButtonGroup::RadioButtonGroup(std::vector<std::string> options, SelectDelegate selectHandler, int verticalSpacing) :
 	mSelectHandler{selectHandler}
 {
 	mRadioButtons.reserve(options.size());
 	for (auto& option : options)
 	{
-		NAS2D::Vector<int> offset = {0, 13};
+		NAS2D::Vector<int> offset = {0, iconHeight + verticalSpacing};
 		offset.y = static_cast<int>(mRadioButtons.size()) * offset.y;
 
 		auto &button = mRadioButtons.emplace_back(*this, std::move(option));
