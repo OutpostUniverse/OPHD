@@ -82,9 +82,9 @@ void RadioButtonGroup::RadioButton::onTextChange()
 
 void RadioButtonGroup::RadioButton::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!enabled() || !visible()) { return; }
+	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
 
-	if (button == NAS2D::MouseButton::Left && mRect.contains(position))
+	if (button == NAS2D::MouseButton::Left)
 	{
 		mParentContainer.select(*this);
 	}
