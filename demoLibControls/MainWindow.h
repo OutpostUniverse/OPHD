@@ -11,6 +11,9 @@ class MainWindow : public Window
 public:
 	MainWindow();
 
+protected:
+	void onButtonClick();
+
 private:
 	Button button;
 	Label label;
