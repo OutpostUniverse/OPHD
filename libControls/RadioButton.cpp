@@ -88,6 +88,9 @@ void RadioButtonGroup::RadioButton::onMouseDown(NAS2D::MouseButton button, NAS2D
 	if (button == NAS2D::MouseButton::Left && mRect.contains(position))
 	{
 		mParentContainer.select(*this);
-		mClickHandler();
+		if (mClickHandler)
+		{
+			mClickHandler();
+		}
 	}
 }
