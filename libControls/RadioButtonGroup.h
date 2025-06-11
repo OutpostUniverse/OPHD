@@ -20,7 +20,9 @@ private:
 	class RadioButton : public Control
 	{
 	public:
-		RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> clickHandler);
+		using ClickDelegate = NAS2D::Delegate<void()>;
+
+		RadioButton(RadioButtonGroup& parentContainer, std::string newText, ClickDelegate clickHandler);
 		~RadioButton() override;
 
 		// TODO: Best to delete these, but they need to exist for now
