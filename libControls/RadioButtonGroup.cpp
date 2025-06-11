@@ -10,7 +10,8 @@
 const std::size_t RadioButtonGroup::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
-RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
+RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos, SelectDelegate selectHandler) :
+	mSelectHandler{selectHandler}
 {
 	mRadioButtons.reserve(buttonInfos.size());
 	for (auto &buttonInfo : buttonInfos)
@@ -36,21 +37,34 @@ void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 }
 
 
+void RadioButtonGroup::onSetSelection(std::size_t index)
+{
+	if (mIndex != index)
+	{
+		mIndex = index;
+		if (mSelectHandler)
+		{
+			mSelectHandler(mIndex);
+		}
+	}
+}
+
+
 void RadioButtonGroup::clear()
 {
 	if (mIndex != NoSelection)
 	{
 		mRadioButtons[mIndex].checked(false);
 	}
-	mIndex = NoSelection;
+	onSetSelection(NoSelection);
 }
 
 
 void RadioButtonGroup::select(std::size_t index)
 {
 	clear();
-	mIndex = index;
 	mRadioButtons[index].checked(true);
+	onSetSelection(index);
 }
 
 

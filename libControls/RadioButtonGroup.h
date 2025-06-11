@@ -59,9 +59,10 @@ public:
 
 	static const std::size_t NoSelection;
 
+	using SelectDelegate = NAS2D::Delegate<void(std::size_t)>;
 
-	RadioButtonGroup() = default;
-	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos);
+
+	RadioButtonGroup(std::vector<ButtonInfo> buttonInfos = {}, SelectDelegate selectHandler = {});
 
 	void clear();
 
@@ -73,8 +74,10 @@ public:
 
 protected:
 	void onMove(NAS2D::Vector<int> displacement) override;
+	void onSetSelection(std::size_t index);
 
 private:
+	const SelectDelegate mSelectHandler;
 	std::size_t mIndex = NoSelection;
 	std::vector<RadioButton> mRadioButtons;
 };
