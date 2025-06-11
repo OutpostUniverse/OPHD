@@ -159,10 +159,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MainWindowState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h" />
+    <ClInclude Include="MainWindow.h" />
     <ClInclude Include="MainWindowState.h" />
   </ItemGroup>
   <ItemGroup>
