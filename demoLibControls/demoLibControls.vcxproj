@@ -162,6 +162,7 @@
     <ClCompile Include="MainWindowState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cache.h" />
     <ClInclude Include="MainWindowState.h" />
   </ItemGroup>
   <ItemGroup>

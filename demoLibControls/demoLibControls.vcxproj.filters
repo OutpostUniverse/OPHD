@@ -23,6 +23,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="MainWindowState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
