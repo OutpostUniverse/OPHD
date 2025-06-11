@@ -14,7 +14,7 @@ public:
 	TextArea();
 	TextArea(const NAS2D::Font& font);
 
-	void textColor(const NAS2D::Color& color) { mTextColor = color; }
+	void textColor(NAS2D::Color color) { mTextColor = color; }
 
 	void update() override;
 
