@@ -13,6 +13,12 @@
 #include <string>
 
 
+namespace NAS2D
+{
+	enum class MouseButton;
+}
+
+
 class RadioButtonGroup : public Control
 {
 private:
