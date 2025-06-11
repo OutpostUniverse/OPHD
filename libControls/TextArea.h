@@ -18,13 +18,14 @@ public:
 
 	void update() override;
 
-private:
+protected:
 	void onResize() override;
 	void onTextChange() override;
 
 	void draw() const override;
 	void processString();
 
+private:
 	std::vector<std::string> mFormattedList;
 
 	NAS2D::Color mTextColor = NAS2D::Color::White;
