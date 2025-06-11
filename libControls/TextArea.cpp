@@ -5,14 +5,16 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-TextArea::TextArea() :
-	mFont{getDefaultFont()}
+TextArea::TextArea(NAS2D::Color textColor) :
+	mFont{getDefaultFont()},
+	mTextColor{textColor}
 {
 }
 
 
-TextArea::TextArea(const NAS2D::Font& font) :
-	mFont{font}
+TextArea::TextArea(const NAS2D::Font& font, NAS2D::Color textColor) :
+	mFont{font},
+	mTextColor{textColor}
 {
 }
 
