@@ -19,6 +19,42 @@ TextArea::TextArea(const NAS2D::Font& font, NAS2D::Color textColor) :
 }
 
 
+void TextArea::onResize()
+{
+	Control::onResize();
+	processString();
+}
+
+
+void TextArea::onTextChange()
+{
+	processString();
+}
+
+
+void TextArea::update()
+{
+	draw();
+}
+
+
+void TextArea::draw() const
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
+
+	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont.height());
+	const auto lineCount = (displayAreaLineCount < mFormattedList.size()) ? displayAreaLineCount : mFormattedList.size();
+	auto textPosition = mRect.position;
+	for (std::size_t i = 0; i < lineCount; ++i)
+	{
+		renderer.drawText(mFont, mFormattedList[i], textPosition, mTextColor);
+		textPosition.y += mFont.height();
+	}
+}
+
+
 void TextArea::processString()
 {
 	mFormattedList.clear();
@@ -58,41 +94,5 @@ void TextArea::processString()
 		}
 		w = 0;
 		mFormattedList.push_back(line);
-	}
-}
-
-
-void TextArea::onResize()
-{
-	Control::onResize();
-	processString();
-}
-
-
-void TextArea::onTextChange()
-{
-	processString();
-}
-
-
-void TextArea::update()
-{
-	draw();
-}
-
-
-void TextArea::draw() const
-{
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
-
-	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont.height());
-	const auto lineCount = (displayAreaLineCount < mFormattedList.size()) ? displayAreaLineCount : mFormattedList.size();
-	auto textPosition = mRect.position;
-	for (std::size_t i = 0; i < lineCount; ++i)
-	{
-		renderer.drawText(mFont, mFormattedList[i], textPosition, mTextColor);
-		textPosition.y += mFont.height();
 	}
 }
