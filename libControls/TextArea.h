@@ -29,5 +29,5 @@ private:
 
 	NAS2D::Color mTextColor = NAS2D::Color::White;
 
-	const NAS2D::Font* mFont = nullptr;
+	const NAS2D::Font& mFont;
 };

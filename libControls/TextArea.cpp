@@ -6,13 +6,13 @@
 
 
 TextArea::TextArea() :
-	mFont{&getDefaultFont()}
+	mFont{getDefaultFont()}
 {
 }
 
 
 TextArea::TextArea(const NAS2D::Font& font) :
-	mFont{&font}
+	mFont{font}
 {
 }
 
@@ -32,7 +32,7 @@ void TextArea::processString()
 		std::string line;
 		while (w < mRect.size.x && i < tokenList.size())
 		{
-			int tokenWidth = mFont->width(tokenList[i] + " ");
+			int tokenWidth = mFont.width(tokenList[i] + " ");
 			w += tokenWidth;
 			if (w >= mRect.size.x)
 			{
@@ -85,12 +85,12 @@ void TextArea::draw() const
 
 	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
 
-	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont->height());
+	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont.height());
 	const auto lineCount = (displayAreaLineCount < mFormattedList.size()) ? displayAreaLineCount : mFormattedList.size();
 	auto textPosition = mRect.position;
 	for (std::size_t i = 0; i < lineCount; ++i)
 	{
-		renderer.drawText(*mFont, mFormattedList[i], textPosition, mTextColor);
-		textPosition.y += mFont->height();
+		renderer.drawText(mFont, mFormattedList[i], textPosition, mTextColor);
+		textPosition.y += mFont.height();
 	}
 }
