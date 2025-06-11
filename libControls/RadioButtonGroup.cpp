@@ -18,7 +18,7 @@ RadioButtonGroup::RadioButtonGroup(std::vector<ButtonInfo> buttonInfos)
 		NAS2D::Vector<int> offset = {0, 13};
 		offset.y = static_cast<int>(mRadioButtons.size()) * offset.y;
 
-		auto &button = mRadioButtons.emplace_back(*this, buttonInfo.name, buttonInfo.delegate);
+		auto &button = mRadioButtons.emplace_back(*this, buttonInfo.name, buttonInfo.clickHandler);
 		button.visible(visible());
 		button.position(mRect.position + offset);
 	}

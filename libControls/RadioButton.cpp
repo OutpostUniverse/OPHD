@@ -4,14 +4,14 @@
 #include <NAS2D/Resource/Font.h>
 
 
-RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate) :
+RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> clickHandler) :
 	mFont{getDefaultFont()},
 	mSkin{getImage("ui/skin/radio.png")},
 	mLabel{newText},
 	mParentContainer{parentContainer}
 {
 	text(newText);
-	mSignal.connect({delegate});
+	mSignal.connect({clickHandler});
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &RadioButtonGroup::RadioButton::onMouseDown});
 }
 

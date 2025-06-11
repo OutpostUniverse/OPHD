@@ -20,7 +20,7 @@ private:
 	class RadioButton : public Control
 	{
 	public:
-		RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> delegate);
+		RadioButton(RadioButtonGroup& parentContainer, std::string newText, NAS2D::Delegate<void()> clickHandler);
 		~RadioButton() override;
 
 		// TODO: Best to delete these, but they need to exist for now
@@ -53,7 +53,7 @@ public:
 	struct ButtonInfo
 	{
 		std::string name;
-		NAS2D::Delegate<void()> delegate;
+		NAS2D::Delegate<void()> clickHandler;
 	};
 
 	static const std::size_t NoSelection;
