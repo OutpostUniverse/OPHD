@@ -21,7 +21,7 @@ void TextArea::processString()
 {
 	mFormattedList.clear();
 
-	if (mRect.size.x < 10 || !mFont || text().empty()) { return; }
+	if (mRect.size.x < 10 || text().empty()) { return; }
 
 	const auto tokenList = NAS2D::split(text(), ' ');
 
@@ -84,8 +84,6 @@ void TextArea::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
-
-	if (!mFont) { return; }
 
 	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont->height());
 	const auto lineCount = (displayAreaLineCount < mFormattedList.size()) ? displayAreaLineCount : mFormattedList.size();
