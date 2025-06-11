@@ -2,7 +2,6 @@
 
 #include "Control.h"
 #include "Label.h"
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Resource/Image.h>
@@ -48,14 +47,14 @@ private:
 		Label mLabel;
 		RadioButtonGroup& mParentContainer;
 		bool mChecked{false};
-		NAS2D::Signal<> mSignal;
+		ClickDelegate mClickHandler;
 	};
 
 public:
 	struct ButtonInfo
 	{
 		std::string name;
-		NAS2D::Delegate<void()> clickHandler;
+		RadioButton::ClickDelegate clickHandler;
 	};
 
 	static const std::size_t NoSelection;

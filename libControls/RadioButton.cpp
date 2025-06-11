@@ -8,10 +8,10 @@ RadioButtonGroup::RadioButton::RadioButton(RadioButtonGroup& parentContainer, st
 	mFont{getDefaultFont()},
 	mSkin{getImage("ui/skin/radio.png")},
 	mLabel{newText},
-	mParentContainer{parentContainer}
+	mParentContainer{parentContainer},
+	mClickHandler{clickHandler}
 {
 	text(newText);
-	mSignal.connect({clickHandler});
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &RadioButtonGroup::RadioButton::onMouseDown});
 }
 
@@ -88,6 +88,6 @@ void RadioButtonGroup::RadioButton::onMouseDown(NAS2D::MouseButton button, NAS2D
 	if (button == NAS2D::MouseButton::Left && mRect.contains(position))
 	{
 		mParentContainer.select(*this);
-		mSignal();
+		mClickHandler();
 	}
 }
