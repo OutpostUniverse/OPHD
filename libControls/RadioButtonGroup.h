@@ -4,7 +4,6 @@
 #include "Label.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Resource/Image.h>
 #include <NAS2D/Math/Point.h>
 
 #include <algorithm>
@@ -14,6 +13,7 @@
 namespace NAS2D
 {
 	enum class MouseButton;
+	class Image;
 }
 
 
