@@ -51,6 +51,13 @@ Button::Button(std::string text, NAS2D::Vector<int> sz, ClickSignal::DelegateTyp
 }
 
 
+Button::Button(const NAS2D::Image& image, ClickSignal::DelegateType clickHandler) : Button()
+{
+	mImage = &image;
+	mSignal.connect(clickHandler);
+}
+
+
 Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler) :
 	mButtonSkin{buttonSkin}
 {
