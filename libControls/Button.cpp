@@ -54,6 +54,7 @@ Button::Button(std::string text, NAS2D::Vector<int> sz, ClickSignal::DelegateTyp
 Button::Button(const NAS2D::Image& image, ClickSignal::DelegateType clickHandler) : Button()
 {
 	mImage = &image;
+	size(mImage->size() + internalPadding * 2);
 	mSignal.connect(clickHandler);
 }
 
