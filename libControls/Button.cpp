@@ -10,15 +10,22 @@
 namespace
 {
 	constexpr auto internalPadding = NAS2D::Vector{2, 2};
+
+
+	const Button::ButtonSkin& defaultButtonSkin()
+	{
+		static const Button::ButtonSkin defaultButtonSkin{
+			loadRectangleSkin("ui/skin/button_normal"),
+			loadRectangleSkin("ui/skin/button_hover"),
+			loadRectangleSkin("ui/skin/button_pressed"),
+		};
+		return defaultButtonSkin;
+	}
 }
 
 
 Button::Button(std::string newText) :
-	mButtonSkin{
-		loadRectangleSkin("ui/skin/button_normal"),
-		loadRectangleSkin("ui/skin/button_hover"),
-		loadRectangleSkin("ui/skin/button_pressed"),
-	}
+	mButtonSkin{defaultButtonSkin()}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
