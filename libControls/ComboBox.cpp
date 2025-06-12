@@ -15,8 +15,9 @@ namespace
 }
 
 
-ComboBox::ComboBox() :
+ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	ControlContainer{{&btnDown, &txtField, &lstItems}},
+	mSelectionChangedHandler{selectionChangedHandler},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -127,7 +128,7 @@ void ComboBox::onListSelectionChange()
 	txtField.text(selectionText());
 	lstItems.visible(false);
 	mRect = mBarRect;
-	mSelectionChanged();
+	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 
@@ -186,13 +187,13 @@ bool ComboBox::isItemSelected() const
 void ComboBox::setSelected(std::size_t index) {
 	lstItems.setSelected(index);
 	text(selectionText());
-	mSelectionChanged();
+	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 void ComboBox::text(const std::string& text) {
 	txtField.text(text);
 	lstItems.selectIf([target = NAS2D::toLowercase(txtField.text())](const auto& item){ return NAS2D::toLowercase(item.text) == target; });
-	mSelectionChanged();
+	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 const std::string& ComboBox::text() const {

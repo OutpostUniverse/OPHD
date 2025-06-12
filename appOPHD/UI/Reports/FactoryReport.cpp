@@ -75,6 +75,7 @@ FactoryReport::FactoryReport() :
 	btnClearProduction{"Clear Production", mainButtonSize, {this, &FactoryReport::onClearProduction}},
 	btnTakeMeThere{constants::TakeMeThere, mainButtonSize, {this, &FactoryReport::onTakeMeThere}},
 	btnApply{"Apply", mainButtonSize, {this, &FactoryReport::onApply}},
+	cboFilterByProduct{{this, &FactoryReport::onProductFilterSelectionChange}},
 	mTxtProductDescription{constants::PrimaryTextColor}
 {
 	add(lstFactoryList, {10, 63});
@@ -121,8 +122,6 @@ FactoryReport::FactoryReport() :
 	cboFilterByProduct.addItem(constants::Roboexplorer, ProductType::PRODUCT_EXPLORER);
 	cboFilterByProduct.addItem(constants::Robominer, ProductType::PRODUCT_MINER);
 	cboFilterByProduct.addItem(constants::Truck, ProductType::PRODUCT_TRUCK);
-
-	cboFilterByProduct.selectionChanged().connect({this, &FactoryReport::onProductFilterSelectionChange});
 
 	add(lstProducts, {cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x + 20, mRect.position.y + 230});
 
