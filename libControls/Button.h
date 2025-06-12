@@ -34,6 +34,7 @@ public:
 	Button(std::string newText = "");
 	Button(std::string newText, ClickSignal::DelegateType clickHandler);
 	Button(std::string text, NAS2D::Vector<int> size, ClickSignal::DelegateType clickHandler);
+	Button(const NAS2D::Image& image, ClickSignal::DelegateType clickHandler);
 	Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler);
 	~Button() override;
 

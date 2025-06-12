@@ -10,15 +10,22 @@
 namespace
 {
 	constexpr auto internalPadding = NAS2D::Vector{2, 2};
+
+
+	const Button::ButtonSkin& defaultButtonSkin()
+	{
+		static const Button::ButtonSkin defaultButtonSkin{
+			loadRectangleSkin("ui/skin/button_normal"),
+			loadRectangleSkin("ui/skin/button_hover"),
+			loadRectangleSkin("ui/skin/button_pressed"),
+		};
+		return defaultButtonSkin;
+	}
 }
 
 
 Button::Button(std::string newText) :
-	mButtonSkin{
-		loadRectangleSkin("ui/skin/button_normal"),
-		loadRectangleSkin("ui/skin/button_hover"),
-		loadRectangleSkin("ui/skin/button_pressed"),
-	}
+	mButtonSkin{defaultButtonSkin()}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
@@ -33,7 +40,7 @@ Button::Button(std::string newText) :
 
 Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Button(newText)
 {
-	mSignal.connect({clickHandler});
+	mSignal.connect(clickHandler);
 }
 
 
@@ -44,10 +51,18 @@ Button::Button(std::string text, NAS2D::Vector<int> sz, ClickSignal::DelegateTyp
 }
 
 
+Button::Button(const NAS2D::Image& image, ClickSignal::DelegateType clickHandler) : Button()
+{
+	mImage = &image;
+	size(mImage->size() + internalPadding * 2);
+	mSignal.connect(clickHandler);
+}
+
+
 Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler) :
 	mButtonSkin{buttonSkin}
 {
-	mSignal.connect({clickHandler});
+	mSignal.connect(clickHandler);
 }
 
 
