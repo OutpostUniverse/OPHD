@@ -123,8 +123,8 @@ void ResourceInfoBar::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, constants::ResourceIconSize + 4}}, NAS2D::Color{39, 39, 39});
-	renderer.drawBox(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, constants::ResourceIconSize + 4}}, NAS2D::Color{21, 21, 21});
+	renderer.drawBoxFilled(mRect, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(mRect, NAS2D::Color{21, 21, 21});
 	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.size().x - 2, 0}, NAS2D::Color{56, 56, 56});
 
 	// Resources
