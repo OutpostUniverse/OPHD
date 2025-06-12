@@ -76,11 +76,11 @@ FactoryReport::FactoryReport() :
 	btnTakeMeThere{constants::TakeMeThere, mainButtonSize, {this, &FactoryReport::onTakeMeThere}},
 	btnApply{"Apply", mainButtonSize, {this, &FactoryReport::onApply}},
 	cboFilterByProduct{{this, &FactoryReport::onProductFilterSelectionChange}},
+	lstFactoryList{{this, &FactoryReport::onListSelectionChange}},
 	lstProducts{{this, &FactoryReport::onProductSelectionChange}},
 	mTxtProductDescription{constants::PrimaryTextColor}
 {
 	add(lstFactoryList, {10, 63});
-	lstFactoryList.selectionChanged().connect({this, &FactoryReport::onListSelectionChange});
 
 	add(btnShowAll, viewFilterOriginRow1);
 	btnShowAll.type(Button::Type::Toggle);
