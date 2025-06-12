@@ -14,24 +14,23 @@ DiggerDirection::DiggerDirection() :
 	position({0, 0});
 	size({74, 170});
 
-	// create a set of buttons
-	add(btnDown, {5, 25});
 	btnDown.size({64, 34});
 
-	add(btnWest, {5, 68});
 	btnWest.size({32, 32});
-
-	add(btnNorth, {38, 68});
 	btnNorth.size({32, 32});
-
-	add(btnSouth, {5, 101});
 	btnSouth.size({32, 32});
-
-	add(btnEast, {38, 101});
 	btnEast.size({32, 32});
 
-	add(btnCancel, {5, 140});
 	btnCancel.size({64, 25});
+
+	add(btnDown, {5, 25});
+
+	add(btnWest, {5, 68});
+	add(btnNorth, {38, 68});
+	add(btnSouth, {5, 101});
+	add(btnEast, {38, 101});
+
+	add(btnCancel, {5, 140});
 }
 
 
