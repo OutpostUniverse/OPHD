@@ -98,6 +98,7 @@ MineReport::MineReport() :
 		{"", {this, &MineReport::onCheckBoxRareMetalsChange}},
 		{"", {this, &MineReport::onCheckBoxRareMineralsChange}}
 	}},
+	lstMineFacilities{{this, &MineReport::onMineFacilitySelectionChange}},
 	mSelectedFacility{nullptr},
 	mAvailableTrucks{0}
 {
@@ -113,7 +114,6 @@ MineReport::MineReport() :
 
 	btnShowAll.toggle(true);
 
-	lstMineFacilities.selectionChanged().connect({this, &MineReport::onMineFacilitySelectionChange});
 	add(lstMineFacilities, {10, 40});
 
 	// DETAIL PANE
