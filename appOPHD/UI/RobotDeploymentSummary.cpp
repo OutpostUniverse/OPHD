@@ -41,7 +41,7 @@ void RobotDeploymentSummary::draw() const
 	for (const auto& [imageRect, parts, total] : icons)
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
-		const auto text = std::to_string(parts) + "/" + std::to_string(total);
+		const auto text = std::to_string(parts) + " / " + std::to_string(total);
 		renderer.drawText(Control::getDefaultFont(), text, position + textOffset, NAS2D::Color::White);
 		position.y += 25;
 	}

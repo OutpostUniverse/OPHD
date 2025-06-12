@@ -264,7 +264,7 @@ void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 	// Assume saved games are correct, and if not, things will be corrected by next turn
 	if (mRobotControlMax > 0 && mRobotControlCount >= mRobotControlMax)
 	{
-		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + "/" + std::to_string(mRobotControlMax));
+		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + " / " + std::to_string(mRobotControlMax));
 	}
 
 	auto it = robotMap.find(&robot);
