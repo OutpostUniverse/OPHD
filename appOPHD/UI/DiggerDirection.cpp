@@ -9,7 +9,7 @@ DiggerDirection::DiggerDirection() :
 	btnEast{getImage("ui/icons/arrow-east.png"), {this, &DiggerDirection::onDiggerEast}},
 	btnSouth{getImage("ui/icons/arrow-south.png"), {this, &DiggerDirection::onDiggerSouth}},
 	btnWest{getImage("ui/icons/arrow-west.png"), {this, &DiggerDirection::onDiggerWest}},
-	btnCancel{"Cancel"}
+	btnCancel{"Cancel", {this, &DiggerDirection::onCancel}}
 {
 	position({0, 0});
 	size({74, 170});
@@ -32,7 +32,6 @@ DiggerDirection::DiggerDirection() :
 
 	add(btnCancel, {5, 140});
 	btnCancel.size({64, 25});
-	btnCancel.click().connect({this, &DiggerDirection::onCancel});
 }
 
 
