@@ -96,12 +96,6 @@ void ListBoxBase::clearSelected()
 }
 
 
-ListBoxBase::SelectionChangeSignal::Source& ListBoxBase::selectionChanged()
-{
-	return mSelectionChanged;
-}
-
-
 /**
  * Clears all items from the list.
  */

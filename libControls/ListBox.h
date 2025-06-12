@@ -226,12 +226,6 @@ public:
 	}
 
 
-	SelectionChangeSignal::Source& selectionChanged()
-	{
-		return mSelectionChanged;
-	}
-
-
 protected:
 	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 	{
