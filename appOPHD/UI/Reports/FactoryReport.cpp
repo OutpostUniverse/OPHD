@@ -76,6 +76,7 @@ FactoryReport::FactoryReport() :
 	btnTakeMeThere{constants::TakeMeThere, mainButtonSize, {this, &FactoryReport::onTakeMeThere}},
 	btnApply{"Apply", mainButtonSize, {this, &FactoryReport::onApply}},
 	cboFilterByProduct{{this, &FactoryReport::onProductFilterSelectionChange}},
+	lstProducts{{this, &FactoryReport::onProductSelectionChange}},
 	mTxtProductDescription{constants::PrimaryTextColor}
 {
 	add(lstFactoryList, {10, 63});
@@ -274,7 +275,6 @@ void FactoryReport::onResize()
 	btnApply.position({positionX, mRect.size.y + 8});
 
 	lstProducts.size({detailPanelRect.size.x / 3, detailPanelRect.size.y - 219});
-	lstProducts.selectionChanged().connect({this, &FactoryReport::onProductSelectionChange});
 
 	mTxtProductDescription.position(lstProducts.area().crossXPoint() + NAS2D::Vector{158, 0});
 	mTxtProductDescription.width(mRect.size.x - mTxtProductDescription.position().x - 10);
