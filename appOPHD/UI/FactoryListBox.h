@@ -2,7 +2,6 @@
 
 #include <libControls/ListBoxBase.h>
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Math/Point.h>
 
 #include <string>
@@ -26,7 +25,7 @@ public:
 	};
 
 
-	FactoryListBox();
+	FactoryListBox(SelectionChangedDelegate selectionChangedHandler = {});
 
 	void addItem(Factory* factory);
 	void setSelected(Factory*);

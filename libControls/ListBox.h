@@ -3,7 +3,7 @@
 #include "Control.h"
 #include "ScrollBar.h"
 #include <NAS2D/Utility.h>
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -59,13 +59,14 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
 public:
-	using SelectionChangeSignal = NAS2D::Signal<>;
+	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
-	ListBox() :
-		mContext{ getDefaultFont() }
+	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
+		mContext{ getDefaultFont() },
+		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
@@ -140,14 +141,14 @@ public:
 	void setSelected(std::size_t index)
 	{
 		mSelectedIndex = index;
-		mSelectionChanged();
+		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 	}
 
 
 	void clearSelected()
 	{
 		mSelectedIndex = NoSelection;
-		mSelectionChanged();
+		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 	}
 
 	template <typename UnaryPredicate>
@@ -217,12 +218,6 @@ public:
 		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
-	}
-
-
-	SelectionChangeSignal::Source& selectionChanged()
-	{
-		return mSelectionChanged;
 	}
 
 
@@ -322,6 +317,6 @@ private:
 
 	NAS2D::Rectangle<int> mClientRect;
 
-	SelectionChangeSignal mSelectionChanged;
+	SelectionChangedDelegate mSelectionChangedHandler;
 	ScrollBar mScrollBar;
 };

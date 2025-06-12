@@ -20,10 +20,11 @@
 using namespace NAS2D;
 
 
-FactoryListBox::FactoryListBox() :
+FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{
 		fontCache.load(constants::FontPrimary, 12),
-		fontCache.load(constants::FontPrimaryBold, 12)
+		fontCache.load(constants::FontPrimaryBold, 12),
+		selectionChangedHandler,
 	},
 	mStructureIcons{imageCache.load("ui/structures.png")}
 {

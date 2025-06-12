@@ -3,7 +3,7 @@
 #include "Control.h"
 #include "ScrollBar.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -24,12 +24,12 @@
 class ListBoxBase : public Control
 {
 public:
-	using SelectionChangeSignal = NAS2D::Signal<>;
+	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static const std::size_t NoSelection;
 
 
-	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold);
+	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold, SelectionChangedDelegate selectionChangedHandler = {});
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
@@ -40,8 +40,6 @@ public:
 	bool isItemSelected() const;
 	void setSelection(std::size_t selection);
 	void clearSelected();
-
-	SelectionChangeSignal::Source& selectionChanged();
 
 	void update() override;
 	void draw() const override;
@@ -82,6 +80,6 @@ private:
 	int mItemHeight = 1;
 	int mItemWidth = 0;
 
-	SelectionChangeSignal mSelectionChanged;
+	SelectionChangedDelegate mSelectionChangedHandler;
 	ScrollBar mScrollBar;
 };

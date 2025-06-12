@@ -93,12 +93,12 @@ ResearchReport::ResearchReport() :
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
+	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
 	txtTopicDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium), constants::PrimaryTextColor}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
 	add(lstResearchTopics, {});
-	lstResearchTopics.selectionChanged().connect({this, &ResearchReport::handleTopicChanged});
 
 	add(txtTopicDescription, {});
 }

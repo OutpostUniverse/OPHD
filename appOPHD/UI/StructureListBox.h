@@ -2,8 +2,6 @@
 
 #include <libControls/ListBoxBase.h>
 
-#include <NAS2D/Signal/Signal.h>
-
 #include <vector>
 
 
@@ -17,8 +15,6 @@ class Structure;
 class StructureListBox : public ListBoxBase
 {
 public:
-	using SelectionChangedSignal = NAS2D::Signal<Structure*>;
-
 	struct StructureListBoxItem
 	{
 		std::string text;
@@ -27,7 +23,7 @@ public:
 	};
 
 
-	StructureListBox();
+	StructureListBox(SelectionChangedDelegate selectionChangedHandler = {});
 
 	void addItem(Structure* structure, std::string stateDescription = std::string{});
 	void setSelected(const Structure*);

@@ -61,7 +61,8 @@ WarehouseReport::WarehouseReport() :
 	btnVacancy{"Vacancy", {this, &WarehouseReport::onVacancy}},
 	btnEmpty{"Empty", {this, &WarehouseReport::onEmpty}},
 	btnDisabled{"Disabled", {this, &WarehouseReport::onDisabled}},
-	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}}
+	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}},
+	lstStructures{{this, &WarehouseReport::onStructureSelectionChange}}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto buttons = std::array{&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled};
@@ -77,8 +78,6 @@ WarehouseReport::WarehouseReport() :
 	btnShowAll.toggle(true);
 
 	btnTakeMeThere.size({140, 30});
-
-	lstStructures.selectionChanged().connect({this, &WarehouseReport::onStructureSelectionChange});
 
 	Utility<EventHandler>::get().mouseDoubleClick().connect({this, &WarehouseReport::onDoubleClick});
 
