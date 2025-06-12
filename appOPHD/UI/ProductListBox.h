@@ -22,7 +22,7 @@ public:
 		int capacityTotal = 0;
 	};
 
-	ProductListBox();
+	ProductListBox(SelectionChangedDelegate selectionChangedHandler = {});
 
 	void productPool(const ProductPool&);
 

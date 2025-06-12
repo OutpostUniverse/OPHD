@@ -16,10 +16,11 @@
 using namespace NAS2D;
 
 
-StructureListBox::StructureListBox() :
+StructureListBox::StructureListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{
 		fontCache.load(constants::FontPrimary, 12),
-		fontCache.load(constants::FontPrimaryBold, 12)
+		fontCache.load(constants::FontPrimaryBold, 12),
+		selectionChangedHandler,
 	}
 {
 	itemHeight(30);

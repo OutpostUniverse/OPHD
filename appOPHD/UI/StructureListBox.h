@@ -27,7 +27,7 @@ public:
 	};
 
 
-	StructureListBox();
+	StructureListBox(SelectionChangedDelegate selectionChangedHandler = {});
 
 	void addItem(Structure* structure, std::string stateDescription = std::string{});
 	void setSelected(const Structure*);
