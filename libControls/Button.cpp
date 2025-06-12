@@ -40,7 +40,7 @@ Button::Button(std::string newText) :
 
 Button::Button(std::string newText, ClickSignal::DelegateType clickHandler) : Button(newText)
 {
-	mSignal.connect({clickHandler});
+	mSignal.connect(clickHandler);
 }
 
 
@@ -54,7 +54,7 @@ Button::Button(std::string text, NAS2D::Vector<int> sz, ClickSignal::DelegateTyp
 Button::Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler) :
 	mButtonSkin{buttonSkin}
 {
-	mSignal.connect({clickHandler});
+	mSignal.connect(clickHandler);
 }
 
 
