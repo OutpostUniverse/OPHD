@@ -5,7 +5,7 @@
 #include "ListBox.h"
 #include "TextField.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -17,7 +17,6 @@
 class ComboBox : public ControlContainer
 {
 public:
-	using SelectionChangeSignal = NAS2D::Signal<>;
 	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	ComboBox(SelectionChangedDelegate selectionChangedHandler = {});
@@ -54,7 +53,7 @@ private:
 
 	NAS2D::Rectangle<int> mBarRect;
 
-	SelectionChangeSignal mSelectionChanged;
+	SelectionChangedDelegate mSelectionChangedHandler;
 
 	std::size_t mMaxDisplayItems;
 };
