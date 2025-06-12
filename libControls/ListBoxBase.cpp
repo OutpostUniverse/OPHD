@@ -12,7 +12,7 @@
 const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
-ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :
+ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold, SelectionChangedDelegate selectionChangedHandler) :
 	mFont{font},
 	mFontBold{fontBold}
 {
@@ -24,6 +24,11 @@ ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold) :
 	mScrollBar.max(0);
 	mScrollBar.value(0);
 	mScrollBar.change().connect({this, &ListBoxBase::onSlideChange});
+
+	if (selectionChangedHandler)
+	{
+		mSelectionChanged.connect(selectionChangedHandler);
+	}
 }
 
 

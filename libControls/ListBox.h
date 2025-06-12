@@ -60,11 +60,12 @@ class ListBox : public Control
 {
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
+	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
-	ListBox() :
+	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
 		mContext{ getDefaultFont() }
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
@@ -75,6 +76,11 @@ public:
 		mScrollBar.value(0);
 		mScrollBar.change().connect({this, &ListBox::onSlideChange});
 		updateScrollLayout();
+
+		if (selectionChangedHandler)
+		{
+			mSelectionChanged.connect(selectionChangedHandler);
+		}
 	}
 
 

@@ -25,11 +25,12 @@ class ListBoxBase : public Control
 {
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
+	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static const std::size_t NoSelection;
 
 
-	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold);
+	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold, SelectionChangedDelegate selectionChangedHandler = {});
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
