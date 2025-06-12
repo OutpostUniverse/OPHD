@@ -14,7 +14,8 @@ const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max
 
 ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold, SelectionChangedDelegate selectionChangedHandler) :
 	mFont{font},
-	mFontBold{fontBold}
+	mFontBold{fontBold},
+	mSelectionChangedHandler{selectionChangedHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
@@ -24,11 +25,6 @@ ListBoxBase::ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold, S
 	mScrollBar.max(0);
 	mScrollBar.value(0);
 	mScrollBar.change().connect({this, &ListBoxBase::onSlideChange});
-
-	if (selectionChangedHandler)
-	{
-		mSelectionChanged.connect(selectionChangedHandler);
-	}
 }
 
 
@@ -82,7 +78,7 @@ bool ListBoxBase::isItemSelected() const
 void ListBoxBase::setSelection(std::size_t selection)
 {
 	mSelectedIndex = (selection < count()) ? selection : NoSelection;
-	mSelectionChanged();
+	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 
@@ -92,7 +88,7 @@ void ListBoxBase::setSelection(std::size_t selection)
 void ListBoxBase::clearSelected()
 {
 	mSelectedIndex = NoSelection;
-	mSelectionChanged();
+	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 

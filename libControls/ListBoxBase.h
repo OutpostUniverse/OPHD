@@ -3,7 +3,7 @@
 #include "Control.h"
 #include "ScrollBar.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -24,7 +24,6 @@
 class ListBoxBase : public Control
 {
 public:
-	using SelectionChangeSignal = NAS2D::Signal<>;
 	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static const std::size_t NoSelection;
@@ -81,6 +80,6 @@ private:
 	int mItemHeight = 1;
 	int mItemWidth = 0;
 
-	SelectionChangeSignal mSelectionChanged;
+	SelectionChangedDelegate mSelectionChangedHandler;
 	ScrollBar mScrollBar;
 };
