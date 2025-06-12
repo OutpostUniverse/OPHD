@@ -4,6 +4,11 @@
 
 DiggerDirection::DiggerDirection() :
 	Window{"Direction"},
+	btnDown{getImage("ui/icons/arrow-down.png"), {this, &DiggerDirection::onDiggerDown}},
+	btnNorth{getImage("ui/icons/arrow-north.png"), {this, &DiggerDirection::onDiggerNorth}},
+	btnEast{getImage("ui/icons/arrow-east.png"), {this, &DiggerDirection::onDiggerEast}},
+	btnSouth{getImage("ui/icons/arrow-south.png"), {this, &DiggerDirection::onDiggerSouth}},
+	btnWest{getImage("ui/icons/arrow-west.png"), {this, &DiggerDirection::onDiggerWest}},
 	btnCancel{"Cancel"}
 {
 	position({0, 0});
@@ -11,29 +16,19 @@ DiggerDirection::DiggerDirection() :
 
 	// create a set of buttons
 	add(btnDown, {5, 25});
-	btnDown.image("ui/icons/arrow-down.png");
 	btnDown.size({64, 34});
-	btnDown.click().connect({this, &DiggerDirection::onDiggerDown});
 
 	add(btnWest, {5, 68});
-	btnWest.image("ui/icons/arrow-west.png");
 	btnWest.size({32, 32});
-	btnWest.click().connect({this, &DiggerDirection::onDiggerWest});
 
 	add(btnNorth, {38, 68});
-	btnNorth.image("ui/icons/arrow-north.png");
 	btnNorth.size({32, 32});
-	btnNorth.click().connect({this, &DiggerDirection::onDiggerNorth});
 
 	add(btnSouth, {5, 101});
-	btnSouth.image("ui/icons/arrow-south.png");
 	btnSouth.size({32, 32});
-	btnSouth.click().connect({this, &DiggerDirection::onDiggerSouth});
 
 	add(btnEast, {38, 101});
-	btnEast.image("ui/icons/arrow-east.png");
 	btnEast.size({32, 32});
-	btnEast.click().connect({this, &DiggerDirection::onDiggerEast});
 
 	add(btnCancel, {5, 140});
 	btnCancel.size({64, 25});
