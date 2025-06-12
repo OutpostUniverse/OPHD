@@ -175,7 +175,7 @@ void ResourceInfoBar::draw() const
 	{
 		renderer.drawSubImage(mUiIcons, position, imageRect);
 		const auto color = (isHighlighted  && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
-		const auto text = std::to_string(parts) + "/" + std::to_string(total);
+		const auto text = std::to_string(parts) + " / " + std::to_string(total);
 		renderer.drawText(font, text, position + textOffset, color);
 		position.x += (x + offsetX) * 2;
 	}
