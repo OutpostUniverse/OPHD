@@ -30,8 +30,6 @@ public:
 
 	void clearSelected();
 
-	SelectionChangeSignal::Source& selectionChanged() { return mSelectionChanged; }
-
 	const std::string& selectionText() const;
 	int selectionUserData() const;
 
