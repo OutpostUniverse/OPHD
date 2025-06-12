@@ -67,21 +67,21 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Popul
 	mFood{food},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
-	// tooltip control sizes
-	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
-	mTooltipResourceBreakdown.size({265, hudHeight});
+	height(constants::ResourceIconSize + constants::MarginTight * 2);
+
+	mTooltipResourceBreakdown.size({265, mRect.size.y});
 
 	mTooltipResourceStorage.position({275, 0});
-	mTooltipResourceStorage.size({85, hudHeight});
+	mTooltipResourceStorage.size({85, mRect.size.y});
 
 	mTooltipFoodStorage.position({420, 0});
-	mTooltipFoodStorage.size({75, hudHeight});
+	mTooltipFoodStorage.size({75, mRect.size.y});
 
 	mTooltipEnergy.position({560, 0});
-	mTooltipEnergy.size({55, hudHeight});
+	mTooltipEnergy.size({55, mRect.size.y});
 
 	mTooltipPopulation.position({670, 0});
-	mTooltipPopulation.size({75, hudHeight});
+	mTooltipPopulation.size({75, mRect.size.y});
 
 	// Tool Tips
 	mToolTip.add(mTooltipResourceBreakdown, constants::ToolTipRefinedResources);
@@ -123,8 +123,8 @@ void ResourceInfoBar::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, constants::ResourceIconSize + 4}}, NAS2D::Color{39, 39, 39});
-	renderer.drawBox(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, constants::ResourceIconSize + 4}}, NAS2D::Color{21, 21, 21});
+	renderer.drawBoxFilled(mRect, NAS2D::Color{39, 39, 39});
+	renderer.drawBox(mRect, NAS2D::Color{21, 21, 21});
 	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.size().x - 2, 0}, NAS2D::Color{56, 56, 56});
 
 	// Resources

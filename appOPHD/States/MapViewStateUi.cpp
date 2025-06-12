@@ -181,6 +181,8 @@ void MapViewState::initUi()
 
 void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 {
+	mResourceInfoBar.width(size.x);
+
 	const auto populationPanelX = std::min(675, size.x - mPopulationPanel.size().x);
 	mPopulationPanel.position({populationPanelX, constants::ResourceIconSize + 4 + constants::MarginTight});
 
