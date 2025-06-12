@@ -67,21 +67,21 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Popul
 	mFood{food},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
-	// tooltip control sizes
-	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
-	mTooltipResourceBreakdown.size({265, hudHeight});
+	height(constants::ResourceIconSize + constants::MarginTight * 2);
+
+	mTooltipResourceBreakdown.size({265, mRect.size.y});
 
 	mTooltipResourceStorage.position({275, 0});
-	mTooltipResourceStorage.size({85, hudHeight});
+	mTooltipResourceStorage.size({85, mRect.size.y});
 
 	mTooltipFoodStorage.position({420, 0});
-	mTooltipFoodStorage.size({75, hudHeight});
+	mTooltipFoodStorage.size({75, mRect.size.y});
 
 	mTooltipEnergy.position({560, 0});
-	mTooltipEnergy.size({55, hudHeight});
+	mTooltipEnergy.size({55, mRect.size.y});
 
 	mTooltipPopulation.position({670, 0});
-	mTooltipPopulation.size({75, hudHeight});
+	mTooltipPopulation.size({75, mRect.size.y});
 
 	// Tool Tips
 	mToolTip.add(mTooltipResourceBreakdown, constants::ToolTipRefinedResources);
