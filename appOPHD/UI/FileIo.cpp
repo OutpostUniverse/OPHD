@@ -31,7 +31,8 @@ FileIo::FileIo(FileLoadDelegate fileLoadDelegate, FileSaveDelegate fileSaveDeleg
 	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
 	mCancel{"Cancel", {this, &FileIo::onClose}},
 	mFileOperation{"FileOp", {this, &FileIo::onFileIo}},
-	mDeleteFile{"Delete", {this, &FileIo::onFileDelete}}
+	mDeleteFile{"Delete", {this, &FileIo::onFileDelete}},
+	mListBox{{this, &FileIo::onFileSelect}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
@@ -42,7 +43,6 @@ FileIo::FileIo(FileLoadDelegate fileLoadDelegate, FileSaveDelegate fileSaveDeleg
 
 	mListBox.size({690, 253});
 	mListBox.visible(true);
-	mListBox.selectionChanged().connect({this, &FileIo::onFileSelect});
 	add(mListBox, {5, 45});
 
 	mFileName.size({mListBox.size().x, std::max(18, mFileName.size().y)});
