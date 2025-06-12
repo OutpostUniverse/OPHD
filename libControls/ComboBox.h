@@ -18,8 +18,9 @@ class ComboBox : public ControlContainer
 {
 public:
 	using SelectionChangeSignal = NAS2D::Signal<>;
+	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
-	ComboBox();
+	ComboBox(SelectionChangedDelegate selectionChangedHandler = {});
 	~ComboBox() override;
 
 	void addItem(const std::string& item, int tag = 0);

@@ -15,7 +15,7 @@ namespace
 }
 
 
-ComboBox::ComboBox() :
+ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	ControlContainer{{&btnDown, &txtField, &lstItems}},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
@@ -30,6 +30,10 @@ ComboBox::ComboBox() :
 	lstItems.height(300);
 
 	lstItems.selectionChanged().connect({this, &ComboBox::onListSelectionChange});
+
+	if (selectionChangedHandler) {
+		mSelectionChanged.connect(selectionChangedHandler);
+	}
 }
 
 
