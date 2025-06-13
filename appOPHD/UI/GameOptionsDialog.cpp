@@ -52,13 +52,6 @@ void GameOptionsDialog::onEnableChange()
 }
 
 
-void GameOptionsDialog::update()
-{
-	if (!visible()) { return; }
-
-	Window::update();
-}
-
 void GameOptionsDialog::onHelp()
 {
 	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");

@@ -16,8 +16,6 @@ public:
 		ClickHandler continueClickHandler
 	);
 
-	void update() override;
-
 protected:
 	void onHelp();
 

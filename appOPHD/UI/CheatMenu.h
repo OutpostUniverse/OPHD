@@ -35,7 +35,6 @@ public:
 	CheatMenu(CheatDelegate cheatHandler);
 
 	void onOkay();
-	void update() override;
 
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 

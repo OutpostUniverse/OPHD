@@ -83,11 +83,3 @@ CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
 		return CheatCode::Invalid;
 	}
 }
-
-
-void CheatMenu::update()
-{
-	if (!visible()) { return; }
-
-	Window::update();
-}

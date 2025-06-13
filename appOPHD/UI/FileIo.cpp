@@ -227,12 +227,3 @@ void FileIo::onFileDelete()
 	mDeleteFile.enabled(false);
 	scanDirectory(constants::SaveGamePath);
 }
-
-
-
-void FileIo::update()
-{
-	if (!visible()) { return; }
-
-	Window::update();
-}
