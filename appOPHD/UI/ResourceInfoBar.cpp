@@ -21,6 +21,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <cstdint>
+#include <algorithm>
 
 
 extern NAS2D::Point<int> MOUSE_COORDS;
@@ -67,7 +68,9 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Popul
 	mFood{food},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
-	height(constants::ResourceIconSize + constants::MarginTight * 2);
+	const auto fontHeight = Control::getDefaultFont().height();
+	const auto contentHeight = std::max(fontHeight, constants::ResourceIconSize);
+	height(contentHeight + constants::MarginTight * 2);
 
 	mTooltipResourceBreakdown.size({265, mRect.size.y});
 
