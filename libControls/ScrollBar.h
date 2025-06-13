@@ -41,11 +41,11 @@ public:
 	void max(ValueType newMax);
 
 	void update() override;
-	void draw() const override;
-
 	ValueChangeSignal::Source& change() { return mSignal; }
 
 protected:
+	void draw() const override;
+
 	void onButtonClick(bool& buttonFlag, ValueType value);
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);

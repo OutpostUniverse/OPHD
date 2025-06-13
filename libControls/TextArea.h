@@ -15,10 +15,11 @@ public:
 	TextArea(const NAS2D::Font& font, NAS2D::Color textColor = NAS2D::Color::White);
 
 protected:
+	void draw() const override;
+
 	void onResize() override;
 	void onTextChange() override;
 
-	void draw() const override;
 	void processString();
 
 private:

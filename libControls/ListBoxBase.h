@@ -42,9 +42,10 @@ public:
 	void clearSelected();
 
 	void update() override;
-	void draw() const override;
 
 protected:
+	void draw() const override;
+
 	void clear();
 	void updateScrollLayout();
 

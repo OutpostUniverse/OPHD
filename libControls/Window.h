@@ -22,7 +22,6 @@ public:
 	void show() override;
 
 	void update() override;
-	void draw() const override;
 
 	using TitleChangeSignal = NAS2D::Signal<Window*>;
 
@@ -33,6 +32,8 @@ public:
 	virtual void onTitleChanged() { mTitleChanged(this); }
 
 protected:
+	void draw() const override;
+
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
