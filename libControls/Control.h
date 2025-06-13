@@ -75,7 +75,7 @@ public:
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
 
-	virtual void update() {}
+	virtual void update() { draw(); }
 
 protected:
 	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
