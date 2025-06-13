@@ -50,8 +50,6 @@ public:
 
 	ClickSignal::Source& click() { return mSignal; }
 
-	void update() override;
-
 protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);

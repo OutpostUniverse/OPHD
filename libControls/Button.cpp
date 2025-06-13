@@ -151,12 +151,6 @@ void Button::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relati
 }
 
 
-void Button::update()
-{
-	draw();
-}
-
-
 void Button::draw() const
 {
 	if (!visible()) { return; }

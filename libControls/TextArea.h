@@ -14,8 +14,6 @@ public:
 	TextArea(NAS2D::Color textColor = NAS2D::Color::White);
 	TextArea(const NAS2D::Font& font, NAS2D::Color textColor = NAS2D::Color::White);
 
-	void update() override;
-
 protected:
 	void onResize() override;
 	void onTextChange() override;

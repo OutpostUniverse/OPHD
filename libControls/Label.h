@@ -34,7 +34,6 @@ public:
 	void font(const NAS2D::Font* font);
 	void color(const NAS2D::Color& color);
 
-	void update() override;
 	void draw() const override;
 
 protected:
