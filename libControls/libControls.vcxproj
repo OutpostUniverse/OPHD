@@ -149,6 +149,7 @@
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="ComboBox.cpp" />
     <ClCompile Include="Control.cpp" />
+    <ClCompile Include="ControlContainer.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Layout.cpp" />
     <ClCompile Include="ListBox.cpp" />
@@ -161,7 +162,6 @@
     <ClCompile Include="TextControl.cpp" />
     <ClCompile Include="TextField.cpp" />
     <ClCompile Include="ToolTip.cpp" />
-    <ClCompile Include="ControlContainer.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowStack.cpp" />
   </ItemGroup>
@@ -170,6 +170,7 @@
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="ComboBox.h" />
     <ClInclude Include="Control.h" />
+    <ClInclude Include="ControlContainer.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Layout.h" />
     <ClInclude Include="ListBox.h" />
@@ -181,7 +182,6 @@
     <ClInclude Include="TextControl.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="ToolTip.h" />
-    <ClInclude Include="ControlContainer.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowStack.h" />
   </ItemGroup>
