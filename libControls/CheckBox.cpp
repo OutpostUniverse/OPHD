@@ -97,15 +97,9 @@ void CheckBox::onResize()
 }
 
 
-void CheckBox::update()
-{
-	if (!visible()) { return; }
-	draw();
-}
-
-
 void CheckBox::draw() const
 {
+	if (!visible()) { return; }
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y + 1) / 2};
 	renderer.drawSubImage(mSkin, iconPosition, (mChecked ? checkedIconRect : uncheckedIconRect));

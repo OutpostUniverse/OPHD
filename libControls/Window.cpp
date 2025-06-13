@@ -71,8 +71,6 @@ void Window::show()
 
 void Window::update()
 {
-	if (!visible()) { return; }
-
 	draw();
 
 	ControlContainer::update();
@@ -81,6 +79,8 @@ void Window::update()
 
 void Window::draw() const
 {
+	if (!visible()) { return; }
+
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mTitleBarLeft, mRect.position);

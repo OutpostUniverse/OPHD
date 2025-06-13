@@ -27,7 +27,6 @@ public:
 	void checked(bool toggle);
 	bool checked() const;
 
-	void update() override;
 	void draw() const override;
 
 protected:
