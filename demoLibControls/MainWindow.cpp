@@ -16,7 +16,8 @@ MainWindow::MainWindow() :
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	},
-	image{getImage("ui/interface/product_robodozer.png")}
+	image{getImage("ui/interface/product_robodozer.png")},
+	progressBar{100, 50}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
@@ -26,6 +27,7 @@ MainWindow::MainWindow() :
 	add(label, {70, 30});
 	add(radioButtonGroup, {10, 60});
 	add(image, {10, 120});
+	add(progressBar, {10, 250});
 }
 
 

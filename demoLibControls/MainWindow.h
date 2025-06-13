@@ -5,6 +5,7 @@
 #include <libControls/Button.h>
 #include <libControls/Image.h>
 #include <libControls/Label.h>
+#include <libControls/ProgressBar.h>
 #include <libControls/RadioButtonGroup.h>
 
 
@@ -22,4 +23,5 @@ private:
 	Label label;
 	RadioButtonGroup radioButtonGroup;
 	Image image;
+	ProgressBar progressBar;
 };
