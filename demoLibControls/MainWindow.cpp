@@ -15,7 +15,8 @@ MainWindow::MainWindow() :
 			"Option 3",
 		},
 		{this, &MainWindow::onRadioButtonSelect}
-	}
+	},
+	image{getImage("ui/interface/product_robodozer.png")}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
@@ -24,6 +25,7 @@ MainWindow::MainWindow() :
 	add(button, {10, 30});
 	add(label, {70, 30});
 	add(radioButtonGroup, {10, 60});
+	add(image, {10, 120});
 }
 
 

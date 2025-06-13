@@ -3,6 +3,7 @@
 #include <libControls/Window.h>
 
 #include <libControls/Button.h>
+#include <libControls/Image.h>
 #include <libControls/Label.h>
 #include <libControls/RadioButtonGroup.h>
 
@@ -20,4 +21,5 @@ private:
 	Button button;
 	Label label;
 	RadioButtonGroup radioButtonGroup;
+	Image image;
 };
