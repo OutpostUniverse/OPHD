@@ -75,9 +75,11 @@ public:
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
 
-	virtual void update() {}
+	virtual void update() { draw(); }
 
 protected:
+	virtual void draw() const {}
+
 	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
 	virtual void onResize() {}
 	virtual void onVisibilityChange(bool /*visible*/) {}
@@ -90,7 +92,4 @@ protected:
 	bool mEnabled = true; /**< Flag indicating whether or not the Control is enabled. */
 	bool mHasFocus = false; /**< Flag indicating that the Control has input focus. */
 	bool mHighlight = false; /**< Flag indicating that this Control is highlighted. */
-
-private:
-	virtual void draw() const {}
 };

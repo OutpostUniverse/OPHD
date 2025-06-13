@@ -40,12 +40,6 @@ void Label::color(const NAS2D::Color& color)
 }
 
 
-void Label::update()
-{
-	draw();
-}
-
-
 void Label::draw() const
 {
 	if (!visible()) { return; }

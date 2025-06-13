@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "ControlContainer.h"
 #include "Label.h"
 
 #include <NAS2D/Signal/Delegate.h>
@@ -16,7 +16,7 @@ namespace NAS2D
 }
 
 
-class RadioButtonGroup : public Control
+class RadioButtonGroup : public ControlContainer
 {
 private:
 	class RadioButton : public Control
@@ -35,9 +35,9 @@ private:
 		void text(const std::string& text);
 		const std::string& text() const;
 
+	protected:
 		void draw() const override;
 
-	protected:
 		void onResize() override;
 		void onTextChange();
 		void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
@@ -61,9 +61,6 @@ public:
 	void clear();
 	void select(std::size_t index);
 	void select(RadioButtonGroup::RadioButton& button);
-
-	void update() override;
-	void draw() const override;
 
 protected:
 	void onMove(NAS2D::Vector<int> displacement) override;

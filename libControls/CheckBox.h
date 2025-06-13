@@ -27,10 +27,9 @@ public:
 	void checked(bool toggle);
 	bool checked() const;
 
-	void update() override;
+protected:
 	void draw() const override;
 
-protected:
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
 	void onResize() override;

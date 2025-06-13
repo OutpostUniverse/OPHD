@@ -20,6 +20,8 @@ public:
 	void add(Control&, const std::string&);
 
 	void update() override;
+
+protected:
 	void draw() const override;
 
 private:

@@ -32,12 +32,6 @@ void TextArea::onTextChange()
 }
 
 
-void TextArea::update()
-{
-	draw();
-}
-
-
 void TextArea::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();

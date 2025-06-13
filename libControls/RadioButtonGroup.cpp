@@ -23,7 +23,7 @@ RadioButtonGroup::RadioButtonGroup(std::vector<std::string> options, SelectDeleg
 
 		auto &button = mRadioButtons.emplace_back(*this, std::move(option));
 		button.visible(visible());
-		button.position(mRect.position + offset);
+		add(button, offset);
 	}
 }
 
@@ -47,22 +47,6 @@ void RadioButtonGroup::select(RadioButtonGroup::RadioButton& button)
 {
 	auto index = static_cast<std::size_t>(std::distance(mRadioButtons.data(), &button));
 	select(index);
-}
-
-
-void RadioButtonGroup::update()
-{
-	if (!visible()) { return; }
-	draw();
-}
-
-
-void RadioButtonGroup::draw() const
-{
-	for (auto &control : mRadioButtons)
-	{
-		control.draw();
-	}
 }
 
 

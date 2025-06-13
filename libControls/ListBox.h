@@ -186,6 +186,7 @@ public:
 	}
 
 
+protected:
 	void draw() const override
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -221,7 +222,6 @@ public:
 	}
 
 
-protected:
 	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 	{
 		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))

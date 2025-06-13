@@ -58,9 +58,10 @@ public:
 	void maxCharacters(std::size_t count);
 
 	void update() override;
-	void draw() const override;
 
 protected:
+	void draw() const override;
+
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
