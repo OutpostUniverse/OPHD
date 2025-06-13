@@ -7,6 +7,7 @@
 #include <libControls/Label.h>
 #include <libControls/ProgressBar.h>
 #include <libControls/RadioButtonGroup.h>
+#include <libControls/Rectangle.h>
 
 
 class MainWindow : public Window
@@ -24,4 +25,6 @@ private:
 	RadioButtonGroup radioButtonGroup;
 	Image image;
 	ProgressBar progressBar;
+	Rectangle rectangle1;
+	Rectangle rectangle2;
 };

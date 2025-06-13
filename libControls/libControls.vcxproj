@@ -159,6 +159,7 @@
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="RadioButton.cpp" />
     <ClCompile Include="RadioButtonGroup.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="ScrollBar.cpp" />
     <ClCompile Include="TextArea.cpp" />
     <ClCompile Include="TextControl.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="LoadRectangleSkin.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="RadioButtonGroup.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="ScrollBar.h" />
     <ClInclude Include="TextArea.h" />
     <ClInclude Include="TextControl.h" />
