@@ -75,6 +75,8 @@ public:
 	void computeRelativeCellPositions();
 
 protected:
+	void draw() const;
+
 	void accountForCellJustification(std::size_t index, int columnWidth);
 	std::vector<int> computeColumnWidths() const;
 	std::vector<int> computeRowHeights() const;
