@@ -49,7 +49,7 @@ NAS2D::Point<int> StringTable::position() const
 	return mScreenRect.position;
 }
 
-const NAS2D::Rectangle<int>& StringTable::screenRect() const
+const NAS2D::Rectangle<int>& StringTable::area() const
 {
 	return mScreenRect;
 }

@@ -51,7 +51,7 @@ public:
 
 	void position(NAS2D::Point<int> position);
 	NAS2D::Point<int> position() const;
-	const NAS2D::Rectangle<int>& screenRect() const;
+	const NAS2D::Rectangle<int>& area() const;
 
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(const NAS2D::Font* font);

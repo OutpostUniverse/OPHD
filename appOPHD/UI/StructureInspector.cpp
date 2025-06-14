@@ -158,12 +158,12 @@ void StructureInspector::structure(Structure* structure)
 	title(mStructure->name());
 
 	const auto genericStructureAttributes = buildGenericStringTable();
-	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 25};
+	const auto specificAttributeTablePosition = genericStructureAttributes.area().crossYPoint() + NAS2D::Vector{0, 25};
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
 	auto windowSize = NAS2D::Vector{
-		std::max({350, genericStructureAttributes.screenRect().size.x, specificStructureAttributes.screenRect().size.x}),
-		std::max({250, specificStructureAttributes.screenRect().endPoint().y - genericStructureAttributes.screenRect().position.y + btnClose.size().y})
+		std::max({350, genericStructureAttributes.area().size.x, specificStructureAttributes.area().size.x}),
+		std::max({250, specificStructureAttributes.area().endPoint().y - genericStructureAttributes.area().position.y + btnClose.size().y})
 	} + NAS2D::Vector{constants::Margin, constants::Margin} * 2;
 
 	size(windowSize);
@@ -209,7 +209,7 @@ void StructureInspector::update()
 	}
 
 	const auto genericStructureAttributes = buildGenericStringTable();
-	const auto specificAttributeTablePosition = genericStructureAttributes.screenRect().crossYPoint() + NAS2D::Vector{0, 20 + constants::Margin};
+	const auto specificAttributeTablePosition = genericStructureAttributes.area().crossYPoint() + NAS2D::Vector{0, 20 + constants::Margin};
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
 	auto& renderer = Utility<Renderer>::get();
