@@ -1,5 +1,6 @@
 #include "StringTable.h"
 
+#include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -37,21 +38,6 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 
 		renderer.drawText(*getCellFont(i), cell.text, position() + cell.textOffset, textColor);
 	}
-}
-
-void StringTable::position(NAS2D::Point<int> position)
-{
-	mScreenRect.startPoint(position);
-}
-
-NAS2D::Point<int> StringTable::position() const
-{
-	return mScreenRect.position;
-}
-
-const NAS2D::Rectangle<int>& StringTable::screenRect() const
-{
-	return mScreenRect;
 }
 
 void StringTable::setDefaultFont(NAS2D::Font& font)
@@ -161,12 +147,17 @@ void StringTable::computeRelativeCellPositions()
 
 	if (mCells.size() == 0)
 	{
-		mScreenRect.size = {0, 0};
+		mRect.size = {0, 0};
 	}
 	else
 	{
-		mScreenRect.size = mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()};
+		mRect.size = mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()};
 	}
+}
+
+void StringTable::draw() const
+{
+	draw(NAS2D::Utility<NAS2D::Renderer>::get());
 }
 
 void StringTable::accountForCellJustification(std::size_t index, int columnWidth)

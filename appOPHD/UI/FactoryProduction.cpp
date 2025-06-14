@@ -74,11 +74,11 @@ FactoryProduction::FactoryProduction() :
 	stringTable.computeRelativeCellPositions();
 
 	chkIdle.size({50, 20});
-	add(chkIdle, stringTable.screenRect().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, constants::Margin});
+	add(chkIdle, stringTable.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, constants::Margin});
 
 	mProductGrid.height(chkIdle.area().endPoint().y - mProductGrid.area().position.y);
 
-	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {std::max(162, stringTable.screenRect().size.x), 22}};
+	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {std::max(162, stringTable.area().size.x), 22}};
 	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
