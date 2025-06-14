@@ -41,17 +41,17 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 
 void StringTable::position(NAS2D::Point<int> position)
 {
-	mScreenRect.startPoint(position);
+	mRect.startPoint(position);
 }
 
 NAS2D::Point<int> StringTable::position() const
 {
-	return mScreenRect.position;
+	return mRect.position;
 }
 
 const NAS2D::Rectangle<int>& StringTable::area() const
 {
-	return mScreenRect;
+	return mRect;
 }
 
 void StringTable::setDefaultFont(NAS2D::Font& font)
@@ -161,11 +161,11 @@ void StringTable::computeRelativeCellPositions()
 
 	if (mCells.size() == 0)
 	{
-		mScreenRect.size = {0, 0};
+		mRect.size = {0, 0};
 	}
 	else
 	{
-		mScreenRect.size = mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()};
+		mRect.size = mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()};
 	}
 }
 
