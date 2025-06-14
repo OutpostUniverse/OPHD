@@ -1,5 +1,7 @@
 #pragma once
 
+#include <libControls/Control.h>
+
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -18,7 +20,7 @@ namespace NAS2D
 
 
 // Draw a 2 dimensional table of text. Determine cell size based on inserted text, font, and padding. Only allows one line of text per cell.
-class StringTable
+class StringTable : public Control
 {
 public:
 	using CellCoordinate = NAS2D::Point<std::size_t>;
@@ -49,10 +51,6 @@ public:
 
 	void draw(NAS2D::Renderer& renderer) const;
 
-	void position(NAS2D::Point<int> position);
-	NAS2D::Point<int> position() const;
-	const NAS2D::Rectangle<int>& area() const;
-
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(const NAS2D::Font* font);
 	void setDefaultTextColor(NAS2D::Color textColor);
@@ -75,7 +73,7 @@ public:
 	void computeRelativeCellPositions();
 
 protected:
-	void draw() const;
+	void draw() const override;
 
 	void accountForCellJustification(std::size_t index, int columnWidth);
 	std::vector<int> computeColumnWidths() const;
@@ -99,7 +97,6 @@ private:
 	std::vector<CellWithPosition> mCells;
 	const std::size_t mColumnCount;
 	const std::size_t mRowCount;
-	NAS2D::Rectangle<int> mRect;
 	const NAS2D::Font* mDefaultFont;
 	const NAS2D::Font* mDefaultTitleFont;
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;

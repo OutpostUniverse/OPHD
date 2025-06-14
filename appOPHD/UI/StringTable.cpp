@@ -40,21 +40,6 @@ void StringTable::draw(NAS2D::Renderer& renderer) const
 	}
 }
 
-void StringTable::position(NAS2D::Point<int> position)
-{
-	mRect.startPoint(position);
-}
-
-NAS2D::Point<int> StringTable::position() const
-{
-	return mRect.position;
-}
-
-const NAS2D::Rectangle<int>& StringTable::area() const
-{
-	return mRect;
-}
-
 void StringTable::setDefaultFont(NAS2D::Font& font)
 {
 	mDefaultFont = &font;
