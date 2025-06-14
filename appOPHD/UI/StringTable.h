@@ -74,6 +74,18 @@ public:
 	// Call after updating table properties to recompute cell positions
 	void computeRelativeCellPositions();
 
+protected:
+	void accountForCellJustification(std::size_t index, int columnWidth);
+	std::vector<int> computeColumnWidths() const;
+	std::vector<int> computeRowHeights() const;
+
+	std::size_t getCellIndex(const CellCoordinate& cellCoordinate) const;
+	CellCoordinate getCellCoordinate(std::size_t index) const;
+	void checkCellIndex(const CellCoordinate& cellCoordinate) const;
+
+	const NAS2D::Font* getCellFont(std::size_t index) const;
+	bool isFirstColumn(std::size_t index) const;
+
 private:
 	// Purposely hide textOffset from public access
 	struct CellWithPosition : Cell
@@ -91,15 +103,4 @@ private:
 	NAS2D::Color mDefaultTextColor = NAS2D::Color::White;
 	int mHorizontalPadding = 5;
 	int mVerticalPadding = 0;
-
-	void accountForCellJustification(std::size_t index, int columnWidth);
-	std::vector<int> computeColumnWidths() const;
-	std::vector<int> computeRowHeights() const;
-
-	std::size_t getCellIndex(const CellCoordinate& cellCoordinate) const;
-	CellCoordinate getCellCoordinate(std::size_t index) const;
-	void checkCellIndex(const CellCoordinate& cellCoordinate) const;
-
-	const NAS2D::Font* getCellFont(std::size_t index) const;
-	bool isFirstColumn(std::size_t index) const;
 };
