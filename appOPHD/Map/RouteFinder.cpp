@@ -26,7 +26,7 @@ namespace
 
 			Route route;
 			solver->Reset();
-			solver->Solve(&start, &end, &route.path, &route.cost);
+			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &route.cost);
 
 			if (!route.isEmpty()) { routeList.push_back(route); }
 		}
@@ -54,9 +54,9 @@ Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* min
 
 bool routeObstructed(Route& route)
 {
-	for (auto tileVoidPtr : route.path)
+	for (auto tilePtr : route.path)
 	{
-		auto& tile = *static_cast<Tile*>(tileVoidPtr);
+		auto& tile = *tilePtr;
 
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.

@@ -101,7 +101,7 @@ void MiniMap::draw() const
 	{
 		for (auto tile : route.second.path)
 		{
-			const auto tilePosition = static_cast<Tile*>(tile)->xy();
+			const auto tilePosition = tile->xy();
 			renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
 		}
 	}

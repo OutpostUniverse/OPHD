@@ -247,7 +247,7 @@ void MapViewState::findMineRoutes()
 
 			for (auto tile : newRoute.path)
 			{
-				mTruckRouteOverlay.push_back(static_cast<Tile*>(tile));
+				mTruckRouteOverlay.push_back(tile);
 			}
 		}
 	}
@@ -263,8 +263,8 @@ void MapViewState::transportOreFromMines()
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
-			auto& smelter = dynamic_cast<OreRefining&>(*static_cast<Tile*>(route.path.back())->structure());
-			auto& mineFacility = dynamic_cast<MineFacility&>(*static_cast<Tile*>(route.path.front())->structure());
+			auto& smelter = dynamic_cast<OreRefining&>(*route.path.back()->structure());
+			auto& mineFacility = dynamic_cast<MineFacility&>(*route.path.front()->structure());
 
 			if (!smelter.operational()) { break; }
 
