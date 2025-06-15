@@ -395,6 +395,9 @@
     <ClInclude Include="Map\MapView.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Map\Route.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
     <ClInclude Include="Map\RouteFinder.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
@@ -612,9 +615,6 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="States\PlanetSelectState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="States\Route.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="States\SplashState.h">

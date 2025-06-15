@@ -6,7 +6,6 @@
 #include "MainReportsUiState.h"
 #include "GameState.h"
 #include "ColonyShip.h"
-#include "Route.h"
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
@@ -15,6 +14,7 @@
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
 
+#include "../Map/Route.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"

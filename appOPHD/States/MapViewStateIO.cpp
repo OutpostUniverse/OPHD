@@ -9,14 +9,13 @@
 
 #include "MapViewStateHelper.h"
 
-#include "Route.h"
-
 #include "../Cache.h"
 #include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../StructureCatalogue.h"
 #include "../StructureManager.h"
+#include "../Map/Route.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 

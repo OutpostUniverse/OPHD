@@ -1,10 +1,10 @@
 #include "MiniMap.h"
 
 #include "../Cache.h"
+#include "../Map/Route.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../MapObjects/Robot.h"
-#include "../States/Route.h"
 #include "../StructureManager.h"
 
 #include <libOPHD/MapObjects/OreDeposit.h>
@@ -101,7 +101,7 @@ void MiniMap::draw() const
 	{
 		for (auto tile : route.second.path)
 		{
-			const auto tilePosition = static_cast<Tile*>(tile)->xy();
+			const auto tilePosition = tile->xy();
 			renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);
 		}
 	}

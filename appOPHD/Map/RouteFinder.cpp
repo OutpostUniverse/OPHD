@@ -1,7 +1,7 @@
 #include "RouteFinder.h"
 
+#include "Route.h"
 #include "Tile.h"
-#include "../States/Route.h"
 #include "../StructureManager.h"
 
 #include <libOPHD/EnumTerrainType.h>
@@ -11,12 +11,12 @@
 
 namespace
 {
-	RouteList findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		auto& start = structureManager.tileFromStructure(mineFacility);
 
-		RouteList routeList;
+		std::vector<Route> routeList;
 
 		for (const auto* smelter : smelters)
 		{
@@ -26,16 +26,16 @@ namespace
 
 			Route route;
 			solver->Reset();
-			solver->Solve(&start, &end, &route.path, &route.cost);
+			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &route.cost);
 
-			if (!route.empty()) { routeList.push_back(route); }
+			if (!route.isEmpty()) { routeList.push_back(route); }
 		}
 
 		return routeList;
 	}
 
 
-	Route findLowestCostRoute(RouteList& routeList)
+	Route findLowestCostRoute(const std::vector<Route>& routeList)
 	{
 		if (routeList.empty()) { return Route(); }
 
@@ -54,9 +54,9 @@ Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* min
 
 bool routeObstructed(Route& route)
 {
-	for (auto tileVoidPtr : route.path)
+	for (auto tilePtr : route.path)
 	{
-		auto& tile = *static_cast<Tile*>(tileVoidPtr);
+		auto& tile = *tilePtr;
 
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.
