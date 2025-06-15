@@ -35,7 +35,7 @@ namespace
 	}
 
 
-	Route findLowestCostRoute(std::vector<Route>& routeList)
+	Route findLowestCostRoute(const std::vector<Route>& routeList)
 	{
 		if (routeList.empty()) { return Route(); }
 
