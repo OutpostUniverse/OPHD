@@ -1,7 +1,7 @@
 #include "RouteFinder.h"
 
+#include "Route.h"
 #include "Tile.h"
-#include "../States/Route.h"
 #include "../StructureManager.h"
 
 #include <libOPHD/EnumTerrainType.h>

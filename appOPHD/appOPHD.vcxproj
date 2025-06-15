@@ -292,6 +292,7 @@
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\Connections.h" />
     <ClInclude Include="Map\MapView.h" />
+    <ClInclude Include="Map\Route.h" />
     <ClInclude Include="Map\RouteFinder.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
@@ -365,7 +366,6 @@
     <ClInclude Include="States\MapViewStateHelper.h" />
     <ClInclude Include="States\Planet.h" />
     <ClInclude Include="States\PlanetSelectState.h" />
-    <ClInclude Include="States\Route.h" />
     <ClInclude Include="States\SplashState.h" />
     <ClInclude Include="States\StructureTracker.h" />
     <ClInclude Include="States\Wrapper.h" />

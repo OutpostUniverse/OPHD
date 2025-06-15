@@ -12,8 +12,7 @@
 #include "../../StructureManager.h"
 #include "../../TruckAvailability.h"
 
-#include "../../States/Route.h"
-
+#include "../../Map/Route.h"
 #include "../../Map/Tile.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 

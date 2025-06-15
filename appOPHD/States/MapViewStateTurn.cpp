@@ -6,11 +6,11 @@
 #include "MapViewStateHelper.h"
 #include "ColonyShip.h"
 
-#include "Route.h"
 
 #include "../Map/Connections.h"
-#include "../Map/TileMap.h"
+#include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
+#include "../Map/TileMap.h"
 
 #include "../Cache.h"
 #include "../MoraleString.h"
