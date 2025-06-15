@@ -2,6 +2,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <algorithm>
+
 
 FoodProduction::FoodProduction(StructureClass structureClass, StructureID id) :
 	Structure(structureClass, id)
