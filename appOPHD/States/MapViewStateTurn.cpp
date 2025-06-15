@@ -87,6 +87,13 @@ namespace
 	}
 
 
+	Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+	{
+		auto routeList = findRoutes(solver, mineFacility, smelters);
+		auto newRoute = findLowestCostRoute(routeList);
+		return newRoute;
+	}
+
 	bool routeObstructed(Route& route)
 	{
 		for (auto tileVoidPtr : route.path)
@@ -286,8 +293,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver.get(), mineFacility, smelterList);
-			auto newRoute = findLowestCostRoute(routeList);
+			auto newRoute = findLowestCostRoute(mPathSolver.get(), mineFacility, smelterList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine facility.
 
