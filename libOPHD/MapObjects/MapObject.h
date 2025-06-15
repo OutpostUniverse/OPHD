@@ -1,6 +1,5 @@
 #pragma once
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Resource/Sprite.h>
 
 #include <string>
@@ -15,9 +14,6 @@
 class MapObject
 {
 public:
-	using DieSignal = NAS2D::Signal<MapObject*>;
-
-public:
 	MapObject(const std::string& name, const std::string& spritePath, const std::string& initialAction);
 	MapObject(const MapObject& thing) = delete;
 	MapObject& operator=(const MapObject& thing) = delete;
@@ -29,11 +25,9 @@ public:
 
 	bool isDead() const;
 	virtual void die();
-	DieSignal::Source& onDie();
 
 private:
 	std::string mName;
 	NAS2D::Sprite mSprite;
-	DieSignal mDieSignal;
 	bool mIsDead = false;
 };
