@@ -88,6 +88,14 @@ namespace
 	}
 
 
+	std::string roadAnimationName(const Road& road, const TileMap& tileMap)
+	{
+		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(&road).xy();
+		const auto surroundingTiles = getSurroundingRoads(tileMap, tileLocation);
+		return roadAnimationName(road.integrity(), surroundingTiles);
+	}
+
+
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
 		const auto foodLevel = producer.foodLevel();
@@ -590,11 +598,7 @@ void MapViewState::updateRoads()
 	for (auto* road : roads)
 	{
 		if (!road->operational()) { continue; }
-
-		const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(road).xy();
-		const auto surroundingTiles = getSurroundingRoads(*mTileMap, tileLocation);
-
-		road->sprite().play(roadAnimationName(road->integrity(), surroundingTiles));
+		road->sprite().play(roadAnimationName(*road, *mTileMap));
 	}
 }
 
