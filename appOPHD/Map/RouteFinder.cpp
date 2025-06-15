@@ -11,12 +11,12 @@
 
 namespace
 {
-	RouteList findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		auto& start = structureManager.tileFromStructure(mineFacility);
 
-		RouteList routeList;
+		std::vector<Route> routeList;
 
 		for (const auto* smelter : smelters)
 		{
@@ -35,7 +35,7 @@ namespace
 	}
 
 
-	Route findLowestCostRoute(RouteList& routeList)
+	Route findLowestCostRoute(std::vector<Route>& routeList)
 	{
 		if (routeList.empty()) { return Route(); }
 

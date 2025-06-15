@@ -10,5 +10,3 @@ struct Route
 	std::vector<void*> path;
 	float cost = 0.0f;
 };
-
-using RouteList = std::vector<Route>;
