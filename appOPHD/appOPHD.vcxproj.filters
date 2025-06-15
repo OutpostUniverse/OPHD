@@ -81,6 +81,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Map\Connections.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Map\MapView.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
@@ -382,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="IOHelper.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\Connections.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Map\MapView.h">
       <Filter>Header Files\Map</Filter>
