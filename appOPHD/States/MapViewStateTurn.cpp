@@ -10,6 +10,7 @@
 
 #include "../Map/Connections.h"
 #include "../Map/TileMap.h"
+#include "../Map/RouteFinder.h"
 
 #include "../Cache.h"
 #include "../MoraleString.h"
@@ -52,55 +53,6 @@ namespace
 			if (amountToConsume <= 0) { break; }
 			amountToConsume -= consumeFood(*foodProducer, amountToConsume);
 		}
-	}
-
-
-	RouteList findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
-	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		auto& start = structureManager.tileFromStructure(mineFacility);
-
-		RouteList routeList;
-
-		for (const auto* smelter : smelters)
-		{
-			if (!smelter->operational()) { continue; }
-
-			auto& end = structureManager.tileFromStructure(smelter);
-
-			Route route;
-			solver->Reset();
-			solver->Solve(&start, &end, &route.path, &route.cost);
-
-			if (!route.empty()) { routeList.push_back(route); }
-		}
-
-		return routeList;
-	}
-
-
-	Route findLowestCostRoute(RouteList& routeList)
-	{
-		if (routeList.empty()) { return Route(); }
-
-		std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
-		return routeList.front();
-	}
-
-
-	bool routeObstructed(Route& route)
-	{
-		for (auto tileVoidPtr : route.path)
-		{
-			auto& tile = *static_cast<Tile*>(tileVoidPtr);
-
-			// \note	Tile being occupied by a robot is not an obstruction for the
-			//			purposes of routing/pathing.
-			if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
-			if (tile.index() == TerrainType::Impassable) { return true; }
-		}
-
-		return false;
 	}
 
 
@@ -287,8 +239,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto routeList = findRoutes(mPathSolver.get(), mineFacility, smelterList);
-			auto newRoute = findLowestCostRoute(routeList);
+			auto newRoute = findLowestCostRoute(mPathSolver.get(), mineFacility, smelterList);
 
 			if (newRoute.empty()) { continue; } // give up and move on to the next mine facility.
 
