@@ -22,7 +22,6 @@ NAS2D::Sprite& MapObject::sprite()
 void MapObject::die()
 {
 	mIsDead = true;
-	mDieSignal(this);
 }
 
 
@@ -30,10 +29,4 @@ void MapObject::die()
 bool MapObject::isDead() const
 {
 	return mIsDead;
-}
-
-
-MapObject::DieSignal::Source& MapObject::onDie()
-{
-	return mDieSignal;
 }

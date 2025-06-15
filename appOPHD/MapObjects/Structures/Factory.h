@@ -4,6 +4,8 @@
 
 #include <libOPHD/EnumProductType.h>
 
+#include <NAS2D/Signal/Signal.h>
+
 
 struct ProductionCost;
 struct StorableResources;

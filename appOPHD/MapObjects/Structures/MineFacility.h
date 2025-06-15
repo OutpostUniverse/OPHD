@@ -2,6 +2,8 @@
 
 #include "../Structure.h"
 
+#include <NAS2D/Signal/Signal.h>
+
 
 struct StorableResources;
 class OreDeposit;
