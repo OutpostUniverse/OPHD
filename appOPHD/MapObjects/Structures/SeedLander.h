@@ -3,6 +3,7 @@
 #include "../Structure.h"
 
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Signal/Signal.h>
 
 
 class SeedLander : public Structure

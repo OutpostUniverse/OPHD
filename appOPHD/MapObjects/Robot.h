@@ -3,6 +3,7 @@
 #include <libOPHD/MapObjects/MapObject.h>
 
 #include <NAS2D/Dictionary.h>
+#include <NAS2D/Signal/Signal.h>
 
 
 class Tile;
