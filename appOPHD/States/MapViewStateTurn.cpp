@@ -83,8 +83,7 @@ namespace
 	{
 		if (routeList.empty()) { return Route(); }
 
-		std::sort(routeList.begin(), routeList.end(), [](const Route& a, const Route& b) { return a.cost < b.cost; });
-		return routeList.front();
+		return std::ranges::min(routeList, {}, [](const Route& a) { return a.cost; });
 	}
 
 
