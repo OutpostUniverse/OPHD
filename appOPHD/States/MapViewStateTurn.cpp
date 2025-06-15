@@ -60,17 +60,6 @@ namespace
 	};
 
 
-	std::string roadAnimationName(int integrity, const std::array<bool, 4>& surroundingTiles)
-	{
-		std::string tag = "";
-
-		if (integrity == 0) { tag = "-destroyed"; }
-		else if (integrity < constants::RoadIntegrityChange) { tag = "-decayed"; }
-
-		return IntersectionPatternTable.at(surroundingTiles) + tag;
-	}
-
-
 	auto getSurroundingRoads(const TileMap& tileMap, const NAS2D::Point<int>& tileLocation)
 	{
 		std::array<bool, 4> surroundingTiles{false, false, false, false};
@@ -85,6 +74,17 @@ namespace
 			surroundingTiles[i] = tile.structure()->structureId() == StructureID::SID_ROAD;
 		}
 		return surroundingTiles;
+	}
+
+
+	std::string roadAnimationName(int integrity, const std::array<bool, 4>& surroundingTiles)
+	{
+		std::string tag = "";
+
+		if (integrity == 0) { tag = "-destroyed"; }
+		else if (integrity < constants::RoadIntegrityChange) { tag = "-decayed"; }
+
+		return IntersectionPatternTable.at(surroundingTiles) + tag;
 	}
 
 
