@@ -186,6 +186,7 @@
     <ClCompile Include="GraphWalker.cpp" />
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map\Connections.cpp" />
     <ClCompile Include="Map\MapView.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="Constants\UiConstants.h" />
     <ClInclude Include="GraphWalker.h" />
     <ClInclude Include="IOHelper.h" />
+    <ClInclude Include="Map\Connections.h" />
     <ClInclude Include="Map\MapView.h" />
     <ClInclude Include="Map\Tile.h" />
     <ClInclude Include="Map\TileMap.h" />
