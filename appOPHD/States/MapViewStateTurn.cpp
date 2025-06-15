@@ -241,7 +241,7 @@ void MapViewState::findMineRoutes()
 		{
 			auto newRoute = findLowestCostRoute(mPathSolver.get(), mineFacility, smelterList);
 
-			if (newRoute.empty()) { continue; } // give up and move on to the next mine facility.
+			if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
 
 			routeTable[mineFacility] = newRoute;
 

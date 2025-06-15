@@ -28,7 +28,7 @@ namespace
 			solver->Reset();
 			solver->Solve(&start, &end, &route.path, &route.cost);
 
-			if (!route.empty()) { routeList.push_back(route); }
+			if (!route.isEmpty()) { routeList.push_back(route); }
 		}
 
 		return routeList;
