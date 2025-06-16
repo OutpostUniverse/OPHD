@@ -59,6 +59,7 @@ bool TextField::isEmpty() const
 void TextField::clear()
 {
 	mText.clear();
+	onTextChange();
 }
 
 
