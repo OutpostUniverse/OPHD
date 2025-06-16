@@ -49,15 +49,13 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	txtCheatCode{maxCheatLength},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
-	size({300, 88});
+	btnOkay.size(btnOkay.size() + NAS2D::Vector{6, 2});
 
-	mLabelCheatCode.size({30, 20});
-	btnOkay.size({40, 20});
-	txtCheatCode.size({150, 20});
+	add(mLabelCheatCode, {10, 34});
+	add(txtCheatCode, {mLabelCheatCode.area().endPoint().x + 6, 34});
+	add(btnOkay, {txtCheatCode.area().endPoint().x + 6, 34});
 
-	add(mLabelCheatCode, {5, 34});
-	add(btnOkay, {240, 34});
-	add(txtCheatCode, {40, 34});
+	size({btnOkay.area().endPoint().x + 10, 88});
 }
 
 
