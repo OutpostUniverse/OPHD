@@ -70,12 +70,12 @@ protected:
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
 
-private:
 	void drawCursor() const;
 	void updateScrollPosition();
 
 	int textAreaWidth() const;
 
+private:
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;
