@@ -51,11 +51,12 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 {
 	btnOkay.size(btnOkay.size() + NAS2D::Vector{6, 2});
 
-	add(mLabelCheatCode, {10, 34});
-	add(txtCheatCode, {mLabelCheatCode.area().endPoint().x + 6, 34});
-	add(btnOkay, {txtCheatCode.area().endPoint().x + 6, 34});
+	const auto positionY = sWindowTitleBarHeight + 10;
+	add(mLabelCheatCode, {10, positionY});
+	add(txtCheatCode, {mLabelCheatCode.area().endPoint().x + 6, positionY});
+	add(btnOkay, {txtCheatCode.area().endPoint().x + 6, positionY});
 
-	size({btnOkay.area().endPoint().x + 10, 88});
+	size({btnOkay.area().endPoint().x + 10, positionY + txtCheatCode.size().y + 10});
 }
 
 
