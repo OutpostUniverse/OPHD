@@ -62,12 +62,12 @@ void GameOptionsDialog::onHelp()
 	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 }
 
-void GameOptionsDialog::onContinue()
-{
-	mSignalReturn();
-}
-
 void GameOptionsDialog::onExit()
 {
 	mSignalClose();
+}
+
+void GameOptionsDialog::onContinue()
+{
+	mSignalReturn();
 }
