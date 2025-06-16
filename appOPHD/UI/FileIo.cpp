@@ -12,7 +12,6 @@
 #include <NAS2D/EnumKeyCode.h>
 
 #include <string>
-#include <vector>
 #include <algorithm>
 
 
