@@ -2,7 +2,7 @@
 
 #include "TextControl.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -29,7 +29,6 @@ public:
 		NAS2D::RectangleSkin pressed;
 	};
 
-	using ClickSignal = NAS2D::Signal<>;
 	using ClickDelegate = NAS2D::Delegate<void()>;
 
 	Button(std::string newText = "");
@@ -61,7 +60,7 @@ private:
 	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
 	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
 
-	ClickSignal mSignal; /**< Object to notify when the Button is activated. */
+	ClickDelegate mClickHandler; /**< Object to notify when the Button is activated. */
 
 	Type mType = Type::Push; /**< Modifies Button behavior. */
 	bool mIsPressed = false; /**< Current state of the Button. */

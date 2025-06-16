@@ -40,7 +40,7 @@ Button::Button(std::string newText) :
 
 Button::Button(std::string newText, ClickDelegate clickHandler) : Button(newText)
 {
-	mSignal.connect(clickHandler);
+	mClickHandler = clickHandler;
 }
 
 
@@ -55,14 +55,14 @@ Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) : Button()
 {
 	mImage = &image;
 	size(mImage->size() + internalPadding * 2);
-	mSignal.connect(clickHandler);
+	mClickHandler = clickHandler;
 }
 
 
 Button::Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler) :
 	mButtonSkin{buttonSkin}
 {
-	mSignal.connect(clickHandler);
+	mClickHandler = clickHandler;
 }
 
 
@@ -123,7 +123,7 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	else
 	{
 		mIsPressed = !mIsPressed;
-		mSignal();
+		if (mClickHandler) { mClickHandler(); }
 	}
 }
 
@@ -139,7 +139,7 @@ void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 
 		if (mRect.contains(position))
 		{
-			mSignal();
+			if (mClickHandler) { mClickHandler(); }
 		}
 	}
 }
