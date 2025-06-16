@@ -120,7 +120,7 @@ void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
 
 	if (mListBox.area().contains(position))
 	{
-		if (mListBox.isItemSelected() && !mFileName.empty())
+		if (mListBox.isItemSelected() && !mFileName.isEmpty())
 		{
 			onFileIo();
 		}
@@ -137,7 +137,7 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 
 	if (key == KeyCode::Enter || key == KeyCode::KeypadEnter)
 	{
-		if (!mFileName.empty())
+		if (!mFileName.isEmpty())
 		{
 			onFileIo();
 		}

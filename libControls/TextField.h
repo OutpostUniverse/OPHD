@@ -52,7 +52,7 @@ public:
 	void editable(bool editable);
 	bool editable() const;
 
-	bool empty() const { return text().empty(); }
+	bool isEmpty() const { return text().empty(); }
 	void clear() { mText.clear(); }
 
 	void border(BorderVisibility visibility);
