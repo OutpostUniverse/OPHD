@@ -120,7 +120,7 @@ void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
 
 	if (mListBox.area().contains(position))
 	{
-		if (mListBox.isItemSelected() && !mFileName.empty())
+		if (mListBox.isItemSelected() && !mFileName.isEmpty())
 		{
 			onFileIo();
 		}
@@ -137,7 +137,7 @@ void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
 
 	if (key == KeyCode::Enter || key == KeyCode::KeypadEnter)
 	{
-		if (!mFileName.empty())
+		if (!mFileName.isEmpty())
 		{
 			onFileIo();
 		}
@@ -188,8 +188,7 @@ void FileIo::onFileNameChange(TextControl* control)
 void FileIo::onClose()
 {
 	visible(false);
-	mFileName.text("");
-	mFileName.resetCursorPosition();
+	mFileName.clear();
 }
 
 
@@ -204,8 +203,7 @@ void FileIo::onFileIo()
 	{
 		mFileLoadDelegate(mFileName.text());
 	}
-	mFileName.text("");
-	mFileName.resetCursorPosition();
+	mFileName.clear();
 	mFileOperation.enabled(false);
 }
 
@@ -226,8 +224,7 @@ void FileIo::onFileDelete()
 		doNonFatalErrorMessage("Delete Failed", e.what());
 	}
 
-	mFileName.text("");
-	mFileName.resetCursorPosition();
+	mFileName.clear();
 	mDeleteFile.enabled(false);
 	scanDirectory(constants::SaveGamePath);
 }

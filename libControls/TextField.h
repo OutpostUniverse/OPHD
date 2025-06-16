@@ -9,14 +9,18 @@
 
 #include "TextControl.h"
 
-#include <NAS2D/EventHandler.h>
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 
 namespace NAS2D
 {
+	enum class KeyModifier : uint16_t;
+	enum class KeyCode : uint32_t;
+	enum class MouseButton;
+
+	template <typename BaseType> struct Point;
+
 	class Font;
 }
 
@@ -45,48 +49,44 @@ public:
 	TextField(std::size_t maxCharacters = 0);
 	~TextField() override;
 
-	void editable(bool editable);
-	bool editable() const;
-
-	bool empty() const { return text().empty(); }
-	void clear() { mText.clear(); }
+	bool isEmpty() const;
+	void clear();
 
 	void border(BorderVisibility visibility);
-	void resetCursorPosition();
-	void numbers_only(bool);
-
+	void editable(bool editable);
+	bool editable() const;
+	void numbersOnly(bool);
 	void maxCharacters(std::size_t count);
 
 	void update() override;
 
 protected:
+	void updateScrollPosition();
+	int textAreaWidth() const;
+
 	void draw() const override;
+	void drawCursor() const;
 
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
 
 private:
-	void drawCursor() const;
-	void updateScrollPosition();
-
-	int textAreaWidth() const;
-
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;
 
-	NAS2D::Timer mCursorTimer; /**< Timer for the cursor blink. */
+	NAS2D::Timer mCursorBlinkTimer;
 
-	std::size_t mCursorPosition = 0; /**< Position of the Insertion Cursor. */
-	int mCursorX = 0; /**< Pixel position of the Cursor. */
-	int mScrollOffset = 0; /**< Scroller offset. */
+	std::size_t mCursorCharacterPosition = 0;
+	int mCursorPixelX = 0;
+	int mScrollOffsetPixelX = 0;
 
-	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
+	std::size_t mMaxCharacters = 0;
 
-	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly; /**< Border visibility flag. */
+	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly;
 
-	bool mEditable = true; /**< Toggle editing of the field. */
-	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */
-	bool mNumbersOnly = false; /**< Flag indicating that only numerals should be used */
+	bool mEditable = true;
+	bool mShowCursor = true;
+	bool mNumbersOnly = false;
 };
