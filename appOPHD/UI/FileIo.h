@@ -7,7 +7,9 @@
 #include <libControls/Label.h>
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
+#include <NAS2D/EnumMouseButton.h>
+#include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/EnumKeyModifier.h>
 #include <NAS2D/Math/Point.h>
 
 
