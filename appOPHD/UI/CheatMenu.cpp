@@ -52,12 +52,11 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	size({300, 88});
 
 	mLabelCheatCode.size({30, 20});
-	add(mLabelCheatCode, {5, 34});
-
 	btnOkay.size({40, 20});
-	add(btnOkay, {240, 34});
-
 	txtCheatCode.size({150, 20});
+
+	add(mLabelCheatCode, {5, 34});
+	add(btnOkay, {240, 34});
 	add(txtCheatCode, {40, 34});
 }
 
