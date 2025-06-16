@@ -216,7 +216,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 	// Figure out where the click occured within the visible string.
 	std::size_t i = 0;
-	const auto scrollOffset = static_cast<std::size_t>(mScrollOffset);
+	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
 	while(i <= text().size() - scrollOffset)
 	{
 		std::string cmpStr = text().substr(scrollOffset, i);
@@ -256,23 +256,23 @@ void TextField::updateScrollPosition()
 	int cursorX = mFont.width(text().substr(0, mCursorPosition));
 
 	// Check if cursor is after visible area
-	if (mScrollOffset <= cursorX - textAreaWidth())
+	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
 	{
-		mScrollOffset = cursorX - textAreaWidth();
+		mScrollOffsetPixelX = cursorX - textAreaWidth();
 	}
 
 	// Check if cursor is before visible area
-	if (mScrollOffset >= cursorX)
+	if (mScrollOffsetPixelX >= cursorX)
 	{
-		mScrollOffset = cursorX - textAreaWidth() / 2;
+		mScrollOffsetPixelX = cursorX - textAreaWidth() / 2;
 	}
 
-	if (mScrollOffset < 0)
+	if (mScrollOffsetPixelX < 0)
 	{
-		mScrollOffset = 0;
+		mScrollOffsetPixelX = 0;
 	}
 
-	mCursorPixelX = mRect.position.x + fieldPadding + cursorX - mScrollOffset;
+	mCursorPixelX = mRect.position.x + fieldPadding + cursorX - mScrollOffsetPixelX;
 }
 
 

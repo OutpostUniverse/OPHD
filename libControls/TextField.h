@@ -84,7 +84,7 @@ private:
 
 	std::size_t mCursorPosition = 0; /**< Position of the Insertion Cursor. */
 	int mCursorPixelX = 0; /**< Pixel position of the Cursor. */
-	int mScrollOffset = 0; /**< Scroller offset. */
+	int mScrollOffsetPixelX = 0; /**< Scroller offset. */
 
 	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
 
