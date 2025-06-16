@@ -2,6 +2,9 @@
 
 #include <libOPHD/XmlSerializer.h>
 
+#include <algorithm>
+#include <ranges>
+
 
 namespace
 {
@@ -34,6 +37,8 @@ namespace
 		{"dropretirees", CheatMenu::CheatCode::RemoveRetired},     // Remove ten retired colonists from the population
 		{"beepboop", CheatMenu::CheatCode::AddRobots}              // Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
+
+	static const auto maxCheatLength = std::ranges::max(std::views::transform(std::views::keys(cheatCodeTable), &std::string::size));
 }
 
 
@@ -52,7 +57,7 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	add(btnOkay, {240, 34});
 
 	txtCheatCode.size({150, 20});
-	txtCheatCode.maxCharacters(50);
+	txtCheatCode.maxCharacters(maxCheatLength);
 	add(txtCheatCode, {40, 34});
 }
 
