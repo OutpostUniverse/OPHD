@@ -10,12 +10,12 @@ GameOptionsDialog::GameOptionsDialog() :
 	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},
 	btnLoad{"Load Game", {this, &GameOptionsDialog::onLoad}},
 	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
-	btnContinue{"Continue Playing", {this, &GameOptionsDialog::onReturn}},
-	btnExit{"Exit to Main Menu", {this, &GameOptionsDialog::onClose}}
+	btnExit{"Exit to Main Menu", {this, &GameOptionsDialog::onClose}},
+	btnContinue{"Continue Playing", {this, &GameOptionsDialog::onReturn}}
 {
 	position({0, 0});
 
-	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnContinue, &btnExit};
+	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnExit, &btnContinue};
 	auto position = mRect.position + NAS2D::Vector{buttonHorizontalMargin, buttonHeight};
 	for (auto button : buttons)
 	{
@@ -35,8 +35,8 @@ void GameOptionsDialog::onEnableChange()
 	btnSave.enabled(enabled());
 	btnLoad.enabled(enabled());
 	btnHelp.enabled(enabled());
-	btnContinue.enabled(enabled());
 	btnExit.enabled(enabled());
+	btnContinue.enabled(enabled());
 }
 
 
