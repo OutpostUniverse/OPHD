@@ -30,12 +30,13 @@ public:
 	};
 
 	using ClickSignal = NAS2D::Signal<>;
+	using ClickDelegate = NAS2D::Delegate<void()>;
 
 	Button(std::string newText = "");
-	Button(std::string newText, ClickSignal::DelegateType clickHandler);
-	Button(std::string text, NAS2D::Vector<int> size, ClickSignal::DelegateType clickHandler);
-	Button(const NAS2D::Image& image, ClickSignal::DelegateType clickHandler);
-	Button(const ButtonSkin& buttonSkin, ClickSignal::DelegateType clickHandler);
+	Button(std::string newText, ClickDelegate clickHandler);
+	Button(std::string text, NAS2D::Vector<int> size, ClickDelegate clickHandler);
+	Button(const NAS2D::Image& image, ClickDelegate clickHandler);
+	Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler);
 	~Button() override;
 
 	void type(Type type);
