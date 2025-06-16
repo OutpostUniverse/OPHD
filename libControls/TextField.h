@@ -57,7 +57,7 @@ public:
 
 	void border(BorderVisibility visibility);
 	void resetCursorPosition();
-	void numbers_only(bool);
+	void numbersOnly(bool);
 
 	void maxCharacters(std::size_t count);
 

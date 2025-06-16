@@ -61,7 +61,7 @@ void TextField::resetCursorPosition()
  * 
  * \param isNumbersOnly True or False.
  */
-void TextField::numbers_only(bool isNumbersOnly)
+void TextField::numbersOnly(bool isNumbersOnly)
 {
 	mNumbersOnly = isNumbersOnly;
 }
