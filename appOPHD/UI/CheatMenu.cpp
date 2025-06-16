@@ -57,6 +57,8 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	add(btnOkay, {txtCheatCode.area().endPoint().x + 6, positionY});
 
 	size({btnOkay.area().endPoint().x + 10, positionY + txtCheatCode.size().y + 10});
+	// Transfer focus to text field
+	bringToFront(&txtCheatCode);
 }
 
 
@@ -65,7 +67,8 @@ void CheatMenu::onOkay()
 	if (mCheatHandler) { mCheatHandler(txtCheatCode.text()); }
 	txtCheatCode.clear();
 	hide();
-
+	// Transfer focus back to text field (from "Okay" button)
+	bringToFront(&txtCheatCode);
 }
 
 
