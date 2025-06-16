@@ -2,7 +2,6 @@
 
 #include <libOPHD/XmlSerializer.h>
 
-using namespace NAS2D;
 
 namespace
 {
@@ -38,8 +37,9 @@ namespace
 }
 
 
-CheatMenu::CheatMenu() :
+CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	Window{"Cheating"},
+	mCheatHandler{cheatHandler},
 	mLabelCheatCode{"Code:"},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
@@ -59,7 +59,7 @@ CheatMenu::CheatMenu() :
 
 void CheatMenu::onOkay()
 {
-	mSignal(txtCheatCode.text());
+	if (mCheatHandler) { mCheatHandler(txtCheatCode.text()); }
 	txtCheatCode.clear();
 	hide();
 

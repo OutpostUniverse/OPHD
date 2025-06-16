@@ -57,7 +57,6 @@ void MapViewState::initUi()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	mCheatMenu.cheatCodeEntered().connect({this, &MapViewState::onCheatCodeEntry});
 	mCheatMenu.hide();
 
 	mDiggerDirection.directionSelected().connect({this, &MapViewState::onDiggerSelectionDialog});
