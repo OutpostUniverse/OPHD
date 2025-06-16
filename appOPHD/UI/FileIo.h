@@ -6,7 +6,6 @@
 #include <libControls/ListBox.h>
 #include <libControls/Label.h>
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
