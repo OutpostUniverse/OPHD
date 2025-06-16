@@ -38,7 +38,7 @@ namespace
 }
 
 
-CheatMenu::CheatMenu() :
+CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	Window{"Cheating"},
 	mLabelCheatCode{"Code:"},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
@@ -54,6 +54,8 @@ CheatMenu::CheatMenu() :
 	txtCheatCode.size({150, 20});
 	txtCheatCode.maxCharacters(50);
 	add(txtCheatCode, {40, 34});
+
+	if (cheatHandler) { mSignal.connect(cheatHandler); }
 }
 
 

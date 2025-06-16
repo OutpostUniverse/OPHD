@@ -31,8 +31,9 @@ public:
 	};
 
 	using CheatSignal = NAS2D::Signal<const std::string&>;
+	using CheatDelegate = NAS2D::Delegate<void(const std::string&)>;
 
-	CheatMenu();
+	CheatMenu(CheatDelegate cheatHandler = {});
 
 	void onOkay();
 	void update() override;
