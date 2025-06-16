@@ -111,7 +111,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 {
 	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
 
-	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
+	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
 
 	auto prvLen = text().length();
 
