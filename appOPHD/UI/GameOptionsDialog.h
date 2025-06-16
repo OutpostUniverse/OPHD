@@ -18,11 +18,12 @@ public:
 
 	void update() override;
 
-private:
+protected:
 	void onHelp();
 
 	void onEnableChange() override;
 
+private:
 	Button btnSave;
 	Button btnLoad;
 	Button btnHelp;
