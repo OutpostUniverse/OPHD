@@ -7,34 +7,26 @@
 class GameOptionsDialog : public Window
 {
 public:
-	using ClickSignal = NAS2D::Signal<>;
+	using ClickHandler = NAS2D::Delegate<void()>;
 
-	GameOptionsDialog();
+	GameOptionsDialog(
+		ClickHandler saveClickHandler,
+		ClickHandler loadClickHandler,
+		ClickHandler exitClickHandler,
+		ClickHandler continueClickHandler
+	);
 
 	void update() override;
 
-	ClickSignal::Source& saveGameDialogButtonSignal() { return mSignalSaveDialog; }
-	ClickSignal::Source& loadGameDialogButtonSignal() { return mSignalLoadDialog; }
-	ClickSignal::Source& exitToMainMenuButtonSignal() { return mSignalExit; }
-	ClickSignal::Source& continuePlayingButtonSignal() { return mSignalContinue; }
-
-private:
-	void onSave();
-	void onLoad();
+protected:
 	void onHelp();
-	void onExit();
-	void onContinue();
 
 	void onEnableChange() override;
 
+private:
 	Button btnSave;
 	Button btnLoad;
 	Button btnHelp;
 	Button btnExit;
 	Button btnContinue;
-
-	ClickSignal mSignalSaveDialog;
-	ClickSignal mSignalLoadDialog;
-	ClickSignal mSignalExit;
-	ClickSignal mSignalContinue;
 };

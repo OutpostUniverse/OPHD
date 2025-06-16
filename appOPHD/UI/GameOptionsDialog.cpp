@@ -12,13 +12,18 @@ namespace
 }
 
 
-GameOptionsDialog::GameOptionsDialog() :
+GameOptionsDialog::GameOptionsDialog(
+	ClickHandler saveClickHandler,
+	ClickHandler loadClickHandler,
+	ClickHandler exitClickHandler,
+	ClickHandler continueClickHandler
+) :
 	Window{constants::WindowSystemTitle},
-	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},
-	btnLoad{"Load Game", {this, &GameOptionsDialog::onLoad}},
+	btnSave{"Save Game", saveClickHandler},
+	btnLoad{"Load Game", loadClickHandler},
 	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
-	btnExit{"Exit to Main Menu", {this, &GameOptionsDialog::onExit}},
-	btnContinue{"Continue Playing", {this, &GameOptionsDialog::onContinue}}
+	btnExit{"Exit to Main Menu", exitClickHandler},
+	btnContinue{"Continue Playing", continueClickHandler}
 {
 	position({0, 0});
 
@@ -54,27 +59,7 @@ void GameOptionsDialog::update()
 	Window::update();
 }
 
-void GameOptionsDialog::onSave()
-{
-	mSignalSaveDialog();
-}
-
-void GameOptionsDialog::onLoad()
-{
-	mSignalLoadDialog();
-}
-
 void GameOptionsDialog::onHelp()
 {
 	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
-}
-
-void GameOptionsDialog::onExit()
-{
-	mSignalExit();
-}
-
-void GameOptionsDialog::onContinue()
-{
-	mSignalContinue();
 }
