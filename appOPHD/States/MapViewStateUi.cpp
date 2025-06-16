@@ -113,19 +113,6 @@ void MapViewState::initUi()
 
 	// BUTTONS
 
-	mBtnTurns.image("ui/icons/turns.png");
-	mBtnTurns.click().connect({this, &MapViewState::onTurns});
-	mBtnToggleHeightmap.image("ui/icons/height.png");
-	mBtnToggleHeightmap.click().connect({this, &MapViewState::onToggleHeightmap});
-	mBtnToggleConnectedness.image("ui/icons/connection.png");
-	mBtnToggleConnectedness.click().connect({this, &MapViewState::onToggleConnectedness});
-	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
-	mBtnToggleCommRangeOverlay.click().connect({this, &MapViewState::onToggleCommRangeOverlay});
-	mBtnToggleRouteOverlay.image("ui/icons/route.png");
-	mBtnToggleRouteOverlay.click().connect({this, &MapViewState::onToggleRouteOverlay});
-	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
-	mBtnTogglePoliceOverlay.click().connect({this, &MapViewState::onTogglePoliceOverlay});
-
 	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnTurns.size(constants::MainButtonSize);
 	mBtnTurns.enabled(false);
