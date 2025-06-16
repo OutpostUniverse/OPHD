@@ -35,8 +35,8 @@ private:
 	Button btnSave;
 	Button btnLoad;
 	Button btnHelp;
-	Button btnReturn;
-	Button btnClose;
+	Button btnContinue;
+	Button btnExit;
 
 	ClickSignal mSignalSaveDialog;
 	ClickSignal mSignalLoadDialog;
