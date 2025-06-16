@@ -7,7 +7,6 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Signal/Signal.h>
 
 #include <string>
 
@@ -24,13 +23,10 @@ public:
 
 	void update() override;
 
-	using TitleChangeSignal = NAS2D::Signal<Window*>;
-
 	void title(const std::string& title);
 	const std::string& title() const { return mTitle; }
-	TitleChangeSignal::Source& titleChanged() { return mTitleChanged; }
 
-	virtual void onTitleChanged() { mTitleChanged(this); }
+	virtual void onTitleChanged() {}
 
 protected:
 	void draw() const override;
@@ -47,8 +43,6 @@ private:
 	const NAS2D::Image& mTitleBarCenter;
 	const NAS2D::Image& mTitleBarRight;
 	NAS2D::RectangleSkin mBody;
-
-	TitleChangeSignal mTitleChanged;
 
 	std::string mTitle;
 
