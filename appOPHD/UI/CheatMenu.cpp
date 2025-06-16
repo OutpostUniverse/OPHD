@@ -46,6 +46,7 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	Window{"Cheating"},
 	mCheatHandler{cheatHandler},
 	mLabelCheatCode{"Code:"},
+	txtCheatCode{maxCheatLength},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
 	size({300, 88});
@@ -57,7 +58,6 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	add(btnOkay, {240, 34});
 
 	txtCheatCode.size({150, 20});
-	txtCheatCode.maxCharacters(maxCheatLength);
 	add(txtCheatCode, {40, 34});
 }
 
