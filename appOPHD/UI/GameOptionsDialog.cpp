@@ -5,6 +5,15 @@
 #include <array>
 
 
+namespace
+{
+	const int buttonHeight = 25;
+	const int buttonWidth = 200;
+	const int buttonHorizontalMargin = 5;
+	const int buttonVerticalMargin = 3;
+}
+
+
 GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WindowSystemTitle},
 	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},

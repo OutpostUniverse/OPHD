@@ -19,11 +19,6 @@ public:
 	ClickSignal::Source& continuePlayingButtonSignal() { return mSignalContinue; }
 
 private:
-	const int buttonHeight = 25;
-	const int buttonWidth = 200;
-	const int buttonHorizontalMargin = 5;
-	const int buttonVerticalMargin = 3;
-
 	void onSave();
 	void onLoad();
 	void onHelp();
