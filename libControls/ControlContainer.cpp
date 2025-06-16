@@ -1,6 +1,7 @@
 #include "ControlContainer.h"
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 
 #include <algorithm>
 #include <stdexcept>

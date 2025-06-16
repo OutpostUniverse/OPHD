@@ -4,7 +4,7 @@
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/EventHandler.h>
+#include <NAS2D/EnumMouseButton.h>
 
 #include <vector>
 
