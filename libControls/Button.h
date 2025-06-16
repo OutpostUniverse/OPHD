@@ -48,8 +48,6 @@ public:
 	void image(const std::string& path);
 	bool hasImage() const;
 
-	ClickSignal::Source& click() { return mSignal; }
-
 protected:
 	void draw() const override;
 
