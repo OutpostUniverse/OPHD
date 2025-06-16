@@ -24,17 +24,18 @@ namespace
 }
 
 
-TextField::TextField() :
+TextField::TextField(std::size_t maxCharacters) :
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
-	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")}
+	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
+	mMaxCharacters{maxCharacters}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
 	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
-	height(mFont.height() + fieldPadding * 2);
+	size({mFont.width("W") * static_cast<int>(maxCharacters) + fieldPadding * 2, mFont.height() + fieldPadding * 2});
 }
 
 
@@ -111,7 +112,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 {
 	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
 
-	if (mMaxCharacters > 0 && text().length() == mMaxCharacters) { return; }
+	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
 
 	auto prvLen = text().length();
 
