@@ -7,11 +7,11 @@
 
 GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WindowSystemTitle},
-	btnSave{"Save current game", {this, &GameOptionsDialog::onSave}},
-	btnLoad{"Load a saved game", {this, &GameOptionsDialog::onLoad}},
+	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},
+	btnLoad{"Load Game", {this, &GameOptionsDialog::onLoad}},
 	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
-	btnReturn{"Return to current game", {this, &GameOptionsDialog::onReturn}},
-	btnClose{"Return to Main Menu", {this, &GameOptionsDialog::onClose}}
+	btnReturn{"Continue Playing", {this, &GameOptionsDialog::onReturn}},
+	btnClose{"Exit to Main Menu", {this, &GameOptionsDialog::onClose}}
 {
 	position({0, 0});
 
