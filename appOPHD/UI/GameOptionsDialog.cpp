@@ -64,10 +64,10 @@ void GameOptionsDialog::onHelp()
 
 void GameOptionsDialog::onExit()
 {
-	mSignalClose();
+	mSignalExit();
 }
 
 void GameOptionsDialog::onContinue()
 {
-	mSignalReturn();
+	mSignalContinue();
 }

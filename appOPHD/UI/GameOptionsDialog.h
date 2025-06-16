@@ -15,8 +15,8 @@ public:
 
 	ClickSignal::Source& saveGameDialogButtonSignal() { return mSignalSaveDialog; }
 	ClickSignal::Source& loadGameDialogButtonSignal() { return mSignalLoadDialog; }
-	ClickSignal::Source& returnToGameButtonSignal() { return mSignalReturn; }
-	ClickSignal::Source& returnToMainMenuButtonSignal() { return mSignalClose; }
+	ClickSignal::Source& returnToGameButtonSignal() { return mSignalContinue; }
+	ClickSignal::Source& returnToMainMenuButtonSignal() { return mSignalExit; }
 
 private:
 	const int buttonHeight = 25;
@@ -40,6 +40,6 @@ private:
 
 	ClickSignal mSignalSaveDialog;
 	ClickSignal mSignalLoadDialog;
-	ClickSignal mSignalReturn;
-	ClickSignal mSignalClose;
+	ClickSignal mSignalContinue;
+	ClickSignal mSignalExit;
 };
