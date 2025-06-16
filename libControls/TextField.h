@@ -80,17 +80,17 @@ private:
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;
 
-	NAS2D::Timer mCursorBlinkTimer; /**< Timer for the cursor blink. */
+	NAS2D::Timer mCursorBlinkTimer;
 
-	std::size_t mCursorCharacterPosition = 0; /**< Position of the Insertion Cursor. */
-	int mCursorPixelX = 0; /**< Pixel position of the Cursor. */
-	int mScrollOffsetPixelX = 0; /**< Scroller offset. */
+	std::size_t mCursorCharacterPosition = 0;
+	int mCursorPixelX = 0;
+	int mScrollOffsetPixelX = 0;
 
-	std::size_t mMaxCharacters = 0; /**< Max number of characters allowed in the text field. */
+	std::size_t mMaxCharacters = 0;
 
-	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly; /**< Border visibility flag. */
+	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly;
 
-	bool mEditable = true; /**< Toggle editing of the field. */
-	bool mShowCursor = true; /**< Flag indicating whether or not to draw the cursor. */
-	bool mNumbersOnly = false; /**< Flag indicating that only numerals should be used */
+	bool mEditable = true;
+	bool mShowCursor = true;
+	bool mNumbersOnly = false;
 };
