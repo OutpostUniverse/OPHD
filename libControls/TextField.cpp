@@ -50,9 +50,24 @@ TextField::~TextField()
 }
 
 
-void TextField::resetCursorPosition()
+/**
+ * Sets border visibility.
+ */
+void TextField::border(BorderVisibility visibility)
 {
-	mCursorCharacterPosition = 0;
+	mBorderVisibility = visibility;
+}
+
+
+void TextField::editable(bool editable)
+{
+	mEditable = editable;
+}
+
+
+bool TextField::editable() const
+{
+	return mEditable;
 }
 
 
@@ -80,53 +95,76 @@ void TextField::maxCharacters(std::size_t count)
 }
 
 
-int TextField::textAreaWidth() const
+void TextField::resetCursorPosition()
 {
-	return mRect.size.x - fieldPadding * 2;
+	mCursorCharacterPosition = 0;
 }
 
 
-void TextField::editable(bool editable)
+void TextField::update()
 {
-	mEditable = editable;
-}
+	if (!visible()) { return; }
 
+	// Should be called only on events relating to the cursor so this is temporary.
+	updateScrollPosition();
 
-bool TextField::editable() const
-{
-	return mEditable;
-}
-
-
-/**
- * Sets border visibility.
- */
-void TextField::border(BorderVisibility visibility)
-{
-	mBorderVisibility = visibility;
-}
-
-
-/**
- * Handles text input events.
- */
-void TextField::onTextInput(const std::string& newTextInput)
-{
-	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
-
-	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
-
-	auto prvLen = text().length();
-
-	std::locale locale;
-	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
-
-	mText = mText.insert(mCursorCharacterPosition, newTextInput);
-
-	if (text().length() - prvLen != 0u)
+	if (mCursorBlinkTimer.elapsedTicks() > cursorBlinkDelay)
 	{
-		onTextChange();
-		mCursorCharacterPosition++;
+		mCursorBlinkTimer.reset();
+		mShowCursor = !mShowCursor;
+	}
+
+	draw();
+}
+
+
+void TextField::draw() const
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	const auto showFocused = hasFocus() && editable();
+	const auto& skin = showFocused ? mSkinFocus : mSkinNormal;
+	skin.draw(renderer, mRect);
+
+	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::Yellow); }
+
+	drawCursor();
+
+	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+}
+
+
+void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
+{
+	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
+
+	if (!enabled() || !visible()) { return; }
+
+	int relativePosition = position.x - mRect.position.x;
+
+	// If the click occured past the width of the text, we can immediatly
+	// set the position to the end and move on.
+	if (mFont.width(text()) < relativePosition)
+	{
+		mCursorCharacterPosition = text().size();
+		return;
+	}
+
+
+	// Figure out where the click occured within the visible string.
+	std::size_t i = 0;
+	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
+	while(i <= text().size() - scrollOffset)
+	{
+		std::string cmpStr = text().substr(scrollOffset, i);
+		int strLen = mFont.width(cmpStr);
+		if (strLen > relativePosition)
+		{
+			mCursorCharacterPosition = i - 1;
+			break;
+		}
+
+		i++;
 	}
 }
 
@@ -197,37 +235,26 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 }
 
 
-void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
+/**
+ * Handles text input events.
+ */
+void TextField::onTextInput(const std::string& newTextInput)
 {
-	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
+	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
 
-	if (!enabled() || !visible()) { return; }
+	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
 
-	int relativePosition = position.x - mRect.position.x;
+	auto prvLen = text().length();
 
-	// If the click occured past the width of the text, we can immediatly
-	// set the position to the end and move on.
-	if (mFont.width(text()) < relativePosition)
+	std::locale locale;
+	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
+
+	mText = mText.insert(mCursorCharacterPosition, newTextInput);
+
+	if (text().length() - prvLen != 0u)
 	{
-		mCursorCharacterPosition = text().size();
-		return;
-	}
-
-
-	// Figure out where the click occured within the visible string.
-	std::size_t i = 0;
-	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
-	while(i <= text().size() - scrollOffset)
-	{
-		std::string cmpStr = text().substr(scrollOffset, i);
-		int strLen = mFont.width(cmpStr);
-		if (strLen > relativePosition)
-		{
-			mCursorCharacterPosition = i - 1;
-			break;
-		}
-
-		i++;
+		onTextChange();
+		mCursorCharacterPosition++;
 	}
 }
 
@@ -276,34 +303,7 @@ void TextField::updateScrollPosition()
 }
 
 
-void TextField::update()
+int TextField::textAreaWidth() const
 {
-	if (!visible()) { return; }
-
-	// Should be called only on events relating to the cursor so this is temporary.
-	updateScrollPosition();
-
-	if (mCursorBlinkTimer.elapsedTicks() > cursorBlinkDelay)
-	{
-		mCursorBlinkTimer.reset();
-		mShowCursor = !mShowCursor;
-	}
-
-	draw();
-}
-
-
-void TextField::draw() const
-{
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	const auto showFocused = hasFocus() && editable();
-	const auto& skin = showFocused ? mSkinFocus : mSkinNormal;
-	skin.draw(renderer, mRect);
-
-	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::Yellow); }
-
-	drawCursor();
-
-	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+	return mRect.size.x - fieldPadding * 2;
 }

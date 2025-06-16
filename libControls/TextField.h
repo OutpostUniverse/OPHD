@@ -49,17 +49,16 @@ public:
 	TextField(std::size_t maxCharacters = 0);
 	~TextField() override;
 
-	void editable(bool editable);
-	bool editable() const;
-
 	bool isEmpty() const { return text().empty(); }
 	void clear() { mText.clear(); }
 
 	void border(BorderVisibility visibility);
-	void resetCursorPosition();
+	void editable(bool editable);
+	bool editable() const;
 	void numbersOnly(bool);
-
 	void maxCharacters(std::size_t count);
+
+	void resetCursorPosition();
 
 	void update() override;
 
