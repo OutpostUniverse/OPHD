@@ -7,10 +7,15 @@
 #include <libControls/Label.h>
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EnumMouseButton.h>
-#include <NAS2D/EnumKeyCode.h>
-#include <NAS2D/EnumKeyModifier.h>
 #include <NAS2D/Math/Point.h>
+
+
+namespace NAS2D
+{
+	enum class KeyModifier : uint16_t;
+	enum class KeyCode : uint32_t;
+	enum class MouseButton;
+}
 
 
 class FileIo : public Window
