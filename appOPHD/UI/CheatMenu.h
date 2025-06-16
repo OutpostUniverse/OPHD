@@ -43,8 +43,6 @@ private:
 	CheatDelegate mCheatHandler;
 
 	Label mLabelCheatCode;
-
-	Button btnOkay;
-
 	TextField txtCheatCode;
+	Button btnOkay;
 };
