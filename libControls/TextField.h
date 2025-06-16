@@ -42,7 +42,7 @@ public:
 	};
 
 public:
-	TextField();
+	TextField(std::size_t maxCharacters = 0);
 	~TextField() override;
 
 	void editable(bool editable);

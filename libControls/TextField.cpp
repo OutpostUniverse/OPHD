@@ -24,10 +24,11 @@ namespace
 }
 
 
-TextField::TextField() :
+TextField::TextField(std::size_t maxCharacters) :
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
-	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")}
+	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
+	mMaxCharacters{maxCharacters}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
