@@ -24,8 +24,8 @@ private:
 	const int buttonHorizontalMargin = 5;
 	const int buttonVerticalMargin = 3;
 
-	void onLoad();
 	void onSave();
+	void onLoad();
 	void onHelp();
 	void onExit();
 	void onContinue();
@@ -40,6 +40,6 @@ private:
 
 	ClickSignal mSignalSaveDialog;
 	ClickSignal mSignalLoadDialog;
-	ClickSignal mSignalContinue;
 	ClickSignal mSignalExit;
+	ClickSignal mSignalContinue;
 };
