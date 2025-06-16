@@ -2,6 +2,8 @@
 
 #include <libControls/ControlContainer.h>
 
+#include <NAS2D/Signal/Signal.h>
+
 
 class Structure;
 

@@ -2,11 +2,16 @@
 
 #include "Control.h"
 
-#include <NAS2D/Math/Point.h>
-#include <NAS2D/Math/Vector.h>
-#include <NAS2D/EventHandler.h>
-
 #include <vector>
+
+
+namespace NAS2D
+{
+	enum class MouseButton;
+
+	template <typename BaseType> struct Point;
+	template <typename BaseType> struct Vector;
+}
 
 
 /**
