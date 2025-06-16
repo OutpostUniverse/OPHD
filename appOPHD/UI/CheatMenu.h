@@ -5,7 +5,7 @@
 #include <libControls/TextField.h>
 #include <libControls/Label.h>
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <map>
 
@@ -30,7 +30,6 @@ public:
 		Invalid
 	};
 
-	using CheatSignal = NAS2D::Signal<const std::string&>;
 	using CheatDelegate = NAS2D::Delegate<void(const std::string&)>;
 
 	CheatMenu(CheatDelegate cheatHandler);
@@ -41,7 +40,7 @@ public:
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 
 private:
-	CheatSignal mSignal;
+	CheatDelegate mCheatHandler;
 
 	Label mLabelCheatCode;
 
