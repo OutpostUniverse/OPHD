@@ -35,7 +35,7 @@ TextField::TextField(std::size_t maxCharacters) :
 	eventHandler.keyDown().connect({this, &TextField::onKeyDown});
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
-	height(mFont.height() + fieldPadding * 2);
+	size({mFont.width("W") * static_cast<int>(maxCharacters) + fieldPadding * 2, mFont.height() + fieldPadding * 2});
 }
 
 
