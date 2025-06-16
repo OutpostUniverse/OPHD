@@ -283,9 +283,9 @@ void TextField::update()
 	// Should be called only on events relating to the cursor so this is temporary.
 	updateScrollPosition();
 
-	if (mCursorTimer.elapsedTicks() > cursorBlinkDelay)
+	if (mCursorBlinkTimer.elapsedTicks() > cursorBlinkDelay)
 	{
-		mCursorTimer.reset();
+		mCursorBlinkTimer.reset();
 		mShowCursor = !mShowCursor;
 	}
 
