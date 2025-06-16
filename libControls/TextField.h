@@ -9,7 +9,6 @@
 
 #include "TextControl.h"
 
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
@@ -17,6 +16,9 @@
 
 namespace NAS2D
 {
+	enum class KeyModifier : uint16_t;
+	enum class KeyCode : uint32_t;
+	enum class MouseButton;
 	class Font;
 }
 
