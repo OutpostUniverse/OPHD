@@ -33,14 +33,12 @@ public:
 	using CheatSignal = NAS2D::Signal<const std::string&>;
 	using CheatDelegate = NAS2D::Delegate<void(const std::string&)>;
 
-	CheatMenu(CheatDelegate cheatHandler = {});
+	CheatMenu(CheatDelegate cheatHandler);
 
 	void onOkay();
 	void update() override;
 
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
-
-	CheatSignal::Source& cheatCodeEntered() { return mSignal; }
 
 private:
 	CheatSignal mSignal;
