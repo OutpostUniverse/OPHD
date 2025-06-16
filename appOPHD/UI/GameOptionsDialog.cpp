@@ -7,8 +7,8 @@
 
 namespace
 {
-	const auto buttonSize = NAS2D::Vector{200, 25};
-	const auto buttonMargin = NAS2D::Vector{5, 3};
+	constexpr auto buttonSize = NAS2D::Vector{200, 25};
+	constexpr auto buttonMargin = NAS2D::Vector{5, 3};
 }
 
 
