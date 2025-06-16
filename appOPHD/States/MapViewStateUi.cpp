@@ -112,36 +112,38 @@ void MapViewState::initUi()
 	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
 
 	// BUTTONS
+
 	mBtnTurns.image("ui/icons/turns.png");
+	mBtnTurns.click().connect({this, &MapViewState::onTurns});
+	mBtnToggleHeightmap.image("ui/icons/height.png");
+	mBtnToggleHeightmap.click().connect({this, &MapViewState::onToggleHeightmap});
+	mBtnToggleConnectedness.image("ui/icons/connection.png");
+	mBtnToggleConnectedness.click().connect({this, &MapViewState::onToggleConnectedness});
+	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
+	mBtnToggleCommRangeOverlay.click().connect({this, &MapViewState::onToggleCommRangeOverlay});
+	mBtnToggleRouteOverlay.image("ui/icons/route.png");
+	mBtnToggleRouteOverlay.click().connect({this, &MapViewState::onToggleRouteOverlay});
+	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
+	mBtnTogglePoliceOverlay.click().connect({this, &MapViewState::onTogglePoliceOverlay});
+
 	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnTurns.size(constants::MainButtonSize);
-	mBtnTurns.click().connect({this, &MapViewState::onTurns});
 	mBtnTurns.enabled(false);
 
-	mBtnToggleHeightmap.image("ui/icons/height.png");
 	mBtnToggleHeightmap.size(constants::MainButtonSize);
 	mBtnToggleHeightmap.type(Button::Type::Toggle);
-	mBtnToggleHeightmap.click().connect({this, &MapViewState::onToggleHeightmap});
 
-	mBtnToggleConnectedness.image("ui/icons/connection.png");
 	mBtnToggleConnectedness.size(constants::MainButtonSize);
 	mBtnToggleConnectedness.type(Button::Type::Toggle);
-	mBtnToggleConnectedness.click().connect({this, &MapViewState::onToggleConnectedness});
 
-	mBtnToggleCommRangeOverlay.image("ui/icons/comm_overlay.png");
 	mBtnToggleCommRangeOverlay.size(constants::MainButtonSize);
 	mBtnToggleCommRangeOverlay.type(Button::Type::Toggle);
-	mBtnToggleCommRangeOverlay.click().connect({this, &MapViewState::onToggleCommRangeOverlay});
 
-	mBtnToggleRouteOverlay.image("ui/icons/route.png");
 	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
 	mBtnToggleRouteOverlay.type(Button::Type::Toggle);
-	mBtnToggleRouteOverlay.click().connect({this, &MapViewState::onToggleRouteOverlay});
 
-	mBtnTogglePoliceOverlay.image("ui/icons/police.png");
 	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
-	mBtnTogglePoliceOverlay.click().connect({this, &MapViewState::onTogglePoliceOverlay});
 
 	// Menus
 	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
