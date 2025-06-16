@@ -2,6 +2,9 @@
 
 #include <libOPHD/XmlSerializer.h>
 
+#include <algorithm>
+#include <ranges>
+
 
 namespace
 {
@@ -34,6 +37,8 @@ namespace
 		{"dropretirees", CheatMenu::CheatCode::RemoveRetired},     // Remove ten retired colonists from the population
 		{"beepboop", CheatMenu::CheatCode::AddRobots}              // Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
+
+	static const auto maxCheatLength = std::ranges::max(std::views::transform(std::views::keys(cheatCodeTable), &std::string::size));
 }
 
 
@@ -41,19 +46,17 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	Window{"Cheating"},
 	mCheatHandler{cheatHandler},
 	mLabelCheatCode{"Code:"},
+	txtCheatCode{maxCheatLength},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
-	size({300, 88});
+	btnOkay.size(btnOkay.size() + NAS2D::Vector{6, 2});
 
-	mLabelCheatCode.size({30, 20});
-	add(mLabelCheatCode, {5, 34});
+	const auto positionY = sWindowTitleBarHeight + 10;
+	add(mLabelCheatCode, {10, positionY});
+	add(txtCheatCode, {mLabelCheatCode.area().endPoint().x + 6, positionY});
+	add(btnOkay, {txtCheatCode.area().endPoint().x + 6, positionY});
 
-	btnOkay.size({40, 20});
-	add(btnOkay, {240, 34});
-
-	txtCheatCode.size({150, 20});
-	txtCheatCode.maxCharacters(50);
-	add(txtCheatCode, {40, 34});
+	size({btnOkay.area().endPoint().x + 10, positionY + txtCheatCode.size().y + 10});
 }
 
 
