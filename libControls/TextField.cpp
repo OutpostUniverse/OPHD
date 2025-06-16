@@ -52,7 +52,7 @@ TextField::~TextField()
 
 void TextField::resetCursorPosition()
 {
-	mCursorPosition = 0;
+	mCursorCharacterPosition = 0;
 }
 
 
@@ -121,12 +121,12 @@ void TextField::onTextInput(const std::string& newTextInput)
 	std::locale locale;
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
 
-	mText = mText.insert(mCursorPosition, newTextInput);
+	mText = mText.insert(mCursorCharacterPosition, newTextInput);
 
 	if (text().length() - prvLen != 0u)
 	{
 		onTextChange();
-		mCursorPosition++;
+		mCursorCharacterPosition++;
 	}
 }
 
@@ -139,50 +139,50 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 	{
 		// COMMAND KEYS
 		case NAS2D::KeyCode::Backspace:
-			if (!text().empty() && mCursorPosition > 0)
+			if (!text().empty() && mCursorCharacterPosition > 0)
 			{
-				mCursorPosition--;
-				mText.erase(mCursorPosition, 1);
+				mCursorCharacterPosition--;
+				mText.erase(mCursorCharacterPosition, 1);
 				onTextChange();
 			}
 			break;
 
 		case NAS2D::KeyCode::Home:
-			mCursorPosition = 0;
+			mCursorCharacterPosition = 0;
 			break;
 
 		case NAS2D::KeyCode::End:
-			mCursorPosition = text().length();
+			mCursorCharacterPosition = text().length();
 			break;
 
 		case NAS2D::KeyCode::Delete:
 			if (text().length() > 0)
 			{
-				mText = mText.erase(mCursorPosition, 1);
+				mText = mText.erase(mCursorCharacterPosition, 1);
 				onTextChange();
 			}
 			break;
 
 		// ARROW KEYS
 		case NAS2D::KeyCode::Left:
-			if (mCursorPosition > 0)
-				--mCursorPosition;
+			if (mCursorCharacterPosition > 0)
+				--mCursorCharacterPosition;
 			break;
 
 		case NAS2D::KeyCode::Right:
-			if (mCursorPosition < text().length())
-				++mCursorPosition;
+			if (mCursorCharacterPosition < text().length())
+				++mCursorCharacterPosition;
 			break;
 
 		// KEYPAD ARROWS
 		case NAS2D::KeyCode::Keypad4:
-			if ((mCursorPosition > 0) && !NAS2D::EventHandler::numlock(mod))
-				--mCursorPosition;
+			if ((mCursorCharacterPosition > 0) && !NAS2D::EventHandler::numlock(mod))
+				--mCursorCharacterPosition;
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
-			if ((mCursorPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
-				++mCursorPosition;
+			if ((mCursorCharacterPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
+				++mCursorCharacterPosition;
 			break;
 
 		// IGNORE ENTER/RETURN KEY
@@ -209,7 +209,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	// set the position to the end and move on.
 	if (mFont.width(text()) < relativePosition)
 	{
-		mCursorPosition = text().size();
+		mCursorCharacterPosition = text().size();
 		return;
 	}
 
@@ -223,7 +223,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 		int strLen = mFont.width(cmpStr);
 		if (strLen > relativePosition)
 		{
-			mCursorPosition = i - 1;
+			mCursorCharacterPosition = i - 1;
 			break;
 		}
 
@@ -253,7 +253,7 @@ void TextField::drawCursor() const
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(text().substr(0, mCursorPosition));
+	int cursorX = mFont.width(text().substr(0, mCursorCharacterPosition));
 
 	// Check if cursor is after visible area
 	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
