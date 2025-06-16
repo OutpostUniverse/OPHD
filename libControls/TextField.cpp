@@ -50,6 +50,18 @@ TextField::~TextField()
 }
 
 
+bool TextField::isEmpty() const
+{
+	return text().empty();
+}
+
+
+void TextField::clear()
+{
+	mText.clear();
+}
+
+
 /**
  * Sets border visibility.
  */

@@ -49,8 +49,8 @@ public:
 	TextField(std::size_t maxCharacters = 0);
 	~TextField() override;
 
-	bool isEmpty() const { return text().empty(); }
-	void clear() { mText.clear(); }
+	bool isEmpty() const;
+	void clear();
 
 	void border(BorderVisibility visibility);
 	void editable(bool editable);
