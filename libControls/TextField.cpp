@@ -59,7 +59,7 @@ bool TextField::isEmpty() const
 void TextField::clear()
 {
 	mText.clear();
-	resetCursorPosition();
+	mCursorCharacterPosition = 0;
 	onTextChange();
 }
 
@@ -106,12 +106,6 @@ void TextField::numbersOnly(bool isNumbersOnly)
 void TextField::maxCharacters(std::size_t count)
 {
 	mMaxCharacters = count;
-}
-
-
-void TextField::resetCursorPosition()
-{
-	mCursorCharacterPosition = 0;
 }
 
 

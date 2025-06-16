@@ -58,8 +58,6 @@ public:
 	void numbersOnly(bool);
 	void maxCharacters(std::size_t count);
 
-	void resetCursorPosition();
-
 	void update() override;
 
 protected:
