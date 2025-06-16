@@ -11,18 +11,13 @@ public:
 	using ClickHandler = NAS2D::Delegate<void()>;
 
 	GameOptionsDialog(
-		ClickHandler saveClickHandler = {},
-		ClickHandler loadClickHandler = {},
-		ClickHandler exitClickHandler = {},
-		ClickHandler continueClickHandler = {}
+		ClickHandler saveClickHandler,
+		ClickHandler loadClickHandler,
+		ClickHandler exitClickHandler,
+		ClickHandler continueClickHandler
 	);
 
 	void update() override;
-
-	ClickSignal::Source& saveGameDialogButtonSignal() { return mSignalSaveDialog; }
-	ClickSignal::Source& loadGameDialogButtonSignal() { return mSignalLoadDialog; }
-	ClickSignal::Source& exitToMainMenuButtonSignal() { return mSignalExit; }
-	ClickSignal::Source& continuePlayingButtonSignal() { return mSignalContinue; }
 
 private:
 	void onSave();
