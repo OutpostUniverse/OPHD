@@ -27,8 +27,8 @@ private:
 	void onLoad();
 	void onSave();
 	void onHelp();
-	void onReturn();
-	void onClose();
+	void onContinue();
+	void onExit();
 
 	void onEnableChange() override;
 

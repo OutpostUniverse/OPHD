@@ -10,8 +10,8 @@ GameOptionsDialog::GameOptionsDialog() :
 	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},
 	btnLoad{"Load Game", {this, &GameOptionsDialog::onLoad}},
 	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
-	btnExit{"Exit to Main Menu", {this, &GameOptionsDialog::onClose}},
-	btnContinue{"Continue Playing", {this, &GameOptionsDialog::onReturn}}
+	btnExit{"Exit to Main Menu", {this, &GameOptionsDialog::onExit}},
+	btnContinue{"Continue Playing", {this, &GameOptionsDialog::onContinue}}
 {
 	position({0, 0});
 
@@ -62,12 +62,12 @@ void GameOptionsDialog::onHelp()
 	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 }
 
-void GameOptionsDialog::onReturn()
+void GameOptionsDialog::onContinue()
 {
 	mSignalReturn();
 }
 
-void GameOptionsDialog::onClose()
+void GameOptionsDialog::onExit()
 {
 	mSignalClose();
 }
