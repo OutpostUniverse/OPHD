@@ -12,7 +12,12 @@ namespace
 }
 
 
-GameOptionsDialog::GameOptionsDialog() :
+GameOptionsDialog::GameOptionsDialog(
+	ClickHandler saveClickHandler,
+	ClickHandler loadClickHandler,
+	ClickHandler exitClickHandler,
+	ClickHandler continueClickHandler
+) :
 	Window{constants::WindowSystemTitle},
 	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},
 	btnLoad{"Load Game", {this, &GameOptionsDialog::onLoad}},
@@ -34,6 +39,11 @@ GameOptionsDialog::GameOptionsDialog() :
 	size({buttonSize.x + 2 * buttonMargin.x, position.y});
 
 	anchored(true);
+
+	if (saveClickHandler) { mSignalSaveDialog.connect(saveClickHandler); }
+	if (loadClickHandler) { mSignalLoadDialog.connect(loadClickHandler); }
+	if (exitClickHandler) { mSignalExit.connect(exitClickHandler); }
+	if (continueClickHandler) { mSignalContinue.connect(continueClickHandler); }
 }
 
 

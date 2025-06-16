@@ -8,8 +8,14 @@ class GameOptionsDialog : public Window
 {
 public:
 	using ClickSignal = NAS2D::Signal<>;
+	using ClickHandler = NAS2D::Delegate<void()>;
 
-	GameOptionsDialog();
+	GameOptionsDialog(
+		ClickHandler saveClickHandler = {},
+		ClickHandler loadClickHandler = {},
+		ClickHandler exitClickHandler = {},
+		ClickHandler continueClickHandler = {}
+	);
 
 	void update() override;
 
