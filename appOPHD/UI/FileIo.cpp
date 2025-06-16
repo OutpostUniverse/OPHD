@@ -188,8 +188,7 @@ void FileIo::onFileNameChange(TextControl* control)
 void FileIo::onClose()
 {
 	visible(false);
-	mFileName.text("");
-	mFileName.resetCursorPosition();
+	mFileName.clear();
 }
 
 
@@ -204,8 +203,7 @@ void FileIo::onFileIo()
 	{
 		mFileLoadDelegate(mFileName.text());
 	}
-	mFileName.text("");
-	mFileName.resetCursorPosition();
+	mFileName.clear();
 	mFileOperation.enabled(false);
 }
 
@@ -226,8 +224,7 @@ void FileIo::onFileDelete()
 		doNonFatalErrorMessage("Delete Failed", e.what());
 	}
 
-	mFileName.text("");
-	mFileName.resetCursorPosition();
+	mFileName.clear();
 	mDeleteFile.enabled(false);
 	scanDirectory(constants::SaveGamePath);
 }
