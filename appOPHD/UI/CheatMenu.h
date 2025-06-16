@@ -32,10 +32,10 @@ public:
 
 	using CheatSignal = NAS2D::Signal<const std::string&>;
 
+	CheatMenu();
+
 	void onOkay();
 	void update() override;
-
-	CheatMenu();
 
 	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 
