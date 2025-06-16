@@ -7,10 +7,8 @@
 
 namespace
 {
-	const int buttonHeight = 25;
-	const int buttonWidth = 200;
-	const int buttonHorizontalMargin = 5;
-	const int buttonVerticalMargin = 3;
+	const auto buttonSize = NAS2D::Vector{200, 25};
+	const auto buttonMargin = NAS2D::Vector{5, 3};
 }
 
 
@@ -25,15 +23,15 @@ GameOptionsDialog::GameOptionsDialog() :
 	position({0, 0});
 
 	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnExit, &btnContinue};
-	auto position = mRect.position + NAS2D::Vector{buttonHorizontalMargin, buttonHeight};
+	auto position = mRect.position + NAS2D::Vector{buttonMargin.x, buttonSize.y};
 	for (auto button : buttons)
 	{
-		button->size({buttonWidth, buttonHeight});
+		button->size(buttonSize);
 		add(*button, {position.x, position.y});
-		position.y += buttonHeight + buttonVerticalMargin;
+		position.y += buttonSize.y + buttonMargin.y;
 	}
 
-	size({buttonWidth + 2 * buttonHorizontalMargin, position.y});
+	size({buttonSize.x + 2 * buttonMargin.x, position.y});
 
 	anchored(true);
 }
