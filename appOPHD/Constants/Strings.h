@@ -197,7 +197,7 @@ namespace constants
 	const std::string ToolTipEnergy = "Energy Availability. Available / Total Production";
 	const std::string ToolTipPopulation = "Population and Morale details";
 	const std::string ToolTipCurrentTurns = "Current turn count";
-	const std::string ToolTipSystemMenu = "System Menu. Options for saving, loading and etc";
+	const std::string ToolTipSystemMenu = "System Menu";
 
 	// =====================================
 	// = UI STRINGS

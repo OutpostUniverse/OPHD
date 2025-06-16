@@ -5,26 +5,33 @@
 #include <array>
 
 
+namespace
+{
+	constexpr auto buttonSize = NAS2D::Vector{200, 25};
+	constexpr auto buttonMargin = NAS2D::Vector{5, 3};
+}
+
+
 GameOptionsDialog::GameOptionsDialog() :
 	Window{constants::WindowSystemTitle},
-	btnSave{"Save current game", {this, &GameOptionsDialog::onSave}},
-	btnLoad{"Load a saved game", {this, &GameOptionsDialog::onLoad}},
+	btnSave{"Save Game", {this, &GameOptionsDialog::onSave}},
+	btnLoad{"Load Game", {this, &GameOptionsDialog::onLoad}},
 	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
-	btnReturn{"Return to current game", {this, &GameOptionsDialog::onReturn}},
-	btnClose{"Return to Main Menu", {this, &GameOptionsDialog::onClose}}
+	btnExit{"Exit to Main Menu", {this, &GameOptionsDialog::onExit}},
+	btnContinue{"Continue Playing", {this, &GameOptionsDialog::onContinue}}
 {
 	position({0, 0});
 
-	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnReturn, &btnClose};
-	auto position = mRect.position + NAS2D::Vector{buttonHorizontalMargin, buttonHeight};
+	const auto buttons = std::array{&btnSave, &btnLoad, &btnHelp, &btnExit, &btnContinue};
+	auto position = mRect.position + NAS2D::Vector{buttonMargin.x, buttonSize.y};
 	for (auto button : buttons)
 	{
-		button->size({buttonWidth, buttonHeight});
+		button->size(buttonSize);
 		add(*button, {position.x, position.y});
-		position.y += buttonHeight + buttonVerticalMargin;
+		position.y += buttonSize.y + buttonMargin.y;
 	}
 
-	size({buttonWidth + 2 * buttonHorizontalMargin, position.y});
+	size({buttonSize.x + 2 * buttonMargin.x, position.y});
 
 	anchored(true);
 }
@@ -35,8 +42,8 @@ void GameOptionsDialog::onEnableChange()
 	btnSave.enabled(enabled());
 	btnLoad.enabled(enabled());
 	btnHelp.enabled(enabled());
-	btnReturn.enabled(enabled());
-	btnClose.enabled(enabled());
+	btnExit.enabled(enabled());
+	btnContinue.enabled(enabled());
 }
 
 
@@ -62,12 +69,12 @@ void GameOptionsDialog::onHelp()
 	shellOpenPath("https://wiki.outpost2.net/doku.php?id=outposthd:how_to_play");
 }
 
-void GameOptionsDialog::onReturn()
+void GameOptionsDialog::onExit()
 {
-	mSignalReturn();
+	mSignalExit();
 }
 
-void GameOptionsDialog::onClose()
+void GameOptionsDialog::onContinue()
 {
-	mSignalClose();
+	mSignalContinue();
 }

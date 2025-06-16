@@ -15,31 +15,26 @@ public:
 
 	ClickSignal::Source& saveGameDialogButtonSignal() { return mSignalSaveDialog; }
 	ClickSignal::Source& loadGameDialogButtonSignal() { return mSignalLoadDialog; }
-	ClickSignal::Source& returnToGameButtonSignal() { return mSignalReturn; }
-	ClickSignal::Source& returnToMainMenuButtonSignal() { return mSignalClose; }
+	ClickSignal::Source& exitToMainMenuButtonSignal() { return mSignalExit; }
+	ClickSignal::Source& continuePlayingButtonSignal() { return mSignalContinue; }
 
 private:
-	const int buttonHeight = 25;
-	const int buttonWidth = 200;
-	const int buttonHorizontalMargin = 5;
-	const int buttonVerticalMargin = 3;
-
-	void onLoad();
 	void onSave();
+	void onLoad();
 	void onHelp();
-	void onReturn();
-	void onClose();
+	void onExit();
+	void onContinue();
 
 	void onEnableChange() override;
 
 	Button btnSave;
 	Button btnLoad;
 	Button btnHelp;
-	Button btnReturn;
-	Button btnClose;
+	Button btnExit;
+	Button btnContinue;
 
 	ClickSignal mSignalSaveDialog;
 	ClickSignal mSignalLoadDialog;
-	ClickSignal mSignalReturn;
-	ClickSignal mSignalClose;
+	ClickSignal mSignalExit;
+	ClickSignal mSignalContinue;
 };
