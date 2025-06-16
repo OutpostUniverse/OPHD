@@ -61,16 +61,15 @@ public:
 	void update() override;
 
 protected:
+	void updateScrollPosition();
+	int textAreaWidth() const;
+
 	void draw() const override;
+	void drawCursor() const;
 
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
-
-	void drawCursor() const;
-	void updateScrollPosition();
-
-	int textAreaWidth() const;
 
 private:
 	const NAS2D::Font& mFont;

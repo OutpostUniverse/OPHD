@@ -126,6 +126,37 @@ void TextField::update()
 }
 
 
+void TextField::updateScrollPosition()
+{
+	int cursorX = mFont.width(text().substr(0, mCursorCharacterPosition));
+
+	// Check if cursor is after visible area
+	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
+	{
+		mScrollOffsetPixelX = cursorX - textAreaWidth();
+	}
+
+	// Check if cursor is before visible area
+	if (mScrollOffsetPixelX >= cursorX)
+	{
+		mScrollOffsetPixelX = cursorX - textAreaWidth() / 2;
+	}
+
+	if (mScrollOffsetPixelX < 0)
+	{
+		mScrollOffsetPixelX = 0;
+	}
+
+	mCursorPixelX = mRect.position.x + fieldPadding + cursorX - mScrollOffsetPixelX;
+}
+
+
+int TextField::textAreaWidth() const
+{
+	return mRect.size.x - fieldPadding * 2;
+}
+
+
 void TextField::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -139,6 +170,25 @@ void TextField::draw() const
 	drawCursor();
 
 	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+}
+
+
+/**
+ * Draws the insertion point cursor.
+ */
+void TextField::drawCursor() const
+{
+	if (hasFocus() && editable())
+	{
+		if (mShowCursor)
+		{
+			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+			const auto startPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + fieldPadding};
+			const auto endPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + mRect.size.y - fieldPadding - 1};
+			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
+			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
+		}
+	}
 }
 
 
@@ -264,54 +314,4 @@ void TextField::onTextInput(const std::string& newTextInput)
 		onTextChange();
 		mCursorCharacterPosition++;
 	}
-}
-
-
-/**
- * Draws the insertion point cursor.
- */
-void TextField::drawCursor() const
-{
-	if (hasFocus() && editable())
-	{
-		if (mShowCursor)
-		{
-			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-			const auto startPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + fieldPadding};
-			const auto endPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + mRect.size.y - fieldPadding - 1};
-			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
-			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
-		}
-	}
-}
-
-
-void TextField::updateScrollPosition()
-{
-	int cursorX = mFont.width(text().substr(0, mCursorCharacterPosition));
-
-	// Check if cursor is after visible area
-	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
-	{
-		mScrollOffsetPixelX = cursorX - textAreaWidth();
-	}
-
-	// Check if cursor is before visible area
-	if (mScrollOffsetPixelX >= cursorX)
-	{
-		mScrollOffsetPixelX = cursorX - textAreaWidth() / 2;
-	}
-
-	if (mScrollOffsetPixelX < 0)
-	{
-		mScrollOffsetPixelX = 0;
-	}
-
-	mCursorPixelX = mRect.position.x + fieldPadding + cursorX - mScrollOffsetPixelX;
-}
-
-
-int TextField::textAreaWidth() const
-{
-	return mRect.size.x - fieldPadding * 2;
 }
