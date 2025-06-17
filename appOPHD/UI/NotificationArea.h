@@ -52,8 +52,6 @@ public:
 	void push(Notification notification);
 	void clear();
 
-	NotificationClickedSignal::Source& notificationClicked() { return mNotificationClicked; }
-
 	void update() override;
 
 protected:
