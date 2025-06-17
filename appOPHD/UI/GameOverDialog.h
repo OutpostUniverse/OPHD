@@ -16,8 +16,6 @@ public:
 public:
 	GameOverDialog(ClickDelegate clickHandler = {});
 
-	ClickSignal::Source& returnToMainMenu() { return mSignal; }
-
 	void update() override;
 
 private:
