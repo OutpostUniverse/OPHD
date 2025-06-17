@@ -86,9 +86,9 @@ void GameState::initializeMapViewState()
 	mActiveState = &mMapViewState;
 	mMapViewState.activate();
 
-	mMapViewState.quit().connect({this, &GameState::onQuit});
-	mMapViewState.showReportsUi().connect({this, &GameState::onShowReports});
-	mMapViewState.mapChanged().connect({this, &GameState::onMapChange});
+	mMapViewState.quitHandler({this, &GameState::onQuit});
+	mMapViewState.mapChangedHandler({this, &GameState::onMapChange});
+	mMapViewState.showReportsHandler({this, &GameState::onShowReports});
 }
 
 
