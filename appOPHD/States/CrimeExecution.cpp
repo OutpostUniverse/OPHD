@@ -9,6 +9,8 @@
 
 #include <NAS2D/Utility.h>
 
+#include <map>
+
 
 namespace
 {
