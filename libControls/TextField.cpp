@@ -30,6 +30,7 @@ TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedH
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
 	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
+	mTextChangedHandler{textChangedHandler},
 	mMaxCharacters{maxCharacters}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -38,8 +39,6 @@ TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedH
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
 	size({mFont.width("W") * static_cast<int>(maxCharacters) + fieldPadding * 2, mFont.height() + fieldPadding * 2});
-
-	if (textChangedHandler) { mTextChanged.connect(textChangedHandler); }
 }
 
 
