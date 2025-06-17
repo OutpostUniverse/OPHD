@@ -1,5 +1,4 @@
 #include "DiggerDirection.h"
-#include "../Map/Tile.h"
 
 #include <stdexcept>
 
