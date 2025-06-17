@@ -81,7 +81,6 @@ void MapViewState::initUi()
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);
 
-	mGameOverDialog.returnToMainMenu().connect({this, &MapViewState::onGameOver});
 	mGameOverDialog.hide();
 
 	mGameOptionsDialog.hide();

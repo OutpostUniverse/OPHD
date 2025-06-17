@@ -173,6 +173,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mCheatMenu{{this, &MapViewState::onCheatCodeEntry}},
 	mDiggerDirection{{this, &MapViewState::onDiggerSelectionDialog}},
 	mFileIoDialog{gameState.fileIoDialog()},
+	mGameOverDialog{{this, &MapViewState::onGameOver}},
 	mGameOptionsDialog{
 		{this, &MapViewState::onOpenSaveGameDialog},
 		{this, &MapViewState::onOpenLoadGameDialog},
@@ -209,6 +210,7 @@ MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& plane
 	mCheatMenu{{this, &MapViewState::onCheatCodeEntry}},
 	mDiggerDirection{{this, &MapViewState::onDiggerSelectionDialog}},
 	mFileIoDialog{gameState.fileIoDialog()},
+	mGameOverDialog{{this, &MapViewState::onGameOver}},
 	mGameOptionsDialog{
 		{this, &MapViewState::onOpenSaveGameDialog},
 		{this, &MapViewState::onOpenLoadGameDialog},

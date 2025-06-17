@@ -1,18 +1,14 @@
 #include "GameOverDialog.h"
 
 #include "../Cache.h"
-#include "../Constants/UiConstants.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
-GameOverDialog::GameOverDialog() :
+GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
 	mHeader{imageCache.load("ui/interface/game_over.png")},
-	btnClose{"Return to Main Menu", {this, &GameOverDialog::onClose}}
+	btnClose{"Return to Main Menu", clickHandler}
 {
 	position({0, 0});
 	size({522, 340});
@@ -24,19 +20,13 @@ GameOverDialog::GameOverDialog() :
 }
 
 
-void GameOverDialog::onClose()
-{
-	mSignal();
-}
-
-
 void GameOverDialog::update()
 {
 	if (!visible()) { return; }
 
 	Window::update();
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
