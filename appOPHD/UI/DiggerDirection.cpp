@@ -1,15 +1,17 @@
 #include "DiggerDirection.h"
-#include "../Map/Tile.h"
+
+#include <stdexcept>
 
 
-DiggerDirection::DiggerDirection() :
+DiggerDirection::DiggerDirection(DirectionSelectedDelegate directionSelectedHandler) :
 	Window{"Direction"},
 	btnDown{getImage("ui/icons/arrow-down.png"), {this, &DiggerDirection::onDiggerDown}},
 	btnNorth{getImage("ui/icons/arrow-north.png"), {this, &DiggerDirection::onDiggerNorth}},
 	btnEast{getImage("ui/icons/arrow-east.png"), {this, &DiggerDirection::onDiggerEast}},
 	btnSouth{getImage("ui/icons/arrow-south.png"), {this, &DiggerDirection::onDiggerSouth}},
 	btnWest{getImage("ui/icons/arrow-west.png"), {this, &DiggerDirection::onDiggerWest}},
-	btnCancel{"Cancel", {this, &DiggerDirection::onCancel}}
+	btnCancel{"Cancel", {this, &DiggerDirection::onCancel}},
+	mDirectionSelectedHandler{directionSelectedHandler}
 {
 	position({0, 0});
 	size({74, 170});
@@ -31,6 +33,11 @@ DiggerDirection::DiggerDirection() :
 	add(btnEast, {38, 101});
 
 	add(btnCancel, {5, 140});
+
+	if (directionSelectedHandler.empty())
+	{
+		throw std::runtime_error("DiggerDirection needs a non-empty directionSelectedHandler");
+	}
 }
 
 
@@ -93,29 +100,29 @@ void DiggerDirection::selectDown()
 
 void DiggerDirection::onDiggerDown()
 {
-	mSignal(Direction::Down, *mTile);
+	mDirectionSelectedHandler(Direction::Down, *mTile);
 }
 
 
 void DiggerDirection::onDiggerNorth()
 {
-	mSignal(Direction::North, *mTile);
+	mDirectionSelectedHandler(Direction::North, *mTile);
 }
 
 
 void DiggerDirection::onDiggerSouth()
 {
-	mSignal(Direction::South, *mTile);
+	mDirectionSelectedHandler(Direction::South, *mTile);
 }
 
 
 void DiggerDirection::onDiggerEast()
 {
-	mSignal(Direction::East, *mTile);
+	mDirectionSelectedHandler(Direction::East, *mTile);
 }
 
 
 void DiggerDirection::onDiggerWest()
 {
-	mSignal(Direction::West, *mTile);
+	mDirectionSelectedHandler(Direction::West, *mTile);
 }

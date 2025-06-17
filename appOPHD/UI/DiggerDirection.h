@@ -5,6 +5,8 @@
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 
+#include <NAS2D/Signal/Delegate.h>
+
 
 class Tile;
 
@@ -12,13 +14,11 @@ class Tile;
 class DiggerDirection : public Window
 {
 public:
-	using Signal = NAS2D::Signal<Direction, Tile&>;
+	using DirectionSelectedDelegate = NAS2D::Delegate<void(Direction, Tile&)>;
 
-	DiggerDirection();
+	DiggerDirection(DirectionSelectedDelegate directionSelectedHandler);
 
 	void update() override;
-
-	Signal::Source& directionSelected() { return mSignal; }
 
 	void setParameters(Tile& tile);
 
@@ -45,7 +45,7 @@ private:
 	Button btnWest;
 	Button btnCancel;
 
-	Signal mSignal;
+	DirectionSelectedDelegate mDirectionSelectedHandler;
 
 	Tile* mTile = nullptr;
 };

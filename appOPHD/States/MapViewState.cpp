@@ -171,6 +171,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mCheatMenu{{this, &MapViewState::onCheatCodeEntry}},
+	mDiggerDirection{{this, &MapViewState::onDiggerSelectionDialog}},
 	mFileIoDialog{gameState.fileIoDialog()},
 	mGameOptionsDialog{
 		{this, &MapViewState::onOpenSaveGameDialog},
@@ -206,6 +207,7 @@ MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& plane
 	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mCheatMenu{{this, &MapViewState::onCheatCodeEntry}},
+	mDiggerDirection{{this, &MapViewState::onDiggerSelectionDialog}},
 	mFileIoDialog{gameState.fileIoDialog()},
 	mGameOptionsDialog{
 		{this, &MapViewState::onOpenSaveGameDialog},
