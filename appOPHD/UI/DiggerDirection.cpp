@@ -2,7 +2,7 @@
 #include "../Map/Tile.h"
 
 
-DiggerDirection::DiggerDirection() :
+DiggerDirection::DiggerDirection(DirectionSelectedDelegate directionSelectedHandler) :
 	Window{"Direction"},
 	btnDown{getImage("ui/icons/arrow-down.png"), {this, &DiggerDirection::onDiggerDown}},
 	btnNorth{getImage("ui/icons/arrow-north.png"), {this, &DiggerDirection::onDiggerNorth}},
@@ -31,6 +31,8 @@ DiggerDirection::DiggerDirection() :
 	add(btnEast, {38, 101});
 
 	add(btnCancel, {5, 140});
+
+	if (directionSelectedHandler) { mSignal.connect(directionSelectedHandler); }
 }
 
 
