@@ -3,18 +3,16 @@
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 
 
 class GameOverDialog : public Window
 {
 public:
-	using ClickSignal = NAS2D::Signal<>;
 	using ClickDelegate = NAS2D::Delegate<void()>;
 
 public:
-	GameOverDialog(ClickDelegate clickHandler = {});
+	GameOverDialog(ClickDelegate clickHandler);
 
 	void update() override;
 
@@ -25,5 +23,5 @@ private:
 
 	Button btnClose;
 
-	ClickSignal mSignal;
+	ClickDelegate mClickHandler;
 };

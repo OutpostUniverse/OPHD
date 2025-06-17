@@ -12,7 +12,8 @@ using namespace NAS2D;
 
 GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
 	mHeader{imageCache.load("ui/interface/game_over.png")},
-	btnClose{"Return to Main Menu", {this, &GameOverDialog::onClose}}
+	btnClose{"Return to Main Menu", {this, &GameOverDialog::onClose}},
+	mClickHandler{clickHandler}
 {
 	position({0, 0});
 	size({522, 340});
@@ -21,14 +22,12 @@ GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
 	btnClose.size({512, 25});
 
 	anchored(true);
-
-	if (clickHandler) { mSignal.connect(clickHandler); }
 }
 
 
 void GameOverDialog::onClose()
 {
-	mSignal();
+	if (mClickHandler) { mClickHandler(); }
 }
 
 
