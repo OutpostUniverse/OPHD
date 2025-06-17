@@ -26,7 +26,7 @@ namespace
 }
 
 
-TextField::TextField(std::size_t maxCharacters) :
+TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedHandler) :
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
 	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
@@ -38,6 +38,8 @@ TextField::TextField(std::size_t maxCharacters) :
 	eventHandler.textInput().connect({this, &TextField::onTextInput});
 
 	size({mFont.width("W") * static_cast<int>(maxCharacters) + fieldPadding * 2, mFont.height() + fieldPadding * 2});
+
+	if (textChangedHandler) { mTextChanged.connect(textChangedHandler); }
 }
 
 

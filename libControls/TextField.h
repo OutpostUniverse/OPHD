@@ -11,6 +11,7 @@
 
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 namespace NAS2D
@@ -45,8 +46,10 @@ public:
 		FocusOnly
 	};
 
+	using TextChangedDelegate = NAS2D::Delegate<void(TextControl*)>;
+
 public:
-	TextField(std::size_t maxCharacters = 0);
+	TextField(std::size_t maxCharacters = 0, TextChangedDelegate textChangedHandler = {});
 	~TextField() override;
 
 	bool isEmpty() const;
