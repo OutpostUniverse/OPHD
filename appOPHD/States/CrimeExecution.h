@@ -1,7 +1,6 @@
 #pragma once
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Signal/Signal.h>
 
 #include <vector>
 #include <array>
@@ -18,7 +17,6 @@ class FoodProduction;
 class CrimeExecution
 {
 public:
-	using Signal = NAS2D::Signal<std::string, std::string, const Structure&>;
 	using CrimeEventDelegate = NAS2D::Delegate<void(std::string, std::string, const Structure&)>;
 
 	CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler);
@@ -36,5 +34,5 @@ protected:
 private:
 	const Difficulty& mDifficulty;
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
-	Signal mCrimeEventSignal;
+	CrimeEventDelegate mCrimeEventHandler;
 };
