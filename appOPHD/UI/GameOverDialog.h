@@ -3,6 +3,8 @@
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 
+#include <NAS2D/Signal/Signal.h>
+
 
 class GameOverDialog : public Window
 {
