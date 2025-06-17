@@ -2,9 +2,6 @@
 
 #include "../Cache.h"
 
-#include <NAS2D/Utility.h>
-#include <NAS2D/Renderer/Renderer.h>
-
 
 NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
 	mIcons{imageCache.load("ui/icons.png")},
