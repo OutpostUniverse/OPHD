@@ -11,7 +11,8 @@ using namespace NAS2D;
 
 
 NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
-	mIcons{imageCache.load("ui/icons.png")}
+	mIcons{imageCache.load("ui/icons.png")},
+	mTakeMeThereHandler{takeMeThereHandler}
 {
 	size({300, 220});
 
@@ -24,8 +25,6 @@ NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
 
 	add(mMessageArea, {5, 65});
 	mMessageArea.size({size().x - 10, 125});
-
-	if (takeMeThereHandler) { mTakeMeThereClicked.connect(takeMeThereHandler); }
 }
 
 
@@ -46,7 +45,7 @@ void NotificationWindow::onOkayClicked()
 
 void NotificationWindow::onTakeMeThereClicked()
 {
-	mTakeMeThereClicked(mNotification.position);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(mNotification.position); }
 	hide();
 }
 
