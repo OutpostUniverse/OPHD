@@ -11,6 +11,7 @@
 
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 namespace NAS2D
@@ -45,8 +46,10 @@ public:
 		FocusOnly
 	};
 
+	using TextChangedDelegate = NAS2D::Delegate<void(TextField&)>;
+
 public:
-	TextField(std::size_t maxCharacters = 0);
+	TextField(std::size_t maxCharacters = 0, TextChangedDelegate textChangedHandler = {});
 	~TextField() override;
 
 	bool isEmpty() const;
@@ -70,6 +73,7 @@ protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
+	void onTextChange() override;
 
 private:
 	const NAS2D::Font& mFont;
@@ -77,6 +81,8 @@ private:
 	const NAS2D::RectangleSkin mSkinFocus;
 
 	NAS2D::Timer mCursorBlinkTimer;
+
+	TextChangedDelegate mTextChangedHandler;
 
 	std::size_t mCursorCharacterPosition = 0;
 	int mCursorPixelX = 0;

@@ -26,10 +26,11 @@ namespace
 }
 
 
-TextField::TextField(std::size_t maxCharacters) :
+TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedHandler) :
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
 	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
+	mTextChangedHandler{textChangedHandler},
 	mMaxCharacters{maxCharacters}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -314,4 +315,10 @@ void TextField::onTextInput(const std::string& newTextInput)
 		onTextChange();
 		mCursorCharacterPosition++;
 	}
+}
+
+
+void TextField::onTextChange()
+{
+	if (mTextChangedHandler) { mTextChangedHandler(*this); }
 }
