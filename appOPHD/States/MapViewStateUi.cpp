@@ -102,7 +102,6 @@ void MapViewState::initUi()
 
 	mNotificationArea.notificationClicked().connect({this, &MapViewState::onNotificationClicked});
 
-	mNotificationWindow.takeMeThere().connect({this, &MapViewState::onTakeMeThere});
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();
