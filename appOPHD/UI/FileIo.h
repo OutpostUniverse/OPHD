@@ -47,7 +47,7 @@ protected:
 
 	void onOpenFolder() const;
 	void onFileSelect();
-	void onFileNameChange(TextField* control);
+	void onFileNameChange(TextField& control);
 	void onClose();
 	void onFileIo();
 	void onFileDelete();

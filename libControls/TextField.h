@@ -46,7 +46,7 @@ public:
 		FocusOnly
 	};
 
-	using TextChangedDelegate = NAS2D::Delegate<void(TextField*)>;
+	using TextChangedDelegate = NAS2D::Delegate<void(TextField&)>;
 
 public:
 	TextField(std::size_t maxCharacters = 0, TextChangedDelegate textChangedHandler = {});

@@ -320,5 +320,5 @@ void TextField::onTextInput(const std::string& newTextInput)
 
 void TextField::onTextChange()
 {
-	if (mTextChangedHandler) { mTextChangedHandler(this); }
+	if (mTextChangedHandler) { mTextChangedHandler(*this); }
 }
