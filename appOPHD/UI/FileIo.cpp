@@ -32,6 +32,7 @@ FileIo::FileIo(FileLoadDelegate fileLoadDelegate, FileSaveDelegate fileSaveDeleg
 	mCancel{"Cancel", {this, &FileIo::onClose}},
 	mFileOperation{"FileOp", {this, &FileIo::onFileIo}},
 	mDeleteFile{"Delete", {this, &FileIo::onFileDelete}},
+	mFileName{50, {this, &FileIo::onFileNameChange}},
 	mListBox{{this, &FileIo::onFileSelect}}
 {
 	auto& eventHandler = Utility<EventHandler>::get();
@@ -46,8 +47,6 @@ FileIo::FileIo(FileLoadDelegate fileLoadDelegate, FileSaveDelegate fileSaveDeleg
 	add(mListBox, {5, 45});
 
 	mFileName.size({mListBox.size().x, std::max(18, mFileName.size().y)});
-	mFileName.maxCharacters(50);
-	mFileName.textChanged().connect({this, &FileIo::onFileNameChange});
 	add(mFileName, mListBox.area().crossYPoint() - NAS2D::Point{0, 0} + NAS2D::Vector{0, 4});
 
 	const auto bottomButtonArea = NAS2D::Rectangle{mFileName.area().crossYPoint() + NAS2D::Vector{0, 5}, {mFileName.size().x, 20}};
