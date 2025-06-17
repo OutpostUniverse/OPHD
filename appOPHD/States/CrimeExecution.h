@@ -21,7 +21,6 @@ public:
 	using Signal = NAS2D::Signal<std::string, std::string, const Structure&>;
 	using CrimeEventDelegate = NAS2D::Delegate<void(std::string, std::string, const Structure&)>;
 
-	CrimeExecution(const Difficulty& difficulty);
 	CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler);
 
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);

@@ -64,13 +64,8 @@ namespace
 }
 
 
-CrimeExecution::CrimeExecution(const Difficulty& difficulty) :
+CrimeExecution::CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler) :
 	mDifficulty{difficulty}
-{
-}
-
-
-CrimeExecution::CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler) : CrimeExecution{difficulty}
 {
 	mCrimeEventSignal.connect(crimeEventHandler);
 }
