@@ -24,8 +24,6 @@ public:
 
 	void notification(const NotificationArea::Notification&);
 
-	TakeMeThereSignal::Source& takeMeThere() { return mTakeMeThereClicked; }
-
 	void update() override;
 
 private:
