@@ -4,7 +4,6 @@
 
 #include <libControls/Control.h>
 
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Signal/Delegate.h>
@@ -16,6 +15,8 @@
 
 namespace NAS2D
 {
+	enum class MouseButton;
+
 	class Image;
 	class Font;
 }
