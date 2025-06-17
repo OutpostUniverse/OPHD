@@ -52,7 +52,8 @@ void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::Notifica
 NotificationArea::NotificationArea(NotificationClickedDelegate notificationClickedHandler) :
 	mIcons{imageCache.load("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
-	mNotificationIndex{NoSelection}
+	mNotificationIndex{NoSelection},
+	mNotificationClickedHandler{notificationClickedHandler}
 {
 	auto& eventhandler = Utility<EventHandler>::get();
 
@@ -60,8 +61,6 @@ NotificationArea::NotificationArea(NotificationClickedDelegate notificationClick
 	eventhandler.mouseMotion().connect({this, &NotificationArea::onMouseMove});
 
 	width(IconPaddedSize.x);
-
-	if (notificationClickedHandler) { mNotificationClicked.connect(notificationClickedHandler); }
 }
 
 
@@ -118,7 +117,7 @@ void NotificationArea::onMouseDown(MouseButton button, NAS2D::Point<int> positio
 	{
 		if (button == MouseButton::Left)
 		{
-			mNotificationClicked(mNotificationList.at(index));
+			if (mNotificationClickedHandler) { mNotificationClickedHandler(mNotificationList.at(index)); }
 		}
 
 		mNotificationList.erase(mNotificationList.begin() + static_cast<std::ptrdiff_t>(index));
