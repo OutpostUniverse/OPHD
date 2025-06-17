@@ -7,6 +7,7 @@
 #include "NotificationArea.h"
 
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 struct MapCoordinate;
@@ -16,9 +17,10 @@ class NotificationWindow : public Window
 {
 public:
 	using TakeMeThereSignal = NAS2D::Signal<const MapCoordinate&>;
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const MapCoordinate&)>;
 
 public:
-	NotificationWindow();
+	NotificationWindow(TakeMeThereDelegate takeMeThereHandler = {});
 
 	void notification(const NotificationArea::Notification&);
 
