@@ -17,11 +17,7 @@ public:
 	void update() override;
 
 private:
-	void onClose();
-
 	const NAS2D::Image& mHeader;
-
 	Button btnClose;
-
 	ClickDelegate mClickHandler;
 };
