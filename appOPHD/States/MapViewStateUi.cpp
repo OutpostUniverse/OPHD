@@ -58,8 +58,6 @@ void MapViewState::initUi()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	mCheatMenu.hide();
-
-	mDiggerDirection.directionSelected().connect({this, &MapViewState::onDiggerSelectionDialog});
 	mDiggerDirection.hide();
 
 	mTileInspector.position(renderer.center() - NAS2D::Vector{mTileInspector.size().x / 2.0f, 175.0f});
