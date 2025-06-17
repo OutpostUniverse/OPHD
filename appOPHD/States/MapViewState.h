@@ -49,6 +49,7 @@
 #include <libControls/ToolTip.h>
 
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/ParserHelper.h>
@@ -109,6 +110,7 @@ public:
 	using QuitSignal = NAS2D::Signal<>;
 	using ReportsUiSignal = NAS2D::Signal<>;
 	using MapChangedSignal = NAS2D::Signal<>;
+	using EventDelegate = NAS2D::Delegate<void()>;
 
 public:
 	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument);
@@ -118,6 +120,10 @@ public:
 	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
 	QuitSignal::Source& quit() { return mQuitSignal; }
 	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
+
+	void quitHandler(EventDelegate newQuitHandler) { mQuitSignal.connect(newQuitHandler); }
+	void mapChangedHandler(EventDelegate newMapChangedHandler) { mMapChangedSignal.connect(newMapChangedHandler); }
+	void showReportsHandler(EventDelegate newShowReportsHandler) { mReportsUiSignal.connect(newShowReportsHandler); }
 
 	void focusOnStructure(const Structure* s);
 
