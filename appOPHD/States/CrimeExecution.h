@@ -26,7 +26,6 @@ public:
 
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
 	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
-	Signal::Source& crimeEventSignal() { return mCrimeEventSignal; }
 
 protected:
 	void stealFood(FoodProduction& structure);
