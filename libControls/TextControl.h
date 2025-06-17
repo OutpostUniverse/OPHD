@@ -14,5 +14,5 @@ public:
 	virtual void onTextChange() {}
 
 protected:
-	std::string mText; /**< Internal text string. */
+	std::string mText;
 };
