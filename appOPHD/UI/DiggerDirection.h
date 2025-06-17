@@ -22,8 +22,6 @@ public:
 
 	void update() override;
 
-	Signal::Source& directionSelected() { return mSignal; }
-
 	void setParameters(Tile& tile);
 
 	void selectDown();
