@@ -14,7 +14,6 @@ public:
 
 	void text(const std::string& text);
 	const std::string& text() const { return mText; }
-	TextChangeSignal::Source& textChanged() { return mTextChanged; }
 
 	virtual void onTextChange() { mTextChanged(this); }
 
