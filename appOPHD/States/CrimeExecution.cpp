@@ -9,6 +9,8 @@
 
 #include <NAS2D/Utility.h>
 
+#include <map>
+
 
 namespace
 {
@@ -64,15 +66,14 @@ namespace
 }
 
 
-CrimeExecution::CrimeExecution(const Difficulty& difficulty) :
-	mDifficulty{difficulty}
+CrimeExecution::CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler) :
+	mDifficulty{difficulty},
+	mCrimeEventHandler{crimeEventHandler}
 {
-}
-
-
-CrimeExecution::CrimeExecution(const Difficulty& difficulty, Signal::DelegateType onCrimeEvent) : CrimeExecution{difficulty}
-{
-	mCrimeEventSignal.connect(onCrimeEvent);
+	if (mCrimeEventHandler.empty())
+	{
+		throw std::runtime_error("CrimeExecution needs a non-empty crimeEventHandler");
+	}
 }
 
 
@@ -110,7 +111,7 @@ void CrimeExecution::stealFood(FoodProduction& structure)
 		int foodStolen = calcAmountForStealing(mDifficulty, 5, 15, structure.foodLevel());
 		structure.foodLevel(structure.foodLevel() - foodStolen);
 
-		mCrimeEventSignal.emit(
+		mCrimeEventHandler(
 			"Food Stolen",
 			std::to_string(foodStolen) + " units of food was pilfered from a " + structure.name() + ". " + getReasonForStealing() + ".",
 			structure
@@ -145,7 +146,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 	int amountStolen = calcAmountForStealing(mDifficulty, 2, 5, storage.resources[indexToStealFrom]);
 	storage.resources[indexToStealFrom] -= amountStolen;
 
-	mCrimeEventSignal.emit(
+	mCrimeEventHandler(
 		"Resources Stolen",
 		std::to_string(amountStolen) + " units of " + resourceNames[indexToStealFrom] + " were stolen from a " + structure.name() + ". " + getReasonForStealing() + ".",
 		structure
@@ -157,7 +158,7 @@ void CrimeExecution::vandalize(Structure& structure)
 {
 	mMoraleChanges.push_back(std::make_pair("Vandalism", -1));
 
-	mCrimeEventSignal.emit(
+	mCrimeEventHandler(
 		"Vandalism",
 		"A " + structure.name() + " was vandalized.",
 		structure

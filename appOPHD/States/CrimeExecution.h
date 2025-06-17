@@ -1,10 +1,9 @@
 #pragma once
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
 #include <array>
-#include <map>
 #include <string>
 #include <utility>
 
@@ -17,14 +16,12 @@ class FoodProduction;
 class CrimeExecution
 {
 public:
-	using Signal = NAS2D::Signal<std::string, std::string, const Structure&>;
+	using CrimeEventDelegate = NAS2D::Delegate<void(std::string, std::string, const Structure&)>;
 
-	CrimeExecution(const Difficulty& difficulty);
-	CrimeExecution(const Difficulty& difficulty, Signal::DelegateType onCrimeEvent);
+	CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler);
 
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
 	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
-	Signal::Source& crimeEventSignal() { return mCrimeEventSignal; }
 
 protected:
 	void stealFood(FoodProduction& structure);
@@ -36,5 +33,5 @@ protected:
 private:
 	const Difficulty& mDifficulty;
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
-	Signal mCrimeEventSignal;
+	CrimeEventDelegate mCrimeEventHandler;
 };
