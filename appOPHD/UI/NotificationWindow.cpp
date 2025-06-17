@@ -1,17 +1,11 @@
 #include "NotificationWindow.h"
 
 #include "../Cache.h"
-#include "../Constants/UiConstants.h"
-
-#include <NAS2D/Utility.h>
-#include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
-NotificationWindow::NotificationWindow():
-	mIcons{imageCache.load("ui/icons.png")}
+NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
+	mIcons{imageCache.load("ui/icons.png")},
+	mTakeMeThereHandler{takeMeThereHandler}
 {
 	size({300, 220});
 
@@ -32,7 +26,7 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	mNotification = notification;
 	title(mNotification.brief);
 	mMessageArea.text(mNotification.message);
-	mTakeMeThereVisible = mNotification.position.xy != Point<int>{-1, -1}; //\fixme magic value
+	mTakeMeThereVisible = mNotification.position.xy != NAS2D::Point<int>{-1, -1}; //\fixme magic value
 }
 
 
@@ -44,7 +38,7 @@ void NotificationWindow::onOkayClicked()
 
 void NotificationWindow::onTakeMeThereClicked()
 {
-	mTakeMeThereClicked(mNotification.position);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(mNotification.position); }
 	hide();
 }
 
@@ -57,6 +51,6 @@ void NotificationWindow::update()
 
 	btnTakeMeThere.visible(mTakeMeThereVisible); // bit of a hack
 
-	const auto iconLocation = position() + Vector{10, 30};
+	const auto iconLocation = position() + NAS2D::Vector{10, 30};
 	drawNotificationIcon(iconLocation, mNotification.type, mIcons);
 }
