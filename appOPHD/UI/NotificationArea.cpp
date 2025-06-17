@@ -5,14 +5,12 @@
 
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
 
 #include <utility>
-
-
-using namespace NAS2D;
 
 
 namespace
@@ -32,9 +30,9 @@ namespace
 
 	const std::map<NotificationArea::NotificationType, IconDrawParameters> NotificationIconDrawParameters
 	{
-		{NotificationArea::NotificationType::Critical, {{{64, 64}, {32, 32}}, Color::Red}},
-		{NotificationArea::NotificationType::Information, {{{128, 64}, {32, 32}}, Color::Blue}},
-		{NotificationArea::NotificationType::Success, {{{32, 64}, {32, 32}}, Color::Green}},
+		{NotificationArea::NotificationType::Critical, {{{64, 64}, {32, 32}}, NAS2D::Color::Red}},
+		{NotificationArea::NotificationType::Information, {{{128, 64}, {32, 32}}, NAS2D::Color::Blue}},
+		{NotificationArea::NotificationType::Success, {{{32, 64}, {32, 32}}, NAS2D::Color::Green}},
 		{NotificationArea::NotificationType::Warning, {{{96, 64}, {32, 32}}, {255, 165, 0}}}
 	};
 }
@@ -45,16 +43,17 @@ void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::Notifica
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto& iconDrawParameters = NotificationIconDrawParameters.at(type);
 	renderer.drawSubImage(icons, position, {{160, 64}, {32, 32}}, iconDrawParameters.color);
-	renderer.drawSubImage(icons, position, iconDrawParameters.iconRect, Color::Normal);
+	renderer.drawSubImage(icons, position, iconDrawParameters.iconRect, NAS2D::Color::Normal);
 }
 
 
-NotificationArea::NotificationArea() :
+NotificationArea::NotificationArea(NotificationClickedDelegate notificationClickedHandler) :
 	mIcons{imageCache.load("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
-	mNotificationIndex{NoSelection}
+	mNotificationIndex{NoSelection},
+	mNotificationClickedHandler{notificationClickedHandler}
 {
-	auto& eventhandler = Utility<EventHandler>::get();
+	auto& eventhandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
 	eventhandler.mouseButtonDown().connect({this, &NotificationArea::onMouseDown});
 	eventhandler.mouseMotion().connect({this, &NotificationArea::onMouseMove});
@@ -65,7 +64,7 @@ NotificationArea::NotificationArea() :
 
 NotificationArea::~NotificationArea()
 {
-	auto& eventhandler = Utility<EventHandler>::get();
+	auto& eventhandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
 	eventhandler.mouseButtonDown().disconnect({this, &NotificationArea::onMouseDown});
 	eventhandler.mouseMotion().disconnect({this, &NotificationArea::onMouseMove});
@@ -103,10 +102,10 @@ std::size_t NotificationArea::notificationIndex(NAS2D::Point<int> pixelPosition)
 }
 
 
-void NotificationArea::onMouseDown(MouseButton button, NAS2D::Point<int> position)
+void NotificationArea::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (button != MouseButton::Left &&
-		button != MouseButton::Right)
+	if (button != NAS2D::MouseButton::Left &&
+		button != NAS2D::MouseButton::Right)
 	{
 		return;
 	}
@@ -114,9 +113,9 @@ void NotificationArea::onMouseDown(MouseButton button, NAS2D::Point<int> positio
 	const auto index = notificationIndex(position);
 	if (index != NoSelection)
 	{
-		if (button == MouseButton::Left)
+		if (button == NAS2D::MouseButton::Left)
 		{
-			mNotificationClicked(mNotificationList.at(index));
+			if (mNotificationClickedHandler) { mNotificationClickedHandler(mNotificationList.at(index)); }
 		}
 
 		mNotificationList.erase(mNotificationList.begin() + static_cast<std::ptrdiff_t>(index));
@@ -134,7 +133,7 @@ void NotificationArea::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int
 
 void NotificationArea::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	size_t count = 0;
 	for (auto& notification : mNotificationList)
@@ -144,15 +143,15 @@ void NotificationArea::update()
 
 		if (mNotificationIndex == count)
 		{
-			const auto textPadding = Vector<int>{4, 2};
+			const auto textPadding = NAS2D::Vector{4, 2};
 			const auto textAreaSize = mFont.size(notification.brief) + textPadding * 2;
 			const auto briefPosition = rect.position + NAS2D::Vector{-IconPadding.x - textAreaSize.x, (rect.size.y - textAreaSize.y) / 2};
 			const auto notificationBriefRect = NAS2D::Rectangle{briefPosition, textAreaSize};
 			const auto textPosition = briefPosition + textPadding;
 
-			renderer.drawBoxFilled(notificationBriefRect, Color::DarkGray);
-			renderer.drawBox(notificationBriefRect, Color::Black);
-			renderer.drawText(mFont, notification.brief, textPosition, Color::White);
+			renderer.drawBoxFilled(notificationBriefRect, NAS2D::Color::DarkGray);
+			renderer.drawBox(notificationBriefRect, NAS2D::Color::Black);
+			renderer.drawText(mFont, notification.brief, textPosition, NAS2D::Color::White);
 		}
 
 		count++;

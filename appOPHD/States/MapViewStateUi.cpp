@@ -100,8 +100,6 @@ void MapViewState::initUi()
 	mWindowStack.addWindow(&mNotificationWindow);
 	mWindowStack.addWindow(&mCheatMenu);
 
-	mNotificationArea.notificationClicked().connect({this, &MapViewState::onNotificationClicked});
-
 	mNotificationWindow.hide();
 
 	const auto size = renderer.size().to<int>();

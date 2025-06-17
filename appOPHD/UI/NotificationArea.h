@@ -4,10 +4,9 @@
 
 #include <libControls/Control.h>
 
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
 #include <string>
@@ -16,6 +15,8 @@
 
 namespace NAS2D
 {
+	enum class MouseButton;
+
 	class Image;
 	class Font;
 }
@@ -41,16 +42,14 @@ public:
 		NotificationType type{NotificationType::Information};
 	};
 
-	using NotificationClickedSignal = NAS2D::Signal<const Notification&>;
+	using NotificationClickedDelegate = NAS2D::Delegate<void(const Notification&)>;
 
 public:
-	NotificationArea();
+	NotificationArea(NotificationClickedDelegate notificationClickedHandler);
 	~NotificationArea() override;
 
 	void push(Notification notification);
 	void clear();
-
-	NotificationClickedSignal::Source& notificationClicked() { return mNotificationClicked; }
 
 	void update() override;
 
@@ -67,7 +66,7 @@ private:
 
 	std::vector<Notification> mNotificationList;
 	std::size_t mNotificationIndex;
-	NotificationClickedSignal mNotificationClicked;
+	NotificationClickedDelegate mNotificationClickedHandler;
 };
 
 void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons);
