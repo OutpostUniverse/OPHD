@@ -73,7 +73,7 @@ protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
-	void onTextChange() override { if (mTextChangedHandler) { mTextChangedHandler(this); } }
+	void onTextChange() override;
 
 private:
 	const NAS2D::Font& mFont;

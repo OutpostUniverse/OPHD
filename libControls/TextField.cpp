@@ -316,3 +316,9 @@ void TextField::onTextInput(const std::string& newTextInput)
 		mCursorCharacterPosition++;
 	}
 }
+
+
+void TextField::onTextChange()
+{
+	if (mTextChangedHandler) { mTextChangedHandler(this); }
+}
