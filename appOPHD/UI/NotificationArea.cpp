@@ -49,7 +49,7 @@ void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::Notifica
 }
 
 
-NotificationArea::NotificationArea() :
+NotificationArea::NotificationArea(NotificationClickedDelegate notificationClickedHandler) :
 	mIcons{imageCache.load("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
 	mNotificationIndex{NoSelection}
@@ -60,6 +60,8 @@ NotificationArea::NotificationArea() :
 	eventhandler.mouseMotion().connect({this, &NotificationArea::onMouseMove});
 
 	width(IconPaddedSize.x);
+
+	if (notificationClickedHandler) { mNotificationClicked.connect(notificationClickedHandler); }
 }
 
 

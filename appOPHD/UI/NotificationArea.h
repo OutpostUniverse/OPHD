@@ -8,6 +8,7 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
 #include <string>
@@ -42,9 +43,10 @@ public:
 	};
 
 	using NotificationClickedSignal = NAS2D::Signal<const Notification&>;
+	using NotificationClickedDelegate = NAS2D::Delegate<void(const Notification&)>;
 
 public:
-	NotificationArea();
+	NotificationArea(NotificationClickedDelegate notificationClickedHandler = {});
 	~NotificationArea() override;
 
 	void push(Notification notification);
