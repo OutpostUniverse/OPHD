@@ -160,7 +160,7 @@ void FileIo::onFileSelect()
 }
 
 
-void FileIo::onFileNameChange(TextControl* control)
+void FileIo::onFileNameChange(TextField* control)
 {
 	std::string sFile = control->text();
 
