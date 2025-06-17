@@ -6,9 +6,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
 	mHeader{imageCache.load("ui/interface/game_over.png")},
 	btnClose{"Return to Main Menu", clickHandler}
@@ -29,7 +26,7 @@ void GameOverDialog::update()
 
 	Window::update();
 
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
