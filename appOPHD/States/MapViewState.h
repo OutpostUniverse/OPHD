@@ -117,10 +117,6 @@ public:
 	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
-	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
-	QuitSignal::Source& quit() { return mQuitSignal; }
-	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
-
 	void quitHandler(EventDelegate newQuitHandler) { mQuitSignal.connect(newQuitHandler); }
 	void mapChangedHandler(EventDelegate newMapChangedHandler) { mMapChangedSignal.connect(newMapChangedHandler); }
 	void showReportsHandler(EventDelegate newShowReportsHandler) { mReportsUiSignal.connect(newShowReportsHandler); }
