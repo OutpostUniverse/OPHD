@@ -322,7 +322,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mPoliceOverlays.resize(static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth()+1));
 	updatePoliceOverlay();
 
-	mMapChangedSignal();
+	if (mMapChangedHandler) { mMapChangedHandler(); }
 }
 
 
