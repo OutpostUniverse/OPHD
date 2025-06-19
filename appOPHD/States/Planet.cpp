@@ -74,11 +74,11 @@ namespace
 {
 	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode);
 
-	const std::unordered_map<std::string, Planet::PlanetType> planetTypeTable
+	const std::unordered_map<std::string, PlanetType> planetTypeTable
 	{
-		{"Mercury", Planet::PlanetType::Mercury},
-		{"Mars", Planet::PlanetType::Mars},
-		{"Ganymede", Planet::PlanetType::Ganymede}
+		{"Mercury", PlanetType::Mercury},
+		{"Mars", PlanetType::Mars},
+		{"Ganymede", PlanetType::Ganymede}
 	};
 
 	const std::unordered_map<std::string, Planet::Hostility> hostilityTable

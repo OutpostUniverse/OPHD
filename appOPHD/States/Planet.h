@@ -10,16 +10,17 @@
 #include <vector>
 
 
+enum class PlanetType
+{
+	Mercury,
+	Mars,
+	Ganymede,
+};
+
+
 class Planet
 {
 public:
-	enum class PlanetType
-	{
-		Mercury,
-		Mars,
-		Ganymede,
-	};
-
 	enum class Hostility
 	{
 		Low,
