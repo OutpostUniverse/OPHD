@@ -48,7 +48,7 @@
 #include <libControls/WindowStack.h>
 #include <libControls/ToolTip.h>
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/ParserHelper.h>
@@ -106,18 +106,16 @@ public:
 	};
 
 public:
-	using QuitSignal = NAS2D::Signal<>;
-	using ReportsUiSignal = NAS2D::Signal<>;
-	using MapChangedSignal = NAS2D::Signal<>;
+	using EventDelegate = NAS2D::Delegate<void()>;
 
 public:
 	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument);
 	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
-	ReportsUiSignal::Source& showReportsUi() { return mReportsUiSignal; }
-	QuitSignal::Source& quit() { return mQuitSignal; }
-	MapChangedSignal::Source& mapChanged() { return mMapChangedSignal; }
+	void quitHandler(EventDelegate newQuitHandler) { mQuitHandler = newQuitHandler; }
+	void mapChangedHandler(EventDelegate newMapChangedHandler) { mMapChangedHandler = newMapChangedHandler; }
+	void showReportsHandler(EventDelegate newShowReportsHandler) { mShowReportsHandler = newShowReportsHandler; }
 
 	void focusOnStructure(const Structure* s);
 
@@ -381,9 +379,9 @@ private:
 	NAS2D::Rectangle<int> mBottomUiRect;
 
 	// SIGNALS
-	QuitSignal mQuitSignal;
-	ReportsUiSignal mReportsUiSignal;
-	MapChangedSignal mMapChangedSignal;
+	EventDelegate mQuitHandler;
+	EventDelegate mMapChangedHandler;
+	EventDelegate mShowReportsHandler;
 
 	std::vector<Tile*> mConnectednessOverlay;
 	std::vector<Tile*> mCommRangeOverlay;
