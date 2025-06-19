@@ -182,9 +182,6 @@ MainReportsUiState::~MainReportsUiState()
 
 void MainReportsUiState::initialize()
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto size = renderer.size().to<int>();
-
 	// INIT UI REPORT PANELS
 	/* NOTE: Matches the order in enum NavigationPanel */
 	auto panelInfo = std::array<PanelInfo, 7>{
@@ -196,6 +193,9 @@ void MainReportsUiState::initialize()
 		PanelInfo{new SpaceportsReport(), &imageCache.load("ui/icons/spaceport.png"), "Space Ports"},
 		PanelInfo{nullptr, &imageCache.load("ui/icons/exit.png"), ""}
 	};
+
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	const auto size = renderer.size().to<int>();
 
 	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
