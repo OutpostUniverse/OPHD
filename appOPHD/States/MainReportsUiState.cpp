@@ -85,14 +85,14 @@ namespace
 	};
 
 
-	static std::array<Panel, 7> Panels;
+	static std::array<Panel, 7> panels;
 
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
-		auto& exitPanel = Panels[ExitPanelIndex];
+		auto& exitPanel = panels[ExitPanelIndex];
 		exitPanel.tabArea = {{width - 48, 0}, {48, 48}};
 		exitPanel.iconPosition = {width - 40, 8};
 
@@ -100,9 +100,9 @@ namespace
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 		auto panelPosition = NAS2D::Point{0, 0};
-		for (std::size_t i = 0; i < Panels.size() - 1; ++i)
+		for (std::size_t i = 0; i < panels.size() - 1; ++i)
 		{
-			auto& panel = Panels[i];
+			auto& panel = panels[i];
 			panel.tabArea = NAS2D::Rectangle{panelPosition, panelSize};
 			panel.textPosition = panelPosition + (panelSize - font.size(panel.name)) / 2 + NAS2D::Vector{20, 0};
 			panel.iconPosition = {panel.textPosition.x - 40, 8};
@@ -173,7 +173,7 @@ MainReportsUiState::~MainReportsUiState()
 	eventHandler.keyDown().disconnect({this, &MainReportsUiState::onKeyDown});
 	eventHandler.mouseButtonDown().disconnect({this, &MainReportsUiState::onMouseDown});
 
-	for (Panel& panel : Panels)
+	for (Panel& panel : panels)
 	{
 		delete panel.report;
 	}
@@ -199,7 +199,7 @@ void MainReportsUiState::initialize()
 
 	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
-		auto& panel = Panels[i];
+		auto& panel = panels[i];
 		panel.setMeta(panelInfo[i]);
 		setReportValues(panel.report, size);
 	}
@@ -210,7 +210,7 @@ void MainReportsUiState::initialize()
 
 void MainReportsUiState::onActivate()
 {
-	for (auto& panel : Panels)
+	for (auto& panel : panels)
 	{
 		if (panel.report)
 		{
@@ -224,7 +224,7 @@ void MainReportsUiState::onActivate()
 
 void MainReportsUiState::onDeactivate()
 {
-	for (auto& panel : Panels)
+	for (auto& panel : panels)
 	{
 		if (panel.report)
 		{
@@ -266,7 +266,7 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 
 	if (button == NAS2D::MouseButton::Left)
 	{
-		for (Panel& panel : Panels)
+		for (Panel& panel : panels)
 		{
 			bool selected = panel.tabArea.contains(MOUSE_COORDS);
 			panel.selected(selected);
@@ -278,7 +278,7 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 		}
 	}
 
-	if (Panels[ExitPanelIndex].selected())
+	if (panels[ExitPanelIndex].selected())
 	{
 		exit();
 	}
@@ -289,7 +289,7 @@ void MainReportsUiState::exit()
 {
 	deselectAllPanels();
 
-	for (auto& panel : Panels)
+	for (auto& panel : panels)
 	{
 		if (panel.report)
 		{
@@ -304,7 +304,7 @@ void MainReportsUiState::exit()
 void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	setPanelRects(newSize.x, fontMain);
-	for (Panel& panel : Panels)
+	for (Panel& panel : panels)
 	{
 		if (panel.report)
 		{
@@ -316,7 +316,7 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 
 void MainReportsUiState::deselectAllPanels()
 {
-	for (auto& panel : Panels)
+	for (auto& panel : panels)
 	{
 		panel.selected(false);
 	}
@@ -329,7 +329,7 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(Panels[static_cast<size_t>(NavigationPanel::Production)], structure);
+	selectPanel(panels[static_cast<size_t>(NavigationPanel::Production)], structure);
 }
 
 
@@ -339,7 +339,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(Panels[static_cast<size_t>(NavigationPanel::Warehouse)], structure);
+	selectPanel(panels[static_cast<size_t>(NavigationPanel::Warehouse)], structure);
 }
 
 
@@ -349,20 +349,20 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(Panels[static_cast<size_t>(NavigationPanel::Mines)], structure);
+	selectPanel(panels[static_cast<size_t>(NavigationPanel::Mines)], structure);
 }
 
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-	auto* researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].report;
+	auto* researchPanel = panels[static_cast<size_t>(NavigationPanel::Research)].report;
 	dynamic_cast<ResearchReport&>(*researchPanel).injectTechReferences(catalog, tracker);
 }
 
 
 void MainReportsUiState::clearLists()
 {
-	for (auto& panel : Panels)
+	for (auto& panel : panels)
 	{
 		if (panel.report)
 		{
@@ -380,7 +380,7 @@ void MainReportsUiState::clearLists()
 MainReportsUiState::TakeMeThereSignalSourceList MainReportsUiState::takeMeThere()
 {
 	TakeMeThereSignalSourceList takeMeThereList;
-	for (auto& panel : Panels)
+	for (auto& panel : panels)
 	{
 		if (panel.report)
 		{
@@ -399,7 +399,7 @@ NAS2D::State* MainReportsUiState::update()
 	renderer.clearScreen(NAS2D::Color{35, 35, 35});
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>{{0, 0}, {renderer.size().x, 48}}, NAS2D::Color::Black);
 
-	for (Panel& panel : Panels)
+	for (Panel& panel : panels)
 	{
 		drawPanel(renderer, panel, fontMain);
 	}
