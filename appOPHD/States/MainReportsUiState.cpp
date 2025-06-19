@@ -43,6 +43,10 @@ namespace
 		Exit
 	};
 
+	constexpr auto ResearchPanelIndex = static_cast<size_t>(NavigationPanel::Research);
+	constexpr auto ProductionPanelIndex = static_cast<size_t>(NavigationPanel::Production);
+	constexpr auto WarehousePanelIndex = static_cast<size_t>(NavigationPanel::Warehouse);
+	constexpr auto MinesPanelIndex = static_cast<size_t>(NavigationPanel::Mines);
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
@@ -328,7 +332,7 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[static_cast<size_t>(NavigationPanel::Production)], structure);
+	selectPanel(panels[ProductionPanelIndex], structure);
 }
 
 
@@ -338,7 +342,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[static_cast<size_t>(NavigationPanel::Warehouse)], structure);
+	selectPanel(panels[WarehousePanelIndex], structure);
 }
 
 
@@ -348,13 +352,13 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[static_cast<size_t>(NavigationPanel::Mines)], structure);
+	selectPanel(panels[MinesPanelIndex], structure);
 }
 
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-	auto* researchPanel = panels[static_cast<size_t>(NavigationPanel::Research)].report;
+	auto* researchPanel = panels[ResearchPanelIndex].report;
 	dynamic_cast<ResearchReport&>(*researchPanel).injectTechReferences(catalog, tracker);
 }
 
