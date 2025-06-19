@@ -302,7 +302,7 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 	{
 		if (panel.report)
 		{
-			panel.report->size(NAS2D::Vector{newSize.x, newSize.y - 48});
+			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
 		}
 	}
 }
