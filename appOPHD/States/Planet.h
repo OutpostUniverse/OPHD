@@ -44,6 +44,9 @@ struct PlanetAttributes
 };
 
 
+std::vector<PlanetAttributes> parsePlanetAttributes();
+
+
 class Planet
 {
 public:
@@ -89,5 +92,3 @@ private:
 
 	NAS2D::Timer mTimer;
 };
-
-std::vector<PlanetAttributes> parsePlanetAttributes();
