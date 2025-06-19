@@ -115,7 +115,7 @@ namespace
 	}
 
 
-	void setPanelRects(int width, const NAS2D::Font& font)
+	void onResizeTabBar(int width, const NAS2D::Font& font)
 	{
 		auto& exitPanel = panels[ExitPanelIndex];
 		exitPanel.tabArea = {{width - 48, 0}, {48, 48}};
@@ -288,7 +288,7 @@ void MainReportsUiState::exit()
 
 void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 {
-	setPanelRects(newSize.x, fontMain);
+	onResizeTabBar(newSize.x, fontMain);
 	for (Panel& panel : panels)
 	{
 		if (panel.report)
