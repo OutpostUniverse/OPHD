@@ -53,6 +53,14 @@ namespace
 	class Panel
 	{
 	public:
+		void select(Structure* structure)
+		{
+			selected(true);
+			report->visible(true);
+			report->refresh();
+			report->selectStructure(structure);
+		}
+
 		void selected(bool isSelected)
 		{
 			mIsSelected = isSelected;
@@ -133,15 +141,6 @@ namespace
 
 		renderer.drawText(font, panel.name, panel.textPosition, drawColor);
 		renderer.drawImage(*panel.icon, panel.iconPosition, 1.0f, drawColor);
-	}
-
-
-	void selectPanel(Panel& panel, Structure* structure)
-	{
-		panel.selected(true);
-		panel.report->visible(true);
-		panel.report->refresh();
-		panel.report->selectStructure(structure);
 	}
 }
 
@@ -324,7 +323,7 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[ProductionPanelIndex], structure);
+	panels[ProductionPanelIndex].select(structure);
 }
 
 
@@ -334,7 +333,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[WarehousePanelIndex], structure);
+	panels[WarehousePanelIndex].select(structure);
 }
 
 
@@ -344,7 +343,7 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[MinesPanelIndex], structure);
+	panels[MinesPanelIndex].select(structure);
 }
 
 
