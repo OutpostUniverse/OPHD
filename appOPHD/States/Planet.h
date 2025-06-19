@@ -44,7 +44,7 @@ struct PlanetAttributes
 };
 
 
-std::vector<PlanetAttributes> parsePlanetAttributes();
+std::vector<PlanetAttributes> parsePlanetAttributes(const std::string& filename);
 
 
 class Planet

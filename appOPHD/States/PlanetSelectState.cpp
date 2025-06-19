@@ -44,7 +44,7 @@ PlanetSelectState::PlanetSelectState() :
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{NoSelection},
 	mReturnState{this},
-	mPlanets{attributesToPlanets(parsePlanetAttributes())}
+	mPlanets{attributesToPlanets(parsePlanetAttributes("planets/PlanetAttributes.xml"))}
 {
 	for (auto& planet : mPlanets)
 	{

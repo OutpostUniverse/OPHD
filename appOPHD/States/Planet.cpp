@@ -60,10 +60,10 @@ namespace
 }
 
 
-std::vector<PlanetAttributes> parsePlanetAttributes()
+std::vector<PlanetAttributes> parsePlanetAttributes(const std::string& filename)
 {
 	const std::string rootElementName("Planets");
-	auto xmlDocument = openXmlFile("planets/PlanetAttributes.xml", rootElementName);
+	auto xmlDocument = openXmlFile(filename, rootElementName);
 
 	std::vector<PlanetAttributes> planetAttributes;
 
