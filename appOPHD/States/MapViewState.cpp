@@ -47,11 +47,11 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 namespace
 {
 	// Relative proportion of Ore Deposits with yields {low, med, high}
-	const std::map<Planet::Hostility, std::array<int, 3>> HostilityOreDepositYields =
+	const std::map<PlanetHostility, std::array<int, 3>> HostilityOreDepositYields =
 	{
-		{Planet::Hostility::Low, {30, 50, 20}},
-		{Planet::Hostility::Medium, {45, 35, 20}},
-		{Planet::Hostility::High, {35, 20, 45}},
+		{PlanetHostility::Low, {30, 50, 20}},
+		{PlanetHostility::Medium, {45, 35, 20}},
+		{PlanetHostility::High, {35, 20, 45}},
 	};
 
 	struct RobotMeta

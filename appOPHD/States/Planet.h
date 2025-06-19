@@ -18,21 +18,22 @@ enum class PlanetType
 };
 
 
+enum class PlanetHostility
+{
+	Low,
+	Medium,
+	High
+};
+
+
 class Planet
 {
 public:
-	enum class Hostility
-	{
-		Low,
-		Medium,
-		High
-	};
-
 	struct Attributes
 	{
 		PlanetType type{PlanetType::Mercury};
 		std::string imagePath;
-		Hostility hostility{Hostility::Low};
+		PlanetHostility hostility{PlanetHostility::Low};
 		int maxDepth = 0;
 		std::size_t maxOreDeposits = 0;
 		std::string mapImagePath;

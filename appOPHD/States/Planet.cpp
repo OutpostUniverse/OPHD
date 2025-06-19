@@ -81,11 +81,11 @@ namespace
 		{"Ganymede", PlanetType::Ganymede}
 	};
 
-	const std::unordered_map<std::string, Planet::Hostility> hostilityTable
+	const std::unordered_map<std::string, PlanetHostility> hostilityTable
 	{
-		{"Low", Planet::Hostility::Low},
-		{"Medium", Planet::Hostility::Medium},
-		{"High", Planet::Hostility::High}
+		{"Low", PlanetHostility::Low},
+		{"Medium", PlanetHostility::Medium},
+		{"High", PlanetHostility::High}
 	};
 }
 
