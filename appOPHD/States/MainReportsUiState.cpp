@@ -186,7 +186,7 @@ void MainReportsUiState::initialize()
 	const auto size = renderer.size().to<int>();
 
 	// INIT UI REPORT PANELS
-	/* NOTE: Matches the order in enum::NavigationPanel */
+	/* NOTE: Matches the order in enum NavigationPanel */
 	auto panelInfo = std::array<PanelInfo, 7>{
 		PanelInfo{new ResearchReport(), &imageCache.load("ui/icons/research.png"), "Research"},
 		PanelInfo{new FactoryReport(), &imageCache.load("ui/icons/production.png"), "Factories"},
