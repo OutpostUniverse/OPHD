@@ -42,17 +42,16 @@ namespace
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
-	struct PanelInfo
-	{
-		ReportInterface* report{nullptr};
-		const std::string name{};
-		const NAS2D::Image* image{nullptr};
-	};
-
-
 	class Panel
 	{
 	public:
+		Panel() = default;
+		Panel(ReportInterface* newReport, std::string newName, const NAS2D::Image* newIcon) :
+			report{newReport},
+			name{newName},
+			icon{newIcon}
+		{}
+
 		void select(Structure* structure)
 		{
 			selected(true);
@@ -75,13 +74,6 @@ namespace
 			return mIsSelected;
 		}
 
-		void setMeta(const PanelInfo& panelInfo)
-		{
-			icon = panelInfo.image;
-			name = panelInfo.name;
-			report = panelInfo.report;
-		}
-
 	public:
 		ReportInterface* report = nullptr;
 		std::string name;
@@ -102,20 +94,18 @@ namespace
 	void initializePanels()
 	{
 		/* NOTE: Matches the order in enum NavigationPanel */
-		auto panelInfo = std::array<PanelInfo, 7>{
-			PanelInfo{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
-			PanelInfo{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
-			PanelInfo{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
-			PanelInfo{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
-			PanelInfo{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
-			PanelInfo{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
-			PanelInfo{nullptr, "", &imageCache.load("ui/icons/exit.png")}
+		panels = std::array<Panel, 7>{
+			Panel{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
+			Panel{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
+			Panel{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
+			Panel{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
+			Panel{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
+			Panel{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
+			Panel{nullptr, "", &imageCache.load("ui/icons/exit.png")}
 		};
 
-		for (size_t i = 0; i < panelInfo.size(); i++)
+		for (auto& panel : panels)
 		{
-			auto& panel = panels[i];
-			panel.setMeta(panelInfo[i]);
 			auto* report = panel.report;
 			if (report)
 			{
