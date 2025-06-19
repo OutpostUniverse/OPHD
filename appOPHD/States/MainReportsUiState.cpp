@@ -74,7 +74,7 @@ namespace
 		const NAS2D::Image* icon = nullptr;
 
 		NAS2D::Point<int> textPosition;
-		NAS2D::Point<int> IconPosition;
+		NAS2D::Point<int> iconPosition;
 
 		NAS2D::Rectangle<int> tabArea;
 
@@ -94,7 +94,7 @@ namespace
 	{
 		auto& exitPanel = Panels[ExitPanelIndex];
 		exitPanel.tabArea = {{width - 48, 0}, {48, 48}};
-		exitPanel.IconPosition = {width - 40, 8};
+		exitPanel.iconPosition = {width - 40, 8};
 
 		int remaining_width = width - exitPanel.tabArea.size.x;
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
@@ -105,7 +105,7 @@ namespace
 			auto& panel = Panels[i];
 			panel.tabArea = NAS2D::Rectangle{panelPosition, panelSize};
 			panel.textPosition = panelPosition + (panelSize - font.size(panel.name)) / 2 + NAS2D::Vector{20, 0};
-			panel.IconPosition = {panel.textPosition.x - 40, 8};
+			panel.iconPosition = {panel.textPosition.x - 40, 8};
 			panelPosition.x += panelSize.x;
 		}
 	}
@@ -131,7 +131,7 @@ namespace
 		}
 
 		renderer.drawText(font, panel.name, panel.textPosition, drawColor);
-		renderer.drawImage(*panel.icon, panel.IconPosition, 1.0f, drawColor);
+		renderer.drawImage(*panel.icon, panel.iconPosition, 1.0f, drawColor);
 	}
 
 
