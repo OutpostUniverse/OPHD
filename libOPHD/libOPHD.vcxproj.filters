@@ -39,6 +39,9 @@
     <ClCompile Include="MeanSolarDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlanetAttributes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ProductCatalogue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MeanSolarDistance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductCatalogue.h">
