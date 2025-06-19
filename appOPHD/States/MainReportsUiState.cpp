@@ -47,7 +47,7 @@ namespace
 	class Panel
 	{
 	public:
-		void Selected(bool isSelected)
+		void selected(bool isSelected)
 		{
 			mIsSelected = isSelected;
 			if (UiPanel)
@@ -56,7 +56,7 @@ namespace
 			}
 		}
 
-		bool Selected() const
+		bool selected() const
 		{
 			return mIsSelected;
 		}
@@ -118,9 +118,9 @@ namespace
 			renderer.drawBoxFilled(panel.Rect, constants::HighlightColor);
 		}
 
-		auto drawColor = panel.Selected() ? constants::PrimaryColor : constants::SecondaryColor;
+		auto drawColor = panel.selected() ? constants::PrimaryColor : constants::SecondaryColor;
 
-		if (panel.Selected())
+		if (panel.selected())
 		{
 			renderer.drawBoxFilled(panel.Rect, constants::PrimaryColorVariant);
 
@@ -137,7 +137,7 @@ namespace
 
 	void selectPanel(Panel& panel, Structure* structure)
 	{
-		panel.Selected(true);
+		panel.selected(true);
 		panel.UiPanel->visible(true);
 		panel.UiPanel->refresh();
 		panel.UiPanel->selectStructure(structure);
@@ -232,7 +232,7 @@ void MainReportsUiState::onDeactivate()
 			panel.UiPanel->clearSelected();
 		}
 
-		panel.Selected(false);
+		panel.selected(false);
 	}
 }
 
@@ -269,7 +269,7 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 		for (Panel& panel : Panels)
 		{
 			bool selected = panel.Rect.contains(MOUSE_COORDS);
-			panel.Selected(selected);
+			panel.selected(selected);
 
 			if (panel.UiPanel)
 			{
@@ -278,7 +278,7 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 		}
 	}
 
-	if (Panels[ExitPanelIndex].Selected())
+	if (Panels[ExitPanelIndex].selected())
 	{
 		exit();
 	}
@@ -318,7 +318,7 @@ void MainReportsUiState::deselectAllPanels()
 {
 	for (auto& panel : Panels)
 	{
-		panel.Selected(false);
+		panel.selected(false);
 	}
 }
 
