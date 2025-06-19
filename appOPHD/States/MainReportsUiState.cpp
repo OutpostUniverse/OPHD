@@ -43,6 +43,8 @@ namespace
 		Exit
 	};
 
+	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
+
 
 	class Panel
 	{
@@ -86,8 +88,6 @@ namespace
 
 
 	static std::array<Panel, 7> panels;
-
-	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
 	void setPanelRects(int width, const NAS2D::Font& font)
