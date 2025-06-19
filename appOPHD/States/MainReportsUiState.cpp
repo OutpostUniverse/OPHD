@@ -99,6 +99,33 @@ namespace
 	static std::array<Panel, 7> panels;
 
 
+	void initializePanels()
+	{
+		// INIT UI REPORT PANELS
+		/* NOTE: Matches the order in enum NavigationPanel */
+		auto panelInfo = std::array<PanelInfo, 7>{
+			PanelInfo{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
+			PanelInfo{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
+			PanelInfo{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
+			PanelInfo{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
+			PanelInfo{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
+			PanelInfo{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
+			PanelInfo{nullptr, "", &imageCache.load("ui/icons/exit.png")}
+		};
+
+		for (size_t i = 0; i < panelInfo.size(); i++)
+		{
+			auto& panel = panels[i];
+			panel.setMeta(panelInfo[i]);
+			auto* report = panel.report;
+			if (report)
+			{
+				report->hide();
+			}
+		}
+	}
+
+
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
 		auto& exitPanel = panels[ExitPanelIndex];
@@ -171,29 +198,7 @@ MainReportsUiState::~MainReportsUiState()
 
 void MainReportsUiState::initialize()
 {
-	// INIT UI REPORT PANELS
-	/* NOTE: Matches the order in enum NavigationPanel */
-	auto panelInfo = std::array<PanelInfo, 7>{
-		PanelInfo{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
-		PanelInfo{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
-		PanelInfo{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
-		PanelInfo{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
-		PanelInfo{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
-		PanelInfo{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
-		PanelInfo{nullptr, "", &imageCache.load("ui/icons/exit.png")}
-	};
-
-	for (size_t i = 0; i < panelInfo.size(); i++)
-	{
-		auto& panel = panels[i];
-		panel.setMeta(panelInfo[i]);
-		auto* report = panel.report;
-		if (report)
-		{
-			report->hide();
-		}
-	}
-
+	initializePanels();
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 	onWindowResized(size);
 }
