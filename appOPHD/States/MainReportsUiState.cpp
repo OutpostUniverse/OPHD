@@ -50,9 +50,9 @@ namespace
 		void selected(bool isSelected)
 		{
 			mIsSelected = isSelected;
-			if (UiPanel)
+			if (report)
 			{
-				UiPanel->enabled(isSelected);
+				report->enabled(isSelected);
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace
 		{
 			icon = panelInfo.image;
 			name = panelInfo.name;
-			UiPanel = panelInfo.report;
+			report = panelInfo.report;
 		}
 
 	public:
@@ -78,7 +78,7 @@ namespace
 
 		NAS2D::Rectangle<int> Rect;
 
-		ReportInterface* UiPanel = nullptr;
+		ReportInterface* report = nullptr;
 
 	private:
 		bool mIsSelected = false;
@@ -124,9 +124,9 @@ namespace
 		{
 			renderer.drawBoxFilled(panel.Rect, constants::PrimaryColorVariant);
 
-			if (panel.UiPanel)
+			if (panel.report)
 			{
-				panel.UiPanel->update();
+				panel.report->update();
 			}
 		}
 
@@ -138,9 +138,9 @@ namespace
 	void selectPanel(Panel& panel, Structure* structure)
 	{
 		panel.selected(true);
-		panel.UiPanel->visible(true);
-		panel.UiPanel->refresh();
-		panel.UiPanel->selectStructure(structure);
+		panel.report->visible(true);
+		panel.report->refresh();
+		panel.report->selectStructure(structure);
 	}
 
 
@@ -175,7 +175,7 @@ MainReportsUiState::~MainReportsUiState()
 
 	for (Panel& panel : Panels)
 	{
-		delete panel.UiPanel;
+		delete panel.report;
 	}
 }
 
@@ -201,7 +201,7 @@ void MainReportsUiState::initialize()
 	{
 		auto& panel = Panels[i];
 		panel.setMeta(panelInfo[i]);
-		setReportValues(panel.UiPanel, size);
+		setReportValues(panel.report, size);
 	}
 
 	setPanelRects(size.x, fontMain);
@@ -212,11 +212,11 @@ void MainReportsUiState::onActivate()
 {
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel)
+		if (panel.report)
 		{
-			panel.UiPanel->fillLists();
-			panel.UiPanel->refresh();
-			panel.UiPanel->show();
+			panel.report->fillLists();
+			panel.report->refresh();
+			panel.report->show();
 		}
 	}
 }
@@ -226,10 +226,10 @@ void MainReportsUiState::onDeactivate()
 {
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel)
+		if (panel.report)
 		{
-			panel.UiPanel->hide();
-			panel.UiPanel->clearSelected();
+			panel.report->hide();
+			panel.report->clearSelected();
 		}
 
 		panel.selected(false);
@@ -271,9 +271,9 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 			bool selected = panel.Rect.contains(MOUSE_COORDS);
 			panel.selected(selected);
 
-			if (panel.UiPanel)
+			if (panel.report)
 			{
-				panel.UiPanel->visible(selected);
+				panel.report->visible(selected);
 			}
 		}
 	}
@@ -291,9 +291,9 @@ void MainReportsUiState::exit()
 
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel)
+		if (panel.report)
 		{
-			panel.UiPanel->clearSelected();
+			panel.report->clearSelected();
 		}
 	}
 
@@ -306,9 +306,9 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 	setPanelRects(newSize.x, fontMain);
 	for (Panel& panel : Panels)
 	{
-		if (panel.UiPanel)
+		if (panel.report)
 		{
-			panel.UiPanel->size(NAS2D::Vector{newSize.x, newSize.y - 48});
+			panel.report->size(NAS2D::Vector{newSize.x, newSize.y - 48});
 		}
 	}
 }
@@ -355,7 +355,7 @@ void MainReportsUiState::selectMinePanel(Structure* structure)
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-	auto* researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].UiPanel;
+	auto* researchPanel = Panels[static_cast<size_t>(NavigationPanel::Research)].report;
 	dynamic_cast<ResearchReport&>(*researchPanel).injectTechReferences(catalog, tracker);
 }
 
@@ -364,9 +364,9 @@ void MainReportsUiState::clearLists()
 {
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel)
+		if (panel.report)
 		{
-			panel.UiPanel->fillLists();
+			panel.report->fillLists();
 		}
 	}
 }
@@ -382,9 +382,9 @@ MainReportsUiState::TakeMeThereSignalSourceList MainReportsUiState::takeMeThere(
 	TakeMeThereSignalSourceList takeMeThereList;
 	for (auto& panel : Panels)
 	{
-		if (panel.UiPanel)
+		if (panel.report)
 		{
-			takeMeThereList.push_back(&panel.UiPanel->takeMeThereSignal());
+			takeMeThereList.push_back(&panel.report->takeMeThereSignal());
 		}
 	}
 
