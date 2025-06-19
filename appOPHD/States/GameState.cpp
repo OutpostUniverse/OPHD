@@ -56,7 +56,7 @@ GameState::~GameState()
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
 
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().disconnect({this, &GameState::onMusicComplete});
+	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler({this, &GameState::onMusicComplete});
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
 }
 
@@ -77,7 +77,7 @@ void GameState::initializeGameState()
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
 
-	NAS2D::Utility<NAS2D::Mixer>::get().musicCompleteSignalSource().connect({this, &GameState::onMusicComplete});
+	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler({this, &GameState::onMusicComplete});
 }
 
 
