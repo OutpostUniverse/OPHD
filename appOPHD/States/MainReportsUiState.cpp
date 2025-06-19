@@ -183,8 +183,6 @@ void MainReportsUiState::initialize()
 		PanelInfo{nullptr, "", &imageCache.load("ui/icons/exit.png")}
 	};
 
-	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
-
 	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
 		auto& panel = panels[i];
@@ -192,13 +190,12 @@ void MainReportsUiState::initialize()
 		auto* report = panel.report;
 		if (report)
 		{
-			report->position({0, 48});
-			report->size({size.x, size.y - 48});
 			report->hide();
 		}
 	}
 
-	setPanelRects(size.x, fontMain);
+	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
+	onWindowResized(size);
 }
 
 
