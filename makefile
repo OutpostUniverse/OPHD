@@ -361,7 +361,7 @@ format:
 
 ## GitHub ##
 .PHONY: cache-list-all cache-list-main cache-list-branch cache-delete-main-stale cache-delete-branch
-GhCacheKeyIncremental := buildCache-
+GhCacheKeyIncremental := ophd-
 GhCacheLimit := 100
 GhCacheFields := id,ref,key,version,sizeInBytes,createdAt,lastAccessedAt
 GhCacheListJson := gh cache list --limit $(GhCacheLimit) --json $(GhCacheFields)
