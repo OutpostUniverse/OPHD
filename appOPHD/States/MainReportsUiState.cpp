@@ -76,7 +76,7 @@ namespace
 		NAS2D::Point<int> TextPosition;
 		NAS2D::Point<int> IconPosition;
 
-		NAS2D::Rectangle<int> Rect;
+		NAS2D::Rectangle<int> tabArea;
 
 		ReportInterface* report = nullptr;
 
@@ -93,17 +93,17 @@ namespace
 	void setPanelRects(int width, const NAS2D::Font& font)
 	{
 		auto& exitPanel = Panels[ExitPanelIndex];
-		exitPanel.Rect = {{width - 48, 0}, {48, 48}};
+		exitPanel.tabArea = {{width - 48, 0}, {48, 48}};
 		exitPanel.IconPosition = {width - 40, 8};
 
-		int remaining_width = width - exitPanel.Rect.size.x;
+		int remaining_width = width - exitPanel.tabArea.size.x;
 		const auto panelSize = NAS2D::Vector{remaining_width / 6, 48};
 
 		auto panelPosition = NAS2D::Point{0, 0};
 		for (std::size_t i = 0; i < Panels.size() - 1; ++i)
 		{
 			auto& panel = Panels[i];
-			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
+			panel.tabArea = NAS2D::Rectangle{panelPosition, panelSize};
 			panel.TextPosition = panelPosition + (panelSize - font.size(panel.name)) / 2 + NAS2D::Vector{20, 0};
 			panel.IconPosition = {panel.TextPosition.x - 40, 8};
 			panelPosition.x += panelSize.x;
@@ -113,16 +113,16 @@ namespace
 
 	void drawPanel(NAS2D::Renderer& renderer, Panel& panel, const NAS2D::Font& font)
 	{
-		if (panel.Rect.contains(MOUSE_COORDS))
+		if (panel.tabArea.contains(MOUSE_COORDS))
 		{
-			renderer.drawBoxFilled(panel.Rect, constants::HighlightColor);
+			renderer.drawBoxFilled(panel.tabArea, constants::HighlightColor);
 		}
 
 		auto drawColor = panel.selected() ? constants::PrimaryColor : constants::SecondaryColor;
 
 		if (panel.selected())
 		{
-			renderer.drawBoxFilled(panel.Rect, constants::PrimaryColorVariant);
+			renderer.drawBoxFilled(panel.tabArea, constants::PrimaryColorVariant);
 
 			if (panel.report)
 			{
@@ -268,7 +268,7 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 	{
 		for (Panel& panel : Panels)
 		{
-			bool selected = panel.Rect.contains(MOUSE_COORDS);
+			bool selected = panel.tabArea.contains(MOUSE_COORDS);
 			panel.selected(selected);
 
 			if (panel.report)
