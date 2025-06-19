@@ -24,14 +24,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	struct PanelInfo
-	{
-		ReportInterface* report{nullptr};
-		const NAS2D::Image* image{nullptr};
-		const std::string name{};
-	};
-
-
 	enum class NavigationPanel
 	{
 		Research,
@@ -48,6 +40,14 @@ namespace
 	constexpr auto WarehousePanelIndex = static_cast<size_t>(NavigationPanel::Warehouse);
 	constexpr auto MinesPanelIndex = static_cast<size_t>(NavigationPanel::Mines);
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
+
+
+	struct PanelInfo
+	{
+		ReportInterface* report{nullptr};
+		const NAS2D::Image* image{nullptr};
+		const std::string name{};
+	};
 
 
 	class Panel
