@@ -6,8 +6,6 @@
 #include <string>
 #include <map>
 #include <unordered_map>
-#include <typeinfo>
-#include <type_traits>
 #include <stdexcept>
 
 
