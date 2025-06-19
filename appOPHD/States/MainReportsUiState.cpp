@@ -63,7 +63,7 @@ namespace
 
 		void setMeta(const PanelInfo& panelInfo)
 		{
-			Img = panelInfo.image;
+			icon = panelInfo.image;
 			name = panelInfo.name;
 			UiPanel = panelInfo.report;
 		}
@@ -71,7 +71,7 @@ namespace
 	public:
 		std::string name;
 
-		const NAS2D::Image* Img = nullptr;
+		const NAS2D::Image* icon = nullptr;
 
 		NAS2D::Point<int> TextPosition;
 		NAS2D::Point<int> IconPosition;
@@ -131,7 +131,7 @@ namespace
 		}
 
 		renderer.drawText(font, panel.name, panel.TextPosition, drawColor);
-		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, drawColor);
+		renderer.drawImage(*panel.icon, panel.IconPosition, 1.0f, drawColor);
 	}
 
 
