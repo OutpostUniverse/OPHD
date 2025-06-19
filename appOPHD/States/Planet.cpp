@@ -23,7 +23,7 @@ namespace
 }
 
 
-Planet::Planet(const Attributes& attributes) :
+Planet::Planet(const PlanetAttributes& attributes) :
 	mAttributes(attributes),
 	mImage(NAS2D::Image(attributes.imagePath))
 {
@@ -72,7 +72,7 @@ void Planet::update()
 
 namespace
 {
-	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode);
+	PlanetAttributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode);
 
 	const std::unordered_map<std::string, PlanetType> planetTypeTable
 	{
@@ -90,12 +90,12 @@ namespace
 }
 
 
-std::vector<Planet::Attributes> parsePlanetAttributes()
+std::vector<PlanetAttributes> parsePlanetAttributes()
 {
 	const std::string rootElementName("Planets");
 	auto xmlDocument = openXmlFile("planets/PlanetAttributes.xml", rootElementName);
 
-	std::vector<Planet::Attributes> planetAttributes;
+	std::vector<PlanetAttributes> planetAttributes;
 
 	auto rootElement = xmlDocument.firstChildElement(rootElementName);
 	for (const auto* node = rootElement->firstChildElement("Planet"); node; node = node->nextSiblingElement("Planet"))
@@ -109,7 +109,7 @@ std::vector<Planet::Attributes> parsePlanetAttributes()
 
 namespace
 {
-	Planet::Attributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
+	PlanetAttributes parsePlanet(const NAS2D::Xml::XmlElement* xmlNode)
 	{
 		NAS2D::Dictionary dictionary{};
 		for (const auto* element = xmlNode->firstChildElement(); element; element = element->nextSiblingElement())

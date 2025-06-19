@@ -191,7 +191,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 }
 
 
-MapViewState::MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
 	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},

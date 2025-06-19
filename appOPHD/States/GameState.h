@@ -27,7 +27,7 @@ class GameState : public NAS2D::State
 {
 public:
 	GameState(const std::string& savedGameFilename);
-	GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
+	GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty);
 	~GameState() override;
 
 	State* update() override;

@@ -41,7 +41,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 {}
 
 
-GameState::GameState(const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty) :
+GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
 	mMainReportsState{},
 	mMapViewState{*this, planetAttributes, selectedDifficulty},
 	mColonyShip{},

@@ -238,7 +238,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	NAS2D::Xml::XmlElement* map = root->firstChildElement("properties");
 	const auto dictionary = NAS2D::attributesToDictionary(*map);
 
-	mPlanetAttributes = Planet::Attributes();
+	mPlanetAttributes = PlanetAttributes();
 	mPlanetAttributes.maxDepth = dictionary.get<int>("diggingdepth");
 	mPlanetAttributes.mapImagePath = dictionary.get("sitemap");
 	mPlanetAttributes.tilesetPath = dictionary.get("tset");

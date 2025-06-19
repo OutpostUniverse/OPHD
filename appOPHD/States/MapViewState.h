@@ -110,7 +110,7 @@ public:
 
 public:
 	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument);
-	MapViewState(GameState& gameState, const Planet::Attributes& planetAttributes, Difficulty selectedDifficulty);
+	MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty);
 	~MapViewState() override;
 
 	void quitHandler(EventDelegate newQuitHandler) { mQuitHandler = newQuitHandler; }
@@ -292,7 +292,7 @@ private:
 	ResearchTracker mResearchTracker;
 	TechnologyCatalog mTechnologyReader;
 
-	Planet::Attributes mPlanetAttributes;
+	PlanetAttributes mPlanetAttributes;
 
 	int mFood{0};
 

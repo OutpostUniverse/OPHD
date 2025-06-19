@@ -21,7 +21,7 @@
 
 namespace
 {
-	auto attributesToPlanets(const std::vector<Planet::Attributes>& attributes)
+	auto attributesToPlanets(const std::vector<PlanetAttributes>& attributes)
 	{
 		return std::vector<Planet>{attributes.cbegin(), attributes.cend()};
 	}
