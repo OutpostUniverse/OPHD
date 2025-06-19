@@ -2,6 +2,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
+#include <NAS2D/Xml/XmlDocument.h>
 
 using namespace NAS2D;
 

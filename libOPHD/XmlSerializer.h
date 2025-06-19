@@ -1,11 +1,15 @@
 #pragma once
 
-#include <NAS2D/Xml/XmlDocument.h>
-
 #include <string>
 #include <map>
 #include <unordered_map>
 #include <stdexcept>
+
+
+namespace NAS2D::Xml
+{
+	class XmlDocument;
+}
 
 
 // Open an xml document
