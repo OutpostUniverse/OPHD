@@ -101,7 +101,6 @@ namespace
 
 	void initializePanels()
 	{
-		// INIT UI REPORT PANELS
 		/* NOTE: Matches the order in enum NavigationPanel */
 		auto panelInfo = std::array<PanelInfo, 7>{
 			PanelInfo{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
