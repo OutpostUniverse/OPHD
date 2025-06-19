@@ -64,12 +64,12 @@ namespace
 		void setMeta(const PanelInfo& panelInfo)
 		{
 			Img = panelInfo.image;
-			Name = panelInfo.name;
+			name = panelInfo.name;
 			UiPanel = panelInfo.report;
 		}
 
 	public:
-		std::string Name;
+		std::string name;
 
 		const NAS2D::Image* Img = nullptr;
 
@@ -104,7 +104,7 @@ namespace
 		{
 			auto& panel = Panels[i];
 			panel.Rect = NAS2D::Rectangle{panelPosition, panelSize};
-			panel.TextPosition = panelPosition + (panelSize - font.size(panel.Name)) / 2 + NAS2D::Vector{20, 0};
+			panel.TextPosition = panelPosition + (panelSize - font.size(panel.name)) / 2 + NAS2D::Vector{20, 0};
 			panel.IconPosition = {panel.TextPosition.x - 40, 8};
 			panelPosition.x += panelSize.x;
 		}
@@ -130,7 +130,7 @@ namespace
 			}
 		}
 
-		renderer.drawText(font, panel.Name, panel.TextPosition, drawColor);
+		renderer.drawText(font, panel.name, panel.TextPosition, drawColor);
 		renderer.drawImage(*panel.Img, panel.IconPosition, 1.0f, drawColor);
 	}
 
