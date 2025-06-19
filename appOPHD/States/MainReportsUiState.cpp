@@ -24,14 +24,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	struct PanelInfo
-	{
-		ReportInterface* report{nullptr};
-		const NAS2D::Image* image{nullptr};
-		const std::string name{};
-	};
-
-
 	enum class NavigationPanel
 	{
 		Research,
@@ -43,10 +35,31 @@ namespace
 		Exit
 	};
 
+	constexpr auto ResearchPanelIndex = static_cast<size_t>(NavigationPanel::Research);
+	constexpr auto ProductionPanelIndex = static_cast<size_t>(NavigationPanel::Production);
+	constexpr auto WarehousePanelIndex = static_cast<size_t>(NavigationPanel::Warehouse);
+	constexpr auto MinesPanelIndex = static_cast<size_t>(NavigationPanel::Mines);
+	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
+
 
 	class Panel
 	{
 	public:
+		Panel() = default;
+		Panel(ReportInterface* newReport, std::string newName, const NAS2D::Image* newIcon) :
+			report{newReport},
+			name{newName},
+			icon{newIcon}
+		{}
+
+		void select(Structure* structure)
+		{
+			selected(true);
+			report->visible(true);
+			report->refresh();
+			report->selectStructure(structure);
+		}
+
 		void selected(bool isSelected)
 		{
 			mIsSelected = isSelected;
@@ -61,24 +74,14 @@ namespace
 			return mIsSelected;
 		}
 
-		void setMeta(const PanelInfo& panelInfo)
-		{
-			icon = panelInfo.image;
-			name = panelInfo.name;
-			report = panelInfo.report;
-		}
-
 	public:
+		ReportInterface* report = nullptr;
 		std::string name;
-
 		const NAS2D::Image* icon = nullptr;
 
+		NAS2D::Rectangle<int> tabArea;
 		NAS2D::Point<int> textPosition;
 		NAS2D::Point<int> iconPosition;
-
-		NAS2D::Rectangle<int> tabArea;
-
-		ReportInterface* report = nullptr;
 
 	private:
 		bool mIsSelected = false;
@@ -87,10 +90,32 @@ namespace
 
 	static std::array<Panel, 7> panels;
 
-	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
+
+	void initializePanels()
+	{
+		/* NOTE: Matches the order in enum NavigationPanel */
+		panels = std::array<Panel, 7>{
+			Panel{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
+			Panel{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
+			Panel{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
+			Panel{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
+			Panel{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
+			Panel{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
+			Panel{nullptr, "", &imageCache.load("ui/icons/exit.png")}
+		};
+
+		for (auto& panel : panels)
+		{
+			auto* report = panel.report;
+			if (report)
+			{
+				report->hide();
+			}
+		}
+	}
 
 
-	void setPanelRects(int width, const NAS2D::Font& font)
+	void onResizeTabBar(int width, const NAS2D::Font& font)
 	{
 		auto& exitPanel = panels[ExitPanelIndex];
 		exitPanel.tabArea = {{width - 48, 0}, {48, 48}};
@@ -133,26 +158,6 @@ namespace
 		renderer.drawText(font, panel.name, panel.textPosition, drawColor);
 		renderer.drawImage(*panel.icon, panel.iconPosition, 1.0f, drawColor);
 	}
-
-
-	void selectPanel(Panel& panel, Structure* structure)
-	{
-		panel.selected(true);
-		panel.report->visible(true);
-		panel.report->refresh();
-		panel.report->selectStructure(structure);
-	}
-
-
-	void setReportValues(ReportInterface* report, const NAS2D::Vector<int>& size)
-	{
-		if (report)
-		{
-			report->position({0, 48});
-			report->size({size.x, size.y - 48});
-			report->hide();
-		}
-	}
 }
 
 
@@ -182,29 +187,9 @@ MainReportsUiState::~MainReportsUiState()
 
 void MainReportsUiState::initialize()
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto size = renderer.size().to<int>();
-
-	// INIT UI REPORT PANELS
-	/* NOTE: Matches the order in enum::NavigationPanel */
-	auto panelInfo = std::array<PanelInfo, 7>{
-		PanelInfo{new ResearchReport(), &imageCache.load("ui/icons/research.png"), "Research"},
-		PanelInfo{new FactoryReport(), &imageCache.load("ui/icons/production.png"), "Factories"},
-		PanelInfo{new WarehouseReport(), &imageCache.load("ui/icons/warehouse.png"), "Warehouses"},
-		PanelInfo{new MineReport(), &imageCache.load("ui/icons/mine.png"), "Mines"},
-		PanelInfo{new SatellitesReport(), &imageCache.load("ui/icons/satellite.png"), "Satellites"},
-		PanelInfo{new SpaceportsReport(), &imageCache.load("ui/icons/spaceport.png"), "Space Ports"},
-		PanelInfo{nullptr, &imageCache.load("ui/icons/exit.png"), ""}
-	};
-
-	for (size_t i = 0; i < panelInfo.size(); i++)
-	{
-		auto& panel = panels[i];
-		panel.setMeta(panelInfo[i]);
-		setReportValues(panel.report, size);
-	}
-
-	setPanelRects(size.x, fontMain);
+	initializePanels();
+	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
+	onWindowResized(size);
 }
 
 
@@ -303,12 +288,12 @@ void MainReportsUiState::exit()
 
 void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 {
-	setPanelRects(newSize.x, fontMain);
+	onResizeTabBar(newSize.x, fontMain);
 	for (Panel& panel : panels)
 	{
 		if (panel.report)
 		{
-			panel.report->size(NAS2D::Vector{newSize.x, newSize.y - 48});
+			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
 		}
 	}
 }
@@ -329,7 +314,7 @@ void MainReportsUiState::deselectAllPanels()
 void MainReportsUiState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[static_cast<size_t>(NavigationPanel::Production)], structure);
+	panels[ProductionPanelIndex].select(structure);
 }
 
 
@@ -339,7 +324,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 void MainReportsUiState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[static_cast<size_t>(NavigationPanel::Warehouse)], structure);
+	panels[WarehousePanelIndex].select(structure);
 }
 
 
@@ -349,13 +334,13 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 void MainReportsUiState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
-	selectPanel(panels[static_cast<size_t>(NavigationPanel::Mines)], structure);
+	panels[MinesPanelIndex].select(structure);
 }
 
 
 void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
-	auto* researchPanel = panels[static_cast<size_t>(NavigationPanel::Research)].report;
+	auto* researchPanel = panels[ResearchPanelIndex].report;
 	dynamic_cast<ResearchReport&>(*researchPanel).injectTechReferences(catalog, tracker);
 }
 
