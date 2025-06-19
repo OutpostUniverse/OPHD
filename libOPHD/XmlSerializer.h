@@ -1,6 +1,5 @@
 #pragma once
 
-#include <NAS2D/StringUtils.h>
 #include <NAS2D/Xml/Xml.h>
 
 #include <string>
