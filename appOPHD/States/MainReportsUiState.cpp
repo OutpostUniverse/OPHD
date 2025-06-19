@@ -194,8 +194,7 @@ void MainReportsUiState::initialize()
 		PanelInfo{nullptr, &imageCache.load("ui/icons/exit.png"), ""}
 	};
 
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto size = renderer.size().to<int>();
+	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 
 	for (size_t i = 0; i < panelInfo.size(); i++)
 	{
