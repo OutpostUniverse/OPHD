@@ -45,8 +45,8 @@ namespace
 	struct PanelInfo
 	{
 		ReportInterface* report{nullptr};
-		const NAS2D::Image* image{nullptr};
 		const std::string name{};
+		const NAS2D::Image* image{nullptr};
 	};
 
 
@@ -75,16 +75,13 @@ namespace
 		}
 
 	public:
+		ReportInterface* report = nullptr;
 		std::string name;
-
 		const NAS2D::Image* icon = nullptr;
 
+		NAS2D::Rectangle<int> tabArea;
 		NAS2D::Point<int> textPosition;
 		NAS2D::Point<int> iconPosition;
-
-		NAS2D::Rectangle<int> tabArea;
-
-		ReportInterface* report = nullptr;
 
 	private:
 		bool mIsSelected = false;
@@ -189,13 +186,13 @@ void MainReportsUiState::initialize()
 	// INIT UI REPORT PANELS
 	/* NOTE: Matches the order in enum NavigationPanel */
 	auto panelInfo = std::array<PanelInfo, 7>{
-		PanelInfo{new ResearchReport(), &imageCache.load("ui/icons/research.png"), "Research"},
-		PanelInfo{new FactoryReport(), &imageCache.load("ui/icons/production.png"), "Factories"},
-		PanelInfo{new WarehouseReport(), &imageCache.load("ui/icons/warehouse.png"), "Warehouses"},
-		PanelInfo{new MineReport(), &imageCache.load("ui/icons/mine.png"), "Mines"},
-		PanelInfo{new SatellitesReport(), &imageCache.load("ui/icons/satellite.png"), "Satellites"},
-		PanelInfo{new SpaceportsReport(), &imageCache.load("ui/icons/spaceport.png"), "Space Ports"},
-		PanelInfo{nullptr, &imageCache.load("ui/icons/exit.png"), ""}
+		PanelInfo{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
+		PanelInfo{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
+		PanelInfo{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
+		PanelInfo{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
+		PanelInfo{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
+		PanelInfo{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
+		PanelInfo{nullptr, "", &imageCache.load("ui/icons/exit.png")}
 	};
 
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
