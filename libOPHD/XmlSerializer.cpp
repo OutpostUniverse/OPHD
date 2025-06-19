@@ -4,13 +4,11 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/Xml/XmlDocument.h>
 
-using namespace NAS2D;
 
-
-Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
+NAS2D::Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
 {
-	Xml::XmlDocument xmlDocument;
-	xmlDocument.parse(Utility<Filesystem>::get().readFile(filename).c_str());
+	NAS2D::Xml::XmlDocument xmlDocument;
+	xmlDocument.parse(NAS2D::Utility<NAS2D::Filesystem>::get().readFile(filename).c_str());
 
 	if (xmlDocument.error())
 	{
