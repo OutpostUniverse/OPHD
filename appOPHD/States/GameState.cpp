@@ -64,12 +64,8 @@ GameState::~GameState()
 void GameState::initializeGameState()
 {
 	mMainReportsState.initialize();
+	mMainReportsState.takeMeThere().connect({this, &GameState::onTakeMeThere});
 	mMainReportsState.hideReports().connect({this, &GameState::onHideReports});
-
-	for (auto takeMeThere : mMainReportsState.takeMeThere())
-	{
-		takeMeThere->connect({this, &GameState::onTakeMeThere});
-	}
 
 	mMapViewState.initialize();
 	initializeMapViewState();

@@ -188,6 +188,14 @@ MainReportsUiState::~MainReportsUiState()
 void MainReportsUiState::initialize()
 {
 	initializePanels();
+	for (auto& panel : panels)
+	{
+		if (panel.report)
+		{
+			panel.report->takeMeThereSignal().connect({this, &MainReportsUiState::onTakeMeThere});
+		}
+	}
+
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 	onWindowResized(size);
 }
@@ -232,6 +240,12 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
 		}
 	}
+}
+
+
+void MainReportsUiState::onTakeMeThere(const Structure* structure)
+{
+	mTakeMeThereSignal(structure);
 }
 
 
@@ -354,26 +368,6 @@ void MainReportsUiState::clearLists()
 			panel.report->fillLists();
 		}
 	}
-}
-
-
-/**
- * Gets a list of TakeMeThere signal pointers.
- *
- * Acts as a pass-through for GameState.
- */
-MainReportsUiState::TakeMeThereSignalSourceList MainReportsUiState::takeMeThere()
-{
-	TakeMeThereSignalSourceList takeMeThereList;
-	for (auto& panel : panels)
-	{
-		if (panel.report)
-		{
-			takeMeThereList.push_back(&panel.report->takeMeThereSignal());
-		}
-	}
-
-	return takeMeThereList;
 }
 
 
