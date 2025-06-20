@@ -156,6 +156,9 @@
     <ClCompile Include="MapObjects\Structures\Residence.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\Structures\Road.cpp">
+      <Filter>Source Files\MapObjects\Structures</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>

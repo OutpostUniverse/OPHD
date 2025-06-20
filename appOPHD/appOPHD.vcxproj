@@ -211,6 +211,7 @@
     <ClCompile Include="MapObjects\Structures\Recycling.cpp" />
     <ClCompile Include="MapObjects\Structures\ResearchFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\Residence.cpp" />
+    <ClCompile Include="MapObjects\Structures\Road.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp" />
     <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
