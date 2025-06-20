@@ -21,7 +21,7 @@ namespace NAS2D
 class MainReportsUiState : public Wrapper
 {
 public:
-	using ReportsUiSignal = NAS2D::Signal<>;
+	using HideReportsSignal = NAS2D::Signal<>;
 	using TakeMeThereSignalSource = NAS2D::SignalSource<const Structure*>;
 	using TakeMeThereSignalSourceList = std::vector<TakeMeThereSignalSource*>;
 
@@ -38,7 +38,7 @@ public:
 
 	void clearLists();
 
-	ReportsUiSignal::Source& hideReports() { return mReportsUiSignal; }
+	HideReportsSignal::Source& hideReports() { return mHideReportsSignal; }
 	TakeMeThereSignalSourceList takeMeThere();
 
 	void initialize() override;
@@ -60,5 +60,5 @@ private:
 private:
 	const NAS2D::Font& fontMain;
 
-	ReportsUiSignal mReportsUiSignal;
+	HideReportsSignal mHideReportsSignal;
 };

@@ -282,7 +282,7 @@ void MainReportsUiState::exit()
 		}
 	}
 
-	mReportsUiSignal();
+	mHideReportsSignal();
 }
 
 
