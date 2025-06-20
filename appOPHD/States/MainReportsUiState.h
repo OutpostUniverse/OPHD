@@ -45,8 +45,8 @@ public:
 	State* update() override;
 
 protected:
-	void onDeactivate() override;
 	void onActivate() override;
+	void onDeactivate() override;
 
 	void onWindowResized(NAS2D::Vector<int> newSize);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
