@@ -68,6 +68,7 @@ private:
 	void drawLeftPanel(NAS2D::Renderer&);
 	void drawRightPanel(NAS2D::Renderer&);
 
+	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;

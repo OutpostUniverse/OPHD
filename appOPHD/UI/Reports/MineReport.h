@@ -65,6 +65,7 @@ protected:
 	void drawOreProductionPane(const NAS2D::Point<int>& origin);
 
 private:
+	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontBold;
 	const NAS2D::Font& fontMedium;

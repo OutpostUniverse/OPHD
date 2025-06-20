@@ -69,6 +69,8 @@ private:
 
 	void onVisibilityChange(bool visible) override;
 
+private:
+	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;

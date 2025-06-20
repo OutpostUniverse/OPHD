@@ -90,6 +90,7 @@ private:
 	};
 
 private:
+	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;

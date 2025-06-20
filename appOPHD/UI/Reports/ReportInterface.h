@@ -23,11 +23,6 @@ public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
 
-	ReportInterface(TakeMeThereDelegate takeMeThereHandler) :
-		mTakeMeThereHandler{takeMeThereHandler}
-	{
-	}
-
 	using ControlContainer::update;
 
 	/**
@@ -55,7 +50,4 @@ public:
 	 *			downcasted to a more derived type (take advantage of dynamic_cast)
 	 */
 	virtual void selectStructure(Structure*) = 0;
-
-protected:
-	TakeMeThereDelegate mTakeMeThereHandler;
 };
