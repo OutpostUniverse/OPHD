@@ -2,6 +2,7 @@
 
 #include "Wrapper.h"
 
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
@@ -24,8 +25,11 @@ public:
 	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
 	using HideReportsSignal = NAS2D::Signal<>;
 
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+	using HideReportsDelegate = NAS2D::Delegate<void()>;
+
 public:
-	MainReportsUiState();
+	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler = {}, HideReportsDelegate hideReportsHandler = {});
 
 	~MainReportsUiState() override;
 

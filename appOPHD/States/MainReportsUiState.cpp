@@ -161,9 +161,12 @@ namespace
 }
 
 
-MainReportsUiState::MainReportsUiState() :
+MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler) :
 	fontMain{fontCache.load(constants::FontPrimaryBold, 16)}
 {
+	if (takeMeThereHandler) { mTakeMeThereSignal.connect(takeMeThereHandler); }
+	if (hideReportsHandler) { mHideReportsSignal.connect(hideReportsHandler); }
+
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});
 	eventHandler.keyDown().connect({this, &MainReportsUiState::onKeyDown});
