@@ -151,8 +151,8 @@ const std::string& Structure::name() const
  */
 void Structure::disable(DisabledReason reason)
 {
-	sprite().pause();
-	sprite().color(NAS2D::Color{255, 0, 0, 185});
+	mSprite.pause();
+	mSprite.color(NAS2D::Color{255, 0, 0, 185});
 	state(StructureState::Disabled);
 	mDisabledReason = reason;
 	mIdleReason = IdleReason::None;
@@ -171,8 +171,8 @@ void Structure::enable()
 		return;
 	}
 
-	sprite().resume();
-	sprite().color(NAS2D::Color::White);
+	mSprite.resume();
+	mSprite.color(NAS2D::Color::White);
 	state(StructureState::Operational);
 	mDisabledReason = DisabledReason::None;
 	mIdleReason = IdleReason::None;
@@ -189,8 +189,8 @@ void Structure::idle(IdleReason reason)
 		return;
 	}
 
-	sprite().pause();
-	sprite().color(NAS2D::Color{255, 255, 255, 185});
+	mSprite.pause();
+	mSprite.color(NAS2D::Color{255, 255, 255, 185});
 	mDisabledReason = DisabledReason::None;
 	mIdleReason = reason;
 	state(StructureState::Idle);
@@ -323,7 +323,7 @@ bool Structure::repairable() const
  */
 void Structure::activate()
 {
-	sprite().play(constants::StructureStateOperational);
+	mSprite.play(constants::StructureStateOperational);
 	enable();
 
 	activated();
@@ -332,7 +332,7 @@ void Structure::activate()
 
 void Structure::rebuild()
 {
-	sprite().play(constants::StructureStateConstruction);
+	mSprite.play(constants::StructureStateConstruction);
 	state(StructureState::UnderConstruction);
 
 	age(1);
@@ -407,7 +407,7 @@ void Structure::updateIntegrityDecay()
 */
 void Structure::destroy()
 {
-	sprite().play(constants::StructureStateDestroyed);
+	mSprite.play(constants::StructureStateDestroyed);
 	state(StructureState::Destroyed);
 }
 
@@ -419,7 +419,7 @@ void Structure::forced_state_change(StructureState structureState, DisabledReaso
 {
 	if (age() >= turnsToBuild())
 	{
-		sprite().play(constants::StructureStateOperational);
+		mSprite.play(constants::StructureStateOperational);
 		//enable();
 	}
 
