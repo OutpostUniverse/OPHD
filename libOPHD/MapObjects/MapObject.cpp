@@ -16,9 +16,3 @@ void MapObject::draw(NAS2D::Point<int> position) const
 {
 	mSprite.draw(position);
 }
-
-
-NAS2D::Sprite& MapObject::sprite()
-{
-	return mSprite;
-}

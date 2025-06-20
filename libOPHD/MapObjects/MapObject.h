@@ -24,7 +24,6 @@ public:
 
 	virtual void updateAnimation();
 	virtual void draw(NAS2D::Point<int> position) const;
-	NAS2D::Sprite& sprite();
 
 protected:
 	NAS2D::Sprite mSprite;
