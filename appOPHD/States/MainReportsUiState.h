@@ -41,9 +41,6 @@ public:
 
 	void clearLists();
 
-	TakeMeThereSignal::Source& takeMeThere() { return mTakeMeThereSignal; }
-	HideReportsSignal::Source& hideReports() { return mHideReportsSignal; }
-
 	void initialize() override;
 	State* update() override;
 
