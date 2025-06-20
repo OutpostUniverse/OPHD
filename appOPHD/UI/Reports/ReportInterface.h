@@ -58,8 +58,6 @@ public:
 	 */
 	virtual void selectStructure(Structure*) = 0;
 
-	TakeMeThereSignal::Source& takeMeThereSignal() { return mTakeMeThereSignal; }
-
 protected:
 	TakeMeThereSignal mTakeMeThereSignal;
 };
