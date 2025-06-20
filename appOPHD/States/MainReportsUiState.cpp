@@ -161,8 +161,10 @@ namespace
 }
 
 
-MainReportsUiState::MainReportsUiState() :
-	fontMain{fontCache.load(constants::FontPrimaryBold, 16)}
+MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler) :
+	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
+	mTakeMeThereHandler{takeMeThereHandler},
+	mHideReportsHandler{hideReportsHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});
@@ -188,6 +190,14 @@ MainReportsUiState::~MainReportsUiState()
 void MainReportsUiState::initialize()
 {
 	initializePanels();
+	for (auto& panel : panels)
+	{
+		if (panel.report)
+		{
+			panel.report->takeMeThereSignal().connect({this, &MainReportsUiState::onTakeMeThere});
+		}
+	}
+
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 	onWindowResized(size);
 }
@@ -222,6 +232,25 @@ void MainReportsUiState::onDeactivate()
 }
 
 
+void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
+{
+	onResizeTabBar(newSize.x, fontMain);
+	for (Panel& panel : panels)
+	{
+		if (panel.report)
+		{
+			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
+		}
+	}
+}
+
+
+void MainReportsUiState::onTakeMeThere(const Structure* structure)
+{
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(structure); }
+}
+
+
 void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active())
@@ -231,7 +260,7 @@ void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*
 
 	if (key == NAS2D::KeyCode::Escape)
 	{
-		exit();
+		onExit();
 	}
 }
 
@@ -265,12 +294,12 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 
 	if (panels[ExitPanelIndex].selected())
 	{
-		exit();
+		onExit();
 	}
 }
 
 
-void MainReportsUiState::exit()
+void MainReportsUiState::onExit()
 {
 	deselectAllPanels();
 
@@ -282,20 +311,7 @@ void MainReportsUiState::exit()
 		}
 	}
 
-	mReportsUiSignal();
-}
-
-
-void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
-{
-	onResizeTabBar(newSize.x, fontMain);
-	for (Panel& panel : panels)
-	{
-		if (panel.report)
-		{
-			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
-		}
-	}
+	if (mHideReportsHandler) { mHideReportsHandler(); }
 }
 
 
@@ -354,26 +370,6 @@ void MainReportsUiState::clearLists()
 			panel.report->fillLists();
 		}
 	}
-}
-
-
-/**
- * Gets a list of TakeMeThere signal pointers.
- *
- * Acts as a pass-through for GameState.
- */
-MainReportsUiState::TakeMeThereSignalSourceList MainReportsUiState::takeMeThere()
-{
-	TakeMeThereSignalSourceList takeMeThereList;
-	for (auto& panel : panels)
-	{
-		if (panel.report)
-		{
-			takeMeThereList.push_back(&panel.report->takeMeThereSignal());
-		}
-	}
-
-	return takeMeThereList;
 }
 
 

@@ -2,7 +2,7 @@
 
 #include "Wrapper.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 
@@ -21,12 +21,11 @@ namespace NAS2D
 class MainReportsUiState : public Wrapper
 {
 public:
-	using ReportsUiSignal = NAS2D::Signal<>;
-	using TakeMeThereSignalSource = NAS2D::SignalSource<const Structure*>;
-	using TakeMeThereSignalSourceList = std::vector<TakeMeThereSignalSource*>;
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+	using HideReportsDelegate = NAS2D::Delegate<void()>;
 
 public:
-	MainReportsUiState();
+	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler);
 
 	~MainReportsUiState() override;
 
@@ -38,27 +37,24 @@ public:
 
 	void clearLists();
 
-	ReportsUiSignal::Source& hideReports() { return mReportsUiSignal; }
-	TakeMeThereSignalSourceList takeMeThere();
-
 	void initialize() override;
 	State* update() override;
 
-private:
-	void onDeactivate() override;
+protected:
 	void onActivate() override;
+	void onDeactivate() override;
 
-private:
+	void onWindowResized(NAS2D::Vector<int> newSize);
+	void onTakeMeThere(const Structure* structure);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
-	void onWindowResized(NAS2D::Vector<int> newSize);
+	void onExit();
 
 	void deselectAllPanels();
-
-	void exit();
 
 private:
 	const NAS2D::Font& fontMain;
 
-	ReportsUiSignal mReportsUiSignal;
+	TakeMeThereDelegate mTakeMeThereHandler;
+	HideReportsDelegate mHideReportsHandler;
 };
