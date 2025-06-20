@@ -17,7 +17,7 @@ AirShaft::AirShaft() : Structure(
 
 void AirShaft::ug()
 {
-	sprite().play(constants::StructureStateOperationalUg);
+	mSprite.play(constants::StructureStateOperationalUg);
 	mIsUnderground = true;
 }
 
