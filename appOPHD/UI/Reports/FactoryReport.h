@@ -26,7 +26,7 @@ class Factory;
 class FactoryReport : public ReportInterface
 {
 public:
-	FactoryReport(TakeMeThereDelegate takeMeThereHandler = {});
+	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure*) override;
 	void refresh() override;

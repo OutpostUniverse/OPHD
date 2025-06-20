@@ -13,7 +13,7 @@ namespace NAS2D
 class SpaceportsReport : public ReportInterface
 {
 public:
-	SpaceportsReport(TakeMeThereDelegate takeMeThereHandler = {});
+	SpaceportsReport(TakeMeThereDelegate takeMeThereHandler);
 	~SpaceportsReport() override;
 
 	void fillLists() override;

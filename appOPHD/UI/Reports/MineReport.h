@@ -24,7 +24,7 @@ class MineFacility;
 class MineReport : public ReportInterface
 {
 public:
-	MineReport(TakeMeThereDelegate takeMeThereHandler = {});
+	MineReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure* structure) override;
 	void refresh() override;

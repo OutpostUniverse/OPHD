@@ -25,7 +25,7 @@ class Structure;
 class WarehouseReport : public ReportInterface
 {
 public:
-	WarehouseReport(TakeMeThereDelegate takeMeThereHandler = {});
+	WarehouseReport(TakeMeThereDelegate takeMeThereHandler);
 	~WarehouseReport() override;
 
 	void fillLists() override;

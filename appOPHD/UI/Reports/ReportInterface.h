@@ -25,7 +25,7 @@ public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
 
-	ReportInterface(TakeMeThereDelegate takeMeThereHandler = {})
+	ReportInterface(TakeMeThereDelegate takeMeThereHandler)
 	{
 		if (takeMeThereHandler) { mTakeMeThereSignal.connect(takeMeThereHandler); }
 	}
