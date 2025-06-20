@@ -487,8 +487,7 @@ void MapViewState::updateRoads()
 
 	for (auto* road : roads)
 	{
-		if (!road->operational()) { continue; }
-		road->sprite().play(roadAnimationName(*road, *mTileMap));
+		road->updateConnections(*mTileMap);
 	}
 }
 
