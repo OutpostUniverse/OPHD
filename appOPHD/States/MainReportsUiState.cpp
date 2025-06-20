@@ -231,7 +231,7 @@ void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*
 
 	if (key == NAS2D::KeyCode::Escape)
 	{
-		exit();
+		onExit();
 	}
 }
 
@@ -265,12 +265,12 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 
 	if (panels[ExitPanelIndex].selected())
 	{
-		exit();
+		onExit();
 	}
 }
 
 
-void MainReportsUiState::exit()
+void MainReportsUiState::onExit()
 {
 	deselectAllPanels();
 

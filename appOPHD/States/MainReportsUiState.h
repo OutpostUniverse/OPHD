@@ -50,11 +50,10 @@ protected:
 
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
+	void onExit();
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void deselectAllPanels();
-
-	void exit();
 
 private:
 	const NAS2D::Font& fontMain;
