@@ -10,16 +10,3 @@ NAS2D::Sprite& MapObject::sprite()
 {
 	return mSprite;
 }
-
-
-void MapObject::die()
-{
-	mIsDead = true;
-}
-
-
-/// MapObject is dead and should be cleaned up.
-bool MapObject::isDead() const
-{
-	return mIsDead;
-}
