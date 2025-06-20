@@ -27,7 +27,7 @@ public:
 	virtual void die();
 
 private:
-	std::string mName;
+	const std::string& mName;
 	NAS2D::Sprite mSprite;
 	bool mIsDead = false;
 };
