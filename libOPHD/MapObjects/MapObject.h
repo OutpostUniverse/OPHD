@@ -14,20 +14,19 @@
 class MapObject
 {
 public:
-	MapObject(const std::string& name, const std::string& spritePath, const std::string& initialAction);
+	MapObject(const std::string& spritePath, const std::string& initialAction);
 	MapObject(const MapObject& thing) = delete;
 	MapObject& operator=(const MapObject& thing) = delete;
 	virtual ~MapObject() = default;
 
+	virtual const std::string& name() const = 0;
 	virtual void update() = 0;
 	NAS2D::Sprite& sprite();
-	const std::string& name() const;
 
 	bool isDead() const;
 	virtual void die();
 
 private:
-	std::string mName;
 	NAS2D::Sprite mSprite;
 	bool mIsDead = false;
 };

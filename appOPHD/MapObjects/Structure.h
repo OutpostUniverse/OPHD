@@ -81,6 +81,8 @@ public:
 
 	~Structure() override = default;
 
+	const std::string& name() const override;
+
 	// STATES & STATE MANAGEMENT
 	StructureState state() const { return mStructureState; }
 

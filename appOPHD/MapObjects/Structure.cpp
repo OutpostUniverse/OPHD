@@ -123,7 +123,7 @@ std::vector<Structure::StructureClass> allStructureClasses()
 
 
 Structure::Structure(StructureClass structureClass, StructureID id) :
-	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, constants::StructureStateConstruction),
+	MapObject(StructureCatalogue::getType(id).spritePath, constants::StructureStateConstruction),
 	mStructureType(StructureCatalogue::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
@@ -132,11 +132,17 @@ Structure::Structure(StructureClass structureClass, StructureID id) :
 
 
 Structure::Structure(const std::string& initialAction, StructureClass structureClass, StructureID id) :
-	MapObject(StructureName(id), StructureCatalogue::getType(id).spritePath, initialAction),
+	MapObject(StructureCatalogue::getType(id).spritePath, initialAction),
 	mStructureType(StructureCatalogue::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
+}
+
+
+const std::string& Structure::name() const
+{
+	return mStructureType.name;
 }
 
 
