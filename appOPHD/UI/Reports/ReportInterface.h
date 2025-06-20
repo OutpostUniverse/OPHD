@@ -3,6 +3,7 @@
 #include <libControls/ControlContainer.h>
 
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 class Structure;
@@ -21,8 +22,13 @@ public:
 	 * the map view on a given structure.
 	 */
 	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	ReportInterface() {}
+
+	ReportInterface(TakeMeThereDelegate takeMeThereHandler = {})
+	{
+		if (takeMeThereHandler) { mTakeMeThereSignal.connect(takeMeThereHandler); }
+	}
 
 	using ControlContainer::update;
 
