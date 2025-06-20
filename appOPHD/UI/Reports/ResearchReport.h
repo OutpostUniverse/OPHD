@@ -11,6 +11,7 @@
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
 
@@ -27,6 +28,8 @@ class Structure;
 class ResearchReport : public ReportInterface
 {
 public:
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
 	ResearchReport(TakeMeThereDelegate takeMeThereHandler);
 	~ResearchReport() override;
 

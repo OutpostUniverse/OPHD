@@ -11,6 +11,7 @@
 #include <libControls/TextArea.h>
 
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 namespace NAS2D
@@ -26,6 +27,8 @@ class Factory;
 class FactoryReport : public ReportInterface
 {
 public:
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
 	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure*) override;

@@ -91,7 +91,7 @@ namespace
 	static std::array<Panel, 7> panels;
 
 
-	void initializePanels(ReportInterface::TakeMeThereDelegate takeMeThereHandler)
+	void initializePanels(MainReportsUiState::TakeMeThereDelegate takeMeThereHandler)
 	{
 		/* NOTE: Matches the order in enum NavigationPanel */
 		panels = std::array<Panel, 7>{

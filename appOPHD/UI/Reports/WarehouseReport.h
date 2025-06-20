@@ -8,6 +8,7 @@
 #include <libControls/Button.h>
 
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
 
@@ -25,6 +26,8 @@ class Structure;
 class WarehouseReport : public ReportInterface
 {
 public:
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
 	WarehouseReport(TakeMeThereDelegate takeMeThereHandler);
 	~WarehouseReport() override;
 

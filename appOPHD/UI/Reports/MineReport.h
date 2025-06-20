@@ -8,6 +8,7 @@
 #include <libControls/CheckBox.h>
 
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Signal/Delegate.h>
 
 #include <array>
 
@@ -24,6 +25,8 @@ class MineFacility;
 class MineReport : public ReportInterface
 {
 public:
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
 	MineReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure* structure) override;

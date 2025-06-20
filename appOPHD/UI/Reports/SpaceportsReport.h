@@ -2,6 +2,8 @@
 
 #include "ReportInterface.h"
 
+#include <NAS2D/Signal/Delegate.h>
+
 
 namespace NAS2D
 {
@@ -13,6 +15,8 @@ namespace NAS2D
 class SpaceportsReport : public ReportInterface
 {
 public:
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
 	SpaceportsReport(TakeMeThereDelegate takeMeThereHandler);
 	~SpaceportsReport() override;
 

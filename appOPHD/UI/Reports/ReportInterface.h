@@ -2,8 +2,6 @@
 
 #include <libControls/ControlContainer.h>
 
-#include <NAS2D/Signal/Delegate.h>
-
 
 class Structure;
 
@@ -16,13 +14,6 @@ class Structure;
 class ReportInterface : public ControlContainer
 {
 public:
-	/**
-	 * Delegate used to handle clicks of a "Take Me There" button to center
-	 * the map view on a given structure.
-	 */
-	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
-
-
 	using ControlContainer::update;
 
 	/**
