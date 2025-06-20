@@ -29,6 +29,9 @@ public:
 
 	const std::string& name() const override;
 
+	bool isDead() const;
+	virtual void die();
+
 	void update() override;
 
 	virtual void startTask(Tile& tile);
@@ -62,6 +65,7 @@ private:
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 
+	bool mIsDead = false;
 	bool mSelfDestruct = false;
 	bool mCancelTask{false};
 

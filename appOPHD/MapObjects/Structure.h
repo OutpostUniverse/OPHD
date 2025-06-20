@@ -202,7 +202,6 @@ private:
 
 	void incrementAge();
 	void updateIntegrityDecay();
-	void die() override;
 
 	/**
 	 * Provided so that structures that need to do something upon

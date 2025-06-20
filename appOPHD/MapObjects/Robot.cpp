@@ -39,6 +39,19 @@ const std::string& Robot::name() const
 }
 
 
+void Robot::die()
+{
+	mIsDead = true;
+}
+
+
+/// Robot is dead and should be cleaned up.
+bool Robot::isDead() const
+{
+	return mIsDead;
+}
+
+
 void Robot::startTask(Tile& tile)
 {
 	startTask(getTaskTime(mType, tile));

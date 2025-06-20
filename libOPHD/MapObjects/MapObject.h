@@ -23,10 +23,6 @@ public:
 	virtual void update() = 0;
 	NAS2D::Sprite& sprite();
 
-	bool isDead() const;
-	virtual void die();
-
 private:
 	NAS2D::Sprite mSprite;
-	bool mIsDead = false;
 };
