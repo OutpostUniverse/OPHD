@@ -29,7 +29,7 @@ public:
 	using HideReportsDelegate = NAS2D::Delegate<void()>;
 
 public:
-	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler = {}, HideReportsDelegate hideReportsHandler = {});
+	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler);
 
 	~MainReportsUiState() override;
 

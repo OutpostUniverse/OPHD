@@ -34,7 +34,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 GameState::GameState(const std::string& savedGameFilename) :
 	mSaveGameDocument{saveGameDocument(savedGameFilename)},
-	mMainReportsState{},
+	mMainReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, mSaveGameDocument},
 	mColonyShip{colonyShipDataFromSave(mSaveGameDocument)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -42,7 +42,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 
 GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
-	mMainReportsState{},
+	mMainReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, planetAttributes, selectedDifficulty},
 	mColonyShip{},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -64,8 +64,6 @@ GameState::~GameState()
 void GameState::initializeGameState()
 {
 	mMainReportsState.initialize();
-	mMainReportsState.takeMeThere().connect({this, &GameState::onTakeMeThere});
-	mMainReportsState.hideReports().connect({this, &GameState::onHideReports});
 
 	mMapViewState.initialize();
 	initializeMapViewState();
