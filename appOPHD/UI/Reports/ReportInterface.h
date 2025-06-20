@@ -2,7 +2,6 @@
 
 #include <libControls/ControlContainer.h>
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 
 
@@ -18,16 +17,15 @@ class ReportInterface : public ControlContainer
 {
 public:
 	/**
-	 * Signal used to handle clicks of a "Take Me There" button to center
+	 * Delegate used to handle clicks of a "Take Me There" button to center
 	 * the map view on a given structure.
 	 */
-	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
 
-	ReportInterface(TakeMeThereDelegate takeMeThereHandler)
+	ReportInterface(TakeMeThereDelegate takeMeThereHandler) :
+		mTakeMeThereHandler{takeMeThereHandler}
 	{
-		if (takeMeThereHandler) { mTakeMeThereSignal.connect(takeMeThereHandler); }
 	}
 
 	using ControlContainer::update;
@@ -59,5 +57,11 @@ public:
 	virtual void selectStructure(Structure*) = 0;
 
 protected:
-	TakeMeThereSignal mTakeMeThereSignal;
+	void mTakeMeThereSignal(const Structure* structure)
+	{
+		if (mTakeMeThereHandler) { mTakeMeThereHandler(structure); }
+	}
+
+protected:
+	TakeMeThereDelegate mTakeMeThereHandler;
 };
