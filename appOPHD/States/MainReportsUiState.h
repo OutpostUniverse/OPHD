@@ -3,7 +3,6 @@
 #include "Wrapper.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 
@@ -22,9 +21,6 @@ namespace NAS2D
 class MainReportsUiState : public Wrapper
 {
 public:
-	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
-	using HideReportsSignal = NAS2D::Signal<>;
-
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 	using HideReportsDelegate = NAS2D::Delegate<void()>;
 
@@ -59,6 +55,6 @@ protected:
 private:
 	const NAS2D::Font& fontMain;
 
-	TakeMeThereSignal mTakeMeThereSignal;
-	HideReportsSignal mHideReportsSignal;
+	TakeMeThereDelegate mTakeMeThereHandler;
+	HideReportsDelegate mHideReportsHandler;
 };

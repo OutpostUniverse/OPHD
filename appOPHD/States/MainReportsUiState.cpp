@@ -162,11 +162,10 @@ namespace
 
 
 MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler) :
-	fontMain{fontCache.load(constants::FontPrimaryBold, 16)}
+	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
+	mTakeMeThereHandler{takeMeThereHandler},
+	mHideReportsHandler{hideReportsHandler}
 {
-	if (takeMeThereHandler) { mTakeMeThereSignal.connect(takeMeThereHandler); }
-	if (hideReportsHandler) { mHideReportsSignal.connect(hideReportsHandler); }
-
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});
 	eventHandler.keyDown().connect({this, &MainReportsUiState::onKeyDown});
@@ -248,7 +247,7 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 
 void MainReportsUiState::onTakeMeThere(const Structure* structure)
 {
-	mTakeMeThereSignal(structure);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(structure); }
 }
 
 
@@ -312,7 +311,7 @@ void MainReportsUiState::onExit()
 		}
 	}
 
-	mHideReportsSignal();
+	if (mHideReportsHandler) { mHideReportsHandler(); }
 }
 
 
