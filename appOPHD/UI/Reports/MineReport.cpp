@@ -73,7 +73,8 @@ namespace
 }
 
 
-MineReport::MineReport() :
+MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
+	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
@@ -311,7 +312,7 @@ void MineReport::onDigNewLevel()
 
 void MineReport::onTakeMeThere()
 {
-	mTakeMeThereSignal(mSelectedFacility);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(mSelectedFacility); }
 }
 
 

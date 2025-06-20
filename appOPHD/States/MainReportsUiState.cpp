@@ -91,16 +91,16 @@ namespace
 	static std::array<Panel, 7> panels;
 
 
-	void initializePanels()
+	void initializePanels(MainReportsUiState::TakeMeThereDelegate takeMeThereHandler)
 	{
 		/* NOTE: Matches the order in enum NavigationPanel */
 		panels = std::array<Panel, 7>{
-			Panel{new ResearchReport(), "Research", &imageCache.load("ui/icons/research.png")},
-			Panel{new FactoryReport(), "Factories", &imageCache.load("ui/icons/production.png")},
-			Panel{new WarehouseReport(), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
-			Panel{new MineReport(), "Mines", &imageCache.load("ui/icons/mine.png")},
-			Panel{new SatellitesReport(), "Satellites", &imageCache.load("ui/icons/satellite.png")},
-			Panel{new SpaceportsReport(), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
+			Panel{new ResearchReport(takeMeThereHandler), "Research", &imageCache.load("ui/icons/research.png")},
+			Panel{new FactoryReport(takeMeThereHandler), "Factories", &imageCache.load("ui/icons/production.png")},
+			Panel{new WarehouseReport(takeMeThereHandler), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
+			Panel{new MineReport(takeMeThereHandler), "Mines", &imageCache.load("ui/icons/mine.png")},
+			Panel{new SatellitesReport(takeMeThereHandler), "Satellites", &imageCache.load("ui/icons/satellite.png")},
+			Panel{new SpaceportsReport(takeMeThereHandler), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
 			Panel{nullptr, "", &imageCache.load("ui/icons/exit.png")}
 		};
 
@@ -189,15 +189,7 @@ MainReportsUiState::~MainReportsUiState()
 
 void MainReportsUiState::initialize()
 {
-	initializePanels();
-	for (auto& panel : panels)
-	{
-		if (panel.report)
-		{
-			panel.report->takeMeThereSignal().connect({this, &MainReportsUiState::onTakeMeThere});
-		}
-	}
-
+	initializePanels({this, &MainReportsUiState::onTakeMeThere});
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 	onWindowResized(size);
 }

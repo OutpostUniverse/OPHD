@@ -11,6 +11,7 @@
 #include <libControls/TextArea.h>
 
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 namespace NAS2D
@@ -26,7 +27,9 @@ class Factory;
 class FactoryReport : public ReportInterface
 {
 public:
-	FactoryReport();
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
+	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure*) override;
 	void refresh() override;
@@ -69,6 +72,8 @@ private:
 
 	void onVisibilityChange(bool visible) override;
 
+private:
+	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;

@@ -2,6 +2,8 @@
 
 #include "ReportInterface.h"
 
+#include <NAS2D/Signal/Delegate.h>
+
 
 namespace NAS2D
 {
@@ -13,7 +15,9 @@ namespace NAS2D
 class SatellitesReport : public ReportInterface
 {
 public:
-	SatellitesReport();
+	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+
+	SatellitesReport(TakeMeThereDelegate takeMeThereHandler);
 	~SatellitesReport() override;
 
 	void fillLists() override;
@@ -30,6 +34,7 @@ private:
 
 	void draw() const override;
 
+	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
 	const NAS2D::Font& fontBigBold;

@@ -57,7 +57,8 @@ namespace
 }
 
 
-FactoryReport::FactoryReport() :
+FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
+	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
@@ -378,7 +379,7 @@ void FactoryReport::onClearProduction()
 
 void FactoryReport::onTakeMeThere()
 {
-	mTakeMeThereSignal(selectedFactory);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedFactory); }
 }
 
 

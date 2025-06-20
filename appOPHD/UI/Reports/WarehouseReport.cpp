@@ -51,7 +51,8 @@ namespace
 }
 
 
-WarehouseReport::WarehouseReport() :
+WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
+	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
@@ -195,7 +196,7 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 
 	if (lstStructures.area().contains(position) && selectedWarehouse())
 	{
-		mTakeMeThereSignal(selectedWarehouse());
+		if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedWarehouse()); }
 	}
 }
 
@@ -301,7 +302,7 @@ void WarehouseReport::onDisabled()
 
 void WarehouseReport::onTakeMeThere()
 {
-	mTakeMeThereSignal(selectedWarehouse());
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedWarehouse()); }
 }
 
 

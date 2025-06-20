@@ -8,7 +8,8 @@
 
 using namespace NAS2D;
 
-SpaceportsReport::SpaceportsReport() :
+SpaceportsReport::SpaceportsReport(TakeMeThereDelegate takeMeThereHandler) :
+	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},

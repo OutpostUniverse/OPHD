@@ -2,8 +2,6 @@
 
 #include <libControls/ControlContainer.h>
 
-#include <NAS2D/Signal/Signal.h>
-
 
 class Structure;
 
@@ -16,14 +14,6 @@ class Structure;
 class ReportInterface : public ControlContainer
 {
 public:
-	/**
-	 * Signal used to handle clicks of a "Take Me There" button to center
-	 * the map view on a given structure.
-	 */
-	using TakeMeThereSignal = NAS2D::Signal<const Structure*>;
-
-	ReportInterface() {}
-
 	using ControlContainer::update;
 
 	/**
@@ -51,9 +41,4 @@ public:
 	 *			downcasted to a more derived type (take advantage of dynamic_cast)
 	 */
 	virtual void selectStructure(Structure*) = 0;
-
-	TakeMeThereSignal::Source& takeMeThereSignal() { return mTakeMeThereSignal; }
-
-protected:
-	TakeMeThereSignal mTakeMeThereSignal;
 };
