@@ -23,6 +23,6 @@ public:
 	virtual void update() = 0;
 	NAS2D::Sprite& sprite();
 
-private:
+protected:
 	NAS2D::Sprite mSprite;
 };
