@@ -57,11 +57,5 @@ public:
 	virtual void selectStructure(Structure*) = 0;
 
 protected:
-	void mTakeMeThereSignal(const Structure* structure)
-	{
-		if (mTakeMeThereHandler) { mTakeMeThereHandler(structure); }
-	}
-
-protected:
 	TakeMeThereDelegate mTakeMeThereHandler;
 };

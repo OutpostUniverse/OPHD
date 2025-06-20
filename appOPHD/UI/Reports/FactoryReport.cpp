@@ -379,7 +379,7 @@ void FactoryReport::onClearProduction()
 
 void FactoryReport::onTakeMeThere()
 {
-	mTakeMeThereSignal(selectedFactory);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedFactory); }
 }
 
 

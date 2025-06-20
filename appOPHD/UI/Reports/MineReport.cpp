@@ -312,7 +312,7 @@ void MineReport::onDigNewLevel()
 
 void MineReport::onTakeMeThere()
 {
-	mTakeMeThereSignal(mSelectedFacility);
+	if (mTakeMeThereHandler) { mTakeMeThereHandler(mSelectedFacility); }
 }
 
 
