@@ -48,10 +48,10 @@ protected:
 	void onDeactivate() override;
 	void onActivate() override;
 
+	void onWindowResized(NAS2D::Vector<int> newSize);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onExit();
-	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void deselectAllPanels();
 

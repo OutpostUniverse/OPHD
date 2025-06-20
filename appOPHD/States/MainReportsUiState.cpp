@@ -222,6 +222,19 @@ void MainReportsUiState::onDeactivate()
 }
 
 
+void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
+{
+	onResizeTabBar(newSize.x, fontMain);
+	for (Panel& panel : panels)
+	{
+		if (panel.report)
+		{
+			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
+		}
+	}
+}
+
+
 void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active())
@@ -283,19 +296,6 @@ void MainReportsUiState::onExit()
 	}
 
 	mHideReportsSignal();
-}
-
-
-void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
-{
-	onResizeTabBar(newSize.x, fontMain);
-	for (Panel& panel : panels)
-	{
-		if (panel.report)
-		{
-			panel.report->area({{0, 48}, NAS2D::Vector{newSize.x, newSize.y - 48}});
-		}
-	}
 }
 
 
