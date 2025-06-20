@@ -27,6 +27,8 @@ public:
 	Robot(const std::string&, const std::string&, Type);
 	Robot(const std::string&, const std::string&, const std::string&, Type);
 
+	const std::string& name() const override;
+
 	void update() override;
 
 	virtual void startTask(Tile& tile);
@@ -56,6 +58,7 @@ protected:
 	void incrementFuelCellAge() { mFuelCellAge++; }
 
 private:
+	const std::string& mName;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 

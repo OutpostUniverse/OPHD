@@ -20,15 +20,23 @@ namespace
 
 
 Robot::Robot(const std::string& name, const std::string& spritePath, Type type) :
-	MapObject(name, spritePath, "running"),
+	MapObject(spritePath, "running"),
+	mName(name),
 	mType{type}
 {}
 
 
 Robot::Robot(const std::string& name, const std::string& spritePath, const std::string& initialAction, Type type) :
-	MapObject(name, spritePath, initialAction),
+	MapObject(spritePath, initialAction),
+	mName(name),
 	mType{type}
 {}
+
+
+const std::string& Robot::name() const
+{
+	return mName;
+}
 
 
 void Robot::startTask(Tile& tile)

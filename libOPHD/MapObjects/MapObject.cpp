@@ -1,16 +1,9 @@
 #include "MapObject.h"
 
 
-MapObject::MapObject(const std::string& name, const std::string& spritePath, const std::string& initialAction) :
-	mName(name),
+MapObject::MapObject(const std::string& spritePath, const std::string& initialAction) :
 	mSprite(spritePath, initialAction)
 {}
-
-
-const std::string& MapObject::name() const
-{
-	return mName;
-}
 
 
 NAS2D::Sprite& MapObject::sprite()
