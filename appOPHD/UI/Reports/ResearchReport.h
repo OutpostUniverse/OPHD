@@ -27,7 +27,7 @@ class Structure;
 class ResearchReport : public ReportInterface
 {
 public:
-	ResearchReport();
+	ResearchReport(TakeMeThereDelegate takeMeThereHandler = {});
 	~ResearchReport() override;
 
 	void fillLists() override;

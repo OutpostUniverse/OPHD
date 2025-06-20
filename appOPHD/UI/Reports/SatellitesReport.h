@@ -13,7 +13,7 @@ namespace NAS2D
 class SatellitesReport : public ReportInterface
 {
 public:
-	SatellitesReport();
+	SatellitesReport(TakeMeThereDelegate takeMeThereHandler = {});
 	~SatellitesReport() override;
 
 	void fillLists() override;

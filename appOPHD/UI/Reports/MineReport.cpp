@@ -73,7 +73,8 @@ namespace
 }
 
 
-MineReport::MineReport() :
+MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
+	ReportInterface{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},

@@ -57,7 +57,8 @@ namespace
 }
 
 
-FactoryReport::FactoryReport() :
+FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
+	ReportInterface{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},

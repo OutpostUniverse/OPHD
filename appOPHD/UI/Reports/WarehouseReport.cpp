@@ -51,7 +51,8 @@ namespace
 }
 
 
-WarehouseReport::WarehouseReport() :
+WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
+	ReportInterface{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},

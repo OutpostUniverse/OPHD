@@ -85,7 +85,8 @@ namespace
 }
 
 
-ResearchReport::ResearchReport() :
+ResearchReport::ResearchReport(TakeMeThereDelegate takeMeThereHandler) :
+	ReportInterface{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
