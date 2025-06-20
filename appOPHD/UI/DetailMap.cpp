@@ -123,7 +123,7 @@ void DetailMap::update()
 
 		if (tile.thing())
 		{
-			tile.thing()->sprite().update();
+			tile.thing()->updateAnimation();
 		}
 	}
 }
@@ -161,7 +161,7 @@ void DetailMap::draw() const
 			// Tell an occupying thing to update itself.
 			if (tile.thing())
 			{
-				tile.thing()->sprite().draw(position);
+				tile.thing()->draw(position);
 			}
 		}
 	}
