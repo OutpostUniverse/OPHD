@@ -169,6 +169,8 @@ const StructureType& StructureCatalogue::getType(StructureID id)
  */
 Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 {
+	using StructureClass = Structure::StructureClass;
+
 	Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base
@@ -189,7 +191,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_CHAP:
-			structure = new CHAP();
+			structure = new Structure(StructureClass::LifeSupport, StructureID::SID_CHAP);
 			break;
 
 		case StructureID::SID_COLONIST_LANDER: // only here for loading games
@@ -201,7 +203,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_COMMERCIAL:
-			structure = new Commercial();
+			structure = new Structure(StructureClass::Commercial, StructureID::SID_COMMERCIAL);
 			break;
 
 		case StructureID::SID_COMM_TOWER:
@@ -225,7 +227,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_MEDICAL_CENTER:
-			structure = new MedicalCenter();
+			structure = new Structure(StructureClass::MedicalCenter, StructureID::SID_MEDICAL_CENTER);
 			break;
 
 		case StructureID::SID_MINE_FACILITY: // only here for loading games
@@ -237,11 +239,11 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_NURSERY:
-			structure = new Nursery();
+			structure = new Structure(StructureClass::Nursery, StructureID::SID_NURSERY);
 			break;
 
 		case StructureID::SID_PARK:
-			structure = new Park();
+			structure = new Structure(StructureClass::Park, StructureID::SID_PARK);
 			break;
 
 		case StructureID::SID_ROAD:
@@ -249,15 +251,15 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_SURFACE_POLICE:
-			structure = new SurfacePolice();
+			structure = new Structure(StructureClass::SurfacePolice, StructureID::SID_SURFACE_POLICE);
 			break;
 
 		case StructureID::SID_UNDERGROUND_POLICE:
-			structure = new UndergroundPolice();
+			structure = new Structure(StructureClass::UndergroundPolice, StructureID::SID_UNDERGROUND_POLICE);
 			break;
 
 		case StructureID::SID_RECREATION_CENTER:
-			structure = new RecreationCenter();
+			structure = new Structure(StructureClass::RecreationCenter, StructureID::SID_RECREATION_CENTER);
 			break;
 
 		case StructureID::SID_RECYCLING:
@@ -265,7 +267,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_RED_LIGHT_DISTRICT:
-			structure = new RedLightDistrict();
+			structure = new Structure(StructureClass::Residence, StructureID::SID_RED_LIGHT_DISTRICT);
 			break;
 
 		case StructureID::SID_RESIDENCE:
@@ -273,7 +275,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_ROBOT_COMMAND:
-			structure = new RobotCommand();
+			structure = new Structure(StructureClass::RobotCommand, StructureID::SID_ROBOT_COMMAND);
 			break;
 
 		case StructureID::SID_SEED_FACTORY:
@@ -289,11 +291,11 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_SEED_SMELTER:
-			structure = new SeedSmelter();
+			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SEED_SMELTER);
 			break;
 
 		case StructureID::SID_SMELTER:
-			structure = new Smelter();
+			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SMELTER);
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
@@ -317,7 +319,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_UNIVERSITY:
-			structure = new University();
+			structure = new Structure(StructureClass::University, StructureID::SID_UNIVERSITY);
 			break;
 
 		case StructureID::SID_WAREHOUSE:

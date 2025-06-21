@@ -440,16 +440,10 @@
     <ClInclude Include="MapObjects\Structures\CargoLander.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\CHAP.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\ColonistLander.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\CommandCenter.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Commercial.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\CommTower.h">
@@ -473,34 +467,19 @@
     <ClInclude Include="MapObjects\Structures\MaintenanceFacility.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\MedicalCenter.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\MineFacility.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\MineShaft.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Nursery.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\OreRefining.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Park.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\PowerStructure.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\RecreationCenter.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\Recycling.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\RedLightDistrict.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\ResearchFacility.h">
@@ -512,9 +491,6 @@
     <ClInclude Include="MapObjects\Structures\Road.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\RobotCommand.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\SeedFactory.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
@@ -522,12 +498,6 @@
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\SeedPower.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\SeedSmelter.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Smelter.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\SolarPanelArray.h">
@@ -542,19 +512,10 @@
     <ClInclude Include="MapObjects\Structures\SurfaceFactory.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\SurfacePolice.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\Tube.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\UndergroundFactory.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\UndergroundPolice.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\University.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\Warehouse.h">

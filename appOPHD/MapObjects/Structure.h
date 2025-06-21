@@ -211,8 +211,7 @@ private:
 
 private:
 	const StructureType& mStructureType;
-
-	StructureID mStructureId{StructureID::SID_NONE};
+	const StructureID mStructureId{StructureID::SID_NONE};
 
 	int mAge{0};
 	int mCrimeRate{0};
