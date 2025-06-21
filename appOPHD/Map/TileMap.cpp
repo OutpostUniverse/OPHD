@@ -226,7 +226,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 
 void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 {
-	// ORE DEPOSITS (MINES)
+	// Ore deposits
 	for (auto* oreDepositElement = element->firstChildElement("mines")->firstChildElement("mine"); oreDepositElement; oreDepositElement = oreDepositElement->nextSiblingElement())
 	{
 		const auto oreDepositDictionary = NAS2D::attributesToDictionary(*oreDepositElement);
@@ -244,7 +244,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		mOreDepositLocations.push_back(Point{x, y});
 	}
 
-	// TILES AT INDEX 0 WITH NO THINGS
+	// Tiles indexes
 	for (auto* tileElement = element->firstChildElement("tiles")->firstChildElement("tile"); tileElement; tileElement = tileElement->nextSiblingElement())
 	{
 		const auto tileDictionary = NAS2D::attributesToDictionary(*tileElement);

@@ -105,7 +105,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
 		auto& tile = tileMap.getTile(nextPosition);
-		if (!tile.thingIsStructure() || tile.structure()->connected()) { continue; }
+		if (!tile.hasStructure() || tile.structure()->connected()) { continue; }
 
 		if (validConnection(thisTile.structure(), tile.structure(), direction))
 		{

@@ -50,22 +50,20 @@ public:
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
 
-	MapObject* thing() const { return mMapObject; }
+	void mapObject(MapObject*);
+	MapObject* mapObject() const { return mMapObject; }
+
+	void deleteMapObject();
+	void removeMapObject();
 
 	bool empty() const { return mMapObject == nullptr; }
 
 	bool hasOreDeposit() const { return mOreDeposit != nullptr; }
+	bool hasStructure() const { return structure() != nullptr; }
+	bool hasRobot() const { return robot() != nullptr; }
 
 	Structure* structure() const;
 	Robot* robot() const;
-
-	bool thingIsStructure() const { return structure() != nullptr; }
-	bool thingIsRobot() const { return robot() != nullptr; }
-
-	void pushMapObject(MapObject*);
-	void deleteMapObject();
-
-	void removeMapObject();
 
 	const OreDeposit* oreDeposit() const { return mOreDeposit; }
 	OreDeposit* oreDeposit() { return mOreDeposit; }

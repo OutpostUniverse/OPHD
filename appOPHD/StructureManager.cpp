@@ -149,7 +149,6 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 	}
 
-	// Remove things from tile only if we know we're adding a structure.
 	if (!tile.empty())
 	{
 		tile.removeMapObject();
@@ -158,7 +157,7 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 	mStructureTileTable[&structure] = &tile;
 
 	mStructureLists[structure.structureClass()].push_back(&structure);
-	tile.pushMapObject(&structure);
+	tile.mapObject(&structure);
 }
 
 

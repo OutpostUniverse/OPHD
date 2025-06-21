@@ -63,13 +63,13 @@ bool Tile::isSurface()
  *
  * \param	mapObject		Pointer to a MapObject.
  */
-void Tile::pushMapObject(MapObject* mapObject)
+void Tile::mapObject(MapObject* mapObject)
 {
 	if (mMapObject)
 	{
 		if (mMapObject == mapObject)
 		{
-			throw std::runtime_error("Attempting to pushMapObject on a tile where it's already set");
+			throw std::runtime_error("Attempting to set MapObject on a tile where it's already set");
 		}
 		deleteMapObject();
 	}
@@ -110,13 +110,13 @@ void Tile::placeOreDeposit(OreDeposit* oreDeposit)
 
 Structure* Tile::structure() const
 {
-	return dynamic_cast<Structure*>(thing());
+	return dynamic_cast<Structure*>(mapObject());
 }
 
 
 Robot* Tile::robot() const
 {
-	return dynamic_cast<Robot*>(thing());
+	return dynamic_cast<Robot*>(mapObject());
 }
 
 
@@ -127,7 +127,7 @@ float Tile::movementCost() const
 		return FLT_MAX;
 	}
 
-	if (!empty() && thingIsStructure() && structure()->isRoad())
+	if (!empty() && hasStructure() && structure()->isRoad())
 	{
 		Structure& road = *structure();
 
@@ -145,7 +145,7 @@ float Tile::movementCost() const
 		}
 	}
 
-	if (!empty() && (!thingIsStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
+	if (!empty() && (!hasStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
 	{
 		return FLT_MAX;
 	}

@@ -587,7 +587,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<in
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
 
 		auto& tile = mTileMap->getTile(tilePosition);
-		if (tile.thingIsStructure())
+		if (tile.hasStructure())
 		{
 			Structure* structure = tile.structure();
 
@@ -647,11 +647,11 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	{
 		onInspectTile(tile);
 	}
-	else if (tile.thingIsRobot())
+	else if (tile.hasRobot())
 	{
 		onInspectRobot(*tile.robot());
 	}
-	else if (tile.thingIsStructure())
+	else if (tile.hasStructure())
 	{
 		onInspectStructure(*tile.structure(), inspectModifier);
 	}
@@ -803,7 +803,7 @@ void MapViewState::placeTubes(Tile& tile)
 		return;
 	}
 
-	if (tile.thing() || tile.oreDeposit() || !tile.excavated()) { return; }
+	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
@@ -843,9 +843,9 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if (tile.thing())
+	if (tile.mapObject())
 	{
-		if (tile.thingIsStructure())
+		if (tile.hasStructure())
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTileObstructed);
 		}
@@ -971,11 +971,11 @@ void MapViewState::placeRobot(Tile& tile)
 
 void MapViewState::placeRobodozer(Tile& tile)
 {
-	if (tile.thing() && !tile.thingIsStructure())
+	if (tile.mapObject() && !tile.hasStructure())
 	{
 		return;
 	}
-	else if (tile.index() == TerrainType::Dozed && !tile.thingIsStructure())
+	else if (tile.index() == TerrainType::Dozed && !tile.hasStructure())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;
@@ -998,7 +998,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			NAS2D::Utility<StructureManager>::get().removeStructure(*mineShaftTile.structure());
 		}
 	}
-	else if (tile.thingIsStructure())
+	else if (tile.hasStructure())
 	{
 		if (mStructureInspector.structure() == tile.structure()) { mStructureInspector.hide(); }
 
@@ -1117,12 +1117,12 @@ void MapViewState::placeRobodigger(Tile& tile)
 	{
 		if (!tile.isSurface())
 		{
-			if (tile.thingIsStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) // Air shaft
+			if (tile.hasStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) // Air shaft
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 				return;
 			}
-			else if (tile.thingIsStructure() && tile.structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile.depth() == mTileMap->maxDepth())
+			else if (tile.hasStructure() && tile.structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile.depth() == mTileMap->maxDepth())
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMaxDigDepth);
 				return;
@@ -1135,7 +1135,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		}
 	}
 
-	if (!tile.thing() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
+	if (!tile.mapObject() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
 	else { mDiggerDirection.downOnlyEnabled(); }
 
 	mDiggerDirection.setParameters(tile);
@@ -1165,7 +1165,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 
 void MapViewState::placeRobominer(Tile& tile)
 {
-	if (tile.thing())
+	if (tile.mapObject())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed);
 		return;
@@ -1299,7 +1299,7 @@ void MapViewState::updateRobots()
 				robot->abortTask(*tile);
 			}
 
-			if (tile->thing() == robot)
+			if (tile->mapObject() == robot)
 			{
 				tile->removeMapObject();
 			}
@@ -1311,7 +1311,7 @@ void MapViewState::updateRobots()
 		}
 		else if (robot->idle())
 		{
-			if (tile->thing() == robot)
+			if (tile->mapObject() == robot)
 			{
 				tile->removeMapObject();
 

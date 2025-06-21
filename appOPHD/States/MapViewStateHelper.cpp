@@ -102,7 +102,7 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir)
 {
-	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure())
+	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.hasStructure())
 	{
 		return false;
 	}
@@ -136,7 +136,7 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
 	Structure* structure = tile.structure();
-	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !structure->connected() || !structure->isConnector())
+	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.hasStructure() || !structure->connected() || !structure->isConnector())
 	{
 		return false;
 	}
@@ -199,8 +199,8 @@ bool validLanderSite(Tile& tile)
 
 
 /**
- * Check landing site for obstructions such as mining beacons, things
- * and impassable terrain.
+ * Check landing site for obstructions such as mining beacons, structures,
+ * robots, and impassable terrain.
  *
  * This is used for the SEED Lander only.
  *
@@ -223,7 +223,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedOreDeposit);
 			return false;
 		}
-		else if (tile.thing())
+		else if (tile.mapObject())
 		{
 			// This is a case that should never happen. If it does, blow up loudly.
 			throw std::runtime_error("Tile obstructed by a MapObject other than a Mine.");
