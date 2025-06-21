@@ -271,7 +271,7 @@ void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
 	robotMap[&robot] = &tile;
-	tile.pushMapObject(&robot);
+	tile.mapObject(&robot);
 
 	++mRobotControlCount;
 }

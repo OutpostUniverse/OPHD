@@ -63,7 +63,7 @@ bool Tile::isSurface()
  *
  * \param	mapObject		Pointer to a MapObject.
  */
-void Tile::pushMapObject(MapObject* mapObject)
+void Tile::mapObject(MapObject* mapObject)
 {
 	if (mMapObject)
 	{

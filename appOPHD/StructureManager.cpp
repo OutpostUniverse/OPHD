@@ -157,7 +157,7 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 	mStructureTileTable[&structure] = &tile;
 
 	mStructureLists[structure.structureClass()].push_back(&structure);
-	tile.pushMapObject(&structure);
+	tile.mapObject(&structure);
 }
 
 
