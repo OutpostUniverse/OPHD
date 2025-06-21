@@ -319,7 +319,6 @@
     <ClInclude Include="MapObjects\Structures\MineFacility.h" />
     <ClInclude Include="MapObjects\Structures\MineShaft.h" />
     <ClInclude Include="MapObjects\Structures\OreRefining.h" />
-    <ClInclude Include="MapObjects\Structures\Park.h" />
     <ClInclude Include="MapObjects\Structures\PowerStructure.h" />
     <ClInclude Include="MapObjects\Structures\RecreationCenter.h" />
     <ClInclude Include="MapObjects\Structures\Recycling.h" />

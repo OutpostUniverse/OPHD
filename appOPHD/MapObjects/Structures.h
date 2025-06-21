@@ -13,7 +13,6 @@
 #include "Structures/MaintenanceFacility.h"
 #include "Structures/MineFacility.h"
 #include "Structures/MineShaft.h"
-#include "Structures/Park.h"
 #include "Structures/SurfacePolice.h"
 #include "Structures/UndergroundPolice.h"
 #include "Structures/RecreationCenter.h"

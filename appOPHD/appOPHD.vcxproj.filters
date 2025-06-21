@@ -476,9 +476,6 @@
     <ClInclude Include="MapObjects\Structures\OreRefining.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Park.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\PowerStructure.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>

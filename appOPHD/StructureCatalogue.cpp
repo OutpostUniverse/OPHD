@@ -243,7 +243,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_PARK:
-			structure = new Park();
+			structure = new Structure(StructureClass::Park, StructureID::SID_PARK);
 			break;
 
 		case StructureID::SID_ROAD:
