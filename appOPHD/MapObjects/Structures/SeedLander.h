@@ -18,8 +18,6 @@ public:
 	SeedLander() = delete;
 	SeedLander(const Tile* tile);
 
-	void position(NAS2D::Point<int> position);
-
 	Signal::Source& deploySignal();
 
 protected:

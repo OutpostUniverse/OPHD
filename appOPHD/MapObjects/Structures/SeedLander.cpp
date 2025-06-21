@@ -13,11 +13,6 @@ SeedLander::SeedLander(const Tile* tile) :
 	enable();
 }
 
-void SeedLander::position(NAS2D::Point<int> position)
-{
-	mPosition = position;
-}
-
 
 SeedLander::Signal::Source& SeedLander::deploySignal()
 {
