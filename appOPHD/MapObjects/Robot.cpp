@@ -104,8 +104,3 @@ void Robot::processTurn(TileMap& tileMap)
 		die();
 	}
 }
-
-
-void Robot::onTaskComplete(TileMap& /*tileMap*/)
-{
-}

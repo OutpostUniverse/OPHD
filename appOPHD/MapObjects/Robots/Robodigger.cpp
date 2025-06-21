@@ -30,3 +30,8 @@ NAS2D::Dictionary Robodigger::getDataDict() const
 	dictionary.set("direction", static_cast<int>(mDirection));
 	return dictionary;
 }
+
+
+void Robodigger::onTaskComplete(TileMap& /*tileMap*/)
+{
+}

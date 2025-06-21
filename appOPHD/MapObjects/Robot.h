@@ -59,7 +59,7 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	virtual void onTaskComplete(TileMap& tileMap);
+	virtual void onTaskComplete(TileMap& tileMap) = 0;
 
 	void incrementFuelCellAge() { mFuelCellAge++; }
 

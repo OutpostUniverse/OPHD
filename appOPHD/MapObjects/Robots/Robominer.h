@@ -14,4 +14,7 @@ public:
 	Robominer();
 
 	MineFacility& buildMine(TileMap& tileMap, const MapCoordinate& position);
+
+protected:
+	void onTaskComplete(TileMap& tileMap) override;
 };

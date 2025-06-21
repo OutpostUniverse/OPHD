@@ -13,6 +13,9 @@ public:
 	void startTask(Tile& tile) override;
 	void abortTask(Tile& tile) override;
 
+protected:
+	void onTaskComplete(TileMap& tileMap) override;
+
 private:
 	std::size_t mTileIndex = 0;
 };
