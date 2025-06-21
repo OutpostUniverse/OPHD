@@ -8,6 +8,7 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <algorithm>
+#include <stdexcept>
 
 
 namespace
@@ -30,6 +31,11 @@ MineFacility::MineFacility(Tile* tile) :
 	),
 	mOreDeposit(tile->oreDeposit())
 {
+	if (mOreDeposit == nullptr)
+	{
+		throw std::runtime_error("Mine Facility is located on a Tile with no Ore Deposit.");
+	}
+
 	mSprite.play(constants::StructureStateConstruction);
 }
 
