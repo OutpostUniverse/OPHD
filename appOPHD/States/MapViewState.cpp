@@ -647,7 +647,7 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 	{
 		onInspectTile(tile);
 	}
-	else if (tile.thingIsRobot())
+	else if (tile.hasRobot())
 	{
 		onInspectRobot(*tile.robot());
 	}

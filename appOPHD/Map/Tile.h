@@ -60,7 +60,7 @@ public:
 	Robot* robot() const;
 
 	bool hasStructure() const { return structure() != nullptr; }
-	bool thingIsRobot() const { return robot() != nullptr; }
+	bool hasRobot() const { return robot() != nullptr; }
 
 	void pushMapObject(MapObject*);
 	void deleteMapObject();
