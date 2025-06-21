@@ -29,7 +29,6 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	if constexpr (std::is_same_v<StructureType, Agridome>) { return Structure::StructureClass::FoodProduction; }
 	else if constexpr (std::is_same_v<StructureType, AirShaft>) { return Structure::StructureClass::Tube; }
 	else if constexpr (std::is_same_v<StructureType, CargoLander>) { return Structure::StructureClass::Lander; }
-	else if constexpr (std::is_same_v<StructureType, CHAP>) { return Structure::StructureClass::LifeSupport; }
 	else if constexpr (std::is_same_v<StructureType, ColonistLander>) { return Structure::StructureClass::Lander; }
 	else if constexpr (std::is_same_v<StructureType, CommandCenter>) { return Structure::StructureClass::Command; }
 	else if constexpr (std::is_same_v<StructureType, Commercial>) { return Structure::StructureClass::Commercial; }

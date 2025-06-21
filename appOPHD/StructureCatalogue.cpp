@@ -169,6 +169,8 @@ const StructureType& StructureCatalogue::getType(StructureID id)
  */
 Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 {
+	using StructureClass = Structure::StructureClass;
+
 	Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base
@@ -189,7 +191,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_CHAP:
-			structure = new CHAP();
+			structure = new Structure(StructureClass::LifeSupport, StructureID::SID_CHAP);
 			break;
 
 		case StructureID::SID_COLONIST_LANDER: // only here for loading games

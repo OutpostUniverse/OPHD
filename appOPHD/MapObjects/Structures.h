@@ -4,7 +4,6 @@
 #include "Structures/Agridome.h"
 #include "Structures/AirShaft.h"
 #include "Structures/CargoLander.h"
-#include "Structures/CHAP.h"
 #include "Structures/ColonistLander.h"
 #include "Structures/CommandCenter.h"
 #include "Structures/Commercial.h"

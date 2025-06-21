@@ -440,9 +440,6 @@
     <ClInclude Include="MapObjects\Structures\CargoLander.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\CHAP.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\ColonistLander.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
