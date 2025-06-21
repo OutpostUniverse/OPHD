@@ -8,7 +8,7 @@ class AirShaft : public Structure
 public:
 	AirShaft();
 
-	void ug();
+	void underground();
 
 	void forced_state_change(StructureState, DisabledReason, IdleReason) override;
 
