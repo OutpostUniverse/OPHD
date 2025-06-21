@@ -15,8 +15,8 @@ class MapObject
 {
 public:
 	MapObject(const std::string& spritePath, const std::string& initialAction);
-	MapObject(const MapObject& thing) = delete;
-	MapObject& operator=(const MapObject& thing) = delete;
+	MapObject(const MapObject& mapObject) = delete;
+	MapObject& operator=(const MapObject& mapObject) = delete;
 	virtual ~MapObject() = default;
 
 	virtual const std::string& name() const = 0;
