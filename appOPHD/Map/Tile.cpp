@@ -127,7 +127,7 @@ float Tile::movementCost() const
 		return FLT_MAX;
 	}
 
-	if (!empty() && thingIsStructure() && structure()->isRoad())
+	if (!empty() && hasStructure() && structure()->isRoad())
 	{
 		Structure& road = *structure();
 
@@ -145,7 +145,7 @@ float Tile::movementCost() const
 		}
 	}
 
-	if (!empty() && (!thingIsStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
+	if (!empty() && (!hasStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
 	{
 		return FLT_MAX;
 	}

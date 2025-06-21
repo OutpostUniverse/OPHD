@@ -60,7 +60,7 @@ bool routeObstructed(Route& route)
 
 		// \note	Tile being occupied by a robot is not an obstruction for the
 		//			purposes of routing/pathing.
-		if (tile.thingIsStructure() && !tile.structure()->isRoad()) { return true; }
+		if (tile.hasStructure() && !tile.structure()->isRoad()) { return true; }
 		if (tile.index() == TerrainType::Impassable) { return true; }
 	}
 

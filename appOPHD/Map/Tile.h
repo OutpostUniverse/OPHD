@@ -59,7 +59,7 @@ public:
 	Structure* structure() const;
 	Robot* robot() const;
 
-	bool thingIsStructure() const { return structure() != nullptr; }
+	bool hasStructure() const { return structure() != nullptr; }
 	bool thingIsRobot() const { return robot() != nullptr; }
 
 	void pushMapObject(MapObject*);

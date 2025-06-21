@@ -102,7 +102,7 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
  */
 bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir)
 {
-	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure())
+	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.hasStructure())
 	{
 		return false;
 	}
@@ -136,7 +136,7 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 bool checkStructurePlacement(Tile& tile, Direction dir)
 {
 	Structure* structure = tile.structure();
-	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.thingIsStructure() || !structure->connected() || !structure->isConnector())
+	if (tile.oreDeposit() || !tile.bulldozed() || !tile.excavated() || !tile.hasStructure() || !structure->connected() || !structure->isConnector())
 	{
 		return false;
 	}

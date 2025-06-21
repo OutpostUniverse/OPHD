@@ -48,7 +48,7 @@ namespace
 			const auto surfacePosition = MapCoordinate{tileToInspect, 0};
 			if (!tileMap.isValidPosition(surfacePosition)) { continue; }
 			const auto& tile = tileMap.getTile(surfacePosition);
-			if (!tile.thingIsStructure()) { continue; }
+			if (!tile.hasStructure()) { continue; }
 
 			surroundingTiles[i] = tile.structure()->structureId() == StructureID::SID_ROAD;
 		}
