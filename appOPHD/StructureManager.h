@@ -46,7 +46,6 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, ResearchFacility>) { return Structure::StructureClass::Laboratory; }
 	else if constexpr (std::is_same_v<StructureType, Residence>) { return Structure::StructureClass::Residence; }
 	else if constexpr (std::is_same_v<StructureType, Road>) { return Structure::StructureClass::Road; }
-	else if constexpr (std::is_same_v<StructureType, RobotCommand>) { return Structure::StructureClass::RobotCommand; }
 	else if constexpr (std::is_same_v<StructureType, SeedFactory>) { return Structure::StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, SeedLander>) { return Structure::StructureClass::Lander; }
 	else if constexpr (std::is_same_v<StructureType, SeedPower>) { return Structure::StructureClass::EnergyProduction; }

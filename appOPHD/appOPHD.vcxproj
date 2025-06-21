@@ -324,7 +324,6 @@
     <ClInclude Include="MapObjects\Structures\ResearchFacility.h" />
     <ClInclude Include="MapObjects\Structures\Residence.h" />
     <ClInclude Include="MapObjects\Structures\Road.h" />
-    <ClInclude Include="MapObjects\Structures\RobotCommand.h" />
     <ClInclude Include="MapObjects\Structures\SeedFactory.h" />
     <ClInclude Include="MapObjects\Structures\SeedLander.h" />
     <ClInclude Include="MapObjects\Structures\SeedPower.h" />

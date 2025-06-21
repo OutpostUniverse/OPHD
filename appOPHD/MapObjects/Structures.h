@@ -18,7 +18,6 @@
 #include "Structures/Recycling.h"
 #include "Structures/Residence.h"
 #include "Structures/Road.h"
-#include "Structures/RobotCommand.h"
 #include "Structures/SeedFactory.h"
 #include "Structures/SeedLander.h"
 #include "Structures/SeedPower.h"

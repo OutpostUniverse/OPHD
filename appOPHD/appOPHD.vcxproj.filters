@@ -491,9 +491,6 @@
     <ClInclude Include="MapObjects\Structures\Road.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\RobotCommand.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\SeedFactory.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>

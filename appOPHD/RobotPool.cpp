@@ -3,7 +3,6 @@
 #include "StructureManager.h"
 #include "Map/Tile.h"
 #include "MapObjects/Structures/CommandCenter.h"
-#include "MapObjects/Structures/RobotCommand.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
@@ -241,7 +240,7 @@ std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 void RobotPool::update()
 {
 	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().getStructures<RobotCommand>();
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand);
 
 	// 3 for the first command center
 	std::size_t maxRobots = 0;

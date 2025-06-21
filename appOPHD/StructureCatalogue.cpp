@@ -275,7 +275,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_ROBOT_COMMAND:
-			structure = new RobotCommand();
+			structure = new Structure(StructureClass::RobotCommand, StructureID::SID_ROBOT_COMMAND);
 			break;
 
 		case StructureID::SID_SEED_FACTORY:
