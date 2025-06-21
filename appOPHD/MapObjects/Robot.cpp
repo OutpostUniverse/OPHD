@@ -75,7 +75,7 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::processTurn()
+void Robot::processTurn(TileMap& /*tileMap*/)
 {
 	if (mSelfDestruct)
 	{

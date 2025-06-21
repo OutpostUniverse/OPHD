@@ -7,6 +7,7 @@
 
 
 class Tile;
+class TileMap;
 
 
 class Robot : public MapObject
@@ -32,7 +33,7 @@ public:
 	bool isDead() const;
 	virtual void die();
 
-	virtual void processTurn();
+	virtual void processTurn(TileMap& tileMap);
 
 	virtual void startTask(Tile& tile);
 	void startTask(int turns);
