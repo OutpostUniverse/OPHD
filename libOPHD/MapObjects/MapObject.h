@@ -20,7 +20,7 @@ public:
 	virtual ~MapObject() = default;
 
 	virtual const std::string& name() const = 0;
-	virtual void update() = 0;
+	virtual void processTurn() = 0;
 
 	virtual void updateAnimation();
 	virtual void draw(NAS2D::Point<int> position) const;

@@ -75,7 +75,7 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::update()
+void Robot::processTurn()
 {
 	if (mSelfDestruct)
 	{

@@ -1275,7 +1275,7 @@ void MapViewState::updateRobots()
 		auto robot = robot_it->first;
 		auto tile = robot_it->second;
 
-		robot->update();
+		robot->processTurn();
 
 		const auto& position = tile->xyz();
 
