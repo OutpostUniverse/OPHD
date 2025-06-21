@@ -70,6 +70,8 @@ class StructureManager
 public:
 	StructureManager();
 
+	Structure& create(StructureID structureId, Tile& tile);
+
 	void addStructure(Structure& structure, Tile& tile);
 	void removeStructure(Structure& structure);
 
