@@ -259,7 +259,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_RECREATION_CENTER:
-			structure = new RecreationCenter();
+			structure = new Structure(StructureClass::RecreationCenter, StructureID::SID_RECREATION_CENTER);
 			break;
 
 		case StructureID::SID_RECYCLING:

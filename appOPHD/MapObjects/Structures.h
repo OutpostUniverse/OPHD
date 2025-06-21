@@ -15,7 +15,6 @@
 #include "Structures/MineShaft.h"
 #include "Structures/SurfacePolice.h"
 #include "Structures/UndergroundPolice.h"
-#include "Structures/RecreationCenter.h"
 #include "Structures/Recycling.h"
 #include "Structures/RedLightDistrict.h"
 #include "Structures/Residence.h"

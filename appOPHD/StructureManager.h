@@ -42,7 +42,6 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, MineShaft>) { return Structure::StructureClass::Undefined; }
 	else if constexpr (std::is_same_v<StructureType, OreRefining>) { return Structure::StructureClass::Smelter; }
 	else if constexpr (std::is_same_v<StructureType, PowerStructure>) { return Structure::StructureClass::EnergyProduction; }
-	else if constexpr (std::is_same_v<StructureType, RecreationCenter>) { return Structure::StructureClass::RecreationCenter; }
 	else if constexpr (std::is_same_v<StructureType, Recycling>) { return Structure::StructureClass::Recycling; }
 	else if constexpr (std::is_same_v<StructureType, RedLightDistrict>) { return Structure::StructureClass::Residence; }
 	else if constexpr (std::is_same_v<StructureType, ResearchFacility>) { return Structure::StructureClass::Laboratory; }
