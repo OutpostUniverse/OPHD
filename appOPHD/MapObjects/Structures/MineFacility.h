@@ -7,6 +7,7 @@
 
 struct StorableResources;
 class OreDeposit;
+class Tile;
 
 
 class MineFacility : public Structure
@@ -14,7 +15,7 @@ class MineFacility : public Structure
 public:
 	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
 public:
-	MineFacility(OreDeposit* oreDeposit);
+	MineFacility(Tile* tile);
 
 	void oreDeposit(OreDeposit* oreDeposit);
 	void maxDepth(int depth);

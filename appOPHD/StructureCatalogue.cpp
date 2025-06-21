@@ -231,7 +231,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_MINE_FACILITY: // only here for loading games
-			structure = new MineFacility(nullptr);
+			structure = new MineFacility(tile);
 			break;
 
 		case StructureID::SID_MINE_SHAFT: // only here for loading games

@@ -2,6 +2,7 @@
 
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
+#include "../../Map/Tile.h"
 
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
@@ -22,12 +23,12 @@ namespace
 }
 
 
-MineFacility::MineFacility(OreDeposit* oreDeposit) :
+MineFacility::MineFacility(Tile* tile) :
 	Structure(
 		StructureClass::Mine,
 		StructureID::SID_MINE_FACILITY
 	),
-	mOreDeposit(oreDeposit)
+	mOreDeposit(tile->oreDeposit())
 {
 	mSprite.play(constants::StructureStateConstruction);
 }

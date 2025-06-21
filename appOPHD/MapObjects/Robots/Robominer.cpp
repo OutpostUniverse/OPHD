@@ -24,7 +24,7 @@ MineFacility& Robominer::buildMine(TileMap& tileMap, const MapCoordinate& positi
 
 	// Surface structure
 	auto& robotTile = tileMap.getTile(position);
-	auto& mineFacility = *new MineFacility(robotTile.oreDeposit());
+	auto& mineFacility = *new MineFacility(&robotTile);
 	mineFacility.maxDepth(tileMap.maxDepth());
 	structureManager.addStructure(mineFacility, robotTile);
 
