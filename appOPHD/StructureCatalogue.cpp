@@ -186,7 +186,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			structure = new AirShaft();
 			break;
 
-		case StructureID::SID_CARGO_LANDER: // only here for loading games
+		case StructureID::SID_CARGO_LANDER:
 			structure = new CargoLander(tile);
 			break;
 
@@ -194,7 +194,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			structure = new Structure(StructureClass::LifeSupport, StructureID::SID_CHAP);
 			break;
 
-		case StructureID::SID_COLONIST_LANDER: // only here for loading games
+		case StructureID::SID_COLONIST_LANDER:
 			structure = new ColonistLander(tile);
 			break;
 
@@ -230,11 +230,11 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			structure = new Structure(StructureClass::MedicalCenter, StructureID::SID_MEDICAL_CENTER);
 			break;
 
-		case StructureID::SID_MINE_FACILITY: // only here for loading games
+		case StructureID::SID_MINE_FACILITY:
 			structure = new MineFacility(tile);
 			break;
 
-		case StructureID::SID_MINE_SHAFT: // only here for loading games
+		case StructureID::SID_MINE_SHAFT:
 			structure = new MineShaft();
 			break;
 
@@ -282,7 +282,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			structure = new SeedFactory();
 			break;
 
-		case StructureID::SID_SEED_LANDER: // only here for loading games
+		case StructureID::SID_SEED_LANDER:
 			structure = new SeedLander(tile);
 			break;
 
