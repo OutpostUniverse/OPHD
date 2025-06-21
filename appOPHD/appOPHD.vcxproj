@@ -321,7 +321,6 @@
     <ClInclude Include="MapObjects\Structures\OreRefining.h" />
     <ClInclude Include="MapObjects\Structures\PowerStructure.h" />
     <ClInclude Include="MapObjects\Structures\Recycling.h" />
-    <ClInclude Include="MapObjects\Structures\RedLightDistrict.h" />
     <ClInclude Include="MapObjects\Structures\ResearchFacility.h" />
     <ClInclude Include="MapObjects\Structures\Residence.h" />
     <ClInclude Include="MapObjects\Structures\Road.h" />

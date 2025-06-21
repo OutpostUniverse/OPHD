@@ -267,7 +267,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_RED_LIGHT_DISTRICT:
-			structure = new RedLightDistrict();
+			structure = new Structure(StructureClass::Residence, StructureID::SID_RED_LIGHT_DISTRICT);
 			break;
 
 		case StructureID::SID_RESIDENCE:

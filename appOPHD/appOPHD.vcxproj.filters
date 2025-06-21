@@ -482,9 +482,6 @@
     <ClInclude Include="MapObjects\Structures\Recycling.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\RedLightDistrict.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\ResearchFacility.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
