@@ -26,5 +26,4 @@
 #include "Structures/SurfaceFactory.h"
 #include "Structures/Tube.h"
 #include "Structures/UndergroundFactory.h"
-#include "Structures/University.h"
 #include "Structures/Warehouse.h"

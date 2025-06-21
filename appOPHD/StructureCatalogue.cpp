@@ -319,7 +319,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_UNIVERSITY:
-			structure = new University();
+			structure = new Structure(StructureClass::University, StructureID::SID_UNIVERSITY);
 			break;
 
 		case StructureID::SID_WAREHOUSE:

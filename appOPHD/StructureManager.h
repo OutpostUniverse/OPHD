@@ -55,7 +55,6 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, SurfaceFactory>) { return Structure::StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, Tube>) { return Structure::StructureClass::Tube; }
 	else if constexpr (std::is_same_v<StructureType, UndergroundFactory>) { return Structure::StructureClass::Factory; }
-	else if constexpr (std::is_same_v<StructureType, University>) { return Structure::StructureClass::University; }
 	else if constexpr (std::is_same_v<StructureType, Warehouse>) { return Structure::StructureClass::Warehouse; }
 	else { static_assert(dependent_false<StructureType>, "Unknown type"); }
 }
