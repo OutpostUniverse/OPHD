@@ -178,7 +178,7 @@ public:
 
 	void rebuild();
 
-	void processTurn() override;
+	virtual void processTurn();
 	virtual void think() {}
 
 	/**

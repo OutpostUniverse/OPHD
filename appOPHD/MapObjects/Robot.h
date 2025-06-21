@@ -32,7 +32,7 @@ public:
 	bool isDead() const;
 	virtual void die();
 
-	void processTurn() override;
+	virtual void processTurn();
 
 	virtual void startTask(Tile& tile);
 	void startTask(int turns);
