@@ -121,9 +121,9 @@ void DetailMap::update()
 	{
 		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
-		if (tile.thing())
+		if (tile.mapObject())
 		{
-			tile.thing()->updateAnimation();
+			tile.mapObject()->updateAnimation();
 		}
 	}
 }
@@ -149,7 +149,7 @@ void DetailMap::draw() const
 			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
 
 			// Draw a beacon on an unoccupied tile with a mine
-			if (mTileMap.isTileBlockedByOreDeposit(tile) && !tile.thing())
+			if (mTileMap.isTileBlockedByOreDeposit(tile) && !tile.mapObject())
 			{
 				constexpr NAS2D::Vector<int> beaconOffsetInTile{0, -64};
 				constexpr NAS2D::Vector<int> beaconLightOffsetInTile{59, 15};
@@ -159,9 +159,9 @@ void DetailMap::draw() const
 			}
 
 			// Tell an occupying thing to update itself.
-			if (tile.thing())
+			if (tile.mapObject())
 			{
-				tile.thing()->draw(position);
+				tile.mapObject()->draw(position);
 			}
 		}
 	}

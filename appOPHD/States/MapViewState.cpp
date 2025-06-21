@@ -803,7 +803,7 @@ void MapViewState::placeTubes(Tile& tile)
 		return;
 	}
 
-	if (tile.thing() || tile.oreDeposit() || !tile.excavated()) { return; }
+	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
@@ -843,7 +843,7 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if (tile.thing())
+	if (tile.mapObject())
 	{
 		if (tile.thingIsStructure())
 		{
@@ -971,7 +971,7 @@ void MapViewState::placeRobot(Tile& tile)
 
 void MapViewState::placeRobodozer(Tile& tile)
 {
-	if (tile.thing() && !tile.thingIsStructure())
+	if (tile.mapObject() && !tile.thingIsStructure())
 	{
 		return;
 	}
@@ -1135,7 +1135,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		}
 	}
 
-	if (!tile.thing() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
+	if (!tile.mapObject() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }
 	else { mDiggerDirection.downOnlyEnabled(); }
 
 	mDiggerDirection.setParameters(tile);
@@ -1165,7 +1165,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 
 void MapViewState::placeRobominer(Tile& tile)
 {
-	if (tile.thing())
+	if (tile.mapObject())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMinerTileObstructed);
 		return;
@@ -1299,7 +1299,7 @@ void MapViewState::updateRobots()
 				robot->abortTask(*tile);
 			}
 
-			if (tile->thing() == robot)
+			if (tile->mapObject() == robot)
 			{
 				tile->removeMapObject();
 			}
@@ -1311,7 +1311,7 @@ void MapViewState::updateRobots()
 		}
 		else if (robot->idle())
 		{
-			if (tile->thing() == robot)
+			if (tile->mapObject() == robot)
 			{
 				tile->removeMapObject();
 

@@ -110,13 +110,13 @@ void Tile::placeOreDeposit(OreDeposit* oreDeposit)
 
 Structure* Tile::structure() const
 {
-	return dynamic_cast<Structure*>(thing());
+	return dynamic_cast<Structure*>(mapObject());
 }
 
 
 Robot* Tile::robot() const
 {
-	return dynamic_cast<Robot*>(thing());
+	return dynamic_cast<Robot*>(mapObject());
 }
 
 

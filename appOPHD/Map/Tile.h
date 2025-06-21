@@ -50,7 +50,7 @@ public:
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
 
-	MapObject* thing() const { return mMapObject; }
+	MapObject* mapObject() const { return mMapObject; }
 
 	bool empty() const { return mMapObject == nullptr; }
 

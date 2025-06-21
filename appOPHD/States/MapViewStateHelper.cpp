@@ -223,7 +223,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 			doAlertMessage(constants::AlertLanderLocation, constants::AlertSeedOreDeposit);
 			return false;
 		}
-		else if (tile.thing())
+		else if (tile.mapObject())
 		{
 			// This is a case that should never happen. If it does, blow up loudly.
 			throw std::runtime_error("Tile obstructed by a MapObject other than a Mine.");
