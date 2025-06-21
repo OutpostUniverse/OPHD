@@ -203,7 +203,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_COMMERCIAL:
-			structure = new Commercial();
+			structure = new Structure(StructureClass::Commercial, StructureID::SID_COMMERCIAL);
 			break;
 
 		case StructureID::SID_COMM_TOWER:

@@ -446,9 +446,6 @@
     <ClInclude Include="MapObjects\Structures\CommandCenter.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Commercial.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\CommTower.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>

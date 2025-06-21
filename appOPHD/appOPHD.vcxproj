@@ -309,7 +309,6 @@
     <ClInclude Include="MapObjects\Structures\CargoLander.h" />
     <ClInclude Include="MapObjects\Structures\ColonistLander.h" />
     <ClInclude Include="MapObjects\Structures\CommandCenter.h" />
-    <ClInclude Include="MapObjects\Structures\Commercial.h" />
     <ClInclude Include="MapObjects\Structures\CommTower.h" />
     <ClInclude Include="MapObjects\Structures\Factory.h" />
     <ClInclude Include="MapObjects\Structures\FoodProduction.h" />

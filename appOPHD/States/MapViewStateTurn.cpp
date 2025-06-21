@@ -84,7 +84,7 @@ void MapViewState::updateCommercial()
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	const auto& warehouses = structureManager.getStructures<Warehouse>();
-	const auto& commercial = structureManager.getStructures<Commercial>();
+	const auto& commercial = structureManager.structureList(Structure::StructureClass::Commercial);
 
 	// No need to do anything if there are no commercial structures.
 	if (commercial.empty()) { return; }

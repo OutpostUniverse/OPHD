@@ -6,7 +6,6 @@
 #include "Structures/CargoLander.h"
 #include "Structures/ColonistLander.h"
 #include "Structures/CommandCenter.h"
-#include "Structures/Commercial.h"
 #include "Structures/CommTower.h"
 #include "Structures/FusionReactor.h"
 #include "Structures/HotLaboratory.h"
