@@ -572,10 +572,9 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 
 	// Assumes a digger is available.
 	Robodigger& robot = mRobotPool.getDigger();
+	robot.direction(direction);
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
-
-	robot.direction(direction);
 
 	const auto directionOffset = directionEnumToOffset(direction);
 	if (directionOffset != DirectionCenter)
