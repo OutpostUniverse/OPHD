@@ -3,8 +3,6 @@
 #include <libControls/Button.h>
 #include <libControls/Window.h>
 
-#include <NAS2D/Signal/Signal.h>
-
 
 class Robot;
 
@@ -30,8 +28,6 @@ private:
 	Button btnCancel;
 
 	NAS2D::Rectangle<int> mContentRect;
-
-	NAS2D::Signal<Robot*> mSignal;
 
 	Robot* mRobot{nullptr};
 };
