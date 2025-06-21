@@ -2,6 +2,8 @@
 
 #include "../Structure.h"
 
+#include "../../Map/Tile.h"
+
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Signal/Signal.h>
 
@@ -13,12 +15,12 @@ public:
 
 public:
 	SeedLander() = delete;
-	SeedLander(NAS2D::Point<int> position) :
+	SeedLander(const Tile* tile) :
 		Structure{
 			StructureClass::Lander,
 			StructureID::SID_SEED_LANDER
 		},
-		mPosition{position}
+		mPosition{tile->xy()}
 	{
 		enable();
 	}
