@@ -199,8 +199,8 @@ bool validLanderSite(Tile& tile)
 
 
 /**
- * Check landing site for obstructions such as mining beacons, things
- * and impassable terrain.
+ * Check landing site for obstructions such as mining beacons, structures,
+ * robots, and impassable terrain.
  *
  * This is used for the SEED Lander only.
  *
