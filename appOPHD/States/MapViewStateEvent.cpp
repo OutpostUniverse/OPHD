@@ -192,10 +192,10 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	const auto dir = roboDigger.direction();
-	auto newPosition = position.translate(dir);
+	const auto direction = roboDigger.direction();
+	auto newPosition = position.translate(direction);
 
-	if (dir == Direction::Down)
+	if (direction == Direction::Down)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
