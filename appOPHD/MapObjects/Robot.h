@@ -61,8 +61,6 @@ public:
 protected:
 	virtual void onTaskComplete(TileMap& tileMap) = 0;
 
-	void incrementFuelCellAge() { mFuelCellAge++; }
-
 private:
 	const std::string& mName;
 	int mFuelCellAge = 0;
