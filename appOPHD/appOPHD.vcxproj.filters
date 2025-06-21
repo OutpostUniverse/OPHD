@@ -473,9 +473,6 @@
     <ClInclude Include="MapObjects\Structures\MineShaft.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Nursery.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\OreRefining.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
