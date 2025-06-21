@@ -178,6 +178,7 @@ void MapViewState::onDozerTaskComplete(Robot& /*robot*/)
 void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
 	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
+	auto& tileMap = *mTileMap;
 
 	if (mRobotList.find(&roboDigger) == mRobotList.end())
 	{
@@ -187,7 +188,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	auto& tile = *mRobotList[&roboDigger];
 	const auto& position = tile.xyz();
 
-	if (position.z > mTileMap->maxDepth())
+	if (position.z > tileMap.maxDepth())
 	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
@@ -205,10 +206,10 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 
 		auto& airShaftBottom = *new AirShaft();
 		airShaftBottom.underground();
-		structureManager.addStructure(airShaftBottom, mTileMap->getTile(newPosition));
+		structureManager.addStructure(airShaftBottom, tileMap.getTile(newPosition));
 
-		mTileMap->getTile(position).index(TerrainType::Dozed);
-		mTileMap->getTile(newPosition).index(TerrainType::Dozed);
+		tileMap.getTile(position).index(TerrainType::Dozed);
+		tileMap.getTile(newPosition).index(TerrainType::Dozed);
 
 		/// \fixme Naive approach; will be slow with large colonies.
 		updateConnectedness();
