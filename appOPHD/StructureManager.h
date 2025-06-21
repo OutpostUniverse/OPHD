@@ -53,7 +53,6 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, SolarPlant>) { return Structure::StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, StorageTanks>) { return Structure::StructureClass::Storage; }
 	else if constexpr (std::is_same_v<StructureType, SurfaceFactory>) { return Structure::StructureClass::Factory; }
-	else if constexpr (std::is_same_v<StructureType, SurfacePolice>) { return Structure::StructureClass::SurfacePolice; }
 	else if constexpr (std::is_same_v<StructureType, Tube>) { return Structure::StructureClass::Tube; }
 	else if constexpr (std::is_same_v<StructureType, UndergroundFactory>) { return Structure::StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, UndergroundPolice>) { return Structure::StructureClass::UndergroundPolice; }

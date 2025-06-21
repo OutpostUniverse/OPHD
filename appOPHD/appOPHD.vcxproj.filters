@@ -512,9 +512,6 @@
     <ClInclude Include="MapObjects\Structures\SurfaceFactory.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\SurfacePolice.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\Tube.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>

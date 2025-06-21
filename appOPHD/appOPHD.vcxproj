@@ -331,7 +331,6 @@
     <ClInclude Include="MapObjects\Structures\SolarPlant.h" />
     <ClInclude Include="MapObjects\Structures\StorageTanks.h" />
     <ClInclude Include="MapObjects\Structures\SurfaceFactory.h" />
-    <ClInclude Include="MapObjects\Structures\SurfacePolice.h" />
     <ClInclude Include="MapObjects\Structures\Tube.h" />
     <ClInclude Include="MapObjects\Structures\UndergroundFactory.h" />
     <ClInclude Include="MapObjects\Structures\UndergroundPolice.h" />

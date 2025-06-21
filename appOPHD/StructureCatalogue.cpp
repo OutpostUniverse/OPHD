@@ -251,7 +251,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_SURFACE_POLICE:
-			structure = new SurfacePolice();
+			structure = new Structure(StructureClass::SurfacePolice, StructureID::SID_SURFACE_POLICE);
 			break;
 
 		case StructureID::SID_UNDERGROUND_POLICE:
