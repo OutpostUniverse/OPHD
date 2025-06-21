@@ -3,6 +3,8 @@
 #include <libControls/Button.h>
 #include <libControls/Window.h>
 
+#include <NAS2D/Signal/Signal.h>
+
 
 class Robot;
 
