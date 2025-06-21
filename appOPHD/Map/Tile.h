@@ -59,12 +59,11 @@ public:
 	bool empty() const { return mMapObject == nullptr; }
 
 	bool hasOreDeposit() const { return mOreDeposit != nullptr; }
+	bool hasStructure() const { return structure() != nullptr; }
+	bool hasRobot() const { return robot() != nullptr; }
 
 	Structure* structure() const;
 	Robot* robot() const;
-
-	bool hasStructure() const { return structure() != nullptr; }
-	bool hasRobot() const { return robot() != nullptr; }
 
 	const OreDeposit* oreDeposit() const { return mOreDeposit; }
 	OreDeposit* oreDeposit() { return mOreDeposit; }
