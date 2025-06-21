@@ -24,9 +24,6 @@ void SeedLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		// Logic guard, probably not necessary.
-		if (mPosition == NAS2D::Point{0, 0}) { return; }
-
 		mDeploy(mPosition);
 	}
 }
