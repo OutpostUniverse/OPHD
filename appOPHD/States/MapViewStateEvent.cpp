@@ -177,39 +177,39 @@ void MapViewState::onDozerTaskComplete(Robot& /*robot*/)
  */
 void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
-	if (mRobotList.find(&robot) == mRobotList.end())
+	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
+	auto& tileMap = *mTileMap;
+
+	if (mRobotList.find(&roboDigger) == mRobotList.end())
 	{
 		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
 	}
 
-	auto& tile = *mRobotList[&robot];
+	auto& tile = *mRobotList[&roboDigger];
 	const auto& position = tile.xyz();
 
-	if (position.z > mTileMap->maxDepth())
+	if (position.z > tileMap.maxDepth())
 	{
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	const auto dir = dynamic_cast<Robodigger&>(robot).direction(); // fugly
-	auto newPosition = position.translate(dir);
+	const auto direction = roboDigger.direction();
+	const auto newPosition = position.translate(direction);
 
-	if (dir == Direction::Down)
+	if (direction == Direction::Down)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-		auto& as1 = *new AirShaft();
-		if (position.z > 0) { as1.ug(); }
-		structureManager.addStructure(as1, tile);
+		auto& airShaftTop = *new AirShaft();
+		if (position.z > 0) { airShaftTop.underground(); }
+		structureManager.addStructure(airShaftTop, tile);
 
-		auto& as2 = *new AirShaft();
-		as2.ug();
-		structureManager.addStructure(as2, mTileMap->getTile(newPosition));
+		auto& airShaftBottom = *new AirShaft();
+		airShaftBottom.underground();
+		structureManager.addStructure(airShaftBottom, tileMap.getTile(newPosition));
 
-		mTileMap->getTile(position).index(TerrainType::Dozed);
-		mTileMap->getTile(newPosition).index(TerrainType::Dozed);
-
-		/// \fixme Naive approach; will be slow with large colonies.
-		updateConnectedness();
+		tileMap.getTile(position).index(TerrainType::Dozed);
+		tileMap.getTile(newPosition).index(TerrainType::Dozed);
 	}
 
 	/**
@@ -220,6 +220,12 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	for (const auto& offset : DirectionScan3x3)
 	{
 		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
+	}
+
+	if (direction == Direction::Down)
+	{
+		/// \fixme Naive approach; will be slow with large colonies.
+		updateConnectedness();
 	}
 
 	populateRobotMenu();
