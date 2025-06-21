@@ -578,8 +578,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 
 	if (direction != Direction::Down)
 	{
-		const auto directionOffset = directionEnumToOffset(direction);
-		mTileMap->getTile({tile.xy() + directionOffset, tile.depth()}).excavated(true);
+		mTileMap->getTile(tile.xyz().translate(direction)).excavated(true);
 	}
 
 	if (!mRobotPool.robotAvailable(Robot::Type::Digger))
