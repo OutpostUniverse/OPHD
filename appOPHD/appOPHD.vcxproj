@@ -333,7 +333,6 @@
     <ClInclude Include="MapObjects\Structures\SurfaceFactory.h" />
     <ClInclude Include="MapObjects\Structures\Tube.h" />
     <ClInclude Include="MapObjects\Structures\UndergroundFactory.h" />
-    <ClInclude Include="MapObjects\Structures\UndergroundPolice.h" />
     <ClInclude Include="MapObjects\Structures\University.h" />
     <ClInclude Include="MapObjects\Structures\Warehouse.h" />
     <ClInclude Include="MicroPather\micropather.h" />
