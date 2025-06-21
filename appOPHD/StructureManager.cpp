@@ -516,7 +516,7 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 	for (std::size_t i = 0; i < structures.size(); ++i)
 	{
 		structure = structures[i];
-		structure->update();
+		structure->processTurn();
 
 		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
 		{

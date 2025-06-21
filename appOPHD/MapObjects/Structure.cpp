@@ -339,7 +339,7 @@ void Structure::rebuild()
 }
 
 
-void Structure::update()
+void Structure::processTurn()
 {
 	if (destroyed()) { return; }
 	incrementAge();

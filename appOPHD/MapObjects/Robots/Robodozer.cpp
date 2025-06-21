@@ -23,3 +23,8 @@ void Robodozer::abortTask(Tile& tile)
 {
 	tile.index(static_cast<TerrainType>(mTileIndex));
 }
+
+
+void Robodozer::onTaskComplete(TileMap& /*tileMap*/)
+{
+}

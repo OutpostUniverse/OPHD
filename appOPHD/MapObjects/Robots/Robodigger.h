@@ -16,6 +16,9 @@ public:
 
 	NAS2D::Dictionary getDataDict() const override;
 
+protected:
+	void onTaskComplete(TileMap& tileMap) override;
+
 private:
 	Direction mDirection;
 };

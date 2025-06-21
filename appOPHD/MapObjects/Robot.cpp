@@ -75,7 +75,7 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::update()
+void Robot::processTurn(TileMap& tileMap)
 {
 	if (mSelfDestruct)
 	{
@@ -93,6 +93,7 @@ void Robot::update()
 
 	if (mTurnsToCompleteTask == 0)
 	{
+		onTaskComplete(tileMap);
 		mTaskCompleteSignal(*this);
 	}
 
