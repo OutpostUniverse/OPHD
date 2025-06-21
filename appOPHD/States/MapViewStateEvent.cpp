@@ -193,7 +193,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	}
 
 	const auto direction = roboDigger.direction();
-	auto newPosition = position.translate(direction);
+	const auto newPosition = position.translate(direction);
 
 	if (direction == Direction::Down)
 	{
