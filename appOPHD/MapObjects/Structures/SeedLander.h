@@ -2,10 +2,11 @@
 
 #include "../Structure.h"
 
-#include "../../Map/Tile.h"
-
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Signal/Signal.h>
+
+
+class Tile;
 
 
 class SeedLander : public Structure
@@ -15,34 +16,14 @@ public:
 
 public:
 	SeedLander() = delete;
-	SeedLander(const Tile* tile) :
-		Structure{
-			StructureClass::Lander,
-			StructureID::SID_SEED_LANDER
-		},
-		mPosition{tile->xy()}
-	{
-		enable();
-	}
+	SeedLander(const Tile* tile);
 
-	void position(NAS2D::Point<int> position)
-	{
-		mPosition = position;
-	}
+	void position(NAS2D::Point<int> position);
 
-	Signal::Source& deploySignal() { return mDeploy; }
+	Signal::Source& deploySignal();
 
 protected:
-	void think() override
-	{
-		if (age() == turnsToBuild())
-		{
-			// Logic guard, probably not necessary.
-			if (mPosition == NAS2D::Point{0, 0}) { return; }
-
-			mDeploy(mPosition);
-		}
-	}
+	void think() override;
 
 private:
 	Signal mDeploy;
