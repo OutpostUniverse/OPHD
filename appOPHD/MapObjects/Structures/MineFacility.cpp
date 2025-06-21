@@ -29,7 +29,7 @@ MineFacility::MineFacility(OreDeposit* oreDeposit) :
 	),
 	mOreDeposit(oreDeposit)
 {
-	sprite().play(constants::StructureStateConstruction);
+	mSprite.play(constants::StructureStateConstruction);
 }
 
 

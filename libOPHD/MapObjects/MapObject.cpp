@@ -6,7 +6,13 @@ MapObject::MapObject(const std::string& spritePath, const std::string& initialAc
 {}
 
 
-NAS2D::Sprite& MapObject::sprite()
+void MapObject::updateAnimation()
 {
-	return mSprite;
+	mSprite.update();
+}
+
+
+void MapObject::draw(NAS2D::Point<int> position) const
+{
+	mSprite.draw(position);
 }

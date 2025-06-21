@@ -21,8 +21,10 @@ public:
 
 	virtual const std::string& name() const = 0;
 	virtual void update() = 0;
-	NAS2D::Sprite& sprite();
 
-private:
+	virtual void updateAnimation();
+	virtual void draw(NAS2D::Point<int> position) const;
+
+protected:
 	NAS2D::Sprite mSprite;
 };

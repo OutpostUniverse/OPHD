@@ -3,6 +3,9 @@
 #include "../Structure.h"
 
 
+class TileMap;
+
+
 class Road : public Structure
 {
 public:
@@ -11,4 +14,7 @@ public:
 		StructureID::SID_ROAD)
 	{
 	}
+
+
+	void updateConnections(const TileMap& tileMap);
 };
