@@ -177,12 +177,14 @@ void MapViewState::onDozerTaskComplete(Robot& /*robot*/)
  */
 void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
-	if (mRobotList.find(&robot) == mRobotList.end())
+	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
+
+	if (mRobotList.find(&roboDigger) == mRobotList.end())
 	{
 		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
 	}
 
-	auto& tile = *mRobotList[&robot];
+	auto& tile = *mRobotList[&roboDigger];
 	const auto& position = tile.xyz();
 
 	if (position.z > mTileMap->maxDepth())
@@ -190,7 +192,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
 	}
 
-	const auto dir = dynamic_cast<Robodigger&>(robot).direction(); // fugly
+	const auto dir = roboDigger.direction();
 	auto newPosition = position.translate(dir);
 
 	if (dir == Direction::Down)
