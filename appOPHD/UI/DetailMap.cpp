@@ -158,7 +158,6 @@ void DetailMap::draw() const
 				renderer.drawSubImage(mMineBeacon, position + beaconLightOffsetInTile, beaconLightSubImageRect, glowColor());
 			}
 
-			// Tell an occupying thing to update itself.
 			if (tile.mapObject())
 			{
 				tile.mapObject()->draw(position);
