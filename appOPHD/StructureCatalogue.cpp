@@ -291,7 +291,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_SEED_SMELTER:
-			structure = new SeedSmelter();
+			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SEED_SMELTER);
 			break;
 
 		case StructureID::SID_SMELTER:

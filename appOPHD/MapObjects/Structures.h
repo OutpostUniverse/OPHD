@@ -21,7 +21,6 @@
 #include "Structures/SeedFactory.h"
 #include "Structures/SeedLander.h"
 #include "Structures/SeedPower.h"
-#include "Structures/SeedSmelter.h"
 #include "Structures/Smelter.h"
 #include "Structures/SolarPanelArray.h"
 #include "Structures/SolarPlant.h"

@@ -49,7 +49,6 @@ constexpr Structure::StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, SeedFactory>) { return Structure::StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, SeedLander>) { return Structure::StructureClass::Lander; }
 	else if constexpr (std::is_same_v<StructureType, SeedPower>) { return Structure::StructureClass::EnergyProduction; }
-	else if constexpr (std::is_same_v<StructureType, SeedSmelter>) { return Structure::StructureClass::Smelter; }
 	else if constexpr (std::is_same_v<StructureType, Smelter>) { return Structure::StructureClass::Smelter; }
 	else if constexpr (std::is_same_v<StructureType, SolarPanelArray>) { return Structure::StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, SolarPlant>) { return Structure::StructureClass::EnergyProduction; }
