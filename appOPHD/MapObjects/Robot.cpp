@@ -5,6 +5,8 @@
 #include "../Constants/Strings.h"
 #include "../Map/Tile.h"
 
+#include <libOPHD/Map/MapCoordinate.h>
+
 #include <NAS2D/Dictionary.h>
 
 #include <array>
@@ -99,6 +101,13 @@ const Tile& Robot::tile() const
 {
 	if (!mTile) { throw std::runtime_error("Robot must be placed"); }
 	return *mTile;
+}
+
+
+MapCoordinate Robot::mapCoordinate() const
+{
+	if (!mTile) { throw std::runtime_error("Robot must be placed to have a mapCoordinate"); }
+	return mTile->xyz();
 }
 
 

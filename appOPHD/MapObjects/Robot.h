@@ -13,6 +13,7 @@ namespace NAS2D
 }
 
 struct RobotType;
+struct MapCoordinate;
 class Tile;
 class TileMap;
 
@@ -44,6 +45,7 @@ public:
 	bool isPlaced() const;
 	Tile& tile();
 	const Tile& tile() const;
+	MapCoordinate mapCoordinate() const;
 
 	void fuelCellAge(int age) { mFuelCellAge = age; }
 	int fuelCellAge() const { return mFuelCellAge; }
