@@ -2,11 +2,13 @@
 
 #include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
+#include "../../Map/Tile.h"
 
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <algorithm>
+#include <stdexcept>
 
 
 namespace
@@ -22,20 +24,19 @@ namespace
 }
 
 
-MineFacility::MineFacility(OreDeposit* oreDeposit) :
+MineFacility::MineFacility(Tile* tile) :
 	Structure(
 		StructureClass::Mine,
 		StructureID::SID_MINE_FACILITY
 	),
-	mOreDeposit(oreDeposit)
+	mOreDeposit(tile->oreDeposit())
 {
+	if (mOreDeposit == nullptr)
+	{
+		throw std::runtime_error("Mine Facility is located on a Tile with no Ore Deposit.");
+	}
+
 	mSprite.play(constants::StructureStateConstruction);
-}
-
-
-void MineFacility::oreDeposit(OreDeposit* oreDeposit)
-{
-	mOreDeposit = oreDeposit;
 }
 
 
