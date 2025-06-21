@@ -69,7 +69,7 @@ void Tile::pushMapObject(MapObject* mapObject)
 	{
 		if (mMapObject == mapObject)
 		{
-			throw std::runtime_error("Attempting to pushMapObject on a tile where it's already set");
+			throw std::runtime_error("Attempting to set MapObject on a tile where it's already set");
 		}
 		deleteMapObject();
 	}
