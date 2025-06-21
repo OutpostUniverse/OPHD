@@ -40,12 +40,6 @@ MineFacility::MineFacility(Tile* tile) :
 }
 
 
-void MineFacility::oreDeposit(OreDeposit* oreDeposit)
-{
-	mOreDeposit = oreDeposit;
-}
-
-
 void MineFacility::maxDepth(int depth)
 {
 	mMaxDepth = depth;

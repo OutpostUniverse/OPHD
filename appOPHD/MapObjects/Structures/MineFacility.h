@@ -17,7 +17,6 @@ public:
 public:
 	MineFacility(Tile* tile);
 
-	void oreDeposit(OreDeposit* oreDeposit);
 	void maxDepth(int depth);
 
 	bool extending() const;
