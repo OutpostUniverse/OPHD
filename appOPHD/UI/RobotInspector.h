@@ -17,8 +17,6 @@ public:
 	void focusOnRobot(Robot*);
 	const Robot* focusedRobot() const { return mRobot; }
 
-	NAS2D::Signal<Robot*>& actionButtonClicked() { return mSignal; }
-
 	void update() override;
 
 private:
