@@ -500,9 +500,6 @@
     <ClInclude Include="MapObjects\Structures\SeedPower.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\Smelter.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\SolarPanelArray.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>

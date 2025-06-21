@@ -327,7 +327,6 @@
     <ClInclude Include="MapObjects\Structures\SeedFactory.h" />
     <ClInclude Include="MapObjects\Structures\SeedLander.h" />
     <ClInclude Include="MapObjects\Structures\SeedPower.h" />
-    <ClInclude Include="MapObjects\Structures\Smelter.h" />
     <ClInclude Include="MapObjects\Structures\SolarPanelArray.h" />
     <ClInclude Include="MapObjects\Structures\SolarPlant.h" />
     <ClInclude Include="MapObjects\Structures\StorageTanks.h" />

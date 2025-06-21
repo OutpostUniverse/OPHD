@@ -295,7 +295,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_SMELTER:
-			structure = new Smelter();
+			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SMELTER);
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
