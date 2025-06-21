@@ -50,7 +50,11 @@ public:
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
 
+	void mapObject(MapObject*);
 	MapObject* mapObject() const { return mMapObject; }
+
+	void deleteMapObject();
+	void removeMapObject();
 
 	bool empty() const { return mMapObject == nullptr; }
 
@@ -61,11 +65,6 @@ public:
 
 	bool hasStructure() const { return structure() != nullptr; }
 	bool hasRobot() const { return robot() != nullptr; }
-
-	void mapObject(MapObject*);
-	void deleteMapObject();
-
-	void removeMapObject();
 
 	const OreDeposit* oreDeposit() const { return mOreDeposit; }
 	OreDeposit* oreDeposit() { return mOreDeposit; }
