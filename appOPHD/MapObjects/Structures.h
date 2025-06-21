@@ -11,7 +11,6 @@
 #include "Structures/HotLaboratory.h"
 #include "Structures/Laboratory.h"
 #include "Structures/MaintenanceFacility.h"
-#include "Structures/MedicalCenter.h"
 #include "Structures/MineFacility.h"
 #include "Structures/MineShaft.h"
 #include "Structures/Nursery.h"

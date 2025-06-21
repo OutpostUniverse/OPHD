@@ -467,9 +467,6 @@
     <ClInclude Include="MapObjects\Structures\MaintenanceFacility.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\MedicalCenter.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\MineFacility.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>

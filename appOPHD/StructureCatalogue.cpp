@@ -227,7 +227,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_MEDICAL_CENTER:
-			structure = new MedicalCenter();
+			structure = new Structure(StructureClass::MedicalCenter, StructureID::SID_MEDICAL_CENTER);
 			break;
 
 		case StructureID::SID_MINE_FACILITY: // only here for loading games
