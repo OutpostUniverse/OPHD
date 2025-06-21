@@ -210,9 +210,6 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 
 		tileMap.getTile(position).index(TerrainType::Dozed);
 		tileMap.getTile(newPosition).index(TerrainType::Dozed);
-
-		/// \fixme Naive approach; will be slow with large colonies.
-		updateConnectedness();
 	}
 
 	/**
@@ -223,6 +220,12 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	for (const auto& offset : DirectionScan3x3)
 	{
 		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
+	}
+
+	if (direction == Direction::Down)
+	{
+		/// \fixme Naive approach; will be slow with large colonies.
+		updateConnectedness();
 	}
 
 	populateRobotMenu();
