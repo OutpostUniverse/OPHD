@@ -115,7 +115,6 @@ public:
 
 	void quitHandler(EventDelegate newQuitHandler) { mQuitHandler = newQuitHandler; }
 	void mapChangedHandler(EventDelegate newMapChangedHandler) { mMapChangedHandler = newMapChangedHandler; }
-	void showReportsHandler(EventDelegate newShowReportsHandler) { mShowReportsHandler = newShowReportsHandler; }
 
 	void focusOnStructure(const Structure* s);
 
@@ -381,7 +380,6 @@ private:
 	// SIGNALS
 	EventDelegate mQuitHandler;
 	EventDelegate mMapChangedHandler;
-	EventDelegate mShowReportsHandler;
 
 	std::vector<Tile*> mConnectednessOverlay;
 	std::vector<Tile*> mCommRangeOverlay;
