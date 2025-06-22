@@ -423,7 +423,7 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 
 	if (key == NAS2D::KeyCode::F1)
 	{
-		if (mShowReportsHandler) { mShowReportsHandler(); }
+		mMainReportsState.showReport();
 		return;
 	}
 

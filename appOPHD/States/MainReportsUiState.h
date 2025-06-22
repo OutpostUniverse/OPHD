@@ -30,6 +30,7 @@ public:
 
 	~MainReportsUiState() override;
 
+	void showReport();
 	void showReport(Structure* structure);
 	void selectFactoryPanel(Structure*);
 	void selectWarehousePanel(Structure*);

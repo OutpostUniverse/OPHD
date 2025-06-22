@@ -318,6 +318,12 @@ void MainReportsUiState::deselectAllPanels()
 }
 
 
+void MainReportsUiState::showReport()
+{
+	if (mShowReportsHandler) { mShowReportsHandler(); }
+}
+
+
 void MainReportsUiState::showReport(Structure* structure)
 {
 	if (structure->isFactory())
