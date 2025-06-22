@@ -878,8 +878,8 @@ void MapViewState::placeStructure(Tile& tile)
 		if (!validLanderSite(tile)) { return; }
 
 		auto& s = *new ColonistLander(&tile);
-		s.deploySignal().connect({this, &MapViewState::onDeployColonistLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
+		s.deploySignal().connect({this, &MapViewState::onDeployColonistLander});
 
 		mColonyShip.onDeployColonistLander();
 		if (mColonyShip.colonistLanders() == 0)
@@ -893,8 +893,8 @@ void MapViewState::placeStructure(Tile& tile)
 		if (!validLanderSite(tile)) { return; }
 
 		auto& cargoLander = *new CargoLander(&tile);
-		cargoLander.deploySignal().connect({this, &MapViewState::onDeployCargoLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(cargoLander, tile);
+		cargoLander.deploySignal().connect({this, &MapViewState::onDeployCargoLander});
 
 		mColonyShip.onDeployCargoLander();
 		if (mColonyShip.cargoLanders() == 0)
@@ -1249,8 +1249,8 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 		auto& tile = mTileMap->getTile({point, 0}); // Can only ever be placed on depth level 0
 		auto& s = *new SeedLander(&tile);
-		s.deploySignal().connect({this, &MapViewState::onDeploySeedLander});
 		NAS2D::Utility<StructureManager>::get().addStructure(s, tile);
+		s.deploySignal().connect({this, &MapViewState::onDeploySeedLander});
 
 		resetUi();
 
