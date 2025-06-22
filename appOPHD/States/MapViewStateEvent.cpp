@@ -254,7 +254,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	auto& mineFacilityTile = structureManager.tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->oreDeposit().depth()});
-	structureManager.addStructure(*new MineShaft(), mineDepthTile);
+	structureManager.create<MineShaft>(mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
 }
