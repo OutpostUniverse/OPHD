@@ -324,7 +324,7 @@ private:
 	bool mLoadingExisting = false;
 	NAS2D::Xml::XmlDocument* mExistingToLoad = nullptr; 
 
-	ReportsState& mMainReportsState;
+	ReportsState& mReportsState;
 	std::unique_ptr<MapView> mMapView;
 
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */

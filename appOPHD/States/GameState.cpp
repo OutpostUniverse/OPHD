@@ -34,7 +34,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 GameState::GameState(const std::string& savedGameFilename) :
 	mSaveGameDocument{saveGameDocument(savedGameFilename)},
-	mMainReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
+	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, mSaveGameDocument},
 	mColonyShip{colonyShipDataFromSave(mSaveGameDocument)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -42,7 +42,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 
 GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
-	mMainReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
+	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, planetAttributes, selectedDifficulty},
 	mColonyShip{},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -63,7 +63,7 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
-	mMainReportsState.initialize();
+	mReportsState.initialize();
 
 	mMapViewState.initialize();
 	initializeMapViewState();
@@ -119,7 +119,7 @@ void GameState::onMusicComplete()
 void GameState::onQuit()
 {
 	mMapViewState.deactivate();
-	mMainReportsState.deactivate();
+	mReportsState.deactivate();
 }
 
 
@@ -131,7 +131,7 @@ void GameState::onQuit()
 void GameState::onShowReports()
 {
 	mActiveState->deactivate();
-	mActiveState = &mMainReportsState;
+	mActiveState = &mReportsState;
 	mActiveState->activate();
 }
 
@@ -152,7 +152,7 @@ void GameState::onHideReports()
 
 void GameState::onMapChange()
 {
-	mMainReportsState.clearLists();
+	mReportsState.clearLists();
 }
 
 

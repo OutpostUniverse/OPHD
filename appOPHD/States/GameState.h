@@ -32,7 +32,7 @@ public:
 
 	State* update() override;
 
-	ReportsState& mainReportsState() { return mMainReportsState; }
+	ReportsState& reportsState() { return mReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
 	ColonyShip& colonyShip() { return mColonyShip; }
 
@@ -57,7 +57,7 @@ protected:
 
 private:
 	NAS2D::Xml::XmlDocument mSaveGameDocument;
-	ReportsState mMainReportsState;
+	ReportsState mReportsState;
 	MapViewState mMapViewState;
 	ColonyShip mColonyShip;
 	Wrapper* mActiveState = nullptr;
