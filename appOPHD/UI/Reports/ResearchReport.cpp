@@ -111,6 +111,11 @@ ResearchReport::~ResearchReport()
 }
 
 
+void ResearchReport::selectStructure(Structure*)
+{
+}
+
+
 void ResearchReport::clearSelected()
 {
 	resetCategorySelection();
