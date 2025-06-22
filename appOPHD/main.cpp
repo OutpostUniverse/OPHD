@@ -8,7 +8,6 @@
 #include "States/GameState.h"
 #include "States/SplashState.h"
 #include "States/MainMenuState.h"
-#include "States/MainReportsUiState.h"
 
 #include "UI/MessageBox.h"
 

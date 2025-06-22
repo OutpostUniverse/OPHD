@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ReportInterface.h"
+#include "Report.h"
 
 #include <libOPHD/Technology/TechnologyCatalog.h>
 #include <libOPHD/Technology/ResearchTracker.h>
@@ -25,7 +25,7 @@ namespace NAS2D
 class Structure;
 
 
-class ResearchReport : public ReportInterface
+class ResearchReport : public Report
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;

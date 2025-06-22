@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ReportInterface.h"
+#include "Report.h"
 
 #include "../FactoryListBox.h"
 
@@ -24,7 +24,7 @@ enum class StructureState;
 class Factory;
 
 
-class FactoryReport : public ReportInterface
+class FactoryReport : public Report
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;

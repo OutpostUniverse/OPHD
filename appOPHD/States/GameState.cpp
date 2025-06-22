@@ -34,7 +34,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 GameState::GameState(const std::string& savedGameFilename) :
 	mSaveGameDocument{saveGameDocument(savedGameFilename)},
-	mMainReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
+	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, mSaveGameDocument},
 	mColonyShip{colonyShipDataFromSave(mSaveGameDocument)},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -42,7 +42,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 
 GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
-	mMainReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
+	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, planetAttributes, selectedDifficulty},
 	mColonyShip{},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -63,7 +63,7 @@ GameState::~GameState()
 
 void GameState::initializeGameState()
 {
-	mMainReportsState.initialize();
+	mReportsState.initialize();
 
 	mMapViewState.initialize();
 	initializeMapViewState();
@@ -119,7 +119,7 @@ void GameState::onMusicComplete()
 void GameState::onQuit()
 {
 	mMapViewState.deactivate();
-	mMainReportsState.deactivate();
+	mReportsState.deactivate();
 }
 
 
@@ -131,15 +131,15 @@ void GameState::onQuit()
 void GameState::onShowReports()
 {
 	mActiveState->deactivate();
-	mActiveState = &mMainReportsState;
+	mActiveState = &mReportsState;
 	mActiveState->activate();
 }
 
 
 /**
- * Event handler that responds to a hide report event raised by the MainReportsUiState.
+ * Event handler that responds to a hide report event raised by the ReportsState.
  *
- * This event is raised by the MainReportsUiState whenever the user clicks the Exit
+ * This event is raised by the ReportsState whenever the user clicks the Exit
  * UI panel or if the Escape key is pressed.
  */
 void GameState::onHideReports()
@@ -152,7 +152,7 @@ void GameState::onHideReports()
 
 void GameState::onMapChange()
 {
-	mMainReportsState.clearLists();
+	mReportsState.clearLists();
 }
 
 
@@ -191,9 +191,9 @@ void GameState::onSaveGame(const std::string& saveGameName)
 
 
 /**
- * Event handler that responds to a 'take me there' event raised by the MainReportsUiState.
+ * Event handler that responds to a 'take me there' event raised by the ReportsState.
  *
- * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
+ * This event is raised by the ReportsState whenever a "Take Me There" button in any
  * of the report UI panels is clicked.
  */
 void GameState::onTakeMeThere(const Structure* structure)

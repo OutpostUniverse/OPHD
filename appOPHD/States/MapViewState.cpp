@@ -3,7 +3,7 @@
 #include "MapViewStateHelper.h"
 
 #include "MainMenuState.h"
-#include "MainReportsUiState.h"
+#include "ReportsState.h"
 #include "GameState.h"
 #include "ColonyShip.h"
 
@@ -160,7 +160,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mTechnologyReader{"tech0-1.xml"},
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
-	mMainReportsState{gameState.mainReportsState()},
+	mReportsState{gameState.reportsState()},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleConnectedness{Control::getImage("ui/icons/connection.png"), {this, &MapViewState::onToggleConnectedness}},
@@ -198,7 +198,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
-	mMainReportsState{gameState.mainReportsState()},
+	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
@@ -280,7 +280,7 @@ void MapViewState::initialize()
 
 	setupUiPositions(renderer.size());
 
-	mMainReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
+	mReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
 
 	mFade.fadeIn(constants::FadeSpeed);
 
@@ -423,7 +423,7 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 
 	if (key == NAS2D::KeyCode::F1)
 	{
-		mMainReportsState.showReport();
+		mReportsState.showReport();
 		return;
 	}
 
@@ -589,7 +589,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<in
 		auto& tile = mTileMap->getTile(tilePosition);
 		if (tile.hasStructure())
 		{
-			mMainReportsState.showReport(tile.structure());
+			mReportsState.showReport(tile.structure());
 		}
 	}
 }

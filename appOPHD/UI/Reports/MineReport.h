@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ReportInterface.h"
+#include "Report.h"
 
 #include "../StructureListBox.h"
 
@@ -22,7 +22,7 @@ namespace NAS2D
 class MineFacility;
 
 
-class MineReport : public ReportInterface
+class MineReport : public Report
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
