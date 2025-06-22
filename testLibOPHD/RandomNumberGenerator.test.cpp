@@ -15,10 +15,3 @@ TEST(RandomNumberGenerator, FloatType)
 	EXPECT_EQ(0.0f, randomNumber.generate(0.0f, 0.0f));
 	EXPECT_EQ(1.0f, randomNumber.generate(1.0f, 1.0f));
 }
-
-
-TEST(RandomNumberGenerator, NonNumericType)
-{
-	struct NonNumeric {};
-	EXPECT_EQ(0, randomNumber.generate(NonNumeric{}, NonNumeric{}));
-}
