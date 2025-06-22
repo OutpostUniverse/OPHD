@@ -32,9 +32,6 @@ public:
 
 	void showReport();
 	void showReport(Structure* structure);
-	void selectFactoryPanel(Structure*);
-	void selectWarehousePanel(Structure*);
-	void selectMinePanel(Structure*);
 
 	void injectTechnology(TechnologyCatalog&, ResearchTracker&);
 
@@ -54,6 +51,9 @@ protected:
 	void onExit();
 
 	void deselectAllPanels();
+	void selectFactoryPanel(Structure*);
+	void selectWarehousePanel(Structure*);
+	void selectMinePanel(Structure*);
 
 private:
 	const NAS2D::Font& fontMain;
