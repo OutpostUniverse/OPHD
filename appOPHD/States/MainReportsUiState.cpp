@@ -161,9 +161,10 @@ namespace
 }
 
 
-MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler) :
+MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
 	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
 	mTakeMeThereHandler{takeMeThereHandler},
+	mShowReportsHandler{showReportsHandler},
 	mHideReportsHandler{hideReportsHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
