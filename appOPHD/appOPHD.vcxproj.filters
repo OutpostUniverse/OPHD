@@ -665,7 +665,7 @@
     <ClInclude Include="UI\Reports\MineReport.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Reports\ReportInterface.h">
+    <ClInclude Include="UI\Reports\Report.h">
       <Filter>Header Files\UI\Reports</Filter>
     </ClInclude>
     <ClInclude Include="UI\Reports\ResearchReport.h">

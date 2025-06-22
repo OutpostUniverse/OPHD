@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ReportInterface.h"
+#include "Report.h"
 
 #include "../ProductListBox.h"
 #include "../StructureListBox.h"
@@ -23,7 +23,7 @@ class Warehouse;
 class Structure;
 
 
-class WarehouseReport : public ReportInterface
+class WarehouseReport : public Report
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;

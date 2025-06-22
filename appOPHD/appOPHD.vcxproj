@@ -382,7 +382,7 @@
     <ClInclude Include="UI\ProgressBar.h" />
     <ClInclude Include="UI\Reports\FactoryReport.h" />
     <ClInclude Include="UI\Reports\MineReport.h" />
-    <ClInclude Include="UI\Reports\ReportInterface.h" />
+    <ClInclude Include="UI\Reports\Report.h" />
     <ClInclude Include="UI\Reports\ResearchReport.h" />
     <ClInclude Include="UI\Reports\SatellitesReport.h" />
     <ClInclude Include="UI\Reports\SpaceportsReport.h" />

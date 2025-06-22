@@ -4,7 +4,7 @@
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 
-#include "../UI/Reports/ReportInterface.h"
+#include "../UI/Reports/Report.h"
 
 #include "../UI/Reports/FactoryReport.h"
 #include "../UI/Reports/MineReport.h"
@@ -47,7 +47,7 @@ namespace
 	{
 	public:
 		Panel() = default;
-		Panel(ReportInterface* newReport, std::string newName, const NAS2D::Image* newIcon) :
+		Panel(Report* newReport, std::string newName, const NAS2D::Image* newIcon) :
 			report{newReport},
 			name{newName},
 			icon{newIcon}
@@ -76,7 +76,7 @@ namespace
 		}
 
 	public:
-		ReportInterface* report = nullptr;
+		Report* report = nullptr;
 		std::string name;
 		const NAS2D::Image* icon = nullptr;
 

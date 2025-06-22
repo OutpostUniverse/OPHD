@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ReportInterface.h"
+#include "Report.h"
 
 #include <NAS2D/Signal/Delegate.h>
 
@@ -12,7 +12,7 @@ namespace NAS2D
 }
 
 
-class SpaceportsReport : public ReportInterface
+class SpaceportsReport : public Report
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;

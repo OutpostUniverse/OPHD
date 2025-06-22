@@ -134,7 +134,7 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 
 
 /**
- * Override of the interface provided by ReportInterface class.
+ * Override of the interface provided by Report class.
  *
  * \note	Pointer
  */

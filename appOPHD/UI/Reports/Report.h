@@ -11,7 +11,7 @@ class Structure;
  *
  * \note	Inherits from ControlContainer as the report classes are treated as Control objects.
  */
-class ReportInterface : public ControlContainer
+class Report : public ControlContainer
 {
 public:
 	using ControlContainer::update;
