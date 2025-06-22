@@ -230,9 +230,8 @@
     <ClCompile Include="States\CrimeExecution.cpp" />
     <ClCompile Include="States\CrimeRateUpdate.cpp" />
     <ClCompile Include="States\GameState.cpp" />
-    <ClCompile Include="States\MapViewState.cpp" />
     <ClCompile Include="States\MainMenuState.cpp" />
-    <ClCompile Include="States\ReportsState.cpp" />
+    <ClCompile Include="States\MapViewState.cpp" />
     <ClCompile Include="States\MapViewStateDraw.cpp" />
     <ClCompile Include="States\MapViewStateEvent.cpp" />
     <ClCompile Include="States\MapViewStateHelper.cpp" />
@@ -241,6 +240,7 @@
     <ClCompile Include="States\MapViewStateUi.cpp" />
     <ClCompile Include="States\Planet.cpp" />
     <ClCompile Include="States\PlanetSelectState.cpp" />
+    <ClCompile Include="States\ReportsState.cpp" />
     <ClCompile Include="States\SplashState.cpp" />
     <ClCompile Include="States\StructureTracker.cpp" />
     <ClCompile Include="StructureCatalogue.cpp" />
@@ -350,11 +350,11 @@
     <ClInclude Include="States\CrimeRateUpdate.h" />
     <ClInclude Include="States\GameState.h" />
     <ClInclude Include="States\MainMenuState.h" />
-    <ClInclude Include="States\ReportsState.h" />
     <ClInclude Include="States\MapViewState.h" />
     <ClInclude Include="States\MapViewStateHelper.h" />
     <ClInclude Include="States\Planet.h" />
     <ClInclude Include="States\PlanetSelectState.h" />
+    <ClInclude Include="States\ReportsState.h" />
     <ClInclude Include="States\SplashState.h" />
     <ClInclude Include="States\StructureTracker.h" />
     <ClInclude Include="States\Wrapper.h" />

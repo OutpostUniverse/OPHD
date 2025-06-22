@@ -213,13 +213,10 @@
     <ClCompile Include="States\GameState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="States\MapViewState.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="States\MainMenuState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="States\ReportsState.cpp">
+    <ClCompile Include="States\MapViewState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="States\MapViewStateDraw.cpp">
@@ -244,6 +241,9 @@
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="States\PlanetSelectState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="States\ReportsState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
     <ClCompile Include="States\SplashState.cpp">
@@ -569,9 +569,6 @@
     <ClInclude Include="States\MainMenuState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="States\ReportsState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
     <ClInclude Include="States\MapViewState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
@@ -582,6 +579,9 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="States\PlanetSelectState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\ReportsState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="States\SplashState.h">
