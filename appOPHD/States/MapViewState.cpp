@@ -589,27 +589,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<in
 		auto& tile = mTileMap->getTile(tilePosition);
 		if (tile.hasStructure())
 		{
-			Structure* structure = tile.structure();
-
-			if (structure->isFactory())
-			{
-				mMainReportsState.selectFactoryPanel(structure);
-			}
-			else if (structure->isWarehouse())
-			{
-				mMainReportsState.selectWarehousePanel(structure);
-			}
-			else if (structure->isMineFacility() || structure->isSmelter())
-			{
-				mMainReportsState.selectMinePanel(structure);
-			}
-			else
-			{
-				// avoids showing the full-screen UI on unhandled structures.
-				return;
-			}
-
-			if (mShowReportsHandler) { mShowReportsHandler(); }
+			mMainReportsState.showReport(tile.structure());
 		}
 	}
 }

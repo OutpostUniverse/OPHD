@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
+#include "../MapObjects/Structure.h"
 
 #include "../UI/Reports/ReportInterface.h"
 
@@ -314,6 +315,30 @@ void MainReportsUiState::deselectAllPanels()
 	{
 		panel.selected(false);
 	}
+}
+
+
+void MainReportsUiState::showReport(Structure* structure)
+{
+	if (structure->isFactory())
+	{
+		selectFactoryPanel(structure);
+	}
+	else if (structure->isWarehouse())
+	{
+		selectWarehousePanel(structure);
+	}
+	else if (structure->isMineFacility() || structure->isSmelter())
+	{
+		selectMinePanel(structure);
+	}
+	else
+	{
+		// avoids showing the full-screen UI on unhandled structures.
+		return;
+	}
+
+	if (mShowReportsHandler) { mShowReportsHandler(); }
 }
 
 
