@@ -33,16 +33,14 @@ public:
 	ResearchReport(TakeMeThereDelegate takeMeThereHandler);
 	~ResearchReport() override;
 
-	void fillLists() override;
+	void selectStructure(Structure*) override;
 	void clearSelected() override;
-
+	void fillLists() override;
 	void refresh() override;
 
-	void selectStructure(Structure*) override {}
+	void update() override;
 
 	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
-
-	void update() override;
 
 private:
 	void onResize() override;

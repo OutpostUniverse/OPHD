@@ -25,7 +25,7 @@ SatellitesReport::~SatellitesReport()
 }
 
 
-void SatellitesReport::fillLists()
+void SatellitesReport::selectStructure(Structure*)
 {
 }
 
@@ -35,12 +35,12 @@ void SatellitesReport::clearSelected()
 }
 
 
-void SatellitesReport::refresh()
+void SatellitesReport::fillLists()
 {
 }
 
 
-void SatellitesReport::selectStructure(Structure*)
+void SatellitesReport::refresh()
 {
 }
 

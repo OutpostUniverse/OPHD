@@ -96,6 +96,34 @@ WarehouseReport::~WarehouseReport()
 }
 
 
+void WarehouseReport::selectStructure(Structure* structure)
+{
+	lstStructures.setSelected(structure);
+}
+
+
+void WarehouseReport::clearSelected()
+{
+	lstStructures.clearSelected();
+}
+
+
+/**
+ * Inherited interface. A better name for this function would be
+ * fillListWithAll() or something to that effect.
+ */
+void WarehouseReport::fillLists()
+{
+	fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
+}
+
+
+void WarehouseReport::refresh()
+{
+	onShowAll();
+}
+
+
 Warehouse* WarehouseReport::selectedWarehouse()
 {
 	return dynamic_cast<Warehouse*>(lstStructures.selectedStructure());
@@ -135,16 +163,6 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 
 	lstStructures.setSelection(0);
 	computeTotalWarehouseCapacity();
-}
-
-
-/**
- * Inherited interface. A better name for this function would be
- * fillListWithAll() or something to that effect.
- */
-void WarehouseReport::fillLists()
-{
-	fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
 }
 
 
@@ -198,24 +216,6 @@ void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> positi
 	{
 		if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedWarehouse()); }
 	}
-}
-
-
-void WarehouseReport::clearSelected()
-{
-	lstStructures.clearSelected();
-}
-
-
-void WarehouseReport::refresh()
-{
-	onShowAll();
-}
-
-
-void WarehouseReport::selectStructure(Structure* structure)
-{
-	lstStructures.setSelected(structure);
 }
 
 

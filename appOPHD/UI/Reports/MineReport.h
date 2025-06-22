@@ -30,10 +30,9 @@ public:
 	MineReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure* structure) override;
-	void refresh() override;
-
-	void fillLists() override;
 	void clearSelected() override;
+	void fillLists() override;
+	void refresh() override;
 
 	void update() override;
 

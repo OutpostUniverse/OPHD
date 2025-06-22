@@ -156,12 +156,6 @@ void MineReport::clearSelected()
 }
 
 
-void MineReport::refresh()
-{
-	onShowAll();
-}
-
-
 void MineReport::fillLists()
 {
 	lstMineFacilities.clear();
@@ -174,6 +168,12 @@ void MineReport::fillLists()
 
 	lstMineFacilities.setSelected(mSelectedFacility);
 	mAvailableTrucks = getTruckAvailability();
+}
+
+
+void MineReport::refresh()
+{
+	onShowAll();
 }
 
 

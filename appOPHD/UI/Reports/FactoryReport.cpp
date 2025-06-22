@@ -153,15 +153,6 @@ void FactoryReport::clearSelected()
 
 
 /**
- * Pass-through function to simulate clicking on the Show All button.
- */
-void FactoryReport::refresh()
-{
-	onShowAll();
-}
-
-
-/**
  * Fills the factory list with all available factories.
  */
 void FactoryReport::fillLists()
@@ -173,6 +164,15 @@ void FactoryReport::fillLists()
 		lstFactoryList.addItem(factory);
 	}
 	checkFactoryActionControls();
+}
+
+
+/**
+ * Pass-through function to simulate clicking on the Show All button.
+ */
+void FactoryReport::refresh()
+{
+	onShowAll();
 }
 
 
