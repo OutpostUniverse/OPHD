@@ -9,6 +9,8 @@
 
 #include <utility>
 #include <vector>
+#include <optional>
+#include <unordered_map>
 
 
 class ToolTip : public Control
@@ -24,6 +26,10 @@ public:
 protected:
 	void draw() const override;
 
+	void commandSize(int width, int height);
+	void commandWidth(int width);
+	void commandHeight(int height);
+
 private:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
@@ -36,4 +42,11 @@ private:
 	std::pair<Control*, std::string>* mFocusedControl{nullptr};
 
 	std::vector<std::pair<Control*, std::string>> mControls;
+
+	std::unordered_map<Control*, std::string> mWrappedText;
+
+	std::optional<int> mCommandedHeight{std::nullopt};
+	std::optional<int> mCommandedWidth{std::nullopt};
+
+	bool mTruncated{false};
 };
