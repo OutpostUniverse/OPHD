@@ -32,10 +32,9 @@ public:
 	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
 
 	void selectStructure(Structure*) override;
-	void refresh() override;
-
-	void fillLists() override;
 	void clearSelected() override;
+	void fillLists() override;
+	void refresh() override;
 
 	void update() override;
 

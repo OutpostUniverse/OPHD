@@ -23,7 +23,7 @@ SpaceportsReport::~SpaceportsReport()
 }
 
 
-void SpaceportsReport::fillLists()
+void SpaceportsReport::selectStructure(Structure*)
 {
 }
 
@@ -33,12 +33,12 @@ void SpaceportsReport::clearSelected()
 }
 
 
-void SpaceportsReport::refresh()
+void SpaceportsReport::fillLists()
 {
 }
 
 
-void SpaceportsReport::selectStructure(Structure*)
+void SpaceportsReport::refresh()
 {
 }
 

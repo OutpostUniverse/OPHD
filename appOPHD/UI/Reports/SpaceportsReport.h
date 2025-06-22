@@ -20,11 +20,10 @@ public:
 	SpaceportsReport(TakeMeThereDelegate takeMeThereHandler);
 	~SpaceportsReport() override;
 
-	void fillLists() override;
-	void clearSelected() override;
-
-	void refresh() override;
 	void selectStructure(Structure*) override;
+	void clearSelected() override;
+	void fillLists() override;
+	void refresh() override;
 
 	void update() override;
 

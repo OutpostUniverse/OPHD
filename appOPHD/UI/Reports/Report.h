@@ -14,7 +14,14 @@ class Structure;
 class Report : public ControlContainer
 {
 public:
-	using ControlContainer::update;
+	/**
+	 * Instructs a Report to set its primary selection to a specified Structure.
+	 *
+	 * \note	Casting may be necessary depending on implementation of inheriting
+	 *			classes. Be mindful to pass pointers to objects that can be safely
+	 *			downcasted to a more derived type (take advantage of dynamic_cast)
+	 */
+	virtual void selectStructure(Structure*) = 0;
 
 	/**
 	 * Instructs the Report to clear any selections it may have.
@@ -33,12 +40,5 @@ public:
 	 */
 	virtual void refresh() = 0;
 
-	/**
-	 * Instructs a Report to set its primary selection to a specified Structure.
-	 *
-	 * \note	Casting may be necessary depending on implementation of inheriting
-	 *			classes. Be mindful to pass pointers to objects that can be safely
-	 *			downcasted to a more derived type (take advantage of dynamic_cast)
-	 */
-	virtual void selectStructure(Structure*) = 0;
+	using ControlContainer::update;
 };

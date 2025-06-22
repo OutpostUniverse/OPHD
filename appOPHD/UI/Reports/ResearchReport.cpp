@@ -111,7 +111,7 @@ ResearchReport::~ResearchReport()
 }
 
 
-void ResearchReport::fillLists()
+void ResearchReport::clearSelected()
 {
 	resetCategorySelection();
 	resetResearchDetails();
@@ -119,7 +119,7 @@ void ResearchReport::fillLists()
 }
 
 
-void ResearchReport::clearSelected()
+void ResearchReport::fillLists()
 {
 	resetCategorySelection();
 	resetResearchDetails();
@@ -151,19 +151,19 @@ void ResearchReport::refresh()
 }
 
 
+void ResearchReport::update()
+{
+	draw();
+	ControlContainer::update();
+}
+
+
 void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
 	mTechCatalog = &catalog;
 	mResearchTracker = &tracker;
 
 	processCategories();
-}
-
-
-void ResearchReport::update()
-{
-	draw();
-	ControlContainer::update();
 }
 
 
