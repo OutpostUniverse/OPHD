@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
+#include "../MapObjects/Structure.h"
 
 #include "../UI/Reports/ReportInterface.h"
 
@@ -161,9 +162,10 @@ namespace
 }
 
 
-MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler) :
+MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
 	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
 	mTakeMeThereHandler{takeMeThereHandler},
+	mShowReportsHandler{showReportsHandler},
 	mHideReportsHandler{hideReportsHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -313,6 +315,36 @@ void MainReportsUiState::deselectAllPanels()
 	{
 		panel.selected(false);
 	}
+}
+
+
+void MainReportsUiState::showReport()
+{
+	if (mShowReportsHandler) { mShowReportsHandler(); }
+}
+
+
+void MainReportsUiState::showReport(Structure* structure)
+{
+	if (structure->isFactory())
+	{
+		selectFactoryPanel(structure);
+	}
+	else if (structure->isWarehouse())
+	{
+		selectWarehousePanel(structure);
+	}
+	else if (structure->isMineFacility() || structure->isSmelter())
+	{
+		selectMinePanel(structure);
+	}
+	else
+	{
+		// avoids showing the full-screen UI on unhandled structures.
+		return;
+	}
+
+	if (mShowReportsHandler) { mShowReportsHandler(); }
 }
 
 

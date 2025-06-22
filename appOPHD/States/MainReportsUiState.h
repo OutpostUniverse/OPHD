@@ -22,16 +22,16 @@ class MainReportsUiState : public Wrapper
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
+	using ShowReportsDelegate = NAS2D::Delegate<void()>;
 	using HideReportsDelegate = NAS2D::Delegate<void()>;
 
 public:
-	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, HideReportsDelegate hideReportsHandler);
+	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler);
 
 	~MainReportsUiState() override;
 
-	void selectFactoryPanel(Structure*);
-	void selectWarehousePanel(Structure*);
-	void selectMinePanel(Structure*);
+	void showReport();
+	void showReport(Structure* structure);
 
 	void injectTechnology(TechnologyCatalog&, ResearchTracker&);
 
@@ -51,10 +51,14 @@ protected:
 	void onExit();
 
 	void deselectAllPanels();
+	void selectFactoryPanel(Structure*);
+	void selectWarehousePanel(Structure*);
+	void selectMinePanel(Structure*);
 
 private:
 	const NAS2D::Font& fontMain;
 
 	TakeMeThereDelegate mTakeMeThereHandler;
+	ShowReportsDelegate mShowReportsHandler;
 	HideReportsDelegate mHideReportsHandler;
 };
