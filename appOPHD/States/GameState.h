@@ -2,7 +2,7 @@
 
 #include "Planet.h"
 #include "MapViewState.h"
-#include "MainReportsUiState.h"
+#include "ReportsState.h"
 #include "ColonyShip.h"
 
 #include "../UI/FileIo.h"
@@ -32,7 +32,7 @@ public:
 
 	State* update() override;
 
-	MainReportsUiState& mainReportsState() { return mMainReportsState; }
+	ReportsState& mainReportsState() { return mMainReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
 	ColonyShip& colonyShip() { return mColonyShip; }
 
@@ -57,7 +57,7 @@ protected:
 
 private:
 	NAS2D::Xml::XmlDocument mSaveGameDocument;
-	MainReportsUiState mMainReportsState;
+	ReportsState mMainReportsState;
 	MapViewState mMapViewState;
 	ColonyShip mColonyShip;
 	Wrapper* mActiveState = nullptr;

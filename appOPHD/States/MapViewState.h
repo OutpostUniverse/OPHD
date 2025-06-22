@@ -79,7 +79,7 @@ class TileMap;
 class MapView;
 class DetailMap;
 class NavControl;
-class MainReportsUiState;
+class ReportsState;
 class GameState;
 class FileIo;
 class ColonyShip;
@@ -324,7 +324,7 @@ private:
 	bool mLoadingExisting = false;
 	NAS2D::Xml::XmlDocument* mExistingToLoad = nullptr; 
 
-	MainReportsUiState& mMainReportsState;
+	ReportsState& mMainReportsState;
 	std::unique_ptr<MapView> mMapView;
 
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */

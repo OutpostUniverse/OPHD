@@ -232,7 +232,7 @@
     <ClCompile Include="States\GameState.cpp" />
     <ClCompile Include="States\MapViewState.cpp" />
     <ClCompile Include="States\MainMenuState.cpp" />
-    <ClCompile Include="States\MainReportsUiState.cpp" />
+    <ClCompile Include="States\ReportsState.cpp" />
     <ClCompile Include="States\MapViewStateDraw.cpp" />
     <ClCompile Include="States\MapViewStateEvent.cpp" />
     <ClCompile Include="States\MapViewStateHelper.cpp" />
@@ -350,7 +350,7 @@
     <ClInclude Include="States\CrimeRateUpdate.h" />
     <ClInclude Include="States\GameState.h" />
     <ClInclude Include="States\MainMenuState.h" />
-    <ClInclude Include="States\MainReportsUiState.h" />
+    <ClInclude Include="States\ReportsState.h" />
     <ClInclude Include="States\MapViewState.h" />
     <ClInclude Include="States\MapViewStateHelper.h" />
     <ClInclude Include="States\Planet.h" />

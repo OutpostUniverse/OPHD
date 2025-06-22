@@ -7,7 +7,7 @@ class Structure;
 
 
 /**
- * Provides an abstract interface for Report UIs used in the MainReportsUiState.
+ * Provides an abstract interface for Report UIs used in the ReportsState.
  *
  * \note	Inherits from ControlContainer as the report classes are treated as Control objects.
  */

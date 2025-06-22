@@ -137,9 +137,9 @@ void GameState::onShowReports()
 
 
 /**
- * Event handler that responds to a hide report event raised by the MainReportsUiState.
+ * Event handler that responds to a hide report event raised by the ReportsState.
  *
- * This event is raised by the MainReportsUiState whenever the user clicks the Exit
+ * This event is raised by the ReportsState whenever the user clicks the Exit
  * UI panel or if the Escape key is pressed.
  */
 void GameState::onHideReports()
@@ -191,9 +191,9 @@ void GameState::onSaveGame(const std::string& saveGameName)
 
 
 /**
- * Event handler that responds to a 'take me there' event raised by the MainReportsUiState.
+ * Event handler that responds to a 'take me there' event raised by the ReportsState.
  *
- * This event is raised by the MainReportsUiState whenever a "Take Me There" button in any
+ * This event is raised by the ReportsState whenever a "Take Me There" button in any
  * of the report UI panels is clicked.
  */
 void GameState::onTakeMeThere(const Structure* structure)

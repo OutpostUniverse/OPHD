@@ -3,7 +3,7 @@
 #include "MapViewStateHelper.h"
 
 #include "MainMenuState.h"
-#include "MainReportsUiState.h"
+#include "ReportsState.h"
 #include "GameState.h"
 #include "ColonyShip.h"
 

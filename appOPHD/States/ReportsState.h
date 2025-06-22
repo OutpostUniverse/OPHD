@@ -18,7 +18,7 @@ namespace NAS2D
 }
 
 
-class MainReportsUiState : public Wrapper
+class ReportsState : public Wrapper
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
@@ -26,9 +26,9 @@ public:
 	using HideReportsDelegate = NAS2D::Delegate<void()>;
 
 public:
-	MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler);
+	ReportsState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler);
 
-	~MainReportsUiState() override;
+	~ReportsState() override;
 
 	void showReport();
 	void showReport(Structure* structure);

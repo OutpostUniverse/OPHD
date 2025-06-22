@@ -1,4 +1,4 @@
-#include "MainReportsUiState.h"
+#include "ReportsState.h"
 
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
@@ -92,7 +92,7 @@ namespace
 	static std::array<Panel, 7> panels;
 
 
-	void initializePanels(MainReportsUiState::TakeMeThereDelegate takeMeThereHandler)
+	void initializePanels(ReportsState::TakeMeThereDelegate takeMeThereHandler)
 	{
 		/* NOTE: Matches the order in enum NavigationPanel */
 		panels = std::array<Panel, 7>{
@@ -162,25 +162,25 @@ namespace
 }
 
 
-MainReportsUiState::MainReportsUiState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
+ReportsState::ReportsState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
 	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
 	mTakeMeThereHandler{takeMeThereHandler},
 	mShowReportsHandler{showReportsHandler},
 	mHideReportsHandler{hideReportsHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.windowResized().connect({this, &MainReportsUiState::onWindowResized});
-	eventHandler.keyDown().connect({this, &MainReportsUiState::onKeyDown});
-	eventHandler.mouseButtonDown().connect({this, &MainReportsUiState::onMouseDown});
+	eventHandler.windowResized().connect({this, &ReportsState::onWindowResized});
+	eventHandler.keyDown().connect({this, &ReportsState::onKeyDown});
+	eventHandler.mouseButtonDown().connect({this, &ReportsState::onMouseDown});
 }
 
 
-MainReportsUiState::~MainReportsUiState()
+ReportsState::~ReportsState()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.windowResized().disconnect({this, &MainReportsUiState::onWindowResized});
-	eventHandler.keyDown().disconnect({this, &MainReportsUiState::onKeyDown});
-	eventHandler.mouseButtonDown().disconnect({this, &MainReportsUiState::onMouseDown});
+	eventHandler.windowResized().disconnect({this, &ReportsState::onWindowResized});
+	eventHandler.keyDown().disconnect({this, &ReportsState::onKeyDown});
+	eventHandler.mouseButtonDown().disconnect({this, &ReportsState::onMouseDown});
 
 	for (Panel& panel : panels)
 	{
@@ -189,15 +189,15 @@ MainReportsUiState::~MainReportsUiState()
 }
 
 
-void MainReportsUiState::initialize()
+void ReportsState::initialize()
 {
-	initializePanels({this, &MainReportsUiState::onTakeMeThere});
+	initializePanels({this, &ReportsState::onTakeMeThere});
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 	onWindowResized(size);
 }
 
 
-void MainReportsUiState::onActivate()
+void ReportsState::onActivate()
 {
 	for (auto& panel : panels)
 	{
@@ -211,7 +211,7 @@ void MainReportsUiState::onActivate()
 }
 
 
-void MainReportsUiState::onDeactivate()
+void ReportsState::onDeactivate()
 {
 	for (auto& panel : panels)
 	{
@@ -226,7 +226,7 @@ void MainReportsUiState::onDeactivate()
 }
 
 
-void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
+void ReportsState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	onResizeTabBar(newSize.x, fontMain);
 	for (Panel& panel : panels)
@@ -239,13 +239,13 @@ void MainReportsUiState::onWindowResized(NAS2D::Vector<int> newSize)
 }
 
 
-void MainReportsUiState::onTakeMeThere(const Structure* structure)
+void ReportsState::onTakeMeThere(const Structure* structure)
 {
 	if (mTakeMeThereHandler) { mTakeMeThereHandler(structure); }
 }
 
 
-void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
+void ReportsState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!active())
 	{
@@ -259,7 +259,7 @@ void MainReportsUiState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*
 }
 
 
-void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
+void ReportsState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!active())
 	{
@@ -293,7 +293,7 @@ void MainReportsUiState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int
 }
 
 
-void MainReportsUiState::onExit()
+void ReportsState::onExit()
 {
 	deselectAllPanels();
 
@@ -309,7 +309,7 @@ void MainReportsUiState::onExit()
 }
 
 
-void MainReportsUiState::deselectAllPanels()
+void ReportsState::deselectAllPanels()
 {
 	for (auto& panel : panels)
 	{
@@ -318,13 +318,13 @@ void MainReportsUiState::deselectAllPanels()
 }
 
 
-void MainReportsUiState::showReport()
+void ReportsState::showReport()
 {
 	if (mShowReportsHandler) { mShowReportsHandler(); }
 }
 
 
-void MainReportsUiState::showReport(Structure* structure)
+void ReportsState::showReport(Structure* structure)
 {
 	if (structure->isFactory())
 	{
@@ -351,7 +351,7 @@ void MainReportsUiState::showReport(Structure* structure)
 /**
  * Structure pointer is assumed to be a factory.
  */
-void MainReportsUiState::selectFactoryPanel(Structure* structure)
+void ReportsState::selectFactoryPanel(Structure* structure)
 {
 	deselectAllPanels();
 	panels[ProductionPanelIndex].select(structure);
@@ -361,7 +361,7 @@ void MainReportsUiState::selectFactoryPanel(Structure* structure)
 /**
  * Structure pointer is assumed to be a warehouse.
  */
-void MainReportsUiState::selectWarehousePanel(Structure* structure)
+void ReportsState::selectWarehousePanel(Structure* structure)
 {
 	deselectAllPanels();
 	panels[WarehousePanelIndex].select(structure);
@@ -371,21 +371,21 @@ void MainReportsUiState::selectWarehousePanel(Structure* structure)
 /**
  * Structure pointer is assumed to be a Mine Facility or Smelter.
  */
-void MainReportsUiState::selectMinePanel(Structure* structure)
+void ReportsState::selectMinePanel(Structure* structure)
 {
 	deselectAllPanels();
 	panels[MinesPanelIndex].select(structure);
 }
 
 
-void MainReportsUiState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
+void ReportsState::injectTechnology(TechnologyCatalog& catalog, ResearchTracker& tracker)
 {
 	auto* researchPanel = panels[ResearchPanelIndex].report;
 	dynamic_cast<ResearchReport&>(*researchPanel).injectTechReferences(catalog, tracker);
 }
 
 
-void MainReportsUiState::clearLists()
+void ReportsState::clearLists()
 {
 	for (auto& panel : panels)
 	{
@@ -397,7 +397,7 @@ void MainReportsUiState::clearLists()
 }
 
 
-NAS2D::State* MainReportsUiState::update()
+NAS2D::State* ReportsState::update()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
