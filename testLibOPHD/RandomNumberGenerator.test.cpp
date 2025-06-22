@@ -20,5 +20,5 @@ TEST(RandomNumberGenerator, FloatType)
 TEST(RandomNumberGenerator, NonNumericType)
 {
 	struct NonNumeric {};
-	EXPECT_EQ(0, randomNumber.generate<NonNumeric>(0, 0));
+	EXPECT_EQ(0, randomNumber.generate(NonNumeric{}, NonNumeric{}));
 }
