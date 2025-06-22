@@ -200,12 +200,10 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-		auto& airShaftTop = *new AirShaft();
-		structureManager.addStructure(airShaftTop, tile);
+		auto& airShaftTop = structureManager.create<AirShaft>(tile);
 		if (position.z > 0) { airShaftTop.underground(); }
 
-		auto& airShaftBottom = *new AirShaft();
-		structureManager.addStructure(airShaftBottom, tileMap.getTile(newPosition));
+		auto& airShaftBottom = structureManager.create<AirShaft>(tileMap.getTile(newPosition));
 		airShaftBottom.underground();
 
 		tileMap.getTile(position).index(TerrainType::Dozed);
