@@ -24,13 +24,12 @@ MineFacility& Robominer::buildMine(TileMap& tileMap, const MapCoordinate& positi
 
 	// Surface structure
 	auto& robotTile = tileMap.getTile(position);
-	auto& mineFacility = *new MineFacility(&robotTile);
+	auto& mineFacility = structureManager.create<MineFacility>(robotTile);
 	mineFacility.maxDepth(tileMap.maxDepth());
-	structureManager.addStructure(mineFacility, robotTile);
 
 	// Tile immediately underneath facility.
 	auto& tileBelow = tileMap.getTile(position.translate(MapOffsetDown));
-	structureManager.addStructure(*new MineShaft(), tileBelow);
+	structureManager.create<MineShaft>(tileBelow);
 
 	robotTile.index(TerrainType::Dozed);
 	tileBelow.index(TerrainType::Dozed);

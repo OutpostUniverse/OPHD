@@ -200,13 +200,11 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	{
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-		auto& airShaftTop = *new AirShaft();
+		auto& airShaftTop = structureManager.create<AirShaft>(tile);
 		if (position.z > 0) { airShaftTop.underground(); }
-		structureManager.addStructure(airShaftTop, tile);
 
-		auto& airShaftBottom = *new AirShaft();
+		auto& airShaftBottom = structureManager.create<AirShaft>(tileMap.getTile(newPosition));
 		airShaftBottom.underground();
-		structureManager.addStructure(airShaftBottom, tileMap.getTile(newPosition));
 
 		tileMap.getTile(position).index(TerrainType::Dozed);
 		tileMap.getTile(newPosition).index(TerrainType::Dozed);
@@ -254,7 +252,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	auto& mineFacilityTile = structureManager.tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->oreDeposit().depth()});
-	structureManager.addStructure(*new MineShaft(), mineDepthTile);
+	structureManager.create<MineShaft>(mineDepthTile);
 	mineDepthTile.index(TerrainType::Dozed);
 	mineDepthTile.excavated(true);
 }
