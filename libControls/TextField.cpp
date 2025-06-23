@@ -51,6 +51,19 @@ TextField::~TextField()
 }
 
 
+void TextField::text(const std::string& text)
+{
+	mText = text;
+	onTextChange();
+}
+
+
+const std::string& TextField::text() const
+{
+	return mText;
+}
+
+
 bool TextField::isEmpty() const
 {
 	return text().empty();
