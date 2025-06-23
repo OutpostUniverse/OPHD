@@ -133,9 +133,9 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 }
 
 
-bool FactoryReport::canView(Structure& structure)
+bool FactoryReport::canView(const Structure& structure)
 {
-	return dynamic_cast<Factory*>(&structure);
+	return dynamic_cast<const Factory*>(&structure);
 }
 
 

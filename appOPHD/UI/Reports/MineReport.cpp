@@ -143,9 +143,9 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 }
 
 
-bool MineReport::canView(Structure& structure)
+bool MineReport::canView(const Structure& structure)
 {
-	return dynamic_cast<MineFacility*>(&structure) || structure.isSmelter();
+	return dynamic_cast<const MineFacility*>(&structure) || structure.isSmelter();
 }
 
 

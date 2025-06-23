@@ -111,9 +111,9 @@ ResearchReport::~ResearchReport()
 }
 
 
-bool ResearchReport::canView(Structure& structure)
+bool ResearchReport::canView(const Structure& structure)
 {
-	return dynamic_cast<ResearchFacility*>(&structure);
+	return dynamic_cast<const ResearchFacility*>(&structure);
 }
 
 

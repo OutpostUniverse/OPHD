@@ -238,6 +238,21 @@ void ReportsState::onWindowResized(NAS2D::Vector<int> newSize)
 
 void ReportsState::onTakeMeThere(const Structure* structure)
 {
+	// Ignore events that come from an inactive tab
+	// This is a bit of a hack to fix a bug where non-visible reports respond to events
+	// It would be cleaner to have non-visible reports not process user input
+	// A better fix relies up reworking event dispatch
+	for (auto& panel : panels)
+	{
+		if (panel.report)
+		{
+			if (panel.report->canView(*structure) && !panel.selected())
+			{
+				return;
+			}
+		}
+	}
+
 	if (mTakeMeThereHandler) { mTakeMeThereHandler(structure); }
 }
 

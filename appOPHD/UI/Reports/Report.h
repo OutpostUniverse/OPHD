@@ -14,7 +14,7 @@ class Structure;
 class Report : public ControlContainer
 {
 public:
-	virtual bool canView(Structure& structure) = 0;
+	virtual bool canView(const Structure& structure) = 0;
 
 	/**
 	 * Instructs a Report to set its primary selection to a specified Structure.

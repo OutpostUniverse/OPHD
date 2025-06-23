@@ -23,7 +23,7 @@ SpaceportsReport::~SpaceportsReport()
 }
 
 
-bool SpaceportsReport::canView(Structure& /*structure*/)
+bool SpaceportsReport::canView(const Structure& /*structure*/)
 {
 	return false;
 }
