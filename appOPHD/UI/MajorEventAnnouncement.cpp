@@ -52,16 +52,16 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 	switch (a)
 	{
 	case AnnouncementType::ColonyShipCrash:
-		mMessage = "Colony ship deorbited and crashed on the surface.";
+		mMessage = "Colony ship deorbited and crashed.";
 		break;
 	case AnnouncementType::ColonyShipCrashWithColonists:
-		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists on board!";
+		mMessage = "Colony ship deorbited and crashed with colonists on board!";
 		break;
 	case AnnouncementType::ColonyShipCrashWithCargo:
-		mMessage = "Colony ship deorbited and crashed on the surface but you left cargo on board!";
+		mMessage = "Colony ship deorbited and crashed with cargo on board!";
 		break;
 	case AnnouncementType::ColonyShipCrashWithColonistsAndCargo:
-		mMessage = "Colony ship deorbited and crashed on the surface but you left colonists and cargo on board!";
+		mMessage = "Colony ship deorbited and crashed with colonists and cargo on board!";
 		break;
 	}
 }
