@@ -326,25 +326,19 @@ void ReportsState::showReport()
 
 void ReportsState::showReport(Structure* structure)
 {
-	if (structure->isFactory())
+	for (auto& panel : panels)
 	{
-		selectFactoryPanel(structure);
+		if (panel.report)
+		{
+			if (panel.report->canView(*structure))
+			{
+				deselectAllPanels();
+				panel.select(structure);
+				if (mShowReportsHandler) { mShowReportsHandler(); }
+				return;
+			}
+		}
 	}
-	else if (structure->isWarehouse())
-	{
-		selectWarehousePanel(structure);
-	}
-	else if (structure->isMineFacility() || structure->isSmelter())
-	{
-		selectMinePanel(structure);
-	}
-	else
-	{
-		// avoids showing the full-screen UI on unhandled structures.
-		return;
-	}
-
-	if (mShowReportsHandler) { mShowReportsHandler(); }
 }
 
 
