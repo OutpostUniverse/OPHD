@@ -113,7 +113,6 @@ public:
 	MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty, EventDelegate quitHandler);
 	~MapViewState() override;
 
-	void quitHandler(EventDelegate newQuitHandler) { mQuitHandler = newQuitHandler; }
 	void mapChangedHandler(EventDelegate newMapChangedHandler) { mMapChangedHandler = newMapChangedHandler; }
 
 	void focusOnStructure(const Structure* s);
