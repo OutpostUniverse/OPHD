@@ -96,9 +96,9 @@ WarehouseReport::~WarehouseReport()
 }
 
 
-bool WarehouseReport::canView(Structure& structure)
+bool WarehouseReport::canView(const Structure& structure)
 {
-	return dynamic_cast<Warehouse*>(&structure);
+	return dynamic_cast<const Warehouse*>(&structure);
 }
 
 

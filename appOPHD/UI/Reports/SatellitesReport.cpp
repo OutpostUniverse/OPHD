@@ -25,7 +25,7 @@ SatellitesReport::~SatellitesReport()
 }
 
 
-bool SatellitesReport::canView(Structure& /*structure*/)
+bool SatellitesReport::canView(const Structure& /*structure*/)
 {
 	return false;
 }
