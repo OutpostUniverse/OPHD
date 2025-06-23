@@ -133,14 +133,20 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 }
 
 
+bool FactoryReport::canView(Structure& structure)
+{
+	return dynamic_cast<Factory*>(&structure);
+}
+
+
 /**
  * Override of the interface provided by Report class.
  *
  * \note	Pointer
  */
-void FactoryReport::selectStructure(Structure* structure)
+void FactoryReport::selectStructure(Structure& structure)
 {
-	lstFactoryList.setSelected(dynamic_cast<Factory*>(structure));
+	lstFactoryList.setSelected(dynamic_cast<Factory*>(&structure));
 }
 
 

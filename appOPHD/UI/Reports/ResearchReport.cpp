@@ -111,7 +111,13 @@ ResearchReport::~ResearchReport()
 }
 
 
-void ResearchReport::selectStructure(Structure*)
+bool ResearchReport::canView(Structure& structure)
+{
+	return dynamic_cast<ResearchFacility*>(&structure);
+}
+
+
+void ResearchReport::selectStructure(Structure&)
 {
 }
 

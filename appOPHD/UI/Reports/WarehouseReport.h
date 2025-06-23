@@ -31,7 +31,8 @@ public:
 	WarehouseReport(TakeMeThereDelegate takeMeThereHandler);
 	~WarehouseReport() override;
 
-	void selectStructure(Structure*) override;
+	bool canView(Structure& structure) override;
+	void selectStructure(Structure&) override;
 	void clearSelected() override;
 	void fillLists() override;
 	void refresh() override;

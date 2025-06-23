@@ -37,9 +37,6 @@ namespace
 	};
 
 	constexpr auto ResearchPanelIndex = static_cast<size_t>(NavigationPanel::Research);
-	constexpr auto ProductionPanelIndex = static_cast<size_t>(NavigationPanel::Production);
-	constexpr auto WarehousePanelIndex = static_cast<size_t>(NavigationPanel::Warehouse);
-	constexpr auto MinesPanelIndex = static_cast<size_t>(NavigationPanel::Mines);
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
@@ -53,7 +50,7 @@ namespace
 			icon{newIcon}
 		{}
 
-		void select(Structure* structure)
+		void select(Structure& structure)
 		{
 			selected(true);
 			report->visible(true);
@@ -324,57 +321,21 @@ void ReportsState::showReport()
 }
 
 
-void ReportsState::showReport(Structure* structure)
+void ReportsState::showReport(Structure& structure)
 {
-	if (structure->isFactory())
+	for (auto& panel : panels)
 	{
-		selectFactoryPanel(structure);
+		if (panel.report)
+		{
+			if (panel.report->canView(structure))
+			{
+				deselectAllPanels();
+				panel.select(structure);
+				if (mShowReportsHandler) { mShowReportsHandler(); }
+				return;
+			}
+		}
 	}
-	else if (structure->isWarehouse())
-	{
-		selectWarehousePanel(structure);
-	}
-	else if (structure->isMineFacility() || structure->isSmelter())
-	{
-		selectMinePanel(structure);
-	}
-	else
-	{
-		// avoids showing the full-screen UI on unhandled structures.
-		return;
-	}
-
-	if (mShowReportsHandler) { mShowReportsHandler(); }
-}
-
-
-/**
- * Structure pointer is assumed to be a factory.
- */
-void ReportsState::selectFactoryPanel(Structure* structure)
-{
-	deselectAllPanels();
-	panels[ProductionPanelIndex].select(structure);
-}
-
-
-/**
- * Structure pointer is assumed to be a warehouse.
- */
-void ReportsState::selectWarehousePanel(Structure* structure)
-{
-	deselectAllPanels();
-	panels[WarehousePanelIndex].select(structure);
-}
-
-
-/**
- * Structure pointer is assumed to be a Mine Facility or Smelter.
- */
-void ReportsState::selectMinePanel(Structure* structure)
-{
-	deselectAllPanels();
-	panels[MinesPanelIndex].select(structure);
 }
 
 
