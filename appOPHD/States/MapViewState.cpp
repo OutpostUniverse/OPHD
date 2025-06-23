@@ -154,7 +154,7 @@ const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultipl
 };
 
 
-MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument) :
+MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
@@ -183,6 +183,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mNotificationArea{{this, &MapViewState::onNotificationClicked}},
 	mNotificationWindow{{this, &MapViewState::onTakeMeThere}},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
+	mQuitHandler{quitHandler},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mColonyShip{gameState.colonyShip()}
@@ -191,7 +192,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 }
 
 
-MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
+MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty, EventDelegate quitHandler) :
 	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
@@ -222,6 +223,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mNotificationArea{{this, &MapViewState::onNotificationClicked}},
 	mNotificationWindow{{this, &MapViewState::onTakeMeThere}},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
+	mQuitHandler{quitHandler},
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},

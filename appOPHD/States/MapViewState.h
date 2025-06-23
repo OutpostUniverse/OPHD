@@ -109,11 +109,10 @@ public:
 	using EventDelegate = NAS2D::Delegate<void()>;
 
 public:
-	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument);
-	MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty);
+	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler);
+	MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty, EventDelegate quitHandler);
 	~MapViewState() override;
 
-	void quitHandler(EventDelegate newQuitHandler) { mQuitHandler = newQuitHandler; }
 	void mapChangedHandler(EventDelegate newMapChangedHandler) { mMapChangedHandler = newMapChangedHandler; }
 
 	void focusOnStructure(const Structure* s);
