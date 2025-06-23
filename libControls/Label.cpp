@@ -16,14 +16,14 @@ Label::Label(std::string newText) :
 
 void Label::text(const std::string& text)
 {
-	TextControl::text(text);
+	mText = text;
 	autoSize();
 }
 
 
 const std::string& Label::text() const
 {
-	return TextControl::text();
+	return mText;
 }
 
 
@@ -47,11 +47,11 @@ void Label::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto textPosition = mRect.position + NAS2D::Vector{mPadding, mPadding};
-	renderer.drawText(*mFont, text(), textPosition, mTextColor);
+	renderer.drawText(*mFont, mText, textPosition, mTextColor);
 }
 
 
 void Label::autoSize()
 {
-	size(mFont->size(text()) + NAS2D::Vector{mPadding, mPadding} * 2);
+	size(mFont->size(mText) + NAS2D::Vector{mPadding, mPadding} * 2);
 }
