@@ -21,11 +21,9 @@ using namespace NAS2D;
 
 
 FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler) :
-	ListBoxBase{
-		fontCache.load(constants::FontPrimary, 12),
-		fontCache.load(constants::FontPrimaryBold, 12),
-		selectionChangedHandler,
-	},
+	ListBoxBase{selectionChangedHandler},
+	mFont{fontCache.load(constants::FontPrimary, 12)},
+	mFontBold{fontCache.load(constants::FontPrimaryBold, 12)},
 	mStructureIcons{imageCache.load("ui/structures.png")}
 {
 	itemHeight(58);

@@ -46,5 +46,8 @@ protected:
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override;
 
 private:
+	const NAS2D::Font& mFont;
+	const NAS2D::Font& mFontBold;
+
 	std::vector<StructureListBoxItem> mItems;
 };
