@@ -34,7 +34,7 @@ Button::Button(std::string newText) :
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 
-	size(mFont->size(text()) + internalPadding * 2);
+	size(mFont->size(mText) + internalPadding * 2);
 }
 
 
@@ -179,8 +179,8 @@ void Button::draw() const
 	}
 	else
 	{
-		const auto textPosition = mRect.center() - mFont->size(text()) / 2;
-		renderer.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
+		const auto textPosition = mRect.center() - mFont->size(mText) / 2;
+		renderer.drawText(*mFont, mText, textPosition, NAS2D::Color::White);
 	}
 
 	/// \fixme	Naive... would rather set a b&w shader instead.
