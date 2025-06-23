@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
@@ -13,7 +13,7 @@
 #include <string>
 
 
-class Button: public TextControl
+class Button: public Control
 {
 public:
 	enum class Type
@@ -43,6 +43,9 @@ public:
 	void toggle(bool toggle);
 	bool isPressed() const;
 
+	void text(const std::string& text);
+	const std::string& text() const;
+
 	void font(const NAS2D::Font& font);
 
 	void image(const std::string& path);
@@ -59,7 +62,7 @@ private:
 	const ButtonSkin mButtonSkin;
 	const NAS2D::Image* mImage = nullptr;
 	const NAS2D::Font* mFont = nullptr;
-
+	std::string mText;
 	ClickDelegate mClickHandler;
 
 	Type mType = Type::Push;

@@ -93,6 +93,18 @@ bool Button::isPressed() const
 }
 
 
+void Button::text(const std::string& text)
+{
+	mText = text;
+}
+
+
+const std::string& Button::text() const
+{
+	return mText;
+}
+
+
 void Button::font(const NAS2D::Font& font)
 {
 	mFont = &font;
