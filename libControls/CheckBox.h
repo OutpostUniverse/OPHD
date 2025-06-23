@@ -21,7 +21,7 @@ class CheckBox : public TextControl
 public:
 	using ClickDelegate = NAS2D::Delegate<void()>;
 
-	CheckBox(std::string newText = "", ClickDelegate clickHandler = {});
+	CheckBox(std::string newText = {}, ClickDelegate clickHandler = {});
 	~CheckBox() override;
 
 	void checked(bool toggle);

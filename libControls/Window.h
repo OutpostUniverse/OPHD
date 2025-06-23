@@ -14,7 +14,7 @@
 class Window : public ControlContainer
 {
 public:
-	Window(std::string newTitle = "", const NAS2D::Font& titleFont = getDefaultFontBold());
+	Window(std::string newTitle = {}, const NAS2D::Font& titleFont = getDefaultFontBold());
 	~Window() override;
 
 	void anchored(bool isAnchored);
