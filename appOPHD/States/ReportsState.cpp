@@ -50,12 +50,12 @@ namespace
 			icon{newIcon}
 		{}
 
-		void select(Structure* structure)
+		void select(Structure& structure)
 		{
 			selected(true);
 			report->visible(true);
 			report->refresh();
-			report->selectStructure(*structure);
+			report->selectStructure(structure);
 		}
 
 		void selected(bool isSelected)
@@ -330,7 +330,7 @@ void ReportsState::showReport(Structure& structure)
 			if (panel.report->canView(structure))
 			{
 				deselectAllPanels();
-				panel.select(&structure);
+				panel.select(structure);
 				if (mShowReportsHandler) { mShowReportsHandler(); }
 				return;
 			}
