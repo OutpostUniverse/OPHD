@@ -25,15 +25,15 @@ namespace
 
 
 Button::Button(std::string newText) :
-	mButtonSkin{defaultButtonSkin()}
+	mButtonSkin{defaultButtonSkin()},
+	mFont{&getDefaultFont()},
+	mText{newText}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 
-	mFont = &getDefaultFont();
-	text(newText);
 	size(mFont->size(text()) + internalPadding * 2);
 }
 
