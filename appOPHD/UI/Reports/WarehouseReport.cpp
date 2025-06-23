@@ -96,9 +96,9 @@ WarehouseReport::~WarehouseReport()
 }
 
 
-void WarehouseReport::selectStructure(Structure* structure)
+void WarehouseReport::selectStructure(Structure& structure)
 {
-	lstStructures.setSelected(structure);
+	lstStructures.setSelected(&structure);
 }
 
 

@@ -143,9 +143,9 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 }
 
 
-void MineReport::selectStructure(Structure* structure)
+void MineReport::selectStructure(Structure& structure)
 {
-	lstMineFacilities.setSelected(structure);
+	lstMineFacilities.setSelected(&structure);
 }
 
 

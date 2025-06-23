@@ -138,9 +138,9 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
  *
  * \note	Pointer
  */
-void FactoryReport::selectStructure(Structure* structure)
+void FactoryReport::selectStructure(Structure& structure)
 {
-	lstFactoryList.setSelected(dynamic_cast<Factory*>(structure));
+	lstFactoryList.setSelected(dynamic_cast<Factory*>(&structure));
 }
 
 

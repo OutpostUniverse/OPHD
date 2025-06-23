@@ -58,7 +58,7 @@ namespace
 			selected(true);
 			report->visible(true);
 			report->refresh();
-			report->selectStructure(structure);
+			report->selectStructure(*structure);
 		}
 
 		void selected(bool isSelected)

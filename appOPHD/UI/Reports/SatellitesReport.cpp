@@ -25,7 +25,7 @@ SatellitesReport::~SatellitesReport()
 }
 
 
-void SatellitesReport::selectStructure(Structure*)
+void SatellitesReport::selectStructure(Structure&)
 {
 }
 

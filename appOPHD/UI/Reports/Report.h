@@ -21,7 +21,7 @@ public:
 	 *			classes. Be mindful to pass pointers to objects that can be safely
 	 *			downcasted to a more derived type (take advantage of dynamic_cast)
 	 */
-	virtual void selectStructure(Structure*) = 0;
+	virtual void selectStructure(Structure&) = 0;
 
 	/**
 	 * Instructs the Report to clear any selections it may have.

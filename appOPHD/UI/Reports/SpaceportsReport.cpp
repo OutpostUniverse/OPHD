@@ -23,7 +23,7 @@ SpaceportsReport::~SpaceportsReport()
 }
 
 
-void SpaceportsReport::selectStructure(Structure*)
+void SpaceportsReport::selectStructure(Structure&)
 {
 }
 
