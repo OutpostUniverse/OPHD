@@ -321,16 +321,16 @@ void ReportsState::showReport()
 }
 
 
-void ReportsState::showReport(Structure* structure)
+void ReportsState::showReport(Structure& structure)
 {
 	for (auto& panel : panels)
 	{
 		if (panel.report)
 		{
-			if (panel.report->canView(*structure))
+			if (panel.report->canView(structure))
 			{
 				deselectAllPanels();
-				panel.select(structure);
+				panel.select(&structure);
 				if (mShowReportsHandler) { mShowReportsHandler(); }
 				return;
 			}

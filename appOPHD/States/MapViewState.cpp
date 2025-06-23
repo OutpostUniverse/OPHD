@@ -589,7 +589,7 @@ void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<in
 		auto& tile = mTileMap->getTile(tilePosition);
 		if (tile.hasStructure())
 		{
-			mReportsState.showReport(tile.structure());
+			mReportsState.showReport(*tile.structure());
 		}
 	}
 }

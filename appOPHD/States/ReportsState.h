@@ -31,7 +31,7 @@ public:
 	~ReportsState() override;
 
 	void showReport();
-	void showReport(Structure* structure);
+	void showReport(Structure& structure);
 
 	void injectTechnology(TechnologyCatalog&, ResearchTracker&);
 
