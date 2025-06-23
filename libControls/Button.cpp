@@ -4,7 +4,10 @@
 
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Resource/Font.h>
 
 
 namespace
@@ -25,16 +28,16 @@ namespace
 
 
 Button::Button(std::string newText) :
-	mButtonSkin{defaultButtonSkin()}
+	mButtonSkin{defaultButtonSkin()},
+	mFont{&getDefaultFont()},
+	mText{newText}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 
-	mFont = &getDefaultFont();
-	text(newText);
-	size(mFont->size(text()) + internalPadding * 2);
+	size(mFont->size(mText) + internalPadding * 2);
 }
 
 
@@ -90,6 +93,18 @@ void Button::toggle(bool toggle)
 bool Button::isPressed() const
 {
 	return mIsPressed;
+}
+
+
+void Button::text(const std::string& text)
+{
+	mText = text;
+}
+
+
+const std::string& Button::text() const
+{
+	return mText;
 }
 
 
@@ -167,11 +182,10 @@ void Button::draw() const
 	}
 	else
 	{
-		const auto textPosition = mRect.center() - mFont->size(text()) / 2;
-		renderer.drawText(*mFont, text(), textPosition, NAS2D::Color::White);
+		const auto textPosition = mRect.center() - mFont->size(mText) / 2;
+		renderer.drawText(*mFont, mText, textPosition, NAS2D::Color::White);
 	}
 
-	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
 		renderer.drawBoxFilled(mRect, NAS2D::Color{125, 125, 125, 100});

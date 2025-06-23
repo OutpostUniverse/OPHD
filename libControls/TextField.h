@@ -7,11 +7,13 @@
 
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 
 #include <NAS2D/Timer.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Signal/Delegate.h>
+
+#include <string>
 
 
 namespace NAS2D
@@ -31,7 +33,7 @@ namespace NAS2D
  *
  * The Field Control is just a set of rendered text a user can enter.
  */
-class TextField : public TextControl
+class TextField : public Control
 {
 public:
 	/**
@@ -51,6 +53,9 @@ public:
 public:
 	TextField(std::size_t maxCharacters = 0, TextChangedDelegate textChangedHandler = {});
 	~TextField() override;
+
+	void text(const std::string& text);
+	const std::string& text() const;
 
 	bool isEmpty() const;
 	void clear();
@@ -73,17 +78,17 @@ protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
-	void onTextChange() override;
+	void onTextChange();
 
 private:
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;
 
-	NAS2D::Timer mCursorBlinkTimer;
-
+	std::string mText;
 	TextChangedDelegate mTextChangedHandler;
 
+	NAS2D::Timer mCursorBlinkTimer;
 	std::size_t mCursorCharacterPosition = 0;
 	int mCursorPixelX = 0;
 	int mScrollOffsetPixelX = 0;

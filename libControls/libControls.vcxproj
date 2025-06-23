@@ -162,7 +162,6 @@
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="ScrollBar.cpp" />
     <ClCompile Include="TextArea.cpp" />
-    <ClCompile Include="TextControl.cpp" />
     <ClCompile Include="TextField.cpp" />
     <ClCompile Include="ToolTip.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -185,7 +184,6 @@
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="ScrollBar.h" />
     <ClInclude Include="TextArea.h" />
-    <ClInclude Include="TextControl.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="ToolTip.h" />
     <ClInclude Include="Window.h" />

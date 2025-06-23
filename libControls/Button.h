@@ -1,19 +1,24 @@
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Resource/Image.h>
-#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 
 #include <string>
 
 
-class Button: public TextControl
+namespace NAS2D
+{
+	enum class MouseButton;
+	class Font;
+	class Image;
+}
+
+
+class Button: public Control
 {
 public:
 	enum class Type
@@ -43,6 +48,9 @@ public:
 	void toggle(bool toggle);
 	bool isPressed() const;
 
+	void text(const std::string& text);
+	const std::string& text() const;
+
 	void font(const NAS2D::Font& font);
 
 	void image(const std::string& path);
@@ -57,12 +65,12 @@ protected:
 
 private:
 	const ButtonSkin mButtonSkin;
-	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
-	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
+	const NAS2D::Image* mImage = nullptr;
+	const NAS2D::Font* mFont = nullptr;
+	std::string mText;
+	ClickDelegate mClickHandler;
 
-	ClickDelegate mClickHandler; /**< Object to notify when the Button is activated. */
-
-	Type mType = Type::Push; /**< Modifies Button behavior. */
-	bool mIsPressed = false; /**< Current state of the Button. */
-	bool mMouseHover = false; /**< Mouse is within the bounds of the Button. */
+	Type mType = Type::Push;
+	bool mIsPressed = false;
+	bool mMouseHover = false;
 };

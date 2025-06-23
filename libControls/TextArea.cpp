@@ -19,6 +19,19 @@ TextArea::TextArea(const NAS2D::Font& font, NAS2D::Color textColor) :
 }
 
 
+void TextArea::text(const std::string& text)
+{
+	mText = text;
+	onTextChange();
+}
+
+
+const std::string& TextArea::text() const
+{
+	return mText;
+}
+
+
 void TextArea::onResize()
 {
 	Control::onResize();
@@ -53,9 +66,9 @@ void TextArea::processString()
 {
 	mFormattedList.clear();
 
-	if (mRect.size.x < 10 || text().empty()) { return; }
+	if (mRect.size.x < 10 || mText.empty()) { return; }
 
-	const auto tokenList = NAS2D::split(text(), ' ');
+	const auto tokenList = NAS2D::split(mText, ' ');
 
 	std::size_t i = 0;
 	int w = 0;

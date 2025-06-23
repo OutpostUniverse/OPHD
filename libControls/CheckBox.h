@@ -1,6 +1,6 @@
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
@@ -16,7 +16,7 @@ namespace NAS2D
 }
 
 
-class CheckBox : public TextControl
+class CheckBox : public Control
 {
 public:
 	using ClickDelegate = NAS2D::Delegate<void()>;
@@ -33,13 +33,12 @@ protected:
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
 	void onResize() override;
-	void onTextChange() override;
+	void onTextChange();
 
 private:
 	const NAS2D::Font& mFont;
 	const NAS2D::Image& mSkin;
-
+	const std::string mText;
 	ClickDelegate mClickHandler;
-
 	bool mChecked = false;
 };

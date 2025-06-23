@@ -35,9 +35,10 @@ namespace
 CheckBox::CheckBox(std::string newText, ClickDelegate clickHandler) :
 	mFont{getDefaultFont()},
 	mSkin{getImage("ui/skin/checkbox.png")},
+	mText{newText},
 	mClickHandler{clickHandler}
 {
-	text(newText);
+	onTextChange();
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &CheckBox::onMouseDown});
 }
 
@@ -83,7 +84,7 @@ void CheckBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 
 void CheckBox::onTextChange()
 {
-	const auto textWidth = mFont.width(text());
+	const auto textWidth = mFont.width(mText);
 	width((textWidth > 0) ? textOffset.x + textWidth : iconSize.x);
 }
 
@@ -103,5 +104,5 @@ void CheckBox::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y + 1) / 2};
 	renderer.drawSubImage(mSkin, iconPosition, (mChecked ? checkedIconRect : uncheckedIconRect));
-	renderer.drawText(mFont, text(), position() + textOffset, NAS2D::Color::White);
+	renderer.drawText(mFont, mText, position() + textOffset, NAS2D::Color::White);
 }

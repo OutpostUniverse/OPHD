@@ -66,9 +66,6 @@
     <ClCompile Include="TextArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -129,9 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextArea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextField.h">
