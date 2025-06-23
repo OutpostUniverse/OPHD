@@ -22,9 +22,15 @@ void MapViewState::drawSystemButton() const
 	auto position = NAS2D::Point{renderer.size().x - 80, constants::MarginTight};
 	constexpr auto textOffset = NAS2D::Vector{constants::ResourceIconSize + constants::Margin, 3 - constants::MarginTight};
 
+	const auto drawIcon = [&renderer, &icons = mUiIcons, height = mResourceInfoBar.size().y](NAS2D::Point<int> iconPosition, NAS2D::Rectangle<int> imageRect)
+	{
+		const auto imageOffset = NAS2D::Vector{0, (height - imageRect.size.y - 1) / 2};
+		renderer.drawSubImage(icons, iconPosition + imageOffset, imageRect);
+	};
+
 	// Turns
 	const auto turnImageRect = NAS2D::Rectangle<int>{{128, 0}, {constants::ResourceIconSize, constants::ResourceIconSize}};
-	renderer.drawSubImage(mUiIcons, position, turnImageRect);
+	drawIcon(position, turnImageRect);
 	const auto& font = Control::getDefaultFont();
 	renderer.drawText(font, std::to_string(mTurnCount), position + textOffset, NAS2D::Color::White);
 
@@ -32,5 +38,5 @@ void MapViewState::drawSystemButton() const
 	bool isMouseInMenu = mTooltipSystemButton.area().contains(MOUSE_COORDS);
 	int menuGearHighlightOffsetX = isMouseInMenu ? 144 : 128;
 	const auto menuImageRect = NAS2D::Rectangle<int>{{menuGearHighlightOffsetX, 32}, {constants::ResourceIconSize, constants::ResourceIconSize}};
-	renderer.drawSubImage(mUiIcons, position, menuImageRect);
+	drawIcon(position, menuImageRect);
 }
