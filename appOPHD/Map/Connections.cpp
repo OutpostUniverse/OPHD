@@ -58,11 +58,8 @@ namespace
 
 	std::string roadAnimationName(int integrity, const std::array<bool, 4>& surroundingTiles)
 	{
-		std::string tag = "";
-
-		if (integrity == 0) { tag = "-destroyed"; }
-		else if (integrity < constants::RoadIntegrityChange) { tag = "-decayed"; }
-
+		const std::string tag = (integrity == 0) ? "-destroyed" :
+			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
 		return IntersectionPatternTable.at(surroundingTiles) + tag;
 	}
 }
