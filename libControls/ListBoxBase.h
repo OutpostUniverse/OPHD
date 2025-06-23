@@ -29,7 +29,7 @@ public:
 	static const std::size_t NoSelection;
 
 
-	ListBoxBase(const NAS2D::Font& font, const NAS2D::Font& fontBold, SelectionChangedDelegate selectionChangedHandler = {});
+	ListBoxBase(SelectionChangedDelegate selectionChangedHandler = {});
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
@@ -68,10 +68,6 @@ protected:
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const;
 
 	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
-
-protected:
-	const NAS2D::Font& mFont;
-	const NAS2D::Font& mFontBold;
 
 private:
 	std::size_t mHighlightIndex = NoSelection;

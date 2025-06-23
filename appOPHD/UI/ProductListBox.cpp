@@ -16,11 +16,9 @@ using namespace NAS2D;
 
 
 ProductListBox::ProductListBox(SelectionChangedDelegate selectionChangedHandler) :
-	ListBoxBase{
-		fontCache.load(constants::FontPrimary, 12),
-		fontCache.load(constants::FontPrimaryBold, 12),
-		selectionChangedHandler,
-	}
+	ListBoxBase{selectionChangedHandler},
+	mFont{fontCache.load(constants::FontPrimary, 12)},
+	mFontBold{fontCache.load(constants::FontPrimaryBold, 12)}
 {
 	itemHeight(30);
 }
