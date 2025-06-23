@@ -143,6 +143,12 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 }
 
 
+bool MineReport::canView(Structure& structure)
+{
+	return dynamic_cast<MineFacility*>(&structure) || structure.isSmelter();
+}
+
+
 void MineReport::selectStructure(Structure& structure)
 {
 	lstMineFacilities.setSelected(&structure);

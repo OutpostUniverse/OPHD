@@ -96,6 +96,12 @@ WarehouseReport::~WarehouseReport()
 }
 
 
+bool WarehouseReport::canView(Structure& structure)
+{
+	return dynamic_cast<Warehouse*>(&structure);
+}
+
+
 void WarehouseReport::selectStructure(Structure& structure)
 {
 	lstStructures.setSelected(&structure);

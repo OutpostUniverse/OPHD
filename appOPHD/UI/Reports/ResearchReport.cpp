@@ -111,6 +111,12 @@ ResearchReport::~ResearchReport()
 }
 
 
+bool ResearchReport::canView(Structure& /*structure*/)
+{
+	return false;
+}
+
+
 void ResearchReport::selectStructure(Structure&)
 {
 }

@@ -25,6 +25,12 @@ SatellitesReport::~SatellitesReport()
 }
 
 
+bool SatellitesReport::canView(Structure& /*structure*/)
+{
+	return false;
+}
+
+
 void SatellitesReport::selectStructure(Structure&)
 {
 }

@@ -20,6 +20,7 @@ public:
 	SpaceportsReport(TakeMeThereDelegate takeMeThereHandler);
 	~SpaceportsReport() override;
 
+	bool canView(Structure& structure) override;
 	void selectStructure(Structure&) override;
 	void clearSelected() override;
 	void fillLists() override;

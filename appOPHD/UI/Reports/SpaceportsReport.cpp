@@ -23,6 +23,12 @@ SpaceportsReport::~SpaceportsReport()
 }
 
 
+bool SpaceportsReport::canView(Structure& /*structure*/)
+{
+	return false;
+}
+
+
 void SpaceportsReport::selectStructure(Structure&)
 {
 }

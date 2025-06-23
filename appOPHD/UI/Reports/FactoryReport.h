@@ -31,6 +31,7 @@ public:
 
 	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
 
+	bool canView(Structure& structure) override;
 	void selectStructure(Structure&) override;
 	void clearSelected() override;
 	void fillLists() override;

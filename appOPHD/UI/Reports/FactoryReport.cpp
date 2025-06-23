@@ -133,6 +133,12 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 }
 
 
+bool FactoryReport::canView(Structure& structure)
+{
+	return dynamic_cast<Factory*>(&structure);
+}
+
+
 /**
  * Override of the interface provided by Report class.
  *

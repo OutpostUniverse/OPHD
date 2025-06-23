@@ -29,6 +29,7 @@ public:
 
 	MineReport(TakeMeThereDelegate takeMeThereHandler);
 
+	bool canView(Structure& structure) override;
 	void selectStructure(Structure& structure) override;
 	void clearSelected() override;
 	void fillLists() override;
