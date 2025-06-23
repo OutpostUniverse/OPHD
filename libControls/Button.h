@@ -57,12 +57,12 @@ protected:
 
 private:
 	const ButtonSkin mButtonSkin;
-	const NAS2D::Image* mImage = nullptr; /**< Image to draw centered on the Button. */
-	const NAS2D::Font* mFont = nullptr; /**< Buttons can have different font sizes. */
+	const NAS2D::Image* mImage = nullptr;
+	const NAS2D::Font* mFont = nullptr;
 
-	ClickDelegate mClickHandler; /**< Object to notify when the Button is activated. */
+	ClickDelegate mClickHandler;
 
-	Type mType = Type::Push; /**< Modifies Button behavior. */
-	bool mIsPressed = false; /**< Current state of the Button. */
-	bool mMouseHover = false; /**< Mouse is within the bounds of the Button. */
+	Type mType = Type::Push;
+	bool mIsPressed = false;
+	bool mMouseHover = false;
 };
