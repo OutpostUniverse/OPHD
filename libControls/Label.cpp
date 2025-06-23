@@ -6,6 +6,12 @@
 #include <NAS2D/Utility.h>
 
 
+namespace
+{
+	const auto padding = NAS2D::Vector{2, 2};
+}
+
+
 Label::Label(std::string newText) :
 	mFont{&getDefaultFont()},
 	mText{newText}
@@ -46,12 +52,12 @@ void Label::draw() const
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto textPosition = mRect.position + NAS2D::Vector{mPadding, mPadding};
+	const auto textPosition = mRect.position + padding;
 	renderer.drawText(*mFont, mText, textPosition, mTextColor);
 }
 
 
 void Label::autoSize()
 {
-	size(mFont->size(mText) + NAS2D::Vector{mPadding, mPadding} * 2);
+	size(mFont->size(mText) + padding * 2);
 }

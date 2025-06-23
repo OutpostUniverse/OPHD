@@ -39,5 +39,4 @@ private:
 	const NAS2D::Font* mFont;
 	NAS2D::Color mTextColor{NAS2D::Color::White};
 	std::string mText;
-	const int mPadding = 2;
 };
