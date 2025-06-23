@@ -3,7 +3,6 @@
 #include "Control.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
@@ -13,6 +12,7 @@
 
 namespace NAS2D
 {
+	enum class MouseButton;
 	class Font;
 	class Image;
 }
