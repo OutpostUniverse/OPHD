@@ -20,9 +20,6 @@ namespace NAS2D
 }
 
 
-/**
- * A control that contains readonly text.
- */
 class Label : public Control
 {
 public:
