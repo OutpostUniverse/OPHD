@@ -37,9 +37,6 @@ namespace
 	};
 
 	constexpr auto ResearchPanelIndex = static_cast<size_t>(NavigationPanel::Research);
-	constexpr auto ProductionPanelIndex = static_cast<size_t>(NavigationPanel::Production);
-	constexpr auto WarehousePanelIndex = static_cast<size_t>(NavigationPanel::Warehouse);
-	constexpr auto MinesPanelIndex = static_cast<size_t>(NavigationPanel::Mines);
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
@@ -339,36 +336,6 @@ void ReportsState::showReport(Structure* structure)
 			}
 		}
 	}
-}
-
-
-/**
- * Structure pointer is assumed to be a factory.
- */
-void ReportsState::selectFactoryPanel(Structure* structure)
-{
-	deselectAllPanels();
-	panels[ProductionPanelIndex].select(structure);
-}
-
-
-/**
- * Structure pointer is assumed to be a warehouse.
- */
-void ReportsState::selectWarehousePanel(Structure* structure)
-{
-	deselectAllPanels();
-	panels[WarehousePanelIndex].select(structure);
-}
-
-
-/**
- * Structure pointer is assumed to be a Mine Facility or Smelter.
- */
-void ReportsState::selectMinePanel(Structure* structure)
-{
-	deselectAllPanels();
-	panels[MinesPanelIndex].select(structure);
 }
 
 

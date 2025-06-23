@@ -51,9 +51,6 @@ protected:
 	void onExit();
 
 	void deselectAllPanels();
-	void selectFactoryPanel(Structure*);
-	void selectWarehousePanel(Structure*);
-	void selectMinePanel(Structure*);
 
 private:
 	const NAS2D::Font& fontMain;
