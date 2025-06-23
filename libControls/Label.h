@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "TextControl.h"
+#include "Control.h"
 
 #include <NAS2D/Renderer/Color.h>
 
@@ -23,7 +23,7 @@ namespace NAS2D
 /**
  * A control that contains readonly text.
  */
-class Label : public TextControl
+class Label : public Control
 {
 public:
 	Label(std::string newText = {});
@@ -39,7 +39,8 @@ protected:
 	void autoSize();
 
 private:
-	NAS2D::Color mTextColor{NAS2D::Color::White};
 	const NAS2D::Font* mFont;
+	NAS2D::Color mTextColor{NAS2D::Color::White};
+	std::string mText;
 	const int mPadding = 2;
 };
