@@ -86,6 +86,7 @@ protected:
 	virtual void onEnableChange() {}
 	virtual void onFocusChange() {}
 
+protected:
 	NAS2D::Rectangle<int> mRect; /**< Area of the Control. */
 
 	bool mVisible = true; /**< Flag indicating visibility of the Control. */

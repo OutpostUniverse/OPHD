@@ -306,7 +306,7 @@ private:
 		}
 	}
 
-
+private:
 	typename ListBoxItem::Context mContext;
 
 	std::size_t mHighlightIndex = NoSelection;

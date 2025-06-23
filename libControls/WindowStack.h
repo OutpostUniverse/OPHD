@@ -28,7 +28,5 @@ public:
 	void update();
 
 private:
-	using WindowList = std::list<Window*>;
-
-	WindowList mWindowList;
+	std::list<Window*> mWindowList;
 };
