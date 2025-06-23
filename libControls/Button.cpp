@@ -183,7 +183,6 @@ void Button::draw() const
 		renderer.drawText(*mFont, mText, textPosition, NAS2D::Color::White);
 	}
 
-	/// \fixme	Naive... would rather set a b&w shader instead.
 	if (!enabled())
 	{
 		renderer.drawBoxFilled(mRect, NAS2D::Color{125, 125, 125, 100});
