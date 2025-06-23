@@ -13,6 +13,8 @@
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Signal/Delegate.h>
 
+#include <string>
+
 
 namespace NAS2D
 {
