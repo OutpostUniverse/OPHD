@@ -21,6 +21,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <cstdint>
+#include <algorithm>
 
 
 extern NAS2D::Point<int> MOUSE_COORDS;
@@ -67,7 +68,9 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Popul
 	mFood{food},
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
-	height(constants::ResourceIconSize + constants::MarginTight * 2);
+	const auto fontHeight = Control::getDefaultFont().height();
+	const auto contentHeight = std::max(fontHeight, constants::ResourceIconSize);
+	height(contentHeight + constants::MarginTight * 2);
 
 	mTooltipResourceBreakdown.size({265, mRect.size.y});
 
@@ -133,11 +136,17 @@ void ResourceInfoBar::draw() const
 	auto position = NAS2D::Point{x, constants::MarginTight};
 	constexpr auto textOffset = NAS2D::Vector{constants::ResourceIconSize + constants::Margin, 3 - constants::MarginTight};
 
+	const auto drawIcon = [&renderer, &icons = mUiIcons, height = mRect.size.y](NAS2D::Point<int> iconPosition, NAS2D::Rectangle<int> imageRect)
+	{
+		const auto imageOffset = NAS2D::Vector{0, (height - imageRect.size.y - 1) / 2};
+		renderer.drawSubImage(icons, iconPosition + imageOffset, imageRect);
+	};
+
 	const auto unpinnedImageRect = NAS2D::Rectangle<int>{{0, 72}, {8, 8}};
 	const auto pinnedImageRect = NAS2D::Rectangle<int>{{8, 72}, {8, 8}};
 
-	renderer.drawSubImage(mUiIcons, NAS2D::Point{2, 7}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
-	renderer.drawSubImage(mUiIcons, NAS2D::Point{675, 7}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
+	drawIcon(NAS2D::Point{2, 2}, mPinResourcePanel ? unpinnedImageRect : pinnedImageRect);
+	drawIcon(NAS2D::Point{675, 2}, mPinPopulationPanel ? unpinnedImageRect : pinnedImageRect);
 
 	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
@@ -155,7 +164,7 @@ void ResourceInfoBar::draw() const
 
 	for (const auto& [imageRect, amount, spacing] : resources)
 	{
-		renderer.drawSubImage(mUiIcons, position, imageRect);
+		drawIcon(position, imageRect);
 		const auto color = (amount <= 10 && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
 		renderer.drawText(font, std::to_string(amount), position + textOffset, color);
 		position.x += spacing;
@@ -173,7 +182,7 @@ void ResourceInfoBar::draw() const
 	position.x += x + offsetX;
 	for (const auto& [imageRect, parts, total, isHighlighted] : storageCapacities)
 	{
-		renderer.drawSubImage(mUiIcons, position, imageRect);
+		drawIcon(position, imageRect);
 		const auto color = (isHighlighted  && !mIgnoreGlow) ? glowColor : NAS2D::Color::White;
 		const auto text = std::to_string(parts) + " / " + std::to_string(total);
 		renderer.drawText(font, text, position + textOffset, color);
@@ -182,16 +191,14 @@ void ResourceInfoBar::draw() const
 
 	// Population / Morale
 	position.x -= 13;
-	position.y += 4;
 	int popMoraleDeltaImageOffsetX = mMorale.currentMorale() < mMorale.previousMorale() ? 0 : (mMorale.currentMorale() > mMorale.previousMorale() ? 8 : 16);
 	const auto popMoraleDirectionImageRect = NAS2D::Rectangle<int>{{popMoraleDeltaImageOffsetX, 64}, {8, 8}};
-	renderer.drawSubImage(mUiIcons, position, popMoraleDirectionImageRect);
+	drawIcon(position, popMoraleDirectionImageRect);
 
 	position.x += 13;
-	position.y -= 4;
 	const auto moraleLevel = (std::clamp(mMorale.currentMorale(), 1, 999) / 200);
 	const auto popMoraleImageRect = NAS2D::Rectangle<int>{{176 + moraleLevel * constants::ResourceIconSize, 0}, {constants::ResourceIconSize, constants::ResourceIconSize}};
-	renderer.drawSubImage(mUiIcons, position, popMoraleImageRect);
+	drawIcon(position, popMoraleImageRect);
 	renderer.drawText(font, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
 }
 
