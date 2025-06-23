@@ -39,7 +39,7 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-private:
+protected:
 	void onResize() override;
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onListSelectionChange();
@@ -47,6 +47,7 @@ private:
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 
+private:
 	Button btnDown;
 	ListBox<> lstItems;
 	TextField txtField;
