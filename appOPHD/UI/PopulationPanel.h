@@ -28,7 +28,7 @@ public:
 
 	void crimeRate(int val) { mCrimeRate = val; }
 	int crimeRate() const { return mCrimeRate; }
-	void update() override;
+	void draw() const override;
 
 private:
 	const NAS2D::Font& mFont;

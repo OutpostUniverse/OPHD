@@ -380,7 +380,7 @@ void MineReport::onRemoveTruck()
 }
 
 
-void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
+void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin) const
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -392,7 +392,7 @@ void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin)
 }
 
 
-void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
+void MineReport::drawStatusPane(const NAS2D::Point<int>& origin) const
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -474,7 +474,7 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin)
 }
 
 
-void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
+void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin) const
 {
 	auto& renderer = Utility<Renderer>::get();
 
@@ -525,8 +525,13 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin)
 
 void MineReport::update()
 {
-	if (!visible()) { return; }
+	ControlContainer::update();
+	draw();
+}
 
+
+void MineReport::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto startPoint = NAS2D::Point{area().center().x , area().position.y + 10};
@@ -538,6 +543,4 @@ void MineReport::update()
 		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
 		drawOreProductionPane(startPoint + NAS2D::Vector{10, 260});
 	}
-
-	ControlContainer::update();
 }

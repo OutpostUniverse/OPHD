@@ -59,7 +59,7 @@ public:
 	void decrementSelection();
 
 	void hide() override;
-	void update() override;
+	void draw() const override;
 
 protected:
 	void onResize() override;

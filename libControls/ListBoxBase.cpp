@@ -272,10 +272,13 @@ NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
-
-	draw();
 	mScrollBar.update();
+	draw();
+}
 
+
+void ListBoxBase::drawItems() const
+{
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.clipRect(mRect);
@@ -315,4 +318,6 @@ void ListBoxBase::draw() const
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>{highlightPosition, {mItemWidth, mItemHeight}}, NAS2D::Color{0, 185, 0, 50});
 
 	renderer.clipRectClear();
+
+	drawItems();
 }

@@ -38,9 +38,10 @@ public:
 	void refresh() override;
 
 	void update() override;
+	void draw() const override;
 
 private:
-	Warehouse* selectedWarehouse();
+	const Warehouse* selectedWarehouse() const;
 	void computeTotalWarehouseCapacity();
 
 	void fillListFromStructureList(const std::vector<Warehouse*>&);
@@ -68,8 +69,8 @@ private:
 
 	void filterButtonClicked();
 
-	void drawLeftPanel(NAS2D::Renderer&);
-	void drawRightPanel(NAS2D::Renderer&);
+	void drawLeftPanel(NAS2D::Renderer&) const;
+	void drawRightPanel(NAS2D::Renderer&) const;
 
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;

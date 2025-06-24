@@ -83,7 +83,7 @@ void NotificationArea::clear()
 }
 
 
-NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index)
+NAS2D::Rectangle<int> NotificationArea::notificationRect(std::size_t index) const
 {
 	auto rectPosition = position() + NAS2D::Vector{IconPadding.x, size().y - IconPaddedSize.y * static_cast<int>(index + 1)};
 	return NAS2D::Rectangle{rectPosition, IconSize};
@@ -131,7 +131,7 @@ void NotificationArea::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int
 }
 
 
-void NotificationArea::update()
+void NotificationArea::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 

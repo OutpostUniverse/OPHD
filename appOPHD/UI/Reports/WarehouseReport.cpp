@@ -130,9 +130,9 @@ void WarehouseReport::refresh()
 }
 
 
-Warehouse* WarehouseReport::selectedWarehouse()
+const Warehouse* WarehouseReport::selectedWarehouse() const
 {
-	return dynamic_cast<Warehouse*>(lstStructures.selectedStructure());
+	return dynamic_cast<const Warehouse*>(lstStructures.selectedStructure());
 }
 
 
@@ -325,7 +325,7 @@ void WarehouseReport::onStructureSelectionChange()
 }
 
 
-void WarehouseReport::drawLeftPanel(Renderer& renderer)
+void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 {
 	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, position().y + 40}, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, position().y + 62}, constants::PrimaryTextColor);
@@ -349,7 +349,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 }
 
 
-void WarehouseReport::drawRightPanel(Renderer& renderer)
+void WarehouseReport::drawRightPanel(Renderer& renderer) const
 {
 	const auto* warehouse = selectedWarehouse();
 	if (!warehouse) { return; }
@@ -362,7 +362,13 @@ void WarehouseReport::drawRightPanel(Renderer& renderer)
 
 void WarehouseReport::update()
 {
-	if (!visible()) { return; }
+	ControlContainer::update();
+	draw();
+}
+
+
+void WarehouseReport::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	// Left Panel
@@ -370,6 +376,4 @@ void WarehouseReport::update()
 	const auto position = NAS2D::Point{renderer.center().x, this->position().y};
 	renderer.drawLine(position + NAS2D::Vector{0, 10}, position + NAS2D::Vector{0, mRect.size.y - 10}, constants::PrimaryColor);
 	drawRightPanel(renderer);
-
-	ControlContainer::update();
 }

@@ -77,6 +77,12 @@ void StructureListBox::setSelected(const Structure* structure)
 }
 
 
+const Structure* StructureListBox::selectedStructure() const
+{
+	return !isItemSelected() ? nullptr : getItem(selectedIndex()).structure;
+}
+
+
 Structure* StructureListBox::selectedStructure()
 {
 	return !isItemSelected() ? nullptr : getItem(selectedIndex()).structure;

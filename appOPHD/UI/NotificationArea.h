@@ -56,10 +56,10 @@ public:
 	void push(Notification notification);
 	void clear();
 
-	void update() override;
+	void draw() const override;
 
 protected:
-	NAS2D::Rectangle<int> notificationRect(std::size_t index);
+	NAS2D::Rectangle<int> notificationRect(std::size_t index) const;
 	std::size_t notificationIndex(NAS2D::Point<int> pixelPosition);
 
 	void onMouseDown(NAS2D::MouseButton, NAS2D::Point<int> position);

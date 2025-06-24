@@ -45,6 +45,7 @@ public:
 
 protected:
 	void draw() const override;
+	void drawItems() const;
 
 	void clear();
 	void updateScrollLayout();

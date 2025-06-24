@@ -38,6 +38,7 @@ public:
 	void refresh() override;
 
 	void update() override;
+	void draw() const override;
 
 private:
 	void fillFactoryList(ProductType);
@@ -67,8 +68,8 @@ private:
 
 	void onResize() override;
 
-	void drawDetailPane(NAS2D::Renderer&);
-	void drawProductPane(NAS2D::Renderer&);
+	void drawDetailPane(NAS2D::Renderer&) const;
+	void drawProductPane(NAS2D::Renderer&) const;
 
 	void onVisibilityChange(bool visible) override;
 

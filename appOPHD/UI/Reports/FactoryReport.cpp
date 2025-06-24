@@ -451,7 +451,7 @@ void FactoryReport::onProductFilterSelectionChange()
 }
 
 
-void FactoryReport::drawDetailPane(Renderer& renderer)
+void FactoryReport::drawDetailPane(Renderer& renderer) const
 {
 	const auto startPoint = detailPanelRect.position;
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
@@ -492,7 +492,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 }
 
 
-void FactoryReport::drawProductPane(Renderer& renderer)
+void FactoryReport::drawProductPane(Renderer& renderer) const
 {
 	const auto originLeft = detailPanelRect.position + NAS2D::Vector{0, 180};
 	renderer.drawText(fontBigBold, "Production", originLeft, constants::PrimaryTextColor);
@@ -504,7 +504,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 		const auto productImagePosition = NAS2D::Point{originRight.x, lstProducts.position().y};
 		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), productImagePosition);
-		mTxtProductDescription.update();
+		mTxtProductDescription.draw();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
@@ -532,6 +532,13 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 
 void FactoryReport::update()
 {
+	ControlContainer::update();
+	draw();
+}
+
+
+void FactoryReport::draw() const
+{
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
@@ -544,6 +551,4 @@ void FactoryReport::update()
 		drawDetailPane(renderer);
 		drawProductPane(renderer);
 	}
-
-	ControlContainer::update();
 }
