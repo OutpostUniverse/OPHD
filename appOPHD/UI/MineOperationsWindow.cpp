@@ -142,6 +142,7 @@ void MineOperationsWindow::onUnassignTruck()
 
 void MineOperationsWindow::onCheckBoxChange()
 {
+	if (!mFacility) { return; }
 	auto& oreDeposit = mFacility->oreDeposit();
 	oreDeposit.miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
 	oreDeposit.miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
