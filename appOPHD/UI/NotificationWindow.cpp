@@ -26,7 +26,13 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	mNotification = notification;
 	title(mNotification.brief);
 	mMessageArea.text(mNotification.message);
-	mTakeMeThereVisible = mNotification.position.xy != NAS2D::Point<int>{-1, -1}; //\fixme magic value
+}
+
+
+void NotificationWindow::onVisibilityChange(bool)
+{
+	if (!enabled() || !visible()) { return; }
+	btnTakeMeThere.visible(mNotification.position.xy != NAS2D::Point<int>{-1, -1}); //\fixme magic value
 }
 
 
@@ -48,8 +54,6 @@ void NotificationWindow::update()
 	if (!visible()) { return; }
 
 	Window::update();
-
-	btnTakeMeThere.visible(mTakeMeThereVisible); // bit of a hack
 
 	const auto iconLocation = position() + NAS2D::Vector{10, 30};
 	drawNotificationIcon(iconLocation, mNotification.type, mIcons);
