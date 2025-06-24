@@ -36,8 +36,8 @@ public:
 
 	struct Notification
 	{
-		std::string brief{""};
-		std::string message{""};
+		std::string brief{};
+		std::string message{};
 		MapCoordinate position{{-1, -1}, 0};
 		NotificationType type{NotificationType::Information};
 
