@@ -16,6 +16,7 @@ public:
 	void update() override;
 
 protected:
+	void onVisibilityChange(bool visible) override;
 	void onClose();
 
 private:
