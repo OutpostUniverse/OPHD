@@ -15,9 +15,10 @@ public:
 
 	void update() override;
 
-private:
+protected:
 	void onClose();
 
+private:
 	Button btnClose;
 	Tile* mTile = nullptr;
 };
