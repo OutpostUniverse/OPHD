@@ -49,10 +49,7 @@ void TileInspector::update()
 	if (!visible())
 		return;
 
-	if (!mTile)
-		return;
-
-	if(!mTile->excavated())
+	if (!mTile || !mTile->excavated())
 	{
 		visible(false);
 		return;
