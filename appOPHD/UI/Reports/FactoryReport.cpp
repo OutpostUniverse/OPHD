@@ -532,6 +532,13 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 
 void FactoryReport::update()
 {
+	ControlContainer::update();
+	draw();
+}
+
+
+void FactoryReport::draw() const
+{
 	if (!visible()) { return; }
 	auto& renderer = Utility<Renderer>::get();
 
@@ -544,6 +551,4 @@ void FactoryReport::update()
 		drawDetailPane(renderer);
 		drawProductPane(renderer);
 	}
-
-	ControlContainer::update();
 }
