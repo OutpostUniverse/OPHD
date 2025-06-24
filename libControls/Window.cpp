@@ -91,5 +91,4 @@ void Window::draw() const
 void Window::title(const std::string& title)
 {
 	mTitle = title;
-	onTitleChanged();
 }

@@ -24,8 +24,6 @@ public:
 	void title(const std::string& title);
 	const std::string& title() const { return mTitle; }
 
-	virtual void onTitleChanged() {}
-
 protected:
 	void draw() const override;
 

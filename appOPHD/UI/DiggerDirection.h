@@ -18,8 +18,6 @@ public:
 
 	DiggerDirection(DirectionSelectedDelegate directionSelectedHandler);
 
-	void update() override;
-
 	void setParameters(Tile& tile);
 
 	void selectDown();

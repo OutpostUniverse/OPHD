@@ -85,13 +85,6 @@ void DiggerDirection::onCancel()
 }
 
 
-void DiggerDirection::update()
-{
-	if (!visible() || !mTile) { return; }
-	Window::update();
-}
-
-
 void DiggerDirection::selectDown()
 {
 	onDiggerDown();

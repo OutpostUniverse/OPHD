@@ -172,6 +172,17 @@ void StructureInspector::structure(Structure* structure)
 }
 
 
+void StructureInspector::onVisibilityChange(bool visible)
+{
+	Window::onVisibilityChange(visible);
+
+	if (visible && !mStructure)
+	{
+		throw std::runtime_error("StructureInspector needs a valid structure");
+	}
+}
+
+
 void StructureInspector::onClose()
 {
 	visible(false);
@@ -202,11 +213,6 @@ void StructureInspector::update()
 {
 	if (!visible()) { return; }
 	Window::update();
-
-	if (mStructure == nullptr)
-	{
-		throw std::runtime_error("Null pointer to structure within StructureInspector");
-	}
 
 	const auto genericStructureAttributes = buildGenericStringTable();
 	const auto specificAttributeTablePosition = genericStructureAttributes.area().crossYPoint() + NAS2D::Vector{0, 20 + constants::Margin};

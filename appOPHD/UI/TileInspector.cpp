@@ -49,15 +49,6 @@ void TileInspector::update()
 	if (!visible())
 		return;
 
-	if (!mTile)
-		return;
-
-	if(!mTile->excavated())
-	{
-		visible(false);
-		return;
-	}
-
 	Window::update();
 
 	auto position = mRect.position + NAS2D::Vector{5, 25};
@@ -79,6 +70,17 @@ void TileInspector::update()
 
 		position.y += lineSpacing;
 		drawLabelAndValue(position, "Yield: ", oreDepositYieldEnumToString(mTile->oreDeposit()->yield()));
+	}
+}
+
+
+void TileInspector::onVisibilityChange(bool isVisible)
+{
+	Window::onVisibilityChange(isVisible);
+
+	if (isVisible && (!mTile || !mTile->excavated()))
+	{
+		visible(false);
 	}
 }
 

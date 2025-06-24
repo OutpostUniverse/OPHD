@@ -70,6 +70,8 @@ void ControlContainer::bringToFront(Control* control)
 
 void ControlContainer::onVisibilityChange(bool visible)
 {
+	Control::onVisibilityChange(visible);
+
 	for (auto control : mControls) { control->visible(visible); }
 }
 

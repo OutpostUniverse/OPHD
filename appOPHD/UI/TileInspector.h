@@ -15,9 +15,11 @@ public:
 
 	void update() override;
 
-private:
+protected:
+	void onVisibilityChange(bool visible) override;
 	void onClose();
 
+private:
 	Button btnClose;
 	Tile* mTile = nullptr;
 };

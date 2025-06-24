@@ -237,8 +237,10 @@ void WarehouseReport::onResize()
 }
 
 
-void WarehouseReport::onVisibilityChange(bool /*visible*/)
+void WarehouseReport::onVisibilityChange(bool visible)
 {
+	Report::onVisibilityChange(visible);
+
 	setVisibility();
 }
 

@@ -37,8 +37,6 @@ public:
 	void showOpen(const std::string& directory);
 	void showSave(const std::string& directory);
 
-	void update() override;
-
 protected:
 	void scanDirectory(const std::string& directory);
 
