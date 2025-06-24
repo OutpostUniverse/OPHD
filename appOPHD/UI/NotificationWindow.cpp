@@ -29,8 +29,10 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 }
 
 
-void NotificationWindow::onVisibilityChange(bool)
+void NotificationWindow::onVisibilityChange(bool isVisible)
 {
+	Window::onVisibilityChange(isVisible);
+
 	if (!enabled() || !visible()) { return; }
 	btnTakeMeThere.visible(mNotification.hasMapCoordinate());
 }

@@ -203,8 +203,10 @@ void MineReport::onResize()
 }
 
 
-void MineReport::onVisibilityChange(bool /*visible*/)
+void MineReport::onVisibilityChange(bool visible)
 {
+	Report::onVisibilityChange(visible);
+
 	onManagementButtonsVisibilityChange();
 }
 

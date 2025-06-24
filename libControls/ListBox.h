@@ -265,8 +265,10 @@ protected:
 	}
 
 
-	void onVisibilityChange(bool /*visible*/) override
+	void onVisibilityChange(bool visible) override
 	{
+		Control::onVisibilityChange(visible);
+
 		updateScrollLayout();
 	}
 

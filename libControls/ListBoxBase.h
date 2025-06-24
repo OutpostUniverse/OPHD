@@ -49,7 +49,7 @@ protected:
 	void clear();
 	void updateScrollLayout();
 
-	void onVisibilityChange(bool) override;
+	void onVisibilityChange(bool visible) override;
 	void onResize() override;
 	void onSlideChange(ScrollBar::ValueType newPosition);
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);

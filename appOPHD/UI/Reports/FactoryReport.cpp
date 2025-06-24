@@ -294,6 +294,8 @@ void FactoryReport::onResize()
  */
 void FactoryReport::onVisibilityChange(bool visible)
 {
+	Report::onVisibilityChange(visible);
+
 	if (!selectedFactory) { return; }
 
 	StructureState state = selectedFactory->state();

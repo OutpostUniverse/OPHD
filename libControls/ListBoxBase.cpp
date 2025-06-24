@@ -126,8 +126,10 @@ void ListBoxBase::updateScrollLayout()
 }
 
 
-void ListBoxBase::onVisibilityChange(bool)
+void ListBoxBase::onVisibilityChange(bool visible)
 {
+	Control::onVisibilityChange(visible);
+
 	updateScrollLayout();
 }
 

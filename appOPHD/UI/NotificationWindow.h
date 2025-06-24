@@ -25,7 +25,7 @@ public:
 	void update() override;
 
 private:
-	void onVisibilityChange(bool) override;
+	void onVisibilityChange(bool isVisible) override;
 	void onOkayClicked();
 	void onTakeMeThereClicked();
 
