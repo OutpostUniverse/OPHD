@@ -56,7 +56,7 @@ public:
 	void push(Notification notification);
 	void clear();
 
-	void update() override;
+	void draw() const override;
 
 protected:
 	NAS2D::Rectangle<int> notificationRect(std::size_t index) const;

@@ -131,7 +131,7 @@ void NotificationArea::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int
 }
 
 
-void NotificationArea::update()
+void NotificationArea::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
