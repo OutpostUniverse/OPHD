@@ -40,7 +40,7 @@ public:
 	void update() override;
 
 private:
-	Warehouse* selectedWarehouse();
+	const Warehouse* selectedWarehouse() const;
 	void computeTotalWarehouseCapacity();
 
 	void fillListFromStructureList(const std::vector<Warehouse*>&);

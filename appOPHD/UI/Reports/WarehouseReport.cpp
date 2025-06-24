@@ -130,9 +130,9 @@ void WarehouseReport::refresh()
 }
 
 
-Warehouse* WarehouseReport::selectedWarehouse()
+const Warehouse* WarehouseReport::selectedWarehouse() const
 {
-	return dynamic_cast<Warehouse*>(lstStructures.selectedStructure());
+	return dynamic_cast<const Warehouse*>(lstStructures.selectedStructure());
 }
 
 
