@@ -362,7 +362,13 @@ void WarehouseReport::drawRightPanel(Renderer& renderer) const
 
 void WarehouseReport::update()
 {
-	if (!visible()) { return; }
+	ControlContainer::update();
+	draw();
+}
+
+
+void WarehouseReport::draw() const
+{
 	auto& renderer = Utility<Renderer>::get();
 
 	// Left Panel
@@ -370,6 +376,4 @@ void WarehouseReport::update()
 	const auto position = NAS2D::Point{renderer.center().x, this->position().y};
 	renderer.drawLine(position + NAS2D::Vector{0, 10}, position + NAS2D::Vector{0, mRect.size.y - 10}, constants::PrimaryColor);
 	drawRightPanel(renderer);
-
-	ControlContainer::update();
 }

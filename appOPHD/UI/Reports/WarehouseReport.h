@@ -38,6 +38,7 @@ public:
 	void refresh() override;
 
 	void update() override;
+	void draw() const override;
 
 private:
 	const Warehouse* selectedWarehouse() const;
