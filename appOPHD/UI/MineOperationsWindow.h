@@ -29,10 +29,7 @@ public:
 	void hide() override;
 
 protected:
-	void onCheckBoxCommonMetalsChange();
-	void onCheckBoxCommonMineralsChange();
-	void onCheckBoxRareMetalsChange();
-	void onCheckBoxRareMineralsChange();
+	void onCheckBoxChange();
 
 	void onOkay();
 	void onExtendShaft();
