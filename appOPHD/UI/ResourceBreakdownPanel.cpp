@@ -36,7 +36,7 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 }
 
 
-void ResourceBreakdownPanel::update()
+void ResourceBreakdownPanel::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
