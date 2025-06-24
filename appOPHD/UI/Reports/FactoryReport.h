@@ -67,8 +67,8 @@ private:
 
 	void onResize() override;
 
-	void drawDetailPane(NAS2D::Renderer&);
-	void drawProductPane(NAS2D::Renderer&);
+	void drawDetailPane(NAS2D::Renderer&) const;
+	void drawProductPane(NAS2D::Renderer&) const;
 
 	void onVisibilityChange(bool visible) override;
 

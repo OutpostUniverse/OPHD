@@ -451,7 +451,7 @@ void FactoryReport::onProductFilterSelectionChange()
 }
 
 
-void FactoryReport::drawDetailPane(Renderer& renderer)
+void FactoryReport::drawDetailPane(Renderer& renderer) const
 {
 	const auto startPoint = detailPanelRect.position;
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
@@ -492,7 +492,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer)
 }
 
 
-void FactoryReport::drawProductPane(Renderer& renderer)
+void FactoryReport::drawProductPane(Renderer& renderer) const
 {
 	const auto originLeft = detailPanelRect.position + NAS2D::Vector{0, 180};
 	renderer.drawText(fontBigBold, "Production", originLeft, constants::PrimaryTextColor);
