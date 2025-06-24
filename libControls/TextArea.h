@@ -17,9 +17,9 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-protected:
 	void draw() const override;
 
+protected:
 	void onResize() override;
 	void onTextChange();
 
