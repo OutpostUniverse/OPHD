@@ -40,6 +40,11 @@ public:
 		std::string message{""};
 		MapCoordinate position{{-1, -1}, 0};
 		NotificationType type{NotificationType::Information};
+
+		bool hasMapCoordinate() const
+		{
+			return position.xy != NAS2D::Point{-1, -1};
+		}
 	};
 
 	using NotificationClickedDelegate = NAS2D::Delegate<void(const Notification&)>;

@@ -32,7 +32,7 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 void NotificationWindow::onVisibilityChange(bool)
 {
 	if (!enabled() || !visible()) { return; }
-	btnTakeMeThere.visible(mNotification.position.xy != NAS2D::Point<int>{-1, -1}); //\fixme magic value
+	btnTakeMeThere.visible(mNotification.hasMapCoordinate());
 }
 
 
