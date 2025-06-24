@@ -28,11 +28,8 @@ public:
 	void update() override;
 	void hide() override;
 
-private:
-	void onCheckBoxCommonMetalsChange();
-	void onCheckBoxCommonMineralsChange();
-	void onCheckBoxRareMetalsChange();
-	void onCheckBoxRareMineralsChange();
+protected:
+	void onCheckBoxChange();
 
 	void onOkay();
 	void onExtendShaft();
@@ -41,14 +38,11 @@ private:
 	void onAssignTruck();
 	void onUnassignTruck();
 
+private:
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;
-
-	MineFacility* mFacility = nullptr;
-
 	const NAS2D::Image& mUiIcon;
 	const NAS2D::Image& mIcons;
-
 	NAS2D::RectangleSkin mPanel;
 
 	std::array<CheckBox, 4> chkResources;
@@ -60,5 +54,6 @@ private:
 	Button btnAssignTruck;
 	Button btnUnassignTruck;
 
+	MineFacility* mFacility = nullptr;
 	int mAvailableTrucks = 0;
 };

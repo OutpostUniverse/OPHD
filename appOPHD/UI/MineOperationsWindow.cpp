@@ -31,10 +31,10 @@ MineOperationsWindow::MineOperationsWindow() :
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{loadRectangleSkin("ui/skin/textbox_normal")},
 	chkResources{{
-		{ResourceNamesRefined[0], {this, &MineOperationsWindow::onCheckBoxCommonMetalsChange}},
-		{ResourceNamesRefined[1], {this, &MineOperationsWindow::onCheckBoxCommonMineralsChange}},
-		{ResourceNamesRefined[2], {this, &MineOperationsWindow::onCheckBoxRareMetalsChange}},
-		{ResourceNamesRefined[3], {this, &MineOperationsWindow::onCheckBoxRareMineralsChange}},
+		{ResourceNamesRefined[0], {this, &MineOperationsWindow::onCheckBoxChange}},
+		{ResourceNamesRefined[1], {this, &MineOperationsWindow::onCheckBoxChange}},
+		{ResourceNamesRefined[2], {this, &MineOperationsWindow::onCheckBoxChange}},
+		{ResourceNamesRefined[3], {this, &MineOperationsWindow::onCheckBoxChange}},
 	}},
 	btnIdle{"Idle", {this, &MineOperationsWindow::onIdle}},
 	btnExtendShaft{"Dig New Level", {this, &MineOperationsWindow::onExtendShaft}},
@@ -73,7 +73,7 @@ MineOperationsWindow::MineOperationsWindow() :
 
 void MineOperationsWindow::hide()
 {
-	Control::hide();
+	Window::hide();
 	mFacility = nullptr;
 }
 
@@ -140,27 +140,14 @@ void MineOperationsWindow::onUnassignTruck()
 }
 
 
-void MineOperationsWindow::onCheckBoxCommonMetalsChange()
+void MineOperationsWindow::onCheckBoxChange()
 {
-	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
-}
-
-
-void MineOperationsWindow::onCheckBoxCommonMineralsChange()
-{
-	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
-}
-
-
-void MineOperationsWindow::onCheckBoxRareMetalsChange()
-{
-	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
-}
-
-
-void MineOperationsWindow::onCheckBoxRareMineralsChange()
-{
-	mFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
+	if (!mFacility) { return; }
+	auto& oreDeposit = mFacility->oreDeposit();
+	oreDeposit.miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
+	oreDeposit.miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
+	oreDeposit.miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
+	oreDeposit.miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
 }
 
 

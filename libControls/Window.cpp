@@ -64,12 +64,6 @@ void Window::anchored(bool isAnchored)
 }
 
 
-void Window::show()
-{
-	Control::show();
-}
-
-
 void Window::update()
 {
 	draw();
