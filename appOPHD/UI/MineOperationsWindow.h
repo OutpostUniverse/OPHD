@@ -28,7 +28,7 @@ public:
 	void update() override;
 	void hide() override;
 
-private:
+protected:
 	void onCheckBoxCommonMetalsChange();
 	void onCheckBoxCommonMineralsChange();
 	void onCheckBoxRareMetalsChange();
@@ -41,6 +41,7 @@ private:
 	void onAssignTruck();
 	void onUnassignTruck();
 
+private:
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;
 
