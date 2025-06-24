@@ -44,12 +44,8 @@ protected:
 private:
 	const NAS2D::Font& mFont;
 	const NAS2D::Font& mFontBold;
-
-	MineFacility* mFacility = nullptr;
-
 	const NAS2D::Image& mUiIcon;
 	const NAS2D::Image& mIcons;
-
 	NAS2D::RectangleSkin mPanel;
 
 	std::array<CheckBox, 4> chkResources;
@@ -61,5 +57,6 @@ private:
 	Button btnAssignTruck;
 	Button btnUnassignTruck;
 
+	MineFacility* mFacility = nullptr;
 	int mAvailableTrucks = 0;
 };
