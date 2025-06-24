@@ -19,8 +19,6 @@ public:
 
 	void anchored(bool isAnchored);
 
-	void show() override;
-
 	void update() override;
 
 	void title(const std::string& title);
