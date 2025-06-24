@@ -504,7 +504,7 @@ void FactoryReport::drawProductPane(Renderer& renderer)
 		const auto productImagePosition = NAS2D::Point{originRight.x, lstProducts.position().y};
 		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), productImagePosition);
-		mTxtProductDescription.update();
+		mTxtProductDescription.draw();
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
