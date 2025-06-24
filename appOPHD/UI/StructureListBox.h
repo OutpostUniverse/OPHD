@@ -28,6 +28,7 @@ public:
 	void addItem(Structure* structure, std::string stateDescription = std::string{});
 	void setSelected(const Structure*);
 
+	const Structure* selectedStructure() const;
 	Structure* selectedStructure();
 
 	StructureListBoxItem* last();
