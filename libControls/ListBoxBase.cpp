@@ -274,7 +274,6 @@ void ListBoxBase::update()
 	if (!visible()) { return; }
 	mScrollBar.update();
 	draw();
-	drawItems();
 }
 
 
@@ -319,4 +318,6 @@ void ListBoxBase::draw() const
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>{highlightPosition, {mItemWidth, mItemHeight}}, NAS2D::Color{0, 185, 0, 50});
 
 	renderer.clipRectClear();
+
+	drawItems();
 }
