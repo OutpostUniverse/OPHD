@@ -25,6 +25,7 @@ public:
 	void update() override;
 
 private:
+	void onVisibilityChange(bool) override;
 	void onOkayClicked();
 	void onTakeMeThereClicked();
 
@@ -34,7 +35,6 @@ private:
 	Button btnOkay{"Okay", {this, &NotificationWindow::onOkayClicked}};
 	Button btnTakeMeThere{"Take Me There", {this, &NotificationWindow::onTakeMeThereClicked}};
 	TextArea mMessageArea;
-	bool mTakeMeThereVisible{false};
 
 	TakeMeThereDelegate mTakeMeThereHandler;
 };
