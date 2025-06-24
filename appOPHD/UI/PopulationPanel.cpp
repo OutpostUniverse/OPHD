@@ -80,7 +80,7 @@ PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& po
 }
 
 
-void PopulationPanel::update()
+void PopulationPanel::draw() const
 {
 	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
