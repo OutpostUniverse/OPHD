@@ -325,7 +325,7 @@ void WarehouseReport::onStructureSelectionChange()
 }
 
 
-void WarehouseReport::drawLeftPanel(Renderer& renderer)
+void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 {
 	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, position().y + 40}, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, position().y + 62}, constants::PrimaryTextColor);
@@ -349,7 +349,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer)
 }
 
 
-void WarehouseReport::drawRightPanel(Renderer& renderer)
+void WarehouseReport::drawRightPanel(Renderer& renderer) const
 {
 	const auto* warehouse = selectedWarehouse();
 	if (!warehouse) { return; }
