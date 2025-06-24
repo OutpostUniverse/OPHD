@@ -73,7 +73,7 @@ MineOperationsWindow::MineOperationsWindow() :
 
 void MineOperationsWindow::hide()
 {
-	Control::hide();
+	Window::hide();
 	mFacility = nullptr;
 }
 
