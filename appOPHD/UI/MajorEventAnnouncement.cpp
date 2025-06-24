@@ -75,12 +75,8 @@ void MajorEventAnnouncement::onColonyShipCrash(WindowStack& windowStack, const C
 }
 
 
-void MajorEventAnnouncement::update()
+void MajorEventAnnouncement::drawClientArea() const
 {
-	if (!visible()) { return; }
-
-	Window::update();
-
 	auto& renderer = Utility<Renderer>::get();
 
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});

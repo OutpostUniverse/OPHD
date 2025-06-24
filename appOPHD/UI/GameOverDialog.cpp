@@ -20,12 +20,8 @@ GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
 }
 
 
-void GameOverDialog::update()
+void GameOverDialog::drawClientArea() const
 {
-	if (!visible()) { return; }
-
-	Window::update();
-
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});

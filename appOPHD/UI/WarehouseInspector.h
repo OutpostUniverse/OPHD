@@ -18,7 +18,7 @@ public:
 	void warehouse(const Warehouse* w);
 
 	void hide() override;
-	void update() override;
+	void drawClientArea() const override;
 
 private:
 	void onClose();

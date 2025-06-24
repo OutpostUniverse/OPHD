@@ -22,7 +22,7 @@ public:
 
 	void notification(const NotificationArea::Notification&);
 
-	void update() override;
+	void drawClientArea() const override;
 
 private:
 	void onVisibilityChange(bool isVisible) override;

@@ -209,11 +209,8 @@ StringTable StructureInspector::buildSpecificStringTable(NAS2D::Point<int> posit
 }
 
 
-void StructureInspector::update()
+void StructureInspector::drawClientArea() const
 {
-	if (!visible()) { return; }
-	Window::update();
-
 	const auto genericStructureAttributes = buildGenericStringTable();
 	const auto specificAttributeTablePosition = genericStructureAttributes.area().crossYPoint() + NAS2D::Vector{0, 20 + constants::Margin};
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);

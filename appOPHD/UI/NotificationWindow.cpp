@@ -51,12 +51,8 @@ void NotificationWindow::onTakeMeThereClicked()
 }
 
 
-void NotificationWindow::update()
+void NotificationWindow::drawClientArea() const
 {
-	if (!visible()) { return; }
-
-	Window::update();
-
 	const auto iconLocation = position() + NAS2D::Vector{10, 30};
 	drawNotificationIcon(iconLocation, mNotification.type, mIcons);
 }

@@ -76,6 +76,13 @@ void Window::draw() const
 {
 	if (!visible()) { return; }
 
+	drawTitleBar();
+	drawClientArea();
+}
+
+
+void Window::drawTitleBar() const
+{
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.drawImage(mTitleBarLeft, mRect.position);

@@ -26,6 +26,8 @@ public:
 
 protected:
 	void draw() const override;
+	void drawTitleBar() const;
+	virtual void drawClientArea() const {}
 
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);

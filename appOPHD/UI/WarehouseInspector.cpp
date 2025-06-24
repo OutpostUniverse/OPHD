@@ -43,12 +43,8 @@ void WarehouseInspector::hide()
 }
 
 
-void WarehouseInspector::update()
+void WarehouseInspector::drawClientArea() const
 {
-	if (!visible()) { return; }
-
-	Window::update();
-
 	const auto& pool = mWarehouse->products();
 
 	const int labelWidth = 100;

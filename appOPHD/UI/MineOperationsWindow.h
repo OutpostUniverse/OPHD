@@ -25,7 +25,7 @@ public:
 
 	void updateTruckAvailability();
 
-	void update() override;
+	void drawClientArea() const override;
 	void hide() override;
 
 protected:

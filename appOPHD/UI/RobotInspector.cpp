@@ -98,11 +98,8 @@ void RobotInspector::onCancel()
 }
 
 
-void RobotInspector::update()
+void RobotInspector::drawClientArea() const
 {
-	if (!visible()) { return; }
-	Window::update();
-
 	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
 
