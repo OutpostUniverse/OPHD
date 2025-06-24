@@ -22,6 +22,7 @@ public:
 	void update() override;
 
 protected:
+	void onVisibilityChange(bool visible) override;
 	void onClose();
 
 	StringTable buildGenericStringTable() const;
