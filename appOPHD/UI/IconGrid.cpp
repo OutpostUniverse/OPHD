@@ -195,10 +195,8 @@ void IconGrid::hide()
 }
 
 
-void IconGrid::update()
+void IconGrid::draw() const
 {
-	if (!visible()) { return; }
-
 	auto& renderer = Utility<Renderer>::get();
 
 	mSkin.draw(renderer, mRect);
