@@ -276,6 +276,12 @@ void ListBoxBase::update()
 	draw();
 	mScrollBar.update();
 
+	drawItems();
+}
+
+
+void ListBoxBase::drawItems() const
+{
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	renderer.clipRect(mRect);
