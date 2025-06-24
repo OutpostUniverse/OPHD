@@ -44,13 +44,8 @@ TileInspector::TileInspector() :
 }
 
 
-void TileInspector::update()
+void TileInspector::drawClientArea() const
 {
-	if (!visible())
-		return;
-
-	Window::update();
-
 	auto position = mRect.position + NAS2D::Vector{5, 25};
 	const auto tilePosition = mTile->xy();
 	drawLabelAndValue(position, "Location: ", NAS2D::stringFrom(tilePosition));

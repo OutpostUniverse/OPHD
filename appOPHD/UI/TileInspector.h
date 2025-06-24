@@ -13,7 +13,7 @@ public:
 
 	void tile(Tile& tile) { mTile = &tile; }
 
-	void update() override;
+	void drawClientArea() const override;
 
 protected:
 	void onVisibilityChange(bool visible) override;

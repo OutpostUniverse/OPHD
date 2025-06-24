@@ -26,7 +26,7 @@ public:
 
 	void hide() override;
 
-	void update() override;
+	void drawClientArea() const override;
 
 protected:
 	void onProductSelectionChange(const IconGrid::Item*);

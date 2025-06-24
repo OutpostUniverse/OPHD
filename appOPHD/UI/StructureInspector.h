@@ -19,7 +19,7 @@ public:
 	void structure(Structure* structure);
 	Structure* structure() { return mStructure; }
 
-	void update() override;
+	void drawClientArea() const override;
 
 protected:
 	void onVisibilityChange(bool visible) override;

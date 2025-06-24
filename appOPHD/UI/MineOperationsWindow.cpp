@@ -157,12 +157,8 @@ void MineOperationsWindow::updateTruckAvailability()
 }
 
 
-void MineOperationsWindow::update()
+void MineOperationsWindow::drawClientArea() const
 {
-	if (!visible()) { return; }
-
-	Window::update();
-
 	auto& renderer = Utility<Renderer>::get();
 
 	const auto origin = mRect.position;

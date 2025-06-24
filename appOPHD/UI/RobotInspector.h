@@ -15,7 +15,7 @@ public:
 	void focusOnRobot(Robot*);
 	const Robot* focusedRobot() const { return mRobot; }
 
-	void update() override;
+	void drawClientArea() const override;
 
 private:
 	void onCancelOrders();

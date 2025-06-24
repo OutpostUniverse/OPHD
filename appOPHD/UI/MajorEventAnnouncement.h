@@ -24,7 +24,7 @@ public:
 
 	void onColonyShipCrash(WindowStack&, const ColonyShipData&);
 
-	void update() override;
+	void drawClientArea() const override;
 
 private:
 	void onClose();
