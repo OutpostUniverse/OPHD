@@ -66,6 +66,7 @@ public:
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
 		mContext{ getDefaultFont() },
+		mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBox::onSlideChange}},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
@@ -74,7 +75,6 @@ public:
 
 		mScrollBar.max(0);
 		mScrollBar.value(0);
-		mScrollBar.change().connect({this, &ListBox::onSlideChange});
 		updateScrollLayout();
 	}
 
