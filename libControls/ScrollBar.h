@@ -8,6 +8,7 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+#include <NAS2D/Signal/Signal.h>
 
 
 class ScrollBar : public Control
