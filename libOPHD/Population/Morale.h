@@ -6,9 +6,7 @@
 #include <vector>
 #include <string>
 
-/**
- * Morale modifier values.
- */
+
 struct MoraleModifier
 {
 	int researchBonus{0};
