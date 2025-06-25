@@ -14,7 +14,6 @@
 #include <NAS2D/Renderer/Fade.h>
 
 #include <string>
-#include <memory>
 
 
 enum class Difficulty;
