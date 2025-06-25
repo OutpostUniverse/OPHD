@@ -46,15 +46,15 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 {
 	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
 
-	auto tooltipPosition = item.first->position();
+	auto toolTipPosition = item.first->position();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto maxX = renderer.size().x - toolTipSize.x;
-	tooltipPosition.x = (mouseX > maxX) ? maxX : mouseX;
+	toolTipPosition.x = (mouseX > maxX) ? maxX : mouseX;
 
-	tooltipPosition.y += (tooltipPosition.y < toolTipSize.y) ? toolTipSize.y : -toolTipSize.y;
+	toolTipPosition.y += (toolTipPosition.y < toolTipSize.y) ? toolTipSize.y : -toolTipSize.y;
 
-	area({tooltipPosition, toolTipSize});
+	area({toolTipPosition, toolTipSize});
 }
 
 
