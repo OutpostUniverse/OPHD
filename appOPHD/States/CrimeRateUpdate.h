@@ -17,9 +17,9 @@ public:
 
 	void update(const std::vector<std::vector<Tile*>>& policeOverlays);
 
-	int meanCrimeRate() const { return mMeanCrimeRate; }
-	std::vector<MoraleChangeEntry> moraleChanges() const { return mMoraleChanges; }
-	std::vector<Structure*> structuresCommittingCrimes() const { return mStructuresCommittingCrimes; }
+	int meanCrimeRate() const;
+	std::vector<MoraleChangeEntry> moraleChanges() const;
+	std::vector<Structure*> structuresCommittingCrimes() const;
 
 private:
 	const Difficulty& mDifficulty;

@@ -83,6 +83,24 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 }
 
 
+int CrimeRateUpdate::meanCrimeRate() const
+{
+	return mMeanCrimeRate;
+}
+
+
+std::vector<MoraleChangeEntry> CrimeRateUpdate::moraleChanges() const
+{
+	return mMoraleChanges;
+}
+
+
+std::vector<Structure*> CrimeRateUpdate::structuresCommittingCrimes() const
+{
+	return mStructuresCommittingCrimes;
+}
+
+
 int CrimeRateUpdate::calculateMoraleChange() const
 {
 	if (mMeanCrimeRate > 50)
