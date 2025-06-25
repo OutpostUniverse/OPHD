@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MoraleChangeEntry.h"
+
 #include <cstdint>
 #include <vector>
 #include <string>
@@ -15,11 +17,6 @@ struct MoraleModifier
 	int mortalityRate{0};
 };
 
-struct MoraleChangeEntry
-{
-	std::string description{};
-	int value{0};
-};
 
 class Morale
 {
