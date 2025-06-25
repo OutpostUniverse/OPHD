@@ -15,6 +15,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <memory>
+#include <stdexcept>
 
 
 namespace
