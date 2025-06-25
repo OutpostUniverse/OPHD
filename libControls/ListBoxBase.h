@@ -76,13 +76,14 @@ protected:
 	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 private:
-	std::size_t mHighlightIndex = NoSelection;
-	std::size_t mSelectedIndex = NoSelection;
-	unsigned int mScrollOffsetInPixels = 0;
+	ScrollBar mScrollBar;
 
 	int mItemHeight = 1;
 	int mItemWidth = 0;
 
+	unsigned int mScrollOffsetInPixels = 0;
+	std::size_t mHighlightIndex = NoSelection;
+	std::size_t mSelectedIndex = NoSelection;
+
 	SelectionChangedDelegate mSelectionChangedHandler;
-	ScrollBar mScrollBar;
 };
