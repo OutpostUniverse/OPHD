@@ -8,6 +8,21 @@
 
 #include <NAS2D/Utility.h>
 
+#include <map>
+
+
+namespace
+{
+	// Lower number indicates criminal activity occurs more often
+	std::map<Difficulty, float> chanceCrimeOccurs
+	{
+		{Difficulty::Beginner, 0.5f},
+		{Difficulty::Easy, 0.75f},
+		{Difficulty::Medium, 1.0f},
+		{Difficulty::Hard, 2.0f}
+	};
+}
+
 
 CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
 	mDifficulty{difficulty}

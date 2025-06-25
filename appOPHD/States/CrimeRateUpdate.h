@@ -3,7 +3,6 @@
 #include <libOPHD/EnumDifficulty.h>
 
 #include <vector>
-#include <map>
 #include <string>
 #include <utility>
 
@@ -24,15 +23,6 @@ public:
 	std::vector<Structure*> structuresCommittingCrimes() const { return mStructuresCommittingCrimes; }
 
 private:
-	// Lower number indicates criminal activity occurs more often
-	std::map<Difficulty, float> chanceCrimeOccurs
-	{
-		{Difficulty::Beginner, 0.5f},
-		{Difficulty::Easy, 0.75f},
-		{Difficulty::Medium, 1.0f},
-		{Difficulty::Hard, 2.0f}
-	};
-
 	const Difficulty& mDifficulty;
 	int mMeanCrimeRate{0};
 	std::vector<std::pair<std::string, int>> mMoraleChanges;
