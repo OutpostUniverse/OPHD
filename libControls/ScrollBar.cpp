@@ -36,13 +36,15 @@ namespace
 }
 
 
-ScrollBar::ScrollBar(ScrollBarType scrollBarType) :
-	ScrollBar{loadSkins(scrollBarType), scrollBarType}
-{}
+ScrollBar::ScrollBar(ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
+	ScrollBar{loadSkins(scrollBarType), scrollBarType, valueChangeHandler}
+{
+}
 
 
-ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType) :
+ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
 	mScrollBarType{scrollBarType},
+	mValueChangeHandler{valueChangeHandler},
 	mSkins{skins}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -73,7 +75,7 @@ void ScrollBar::value(ValueType newValue)
 	mValue = std::clamp<ValueType>(newValue, 0, mMax);
 	if (mValue != oldValue)
 	{
-		mSignal(mValue);
+		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
 	}
 }
 

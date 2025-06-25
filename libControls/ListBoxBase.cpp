@@ -14,6 +14,7 @@ const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max
 
 
 ListBoxBase::ListBoxBase(SelectionChangedDelegate selectionChangedHandler) :
+	mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBoxBase::onSlideChange}},
 	mSelectionChangedHandler{selectionChangedHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
@@ -23,7 +24,6 @@ ListBoxBase::ListBoxBase(SelectionChangedDelegate selectionChangedHandler) :
 
 	mScrollBar.max(0);
 	mScrollBar.value(0);
-	mScrollBar.change().connect({this, &ListBoxBase::onSlideChange});
 }
 
 

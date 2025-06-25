@@ -65,7 +65,8 @@ public:
 
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
-		mContext{ getDefaultFont() },
+		mContext{getDefaultFont()},
+		mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBox::onSlideChange}},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
@@ -74,7 +75,6 @@ public:
 
 		mScrollBar.max(0);
 		mScrollBar.value(0);
-		mScrollBar.change().connect({this, &ListBox::onSlideChange});
 		updateScrollLayout();
 	}
 
@@ -311,14 +311,13 @@ private:
 private:
 	typename ListBoxItem::Context mContext;
 
-	std::size_t mHighlightIndex = NoSelection;
-	std::size_t mSelectedIndex = 0;
-	std::size_t mScrollOffsetInPixels = 0;
-
-	std::vector<ListBoxItem> mItems;
-
+	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mClientRect;
 
+	std::size_t mScrollOffsetInPixels = 0;
+	std::size_t mHighlightIndex = NoSelection;
+	std::size_t mSelectedIndex = 0;
+
+	std::vector<ListBoxItem> mItems;
 	SelectionChangedDelegate mSelectionChangedHandler;
-	ScrollBar mScrollBar;
 };
