@@ -53,7 +53,7 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 		// Crime Rate of 0% means no crime
 		// Crime Rate of 100% means crime occurs 10% of the time on medium difficulty
 		// chanceCrimeOccurs multiplier increases or decreases chance based on difficulty
-		if (structure->crimeRate() * chanceCrimeOccursPercent[mDifficulty] / 100 + randomNumber.generate<int>(0, 1000) > 1000)
+		if (structure->crimeRate() * chanceCrimeOccursPercent[mDifficulty] + randomNumber.generate<int>(0, 100000) > 100000)
 		{
 			mStructuresCommittingCrimes.push_back(structure);
 		}
