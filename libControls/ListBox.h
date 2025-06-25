@@ -311,14 +311,13 @@ private:
 private:
 	typename ListBoxItem::Context mContext;
 
-	std::size_t mHighlightIndex = NoSelection;
-	std::size_t mSelectedIndex = 0;
-	std::size_t mScrollOffsetInPixels = 0;
-
-	std::vector<ListBoxItem> mItems;
-
+	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mClientRect;
 
+	std::size_t mScrollOffsetInPixels = 0;
+	std::size_t mHighlightIndex = NoSelection;
+	std::size_t mSelectedIndex = 0;
+
+	std::vector<ListBoxItem> mItems;
 	SelectionChangedDelegate mSelectionChangedHandler;
-	ScrollBar mScrollBar;
 };
