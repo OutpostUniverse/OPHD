@@ -5,7 +5,6 @@
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Signal/Signal.h>
 
