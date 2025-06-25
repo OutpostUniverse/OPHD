@@ -105,10 +105,10 @@ void CrimeRateUpdate::updateMoraleChanges()
 
 	if (moraleChange > 0)
 	{
-		mMoraleChanges.push_back(std::make_pair("Low Crime Rate", moraleChange));
+		mMoraleChanges.push_back({"Low Crime Rate", moraleChange});
 	}
 	else if (moraleChange < 0)
 	{
-		mMoraleChanges.push_back(std::make_pair("High Crime Rate", moraleChange));
+		mMoraleChanges.push_back({"High Crime Rate", moraleChange});
 	}
 }

@@ -59,7 +59,7 @@ void ToolTip::add(Control& c, const std::string& str)
 		}
 	}
 
-	mControls.push_back(std::make_pair(&c, str));
+	mControls.push_back({&c, str});
 }
 
 
