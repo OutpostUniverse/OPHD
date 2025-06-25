@@ -44,10 +44,9 @@ ScrollBar::ScrollBar(ScrollBarType scrollBarType, ValueChangeDelegate valueChang
 
 ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
 	mScrollBarType{scrollBarType},
+	mValueChangeHandler{valueChangeHandler},
 	mSkins{skins}
 {
-	if (valueChangeHandler) { mSignal.connect(valueChangeHandler); }
-
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ScrollBar::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &ScrollBar::onMouseUp});
@@ -76,7 +75,7 @@ void ScrollBar::value(ValueType newValue)
 	mValue = std::clamp<ValueType>(newValue, 0, mMax);
 	if (mValue != oldValue)
 	{
-		mSignal(mValue);
+		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
 	}
 }
 

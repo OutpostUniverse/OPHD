@@ -6,7 +6,6 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 
 
@@ -33,7 +32,6 @@ public:
 	};
 
 	using ValueType = int;
-	using ValueChangeSignal = NAS2D::Signal<ValueType>;
 	using ValueChangeDelegate = NAS2D::Delegate<void(ValueType)>;
 
 
@@ -66,7 +64,7 @@ private:
 	ScrollBarType mScrollBarType{ScrollBarType::Vertical};
 	ValueType mValue{0};
 	ValueType mMax{0};
-	ValueChangeSignal mSignal;
+	ValueChangeDelegate mValueChangeHandler;
 
 	// ScrollBar button responses
 	NAS2D::Timer mTimer;
