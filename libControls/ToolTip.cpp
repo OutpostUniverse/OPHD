@@ -3,6 +3,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <string>
 #include <sstream>

@@ -14,6 +14,8 @@
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <stdexcept>
+
 
 namespace
 {
@@ -169,8 +171,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 		return;
 	}
 
-	auto newGameState = std::make_unique<GameState>(saveGamePath);
-	mReturnState = newGameState.release();
+	mReturnState = new GameState{saveGamePath};
 }
 
 

@@ -6,12 +6,17 @@
 #include "TextField.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 
 #include <cstddef>
+
+
+namespace NAS2D
+{
+	enum class MouseButton;
+}
 
 
 class ComboBox : public ControlContainer

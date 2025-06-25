@@ -13,6 +13,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
+#include <NAS2D/Configuration.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/StateManager.h>
 #include <NAS2D/Resource/Image.h>

@@ -2,13 +2,18 @@
 
 #include "ControlContainer.h"
 
-#include <NAS2D/Resource/Font.h>
-#include <NAS2D/Resource/Image.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
 #include <string>
+
+
+namespace NAS2D
+{
+	class Font;
+	class Image;
+}
 
 
 class Window : public ControlContainer

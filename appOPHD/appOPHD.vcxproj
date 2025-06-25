@@ -283,6 +283,7 @@
     <ClCompile Include="UI\TileInspector.cpp" />
     <ClCompile Include="UI\TrendLabel.cpp" />
     <ClCompile Include="UI\WarehouseInspector.cpp" />
+    <ClCompile Include="WindowEventWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cache.h" />

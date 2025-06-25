@@ -12,7 +12,6 @@
 #include <string>
 #include <vector>
 #include <array>
-#include <utility>
 
 
 namespace NAS2D

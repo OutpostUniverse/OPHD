@@ -3,11 +3,16 @@
 #include "Control.h"
 
 #include <NAS2D/Timer.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
+#include <NAS2D/Signal/Signal.h>
+
+
+namespace NAS2D
+{
+	enum class MouseButton;
+}
 
 
 class ScrollBar : public Control

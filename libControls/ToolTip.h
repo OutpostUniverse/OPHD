@@ -4,11 +4,16 @@
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Timer.h>
 
 #include <utility>
 #include <vector>
+
+
+namespace NAS2D
+{
+	class Font;
+}
 
 
 class ToolTip : public Control

@@ -1,20 +1,19 @@
 #pragma once
 
-#include "Planet.h"
 #include "MapViewState.h"
 #include "ReportsState.h"
 #include "ColonyShip.h"
 
 #include "../UI/FileIo.h"
 
+#include <libOPHD/PlanetAttributes.h>
+
 #include <NAS2D/State.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Fade.h>
-#include <NAS2D/ParserHelper.h>
 
 #include <string>
-#include <memory>
 
 
 enum class Difficulty;
