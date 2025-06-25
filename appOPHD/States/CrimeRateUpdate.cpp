@@ -13,7 +13,6 @@
 
 namespace
 {
-	// Lower number indicates criminal activity occurs more often
 	std::map<Difficulty, float> chanceCrimeOccurs
 	{
 		{Difficulty::Beginner, 0.5f},
