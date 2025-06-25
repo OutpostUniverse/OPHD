@@ -3,10 +3,15 @@
 #include "Control.h"
 
 #include <NAS2D/Renderer/Color.h>
-#include <NAS2D/Resource/Font.h>
 
 #include <string>
 #include <vector>
+
+
+namespace NAS2D
+{
+	class Font;
+}
 
 
 class TextArea : public Control
