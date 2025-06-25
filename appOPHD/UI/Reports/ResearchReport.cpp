@@ -15,6 +15,8 @@
 
 #include <array>
 #include <vector>
+#include <algorithm>
+
 
 extern NAS2D::Point<int> MOUSE_COORDS;	// <-- Yuck, really need to find a better way to
 										// poll mouse position. Might make sense to add a

@@ -28,6 +28,7 @@
 #include <array>
 #include <cfloat>
 #include <map>
+#include <algorithm>
 
 
 using namespace NAS2D;
