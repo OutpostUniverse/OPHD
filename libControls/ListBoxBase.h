@@ -4,13 +4,18 @@
 #include "ScrollBar.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Color.h>
 
 #include <string>
 #include <cstddef>
+
+
+namespace NAS2D
+{
+	enum class MouseButton;
+}
 
 
 /**
