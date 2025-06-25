@@ -13,12 +13,12 @@
 
 namespace
 {
-	std::map<Difficulty, float> chanceCrimeOccurs
+	std::map<Difficulty, int> chanceCrimeOccursPercent
 	{
-		{Difficulty::Beginner, 0.5f},
-		{Difficulty::Easy, 0.75f},
-		{Difficulty::Medium, 1.0f},
-		{Difficulty::Hard, 2.0f}
+		{Difficulty::Beginner, 50},
+		{Difficulty::Easy, 75},
+		{Difficulty::Medium, 100},
+		{Difficulty::Hard, 200}
 	};
 }
 
@@ -53,7 +53,7 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 		// Crime Rate of 0% means no crime
 		// Crime Rate of 100% means crime occurs 10% of the time on medium difficulty
 		// chanceCrimeOccurs multiplier increases or decreases chance based on difficulty
-		if (static_cast<int>(static_cast<float>(structure->crimeRate()) * chanceCrimeOccurs[mDifficulty]) + randomNumber.generate<int>(0, 1000) > 1000)
+		if (structure->crimeRate() * chanceCrimeOccursPercent[mDifficulty] / 100 + randomNumber.generate<int>(0, 1000) > 1000)
 		{
 			mStructuresCommittingCrimes.push_back(structure);
 		}
