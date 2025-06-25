@@ -49,7 +49,6 @@ public:
 	void max(ValueType newMax);
 
 	void update() override;
-	ValueChangeSignal::Source& change() { return mSignal; }
 
 protected:
 	void draw() const override;
