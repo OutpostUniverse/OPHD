@@ -6,6 +6,7 @@
 #include <NAS2D/Resource/Font.h>
 
 #include <string>
+#include <vector>
 
 
 class TextArea : public Control
