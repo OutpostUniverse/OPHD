@@ -5,7 +5,6 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/StringUtils.h>
 
-#include <utility>
 #include <algorithm>
 
 
