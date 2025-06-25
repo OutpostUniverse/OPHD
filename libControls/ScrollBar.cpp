@@ -37,9 +37,8 @@ namespace
 
 
 ScrollBar::ScrollBar(ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
-	ScrollBar{loadSkins(scrollBarType), scrollBarType}
+	ScrollBar{loadSkins(scrollBarType), scrollBarType, valueChangeHandler}
 {
-	if (valueChangeHandler) { mSignal.connect(valueChangeHandler); }
 }
 
 
