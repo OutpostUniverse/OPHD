@@ -7,6 +7,7 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 namespace NAS2D
@@ -33,9 +34,11 @@ public:
 
 	using ValueType = int;
 	using ValueChangeSignal = NAS2D::Signal<ValueType>;
+	using ValueChangeDelegate = NAS2D::Delegate<void(ValueType)>;
 
-	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical);
-	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical);
+
+	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical, ValueChangeDelegate valueChangeHandler = {});
+	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical, ValueChangeDelegate valueChangeHandler = {});
 	~ScrollBar() override;
 
 	ValueType value() const;

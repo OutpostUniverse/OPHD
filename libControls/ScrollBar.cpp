@@ -36,15 +36,19 @@ namespace
 }
 
 
-ScrollBar::ScrollBar(ScrollBarType scrollBarType) :
+ScrollBar::ScrollBar(ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
 	ScrollBar{loadSkins(scrollBarType), scrollBarType}
-{}
+{
+	if (valueChangeHandler) { mSignal.connect(valueChangeHandler); }
+}
 
 
-ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType) :
+ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
 	mScrollBarType{scrollBarType},
 	mSkins{skins}
 {
+	if (valueChangeHandler) { mSignal.connect(valueChangeHandler); }
+
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ScrollBar::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &ScrollBar::onMouseUp});
