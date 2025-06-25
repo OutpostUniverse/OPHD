@@ -178,16 +178,16 @@ void MapViewState::updateMorale()
 	mMorale.journalMoraleChange({"Food Production Issues", -foodProductionHit});
 
 
-	for (const auto& moraleReason : mCrimeRateUpdate.moraleChanges())
+	for (const auto& moraleChangeEntry : mCrimeRateUpdate.moraleChanges())
 	{
-		mMorale.journalMoraleChange({moraleReason.first, moraleReason.second});
+		mMorale.journalMoraleChange(moraleChangeEntry);
 	}
 
 	mPopulationPanel.crimeRate(mCrimeRateUpdate.meanCrimeRate());
 
-	for (const auto& moraleReason : mCrimeExecution.moraleChanges())
+	for (const auto& moraleChangeEntry : mCrimeExecution.moraleChanges())
 	{
-		mMorale.journalMoraleChange({moraleReason.first, moraleReason.second});
+		mMorale.journalMoraleChange(moraleChangeEntry);
 	}
 }
 

@@ -1,11 +1,12 @@
 #pragma once
 
+#include <libOPHD/Population/MoraleChangeEntry.h>
+
 #include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
 #include <array>
 #include <string>
-#include <utility>
 
 
 enum class Difficulty;
@@ -21,7 +22,7 @@ public:
 	CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler);
 
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
-	std::vector<std::pair<std::string, int>> moraleChanges() const { return mMoraleChanges; }
+	std::vector<MoraleChangeEntry> moraleChanges() const { return mMoraleChanges; }
 
 protected:
 	void stealFood(FoodProduction& structure);
@@ -32,6 +33,6 @@ protected:
 
 private:
 	const Difficulty& mDifficulty;
-	std::vector<std::pair<std::string, int>> mMoraleChanges;
+	std::vector<MoraleChangeEntry> mMoraleChanges;
 	CrimeEventDelegate mCrimeEventHandler;
 };
