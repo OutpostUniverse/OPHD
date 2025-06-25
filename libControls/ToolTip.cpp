@@ -54,8 +54,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 
 	tooltipPosition.y += (tooltipPosition.y < toolTipSize.y) ? toolTipSize.y : -toolTipSize.y;
 
-	position(tooltipPosition);
-	size(toolTipSize);
+	area({tooltipPosition, toolTipSize});
 }
 
 
