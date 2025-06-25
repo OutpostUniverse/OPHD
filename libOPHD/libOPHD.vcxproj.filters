@@ -152,6 +152,9 @@
     <ClInclude Include="Population\Morale.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
+    <ClInclude Include="Population\MoraleChangeEntry.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
     <ClInclude Include="Population\Population.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>

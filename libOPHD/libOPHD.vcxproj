@@ -203,6 +203,7 @@
     <ClInclude Include="MapObjects\OreDeposit.h" />
     <ClInclude Include="MapObjects\StructureType.h" />
     <ClInclude Include="Population\Morale.h" />
+    <ClInclude Include="Population\MoraleChangeEntry.h" />
     <ClInclude Include="Population\Population.h" />
     <ClInclude Include="Population\PopulationPool.h" />
     <ClInclude Include="Population\PopulationTable.h" />

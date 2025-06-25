@@ -8,6 +8,36 @@
 
 #include <NAS2D/Utility.h>
 
+#include <map>
+
+
+namespace
+{
+	std::map<Difficulty, int> chanceCrimeOccursPercent
+	{
+		{Difficulty::Beginner, 50},
+		{Difficulty::Easy, 75},
+		{Difficulty::Medium, 100},
+		{Difficulty::Hard, 200}
+	};
+
+
+	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
+	{
+		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+
+		for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
+		{
+			if (tile->xy() == structureTile.xy())
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+}
+
 
 CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
 	mDifficulty{difficulty}
@@ -39,7 +69,7 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 		// Crime Rate of 0% means no crime
 		// Crime Rate of 100% means crime occurs 10% of the time on medium difficulty
 		// chanceCrimeOccurs multiplier increases or decreases chance based on difficulty
-		if (static_cast<int>(static_cast<float>(structure->crimeRate()) * chanceCrimeOccurs[mDifficulty]) + randomNumber.generate<int>(0, 1000) > 1000)
+		if (structure->crimeRate() * chanceCrimeOccursPercent[mDifficulty] + randomNumber.generate<int>(0, 100000) > 100000)
 		{
 			mStructuresCommittingCrimes.push_back(structure);
 		}
@@ -53,19 +83,21 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 }
 
 
-bool CrimeRateUpdate::isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
+int CrimeRateUpdate::meanCrimeRate() const
 {
-	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+	return mMeanCrimeRate;
+}
 
-	for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
-	{
-		if (tile->xy() == structureTile.xy())
-		{
-			return true;
-		}
-	}
 
-	return false;
+std::vector<MoraleChangeEntry> CrimeRateUpdate::moraleChanges() const
+{
+	return mMoraleChanges;
+}
+
+
+std::vector<Structure*> CrimeRateUpdate::structuresCommittingCrimes() const
+{
+	return mStructuresCommittingCrimes;
 }
 
 
@@ -91,10 +123,10 @@ void CrimeRateUpdate::updateMoraleChanges()
 
 	if (moraleChange > 0)
 	{
-		mMoraleChanges.push_back(std::make_pair("Low Crime Rate", moraleChange));
+		mMoraleChanges.push_back({"Low Crime Rate", moraleChange});
 	}
 	else if (moraleChange < 0)
 	{
-		mMoraleChanges.push_back(std::make_pair("High Crime Rate", moraleChange));
+		mMoraleChanges.push_back({"High Crime Rate", moraleChange});
 	}
 }

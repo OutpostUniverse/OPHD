@@ -156,7 +156,7 @@ void CrimeExecution::stealResources(Structure& structure, const std::array<std::
 
 void CrimeExecution::vandalize(Structure& structure)
 {
-	mMoraleChanges.push_back(std::make_pair("Vandalism", -1));
+	mMoraleChanges.push_back({"Vandalism", -1});
 
 	mCrimeEventHandler(
 		"Vandalism",

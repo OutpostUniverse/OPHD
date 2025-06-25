@@ -1,12 +1,12 @@
 #pragma once
 
+#include <libOPHD/Population/MoraleChangeEntry.h>
+
 #include <libControls/Control.h>
 
 #include <NAS2D/Renderer/RectangleSkin.h>
 
-#include <string>
 #include <vector>
-#include <utility>
 
 
 class Population;
@@ -36,7 +36,7 @@ private:
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mSkin;
 
-	std::vector<std::pair<std::string,int>> mMoraleChangeReasons;
+	std::vector<MoraleChangeEntry> mMoraleChangeReasons;
 
 	const Population& mPopulation;
 	const PopulationPool& mPopulationPool;
