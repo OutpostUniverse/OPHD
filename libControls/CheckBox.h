@@ -3,7 +3,6 @@
 #include "Control.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Math/Point.h>
 
 #include <string>
@@ -11,6 +10,7 @@
 
 namespace NAS2D
 {
+	enum class MouseButton;
 	class Font;
 	class Image;
 }
