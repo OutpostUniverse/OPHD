@@ -20,6 +20,22 @@ namespace
 		{Difficulty::Medium, 100},
 		{Difficulty::Hard, 200}
 	};
+
+
+	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
+	{
+		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+
+		for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
+		{
+			if (tile->xy() == structureTile.xy())
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
 
 
@@ -64,22 +80,6 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 	mMeanCrimeRate = static_cast<int>(accumulatedCrime / static_cast<double>(structuresWithCrime.size()));
 
 	updateMoraleChanges();
-}
-
-
-bool CrimeRateUpdate::isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
-{
-	const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
-
-	for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
-	{
-		if (tile->xy() == structureTile.xy())
-		{
-			return true;
-		}
-	}
-
-	return false;
 }
 
 

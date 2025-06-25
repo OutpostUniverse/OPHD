@@ -27,7 +27,6 @@ private:
 	std::vector<MoraleChangeEntry> mMoraleChanges;
 	std::vector<Structure*> mStructuresCommittingCrimes;
 
-	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure);
 	int calculateMoraleChange() const;
 	void updateMoraleChanges();
 };
