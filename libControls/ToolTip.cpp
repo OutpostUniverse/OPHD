@@ -52,7 +52,7 @@ void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX
 	const auto maxX = renderer.size().x - toolTipSize.x;
 	toolTipPosition.x = (mouseX > maxX) ? maxX : mouseX;
 
-	toolTipPosition.y += (toolTipPosition.y < toolTipSize.y) ? item.first->size().y : -toolTipSize.y;
+	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : item.first->size().y;
 
 	area({toolTipPosition, toolTipSize});
 }
