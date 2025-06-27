@@ -28,6 +28,7 @@ namespace
 	const auto truckAvailabilityOffset = NAS2D::Vector{148, 80};
 	const auto truckButtonOffset = truckAvailabilityOffset + NAS2D::Vector{0, 35};
 	const auto truckButtonSize = NAS2D::Vector{128, 25};
+	const auto checkBoxOffset = truckButtonOffset + NAS2D::Vector{0, 30};
 }
 
 
@@ -70,7 +71,6 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnAssignTruck, {truckButtonOffset.x + truckButtonSize.x + constants::Margin, truckButtonOffset.y});
 
 	// ORE TOGGLE BUTTONS
-	const auto checkBoxOffset = NAS2D::Vector{148, 145};
 	const auto checkBoxSpacing = NAS2D::Vector{152, 20};
 	add(chkResources[0], checkBoxOffset);
 	add(chkResources[1], checkBoxOffset + NAS2D::Vector{0, checkBoxSpacing.y});
