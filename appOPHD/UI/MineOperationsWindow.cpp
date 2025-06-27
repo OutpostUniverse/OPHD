@@ -71,11 +71,11 @@ MineOperationsWindow::MineOperationsWindow() :
 
 	// ORE TOGGLE BUTTONS
 	const auto checkBoxOrigin = NAS2D::Vector{148, 145};
-	const auto checkBoxOffset = NAS2D::Vector{152, 20};
+	const auto checkBoxSpacing = NAS2D::Vector{152, 20};
 	add(chkResources[0], checkBoxOrigin);
-	add(chkResources[1], checkBoxOrigin + NAS2D::Vector{0, checkBoxOffset.y});
-	add(chkResources[2], checkBoxOrigin + NAS2D::Vector{checkBoxOffset.x, 0});
-	add(chkResources[3], checkBoxOrigin + checkBoxOffset);
+	add(chkResources[1], checkBoxOrigin + NAS2D::Vector{0, checkBoxSpacing.y});
+	add(chkResources[2], checkBoxOrigin + NAS2D::Vector{checkBoxSpacing.x, 0});
+	add(chkResources[3], checkBoxOrigin + checkBoxSpacing);
 }
 
 
