@@ -23,6 +23,15 @@
 using namespace NAS2D;
 
 
+namespace
+{
+	const auto truckAvailabilityOffset = NAS2D::Vector{148, 80};
+	const auto truckButtonOffset = truckAvailabilityOffset + NAS2D::Vector{0, 35};
+	const auto truckButtonSize = NAS2D::Vector{128, 25};
+	const auto checkBoxOffset = truckButtonOffset + NAS2D::Vector{0, 30};
+}
+
+
 MineOperationsWindow::MineOperationsWindow() :
 	Window{constants::WindowMineOperations},
 	mFont{Control::getDefaultFont()},
@@ -55,19 +64,18 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnExtendShaft, {76, buttonBottomRowY});
 	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
-	btnAssignTruck.size({128, 25});
-	btnUnassignTruck.size({128, 25});
+	btnAssignTruck.size(truckButtonSize);
+	btnUnassignTruck.size(truckButtonSize);
 
-	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
-	add(btnUnassignTruck, {148, 115});
+	add(btnUnassignTruck, truckButtonOffset);
+	add(btnAssignTruck, {truckButtonOffset.x + truckButtonSize.x + constants::Margin, truckButtonOffset.y});
 
 	// ORE TOGGLE BUTTONS
-	const auto checkBoxOrigin = NAS2D::Vector{148, 145};
-	const auto checkBoxOffset = NAS2D::Vector{152, 20};
-	add(chkResources[0], checkBoxOrigin);
-	add(chkResources[1], checkBoxOrigin + NAS2D::Vector{0, checkBoxOffset.y});
-	add(chkResources[2], checkBoxOrigin + NAS2D::Vector{checkBoxOffset.x, 0});
-	add(chkResources[3], checkBoxOrigin + checkBoxOffset);
+	const auto checkBoxSpacing = NAS2D::Vector{152, 20};
+	add(chkResources[0], checkBoxOffset);
+	add(chkResources[1], checkBoxOffset + NAS2D::Vector{0, checkBoxSpacing.y});
+	add(chkResources[2], checkBoxOffset + NAS2D::Vector{checkBoxSpacing.x, 0});
+	add(chkResources[3], checkBoxOffset + checkBoxSpacing);
 }
 
 
@@ -184,9 +192,10 @@ void MineOperationsWindow::drawClientArea() const
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// TRUCK ASSIGNMENT
-	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{148, 80}, NAS2D::Color::White);
-	drawLabelAndValue(origin + NAS2D::Vector{148, 95}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
-	drawLabelAndValue(origin + NAS2D::Vector{285, 95}, "Available: ", std::to_string(mAvailableTrucks));
+	const auto truckAssignmentOrigin = origin + truckAvailabilityOffset;
+	renderer.drawText(mFontBold, "Trucks", truckAssignmentOrigin, NAS2D::Color::White);
+	drawLabelAndValue(truckAssignmentOrigin + NAS2D::Vector{0, 15}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
+	drawLabelAndValue(truckAssignmentOrigin + NAS2D::Vector{137, 15}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
