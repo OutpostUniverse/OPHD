@@ -6,9 +6,6 @@
 #include <stdexcept>
 
 
-/**
- * Adds a Window to be handled by the WindowStack.
- */
 void WindowStack::addWindow(Window& window)
 {
 	if (find(mWindowList.begin(), mWindowList.end(), &window) != mWindowList.end())
@@ -20,9 +17,6 @@ void WindowStack::addWindow(Window& window)
 }
 
 
-/**
- * Removes a Window from the WindowStack.
- */
 void WindowStack::removeWindow(Window& window)
 {
 	mWindowList.remove(&window);
