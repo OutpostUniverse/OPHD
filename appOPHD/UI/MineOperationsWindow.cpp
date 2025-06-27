@@ -184,9 +184,10 @@ void MineOperationsWindow::drawClientArea() const
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// TRUCK ASSIGNMENT
-	renderer.drawText(mFontBold, "Trucks", origin + NAS2D::Vector{148, 80}, NAS2D::Color::White);
-	drawLabelAndValue(origin + NAS2D::Vector{148, 95}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
-	drawLabelAndValue(origin + NAS2D::Vector{285, 95}, "Available: ", std::to_string(mAvailableTrucks));
+	const auto truckAssignmentOrigin = origin + NAS2D::Vector{148, 80};
+	renderer.drawText(mFontBold, "Trucks", truckAssignmentOrigin, NAS2D::Color::White);
+	drawLabelAndValue(truckAssignmentOrigin + NAS2D::Vector{0, 15}, "Assigned: ", std::to_string(mFacility->assignedTrucks()));
+	drawLabelAndValue(truckAssignmentOrigin + NAS2D::Vector{137, 15}, "Available: ", std::to_string(mAvailableTrucks));
 
 	// REMAINING ORE PANEL
 	const auto tableSize = NAS2D::Vector{mRect.size.x - 20, 40};
