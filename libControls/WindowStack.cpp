@@ -36,7 +36,6 @@ void WindowStack::bringToFront(Window& window)
 	}
 
 	mWindowList.front()->hasFocus(false);
-
 	mWindowList.remove(&window);
 	mWindowList.push_front(&window);
 	window.hasFocus(true);
