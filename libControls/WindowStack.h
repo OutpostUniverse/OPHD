@@ -16,12 +16,9 @@ public:
 
 	void addWindow(Window* window);
 	void removeWindow(Window* window);
-
-	bool pointInWindow(const NAS2D::Point<int>& point) const;
-
-	void updateStack(const NAS2D::Point<int>& point);
-
 	void bringToFront(Window* window);
+	void updateStack(const NAS2D::Point<int>& point);
+	bool pointInWindow(const NAS2D::Point<int>& point) const;
 
 	void hide();
 

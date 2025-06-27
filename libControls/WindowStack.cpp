@@ -33,33 +33,6 @@ void WindowStack::removeWindow(Window* window)
 }
 
 
-bool WindowStack::pointInWindow(const NAS2D::Point<int>& point) const
-{
-	for (auto* window : mWindowList)
-	{
-		if (window->visible() && window->area().contains(point))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
-void WindowStack::updateStack(const NAS2D::Point<int>& point)
-{
-	for (auto* window : mWindowList)
-	{
-		if (window->visible() && window->area().contains(point))
-		{
-			bringToFront(window);
-			return;
-		}
-	}
-}
-
-
 void WindowStack::bringToFront(Window* window)
 {
 	const auto windowPosition = find(mWindowList.begin(), mWindowList.end(), window);
@@ -77,6 +50,33 @@ void WindowStack::bringToFront(Window* window)
 	mWindowList.remove(window);
 	mWindowList.push_front(window);
 	window->hasFocus(true);
+}
+
+
+void WindowStack::updateStack(const NAS2D::Point<int>& point)
+{
+	for (auto* window : mWindowList)
+	{
+		if (window->visible() && window->area().contains(point))
+		{
+			bringToFront(window);
+			return;
+		}
+	}
+}
+
+
+bool WindowStack::pointInWindow(const NAS2D::Point<int>& point) const
+{
+	for (auto* window : mWindowList)
+	{
+		if (window->visible() && window->area().contains(point))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 
