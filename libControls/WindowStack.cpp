@@ -11,14 +11,14 @@
  *
  * \note	Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
-void WindowStack::addWindow(Window* window)
+void WindowStack::addWindow(Window& window)
 {
-	if (find(mWindowList.begin(), mWindowList.end(), window) != mWindowList.end())
+	if (find(mWindowList.begin(), mWindowList.end(), &window) != mWindowList.end())
 	{
 		throw std::runtime_error("WindowStack::addWindow(): Attempting to add a Window that's already in this stack.");
 	}
 
-	mWindowList.push_back(window);
+	mWindowList.push_back(&window);
 }
 
 
@@ -27,15 +27,15 @@ void WindowStack::addWindow(Window* window)
  *
  * \note Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
-void WindowStack::removeWindow(Window* window)
+void WindowStack::removeWindow(Window& window)
 {
-	mWindowList.remove(window);
+	mWindowList.remove(&window);
 }
 
 
-void WindowStack::bringToFront(Window* window)
+void WindowStack::bringToFront(Window& window)
 {
-	const auto windowPosition = find(mWindowList.begin(), mWindowList.end(), window);
+	const auto windowPosition = find(mWindowList.begin(), mWindowList.end(), &window);
 	if (windowPosition == mWindowList.end())
 	{
 		throw std::runtime_error("WindowStack::bringToFront(): Window is not managed by this stack.");
@@ -47,9 +47,9 @@ void WindowStack::bringToFront(Window* window)
 
 	mWindowList.front()->hasFocus(false);
 
-	mWindowList.remove(window);
-	mWindowList.push_front(window);
-	window->hasFocus(true);
+	mWindowList.remove(&window);
+	mWindowList.push_front(&window);
+	window.hasFocus(true);
 }
 
 
@@ -59,7 +59,7 @@ void WindowStack::updateStack(const NAS2D::Point<int>& point)
 	{
 		if (window->visible() && window->area().contains(point))
 		{
-			bringToFront(window);
+			bringToFront(*window);
 			return;
 		}
 	}

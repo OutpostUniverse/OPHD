@@ -14,9 +14,9 @@ public:
 	WindowStack() = default;
 	~WindowStack() = default;
 
-	void addWindow(Window* window);
-	void removeWindow(Window* window);
-	void bringToFront(Window* window);
+	void addWindow(Window& window);
+	void removeWindow(Window& window);
+	void bringToFront(Window& window);
 	void updateStack(const NAS2D::Point<int>& point);
 	bool pointInWindow(const NAS2D::Point<int>& point) const;
 
