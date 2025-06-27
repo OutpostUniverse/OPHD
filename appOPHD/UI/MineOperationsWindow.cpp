@@ -26,6 +26,7 @@ using namespace NAS2D;
 namespace
 {
 	const auto truckAvailabilityOffset = NAS2D::Vector{148, 80};
+	const auto truckButtonSize = NAS2D::Vector{128, 25};
 }
 
 
@@ -61,8 +62,8 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnExtendShaft, {76, buttonBottomRowY});
 	add(btnOkay, {mRect.size.x - 70, buttonBottomRowY});
 
-	btnAssignTruck.size({128, 25});
-	btnUnassignTruck.size({128, 25});
+	btnAssignTruck.size(truckButtonSize);
+	btnUnassignTruck.size(truckButtonSize);
 
 	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 	add(btnUnassignTruck, {148, 115});
