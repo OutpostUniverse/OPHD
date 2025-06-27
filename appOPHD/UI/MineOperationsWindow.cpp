@@ -65,8 +65,8 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnAssignTruck.size(truckButtonSize);
 	btnUnassignTruck.size(truckButtonSize);
 
-	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 	add(btnUnassignTruck, {148, 115});
+	add(btnAssignTruck, {mRect.size.x - btnAssignTruck.size().x - 10, 115});
 
 	// ORE TOGGLE BUTTONS
 	const auto checkBoxOrigin = NAS2D::Vector{148, 145};
