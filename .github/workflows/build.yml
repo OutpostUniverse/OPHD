@@ -99,14 +99,6 @@ jobs:
         path: nas2d-core/.build/
         key: ${{ env.cacheKeyNas2d }}
 
-    # Extra output to help diagnose intermittent build cache issues
-    - name: Print source times
-      shell: bash
-      run: ls -Rot --full-time nas2d-core/NAS2D/
-    - name: Print cache times
-      shell: bash
-      run: ls -Rot --full-time nas2d-core/.build/
-
     - name: Build NAS2D
       run: |
         msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /target:NAS2D
@@ -155,14 +147,6 @@ jobs:
           # Save copy of current SHA to be cached, and used for reference in future builds
           mkdir --parents .build/
           echo "${{ github.sha }}" > .build/lastBuildSha.txt
-
-    # Extra output to help diagnose intermittent build cache issues
-    - name: Print source times
-      shell: bash
-      run: ls -Rot --full-time appOPHD/ libOPHD/ libControls/ testLibOPHD/ testLibControls/ demoLibControls/
-    - name: Print cache times
-      shell: bash
-      run: ls -Rot --full-time .build/
 
     - name: Build OPHD
       run: |
