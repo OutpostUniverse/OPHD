@@ -8,8 +8,6 @@
 
 /**
  * Adds a Window to be handled by the WindowStack.
- *
- * \note	Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
 void WindowStack::addWindow(Window& window)
 {
@@ -24,8 +22,6 @@ void WindowStack::addWindow(Window& window)
 
 /**
  * Removes a Window from the WindowStack.
- *
- * \note Pointer is not owned by WindowStack, it is up to the caller to properly handle memory.
  */
 void WindowStack::removeWindow(Window& window)
 {
