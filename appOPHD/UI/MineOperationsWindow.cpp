@@ -26,7 +26,7 @@ using namespace NAS2D;
 namespace
 {
 	const auto truckAvailabilityOffset = NAS2D::Vector{148, 80};
-	const auto truckButtonOffset = NAS2D::Vector{148, 115};
+	const auto truckButtonOffset = truckAvailabilityOffset + NAS2D::Vector{0, 35};
 	const auto truckButtonSize = NAS2D::Vector{128, 25};
 }
 
