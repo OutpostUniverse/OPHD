@@ -8,20 +8,17 @@
 class Window;
 
 
-class WindowStack final
+class WindowStack
 {
 public:
 	WindowStack() = default;
 	~WindowStack() = default;
 
-	void addWindow(Window* window);
-	void removeWindow(Window* window);
-
-	bool pointInWindow(const NAS2D::Point<int>& point) const;
-
+	void addWindow(Window& window);
+	void removeWindow(Window& window);
+	void bringToFront(Window& window);
 	void updateStack(const NAS2D::Point<int>& point);
-
-	void bringToFront(Window* window);
+	bool pointInWindow(const NAS2D::Point<int>& point) const;
 
 	void hide();
 

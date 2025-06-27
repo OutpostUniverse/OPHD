@@ -495,7 +495,7 @@ void MapViewState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*
 			if (NAS2D::Utility<NAS2D::EventHandler>::get().control(mod) && NAS2D::Utility<NAS2D::EventHandler>::get().shift(mod))
 			{
 				mCheatMenu.show();
-				mWindowStack.bringToFront(&mCheatMenu);
+				mWindowStack.bringToFront(mCheatMenu);
 			}
 			break;
 
@@ -649,25 +649,25 @@ void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier
 	{
 		mFactoryProduction.factory(&dynamic_cast<Factory&>(structure));
 		mFactoryProduction.show();
-		mWindowStack.bringToFront(&mFactoryProduction);
+		mWindowStack.bringToFront(mFactoryProduction);
 	}
 	else if (structure.isWarehouse() && preferStructureSpecificView)
 	{
 		mWarehouseInspector.warehouse(&dynamic_cast<Warehouse&>(structure));
 		mWarehouseInspector.show();
-		mWindowStack.bringToFront(&mWarehouseInspector);
+		mWindowStack.bringToFront(mWarehouseInspector);
 	}
 	else if (structure.isMineFacility() && preferStructureSpecificView)
 	{
 		mMineOperationsWindow.mineFacility(&dynamic_cast<MineFacility&>(structure));
 		mMineOperationsWindow.show();
-		mWindowStack.bringToFront(&mMineOperationsWindow);
+		mWindowStack.bringToFront(mMineOperationsWindow);
 	}
 	else
 	{
 		mStructureInspector.structure(&structure);
 		mStructureInspector.show();
-		mWindowStack.bringToFront(&mStructureInspector);
+		mWindowStack.bringToFront(mStructureInspector);
 	}
 }
 
@@ -676,7 +676,7 @@ void MapViewState::onInspectRobot(Robot& robot)
 {
 	mRobotInspector.focusOnRobot(&robot);
 	mRobotInspector.show();
-	mWindowStack.bringToFront(&mRobotInspector);
+	mWindowStack.bringToFront(mRobotInspector);
 }
 
 
@@ -684,7 +684,7 @@ void MapViewState::onInspectTile(Tile& tile)
 {
 	mTileInspector.tile(tile);
 	mTileInspector.show();
-	mWindowStack.bringToFront(&mTileInspector);
+	mWindowStack.bringToFront(mTileInspector);
 }
 
 
@@ -1127,7 +1127,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	else
 	{
 		mDiggerDirection.show();
-		mWindowStack.bringToFront(&mDiggerDirection);
+		mWindowStack.bringToFront(mDiggerDirection);
 
 		// Popup to the right of the mouse
 		auto position = MOUSE_COORDS + NAS2D::Vector{20, -32};

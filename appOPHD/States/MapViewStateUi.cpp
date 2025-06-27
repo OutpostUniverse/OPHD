@@ -89,16 +89,16 @@ void MapViewState::initUi()
 	mMineOperationsWindow.hide();
 	mWarehouseInspector.hide();
 
-	mWindowStack.addWindow(&mTileInspector);
-	mWindowStack.addWindow(&mStructureInspector);
-	mWindowStack.addWindow(&mFactoryProduction);
-	mWindowStack.addWindow(&mDiggerDirection);
-	mWindowStack.addWindow(&mAnnouncement);
-	mWindowStack.addWindow(&mWarehouseInspector);
-	mWindowStack.addWindow(&mMineOperationsWindow);
-	mWindowStack.addWindow(&mRobotInspector);
-	mWindowStack.addWindow(&mNotificationWindow);
-	mWindowStack.addWindow(&mCheatMenu);
+	mWindowStack.addWindow(mTileInspector);
+	mWindowStack.addWindow(mStructureInspector);
+	mWindowStack.addWindow(mFactoryProduction);
+	mWindowStack.addWindow(mDiggerDirection);
+	mWindowStack.addWindow(mAnnouncement);
+	mWindowStack.addWindow(mWarehouseInspector);
+	mWindowStack.addWindow(mMineOperationsWindow);
+	mWindowStack.addWindow(mRobotInspector);
+	mWindowStack.addWindow(mNotificationWindow);
+	mWindowStack.addWindow(mCheatMenu);
 
 	mNotificationWindow.hide();
 
@@ -487,7 +487,7 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 {
 	mNotificationWindow.notification(notification);
 	mNotificationWindow.show();
-	mWindowStack.bringToFront(&mNotificationWindow);
+	mWindowStack.bringToFront(mNotificationWindow);
 }
 
 

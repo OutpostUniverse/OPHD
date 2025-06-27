@@ -69,7 +69,7 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 
 void MajorEventAnnouncement::onColonyShipCrash(WindowStack& windowStack, const ColonyShipData& colonyShipData)
 {
-	windowStack.bringToFront(this);
+	windowStack.bringToFront(*this);
 	announcement(colonyShipCrashAnnouncement(colonyShipData));
 	show();
 }
