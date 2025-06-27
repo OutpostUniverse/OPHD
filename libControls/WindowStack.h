@@ -8,7 +8,7 @@
 class Window;
 
 
-class WindowStack final
+class WindowStack
 {
 public:
 	WindowStack() = default;
