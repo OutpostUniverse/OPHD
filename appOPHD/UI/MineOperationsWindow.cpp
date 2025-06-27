@@ -70,12 +70,12 @@ MineOperationsWindow::MineOperationsWindow() :
 	add(btnAssignTruck, {truckButtonOffset.x + truckButtonSize.x + constants::Margin, truckButtonOffset.y});
 
 	// ORE TOGGLE BUTTONS
-	const auto checkBoxOrigin = NAS2D::Vector{148, 145};
+	const auto checkBoxOffset = NAS2D::Vector{148, 145};
 	const auto checkBoxSpacing = NAS2D::Vector{152, 20};
-	add(chkResources[0], checkBoxOrigin);
-	add(chkResources[1], checkBoxOrigin + NAS2D::Vector{0, checkBoxSpacing.y});
-	add(chkResources[2], checkBoxOrigin + NAS2D::Vector{checkBoxSpacing.x, 0});
-	add(chkResources[3], checkBoxOrigin + checkBoxSpacing);
+	add(chkResources[0], checkBoxOffset);
+	add(chkResources[1], checkBoxOffset + NAS2D::Vector{0, checkBoxSpacing.y});
+	add(chkResources[2], checkBoxOffset + NAS2D::Vector{checkBoxSpacing.x, 0});
+	add(chkResources[3], checkBoxOffset + checkBoxSpacing);
 }
 
 
