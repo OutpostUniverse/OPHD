@@ -13,8 +13,8 @@ namespace
 
 		const auto dictionary = NAS2D::attributesToDictionary(*element);
 		return {
-			.colonistLanders = dictionary.get<int>("colonist_landers"),
-			.cargoLanders = dictionary.get<int>("cargo_landers"),
+			.colonist = dictionary.get<int>("colonist_landers"),
+			.cargo = dictionary.get<int>("cargo_landers"),
 		};
 	}
 
@@ -43,8 +43,8 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 ColonyShip::ColonyShip() :
 	mLanders
 	{
-		.colonistLanders = 2,
-		.cargoLanders = 2,
+		.colonist = 2,
+		.cargo = 2,
 	},
 	mTurnsOfManeuveringFuel{constants::ColonyShipOrbitTime + 1}
 {}

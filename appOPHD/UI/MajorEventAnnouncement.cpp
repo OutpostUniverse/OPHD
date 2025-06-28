@@ -34,13 +34,13 @@ void MajorEventAnnouncement::onClose()
 
 MajorEventAnnouncement::AnnouncementType MajorEventAnnouncement::colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders)
 {
-	if (colonyShipLanders.colonistLanders && colonyShipLanders.cargoLanders)
+	if (colonyShipLanders.colonist && colonyShipLanders.cargo)
 		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonistsAndCargo;
 
-	if (colonyShipLanders.colonistLanders)
+	if (colonyShipLanders.colonist)
 		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists;
 
-	if (colonyShipLanders.cargoLanders)
+	if (colonyShipLanders.cargo)
 		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithCargo;
 
 	return MajorEventAnnouncement::AnnouncementType::ColonyShipCrash;
