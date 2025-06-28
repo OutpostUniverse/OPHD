@@ -34,8 +34,7 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 	if (!root) { throw std::runtime_error("Invalid save game root element."); }
 
 	ColonyShipData colonyShipData = readLanders(root->firstChildElement("population"));
-	colonyShipData.turnsOfManeuveringFuel = readManeuveringFuel(root->firstChildElement("turns"));
-	return ColonyShip{colonyShipData};
+	return ColonyShip{colonyShipData, readManeuveringFuel(root->firstChildElement("turns"))};
 }
 
 
@@ -44,21 +43,22 @@ ColonyShip::ColonyShip() :
 	{
 		.colonistLanders = 2,
 		.cargoLanders = 2,
-		.turnsOfManeuveringFuel = constants::ColonyShipOrbitTime + 1
-	}
+	},
+	mTurnsOfManeuveringFuel{constants::ColonyShipOrbitTime + 1}
 {}
 
 
-ColonyShip::ColonyShip(const ColonyShipData& colonyShipData) :
-	mColonyShipData{colonyShipData}
+ColonyShip::ColonyShip(const ColonyShipData& colonyShipData, int turnsOfManeuveringFuel) :
+	mColonyShipData{colonyShipData},
+	mTurnsOfManeuveringFuel{turnsOfManeuveringFuel}
 {}
 
 
 void ColonyShip::onTurn()
 {
-	if (mColonyShipData.turnsOfManeuveringFuel > 0) { --mColonyShipData.turnsOfManeuveringFuel; }
+	if (mTurnsOfManeuveringFuel > 0) { --mTurnsOfManeuveringFuel; }
 
-	if (mColonyShipData.turnsOfManeuveringFuel == 0)
+	if (mTurnsOfManeuveringFuel == 0)
 	{
 		mCrashData = mColonyShipData;
 		mColonyShipData.cargoLanders = 0;
