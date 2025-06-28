@@ -7,6 +7,7 @@
 #include <NAS2D/Timer.h>
 
 #include <utility>
+#include <string>
 #include <vector>
 
 
