@@ -12,8 +12,8 @@ namespace NAS2D
 
 struct ColonyShipLanders
 {
-	int colonistLanders = 0;
-	int cargoLanders = 0;
+	int colonistLanders{};
+	int cargoLanders{};
 };
 
 
@@ -41,5 +41,5 @@ public:
 private:
 	ColonyShipLanders mLanders;
 	ColonyShipLanders mCrashedLanders{};
-	int mTurnsOfManeuveringFuel = 0;
+	int mTurnsOfManeuveringFuel{};
 };
