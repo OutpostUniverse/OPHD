@@ -18,14 +18,11 @@ namespace
 	}
 
 
-	void setManeuveringFuel(ColonyShipData& colonyShipData, NAS2D::Xml::XmlElement* element)
+	int readManeuveringFuel(NAS2D::Xml::XmlElement* element)
 	{
-		if (element)
-		{
-			auto turnCount = NAS2D::attributesToDictionary(*element).get<int>("count");
-
-			colonyShipData.turnsOfManeuveringFuel = turnCount > constants::ColonyShipOrbitTime ? 0 : constants::ColonyShipOrbitTime - turnCount + 1;
-		}
+		const auto turnCount = (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
+		const auto maneuveringFuel = (turnCount <= constants::ColonyShipOrbitTime) ? constants::ColonyShipOrbitTime - turnCount + 1 : 0;
+		return maneuveringFuel;
 	}
 }
 
@@ -37,7 +34,7 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 	{
 		ColonyShipData colonyShipData;
 		setLanders(colonyShipData, root->firstChildElement("population"));
-		setManeuveringFuel(colonyShipData, root->firstChildElement("turns"));
+		colonyShipData.turnsOfManeuveringFuel = readManeuveringFuel(root->firstChildElement("turns"));
 		return ColonyShip{colonyShipData};
 	}
 	throw std::runtime_error("Invalid save game root element.");
