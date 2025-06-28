@@ -41,10 +41,10 @@ bool PlanetImage::pointInCircle(NAS2D::Point<int> point) const
 void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	bool inArea = pointInCircle(position);
-	if (inArea != mMouseInArea)
+	if (inArea != mIsMouseOver)
 	{
-		mMouseInArea = inArea;
-		mMouseInArea ? mMouseEnterSignal() : mMouseExitSignal();
+		mIsMouseOver = inArea;
+		mIsMouseOver ? mMouseEnterSignal() : mMouseExitSignal();
 		mTimer.reset();
 	}
 }
@@ -52,7 +52,7 @@ void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 
 void PlanetImage::update()
 {
-	if (mMouseInArea && mTimer.elapsedTicks() >= constants::PlanetAnimationSpeed.milliseconds)
+	if (mIsMouseOver && mTimer.elapsedTicks() >= constants::PlanetAnimationSpeed.milliseconds)
 	{
 		mTimer.reset(); // don't care about frame skips.
 		++mTick;
