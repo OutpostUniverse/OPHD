@@ -50,8 +50,8 @@ ColonyShip::ColonyShip() :
 {}
 
 
-ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipData, int turnsOfManeuveringFuel) :
-	mLanders{colonyShipData},
+ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnsOfManeuveringFuel) :
+	mLanders{colonyShipLanders},
 	mTurnsOfManeuveringFuel{turnsOfManeuveringFuel}
 {}
 

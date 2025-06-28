@@ -328,17 +328,17 @@ void MapViewState::checkColonyShip()
 }
 
 
-void MapViewState::onColonyShipCrash(const ColonyShipLanders& colonyShipData)
+void MapViewState::onColonyShipCrash(const ColonyShipLanders& colonyShipLanders)
 {
-	if(colonyShipData.colonistLanders > 0)
+	if(colonyShipLanders.colonistLanders > 0)
 	{
-		int moraleChange = -1 * colonyShipData.colonistLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * ColonistsPerLander;
+		int moraleChange = -1 * colonyShipLanders.colonistLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * ColonistsPerLander;
 		mMorale.journalMoraleChange({moraleString(MoraleIndexs::ColonistLanderLost), moraleChange});
 	}
 
-	if (colonyShipData.cargoLanders > 0)
+	if (colonyShipLanders.cargoLanders > 0)
 	{
-		int moraleChange = -1 * colonyShipData.cargoLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * CargoMoraleLossPerLander;
+		int moraleChange = -1 * colonyShipLanders.cargoLanders * ColonyShipDeorbitMoraleLossMultiplier.at(mDifficulty) * CargoMoraleLossPerLander;
 		mMorale.journalMoraleChange({moraleString(MoraleIndexs::CargoLanderLost), moraleChange});
 	}
 }
