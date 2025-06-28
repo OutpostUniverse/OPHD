@@ -31,9 +31,9 @@ void ToolTip::add(Control& c, const std::string& str)
 {
 	for (auto& item : mControls)
 	{
-		if (item.first == &c)
+		if (item.control == &c)
 		{
-			item.second = str;
+			item.text = str;
 			return;
 		}
 	}
@@ -42,18 +42,18 @@ void ToolTip::add(Control& c, const std::string& str)
 }
 
 
-void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
+void ToolTip::buildDrawParams(ControlText& item, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
+	const auto toolTipSize = mFont.size(item.text) + PaddingSize * 2;
 
-	auto toolTipPosition = item.first->position();
+	auto toolTipPosition = item.control->position();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto maxX = renderer.size().x - toolTipSize.x;
 	toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
 	if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
 
-	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : item.first->size().y;
+	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : item.control->size().y;
 
 	area({toolTipPosition, toolTipSize});
 }
@@ -65,7 +65,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 	{
 		if (mFocusedControl)
 		{
-			if (mFocusedControl->first->area().contains(position)) { return; }
+			if (mFocusedControl->control->area().contains(position)) { return; }
 			else { mFocusedControl = nullptr; }
 		}
 
@@ -75,7 +75,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 	for (auto& item : mControls)
 	{
 		if (mFocusedControl) { break; }
-		if (item.first->area().contains(position))
+		if (item.control->area().contains(position))
 		{
 			mFocusedControl = &item;
 			buildDrawParams(item, position.x);
@@ -104,6 +104,6 @@ void ToolTip::draw() const
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(area(), NAS2D::Color::DarkGray);
 		renderer.drawBox(area(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+		renderer.drawText(mFont, mFocusedControl->text, position() + PaddingSize);
 	}
 }
