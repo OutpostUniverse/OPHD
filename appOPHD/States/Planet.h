@@ -1,7 +1,5 @@
 #pragma once
 
-#include <libOPHD/PlanetAttributes.h>
-
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
@@ -15,13 +13,11 @@ public:
 	using MouseSignal = NAS2D::Signal<>;
 
 public:
-	Planet(const PlanetAttributes& attributes);
+	Planet(const std::string& imagePath);
 	~Planet();
 
 	NAS2D::Point<int> position() const { return mPosition; }
 	void position(const NAS2D::Point<int>& point) { mPosition = point; }
-
-	const PlanetAttributes& attributes() const { return mAttributes; }
 
 	bool mouseHovering() const { return mMouseInArea; }
 
@@ -41,8 +37,6 @@ private:
 
 private:
 	int mTick = 0;
-
-	PlanetAttributes mAttributes;
 
 	const NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;

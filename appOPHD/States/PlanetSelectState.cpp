@@ -22,13 +22,15 @@
 
 #include <cstddef>
 #include <limits>
+#include <ranges>
 
 
 namespace
 {
 	auto attributesToPlanets(const std::vector<PlanetAttributes>& attributes)
 	{
-		return std::vector<Planet>{attributes.cbegin(), attributes.cend()};
+		const auto& imagePaths = std::ranges::views::transform(attributes, &PlanetAttributes::imagePath);
+		return std::vector<Planet>{imagePaths.begin(), imagePaths.end()};
 	}
 }
 

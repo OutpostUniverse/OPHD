@@ -17,9 +17,8 @@ namespace
 }
 
 
-Planet::Planet(const PlanetAttributes& attributes) :
-	mAttributes(attributes),
-	mImage(NAS2D::Image(attributes.imagePath))
+Planet::Planet(const std::string& imagePath) :
+	mImage(NAS2D::Image(imagePath))
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &Planet::onMouseMove});
 }
