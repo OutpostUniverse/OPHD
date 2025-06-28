@@ -27,33 +27,33 @@ ToolTip::~ToolTip()
 }
 
 
-void ToolTip::add(const Control& c, const std::string& str)
+void ToolTip::add(const Control& control, const std::string& toolTipText)
 {
 	for (auto& item : mControls)
 	{
-		if (item.control == &c)
+		if (item.control == &control)
 		{
-			item.text = str;
+			item.text = toolTipText;
 			return;
 		}
 	}
 
-	mControls.push_back({&c, str});
+	mControls.push_back({&control, toolTipText});
 }
 
 
-void ToolTip::buildDrawParams(ControlText& item, int mouseX)
+void ToolTip::buildDrawParams(ControlText& controlText, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.text) + PaddingSize * 2;
+	const auto toolTipSize = mFont.size(controlText.text) + PaddingSize * 2;
 
-	auto toolTipPosition = item.control->position();
+	auto toolTipPosition = controlText.control->position();
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto maxX = renderer.size().x - toolTipSize.x;
 	toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
 	if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
 
-	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : item.control->size().y;
+	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : controlText.control->size().y;
 
 	area({toolTipPosition, toolTipSize});
 }

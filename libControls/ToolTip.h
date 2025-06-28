@@ -22,7 +22,7 @@ public:
 	ToolTip();
 	~ToolTip() override;
 
-	void add(const Control&, const std::string&);
+	void add(const Control& control, const std::string& toolTipText);
 
 	void update() override;
 
@@ -37,7 +37,7 @@ protected:
 
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
-	void buildDrawParams(ControlText&, int);
+	void buildDrawParams(ControlText& controlText, int mouseX);
 
 private:
 	const NAS2D::Font& mFont;
