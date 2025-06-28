@@ -44,11 +44,11 @@ private:
 	const NAS2D::Font& mFontBold;
 	const NAS2D::Font& mTinyFont;
 
-	const NAS2D::Image mBg;
+	const NAS2D::Image mBackground;
 	const NAS2D::Image mCloud1;
 	const NAS2D::Image mCloud2;
 
-	const NAS2D::Music mBgMusic;
+	const NAS2D::Music mBackgroundMusic;
 
 	const NAS2D::Sound mSelect;
 	const NAS2D::Sound mHover;

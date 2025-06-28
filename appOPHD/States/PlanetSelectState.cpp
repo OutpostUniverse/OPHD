@@ -34,10 +34,10 @@ const std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
 	mTinyFont{Control::getDefaultFont()},
-	mBg{"sys/bg1.png"},
+	mBackground{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
-	mBgMusic{"music/menu.ogg"},
+	mBackgroundMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
@@ -81,7 +81,7 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	mFade.fadeIn(constants::FadeSpeed);
 
-	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBgMusic);
+	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBackgroundMusic);
 }
 
 
@@ -90,7 +90,7 @@ NAS2D::State* PlanetSelectState::update()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto size = renderer.size();
-	renderer.drawImageStretched(mBg, NAS2D::Rectangle{{0, 0}, size});
+	renderer.drawImageStretched(mBackground, NAS2D::Rectangle{{0, 0}, size});
 
 	auto rotation = NAS2D::Angle::degrees(static_cast<float>(mTimer.tick()) / 1200.0f);
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
