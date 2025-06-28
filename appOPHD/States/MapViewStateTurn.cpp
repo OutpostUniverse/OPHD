@@ -319,10 +319,11 @@ void MapViewState::updateResources()
 
 void MapViewState::checkColonyShip()
 {
-	if (mColonyShip.crashed() && mColonyShip.crashData().has_value())
+	if (mColonyShip.crashed())
 	{
-		onColonyShipCrash(mColonyShip.crashData().value());
-		mAnnouncement.onColonyShipCrash(mWindowStack, mColonyShip.crashData().value());
+		const auto& crashedLanders = mColonyShip.crashedLanders();
+		onColonyShipCrash(crashedLanders);
+		mAnnouncement.onColonyShipCrash(mWindowStack, crashedLanders);
 	}
 }
 

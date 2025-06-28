@@ -1,7 +1,5 @@
 #pragma once
 
-#include <optional>
-
 
 namespace NAS2D
 {
@@ -37,11 +35,11 @@ public:
 	void onDeployColonistLander() { --mLanders.colonistLanders; }
 	void onDeployCargoLander() { --mLanders.cargoLanders; }
 	bool crashed() const { return mTurnsOfManeuveringFuel == 0; }
+	const ColonyShipLanders& crashedLanders() const { return mCrashedLanders; }
 	void onTurn();
 
-	const std::optional<ColonyShipLanders>& crashData() const { return mCrashedLanders; }
 private:
 	ColonyShipLanders mLanders;
-	std::optional<ColonyShipLanders> mCrashedLanders = std::nullopt;
+	ColonyShipLanders mCrashedLanders{};
 	int mTurnsOfManeuveringFuel = 0;
 };
