@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Planet.h"
-
 #include <libControls/Button.h>
 #include <libControls/TextArea.h>
 
@@ -21,6 +19,8 @@ namespace NAS2D
 
 	template <typename BaseType> struct Point;
 }
+
+class Planet;
 
 
 class PlanetSelectState : public NAS2D::State
