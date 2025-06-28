@@ -1,9 +1,5 @@
 #pragma once
 
-#include "../Constants/Numbers.h"
-
-#include <optional>
-
 
 namespace NAS2D
 {
@@ -14,38 +10,36 @@ namespace NAS2D
 }
 
 
-struct ColonyShipData
+struct ColonyShipLanders
 {
-	int colonistLanders = 0;
-	int cargoLanders = 0;
-	int turnsOfManeuveringFuel = 0;
+	int colonist{};
+	int cargo{};
 };
 
 
-ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument&);
+class ColonyShip;
+
+
+ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument);
 
 
 class ColonyShip
 {
 public:
 	ColonyShip();
-	ColonyShip(const ColonyShipData&);
+	ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnsOfManeuveringFuel);
 
-	int colonistLanders() const { return mColonyShipData.colonistLanders; }
-	int cargoLanders() const { return mColonyShipData.cargoLanders; }
-	int turnsOfManeuveringFuel() const { return mColonyShipData.turnsOfManeuveringFuel; }
-	void onDeployColonistLander() { --mColonyShipData.colonistLanders; }
-	void onDeployCargoLander() { --mColonyShipData.cargoLanders; }
-	bool crashed() const { return mColonyShipData.turnsOfManeuveringFuel == 0; }
+	int colonistLanders() const { return mLanders.colonist; }
+	int cargoLanders() const { return mLanders.cargo; }
+	int turnsOfManeuveringFuel() const { return mTurnsOfManeuveringFuel; }
+	void onDeployColonistLander() { --mLanders.colonist; }
+	void onDeployCargoLander() { --mLanders.cargo; }
+	bool crashed() const { return mTurnsOfManeuveringFuel == 0; }
+	const ColonyShipLanders& crashedLanders() const { return mCrashedLanders; }
 	void onTurn();
 
-	const std::optional<ColonyShipData>& crashData() const { return mCrashData; }
 private:
-	ColonyShipData mColonyShipData = 
-	{
-		.colonistLanders = 2,
-		.cargoLanders = 2,
-		.turnsOfManeuveringFuel = constants::ColonyShipOrbitTime + 1
-	};
-	std::optional<ColonyShipData> mCrashData = std::nullopt;
+	ColonyShipLanders mLanders;
+	ColonyShipLanders mCrashedLanders{};
+	int mTurnsOfManeuveringFuel{};
 };

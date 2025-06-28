@@ -32,15 +32,15 @@ void MajorEventAnnouncement::onClose()
 }
 
 
-MajorEventAnnouncement::AnnouncementType MajorEventAnnouncement::colonyShipCrashAnnouncement(const ColonyShipData& colonyShipData)
+MajorEventAnnouncement::AnnouncementType MajorEventAnnouncement::colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders)
 {
-	if (colonyShipData.colonistLanders && colonyShipData.cargoLanders)
+	if (colonyShipLanders.colonist && colonyShipLanders.cargo)
 		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonistsAndCargo;
 
-	if (colonyShipData.colonistLanders)
+	if (colonyShipLanders.colonist)
 		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithColonists;
 
-	if (colonyShipData.cargoLanders)
+	if (colonyShipLanders.cargo)
 		return MajorEventAnnouncement::AnnouncementType::ColonyShipCrashWithCargo;
 
 	return MajorEventAnnouncement::AnnouncementType::ColonyShipCrash;
@@ -67,10 +67,10 @@ void MajorEventAnnouncement::announcement(AnnouncementType a)
 }
 
 
-void MajorEventAnnouncement::onColonyShipCrash(WindowStack& windowStack, const ColonyShipData& colonyShipData)
+void MajorEventAnnouncement::onColonyShipCrash(WindowStack& windowStack, const ColonyShipLanders& colonyShipLanders)
 {
 	windowStack.bringToFront(*this);
-	announcement(colonyShipCrashAnnouncement(colonyShipData));
+	announcement(colonyShipCrashAnnouncement(colonyShipLanders));
 	show();
 }
 
