@@ -19,7 +19,7 @@ public:
 	NAS2D::Point<int> position() const { return mPosition; }
 	void position(const NAS2D::Point<int>& point) { mPosition = point; }
 
-	bool mouseHovering() const { return mMouseInArea; }
+	bool isMouseOver() const { return mMouseInArea; }
 
 	MouseSignal::Source& mouseEnter() { return mMouseEnterSignal; }
 	MouseSignal::Source& mouseExit() { return mMouseExitSignal; }

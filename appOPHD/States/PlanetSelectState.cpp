@@ -138,7 +138,7 @@ void PlanetSelectState::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<
 {
 	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		if (mPlanetImages[i].mouseHovering())
+		if (mPlanetImages[i].isMouseOver())
 		{
 			NAS2D::Utility<NAS2D::Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
@@ -157,7 +157,7 @@ void PlanetSelectState::onMousePlanetEnter()
 	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
 		auto& planetImage = mPlanetImages[i];
-		if (planetImage.mouseHovering())
+		if (planetImage.isMouseOver())
 		{
 			mPlanetDescription.text(mPlanetAttributes[i].description);
 			break;
