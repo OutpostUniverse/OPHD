@@ -12,7 +12,7 @@ namespace NAS2D
 }
 
 
-struct ColonyShipData
+struct ColonyShipLanders
 {
 	int colonistLanders = 0;
 	int cargoLanders = 0;
@@ -29,7 +29,7 @@ class ColonyShip
 {
 public:
 	ColonyShip();
-	ColonyShip(const ColonyShipData&, int turnsOfManeuveringFuel);
+	ColonyShip(const ColonyShipLanders&, int turnsOfManeuveringFuel);
 
 	int colonistLanders() const { return mColonyShipData.colonistLanders; }
 	int cargoLanders() const { return mColonyShipData.cargoLanders; }
@@ -39,9 +39,9 @@ public:
 	bool crashed() const { return mTurnsOfManeuveringFuel == 0; }
 	void onTurn();
 
-	const std::optional<ColonyShipData>& crashData() const { return mCrashData; }
+	const std::optional<ColonyShipLanders>& crashData() const { return mCrashData; }
 private:
-	ColonyShipData mColonyShipData;
-	std::optional<ColonyShipData> mCrashData = std::nullopt;
+	ColonyShipLanders mColonyShipData;
+	std::optional<ColonyShipLanders> mCrashData = std::nullopt;
 	int mTurnsOfManeuveringFuel = 0;
 };

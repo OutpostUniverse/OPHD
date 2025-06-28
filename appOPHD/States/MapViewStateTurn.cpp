@@ -327,7 +327,7 @@ void MapViewState::checkColonyShip()
 }
 
 
-void MapViewState::onColonyShipCrash(const ColonyShipData& colonyShipData)
+void MapViewState::onColonyShipCrash(const ColonyShipLanders& colonyShipData)
 {
 	if(colonyShipData.colonistLanders > 0)
 	{

@@ -4,7 +4,7 @@
 #include <libControls/Button.h>
 
 class WindowStack;
-struct ColonyShipData;
+struct ColonyShipLanders;
 
 class MajorEventAnnouncement : public Window
 {
@@ -22,14 +22,14 @@ public:
 
 	void announcement(AnnouncementType a);
 
-	void onColonyShipCrash(WindowStack&, const ColonyShipData&);
+	void onColonyShipCrash(WindowStack&, const ColonyShipLanders&);
 
 	void drawClientArea() const override;
 
 private:
 	void onClose();
 
-	MajorEventAnnouncement::AnnouncementType colonyShipCrashAnnouncement(const ColonyShipData&);
+	MajorEventAnnouncement::AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders&);
 
 	const NAS2D::Image& mHeader;
 	std::string mMessage;
