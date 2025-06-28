@@ -7,13 +7,15 @@
 
 namespace
 {
-	void setLanders(ColonyShipData& colonyShipData, NAS2D::Xml::XmlElement* element)
+	ColonyShipData readLanders(NAS2D::Xml::XmlElement* element)
 	{
-		if (!element) { return; }
+		if (!element) { return {}; }
 
 		const auto dictionary = NAS2D::attributesToDictionary(*element);
-		colonyShipData.colonistLanders = dictionary.get<int>("colonist_landers");
-		colonyShipData.cargoLanders = dictionary.get<int>("cargo_landers");
+		return {
+			.colonistLanders = dictionary.get<int>("colonist_landers"),
+			.cargoLanders = dictionary.get<int>("cargo_landers"),
+		};
 	}
 
 
@@ -31,8 +33,7 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 	if (!root) { throw std::runtime_error("Invalid save game root element."); }
 
-	ColonyShipData colonyShipData;
-	setLanders(colonyShipData, root->firstChildElement("population"));
+	ColonyShipData colonyShipData = readLanders(root->firstChildElement("population"));
 	colonyShipData.turnsOfManeuveringFuel = readManeuveringFuel(root->firstChildElement("turns"));
 	return ColonyShip{colonyShipData};
 }
