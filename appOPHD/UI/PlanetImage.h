@@ -14,6 +14,9 @@ public:
 
 public:
 	PlanetImage(const std::string& imagePath);
+	PlanetImage() = delete;
+	PlanetImage(const PlanetImage&) = delete;
+	PlanetImage& operator=(const PlanetImage&) = delete;
 	~PlanetImage();
 
 	NAS2D::Point<int> position() const { return mPosition; }
@@ -29,11 +32,6 @@ public:
 protected:
 	bool pointInCircle(NAS2D::Point<int> point) const;
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
-
-private:
-	PlanetImage() = delete;
-	PlanetImage(const PlanetImage&) = delete;
-	PlanetImage& operator=(const PlanetImage&) = delete;
 
 private:
 	const NAS2D::Image mImage;
