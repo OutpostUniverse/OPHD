@@ -27,15 +27,15 @@
 
 namespace
 {
+	constexpr std::size_t NoSelection{std::numeric_limits<std::size_t>::max()};
+
+
 	auto attributesToPlanetImages(const std::vector<PlanetAttributes>& attributes)
 	{
 		const auto& imagePaths = std::ranges::views::transform(attributes, &PlanetAttributes::imagePath);
 		return std::vector<PlanetImage>{imagePaths.begin(), imagePaths.end()};
 	}
 }
-
-
-const std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 PlanetSelectState::PlanetSelectState() :

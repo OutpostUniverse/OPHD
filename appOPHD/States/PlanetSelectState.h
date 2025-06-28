@@ -27,9 +27,6 @@ class PlanetImage;
 class PlanetSelectState : public NAS2D::State
 {
 public:
-	static const std::size_t NoSelection;
-
-
 	PlanetSelectState();
 	~PlanetSelectState() override;
 
