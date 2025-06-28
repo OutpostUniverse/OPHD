@@ -237,9 +237,6 @@
     <ClCompile Include="States\MapViewStateUi.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="States\PlanetImage.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="States\PlanetSelectState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -307,6 +304,9 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\NotificationWindow.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\PlanetImage.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\PopulationPanel.cpp">
@@ -578,9 +578,6 @@
     <ClInclude Include="States\MapViewStateHelper.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
-    <ClInclude Include="States\PlanetImage.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
     <ClInclude Include="States\PlanetSelectState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
@@ -651,6 +648,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\NotificationWindow.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\PlanetImage.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\PopulationPanel.h">

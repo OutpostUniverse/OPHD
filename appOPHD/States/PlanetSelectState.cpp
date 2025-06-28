@@ -1,12 +1,12 @@
 #include "PlanetSelectState.h"
 
-#include "PlanetImage.h"
 #include "GameState.h"
 #include "MainMenuState.h"
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Cache.h"
+#include "../UI/PlanetImage.h"
 
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/PlanetAttributes.h>
