@@ -22,14 +22,14 @@ public:
 	ToolTip();
 	~ToolTip() override;
 
-	void add(Control&, const std::string&);
+	void add(const Control&, const std::string&);
 
 	void update() override;
 
 protected:
 	struct ControlText
 	{
-		Control* control;
+		const Control* control;
 		std::string text;
 	};
 

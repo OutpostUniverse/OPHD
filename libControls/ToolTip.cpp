@@ -27,7 +27,7 @@ ToolTip::~ToolTip()
 }
 
 
-void ToolTip::add(Control& c, const std::string& str)
+void ToolTip::add(const Control& c, const std::string& str)
 {
 	for (auto& item : mControls)
 	{
