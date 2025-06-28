@@ -9,12 +9,11 @@ namespace
 {
 	void setLanders(ColonyShipData& colonyShipData, NAS2D::Xml::XmlElement* element)
 	{
-		if (element)
-		{
-			const auto dictionary = NAS2D::attributesToDictionary(*element);
-			colonyShipData.colonistLanders = dictionary.get<int>("colonist_landers");
-			colonyShipData.cargoLanders = dictionary.get<int>("cargo_landers");
-		}
+		if (!element) { return; }
+
+		const auto dictionary = NAS2D::attributesToDictionary(*element);
+		colonyShipData.colonistLanders = dictionary.get<int>("colonist_landers");
+		colonyShipData.cargoLanders = dictionary.get<int>("cargo_landers");
 	}
 
 
