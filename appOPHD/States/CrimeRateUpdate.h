@@ -1,11 +1,10 @@
 #pragma once
 
-#include <libOPHD/EnumDifficulty.h>
-#include <libOPHD/Population/MoraleChangeEntry.h>
-
 #include <vector>
 
 
+enum class Difficulty;
+struct MoraleChangeEntry;
 class Structure;
 class Tile;
 

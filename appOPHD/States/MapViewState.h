@@ -34,6 +34,7 @@
 #include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
 
+#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/StorableResources.h>
 
 #include <libOPHD/Map/MapCoordinate.h>

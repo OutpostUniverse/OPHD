@@ -2,10 +2,12 @@
 
 #include "../Resources.h"
 #include "../StructureManager.h"
+#include "../MapObjects/Structure.h"
 #include "../MapObjects/Structures/FoodProduction.h"
 
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/RandomNumberGenerator.h>
+#include <libOPHD/Population/MoraleChangeEntry.h>
 
 #include <NAS2D/Utility.h>
 
@@ -74,6 +76,12 @@ CrimeExecution::CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate 
 	{
 		throw std::runtime_error("CrimeExecution needs a non-empty crimeEventHandler");
 	}
+}
+
+
+std::vector<MoraleChangeEntry> CrimeExecution::moraleChanges() const
+{
+	return mMoraleChanges;
 }
 
 
