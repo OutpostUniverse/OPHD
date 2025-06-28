@@ -46,10 +46,9 @@ void ToolTip::buildDrawParams(ControlText& controlText, int mouseX)
 {
 	const auto toolTipSize = mFont.size(controlText.text) + PaddingSize * 2;
 
-	auto toolTipPosition = controlText.control->position();
-
 	const auto screenSizeX = NAS2D::Utility<NAS2D::Renderer>::get().size().x;
 	const auto maxX = screenSizeX - toolTipSize.x;
+	auto toolTipPosition = controlText.control->position();
 	toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
 	if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
 
