@@ -45,5 +45,5 @@ private:
 
 	ControlText* mFocusedControl{nullptr};
 
-	std::vector<ControlText> mControls;
+	std::vector<ControlText> mControlTexts;
 };

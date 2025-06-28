@@ -29,16 +29,16 @@ ToolTip::~ToolTip()
 
 void ToolTip::add(const Control& control, const std::string& toolTipText)
 {
-	for (auto& item : mControls)
+	for (auto& controlText : mControlTexts)
 	{
-		if (item.control == &control)
+		if (controlText.control == &control)
 		{
-			item.text = toolTipText;
+			controlText.text = toolTipText;
 			return;
 		}
 	}
 
-	mControls.push_back({&control, toolTipText});
+	mControlTexts.push_back({&control, toolTipText});
 }
 
 
@@ -72,13 +72,13 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 		mTimer.reset();
 	}
 
-	for (auto& item : mControls)
+	for (auto& controlText : mControlTexts)
 	{
 		if (mFocusedControl) { break; }
-		if (item.control->area().contains(position))
+		if (controlText.control->area().contains(position))
 		{
-			mFocusedControl = &item;
-			buildDrawParams(item, position.x);
+			mFocusedControl = &controlText;
+			buildDrawParams(controlText, position.x);
 			return;
 		}
 	}
