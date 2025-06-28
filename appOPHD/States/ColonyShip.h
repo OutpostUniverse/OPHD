@@ -20,14 +20,14 @@ struct ColonyShipLanders
 class ColonyShip;
 
 
-ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument&);
+ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument);
 
 
 class ColonyShip
 {
 public:
 	ColonyShip();
-	ColonyShip(const ColonyShipLanders&, int turnsOfManeuveringFuel);
+	ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnsOfManeuveringFuel);
 
 	int colonistLanders() const { return mLanders.colonist; }
 	int cargoLanders() const { return mLanders.cargo; }
