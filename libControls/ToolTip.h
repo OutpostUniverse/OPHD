@@ -43,7 +43,6 @@ private:
 	const NAS2D::Font& mFont;
 	NAS2D::Timer mTimer;
 
-	ControlText* mFocusedControl{nullptr};
-
 	std::vector<ControlText> mControlTexts;
+	ControlText* mFocus{nullptr};
 };

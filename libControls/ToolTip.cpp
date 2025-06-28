@@ -63,10 +63,10 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 {
 	if (relative != NAS2D::Vector{0, 0})
 	{
-		if (mFocusedControl)
+		if (mFocus)
 		{
-			if (mFocusedControl->control->area().contains(position)) { return; }
-			else { mFocusedControl = nullptr; }
+			if (mFocus->control->area().contains(position)) { return; }
+			else { mFocus = nullptr; }
 		}
 
 		mTimer.reset();
@@ -74,16 +74,16 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 
 	for (auto& controlText : mControlTexts)
 	{
-		if (mFocusedControl) { break; }
+		if (mFocus) { break; }
 		if (controlText.control->area().contains(position))
 		{
-			mFocusedControl = &controlText;
+			mFocus = &controlText;
 			buildDrawParams(controlText, position.x);
 			return;
 		}
 	}
 
-	mFocusedControl = nullptr;
+	mFocus = nullptr;
 }
 
 
@@ -99,11 +99,11 @@ void ToolTip::update()
 
 void ToolTip::draw() const
 {
-	if (mFocusedControl)
+	if (mFocus)
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(area(), NAS2D::Color::DarkGray);
 		renderer.drawBox(area(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->text, position() + PaddingSize);
+		renderer.drawText(mFont, mFocus->text, position() + PaddingSize);
 	}
 }
