@@ -20,6 +20,7 @@ namespace NAS2D
 	template <typename BaseType> struct Point;
 }
 
+struct PlanetAttributes;
 class Planet;
 
 
@@ -68,5 +69,6 @@ private:
 	TextArea mPlanetDescription;
 
 	std::size_t mPlanetSelection;
+	std::vector<PlanetAttributes> mPlanetAttributes;
 	std::vector<Planet> mPlanets;
 };

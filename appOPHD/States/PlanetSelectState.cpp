@@ -9,6 +9,7 @@
 #include "../Cache.h"
 
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/EnumMouseButton.h>
@@ -48,7 +49,8 @@ PlanetSelectState::PlanetSelectState() :
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{NoSelection},
-	mPlanets{attributesToPlanets(parsePlanetAttributes("planets/PlanetAttributes.xml"))}
+	mPlanetAttributes{parsePlanetAttributes("planets/PlanetAttributes.xml")},
+	mPlanets{attributesToPlanets(mPlanetAttributes)}
 {
 	for (auto& planet : mPlanets)
 	{
@@ -100,10 +102,12 @@ NAS2D::State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	for (auto& planet : mPlanets)
+	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
+		auto& planet = mPlanets[i];
 		planet.update();
-		renderer.drawText(mFontBold, planet.attributes().name, planet.position() + NAS2D::Vector{64 - (mFontBold.width(planet.attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+		const auto& planetName = mPlanetAttributes[i].name;
+		renderer.drawText(mFontBold, planetName, planet.position() + NAS2D::Vector{64 - (mFontBold.width(planetName) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 	}
 
 	mQuit.update();
@@ -121,7 +125,7 @@ NAS2D::State* PlanetSelectState::update()
 	}
 	else if (mPlanetSelection != NoSelection)
 	{
-		return new GameState(mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
+		return new GameState(mPlanetAttributes[mPlanetSelection], Difficulty::Medium);
 	}
 
 	return mReturnState;
@@ -148,11 +152,12 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (const auto& planet : mPlanets)
+	for (std::size_t i = 0; i < mPlanets.size(); ++i)
 	{
+		auto& planet = mPlanets[i];
 		if (planet.mouseHovering())
 		{
-			mPlanetDescription.text(planet.attributes().description);
+			mPlanetDescription.text(mPlanetAttributes[i].description);
 			break;
 		}
 	}
