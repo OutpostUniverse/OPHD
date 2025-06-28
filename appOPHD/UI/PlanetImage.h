@@ -1,5 +1,7 @@
 #pragma once
 
+#include <libControls/Control.h>
+
 #include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
@@ -7,7 +9,7 @@
 #include <NAS2D/Resource/Image.h>
 
 
-class PlanetImage
+class PlanetImage : public Control
 {
 public:
 	using MouseSignal = NAS2D::Signal<>;
@@ -16,17 +18,14 @@ public:
 	PlanetImage(const std::string& imagePath);
 	PlanetImage(const PlanetImage&) = delete;
 	PlanetImage& operator=(const PlanetImage&) = delete;
-	~PlanetImage();
-
-	NAS2D::Point<int> position() const { return mPosition; }
-	void position(const NAS2D::Point<int>& point) { mPosition = point; }
+	~PlanetImage() override;
 
 	bool isMouseOver() const { return mIsMouseOver; }
 
 	MouseSignal::Source& mouseEnter() { return mMouseEnterSignal; }
 	MouseSignal::Source& mouseExit() { return mMouseExitSignal; }
 
-	void update();
+	void update() override;
 
 protected:
 	bool pointInCircle(NAS2D::Point<int> point) const;
@@ -34,7 +33,6 @@ protected:
 
 private:
 	const NAS2D::Image mImage;
-	NAS2D::Point<int> mPosition;
 	NAS2D::Timer mTimer;
 
 	bool mIsMouseOver = false;

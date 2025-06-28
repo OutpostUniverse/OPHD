@@ -20,6 +20,8 @@ namespace
 PlanetImage::PlanetImage(const std::string& imagePath) :
 	mImage(NAS2D::Image(imagePath))
 {
+	size(PlanetSize);
+
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &PlanetImage::onMouseMove});
 }
 
@@ -32,7 +34,7 @@ PlanetImage::~PlanetImage()
 
 bool PlanetImage::pointInCircle(NAS2D::Point<int> point) const
 {
-	const auto offset = point - mPosition - PlanetSize / 2;
+	const auto offset = point - mRect.position - PlanetSize / 2;
 	constexpr auto radiusSquared = PlanetRadius * PlanetRadius;
 	return ((offset.x * offset.x) + (offset.y * offset.y) <= radiusSquared);
 }
@@ -60,5 +62,5 @@ void PlanetImage::update()
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto spriteFrameOffset = NAS2D::Point{mFrameIndex % 16 * PlanetSize.x, ((mFrameIndex % 256) / 16) * PlanetSize.y};
-	renderer.drawSubImage(mImage, mPosition, NAS2D::Rectangle{spriteFrameOffset, PlanetSize});
+	renderer.drawSubImage(mImage, mRect.position, NAS2D::Rectangle{spriteFrameOffset, PlanetSize});
 }
