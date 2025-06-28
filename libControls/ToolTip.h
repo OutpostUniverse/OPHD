@@ -44,5 +44,5 @@ private:
 	NAS2D::Timer mTimer;
 
 	std::vector<ControlText> mControlTexts;
-	ControlText* mFocus{nullptr};
+	ControlText* mFocus;
 };

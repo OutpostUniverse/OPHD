@@ -30,7 +30,8 @@ namespace
 
 
 ToolTip::ToolTip():
-	mFont{getDefaultFont()}
+	mFont{getDefaultFont()},
+	mFocus{nullptr}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
 }
