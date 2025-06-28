@@ -77,6 +77,12 @@ CrimeExecution::CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate 
 }
 
 
+std::vector<MoraleChangeEntry> CrimeExecution::moraleChanges() const
+{
+	return mMoraleChanges;
+}
+
+
 void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresCommittingCrime)
 {
 	mMoraleChanges.clear();

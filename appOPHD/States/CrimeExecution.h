@@ -21,8 +21,8 @@ public:
 
 	CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate crimeEventHandler);
 
+	std::vector<MoraleChangeEntry> moraleChanges() const;
 	void executeCrimes(const std::vector<Structure*>& structuresCommittingCrime);
-	std::vector<MoraleChangeEntry> moraleChanges() const { return mMoraleChanges; }
 
 protected:
 	void stealFood(FoodProduction& structure);
