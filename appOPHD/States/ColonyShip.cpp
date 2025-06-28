@@ -56,9 +56,11 @@ ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipData, int turnsOfManeu
 
 void ColonyShip::onTurn()
 {
-	if (mTurnsOfManeuveringFuel > 0) { --mTurnsOfManeuveringFuel; }
-
-	if (mTurnsOfManeuveringFuel == 0)
+	if (mTurnsOfManeuveringFuel > 0)
+	{
+		--mTurnsOfManeuveringFuel;
+	}
+	else
 	{
 		mCrashedLanders = mLanders;
 		mLanders = {};
