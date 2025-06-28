@@ -36,15 +36,13 @@ private:
 	PlanetImage& operator=(const PlanetImage&) = delete;
 
 private:
-	int mFrameIndex = 0;
-
 	const NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
+	NAS2D::Timer mTimer;
+
+	bool mIsMouseOver = false;
+	int mFrameIndex = 0;
 
 	MouseSignal mMouseEnterSignal;
 	MouseSignal mMouseExitSignal;
-
-	bool mIsMouseOver = false;
-
-	NAS2D::Timer mTimer;
 };
