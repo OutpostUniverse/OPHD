@@ -53,16 +53,14 @@ private:
 	const NAS2D::Sound mSelect;
 	const NAS2D::Sound mHover;
 
-	Button mQuit;
-
-	TextArea mPlanetDescription;
-
-	std::size_t mPlanetSelection;
-
 	NAS2D::Timer mTimer;
 	NAS2D::Fade mFade;
 
 	NAS2D::State* mReturnState = this;
 
+	Button mQuit;
+	TextArea mPlanetDescription;
+
+	std::size_t mPlanetSelection;
 	std::vector<Planet> mPlanets;
 };

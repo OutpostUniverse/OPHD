@@ -40,10 +40,10 @@ PlanetSelectState::PlanetSelectState() :
 	mBackgroundMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
+	mReturnState{this},
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{NoSelection},
-	mReturnState{this},
 	mPlanets{attributesToPlanets(parsePlanetAttributes("planets/PlanetAttributes.xml"))}
 {
 	for (auto& planet : mPlanets)
