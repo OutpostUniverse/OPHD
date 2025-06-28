@@ -30,7 +30,7 @@ namespace
 }
 
 
-ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
+ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 {
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 	if (root)
@@ -38,7 +38,7 @@ ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 		ColonyShipData colonyShipData;
 		setLanders(colonyShipData, root->firstChildElement("population"));
 		setManeuveringFuel(colonyShipData, root->firstChildElement("turns"));
-		return colonyShipData;
+		return ColonyShip{colonyShipData};
 	}
 	throw std::runtime_error("Invalid save game root element.");
 }

@@ -20,7 +20,10 @@ struct ColonyShipData
 };
 
 
-ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument&);
+class ColonyShip;
+
+
+ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument&);
 
 
 class ColonyShip
