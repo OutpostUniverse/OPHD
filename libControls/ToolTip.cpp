@@ -11,6 +11,22 @@ namespace
 {
 	constexpr int MarginTight{2};
 	constexpr auto PaddingSize = NAS2D::Vector{MarginTight, MarginTight};
+
+
+	NAS2D::Rectangle<int> toolTipArea(NAS2D::Rectangle<int> controlArea, NAS2D::Vector<int> textSize, int mouseX)
+	{
+		const auto toolTipSize = textSize + PaddingSize * 2;
+
+		const auto screenSizeX = NAS2D::Utility<NAS2D::Renderer>::get().size().x;
+		const auto maxX = screenSizeX - toolTipSize.x;
+		auto toolTipPosition = controlArea.position;
+		toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
+		if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
+
+		toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : controlArea.size.y;
+
+		return {toolTipPosition, toolTipSize};
+	}
 }
 
 
@@ -44,18 +60,7 @@ void ToolTip::add(const Control& control, const std::string& toolTipText)
 
 void ToolTip::buildDrawParams(ControlText& controlText, int mouseX)
 {
-	const auto toolTipSize = mFont.size(controlText.text) + PaddingSize * 2;
-	const auto& controlArea = controlText.control->area();
-
-	const auto screenSizeX = NAS2D::Utility<NAS2D::Renderer>::get().size().x;
-	const auto maxX = screenSizeX - toolTipSize.x;
-	auto toolTipPosition = controlArea.position;
-	toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
-	if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
-
-	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : controlArea.size.y;
-
-	area({toolTipPosition, toolTipSize});
+	area(toolTipArea(controlText.control->area(), mFont.size(controlText.text), mouseX));
 }
 
 
