@@ -6,7 +6,7 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Timer.h>
 
-#include <utility>
+#include <string>
 #include <vector>
 
 
@@ -22,22 +22,27 @@ public:
 	ToolTip();
 	~ToolTip() override;
 
-	void add(Control&, const std::string&);
+	void add(const Control& control, const std::string& toolTipText);
 
 	void update() override;
 
 protected:
+	struct ControlText
+	{
+		const Control& control;
+		std::string text;
+	};
+
 	void draw() const override;
 
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
-	void buildDrawParams(std::pair<Control*, std::string>&, int);
+	void setToolTipArea(ControlText& controlText, int mouseX);
 
 private:
 	const NAS2D::Font& mFont;
 	NAS2D::Timer mTimer;
 
-	std::pair<Control*, std::string>* mFocusedControl{nullptr};
-
-	std::vector<std::pair<Control*, std::string>> mControls;
+	std::vector<ControlText> mControlTexts;
+	ControlText* mFocus;
 };

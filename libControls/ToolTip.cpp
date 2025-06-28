@@ -5,17 +5,33 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
 
-#include <string>
 
 namespace
 {
 	constexpr int MarginTight{2};
 	constexpr auto PaddingSize = NAS2D::Vector{MarginTight, MarginTight};
+
+
+	NAS2D::Rectangle<int> toolTipArea(NAS2D::Rectangle<int> controlArea, NAS2D::Vector<int> textSize, int mouseX)
+	{
+		const auto toolTipSize = textSize + PaddingSize * 2;
+
+		const auto screenSizeX = NAS2D::Utility<NAS2D::Renderer>::get().size().x;
+		const auto maxX = screenSizeX - toolTipSize.x;
+		auto toolTipPosition = controlArea.position;
+		toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
+		if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
+
+		toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : controlArea.size.y;
+
+		return {toolTipPosition, toolTipSize};
+	}
 }
 
 
 ToolTip::ToolTip():
-	mFont{getDefaultFont()}
+	mFont{getDefaultFont()},
+	mFocus{nullptr}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ToolTip::onMouseMove});
 }
@@ -27,35 +43,24 @@ ToolTip::~ToolTip()
 }
 
 
-void ToolTip::add(Control& c, const std::string& str)
+void ToolTip::add(const Control& control, const std::string& toolTipText)
 {
-	for (auto& item : mControls)
+	for (auto& controlText : mControlTexts)
 	{
-		if (item.first == &c)
+		if (&controlText.control == &control)
 		{
-			item.second = str;
+			controlText.text = toolTipText;
 			return;
 		}
 	}
 
-	mControls.push_back({&c, str});
+	mControlTexts.emplace_back(control, toolTipText);
 }
 
 
-void ToolTip::buildDrawParams(std::pair<Control*, std::string>& item, int mouseX)
+void ToolTip::setToolTipArea(ControlText& controlText, int mouseX)
 {
-	const auto toolTipSize = mFont.size(item.second) + PaddingSize * 2;
-
-	auto toolTipPosition = item.first->position();
-
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto maxX = renderer.size().x - toolTipSize.x;
-	toolTipPosition.x = (mouseX <= maxX) ? mouseX : maxX;
-	if (toolTipPosition.x < 0) { toolTipPosition.x = 0; }
-
-	toolTipPosition.y += (toolTipSize.y <= toolTipPosition.y) ? -toolTipSize.y : item.first->size().y;
-
-	area({toolTipPosition, toolTipSize});
+	area(toolTipArea(controlText.control.area(), mFont.size(controlText.text), mouseX));
 }
 
 
@@ -63,27 +68,27 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 {
 	if (relative != NAS2D::Vector{0, 0})
 	{
-		if (mFocusedControl)
+		if (mFocus)
 		{
-			if (mFocusedControl->first->area().contains(position)) { return; }
-			else { mFocusedControl = nullptr; }
+			if (mFocus->control.area().contains(position)) { return; }
+			else { mFocus = nullptr; }
 		}
 
 		mTimer.reset();
 	}
 
-	for (auto& item : mControls)
+	for (auto& controlText : mControlTexts)
 	{
-		if (mFocusedControl) { break; }
-		if (item.first->area().contains(position))
+		if (mFocus) { break; }
+		if (controlText.control.area().contains(position))
 		{
-			mFocusedControl = &item;
-			buildDrawParams(item, position.x);
+			mFocus = &controlText;
+			setToolTipArea(controlText, position.x);
 			return;
 		}
 	}
 
-	mFocusedControl = nullptr;
+	mFocus = nullptr;
 }
 
 
@@ -99,11 +104,11 @@ void ToolTip::update()
 
 void ToolTip::draw() const
 {
-	if (mFocusedControl)
+	if (mFocus)
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(area(), NAS2D::Color::DarkGray);
 		renderer.drawBox(area(), NAS2D::Color::Black);
-		renderer.drawText(mFont, mFocusedControl->second, position() + PaddingSize);
+		renderer.drawText(mFont, mFocus->text, position() + PaddingSize);
 	}
 }
