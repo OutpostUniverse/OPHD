@@ -34,7 +34,6 @@ protected:
 	void initialize() override;
 	State* update() override;
 
-private:
 	void onMouseDown(NAS2D::MouseButton, NAS2D::Point<int> position);
 
 	void onMousePlanetEnter();
