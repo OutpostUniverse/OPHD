@@ -5,8 +5,6 @@
 #include "CrimeExecution.h"
 #include "StructureTracker.h"
 
-#include "Planet.h"
-
 #include "../RobotPool.h"
 
 #include "../Constants/Numbers.h"
@@ -35,6 +33,7 @@
 #include "../UI/CheatMenu.h"
 
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/StorableResources.h>
 
 #include <libOPHD/Map/MapCoordinate.h>
