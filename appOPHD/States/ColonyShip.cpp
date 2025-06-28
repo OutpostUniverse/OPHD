@@ -61,7 +61,6 @@ void ColonyShip::onTurn()
 	if (mTurnsOfManeuveringFuel == 0)
 	{
 		mCrashedLanders = mLanders;
-		mLanders.cargoLanders = 0;
-		mLanders.colonistLanders = 0;
+		mLanders = {};
 	}
 }
