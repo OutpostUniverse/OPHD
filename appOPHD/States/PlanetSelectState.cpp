@@ -1,6 +1,6 @@
 #include "PlanetSelectState.h"
 
-#include "Planet.h"
+#include "PlanetImage.h"
 #include "GameState.h"
 #include "MainMenuState.h"
 
@@ -27,10 +27,10 @@
 
 namespace
 {
-	auto attributesToPlanets(const std::vector<PlanetAttributes>& attributes)
+	auto attributesToPlanetImages(const std::vector<PlanetAttributes>& attributes)
 	{
 		const auto& imagePaths = std::ranges::views::transform(attributes, &PlanetAttributes::imagePath);
-		return std::vector<Planet>{imagePaths.begin(), imagePaths.end()};
+		return std::vector<PlanetImage>{imagePaths.begin(), imagePaths.end()};
 	}
 }
 
@@ -52,7 +52,7 @@ PlanetSelectState::PlanetSelectState() :
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{NoSelection},
 	mPlanetAttributes{parsePlanetAttributes("planets/PlanetAttributes.xml")},
-	mPlanets{attributesToPlanets(mPlanetAttributes)}
+	mPlanets{attributesToPlanetImages(mPlanetAttributes)}
 {
 	for (auto& planet : mPlanets)
 	{

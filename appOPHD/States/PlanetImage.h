@@ -7,14 +7,14 @@
 #include <NAS2D/Resource/Image.h>
 
 
-class Planet
+class PlanetImage
 {
 public:
 	using MouseSignal = NAS2D::Signal<>;
 
 public:
-	Planet(const std::string& imagePath);
-	~Planet();
+	PlanetImage(const std::string& imagePath);
+	~PlanetImage();
 
 	NAS2D::Point<int> position() const { return mPosition; }
 	void position(const NAS2D::Point<int>& point) { mPosition = point; }
@@ -31,9 +31,9 @@ protected:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:
-	Planet() = delete;
-	Planet(const Planet&) = delete;
-	Planet& operator=(const Planet&) = delete;
+	PlanetImage() = delete;
+	PlanetImage(const PlanetImage&) = delete;
+	PlanetImage& operator=(const PlanetImage&) = delete;
 
 private:
 	int mTick = 0;

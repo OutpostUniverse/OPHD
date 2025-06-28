@@ -1,4 +1,4 @@
-#include "Planet.h"
+#include "PlanetImage.h"
 
 #include "../Constants/UiConstants.h"
 
@@ -17,20 +17,20 @@ namespace
 }
 
 
-Planet::Planet(const std::string& imagePath) :
+PlanetImage::PlanetImage(const std::string& imagePath) :
 	mImage(NAS2D::Image(imagePath))
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &Planet::onMouseMove});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &PlanetImage::onMouseMove});
 }
 
 
-Planet::~Planet()
+PlanetImage::~PlanetImage()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &Planet::onMouseMove});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &PlanetImage::onMouseMove});
 }
 
 
-bool Planet::pointInCircle(NAS2D::Point<int> point) const
+bool PlanetImage::pointInCircle(NAS2D::Point<int> point) const
 {
 	const auto offset = point - mPosition - PlanetSize / 2;
 	constexpr auto radiusSquared = PlanetRadius * PlanetRadius;
@@ -38,7 +38,7 @@ bool Planet::pointInCircle(NAS2D::Point<int> point) const
 }
 
 
-void Planet::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	bool inArea = pointInCircle(position);
 	if (inArea != mMouseInArea)
@@ -50,7 +50,7 @@ void Planet::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relati
 }
 
 
-void Planet::update()
+void PlanetImage::update()
 {
 	if (mMouseInArea && mTimer.elapsedTicks() >= constants::PlanetAnimationSpeed.milliseconds)
 	{

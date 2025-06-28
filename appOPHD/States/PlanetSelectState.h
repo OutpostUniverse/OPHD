@@ -21,7 +21,7 @@ namespace NAS2D
 }
 
 struct PlanetAttributes;
-class Planet;
+class PlanetImage;
 
 
 class PlanetSelectState : public NAS2D::State
@@ -70,5 +70,5 @@ private:
 
 	std::size_t mPlanetSelection;
 	std::vector<PlanetAttributes> mPlanetAttributes;
-	std::vector<Planet> mPlanets;
+	std::vector<PlanetImage> mPlanets;
 };

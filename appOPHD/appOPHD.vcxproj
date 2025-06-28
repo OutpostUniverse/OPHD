@@ -238,7 +238,7 @@
     <ClCompile Include="States\MapViewStateIO.cpp" />
     <ClCompile Include="States\MapViewStateTurn.cpp" />
     <ClCompile Include="States\MapViewStateUi.cpp" />
-    <ClCompile Include="States\Planet.cpp" />
+    <ClCompile Include="States\PlanetImage.cpp" />
     <ClCompile Include="States\PlanetSelectState.cpp" />
     <ClCompile Include="States\ReportsState.cpp" />
     <ClCompile Include="States\SplashState.cpp" />
@@ -353,7 +353,7 @@
     <ClInclude Include="States\MainMenuState.h" />
     <ClInclude Include="States\MapViewState.h" />
     <ClInclude Include="States\MapViewStateHelper.h" />
-    <ClInclude Include="States\Planet.h" />
+    <ClInclude Include="States\PlanetImage.h" />
     <ClInclude Include="States\PlanetSelectState.h" />
     <ClInclude Include="States\ReportsState.h" />
     <ClInclude Include="States\SplashState.h" />
