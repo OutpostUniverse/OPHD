@@ -46,20 +46,20 @@ void ToolTip::add(const Control& control, const std::string& toolTipText)
 {
 	for (auto& controlText : mControlTexts)
 	{
-		if (controlText.control == &control)
+		if (&controlText.control == &control)
 		{
 			controlText.text = toolTipText;
 			return;
 		}
 	}
 
-	mControlTexts.push_back({&control, toolTipText});
+	mControlTexts.emplace_back(control, toolTipText);
 }
 
 
 void ToolTip::setToolTipArea(ControlText& controlText, int mouseX)
 {
-	area(toolTipArea(controlText.control->area(), mFont.size(controlText.text), mouseX));
+	area(toolTipArea(controlText.control.area(), mFont.size(controlText.text), mouseX));
 }
 
 
@@ -69,7 +69,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 	{
 		if (mFocus)
 		{
-			if (mFocus->control->area().contains(position)) { return; }
+			if (mFocus->control.area().contains(position)) { return; }
 			else { mFocus = nullptr; }
 		}
 
@@ -79,7 +79,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 	for (auto& controlText : mControlTexts)
 	{
 		if (mFocus) { break; }
-		if (controlText.control->area().contains(position))
+		if (controlText.control.area().contains(position))
 		{
 			mFocus = &controlText;
 			setToolTipArea(controlText, position.x);

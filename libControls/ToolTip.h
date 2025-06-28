@@ -29,7 +29,7 @@ public:
 protected:
 	struct ControlText
 	{
-		const Control* control;
+		const Control& control;
 		std::string text;
 	};
 
