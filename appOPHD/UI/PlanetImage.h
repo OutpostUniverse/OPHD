@@ -14,7 +14,6 @@ public:
 
 public:
 	PlanetImage(const std::string& imagePath);
-	PlanetImage() = delete;
 	PlanetImage(const PlanetImage&) = delete;
 	PlanetImage& operator=(const PlanetImage&) = delete;
 	~PlanetImage();
