@@ -33,7 +33,7 @@ const std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t
 
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	mTinyFont{Control::getDefaultFont()},
+	mFontTiny{Control::getDefaultFont()},
 	mBackground{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
@@ -106,7 +106,7 @@ NAS2D::State* PlanetSelectState::update()
 
 	mPlanetDescription.update();
 
-	renderer.drawText(mTinyFont, constants::Version, NAS2D::Point{-5, -5} + size - mTinyFont.size(constants::Version), NAS2D::Color::White);
+	renderer.drawText(mFontTiny, constants::Version, NAS2D::Point{-5, -5} + size - mFontTiny.size(constants::Version), NAS2D::Color::White);
 
 	mFade.update();
 	mFade.draw(renderer);
