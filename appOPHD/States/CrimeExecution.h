@@ -1,7 +1,5 @@
 #pragma once
 
-#include <libOPHD/Population/MoraleChangeEntry.h>
-
 #include <NAS2D/Signal/Delegate.h>
 
 #include <vector>
@@ -10,6 +8,7 @@
 
 
 enum class Difficulty;
+struct MoraleChangeEntry;
 class Structure;
 class FoodProduction;
 

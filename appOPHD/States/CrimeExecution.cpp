@@ -6,6 +6,7 @@
 
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/RandomNumberGenerator.h>
+#include <libOPHD/Population/MoraleChangeEntry.h>
 
 #include <NAS2D/Utility.h>
 
