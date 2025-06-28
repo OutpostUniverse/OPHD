@@ -37,7 +37,7 @@ protected:
 
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
-	void buildDrawParams(ControlText& controlText, int mouseX);
+	void setToolTipArea(ControlText& controlText, int mouseX);
 
 private:
 	const NAS2D::Font& mFont;

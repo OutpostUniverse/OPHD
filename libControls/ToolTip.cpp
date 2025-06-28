@@ -57,7 +57,7 @@ void ToolTip::add(const Control& control, const std::string& toolTipText)
 }
 
 
-void ToolTip::buildDrawParams(ControlText& controlText, int mouseX)
+void ToolTip::setToolTipArea(ControlText& controlText, int mouseX)
 {
 	area(toolTipArea(controlText.control->area(), mFont.size(controlText.text), mouseX));
 }
@@ -82,7 +82,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 		if (controlText.control->area().contains(position))
 		{
 			mFocus = &controlText;
-			buildDrawParams(controlText, position.x);
+			setToolTipArea(controlText, position.x);
 			return;
 		}
 	}
