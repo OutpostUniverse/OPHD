@@ -39,7 +39,7 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 
 
 ColonyShip::ColonyShip() :
-	mColonyShipData
+	mLanders
 	{
 		.colonistLanders = 2,
 		.cargoLanders = 2,
@@ -49,7 +49,7 @@ ColonyShip::ColonyShip() :
 
 
 ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipData, int turnsOfManeuveringFuel) :
-	mColonyShipData{colonyShipData},
+	mLanders{colonyShipData},
 	mTurnsOfManeuveringFuel{turnsOfManeuveringFuel}
 {}
 
@@ -60,8 +60,8 @@ void ColonyShip::onTurn()
 
 	if (mTurnsOfManeuveringFuel == 0)
 	{
-		mCrashData = mColonyShipData;
-		mColonyShipData.cargoLanders = 0;
-		mColonyShipData.colonistLanders = 0;
+		mCrashData = mLanders;
+		mLanders.cargoLanders = 0;
+		mLanders.colonistLanders = 0;
 	}
 }
