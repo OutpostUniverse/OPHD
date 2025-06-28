@@ -33,8 +33,10 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
 	if (!root) { throw std::runtime_error("Invalid save game root element."); }
 
-	ColonyShipLanders colonyShipData = readLanders(root->firstChildElement("population"));
-	return ColonyShip{colonyShipData, readManeuveringFuel(root->firstChildElement("turns"))};
+	return {
+		readLanders(root->firstChildElement("population")),
+		readManeuveringFuel(root->firstChildElement("turns")),
+	};
 }
 
 
