@@ -66,5 +66,5 @@ private:
 
 	std::size_t mPlanetSelection;
 	std::vector<PlanetAttributes> mPlanetAttributes;
-	std::vector<PlanetImage> mPlanets;
+	std::vector<PlanetImage> mPlanetImages;
 };

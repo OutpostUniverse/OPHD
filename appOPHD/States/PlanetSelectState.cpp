@@ -52,12 +52,12 @@ PlanetSelectState::PlanetSelectState() :
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{NoSelection},
 	mPlanetAttributes{parsePlanetAttributes("planets/PlanetAttributes.xml")},
-	mPlanets{attributesToPlanetImages(mPlanetAttributes)}
+	mPlanetImages{attributesToPlanetImages(mPlanetAttributes)}
 {
-	for (auto& planet : mPlanets)
+	for (auto& planetImage : mPlanetImages)
 	{
-		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+		planetImage.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+		planetImage.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
 
 	mPlanetDescription.size({550, 200});
@@ -104,12 +104,12 @@ NAS2D::State* PlanetSelectState::update()
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		auto& planet = mPlanets[i];
-		planet.update();
+		auto& planetImage = mPlanetImages[i];
+		planetImage.update();
 		const auto& planetName = mPlanetAttributes[i].name;
-		renderer.drawText(mFontBold, planetName, planet.position() + NAS2D::Vector{64 - (mFontBold.width(planetName) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+		renderer.drawText(mFontBold, planetName, planetImage.position() + NAS2D::Vector{64 - (mFontBold.width(planetName) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 	}
 
 	mQuit.update();
@@ -136,9 +136,9 @@ NAS2D::State* PlanetSelectState::update()
 
 void PlanetSelectState::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		if (mPlanets[i].mouseHovering())
+		if (mPlanetImages[i].mouseHovering())
 		{
 			NAS2D::Utility<NAS2D::Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
@@ -154,10 +154,10 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		auto& planet = mPlanets[i];
-		if (planet.mouseHovering())
+		auto& planetImage = mPlanetImages[i];
+		if (planetImage.mouseHovering())
 		{
 			mPlanetDescription.text(mPlanetAttributes[i].description);
 			break;
@@ -176,9 +176,9 @@ void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	const auto offset = NAS2D::Vector{newSize.x / 4, 0};
 	auto planetPosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2 - offset;
-	for (auto& planet : mPlanets)
+	for (auto& planetImage : mPlanetImages)
 	{
-		planet.position(planetPosition);
+		planetImage.position(planetPosition);
 		planetPosition += offset;
 	}
 
