@@ -7,14 +7,20 @@
 
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>
-#include <NAS2D/EnumMouseButton.h>
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Music.h>
 #include <NAS2D/Resource/Sound.h>
 #include <NAS2D/Renderer/Fade.h>
 
 #include <vector>
+
+
+namespace NAS2D
+{
+	enum class MouseButton;
+
+	template <typename BaseType> struct Point;
+}
 
 
 class PlanetSelectState : public NAS2D::State

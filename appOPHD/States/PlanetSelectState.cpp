@@ -10,11 +10,13 @@
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/XmlSerializer.h>
 
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/Angle.h>
+#include <NAS2D/Math/Point.h>
 
 #include <cstddef>
 #include <limits>
