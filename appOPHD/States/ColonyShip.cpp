@@ -1,5 +1,6 @@
 #include "ColonyShip.h"
 
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 
 #include <NAS2D/ParserHelper.h>
@@ -43,12 +44,18 @@ ColonyShipData colonyShipDataFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 }
 
 
-ColonyShip::ColonyShip()
+ColonyShip::ColonyShip() :
+	mColonyShipData
+	{
+		.colonistLanders = 2,
+		.cargoLanders = 2,
+		.turnsOfManeuveringFuel = constants::ColonyShipOrbitTime + 1
+	}
 {}
 
 
 ColonyShip::ColonyShip(const ColonyShipData& colonyShipData) :
-	mColonyShipData(colonyShipData)
+	mColonyShipData{colonyShipData}
 {}
 
 

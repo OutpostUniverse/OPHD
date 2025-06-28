@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Constants/Numbers.h"
-
 #include <optional>
 
 
@@ -41,11 +39,6 @@ public:
 
 	const std::optional<ColonyShipData>& crashData() const { return mCrashData; }
 private:
-	ColonyShipData mColonyShipData = 
-	{
-		.colonistLanders = 2,
-		.cargoLanders = 2,
-		.turnsOfManeuveringFuel = constants::ColonyShipOrbitTime + 1
-	};
+	ColonyShipData mColonyShipData;
 	std::optional<ColonyShipData> mCrashData = std::nullopt;
 };
