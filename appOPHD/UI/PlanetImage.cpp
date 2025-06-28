@@ -55,10 +55,10 @@ void PlanetImage::update()
 	if (mIsMouseOver && mTimer.elapsedTicks() >= constants::PlanetAnimationSpeed.milliseconds)
 	{
 		mTimer.reset(); // don't care about frame skips.
-		++mTick;
+		++mFrameIndex;
 	}
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto spriteFrameOffset = NAS2D::Point{mTick % 16 * PlanetSize.x, ((mTick % 256) / 16) * PlanetSize.y};
+	const auto spriteFrameOffset = NAS2D::Point{mFrameIndex % 16 * PlanetSize.x, ((mFrameIndex % 256) / 16) * PlanetSize.y};
 	renderer.drawSubImage(mImage, mPosition, NAS2D::Rectangle{spriteFrameOffset, PlanetSize});
 }

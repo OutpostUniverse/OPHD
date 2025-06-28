@@ -36,7 +36,7 @@ private:
 	PlanetImage& operator=(const PlanetImage&) = delete;
 
 private:
-	int mTick = 0;
+	int mFrameIndex = 0;
 
 	const NAS2D::Image mImage;
 	NAS2D::Point<int> mPosition;
