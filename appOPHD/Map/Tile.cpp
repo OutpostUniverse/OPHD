@@ -77,6 +77,12 @@ void Tile::bulldoze()
 }
 
 
+bool Tile::isImpassable() const
+{
+	return index() == TerrainType::Impassable;
+}
+
+
 /**
  * Adds a new MapObject to the tile.
  *

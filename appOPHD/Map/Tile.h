@@ -50,6 +50,8 @@ public:
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
 
+	bool isImpassable() const;
+
 	void mapObject(MapObject*);
 	MapObject* mapObject() const { return mMapObject; }
 
