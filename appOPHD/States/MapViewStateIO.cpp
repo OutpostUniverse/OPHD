@@ -476,7 +476,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 		}
 
-		if (structure.structureClass() == Structure::StructureClass::Maintenance)
+		if (structure.structureClass() == StructureClass::Maintenance)
 		{
 			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)

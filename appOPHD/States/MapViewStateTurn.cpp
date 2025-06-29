@@ -65,10 +65,10 @@ void MapViewState::updatePopulation()
 {
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	int residences = structureManager.getCountInState(Structure::StructureClass::Residence, StructureState::Operational);
-	int universities = structureManager.getCountInState(Structure::StructureClass::University, StructureState::Operational);
-	int nurseries = structureManager.getCountInState(Structure::StructureClass::Nursery, StructureState::Operational);
-	int hospitals = structureManager.getCountInState(Structure::StructureClass::MedicalCenter, StructureState::Operational);
+	int residences = structureManager.getCountInState(StructureClass::Residence, StructureState::Operational);
+	int universities = structureManager.getCountInState(StructureClass::University, StructureState::Operational);
+	int nurseries = structureManager.getCountInState(StructureClass::Nursery, StructureState::Operational);
+	int hospitals = structureManager.getCountInState(StructureClass::MedicalCenter, StructureState::Operational);
 
 	auto foodProducers = structureManager.getStructures<FoodProduction>();
 	const auto& commandCenters = structureManager.getStructures<CommandCenter>();
@@ -84,12 +84,12 @@ void MapViewState::updateCommercial()
 	StructureManager& structureManager = NAS2D::Utility<StructureManager>::get();
 
 	const auto& warehouses = structureManager.getStructures<Warehouse>();
-	const auto& commercial = structureManager.structureList(Structure::StructureClass::Commercial);
+	const auto& commercial = structureManager.structureList(StructureClass::Commercial);
 
 	// No need to do anything if there are no commercial structures.
 	if (commercial.empty()) { return; }
 
-	int luxuryCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
+	int luxuryCount = structureManager.getCountInState(StructureClass::Commercial, StructureState::Operational);
 	int commercialCount = luxuryCount;
 
 	for (auto* warehouse : warehouses)
@@ -143,10 +143,10 @@ void MapViewState::updateMorale()
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	const int birthCount = mPopulation.birthCount();
-	const int parkCount = structureManager.getCountInState(Structure::StructureClass::Park, StructureState::Operational);
-	const int recreationCount = structureManager.getCountInState(Structure::StructureClass::RecreationCenter, StructureState::Operational);
-	const int foodProducingStructures = structureManager.getCountInState(Structure::StructureClass::FoodProduction, StructureState::Operational);
-	const int commercialCount = structureManager.getCountInState(Structure::StructureClass::Commercial, StructureState::Operational);
+	const int parkCount = structureManager.getCountInState(StructureClass::Park, StructureState::Operational);
+	const int recreationCount = structureManager.getCountInState(StructureClass::RecreationCenter, StructureState::Operational);
+	const int foodProducingStructures = structureManager.getCountInState(StructureClass::FoodProduction, StructureState::Operational);
+	const int commercialCount = structureManager.getCountInState(StructureClass::Commercial, StructureState::Operational);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================

@@ -174,7 +174,7 @@ void ResourceInfoBar::draw() const
 	const auto& sm = NAS2D::Utility<StructureManager>::get();
 	const std::array storageCapacities
 	{
-		std::tuple{NAS2D::Rectangle<int>{{96, 32}, {iconSize, iconSize}}, mResourcesCount.total(), totalStorage(Structure::StructureClass::Storage, 1000), totalStorage(Structure::StructureClass::Storage, 1000) - mResourcesCount.total() <= 100},
+		std::tuple{NAS2D::Rectangle<int>{{96, 32}, {iconSize, iconSize}}, mResourcesCount.total(), totalStorage(StructureClass::Storage, 1000), totalStorage(StructureClass::Storage, 1000) - mResourcesCount.total() <= 100},
 		std::tuple{NAS2D::Rectangle<int>{{64, 32}, {iconSize, iconSize}}, mFood, sm.totalFoodStorageCapacity(), mFood <= 10},
 		std::tuple{NAS2D::Rectangle<int>{{80, 32}, {iconSize, iconSize}}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
 	};
@@ -219,7 +219,7 @@ void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> p
  * Get the total amount of storage given a structure class and capacity of each
  * structure.
  */
-int ResourceInfoBar::totalStorage(Structure::StructureClass structureClass, int capacity) const
+int ResourceInfoBar::totalStorage(StructureClass structureClass, int capacity) const
 {
 	int storageCapacity = 0;
 
