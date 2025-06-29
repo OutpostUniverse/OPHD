@@ -8,6 +8,7 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <cfloat>
+#include <stdexcept>
 
 
 Tile::Tile(const MapCoordinate& position, TerrainType index) :
