@@ -10,6 +10,7 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/Math/Point.h>
 
 #include <string>
 #include <algorithm>
