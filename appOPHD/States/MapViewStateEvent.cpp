@@ -153,7 +153,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 
 	auto& seedFactory = *dynamic_cast<SeedFactory*>(structures[2]);
 	seedFactory.resourcePool(&mResourcesCount);
-	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
+	seedFactory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 
 	mRobotPool.addRobot(Robot::Type::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
 	mRobotPool.addRobot(Robot::Type::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
