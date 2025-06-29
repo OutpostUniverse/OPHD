@@ -20,12 +20,6 @@ void SeedLander::deployHandler(DeployDelegate newDeployHandler)
 }
 
 
-SeedLander::Signal::Source& SeedLander::deploySignal()
-{
-	return mDeploy;
-}
-
-
 void SeedLander::think()
 {
 	if (age() == turnsToBuild())

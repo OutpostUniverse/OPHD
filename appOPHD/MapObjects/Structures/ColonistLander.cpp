@@ -19,9 +19,6 @@ void ColonistLander::deployHandler(DeployDelegate newDeployHandler)
 }
 
 
-ColonistLander::Signal::Source& ColonistLander::deploySignal() { return mDeploy; }
-
-
 void ColonistLander::think()
 {
 	if (age() == turnsToBuild())

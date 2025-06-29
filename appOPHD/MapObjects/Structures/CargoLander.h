@@ -18,7 +18,6 @@ public:
 	CargoLander(Tile* tile);
 
 	void deployHandler(DeployDelegate newDeployHandler);
-	Signal::Source& deploySignal();
 
 protected:
 	void think() override;

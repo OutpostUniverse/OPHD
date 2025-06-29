@@ -19,12 +19,6 @@ void CargoLander::deployHandler(DeployDelegate newDeployHandler)
 }
 
 
-CargoLander::Signal::Source& CargoLander::deploySignal()
-{
-	return mDeploy;
-}
-
-
 void CargoLander::think()
 {
 	if (age() == turnsToBuild())
