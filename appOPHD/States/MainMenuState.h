@@ -3,11 +3,18 @@
 #include "../UI/FileIo.h"
 
 #include <NAS2D/State.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Renderer/Fade.h>
 
 #include <array>
+#include <cstdint>
+
+
+namespace NAS2D
+{
+	enum class KeyModifier : uint16_t;
+	enum class KeyCode : uint32_t;
+}
 
 
 /**

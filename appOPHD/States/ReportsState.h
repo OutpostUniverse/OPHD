@@ -3,10 +3,10 @@
 #include "Wrapper.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 
 #include <vector>
+#include <cstdint>
 
 class Structure;
 class TechnologyCatalog;
@@ -14,6 +14,10 @@ class ResearchTracker;
 
 namespace NAS2D
 {
+	enum class KeyModifier : uint16_t;
+	enum class KeyCode : uint32_t;
+	enum class MouseButton;
+
 	class Font;
 }
 
