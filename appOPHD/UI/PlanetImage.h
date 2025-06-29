@@ -3,6 +3,7 @@
 #include <libControls/Control.h>
 
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -13,6 +14,7 @@ class PlanetImage : public Control
 {
 public:
 	using MouseSignal = NAS2D::Signal<>;
+	using MouseEventDelegate = NAS2D::Delegate<void()>;
 
 public:
 	PlanetImage(const std::string& imagePath);
@@ -21,6 +23,9 @@ public:
 	~PlanetImage() override;
 
 	bool isMouseOver() const { return mIsMouseOver; }
+
+	void mouseEnterHandler(MouseEventDelegate newMouseEnterHandler);
+	void mouseExitHandler(MouseEventDelegate newMouseExitHandler);
 
 	MouseSignal::Source& mouseEnter() { return mMouseEnterSignal; }
 	MouseSignal::Source& mouseExit() { return mMouseExitSignal; }

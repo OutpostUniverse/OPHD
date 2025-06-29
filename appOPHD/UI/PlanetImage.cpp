@@ -32,6 +32,18 @@ PlanetImage::~PlanetImage()
 }
 
 
+void PlanetImage::mouseEnterHandler(MouseEventDelegate newMouseEnterHandler)
+{
+	if (newMouseEnterHandler) { mMouseEnterSignal.connect(newMouseEnterHandler); }
+}
+
+
+void PlanetImage::mouseExitHandler(MouseEventDelegate newMouseExitHandler)
+{
+	if (newMouseExitHandler) { mMouseExitSignal.connect(newMouseExitHandler); }
+}
+
+
 bool PlanetImage::pointInCircle(NAS2D::Point<int> point) const
 {
 	const auto offset = point - mRect.position - PlanetSize / 2;
