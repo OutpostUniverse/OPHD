@@ -26,7 +26,7 @@ public:
 	};
 
 public:
-	Tile() = default;
+	Tile();
 	Tile(const MapCoordinate& position, TerrainType);
 	Tile(const Tile&) = delete;
 	Tile& operator=(const Tile&) = delete;
@@ -74,7 +74,7 @@ public:
 	float movementCost() const;
 
 private:
-	TerrainType mIndex = TerrainType::Dozed;
+	TerrainType mIndex;
 
 	MapCoordinate mPosition;
 

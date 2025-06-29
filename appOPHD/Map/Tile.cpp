@@ -11,6 +11,12 @@
 #include <stdexcept>
 
 
+Tile::Tile() :
+	mIndex{TerrainType::Dozed}
+{
+}
+
+
 Tile::Tile(const MapCoordinate& position, TerrainType index) :
 	mIndex{index},
 	mPosition{position}
