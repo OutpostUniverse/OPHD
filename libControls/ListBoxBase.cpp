@@ -245,7 +245,7 @@ unsigned int ListBoxBase::drawOffset() const
 
 NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
 {
-	return NAS2D::Vector{itemWidth(), itemHeight()}.to<int>();
+	return mItemSize;
 }
 
 
