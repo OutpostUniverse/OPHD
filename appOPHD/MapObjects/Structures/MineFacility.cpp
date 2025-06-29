@@ -82,7 +82,7 @@ void MineFacility::think()
 		if (mDigTurnsRemaining == 0)
 		{
 			mOreDeposit->increaseDepth();
-			mExtensionComplete(this);
+			if (mExtensionCompleteHandler) { mExtensionCompleteHandler(this); }
 		}
 
 		return;
@@ -180,9 +180,9 @@ const OreDeposit& MineFacility::oreDeposit() const
 }
 
 
-MineFacility::ExtensionCompleteSignal::Source& MineFacility::extensionComplete()
+void MineFacility::extensionCompleteHandler(ExtensionCompleteDelegate newExtensionCompleteHandler)
 {
-	return mExtensionComplete;
+	mExtensionCompleteHandler = newExtensionCompleteHandler;
 }
 
 

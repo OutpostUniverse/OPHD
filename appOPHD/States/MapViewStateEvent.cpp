@@ -241,7 +241,7 @@ void MapViewState::onMinerTaskComplete(Robot& robot)
 	auto& miner = dynamic_cast<Robominer&>(robot);
 
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
-	mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
+	mineFacility.extensionCompleteHandler({this, &MapViewState::onMineFacilityExtend});
 }
 
 
