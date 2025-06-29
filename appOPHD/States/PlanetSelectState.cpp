@@ -6,50 +6,58 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Cache.h"
+#include "../UI/PlanetImage.h"
 
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/XmlSerializer.h>
 
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/Angle.h>
+#include <NAS2D/Math/Point.h>
 
 #include <cstddef>
 #include <limits>
+#include <ranges>
 
 
 namespace
 {
-	auto attributesToPlanets(const std::vector<PlanetAttributes>& attributes)
+	constexpr std::size_t NoSelection{std::numeric_limits<std::size_t>::max()};
+
+
+	auto attributesToPlanetImages(const std::vector<PlanetAttributes>& attributes)
 	{
-		return std::vector<Planet>{attributes.cbegin(), attributes.cend()};
+		const auto& imagePaths = std::ranges::views::transform(attributes, &PlanetAttributes::imagePath);
+		return std::vector<PlanetImage>{imagePaths.begin(), imagePaths.end()};
 	}
 }
 
 
-const std::size_t PlanetSelectState::NoSelection{std::numeric_limits<std::size_t>::max()};
-
-
 PlanetSelectState::PlanetSelectState() :
 	mFontBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	mTinyFont{Control::getDefaultFont()},
-	mBg{"sys/bg1.png"},
+	mFontTiny{Control::getDefaultFont()},
+	mBackground{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
 	mCloud2{"sys/cloud_2.png"},
-	mBgMusic{"music/menu.ogg"},
+	mBackgroundMusic{"music/menu.ogg"},
 	mSelect{"sfx/click.ogg"},
 	mHover{"sfx/menu4.ogg"},
+	mReturnState{this},
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
 	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	mPlanetSelection{NoSelection},
-	mReturnState{this},
-	mPlanets{attributesToPlanets(parsePlanetAttributes("planets/PlanetAttributes.xml"))}
+	mPlanetAttributes{parsePlanetAttributes("planets/PlanetAttributes.xml")},
+	mPlanetImages{attributesToPlanetImages(mPlanetAttributes)}
 {
-	for (auto& planet : mPlanets)
+	for (auto& planetImage : mPlanetImages)
 	{
-		planet.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-		planet.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+		planetImage.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
+		planetImage.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
 	}
 
 	mPlanetDescription.size({550, 200});
@@ -81,7 +89,7 @@ void PlanetSelectState::initialize()
 	renderer.showSystemPointer(true);
 	mFade.fadeIn(constants::FadeSpeed);
 
-	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBgMusic);
+	NAS2D::Utility<NAS2D::Mixer>::get().playMusic(mBackgroundMusic);
 }
 
 
@@ -90,23 +98,25 @@ NAS2D::State* PlanetSelectState::update()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto size = renderer.size();
-	renderer.drawImageStretched(mBg, NAS2D::Rectangle{{0, 0}, size});
+	renderer.drawImageStretched(mBackground, NAS2D::Rectangle{{0, 0}, size});
 
 	auto rotation = NAS2D::Angle::degrees(static_cast<float>(mTimer.tick()) / 1200.0f);
 	renderer.drawImageRotated(mCloud1, {-256, -256}, rotation, NAS2D::Color{100, 255, 0, 135});
 	renderer.drawImageRotated(mCloud1, NAS2D::Point{size.x - 800, -256}, -rotation, NAS2D::Color{180, 0, 255, 150});
 
-	for (auto& planet : mPlanets)
+	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		planet.update();
-		renderer.drawText(mFontBold, planet.attributes().name, planet.position() + NAS2D::Vector{64 - (mFontBold.width(planet.attributes().name) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
+		auto& planetImage = mPlanetImages[i];
+		planetImage.update();
+		const auto& planetName = mPlanetAttributes[i].name;
+		renderer.drawText(mFontBold, planetName, planetImage.position() + NAS2D::Vector{64 - (mFontBold.width(planetName) / 2), -mFontBold.height() - 10}, NAS2D::Color::White);
 	}
 
 	mQuit.update();
 
 	mPlanetDescription.update();
 
-	renderer.drawText(mTinyFont, constants::Version, NAS2D::Point{-5, -5} + size - mTinyFont.size(constants::Version), NAS2D::Color::White);
+	renderer.drawText(mFontTiny, constants::Version, NAS2D::Point{-5, -5} + size - mFontTiny.size(constants::Version), NAS2D::Color::White);
 
 	mFade.update();
 	mFade.draw(renderer);
@@ -117,7 +127,7 @@ NAS2D::State* PlanetSelectState::update()
 	}
 	else if (mPlanetSelection != NoSelection)
 	{
-		return new GameState(mPlanets[mPlanetSelection].attributes(), Difficulty::Medium);
+		return new GameState(mPlanetAttributes[mPlanetSelection], Difficulty::Medium);
 	}
 
 	return mReturnState;
@@ -126,9 +136,9 @@ NAS2D::State* PlanetSelectState::update()
 
 void PlanetSelectState::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
-	for (std::size_t i = 0; i < mPlanets.size(); ++i)
+	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		if (mPlanets[i].mouseHovering())
+		if (mPlanetImages[i].isMouseOver())
 		{
 			NAS2D::Utility<NAS2D::Mixer>::get().playSound(mSelect);
 			mPlanetSelection = i;
@@ -144,11 +154,12 @@ void PlanetSelectState::onMousePlanetEnter()
 {
 	NAS2D::Utility<NAS2D::Mixer>::get().playSound(mHover);
 
-	for (const auto& planet : mPlanets)
+	for (std::size_t i = 0; i < mPlanetImages.size(); ++i)
 	{
-		if (planet.mouseHovering())
+		auto& planetImage = mPlanetImages[i];
+		if (planetImage.isMouseOver())
 		{
-			mPlanetDescription.text(planet.attributes().description);
+			mPlanetDescription.text(mPlanetAttributes[i].description);
 			break;
 		}
 	}
@@ -165,9 +176,9 @@ void PlanetSelectState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	const auto offset = NAS2D::Vector{newSize.x / 4, 0};
 	auto planetPosition = NAS2D::Point{0, 0} + (newSize - NAS2D::Vector{128, 128}) / 2 - offset;
-	for (auto& planet : mPlanets)
+	for (auto& planetImage : mPlanetImages)
 	{
-		planet.position(planetPosition);
+		planetImage.position(planetPosition);
 		planetPosition += offset;
 	}
 

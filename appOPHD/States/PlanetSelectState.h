@@ -1,14 +1,10 @@
 #pragma once
 
-#include "Planet.h"
-
 #include <libControls/Button.h>
 #include <libControls/TextArea.h>
 
 #include <NAS2D/State.h>
 #include <NAS2D/Timer.h>
-#include <NAS2D/EventHandler.h>
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Music.h>
 #include <NAS2D/Resource/Sound.h>
@@ -17,12 +13,20 @@
 #include <vector>
 
 
+namespace NAS2D
+{
+	enum class MouseButton;
+
+	template <typename BaseType> struct Point;
+}
+
+struct PlanetAttributes;
+class PlanetImage;
+
+
 class PlanetSelectState : public NAS2D::State
 {
 public:
-	static const std::size_t NoSelection;
-
-
 	PlanetSelectState();
 	~PlanetSelectState() override;
 
@@ -30,7 +34,6 @@ protected:
 	void initialize() override;
 	State* update() override;
 
-private:
 	void onMouseDown(NAS2D::MouseButton, NAS2D::Point<int> position);
 
 	void onMousePlanetEnter();
@@ -42,27 +45,26 @@ private:
 
 private:
 	const NAS2D::Font& mFontBold;
-	const NAS2D::Font& mTinyFont;
+	const NAS2D::Font& mFontTiny;
 
-	const NAS2D::Image mBg;
+	const NAS2D::Image mBackground;
 	const NAS2D::Image mCloud1;
 	const NAS2D::Image mCloud2;
 
-	const NAS2D::Music mBgMusic;
+	const NAS2D::Music mBackgroundMusic;
 
 	const NAS2D::Sound mSelect;
 	const NAS2D::Sound mHover;
-
-	Button mQuit;
-
-	TextArea mPlanetDescription;
-
-	std::size_t mPlanetSelection;
 
 	NAS2D::Timer mTimer;
 	NAS2D::Fade mFade;
 
 	NAS2D::State* mReturnState = this;
 
-	std::vector<Planet> mPlanets;
+	Button mQuit;
+	TextArea mPlanetDescription;
+
+	std::size_t mPlanetSelection;
+	std::vector<PlanetAttributes> mPlanetAttributes;
+	std::vector<PlanetImage> mPlanetImages;
 };
