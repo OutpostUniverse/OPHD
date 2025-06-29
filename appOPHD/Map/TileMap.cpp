@@ -203,7 +203,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			auto& tile = getTile({point, depth});
 			if (
-				((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
+				((depth > 0 && tile.excavated()) || (tile.isBulldozed())) &&
 				(tile.empty() && tile.oreDeposit() == nullptr)
 			)
 			{

@@ -954,7 +954,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	{
 		return;
 	}
-	else if (tile.index() == TerrainType::Dozed && !tile.hasStructure())
+	else if (tile.isBulldozed() && !tile.hasStructure())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;
