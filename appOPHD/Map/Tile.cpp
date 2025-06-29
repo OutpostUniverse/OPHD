@@ -71,6 +71,12 @@ bool Tile::isBulldozed() const
 }
 
 
+void Tile::bulldoze()
+{
+	index(TerrainType::Dozed);
+}
+
+
 /**
  * Adds a new MapObject to the tile.
  *

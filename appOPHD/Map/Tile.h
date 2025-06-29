@@ -45,6 +45,7 @@ public:
 	bool isSurface() const;
 
 	bool isBulldozed() const;
+	void bulldoze();
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
