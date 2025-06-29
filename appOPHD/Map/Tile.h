@@ -1,11 +1,11 @@
 #pragma once
 
-#include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
 #include <NAS2D/Math/Point.h>
 
 
+enum class TerrainType;
 class OreDeposit;
 class MapObject;
 class Robot;

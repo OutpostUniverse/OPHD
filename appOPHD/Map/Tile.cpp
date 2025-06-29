@@ -5,6 +5,7 @@
 
 #include "../Constants/Numbers.h"
 
+#include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <cfloat>
