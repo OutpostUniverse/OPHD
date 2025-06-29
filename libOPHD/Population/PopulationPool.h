@@ -1,8 +1,7 @@
 #pragma once
 
-#include "PopulationRequirements.h"
 
-
+struct PopulationRequirements;
 class Population;
 
 
