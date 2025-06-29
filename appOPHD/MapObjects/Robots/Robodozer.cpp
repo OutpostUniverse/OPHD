@@ -15,7 +15,7 @@ void Robodozer::startTask(Tile& tile)
 	Robot::startTask(tile);
 
 	mTileIndex = static_cast<std::size_t>(tile.index());
-	tile.index(TerrainType::Dozed);
+	tile.bulldoze();
 }
 
 

@@ -31,8 +31,8 @@ MineFacility& Robominer::buildMine(TileMap& tileMap, const MapCoordinate& positi
 	auto& tileBelow = tileMap.getTile(position.translate(MapOffsetDown));
 	structureManager.create<MineShaft>(tileBelow);
 
-	robotTile.index(TerrainType::Dozed);
-	tileBelow.index(TerrainType::Dozed);
+	robotTile.bulldoze();
+	tileBelow.bulldoze();
 	tileBelow.excavated(true);
 
 	die();

@@ -357,7 +357,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		{
 			robot.startTask(production_time);
 			mRobotPool.insertRobotIntoTable(mRobotList, robot, mTileMap->getTile({{x, y}, depth}));
-			mRobotList[&robot]->index(TerrainType::Dozed);
+			mRobotList[&robot]->bulldoze();
 		}
 
 		if (depth > 0)
@@ -395,7 +395,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		const auto mapCoordinate = loadMapCoordinate(dictionary);
 		auto& tile = mTileMap->getTile(mapCoordinate);
-		tile.index(TerrainType::Dozed);
+		tile.bulldoze();
 		tile.excavated(true);
 
 		auto structureId = static_cast<StructureID>(type);
