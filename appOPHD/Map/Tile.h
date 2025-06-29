@@ -44,7 +44,7 @@ public:
 
 	bool isSurface();
 
-	bool bulldozed() const { return index() == TerrainType::Dozed; }
+	bool bulldozed() const;
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
