@@ -21,6 +21,6 @@ void ColonistLander::think()
 	if (age() == turnsToBuild())
 	{
 		mDeploy();
-		mTile->index(TerrainType::Dozed);
+		mTile->bulldoze();
 	}
 }

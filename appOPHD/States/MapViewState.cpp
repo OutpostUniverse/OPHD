@@ -780,7 +780,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 
 void MapViewState::placeTubes(Tile& tile)
 {
-	if (!tile.bulldozed()) {
+	if (!tile.isBulldozed()) {
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeTerrain);
 		return;
 	}
@@ -838,7 +838,7 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if ((!tile.bulldozed() && !structureIsLander(mCurrentStructure)))
+	if ((!tile.isBulldozed() && !structureIsLander(mCurrentStructure)))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTerrain);
 		return;
@@ -954,7 +954,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	{
 		return;
 	}
-	else if (tile.index() == TerrainType::Dozed && !tile.hasStructure())
+	else if (tile.isBulldozed() && !tile.hasStructure())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;

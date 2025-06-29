@@ -5,9 +5,17 @@
 
 #include "../Constants/Numbers.h"
 
+#include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <cfloat>
+#include <stdexcept>
+
+
+Tile::Tile() :
+	mIndex{TerrainType::Dozed}
+{
+}
 
 
 Tile::Tile(const MapCoordinate& position, TerrainType index) :
@@ -52,9 +60,27 @@ Tile::~Tile()
 }
 
 
-bool Tile::isSurface()
+bool Tile::isSurface() const
 {
 	return mPosition.z == 0;
+}
+
+
+bool Tile::isBulldozed() const
+{
+	return index() == TerrainType::Dozed;
+}
+
+
+void Tile::bulldoze()
+{
+	index(TerrainType::Dozed);
+}
+
+
+bool Tile::isImpassable() const
+{
+	return index() == TerrainType::Impassable;
 }
 
 

@@ -89,7 +89,7 @@ namespace {
 		{
 			auto& tile = tileMap.getTile({location, 0});
 			tile.placeOreDeposit(new OreDeposit(randYield()));
-			tile.index(TerrainType::Dozed);
+			tile.bulldoze();
 		}
 	}
 }
@@ -203,7 +203,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 		{
 			auto& tile = getTile({point, depth});
 			if (
-				((depth > 0 && tile.excavated()) || (tile.index() == TerrainType::Dozed)) &&
+				((depth > 0 && tile.excavated()) || (tile.isBulldozed())) &&
 				(tile.empty() && tile.oreDeposit() == nullptr)
 			)
 			{
@@ -239,7 +239,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 		auto& tile = getTile({{x, y}, 0});
 		tile.placeOreDeposit(oreDeposit);
-		tile.index(TerrainType::Dozed);
+		tile.bulldoze();
 
 		mOreDepositLocations.push_back(Point{x, y});
 	}

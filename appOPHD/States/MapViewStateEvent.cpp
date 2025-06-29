@@ -125,7 +125,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	// Bulldoze lander region
 	for (const auto& direction : DirectionScan3x3)
 	{
-		mTileMap->getTile({point + direction, 0}).index(TerrainType::Dozed);
+		mTileMap->getTile({point + direction, 0}).bulldoze();
 	}
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
@@ -206,8 +206,8 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		auto& airShaftBottom = structureManager.create<AirShaft>(tileMap.getTile(newPosition));
 		airShaftBottom.underground();
 
-		tileMap.getTile(position).index(TerrainType::Dozed);
-		tileMap.getTile(newPosition).index(TerrainType::Dozed);
+		tileMap.getTile(position).bulldoze();
+		tileMap.getTile(newPosition).bulldoze();
 	}
 
 	/**
@@ -253,7 +253,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	auto& mineFacilityTile = structureManager.tileFromStructure(mineFacility);
 	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->oreDeposit().depth()});
 	structureManager.create<MineShaft>(mineDepthTile);
-	mineDepthTile.index(TerrainType::Dozed);
+	mineDepthTile.bulldoze();
 	mineDepthTile.excavated(true);
 }
 

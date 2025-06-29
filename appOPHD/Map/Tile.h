@@ -1,12 +1,11 @@
 #pragma once
 
-#include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
 #include <NAS2D/Math/Point.h>
-#include <NAS2D/Math/Vector.h>
 
 
+enum class TerrainType;
 class OreDeposit;
 class MapObject;
 class Robot;
@@ -27,7 +26,7 @@ public:
 	};
 
 public:
-	Tile() = default;
+	Tile();
 	Tile(const MapCoordinate& position, TerrainType);
 	Tile(const Tile&) = delete;
 	Tile& operator=(const Tile&) = delete;
@@ -43,12 +42,15 @@ public:
 	int depth() const { return mPosition.z; }
 	void depth(int i) { mPosition.z = i; }
 
-	bool isSurface();
+	bool isSurface() const;
 
-	bool bulldozed() const { return index() == TerrainType::Dozed; }
+	bool isBulldozed() const;
+	void bulldoze();
 
 	bool excavated() const { return mExcavated; }
 	void excavated(bool value) { mExcavated = value; }
+
+	bool isImpassable() const;
 
 	void mapObject(MapObject*);
 	MapObject* mapObject() const { return mMapObject; }
@@ -75,7 +77,7 @@ public:
 	float movementCost() const;
 
 private:
-	TerrainType mIndex = TerrainType::Dozed;
+	TerrainType mIndex;
 
 	MapCoordinate mPosition;
 
