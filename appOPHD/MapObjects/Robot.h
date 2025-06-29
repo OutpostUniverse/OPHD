@@ -60,14 +60,13 @@ protected:
 
 private:
 	const std::string& mName;
+	const RobotType mType;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 
 	bool mIsDead = false;
 	bool mSelfDestruct = false;
 	bool mCancelTask{false};
-
-	const RobotType mType;
 
 	TaskCompleteDelegate mTaskCompleteHandler;
 };
