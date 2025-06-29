@@ -4,7 +4,6 @@
 #include <libControls/Button.h>
 #include <libControls/TextField.h>
 #include <libControls/ListBox.h>
-#include <libControls/Label.h>
 
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Math/Point.h>

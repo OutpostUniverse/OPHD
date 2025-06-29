@@ -2,6 +2,8 @@
 
 #include "../UI/FileIo.h"
 
+#include <libControls/Label.h>
+
 #include <NAS2D/State.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Renderer/Fade.h>
