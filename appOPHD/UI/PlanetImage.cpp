@@ -34,13 +34,13 @@ PlanetImage::~PlanetImage()
 
 void PlanetImage::mouseEnterHandler(MouseEventDelegate newMouseEnterHandler)
 {
-	if (newMouseEnterHandler) { mMouseEnterSignal.connect(newMouseEnterHandler); }
+	mMouseEnterHandler = newMouseEnterHandler;
 }
 
 
 void PlanetImage::mouseExitHandler(MouseEventDelegate newMouseExitHandler)
 {
-	if (newMouseExitHandler) { mMouseExitSignal.connect(newMouseExitHandler); }
+	mMouseExitHandler = newMouseExitHandler;
 }
 
 
@@ -58,7 +58,8 @@ void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 	if (inArea != mIsMouseOver)
 	{
 		mIsMouseOver = inArea;
-		mIsMouseOver ? mMouseEnterSignal() : mMouseExitSignal();
+		const auto& mouseEventHandler = mIsMouseOver ? mMouseEnterHandler : mMouseExitHandler;
+		if (mouseEventHandler) { mouseEventHandler(); }
 		mTimer.reset();
 	}
 }

@@ -2,7 +2,6 @@
 
 #include <libControls/Control.h>
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
@@ -13,7 +12,6 @@
 class PlanetImage : public Control
 {
 public:
-	using MouseSignal = NAS2D::Signal<>;
 	using MouseEventDelegate = NAS2D::Delegate<void()>;
 
 public:
@@ -41,6 +39,6 @@ private:
 	bool mIsMouseOver = false;
 	int mFrameIndex = 0;
 
-	MouseSignal mMouseEnterSignal;
-	MouseSignal mMouseExitSignal;
+	MouseEventDelegate mMouseEnterHandler;
+	MouseEventDelegate mMouseExitHandler;
 };
