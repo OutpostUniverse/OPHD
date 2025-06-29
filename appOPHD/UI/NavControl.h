@@ -4,7 +4,6 @@
 
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/EventHandler.h>
 
 
 namespace NAS2D
