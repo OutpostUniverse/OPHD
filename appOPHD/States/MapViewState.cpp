@@ -1187,7 +1187,7 @@ Robot& MapViewState::addRobot(Robot::Type type)
 	}
 
 	auto& robot = mRobotPool.addRobot(type);
-	robot.taskComplete().connect({this, RobotTypeToHandler.at(type)});
+	robot.taskCompleteHandler({this, RobotTypeToHandler.at(type)});
 	return robot;
 }
 
