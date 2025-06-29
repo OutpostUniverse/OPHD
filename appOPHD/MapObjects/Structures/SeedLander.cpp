@@ -14,6 +14,12 @@ SeedLander::SeedLander(const Tile* tile) :
 }
 
 
+void SeedLander::deployHandler(DeployDelegate newDeployHandler)
+{
+	if (newDeployHandler) { mDeploy.connect(newDeployHandler); }
+}
+
+
 SeedLander::Signal::Source& SeedLander::deploySignal()
 {
 	return mDeploy;

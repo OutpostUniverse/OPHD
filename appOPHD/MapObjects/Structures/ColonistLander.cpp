@@ -13,6 +13,12 @@ ColonistLander::ColonistLander(Tile* tile) : Structure(
 }
 
 
+void ColonistLander::deployHandler(DeployDelegate newDeployHandler)
+{
+	if (newDeployHandler) { mDeploy.connect(newDeployHandler); }
+}
+
+
 ColonistLander::Signal::Source& ColonistLander::deploySignal() { return mDeploy; }
 
 

@@ -13,6 +13,12 @@ CargoLander::CargoLander(Tile* tile) : Structure(
 }
 
 
+void CargoLander::deployHandler(DeployDelegate newDeployHandler)
+{
+	if (newDeployHandler) { mDeploy.connect(newDeployHandler); }
+}
+
+
 CargoLander::Signal::Source& CargoLander::deploySignal()
 {
 	return mDeploy;
