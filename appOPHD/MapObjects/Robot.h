@@ -2,6 +2,7 @@
 
 #include <libOPHD/MapObjects/MapObject.h>
 
+#include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Signal/Signal.h>
 
 
@@ -26,6 +27,7 @@ public:
 		None
 	};
 
+	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 	using TaskSignal = NAS2D::Signal<Robot&>;
 
 public:
@@ -58,6 +60,7 @@ public:
 
 	Type type() const { return mType; }
 
+	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
 	TaskSignal::Source& taskComplete() { return mTaskCompleteSignal; }
 
 	virtual NAS2D::Dictionary getDataDict() const;

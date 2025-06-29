@@ -67,6 +67,12 @@ void Robot::startTask(int turns)
 }
 
 
+void Robot::taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler)
+{
+	if (newTaskCompleteHandler) { mTaskCompleteSignal.connect(newTaskCompleteHandler); }
+}
+
+
 NAS2D::Dictionary Robot::getDataDict() const
 {
 	return {{
