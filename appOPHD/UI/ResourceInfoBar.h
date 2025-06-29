@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../MapObjects/StructureClass.h"
-
 #include <libControls/ControlContainer.h>
 #include <libControls/ToolTip.h>
 
@@ -14,6 +12,7 @@ namespace NAS2D
 	enum class MouseButton;
 }
 
+enum class StructureClass;
 struct StorableResources;
 class Population;
 class Morale;
