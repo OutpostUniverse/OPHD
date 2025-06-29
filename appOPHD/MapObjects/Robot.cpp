@@ -3,6 +3,8 @@
 #include "../Constants/Numbers.h"
 #include "../Map/Tile.h"
 
+#include <NAS2D/Dictionary.h>
+
 
 namespace
 {

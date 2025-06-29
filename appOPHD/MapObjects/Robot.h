@@ -2,9 +2,13 @@
 
 #include <libOPHD/MapObjects/MapObject.h>
 
-#include <NAS2D/Dictionary.h>
 #include <NAS2D/Signal/Signal.h>
 
+
+namespace NAS2D
+{
+	class Dictionary;
+}
 
 class Tile;
 class TileMap;

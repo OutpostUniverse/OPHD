@@ -4,6 +4,8 @@
 
 #include <libOPHD/EnumDirection.h>
 
+#include <NAS2D/Dictionary.h>
+
 
 Robodigger::Robodigger() :
 	Robot(constants::Robodigger, "robots/robodigger.sprite", Robot::Type::Digger),
