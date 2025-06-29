@@ -14,9 +14,9 @@ SeedLander::SeedLander(const Tile* tile) :
 }
 
 
-SeedLander::Signal::Source& SeedLander::deploySignal()
+void SeedLander::deployHandler(DeployDelegate newDeployHandler)
 {
-	return mDeploy;
+	mDeployHandler = newDeployHandler;
 }
 
 
@@ -24,6 +24,6 @@ void SeedLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		mDeploy(mPosition);
+		if (mDeployHandler) { mDeployHandler(mPosition); }
 	}
 }

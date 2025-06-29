@@ -13,14 +13,17 @@ ColonistLander::ColonistLander(Tile* tile) : Structure(
 }
 
 
-ColonistLander::Signal::Source& ColonistLander::deploySignal() { return mDeploy; }
+void ColonistLander::deployHandler(DeployDelegate newDeployHandler)
+{
+	mDeployHandler = newDeployHandler;
+}
 
 
 void ColonistLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		mDeploy();
+		if (mDeployHandler) { mDeployHandler(); }
 		mTile->bulldoze();
 	}
 }

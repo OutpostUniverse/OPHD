@@ -2,7 +2,7 @@
 
 #include "../Structure.h"
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 class Tile;
@@ -11,11 +11,11 @@ class Tile;
 class CargoLander : public Structure
 {
 public:
-	using Signal = NAS2D::Signal<>;
+	using DeployDelegate = NAS2D::Delegate<void()>;
 
 	CargoLander(Tile* tile);
 
-	Signal::Source& deploySignal();
+	void deployHandler(DeployDelegate newDeployHandler);
 
 protected:
 	void think() override;
@@ -26,6 +26,6 @@ private:
 	CargoLander& operator=(const CargoLander&) = delete;
 
 private:
-	Signal mDeploy;
+	DeployDelegate mDeployHandler;
 	Tile* mTile = nullptr;
 };
