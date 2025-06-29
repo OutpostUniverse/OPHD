@@ -174,7 +174,7 @@ private:
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
 
-	Robot& addRobot(Robot::Type type);
+	Robot& addRobot(RobotType type);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
@@ -335,7 +335,7 @@ private:
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
-	Robot::Type mCurrentRobot = Robot::Type::None; /**< Robot being placed. */
+	RobotType mCurrentRobot = RobotType::None; /**< Robot being placed. */
 
 	// USER INTERFACE
 	Button mBtnTurns;

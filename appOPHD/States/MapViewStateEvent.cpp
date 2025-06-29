@@ -22,11 +22,11 @@
 
 void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factory)
 {
-	const std::map<ProductType, Robot::Type> ProductTypeToRobotType
+	const std::map<ProductType, RobotType> ProductTypeToRobotType
 	{
-		{ProductType::PRODUCT_DIGGER, Robot::Type::Digger},
-		{ProductType::PRODUCT_DOZER, Robot::Type::Dozer},
-		{ProductType::PRODUCT_MINER, Robot::Type::Miner},
+		{ProductType::PRODUCT_DIGGER, RobotType::Digger},
+		{ProductType::PRODUCT_DOZER, RobotType::Dozer},
+		{ProductType::PRODUCT_MINER, RobotType::Miner},
 	};
 
 	if (ProductTypeToRobotType.find(productType) == ProductTypeToRobotType.end())
@@ -155,9 +155,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	seedFactory.resourcePool(&mResourcesCount);
 	seedFactory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 
-	mRobotPool.addRobot(Robot::Type::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
-	mRobotPool.addRobot(Robot::Type::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
-	mRobotPool.addRobot(Robot::Type::Miner).taskCompleteHandler({this, &MapViewState::onMinerTaskComplete});
+	mRobotPool.addRobot(RobotType::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
+	mRobotPool.addRobot(RobotType::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
+	mRobotPool.addRobot(RobotType::Miner).taskCompleteHandler({this, &MapViewState::onMinerTaskComplete});
 
 	populateRobotMenu();
 }

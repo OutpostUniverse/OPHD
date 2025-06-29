@@ -14,23 +14,24 @@ class Tile;
 class TileMap;
 
 
+enum class RobotType
+{
+	Digger,
+	Dozer,
+	Miner,
+
+	None
+};
+
+
 class Robot : public MapObject
 {
 public:
-	enum class Type
-	{
-		Digger,
-		Dozer,
-		Miner,
-
-		None
-	};
-
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
 public:
-	Robot(const std::string&, const std::string&, Type);
-	Robot(const std::string&, const std::string&, const std::string&, Type);
+	Robot(const std::string&, const std::string&, RobotType);
+	Robot(const std::string&, const std::string&, const std::string&, RobotType);
 
 	const std::string& name() const override;
 
@@ -56,7 +57,7 @@ public:
 	bool taskCanceled() const { return mCancelTask; }
 	void reset() { mCancelTask = false; }
 
-	Type type() const { return mType; }
+	RobotType type() const { return mType; }
 
 	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
 
@@ -74,7 +75,7 @@ private:
 	bool mSelfDestruct = false;
 	bool mCancelTask{false};
 
-	Type mType{Type::None};
+	RobotType mType{RobotType::None};
 
 	TaskCompleteDelegate mTaskCompleteHandler;
 };

@@ -8,7 +8,7 @@
 
 
 Robodigger::Robodigger() :
-	Robot(constants::Robodigger, "robots/robodigger.sprite", Robot::Type::Digger),
+	Robot(constants::Robodigger, "robots/robodigger.sprite", RobotType::Digger),
 	mDirection(Direction::Down)
 {
 }

@@ -60,11 +60,11 @@ namespace
 		const int sheetIndex;
 	};
 
-	const std::map<Robot::Type, RobotMeta> RobotMetaTable
+	const std::map<RobotType, RobotMeta> RobotMetaTable
 	{
-		{Robot::Type::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-		{Robot::Type::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-		{Robot::Type::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
+		{RobotType::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
+		{RobotType::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
+		{RobotType::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
 	};
 
 
@@ -763,7 +763,7 @@ void MapViewState::clearMode()
 	setCursor(PointerType::Normal);
 
 	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = Robot::Type::None;
+	mCurrentRobot = RobotType::None;
 }
 
 
@@ -933,13 +933,13 @@ void MapViewState::placeRobot(Tile& tile)
 
 	switch (mCurrentRobot)
 	{
-	case Robot::Type::Dozer:
+	case RobotType::Dozer:
 		placeRobodozer(tile);
 		break;
-	case Robot::Type::Digger:
+	case RobotType::Digger:
 		placeRobodigger(tile);
 		break;
-	case Robot::Type::Miner:
+	case RobotType::Miner:
 		placeRobominer(tile);
 		break;
 	default:
@@ -1054,7 +1054,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
-	if (!mRobotPool.robotAvailable(Robot::Type::Dozer))
+	if (!mRobotPool.robotAvailable(RobotType::Dozer))
 	{
 		mRobots.removeItem(constants::Robodozer);
 		clearMode();
@@ -1164,7 +1164,7 @@ void MapViewState::placeRobominer(Tile& tile)
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
-	if (!mRobotPool.robotAvailable(Robot::Type::Miner))
+	if (!mRobotPool.robotAvailable(RobotType::Miner))
 	{
 		mRobots.removeItem(constants::Robominer);
 		clearMode();
@@ -1172,18 +1172,18 @@ void MapViewState::placeRobominer(Tile& tile)
 }
 
 
-Robot& MapViewState::addRobot(Robot::Type type)
+Robot& MapViewState::addRobot(RobotType type)
 {
-	const std::map<Robot::Type, void (MapViewState::*)(Robot&)> RobotTypeToHandler
+	const std::map<RobotType, void (MapViewState::*)(Robot&)> RobotTypeToHandler
 	{
-		{Robot::Type::Digger, &MapViewState::onDiggerTaskComplete},
-		{Robot::Type::Dozer, &MapViewState::onDozerTaskComplete},
-		{Robot::Type::Miner, &MapViewState::onMinerTaskComplete},
+		{RobotType::Digger, &MapViewState::onDiggerTaskComplete},
+		{RobotType::Dozer, &MapViewState::onDozerTaskComplete},
+		{RobotType::Miner, &MapViewState::onMinerTaskComplete},
 	};
 
 	if (RobotTypeToHandler.find(type) == RobotTypeToHandler.end())
 	{
-		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
+		throw std::runtime_error("Unknown RobotType: " + std::to_string(static_cast<int>(type)));
 	}
 
 	auto& robot = mRobotPool.addRobot(type);
@@ -1271,7 +1271,7 @@ void MapViewState::updateRobots()
 					NotificationArea::NotificationType::Critical
 				});
 			}
-			else if (robot->type() != Robot::Type::Miner)
+			else if (robot->type() != RobotType::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
