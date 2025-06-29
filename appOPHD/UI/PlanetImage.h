@@ -27,9 +27,6 @@ public:
 	void mouseEnterHandler(MouseEventDelegate newMouseEnterHandler);
 	void mouseExitHandler(MouseEventDelegate newMouseExitHandler);
 
-	MouseSignal::Source& mouseEnter() { return mMouseEnterSignal; }
-	MouseSignal::Source& mouseExit() { return mMouseExitSignal; }
-
 	void update() override;
 	void draw() const override;
 
