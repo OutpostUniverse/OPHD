@@ -78,8 +78,7 @@ protected:
 private:
 	ScrollBar mScrollBar;
 
-	int mItemHeight = 1;
-	int mItemWidth = 0;
+	NAS2D::Vector<int> mItemSize{0, 1};
 
 	unsigned int mScrollOffsetInPixels = 0;
 	std::size_t mHighlightIndex = NoSelection;
