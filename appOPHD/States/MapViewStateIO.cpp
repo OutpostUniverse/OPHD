@@ -306,7 +306,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 			SeedLander* seedLander = list[0];
 			if (!seedLander) { throw std::runtime_error("MapViewState::load(): Structure in list is not a SeedLander."); }
 
-			seedLander->deploySignal().connect({this, &MapViewState::onDeploySeedLander});
+			seedLander->deployHandler({this, &MapViewState::onDeploySeedLander});
 
 			mStructures.clear();
 			mConnections.clear();
@@ -410,12 +410,12 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::SID_COLONIST_LANDER)
 		{
-			dynamic_cast<ColonistLander&>(structure).deploySignal().connect({this, &MapViewState::onDeployColonistLander});
+			dynamic_cast<ColonistLander&>(structure).deployHandler({this, &MapViewState::onDeployColonistLander});
 		}
 
 		if (structureId == StructureID::SID_CARGO_LANDER)
 		{
-			dynamic_cast<CargoLander&>(structure).deploySignal().connect({this, &MapViewState::onDeployCargoLander});
+			dynamic_cast<CargoLander&>(structure).deployHandler({this, &MapViewState::onDeployCargoLander});
 		}
 
 		if (structureId == StructureID::SID_MINE_FACILITY)
