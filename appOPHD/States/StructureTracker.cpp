@@ -1,6 +1,7 @@
 #include "StructureTracker.h"
 
 #include "../Constants/Strings.h"
+#include "../UI/IconGrid.h"
 
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumStructureID.h>

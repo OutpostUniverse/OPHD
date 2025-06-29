@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../UI/IconGrid.h"
-
 #include <string>
 #include <vector>
+
+
+struct IconGridItem;
 
 
 class StructureTracker
