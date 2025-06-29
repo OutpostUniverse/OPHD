@@ -1,13 +1,9 @@
 #pragma once
 
+#include "PopulationRequirements.h"
+
+
 class Population;
-
-
-struct PopulationRequirements
-{
-	int workers;
-	int scientists;
-};
 
 
 class PopulationPool
