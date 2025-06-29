@@ -61,7 +61,6 @@ public:
 	Type type() const { return mType; }
 
 	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
-	TaskSignal::Source& taskComplete() { return mTaskCompleteSignal; }
 
 	virtual NAS2D::Dictionary getDataDict() const;
 
