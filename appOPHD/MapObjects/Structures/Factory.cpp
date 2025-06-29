@@ -166,6 +166,12 @@ void Factory::updateProduction()
 }
 
 
+void Factory::productionCompleteHandler(ProductionCompleteDelegate newProductionCompleteHandler)
+{
+	if (newProductionCompleteHandler) { mProductionComplete.connect(newProductionCompleteHandler); }
+}
+
+
 NAS2D::Dictionary Factory::getDataDict() const
 {
 	auto dictionary = Structure::getDataDict();
