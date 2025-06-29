@@ -314,6 +314,18 @@ bool Structure::repairable() const
 	return mStructureType.isRepairable && (mStructureState != StructureState::Destroyed);
 }
 
+bool Structure::isFactory() const { return mStructureClass == StructureClass::Factory; }
+bool Structure::isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
+bool Structure::isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
+bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
+bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
+bool Structure::isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
+bool Structure::isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
+bool Structure::isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
+bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
+bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
+bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
+
 /**
  * Called when a building is finished being built.
  *
