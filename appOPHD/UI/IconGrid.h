@@ -14,20 +14,21 @@
 #include <algorithm>
 
 
+struct IconGridItem
+{
+	std::string name{};
+	int sheetId{0};
+	int meta{0}; /**< Optional User defined value */
+	bool available{true};
+	NAS2D::Point<int> pos{};
+};
+
+
 class IconGrid : public Control
 {
 public:
-	struct Item
-	{
-		std::string name{};
-		int sheetId{0};
-		int meta{0}; /**< Optional User defined value */
-		bool available{true};
-		NAS2D::Point<int> pos{};
-	};
-
-	using Delegate = NAS2D::Delegate<void(const Item*)>;
-	using Index = std::vector<Item>::size_type;
+	using Delegate = NAS2D::Delegate<void(const IconGridItem*)>;
+	using Index = std::vector<IconGridItem>::size_type;
 
 	static const Index NoSelection;
 
@@ -35,7 +36,7 @@ public:
 	IconGrid(Delegate selectionChangedHandler, const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
 	~IconGrid() override;
 
-	void addItem(const Item&);
+	void addItem(const IconGridItem&);
 	void sort();
 	void clear();
 	bool isEmpty() const { return mIconItemList.empty(); }
@@ -84,7 +85,7 @@ private:
 	const int mIconMargin;
 	NAS2D::Vector<int> mGridSizeInIcons;
 
-	std::vector<Item> mIconItemList;
+	std::vector<IconGridItem> mIconItemList;
 
 	Index mHighlightIndex = NoSelection;
 	Index mSelectedIndex = NoSelection;

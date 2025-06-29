@@ -52,7 +52,7 @@ IconGrid::~IconGrid()
 }
 
 
-void IconGrid::addItem(const Item& item)
+void IconGrid::addItem(const IconGridItem& item)
 {
 	auto& newItem = mIconItemList.emplace_back(item);
 
@@ -155,8 +155,8 @@ void IconGrid::setSelection(Index newSelection)
  * \note	If no items in the list contain a matching meta value,
  *			the current selection index will remain unchanged.
  *
- * \remark	IconGrid::Item::meta is initialized to 0 so passing a value
- *			of 0 for IconGrid::Item's that don't use a meta value will
+ * \remark	IconGridItem::meta is initialized to 0 so passing a value
+ *			of 0 for IconGridItem's that don't use a meta value will
  *			effectively set the index to 0.
  */
 void IconGrid::setSelectionByMeta(int selectionMetaValue)
