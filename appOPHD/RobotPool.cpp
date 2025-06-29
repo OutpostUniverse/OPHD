@@ -138,24 +138,24 @@ void RobotPool::erase(Robot* robot)
  *
  * \return Returns a reference to the robot, or throws if type was invalid.
  */
-Robot& RobotPool::addRobot(Robot::Type type)
+Robot& RobotPool::addRobot(RobotType type)
 {
 	switch (type)
 	{
-	case Robot::Type::Dozer:
+	case RobotType::Dozer:
 		mDozers.emplace_back();
 		mRobots.push_back(&mDozers.back());
 		break;
-	case Robot::Type::Digger:
+	case RobotType::Digger:
 		mDiggers.emplace_back();
 		mRobots.push_back(&mDiggers.back());
 		break;
-	case Robot::Type::Miner:
+	case RobotType::Miner:
 		mMiners.emplace_back();
 		mRobots.push_back(&mMiners.back());
 		break;
 	default:
-		throw std::runtime_error("Unknown Robot::Type: " + std::to_string(static_cast<int>(type)));
+		throw std::runtime_error("Unknown RobotType: " + std::to_string(static_cast<int>(type)));
 	}
 
 	return *mRobots.back();
@@ -194,19 +194,19 @@ Robominer& RobotPool::getMiner()
  *
  * \return	Returns true if the requested robot type is available. False otherwise.
  */
-bool RobotPool::robotAvailable(Robot::Type type) const
+bool RobotPool::robotAvailable(RobotType type) const
 {
 	switch (type)
 	{
-	case Robot::Type::Digger:
+	case RobotType::Digger:
 	{
 		return hasIdleRobot(mDiggers);
 	}
-	case Robot::Type::Dozer:
+	case RobotType::Dozer:
 	{
 		return hasIdleRobot(mDozers);
 	}
-	case Robot::Type::Miner:
+	case RobotType::Miner:
 	{
 		return hasIdleRobot(mMiners);
 	}
@@ -218,17 +218,17 @@ bool RobotPool::robotAvailable(Robot::Type type) const
 }
 
 
-std::size_t RobotPool::getAvailableCount(Robot::Type type) const
+std::size_t RobotPool::getAvailableCount(RobotType type) const
 {
 	switch (type)
 	{
-	case Robot::Type::Digger:
+	case RobotType::Digger:
 		return getIdleCount(mDiggers);
 
-	case Robot::Type::Dozer:
+	case RobotType::Dozer:
 		return getIdleCount(mDozers);
 
-	case Robot::Type::Miner:
+	case RobotType::Miner:
 		return getIdleCount(mMiners);
 
 	default:

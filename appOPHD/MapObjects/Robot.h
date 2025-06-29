@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RobotType.h"
+
 #include <libOPHD/MapObjects/MapObject.h>
 
 #include <NAS2D/Signal/Delegate.h>
@@ -17,20 +19,11 @@ class TileMap;
 class Robot : public MapObject
 {
 public:
-	enum class Type
-	{
-		Digger,
-		Dozer,
-		Miner,
-
-		None
-	};
-
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
 public:
-	Robot(const std::string&, const std::string&, Type);
-	Robot(const std::string&, const std::string&, const std::string&, Type);
+	Robot(const std::string&, const std::string&, RobotType);
+	Robot(const std::string&, const std::string&, const std::string&, RobotType);
 
 	const std::string& name() const override;
 
@@ -56,7 +49,7 @@ public:
 	bool taskCanceled() const { return mCancelTask; }
 	void reset() { mCancelTask = false; }
 
-	Type type() const { return mType; }
+	RobotType type() const { return mType; }
 
 	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
 
@@ -67,14 +60,13 @@ protected:
 
 private:
 	const std::string& mName;
+	const RobotType mType;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 
 	bool mIsDead = false;
 	bool mSelfDestruct = false;
 	bool mCancelTask{false};
-
-	Type mType{Type::None};
 
 	TaskCompleteDelegate mTaskCompleteHandler;
 };

@@ -552,7 +552,7 @@ void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
 	mConnections.clearSelection();
 	mStructures.clearSelection();
 
-	mCurrentRobot = static_cast<Robot::Type>(item->meta);
+	mCurrentRobot = static_cast<RobotType>(item->meta);
 	mInsertMode = InsertMode::Robot;
 	setCursor(PointerType::PlaceTile);
 }
@@ -581,7 +581,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 		mTileMap->getTile(tile.xyz().translate(direction)).excavated(true);
 	}
 
-	if (!mRobotPool.robotAvailable(Robot::Type::Digger))
+	if (!mRobotPool.robotAvailable(RobotType::Digger))
 	{
 		mRobots.removeItem(constants::Robodigger);
 		clearMode();
@@ -698,9 +698,9 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 			mPopulation.removePopulation({0, 0, 0, 0, 10});
 		break;
 		case CheatMenu::CheatCode::AddRobots:
-			mRobotPool.addRobot(Robot::Type::Digger);
-			mRobotPool.addRobot(Robot::Type::Dozer);
-			mRobotPool.addRobot(Robot::Type::Miner);
+			mRobotPool.addRobot(RobotType::Digger);
+			mRobotPool.addRobot(RobotType::Dozer);
+			mRobotPool.addRobot(RobotType::Miner);
 		break;
 
 	}

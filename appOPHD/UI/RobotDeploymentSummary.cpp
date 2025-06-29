@@ -33,9 +33,9 @@ void RobotDeploymentSummary::draw() const
 
 	const std::array icons{
 		std::tuple{robotSummaryImageRect, mRobotPool.currentControlCount(), mRobotPool.robotControlMax()},
-		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(Robot::Type::Digger), mRobotPool.diggers().size()},
-		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(Robot::Type::Dozer), mRobotPool.dozers().size()},
-		std::tuple{minerImageRect, mRobotPool.getAvailableCount(Robot::Type::Miner), mRobotPool.miners().size()},
+		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(RobotType::Digger), mRobotPool.diggers().size()},
+		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(RobotType::Dozer), mRobotPool.dozers().size()},
+		std::tuple{minerImageRect, mRobotPool.getAvailableCount(RobotType::Miner), mRobotPool.miners().size()},
 	};
 
 	for (const auto& [imageRect, parts, total] : icons)

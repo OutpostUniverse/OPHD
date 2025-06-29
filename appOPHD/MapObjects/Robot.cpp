@@ -8,27 +8,27 @@
 
 namespace
 {
-	const std::map<Robot::Type, int> basicTaskTime{
-		{Robot::Type::Dozer, 0},
-		{Robot::Type::Digger, constants::DiggerTaskTime},
-		{Robot::Type::Miner, constants::MinerTaskTime},
+	const std::map<RobotType, int> basicTaskTime{
+		{RobotType::Dozer, 0},
+		{RobotType::Digger, constants::DiggerTaskTime},
+		{RobotType::Miner, constants::MinerTaskTime},
 	};
 
-	int getTaskTime(Robot::Type type, Tile& tile)
+	int getTaskTime(RobotType type, Tile& tile)
 	{
 		return std::max(1, basicTaskTime.at(type) + static_cast<int>(tile.index()));
 	}
 }
 
 
-Robot::Robot(const std::string& name, const std::string& spritePath, Type type) :
+Robot::Robot(const std::string& name, const std::string& spritePath, RobotType type) :
 	MapObject(spritePath, "running"),
 	mName(name),
 	mType{type}
 {}
 
 
-Robot::Robot(const std::string& name, const std::string& spritePath, const std::string& initialAction, Type type) :
+Robot::Robot(const std::string& name, const std::string& spritePath, const std::string& initialAction, RobotType type) :
 	MapObject(spritePath, initialAction),
 	mName(name),
 	mType{type}
