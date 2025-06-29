@@ -215,12 +215,6 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 }
 
 
-unsigned int ListBoxBase::itemWidth() const
-{
-	return static_cast<unsigned int>(mItemSize.x);
-}
-
-
 unsigned int ListBoxBase::itemHeight() const
 {
 	return static_cast<unsigned int>(mItemSize.y);

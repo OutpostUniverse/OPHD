@@ -62,7 +62,6 @@ protected:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
-	unsigned int itemWidth() const;
 	unsigned int itemHeight() const;
 
 	unsigned int drawOffset() const;
