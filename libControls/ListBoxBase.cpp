@@ -227,17 +227,6 @@ unsigned int ListBoxBase::itemHeight() const
 }
 
 
-/**
- * Sets item height.
- *
- * \note	Internal function for specialized types.
- */
-void ListBoxBase::itemHeight(int h)
-{
-	mItemSize.y = h;
-}
-
-
 unsigned int ListBoxBase::drawOffset() const
 {
 	return mScrollOffsetInPixels;

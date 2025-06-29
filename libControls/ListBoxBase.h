@@ -64,7 +64,6 @@ protected:
 
 	unsigned int itemWidth() const;
 	unsigned int itemHeight() const;
-	void itemHeight(int);
 
 	unsigned int drawOffset() const;
 	NAS2D::Vector<int> itemDrawSize() const;
