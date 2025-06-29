@@ -137,7 +137,7 @@ void Factory::updateProduction()
 
 	if (mProductWaiting != ProductType::PRODUCT_NONE)
 	{
-		mProductionComplete(*this);
+		if (mProductionCompleteHandler) { mProductionCompleteHandler(*this); }
 		idle(IdleReason::FactoryProductionComplete);
 		return;
 	}
@@ -161,8 +161,14 @@ void Factory::updateProduction()
 	{
 		productionResetTurns();
 		mProductWaiting = mProduct;
-		mProductionComplete(*this);
+		if (mProductionCompleteHandler) { mProductionCompleteHandler(*this); }
 	}
+}
+
+
+void Factory::productionCompleteHandler(ProductionCompleteDelegate newProductionCompleteHandler)
+{
+	mProductionCompleteHandler = newProductionCompleteHandler;
 }
 
 

@@ -501,7 +501,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			factory.productType(static_cast<ProductType>(production_type));
 			factory.productionTurnsCompleted(production_completed);
 			factory.resourcePool(&mResourcesCount);
-			factory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
+			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
 
 		if (structure.hasCrime())

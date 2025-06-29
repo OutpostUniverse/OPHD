@@ -4,7 +4,7 @@
 
 #include <libOPHD/EnumProductType.h>
 
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 struct ProductionCost;
@@ -28,8 +28,7 @@ struct StorableResources;
 class Factory : public Structure
 {
 public:
-	// Signal providing what was complete and a reference to the Factory.
-	using ProductionSignal = NAS2D::Signal<Factory&>;
+	using ProductionCompleteDelegate = NAS2D::Delegate<void(Factory&)>;
 
 	using ProductionTypeList = std::vector<ProductType>;
 
@@ -55,7 +54,7 @@ public:
 
 	const ProductionTypeList& productList() const { return mAvailableProducts; }
 
-	ProductionSignal::Source& productionComplete() { return mProductionComplete; }
+	void productionCompleteHandler(ProductionCompleteDelegate newProductionCompleteHandler);
 
 	NAS2D::Dictionary getDataDict() const override;
 
@@ -76,7 +75,7 @@ private:
 
 	ProductionTypeList mAvailableProducts; /**< List of products that the Factory can produce. */
 
-	ProductionSignal mProductionComplete; /**< Signal used when production is complete. */
+	ProductionCompleteDelegate mProductionCompleteHandler; /**< Delegate used when production is complete. */
 
 	const StorableResources* mResources = nullptr; /**< Pointer to the player's resource pool. UGLY. */
 };

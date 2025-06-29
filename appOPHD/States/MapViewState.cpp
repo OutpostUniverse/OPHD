@@ -903,7 +903,7 @@ void MapViewState::placeStructure(Tile& tile)
 		if (structure.isFactory())
 		{
 			auto& factory = dynamic_cast<Factory&>(structure);
-			factory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
+			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 			factory.resourcePool(&mResourcesCount);
 		}
 
