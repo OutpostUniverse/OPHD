@@ -2,7 +2,6 @@
 
 #include "../Structure.h"
 
-#include <NAS2D/Signal/Signal.h>
 #include <NAS2D/Signal/Delegate.h>
 
 
@@ -14,7 +13,6 @@ class Tile;
 class MineFacility : public Structure
 {
 public:
-	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
 	using ExtensionCompleteDelegate = NAS2D::Delegate<void(MineFacility*)>;
 
 public:
@@ -65,5 +63,5 @@ private:
 
 	OreDeposit* mOreDeposit = nullptr; /**< OreDeposit that this facility manages. */
 
-	ExtensionCompleteSignal mExtensionComplete; /**< Called whenever an extension is completed. */
+	ExtensionCompleteDelegate mExtensionCompleteHandler; /**< Called whenever an extension is completed. */
 };
