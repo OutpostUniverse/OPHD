@@ -179,7 +179,7 @@ private:
 	int mIntegrity{100};
 
 	StructureState mStructureState{StructureState::UnderConstruction};
-	StructureClass mStructureClass;
+	const StructureClass mStructureClass;
 	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
