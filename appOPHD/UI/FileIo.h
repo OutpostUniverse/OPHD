@@ -20,12 +20,6 @@ namespace NAS2D
 class FileIo : public Window
 {
 public:
-	enum class FileOperation
-	{
-		Load,
-		Save
-	};
-
 	using FileLoadDelegate = NAS2D::Delegate<void(const std::string&)>;
 	using FileSaveDelegate = NAS2D::Delegate<void(const std::string&)>;
 
@@ -37,6 +31,12 @@ public:
 	void showSave(const std::string& directory);
 
 protected:
+	enum class FileOperation
+	{
+		Load,
+		Save
+	};
+
 	void scanDirectory(const std::string& directory);
 
 	void onDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
