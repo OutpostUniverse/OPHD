@@ -1,13 +1,8 @@
 #pragma once
 
+
+struct PopulationRequirements;
 class Population;
-
-
-struct PopulationRequirements
-{
-	int workers;
-	int scientists;
-};
 
 
 class PopulationPool

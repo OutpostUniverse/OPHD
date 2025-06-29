@@ -8,7 +8,7 @@
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/MapObject.h>
-#include <libOPHD/Population/PopulationPool.h>
+#include <libOPHD/Population/PopulationRequirements.h>
 
 
 namespace NAS2D

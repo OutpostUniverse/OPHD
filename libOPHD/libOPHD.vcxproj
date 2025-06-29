@@ -206,6 +206,7 @@
     <ClInclude Include="Population\MoraleChangeEntry.h" />
     <ClInclude Include="Population\Population.h" />
     <ClInclude Include="Population\PopulationPool.h" />
+    <ClInclude Include="Population\PopulationRequirements.h" />
     <ClInclude Include="Population\PopulationTable.h" />
     <ClInclude Include="Technology\ResearchTracker.h" />
     <ClInclude Include="Technology\Technology.h" />

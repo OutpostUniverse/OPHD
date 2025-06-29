@@ -161,6 +161,9 @@
     <ClInclude Include="Population\PopulationPool.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
+    <ClInclude Include="Population\PopulationRequirements.h">
+      <Filter>Header Files\Population</Filter>
+    </ClInclude>
     <ClInclude Include="Population\PopulationTable.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
