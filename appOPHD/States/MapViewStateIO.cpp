@@ -422,7 +422,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		{
 			auto& mineFacility = dynamic_cast<MineFacility&>(structure);
 			mineFacility.maxDepth(mTileMap->maxDepth());
-			mineFacility.extensionComplete().connect({this, &MapViewState::onMineFacilityExtend});
+			mineFacility.extensionCompleteHandler({this, &MapViewState::onMineFacilityExtend});
 
 			auto trucks = structureElement->firstChildElement("trucks");
 			if (trucks)
