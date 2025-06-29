@@ -2,9 +2,13 @@
 
 #include <libOPHD/MapObjects/MapObject.h>
 
-#include <NAS2D/Dictionary.h>
-#include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
+
+namespace NAS2D
+{
+	class Dictionary;
+}
 
 class Tile;
 class TileMap;
@@ -22,7 +26,7 @@ public:
 		None
 	};
 
-	using TaskSignal = NAS2D::Signal<Robot&>;
+	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
 public:
 	Robot(const std::string&, const std::string&, Type);
@@ -54,7 +58,7 @@ public:
 
 	Type type() const { return mType; }
 
-	TaskSignal::Source& taskComplete() { return mTaskCompleteSignal; }
+	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
 
 	virtual NAS2D::Dictionary getDataDict() const;
 
@@ -72,5 +76,5 @@ private:
 
 	Type mType{Type::None};
 
-	TaskSignal mTaskCompleteSignal;
+	TaskCompleteDelegate mTaskCompleteHandler;
 };

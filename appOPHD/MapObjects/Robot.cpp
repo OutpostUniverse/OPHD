@@ -3,6 +3,8 @@
 #include "../Constants/Numbers.h"
 #include "../Map/Tile.h"
 
+#include <NAS2D/Dictionary.h>
+
 
 namespace
 {
@@ -65,6 +67,12 @@ void Robot::startTask(int turns)
 }
 
 
+void Robot::taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler)
+{
+	mTaskCompleteHandler = newTaskCompleteHandler;
+}
+
+
 NAS2D::Dictionary Robot::getDataDict() const
 {
 	return {{
@@ -94,7 +102,7 @@ void Robot::processTurn(TileMap& tileMap)
 	if (mTurnsToCompleteTask == 0)
 	{
 		onTaskComplete(tileMap);
-		mTaskCompleteSignal(*this);
+		if (mTaskCompleteHandler) { mTaskCompleteHandler(*this); }
 	}
 
 	mFuelCellAge++;

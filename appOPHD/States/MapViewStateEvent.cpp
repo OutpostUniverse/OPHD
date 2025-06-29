@@ -155,9 +155,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	seedFactory.resourcePool(&mResourcesCount);
 	seedFactory.productionComplete().connect({this, &MapViewState::onFactoryProductionComplete});
 
-	mRobotPool.addRobot(Robot::Type::Dozer).taskComplete().connect({this, &MapViewState::onDozerTaskComplete});
-	mRobotPool.addRobot(Robot::Type::Digger).taskComplete().connect({this, &MapViewState::onDiggerTaskComplete});
-	mRobotPool.addRobot(Robot::Type::Miner).taskComplete().connect({this, &MapViewState::onMinerTaskComplete});
+	mRobotPool.addRobot(Robot::Type::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
+	mRobotPool.addRobot(Robot::Type::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
+	mRobotPool.addRobot(Robot::Type::Miner).taskCompleteHandler({this, &MapViewState::onMinerTaskComplete});
 
 	populateRobotMenu();
 }
