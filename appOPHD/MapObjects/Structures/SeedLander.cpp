@@ -16,7 +16,7 @@ SeedLander::SeedLander(const Tile* tile) :
 
 void SeedLander::deployHandler(DeployDelegate newDeployHandler)
 {
-	if (newDeployHandler) { mDeploy.connect(newDeployHandler); }
+	mDeployHandler = newDeployHandler;
 }
 
 
@@ -24,6 +24,6 @@ void SeedLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		mDeploy(mPosition);
+		if (mDeployHandler) { mDeployHandler(mPosition); }
 	}
 }

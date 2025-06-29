@@ -15,7 +15,7 @@ ColonistLander::ColonistLander(Tile* tile) : Structure(
 
 void ColonistLander::deployHandler(DeployDelegate newDeployHandler)
 {
-	if (newDeployHandler) { mDeploy.connect(newDeployHandler); }
+	mDeployHandler = newDeployHandler;
 }
 
 
@@ -23,7 +23,7 @@ void ColonistLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		mDeploy();
+		if (mDeployHandler) { mDeployHandler(); }
 		mTile->bulldoze();
 	}
 }

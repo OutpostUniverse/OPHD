@@ -15,7 +15,7 @@ CargoLander::CargoLander(Tile* tile) : Structure(
 
 void CargoLander::deployHandler(DeployDelegate newDeployHandler)
 {
-	if (newDeployHandler) { mDeploy.connect(newDeployHandler); }
+	mDeployHandler = newDeployHandler;
 }
 
 
@@ -23,7 +23,7 @@ void CargoLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		mDeploy();
+		if (mDeployHandler) { mDeployHandler(); }
 		mTile->bulldoze();
 	}
 }
