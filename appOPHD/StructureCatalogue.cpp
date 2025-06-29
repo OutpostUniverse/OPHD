@@ -169,8 +169,6 @@ const StructureType& StructureCatalogue::getType(StructureID id)
  */
 Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 {
-	using StructureClass = Structure::StructureClass;
-
 	Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base

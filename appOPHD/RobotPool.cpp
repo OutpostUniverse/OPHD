@@ -240,7 +240,7 @@ std::size_t RobotPool::getAvailableCount(Robot::Type type) const
 void RobotPool::update()
 {
 	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(Structure::StructureClass::RobotCommand);
+	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(StructureClass::RobotCommand);
 
 	// 3 for the first command center
 	std::size_t maxRobots = 0;

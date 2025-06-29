@@ -984,7 +984,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		Structure* structure = tile.structure();
 
 		if (structure->isMineFacility()) { return; }
-		if (structure->structureClass() == Structure::StructureClass::Command)
+		if (structure->structureClass() == StructureClass::Command)
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeCc);
 			return;
@@ -1021,7 +1021,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			else { return; }
 		}
 
-		if (structure->structureClass() == Structure::StructureClass::Communication)
+		if (structure->structureClass() == StructureClass::Communication)
 		{
 			updateCommRangeOverlay();
 		}

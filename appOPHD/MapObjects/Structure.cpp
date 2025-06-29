@@ -29,35 +29,35 @@ const std::map<StructureState, std::string> StructureStateDescriptions =
 /**
  * Translation table for Structure Classes.
  */
-const std::map<Structure::StructureClass, std::string> StructureClassNames =
+const std::map<StructureClass, std::string> StructureClassNames =
 {
-	{Structure::StructureClass::Command, "Command"},
-	{Structure::StructureClass::Communication, "Communication"},
-	{Structure::StructureClass::Commercial, "Commercial"},
-	{Structure::StructureClass::EnergyProduction, "Energy Production"},
-	{Structure::StructureClass::Factory, "Factory"},
-	{Structure::StructureClass::FoodProduction, "Food Production"},
-	{Structure::StructureClass::Laboratory, "Laboratory"},
-	{Structure::StructureClass::Lander, "Lander"},
-	{Structure::StructureClass::LifeSupport, "Life Support"},
-	{Structure::StructureClass::Maintenance, "Maintenance Facility"},
-	{Structure::StructureClass::Mine, "Mine Facility"},
-	{Structure::StructureClass::MedicalCenter, "Medical Center"},
-	{Structure::StructureClass::Nursery, "Nursery"},
-	{Structure::StructureClass::Park, "Park / Reservoir"},
-	{Structure::StructureClass::Road, "Road"},
-	{Structure::StructureClass::SurfacePolice, "Police"},
-	{Structure::StructureClass::UndergroundPolice, "Police"},
-	{Structure::StructureClass::RecreationCenter, "Recreation Center"},
-	{Structure::StructureClass::Recycling, "Recycling"},
-	{Structure::StructureClass::Residence, "Residential"},
-	{Structure::StructureClass::RobotCommand, "Robot Command Center"},
-	{Structure::StructureClass::Smelter, "Raw Ore Processing"},
-	{Structure::StructureClass::Storage, "Storage"},
-	{Structure::StructureClass::Tube, "Tube"},
-	{Structure::StructureClass::Undefined, "UNDEFINED"},
-	{Structure::StructureClass::University, "University"},
-	{Structure::StructureClass::Warehouse, "Warehouse"}
+	{StructureClass::Command, "Command"},
+	{StructureClass::Communication, "Communication"},
+	{StructureClass::Commercial, "Commercial"},
+	{StructureClass::EnergyProduction, "Energy Production"},
+	{StructureClass::Factory, "Factory"},
+	{StructureClass::FoodProduction, "Food Production"},
+	{StructureClass::Laboratory, "Laboratory"},
+	{StructureClass::Lander, "Lander"},
+	{StructureClass::LifeSupport, "Life Support"},
+	{StructureClass::Maintenance, "Maintenance Facility"},
+	{StructureClass::Mine, "Mine Facility"},
+	{StructureClass::MedicalCenter, "Medical Center"},
+	{StructureClass::Nursery, "Nursery"},
+	{StructureClass::Park, "Park / Reservoir"},
+	{StructureClass::Road, "Road"},
+	{StructureClass::SurfacePolice, "Police"},
+	{StructureClass::UndergroundPolice, "Police"},
+	{StructureClass::RecreationCenter, "Recreation Center"},
+	{StructureClass::Recycling, "Recycling"},
+	{StructureClass::Residence, "Residential"},
+	{StructureClass::RobotCommand, "Robot Command Center"},
+	{StructureClass::Smelter, "Raw Ore Processing"},
+	{StructureClass::Storage, "Storage"},
+	{StructureClass::Tube, "Tube"},
+	{StructureClass::Undefined, "UNDEFINED"},
+	{StructureClass::University, "University"},
+	{StructureClass::Warehouse, "Warehouse"}
 };
 
 
@@ -111,9 +111,9 @@ std::string StructureName(StructureID id)
 }
 
 
-std::vector<Structure::StructureClass> allStructureClasses()
+std::vector<StructureClass> allStructureClasses()
 {
-	std::vector<Structure::StructureClass> result;
+	std::vector<StructureClass> result;
 	for (const auto& entry : StructureClassNames)
 	{
 		result.push_back(entry.first);
@@ -229,6 +229,11 @@ const PopulationRequirements& Structure::populationRequirements() const
 	return mStructureType.populationRequirements;
 }
 
+StructureClass Structure::structureClass() const
+{
+	return mStructureClass;
+}
+
 const std::string& Structure::stateDescription() const
 {
 	return stateDescription(state());
@@ -313,6 +318,20 @@ bool Structure::repairable() const
 {
 	return mStructureType.isRepairable && (mStructureState != StructureState::Destroyed);
 }
+
+bool Structure::providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
+
+bool Structure::isFactory() const { return mStructureClass == StructureClass::Factory; }
+bool Structure::isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
+bool Structure::isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
+bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
+bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
+bool Structure::isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
+bool Structure::isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
+bool Structure::isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
+bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
+bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
+bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
 
 /**
  * Called when a building is finished being built.

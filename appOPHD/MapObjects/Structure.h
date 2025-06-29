@@ -1,5 +1,7 @@
 #pragma once
 
+#include "StructureClass.h"
+
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
@@ -31,50 +33,9 @@ enum class StructureState
 	Destroyed
 };
 
+
 class Structure : public MapObject
 {
-public:
-	/**
-	 * Class of a Structure.
-	 *
-	 * Structures are grouped by 'class'. Basically it's just an easy
-	 * way to know how to sort structures so that they can be updated
-	 * based on priority.
-	 *
-	 * \note	Some structure classes will only have one structure
-	 *			that uses it. This is intended behavior.
-	 */
-	enum class StructureClass
-	{
-		Command,
-		Communication,
-		Commercial,
-		EnergyProduction,
-		Factory,
-		FoodProduction,
-		Laboratory,
-		Lander,
-		LifeSupport,
-		Maintenance,
-		Mine,
-		MedicalCenter,
-		Nursery,
-		Park,
-		Road,
-		SurfacePolice,
-		UndergroundPolice,
-		RecreationCenter,
-		Recycling,
-		Residence,
-		RobotCommand,
-		Smelter,
-		Storage,
-		Tube,
-		Undefined, /**< Used for structures that have no need for classification. */
-		University,
-		Warehouse
-	};
-
 public:
 	Structure(StructureClass structureClass, StructureID id);
 	Structure(const std::string& initialAction, StructureClass structureClass, StructureID id);
@@ -124,7 +85,7 @@ public:
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
 
 	// ATTRIBUTES
-	StructureClass structureClass() const { return mStructureClass; }
+	StructureClass structureClass() const;
 	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	const std::string& classDescription() const;
@@ -154,22 +115,22 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const;
-	bool providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
+	bool providesCHAP() const;
 	bool selfSustained() const;
 	bool repairable() const;
 
 	// CONVENIENCE FUCNTIONS
-	bool isFactory() const { return mStructureClass == StructureClass::Factory; }
-	bool isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
-	bool isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
-	bool isMineFacility() const { return mStructureClass == StructureClass::Mine; }
-	bool isSmelter() const { return mStructureClass == StructureClass::Smelter; }
-	bool isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
-	bool isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
-	bool isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
-	bool isLander() const { return mStructureClass == StructureClass::Lander; }
-	bool isConnector() const { return mStructureClass == StructureClass::Tube; }
-	bool isRoad() const { return mStructureClass == StructureClass::Road; }
+	bool isFactory() const;
+	bool isWarehouse() const;
+	bool isRobotCommand() const;
+	bool isMineFacility() const;
+	bool isSmelter() const;
+	bool isEnergyProducer() const;
+	bool isFoodStore() const;
+	bool isPolice() const;
+	bool isLander() const;
+	bool isConnector() const;
+	bool isRoad() const;
 
 	void age(int newAge) { mAge = newAge; }
 	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
@@ -212,13 +173,13 @@ private:
 private:
 	const StructureType& mStructureType;
 	const StructureID mStructureId{StructureID::SID_NONE};
+	const StructureClass mStructureClass;
 
 	int mAge{0};
 	int mCrimeRate{0};
 	int mIntegrity{100};
 
 	StructureState mStructureState{StructureState::UnderConstruction};
-	StructureClass mStructureClass{StructureClass::Undefined};
 	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
@@ -237,4 +198,4 @@ private:
 using StructureList = std::vector<Structure*>;
 
 std::string StructureName(StructureID id);
-std::vector<Structure::StructureClass> allStructureClasses();
+std::vector<StructureClass> allStructureClasses();

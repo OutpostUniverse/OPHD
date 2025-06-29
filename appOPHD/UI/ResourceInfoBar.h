@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../MapObjects/Structure.h"
-
 #include <libControls/ControlContainer.h>
 #include <libControls/ToolTip.h>
 
@@ -14,6 +12,7 @@ namespace NAS2D
 	enum class MouseButton;
 }
 
+enum class StructureClass;
 struct StorableResources;
 class Population;
 class Morale;
@@ -35,7 +34,7 @@ public:
 protected:
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 
-	int totalStorage(Structure::StructureClass, int) const;
+	int totalStorage(StructureClass, int) const;
 
 private:
 	const StorableResources& mResourcesCount;
