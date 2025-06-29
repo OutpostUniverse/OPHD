@@ -32,6 +32,18 @@ PlanetImage::~PlanetImage()
 }
 
 
+void PlanetImage::mouseEnterHandler(MouseEventDelegate newMouseEnterHandler)
+{
+	mMouseEnterHandler = newMouseEnterHandler;
+}
+
+
+void PlanetImage::mouseExitHandler(MouseEventDelegate newMouseExitHandler)
+{
+	mMouseExitHandler = newMouseExitHandler;
+}
+
+
 bool PlanetImage::pointInCircle(NAS2D::Point<int> point) const
 {
 	const auto offset = point - mRect.position - PlanetSize / 2;
@@ -46,7 +58,8 @@ void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 	if (inArea != mIsMouseOver)
 	{
 		mIsMouseOver = inArea;
-		mIsMouseOver ? mMouseEnterSignal() : mMouseExitSignal();
+		const auto& mouseEventHandler = mIsMouseOver ? mMouseEnterHandler : mMouseExitHandler;
+		if (mouseEventHandler) { mouseEventHandler(); }
 		mTimer.reset();
 	}
 }
