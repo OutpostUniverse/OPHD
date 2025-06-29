@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../MapObjects/Structure.h"
+#include "../MapObjects/StructureClass.h"
 
 #include <libControls/ControlContainer.h>
 #include <libControls/ToolTip.h>
