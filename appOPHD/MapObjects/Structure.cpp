@@ -314,6 +314,8 @@ bool Structure::repairable() const
 	return mStructureType.isRepairable && (mStructureState != StructureState::Destroyed);
 }
 
+bool Structure::providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
+
 bool Structure::isFactory() const { return mStructureClass == StructureClass::Factory; }
 bool Structure::isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
 bool Structure::isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }

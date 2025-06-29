@@ -115,7 +115,7 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const;
-	bool providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
+	bool providesCHAP() const;
 	bool selfSustained() const;
 	bool repairable() const;
 
