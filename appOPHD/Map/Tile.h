@@ -4,7 +4,6 @@
 #include <libOPHD/Map/MapCoordinate.h>
 
 #include <NAS2D/Math/Point.h>
-#include <NAS2D/Math/Vector.h>
 
 
 class OreDeposit;
