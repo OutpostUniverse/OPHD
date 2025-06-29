@@ -59,7 +59,7 @@ Tile::~Tile()
 }
 
 
-bool Tile::isSurface()
+bool Tile::isSurface() const
 {
 	return mPosition.z == 0;
 }

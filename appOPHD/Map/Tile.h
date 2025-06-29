@@ -42,7 +42,7 @@ public:
 	int depth() const { return mPosition.z; }
 	void depth(int i) { mPosition.z = i; }
 
-	bool isSurface();
+	bool isSurface() const;
 
 	bool isBulldozed() const;
 
