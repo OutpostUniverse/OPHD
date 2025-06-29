@@ -69,7 +69,7 @@ void Robot::startTask(int turns)
 
 void Robot::taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler)
 {
-	if (newTaskCompleteHandler) { mTaskCompleteSignal.connect(newTaskCompleteHandler); }
+	mTaskCompleteHandler = newTaskCompleteHandler;
 }
 
 
@@ -102,7 +102,7 @@ void Robot::processTurn(TileMap& tileMap)
 	if (mTurnsToCompleteTask == 0)
 	{
 		onTaskComplete(tileMap);
-		mTaskCompleteSignal(*this);
+		if (mTaskCompleteHandler) { mTaskCompleteHandler(*this); }
 	}
 
 	mFuelCellAge++;

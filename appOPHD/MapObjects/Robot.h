@@ -3,7 +3,6 @@
 #include <libOPHD/MapObjects/MapObject.h>
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Signal/Signal.h>
 
 
 namespace NAS2D
@@ -28,7 +27,6 @@ public:
 	};
 
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
-	using TaskSignal = NAS2D::Signal<Robot&>;
 
 public:
 	Robot(const std::string&, const std::string&, Type);
@@ -78,5 +76,5 @@ private:
 
 	Type mType{Type::None};
 
-	TaskSignal mTaskCompleteSignal;
+	TaskCompleteDelegate mTaskCompleteHandler;
 };
