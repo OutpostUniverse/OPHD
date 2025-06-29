@@ -229,6 +229,11 @@ const PopulationRequirements& Structure::populationRequirements() const
 	return mStructureType.populationRequirements;
 }
 
+StructureClass Structure::structureClass() const
+{
+	return mStructureClass;
+}
+
 const std::string& Structure::stateDescription() const
 {
 	return stateDescription(state());

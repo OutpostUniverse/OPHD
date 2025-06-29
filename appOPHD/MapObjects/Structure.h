@@ -85,7 +85,7 @@ public:
 	PopulationRequirements& populationAvailable() { return mPopulationAvailable; }
 
 	// ATTRIBUTES
-	StructureClass structureClass() const { return mStructureClass; }
+	StructureClass structureClass() const;
 	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	const std::string& classDescription() const;
