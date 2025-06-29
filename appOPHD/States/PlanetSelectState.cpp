@@ -56,8 +56,8 @@ PlanetSelectState::PlanetSelectState() :
 {
 	for (auto& planetImage : mPlanetImages)
 	{
-		planetImage.mouseEnter().connect({this, &PlanetSelectState::onMousePlanetEnter});
-		planetImage.mouseExit().connect({this, &PlanetSelectState::onMousePlanetExit});
+		planetImage.mouseEnterHandler({this, &PlanetSelectState::onMousePlanetEnter});
+		planetImage.mouseExitHandler({this, &PlanetSelectState::onMousePlanetExit});
 	}
 
 	mPlanetDescription.size({550, 200});
