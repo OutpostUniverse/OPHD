@@ -37,7 +37,6 @@ public:
 	const OreDeposit& oreDeposit() const;
 
 	void extensionCompleteHandler(ExtensionCompleteDelegate newExtensionCompleteHandler);
-	ExtensionCompleteSignal::Source& extensionComplete();
 
 protected:
 	friend class MapViewState;

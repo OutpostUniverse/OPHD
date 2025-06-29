@@ -186,12 +186,6 @@ void MineFacility::extensionCompleteHandler(ExtensionCompleteDelegate newExtensi
 }
 
 
-MineFacility::ExtensionCompleteSignal::Source& MineFacility::extensionComplete()
-{
-	return mExtensionComplete;
-}
-
-
 void MineFacility::assignedTrucks(int count)
 {
 	mAssignedTrucks = count;
