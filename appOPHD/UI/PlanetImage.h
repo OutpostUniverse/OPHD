@@ -26,6 +26,7 @@ public:
 	MouseSignal::Source& mouseExit() { return mMouseExitSignal; }
 
 	void update() override;
+	void draw() const override;
 
 protected:
 	bool pointInCircle(NAS2D::Point<int> point) const;
