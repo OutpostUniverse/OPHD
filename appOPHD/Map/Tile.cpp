@@ -65,7 +65,7 @@ bool Tile::isSurface()
 }
 
 
-bool Tile::bulldozed() const
+bool Tile::isBulldozed() const
 {
 	return index() == TerrainType::Dozed;
 }
