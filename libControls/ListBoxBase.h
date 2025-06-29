@@ -34,7 +34,7 @@ public:
 	static const std::size_t NoSelection;
 
 
-	ListBoxBase(SelectionChangedDelegate selectionChangedHandler = {});
+	ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate selectionChangedHandler = {});
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
