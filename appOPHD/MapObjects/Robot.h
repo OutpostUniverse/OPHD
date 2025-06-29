@@ -67,7 +67,7 @@ private:
 	bool mSelfDestruct = false;
 	bool mCancelTask{false};
 
-	RobotType mType{RobotType::None};
+	const RobotType mType{RobotType::None};
 
 	TaskCompleteDelegate mTaskCompleteHandler;
 };
