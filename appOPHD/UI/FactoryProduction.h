@@ -29,7 +29,7 @@ public:
 	void drawClientArea() const override;
 
 protected:
-	void onProductSelectionChange(const IconGrid::Item*);
+	void onProductSelectionChange(const IconGridItem*);
 	void onClearSelection();
 	void onApply();
 	void onOkay();

@@ -11,16 +11,16 @@ class StructureTracker
 public:
 	StructureTracker();
 
-	const std::vector<IconGrid::Item>& surfaceTubes() const;
-	const std::vector<IconGrid::Item>& undergroundTubes() const;
+	const std::vector<IconGridItem>& surfaceTubes() const;
+	const std::vector<IconGridItem>& undergroundTubes() const;
 
-	const std::vector<IconGrid::Item>& availableSurfaceStructures() const;
-	const std::vector<IconGrid::Item>& availableUndergroundStructures() const;
+	const std::vector<IconGridItem>& availableSurfaceStructures() const;
+	const std::vector<IconGridItem>& availableUndergroundStructures() const;
 
-	void addUnlockedSurfaceStructure(const IconGrid::Item& structureItem);
-	void addUnlockedUndergroundStructure(const IconGrid::Item& structureItem);
+	void addUnlockedSurfaceStructure(const IconGridItem& structureItem);
+	void addUnlockedUndergroundStructure(const IconGridItem& structureItem);
 
 private:
-	std::vector<IconGrid::Item> mAvailableSurfaceStructures;
-	std::vector<IconGrid::Item> mAvailableUndergroundStructures;
+	std::vector<IconGridItem> mAvailableSurfaceStructures;
+	std::vector<IconGridItem> mAvailableUndergroundStructures;
 };

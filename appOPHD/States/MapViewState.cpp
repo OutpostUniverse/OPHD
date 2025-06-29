@@ -788,7 +788,7 @@ void MapViewState::placeTubes(Tile& tile)
 	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
 	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 * Should instead take advantage of the updated meta data in the IconGrid::Item.
+	 * Should instead take advantage of the updated meta data in the IconGridItem.
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
 

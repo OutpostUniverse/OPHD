@@ -8,7 +8,7 @@
 
 namespace
 {
-	const std::vector<IconGrid::Item> DefaultAvailableSurfaceStructures = {
+	const std::vector<IconGridItem> DefaultAvailableSurfaceStructures = {
 		{constants::Agridome, 5, StructureID::SID_AGRIDOME},
 		{constants::Chap, 3, StructureID::SID_CHAP},
 		{constants::CommTower, 22, StructureID::SID_COMM_TOWER},
@@ -25,7 +25,7 @@ namespace
 		{constants::Warehouse, 9, StructureID::SID_WAREHOUSE},
 	};
 
-	const std::vector<IconGrid::Item> DefaultAvailableUndergroundStructures = {
+	const std::vector<IconGridItem> DefaultAvailableUndergroundStructures = {
 		{constants::Laboratory, 58, StructureID::SID_LABORATORY},
 		{constants::Park, 75, StructureID::SID_PARK},
 		{constants::UndergroundPolice, 61, StructureID::SID_UNDERGROUND_POLICE},
@@ -39,20 +39,20 @@ namespace
 		{constants::University, 63, StructureID::SID_UNIVERSITY},
 	};
 
-	const std::vector<IconGrid::Item> SurfaceTubes = {
+	const std::vector<IconGridItem> SurfaceTubes = {
 		{constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION},
 		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_EAST_WEST},
 		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_NORTH_SOUTH},
 	};
 
-	const std::vector<IconGrid::Item> UndergroundTubes = {
+	const std::vector<IconGridItem> UndergroundTubes = {
 		{constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION},
 		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_EAST_WEST},
 		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_NORTH_SOUTH},
 	};
 
 
-	void addItemToList(const IconGrid::Item& structureItem, std::vector<IconGrid::Item>& list)
+	void addItemToList(const IconGridItem& structureItem, std::vector<IconGridItem>& list)
 	{
 		for (const auto& item : list)
 		{
@@ -74,37 +74,37 @@ StructureTracker::StructureTracker() :
 }
 
 
-const std::vector<IconGrid::Item>& StructureTracker::surfaceTubes() const
+const std::vector<IconGridItem>& StructureTracker::surfaceTubes() const
 {
 	return SurfaceTubes;
 }
 
 
-const std::vector<IconGrid::Item>& StructureTracker::undergroundTubes() const
+const std::vector<IconGridItem>& StructureTracker::undergroundTubes() const
 {
 	return UndergroundTubes;
 }
 
 
-const std::vector<IconGrid::Item>& StructureTracker::availableSurfaceStructures() const
+const std::vector<IconGridItem>& StructureTracker::availableSurfaceStructures() const
 {
 	return mAvailableSurfaceStructures;
 }
 
 
-const std::vector<IconGrid::Item>& StructureTracker::availableUndergroundStructures() const
+const std::vector<IconGridItem>& StructureTracker::availableUndergroundStructures() const
 {
 	return mAvailableUndergroundStructures;
 }
 
 
-void StructureTracker::addUnlockedSurfaceStructure(const IconGrid::Item& structureItem)
+void StructureTracker::addUnlockedSurfaceStructure(const IconGridItem& structureItem)
 {
 	addItemToList(structureItem, mAvailableSurfaceStructures);
 }
 
 
-void StructureTracker::addUnlockedUndergroundStructure(const IconGrid::Item& structureItem)
+void StructureTracker::addUnlockedUndergroundStructure(const IconGridItem& structureItem)
 {
 	addItemToList(structureItem, mAvailableUndergroundStructures);
 }

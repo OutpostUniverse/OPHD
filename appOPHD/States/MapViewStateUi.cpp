@@ -37,7 +37,7 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	void fillList(IconGrid& grid, const std::vector<IconGrid::Item>& itemList)
+	void fillList(IconGrid& grid, const std::vector<IconGridItem>& itemList)
 	{
 		for (const auto& item : itemList)
 		{
@@ -491,7 +491,7 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 }
 
 
-void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
+void MapViewState::onStructuresSelectionChange(const IconGridItem* item)
 {
 	if (!item)
 	{
@@ -521,7 +521,7 @@ void MapViewState::onStructuresSelectionChange(const IconGrid::Item* item)
 /**
  * Handler for the Tubes Pallette dialog.
  */
-void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* item)
+void MapViewState::onConnectionsSelectionChange(const IconGridItem* item)
 {
 	if (!item)
 	{
@@ -541,7 +541,7 @@ void MapViewState::onConnectionsSelectionChange(const IconGrid::Item* item)
 /**
  * Handles clicks of the Robot Selection Menu.
  */
-void MapViewState::onRobotsSelectionChange(const IconGrid::Item* item)
+void MapViewState::onRobotsSelectionChange(const IconGridItem* item)
 {
 	if (!item)
 	{

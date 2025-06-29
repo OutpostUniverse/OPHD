@@ -271,9 +271,9 @@ private:
 	void onReturnToGame();
 	void onGameOver();
 
-	void onStructuresSelectionChange(const IconGrid::Item*);
-	void onConnectionsSelectionChange(const IconGrid::Item*);
-	void onRobotsSelectionChange(const IconGrid::Item*);
+	void onStructuresSelectionChange(const IconGridItem*);
+	void onConnectionsSelectionChange(const IconGridItem*);
+	void onRobotsSelectionChange(const IconGridItem*);
 
 	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
