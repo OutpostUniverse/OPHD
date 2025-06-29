@@ -180,6 +180,12 @@ const OreDeposit& MineFacility::oreDeposit() const
 }
 
 
+void MineFacility::extensionCompleteHandler(ExtensionCompleteDelegate newExtensionCompleteHandler)
+{
+	if (newExtensionCompleteHandler) { mExtensionComplete.connect(newExtensionCompleteHandler); }
+}
+
+
 MineFacility::ExtensionCompleteSignal::Source& MineFacility::extensionComplete()
 {
 	return mExtensionComplete;

@@ -3,6 +3,7 @@
 #include "../Structure.h"
 
 #include <NAS2D/Signal/Signal.h>
+#include <NAS2D/Signal/Delegate.h>
 
 
 struct StorableResources;
@@ -14,6 +15,8 @@ class MineFacility : public Structure
 {
 public:
 	using ExtensionCompleteSignal = NAS2D::Signal<MineFacility*>;
+	using ExtensionCompleteDelegate = NAS2D::Delegate<void(MineFacility*)>;
+
 public:
 	MineFacility(Tile* tile);
 
@@ -33,6 +36,7 @@ public:
 	OreDeposit& oreDeposit();
 	const OreDeposit& oreDeposit() const;
 
+	void extensionCompleteHandler(ExtensionCompleteDelegate newExtensionCompleteHandler);
 	ExtensionCompleteSignal::Source& extensionComplete();
 
 protected:
