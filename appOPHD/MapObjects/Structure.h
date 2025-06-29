@@ -173,13 +173,13 @@ private:
 private:
 	const StructureType& mStructureType;
 	const StructureID mStructureId{StructureID::SID_NONE};
+	const StructureClass mStructureClass;
 
 	int mAge{0};
 	int mCrimeRate{0};
 	int mIntegrity{100};
 
 	StructureState mStructureState{StructureState::UnderConstruction};
-	const StructureClass mStructureClass;
 	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
 
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
