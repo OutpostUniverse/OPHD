@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RobotType.h"
+
 #include <libOPHD/MapObjects/MapObject.h>
 
 #include <NAS2D/Signal/Delegate.h>
@@ -12,16 +14,6 @@ namespace NAS2D
 
 class Tile;
 class TileMap;
-
-
-enum class RobotType
-{
-	Digger,
-	Dozer,
-	Miner,
-
-	None
-};
 
 
 class Robot : public MapObject
