@@ -196,7 +196,7 @@ protected:
 		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
 		renderer.drawBox(mRect, borderColor);
 
-		renderer.clipRect(mRect);
+		renderer.clipRect(mClientRect);
 
 		// display actuals values that are meant to be
 		const auto lineHeight = mItemSize.y;
@@ -291,8 +291,8 @@ private:
 		const auto neededDisplaySize = mItemSize.y * static_cast<int>(mItems.size());
 		if (neededDisplaySize > mRect.size.y)
 		{
-			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
-			mScrollBar.size({14, mRect.size.y});
+			mScrollBar.size({14, mClientRect.size.y});
+			mScrollBar.position({mClientRect.position.x + mClientRect.size.x - mScrollBar.size().x, mClientRect.position.y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
 			mScrollOffsetInPixels = mScrollBar.value();
 			mClientRect.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
