@@ -7,7 +7,7 @@
 MainWindow::MainWindow() :
 	Window{"Main Window"},
 	button{"Button", {this, &MainWindow::onButtonClick}},
-	label{"Label: Waiting for button"},
+	label{"Label"},
 	radioButtonGroup{
 		{
 			"Option 1",
@@ -25,23 +25,39 @@ MainWindow::MainWindow() :
 	size(renderer.size());
 
 	button.size(button.size() + NAS2D::Vector{8, 2});
+
+	listBox1.size({80, 100});
+	listBox1.add("Item 1");
+	listBox1.add("Item 2");
+	listBox1.add("Item 3");
+	listBox1.add("Item 4");
+	listBox1.add("Item 5");
+	listBox1.add("Item 6");
+
+	listBox2.size({60, 100});
+	listBox2.add("Item 1");
+	listBox2.add("Item 2");
+	listBox2.add("Item 3");
+
 	add(button, {10, 30});
-	add(label, {70, 30});
-	add(radioButtonGroup, {10, 60});
-	add(image, {10, 120});
-	add(progressBar, {10, 250});
-	add(rectangle1, {10, 280});
-	add(rectangle2, {10, 290});
+	add(label, {10, 56});
+	add(radioButtonGroup, {10, 80});
+	add(listBox1, {130, 30});
+	add(listBox2, {220, 30});
+	add(image, {10, 140});
+	add(progressBar, {10, 270});
+	add(rectangle1, {10, 300});
+	add(rectangle2, {10, 310});
 }
 
 
 void MainWindow::onButtonClick()
 {
-	label.text("Label: Button was clicked");
+	label.text("Button clicked");
 }
 
 
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
-	label.text("Label: RadioButton was selected : " + std::to_string(index));
+	label.text("RadioButton : " + std::to_string(index));
 }

@@ -8,6 +8,7 @@
 #include <libControls/ProgressBar.h>
 #include <libControls/RadioButtonGroup.h>
 #include <libControls/Rectangle.h>
+#include <libControls/ListBox.h>
 
 
 class MainWindow : public Window
@@ -27,4 +28,6 @@ private:
 	ProgressBar progressBar;
 	Rectangle rectangle1;
 	Rectangle rectangle2;
+	ListBox<> listBox1;
+	ListBox<> listBox2;
 };
