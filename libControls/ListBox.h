@@ -68,7 +68,7 @@ public:
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
 		mContext{getDefaultFont()},
 		mScrollBar{ScrollBar::ScrollBarType::Vertical, mContext.itemHeight(), {this, &ListBox::onSlideChange}},
-		mItemSize{0, static_cast<int>(mContext.itemHeight())},
+		mItemSize{0, mContext.itemHeight()},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
@@ -241,7 +241,7 @@ protected:
 			return;
 		}
 
-		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mScrollArea.position.y;
+		const auto scrollRelativeY = mScrollOffsetInPixels + position.y - mScrollArea.position.y;
 		const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
 		mHighlightIndex = (index < count()) ? index : NoSelection;
 	}
