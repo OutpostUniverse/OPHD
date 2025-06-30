@@ -64,7 +64,6 @@ protected:
 
 	unsigned int itemHeight() const;
 
-	unsigned int drawOffset() const;
 	NAS2D::Vector<int> itemDrawSize() const;
 	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
 	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;

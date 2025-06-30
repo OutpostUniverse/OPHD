@@ -221,12 +221,6 @@ unsigned int ListBoxBase::itemHeight() const
 }
 
 
-unsigned int ListBoxBase::drawOffset() const
-{
-	return mScrollOffsetInPixels;
-}
-
-
 NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
 {
 	return mItemSize;
@@ -235,7 +229,7 @@ NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
 
 NAS2D::Point<int> ListBoxBase::itemDrawPosition(std::size_t index) const
 {
-	return position() + NAS2D::Vector{0, static_cast<int>(index * itemHeight() - drawOffset())};
+	return position() + NAS2D::Vector{0, static_cast<int>(index * itemHeight() - mScrollOffsetInPixels)};
 }
 
 
