@@ -9,6 +9,7 @@
 #include <libControls/RadioButtonGroup.h>
 #include <libControls/Rectangle.h>
 #include <libControls/ListBox.h>
+#include <libControls/ComboBox.h>
 
 
 class MainWindow : public Window
@@ -30,4 +31,6 @@ private:
 	Rectangle rectangle2;
 	ListBox<> listBox1;
 	ListBox<> listBox2;
+	ComboBox comboBox1;
+	ComboBox comboBox2;
 };
