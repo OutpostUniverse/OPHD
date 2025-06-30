@@ -172,9 +172,9 @@ public:
 	}
 
 
-	unsigned int lineHeight() const
+	int lineHeight() const
 	{
-		return static_cast<unsigned int>(mContext.itemHeight());
+		return mContext.itemHeight();
 	}
 
 
