@@ -292,7 +292,7 @@ private:
 		if (neededDisplaySize > mRect.size.y)
 		{
 			mScrollBar.size({14, mRect.size.y});
-			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
+			mScrollBar.position({area().position.x + mRect.size.x - mScrollBar.size().x, mRect.position.y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
 			mScrollOffsetInPixels = mScrollBar.value();
 			mClientRect.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
