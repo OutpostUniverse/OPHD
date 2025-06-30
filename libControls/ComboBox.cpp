@@ -11,7 +11,7 @@
 namespace
 {
 	const std::string EmptyString{};
-	constexpr unsigned int MinimumDisplayItems{5};
+	constexpr std::size_t MinimumDisplayItems{5};
 }
 
 
@@ -29,7 +29,8 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 
 	txtField.editable(false);
 	lstItems.visible(false);
-	lstItems.height(300);
+
+	size(txtField.size() + NAS2D::Vector{btnDown.size().x, 0});
 }
 
 
@@ -136,12 +137,7 @@ void ComboBox::onListSelectionChange()
  */
 void ComboBox::maxDisplayItems(std::size_t count)
 {
-	mMaxDisplayItems = count;
-
-	if (count < MinimumDisplayItems)
-	{
-		mMaxDisplayItems = MinimumDisplayItems;
-	}
+	mMaxDisplayItems = std::max(count, MinimumDisplayItems);
 }
 
 
