@@ -1,7 +1,7 @@
 #include "StructureManager.h"
 
 #include "Constants/Numbers.h"
-#include "StructureCatalogue.h"
+#include "StructureCatalog.h"
 #include "ProductPool.h"
 #include "IOHelper.h"
 #include "Map/Tile.h"
@@ -142,7 +142,7 @@ StructureManager::StructureManager() :
 
 Structure& StructureManager::create(StructureID structureId, Tile& tile)
 {
-	auto& structure = *StructureCatalogue::create(structureId);
+	auto& structure = *StructureCatalog::create(structureId);
 	addStructure(structure, tile);
 	return structure;
 }

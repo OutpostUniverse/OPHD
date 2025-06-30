@@ -13,7 +13,7 @@
 #include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
-#include "../StructureCatalogue.h"
+#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/Route.h"
 #include "../Map/TileMap.h"
@@ -23,7 +23,7 @@
 #include "../UI/NavControl.h"
 
 #include <libOPHD/MeanSolarDistance.h>
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Technology/ResearchTracker.h>
 
@@ -406,7 +406,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			continue; // FIXME: ugly
 		}
 
-		auto& structure = *StructureCatalogue::create(structureId, &tile);
+		auto& structure = *StructureCatalog::create(structureId, &tile);
 
 		if (structureId == StructureID::SID_COLONIST_LANDER)
 		{

@@ -150,7 +150,7 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	friend class StructureCatalogue;
+	friend class StructureCatalog;
 
 	void activate();
 

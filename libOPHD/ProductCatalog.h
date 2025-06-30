@@ -10,7 +10,7 @@
  * \brief Provides information about Products that can
  *        be manufactured in Factory.
  */
-class ProductCatalogue
+class ProductCatalog
 {
 public:
 	struct Product
@@ -21,11 +21,11 @@ public:
 	};
 
 public:
-	ProductCatalogue() = delete;
-	ProductCatalogue(const ProductCatalogue&) = delete;
-	ProductCatalogue(const ProductCatalogue&&) noexcept = delete;
-	ProductCatalogue& operator=(const ProductCatalogue& other) = delete;
-	ProductCatalogue& operator=(ProductCatalogue&& other) noexcept = delete;
+	ProductCatalog() = delete;
+	ProductCatalog(const ProductCatalog&) = delete;
+	ProductCatalog(const ProductCatalog&&) noexcept = delete;
+	ProductCatalog& operator=(const ProductCatalog& other) = delete;
+	ProductCatalog& operator=(ProductCatalog&& other) noexcept = delete;
 
 	static void init(const std::string& filename);
 	static bool has(ProductType type);

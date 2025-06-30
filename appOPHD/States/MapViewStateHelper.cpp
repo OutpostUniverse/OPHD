@@ -11,7 +11,7 @@
 
 #include "../Resources.h"
 #include "../Constants/Strings.h"
-#include "../StructureCatalogue.h"
+#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Structures/Warehouse.h"
@@ -55,7 +55,7 @@ bool isCcPlaced()
 
 bool isInCcRange(NAS2D::Point<int> position)
 {
-	const auto range = StructureCatalogue::getType(StructureID::SID_COMMAND_CENTER).commRange;
+	const auto range = StructureCatalog::getType(StructureID::SID_COMMAND_CENTER).commRange;
 	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto& ccList = structureManager.getStructures<CommandCenter>();
 	for (const auto* commandCenter : ccList)
@@ -248,7 +248,7 @@ bool structureIsLander(StructureID id)
  */
 bool selfSustained(StructureID id)
 {
-	return StructureCatalogue::getType(id).isSelfSustained;
+	return StructureCatalog::getType(id).isSelfSustained;
 }
 
 
@@ -343,7 +343,7 @@ void moveProducts(Warehouse* sourceWarehouse)
  */
 void resourceShortageMessage(const StorableResources& resources, StructureID sid)
 {
-	StorableResources cost = StructureCatalogue::costToBuild(sid);
+	StorableResources cost = StructureCatalog::costToBuild(sid);
 
 	StorableResources missing = cost - resources;
 

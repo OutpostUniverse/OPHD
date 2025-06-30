@@ -14,7 +14,7 @@
 #include "../Constants/UiConstants.h"
 
 #include "../PointerType.h"
-#include "../StructureCatalogue.h"
+#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
@@ -717,6 +717,6 @@ void MapViewState::updateStructuresAvailability()
 	for (int sid = 1; sid < StructureID::SID_COUNT; ++sid)
 	{
 		const StructureID id = static_cast<StructureID>(sid);
-		mStructures.itemAvailable(StructureName(id), StructureCatalogue::canBuild(id, mResourcesCount));
+		mStructures.itemAvailable(StructureName(id), StructureCatalog::canBuild(id, mResourcesCount));
 	}
 }

@@ -11,7 +11,7 @@
 #include "../Constants/UiConstants.h"
 
 #include "../PointerType.h"
-#include "../StructureCatalogue.h"
+#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 
 #include "../Map/Route.h"
@@ -25,7 +25,7 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
@@ -270,8 +270,8 @@ void MapViewState::initialize()
 
 	mPopulationPool.population(&mPopulation);
 
-	StructureCatalogue::init("StructureTypes.xml");
-	ProductCatalogue::init("factory_products.xml");
+	StructureCatalog::init("StructureTypes.xml");
+	ProductCatalog::init("factory_products.xml");
 
 	if (mLoadingExisting)
 	{
@@ -892,7 +892,7 @@ void MapViewState::placeStructure(Tile& tile)
 		}
 
 		// Check build cost
-		if (!StructureCatalogue::canBuild(mCurrentStructure, mResourcesCount))
+		if (!StructureCatalog::canBuild(mCurrentStructure, mResourcesCount))
 		{
 			resourceShortageMessage(mResourcesCount, mCurrentStructure);
 			return;
@@ -912,7 +912,7 @@ void MapViewState::placeStructure(Tile& tile)
 			dynamic_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
 
-		auto cost = StructureCatalogue::costToBuild(mCurrentStructure);
+		auto cost = StructureCatalog::costToBuild(mCurrentStructure);
 		removeRefinedResources(cost);
 		updatePlayerResources();
 		updateStructuresAvailability();
@@ -1030,7 +1030,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			updatePoliceOverlay();
 		}
 
-		const auto& recycledResources = StructureCatalogue::recyclingValue(structure->structureId());
+		const auto& recycledResources = StructureCatalog::recyclingValue(structure->structureId());
 		const auto& wastedResources = addRefinedResources(recycledResources);
 
 		if (!wastedResources.isEmpty())

@@ -13,7 +13,7 @@
 #include "../../MapObjects/Structures/SeedFactory.h"
 #include "../../MapObjects/Structures/UndergroundFactory.h"
 
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 #include <libOPHD/ProductionCost.h>
 
 #include <NAS2D/Utility.h>
@@ -304,7 +304,7 @@ void FactoryReport::onVisibilityChange(bool visible)
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
-		mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+		mTxtProductDescription.text(ProductCatalog::get(selectedProductType).Description);
 	}
 }
 
@@ -423,13 +423,13 @@ void FactoryReport::onListSelectionChange()
 	{
 		for (auto item : selectedFactory->productList())
 		{
-			lstProducts.add(ProductCatalogue::get(item).Name, static_cast<int>(item));
+			lstProducts.add(ProductCatalog::get(item).Name, static_cast<int>(item));
 		}
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.userData == productType; });
 	selectedProductType = selectedFactory->productType();
 
-	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalogue::get(selectedProductType).Description : "");
+	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalog::get(selectedProductType).Description : "");
 
 	StructureState state = selectedFactory->state();
 	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
@@ -439,7 +439,7 @@ void FactoryReport::onListSelectionChange()
 void FactoryReport::onProductSelectionChange()
 {
 	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().userData : 0);
-	mTxtProductDescription.text(ProductCatalogue::get(selectedProductType).Description);
+	mTxtProductDescription.text(ProductCatalog::get(selectedProductType).Description);
 }
 
 
@@ -502,7 +502,7 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
 		const auto productImagePosition = NAS2D::Point{originRight.x, lstProducts.position().y};
-		renderer.drawText(fontBigBold, ProductCatalogue::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
+		renderer.drawText(fontBigBold, ProductCatalog::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), productImagePosition);
 		mTxtProductDescription.draw();
 	}
@@ -512,7 +512,7 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 	const auto progressTextPosition = originRight + NAS2D::Vector{0, mRect.size.y - originRight.y - 115};
 	const auto buildingProductNamePosition = progressTextPosition + NAS2D::Vector{0, 35};
 	renderer.drawText(fontBigBold, "Progress", progressTextPosition, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "Building " + ProductCatalogue::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalog::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
 
 	const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, fontMedium.height()};
 	const auto progressBarSize = NAS2D::Vector{mRect.size.x - originRight.x - 10, 30};

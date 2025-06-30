@@ -6,7 +6,7 @@
 
 #include "MapViewStateHelper.h"
 
-#include "../StructureCatalogue.h"
+#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
@@ -146,7 +146,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	std::vector<Structure*> structures;
 	for (const auto& [direction, structureId] : initialStructures)
 	{
-		auto* structure = StructureCatalogue::create(structureId);
+		auto* structure = StructureCatalog::create(structureId);
 		structureManager.addStructure(*structure, mTileMap->getTile({point + direction, 0}));
 		structures.push_back(structure);
 	}

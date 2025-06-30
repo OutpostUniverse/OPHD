@@ -7,7 +7,7 @@
 
 #include "../MapObjects/Structures/Warehouse.h"
 
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 
 
 using namespace NAS2D;
@@ -65,7 +65,7 @@ void WarehouseInspector::drawClientArea() const
 		if (pool.count(productType) == 0) { continue; }
 		if (storageRequiredPerUnit(productType) == 0) { continue; }
 
-		drawLabelAndValueLeftJustify(position, labelWidth, ProductCatalogue::get(productType).Name + ":", std::to_string(pool.count(productType)));
+		drawLabelAndValueLeftJustify(position, labelWidth, ProductCatalog::get(productType).Name + ":", std::to_string(pool.count(productType)));
 
 		position.y += 15;
 	}

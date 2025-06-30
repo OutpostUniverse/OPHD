@@ -6,7 +6,7 @@
 #include "../Constants/UiConstants.h"
 #include "../ProductPool.h"
 
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -46,7 +46,7 @@ void ProductListBox::productPool(const ProductPool& pool)
 		if (productCount > 0)
 		{
 			mItems.emplace_back(ProductListBoxItem{
-				ProductCatalogue::has(productType) ? ProductCatalogue::get(productType).Name : "Invalid product type",
+				ProductCatalog::has(productType) ? ProductCatalog::get(productType).Name : "Invalid product type",
 				productCount,
 				productCount * pool.productStorageRequirement(productType),
 				pool.capacity()

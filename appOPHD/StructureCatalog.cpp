@@ -1,4 +1,4 @@
-#include "StructureCatalogue.h"
+#include "StructureCatalog.h"
 
 #include "MapObjects/Structures.h"
 #include "IOHelper.h"
@@ -48,7 +48,7 @@ namespace
 		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
 		{
 			const auto structureId = static_cast<StructureID>(i);
-			structureRecycleValueTable[structureId] = StructureCatalogue::costToBuild(structureId) * recoveryPercent / 100;
+			structureRecycleValueTable[structureId] = StructureCatalog::costToBuild(structureId) * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
@@ -143,9 +143,9 @@ namespace
 
 
 /**
- * Initializes StructureCatalogue.
+ * Initializes StructureCatalog.
  */
-void StructureCatalogue::init(const std::string& filename)
+void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
 	idToType = buildStructureTypeLookup();
@@ -153,7 +153,7 @@ void StructureCatalogue::init(const std::string& filename)
 }
 
 
-const StructureType& StructureCatalogue::getType(StructureID id)
+const StructureType& StructureCatalog::getType(StructureID id)
 {
 	return idToType.at(id);
 }
@@ -167,7 +167,7 @@ const StructureType& StructureCatalogue::getType(StructureID id)
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalogue::create(StructureID id, Tile* tile)
+Structure* StructureCatalog::create(StructureID id, Tile* tile)
 {
 	Structure* structure = nullptr;
 
@@ -337,7 +337,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalogue::create(): Unsupported structure type: " + std::to_string(id));
+		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(id));
 	}
 
 	return structure;
@@ -349,7 +349,7 @@ Structure* StructureCatalogue::create(StructureID id, Tile* tile)
  *
  * \param	id	A valid StructureID value.
  */
-const StorableResources& StructureCatalogue::costToBuild(StructureID id)
+const StorableResources& StructureCatalog::costToBuild(StructureID id)
 {
 	return getType(id).buildCost;
 }
@@ -360,7 +360,7 @@ const StorableResources& StructureCatalogue::costToBuild(StructureID id)
  *
  * \param	id	A valid StructureID value.
  */
-const StorableResources& StructureCatalogue::recyclingValue(StructureID id)
+const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 {
 	return findOrDefault(StructureRecycleValueTable, id);
 }
@@ -370,7 +370,7 @@ const StorableResources& StructureCatalogue::recyclingValue(StructureID id)
  * Indicates that the source ResourcePool has enough resources to accommodate
  * the resource requirements of the specified structure.
  */
-bool StructureCatalogue::canBuild(StructureID id, const StorableResources& source)
+bool StructureCatalog::canBuild(StructureID id, const StorableResources& source)
 {
 	return costToBuild(id) <= source;
 }
