@@ -171,7 +171,7 @@ public:
 	}
 
 
-	int lineHeight() const
+	int itemHeight() const
 	{
 		return mItemSize.y;
 	}
