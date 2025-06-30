@@ -243,12 +243,8 @@ protected:
 		}
 
 		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mClientRect.position.y;
-		mHighlightIndex = static_cast<std::size_t>(scrollRelativeY / mContext.itemHeight());
-
-		if (mHighlightIndex >= mItems.size())
-		{
-			mHighlightIndex = NoSelection;
-		}
+		const auto index = static_cast<std::size_t>(scrollRelativeY / mContext.itemHeight());
+		mHighlightIndex = (index < mItems.size()) ? index : NoSelection;
 	}
 
 
