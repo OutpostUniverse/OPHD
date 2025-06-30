@@ -43,7 +43,7 @@ struct ListBoxItemText
 		NAS2D::Color textColorNormal = NAS2D::Color::White;
 		NAS2D::Color textColorMouseHover = NAS2D::Color::White;
 
-		unsigned int itemHeight() const;
+		int itemHeight() const;
 	};
 
 	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
@@ -174,7 +174,7 @@ public:
 
 	unsigned int lineHeight() const
 	{
-		return mContext.itemHeight();
+		return static_cast<unsigned int>(mContext.itemHeight());
 	}
 
 
@@ -198,7 +198,7 @@ protected:
 		renderer.clipRect(mRect);
 
 		// display actuals values that are meant to be
-		const auto lineHeight = mContext.itemHeight();
+		const auto lineHeight = static_cast<unsigned int>(mContext.itemHeight());
 		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
 		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.size.y) + (lineHeight - 1)) / lineHeight;
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
@@ -291,7 +291,7 @@ private:
 		// Account for border around control
 		mClientRect = mRect.inset(1);
 
-		const auto neededDisplaySize = static_cast<int>(mContext.itemHeight() * mItems.size());
+		const auto neededDisplaySize = mContext.itemHeight() * static_cast<int>(mItems.size());
 		if (neededDisplaySize > mRect.size.y)
 		{
 			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
