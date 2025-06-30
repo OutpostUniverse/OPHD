@@ -206,7 +206,7 @@ protected:
 		auto itemDrawRect = mScrollArea;
 		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
 		itemDrawRect.size.y = lineHeight;
-		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
+		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; ++i)
 		{
 			const auto isSelected = (i == mSelectedIndex);
 			const auto isHighlighted = (i == mHighlightIndex);
