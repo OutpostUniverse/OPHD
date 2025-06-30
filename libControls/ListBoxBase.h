@@ -34,7 +34,7 @@ public:
 	static const std::size_t NoSelection;
 
 
-	ListBoxBase(SelectionChangedDelegate selectionChangedHandler = {});
+	ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate selectionChangedHandler = {});
 	~ListBoxBase() override;
 
 	bool isEmpty() const;
@@ -62,12 +62,6 @@ protected:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
-	unsigned int itemWidth() const;
-	unsigned int itemHeight() const;
-	void itemHeight(int);
-
-	unsigned int drawOffset() const;
-	NAS2D::Vector<int> itemDrawSize() const;
 	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
 	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;
 
@@ -78,10 +72,9 @@ protected:
 private:
 	ScrollBar mScrollBar;
 
-	int mItemHeight = 1;
-	int mItemWidth = 0;
+	NAS2D::Vector<int> mItemSize{0, 1};
 
-	unsigned int mScrollOffsetInPixels = 0;
+	int mScrollOffsetInPixels = 0;
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = NoSelection;
 
