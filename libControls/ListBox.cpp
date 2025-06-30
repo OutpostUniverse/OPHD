@@ -10,9 +10,9 @@ namespace
 }
 
 
-unsigned int ListBoxItemText::Context::itemHeight() const
+int ListBoxItemText::Context::itemHeight() const
 {
-	return static_cast<unsigned int>(font.height() + MarginTight);
+	return font.height() + MarginTight;
 }
 
 

@@ -43,7 +43,7 @@ struct ListBoxItemText
 		NAS2D::Color textColorNormal = NAS2D::Color::White;
 		NAS2D::Color textColorMouseHover = NAS2D::Color::White;
 
-		unsigned int itemHeight() const;
+		int itemHeight() const;
 	};
 
 	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
@@ -59,6 +59,7 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
 public:
+	using Context = typename ListBoxItem::Context;
 	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
@@ -67,6 +68,7 @@ public:
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
 		mContext{getDefaultFont()},
 		mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBox::onSlideChange}},
+		mItemSize{0, static_cast<int>(mContext.itemHeight())},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
@@ -171,9 +173,9 @@ public:
 	}
 
 
-	unsigned int lineHeight() const
+	int lineHeight() const
 	{
-		return mContext.itemHeight();
+		return mItemSize.y;
 	}
 
 
@@ -197,13 +199,13 @@ protected:
 		renderer.clipRect(mRect);
 
 		// display actuals values that are meant to be
-		const auto lineHeight = mContext.itemHeight();
-		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
-		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.size.y) + (lineHeight - 1)) / lineHeight;
+		const auto lineHeight = mItemSize.y;
+		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
+		const auto lastVisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mClientRect.size.y + (lineHeight - 1)) / lineHeight);
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 		auto itemDrawRect = mClientRect;
-		itemDrawRect.position.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
-		itemDrawRect.size.y = static_cast<int>(lineHeight);
+		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
+		itemDrawRect.size.y = lineHeight;
 		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 		{
 			const auto isSelected = (i == mSelectedIndex);
@@ -211,7 +213,7 @@ protected:
 
 			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawRect.position.y += static_cast<int>(lineHeight);
+			itemDrawRect.position.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
@@ -241,13 +243,9 @@ protected:
 			return;
 		}
 
-		const auto dy = position.y - mClientRect.position.y;
-		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
-
-		if (mHighlightIndex >= mItems.size())
-		{
-			mHighlightIndex = NoSelection;
-		}
+		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mClientRect.position.y;
+		const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
+		mHighlightIndex = (index < mItems.size()) ? index : NoSelection;
 	}
 
 
@@ -290,13 +288,13 @@ private:
 		// Account for border around control
 		mClientRect = mRect.inset(1);
 
-		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
-		if (neededDisplaySize > static_cast<std::size_t>(mRect.size.y))
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(mItems.size());
+		if (neededDisplaySize > mRect.size.y)
 		{
 			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
 			mScrollBar.size({14, mRect.size.y});
-			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.size.y));
-			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
+			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
+			mScrollOffsetInPixels = mScrollBar.value();
 			mClientRect.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);
 		}
@@ -309,12 +307,13 @@ private:
 	}
 
 private:
-	typename ListBoxItem::Context mContext;
+	Context mContext;
 
 	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mClientRect;
+	NAS2D::Vector<int> mItemSize;
 
-	std::size_t mScrollOffsetInPixels = 0;
+	int mScrollOffsetInPixels = 0;
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = 0;
 

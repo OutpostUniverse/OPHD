@@ -195,12 +195,9 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 		return;
 	}
 
-	mHighlightIndex = (static_cast<unsigned int>(mScrollOffsetInPixels + position.y - this->position().y)) / static_cast<unsigned int>(mItemSize.y);
-
-	if (mHighlightIndex >= count())
-	{
-		mHighlightIndex = NoSelection;
-	}
+	const auto scrollRelativeY = mScrollOffsetInPixels + position.y - this->position().y;
+	const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
+	mHighlightIndex = (index < count()) ? index : NoSelection;
 }
 
 
