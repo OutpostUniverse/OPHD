@@ -68,6 +68,7 @@ public:
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
 		mContext{getDefaultFont()},
 		mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBox::onSlideChange}},
+		mItemSize{0, static_cast<int>(mContext.itemHeight())},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
@@ -174,7 +175,7 @@ public:
 
 	int lineHeight() const
 	{
-		return mContext.itemHeight();
+		return mItemSize.y;
 	}
 
 
@@ -198,7 +199,7 @@ protected:
 		renderer.clipRect(mRect);
 
 		// display actuals values that are meant to be
-		const auto lineHeight = mContext.itemHeight();
+		const auto lineHeight = mItemSize.y;
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 		const auto lastVisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mClientRect.size.y + (lineHeight - 1)) / lineHeight);
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
@@ -243,7 +244,7 @@ protected:
 		}
 
 		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mClientRect.position.y;
-		const auto index = static_cast<std::size_t>(scrollRelativeY / mContext.itemHeight());
+		const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
 		mHighlightIndex = (index < mItems.size()) ? index : NoSelection;
 	}
 
@@ -287,7 +288,7 @@ private:
 		// Account for border around control
 		mClientRect = mRect.inset(1);
 
-		const auto neededDisplaySize = mContext.itemHeight() * static_cast<int>(mItems.size());
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(mItems.size());
 		if (neededDisplaySize > mRect.size.y)
 		{
 			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
@@ -310,6 +311,7 @@ private:
 
 	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mClientRect;
+	NAS2D::Vector<int> mItemSize;
 
 	int mScrollOffsetInPixels = 0;
 	std::size_t mHighlightIndex = NoSelection;
