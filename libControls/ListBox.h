@@ -59,6 +59,7 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public Control
 {
 public:
+	using Context = typename ListBoxItem::Context;
 	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
 
 	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
@@ -309,7 +310,7 @@ private:
 	}
 
 private:
-	typename ListBoxItem::Context mContext;
+	Context mContext;
 
 	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mClientRect;
