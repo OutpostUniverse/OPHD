@@ -29,6 +29,8 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 
 	txtField.editable(false);
 	lstItems.visible(false);
+
+	size(txtField.size() + NAS2D::Vector{btnDown.size().x, 0});
 }
 
 
