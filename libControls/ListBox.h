@@ -198,13 +198,13 @@ protected:
 		renderer.clipRect(mRect);
 
 		// display actuals values that are meant to be
-		const auto lineHeight = static_cast<unsigned int>(mContext.itemHeight());
-		const auto firstVisibleIndex = mScrollOffsetInPixels / lineHeight;
-		const auto lastVisibleIndex = (mScrollOffsetInPixels + static_cast<std::size_t>(mClientRect.size.y) + (lineHeight - 1)) / lineHeight;
+		const auto lineHeight = mContext.itemHeight();
+		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
+		const auto lastVisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mClientRect.size.y + (lineHeight - 1)) / lineHeight);
 		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
 		auto itemDrawRect = mClientRect;
-		itemDrawRect.position.y += -static_cast<int>(mScrollOffsetInPixels % lineHeight);
-		itemDrawRect.size.y = static_cast<int>(lineHeight);
+		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
+		itemDrawRect.size.y = lineHeight;
 		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
 		{
 			const auto isSelected = (i == mSelectedIndex);
@@ -212,7 +212,7 @@ protected:
 
 			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
-			itemDrawRect.position.y += static_cast<int>(lineHeight);
+			itemDrawRect.position.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
@@ -293,7 +293,7 @@ private:
 			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
 			mScrollBar.size({14, mRect.size.y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
-			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
+			mScrollOffsetInPixels = mScrollBar.value();
 			mClientRect.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);
 		}
@@ -311,7 +311,7 @@ private:
 	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mClientRect;
 
-	std::size_t mScrollOffsetInPixels = 0;
+	int mScrollOffsetInPixels = 0;
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = 0;
 
