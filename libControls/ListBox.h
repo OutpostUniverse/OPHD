@@ -291,12 +291,12 @@ private:
 		// Account for border around control
 		mClientRect = mRect.inset(1);
 
-		const auto neededDisplaySize = mContext.itemHeight() * mItems.size();
-		if (neededDisplaySize > static_cast<std::size_t>(mRect.size.y))
+		const auto neededDisplaySize = static_cast<int>(mContext.itemHeight() * mItems.size());
+		if (neededDisplaySize > mRect.size.y)
 		{
 			mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
 			mScrollBar.size({14, mRect.size.y});
-			mScrollBar.max(static_cast<ScrollBar::ValueType>(static_cast<int>(neededDisplaySize) - mRect.size.y));
+			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
 			mScrollOffsetInPixels = static_cast<std::size_t>(mScrollBar.value());
 			mClientRect.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);
