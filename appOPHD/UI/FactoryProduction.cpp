@@ -7,7 +7,7 @@
 #include "../Constants/Strings.h"
 #include "../MapObjects/Structures/Factory.h"
 
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -193,7 +193,7 @@ void FactoryProduction::factory(Factory* newFactory)
 
 	for (std::size_t i = 0; i < ptlist.size(); ++i)
 	{
-		mProductGrid.addItem({ProductCatalogue::get(ptlist[i]).Name, ptlist[i], ptlist[i]});
+		mProductGrid.addItem({ProductCatalog::get(ptlist[i]).Name, ptlist[i], ptlist[i]});
 	}
 
 	if (mFactory->productType() == ProductType::PRODUCT_NONE) { mProductGrid.clearSelection(); }

@@ -25,7 +25,7 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
@@ -271,7 +271,7 @@ void MapViewState::initialize()
 	mPopulationPool.population(&mPopulation);
 
 	StructureCatalogue::init("StructureTypes.xml");
-	ProductCatalogue::init("factory_products.xml");
+	ProductCatalog::init("factory_products.xml");
 
 	if (mLoadingExisting)
 	{

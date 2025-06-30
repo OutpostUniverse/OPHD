@@ -1,4 +1,4 @@
-#include "ProductCatalogue.h"
+#include "ProductCatalog.h"
 
 #include "XmlSerializer.h"
 
@@ -9,7 +9,7 @@
 
 namespace
 {
-	ProductCatalogue::Product parseProduct(const NAS2D::Xml::XmlElement* node)
+	ProductCatalog::Product parseProduct(const NAS2D::Xml::XmlElement* node)
 	{
 		NAS2D::Dictionary dictionary{};
 		for (const auto* element = node->firstChildElement(); element; element = element->nextSiblingElement())
@@ -30,10 +30,10 @@ namespace
 }
 
 
-std::map<ProductType, ProductCatalogue::Product> ProductCatalogue::mProductTable;
+std::map<ProductType, ProductCatalog::Product> ProductCatalog::mProductTable;
 
 
-void ProductCatalogue::init(const std::string& filename)
+void ProductCatalog::init(const std::string& filename)
 {
 	mProductTable.clear();
 
@@ -57,13 +57,13 @@ void ProductCatalogue::init(const std::string& filename)
 }
 
 
-bool ProductCatalogue::has(ProductType type)
+bool ProductCatalog::has(ProductType type)
 {
 	return mProductTable.contains(type);
 }
 
 
-const ProductCatalogue::Product& ProductCatalogue::get(ProductType type)
+const ProductCatalog::Product& ProductCatalog::get(ProductType type)
 {
 	try
 	{

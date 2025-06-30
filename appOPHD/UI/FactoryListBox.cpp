@@ -9,7 +9,7 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -128,7 +128,7 @@ void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> d
 	renderer.drawText(mFontBold, factory.name(), drawArea.position + NAS2D::Vector{64, 29 - mFontBold.height() / 2}, structureTextColor);
 	if (productType != ProductType::PRODUCT_NONE)
 	{
-		renderer.drawText(mFont, ProductCatalogue::get(productType).Name, drawArea.crossXPoint() + NAS2D::Vector{-112, 19 - mFontBold.height() / 2}, structureTextColor);
+		renderer.drawText(mFont, ProductCatalog::get(productType).Name, drawArea.crossXPoint() + NAS2D::Vector{-112, 19 - mFontBold.height() / 2}, structureTextColor);
 		drawProgressBar(
 			factory.productionTurnsCompleted(),
 			factory.productionTurnsToComplete(),

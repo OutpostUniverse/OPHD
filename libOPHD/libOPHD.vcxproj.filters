@@ -42,7 +42,7 @@
     <ClCompile Include="PlanetAttributes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProductCatalogue.cpp">
+    <ClCompile Include="ProductCatalog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StorableResources.cpp">
@@ -119,7 +119,7 @@
     <ClInclude Include="PlanetAttributes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ProductCatalogue.h">
+    <ClInclude Include="ProductCatalog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ProductionCost.h">

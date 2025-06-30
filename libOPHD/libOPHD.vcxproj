@@ -165,7 +165,7 @@
     <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="PlanetAttributes.cpp" />
-    <ClCompile Include="ProductCatalogue.cpp" />
+    <ClCompile Include="ProductCatalog.cpp" />
     <ClCompile Include="StorableResources.cpp" />
     <ClCompile Include="XmlSerializer.cpp" />
     <ClCompile Include="Map\MapCoordinate.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="EnumTerrainType.h" />
     <ClInclude Include="MeanSolarDistance.h" />
     <ClInclude Include="PlanetAttributes.h" />
-    <ClInclude Include="ProductCatalogue.h" />
+    <ClInclude Include="ProductCatalog.h" />
     <ClInclude Include="ProductionCost.h" />
     <ClInclude Include="RandomNumberGenerator.h" />
     <ClInclude Include="StorableResources.h" />

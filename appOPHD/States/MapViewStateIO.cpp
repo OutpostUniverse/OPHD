@@ -23,7 +23,7 @@
 #include "../UI/NavControl.h"
 
 #include <libOPHD/MeanSolarDistance.h>
-#include <libOPHD/ProductCatalogue.h>
+#include <libOPHD/ProductCatalog.h>
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Technology/ResearchTracker.h>
 
