@@ -242,8 +242,8 @@ protected:
 			return;
 		}
 
-		const auto dy = position.y - mClientRect.position.y;
-		mHighlightIndex = (static_cast<std::size_t>(dy) + mScrollOffsetInPixels) / static_cast<std::size_t>(mContext.itemHeight());
+		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mClientRect.position.y;
+		mHighlightIndex = static_cast<std::size_t>(scrollRelativeY / mContext.itemHeight());
 
 		if (mHighlightIndex >= mItems.size())
 		{
