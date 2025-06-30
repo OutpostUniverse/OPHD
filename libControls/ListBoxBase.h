@@ -77,7 +77,7 @@ private:
 
 	NAS2D::Vector<int> mItemSize{0, 1};
 
-	unsigned int mScrollOffsetInPixels = 0;
+	int mScrollOffsetInPixels = 0;
 	std::size_t mHighlightIndex = NoSelection;
 	std::size_t mSelectedIndex = NoSelection;
 
