@@ -60,7 +60,7 @@ protected:
 	void onLayoutChange();
 
 private:
-	ScrollBarType mScrollBarType{ScrollBarType::Vertical};
+	const ScrollBarType mScrollBarType;
 	int mMax{0};
 	int mValue{0};
 	ValueChangeDelegate mValueChangeHandler;
