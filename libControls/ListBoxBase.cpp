@@ -14,7 +14,7 @@ const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max
 
 
 ListBoxBase::ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate selectionChangedHandler) :
-	mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBoxBase::onSlideChange}},
+	mScrollBar{ScrollBar::ScrollBarType::Vertical, itemSize.y, {this, &ListBoxBase::onSlideChange}},
 	mItemSize{itemSize},
 	mSelectionChangedHandler{selectionChangedHandler}
 {
@@ -22,9 +22,6 @@ ListBoxBase::ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate s
 	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().connect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &ListBoxBase::onMouseMove});
-
-	mScrollBar.max(0);
-	mScrollBar.value(0);
 }
 
 
@@ -113,11 +110,12 @@ void ListBoxBase::updateScrollLayout()
 	// Account for border around control
 	const auto scrollArea = mRect.inset(1);
 
-	if ((mItemSize.y * static_cast<int>(count())) > mRect.size.y)
+	const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
+	if (neededDisplaySize > mRect.size.y)
 	{
 		mScrollBar.size({14, scrollArea.size.y});
 		mScrollBar.position({scrollArea.position.x + scrollArea.size.x - mScrollBar.size().x, scrollArea.position.y});
-		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemSize.y * static_cast<int>(count()) - mRect.size.y));
+		mScrollBar.max(neededDisplaySize - mRect.size.y);
 		mScrollOffsetInPixels = mScrollBar.value();
 		mItemSize.x -= mScrollBar.size().x;
 		mScrollBar.visible(true);
@@ -151,7 +149,7 @@ void ListBoxBase::onResize()
 /**
  * ScrollBar changed event handler.
  */
-void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
+void ListBoxBase::onSlideChange(int /*newPosition*/)
 {
 	updateScrollLayout();
 }
@@ -208,8 +206,7 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 {
 	if (!visible() || !hasFocus() || isEmpty()) { return; }
 
-	auto change = static_cast<ScrollBar::ValueType>(mItemSize.y);
-	mScrollBar.changeValue((scrollAmount.y < 0 ? change : -change));
+	mScrollBar.changeValue((scrollAmount.y < 0 ? mItemSize.y : -mItemSize.y));
 }
 
 

@@ -67,16 +67,14 @@ public:
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
 		mContext{getDefaultFont()},
-		mScrollBar{ScrollBar::ScrollBarType::Vertical, {this, &ListBox::onSlideChange}},
-		mItemSize{0, static_cast<int>(mContext.itemHeight())},
+		mScrollBar{ScrollBar::ScrollBarType::Vertical, mContext.itemHeight(), {this, &ListBox::onSlideChange}},
+		mItemSize{0, mContext.itemHeight()},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect({this, &ListBox::onMouseWheel});
 
-		mScrollBar.max(0);
-		mScrollBar.value(0);
 		updateScrollLayout();
 	}
 
@@ -156,7 +154,7 @@ public:
 	template <typename UnaryPredicate>
 	void selectIf(UnaryPredicate predicate)
 	{
-		for (std::size_t i = 0; i < mItems.size(); ++i)
+		for (std::size_t i = 0; i < count(); ++i)
 		{
 			if (predicate(mItems[i]))
 			{
@@ -202,7 +200,7 @@ protected:
 		const auto lineHeight = mItemSize.y;
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
-		const auto endVisibleIndex = std::min(firstInvisibleIndex, mItems.size());
+		const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
 		auto itemDrawRect = mScrollArea;
 		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
 		itemDrawRect.size.y = lineHeight;
@@ -226,7 +224,7 @@ protected:
 
 	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 	{
-		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(position))
+		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= count() || !mScrollArea.contains(position))
 		{
 			return;
 		}
@@ -243,9 +241,9 @@ protected:
 			return;
 		}
 
-		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mScrollArea.position.y;
+		const auto scrollRelativeY = mScrollOffsetInPixels + position.y - mScrollArea.position.y;
 		const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
-		mHighlightIndex = (index < mItems.size()) ? index : NoSelection;
+		mHighlightIndex = (index < count()) ? index : NoSelection;
 	}
 
 
@@ -253,11 +251,11 @@ protected:
 	{
 		if (!visible() || !hasFocus() || isEmpty()) { return; }
 
-		mScrollBar.changeValue((scrollAmount.y < 0 ? 16 : -16));
+		mScrollBar.changeValue((scrollAmount.y < 0 ? mItemSize.y : -mItemSize.y));
 	}
 
 
-	virtual void onSlideChange(ScrollBar::ValueType /*newPosition*/)
+	virtual void onSlideChange(int /*newPosition*/)
 	{
 		updateScrollLayout();
 	}
@@ -288,12 +286,12 @@ private:
 		// Account for border around control
 		mScrollArea = mRect.inset(1);
 
-		const auto neededDisplaySize = mItemSize.y * static_cast<int>(mItems.size());
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
 		if (neededDisplaySize > mRect.size.y)
 		{
 			mScrollBar.size({14, mScrollArea.size.y});
 			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
-			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
+			mScrollBar.max(neededDisplaySize - mRect.size.y);
 			mScrollOffsetInPixels = mScrollBar.value();
 			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);

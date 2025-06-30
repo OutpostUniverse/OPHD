@@ -36,14 +36,15 @@ namespace
 }
 
 
-ScrollBar::ScrollBar(ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
-	ScrollBar{loadSkins(scrollBarType), scrollBarType, valueChangeHandler}
+ScrollBar::ScrollBar(ScrollBarType scrollBarType, int smallChange, ValueChangeDelegate valueChangeHandler) :
+	ScrollBar{loadSkins(scrollBarType), scrollBarType, smallChange, valueChangeHandler}
 {
 }
 
 
-ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, ValueChangeDelegate valueChangeHandler) :
+ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, int smallChange, ValueChangeDelegate valueChangeHandler) :
 	mScrollBarType{scrollBarType},
+	mSmallChange{smallChange},
 	mValueChangeHandler{valueChangeHandler},
 	mSkins{skins}
 {
@@ -63,16 +64,16 @@ ScrollBar::~ScrollBar()
 }
 
 
-ScrollBar::ValueType ScrollBar::value() const
+int ScrollBar::value() const
 {
 	return mValue;
 }
 
 
-void ScrollBar::value(ValueType newValue)
+void ScrollBar::value(int newValue)
 {
 	const auto oldValue = mValue;
-	mValue = std::clamp<ValueType>(newValue, 0, mMax);
+	mValue = std::clamp(newValue, 0, mMax);
 	if (mValue != oldValue)
 	{
 		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
@@ -80,19 +81,19 @@ void ScrollBar::value(ValueType newValue)
 }
 
 
-void ScrollBar::changeValue(ValueType change)
+void ScrollBar::changeValue(int change)
 {
 	value(mValue + change);
 }
 
 
-ScrollBar::ValueType ScrollBar::max() const
+int ScrollBar::max() const
 {
 	return mMax;
 }
 
 
-void ScrollBar::max(ValueType newMax)
+void ScrollBar::max(int newMax)
 {
 	mMax = newMax;
 	value(mValue); // Re-clamp to new max
@@ -109,7 +110,7 @@ void ScrollBar::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			changeValue((mButtonDecreaseHeld ? -1 : 1));
+			changeValue((mButtonDecreaseHeld ? -mSmallChange : mSmallChange));
 		}
 	}
 
@@ -128,7 +129,7 @@ void ScrollBar::draw() const
 }
 
 
-void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
+void ScrollBar::onButtonClick(bool& buttonFlag, int value)
 {
 	changeValue(value);
 	buttonFlag = true;
@@ -150,11 +151,11 @@ void ScrollBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> positio
 		}
 		else if (mButtonDecreaseRect.contains(position))
 		{
-			onButtonClick(mButtonDecreaseHeld, -1);
+			onButtonClick(mButtonDecreaseHeld, -mSmallChange);
 		}
 		else if (mButtonIncreaseRect.contains(position))
 		{
-			onButtonClick(mButtonIncreaseHeld, 1);
+			onButtonClick(mButtonIncreaseHeld, mSmallChange);
 		}
 	}
 }

@@ -31,27 +31,26 @@ public:
 		NAS2D::RectangleSkin skinButtonIncrease;
 	};
 
-	using ValueType = int;
-	using ValueChangeDelegate = NAS2D::Delegate<void(ValueType)>;
+	using ValueChangeDelegate = NAS2D::Delegate<void(int)>;
 
 
-	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical, ValueChangeDelegate valueChangeHandler = {});
-	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical, ValueChangeDelegate valueChangeHandler = {});
+	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical, int smallChange = 1, ValueChangeDelegate valueChangeHandler = {});
+	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical, int smallChange = 1, ValueChangeDelegate valueChangeHandler = {});
 	~ScrollBar() override;
 
-	ValueType value() const;
-	void value(ValueType newValue);
-	void changeValue(ValueType change);
+	int value() const;
+	void value(int newValue);
+	void changeValue(int change);
 
-	ValueType max() const;
-	void max(ValueType newMax);
+	int max() const;
+	void max(int newMax);
 
 	void update() override;
 
 protected:
 	void draw() const override;
 
-	void onButtonClick(bool& buttonFlag, ValueType value);
+	void onButtonClick(bool& buttonFlag, int value);
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
@@ -61,9 +60,10 @@ protected:
 	void onLayoutChange();
 
 private:
-	ScrollBarType mScrollBarType{ScrollBarType::Vertical};
-	ValueType mValue{0};
-	ValueType mMax{0};
+	const ScrollBarType mScrollBarType;
+	const int mSmallChange;
+	int mMax{0};
+	int mValue{0};
 	ValueChangeDelegate mValueChangeHandler;
 
 	// ScrollBar button responses
@@ -74,7 +74,7 @@ private:
 	bool mButtonIncreaseHeld{false};
 
 	// Drawing vars
-	Skins mSkins;
+	const Skins mSkins;
 	NAS2D::Rectangle<int> mTrackRect;
 	NAS2D::Rectangle<int> mThumbRect;
 	NAS2D::Rectangle<int> mButtonDecreaseRect; // Top/Left
