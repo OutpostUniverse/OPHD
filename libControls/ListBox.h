@@ -206,12 +206,12 @@ protected:
 		auto itemDrawRect = mScrollArea;
 		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
 		itemDrawRect.size.y = lineHeight;
-		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; ++i)
+		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
-			const auto isSelected = (i == mSelectedIndex);
-			const auto isHighlighted = (i == mHighlightIndex);
+			const auto isSelected = (index == mSelectedIndex);
+			const auto isHighlighted = (index == mHighlightIndex);
 
-			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
+			mItems[index].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
 			itemDrawRect.position.y += lineHeight;
 		}
