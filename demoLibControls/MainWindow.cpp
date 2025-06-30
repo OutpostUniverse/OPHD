@@ -26,12 +26,12 @@ MainWindow::MainWindow() :
 
 	button.size(button.size() + NAS2D::Vector{8, 2});
 	add(button, {10, 30});
-	add(label, {70, 30});
-	add(radioButtonGroup, {10, 60});
-	add(image, {10, 120});
-	add(progressBar, {10, 250});
-	add(rectangle1, {10, 280});
-	add(rectangle2, {10, 290});
+	add(label, {10, 56});
+	add(radioButtonGroup, {10, 80});
+	add(image, {10, 140});
+	add(progressBar, {10, 270});
+	add(rectangle1, {10, 300});
+	add(rectangle2, {10, 310});
 }
 
 
