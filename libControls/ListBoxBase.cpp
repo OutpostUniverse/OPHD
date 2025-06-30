@@ -111,12 +111,12 @@ void ListBoxBase::updateScrollLayout()
 	mItemSize.x = mRect.size.x;
 
 	// Account for border around control
-	const auto clientRect = mRect.inset(1);
+	const auto scrollArea = mRect.inset(1);
 
 	if ((mItemSize.y * static_cast<int>(count())) > mRect.size.y)
 	{
-		mScrollBar.size({14, clientRect.size.y});
-		mScrollBar.position({clientRect.position.x + clientRect.size.x - mScrollBar.size().x, clientRect.position.y});
+		mScrollBar.size({14, scrollArea.size.y});
+		mScrollBar.position({scrollArea.position.x + scrollArea.size.x - mScrollBar.size().x, scrollArea.position.y});
 		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemSize.y * static_cast<int>(count()) - mRect.size.y));
 		mScrollOffsetInPixels = mScrollBar.value();
 		mItemSize.x -= mScrollBar.size().x;
@@ -246,7 +246,12 @@ void ListBoxBase::drawItems() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	for (std::size_t index = 0; index < count(); ++index)
+	// Determine visible items and draw them
+	const auto lineHeight = mItemSize.y;
+	const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
+	const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mRect.inset(1).size.y + (lineHeight - 1)) / lineHeight);
+	const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
+	for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 	{
 		const auto drawArea = itemDrawArea(index);
 		const auto& borderColor = itemBorderColor(index);

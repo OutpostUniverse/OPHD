@@ -196,28 +196,28 @@ protected:
 		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
 		renderer.drawBox(mRect, borderColor);
 
-		renderer.clipRect(mClientRect);
+		renderer.clipRect(mScrollArea);
 
-		// display actuals values that are meant to be
+		// Determine visible items and draw them
 		const auto lineHeight = mItemSize.y;
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
-		const auto lastVisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mClientRect.size.y + (lineHeight - 1)) / lineHeight);
-		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
-		auto itemDrawRect = mClientRect;
+		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
+		const auto endVisibleIndex = std::min(firstInvisibleIndex, mItems.size());
+		auto itemDrawRect = mScrollArea;
 		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
 		itemDrawRect.size.y = lineHeight;
-		for (std::size_t i = firstVisibleIndex; i < endVisibleIndex; i++)
+		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
-			const auto isSelected = (i == mSelectedIndex);
-			const auto isHighlighted = (i == mHighlightIndex);
+			const auto isSelected = (index == mSelectedIndex);
+			const auto isHighlighted = (index == mHighlightIndex);
 
-			mItems[i].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
+			mItems[index].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
 
 			itemDrawRect.position.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawRect.size.y = mClientRect.endPoint().y - itemDrawRect.position.y;
+		itemDrawRect.size.y = mScrollArea.endPoint().y - itemDrawRect.position.y;
 		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
@@ -226,7 +226,7 @@ protected:
 
 	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 	{
-		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mClientRect.contains(position))
+		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= mItems.size() || !mScrollArea.contains(position))
 		{
 			return;
 		}
@@ -237,13 +237,13 @@ protected:
 
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 	{
-		if (!visible() || !mClientRect.contains(position))
+		if (!visible() || !mScrollArea.contains(position))
 		{
 			mHighlightIndex = NoSelection;
 			return;
 		}
 
-		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mClientRect.position.y;
+		const auto scrollRelativeY = static_cast<int>(mScrollOffsetInPixels) + position.y - mScrollArea.position.y;
 		const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
 		mHighlightIndex = (index < mItems.size()) ? index : NoSelection;
 	}
@@ -286,16 +286,16 @@ private:
 	void updateScrollLayout()
 	{
 		// Account for border around control
-		mClientRect = mRect.inset(1);
+		mScrollArea = mRect.inset(1);
 
 		const auto neededDisplaySize = mItemSize.y * static_cast<int>(mItems.size());
 		if (neededDisplaySize > mRect.size.y)
 		{
-			mScrollBar.size({14, mClientRect.size.y});
-			mScrollBar.position({mClientRect.position.x + mClientRect.size.x - mScrollBar.size().x, mClientRect.position.y});
+			mScrollBar.size({14, mScrollArea.size.y});
+			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
 			mScrollBar.max(static_cast<ScrollBar::ValueType>(neededDisplaySize - mRect.size.y));
 			mScrollOffsetInPixels = mScrollBar.value();
-			mClientRect.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
+			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 			mScrollBar.visible(true);
 		}
 		else
@@ -310,7 +310,7 @@ private:
 	Context mContext;
 
 	ScrollBar mScrollBar;
-	NAS2D::Rectangle<int> mClientRect;
+	NAS2D::Rectangle<int> mScrollArea;
 	NAS2D::Vector<int> mItemSize;
 
 	int mScrollOffsetInPixels = 0;
