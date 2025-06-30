@@ -22,9 +22,6 @@ ListBoxBase::ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate s
 	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().connect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &ListBoxBase::onMouseMove});
-
-	mScrollBar.max(0);
-	mScrollBar.value(0);
 }
 
 

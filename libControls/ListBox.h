@@ -75,8 +75,6 @@ public:
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
 		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect({this, &ListBox::onMouseWheel});
 
-		mScrollBar.max(0);
-		mScrollBar.value(0);
 		updateScrollLayout();
 	}
 
