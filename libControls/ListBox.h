@@ -253,7 +253,7 @@ protected:
 	{
 		if (!visible() || !hasFocus() || isEmpty()) { return; }
 
-		mScrollBar.changeValue((scrollAmount.y < 0 ? lineHeight() : -lineHeight()));
+		mScrollBar.changeValue((scrollAmount.y < 0 ? mItemSize.y : -mItemSize.y));
 	}
 
 
