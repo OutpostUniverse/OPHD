@@ -7,7 +7,7 @@
 MainWindow::MainWindow() :
 	Window{"Main Window"},
 	button{"Button", {this, &MainWindow::onButtonClick}},
-	label{"Label: Waiting for button"},
+	label{"Label"},
 	radioButtonGroup{
 		{
 			"Option 1",
@@ -37,11 +37,11 @@ MainWindow::MainWindow() :
 
 void MainWindow::onButtonClick()
 {
-	label.text("Label: Button was clicked");
+	label.text("Button clicked");
 }
 
 
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
-	label.text("Label: RadioButton was selected : " + std::to_string(index));
+	label.text("RadioButton : " + std::to_string(index));
 }
