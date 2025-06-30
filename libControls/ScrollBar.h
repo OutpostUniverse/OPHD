@@ -61,8 +61,8 @@ protected:
 
 private:
 	ScrollBarType mScrollBarType{ScrollBarType::Vertical};
-	int mValue{0};
 	int mMax{0};
+	int mValue{0};
 	ValueChangeDelegate mValueChangeHandler;
 
 	// ScrollBar button responses
