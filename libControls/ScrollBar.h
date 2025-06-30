@@ -73,7 +73,7 @@ private:
 	bool mButtonIncreaseHeld{false};
 
 	// Drawing vars
-	Skins mSkins;
+	const Skins mSkins;
 	NAS2D::Rectangle<int> mTrackRect;
 	NAS2D::Rectangle<int> mThumbRect;
 	NAS2D::Rectangle<int> mButtonDecreaseRect; // Top/Left
