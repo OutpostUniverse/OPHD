@@ -11,7 +11,7 @@
 namespace
 {
 	const std::string EmptyString{};
-	constexpr unsigned int MinimumDisplayItems{5};
+	constexpr std::size_t MinimumDisplayItems{5};
 }
 
 
