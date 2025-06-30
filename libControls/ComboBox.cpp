@@ -136,12 +136,7 @@ void ComboBox::onListSelectionChange()
  */
 void ComboBox::maxDisplayItems(std::size_t count)
 {
-	mMaxDisplayItems = count;
-
-	if (count < MinimumDisplayItems)
-	{
-		mMaxDisplayItems = MinimumDisplayItems;
-	}
+	mMaxDisplayItems = std::max(count, MinimumDisplayItems);
 }
 
 
