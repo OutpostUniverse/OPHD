@@ -12,6 +12,9 @@ public:
 
 	State* update() override;
 
+protected:
+	void onKeyDown(NAS2D::KeyCode keyCode, NAS2D::KeyModifier keyModifier, bool repeat);
+
 private:
 	MainWindow mainWindow;
 	State* nextState;
