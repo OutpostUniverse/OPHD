@@ -198,7 +198,7 @@ protected:
 
 		renderer.clipRect(mScrollArea);
 
-		// display actuals values that are meant to be
+		// Determine visible items and draw them
 		const auto lineHeight = mItemSize.y;
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 		const auto lastVisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
