@@ -246,7 +246,7 @@ void ListBoxBase::drawItems() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	renderer.clipRect(mRect);
+	renderer.clipRect(mRect.inset(1));
 
 	for (std::size_t index = 0; index < count(); ++index)
 	{
@@ -276,7 +276,7 @@ void ListBoxBase::draw() const
 	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
 	renderer.drawBox(mRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
-	renderer.clipRect(mRect);
+	renderer.clipRect(mRect.inset(1));
 
 	// MOUSE HIGHLIGHT
 	const auto highlightPosition = position() + NAS2D::Vector{0, static_cast<int>(mHighlightIndex) * mItemSize.y - mScrollOffsetInPixels};
