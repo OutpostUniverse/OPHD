@@ -111,12 +111,12 @@ void ListBoxBase::updateScrollLayout()
 	mItemSize.x = mRect.size.x;
 
 	// Account for border around control
-	const auto clientRect = mRect.inset(1);
+	const auto scrollArea = mRect.inset(1);
 
 	if ((mItemSize.y * static_cast<int>(count())) > mRect.size.y)
 	{
-		mScrollBar.size({14, clientRect.size.y});
-		mScrollBar.position({clientRect.position.x + clientRect.size.x - mScrollBar.size().x, clientRect.position.y});
+		mScrollBar.size({14, scrollArea.size.y});
+		mScrollBar.position({scrollArea.position.x + scrollArea.size.x - mScrollBar.size().x, scrollArea.position.y});
 		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemSize.y * static_cast<int>(count()) - mRect.size.y));
 		mScrollOffsetInPixels = mScrollBar.value();
 		mItemSize.x -= mScrollBar.size().x;
