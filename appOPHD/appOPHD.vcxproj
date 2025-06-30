@@ -242,7 +242,7 @@
     <ClCompile Include="States\ReportsState.cpp" />
     <ClCompile Include="States\SplashState.cpp" />
     <ClCompile Include="States\StructureTracker.cpp" />
-    <ClCompile Include="StructureCatalogue.cpp" />
+    <ClCompile Include="StructureCatalog.cpp" />
     <ClCompile Include="StructureManager.cpp" />
     <ClCompile Include="TruckAvailability.cpp" />
     <ClCompile Include="UI\CheatMenu.cpp" />
@@ -360,7 +360,7 @@
     <ClInclude Include="States\SplashState.h" />
     <ClInclude Include="States\StructureTracker.h" />
     <ClInclude Include="States\Wrapper.h" />
-    <ClInclude Include="StructureCatalogue.h" />
+    <ClInclude Include="StructureCatalog.h" />
     <ClInclude Include="StructureManager.h" />
     <ClInclude Include="TruckAvailability.h" />
     <ClInclude Include="UI\CheatMenu.h" />

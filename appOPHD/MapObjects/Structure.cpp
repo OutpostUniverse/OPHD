@@ -1,6 +1,6 @@
 #include "Structure.h"
 
-#include "../StructureCatalogue.h"
+#include "../StructureCatalog.h"
 #include "../Constants/Strings.h"
 
 #include "../UI/StringTable.h"
@@ -123,8 +123,8 @@ std::vector<StructureClass> allStructureClasses()
 
 
 Structure::Structure(StructureClass structureClass, StructureID id) :
-	MapObject(StructureCatalogue::getType(id).spritePath, constants::StructureStateConstruction),
-	mStructureType(StructureCatalogue::getType(id)),
+	MapObject(StructureCatalog::getType(id).spritePath, constants::StructureStateConstruction),
+	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
@@ -132,8 +132,8 @@ Structure::Structure(StructureClass structureClass, StructureID id) :
 
 
 Structure::Structure(const std::string& initialAction, StructureClass structureClass, StructureID id) :
-	MapObject(StructureCatalogue::getType(id).spritePath, initialAction),
-	mStructureType(StructureCatalogue::getType(id)),
+	MapObject(StructureCatalog::getType(id).spritePath, initialAction),
+	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),
 	mStructureClass(structureClass)
 {
