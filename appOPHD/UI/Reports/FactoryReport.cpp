@@ -115,6 +115,7 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	add(cboFilterByProduct, {330, 33});
 	cboFilterByProduct.size({120, 20});
 
+	cboFilterByProduct.maxDisplayItems(10);
 	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
 	cboFilterByProduct.addItem(constants::Clothing, ProductType::PRODUCT_CLOTHING);
 	cboFilterByProduct.addItem(constants::Maintenance, ProductType::PRODUCT_MAINTENANCE_PARTS);
