@@ -72,7 +72,7 @@ ScrollBar::ValueType ScrollBar::value() const
 void ScrollBar::value(ValueType newValue)
 {
 	const auto oldValue = mValue;
-	mValue = std::clamp<ValueType>(newValue, 0, mMax);
+	mValue = std::clamp(newValue, 0, mMax);
 	if (mValue != oldValue)
 	{
 		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
