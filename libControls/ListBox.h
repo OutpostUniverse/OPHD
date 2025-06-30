@@ -196,7 +196,7 @@ protected:
 		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
 		renderer.drawBox(mRect, borderColor);
 
-		renderer.clipRect(mRect);
+		renderer.clipRect(mClientRect);
 
 		// display actuals values that are meant to be
 		const auto lineHeight = mItemSize.y;
