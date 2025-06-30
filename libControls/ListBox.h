@@ -253,7 +253,7 @@ protected:
 
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount)
 	{
-		if (!visible() || isEmpty()) { return; }
+		if (!visible() || !hasFocus() || isEmpty()) { return; }
 
 		mScrollBar.changeValue((scrollAmount.y < 0 ? 16 : -16));
 	}
