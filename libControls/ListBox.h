@@ -201,8 +201,8 @@ protected:
 		// Determine visible items and draw them
 		const auto lineHeight = mItemSize.y;
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
-		const auto lastVisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
-		const auto endVisibleIndex = std::min(lastVisibleIndex, mItems.size());
+		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
+		const auto endVisibleIndex = std::min(firstInvisibleIndex, mItems.size());
 		auto itemDrawRect = mScrollArea;
 		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
 		itemDrawRect.size.y = lineHeight;
