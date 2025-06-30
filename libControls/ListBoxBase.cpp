@@ -113,7 +113,7 @@ void ListBoxBase::updateScrollLayout()
 	if ((mItemSize.y * static_cast<int>(count())) > mRect.size.y)
 	{
 		mScrollBar.size({14, mRect.size.y});
-		mScrollBar.position({area().position.x + mRect.size.x - 14, mRect.position.y});
+		mScrollBar.position({area().position.x + mRect.size.x - mScrollBar.size().x, mRect.position.y});
 		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemSize.y * static_cast<int>(count()) - mRect.size.y));
 		mScrollOffsetInPixels = mScrollBar.value();
 		mItemSize.x -= mScrollBar.size().x;
