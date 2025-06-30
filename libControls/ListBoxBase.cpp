@@ -215,9 +215,9 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 }
 
 
-unsigned int ListBoxBase::itemHeight() const
+int ListBoxBase::itemHeight() const
 {
-	return static_cast<unsigned int>(mItemSize.y);
+	return mItemSize.y;
 }
 
 
@@ -229,7 +229,7 @@ NAS2D::Vector<int> ListBoxBase::itemDrawSize() const
 
 NAS2D::Point<int> ListBoxBase::itemDrawPosition(std::size_t index) const
 {
-	return position() + NAS2D::Vector{0, static_cast<int>(index * itemHeight()) - mScrollOffsetInPixels};
+	return position() + NAS2D::Vector{0, static_cast<int>(index) * itemHeight() - mScrollOffsetInPixels};
 }
 
 
