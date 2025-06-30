@@ -28,6 +28,7 @@ public:
 	ProductCatalogue& operator=(ProductCatalogue&& other) noexcept = delete;
 
 	static void init(const std::string& filename);
+	static bool has(ProductType type);
 	static const Product& get(ProductType type);
 
 private:
