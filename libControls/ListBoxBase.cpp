@@ -208,8 +208,7 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 {
 	if (!visible() || !hasFocus() || isEmpty()) { return; }
 
-	auto change = static_cast<ScrollBar::ValueType>(mItemSize.y);
-	mScrollBar.changeValue((scrollAmount.y < 0 ? change : -change));
+	mScrollBar.changeValue((scrollAmount.y < 0 ? mItemSize.y : -mItemSize.y));
 }
 
 
