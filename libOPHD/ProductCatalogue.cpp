@@ -57,6 +57,12 @@ void ProductCatalogue::init(const std::string& filename)
 }
 
 
+bool ProductCatalogue::has(ProductType type)
+{
+	return mProductTable.contains(type);
+}
+
+
 const ProductCatalogue::Product& ProductCatalogue::get(ProductType type)
 {
 	try
