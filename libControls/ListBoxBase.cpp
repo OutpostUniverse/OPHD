@@ -117,7 +117,7 @@ void ListBoxBase::updateScrollLayout()
 	{
 		mScrollBar.size({14, scrollArea.size.y});
 		mScrollBar.position({scrollArea.position.x + scrollArea.size.x - mScrollBar.size().x, scrollArea.position.y});
-		mScrollBar.max(static_cast<ScrollBar::ValueType>(mItemSize.y * static_cast<int>(count()) - mRect.size.y));
+		mScrollBar.max(mItemSize.y * static_cast<int>(count()) - mRect.size.y);
 		mScrollOffsetInPixels = mScrollBar.value();
 		mItemSize.x -= mScrollBar.size().x;
 		mScrollBar.visible(true);
