@@ -29,7 +29,6 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 
 	txtField.editable(false);
 	lstItems.visible(false);
-	lstItems.height(300);
 }
 
 
