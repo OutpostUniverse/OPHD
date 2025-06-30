@@ -63,13 +63,13 @@ ScrollBar::~ScrollBar()
 }
 
 
-ScrollBar::ValueType ScrollBar::value() const
+int ScrollBar::value() const
 {
 	return mValue;
 }
 
 
-void ScrollBar::value(ValueType newValue)
+void ScrollBar::value(int newValue)
 {
 	const auto oldValue = mValue;
 	mValue = std::clamp(newValue, 0, mMax);
@@ -80,19 +80,19 @@ void ScrollBar::value(ValueType newValue)
 }
 
 
-void ScrollBar::changeValue(ValueType change)
+void ScrollBar::changeValue(int change)
 {
 	value(mValue + change);
 }
 
 
-ScrollBar::ValueType ScrollBar::max() const
+int ScrollBar::max() const
 {
 	return mMax;
 }
 
 
-void ScrollBar::max(ValueType newMax)
+void ScrollBar::max(int newMax)
 {
 	mMax = newMax;
 	value(mValue); // Re-clamp to new max
@@ -128,7 +128,7 @@ void ScrollBar::draw() const
 }
 
 
-void ScrollBar::onButtonClick(bool& buttonFlag, ValueType value)
+void ScrollBar::onButtonClick(bool& buttonFlag, int value)
 {
 	changeValue(value);
 	buttonFlag = true;

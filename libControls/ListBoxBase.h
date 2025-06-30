@@ -57,7 +57,7 @@ protected:
 
 	void onVisibilityChange(bool visible) override;
 	void onResize() override;
-	void onSlideChange(ScrollBar::ValueType newPosition);
+	void onSlideChange(int newPosition);
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);

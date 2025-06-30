@@ -152,7 +152,7 @@ void ListBoxBase::onResize()
 /**
  * ScrollBar changed event handler.
  */
-void ListBoxBase::onSlideChange(ScrollBar::ValueType /*newPosition*/)
+void ListBoxBase::onSlideChange(int /*newPosition*/)
 {
 	updateScrollLayout();
 }

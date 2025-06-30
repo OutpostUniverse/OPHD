@@ -257,7 +257,7 @@ protected:
 	}
 
 
-	virtual void onSlideChange(ScrollBar::ValueType /*newPosition*/)
+	virtual void onSlideChange(int /*newPosition*/)
 	{
 		updateScrollLayout();
 	}
