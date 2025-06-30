@@ -25,9 +25,25 @@ MainWindow::MainWindow() :
 	size(renderer.size());
 
 	button.size(button.size() + NAS2D::Vector{8, 2});
+
+	listBox1.size({80, 100});
+	listBox1.add("Item 1");
+	listBox1.add("Item 2");
+	listBox1.add("Item 3");
+	listBox1.add("Item 4");
+	listBox1.add("Item 5");
+	listBox1.add("Item 6");
+
+	listBox2.size({60, 100});
+	listBox2.add("Item 1");
+	listBox2.add("Item 2");
+	listBox2.add("Item 3");
+
 	add(button, {10, 30});
 	add(label, {10, 56});
 	add(radioButtonGroup, {10, 80});
+	add(listBox1, {130, 30});
+	add(listBox2, {220, 30});
 	add(image, {10, 140});
 	add(progressBar, {10, 270});
 	add(rectangle1, {10, 300});
