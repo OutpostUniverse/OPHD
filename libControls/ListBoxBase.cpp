@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <stdexcept>
 
 
 const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max()};
@@ -60,12 +61,14 @@ std::size_t ListBoxBase::selectedIndex() const
 
 /**
  * Sets the current selection index.
- *
- * \note	Out of range selection indicies will set the ListBoxBase to no selection.
  */
 void ListBoxBase::setSelection(std::size_t selection)
 {
-	mSelectedIndex = (selection < count()) ? selection : NoSelection;
+	if (selection >= count())
+	{
+		throw std::runtime_error("Invalid list box selection index: " + std::to_string(selection));
+	}
+	mSelectedIndex = selection;
 	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
