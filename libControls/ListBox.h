@@ -229,6 +229,12 @@ protected:
 		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
 		if (isEmpty() || button == NAS2D::MouseButton::Middle) { return; }
 
+		if (button == NAS2D::MouseButton::Right)
+		{
+			clearSelected();
+			return;
+		}
+
 		if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
 		setSelected(mHighlightIndex);
 	}
