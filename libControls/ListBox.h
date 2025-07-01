@@ -108,6 +108,17 @@ public:
 	}
 
 
+	const ListBoxItem& selected() const
+	{
+		if (mSelectedIndex == NoSelection)
+		{
+			throw std::runtime_error("ListBox has no selected item");
+		}
+
+		return mItems[mSelectedIndex];
+	}
+
+
 	std::size_t count() const
 	{
 		return mItems.size();
@@ -123,16 +134,6 @@ public:
 	bool isItemSelected() const
 	{
 		return mSelectedIndex != NoSelection;
-	}
-
-	const ListBoxItem& selected() const
-	{
-		if (mSelectedIndex == NoSelection)
-		{
-			throw std::runtime_error("ListBox has no selected item");
-		}
-
-		return mItems[mSelectedIndex];
 	}
 
 
