@@ -41,9 +41,6 @@ ComboBox::~ComboBox()
 }
 
 
-/**
- * Resized event handler.
- */
 void ComboBox::onResize()
 {
 	Control::onResize();
@@ -64,9 +61,6 @@ void ComboBox::onResize()
 }
 
 
-/**
- * Position changed event handler.
- */
 void ComboBox::onMove(NAS2D::Vector<int> displacement)
 {
 	Control::onMove(displacement);
@@ -120,9 +114,6 @@ void ComboBox::clearSelected()
 }
 
 
-/**
- * ListBox selection changed event handler.
- */
 void ComboBox::onListSelectionChange()
 {
 	txtField.text(selectionText());
@@ -141,9 +132,6 @@ void ComboBox::maxDisplayItems(std::size_t count)
 }
 
 
-/**
- * Adds an item to the list.
- */
 void ComboBox::addItem(const std::string& item, int tag)
 {
 	lstItems.add(item, tag);
@@ -155,18 +143,12 @@ void ComboBox::addItem(const std::string& item, int tag)
 }
 
 
-/**
- * Gets the text of the selection.
- */
 const std::string& ComboBox::selectionText() const
 {
 	return lstItems.isItemSelected() ? lstItems.selected().text : EmptyString;
 }
 
 
-/**
- * Gets the tag value of the selected item.
- */
 int ComboBox::selectionUserData() const
 {
 	return lstItems.isItemSelected() ? lstItems.selected().userData : 0;
