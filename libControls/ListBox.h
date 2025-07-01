@@ -224,7 +224,8 @@ protected:
 
 	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 	{
-		if (!visible() || !enabled() || mHighlightIndex == NoSelection || mHighlightIndex >= count() || !mScrollArea.contains(position))
+		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
+		if (mHighlightIndex == NoSelection || mHighlightIndex >= count() || !mScrollArea.contains(position))
 		{
 			return;
 		}
