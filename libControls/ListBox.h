@@ -99,15 +99,6 @@ public:
 	}
 
 
-	void clear()
-	{
-		mItems.clear();
-		mSelectedIndex = NoSelection;
-		mHighlightIndex = NoSelection;
-		updateScrollLayout();
-	}
-
-
 	const ListBoxItem& selected() const
 	{
 		if (mSelectedIndex == NoSelection)
@@ -175,6 +166,15 @@ public:
 		mSelectedIndex = NoSelection;
 		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 	}
+
+	void clear()
+	{
+		mItems.clear();
+		mSelectedIndex = NoSelection;
+		mHighlightIndex = NoSelection;
+		updateScrollLayout();
+	}
+
 
 	int itemHeight() const
 	{
