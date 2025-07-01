@@ -59,13 +59,13 @@ std::size_t ListBoxBase::selectedIndex() const
 }
 
 
-void ListBoxBase::setSelection(std::size_t selection)
+void ListBoxBase::selectedIndex(std::size_t index)
 {
-	if (selection >= count())
+	if (index >= count())
 	{
-		throw std::runtime_error("Invalid list box selection index: " + std::to_string(selection));
+		throw std::runtime_error("Invalid list box selected index: " + std::to_string(index));
 	}
-	mSelectedIndex = selection;
+	mSelectedIndex = index;
 	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
@@ -143,7 +143,7 @@ void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posit
 	}
 
 	if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
-	setSelection(mHighlightIndex);
+	selectedIndex(mHighlightIndex);
 }
 
 

@@ -240,7 +240,7 @@ void FactoryReport::fillFactoryList(StructureState state)
 		}
 	}
 
-	if (!lstFactoryList.isEmpty()) { lstFactoryList.setSelection(0); }
+	if (!lstFactoryList.isEmpty()) { lstFactoryList.selectedIndex(0); }
 	checkFactoryActionControls();
 }
 
@@ -258,7 +258,7 @@ void FactoryReport::checkFactoryActionControls()
 	btnApply.visible(actionControlVisible);
 	lstProducts.visible(actionControlVisible);
 
-	if (actionControlVisible) { lstFactoryList.setSelection(0); }
+	if (actionControlVisible) { lstFactoryList.selectedIndex(0); }
 }
 
 

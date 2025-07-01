@@ -42,7 +42,7 @@ public:
 	bool isItemSelected() const;
 	std::size_t highlightIndex() const;
 	std::size_t selectedIndex() const;
-	void setSelection(std::size_t selection);
+	void selectedIndex(std::size_t index);
 	void clearSelected();
 
 	void update() override;

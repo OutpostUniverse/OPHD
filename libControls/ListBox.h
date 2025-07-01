@@ -163,7 +163,7 @@ public:
 	}
 
 
-	void setSelected(std::size_t index)
+	void selectedIndex(std::size_t index)
 	{
 		mSelectedIndex = index;
 		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
@@ -239,7 +239,7 @@ protected:
 		}
 
 		if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
-		setSelected(mHighlightIndex);
+		selectedIndex(mHighlightIndex);
 	}
 
 
