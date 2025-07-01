@@ -212,11 +212,6 @@ void ListBoxBase::drawItems() const
 	{
 		const auto drawArea = itemDrawArea(index);
 		const auto& borderColor = itemBorderColor(index);
-		if (index == selectedIndex())
-		{
-			// Draw background highlight (drawn first to avoid tinting everything else)
-			renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75));
-		}
 		// Draw border
 		renderer.drawBox(drawArea.inset(1), borderColor);
 
@@ -235,8 +230,9 @@ void ListBoxBase::draw() const
 
 	renderer.clipRect(mRect.inset(1));
 
-	// MOUSE HIGHLIGHT
+	// Mouse over highlight and selected highlight
 	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 185, 0, 50}); }
+	if (mSelectedIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mSelectedIndex), itemBorderColor(mSelectedIndex).alphaFade(75)); }
 
 	drawItems();
 
