@@ -79,7 +79,7 @@ void FactoryListBox::setSelected(Factory* factory)
 		const auto& item = getItem(index);
 		if (item.factory == factory)
 		{
-			setSelection(index);
+			selectedIndex(index);
 			return;
 		}
 	}

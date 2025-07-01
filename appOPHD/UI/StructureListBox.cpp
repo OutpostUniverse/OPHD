@@ -67,7 +67,7 @@ void StructureListBox::setSelected(const Structure* structure)
 		const auto& item = getItem(index);
 		if (item.structure == structure)
 		{
-			setSelection(index);
+			selectedIndex(index);
 			return;
 		}
 	}

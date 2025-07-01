@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <stdexcept>
 
 
 const std::size_t ListBoxBase::NoSelection{std::numeric_limits<std::size_t>::max()};
@@ -19,45 +20,24 @@ ListBoxBase::ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate s
 	mSelectionChangedHandler{selectionChangedHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().connect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &ListBoxBase::onMouseMove});
+	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 }
 
 
 ListBoxBase::~ListBoxBase()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().disconnect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().disconnect({this, &ListBoxBase::onMouseMove});
+	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 }
 
 
-/**
- * True if no items are in the list.
- */
 bool ListBoxBase::isEmpty() const
 {
 	return count() == 0;
-}
-
-
-/**
- * Index of the current mouse hover highlight.
- */
-std::size_t ListBoxBase::currentHighlight() const
-{
-	return mHighlightIndex;
-}
-
-
-/**
- * Index of the current selection.
- */
-std::size_t ListBoxBase::selectedIndex() const
-{
-	return mSelectedIndex;
 }
 
 
@@ -67,21 +47,29 @@ bool ListBoxBase::isItemSelected() const
 }
 
 
-/**
- * Sets the current selection index.
- *
- * \note	Out of range selection indicies will set the ListBoxBase to no selection.
- */
-void ListBoxBase::setSelection(std::size_t selection)
+std::size_t ListBoxBase::highlightIndex() const
 {
-	mSelectedIndex = (selection < count()) ? selection : NoSelection;
+	return mHighlightIndex;
+}
+
+
+std::size_t ListBoxBase::selectedIndex() const
+{
+	return mSelectedIndex;
+}
+
+
+void ListBoxBase::selectedIndex(std::size_t index)
+{
+	if (index >= count())
+	{
+		throw std::runtime_error("Invalid list box selected index: " + std::to_string(index));
+	}
+	mSelectedIndex = index;
 	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 
-/**
- * Clears the current selection.
- */
 void ListBoxBase::clearSelected()
 {
 	mSelectedIndex = NoSelection;
@@ -89,9 +77,6 @@ void ListBoxBase::clearSelected()
 }
 
 
-/**
- * Clears all items from the list.
- */
 void ListBoxBase::clear()
 {
 	mSelectedIndex = NoSelection;
@@ -100,9 +85,6 @@ void ListBoxBase::clear()
 }
 
 
-/**
- * Updates values required for properly displaying list items.
- */
 void ListBoxBase::updateScrollLayout()
 {
 	// Account for border around control
@@ -137,18 +119,12 @@ void ListBoxBase::onVisibilityChange(bool visible)
 }
 
 
-/**
- * Resized event handler.
- */
 void ListBoxBase::onResize()
 {
 	updateScrollLayout();
 }
 
 
-/**
- * ScrollBar changed event handler.
- */
 void ListBoxBase::onSlideChange(int /*newPosition*/)
 {
 	updateScrollLayout();
@@ -167,7 +143,7 @@ void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posit
 	}
 
 	if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
-	setSelection(mHighlightIndex);
+	selectedIndex(mHighlightIndex);
 }
 
 
@@ -183,7 +159,7 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 		return;
 	}
 
-	const auto scrollRelativeY = mScrollOffsetInPixels + position.y - this->position().y;
+	const auto scrollRelativeY = mScrollOffsetInPixels + position.y - mScrollArea.position.y;
 	const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
 	mHighlightIndex = (index < count()) ? index : NoSelection;
 }
@@ -215,9 +191,6 @@ NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 }
 
 
-/**
- * Draws the ListBox
- */
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }

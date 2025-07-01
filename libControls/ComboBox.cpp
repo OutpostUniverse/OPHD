@@ -180,7 +180,7 @@ bool ComboBox::isItemSelected() const
 
 
 void ComboBox::setSelected(std::size_t index) {
-	lstItems.setSelected(index);
+	lstItems.selectedIndex(index);
 	text(selectionText());
 	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }

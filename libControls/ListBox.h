@@ -73,9 +73,10 @@ public:
 		mItemSize{0, mContext.itemHeight()},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect({this, &ListBox::onMouseWheel});
+		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+		eventHandler.mouseButtonDown().connect({this, &ListBox::onMouseDown});
+		eventHandler.mouseMotion().connect({this, &ListBox::onMouseMove});
+		eventHandler.mouseWheel().connect({this, &ListBox::onMouseWheel});
 
 		updateScrollLayout();
 	}
@@ -83,21 +84,10 @@ public:
 
 	~ListBox() override
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ListBox::onMouseMove});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect({this, &ListBox::onMouseWheel});
-	}
-
-
-	bool isEmpty() const
-	{
-		return mItems.empty();
-	}
-
-
-	std::size_t count() const
-	{
-		return mItems.size();
+		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+		eventHandler.mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
+		eventHandler.mouseMotion().disconnect({this, &ListBox::onMouseMove});
+		eventHandler.mouseWheel().disconnect({this, &ListBox::onMouseWheel});
 	}
 
 
@@ -109,20 +99,6 @@ public:
 	}
 
 
-	void clear()
-	{
-		mItems.clear();
-		mSelectedIndex = NoSelection;
-		mHighlightIndex = NoSelection;
-		updateScrollLayout();
-	}
-
-
-	bool isItemSelected() const
-	{
-		return mSelectedIndex != NoSelection;
-	}
-
 	const ListBoxItem& selected() const
 	{
 		if (mSelectedIndex == NoSelection)
@@ -133,25 +109,6 @@ public:
 		return mItems[mSelectedIndex];
 	}
 
-
-	std::size_t selectedIndex() const
-	{
-		return mSelectedIndex;
-	}
-
-
-	void setSelected(std::size_t index)
-	{
-		mSelectedIndex = index;
-		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
-	}
-
-
-	void clearSelected()
-	{
-		mSelectedIndex = NoSelection;
-		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
-	}
 
 	template <typename UnaryPredicate>
 	void selectIf(UnaryPredicate predicate)
@@ -167,9 +124,55 @@ public:
 	}
 
 
-	std::size_t currentHighlight() const
+	std::size_t count() const
+	{
+		return mItems.size();
+	}
+
+
+	bool isEmpty() const
+	{
+		return count() == 0;
+	}
+
+
+	bool isItemSelected() const
+	{
+		return mSelectedIndex != NoSelection;
+	}
+
+
+	std::size_t highlightIndex() const
 	{
 		return mHighlightIndex;
+	}
+
+
+	std::size_t selectedIndex() const
+	{
+		return mSelectedIndex;
+	}
+
+
+	void selectedIndex(std::size_t index)
+	{
+		mSelectedIndex = index;
+		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+	}
+
+
+	void clearSelected()
+	{
+		mSelectedIndex = NoSelection;
+		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+	}
+
+	void clear()
+	{
+		mItems.clear();
+		mSelectedIndex = NoSelection;
+		mHighlightIndex = NoSelection;
+		updateScrollLayout();
 	}
 
 
@@ -224,6 +227,52 @@ protected:
 	}
 
 
+	void updateScrollLayout()
+	{
+		// Account for border around control
+		mScrollArea = mRect.inset(1);
+
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
+		if (neededDisplaySize > mRect.size.y)
+		{
+			mScrollBar.size({14, mScrollArea.size.y});
+			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
+			mScrollBar.max(neededDisplaySize - mRect.size.y);
+			mScrollOffsetInPixels = mScrollBar.value();
+			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
+			mScrollBar.visible(true);
+		}
+		else
+		{
+			mScrollOffsetInPixels = 0;
+			mScrollBar.max(0);
+			mScrollBar.visible(false);
+		}
+
+		mItemSize.x = mScrollArea.size.x;
+	}
+
+
+	void onVisibilityChange(bool visible) override
+	{
+		Control::onVisibilityChange(visible);
+
+		updateScrollLayout();
+	}
+
+
+	void onResize() override
+	{
+		updateScrollLayout();
+	}
+
+
+	virtual void onSlideChange(int /*newPosition*/)
+	{
+		updateScrollLayout();
+	}
+
+
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	{
 		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
@@ -236,7 +285,7 @@ protected:
 		}
 
 		if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
-		setSelected(mHighlightIndex);
+		selectedIndex(mHighlightIndex);
 	}
 
 
@@ -266,55 +315,9 @@ protected:
 	}
 
 
-	virtual void onSlideChange(int /*newPosition*/)
-	{
-		updateScrollLayout();
-	}
-
-
-	void onVisibilityChange(bool visible) override
-	{
-		Control::onVisibilityChange(visible);
-
-		updateScrollLayout();
-	}
-
-private:
 	void onMove(NAS2D::Vector<int> /*displacement*/) override
 	{
 		updateScrollLayout();
-	}
-
-
-	void onResize() override
-	{
-		updateScrollLayout();
-	}
-
-
-	void updateScrollLayout()
-	{
-		// Account for border around control
-		mScrollArea = mRect.inset(1);
-
-		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
-		if (neededDisplaySize > mRect.size.y)
-		{
-			mScrollBar.size({14, mScrollArea.size.y});
-			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
-			mScrollBar.max(neededDisplaySize - mRect.size.y);
-			mScrollOffsetInPixels = mScrollBar.value();
-			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
-			mScrollBar.visible(true);
-		}
-		else
-		{
-			mScrollOffsetInPixels = 0;
-			mScrollBar.max(0);
-			mScrollBar.visible(false);
-		}
-
-		mItemSize.x = mScrollArea.size.x;
 	}
 
 private:

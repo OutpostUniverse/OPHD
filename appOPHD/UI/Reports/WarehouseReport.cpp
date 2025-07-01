@@ -167,7 +167,7 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 		lstStructures.addItem(warehouse, structureStateDescription(*warehouse));
 	}
 
-	lstStructures.setSelection(0);
+	if (!lstStructures.isEmpty()) { lstStructures.selectedIndex(0); }
 	computeTotalWarehouseCapacity();
 }
 
