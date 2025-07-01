@@ -236,7 +236,7 @@ void ListBoxBase::draw() const
 	renderer.clipRect(mRect.inset(1));
 
 	// MOUSE HIGHLIGHT
-	renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 185, 0, 50});
+	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 185, 0, 50}); }
 
 	drawItems();
 
