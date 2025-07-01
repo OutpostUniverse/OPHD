@@ -302,6 +302,7 @@ clean:
 	-rm -fr $(libControls_OBJDIR)
 	-rm -fr $(testLibOphd_OBJDIR)
 	-rm -fr $(testLibControls_OBJDIR)
+	-rm -fr $(demoLibControls_OBJDIR)
 	-rm -fr $(ophd_OBJDIR)
 clean-all:
 	-rm -rf $(ROOTBUILDDIR)
