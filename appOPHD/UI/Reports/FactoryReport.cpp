@@ -302,11 +302,6 @@ void FactoryReport::onVisibilityChange(bool visible)
 
 	StructureState state = selectedFactory->state();
 	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
-
-	if (selectedProductType != ProductType::PRODUCT_NONE)
-	{
-		mTxtProductDescription.text(ProductCatalog::get(selectedProductType).Description);
-	}
 }
 
 
