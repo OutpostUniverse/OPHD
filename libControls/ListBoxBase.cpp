@@ -158,7 +158,6 @@ void ListBoxBase::onSlideChange(int /*newPosition*/)
 void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!visible() || !enabled() || !mRect.contains(position)) { return; }
-
 	if (isEmpty() || button == NAS2D::MouseButton::Middle) { return; }
 
 	if (button == NAS2D::MouseButton::Right)
