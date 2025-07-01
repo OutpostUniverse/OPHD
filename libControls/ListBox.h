@@ -2,6 +2,8 @@
 
 #include "Control.h"
 #include "ScrollBar.h"
+
+#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/EventHandler.h>
@@ -222,13 +224,18 @@ protected:
 	}
 
 
-	virtual void onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
+	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	{
-		if (!visible() || mHighlightIndex == NoSelection || mHighlightIndex >= count() || !mScrollArea.contains(position))
+		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
+		if (isEmpty() || button == NAS2D::MouseButton::Middle) { return; }
+
+		if (button == NAS2D::MouseButton::Right)
 		{
+			clearSelected();
 			return;
 		}
 
+		if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
 		setSelected(mHighlightIndex);
 	}
 
@@ -302,6 +309,8 @@ private:
 			mScrollBar.max(0);
 			mScrollBar.visible(false);
 		}
+
+		mItemSize.x = mScrollArea.size.x;
 	}
 
 private:

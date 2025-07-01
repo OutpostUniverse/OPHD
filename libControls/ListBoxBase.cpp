@@ -105,19 +105,17 @@ void ListBoxBase::clear()
  */
 void ListBoxBase::updateScrollLayout()
 {
-	mItemSize.x = mRect.size.x;
-
 	// Account for border around control
-	const auto scrollArea = mRect.inset(1);
+	mScrollArea = mRect.inset(1);
 
 	const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
 	if (neededDisplaySize > mRect.size.y)
 	{
-		mScrollBar.size({14, scrollArea.size.y});
-		mScrollBar.position({scrollArea.position.x + scrollArea.size.x - mScrollBar.size().x, scrollArea.position.y});
+		mScrollBar.size({14, mScrollArea.size.y});
+		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
 		mScrollBar.max(neededDisplaySize - mRect.size.y);
 		mScrollOffsetInPixels = mScrollBar.value();
-		mItemSize.x -= mScrollBar.size().x;
+		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 		mScrollBar.visible(true);
 	}
 	else
@@ -126,6 +124,8 @@ void ListBoxBase::updateScrollLayout()
 		mScrollBar.max(0);
 		mScrollBar.visible(false);
 	}
+
+	mItemSize.x = mScrollArea.size.x;
 }
 
 
@@ -157,21 +157,16 @@ void ListBoxBase::onSlideChange(int /*newPosition*/)
 
 void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	if (!enabled() || !visible()) { return; }
-
+	if (!visible() || !enabled() || !mRect.contains(position)) { return; }
 	if (isEmpty() || button == NAS2D::MouseButton::Middle) { return; }
 
-	if (button == NAS2D::MouseButton::Right && mRect.contains(position))
+	if (button == NAS2D::MouseButton::Right)
 	{
 		clearSelected();
 		return;
 	}
 
-	// A few basic checks
-	if (!area().contains(position) || mHighlightIndex == NoSelection) { return; }
-	if (mScrollBar.visible() && mScrollBar.area().contains(position)) { return; }
-	if (mHighlightIndex >= count()) { return; }
-
+	if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
 	setSelection(mHighlightIndex);
 }
 

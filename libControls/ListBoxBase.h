@@ -71,7 +71,7 @@ protected:
 
 private:
 	ScrollBar mScrollBar;
-
+	NAS2D::Rectangle<int> mScrollArea;
 	NAS2D::Vector<int> mItemSize;
 
 	int mScrollOffsetInPixels = 0;
