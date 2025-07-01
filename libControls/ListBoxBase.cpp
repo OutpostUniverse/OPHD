@@ -194,8 +194,9 @@ NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
-	mScrollBar.update();
+
 	draw();
+	mScrollBar.update();
 }
 
 
