@@ -59,9 +59,6 @@ std::size_t ListBoxBase::selectedIndex() const
 }
 
 
-/**
- * Sets the current selection index.
- */
 void ListBoxBase::setSelection(std::size_t selection)
 {
 	if (selection >= count())
