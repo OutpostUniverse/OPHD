@@ -43,6 +43,12 @@ bool ListBoxBase::isEmpty() const
 }
 
 
+bool ListBoxBase::isItemSelected() const
+{
+	return mSelectedIndex != NoSelection;
+}
+
+
 /**
  * Index of the current mouse hover highlight.
  */
@@ -58,12 +64,6 @@ std::size_t ListBoxBase::highlightIndex() const
 std::size_t ListBoxBase::selectedIndex() const
 {
 	return mSelectedIndex;
-}
-
-
-bool ListBoxBase::isItemSelected() const
-{
-	return mSelectedIndex != NoSelection;
 }
 
 

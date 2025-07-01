@@ -39,10 +39,9 @@ public:
 
 	virtual std::size_t count() const = 0;
 	bool isEmpty() const;
-
+	bool isItemSelected() const;
 	std::size_t highlightIndex() const;
 	std::size_t selectedIndex() const;
-	bool isItemSelected() const;
 	void setSelection(std::size_t selection);
 	void clearSelected();
 
