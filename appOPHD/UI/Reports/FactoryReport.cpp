@@ -240,7 +240,7 @@ void FactoryReport::fillFactoryList(StructureState state)
 		}
 	}
 
-	lstFactoryList.setSelection(0);
+	if (!lstFactoryList.isEmpty()) { lstFactoryList.setSelection(0); }
 	checkFactoryActionControls();
 }
 
