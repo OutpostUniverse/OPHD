@@ -73,9 +73,10 @@ public:
 		mItemSize{0, mContext.itemHeight()},
 		mSelectionChangedHandler{selectionChangedHandler}
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ListBox::onMouseDown});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().connect({this, &ListBox::onMouseMove});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().connect({this, &ListBox::onMouseWheel});
+		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+		eventHandler.mouseButtonDown().connect({this, &ListBox::onMouseDown});
+		eventHandler.mouseMotion().connect({this, &ListBox::onMouseMove});
+		eventHandler.mouseWheel().connect({this, &ListBox::onMouseWheel});
 
 		updateScrollLayout();
 	}
@@ -83,9 +84,10 @@ public:
 
 	~ListBox() override
 	{
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseMotion().disconnect({this, &ListBox::onMouseMove});
-		NAS2D::Utility<NAS2D::EventHandler>::get().mouseWheel().disconnect({this, &ListBox::onMouseWheel});
+		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+		eventHandler.mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
+		eventHandler.mouseMotion().disconnect({this, &ListBox::onMouseMove});
+		eventHandler.mouseWheel().disconnect({this, &ListBox::onMouseWheel});
 	}
 
 
