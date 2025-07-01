@@ -34,9 +34,6 @@ ListBoxBase::~ListBoxBase()
 }
 
 
-/**
- * True if no items are in the list.
- */
 bool ListBoxBase::isEmpty() const
 {
 	return count() == 0;
@@ -49,18 +46,12 @@ bool ListBoxBase::isItemSelected() const
 }
 
 
-/**
- * Index of the current mouse hover highlight.
- */
 std::size_t ListBoxBase::highlightIndex() const
 {
 	return mHighlightIndex;
 }
 
 
-/**
- * Index of the current selection.
- */
 std::size_t ListBoxBase::selectedIndex() const
 {
 	return mSelectedIndex;
@@ -79,9 +70,6 @@ void ListBoxBase::setSelection(std::size_t selection)
 }
 
 
-/**
- * Clears the current selection.
- */
 void ListBoxBase::clearSelected()
 {
 	mSelectedIndex = NoSelection;
@@ -89,9 +77,6 @@ void ListBoxBase::clearSelected()
 }
 
 
-/**
- * Clears all items from the list.
- */
 void ListBoxBase::clear()
 {
 	mSelectedIndex = NoSelection;
@@ -100,9 +85,6 @@ void ListBoxBase::clear()
 }
 
 
-/**
- * Updates values required for properly displaying list items.
- */
 void ListBoxBase::updateScrollLayout()
 {
 	// Account for border around control
@@ -137,18 +119,12 @@ void ListBoxBase::onVisibilityChange(bool visible)
 }
 
 
-/**
- * Resized event handler.
- */
 void ListBoxBase::onResize()
 {
 	updateScrollLayout();
 }
 
 
-/**
- * ScrollBar changed event handler.
- */
 void ListBoxBase::onSlideChange(int /*newPosition*/)
 {
 	updateScrollLayout();
@@ -215,9 +191,6 @@ NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 }
 
 
-/**
- * Draws the ListBox
- */
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
