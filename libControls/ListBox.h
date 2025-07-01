@@ -68,7 +68,13 @@ public:
 
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
-		mContext{getDefaultFont()},
+		ListBox{{getDefaultFont()}, selectionChangedHandler}
+	{
+	}
+
+
+	ListBox(Context context, SelectionChangedDelegate selectionChangedHandler = {}) :
+		mContext{context},
 		mScrollBar{ScrollBar::ScrollBarType::Vertical, mContext.itemHeight(), {this, &ListBox::onSlideChange}},
 		mItemSize{0, mContext.itemHeight()},
 		mSelectionChangedHandler{selectionChangedHandler}
