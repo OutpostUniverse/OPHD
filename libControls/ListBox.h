@@ -91,18 +91,6 @@ public:
 	}
 
 
-	std::size_t count() const
-	{
-		return mItems.size();
-	}
-
-
-	bool isEmpty() const
-	{
-		return count() == 0;
-	}
-
-
 	template <typename... Args>
 	void add(Args&&... args)
 	{
@@ -117,6 +105,18 @@ public:
 		mSelectedIndex = NoSelection;
 		mHighlightIndex = NoSelection;
 		updateScrollLayout();
+	}
+
+
+	std::size_t count() const
+	{
+		return mItems.size();
+	}
+
+
+	bool isEmpty() const
+	{
+		return count() == 0;
 	}
 
 
