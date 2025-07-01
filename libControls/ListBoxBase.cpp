@@ -170,7 +170,6 @@ void ListBoxBase::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posit
 	// A few basic checks
 	if (mHighlightIndex == NoSelection) { return; }
 	if (mScrollBar.visible() && mScrollBar.area().contains(position)) { return; }
-	if (mHighlightIndex >= count()) { return; }
 
 	setSelection(mHighlightIndex);
 }
