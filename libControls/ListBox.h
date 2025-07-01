@@ -302,6 +302,8 @@ private:
 			mScrollBar.max(0);
 			mScrollBar.visible(false);
 		}
+
+		mItemSize.x = mScrollArea.size.x;
 	}
 
 private:
