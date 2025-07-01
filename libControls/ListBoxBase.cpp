@@ -232,7 +232,7 @@ void ListBoxBase::draw() const
 	renderer.clipRect(mRect.inset(1));
 
 	// Mouse over highlight and selected highlight
-	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 185, 0, 50}); }
+	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 36, 0}); }
 	if (mSelectedIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mSelectedIndex), itemBorderColor(mSelectedIndex).alphaFade(75)); }
 
 	drawItems();
