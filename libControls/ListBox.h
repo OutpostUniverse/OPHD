@@ -244,6 +244,8 @@ protected:
 	{
 		if (!visible() || isEmpty()) { return; }
 
+		mHasFocus = area().contains(position);
+
 		if (!mScrollArea.contains(position))
 		{
 			mHighlightIndex = NoSelection;
