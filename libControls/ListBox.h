@@ -253,6 +253,26 @@ protected:
 	}
 
 
+	void onVisibilityChange(bool visible) override
+	{
+		Control::onVisibilityChange(visible);
+
+		updateScrollLayout();
+	}
+
+
+	void onResize() override
+	{
+		updateScrollLayout();
+	}
+
+
+	virtual void onSlideChange(int /*newPosition*/)
+	{
+		updateScrollLayout();
+	}
+
+
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	{
 		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
@@ -295,27 +315,7 @@ protected:
 	}
 
 
-	virtual void onSlideChange(int /*newPosition*/)
-	{
-		updateScrollLayout();
-	}
-
-
-	void onVisibilityChange(bool visible) override
-	{
-		Control::onVisibilityChange(visible);
-
-		updateScrollLayout();
-	}
-
-
 	void onMove(NAS2D::Vector<int> /*displacement*/) override
-	{
-		updateScrollLayout();
-	}
-
-
-	void onResize() override
 	{
 		updateScrollLayout();
 	}
