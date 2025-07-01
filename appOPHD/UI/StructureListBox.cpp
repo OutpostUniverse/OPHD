@@ -113,7 +113,7 @@ void StructureListBox::add(Structure* s, std::string stateDescription)
 
 const StructureListBox::StructureListBoxItem& StructureListBox::getItem(std::size_t index) const
 {
-	return mItems[index];
+	return mItems.at(index);
 }
 
 
