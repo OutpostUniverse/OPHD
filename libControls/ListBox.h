@@ -282,7 +282,7 @@ protected:
 		updateScrollLayout();
 	}
 
-private:
+
 	void onMove(NAS2D::Vector<int> /*displacement*/) override
 	{
 		updateScrollLayout();
