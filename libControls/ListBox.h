@@ -119,6 +119,20 @@ public:
 	}
 
 
+	template <typename UnaryPredicate>
+	void selectIf(UnaryPredicate predicate)
+	{
+		for (std::size_t i = 0; i < count(); ++i)
+		{
+			if (predicate(mItems[i]))
+			{
+				mSelectedIndex = i;
+				return;
+			}
+		}
+	}
+
+
 	std::size_t count() const
 	{
 		return mItems.size();
@@ -155,20 +169,6 @@ public:
 		mSelectedIndex = NoSelection;
 		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 	}
-
-	template <typename UnaryPredicate>
-	void selectIf(UnaryPredicate predicate)
-	{
-		for (std::size_t i = 0; i < count(); ++i)
-		{
-			if (predicate(mItems[i]))
-			{
-				mSelectedIndex = i;
-				return;
-			}
-		}
-	}
-
 
 	std::size_t highlightIndex() const
 	{
