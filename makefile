@@ -359,6 +359,14 @@ format:
 	find $(ophd_SRCDIR) \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path '$(ophd_SRCDIR)MicroPather' -prune -type f | xargs clang-format -i
 
 
+## Compile performance ##
+
+.PHONY: flame-charts
+flame-charts:
+	@$(MAKE) clean > /dev/null
+	$(MAKE) all CXX=clang++ CXXFLAGS_EXTRA="-ftime-trace"
+
+
 ## GitHub ##
 .PHONY: cache-list-all cache-list-main cache-list-branch cache-delete-main-stale cache-delete-branch
 GhCacheKeyIncremental := ophd-
