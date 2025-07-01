@@ -40,7 +40,7 @@ public:
 	bool isEmpty() const;
 	virtual std::size_t count() const = 0;
 
-	std::size_t currentHighlight() const;
+	std::size_t highlightIndex() const;
 	std::size_t selectedIndex() const;
 	bool isItemSelected() const;
 	void setSelection(std::size_t selection);

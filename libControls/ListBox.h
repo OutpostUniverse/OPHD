@@ -169,7 +169,7 @@ public:
 	}
 
 
-	std::size_t currentHighlight() const
+	std::size_t highlightIndex() const
 	{
 		return mHighlightIndex;
 	}

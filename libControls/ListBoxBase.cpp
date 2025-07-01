@@ -46,7 +46,7 @@ bool ListBoxBase::isEmpty() const
 /**
  * Index of the current mouse hover highlight.
  */
-std::size_t ListBoxBase::currentHighlight() const
+std::size_t ListBoxBase::highlightIndex() const
 {
 	return mHighlightIndex;
 }
