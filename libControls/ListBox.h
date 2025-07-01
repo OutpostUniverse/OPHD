@@ -1,22 +1,14 @@
 #pragma once
 
 #include "ListBoxBase.h"
-#include "ScrollBar.h"
 
-#include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
-#include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/EventHandler.h>
-#include <NAS2D/Math/Point.h>
-#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <string>
 #include <vector>
 #include <utility>
-#include <cstddef>
-#include <limits>
 
 
 namespace NAS2D
