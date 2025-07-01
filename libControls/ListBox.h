@@ -151,6 +151,12 @@ public:
 	}
 
 
+	std::size_t highlightIndex() const
+	{
+		return mHighlightIndex;
+	}
+
+
 	std::size_t selectedIndex() const
 	{
 		return mSelectedIndex;
@@ -169,12 +175,6 @@ public:
 		mSelectedIndex = NoSelection;
 		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 	}
-
-	std::size_t highlightIndex() const
-	{
-		return mHighlightIndex;
-	}
-
 
 	int itemHeight() const
 	{
