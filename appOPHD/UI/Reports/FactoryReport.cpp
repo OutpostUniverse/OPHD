@@ -155,7 +155,6 @@ void FactoryReport::clearSelected()
 {
 	lstFactoryList.clearSelected();
 	selectedFactory = nullptr;
-	mTxtProductDescription.text("");
 }
 
 
