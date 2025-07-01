@@ -227,6 +227,32 @@ protected:
 	}
 
 
+	void updateScrollLayout()
+	{
+		// Account for border around control
+		mScrollArea = mRect.inset(1);
+
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
+		if (neededDisplaySize > mRect.size.y)
+		{
+			mScrollBar.size({14, mScrollArea.size.y});
+			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
+			mScrollBar.max(neededDisplaySize - mRect.size.y);
+			mScrollOffsetInPixels = mScrollBar.value();
+			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
+			mScrollBar.visible(true);
+		}
+		else
+		{
+			mScrollOffsetInPixels = 0;
+			mScrollBar.max(0);
+			mScrollBar.visible(false);
+		}
+
+		mItemSize.x = mScrollArea.size.x;
+	}
+
+
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	{
 		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
@@ -292,32 +318,6 @@ protected:
 	void onResize() override
 	{
 		updateScrollLayout();
-	}
-
-
-	void updateScrollLayout()
-	{
-		// Account for border around control
-		mScrollArea = mRect.inset(1);
-
-		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
-		if (neededDisplaySize > mRect.size.y)
-		{
-			mScrollBar.size({14, mScrollArea.size.y});
-			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
-			mScrollBar.max(neededDisplaySize - mRect.size.y);
-			mScrollOffsetInPixels = mScrollBar.value();
-			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
-			mScrollBar.visible(true);
-		}
-		else
-		{
-			mScrollOffsetInPixels = 0;
-			mScrollBar.max(0);
-			mScrollBar.visible(false);
-		}
-
-		mItemSize.x = mScrollArea.size.x;
 	}
 
 private:
