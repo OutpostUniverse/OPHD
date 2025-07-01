@@ -242,7 +242,9 @@ protected:
 
 	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 	{
-		if (!visible() || !mScrollArea.contains(position))
+		if (!visible() || isEmpty()) { return; }
+
+		if (!mScrollArea.contains(position))
 		{
 			mHighlightIndex = NoSelection;
 			return;
