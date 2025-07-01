@@ -68,7 +68,7 @@ protected:
 
 	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
-private:
+protected:
 	ScrollBar mScrollBar;
 	NAS2D::Rectangle<int> mScrollArea;
 	NAS2D::Vector<int> mItemSize;
