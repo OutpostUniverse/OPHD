@@ -1,7 +1,6 @@
 #include "ComboBox.h"
 
 #include <NAS2D/EnumMouseButton.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/StringUtils.h>
 
@@ -21,9 +20,6 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	mSelectionChangedHandler{selectionChangedHandler},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().connect({this, &ComboBox::onMouseWheel});
-
 	btnDown.image("ui/icons/down.png");
 	btnDown.size({20, 20});
 
@@ -36,8 +32,6 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 
 ComboBox::~ComboBox()
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().disconnect({this, &ComboBox::onMouseWheel});
 }
 
 
@@ -98,12 +92,6 @@ void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 		lstItems.visible(false);
 		mRect = mBarRect;
 	}
-}
-
-
-void ComboBox::onMouseWheel(NAS2D::Vector<int> /*scrollAmount*/)
-{
-
 }
 
 
