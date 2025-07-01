@@ -265,8 +265,7 @@ void ListBoxBase::draw() const
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	// CONTROL EXTENTS
-	const auto backgroundRect = NAS2D::Rectangle<int>{{mRect.position.x, mRect.position.y}, {mItemSize.x, mRect.size.y}};
-	renderer.drawBoxFilled(backgroundRect, NAS2D::Color::Black);
+	renderer.drawBoxFilled(mScrollArea, NAS2D::Color::Black);
 	renderer.drawBox(mRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
 
 	renderer.clipRect(mRect.inset(1));
