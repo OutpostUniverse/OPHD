@@ -45,6 +45,7 @@ public:
 	const std::string& text() const;
 
 protected:
+	void onVisibilityChange(bool visible) override;
 	void onResize() override;
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onListSelectionChange();

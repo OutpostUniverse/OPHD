@@ -1,7 +1,6 @@
 #include "ComboBox.h"
 
 #include <NAS2D/EnumMouseButton.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/StringUtils.h>
 
@@ -21,9 +20,6 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	mSelectionChangedHandler{selectionChangedHandler},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().connect({this, &ComboBox::onMouseWheel});
-
 	btnDown.image("ui/icons/down.png");
 	btnDown.size({20, 20});
 
@@ -36,14 +32,17 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 
 ComboBox::~ComboBox()
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().disconnect({this, &ComboBox::onMouseWheel});
 }
 
 
-/**
- * Resized event handler.
- */
+void ComboBox::onVisibilityChange(bool visible)
+{
+	ControlContainer::onVisibilityChange(visible);
+
+	lstItems.visible(false);
+}
+
+
 void ComboBox::onResize()
 {
 	Control::onResize();
@@ -64,9 +63,6 @@ void ComboBox::onResize()
 }
 
 
-/**
- * Position changed event handler.
- */
 void ComboBox::onMove(NAS2D::Vector<int> displacement)
 {
 	Control::onMove(displacement);
@@ -107,12 +103,6 @@ void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 }
 
 
-void ComboBox::onMouseWheel(NAS2D::Vector<int> /*scrollAmount*/)
-{
-
-}
-
-
 void ComboBox::clearSelected()
 {
 	lstItems.clearSelected();
@@ -120,9 +110,6 @@ void ComboBox::clearSelected()
 }
 
 
-/**
- * ListBox selection changed event handler.
- */
 void ComboBox::onListSelectionChange()
 {
 	txtField.text(selectionText());
@@ -141,9 +128,6 @@ void ComboBox::maxDisplayItems(std::size_t count)
 }
 
 
-/**
- * Adds an item to the list.
- */
 void ComboBox::addItem(const std::string& item, int tag)
 {
 	lstItems.add(item, tag);
@@ -155,18 +139,12 @@ void ComboBox::addItem(const std::string& item, int tag)
 }
 
 
-/**
- * Gets the text of the selection.
- */
 const std::string& ComboBox::selectionText() const
 {
 	return lstItems.isItemSelected() ? lstItems.selected().text : EmptyString;
 }
 
 
-/**
- * Gets the tag value of the selected item.
- */
 int ComboBox::selectionUserData() const
 {
 	return lstItems.isItemSelected() ? lstItems.selected().userData : 0;
