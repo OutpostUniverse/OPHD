@@ -97,7 +97,7 @@ public:
 		{
 			if (predicate(mItems[i]))
 			{
-				mSelectedIndex = i;
+				selectedIndex(i);
 				return;
 			}
 		}

@@ -155,7 +155,6 @@ void FactoryReport::clearSelected()
 {
 	lstFactoryList.clearSelected();
 	selectedFactory = nullptr;
-	mTxtProductDescription.text("");
 }
 
 
@@ -303,11 +302,6 @@ void FactoryReport::onVisibilityChange(bool visible)
 
 	StructureState state = selectedFactory->state();
 	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
-
-	if (selectedProductType != ProductType::PRODUCT_NONE)
-	{
-		mTxtProductDescription.text(ProductCatalog::get(selectedProductType).Description);
-	}
 }
 
 
@@ -429,9 +423,6 @@ void FactoryReport::onListSelectionChange()
 		}
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.userData == productType; });
-	selectedProductType = selectedFactory->productType();
-
-	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalog::get(selectedProductType).Description : "");
 
 	StructureState state = selectedFactory->state();
 	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
@@ -440,8 +431,8 @@ void FactoryReport::onListSelectionChange()
 
 void FactoryReport::onProductSelectionChange()
 {
-	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().userData : 0);
-	mTxtProductDescription.text(ProductCatalog::get(selectedProductType).Description);
+	selectedProductType = lstProducts.isItemSelected() ? static_cast<ProductType>(lstProducts.selected().userData) : ProductType::PRODUCT_NONE;
+	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalog::get(selectedProductType).Description : "");
 }
 
 
