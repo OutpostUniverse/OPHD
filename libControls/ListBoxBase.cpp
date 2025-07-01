@@ -19,18 +19,18 @@ ListBoxBase::ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate s
 	mSelectionChangedHandler{selectionChangedHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().connect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &ListBoxBase::onMouseMove});
+	eventHandler.mouseWheel().connect({this, &ListBoxBase::onMouseWheel});
 }
 
 
 ListBoxBase::~ListBoxBase()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 	eventHandler.mouseButtonDown().disconnect({this, &ListBoxBase::onMouseDown});
 	eventHandler.mouseMotion().disconnect({this, &ListBoxBase::onMouseMove});
+	eventHandler.mouseWheel().disconnect({this, &ListBoxBase::onMouseWheel});
 }
 
 
