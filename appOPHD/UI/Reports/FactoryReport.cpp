@@ -440,7 +440,7 @@ void FactoryReport::onListSelectionChange()
 
 void FactoryReport::onProductSelectionChange()
 {
-	selectedProductType = static_cast<ProductType>(lstProducts.isItemSelected() ? lstProducts.selected().userData : 0);
+	selectedProductType = lstProducts.isItemSelected() ? static_cast<ProductType>(lstProducts.selected().userData) : ProductType::PRODUCT_NONE;
 	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalog::get(selectedProductType).Description : "");
 }
 
