@@ -35,6 +35,14 @@ ComboBox::~ComboBox()
 }
 
 
+void ComboBox::onVisibilityChange(bool visible)
+{
+	ControlContainer::onVisibilityChange(visible);
+
+	lstItems.visible(false);
+}
+
+
 void ComboBox::onResize()
 {
 	Control::onResize();
