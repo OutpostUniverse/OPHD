@@ -297,11 +297,12 @@ void FactoryReport::onVisibilityChange(bool visible)
 {
 	Report::onVisibilityChange(visible);
 
+	checkFactoryActionControls();
+
 	if (!selectedFactory) { return; }
 
 	StructureState state = selectedFactory->state();
 	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
-	checkFactoryActionControls();
 
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
