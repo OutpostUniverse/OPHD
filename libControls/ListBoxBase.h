@@ -37,8 +37,8 @@ public:
 	ListBoxBase(NAS2D::Vector<int> itemSize, SelectionChangedDelegate selectionChangedHandler = {});
 	~ListBoxBase() override;
 
-	bool isEmpty() const;
 	virtual std::size_t count() const = 0;
+	bool isEmpty() const;
 
 	std::size_t highlightIndex() const;
 	std::size_t selectedIndex() const;

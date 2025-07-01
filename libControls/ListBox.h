@@ -91,15 +91,15 @@ public:
 	}
 
 
-	bool isEmpty() const
-	{
-		return mItems.empty();
-	}
-
-
 	std::size_t count() const
 	{
 		return mItems.size();
+	}
+
+
+	bool isEmpty() const
+	{
+		return mItems.empty();
 	}
 
 
