@@ -177,15 +177,7 @@ void ListBoxBase::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 
 	mHasFocus = area().contains(position);
 
-	// Ignore mouse motion events if the pointer isn't within the menu rect.
-	if (!mHasFocus)
-	{
-		mHighlightIndex = NoSelection;
-		return;
-	}
-
-	// if the mouse is on the scroll bar then the scroll bar should handle that
-	if (mScrollBar.visible() && mScrollBar.area().contains(position))
+	if (!mScrollArea.contains(position))
 	{
 		mHighlightIndex = NoSelection;
 		return;
