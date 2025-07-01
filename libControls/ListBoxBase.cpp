@@ -236,7 +236,7 @@ void ListBoxBase::draw() const
 	renderer.clipRect(mRect.inset(1));
 
 	// MOUSE HIGHLIGHT
-	const auto highlightPosition = position() + NAS2D::Vector{0, static_cast<int>(mHighlightIndex) * mItemSize.y - mScrollOffsetInPixels};
+	const auto highlightPosition = mScrollArea.position + NAS2D::Vector{0, static_cast<int>(mHighlightIndex) * mItemSize.y - mScrollOffsetInPixels};
 	renderer.drawBoxFilled(NAS2D::Rectangle<int>{highlightPosition, mItemSize}, NAS2D::Color{0, 185, 0, 50});
 
 	drawItems();
