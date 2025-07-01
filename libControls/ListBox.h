@@ -211,11 +211,7 @@ protected:
 		itemDrawRect.size.y = lineHeight;
 		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
-			const auto isSelected = (index == mSelectedIndex);
-			const auto isHighlighted = (index == mHighlightIndex);
-
-			mItems[index].draw(renderer, itemDrawRect, mContext, isSelected, isHighlighted);
-
+			drawItem(renderer, itemDrawRect, index);
 			itemDrawRect.position.y += lineHeight;
 		}
 
@@ -224,6 +220,14 @@ protected:
 		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
 
 		renderer.clipRectClear();
+	}
+
+
+	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
+	{
+		const auto isSelected = (index == mSelectedIndex);
+		const auto isHighlighted = (index == mHighlightIndex);
+		mItems[index].draw(renderer, drawArea, mContext, isSelected, isHighlighted);
 	}
 
 
