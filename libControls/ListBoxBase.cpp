@@ -253,7 +253,7 @@ void ListBoxBase::drawItems() const
 			renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75));
 		}
 		// Draw border
-		renderer.drawBox(drawArea.inset(2), borderColor);
+		renderer.drawBox(drawArea.inset(1), borderColor);
 
 		drawItem(renderer, drawArea, index);
 	}
