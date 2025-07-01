@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Control.h"
+#include "ListBoxBase.h"
 #include "ScrollBar.h"
 
 #include <NAS2D/EnumMouseButton.h>
@@ -58,13 +58,10 @@ struct ListBoxItemText
 
 
 template <typename ListBoxItem = ListBoxItemText>
-class ListBox : public Control
+class ListBox : public ListBoxBase
 {
 public:
 	using Context = typename ListBoxItem::Context;
-	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
-
-	static inline constexpr auto NoSelection{std::numeric_limits<std::size_t>::max()};
 
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
@@ -74,26 +71,10 @@ public:
 
 
 	ListBox(Context context, SelectionChangedDelegate selectionChangedHandler = {}) :
-		mContext{context},
-		mScrollBar{ScrollBar::ScrollBarType::Vertical, mContext.itemHeight(), {this, &ListBox::onSlideChange}},
-		mItemSize{0, mContext.itemHeight()},
-		mSelectionChangedHandler{selectionChangedHandler}
+		ListBoxBase{{0, context.itemHeight()}, selectionChangedHandler},
+		mContext{context}
 	{
-		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-		eventHandler.mouseButtonDown().connect({this, &ListBox::onMouseDown});
-		eventHandler.mouseMotion().connect({this, &ListBox::onMouseMove});
-		eventHandler.mouseWheel().connect({this, &ListBox::onMouseWheel});
-
 		updateScrollLayout();
-	}
-
-
-	~ListBox() override
-	{
-		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-		eventHandler.mouseButtonDown().disconnect({this, &ListBox::onMouseDown});
-		eventHandler.mouseMotion().disconnect({this, &ListBox::onMouseMove});
-		eventHandler.mouseWheel().disconnect({this, &ListBox::onMouseWheel});
 	}
 
 
@@ -130,70 +111,22 @@ public:
 	}
 
 
-	std::size_t count() const
+	std::size_t count() const override
 	{
 		return mItems.size();
 	}
 
 
-	bool isEmpty() const
-	{
-		return count() == 0;
-	}
-
-
-	bool isItemSelected() const
-	{
-		return mSelectedIndex != NoSelection;
-	}
-
-
-	std::size_t highlightIndex() const
-	{
-		return mHighlightIndex;
-	}
-
-
-	std::size_t selectedIndex() const
-	{
-		return mSelectedIndex;
-	}
-
-
-	void selectedIndex(std::size_t index)
-	{
-		mSelectedIndex = index;
-		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
-	}
-
-
-	void clearSelected()
-	{
-		mSelectedIndex = NoSelection;
-		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
-	}
-
 	void clear()
 	{
 		mItems.clear();
-		mSelectedIndex = NoSelection;
-		mHighlightIndex = NoSelection;
-		updateScrollLayout();
+		ListBoxBase::clear();
 	}
 
 
 	int itemHeight() const
 	{
 		return mItemSize.y;
-	}
-
-
-	void update() override
-	{
-		if (!visible()) { return; }
-
-		draw();
-		mScrollBar.update();
 	}
 
 
@@ -229,99 +162,11 @@ protected:
 	}
 
 
-	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
+	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override
 	{
 		const auto isSelected = (index == mSelectedIndex);
 		const auto isHighlighted = (index == mHighlightIndex);
 		mItems[index].draw(renderer, drawArea, mContext, isSelected, isHighlighted);
-	}
-
-
-	void updateScrollLayout()
-	{
-		// Account for border around control
-		mScrollArea = mRect.inset(1);
-
-		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
-		if (neededDisplaySize > mRect.size.y)
-		{
-			mScrollBar.size({14, mScrollArea.size.y});
-			mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
-			mScrollBar.max(neededDisplaySize - mRect.size.y);
-			mScrollOffsetInPixels = mScrollBar.value();
-			mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
-			mScrollBar.visible(true);
-		}
-		else
-		{
-			mScrollOffsetInPixels = 0;
-			mScrollBar.max(0);
-			mScrollBar.visible(false);
-		}
-
-		mItemSize.x = mScrollArea.size.x;
-	}
-
-
-	void onVisibilityChange(bool visible) override
-	{
-		Control::onVisibilityChange(visible);
-
-		updateScrollLayout();
-	}
-
-
-	void onResize() override
-	{
-		updateScrollLayout();
-	}
-
-
-	virtual void onSlideChange(int /*newPosition*/)
-	{
-		updateScrollLayout();
-	}
-
-
-	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
-	{
-		if (!visible() || !enabled() || !mRect.contains(position)) { return; }
-		if (isEmpty() || button == NAS2D::MouseButton::Middle) { return; }
-
-		if (button == NAS2D::MouseButton::Right)
-		{
-			clearSelected();
-			return;
-		}
-
-		if (mHighlightIndex == NoSelection || !mScrollArea.contains(position)) { return; }
-		selectedIndex(mHighlightIndex);
-	}
-
-
-	virtual void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
-	{
-		if (!visible() || isEmpty()) { return; }
-
-		mHasFocus = area().contains(position);
-
-		if (!mScrollArea.contains(position))
-		{
-			mHighlightIndex = NoSelection;
-			return;
-		}
-
-		const auto scrollRelativeY = mScrollOffsetInPixels + position.y - mScrollArea.position.y;
-		const auto index = static_cast<std::size_t>(scrollRelativeY / mItemSize.y);
-		mHighlightIndex = (index < count()) ? index : NoSelection;
-	}
-
-
-	void onMouseWheel(NAS2D::Vector<int> scrollAmount)
-	{
-		if (!visible() || !hasFocus() || isEmpty()) { return; }
-
-		mScrollBar.changeValue((scrollAmount.y < 0 ? mItemSize.y : -mItemSize.y));
 	}
 
 
@@ -332,15 +177,5 @@ protected:
 
 private:
 	Context mContext;
-
-	ScrollBar mScrollBar;
-	NAS2D::Rectangle<int> mScrollArea;
-	NAS2D::Vector<int> mItemSize;
-
-	int mScrollOffsetInPixels = 0;
-	std::size_t mHighlightIndex = NoSelection;
-	std::size_t mSelectedIndex = 0;
-
 	std::vector<ListBoxItem> mItems;
-	SelectionChangedDelegate mSelectionChangedHandler;
 };
