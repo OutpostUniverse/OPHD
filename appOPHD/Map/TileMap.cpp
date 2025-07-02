@@ -1,5 +1,7 @@
 #include "TileMap.h"
 
+#include "Tile.h"
+
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/DirectionOffset.h>

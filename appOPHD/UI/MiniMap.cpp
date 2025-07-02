@@ -2,6 +2,7 @@
 
 #include "../Cache.h"
 #include "../Map/Route.h"
+#include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../MapObjects/Robot.h"

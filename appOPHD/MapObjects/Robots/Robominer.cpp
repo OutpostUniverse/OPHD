@@ -2,6 +2,7 @@
 
 #include "../../Constants/Strings.h"
 
+#include "../../Map/Tile.h"
 #include "../../Map/TileMap.h"
 #include "../../StructureManager.h"
 #include "../Structures/MineFacility.h"

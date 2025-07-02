@@ -13,6 +13,7 @@
 #include "../Constants/Strings.h"
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
+#include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Structures/Warehouse.h"
 

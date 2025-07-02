@@ -1,5 +1,6 @@
 #include "Connections.h"
 
+#include "Tile.h"
 #include "TileMap.h"
 #include "../StructureManager.h"
 #include "../Constants/Numbers.h"

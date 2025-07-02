@@ -1,5 +1,6 @@
 #include "GraphWalker.h"
 
+#include "Map/Tile.h"
 #include "Map/TileMap.h"
 #include "MapObjects/Structure.h"
 
