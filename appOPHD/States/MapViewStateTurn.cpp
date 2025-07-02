@@ -12,6 +12,16 @@
 #include "../Map/RouteFinder.h"
 #include "../Map/TileMap.h"
 
+#include "../MapObjects/Structures/CommandCenter.h"
+#include "../MapObjects/Structures/Factory.h"
+#include "../MapObjects/Structures/MineFacility.h"
+#include "../MapObjects/Structures/MaintenanceFacility.h"
+#include "../MapObjects/Structures/OreRefining.h"
+#include "../MapObjects/Structures/Recycling.h"
+#include "../MapObjects/Structures/Residence.h"
+#include "../MapObjects/Structures/Road.h"
+#include "../MapObjects/Structures/Warehouse.h"
+
 #include "../Cache.h"
 #include "../MoraleString.h"
 #include "../StructureManager.h"
