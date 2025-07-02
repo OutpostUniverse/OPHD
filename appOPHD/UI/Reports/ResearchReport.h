@@ -2,9 +2,6 @@
 
 #include "Report.h"
 
-#include <libOPHD/Technology/TechnologyCatalog.h>
-#include <libOPHD/Technology/ResearchTracker.h>
-
 #include <libControls/Button.h>
 #include <libControls/ListBox.h>
 #include <libControls/TextArea.h>
@@ -23,6 +20,8 @@ namespace NAS2D
 }
 
 class Structure;
+class TechnologyCatalog;
+class ResearchTracker;
 
 
 class ResearchReport : public Report
@@ -102,7 +101,7 @@ private:
 	const NAS2D::Image& imageCategoryIcons;
 	const NAS2D::Image& imageTopicIcons;
 
-	ListBox<ListBoxItemText> lstResearchTopics;
+	ListBox<> lstResearchTopics;
 
 	TextArea txtTopicDescription;
 
@@ -127,5 +126,4 @@ private:
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
 
 	LabsAvailable mLabsAvailable{};
-
 };

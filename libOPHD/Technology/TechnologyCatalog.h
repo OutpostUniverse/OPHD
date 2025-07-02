@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Technology.h"
-
 #include <string>
 #include <vector>
+
+
+struct Technology;
 
 
 class TechnologyCatalog
