@@ -1,5 +1,7 @@
 #include "TechnologyCatalog.h"
 
+#include "Technology.h"
+
 #include "../XmlSerializer.h"
 
 #include <NAS2D/ParserHelper.h>
