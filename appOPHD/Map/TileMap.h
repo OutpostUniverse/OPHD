@@ -1,13 +1,8 @@
 #pragma once
 
-#include "Tile.h"
-
 #include "../MicroPather/micropather.h"
 
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/Resource/Image.h>
 
 #include <string>
 #include <vector>
@@ -20,9 +15,13 @@ namespace NAS2D
 	{
 		class XmlElement;
 	}
+
+	template <typename BaseType> struct Point;
 }
 
 enum class Direction;
+struct MapCoordinate;
+class Tile;
 
 
 class TileMap : public micropather::Graph
@@ -34,6 +33,7 @@ public:
 	TileMap(const std::string& mapPath, int maxDepth);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
+	~TileMap() override;
 
 	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 	int maxDepth() const { return mMaxDepth; }

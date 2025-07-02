@@ -1,5 +1,7 @@
 #include "TileMap.h"
 
+#include "Tile.h"
+
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/DirectionOffset.h>
@@ -108,6 +110,11 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 	mMaxDepth{maxDepth}
 {
 	buildTerrainMap(mapPath);
+}
+
+
+TileMap::~TileMap()
+{
 }
 
 
