@@ -101,7 +101,7 @@ private:
 	const NAS2D::Image& imageCategoryIcons;
 	const NAS2D::Image& imageTopicIcons;
 
-	ListBox<ListBoxItemText> lstResearchTopics;
+	ListBox<> lstResearchTopics;
 
 	TextArea txtTopicDescription;
 
