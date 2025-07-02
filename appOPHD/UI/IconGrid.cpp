@@ -9,6 +9,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
+#include <NAS2D/Math/Rectangle.h>
 
 #include <algorithm>
 #include <stdexcept>
