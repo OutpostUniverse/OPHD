@@ -2,6 +2,7 @@
 
 #include "StructureManager.h"
 #include "Map/Tile.h"
+#include "MapObjects/Robots.h"
 #include "MapObjects/Structures/CommandCenter.h"
 
 #include <NAS2D/Utility.h>

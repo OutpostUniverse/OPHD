@@ -1,15 +1,18 @@
 #pragma once
 
-
-#include "MapObjects/Robots.h"
-
 #include <cstddef>
 #include <vector>
 #include <list>
 #include <map>
 
 
+enum class RobotType;
+class Robot;
+class Robodigger;
+class Robodozer;
+class Robominer;
 class Tile;
+
 using RobotList = std::vector<Robot*>;
 
 namespace NAS2D
