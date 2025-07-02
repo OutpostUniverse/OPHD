@@ -8,10 +8,15 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
-#include <NAS2D/Resource/Font.h>
-#include <NAS2D/Resource/Image.h>
 
 #include <vector>
+
+
+namespace NAS2D
+{
+	class Font;
+	class Image;
+}
 
 
 struct IconGridItem
