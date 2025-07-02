@@ -19,6 +19,8 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../MapObjects/Robots.h"
+#include "../MapObjects/Structures/CommandCenter.h"
+#include "../MapObjects/Structures/FoodProduction.h"
 
 #include "../UI/MessageBox.h"
 #include "../UI/NavControl.h"
