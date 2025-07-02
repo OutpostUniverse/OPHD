@@ -12,6 +12,7 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Fade.h>
+#include <NAS2D/Xml/XmlDocument.h>
 
 #include <string>
 

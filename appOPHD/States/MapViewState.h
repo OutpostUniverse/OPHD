@@ -46,7 +46,6 @@
 
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/ParserHelper.h>
 #include <NAS2D/Renderer/Fade.h>
 
 #include <string>
@@ -58,6 +57,7 @@ namespace NAS2D
 {
 	namespace Xml
 	{
+		class XmlDocument;
 		class XmlElement;
 	}
 
