@@ -6,8 +6,6 @@
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/Resource/Image.h>
 
 #include <string>
 #include <vector>
