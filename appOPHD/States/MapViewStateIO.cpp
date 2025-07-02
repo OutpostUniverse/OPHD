@@ -33,6 +33,7 @@
 
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
+#include "../UI/MiniMap.h"
 
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>

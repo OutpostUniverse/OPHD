@@ -37,6 +37,7 @@
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
+#include "../UI/MiniMap.h"
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>

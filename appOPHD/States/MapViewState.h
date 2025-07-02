@@ -24,7 +24,6 @@
 #include "../UI/WarehouseInspector.h"
 #include "../UI/ResourceInfoBar.h"
 #include "../UI/RobotDeploymentSummary.h"
-#include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
 
 #include <libOPHD/EnumConnectorDir.h>
@@ -77,6 +76,7 @@ class Tile;
 class TileMap;
 class MapView;
 class DetailMap;
+class MiniMap;
 class NavControl;
 class ReportsState;
 class GameState;
