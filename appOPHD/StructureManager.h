@@ -3,6 +3,8 @@
 #include "MapObjects/Structure.h"
 #include "MapObjects/StructureTypeToClass.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 #include <map>
 #include <vector>
 #include <concepts>
