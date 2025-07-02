@@ -1,10 +1,11 @@
 #pragma once
 
-#include "MoraleChangeEntry.h"
-
 #include <cstdint>
 #include <vector>
 #include <string>
+
+
+struct MoraleChangeEntry;
 
 
 struct MoraleModifier
