@@ -6,12 +6,18 @@
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
-#include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/RectangleSkin.h>
-#include <NAS2D/Resource/Font.h>
-#include <NAS2D/Resource/Image.h>
 
-#include <algorithm>
+#include <vector>
+
+
+namespace NAS2D
+{
+	class Font;
+	class Image;
+
+	template <typename BaseType> struct Rectangle;
+}
 
 
 struct IconGridItem
