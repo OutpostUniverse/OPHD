@@ -366,6 +366,10 @@ format:
 stale:
 	@$(MAKE) -n | grep -oE '[^ ]+\.cpp$$'
 
+.PHONY: stale-objs
+stale-objs:
+	@$(MAKE) -n | grep -oE '[^ ]+\.o$$'
+
 
 ## Compile performance ##
 
