@@ -360,6 +360,17 @@ format:
 	find $(ophd_SRCDIR) \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path '$(ophd_SRCDIR)MicroPather' -prune -type f | xargs clang-format -i
 
 
+## Debugging ##
+
+.PHONY: stale
+stale:
+	@$(MAKE) -n | grep -oE '[^ ]+\.cpp$$'
+
+.PHONY: stale-objs
+stale-objs:
+	@$(MAKE) -n | grep -oE '[^ ]+\.o$$'
+
+
 ## Compile performance ##
 
 .PHONY: flame-charts
