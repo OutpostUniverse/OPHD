@@ -6,6 +6,7 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../MapObjects/Robot.h"
+#include "../MapObjects/Structures/CommTower.h"
 #include "../StructureManager.h"
 
 #include <libOPHD/MapObjects/OreDeposit.h>

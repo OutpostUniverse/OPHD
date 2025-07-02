@@ -10,6 +10,14 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
+#include "../MapObjects/Structures/AirShaft.h"
+#include "../MapObjects/Structures/CommandCenter.h"
+#include "../MapObjects/Structures/Factory.h"
+#include "../MapObjects/Structures/MineFacility.h"
+#include "../MapObjects/Structures/MineShaft.h"
+#include "../MapObjects/Structures/SeedFactory.h"
+#include "../MapObjects/Structures/Tube.h"
+#include "../MapObjects/Structures/Warehouse.h"
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MapObjects/OreDeposit.h>

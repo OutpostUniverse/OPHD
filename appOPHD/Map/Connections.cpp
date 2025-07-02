@@ -3,6 +3,7 @@
 #include "Tile.h"
 #include "TileMap.h"
 #include "../StructureManager.h"
+#include "../MapObjects/Structures/Road.h"
 #include "../Constants/Numbers.h"
 
 #include <libOPHD/DirectionOffset.h>
