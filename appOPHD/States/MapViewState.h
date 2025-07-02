@@ -7,8 +7,6 @@
 
 #include "../RobotPool.h"
 
-#include "../MapObjects/RobotType.h"
-
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
 #include "../UI/DiggerDirection.h"
@@ -72,6 +70,7 @@ namespace micropather
 }
 
 enum class Direction;
+enum class RobotType;
 
 class Structure;
 class Tile;
@@ -329,7 +328,7 @@ private:
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
-	RobotType mCurrentRobot = RobotType::None; /**< Robot being placed. */
+	RobotType mCurrentRobot; /**< Robot being placed. */
 
 	// USER INTERFACE
 	Button mBtnTurns;
