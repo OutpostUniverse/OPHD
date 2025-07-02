@@ -302,6 +302,7 @@ clean:
 	-rm -fr $(libControls_OBJDIR)
 	-rm -fr $(testLibOphd_OBJDIR)
 	-rm -fr $(testLibControls_OBJDIR)
+	-rm -fr $(demoLibControls_OBJDIR)
 	-rm -fr $(ophd_OBJDIR)
 clean-all:
 	-rm -rf $(ROOTBUILDDIR)
@@ -357,6 +358,14 @@ cppinclude:
 format:
 	@clang-format --version
 	find $(ophd_SRCDIR) \( -name '*.cpp' -o -name '*.h' \) \! -name 'resource.h' -o -path '$(ophd_SRCDIR)MicroPather' -prune -type f | xargs clang-format -i
+
+
+## Compile performance ##
+
+.PHONY: flame-charts
+flame-charts:
+	@$(MAKE) clean > /dev/null
+	$(MAKE) all CXX=clang++ CXXFLAGS_EXTRA="-ftime-trace"
 
 
 ## GitHub ##
