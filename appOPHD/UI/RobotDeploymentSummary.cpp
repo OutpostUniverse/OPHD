@@ -3,6 +3,7 @@
 #include "../RobotPool.h"
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
+#include "../MapObjects/RobotType.h"
 #include "../States/MapViewStateHelper.h"
 
 #include <NAS2D/Utility.h>
