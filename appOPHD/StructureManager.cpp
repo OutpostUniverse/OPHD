@@ -1,13 +1,13 @@
 #include "StructureManager.h"
 
 #include "Constants/Numbers.h"
-#include "StructureCatalog.h"
-#include "ProductPool.h"
+#include "GraphWalker.h"
 #include "IOHelper.h"
+#include "ProductPool.h"
+#include "StructureCatalog.h"
 #include "Map/Tile.h"
 #include "MapObjects/Robot.h"
 #include "MapObjects/Structures.h"
-#include "GraphWalker.h"
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
