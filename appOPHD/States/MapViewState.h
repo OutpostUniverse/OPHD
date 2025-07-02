@@ -7,8 +7,6 @@
 
 #include "../RobotPool.h"
 
-#include "../Constants/Numbers.h"
-
 #include "../MapObjects/Robot.h"
 
 #include "../UI/NotificationArea.h"
@@ -299,7 +297,7 @@ private:
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 
-	int mTurnNumberOfLanding = constants::ColonyShipOrbitTime; /**< First turn that human colonists landed. */
+	int mTurnNumberOfLanding; /**< First turn that human colonists landed. */
 
 	Morale mMorale;
 

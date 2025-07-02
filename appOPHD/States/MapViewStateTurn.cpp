@@ -25,6 +25,7 @@
 #include "../Cache.h"
 #include "../MoraleString.h"
 #include "../StructureManager.h"
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 
 #include <libOPHD/DirectionOffset.h>

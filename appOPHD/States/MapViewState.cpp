@@ -7,6 +7,7 @@
 #include "GameState.h"
 #include "ColonyShip.h"
 
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
@@ -155,6 +156,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
+	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
@@ -196,6 +198,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
+	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},

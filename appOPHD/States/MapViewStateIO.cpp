@@ -11,6 +11,7 @@
 
 #include "../Cache.h"
 #include "../OpenSaveGame.h"
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../StructureCatalog.h"
