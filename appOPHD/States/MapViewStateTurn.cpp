@@ -46,6 +46,16 @@ namespace
 		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
 	};
 
+	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
+	const std::map<Difficulty, int> GracePeriod
+	{
+		{Difficulty::Beginner, 30},
+		{Difficulty::Easy, 25},
+		{Difficulty::Medium, 20},
+		{Difficulty::Hard, 15}
+	};
+
+
 
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{

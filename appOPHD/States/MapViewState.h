@@ -296,9 +296,6 @@ private:
 
 	int mFood{0};
 
-	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
-	static const std::map<Difficulty, int> GracePeriod;
-
 	// Morale loss multiplier on colonist death due to colony ship de-orbit
 	static const std::map<Difficulty, int> ColonyShipDeorbitMoraleLossMultiplier;
 
