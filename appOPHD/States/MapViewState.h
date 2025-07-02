@@ -10,7 +10,6 @@
 #include "../Constants/Numbers.h"
 
 #include "../MapObjects/Robot.h"
-#include "../MapObjects/Structure.h"
 
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
@@ -32,7 +31,9 @@
 #include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
 
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/StorableResources.h>
 
@@ -74,6 +75,7 @@ namespace micropather
 
 enum class Direction;
 
+class Structure;
 class Tile;
 class TileMap;
 class MapView;
