@@ -20,6 +20,7 @@
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumMoraleIndex.h>
 #include <libOPHD/StorableResources.h>
+#include <libOPHD/Population/MoraleChangeEntry.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>

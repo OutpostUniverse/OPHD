@@ -28,6 +28,7 @@
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>
+#include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
