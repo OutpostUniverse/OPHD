@@ -126,5 +126,4 @@ private:
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
 
 	LabsAvailable mLabsAvailable{};
-
 };
