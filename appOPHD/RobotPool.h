@@ -4,6 +4,7 @@
 #include "MapObjects/Robots.h"
 
 #include <cstddef>
+#include <vector>
 #include <list>
 #include <map>
 
