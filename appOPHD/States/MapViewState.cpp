@@ -151,15 +151,6 @@ namespace
 }
 
 
-const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultiplier
-{
-	{Difficulty::Beginner, 1},
-	{Difficulty::Easy, 3},
-	{Difficulty::Medium, 6},
-	{Difficulty::Hard, 10}
-};
-
-
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},

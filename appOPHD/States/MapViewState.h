@@ -296,9 +296,6 @@ private:
 
 	int mFood{0};
 
-	// Morale loss multiplier on colonist death due to colony ship de-orbit
-	static const std::map<Difficulty, int> ColonyShipDeorbitMoraleLossMultiplier;
-
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 

@@ -55,6 +55,15 @@ namespace
 		{Difficulty::Hard, 15}
 	};
 
+	// Morale loss multiplier on colonist death due to colony ship de-orbit
+	const std::map<Difficulty, int> ColonyShipDeorbitMoraleLossMultiplier
+	{
+		{Difficulty::Beginner, 1},
+		{Difficulty::Easy, 3},
+		{Difficulty::Medium, 6},
+		{Difficulty::Hard, 10}
+	};
+
 
 
 	int consumeFood(FoodProduction& producer, int amountToConsume)
