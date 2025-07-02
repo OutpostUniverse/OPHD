@@ -1,7 +1,8 @@
 #pragma once
 
-#include "MapObjects/Structure.h"
 #include "MapObjects/StructureTypeToClass.h"
+
+#include <libOPHD/EnumStructureID.h>
 
 #include <map>
 #include <vector>
@@ -16,11 +17,15 @@ namespace NAS2D
 	}
 }
 
+enum class StructureState;
 class Tile;
 class TileMap;
+class Structure;
 class PopulationPool;
 struct StorableResources;
 struct MapCoordinate;
+
+using StructureList = std::vector<Structure*>;
 
 
 /**
