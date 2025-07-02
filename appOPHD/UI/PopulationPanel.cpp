@@ -11,6 +11,7 @@
 #include <libOPHD/Population/Population.h>
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Morale.h>
+#include <libOPHD/Population/MoraleChangeEntry.h>
 
 #include <libControls/LoadRectangleSkin.h>
 
@@ -77,6 +78,11 @@ PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& po
 
 
 	size({windowWidth, windowHeight});
+}
+
+
+PopulationPanel::~PopulationPanel()
+{
 }
 
 

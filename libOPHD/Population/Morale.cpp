@@ -1,5 +1,7 @@
 #include "Morale.h"
 
+#include "MoraleChangeEntry.h"
+
 #include <algorithm>
 
 namespace

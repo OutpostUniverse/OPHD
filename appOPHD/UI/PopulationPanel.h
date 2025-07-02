@@ -1,7 +1,5 @@
 #pragma once
 
-#include <libOPHD/Population/MoraleChangeEntry.h>
-
 #include <libControls/Control.h>
 
 #include <NAS2D/Renderer/RectangleSkin.h>
@@ -9,6 +7,7 @@
 #include <vector>
 
 
+struct MoraleChangeEntry;
 class Population;
 class PopulationPool;
 class Morale;
@@ -23,6 +22,7 @@ class PopulationPanel : public Control
 {
 public:
 	PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale);
+	~PopulationPanel() override;
 
 	void residentialCapacity(int val) { mResidentialCapacity = val; }
 
