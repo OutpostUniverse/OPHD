@@ -18,6 +18,7 @@
 #include "../Map/Route.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
+#include "../MapObjects/Robots.h"
 
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
