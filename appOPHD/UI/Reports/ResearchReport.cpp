@@ -366,7 +366,7 @@ void ResearchReport::handleTopicChanged()
 {
 	txtTopicDescription.text("");
 
-	if (lstResearchTopics.selectedIndex() == ListBox<ListBoxItemText>::NoSelection)
+	if (!lstResearchTopics.isItemSelected())
 	{
 		return;
 	}
