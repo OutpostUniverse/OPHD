@@ -113,6 +113,11 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 }
 
 
+TileMap::~TileMap()
+{
+}
+
+
 void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
 {
 	auto& tile = getTile({pt, 0});
