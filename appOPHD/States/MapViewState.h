@@ -7,7 +7,7 @@
 
 #include "../RobotPool.h"
 
-#include "../MapObjects/Robot.h"
+#include "../MapObjects/RobotType.h"
 
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
