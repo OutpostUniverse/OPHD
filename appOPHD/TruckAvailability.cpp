@@ -1,6 +1,7 @@
 #include "TruckAvailability.h"
 
 #include "StructureManager.h"
+#include "MapObjects/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
 
