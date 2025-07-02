@@ -13,6 +13,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Xml/XmlMemoryBuffer.h>
 
 #include <stdexcept>
 

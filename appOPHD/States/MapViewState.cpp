@@ -7,6 +7,7 @@
 #include "GameState.h"
 #include "ColonyShip.h"
 
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
@@ -20,6 +21,7 @@
 #include "../Map/MapView.h"
 
 #include "../MapObjects/Robots.h"
+#include "../MapObjects/RobotType.h"
 
 #include "../MapObjects/Structures/CargoLander.h"
 #include "../MapObjects/Structures/ColonistLander.h"
@@ -35,6 +37,7 @@
 #include "../UI/MessageBox.h"
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
+#include "../UI/MiniMap.h"
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
@@ -151,30 +154,15 @@ namespace
 }
 
 
-const std::map<Difficulty, int> MapViewState::GracePeriod
-{
-	{Difficulty::Beginner, 30},
-	{Difficulty::Easy, 25},
-	{Difficulty::Medium, 20},
-	{Difficulty::Hard, 15}
-};
-
-const std::map<Difficulty, int> MapViewState::ColonyShipDeorbitMoraleLossMultiplier
-{
-	{Difficulty::Beginner, 1},
-	{Difficulty::Easy, 3},
-	{Difficulty::Medium, 6},
-	{Difficulty::Hard, 10}
-};
-
-
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
+	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
+	mCurrentRobot{RobotType::None},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleConnectedness{Control::getImage("ui/icons/connection.png"), {this, &MapViewState::onToggleConnectedness}},
@@ -213,8 +201,10 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
+	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
+	mCurrentRobot{RobotType::None},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleConnectedness{Control::getImage("ui/icons/connection.png"), {this, &MapViewState::onToggleConnectedness}},

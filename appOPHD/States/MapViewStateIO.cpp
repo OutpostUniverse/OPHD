@@ -11,6 +11,7 @@
 
 #include "../Cache.h"
 #include "../OpenSaveGame.h"
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../StructureCatalog.h"
@@ -32,6 +33,7 @@
 
 #include "../UI/DetailMap.h"
 #include "../UI/NavControl.h"
+#include "../UI/MiniMap.h"
 
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>

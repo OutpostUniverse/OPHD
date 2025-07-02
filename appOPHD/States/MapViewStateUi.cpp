@@ -24,6 +24,7 @@
 
 #include "../UI/MessageBox.h"
 #include "../UI/NavControl.h"
+#include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
 
 #include <libOPHD/DirectionOffset.h>

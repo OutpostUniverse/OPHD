@@ -7,11 +7,6 @@
 
 #include "../RobotPool.h"
 
-#include "../Constants/Numbers.h"
-
-#include "../MapObjects/Robot.h"
-#include "../MapObjects/Structure.h"
-
 #include "../UI/NotificationArea.h"
 #include "../UI/NotificationWindow.h"
 #include "../UI/DiggerDirection.h"
@@ -29,10 +24,11 @@
 #include "../UI/WarehouseInspector.h"
 #include "../UI/ResourceInfoBar.h"
 #include "../UI/RobotDeploymentSummary.h"
-#include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
 
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/StorableResources.h>
 
@@ -49,9 +45,7 @@
 #include <libControls/ToolTip.h>
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
-#include <NAS2D/ParserHelper.h>
 #include <NAS2D/Renderer/Fade.h>
 
 #include <string>
@@ -63,8 +57,11 @@ namespace NAS2D
 {
 	namespace Xml
 	{
+		class XmlDocument;
 		class XmlElement;
 	}
+
+	template <typename BaseType> struct Point;
 }
 
 namespace micropather
@@ -73,11 +70,14 @@ namespace micropather
 }
 
 enum class Direction;
+enum class RobotType;
 
+class Structure;
 class Tile;
 class TileMap;
 class MapView;
 class DetailMap;
+class MiniMap;
 class NavControl;
 class ReportsState;
 class GameState;
@@ -294,16 +294,10 @@ private:
 
 	int mFood{0};
 
-	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
-	static const std::map<Difficulty, int> GracePeriod;
-
-	// Morale loss multiplier on colonist death due to colony ship de-orbit
-	static const std::map<Difficulty, int> ColonyShipDeorbitMoraleLossMultiplier;
-
 	// MISCELLANEOUS
 	int mTurnCount = 0;
 
-	int mTurnNumberOfLanding = constants::ColonyShipOrbitTime; /**< First turn that human colonists landed. */
+	int mTurnNumberOfLanding; /**< First turn that human colonists landed. */
 
 	Morale mMorale;
 
@@ -335,7 +329,7 @@ private:
 
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
-	RobotType mCurrentRobot = RobotType::None; /**< Robot being placed. */
+	RobotType mCurrentRobot; /**< Robot being placed. */
 
 	// USER INTERFACE
 	Button mBtnTurns;

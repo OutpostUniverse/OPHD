@@ -25,6 +25,7 @@
 #include "../Cache.h"
 #include "../MoraleString.h"
 #include "../StructureManager.h"
+#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 
 #include <libOPHD/DirectionOffset.h>
@@ -45,6 +46,25 @@ namespace
 		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, SID_FUSION_REACTOR}},
 		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
 	};
+
+	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
+	const std::map<Difficulty, int> GracePeriod
+	{
+		{Difficulty::Beginner, 30},
+		{Difficulty::Easy, 25},
+		{Difficulty::Medium, 20},
+		{Difficulty::Hard, 15}
+	};
+
+	// Morale loss multiplier on colonist death due to colony ship de-orbit
+	const std::map<Difficulty, int> ColonyShipDeorbitMoraleLossMultiplier
+	{
+		{Difficulty::Beginner, 1},
+		{Difficulty::Easy, 3},
+		{Difficulty::Medium, 6},
+		{Difficulty::Hard, 10}
+	};
+
 
 
 	int consumeFood(FoodProduction& producer, int amountToConsume)
