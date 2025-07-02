@@ -8,6 +8,9 @@
 #include "../../MapObjects/Structures/HotLaboratory.h"
 #include "../../MapObjects/Structures/Laboratory.h"
 
+#include <libOPHD/Technology/TechnologyCatalog.h>
+#include <libOPHD/Technology/ResearchTracker.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumMouseButton.h>

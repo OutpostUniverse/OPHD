@@ -2,9 +2,6 @@
 
 #include "Report.h"
 
-#include <libOPHD/Technology/TechnologyCatalog.h>
-#include <libOPHD/Technology/ResearchTracker.h>
-
 #include <libControls/Button.h>
 #include <libControls/ListBox.h>
 #include <libControls/TextArea.h>
@@ -23,6 +20,8 @@ namespace NAS2D
 }
 
 class Structure;
+class TechnologyCatalog;
+class ResearchTracker;
 
 
 class ResearchReport : public Report
