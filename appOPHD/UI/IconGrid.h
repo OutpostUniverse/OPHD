@@ -12,6 +12,7 @@
 #include <NAS2D/Resource/Image.h>
 
 #include <algorithm>
+#include <vector>
 
 
 struct IconGridItem
