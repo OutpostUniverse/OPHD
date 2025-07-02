@@ -4,7 +4,6 @@
 
 #include "../MicroPather/micropather.h"
 
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
 #include <string>
@@ -18,6 +17,8 @@ namespace NAS2D
 	{
 		class XmlElement;
 	}
+
+	template <typename BaseType> struct Point;
 }
 
 enum class Direction;
