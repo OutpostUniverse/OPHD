@@ -45,7 +45,6 @@
 #include <libControls/ToolTip.h>
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Renderer/Fade.h>
@@ -61,6 +60,8 @@ namespace NAS2D
 	{
 		class XmlElement;
 	}
+
+	template <typename BaseType> struct Point;
 }
 
 namespace micropather
