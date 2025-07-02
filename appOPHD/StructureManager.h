@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MapObjects/Structure.h"
-#include "MapObjects/Structures.h"
 #include "MapObjects/StructureTypeToClass.h"
 
 #include <map>

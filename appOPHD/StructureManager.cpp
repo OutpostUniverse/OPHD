@@ -6,6 +6,7 @@
 #include "IOHelper.h"
 #include "Map/Tile.h"
 #include "MapObjects/Robot.h"
+#include "MapObjects/Structures.h"
 #include "GraphWalker.h"
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
