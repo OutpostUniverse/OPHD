@@ -312,7 +312,8 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
  */
 void TextField::onTextInput(const std::string& newTextInput)
 {
-	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
+	if (!hasFocus() || !visible()) { return; }
+	if (!editable() || newTextInput.empty()) { return; }
 	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
