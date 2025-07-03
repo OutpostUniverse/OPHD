@@ -175,7 +175,10 @@ void TextField::draw() const
 
 	drawCursor();
 
-	renderer.drawText(mFont, mText, position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+	const auto textDrawArea = mRect.inset(fieldPadding);
+	renderer.clipRect(textDrawArea);
+	renderer.drawText(mFont, mText, textDrawArea.position + NAS2D::Vector{-mScrollOffsetPixelX, 0}, NAS2D::Color::White);
+	renderer.clipRectClear();
 }
 
 
@@ -199,13 +202,14 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 {
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
 
-	if (!visible() || !enabled()) { return; }
+	if (!visible() || !enabled() || !hasFocus()) { return; }
+	if (!editable()) { return; }
 
-	const int offsetX = position.x - mRect.position.x;
+	const int virtualOffsetX = mScrollOffsetPixelX + position.x - (mRect.position.x + fieldPadding);
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if (offsetX > mFont.width(mText))
+	if (virtualOffsetX > mFont.width(mText))
 	{
 		mCursorCharacterIndex = mText.length();
 		return;
@@ -213,11 +217,10 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 
 	// Figure out where the click occured within the visible string.
-	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
-	for (std::size_t index = 0; index <= mText.length() - scrollOffset; ++index)
+	for (std::size_t index = 0; index < mText.length(); ++index)
 	{
-		const int subStringSizeX = mFont.width(mText.substr(scrollOffset, index));
-		if (subStringSizeX > offsetX)
+		const int subStringSizeX = mFont.width(mText.substr(0, index));
+		if (subStringSizeX > virtualOffsetX)
 		{
 			mCursorCharacterIndex = index - 1;
 			break;
