@@ -370,6 +370,12 @@ stale:
 stale-objs:
 	@$(MAKE) -n | grep -oE '[^ ]+\.o$$'
 
+AllObjectFiles := $(ophd_OBJS)) $(libOPHD_OBJS) $(libControls_OBJS) $(demoLibControls_OBJS) $(testLibOPHD_OBJS) $(testLibControls_OBJS)
+AllObjectShortNames := $(sort $(basename $(notdir $(AllObjectFiles))))
+.PHONY: $(AllObjectShortNames)
+$(AllObjectShortNames):
+	$(MAKE) $(filter %$@.o,$(AllObjectFiles))
+
 
 ## Compile performance ##
 
