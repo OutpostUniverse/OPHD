@@ -364,11 +364,11 @@ format:
 
 .PHONY: stale
 stale:
-	@$(MAKE) -n | grep -oE '[^ ]+\.cpp$$'
+	@$(MAKE) -n | grep -oE '[^ ]+\.cpp$$' || true
 
 .PHONY: stale-objs
 stale-objs:
-	@$(MAKE) -n | grep -oE '[^ ]+\.o$$'
+	@$(MAKE) -n | grep -oE '[^ ]+\.o$$' || true
 
 # This can create a lot of extra tab auto complete entries, so maybe disable by default
 AllObjectFiles := $(ophd_OBJS)) $(libOPHD_OBJS) $(libControls_OBJS) $(demoLibControls_OBJS) $(testLibOPHD_OBJS) $(testLibControls_OBJS)
