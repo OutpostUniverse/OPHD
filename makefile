@@ -328,7 +328,7 @@ $(PACKAGE_NAME): $(ophd_OUTPUT)
 
 .PHONY: install-dependencies
 install-dependencies:
-	$(MAKE) -C nas2d-core install-dependencies
+	$(MAKE) --no-print-directory --directory nas2d-core install-dependencies
 
 
 ## Linting ##
