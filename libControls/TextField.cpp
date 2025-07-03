@@ -321,7 +321,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 
 	auto previousLength = text().length();
 	mText = mText.insert(mCursorCharacterPosition, newTextInput);
-	if (text().length() - previousLength != 0u)
+	if (text().length() != previousLength)
 	{
 		onTextChange();
 		mCursorCharacterPosition++;
