@@ -202,7 +202,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	if (!visible() || !enabled() || !hasFocus()) { return; }
 	if (!editable()) { return; }
 
-	const int offsetX = position.x - mRect.position.x;
+	const int offsetX = position.x - (mRect.position.x + fieldPadding);
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
