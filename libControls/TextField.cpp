@@ -214,10 +214,9 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 
 	// Figure out where the click occured within the visible string.
-	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
-	for (std::size_t index = 0; index <= mText.length() - scrollOffset; ++index)
+	for (std::size_t index = 0; index <= mText.length(); ++index)
 	{
-		const int subStringSizeX = mFont.width(mText.substr(scrollOffset, index));
+		const int subStringSizeX = mFont.width(mText.substr(0, index));
 		if (subStringSizeX > virtualOffsetX)
 		{
 			mCursorCharacterIndex = index - 1;
