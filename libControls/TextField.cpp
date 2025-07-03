@@ -236,7 +236,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 
 	switch(key)
 	{
-		// COMMAND KEYS
+		// Command keys
 		case NAS2D::KeyCode::Backspace:
 			if (!text().empty() && mCursorCharacterPosition > 0)
 			{
@@ -262,7 +262,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			mCursorCharacterPosition = text().length();
 			break;
 
-		// ARROW KEYS
+		// Arrow keys
 		case NAS2D::KeyCode::Left:
 			if (mCursorCharacterPosition > 0)
 				--mCursorCharacterPosition;
@@ -273,7 +273,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 				++mCursorCharacterPosition;
 			break;
 
-		// KEYPAD ARROWS
+		// Keypad arrow keys
 		case NAS2D::KeyCode::Keypad4:
 			if ((mCursorCharacterPosition > 0) && !NAS2D::EventHandler::numlock(mod))
 				--mCursorCharacterPosition;
@@ -284,12 +284,12 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 				++mCursorCharacterPosition;
 			break;
 
-		// IGNORE ENTER/RETURN KEY
+		// Enter/Return (ignore)
 		case NAS2D::KeyCode::Enter:
 		case NAS2D::KeyCode::KeypadEnter:
 			break;
 
-		// REGULAR KEYS
+		// Regular keys
 		default:
 			break;
 	}
