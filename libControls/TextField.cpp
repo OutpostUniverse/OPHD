@@ -78,9 +78,6 @@ void TextField::clear()
 }
 
 
-/**
- * Sets border visibility.
- */
 void TextField::border(BorderVisibility visibility)
 {
 	mBorderVisibility = visibility;
@@ -99,11 +96,6 @@ bool TextField::editable() const
 }
 
 
-/**
- * When set, will only allow numbers to be entered into the TextField.
- * 
- * \param isNumbersOnly True or False.
- */
 void TextField::numbersOnly(bool isNumbersOnly)
 {
 	mNumbersOnly = isNumbersOnly;
@@ -187,9 +179,6 @@ void TextField::draw() const
 }
 
 
-/**
- * Draws the insertion point cursor.
- */
 void TextField::drawCursor() const
 {
 	if (hasFocus() && editable())
@@ -307,9 +296,6 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 }
 
 
-/**
- * Handles text input events.
- */
 void TextField::onTextInput(const std::string& newTextInput)
 {
 	if (!visible() || !enabled() || !hasFocus()) { return; }
