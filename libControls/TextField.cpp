@@ -73,7 +73,7 @@ bool TextField::isEmpty() const
 void TextField::clear()
 {
 	mText.clear();
-	mCursorCharacterPosition = 0;
+	mCursorCharacterIndex = 0;
 	onTextChange();
 }
 
@@ -134,7 +134,7 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(text().substr(0, mCursorCharacterPosition));
+	int cursorX = mFont.width(text().substr(0, mCursorCharacterIndex));
 
 	// Check if cursor is after visible area
 	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
@@ -207,7 +207,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	// set the position to the end and move on.
 	if (offsetX > mFont.width(text()))
 	{
-		mCursorCharacterPosition = text().size();
+		mCursorCharacterIndex = text().size();
 		return;
 	}
 
@@ -221,7 +221,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 		int strLen = mFont.width(cmpStr);
 		if (strLen > offsetX)
 		{
-			mCursorCharacterPosition = i - 1;
+			mCursorCharacterIndex = i - 1;
 			break;
 		}
 
@@ -239,10 +239,10 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 	{
 		// Command keys
 		case NAS2D::KeyCode::Backspace:
-			if (!text().empty() && mCursorCharacterPosition > 0)
+			if (!text().empty() && mCursorCharacterIndex > 0)
 			{
-				mCursorCharacterPosition--;
-				mText.erase(mCursorCharacterPosition, 1);
+				mCursorCharacterIndex--;
+				mText.erase(mCursorCharacterIndex, 1);
 				onTextChange();
 			}
 			break;
@@ -250,39 +250,39 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 		case NAS2D::KeyCode::Delete:
 			if (!text().empty())
 			{
-				mText = mText.erase(mCursorCharacterPosition, 1);
+				mText = mText.erase(mCursorCharacterIndex, 1);
 				onTextChange();
 			}
 			break;
 
 		case NAS2D::KeyCode::Home:
-			mCursorCharacterPosition = 0;
+			mCursorCharacterIndex = 0;
 			break;
 
 		case NAS2D::KeyCode::End:
-			mCursorCharacterPosition = text().length();
+			mCursorCharacterIndex = text().length();
 			break;
 
 		// Arrow keys
 		case NAS2D::KeyCode::Left:
-			if (mCursorCharacterPosition > 0)
-				--mCursorCharacterPosition;
+			if (mCursorCharacterIndex > 0)
+				--mCursorCharacterIndex;
 			break;
 
 		case NAS2D::KeyCode::Right:
-			if (mCursorCharacterPosition < text().length())
-				++mCursorCharacterPosition;
+			if (mCursorCharacterIndex < text().length())
+				++mCursorCharacterIndex;
 			break;
 
 		// Keypad arrow keys
 		case NAS2D::KeyCode::Keypad4:
-			if ((mCursorCharacterPosition > 0) && !NAS2D::EventHandler::numlock(mod))
-				--mCursorCharacterPosition;
+			if ((mCursorCharacterIndex > 0) && !NAS2D::EventHandler::numlock(mod))
+				--mCursorCharacterIndex;
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
-			if ((mCursorCharacterPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
-				++mCursorCharacterPosition;
+			if ((mCursorCharacterIndex < text().length()) && !NAS2D::EventHandler::numlock(mod))
+				++mCursorCharacterIndex;
 			break;
 
 		// Enter/Return (ignore)
@@ -304,9 +304,9 @@ void TextField::onTextInput(const std::string& newTextInput)
 	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
-	mText.insert(mCursorCharacterPosition, newTextInput);
+	mText.insert(mCursorCharacterIndex, newTextInput);
 	onTextChange();
-	mCursorCharacterPosition++;
+	mCursorCharacterIndex++;
 }
 
 
