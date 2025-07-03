@@ -319,9 +319,9 @@ void TextField::onTextInput(const std::string& newTextInput)
 	std::locale locale;
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
 
-	auto prvLen = text().length();
+	auto previousLength = text().length();
 	mText = mText.insert(mCursorCharacterPosition, newTextInput);
-	if (text().length() - prvLen != 0u)
+	if (text().length() - previousLength != 0u)
 	{
 		onTextChange();
 		mCursorCharacterPosition++;
