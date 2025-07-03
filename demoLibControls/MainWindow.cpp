@@ -39,7 +39,7 @@ MainWindow::MainWindow() :
 	listBox2.add("Item 2");
 	listBox2.add("Item 3");
 
-	comboBox1.size({70, 20});
+	comboBox1.size({80, 20});
 	comboBox1.addItem("Item1");
 	comboBox1.addItem("Item2");
 	comboBox1.addItem("Item3");
@@ -57,8 +57,8 @@ MainWindow::MainWindow() :
 	add(radioButtonGroup, {10, 80});
 	add(listBox1, {130, 30});
 	add(listBox2, {220, 30});
-	add(comboBox1, {310, 30});
-	add(comboBox2, {400, 30});
+	add(comboBox1, {130, 150});
+	add(comboBox2, {220, 150});
 	add(image, {10, 140});
 	add(progressBar, {10, 270});
 	add(rectangle1, {10, 300});
