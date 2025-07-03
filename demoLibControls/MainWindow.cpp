@@ -25,6 +25,8 @@ MainWindow::MainWindow() :
 	size(renderer.size());
 
 	button.size(button.size() + NAS2D::Vector{8, 2});
+	textField.size(button.size());
+	textField.text("Overflowing text");
 
 	listBox1.size({80, 100});
 	listBox1.add("Item 1");
@@ -39,7 +41,7 @@ MainWindow::MainWindow() :
 	listBox2.add("Item 2");
 	listBox2.add("Item 3");
 
-	comboBox1.size({70, 20});
+	comboBox1.size({80, 20});
 	comboBox1.addItem("Item1");
 	comboBox1.addItem("Item2");
 	comboBox1.addItem("Item3");
@@ -55,14 +57,17 @@ MainWindow::MainWindow() :
 	add(button, {10, 30});
 	add(label, {10, 56});
 	add(radioButtonGroup, {10, 80});
+	add(textField, {10, 150});
+
 	add(listBox1, {130, 30});
 	add(listBox2, {220, 30});
-	add(comboBox1, {310, 30});
-	add(comboBox2, {400, 30});
-	add(image, {10, 140});
-	add(progressBar, {10, 270});
-	add(rectangle1, {10, 300});
-	add(rectangle2, {10, 310});
+	add(comboBox1, {130, 150});
+	add(comboBox2, {220, 150});
+
+	add(image, {310, 30});
+	add(progressBar, {310, 160});
+	add(rectangle1, {310, 190});
+	add(rectangle2, {310, 200});
 }
 
 
