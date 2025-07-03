@@ -66,7 +66,7 @@ const std::string& TextField::text() const
 
 bool TextField::isEmpty() const
 {
-	return text().empty();
+	return mText.empty();
 }
 
 
@@ -134,7 +134,7 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(text().substr(0, mCursorCharacterIndex));
+	int cursorX = mFont.width(mText.substr(0, mCursorCharacterIndex));
 
 	// Check if cursor is after visible area
 	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
@@ -175,7 +175,7 @@ void TextField::draw() const
 
 	drawCursor();
 
-	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+	renderer.drawText(mFont, mText, position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
 }
 
 
@@ -205,18 +205,18 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if (offsetX > mFont.width(text()))
+	if (offsetX > mFont.width(mText))
 	{
-		mCursorCharacterIndex = text().size();
+		mCursorCharacterIndex = mText.size();
 		return;
 	}
 
 
 	// Figure out where the click occured within the visible string.
 	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
-	for (std::size_t index = 0; index <= text().size() - scrollOffset; ++index)
+	for (std::size_t index = 0; index <= mText.size() - scrollOffset; ++index)
 	{
-		const std::string subString = text().substr(scrollOffset, index);
+		const std::string subString = mText.substr(scrollOffset, index);
 		const int subStringSizeX = mFont.width(subString);
 		if (subStringSizeX > offsetX)
 		{
@@ -236,7 +236,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 	{
 		// Command keys
 		case NAS2D::KeyCode::Backspace:
-			if (!text().empty() && mCursorCharacterIndex > 0)
+			if (!mText.empty() && mCursorCharacterIndex > 0)
 			{
 				mCursorCharacterIndex--;
 				mText.erase(mCursorCharacterIndex, 1);
@@ -245,7 +245,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		case NAS2D::KeyCode::Delete:
-			if (!text().empty())
+			if (!mText.empty())
 			{
 				mText = mText.erase(mCursorCharacterIndex, 1);
 				onTextChange();
@@ -257,7 +257,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		case NAS2D::KeyCode::End:
-			mCursorCharacterIndex = text().length();
+			mCursorCharacterIndex = mText.length();
 			break;
 
 		// Arrow keys
@@ -267,7 +267,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		case NAS2D::KeyCode::Right:
-			if (mCursorCharacterIndex < text().length())
+			if (mCursorCharacterIndex < mText.length())
 				++mCursorCharacterIndex;
 			break;
 
@@ -278,7 +278,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
-			if ((mCursorCharacterIndex < text().length()) && !NAS2D::EventHandler::numlock(mod))
+			if ((mCursorCharacterIndex < mText.length()) && !NAS2D::EventHandler::numlock(mod))
 				++mCursorCharacterIndex;
 			break;
 
@@ -298,7 +298,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 {
 	if (!visible() || !enabled() || !hasFocus()) { return; }
 	if (!editable() || newTextInput.empty()) { return; }
-	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
+	if (mMaxCharacters > 0 && mText.length() >= mMaxCharacters) { return; }
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
 	mText.insert(mCursorCharacterIndex, newTextInput);
