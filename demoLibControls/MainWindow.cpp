@@ -25,6 +25,8 @@ MainWindow::MainWindow() :
 	size(renderer.size());
 
 	button.size(button.size() + NAS2D::Vector{8, 2});
+	textField.size(button.size());
+	textField.text("Overflowing text");
 
 	listBox1.size({80, 100});
 	listBox1.add("Item 1");
@@ -55,6 +57,7 @@ MainWindow::MainWindow() :
 	add(button, {10, 30});
 	add(label, {10, 56});
 	add(radioButtonGroup, {10, 80});
+	add(textField, {10, 150});
 
 	add(listBox1, {130, 30});
 	add(listBox2, {220, 30});

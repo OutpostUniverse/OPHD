@@ -10,6 +10,7 @@
 #include <libControls/Rectangle.h>
 #include <libControls/ListBox.h>
 #include <libControls/ComboBox.h>
+#include <libControls/TextField.h>
 
 
 class MainWindow : public Window
@@ -33,4 +34,5 @@ private:
 	ListBox<> listBox2;
 	ComboBox comboBox1;
 	ComboBox comboBox2;
+	TextField textField;
 };
