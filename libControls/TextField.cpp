@@ -205,7 +205,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if (mFont.width(text()) < offsetX)
+	if (offsetX > mFont.width(text()))
 	{
 		mCursorCharacterPosition = text().size();
 		return;
