@@ -370,8 +370,9 @@ stale:
 stale-objs:
 	@$(MAKE) -n | grep -oE '[^ ]+\.o$$'
 
+# This can create a lot of extra tab auto complete entries, so maybe disable by default
 AllObjectFiles := $(ophd_OBJS)) $(libOPHD_OBJS) $(libControls_OBJS) $(demoLibControls_OBJS) $(testLibOPHD_OBJS) $(testLibControls_OBJS)
-AllObjectShortNames := $(sort $(basename $(notdir $(AllObjectFiles))))
+AllObjectShortNames := #$(sort $(basename $(notdir $(AllObjectFiles))))
 .PHONY: $(AllObjectShortNames)
 $(AllObjectShortNames):
 	$(MAKE) $(filter %$@.o,$(AllObjectFiles))
