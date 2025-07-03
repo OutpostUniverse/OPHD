@@ -55,14 +55,16 @@ MainWindow::MainWindow() :
 	add(button, {10, 30});
 	add(label, {10, 56});
 	add(radioButtonGroup, {10, 80});
+
 	add(listBox1, {130, 30});
 	add(listBox2, {220, 30});
 	add(comboBox1, {130, 150});
 	add(comboBox2, {220, 150});
-	add(image, {10, 140});
-	add(progressBar, {10, 270});
-	add(rectangle1, {10, 300});
-	add(rectangle2, {10, 310});
+
+	add(image, {310, 30});
+	add(progressBar, {310, 160});
+	add(rectangle1, {310, 190});
+	add(rectangle2, {310, 200});
 }
 
 
