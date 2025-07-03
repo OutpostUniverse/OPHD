@@ -200,6 +200,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
 
 	if (!visible() || !enabled() || !hasFocus()) { return; }
+	if (!editable()) { return; }
 
 	const int offsetX = position.x - mRect.position.x;
 
