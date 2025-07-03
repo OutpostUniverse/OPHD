@@ -316,13 +316,11 @@ void TextField::onTextInput(const std::string& newTextInput)
 
 	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
 
-	auto prvLen = text().length();
-
 	std::locale locale;
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
 
+	auto prvLen = text().length();
 	mText = mText.insert(mCursorCharacterPosition, newTextInput);
-
 	if (text().length() - prvLen != 0u)
 	{
 		onTextChange();
