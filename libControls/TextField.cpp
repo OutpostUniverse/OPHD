@@ -175,7 +175,7 @@ void TextField::draw() const
 
 	drawCursor();
 
-	renderer.drawText(mFont, mText, position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+	renderer.drawText(mFont, mText, position() + NAS2D::Vector{fieldPadding - mScrollOffsetPixelX, fieldPadding}, NAS2D::Color::White);
 }
 
 
