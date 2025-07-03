@@ -84,7 +84,7 @@ $(NAS2DLIB): nas2d ;
 
 .PHONY: nas2d
 nas2d: $(NAS2DDIR)makefile
-	$(MAKE) -C nas2d-core
+	@$(MAKE) --no-print-directory --directory nas2d-core
 
 $(NAS2DDIR)makefile:
 	@echo "\nWARNING: NAS2D dependency not found. Install as Git submodule or download manually."
@@ -328,7 +328,7 @@ $(PACKAGE_NAME): $(ophd_OUTPUT)
 
 .PHONY: install-dependencies
 install-dependencies:
-	$(MAKE) -C nas2d-core install-dependencies
+	$(MAKE) --no-print-directory --directory nas2d-core install-dependencies
 
 
 ## Linting ##
@@ -364,11 +364,18 @@ format:
 
 .PHONY: stale
 stale:
-	@$(MAKE) -n | grep -oE '[^ ]+\.cpp$$'
+	@$(MAKE) -n | grep -oE '[^ ]+\.cpp$$' || true
 
 .PHONY: stale-objs
 stale-objs:
-	@$(MAKE) -n | grep -oE '[^ ]+\.o$$'
+	@$(MAKE) -n | grep -oE '[^ ]+\.o$$' || true
+
+# This can create a lot of extra tab auto complete entries, so maybe disable by default
+AllObjectFiles := $(ophd_OBJS)) $(libOPHD_OBJS) $(libControls_OBJS) $(demoLibControls_OBJS) $(testLibOPHD_OBJS) $(testLibControls_OBJS)
+AllObjectShortNames := #$(sort $(basename $(notdir $(AllObjectFiles))))
+.PHONY: $(AllObjectShortNames)
+$(AllObjectShortNames):
+	$(MAKE) $(filter %$@.o,$(AllObjectFiles))
 
 
 ## Compile performance ##
