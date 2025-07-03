@@ -216,8 +216,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
 	for (std::size_t index = 0; index <= mText.length() - scrollOffset; ++index)
 	{
-		const std::string subString = mText.substr(scrollOffset, index);
-		const int subStringSizeX = mFont.width(subString);
+		const int subStringSizeX = mFont.width(mText.substr(scrollOffset, index));
 		if (subStringSizeX > offsetX)
 		{
 			mCursorCharacterIndex = index - 1;
