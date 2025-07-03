@@ -232,7 +232,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
 {
-	if (!hasFocus() || !editable() || !visible()) { return; }
+	if (!hasFocus() || !editable() || !visible() || !enabled()) { return; }
 
 	switch(key)
 	{
