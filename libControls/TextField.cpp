@@ -257,20 +257,20 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			}
 			break;
 
-		case NAS2D::KeyCode::Home:
-			mCursorCharacterPosition = 0;
-			break;
-
-		case NAS2D::KeyCode::End:
-			mCursorCharacterPosition = text().length();
-			break;
-
 		case NAS2D::KeyCode::Delete:
 			if (text().length() > 0)
 			{
 				mText = mText.erase(mCursorCharacterPosition, 1);
 				onTextChange();
 			}
+			break;
+
+		case NAS2D::KeyCode::Home:
+			mCursorCharacterPosition = 0;
+			break;
+
+		case NAS2D::KeyCode::End:
+			mCursorCharacterPosition = text().length();
 			break;
 
 		// ARROW KEYS
