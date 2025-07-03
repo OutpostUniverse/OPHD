@@ -78,9 +78,6 @@ void TextField::clear()
 }
 
 
-/**
- * Sets border visibility.
- */
 void TextField::border(BorderVisibility visibility)
 {
 	mBorderVisibility = visibility;
@@ -99,11 +96,6 @@ bool TextField::editable() const
 }
 
 
-/**
- * When set, will only allow numbers to be entered into the TextField.
- * 
- * \param isNumbersOnly True or False.
- */
 void TextField::numbersOnly(bool isNumbersOnly)
 {
 	mNumbersOnly = isNumbersOnly;
@@ -187,9 +179,6 @@ void TextField::draw() const
 }
 
 
-/**
- * Draws the insertion point cursor.
- */
 void TextField::drawCursor() const
 {
 	if (hasFocus() && editable())
@@ -243,16 +232,25 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
 {
-	if (!hasFocus() || !editable() || !visible()) { return; }
+	if (!visible() || !enabled() || !hasFocus()) { return; }
+	if (!editable()) { return; }
 
 	switch(key)
 	{
-		// COMMAND KEYS
+		// Command keys
 		case NAS2D::KeyCode::Backspace:
 			if (!text().empty() && mCursorCharacterPosition > 0)
 			{
 				mCursorCharacterPosition--;
 				mText.erase(mCursorCharacterPosition, 1);
+				onTextChange();
+			}
+			break;
+
+		case NAS2D::KeyCode::Delete:
+			if (!text().empty())
+			{
+				mText = mText.erase(mCursorCharacterPosition, 1);
 				onTextChange();
 			}
 			break;
@@ -265,15 +263,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			mCursorCharacterPosition = text().length();
 			break;
 
-		case NAS2D::KeyCode::Delete:
-			if (text().length() > 0)
-			{
-				mText = mText.erase(mCursorCharacterPosition, 1);
-				onTextChange();
-			}
-			break;
-
-		// ARROW KEYS
+		// Arrow keys
 		case NAS2D::KeyCode::Left:
 			if (mCursorCharacterPosition > 0)
 				--mCursorCharacterPosition;
@@ -284,7 +274,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 				++mCursorCharacterPosition;
 			break;
 
-		// KEYPAD ARROWS
+		// Keypad arrow keys
 		case NAS2D::KeyCode::Keypad4:
 			if ((mCursorCharacterPosition > 0) && !NAS2D::EventHandler::numlock(mod))
 				--mCursorCharacterPosition;
@@ -295,39 +285,28 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 				++mCursorCharacterPosition;
 			break;
 
-		// IGNORE ENTER/RETURN KEY
+		// Enter/Return (ignore)
 		case NAS2D::KeyCode::Enter:
 		case NAS2D::KeyCode::KeypadEnter:
 			break;
 
-		// REGULAR KEYS
+		// Regular keys
 		default:
 			break;
 	}
 }
 
 
-/**
- * Handles text input events.
- */
 void TextField::onTextInput(const std::string& newTextInput)
 {
-	if (!hasFocus() || !visible() || !editable() || newTextInput.empty()) { return; }
-
+	if (!visible() || !enabled() || !hasFocus()) { return; }
+	if (!editable() || newTextInput.empty()) { return; }
 	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
+	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
-	auto prvLen = text().length();
-
-	std::locale locale;
-	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
-
-	mText = mText.insert(mCursorCharacterPosition, newTextInput);
-
-	if (text().length() - prvLen != 0u)
-	{
-		onTextChange();
-		mCursorCharacterPosition++;
-	}
+	mText.insert(mCursorCharacterPosition, newTextInput);
+	onTextChange();
+	mCursorCharacterPosition++;
 }
 
 
