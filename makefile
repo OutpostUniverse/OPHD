@@ -84,7 +84,7 @@ $(NAS2DLIB): nas2d ;
 
 .PHONY: nas2d
 nas2d: $(NAS2DDIR)makefile
-	$(MAKE) -C nas2d-core
+	$(MAKE) --directory nas2d-core
 
 $(NAS2DDIR)makefile:
 	@echo "\nWARNING: NAS2D dependency not found. Install as Git submodule or download manually."
