@@ -201,11 +201,11 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 
 	if (!enabled() || !visible()) { return; }
 
-	int relativePosition = position.x - mRect.position.x;
+	int offsetX = position.x - mRect.position.x;
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if (mFont.width(text()) < relativePosition)
+	if (mFont.width(text()) < offsetX)
 	{
 		mCursorCharacterPosition = text().size();
 		return;
@@ -219,7 +219,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	{
 		std::string cmpStr = text().substr(scrollOffset, i);
 		int strLen = mFont.width(cmpStr);
-		if (strLen > relativePosition)
+		if (strLen > offsetX)
 		{
 			mCursorCharacterPosition = i - 1;
 			break;
