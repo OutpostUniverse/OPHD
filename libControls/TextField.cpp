@@ -320,7 +320,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], locale)) { return; }
 
 	auto previousLength = text().length();
-	mText = mText.insert(mCursorCharacterPosition, newTextInput);
+	mText.insert(mCursorCharacterPosition, newTextInput);
 	if (text().length() != previousLength)
 	{
 		onTextChange();
