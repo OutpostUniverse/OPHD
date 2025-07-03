@@ -66,14 +66,14 @@ const std::string& TextField::text() const
 
 bool TextField::isEmpty() const
 {
-	return text().empty();
+	return mText.empty();
 }
 
 
 void TextField::clear()
 {
 	mText.clear();
-	mCursorCharacterPosition = 0;
+	mCursorCharacterIndex = 0;
 	onTextChange();
 }
 
@@ -134,7 +134,7 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(text().substr(0, mCursorCharacterPosition));
+	int cursorX = mFont.width(mText.substr(0, mCursorCharacterIndex));
 
 	// Check if cursor is after visible area
 	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
@@ -175,7 +175,7 @@ void TextField::draw() const
 
 	drawCursor();
 
-	renderer.drawText(mFont, text(), position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
+	renderer.drawText(mFont, mText, position() + NAS2D::Vector{fieldPadding, fieldPadding}, NAS2D::Color::White);
 }
 
 
@@ -199,33 +199,29 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 {
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.
 
-	if (!enabled() || !visible()) { return; }
+	if (!visible() || !enabled()) { return; }
 
-	int relativePosition = position.x - mRect.position.x;
+	const int offsetX = position.x - mRect.position.x;
 
 	// If the click occured past the width of the text, we can immediatly
 	// set the position to the end and move on.
-	if (mFont.width(text()) < relativePosition)
+	if (offsetX > mFont.width(mText))
 	{
-		mCursorCharacterPosition = text().size();
+		mCursorCharacterIndex = mText.length();
 		return;
 	}
 
 
 	// Figure out where the click occured within the visible string.
-	std::size_t i = 0;
 	const auto scrollOffset = static_cast<std::size_t>(mScrollOffsetPixelX);
-	while(i <= text().size() - scrollOffset)
+	for (std::size_t index = 0; index <= mText.length() - scrollOffset; ++index)
 	{
-		std::string cmpStr = text().substr(scrollOffset, i);
-		int strLen = mFont.width(cmpStr);
-		if (strLen > relativePosition)
+		const int subStringSizeX = mFont.width(mText.substr(scrollOffset, index));
+		if (subStringSizeX > offsetX)
 		{
-			mCursorCharacterPosition = i - 1;
+			mCursorCharacterIndex = index - 1;
 			break;
 		}
-
-		i++;
 	}
 }
 
@@ -239,50 +235,50 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 	{
 		// Command keys
 		case NAS2D::KeyCode::Backspace:
-			if (!text().empty() && mCursorCharacterPosition > 0)
+			if (!mText.empty() && mCursorCharacterIndex > 0)
 			{
-				mCursorCharacterPosition--;
-				mText.erase(mCursorCharacterPosition, 1);
+				mCursorCharacterIndex--;
+				mText.erase(mCursorCharacterIndex, 1);
 				onTextChange();
 			}
 			break;
 
 		case NAS2D::KeyCode::Delete:
-			if (!text().empty())
+			if (!mText.empty())
 			{
-				mText = mText.erase(mCursorCharacterPosition, 1);
+				mText = mText.erase(mCursorCharacterIndex, 1);
 				onTextChange();
 			}
 			break;
 
 		case NAS2D::KeyCode::Home:
-			mCursorCharacterPosition = 0;
+			mCursorCharacterIndex = 0;
 			break;
 
 		case NAS2D::KeyCode::End:
-			mCursorCharacterPosition = text().length();
+			mCursorCharacterIndex = mText.length();
 			break;
 
 		// Arrow keys
 		case NAS2D::KeyCode::Left:
-			if (mCursorCharacterPosition > 0)
-				--mCursorCharacterPosition;
+			if (mCursorCharacterIndex > 0)
+				--mCursorCharacterIndex;
 			break;
 
 		case NAS2D::KeyCode::Right:
-			if (mCursorCharacterPosition < text().length())
-				++mCursorCharacterPosition;
+			if (mCursorCharacterIndex < mText.length())
+				++mCursorCharacterIndex;
 			break;
 
 		// Keypad arrow keys
 		case NAS2D::KeyCode::Keypad4:
-			if ((mCursorCharacterPosition > 0) && !NAS2D::EventHandler::numlock(mod))
-				--mCursorCharacterPosition;
+			if ((mCursorCharacterIndex > 0) && !NAS2D::EventHandler::numlock(mod))
+				--mCursorCharacterIndex;
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
-			if ((mCursorCharacterPosition < text().length()) && !NAS2D::EventHandler::numlock(mod))
-				++mCursorCharacterPosition;
+			if ((mCursorCharacterIndex < mText.length()) && !NAS2D::EventHandler::numlock(mod))
+				++mCursorCharacterIndex;
 			break;
 
 		// Enter/Return (ignore)
@@ -301,12 +297,12 @@ void TextField::onTextInput(const std::string& newTextInput)
 {
 	if (!visible() || !enabled() || !hasFocus()) { return; }
 	if (!editable() || newTextInput.empty()) { return; }
-	if (mMaxCharacters > 0 && text().length() >= mMaxCharacters) { return; }
+	if (mMaxCharacters > 0 && mText.length() >= mMaxCharacters) { return; }
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
-	mText.insert(mCursorCharacterPosition, newTextInput);
+	mText.insert(mCursorCharacterIndex, newTextInput);
 	onTextChange();
-	mCursorCharacterPosition++;
+	mCursorCharacterIndex++;
 }
 
 

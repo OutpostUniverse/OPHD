@@ -89,7 +89,7 @@ private:
 	TextChangedDelegate mTextChangedHandler;
 
 	NAS2D::Timer mCursorBlinkTimer;
-	std::size_t mCursorCharacterPosition = 0;
+	std::size_t mCursorCharacterIndex = 0;
 	int mCursorPixelX = 0;
 	int mScrollOffsetPixelX = 0;
 
