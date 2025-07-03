@@ -247,7 +247,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			break;
 
 		case NAS2D::KeyCode::Delete:
-			if (text().length() > 0)
+			if (!text().empty())
 			{
 				mText = mText.erase(mCursorCharacterPosition, 1);
 				onTextChange();
