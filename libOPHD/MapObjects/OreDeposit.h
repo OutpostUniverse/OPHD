@@ -20,15 +20,6 @@ enum class OreDepositYield;
 class OreDeposit
 {
 public:
-	enum class OreType
-	{
-		CommonMetals,
-		CommonMinerals,
-		RareMetals,
-		RareMinerals,
-	};
-
-public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 
