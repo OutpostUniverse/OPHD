@@ -5,12 +5,9 @@
 #include "../StructureListBox.h"
 
 #include <libControls/Button.h>
-#include <libControls/CheckBox.h>
 
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Signal/Delegate.h>
-
-#include <array>
 
 
 namespace NAS2D
@@ -56,11 +53,6 @@ protected:
 	void onDigNewLevel();
 	void onTakeMeThere();
 
-	void onCheckBoxCommonMetalsChange();
-	void onCheckBoxCommonMineralsChange();
-	void onCheckBoxRareMetalsChange();
-	void onCheckBoxRareMineralsChange();
-
 	void onAddTruck();
 	void onRemoveTruck();
 
@@ -91,8 +83,6 @@ private:
 
 	Button btnAddTruck;
 	Button btnRemoveTruck;
-
-	std::array<CheckBox, 4> chkResources;
 
 	StructureListBox lstMineFacilities;
 	MineFacility* mSelectedFacility;

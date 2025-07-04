@@ -57,16 +57,6 @@ StorableResources MineFacility::maxTransferAmounts()
 {
 	const auto remainingCapacity = MaxCapacity - production();
 	auto maxTransfer = remainingCapacity.cap(constants::BaseMineProductionRate);
-
-	const auto enabledBits = mOreDeposit->miningEnabled();
-	for (std::size_t i = 0; i < maxTransfer.resources.size(); ++i)
-	{
-		if (!enabledBits[i])
-		{
-			maxTransfer.resources[i] = 0;
-		}
-	}
-
 	return maxTransfer;
 }
 

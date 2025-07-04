@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <array>
 #include <map>
+#include <bitset>
 
 
 namespace
@@ -32,48 +33,29 @@ namespace
 	{
 		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
 	};
-
-
-	// [Active, 4x miningEnabled]
-	const std::bitset<5> DefaultFlags{"01111"};
 }
 
 
-OreDeposit::OreDeposit() :
-	mFlags{DefaultFlags}
+OreDeposit::OreDeposit()
 {
 }
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
-	mOreDepositYield{yield},
-	mFlags{DefaultFlags}
+	mOreDepositYield{yield}
 {
 }
 
 
 bool OreDeposit::active() const
 {
-	return mFlags[4];
+	return mIsActive;
 }
 
 
 void OreDeposit::active(bool newActive)
 {
-	mFlags[4] = newActive;
-}
-
-
-std::bitset<4> OreDeposit::miningEnabled() const
-{
-	// We only want ore mining enabled bits
-	return {mFlags.to_ulong() & 0xF};
-}
-
-
-void OreDeposit::miningEnabled(OreType oreType, bool value)
-{
-	mFlags[static_cast<std::size_t>(oreType)] = value;
+	mIsActive = newActive;
 }
 
 
@@ -141,6 +123,8 @@ StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
  */
 NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
+	auto saveFlags = std::bitset<5>{0b01111};
+	saveFlags[4] = mIsActive;
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
 		{{
@@ -149,7 +133,7 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 			{"depth", depth()},
 			{"active", active()},
 			{"yield", static_cast<int>(yield())},
-			{"flags", mFlags.to_string()},
+			{"flags", saveFlags.to_string()},
 		}}
 	);
 
@@ -177,7 +161,9 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
-	mFlags = std::bitset<5>(dictionary.get("flags"));
+	// Translate old active flag, while ignoring old mining enable flags
+	const auto loadedFlags = std::bitset<5>{dictionary.get("flags")};
+	mIsActive = loadedFlags[4];
 
 	this->active(active);
 
