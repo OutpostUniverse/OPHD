@@ -80,15 +80,6 @@ StorableResources OreDeposit::availableResources() const
 
 
 /**
- * Indicates that there are no resources available at this mine.
- */
-bool OreDeposit::exhausted() const
-{
-	return mTappedReserves.isEmpty();
-}
-
-
-/**
  * Pulls the specified quantities of Ore from the Mine. If
  * insufficient ore is available, only pulls what's available.
  */
@@ -98,6 +89,15 @@ StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
 	mTappedReserves -= transferAmount;
 
 	return transferAmount;
+}
+
+
+/**
+ * Indicates that there are no resources available at this mine.
+ */
+bool OreDeposit::exhausted() const
+{
+	return mTappedReserves.isEmpty();
 }
 
 

@@ -23,8 +23,6 @@ public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 
-	bool exhausted() const;
-
 	int depth() const;
 	void increaseDepth();
 
@@ -33,6 +31,8 @@ public:
 	StorableResources totalYield() const;
 	StorableResources availableResources() const;
 	StorableResources pull(const StorableResources& maxTransfer);
+
+	bool exhausted() const;
 
 public:
 	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);
