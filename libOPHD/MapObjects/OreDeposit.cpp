@@ -47,7 +47,7 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
  */
 void OreDeposit::increaseDepth()
 {
-	mCurrentDepth++;
+	mDigDepth++;
 	mTappedReserves += YieldTable.at(mYield);
 }
 
@@ -57,7 +57,7 @@ void OreDeposit::increaseDepth()
  */
 int OreDeposit::digDepth() const
 {
-	return mCurrentDepth;
+	return mDigDepth;
 }
 
 
@@ -143,7 +143,7 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-	mCurrentDepth = dictionary.get<int>("depth");
+	mDigDepth = dictionary.get<int>("depth");
 	mYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 
 	mTappedReserves = {};
