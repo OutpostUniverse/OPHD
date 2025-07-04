@@ -48,7 +48,7 @@ OreDepositYield OreDeposit::yield() const
 /**
  * Increases the depth of the mine.
  *
- * \note	This function only modifies the Mine. It has no knowledge of the
+ * \note	This function only modifies the OreDeposit. It has no knowledge of the
  *			maximum digging depth of a planet and doesn't modify any tiles.
  */
 void OreDeposit::increaseDepth()
