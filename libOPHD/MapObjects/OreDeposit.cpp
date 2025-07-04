@@ -47,12 +47,6 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
 }
 
 
-bool OreDeposit::active() const
-{
-	return mIsActive;
-}
-
-
 void OreDeposit::active(bool newActive)
 {
 	mIsActive = newActive;
