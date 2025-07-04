@@ -55,7 +55,7 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
 void OreDeposit::increaseDepth()
 {
 	mCurrentDepth++;
-	mTappedReserves += YieldTable.at(yield());
+	mTappedReserves += YieldTable.at(mYield);
 }
 
 
@@ -76,7 +76,7 @@ StorableResources OreDeposit::availableResources() const
 
 StorableResources OreDeposit::totalYield() const
 {
-	return YieldTable.at(yield()) * depth();
+	return YieldTable.at(mYield) * depth();
 }
 
 
@@ -116,7 +116,7 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 			{"x", location.x},
 			{"y", location.y},
 			{"depth", depth()},
-			{"yield", static_cast<int>(yield())},
+			{"yield", static_cast<int>(mYield)},
 			// Unused fields, retained for backwards compatibility
 			{"active", true},
 			{"flags", "011111"},
