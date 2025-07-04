@@ -78,7 +78,7 @@ void MineFacility::think()
 		return;
 	}
 
-	if (isIdle() && mOreDeposit->active())
+	if (isIdle())
 	{
 		if (storage() < MaxCapacity)
 		{
