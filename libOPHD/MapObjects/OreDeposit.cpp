@@ -35,7 +35,7 @@ namespace
 
 
 	// [Active, 4x miningEnabled]
-	const std::bitset<5> DefaultFlags{"01111"};
+	const std::bitset<5> DefaultFlags{0b01111};
 }
 
 
