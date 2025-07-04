@@ -1,6 +1,5 @@
 #include "MineOperationsWindow.h"
 
-#include "StringTable.h"
 #include "TextRender.h"
 
 #include "../Cache.h"
@@ -8,10 +7,8 @@
 #include "../Resources.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../StructureManager.h"
 #include "../TruckAvailability.h"
 #include "../MapObjects/Structures/MineFacility.h"
-#include "../MapObjects/Structures/Warehouse.h"
 
 #include <libOPHD/MapObjects/OreDeposit.h>
 
@@ -19,6 +16,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+
 
 using namespace NAS2D;
 
