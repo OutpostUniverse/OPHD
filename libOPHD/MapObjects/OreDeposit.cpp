@@ -55,7 +55,7 @@ void OreDeposit::increaseDepth()
 /**
  * Gets the current depth of the mine.
  */
-int OreDeposit::depth() const
+int OreDeposit::digDepth() const
 {
 	return mCurrentDepth;
 }
@@ -69,7 +69,7 @@ OreDepositYield OreDeposit::yield() const
 
 StorableResources OreDeposit::totalYield() const
 {
-	return YieldTable.at(mYield) * depth();
+	return YieldTable.at(mYield) * digDepth();
 }
 
 
@@ -114,7 +114,7 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 		{{
 			{"x", location.x},
 			{"y", location.y},
-			{"depth", depth()},
+			{"depth", digDepth()},
 			{"yield", static_cast<int>(mYield)},
 			// Unused fields, retained for backwards compatibility
 			{"active", true},

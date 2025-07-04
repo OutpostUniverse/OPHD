@@ -23,7 +23,7 @@ public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 
-	int depth() const;
+	int digDepth() const;
 	void increaseDepth();
 
 	OreDepositYield yield() const;

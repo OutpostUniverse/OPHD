@@ -103,7 +103,7 @@ void MineFacility::think()
 
 bool MineFacility::canExtend() const
 {
-	return (mOreDeposit->depth() < mMaxDepth) && (mDigTurnsRemaining == 0);
+	return (mOreDeposit->digDepth() < mMaxDepth) && (mDigTurnsRemaining == 0);
 }
 
 
