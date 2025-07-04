@@ -49,7 +49,6 @@ void MineFacility::maxDepth(int depth)
 void MineFacility::activated()
 {
 	mOreDeposit->increaseDepth();
-	mOreDeposit->active(true);
 }
 
 
