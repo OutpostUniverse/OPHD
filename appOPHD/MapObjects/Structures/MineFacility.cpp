@@ -49,7 +49,6 @@ void MineFacility::maxDepth(int depth)
 void MineFacility::activated()
 {
 	mOreDeposit->increaseDepth();
-	mOreDeposit->active(true);
 }
 
 
@@ -78,7 +77,7 @@ void MineFacility::think()
 		return;
 	}
 
-	if (isIdle() && mOreDeposit->active())
+	if (isIdle())
 	{
 		if (storage() < MaxCapacity)
 		{
@@ -92,20 +91,13 @@ void MineFacility::think()
 		return;
 	}
 
-	if (mOreDeposit->active())
+	if (storage() >= MaxCapacity)
 	{
-		if (storage() >= MaxCapacity)
-		{
-			idle(IdleReason::InternalStorageFull);
-			return;
-		}
+		idle(IdleReason::InternalStorageFull);
+		return;
+	}
 
-		storage() += mOreDeposit->pull(maxTransferAmounts());
-	}
-	else if (!isIdle())
-	{
-		idle(IdleReason::MineInactive);
-	}
+	storage() += mOreDeposit->pull(maxTransferAmounts());
 }
 
 

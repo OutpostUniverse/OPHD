@@ -30,9 +30,6 @@ public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 
-	bool active() const;
-	void active(bool newActive);
-
 	bool exhausted() const;
 
 	OreDepositYield yield() const { return mOreDepositYield; }
@@ -57,5 +54,4 @@ private:
 	StorableResources mTappedReserves;
 	int mCurrentDepth{0};
 	OreDepositYield mOreDepositYield = OreDepositYield::Low;
-	bool mIsActive{false};
 };

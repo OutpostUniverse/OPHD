@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <array>
 #include <map>
-#include <bitset>
 
 
 namespace
@@ -44,18 +43,6 @@ OreDeposit::OreDeposit()
 OreDeposit::OreDeposit(OreDepositYield yield) :
 	mOreDepositYield{yield}
 {
-}
-
-
-bool OreDeposit::active() const
-{
-	return mIsActive;
-}
-
-
-void OreDeposit::active(bool newActive)
-{
-	mIsActive = newActive;
 }
 
 
@@ -123,17 +110,16 @@ StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
  */
 NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
-	auto saveFlags = std::bitset<5>{0b01111};
-	saveFlags[4] = mIsActive;
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
 		{{
 			{"x", location.x},
 			{"y", location.y},
 			{"depth", depth()},
-			{"active", active()},
 			{"yield", static_cast<int>(yield())},
-			{"flags", saveFlags.to_string()},
+			// Unused fields, retained for backwards compatibility
+			{"active", true},
+			{"flags", "011111"},
 		}}
 	);
 
@@ -160,12 +146,6 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
-	const auto active = dictionary.get<bool>("active");
-	// Translate old active flag, while ignoring old mining enable flags
-	const auto loadedFlags = std::bitset<5>{dictionary.get("flags")};
-	mIsActive = loadedFlags[4];
-
-	this->active(active);
 
 	mTappedReserves = {};
 	// Keep the vein iteration so we can still load old saved games

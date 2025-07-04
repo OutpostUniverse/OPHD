@@ -84,11 +84,12 @@ void MiniMap::draw() const
 
 	for (auto oreDepositPosition : mTileMap.oreDepositLocations())
 	{
-		OreDeposit* oreDeposit = mTileMap.getTile({oreDepositPosition, 0}).oreDeposit();
+		const auto& tile = mTileMap.getTile({oreDepositPosition, 0});
+		const OreDeposit* oreDeposit = tile.oreDeposit();
 		if (!oreDeposit) { break; } // avoids potential race condition where an Ore Deposit is destroyed during an updated cycle.
 
 		auto mineBeaconStatusOffsetX = 0;
-		if (!oreDeposit->active()) { mineBeaconStatusOffsetX = 0; }
+		if (!tile.hasStructure() || !tile.structure()->isMineFacility()) { mineBeaconStatusOffsetX = 0; }
 		else if (!oreDeposit->exhausted()) { mineBeaconStatusOffsetX = 8; }
 		else { mineBeaconStatusOffsetX = 16; }
 
