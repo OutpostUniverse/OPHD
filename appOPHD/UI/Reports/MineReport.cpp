@@ -16,7 +16,6 @@
 #include "../../Map/Tile.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 
-#include <libOPHD/ProductionCost.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/StringFrom.h>
