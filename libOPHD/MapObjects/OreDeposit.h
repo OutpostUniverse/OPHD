@@ -32,7 +32,7 @@ public:
 
 	bool exhausted() const;
 
-	OreDepositYield yield() const { return mOreDepositYield; }
+	OreDepositYield yield() const { return mYield; }
 
 	int depth() const;
 	void increaseDepth();
@@ -53,5 +53,5 @@ private:
 private:
 	StorableResources mTappedReserves;
 	int mCurrentDepth{0};
-	OreDepositYield mOreDepositYield = OreDepositYield::Low;
+	OreDepositYield mYield = OreDepositYield::Low;
 };

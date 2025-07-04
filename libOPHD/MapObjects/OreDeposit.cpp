@@ -41,7 +41,7 @@ OreDeposit::OreDeposit()
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
-	mOreDepositYield{yield}
+	mYield{yield}
 {
 }
 
@@ -145,7 +145,7 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
 	mCurrentDepth = dictionary.get<int>("depth");
-	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
+	mYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 
 	mTappedReserves = {};
 	// Keep the vein iteration so we can still load old saved games
