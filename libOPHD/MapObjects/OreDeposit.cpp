@@ -69,7 +69,7 @@ OreDepositYield OreDeposit::yield() const
 
 StorableResources OreDeposit::totalYield() const
 {
-	return YieldTable.at(mYield) * digDepth();
+	return YieldTable.at(mYield) * mDigDepth;
 }
 
 
@@ -114,7 +114,7 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 		{{
 			{"x", location.x},
 			{"y", location.y},
-			{"depth", digDepth()},
+			{"depth", mDigDepth},
 			{"yield", static_cast<int>(mYield)},
 			// Unused fields, retained for backwards compatibility
 			{"active", true},
