@@ -12,16 +12,6 @@
 
 namespace
 {
-	/**
-	 * Yield ore table
-	 *
-	 * \note Follows the array layout conventions of the StorableResources class
-	 *
-	 * [0] Common Metals
-	 * [1] Common Minerals
-	 * [2] Rare Metals
-	 * [3] Rare Minerals
-	 */
 	const std::map<OreDepositYield, StorableResources> YieldTable =
 	{
 		{OreDepositYield::Low, {800, 800, 800, 800}},
