@@ -32,7 +32,7 @@ public:
 
 	bool exhausted() const;
 
-	OreDepositYield yield() const { return mYield; }
+	OreDepositYield yield() const;
 
 	int depth() const;
 	void increaseDepth();
