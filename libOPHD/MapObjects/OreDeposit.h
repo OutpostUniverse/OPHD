@@ -30,8 +30,6 @@ public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 
-	void active(bool newActive);
-
 	bool exhausted() const;
 
 	OreDepositYield yield() const { return mOreDepositYield; }

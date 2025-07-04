@@ -47,12 +47,6 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
 }
 
 
-void OreDeposit::active(bool newActive)
-{
-	mIsActive = newActive;
-}
-
-
 /**
  * Increases the depth of the mine.
  *
