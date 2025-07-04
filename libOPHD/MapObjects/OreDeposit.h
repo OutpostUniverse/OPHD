@@ -32,7 +32,7 @@ public:
 	StorableResources availableResources() const;
 	StorableResources extract(const StorableResources& maxTransfer);
 
-	bool exhausted() const;
+	bool isExhausted() const;
 
 public:
 	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);

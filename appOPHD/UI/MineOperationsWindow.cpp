@@ -144,7 +144,7 @@ void MineOperationsWindow::drawClientArea() const
 
 	const std::string statusString =
 		mFacility->extending() ? "Digging New Level" :
-		mFacility->oreDeposit().exhausted() ? "Exhausted" :
+		mFacility->oreDeposit().isExhausted() ? "Exhausted" :
 		mFacility->stateDescription();
 
 	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);

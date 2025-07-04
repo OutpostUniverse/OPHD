@@ -85,7 +85,7 @@ void MineFacility::think()
 		}
 	}
 
-	if (mOreDeposit->exhausted())
+	if (mOreDeposit->isExhausted())
 	{
 		idle(IdleReason::MineExhausted);
 		return;

@@ -95,7 +95,7 @@ StorableResources OreDeposit::extract(const StorableResources& maxTransfer)
 /**
  * Indicates that there are no resources available at this mine.
  */
-bool OreDeposit::exhausted() const
+bool OreDeposit::isExhausted() const
 {
 	return mTappedReserves.isEmpty();
 }

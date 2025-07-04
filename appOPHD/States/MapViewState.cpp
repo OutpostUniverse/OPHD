@@ -965,7 +965,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	}
 	else if (tile.oreDeposit())
 	{
-		if (tile.oreDeposit()->depth() != mTileMap->maxDepth() || !tile.oreDeposit()->exhausted())
+		if (tile.oreDeposit()->depth() != mTileMap->maxDepth() || !tile.oreDeposit()->isExhausted())
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMineNotExhausted);
 			return;
