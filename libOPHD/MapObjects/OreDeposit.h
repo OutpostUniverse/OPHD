@@ -30,9 +30,8 @@ public:
 	int depth() const;
 	void increaseDepth();
 
-	StorableResources availableResources() const;
 	StorableResources totalYield() const;
-
+	StorableResources availableResources() const;
 	StorableResources pull(const StorableResources& maxTransfer);
 
 public:

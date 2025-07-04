@@ -67,15 +67,15 @@ int OreDeposit::depth() const
 }
 
 
-StorableResources OreDeposit::availableResources() const
-{
-	return mTappedReserves;
-}
-
-
 StorableResources OreDeposit::totalYield() const
 {
 	return YieldTable.at(mYield) * depth();
+}
+
+
+StorableResources OreDeposit::availableResources() const
+{
+	return mTappedReserves;
 }
 
 
