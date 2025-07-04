@@ -44,6 +44,6 @@ private:
 
 private:
 	StorableResources mTappedReserves;
-	int mDigDepth{0};
 	OreDepositYield mYield;
+	int mDigDepth{0};
 };
