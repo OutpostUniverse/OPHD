@@ -164,7 +164,7 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
-	mFlags = std::bitset<5>(dictionary.get("flags"));
+	mFlags = std::bitset<5>{dictionary.get("flags")};
 
 	this->active(active);
 
