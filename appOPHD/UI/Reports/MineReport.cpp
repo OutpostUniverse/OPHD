@@ -443,10 +443,9 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin) const
 	for (size_t i = 0; i < 4; ++i)
 	{
 		const auto resourcePosition = origin + resourceOffset;
-		const auto resourceIconPosition = resourcePosition;
-		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
+		renderer.drawSubImage(uiIcons, resourcePosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
-		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
+		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourcePosition + resourceNameOffset, constants::PrimaryTextColor);
 		const auto oreMovement = (i != 3) ? oreMovementComponent : oreMovementRemainder;
 		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreMovement), constants::PrimaryTextColor);
 
