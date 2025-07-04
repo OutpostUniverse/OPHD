@@ -45,9 +45,6 @@ public:
 	StorableResources availableResources() const;
 	StorableResources totalYield() const;
 
-	std::bitset<4> miningEnabled() const;
-	void miningEnabled(OreType oreType, bool value);
-
 	StorableResources pull(const StorableResources& maxTransfer);
 
 public:

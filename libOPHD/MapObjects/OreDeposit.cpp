@@ -64,19 +64,6 @@ void OreDeposit::active(bool newActive)
 }
 
 
-std::bitset<4> OreDeposit::miningEnabled() const
-{
-	// We only want ore mining enabled bits
-	return {mFlags.to_ulong() & 0xF};
-}
-
-
-void OreDeposit::miningEnabled(OreType oreType, bool value)
-{
-	mFlags[static_cast<std::size_t>(oreType)] = value;
-}
-
-
 /**
  * Increases the depth of the mine.
  *
