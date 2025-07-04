@@ -164,7 +164,10 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
-	mFlags = std::bitset<5>{dictionary.get("flags")};
+	// Force mining enable bits on during load (there is no longer any UI to enable them)
+	const auto loadedFlags = std::bitset<5>{dictionary.get("flags")};
+	mFlags = std::bitset<5>{0b01111};
+	mFlags[4] = loadedFlags[4];
 
 	this->active(active);
 
