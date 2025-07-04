@@ -116,8 +116,8 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 			{"x", location.x},
 			{"y", location.y},
 			{"depth", depth()},
-			{"active", true},
 			{"yield", static_cast<int>(yield())},
+			{"active", true},
 			{"flags", "011111"},
 		}}
 	);
