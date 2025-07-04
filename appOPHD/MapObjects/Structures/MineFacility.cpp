@@ -97,7 +97,7 @@ void MineFacility::think()
 		return;
 	}
 
-	storage() += mOreDeposit->pull(maxTransferAmounts());
+	storage() += mOreDeposit->extract(maxTransferAmounts());
 }
 
 

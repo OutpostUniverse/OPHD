@@ -80,10 +80,10 @@ StorableResources OreDeposit::availableResources() const
 
 
 /**
- * Pulls the specified quantities of Ore from the Mine. If
+ * Extracts the specified quantities of Ore from the OreDeposit. If
  * insufficient ore is available, only pulls what's available.
  */
-StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
+StorableResources OreDeposit::extract(const StorableResources& maxTransfer)
 {
 	const auto transferAmount = mTappedReserves.cap(maxTransfer);
 	mTappedReserves -= transferAmount;

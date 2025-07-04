@@ -30,7 +30,7 @@ public:
 
 	StorableResources totalYield() const;
 	StorableResources availableResources() const;
-	StorableResources pull(const StorableResources& maxTransfer);
+	StorableResources extract(const StorableResources& maxTransfer);
 
 	bool exhausted() const;
 
