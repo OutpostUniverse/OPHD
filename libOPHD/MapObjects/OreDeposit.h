@@ -25,10 +25,10 @@ public:
 
 	bool exhausted() const;
 
-	OreDepositYield yield() const;
-
 	int depth() const;
 	void increaseDepth();
+
+	OreDepositYield yield() const;
 
 	StorableResources totalYield() const;
 	StorableResources availableResources() const;

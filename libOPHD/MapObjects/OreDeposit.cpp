@@ -39,12 +39,6 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
 }
 
 
-OreDepositYield OreDeposit::yield() const
-{
-	return mYield;
-}
-
-
 /**
  * Increases the depth of the mine.
  *
@@ -64,6 +58,12 @@ void OreDeposit::increaseDepth()
 int OreDeposit::depth() const
 {
 	return mCurrentDepth;
+}
+
+
+OreDepositYield OreDeposit::yield() const
+{
+	return mYield;
 }
 
 
