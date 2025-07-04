@@ -19,8 +19,6 @@
 #include <libOPHD/ProductionCost.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
-#include <libControls/Layout.h>
-
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -93,12 +91,6 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 	btnTakeMeThere{constants::TakeMeThere, {this, &MineReport::onTakeMeThere}},
 	btnAddTruck{constants::AddTruck, {this, &MineReport::onAddTruck}},
 	btnRemoveTruck{constants::RemoveTruck, {this, &MineReport::onRemoveTruck}},
-	chkResources{{
-		{"", {this, &MineReport::onCheckBoxCommonMetalsChange}},
-		{"", {this, &MineReport::onCheckBoxCommonMineralsChange}},
-		{"", {this, &MineReport::onCheckBoxRareMetalsChange}},
-		{"", {this, &MineReport::onCheckBoxRareMineralsChange}}
-	}},
 	lstMineFacilities{{this, &MineReport::onMineFacilitySelectionChange}},
 	mSelectedFacility{nullptr},
 	mAvailableTrucks{0}
@@ -130,15 +122,6 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 	add(btnTakeMeThere, {0, 110});
 	add(btnAddTruck, {0, 145});
 	add(btnRemoveTruck, {0, 180});
-
-	const auto checkBoxOriginY = 260 + fontMediumBold.height() + 10 + 10;
-	const auto resourceNameHeight = std::max({ResourceImageRectsOre[0].size.y, fontBold.height(), chkResources[0].size().y});
-	const auto resourceProgressBarHeight = std::max(25, fontBold.height() + constants::MarginTight * 2);
-	const auto checkBoxSpacingY = resourceNameHeight + resourceProgressBarHeight + constants::Margin + 23;
-	add(chkResources[0], {0, checkBoxOriginY});
-	add(chkResources[1], {0, checkBoxOriginY + checkBoxSpacingY});
-	add(chkResources[2], {0, checkBoxOriginY + checkBoxSpacingY * 2});
-	add(chkResources[3], {0, checkBoxOriginY + checkBoxSpacingY * 3});
 
 	fillLists();
 }
@@ -197,10 +180,6 @@ void MineReport::onResize()
 	btnTakeMeThere.position({buttonPositionX, btnTakeMeThere.position().y});
 	btnAddTruck.position({buttonPositionX, btnAddTruck.position().y});
 	btnRemoveTruck.position({buttonPositionX, btnRemoveTruck.position().y});
-
-	const auto checkBoxes = std::vector<Control*>{&chkResources[0], &chkResources[1], &chkResources[2], &chkResources[3]};
-	const auto checkBoxPositionX = centerX + 10;
-	setPositionX(checkBoxes, checkBoxPositionX);
 }
 
 
@@ -225,11 +204,6 @@ void MineReport::onManagementButtonsVisibilityChange()
 
 	btnAddTruck.visible(isTruckButtonVisible);
 	btnRemoveTruck.visible(isTruckButtonVisible);
-
-	for (auto& chkResource : chkResources)
-	{
-		chkResource.visible(isVisible);
-	}
 }
 
 
@@ -294,12 +268,6 @@ void MineReport::onMineFacilitySelectionChange()
 
 	btnDigNewLevel.toggle(mineFacility.extending());
 	btnDigNewLevel.enabled(mineFacility.canExtend() && (mineFacility.operational() || mineFacility.isIdle()));
-
-	const auto enabledBits = mineFacility.oreDeposit().miningEnabled();
-	chkResources[0].checked(enabledBits[0]);
-	chkResources[1].checked(enabledBits[1]);
-	chkResources[2].checked(enabledBits[2]);
-	chkResources[3].checked(enabledBits[3]);
 }
 
 
@@ -322,30 +290,6 @@ void MineReport::onDigNewLevel()
 void MineReport::onTakeMeThere()
 {
 	if (mTakeMeThereHandler) { mTakeMeThereHandler(mSelectedFacility); }
-}
-
-
-void MineReport::onCheckBoxCommonMetalsChange()
-{
-	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
-}
-
-
-void MineReport::onCheckBoxCommonMineralsChange()
-{
-	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
-}
-
-
-void MineReport::onCheckBoxRareMetalsChange()
-{
-	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
-}
-
-
-void MineReport::onCheckBoxRareMineralsChange()
-{
-	mSelectedFacility->oreDeposit().miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
 }
 
 
@@ -499,14 +443,14 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin) const
 	for (size_t i = 0; i < 4; ++i)
 	{
 		const auto resourcePosition = origin + resourceOffset;
-		const auto resourceIconPosition = resourcePosition + NAS2D::Vector{chkResources[0].size().x + constants::Margin, 0};
+		const auto resourceIconPosition = resourcePosition;
 		renderer.drawSubImage(uiIcons, resourceIconPosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
 		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourceIconPosition + resourceNameOffset, constants::PrimaryTextColor);
 		const auto oreMovement = (i != 3) ? oreMovementComponent : oreMovementRemainder;
 		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreMovement), constants::PrimaryTextColor);
 
-		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height(), chkResources[i].size().y});
+		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height()});
 		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
 		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
 		drawProgressBar(
