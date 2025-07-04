@@ -92,8 +92,6 @@ void MineFacility::think()
 		return;
 	}
 
-	if (true)
-	{
 		if (storage() >= MaxCapacity)
 		{
 			idle(IdleReason::InternalStorageFull);
@@ -101,11 +99,6 @@ void MineFacility::think()
 		}
 
 		storage() += mOreDeposit->pull(maxTransferAmounts());
-	}
-	else if (!isIdle())
-	{
-		idle(IdleReason::MineInactive);
-	}
 }
 
 
