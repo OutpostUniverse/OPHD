@@ -61,9 +61,6 @@ void TileInspector::drawClientArea() const
 	if (oreDeposit)
 	{
 		position.y += lineSpacing;
-		drawLabelAndValue(position, "Active: ", (oreDeposit->active() ? "Yes" : "No"));
-
-		position.y += lineSpacing;
 		drawLabelAndValue(position, "Yield: ", oreDepositYieldEnumToString(mTile->oreDeposit()->yield()));
 	}
 }
