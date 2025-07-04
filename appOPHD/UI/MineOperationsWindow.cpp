@@ -58,8 +58,8 @@ MineOperationsWindow::MineOperationsWindow() :
 	btnAssignTruck.size(truckButtonSize);
 	btnUnassignTruck.size(truckButtonSize);
 
-	add(btnUnassignTruck, truckButtonOffset);
-	add(btnAssignTruck, {truckButtonOffset.x + truckButtonSize.x + constants::Margin, truckButtonOffset.y});
+	add(btnAssignTruck, truckButtonOffset);
+	add(btnUnassignTruck, {truckButtonOffset.x + truckButtonSize.x + constants::Margin, truckButtonOffset.y});
 }
 
 
