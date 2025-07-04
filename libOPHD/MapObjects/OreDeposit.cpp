@@ -147,7 +147,6 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
-	mIsActive = dictionary.get<bool>("active");
 
 	mTappedReserves = {};
 	// Keep the vein iteration so we can still load old saved games
