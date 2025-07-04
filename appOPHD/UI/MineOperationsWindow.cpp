@@ -28,7 +28,6 @@ namespace
 	const auto truckAvailabilityOffset = NAS2D::Vector{148, 80};
 	const auto truckButtonOffset = truckAvailabilityOffset + NAS2D::Vector{0, 35};
 	const auto truckButtonSize = NAS2D::Vector{128, 25};
-	const auto checkBoxOffset = truckButtonOffset + NAS2D::Vector{0, 30};
 }
 
 
@@ -39,12 +38,6 @@ MineOperationsWindow::MineOperationsWindow() :
 	mUiIcon{imageCache.load("ui/interface/mine.png")},
 	mIcons{imageCache.load("ui/icons.png")},
 	mPanel{loadRectangleSkin("ui/skin/textbox_normal")},
-	chkResources{{
-		{ResourceNamesRefined[0], {this, &MineOperationsWindow::onCheckBoxChange}},
-		{ResourceNamesRefined[1], {this, &MineOperationsWindow::onCheckBoxChange}},
-		{ResourceNamesRefined[2], {this, &MineOperationsWindow::onCheckBoxChange}},
-		{ResourceNamesRefined[3], {this, &MineOperationsWindow::onCheckBoxChange}},
-	}},
 	btnIdle{"Idle", {this, &MineOperationsWindow::onIdle}},
 	btnExtendShaft{"Dig New Level", {this, &MineOperationsWindow::onExtendShaft}},
 	btnOkay{"Close", {this, &MineOperationsWindow::onOkay}},
@@ -69,13 +62,6 @@ MineOperationsWindow::MineOperationsWindow() :
 
 	add(btnUnassignTruck, truckButtonOffset);
 	add(btnAssignTruck, {truckButtonOffset.x + truckButtonSize.x + constants::Margin, truckButtonOffset.y});
-
-	// ORE TOGGLE BUTTONS
-	const auto checkBoxSpacing = NAS2D::Vector{152, 20};
-	add(chkResources[0], checkBoxOffset);
-	add(chkResources[1], checkBoxOffset + NAS2D::Vector{0, checkBoxSpacing.y});
-	add(chkResources[2], checkBoxOffset + NAS2D::Vector{checkBoxSpacing.x, 0});
-	add(chkResources[3], checkBoxOffset + checkBoxSpacing);
 }
 
 
@@ -90,12 +76,6 @@ void MineOperationsWindow::mineFacility(MineFacility* facility)
 {
 	mFacility = facility;
 	if (!mFacility) { return; }
-
-	const auto enabledBits = mFacility->oreDeposit().miningEnabled();
-	chkResources[0].checked(enabledBits[0]);
-	chkResources[1].checked(enabledBits[1]);
-	chkResources[2].checked(enabledBits[2]);
-	chkResources[3].checked(enabledBits[3]);
 
 	btnIdle.toggle(mFacility->forceIdle());
 	btnExtendShaft.enabled(mFacility->canExtend());
@@ -145,17 +125,6 @@ void MineOperationsWindow::onUnassignTruck()
 		mFacility->removeTruck();
 		updateTruckAvailability();
 	}
-}
-
-
-void MineOperationsWindow::onCheckBoxChange()
-{
-	if (!mFacility) { return; }
-	auto& oreDeposit = mFacility->oreDeposit();
-	oreDeposit.miningEnabled(OreDeposit::OreType::CommonMetals, chkResources[0].checked());
-	oreDeposit.miningEnabled(OreDeposit::OreType::CommonMinerals, chkResources[1].checked());
-	oreDeposit.miningEnabled(OreDeposit::OreType::RareMetals, chkResources[2].checked());
-	oreDeposit.miningEnabled(OreDeposit::OreType::RareMinerals, chkResources[3].checked());
 }
 
 

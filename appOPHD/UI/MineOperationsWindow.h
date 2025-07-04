@@ -2,11 +2,8 @@
 
 #include <libControls/Window.h>
 #include <libControls/Button.h>
-#include <libControls/CheckBox.h>
 
 #include <NAS2D/Renderer/RectangleSkin.h>
-
-#include <array>
 
 
 class MineFacility;
@@ -29,8 +26,6 @@ public:
 	void hide() override;
 
 protected:
-	void onCheckBoxChange();
-
 	void onOkay();
 	void onExtendShaft();
 	void onIdle();
@@ -44,8 +39,6 @@ private:
 	const NAS2D::Image& mUiIcon;
 	const NAS2D::Image& mIcons;
 	NAS2D::RectangleSkin mPanel;
-
-	std::array<CheckBox, 4> chkResources;
 
 	Button btnIdle;
 	Button btnExtendShaft;
