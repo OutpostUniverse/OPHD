@@ -5,8 +5,6 @@
 
 #include <NAS2D/Math/Point.h>
 
-#include <bitset>
-
 
 namespace NAS2D
 {
@@ -59,15 +57,5 @@ private:
 	StorableResources mTappedReserves;
 	int mCurrentDepth{0};
 	OreDepositYield mOreDepositYield = OreDepositYield::Low;
-
-	/**
-	 * Flags indicating several states for the mine:
-	 *
-	 * [0] : Mine Common Metal Ore
-	 * [1] : Mine Common Mineral Ore
-	 * [2] : Mine Rare Metal Ore
-	 * [3] : Mine Rare Mineral Ore
-	 * [4] : Mine is active
-	 */
-	std::bitset<5> mFlags; /**< Set of flags. */
+	bool mIsActive{false};
 };

@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <array>
 #include <map>
+#include <bitset>
 
 
 namespace
@@ -32,35 +33,29 @@ namespace
 	{
 		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
 	};
-
-
-	// [Active, 4x miningEnabled]
-	const std::bitset<5> DefaultFlags{0b01111};
 }
 
 
-OreDeposit::OreDeposit() :
-	mFlags{DefaultFlags}
+OreDeposit::OreDeposit()
 {
 }
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
-	mOreDepositYield{yield},
-	mFlags{DefaultFlags}
+	mOreDepositYield{yield}
 {
 }
 
 
 bool OreDeposit::active() const
 {
-	return mFlags[4];
+	return mIsActive;
 }
 
 
 void OreDeposit::active(bool newActive)
 {
-	mFlags[4] = newActive;
+	mIsActive = newActive;
 }
 
 
@@ -129,7 +124,7 @@ StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
 NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
 	auto saveFlags = std::bitset<5>{0b01111};
-	saveFlags[4] = mFlags[4];
+	saveFlags[4] = mIsActive;
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
 		{{
@@ -166,10 +161,9 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 	const auto active = dictionary.get<bool>("active");
-	// Force mining enable bits on during load (there is no longer any UI to enable them)
+	// Translate old active flag, while ignoring old mining enable flags
 	const auto loadedFlags = std::bitset<5>{dictionary.get("flags")};
-	mFlags = std::bitset<5>{0b01111};
-	mFlags[4] = loadedFlags[4];
+	mIsActive = loadedFlags[4];
 
 	this->active(active);
 
