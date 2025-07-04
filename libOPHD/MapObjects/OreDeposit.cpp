@@ -111,15 +111,14 @@ StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
  */
 NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
-	auto saveFlags = std::bitset<5>{0b01111};
-	saveFlags[4] = mIsActive;
+	auto saveFlags = std::bitset<5>{0b11111};
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
 		{{
 			{"x", location.x},
 			{"y", location.y},
 			{"depth", depth()},
-			{"active", mIsActive},
+			{"active", true},
 			{"yield", static_cast<int>(yield())},
 			{"flags", saveFlags.to_string()},
 		}}
