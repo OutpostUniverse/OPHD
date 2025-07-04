@@ -160,12 +160,7 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 
 	mCurrentDepth = dictionary.get<int>("depth");
 	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
-	const auto active = dictionary.get<bool>("active");
-	// Translate old active flag, while ignoring old mining enable flags
-	const auto loadedFlags = std::bitset<5>{dictionary.get("flags")};
-	mIsActive = loadedFlags[4];
-
-	this->active(active);
+	mIsActive = dictionary.get<bool>("active");
 
 	mTappedReserves = {};
 	// Keep the vein iteration so we can still load old saved games
