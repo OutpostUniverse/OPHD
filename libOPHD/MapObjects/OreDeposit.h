@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../EnumOreDepositYield.h"
 #include "../StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
@@ -15,32 +14,25 @@ namespace NAS2D
 }
 
 
+enum class OreDepositYield;
+
+
 class OreDeposit
 {
-public:
-	enum class OreType
-	{
-		CommonMetals,
-		CommonMinerals,
-		RareMetals,
-		RareMinerals,
-	};
-
 public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 
-	bool exhausted() const;
-
-	OreDepositYield yield() const { return mOreDepositYield; }
-
-	int depth() const;
+	int digDepth() const;
 	void increaseDepth();
 
-	StorableResources availableResources() const;
-	StorableResources totalYield() const;
+	OreDepositYield yield() const;
 
-	StorableResources pull(const StorableResources& maxTransfer);
+	StorableResources totalYield() const;
+	StorableResources availableResources() const;
+	StorableResources extract(const StorableResources& maxTransfer);
+
+	bool isExhausted() const;
 
 public:
 	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);
@@ -52,6 +44,6 @@ private:
 
 private:
 	StorableResources mTappedReserves;
-	int mCurrentDepth{0};
-	OreDepositYield mOreDepositYield = OreDepositYield::Low;
+	OreDepositYield mYield;
+	int mDigDepth{0};
 };

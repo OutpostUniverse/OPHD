@@ -144,7 +144,7 @@ void MineOperationsWindow::drawClientArea() const
 
 	const std::string statusString =
 		mFacility->extending() ? "Digging New Level" :
-		mFacility->oreDeposit().exhausted() ? "Exhausted" :
+		mFacility->oreDeposit().isExhausted() ? "Exhausted" :
 		mFacility->stateDescription();
 
 	drawLabelAndValue(origin + NAS2D::Vector{148, 45}, "Status: ", statusString);
@@ -155,7 +155,7 @@ void MineOperationsWindow::drawClientArea() const
 		drawLabelAndValue(origin + NAS2D::Vector{148, 60}, "Turns Remaining: ", extensionTimeRemaining);
 	}
 
-	const auto mineDepth = std::to_string(mFacility->oreDeposit().depth());
+	const auto mineDepth = std::to_string(mFacility->oreDeposit().digDepth());
 	drawLabelAndValue(origin + NAS2D::Vector{300, 30}, "Depth: ", mineDepth);
 
 	// TRUCK ASSIGNMENT

@@ -1,5 +1,7 @@
 #include "OreDeposit.h"
 
+#include "../EnumOreDepositYield.h"
+
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 
@@ -10,16 +12,6 @@
 
 namespace
 {
-	/**
-	 * Yield ore table
-	 *
-	 * \note Follows the array layout conventions of the StorableResources class
-	 *
-	 * [0] Common Metals
-	 * [1] Common Minerals
-	 * [2] Rare Metals
-	 * [3] Rare Minerals
-	 */
 	const std::map<OreDepositYield, StorableResources> YieldTable =
 	{
 		{OreDepositYield::Low, {800, 800, 800, 800}},
@@ -35,13 +27,14 @@ namespace
 }
 
 
-OreDeposit::OreDeposit()
+OreDeposit::OreDeposit() :
+	mYield{OreDepositYield::Low}
 {
 }
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
-	mOreDepositYield{yield}
+	mYield{yield}
 {
 }
 
@@ -49,22 +42,34 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
 /**
  * Increases the depth of the mine.
  *
- * \note	This function only modifies the Mine. It has no knowledge of the
+ * \note	This function only modifies the OreDeposit. It has no knowledge of the
  *			maximum digging depth of a planet and doesn't modify any tiles.
  */
 void OreDeposit::increaseDepth()
 {
-	mCurrentDepth++;
-	mTappedReserves += YieldTable.at(yield());
+	mDigDepth++;
+	mTappedReserves += YieldTable.at(mYield);
 }
 
 
 /**
  * Gets the current depth of the mine.
  */
-int OreDeposit::depth() const
+int OreDeposit::digDepth() const
 {
-	return mCurrentDepth;
+	return mDigDepth;
+}
+
+
+OreDepositYield OreDeposit::yield() const
+{
+	return mYield;
+}
+
+
+StorableResources OreDeposit::totalYield() const
+{
+	return YieldTable.at(mYield) * mDigDepth;
 }
 
 
@@ -74,31 +79,25 @@ StorableResources OreDeposit::availableResources() const
 }
 
 
-StorableResources OreDeposit::totalYield() const
+/**
+ * Extracts the specified quantities of Ore from the OreDeposit. If
+ * insufficient ore is available, only pulls what's available.
+ */
+StorableResources OreDeposit::extract(const StorableResources& maxTransfer)
 {
-	return YieldTable.at(yield()) * depth();
+	const auto transferAmount = mTappedReserves.cap(maxTransfer);
+	mTappedReserves -= transferAmount;
+
+	return transferAmount;
 }
 
 
 /**
  * Indicates that there are no resources available at this mine.
  */
-bool OreDeposit::exhausted() const
+bool OreDeposit::isExhausted() const
 {
 	return mTappedReserves.isEmpty();
-}
-
-
-/**
- * Pulls the specified quantities of Ore from the Mine. If
- * insufficient ore is available, only pulls what's available.
- */
-StorableResources OreDeposit::pull(const StorableResources& maxTransfer)
-{
-	const auto transferAmount = mTappedReserves.cap(maxTransfer);
-	mTappedReserves -= transferAmount;
-
-	return transferAmount;
 }
 
 
@@ -115,8 +114,8 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 		{{
 			{"x", location.x},
 			{"y", location.y},
-			{"depth", depth()},
-			{"yield", static_cast<int>(yield())},
+			{"depth", mDigDepth},
+			{"yield", static_cast<int>(mYield)},
 			// Unused fields, retained for backwards compatibility
 			{"active", true},
 			{"flags", "011111"},
@@ -144,8 +143,8 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-	mCurrentDepth = dictionary.get<int>("depth");
-	mOreDepositYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
+	mDigDepth = dictionary.get<int>("depth");
+	mYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 
 	mTappedReserves = {};
 	// Keep the vein iteration so we can still load old saved games

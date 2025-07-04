@@ -90,7 +90,7 @@ void MiniMap::draw() const
 
 		auto mineBeaconStatusOffsetX = 0;
 		if (!tile.hasStructure() || !tile.structure()->isMineFacility()) { mineBeaconStatusOffsetX = 0; }
-		else if (!oreDeposit->exhausted()) { mineBeaconStatusOffsetX = 8; }
+		else if (!oreDeposit->isExhausted()) { mineBeaconStatusOffsetX = 8; }
 		else { mineBeaconStatusOffsetX = 16; }
 
 		const auto beaconImageRect = NAS2D::Rectangle<int>{{mineBeaconStatusOffsetX, 0}, {7, 7}};

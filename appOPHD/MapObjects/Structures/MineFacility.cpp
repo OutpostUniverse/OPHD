@@ -85,7 +85,7 @@ void MineFacility::think()
 		}
 	}
 
-	if (mOreDeposit->exhausted())
+	if (mOreDeposit->isExhausted())
 	{
 		idle(IdleReason::MineExhausted);
 		return;
@@ -97,13 +97,13 @@ void MineFacility::think()
 		return;
 	}
 
-	storage() += mOreDeposit->pull(maxTransferAmounts());
+	storage() += mOreDeposit->extract(maxTransferAmounts());
 }
 
 
 bool MineFacility::canExtend() const
 {
-	return (mOreDeposit->depth() < mMaxDepth) && (mDigTurnsRemaining == 0);
+	return (mOreDeposit->digDepth() < mMaxDepth) && (mDigTurnsRemaining == 0);
 }
 
 
