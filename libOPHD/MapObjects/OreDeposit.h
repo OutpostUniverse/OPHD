@@ -54,5 +54,4 @@ private:
 	StorableResources mTappedReserves;
 	int mCurrentDepth{0};
 	OreDepositYield mOreDepositYield = OreDepositYield::Low;
-	bool mIsActive{false};
 };
