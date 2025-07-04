@@ -449,7 +449,7 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin) const
 		const auto oreMovement = (i != 3) ? oreMovementComponent : oreMovementRemainder;
 		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreMovement), constants::PrimaryTextColor);
 
-		const auto resourceNameHeight = std::max({ResourceImageRectsOre[i].size.y, fontBold.height()});
+		const auto resourceNameHeight = std::max(ResourceImageRectsOre[i].size.y, fontBold.height());
 		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
 		const auto progressBarArea = NAS2D::Rectangle{progressBarPosition, progressBarSize};
 		drawProgressBar(
