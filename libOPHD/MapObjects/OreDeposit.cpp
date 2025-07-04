@@ -35,7 +35,8 @@ namespace
 }
 
 
-OreDeposit::OreDeposit()
+OreDeposit::OreDeposit() :
+	mYield{OreDepositYield::Low}
 {
 }
 
