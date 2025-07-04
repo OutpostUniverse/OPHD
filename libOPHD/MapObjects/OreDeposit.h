@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../EnumOreDepositYield.h"
 #include "../StorableResources.h"
 
 #include <NAS2D/Math/Point.h>
@@ -13,6 +12,9 @@ namespace NAS2D
 		class XmlElement;
 	}
 }
+
+
+enum class OreDepositYield;
 
 
 class OreDeposit
