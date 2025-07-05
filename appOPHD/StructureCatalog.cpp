@@ -63,12 +63,6 @@ namespace
 	};
 
 
-	std::string StructureName(StructureID id)
-	{
-		return StructureNameTable[static_cast<size_t>(id)];
-	}
-
-
 	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
 	/**	Currently set at 90% but this should probably be
@@ -183,7 +177,7 @@ namespace
 		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
 		{
 			const auto structureId = static_cast<StructureID>(i);
-			const auto& structureName = StructureName(structureId);
+			const auto& structureName = StructureNameTable[i];
 			idToType.emplace(structureId, findStructureType(structureName));
 		}
 		return idToType;
