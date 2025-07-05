@@ -197,5 +197,4 @@ private:
 
 using StructureList = std::vector<Structure*>;
 
-std::string StructureName(StructureID id);
 std::vector<StructureClass> allStructureClasses();

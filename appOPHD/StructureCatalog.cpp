@@ -2,6 +2,7 @@
 
 #include "MapObjects/Structures.h"
 #include "IOHelper.h"
+#include "Constants/Strings.h"
 
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/StorableResources.h>
@@ -12,11 +13,62 @@
 #include <NAS2D/ParserHelper.h>
 
 #include <map>
+#include <array>
 #include <stdexcept>
 
 
 namespace
 {
+	static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+	{
+		"Not a Structure",
+		constants::Agridome,
+		constants::AirShaft,
+		constants::CargoLander,
+		constants::Chap,
+		constants::ColonistLander,
+		constants::CommandCenter,
+		constants::Commercial,
+		constants::CommTower,
+		constants::FusionReactor,
+		constants::HotLaboratory,
+		constants::Laboratory,
+		constants::MedicalCenter,
+		constants::MineFacility,
+		constants::MineShaft,
+		constants::Nursery,
+		constants::Park,
+		constants::RecreationCenter,
+		constants::RedLightDistrict,
+		constants::Residence,
+		constants::Road,
+		constants::RobotCommand,
+		constants::SeedFactory,
+		constants::SeedLander,
+		constants::SeedPower,
+		constants::SeedSmelter,
+		constants::Smelter,
+		constants::SolarPanel1,
+		constants::SolarPlant,
+		constants::StorageTanks,
+		constants::SurfaceFactory,
+		constants::SurfacePolice,
+		constants::Tube,
+		constants::UndergroundFactory,
+		constants::UndergroundPolice,
+		constants::University,
+		constants::Warehouse,
+		constants::Recycling,
+		constants::MaintenanceFacility
+	};
+
+
+	std::string StructureName(StructureID id)
+	{
+		return StructureNameTable[static_cast<size_t>(id)];
+	}
+
+
 	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
 	/**	Currently set at 90% but this should probably be
