@@ -31,6 +31,7 @@
 #include <libOPHD/EnumDirection.h>
 
 #include <libOPHD/Map/MapCoordinate.h>
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -721,6 +722,6 @@ void MapViewState::updateStructuresAvailability()
 	for (int sid = 1; sid < StructureID::SID_COUNT; ++sid)
 	{
 		const StructureID id = static_cast<StructureID>(sid);
-		mStructures.itemAvailable(StructureName(id), StructureCatalog::canBuild(id, mResourcesCount));
+		mStructures.itemAvailable(StructureCatalog::getType(id).name, StructureCatalog::canBuild(id, mResourcesCount));
 	}
 }

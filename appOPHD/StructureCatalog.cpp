@@ -2,6 +2,7 @@
 
 #include "MapObjects/Structures.h"
 #include "IOHelper.h"
+#include "Constants/Strings.h"
 
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/StorableResources.h>
@@ -12,11 +13,56 @@
 #include <NAS2D/ParserHelper.h>
 
 #include <map>
+#include <array>
 #include <stdexcept>
 
 
 namespace
 {
+	static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+	{
+		"Not a Structure",
+		constants::Agridome,
+		constants::AirShaft,
+		constants::CargoLander,
+		constants::Chap,
+		constants::ColonistLander,
+		constants::CommandCenter,
+		constants::Commercial,
+		constants::CommTower,
+		constants::FusionReactor,
+		constants::HotLaboratory,
+		constants::Laboratory,
+		constants::MedicalCenter,
+		constants::MineFacility,
+		constants::MineShaft,
+		constants::Nursery,
+		constants::Park,
+		constants::RecreationCenter,
+		constants::RedLightDistrict,
+		constants::Residence,
+		constants::Road,
+		constants::RobotCommand,
+		constants::SeedFactory,
+		constants::SeedLander,
+		constants::SeedPower,
+		constants::SeedSmelter,
+		constants::Smelter,
+		constants::SolarPanel1,
+		constants::SolarPlant,
+		constants::StorageTanks,
+		constants::SurfaceFactory,
+		constants::SurfacePolice,
+		constants::Tube,
+		constants::UndergroundFactory,
+		constants::UndergroundPolice,
+		constants::University,
+		constants::Warehouse,
+		constants::Recycling,
+		constants::MaintenanceFacility
+	};
+
+
 	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
 	/**	Currently set at 90% but this should probably be
@@ -112,33 +158,18 @@ namespace
 	std::vector<StructureType> structureTypes;
 
 
-	const StructureType& findStructureType(const std::string& name)
+	void verifyStructureTypeOrder()
 	{
-		for (const auto& structureType : structureTypes)
-		{
-			if (structureType.name == name)
-			{
-				return structureType;
-			}
-		}
-		throw std::runtime_error("StructureType not found: " + name);
-	}
-
-
-	auto buildStructureTypeLookup()
-	{
-		std::map<StructureID, const StructureType&> idToType;
 		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
 		{
-			const auto structureId = static_cast<StructureID>(i);
-			const auto& structureName = StructureName(structureId);
-			idToType.emplace(structureId, findStructureType(structureName));
+			const auto& expectedName = StructureNameTable[i];
+			const auto& actualName = structureTypes[i].name;
+			if (expectedName != actualName)
+			{
+				throw std::runtime_error("Unexpected StructureType at index: " + std::to_string(i) + " : " + expectedName + " != " + actualName);
+			}
 		}
-		return idToType;
 	}
-
-
-	std::map<StructureID, const StructureType&> idToType;
 }
 
 
@@ -148,14 +179,14 @@ namespace
 void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
-	idToType = buildStructureTypeLookup();
+	verifyStructureTypeOrder();
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
 
 const StructureType& StructureCatalog::getType(StructureID id)
 {
-	return idToType.at(id);
+	return structureTypes.at(static_cast<std::size_t>(id));
 }
 
 
