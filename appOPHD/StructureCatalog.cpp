@@ -158,6 +158,20 @@ namespace
 	std::vector<StructureType> structureTypes;
 
 
+	void verifyStructureTypeOrder()
+	{
+		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
+		{
+			const auto& expectedName = StructureNameTable[i];
+			const auto& actualName = structureTypes[i].name;
+			if (expectedName != actualName)
+			{
+				throw std::runtime_error("Unexpected StructureType at index: " + std::to_string(i) + " : " + expectedName + " != " + actualName);
+			}
+		}
+	}
+
+
 	const StructureType& findStructureType(const std::string& name)
 	{
 		for (const auto& structureType : structureTypes)
@@ -194,6 +208,7 @@ namespace
 void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
+	verifyStructureTypeOrder();
 	idToType = buildStructureTypeLookup();
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
