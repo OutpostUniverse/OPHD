@@ -170,35 +170,6 @@ namespace
 			}
 		}
 	}
-
-
-	const StructureType& findStructureType(const std::string& name)
-	{
-		for (const auto& structureType : structureTypes)
-		{
-			if (structureType.name == name)
-			{
-				return structureType;
-			}
-		}
-		throw std::runtime_error("StructureType not found: " + name);
-	}
-
-
-	auto buildStructureTypeLookup()
-	{
-		std::map<StructureID, const StructureType&> idToType;
-		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
-		{
-			const auto structureId = static_cast<StructureID>(i);
-			const auto& structureName = StructureNameTable[i];
-			idToType.emplace(structureId, findStructureType(structureName));
-		}
-		return idToType;
-	}
-
-
-	std::map<StructureID, const StructureType&> idToType;
 }
 
 
@@ -209,7 +180,6 @@ void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
 	verifyStructureTypeOrder();
-	idToType = buildStructureTypeLookup();
 	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
