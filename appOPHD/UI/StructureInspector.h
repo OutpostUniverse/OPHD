@@ -18,7 +18,6 @@ public:
 
 	void showStructure(Structure& structure);
 	void hideStructure(Structure& structure);
-	Structure* structure() { return mStructure; }
 
 	void drawClientArea() const override;
 
