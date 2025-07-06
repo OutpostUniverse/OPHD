@@ -156,7 +156,11 @@ void StructureInspector::showStructure(Structure& structure)
 
 void StructureInspector::hideStructure(Structure& structure)
 {
-	if (mStructure == &structure) { hide(); }
+	if (mStructure == &structure)
+	{
+		hide();
+		mStructure = nullptr;
+	}
 }
 
 
