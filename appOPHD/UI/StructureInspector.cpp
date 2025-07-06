@@ -48,16 +48,11 @@ namespace
 
 	std::string getDisabledReason(const Structure& structure)
 	{
-		if (structure.disabled())
-		{
-			return disabledReasonTable.at(structure.disabledReason());
-		}
-		else if (structure.isIdle())
-		{
-			return idleReadonTable.at(structure.idleReason());
-		}
-
-		return "";
+		return (structure.disabled()) ?
+			disabledReasonTable.at(structure.disabledReason()) :
+			(structure.isIdle()) ?
+				idleReadonTable.at(structure.idleReason()) :
+				"";
 	}
 
 
