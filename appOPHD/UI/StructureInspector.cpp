@@ -46,27 +46,15 @@ namespace
 	};
 
 
-	const std::string& disabledReasonToString(DisabledReason disabledReason)
-	{
-		return disabledReasonTable.at(disabledReason);
-	}
-
-
-	const std::string& idleReasonToString(IdleReason idleReason)
-	{
-		return idleReadonTable.at(idleReason);
-	}
-
-
 	std::string getDisabledReason(const Structure& structure)
 	{
 		if (structure.disabled())
 		{
-			return disabledReasonToString(structure.disabledReason());
+			return disabledReasonTable.at(structure.disabledReason());
 		}
 		else if (structure.isIdle())
 		{
-			return idleReasonToString(structure.idleReason());
+			return idleReadonTable.at(structure.idleReason());
 		}
 
 		return "";
