@@ -15,7 +15,7 @@ public:
 	}
 
 private:
-	int calculateMaxEnergyProduction() override
+	int calculateMaxEnergyProduction() const override
 	{
 		return SeedPowerProduction;
 	}

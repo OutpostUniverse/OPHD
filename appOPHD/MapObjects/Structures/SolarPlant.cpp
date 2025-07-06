@@ -19,7 +19,7 @@ SolarPlant::SolarPlant() :
 }
 
 
-int SolarPlant::calculateMaxEnergyProduction()
+int SolarPlant::calculateMaxEnergyProduction() const
 {
 	return static_cast<int>(SolarPlantBaseProduction / getMeanSolarDistance());
 }

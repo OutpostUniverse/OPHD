@@ -16,7 +16,7 @@ public:
 	}
 
 protected:
-	int calculateMaxEnergyProduction() override
+	int calculateMaxEnergyProduction() const override
 	{
 		return FusionReactorBaseProduction;
 	}

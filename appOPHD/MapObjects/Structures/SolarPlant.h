@@ -9,5 +9,5 @@ public:
 	SolarPlant();
 
 protected:
-	int calculateMaxEnergyProduction() override;
+	int calculateMaxEnergyProduction() const override;
 };

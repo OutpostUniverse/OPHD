@@ -19,7 +19,7 @@ SolarPanelArray::SolarPanelArray() :
 }
 
 
-int SolarPanelArray::calculateMaxEnergyProduction()
+int SolarPanelArray::calculateMaxEnergyProduction() const
 {
 	return static_cast<int>(SolarPanelBaseProduction / getMeanSolarDistance());
 }
