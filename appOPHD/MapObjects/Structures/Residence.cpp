@@ -55,7 +55,7 @@ void Residence::assignColonists(int amount)
 int Residence::assignedColonists() const { return mAssignedColonists; }
 
 
-StringTable Residence::createInspectorViewTable()
+StringTable Residence::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 6);
 

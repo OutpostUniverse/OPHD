@@ -12,7 +12,7 @@ CommTower::CommTower() : Structure(
 }
 
 
-StringTable CommTower::createInspectorViewTable()
+StringTable CommTower::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 1);
 

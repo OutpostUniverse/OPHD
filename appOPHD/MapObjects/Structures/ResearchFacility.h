@@ -8,7 +8,7 @@ class ResearchFacility : public Structure
 public:
 	ResearchFacility(StructureClass structureClass, StructureID id);
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 
 	int regularResearchProduced() const;
 	int hotResearchProduced() const;

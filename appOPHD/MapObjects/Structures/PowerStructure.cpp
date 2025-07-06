@@ -11,7 +11,7 @@ PowerStructure::PowerStructure(StructureClass structureClass, StructureID id) :
 }
 
 
-StringTable PowerStructure::createInspectorViewTable()
+StringTable PowerStructure::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 1);
 

@@ -13,7 +13,7 @@ class PowerStructure : public Structure
 public:
 	PowerStructure(StructureClass structureClass, StructureID id);
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 
 	int energyProduced() const;
 

@@ -418,7 +418,7 @@ void Structure::integrity(int integrity)
 }
 
 
-StringTable Structure::createInspectorViewTable()
+StringTable Structure::createInspectorViewTable() const
 {
 	return StringTable(0, 0);
 }

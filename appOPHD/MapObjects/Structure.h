@@ -145,7 +145,7 @@ public:
 	/**
 	* Pass limited structure specific details for drawing. Use a custom UI window if needed.
 	*/
-	virtual StringTable createInspectorViewTable();
+	virtual StringTable createInspectorViewTable() const;
 
 	virtual NAS2D::Dictionary getDataDict() const;
 

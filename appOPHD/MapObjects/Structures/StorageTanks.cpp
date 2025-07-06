@@ -11,7 +11,7 @@ StorageTanks::StorageTanks() : Structure(
 {
 }
 
-StringTable StorageTanks::createInspectorViewTable()
+StringTable StorageTanks::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 5);
 
