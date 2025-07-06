@@ -132,7 +132,7 @@ StructureInspector::StructureInspector() :
 }
 
 
-void StructureInspector::showStructure(Structure& structure)
+void StructureInspector::showStructure(const Structure& structure)
 {
 	mStructure = &structure;
 	title(mStructure->name());
@@ -154,7 +154,7 @@ void StructureInspector::showStructure(Structure& structure)
 }
 
 
-void StructureInspector::hideStructure(Structure& structure)
+void StructureInspector::hideStructure(const Structure& structure)
 {
 	if (mStructure == &structure)
 	{
