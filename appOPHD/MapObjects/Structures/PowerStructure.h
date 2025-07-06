@@ -15,7 +15,7 @@ public:
 
 	StringTable createInspectorViewTable() override;
 
-	int energyProduced();
+	int energyProduced() const;
 
 protected:
 	virtual int calculateMaxEnergyProduction() const = 0;

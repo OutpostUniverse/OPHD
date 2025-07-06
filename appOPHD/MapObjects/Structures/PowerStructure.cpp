@@ -30,7 +30,7 @@ StringTable PowerStructure::createInspectorViewTable()
 }
 
 
-int PowerStructure::energyProduced()
+int PowerStructure::energyProduced() const
 {
 	return operational() ? calculateMaxEnergyProduction() : 0;
 }
