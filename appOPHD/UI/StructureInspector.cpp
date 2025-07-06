@@ -132,7 +132,7 @@ StructureInspector::StructureInspector() :
 }
 
 
-void StructureInspector::structure(Structure& structure)
+void StructureInspector::showStructure(Structure& structure)
 {
 	mStructure = &structure;
 	title(mStructure->name());
@@ -149,6 +149,8 @@ void StructureInspector::structure(Structure& structure)
 	size(windowSize);
 
 	btnClose.position(area().endPoint() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
+
+	show();
 }
 
 

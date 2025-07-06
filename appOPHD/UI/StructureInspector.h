@@ -16,7 +16,7 @@ class StructureInspector : public Window
 public:
 	StructureInspector();
 
-	void structure(Structure& structure);
+	void showStructure(Structure& structure);
 	Structure* structure() { return mStructure; }
 
 	void drawClientArea() const override;
