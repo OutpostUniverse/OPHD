@@ -132,12 +132,9 @@ StructureInspector::StructureInspector() :
 }
 
 
-void StructureInspector::structure(Structure* structure)
+void StructureInspector::structure(Structure& structure)
 {
-	mStructure = structure;
-
-	if (!mStructure) { return; }
-
+	mStructure = &structure;
 	title(mStructure->name());
 
 	const auto genericStructureAttributes = buildGenericStringTable();

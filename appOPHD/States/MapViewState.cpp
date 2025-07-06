@@ -669,7 +669,7 @@ void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier
 	}
 	else
 	{
-		mStructureInspector.structure(&structure);
+		mStructureInspector.structure(structure);
 		mStructureInspector.show();
 		mWindowStack.bringToFront(mStructureInspector);
 	}
