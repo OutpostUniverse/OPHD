@@ -154,6 +154,12 @@ void StructureInspector::showStructure(Structure& structure)
 }
 
 
+void StructureInspector::hideStructure(Structure& structure)
+{
+	if (mStructure == &structure) { hide(); }
+}
+
+
 void StructureInspector::onVisibilityChange(bool visible)
 {
 	Window::onVisibilityChange(visible);

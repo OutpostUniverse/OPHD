@@ -982,7 +982,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	}
 	else if (tile.hasStructure())
 	{
-		if (mStructureInspector.structure() == tile.structure()) { mStructureInspector.hide(); }
+		mStructureInspector.hideStructure(*tile.structure());
 
 		Structure* structure = tile.structure();
 
