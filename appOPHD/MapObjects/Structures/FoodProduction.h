@@ -13,7 +13,7 @@ class FoodProduction : public Structure
 public:
 	FoodProduction(StructureClass structureClass, StructureID id);
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 
 	int foodLevel() const;
 	void foodLevel(int level);

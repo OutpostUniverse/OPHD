@@ -16,8 +16,8 @@ class StructureInspector : public Window
 public:
 	StructureInspector();
 
-	void structure(Structure* structure);
-	Structure* structure() { return mStructure; }
+	void showStructure(const Structure& structure);
+	void hideStructure(const Structure& structure);
 
 	void drawClientArea() const override;
 
@@ -31,5 +31,5 @@ protected:
 private:
 	Button btnClose;
 	const NAS2D::Image& mIcons;
-	Structure* mStructure = nullptr;
+	const Structure* mStructure = nullptr;
 };

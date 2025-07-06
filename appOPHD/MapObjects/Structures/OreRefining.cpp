@@ -12,7 +12,7 @@ OreRefining::OreRefining(StructureClass structureClass, StructureID id) :
 }
 
 
-StringTable OreRefining::createInspectorViewTable()
+StringTable OreRefining::createInspectorViewTable() const
 {
 	StringTable stringTable(3, 5);
 

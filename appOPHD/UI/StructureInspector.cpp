@@ -46,30 +46,13 @@ namespace
 	};
 
 
-	const std::string& disabledReasonToString(DisabledReason disabledReason)
-	{
-		return disabledReasonTable.at(disabledReason);
-	}
-
-
-	const std::string& idleReasonToString(IdleReason idleReason)
-	{
-		return idleReadonTable.at(idleReason);
-	}
-
-
 	std::string getDisabledReason(const Structure& structure)
 	{
-		if (structure.disabled())
-		{
-			return disabledReasonToString(structure.disabledReason());
-		}
-		else if (structure.isIdle())
-		{
-			return idleReasonToString(structure.idleReason());
-		}
-
-		return "";
+		return (structure.disabled()) ?
+			disabledReasonTable.at(structure.disabledReason()) :
+			(structure.isIdle()) ?
+				idleReadonTable.at(structure.idleReason()) :
+				"";
 	}
 
 
@@ -149,12 +132,9 @@ StructureInspector::StructureInspector() :
 }
 
 
-void StructureInspector::structure(Structure* structure)
+void StructureInspector::showStructure(const Structure& structure)
 {
-	mStructure = structure;
-
-	if (!mStructure) { return; }
-
+	mStructure = &structure;
 	title(mStructure->name());
 
 	const auto genericStructureAttributes = buildGenericStringTable();
@@ -169,6 +149,18 @@ void StructureInspector::structure(Structure* structure)
 	size(windowSize);
 
 	btnClose.position(area().endPoint() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
+
+	show();
+}
+
+
+void StructureInspector::hideStructure(const Structure& structure)
+{
+	if (mStructure == &structure)
+	{
+		hide();
+		mStructure = nullptr;
+	}
 }
 
 

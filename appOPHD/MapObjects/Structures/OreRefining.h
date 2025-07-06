@@ -15,7 +15,7 @@ class OreRefining : public Structure
 public:
 	OreRefining(StructureClass structureClass, StructureID id);
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 
 protected:
 	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};

@@ -11,7 +11,7 @@ FoodProduction::FoodProduction(StructureClass structureClass, StructureID id) :
 }
 
 
-StringTable FoodProduction::createInspectorViewTable()
+StringTable FoodProduction::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 2);
 

@@ -11,7 +11,7 @@ PowerStructure::PowerStructure(StructureClass structureClass, StructureID id) :
 }
 
 
-StringTable PowerStructure::createInspectorViewTable()
+StringTable PowerStructure::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 1);
 
@@ -30,7 +30,7 @@ StringTable PowerStructure::createInspectorViewTable()
 }
 
 
-int PowerStructure::energyProduced()
+int PowerStructure::energyProduced() const
 {
 	return operational() ? calculateMaxEnergyProduction() : 0;
 }

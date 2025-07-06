@@ -8,5 +8,5 @@ class CommTower : public Structure
 public:
 	CommTower();
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 };

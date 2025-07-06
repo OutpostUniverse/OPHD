@@ -11,5 +11,5 @@ public:
 	virtual int wasteProcessingCapacity() const;
 	virtual int residentialSupportCount() const;
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 };

@@ -669,8 +669,7 @@ void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier
 	}
 	else
 	{
-		mStructureInspector.structure(&structure);
-		mStructureInspector.show();
+		mStructureInspector.showStructure(structure);
 		mWindowStack.bringToFront(mStructureInspector);
 	}
 }
@@ -983,7 +982,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	}
 	else if (tile.hasStructure())
 	{
-		if (mStructureInspector.structure() == tile.structure()) { mStructureInspector.hide(); }
+		mStructureInspector.hideStructure(*tile.structure());
 
 		Structure* structure = tile.structure();
 

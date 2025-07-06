@@ -11,7 +11,7 @@ ResearchFacility::ResearchFacility(StructureClass structureClass, StructureID id
 {}
 
 
-StringTable ResearchFacility::createInspectorViewTable()
+StringTable ResearchFacility::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 3);
 

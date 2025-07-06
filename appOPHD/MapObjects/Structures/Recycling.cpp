@@ -38,7 +38,7 @@ int Recycling::residentialSupportCount() const
 }
 
 
-StringTable Recycling::createInspectorViewTable()
+StringTable Recycling::createInspectorViewTable() const
 {
 	StringTable stringTable(2, 2);
 

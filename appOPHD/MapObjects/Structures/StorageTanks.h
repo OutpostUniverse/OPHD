@@ -8,5 +8,5 @@ class StorageTanks : public Structure
 public:
 	StorageTanks();
 
-	StringTable createInspectorViewTable() override;
+	StringTable createInspectorViewTable() const override;
 };
