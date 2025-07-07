@@ -49,7 +49,7 @@ public:
 
 protected:
 	void draw() const override;
-	void drawScrollArea() const;
+	void drawScrollArea(NAS2D::Renderer& renderer) const;
 
 	void clear();
 	void updateScrollLayout();
