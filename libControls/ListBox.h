@@ -146,30 +146,6 @@ protected:
 	}
 
 
-	void drawScrollArea(NAS2D::Renderer& renderer) const
-	{
-		renderer.clipRect(mScrollArea);
-
-		// Determine visible items and draw them
-		const auto lineHeight = mItemSize.y;
-		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
-		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
-		const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
-		auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
-		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
-		{
-			drawItemCell(renderer, itemDrawArea, index);
-			itemDrawArea.position.y += lineHeight;
-		}
-
-		// Paint remaining section of scroll area not covered by items
-		itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
-		renderer.drawBoxFilled(itemDrawArea, emptyAreaColor());
-
-		renderer.clipRectClear();
-	}
-
-
 	void drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override
 	{
 		// Draw background rect
