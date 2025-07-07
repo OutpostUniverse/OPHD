@@ -173,9 +173,21 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 }
 
 
+NAS2D::Color ListBoxBase::borderColor() const
+{
+	return hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
+}
+
+
 NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 {
 	return {0, 185, 0};
+}
+
+
+NAS2D::Color ListBoxBase::emptyAreaColor() const
+{
+	return NAS2D::Color::Black;
 }
 
 
@@ -191,10 +203,7 @@ void ListBoxBase::update()
 void ListBoxBase::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	const auto borderColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
-	renderer.drawBox(mRect, borderColor);
-
+	renderer.drawBox(mRect, borderColor());
 	drawScrollArea(renderer);
 }
 
@@ -211,21 +220,27 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 	for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 	{
-		const auto borderColor = itemBorderColor(index);
-
-		// Draw background color
-		const auto backgroundColor = (index == mHighlightIndex) ? NAS2D::Color{0, 36, 0} : NAS2D::Color::Black;
-		renderer.drawBoxFilled(itemDrawArea, backgroundColor);
-		// Selected highlight
-		if (index == mSelectedIndex) { renderer.drawBoxFilled(itemDrawArea, borderColor.alphaFade(75)); }
-
-		drawItem(renderer, itemDrawArea, index);
+		drawItemCell(renderer, itemDrawArea, index);
 		itemDrawArea.position.y += lineHeight;
 	}
 
 	// Paint remaining section of scroll area not covered by items
 	itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
-	renderer.drawBoxFilled(itemDrawArea, NAS2D::Color::Black);
+	renderer.drawBoxFilled(itemDrawArea, emptyAreaColor());
 
 	renderer.clipRectClear();
+}
+
+
+void ListBoxBase::drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
+{
+	const auto borderColor = itemBorderColor(index);
+
+	// Draw background color
+	const auto backgroundColor = (index == mHighlightIndex) ? NAS2D::Color{0, 36, 0} : NAS2D::Color::Black;
+	renderer.drawBoxFilled(drawArea, backgroundColor);
+	// Selected highlight
+	if (index == mSelectedIndex) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
+
+	drawItem(renderer, drawArea, index);
 }

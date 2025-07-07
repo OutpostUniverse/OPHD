@@ -124,38 +124,25 @@ public:
 
 
 protected:
-	void draw() const override
+	NAS2D::Color borderColor() const override
 	{
-		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-		const auto borderColor = hasFocus() ? mListBoxTheme.borderColorActive : mListBoxTheme.borderColorNormal;
-		renderer.drawBox(mRect, borderColor);
-
-		drawScrollArea(renderer);
+		return hasFocus() ? mListBoxTheme.borderColorActive : mListBoxTheme.borderColorNormal;
 	}
 
 
-	void drawScrollArea(NAS2D::Renderer& renderer) const
+	NAS2D::Color emptyAreaColor() const override
 	{
-		renderer.clipRect(mScrollArea);
+		return mListBoxTheme.backgroundColorNormal;
+	}
 
-		// Determine visible items and draw them
-		const auto lineHeight = mItemSize.y;
-		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
-		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
-		const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
-		auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
-		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
-		{
-			drawItem(renderer, itemDrawArea, index);
-			itemDrawArea.position.y += lineHeight;
-		}
 
-		// Paint remaining section of scroll area not covered by items
-		itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
-		renderer.drawBoxFilled(itemDrawArea, mListBoxTheme.backgroundColorNormal);
+	void drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override
+	{
+		// Draw background rect
+		const auto backgroundColor = (index == mSelectedIndex) ? mListBoxTheme.backgroundColorSelected : mListBoxTheme.backgroundColorNormal;
+		renderer.drawBoxFilled(drawArea, backgroundColor);
 
-		renderer.clipRectClear();
+		drawItem(renderer, drawArea, index);
 	}
 
 
@@ -163,11 +150,6 @@ protected:
 	{
 		const auto isSelected = (index == mSelectedIndex);
 		const auto isHighlighted = (index == mHighlightIndex);
-
-		// Draw background rect
-		const auto backgroundColor = isSelected ? mListBoxTheme.backgroundColorSelected : mListBoxTheme.backgroundColorNormal;
-		renderer.drawBoxFilled(drawArea, backgroundColor);
-
 		mItems[index].draw(renderer, drawArea, mListBoxTheme, isSelected, isHighlighted);
 	}
 
