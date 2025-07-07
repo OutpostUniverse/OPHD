@@ -81,7 +81,7 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	lstProducts{{this, &FactoryReport::onProductSelectionChange}},
 	mTxtProductDescription{constants::PrimaryTextColor}
 {
-	add(lstFactoryList, {10, 63});
+	add(lstFactoryList, {10, viewFilterOriginRow2.y + viewFilterButtonSize.y + 10});
 
 	add(btnShowAll, viewFilterOriginRow1);
 	btnShowAll.type(Button::Type::Toggle);
