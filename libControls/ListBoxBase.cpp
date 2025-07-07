@@ -204,7 +204,6 @@ void ListBoxBase::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	// CONTROL EXTENTS
 	const auto borderColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
 	renderer.drawBox(mRect, borderColor);
 
