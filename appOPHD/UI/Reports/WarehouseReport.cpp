@@ -66,10 +66,11 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	lstStructures{{this, &WarehouseReport::onStructureSelectionChange}}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto buttonSize = NAS2D::Vector{94, 20};
 	const auto buttons = std::array{&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled};
 	for (auto button : buttons)
 	{
-		button->size({94, 20});
+		button->size(buttonSize);
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
 		add(*button, buttonOffset);
