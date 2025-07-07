@@ -123,6 +123,9 @@ void FactoryListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> d
 	const auto& structureTextColor = structureTextColorFromIndex(factoryState);
 	const auto& borderColor = itemBorderColor(index);
 
+	// Draw border
+	renderer.drawBox(drawArea.inset(1), borderColor);
+
 	const auto subImageRect = NAS2D::Rectangle{item.icon_slice, {46, 46}};
 	renderer.drawSubImage(mStructureIcons, drawArea.position + NAS2D::Vector{8, 8}, subImageRect, NAS2D::Color::White.alphaFade(borderColor.alpha));
 	renderer.drawText(mFontBold, factory.name(), drawArea.position + NAS2D::Vector{64, 29 - mFontBold.height() / 2}, structureTextColor);
