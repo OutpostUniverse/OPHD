@@ -210,20 +210,20 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 	const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
 	const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
-	auto drawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
+	auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 	for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 	{
 		const auto borderColor = itemBorderColor(index);
 
 		// Mouse over highlight and selected highlight
-		if (index == mHighlightIndex) { renderer.drawBoxFilled(drawArea, NAS2D::Color{0, 36, 0}); }
-		if (index == mSelectedIndex) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
+		if (index == mHighlightIndex) { renderer.drawBoxFilled(itemDrawArea, NAS2D::Color{0, 36, 0}); }
+		if (index == mSelectedIndex) { renderer.drawBoxFilled(itemDrawArea, borderColor.alphaFade(75)); }
 
 		// Draw border
-		renderer.drawBox(drawArea.inset(1), borderColor);
+		renderer.drawBox(itemDrawArea.inset(1), borderColor);
 
-		drawItem(renderer, drawArea, index);
-		drawArea.position.y += lineHeight;
+		drawItem(renderer, itemDrawArea, index);
+		itemDrawArea.position.y += lineHeight;
 	}
 
 	renderer.clipRectClear();
