@@ -144,9 +144,7 @@ protected:
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
 		const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
-		auto itemDrawArea = mScrollArea;
-		itemDrawArea.position.y += -(mScrollOffsetInPixels % lineHeight);
-		itemDrawArea.size.y = lineHeight;
+		auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
 			drawItem(renderer, itemDrawArea, index);
