@@ -211,15 +211,7 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 	for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 	{
-		const auto borderColor = itemBorderColor(index);
-
-		// Draw background color
-		const auto backgroundColor = (index == mHighlightIndex) ? NAS2D::Color{0, 36, 0} : NAS2D::Color::Black;
-		renderer.drawBoxFilled(itemDrawArea, backgroundColor);
-		// Selected highlight
-		if (index == mSelectedIndex) { renderer.drawBoxFilled(itemDrawArea, borderColor.alphaFade(75)); }
-
-		drawItem(renderer, itemDrawArea, index);
+		drawItemCell(renderer, itemDrawArea, index);
 		itemDrawArea.position.y += lineHeight;
 	}
 
@@ -228,4 +220,18 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	renderer.drawBoxFilled(itemDrawArea, NAS2D::Color::Black);
 
 	renderer.clipRectClear();
+}
+
+
+void ListBoxBase::drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const
+{
+	const auto borderColor = itemBorderColor(index);
+
+	// Draw background color
+	const auto backgroundColor = (index == mHighlightIndex) ? NAS2D::Color{0, 36, 0} : NAS2D::Color::Black;
+	renderer.drawBoxFilled(drawArea, backgroundColor);
+	// Selected highlight
+	if (index == mSelectedIndex) { renderer.drawBoxFilled(drawArea, borderColor.alphaFade(75)); }
+
+	drawItem(renderer, drawArea, index);
 }
