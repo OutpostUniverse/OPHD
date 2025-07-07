@@ -213,9 +213,10 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	{
 		const auto borderColor = itemBorderColor(index);
 
-		renderer.drawBoxFilled(itemDrawArea, NAS2D::Color::Black);
-		// Mouse over highlight and selected highlight
-		if (index == mHighlightIndex) { renderer.drawBoxFilled(itemDrawArea, NAS2D::Color{0, 36, 0}); }
+		// Draw background color
+		const auto backgroundColor = (index == mHighlightIndex) ? NAS2D::Color{0, 36, 0} : NAS2D::Color::Black;
+		renderer.drawBoxFilled(itemDrawArea, backgroundColor);
+		// Selected highlight
 		if (index == mSelectedIndex) { renderer.drawBoxFilled(itemDrawArea, borderColor.alphaFade(75)); }
 
 		// Draw border
