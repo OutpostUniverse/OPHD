@@ -95,10 +95,11 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 	mAvailableTrucks{0}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto buttonSize = NAS2D::Vector{94, 20};
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowExhausted, &btnShowDisabled};
 	for (auto button : buttons)
 	{
-		button->size({94, 20});
+		button->size(buttonSize);
 		button->type(Button::Type::Toggle);
 		add(*button, buttonOffset);
 		buttonOffset.x += button->size().x + constants::MarginTight;
