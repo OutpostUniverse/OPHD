@@ -136,16 +136,6 @@ protected:
 	}
 
 
-	void draw() const override
-	{
-		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-		renderer.drawBox(mRect, borderColor());
-
-		drawScrollArea(renderer);
-	}
-
-
 	void drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override
 	{
 		// Draw background rect
