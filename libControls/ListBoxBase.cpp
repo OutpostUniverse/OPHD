@@ -179,6 +179,12 @@ NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 }
 
 
+NAS2D::Color ListBoxBase::emptyAreaColor() const
+{
+	return NAS2D::Color::Black;
+}
+
+
 void ListBoxBase::update()
 {
 	if (!visible()) { return; }
@@ -217,7 +223,7 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 
 	// Paint remaining section of scroll area not covered by items
 	itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
-	renderer.drawBoxFilled(itemDrawArea, NAS2D::Color::Black);
+	renderer.drawBoxFilled(itemDrawArea, emptyAreaColor());
 
 	renderer.clipRectClear();
 }

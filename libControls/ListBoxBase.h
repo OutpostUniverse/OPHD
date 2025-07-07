@@ -65,6 +65,7 @@ protected:
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const;
+	virtual NAS2D::Color emptyAreaColor() const;
 
 protected:
 	ScrollBar mScrollBar;
