@@ -173,12 +173,6 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 }
 
 
-NAS2D::Rectangle<int> ListBoxBase::itemDrawArea(std::size_t index) const
-{
-	return {mScrollArea.position + NAS2D::Vector{0, static_cast<int>(index) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
-}
-
-
 NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 {
 	return {0, 185, 0};
@@ -218,7 +212,7 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
 	for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 	{
-		const auto drawArea = itemDrawArea(index);
+		const auto drawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(index) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 		const auto borderColor = itemBorderColor(index);
 
 		// Mouse over highlight and selected highlight
