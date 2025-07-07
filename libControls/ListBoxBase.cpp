@@ -173,6 +173,12 @@ void ListBoxBase::onMouseWheel(NAS2D::Vector<int> scrollAmount)
 }
 
 
+NAS2D::Color ListBoxBase::borderColor() const
+{
+	return hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
+}
+
+
 NAS2D::Color ListBoxBase::itemBorderColor(std::size_t /*index*/) const
 {
 	return {0, 185, 0};
@@ -198,8 +204,7 @@ void ListBoxBase::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto borderColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
-	renderer.drawBox(mRect, borderColor);
+	renderer.drawBox(mRect, borderColor());
 
 	drawScrollArea(renderer);
 }
