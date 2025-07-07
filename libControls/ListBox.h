@@ -159,6 +159,11 @@ protected:
 	{
 		const auto isSelected = (index == mSelectedIndex);
 		const auto isHighlighted = (index == mHighlightIndex);
+
+		// Draw background rect
+		const auto backgroundColor = isSelected ? mContext.backgroundColorSelected : mContext.backgroundColorNormal;
+		renderer.drawBoxFilled(drawArea, backgroundColor);
+
 		mItems[index].draw(renderer, drawArea, mContext, isSelected, isHighlighted);
 	}
 
