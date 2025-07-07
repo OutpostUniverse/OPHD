@@ -131,6 +131,12 @@ protected:
 		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
 		renderer.drawBox(mRect, borderColor);
 
+		drawScrollArea(renderer);
+	}
+
+
+	void drawScrollArea(NAS2D::Renderer& renderer) const
+	{
 		renderer.clipRect(mScrollArea);
 
 		// Determine visible items and draw them
