@@ -28,10 +28,10 @@ using namespace NAS2D;
 
 namespace
 {
-	constexpr auto viewFilterButtonSize = NAS2D::Vector{104, 20};
+	constexpr auto viewFilterButtonSize = NAS2D::Vector{104, 26};
 	constexpr auto viewFilterSpacing = NAS2D::Vector{viewFilterButtonSize.x + constants::MarginTight, 0};
 	constexpr auto viewFilterOriginRow1 = NAS2D::Vector{10, 10};
-	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, viewFilterOriginRow1.y + viewFilterButtonSize.y + 3};
+	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, viewFilterOriginRow1.y + viewFilterButtonSize.y + constants::MarginTight};
 	constexpr auto mainButtonSize = NAS2D::Vector{140, 30};
 
 	bool productTypeInRange(ProductType productType)
@@ -537,7 +537,7 @@ void FactoryReport::draw() const
 
 	const auto positionX = cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);
-	const auto textPosition = NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + viewFilterOriginRow1.y + viewFilterButtonSize.y - font.height()};
+	const auto textPosition = cboFilterByProduct.position() + NAS2D::Vector{0, -font.height() - constants::MarginTight};
 	renderer.drawText(font, "Filter by Product", textPosition, constants::PrimaryTextColor);
 
 	if (selectedFactory)
