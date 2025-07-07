@@ -158,7 +158,7 @@ protected:
 		auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
-			drawItem(renderer, itemDrawArea, index);
+			drawItemCell(renderer, itemDrawArea, index);
 			itemDrawArea.position.y += lineHeight;
 		}
 
@@ -170,15 +170,20 @@ protected:
 	}
 
 
+	void drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override
+	{
+		// Draw background rect
+		const auto backgroundColor = (index == mSelectedIndex) ? mListBoxTheme.backgroundColorSelected : mListBoxTheme.backgroundColorNormal;
+		renderer.drawBoxFilled(drawArea, backgroundColor);
+
+		drawItem(renderer, drawArea, index);
+	}
+
+
 	void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const override
 	{
 		const auto isSelected = (index == mSelectedIndex);
 		const auto isHighlighted = (index == mHighlightIndex);
-
-		// Draw background rect
-		const auto backgroundColor = isSelected ? mListBoxTheme.backgroundColorSelected : mListBoxTheme.backgroundColorNormal;
-		renderer.drawBoxFilled(drawArea, backgroundColor);
-
 		mItems[index].draw(renderer, drawArea, mListBoxTheme, isSelected, isHighlighted);
 	}
 
