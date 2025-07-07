@@ -95,10 +95,11 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 	mAvailableTrucks{0}
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
+	const auto buttonSize = NAS2D::Vector{94, 20};
 	const auto buttons = std::array{&btnShowAll, &btnShowActive, &btnShowIdle, &btnShowExhausted, &btnShowDisabled};
 	for (auto button : buttons)
 	{
-		button->size({94, 20});
+		button->size(buttonSize);
 		button->type(Button::Type::Toggle);
 		add(*button, buttonOffset);
 		buttonOffset.x += button->size().x + constants::MarginTight;
@@ -106,7 +107,7 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 
 	btnShowAll.toggle(true);
 
-	add(lstMineFacilities, {10, 40});
+	add(lstMineFacilities, {10, 10 + buttonOffset.y + buttonSize.y});
 
 	// DETAIL PANE
 	btnIdle.type(Button::Type::Toggle);
@@ -171,7 +172,7 @@ void MineReport::onResize()
 	Control::onResize();
 
 	const auto centerX = area().center().x;
-	lstMineFacilities.size({centerX - 20, area().size.y - 51});
+	lstMineFacilities.size({centerX - 20, area().crossYPoint().y - lstMineFacilities.position().y - 10});
 
 	const auto buttonPositionX = area().size.x - 150;
 	btnIdle.position({buttonPositionX, btnIdle.position().y});
