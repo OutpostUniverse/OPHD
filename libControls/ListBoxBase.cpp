@@ -229,7 +229,7 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 
 		// Mouse over highlight and selected highlight
 		if (index == mHighlightIndex) { renderer.drawBoxFilled(drawArea, NAS2D::Color{0, 36, 0}); }
-		if (index == mSelectedIndex) { renderer.drawBoxFilled(drawArea, itemBorderColor(mSelectedIndex).alphaFade(75)); }
+		if (index == mSelectedIndex) { renderer.drawBoxFilled(drawArea, itemBorderColor(index).alphaFade(75)); }
 
 		// Draw border
 		renderer.drawBox(drawArea.inset(1), borderColor);
