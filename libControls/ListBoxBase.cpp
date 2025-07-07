@@ -214,13 +214,13 @@ void ListBoxBase::draw() const
 	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 36, 0}); }
 	if (mSelectedIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mSelectedIndex), itemBorderColor(mSelectedIndex).alphaFade(75)); }
 
-	drawItems();
+	drawScrollArea();
 
 	renderer.clipRectClear();
 }
 
 
-void ListBoxBase::drawItems() const
+void ListBoxBase::drawScrollArea() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
