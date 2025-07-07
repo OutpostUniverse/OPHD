@@ -23,7 +23,7 @@ struct ListBoxItemText
 	std::string text;
 	int userData = 0;
 
-	struct Context
+	struct ListBoxTheme
 	{
 		const NAS2D::Font& font;
 
@@ -41,7 +41,7 @@ struct ListBoxItemText
 		int itemHeight() const;
 	};
 
-	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const ListBoxTheme& theme, bool isSelected, bool isHighlighted) const;
 
 	bool operator<(const ListBoxItemText& other) const
 	{
@@ -54,7 +54,7 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public ListBoxBase
 {
 public:
-	using Context = typename ListBoxItem::Context;
+	using ListBoxTheme = typename ListBoxItem::ListBoxTheme;
 
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
@@ -63,9 +63,9 @@ public:
 	}
 
 
-	ListBox(Context context, SelectionChangedDelegate selectionChangedHandler = {}) :
-		ListBoxBase{{0, context.itemHeight()}, selectionChangedHandler},
-		mContext{context}
+	ListBox(ListBoxTheme theme, SelectionChangedDelegate selectionChangedHandler = {}) :
+		ListBoxBase{{0, theme.itemHeight()}, selectionChangedHandler},
+		mListBoxTheme{theme}
 	{
 		updateScrollLayout();
 	}
@@ -128,7 +128,7 @@ protected:
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
+		const auto borderColor = hasFocus() ? mListBoxTheme.borderColorActive : mListBoxTheme.borderColorNormal;
 		renderer.drawBox(mRect, borderColor);
 
 		drawScrollArea(renderer);
@@ -155,7 +155,7 @@ protected:
 
 		// Paint remaining section of scroll area not covered by items
 		itemDrawRect.size.y = mScrollArea.endPoint().y - itemDrawRect.position.y;
-		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
+		renderer.drawBoxFilled(itemDrawRect, mListBoxTheme.backgroundColorNormal);
 
 		renderer.clipRectClear();
 	}
@@ -167,10 +167,10 @@ protected:
 		const auto isHighlighted = (index == mHighlightIndex);
 
 		// Draw background rect
-		const auto backgroundColor = isSelected ? mContext.backgroundColorSelected : mContext.backgroundColorNormal;
+		const auto backgroundColor = isSelected ? mListBoxTheme.backgroundColorSelected : mListBoxTheme.backgroundColorNormal;
 		renderer.drawBoxFilled(drawArea, backgroundColor);
 
-		mItems[index].draw(renderer, drawArea, mContext, isSelected, isHighlighted);
+		mItems[index].draw(renderer, drawArea, mListBoxTheme, isSelected, isHighlighted);
 	}
 
 
@@ -180,6 +180,6 @@ protected:
 	}
 
 private:
-	Context mContext;
+	ListBoxTheme mListBoxTheme;
 	std::vector<ListBoxItem> mItems;
 };
