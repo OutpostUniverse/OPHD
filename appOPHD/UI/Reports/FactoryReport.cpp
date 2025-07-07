@@ -31,7 +31,7 @@ namespace
 	constexpr auto viewFilterButtonSize = NAS2D::Vector{104, 26};
 	constexpr auto viewFilterSpacing = NAS2D::Vector{viewFilterButtonSize.x + constants::MarginTight, 0};
 	constexpr auto viewFilterOriginRow1 = NAS2D::Vector{10, 10};
-	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, viewFilterOriginRow1.y + viewFilterButtonSize.y + 3};
+	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, viewFilterOriginRow1.y + viewFilterButtonSize.y + 2};
 	constexpr auto mainButtonSize = NAS2D::Vector{140, 30};
 
 	bool productTypeInRange(ProductType productType)
