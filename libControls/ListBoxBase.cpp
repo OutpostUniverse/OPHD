@@ -208,7 +208,7 @@ void ListBoxBase::draw() const
 	const auto borderColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
 	renderer.drawBox(mRect, borderColor);
 
-	renderer.clipRect(mRect.inset(1));
+	renderer.clipRect(mScrollArea);
 
 	renderer.drawBoxFilled(mScrollArea, NAS2D::Color::Black);
 	// Mouse over highlight and selected highlight
@@ -226,7 +226,7 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 	// Determine visible items and draw them
 	const auto lineHeight = mItemSize.y;
 	const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
-	const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mRect.inset(1).size.y + (lineHeight - 1)) / lineHeight);
+	const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
 	const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
 	for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 	{
