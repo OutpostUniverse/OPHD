@@ -203,9 +203,7 @@ void ListBoxBase::update()
 void ListBoxBase::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	renderer.drawBox(mRect, borderColor());
-
 	drawScrollArea(renderer);
 }
 
