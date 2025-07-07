@@ -537,7 +537,7 @@ void FactoryReport::draw() const
 
 	const auto positionX = cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);
-	const auto textPosition = NAS2D::Point{cboFilterByProduct.position().x, mRect.position.y + viewFilterOriginRow1.y + viewFilterButtonSize.y - font.height()};
+	const auto textPosition = cboFilterByProduct.position() + NAS2D::Vector{0, -font.height() - constants::MarginTight};
 	renderer.drawText(font, "Filter by Product", textPosition, constants::PrimaryTextColor);
 
 	if (selectedFactory)
