@@ -113,7 +113,7 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	add(btnApply, {0, 0});
 
 	add(cboFilterByProduct, {330, 33});
-	cboFilterByProduct.size({120, 20});
+	cboFilterByProduct.size({120, viewFilterButtonSize.y});
 
 	cboFilterByProduct.maxDisplayItems(10);
 	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
