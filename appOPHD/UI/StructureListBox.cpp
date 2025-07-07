@@ -131,6 +131,9 @@ void StructureListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int>
 	const auto structureState = item.structure->state();
 	const auto& structureTextColor = structureTextColorFromIndex(structureState);
 
+	// Draw border
+	renderer.drawBox(drawArea.inset(1), itemBorderColor(index));
+
 	const auto yOffset = 15 - mFontBold.height() / 2;
 	renderer.drawText(mFontBold, item.text, drawArea.position + NAS2D::Vector{5, yOffset}, structureTextColor);
 	renderer.drawText(mFont, item.stateDescription, drawArea.crossXPoint() + NAS2D::Vector{-mFont.width(item.stateDescription) - 5, yOffset}, structureTextColor);

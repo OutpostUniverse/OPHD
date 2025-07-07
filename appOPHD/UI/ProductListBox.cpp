@@ -84,6 +84,9 @@ void ProductListBox::drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> d
 	const auto secondStop = drawArea.size.x * 2 / 3;
 	const auto& item = getItem(index);
 
+	// Draw border
+	renderer.drawBox(drawArea.inset(1), itemBorderColor(index));
+
 	// Draw column breaks
 	renderer.drawLine(drawArea.position + NAS2D::Vector{firstStop, 2}, drawArea.position + NAS2D::Vector{firstStop, drawArea.size.y - 2}, constants::PrimaryColor);
 	renderer.drawLine(drawArea.position + NAS2D::Vector{secondStop, 2}, drawArea.position + NAS2D::Vector{secondStop, drawArea.size.y - 2}, constants::PrimaryColor);
