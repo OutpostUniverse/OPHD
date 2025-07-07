@@ -124,12 +124,17 @@ public:
 
 
 protected:
+	NAS2D::Color borderColor() const override
+	{
+		return hasFocus() ? mListBoxTheme.borderColorActive : mListBoxTheme.borderColorNormal;
+	}
+
+
 	void draw() const override
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-		const auto borderColor = hasFocus() ? mListBoxTheme.borderColorActive : mListBoxTheme.borderColorNormal;
-		renderer.drawBox(mRect, borderColor);
+		renderer.drawBox(mRect, borderColor());
 
 		drawScrollArea(renderer);
 	}
