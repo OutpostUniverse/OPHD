@@ -206,7 +206,8 @@ void ListBoxBase::draw() const
 
 	// CONTROL EXTENTS
 	renderer.drawBoxFilled(mScrollArea, NAS2D::Color::Black);
-	renderer.drawBox(mRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
+	const auto borderColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
+	renderer.drawBox(mRect, borderColor);
 
 	renderer.clipRect(mRect.inset(1));
 
