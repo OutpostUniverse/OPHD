@@ -31,7 +31,7 @@ namespace
 	constexpr auto viewFilterButtonSize = NAS2D::Vector{104, 20};
 	constexpr auto viewFilterSpacing = NAS2D::Vector{viewFilterButtonSize.x + constants::MarginTight, 0};
 	constexpr auto viewFilterOriginRow1 = NAS2D::Vector{10, 10};
-	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, 33};
+	constexpr auto viewFilterOriginRow2 = NAS2D::Vector{10, viewFilterOriginRow1.y + viewFilterButtonSize.y + 3};
 	constexpr auto mainButtonSize = NAS2D::Vector{140, 30};
 
 	bool productTypeInRange(ProductType productType)
@@ -81,7 +81,7 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	lstProducts{{this, &FactoryReport::onProductSelectionChange}},
 	mTxtProductDescription{constants::PrimaryTextColor}
 {
-	add(lstFactoryList, {10, 63});
+	add(lstFactoryList, {10, viewFilterOriginRow2.y + viewFilterButtonSize.y + 10});
 
 	add(btnShowAll, viewFilterOriginRow1);
 	btnShowAll.type(Button::Type::Toggle);
@@ -112,8 +112,8 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 
 	add(btnApply, {0, 0});
 
-	add(cboFilterByProduct, {330, 33});
-	cboFilterByProduct.size({120, 20});
+	add(cboFilterByProduct, {330, viewFilterOriginRow2.y});
+	cboFilterByProduct.size({120, viewFilterButtonSize.y});
 
 	cboFilterByProduct.maxDisplayItems(10);
 	cboFilterByProduct.addItem(constants::None, ProductType::PRODUCT_NONE);
@@ -267,7 +267,7 @@ void FactoryReport::onResize()
 
 	const auto comboEndPoint = cboFilterByProduct.area().endPoint();
 
-	lstFactoryList.size({comboEndPoint.x - 10, mRect.size.y - 74});
+	lstFactoryList.size({comboEndPoint.x - 10, mRect.position.y + mRect.size.y - lstFactoryList.position().y - 10});
 
 	detailPanelRect = {
 		{ comboEndPoint.x + 20, area().position.y + 10},
@@ -537,7 +537,8 @@ void FactoryReport::draw() const
 
 	const auto positionX = cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);
-	renderer.drawText(font, "Filter by Product", NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + 10}, constants::PrimaryTextColor);
+	const auto textPosition = NAS2D::Point{positionX - font.width("Filter by Product"), mRect.position.y + viewFilterOriginRow1.y + viewFilterButtonSize.y - font.height()};
+	renderer.drawText(font, "Filter by Product", textPosition, constants::PrimaryTextColor);
 
 	if (selectedFactory)
 	{
