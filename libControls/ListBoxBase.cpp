@@ -208,6 +208,12 @@ void ListBoxBase::draw() const
 	const auto borderColor = hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75};
 	renderer.drawBox(mRect, borderColor);
 
+	drawScrollArea(renderer);
+}
+
+
+void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
+{
 	renderer.clipRect(mScrollArea);
 
 	renderer.drawBoxFilled(mScrollArea, NAS2D::Color::Black);
@@ -215,14 +221,6 @@ void ListBoxBase::draw() const
 	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 36, 0}); }
 	if (mSelectedIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mSelectedIndex), itemBorderColor(mSelectedIndex).alphaFade(75)); }
 
-	drawScrollArea(renderer);
-
-	renderer.clipRectClear();
-}
-
-
-void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
-{
 	// Determine visible items and draw them
 	const auto lineHeight = mItemSize.y;
 	const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
@@ -237,4 +235,6 @@ void ListBoxBase::drawScrollArea(NAS2D::Renderer& renderer) const
 
 		drawItem(renderer, drawArea, index);
 	}
+
+	renderer.clipRectClear();
 }
