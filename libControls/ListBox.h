@@ -144,18 +144,18 @@ protected:
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
 		const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
-		auto itemDrawRect = mScrollArea;
-		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
-		itemDrawRect.size.y = lineHeight;
+		auto itemDrawArea = mScrollArea;
+		itemDrawArea.position.y += -(mScrollOffsetInPixels % lineHeight);
+		itemDrawArea.size.y = lineHeight;
 		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
-			drawItem(renderer, itemDrawRect, index);
-			itemDrawRect.position.y += lineHeight;
+			drawItem(renderer, itemDrawArea, index);
+			itemDrawArea.position.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawRect.size.y = mScrollArea.endPoint().y - itemDrawRect.position.y;
-		renderer.drawBoxFilled(itemDrawRect, mListBoxTheme.backgroundColorNormal);
+		itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
+		renderer.drawBoxFilled(itemDrawArea, mListBoxTheme.backgroundColorNormal);
 
 		renderer.clipRectClear();
 	}
