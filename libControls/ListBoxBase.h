@@ -15,6 +15,7 @@
 namespace NAS2D
 {
 	enum class MouseButton;
+	class Renderer;
 }
 
 
