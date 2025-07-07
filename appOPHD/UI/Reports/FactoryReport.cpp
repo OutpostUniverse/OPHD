@@ -267,7 +267,7 @@ void FactoryReport::onResize()
 
 	const auto comboEndPoint = cboFilterByProduct.area().endPoint();
 
-	lstFactoryList.size({comboEndPoint.x - 10, mRect.size.y - 74});
+	lstFactoryList.size({comboEndPoint.x - 10, mRect.position.y + mRect.size.y - lstFactoryList.position().y - 10});
 
 	detailPanelRect = {
 		{ comboEndPoint.x + 20, area().position.y + 10},
