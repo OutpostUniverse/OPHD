@@ -328,9 +328,10 @@ void WarehouseReport::onStructureSelectionChange()
 
 void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 {
-	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, position().y + 40}, constants::PrimaryTextColor);
-	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, position().y + 62}, constants::PrimaryTextColor);
-	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, position().y + 84}, constants::PrimaryTextColor);
+	const auto textOrigin = NAS2D::Point{10, position().y + 40};
+	renderer.drawText(fontMediumBold, "Warehouse Count", textOrigin, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, 22}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Capacity Used", textOrigin + NAS2D::Vector{0, 44}, constants::PrimaryTextColor);
 
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
