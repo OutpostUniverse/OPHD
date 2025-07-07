@@ -107,7 +107,7 @@ MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
 
 	btnShowAll.toggle(true);
 
-	add(lstMineFacilities, {10, 40});
+	add(lstMineFacilities, {10, 10 + buttonOffset.y + buttonSize.y});
 
 	// DETAIL PANE
 	btnIdle.type(Button::Type::Toggle);
