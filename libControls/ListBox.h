@@ -23,7 +23,7 @@ struct ListBoxItemText
 	std::string text;
 	int userData = 0;
 
-	struct Context
+	struct ListBoxTheme
 	{
 		const NAS2D::Font& font;
 
@@ -41,7 +41,7 @@ struct ListBoxItemText
 		int itemHeight() const;
 	};
 
-	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const Context& context, bool isSelected, bool isHighlighted) const;
+	void draw(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> itemDrawRect, const ListBoxTheme& theme, bool isSelected, bool isHighlighted) const;
 
 	bool operator<(const ListBoxItemText& other) const
 	{
@@ -54,7 +54,7 @@ template <typename ListBoxItem = ListBoxItemText>
 class ListBox : public ListBoxBase
 {
 public:
-	using Context = typename ListBoxItem::Context;
+	using ListBoxTheme = typename ListBoxItem::ListBoxTheme;
 
 
 	ListBox(SelectionChangedDelegate selectionChangedHandler = {}) :
@@ -63,9 +63,9 @@ public:
 	}
 
 
-	ListBox(Context context, SelectionChangedDelegate selectionChangedHandler = {}) :
-		ListBoxBase{{0, context.itemHeight()}, selectionChangedHandler},
-		mContext{context}
+	ListBox(ListBoxTheme theme, SelectionChangedDelegate selectionChangedHandler = {}) :
+		ListBoxBase{{0, theme.itemHeight()}, selectionChangedHandler},
+		mListBoxTheme{theme}
 	{
 		updateScrollLayout();
 	}
@@ -128,9 +128,15 @@ protected:
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-		const auto borderColor = hasFocus() ? mContext.borderColorActive : mContext.borderColorNormal;
+		const auto borderColor = hasFocus() ? mListBoxTheme.borderColorActive : mListBoxTheme.borderColorNormal;
 		renderer.drawBox(mRect, borderColor);
 
+		drawScrollArea(renderer);
+	}
+
+
+	void drawScrollArea(NAS2D::Renderer& renderer) const
+	{
 		renderer.clipRect(mScrollArea);
 
 		// Determine visible items and draw them
@@ -138,18 +144,16 @@ protected:
 		const auto firstVisibleIndex = static_cast<std::size_t>(mScrollOffsetInPixels / lineHeight);
 		const auto firstInvisibleIndex = static_cast<std::size_t>((mScrollOffsetInPixels + mScrollArea.size.y + (lineHeight - 1)) / lineHeight);
 		const auto endVisibleIndex = std::min(firstInvisibleIndex, count());
-		auto itemDrawRect = mScrollArea;
-		itemDrawRect.position.y += -(mScrollOffsetInPixels % lineHeight);
-		itemDrawRect.size.y = lineHeight;
+		auto itemDrawArea = NAS2D::Rectangle{mScrollArea.position + NAS2D::Vector{0, static_cast<int>(firstVisibleIndex) * mItemSize.y - mScrollOffsetInPixels}, mItemSize};
 		for (std::size_t index = firstVisibleIndex; index < endVisibleIndex; ++index)
 		{
-			drawItem(renderer, itemDrawRect, index);
-			itemDrawRect.position.y += lineHeight;
+			drawItem(renderer, itemDrawArea, index);
+			itemDrawArea.position.y += lineHeight;
 		}
 
 		// Paint remaining section of scroll area not covered by items
-		itemDrawRect.size.y = mScrollArea.endPoint().y - itemDrawRect.position.y;
-		renderer.drawBoxFilled(itemDrawRect, mContext.backgroundColorNormal);
+		itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
+		renderer.drawBoxFilled(itemDrawArea, mListBoxTheme.backgroundColorNormal);
 
 		renderer.clipRectClear();
 	}
@@ -159,7 +163,12 @@ protected:
 	{
 		const auto isSelected = (index == mSelectedIndex);
 		const auto isHighlighted = (index == mHighlightIndex);
-		mItems[index].draw(renderer, drawArea, mContext, isSelected, isHighlighted);
+
+		// Draw background rect
+		const auto backgroundColor = isSelected ? mListBoxTheme.backgroundColorSelected : mListBoxTheme.backgroundColorNormal;
+		renderer.drawBoxFilled(drawArea, backgroundColor);
+
+		mItems[index].draw(renderer, drawArea, mListBoxTheme, isSelected, isHighlighted);
 	}
 
 
@@ -169,6 +178,6 @@ protected:
 	}
 
 private:
-	Context mContext;
+	ListBoxTheme mListBoxTheme;
 	std::vector<ListBoxItem> mItems;
 };

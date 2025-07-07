@@ -15,6 +15,7 @@
 namespace NAS2D
 {
 	enum class MouseButton;
+	class Renderer;
 }
 
 
@@ -49,7 +50,8 @@ public:
 
 protected:
 	void draw() const override;
-	void drawItems() const;
+	void drawScrollArea(NAS2D::Renderer& renderer) const;
+	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 	void clear();
 	void updateScrollLayout();
@@ -61,12 +63,7 @@ protected:
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 
-	NAS2D::Point<int> itemDrawPosition(std::size_t index) const;
-	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;
-
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const;
-
-	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 protected:
 	ScrollBar mScrollBar;
