@@ -51,6 +51,7 @@ public:
 protected:
 	void draw() const override;
 	void drawScrollArea(NAS2D::Renderer& renderer) const;
+	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 	void clear();
 	void updateScrollLayout();
@@ -66,8 +67,6 @@ protected:
 	NAS2D::Rectangle<int> itemDrawArea(std::size_t index) const;
 
 	virtual NAS2D::Color itemBorderColor(std::size_t index) const;
-
-	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 protected:
 	ScrollBar mScrollBar;
