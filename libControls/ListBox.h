@@ -130,6 +130,12 @@ protected:
 	}
 
 
+	NAS2D::Color emptyAreaColor() const override
+	{
+		return mListBoxTheme.backgroundColorNormal;
+	}
+
+
 	void draw() const override
 	{
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -158,7 +164,7 @@ protected:
 
 		// Paint remaining section of scroll area not covered by items
 		itemDrawArea.size.y = mScrollArea.endPoint().y - itemDrawArea.position.y;
-		renderer.drawBoxFilled(itemDrawArea, mListBoxTheme.backgroundColorNormal);
+		renderer.drawBoxFilled(itemDrawArea, emptyAreaColor());
 
 		renderer.clipRectClear();
 	}
