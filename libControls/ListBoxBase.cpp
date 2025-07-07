@@ -200,6 +200,26 @@ void ListBoxBase::update()
 }
 
 
+void ListBoxBase::draw() const
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+
+	// CONTROL EXTENTS
+	renderer.drawBoxFilled(mScrollArea, NAS2D::Color::Black);
+	renderer.drawBox(mRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
+
+	renderer.clipRect(mRect.inset(1));
+
+	// Mouse over highlight and selected highlight
+	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 36, 0}); }
+	if (mSelectedIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mSelectedIndex), itemBorderColor(mSelectedIndex).alphaFade(75)); }
+
+	drawItems();
+
+	renderer.clipRectClear();
+}
+
+
 void ListBoxBase::drawItems() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -218,24 +238,4 @@ void ListBoxBase::drawItems() const
 
 		drawItem(renderer, drawArea, index);
 	}
-}
-
-
-void ListBoxBase::draw() const
-{
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
-	// CONTROL EXTENTS
-	renderer.drawBoxFilled(mScrollArea, NAS2D::Color::Black);
-	renderer.drawBox(mRect, (hasFocus() ? NAS2D::Color{0, 185, 0} : NAS2D::Color{75, 75, 75}));
-
-	renderer.clipRect(mRect.inset(1));
-
-	// Mouse over highlight and selected highlight
-	if (mHighlightIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mHighlightIndex), NAS2D::Color{0, 36, 0}); }
-	if (mSelectedIndex != NoSelection) { renderer.drawBoxFilled(itemDrawArea(mSelectedIndex), itemBorderColor(mSelectedIndex).alphaFade(75)); }
-
-	drawItems();
-
-	renderer.clipRectClear();
 }
