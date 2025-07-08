@@ -71,9 +71,6 @@ namespace
 	std::map<StructureID, StorableResources> StructureRecycleValueTable;
 
 
-	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
-
-
 	template <typename Value>
 	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
 	{
