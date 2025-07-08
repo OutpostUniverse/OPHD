@@ -27,47 +27,45 @@ namespace
 }
 
 
-Button::Button(std::string newText) :
-	mButtonSkin{defaultButtonSkin()},
-	mFont{&getDefaultFont()},
-	mText{newText}
+Button::Button(std::string text, ClickDelegate clickHandler) :
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
-	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
-	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
-
-	size(mFont->size(mText) + internalPadding * 2);
-}
-
-
-Button::Button(std::string newText, ClickDelegate clickHandler) :
-	Button(newText)
-{
-	mClickHandler = clickHandler;
 }
 
 
 Button::Button(std::string text, NAS2D::Vector<int> sz, ClickDelegate clickHandler):
-	Button(text, clickHandler)
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
 {
 	size(sz);
 }
 
 
 Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
-	Button()
+	Button{defaultButtonSkin(), &image, getDefaultFont(), {}, clickHandler}
 {
-	mImage = &image;
 	size(mImage->size() + internalPadding * 2);
-	mClickHandler = clickHandler;
 }
 
 
 Button::Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler) :
-	mButtonSkin{buttonSkin}
+	Button{buttonSkin, nullptr, getDefaultFont(), {}, clickHandler}
 {
-	mClickHandler = clickHandler;
+}
+
+
+Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NAS2D::Font& font, std::string newText, ClickDelegate clickHandler) :
+	mButtonSkin{buttonSkin},
+	mImage{image},
+	mFont{&font},
+	mText{newText},
+	mClickHandler{clickHandler}
+{
+	size(mFont->size(mText) + internalPadding * 2);
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
+	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
+	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
 }
 
 
@@ -188,7 +186,7 @@ void Button::draw() const
 	{
 		renderer.drawImage(*mImage, mRect.center() - mImage->size() / 2);
 	}
-	else
+	if (mFont)
 	{
 		const auto textPosition = mRect.center() - mFont->size(mText) / 2;
 		renderer.drawText(*mFont, mText, textPosition, NAS2D::Color::White);
