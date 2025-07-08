@@ -90,6 +90,12 @@ Structure::Structure(const std::string& initialAction, StructureClass structureC
 }
 
 
+const StructureType& Structure::type() const
+{
+	return mStructureType;
+}
+
+
 const std::string& Structure::name() const
 {
 	return mStructureType.name;
