@@ -160,6 +160,11 @@ namespace
 
 	void verifyStructureTypeOrder()
 	{
+		if (structureTypes.size() != StructureID::SID_COUNT)
+		{
+			throw std::runtime_error("Unexpected number of StructureType entries: Read: " + std::to_string(structureTypes.size()) + " Expected: " + std::to_string(StructureID::SID_COUNT));
+		}
+
 		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
 		{
 			const auto& expectedName = StructureNameTable[i];
