@@ -12,16 +12,16 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
 
-#include <map>
 #include <array>
+#include <vector>
 #include <stdexcept>
 
 
 namespace
 {
-	static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+	static const std::array StructureNameTable =
 	{
-		"Not a Structure",
+		std::string{"Null"},
 		constants::Agridome,
 		constants::AirShaft,
 		constants::CargoLander,
@@ -63,38 +63,24 @@ namespace
 	};
 
 
-	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
-
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
-	const int DefaultRecyclePercent = 90;
+	const int defaultRecyclePercent = 90;
 
-	std::map<StructureID, StorableResources> StructureRecycleValueTable;
-
-
-	template <typename Value>
-	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
-	{
-		const auto it = container.find(key);
-		if (it != container.end())
-		{
-			return it->second;
-		}
-		return container.at(StructureID::SID_NONE);
-	}
+	std::vector<StructureType> structureTypes;
+	std::vector<StorableResources> recycleValueTable;
 
 
 	/**
 	 * Fills out the recycle value for all structures.
 	 */
-	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent)
+	std::vector<StorableResources> buildRecycleValueTable(int recoveryPercent)
 	{
-		std::map<StructureID, StorableResources> structureRecycleValueTable;
+		std::vector<StorableResources> structureRecycleValueTable{StructureCatalog::count()};
 
-		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
+		for (std::size_t index = 0; index < StructureCatalog::count(); ++index)
 		{
-			const auto structureId = static_cast<StructureID>(i);
-			structureRecycleValueTable[structureId] = StructureCatalog::costToBuild(structureId) * recoveryPercent / 100;
+			structureRecycleValueTable[index] = StructureCatalog::getType(index).buildCost * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
@@ -119,13 +105,13 @@ namespace
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
 		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
-		std::vector<StructureType> structureTypes;
+		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
 		{
 			const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 			NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, optionalFields);
 
-			structureTypes.push_back({
+			loadedStructureTypes.push_back({
 				dictionary.get("Name"),
 				dictionary.get("ImagePath"),
 				readResources(*structureElement, "BuildCost"),
@@ -151,16 +137,18 @@ namespace
 				dictionary.get<bool>("IsCrimeTarget"),
 			});
 		}
-		return structureTypes;
+		return loadedStructureTypes;
 	}
-
-
-	std::vector<StructureType> structureTypes;
 
 
 	void verifyStructureTypeOrder()
 	{
-		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
+		if (structureTypes.size() != StructureID::SID_COUNT)
+		{
+			throw std::runtime_error("Unexpected number of StructureType entries: Read: " + std::to_string(structureTypes.size()) + " Expected: " + std::to_string(StructureID::SID_COUNT));
+		}
+
+		for (std::size_t i = 0; i < structureTypes.size(); ++i)
 		{
 			const auto& expectedName = StructureNameTable[i];
 			const auto& actualName = structureTypes[i].name;
@@ -180,13 +168,25 @@ void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
 	verifyStructureTypeOrder();
-	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
+	recycleValueTable = buildRecycleValueTable(defaultRecyclePercent);
+}
+
+
+std::size_t StructureCatalog::count()
+{
+	return structureTypes.size();
 }
 
 
 const StructureType& StructureCatalog::getType(StructureID id)
 {
-	return structureTypes.at(static_cast<std::size_t>(id));
+	return getType(static_cast<std::size_t>(id));
+}
+
+
+const StructureType& StructureCatalog::getType(std::size_t index)
+{
+	return structureTypes.at(index);
 }
 
 
@@ -393,7 +393,7 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
  */
 const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 {
-	return findOrDefault(StructureRecycleValueTable, id);
+	return recycleValueTable.at(id);
 }
 
 

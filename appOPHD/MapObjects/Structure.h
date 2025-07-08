@@ -42,6 +42,7 @@ public:
 
 	~Structure() override = default;
 
+	const StructureType& type() const;
 	const std::string& name() const override;
 
 	// STATES & STATE MANAGEMENT
