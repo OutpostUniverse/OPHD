@@ -183,8 +183,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mMiniMap->area(mMiniMapRect);
 
 	const auto navControlEndPoint = NAS2D::Point{size.x, mBottomUiRect.position.y};
-	const auto navControlSize = NAS2D::Vector{(32 + constants::MarginTight) * 3, 99};
-	mNavControl->area(NAS2D::Rectangle{navControlEndPoint - navControlSize, navControlSize});
+	mNavControl->position(navControlEndPoint - mNavControl->size());
 
 	// Notification Area
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();

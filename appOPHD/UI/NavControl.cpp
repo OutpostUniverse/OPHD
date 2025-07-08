@@ -18,6 +18,10 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
+	constexpr auto iconSizeSmall = NAS2D::Vector{32, 16};
+	constexpr auto iconSizeLarge = NAS2D::Vector{32, 32};
+
+
 	std::string levelString(int currentDepth)
 	{
 		if (currentDepth == 0)
@@ -31,9 +35,12 @@ namespace
 
 NavControl::NavControl(MapView& mapView) :
 	mMapView{mapView},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{imageCache.load("ui/icons.png")},
+	mFont{Control::getDefaultFont()},
+	mFontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)}
 {
 	onMove({0, 0});
+	size(NAS2D::Vector{(iconSizeSmall.x + constants::MarginTight) * 3, iconSizeLarge.y * 2 + mFont.height() + mFontMediumBold.height()});
 }
 
 
@@ -43,21 +50,21 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 
 	// NAVIGATION BUTTONS
 	const auto position = mRect.position;
-	const auto navIconSpacing = 32 + constants::MarginTight;
+	const auto navIconSpacing = iconSizeSmall.x + constants::MarginTight;
 	// Top line
-	mMoveWestIconRect = {{position.x, position.y + 8}, {32, 16}};
-	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, {32, 16}};
-	mMoveUpIconRect = {{position.x + 2 * navIconSpacing, position.y}, {32, 32}};
+	mMoveWestIconRect = {{position.x, position.y + 8}, iconSizeSmall};
+	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, iconSizeSmall};
+	mMoveUpIconRect = {{position.x + navIconSpacing * 2, position.y}, iconSizeLarge};
 	// Bottom line
-	mMoveSouthIconRect = {{position.x, position.y + navIconSpacing + 8}, {32, 16}};
-	mMoveEastIconRect = {{position.x + navIconSpacing, position.y + navIconSpacing + 8}, {32, 16}};
-	mMoveDownIconRect = {{position.x + 2 * navIconSpacing, position.y + navIconSpacing}, {32, 32}};
+	mMoveSouthIconRect = {{position.x, position.y + navIconSpacing + 8}, iconSizeSmall};
+	mMoveEastIconRect = {{position.x + navIconSpacing, position.y + navIconSpacing + 8}, iconSizeSmall};
+	mMoveDownIconRect = {{position.x + navIconSpacing * 2, position.y + navIconSpacing}, iconSizeLarge};
 }
 
 
 void NavControl::onClick(NAS2D::Point<int> mousePosition)
 {
-	const std::array directionOptions
+	const auto directionOptions =
 	{
 		std::tuple{mMoveNorthIconRect, MapOffsetNorth},
 		std::tuple{mMoveSouthIconRect, MapOffsetSouth},
@@ -84,14 +91,14 @@ void NavControl::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const std::array buttonDrawRects
+	const auto buttonDrawRects =
 	{
-		std::tuple{mMoveDownIconRect, NAS2D::Rectangle<int>{{64, 128}, {32, 32}}},
-		std::tuple{mMoveUpIconRect, NAS2D::Rectangle<int>{{96, 128}, {32, 32}}},
-		std::tuple{mMoveEastIconRect, NAS2D::Rectangle<int>{{32, 128}, {32, 16}}},
-		std::tuple{mMoveWestIconRect, NAS2D::Rectangle<int>{{32, 144}, {32, 16}}},
-		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle<int>{{0, 128}, {32, 16}}},
-		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle<int>{{0, 144}, {32, 16}}},
+		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{{64, 128}, iconSizeLarge}},
+		std::tuple{mMoveUpIconRect, NAS2D::Rectangle{{96, 128}, iconSizeLarge}},
+		std::tuple{mMoveEastIconRect, NAS2D::Rectangle{{32, 128}, iconSizeSmall}},
+		std::tuple{mMoveWestIconRect, NAS2D::Rectangle{{32, 144}, iconSizeSmall}},
+		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle{{0, 128}, iconSizeSmall}},
+		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle{{0, 144}, iconSizeSmall}},
 	};
 	for (const auto& [currentIconRect, subImageRect] : buttonDrawRects)
 	{
@@ -101,22 +108,20 @@ void NavControl::draw() const
 	}
 
 	// Display the levels "bar"
-	const auto& font = Control::getDefaultFont();
-	const auto stepSizeWidth = font.width("IX");
+	const auto stepSizeWidth = mFont.width("IX");
 	auto position = mRect.endPoint() - NAS2D::Vector{5, 30 - constants::Margin};
 	for (int i = mMapView.maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);
-		const auto textSize = font.size(levelString);
+		const auto textSize = mFont.size(levelString);
 		bool isCurrentDepth = i == mMapView.currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200};
-		renderer.drawText(font, levelString, position - textSize, color);
+		renderer.drawText(mFont, levelString, position - textSize, color);
 		position.x -= stepSizeWidth;
 	}
 
 	// Explicit current level
 	const auto& currentLevelString = levelString(mMapView.currentDepth());
-	const auto& fontBoldMedium = fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium);
-	const auto currentLevelPosition = mRect.endPoint() - fontBoldMedium.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
-	renderer.drawText(fontBoldMedium, currentLevelString, currentLevelPosition, NAS2D::Color::White);
+	const auto currentLevelPosition = mRect.endPoint() - mFontMediumBold.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
+	renderer.drawText(mFontMediumBold, currentLevelString, currentLevelPosition, NAS2D::Color::White);
 }
