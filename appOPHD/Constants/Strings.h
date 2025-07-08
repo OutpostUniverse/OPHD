@@ -185,7 +185,7 @@ namespace constants
 	// =====================================
 	// = POPULATION PANEL STRINGS
 	// =====================================
-	const std::string ToolTipBtnTurns = "Advances to the next turn";
+	const std::string ToolTipBtnTurns = "Next turn";
 	const std::string ToolTipBtnHeightmap = "Terrain Height Map";
 	const std::string ToolTipBtnConnectedness = "Tube Connection Overlay";
 	const std::string ToolTipBtnCommRange = "Communications Range Overlay";
