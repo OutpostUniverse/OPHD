@@ -68,8 +68,9 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}},
 	lstStructures{{this, &WarehouseReport::onStructureSelectionChange}}
 {
+	const auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
 	const auto buttonSize = NAS2D::Vector{94, 20};
-	auto buttonOffset = NAS2D::Vector{10, 10};
+	auto buttonOffset = filterButtonSectionOffset;
 	for (auto button : {&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled})
 	{
 		button->size(buttonSize);
