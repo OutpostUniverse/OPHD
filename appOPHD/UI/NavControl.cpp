@@ -34,6 +34,7 @@ NavControl::NavControl(MapView& mapView) :
 	mUiIcons{imageCache.load("ui/icons.png")}
 {
 	onMove({0, 0});
+	size(NAS2D::Vector{(32 + constants::MarginTight) * 3, 99});
 }
 
 
