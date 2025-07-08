@@ -719,7 +719,7 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
  */
 void MapViewState::updateStructuresAvailability()
 {
-	for (std::size_t id = 1; id < StructureID::SID_COUNT; ++id)
+	for (std::size_t id = 1; id < StructureCatalog::count(); ++id)
 	{
 		const auto& structureType = StructureCatalog::getType(id);
 		const auto hasSufficientResources = structureType.buildCost <= mResourcesCount;
