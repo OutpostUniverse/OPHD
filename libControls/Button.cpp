@@ -188,7 +188,7 @@ void Button::draw() const
 	{
 		renderer.drawImage(*mImage, mRect.center() - mImage->size() / 2);
 	}
-	else
+	if (mFont)
 	{
 		const auto textPosition = mRect.center() - mFont->size(mText) / 2;
 		renderer.drawText(*mFont, mText, textPosition, NAS2D::Color::White);
