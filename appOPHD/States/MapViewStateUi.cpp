@@ -193,15 +193,15 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 
 	// Position UI Buttons
 	const auto buttonColumnOrigin = mMiniMapRect.position + NAS2D::Vector{-constants::MainButtonSize - constants::MarginTight, 0};
-	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x, size.y - constants::Margin - constants::MainButtonSize});
+	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x - constants::MainButtonSize, buttonColumnOrigin.y});
 	mBtnToggleHeightmap.position({buttonColumnOrigin.x, buttonColumnOrigin.y});
 	mBtnToggleRouteOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize});
 	mBtnToggleConnectedness.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 2});
 	mBtnToggleCommRangeOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 3});
-	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x - constants::MainButtonSize, buttonColumnOrigin.y});
+	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
 
 	// UI Panels
-	mRobots.position({mBtnTogglePoliceOverlay.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
+	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
 
