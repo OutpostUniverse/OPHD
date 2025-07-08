@@ -187,10 +187,10 @@ namespace constants
 	// =====================================
 	const std::string ToolTipBtnTurns = "Advances to the next turn";
 	const std::string ToolTipBtnHeightmap = "Terrain Height Map";
-	const std::string ToolTipBtnConnectedness = "Tile Connection Overlay";
+	const std::string ToolTipBtnConnectedness = "Tube Connection Overlay";
 	const std::string ToolTipBtnCommRange = "Communications Range Overlay";
-	const std::string ToolTipBtnRoutes = "Trucking Routes Overlay";
-	const std::string ToolTipBtnPolice = "Police Station Coverage";
+	const std::string ToolTipBtnRoutes = "Ore Haul Routes Overlay";
+	const std::string ToolTipBtnPolice = "Police Coverage Overlay";
 	const std::string ToolTipRefinedResources = "Breakdown of storage levels for Smelted Resources";
 	const std::string ToolTipResourceStorage = "Smelted Resources Storage. Current Level / Capacity";
 	const std::string ToolTipFoodStorage = "Food Storage. Current Level / Capacity";
