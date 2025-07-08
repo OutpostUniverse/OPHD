@@ -68,7 +68,7 @@ namespace
 	const int DefaultRecyclePercent = 90;
 
 	std::vector<StructureType> structureTypes;
-	std::map<StructureID, StorableResources> StructureRecycleValueTable;
+	std::map<StructureID, StorableResources> recycleValueTable;
 
 
 	/**
@@ -169,7 +169,7 @@ void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
 	verifyStructureTypeOrder();
-	StructureRecycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
+	recycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
 }
 
 
@@ -394,7 +394,7 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
  */
 const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 {
-	return StructureRecycleValueTable.at(id);
+	return recycleValueTable.at(id);
 }
 
 
