@@ -328,7 +328,7 @@ void WarehouseReport::onStructureSelectionChange()
 void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 {
 	const auto textLineSpacing = 22;
-	const auto textOrigin = NAS2D::Point{10, position().y + 40};
+	const auto textOrigin = position() + NAS2D::Vector{10, 40};
 	renderer.drawText(fontMediumBold, "Warehouse Count", textOrigin, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, textLineSpacing}, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", textOrigin + NAS2D::Vector{0, textLineSpacing * 2}, constants::PrimaryTextColor);
