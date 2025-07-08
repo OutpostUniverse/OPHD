@@ -25,7 +25,7 @@ using namespace NAS2D;
 namespace
 {
 	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
-	constexpr auto filterButtonSize = NAS2D::Vector{94, 20};
+	constexpr auto filterButtonSize = NAS2D::Vector{94, 26};
 	constexpr auto infoSectionOffset = filterButtonSectionOffset + NAS2D::Vector{0, filterButtonSize.y + 10};
 	constexpr auto infoSectionHeight = 66;
 	constexpr auto structureListBoxOffset = infoSectionOffset + NAS2D::Vector{0, infoSectionHeight + 9};
