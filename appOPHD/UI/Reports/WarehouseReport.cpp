@@ -26,6 +26,7 @@ using namespace NAS2D;
 namespace
 {
 	constexpr auto infoSectionOffset = NAS2D::Vector{10, 40};
+	constexpr auto infoSectionHeight = 66;
 
 
 	template <typename Predicate>
@@ -330,7 +331,7 @@ void WarehouseReport::onStructureSelectionChange()
 
 void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 {
-	const auto textLineSpacing = 22;
+	const auto textLineSpacing = infoSectionHeight / 3;
 	const auto textOrigin = position() + infoSectionOffset;
 	renderer.drawText(fontMediumBold, "Warehouse Count", textOrigin, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, textLineSpacing}, constants::PrimaryTextColor);
