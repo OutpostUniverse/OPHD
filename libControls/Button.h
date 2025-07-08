@@ -36,8 +36,7 @@ public:
 
 	using ClickDelegate = NAS2D::Delegate<void()>;
 
-	Button(std::string newText = {});
-	Button(std::string newText, ClickDelegate clickHandler);
+	Button(std::string newText = {}, ClickDelegate clickHandler = {});
 	Button(std::string text, NAS2D::Vector<int> size, ClickDelegate clickHandler);
 	Button(const NAS2D::Image& image, ClickDelegate clickHandler);
 	Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler);

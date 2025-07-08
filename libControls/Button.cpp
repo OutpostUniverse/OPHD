@@ -27,12 +27,6 @@ namespace
 }
 
 
-Button::Button(std::string text) :
-	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, {}}
-{
-}
-
-
 Button::Button(std::string text, ClickDelegate clickHandler) :
 	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
 {
