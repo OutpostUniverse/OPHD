@@ -194,9 +194,9 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	// Position UI Buttons
 	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnToggleHeightmap.position({mBtnTurns.position().x, mMiniMapRect.position.y});
-	mBtnToggleRouteOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize * 3});
-	mBtnToggleConnectedness.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize});
-	mBtnToggleCommRangeOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize * 2});
+	mBtnToggleRouteOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize});
+	mBtnToggleConnectedness.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize * 2});
+	mBtnToggleCommRangeOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize * 3});
 	mBtnTogglePoliceOverlay.position({mBtnTurns.position().x - constants::MainButtonSize, mMiniMapRect.position.y});
 
 	// UI Panels
