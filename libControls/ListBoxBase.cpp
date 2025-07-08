@@ -119,6 +119,12 @@ void ListBoxBase::onVisibilityChange(bool visible)
 }
 
 
+void ListBoxBase::onMove(NAS2D::Vector<int> /*displacement*/)
+{
+	updateScrollLayout();
+}
+
+
 void ListBoxBase::onResize()
 {
 	updateScrollLayout();
