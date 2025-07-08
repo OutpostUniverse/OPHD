@@ -19,9 +19,9 @@
 
 namespace
 {
-	static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
+	static const std::array StructureNameTable =
 	{
-		"Null",
+		std::string{"Null"},
 		constants::Agridome,
 		constants::AirShaft,
 		constants::CargoLander,
