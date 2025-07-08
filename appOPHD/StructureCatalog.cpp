@@ -71,8 +71,7 @@ namespace
 	std::map<StructureID, StorableResources> StructureRecycleValueTable;
 
 
-	template <typename Value>
-	const Value& findOrDefault(const std::map<StructureID, Value>& container, StructureID key)
+	const StorableResources& findOrDefault(const std::map<StructureID, StorableResources>& container, StructureID key)
 	{
 		const auto it = container.find(key);
 		if (it != container.end())
