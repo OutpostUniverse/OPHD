@@ -119,14 +119,14 @@ void MapViewState::initUi()
 	mBtnToggleHeightmap.size(constants::MainButtonSize);
 	mBtnToggleHeightmap.type(Button::Type::Toggle);
 
+	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
+	mBtnToggleRouteOverlay.type(Button::Type::Toggle);
+
 	mBtnToggleConnectedness.size(constants::MainButtonSize);
 	mBtnToggleConnectedness.type(Button::Type::Toggle);
 
 	mBtnToggleCommRangeOverlay.size(constants::MainButtonSize);
 	mBtnToggleCommRangeOverlay.type(Button::Type::Toggle);
-
-	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
-	mBtnToggleRouteOverlay.type(Button::Type::Toggle);
 
 	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
@@ -153,9 +153,9 @@ void MapViewState::initUi()
 	// Tool Tips
 	mToolTip.add(mBtnTurns, constants::ToolTipBtnTurns);
 	mToolTip.add(mBtnToggleHeightmap, constants::ToolTipBtnHeightmap);
+	mToolTip.add(mBtnToggleRouteOverlay, constants::ToolTipBtnRoutes);
 	mToolTip.add(mBtnToggleConnectedness, constants::ToolTipBtnConnectedness);
 	mToolTip.add(mBtnToggleCommRangeOverlay, constants::ToolTipBtnCommRange);
-	mToolTip.add(mBtnToggleRouteOverlay, constants::ToolTipBtnRoutes);
 	mToolTip.add(mBtnTogglePoliceOverlay, constants::ToolTipBtnPolice);
 	mToolTip.add(mTooltipCurrentTurns, constants::ToolTipCurrentTurns);
 	mToolTip.add(mTooltipSystemButton, constants::ToolTipSystemMenu);
@@ -192,15 +192,16 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Position UI Buttons
-	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
-	mBtnToggleHeightmap.position({mBtnTurns.position().x, mMiniMapRect.position.y});
-	mBtnToggleConnectedness.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize});
-	mBtnToggleCommRangeOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + (constants::MainButtonSize * 2)});
-	mBtnToggleRouteOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + (constants::MainButtonSize * 3)});
-	mBtnTogglePoliceOverlay.position({mBtnTurns.position().x - constants::MainButtonSize, mMiniMapRect.position.y});
+	const auto buttonColumnOrigin = mMiniMapRect.position + NAS2D::Vector{-constants::MainButtonSize - constants::MarginTight, 0};
+	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x - constants::MainButtonSize, buttonColumnOrigin.y});
+	mBtnToggleHeightmap.position({buttonColumnOrigin.x, buttonColumnOrigin.y});
+	mBtnToggleRouteOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize});
+	mBtnToggleConnectedness.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 2});
+	mBtnToggleCommRangeOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 3});
+	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
 
 	// UI Panels
-	mRobots.position({mBtnTogglePoliceOverlay.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
+	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
 
@@ -239,9 +240,9 @@ void MapViewState::hideUi()
 	mBtnTurns.hide();
 
 	mBtnToggleHeightmap.hide();
+	mBtnToggleRouteOverlay.hide();
 	mBtnToggleConnectedness.hide();
 	mBtnToggleCommRangeOverlay.hide();
-	mBtnToggleRouteOverlay.hide();
 	mBtnTogglePoliceOverlay.hide();
 
 	mStructures.hide();
@@ -260,10 +261,10 @@ void MapViewState::unhideUi()
 	mBtnTurns.show();
 
 	mBtnToggleHeightmap.show();
+	mBtnToggleRouteOverlay.show();
 	mBtnToggleConnectedness.show();
 	mBtnToggleCommRangeOverlay.show();
 	mBtnTogglePoliceOverlay.visible(true);
-	mBtnToggleRouteOverlay.show();
 
 	mStructures.show();
 	mRobots.show();
@@ -371,9 +372,9 @@ void MapViewState::drawUI()
 	// Buttons
 	mBtnTurns.update();
 	mBtnToggleHeightmap.update();
+	mBtnToggleRouteOverlay.update();
 	mBtnToggleConnectedness.update();
 	mBtnToggleCommRangeOverlay.update();
-	mBtnToggleRouteOverlay.update();
 	mBtnTogglePoliceOverlay.update();
 
 	// Menus
@@ -436,8 +437,8 @@ void MapViewState::onToggleConnectedness()
 
 	if (mBtnToggleConnectedness.isPressed())
 	{
-		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+		mBtnToggleCommRangeOverlay.toggle(false);
 		mBtnTogglePoliceOverlay.toggle(false);
 
 		setOverlay(mConnectednessOverlay, Tile::Overlay::Connectedness);
@@ -451,8 +452,8 @@ void MapViewState::onToggleCommRangeOverlay()
 
 	if (mBtnToggleCommRangeOverlay.isPressed())
 	{
-		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+		mBtnToggleConnectedness.toggle(false);
 		mBtnTogglePoliceOverlay.toggle(false);
 
 		setOverlay(mCommRangeOverlay, Tile::Overlay::Communications);
@@ -465,9 +466,9 @@ void MapViewState::onTogglePoliceOverlay()
 
 	if (mBtnTogglePoliceOverlay.isPressed())
 	{
-		mBtnToggleCommRangeOverlay.toggle(false);
-		mBtnToggleConnectedness.toggle(false);
 		mBtnToggleRouteOverlay.toggle(false);
+		mBtnToggleConnectedness.toggle(false);
+		mBtnToggleCommRangeOverlay.toggle(false);
 
 		setOverlay(mPoliceOverlays[static_cast<std::size_t>(mMapView->currentDepth())], Tile::Overlay::Police);
 	}

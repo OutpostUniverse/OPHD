@@ -593,9 +593,9 @@ void MapViewState::updateOverlays()
 	updateCommRangeOverlay();
 	updatePoliceOverlay();
 
+	if (mBtnToggleRouteOverlay.isPressed()) { onToggleRouteOverlay(); }
 	if (mBtnToggleConnectedness.isPressed()) { onToggleConnectedness(); }
 	if (mBtnToggleCommRangeOverlay.isPressed()) { onToggleCommRangeOverlay(); }
-	if (mBtnToggleRouteOverlay.isPressed()) { onToggleRouteOverlay(); }
 	if (mBtnTogglePoliceOverlay.isPressed()) { onTogglePoliceOverlay(); }
 }
 

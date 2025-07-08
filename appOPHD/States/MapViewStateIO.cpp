@@ -233,11 +233,11 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	renderer.drawImage(*imageLoading, renderer.center() - imageLoading->size() / 2);
 	renderer.update();
 
+	mBtnToggleHeightmap.toggle(false);
+	mBtnToggleRouteOverlay.toggle(false);
 	mBtnToggleConnectedness.toggle(false);
 	mBtnToggleCommRangeOverlay.toggle(false);
-	mBtnToggleRouteOverlay.toggle(false);
 	mBtnTogglePoliceOverlay.toggle(false);
-	mBtnToggleHeightmap.toggle(false);
 	mMorale.closeJournal();
 
 	scrubRobotList();
