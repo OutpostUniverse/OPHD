@@ -334,9 +334,9 @@ private:
 	// USER INTERFACE
 	Button mBtnTurns;
 	Button mBtnToggleHeightmap;
+	Button mBtnToggleRouteOverlay;
 	Button mBtnToggleConnectedness;
 	Button mBtnToggleCommRangeOverlay;
-	Button mBtnToggleRouteOverlay;
 	Button mBtnTogglePoliceOverlay;
 
 	// Bare Control's use for ToolTips
