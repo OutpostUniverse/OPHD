@@ -28,6 +28,7 @@ namespace
 	constexpr auto filterButtonSize = NAS2D::Vector{94, 20};
 	constexpr auto infoSectionOffset = NAS2D::Vector{10, 40};
 	constexpr auto infoSectionHeight = 66;
+	constexpr auto structureListBoxOffset = NAS2D::Vector{10, 115};
 
 
 	template <typename Predicate>
@@ -89,7 +90,7 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	fillLists();
 
 	add(btnTakeMeThere, {10, 10});
-	add(lstStructures, {10, 115});
+	add(lstStructures, structureListBoxOffset);
 	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
 }
 
