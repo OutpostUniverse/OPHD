@@ -63,13 +63,15 @@ namespace
 	};
 
 
-	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
-
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
 	const int DefaultRecyclePercent = 90;
 
+	std::vector<StructureType> structureTypes;
 	std::map<StructureID, StorableResources> StructureRecycleValueTable;
+
+
+	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent);
 
 
 	template <typename Value>
@@ -153,9 +155,6 @@ namespace
 		}
 		return loadedStructureTypes;
 	}
-
-
-	std::vector<StructureType> structureTypes;
 
 
 	void verifyStructureTypeOrder()
