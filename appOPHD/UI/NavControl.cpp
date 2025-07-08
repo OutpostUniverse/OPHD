@@ -64,7 +64,7 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 
 void NavControl::onClick(NAS2D::Point<int> mousePosition)
 {
-	const std::array directionOptions
+	const auto directionOptions =
 	{
 		std::tuple{mMoveNorthIconRect, MapOffsetNorth},
 		std::tuple{mMoveSouthIconRect, MapOffsetSouth},
@@ -91,7 +91,7 @@ void NavControl::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const std::array buttonDrawRects
+	const auto buttonDrawRects =
 	{
 		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{{64, 128}, iconSizeLarge}},
 		std::tuple{mMoveUpIconRect, NAS2D::Rectangle{{96, 128}, iconSizeLarge}},
