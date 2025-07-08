@@ -339,7 +339,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, textLineSpacing}, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", textOrigin + NAS2D::Vector{0, textLineSpacing * 2}, constants::PrimaryTextColor);
 
-	const auto valueOrigin = textOrigin + NAS2D::Vector{mRect.size.x / 2 - 20, -5};
+	const auto valueOrigin = textOrigin + NAS2D::Vector{mRect.size.x / 2 - 20, fontMediumBold.height() - fontMedium.height()};
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
