@@ -28,7 +28,7 @@ namespace
 	constexpr auto filterButtonSize = NAS2D::Vector{94, 26};
 	constexpr auto infoSectionOffset = filterButtonSectionOffset + NAS2D::Vector{0, filterButtonSize.y + 10};
 	constexpr auto infoSectionHeight = 66;
-	constexpr auto structureListBoxOffset = infoSectionOffset + NAS2D::Vector{0, infoSectionHeight + 9};
+	constexpr auto structureListBoxOffset = infoSectionOffset + NAS2D::Vector{0, infoSectionHeight + 10};
 
 
 	template <typename Predicate>
