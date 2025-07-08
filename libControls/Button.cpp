@@ -27,40 +27,29 @@ namespace
 }
 
 
-Button::Button(std::string newText) :
-	mButtonSkin{defaultButtonSkin()},
-	mFont{&getDefaultFont()},
-	mText{newText}
+Button::Button(std::string text) :
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, {}}
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
-	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
-	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
-
-	size(mFont->size(mText) + internalPadding * 2);
 }
 
 
-Button::Button(std::string newText, ClickDelegate clickHandler) :
-	Button(newText)
+Button::Button(std::string text, ClickDelegate clickHandler) :
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
 {
-	mClickHandler = clickHandler;
 }
 
 
 Button::Button(std::string text, NAS2D::Vector<int> sz, ClickDelegate clickHandler):
-	Button(text, clickHandler)
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
 {
 	size(sz);
 }
 
 
 Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
-	Button()
+	Button{defaultButtonSkin(), &image, getDefaultFont(), {}, clickHandler}
 {
-	mImage = &image;
 	size(mImage->size() + internalPadding * 2);
-	mClickHandler = clickHandler;
 }
 
 
