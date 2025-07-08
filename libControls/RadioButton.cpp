@@ -11,9 +11,9 @@
 
 namespace
 {
-	constexpr auto iconSize = NAS2D::Vector{13, 13};
-	constexpr auto unselectedIconRect = NAS2D::Rectangle{{0, 0}, iconSize};
-	constexpr auto selectedIconRect = NAS2D::Rectangle{{13, 0}, iconSize};
+	constexpr auto iconSize = NAS2D::Vector{10, 10};
+	constexpr auto unselectedIconRect = NAS2D::Rectangle{{1, 1}, iconSize};
+	constexpr auto selectedIconRect = NAS2D::Rectangle{{14, 1}, iconSize};
 	constexpr auto internalSpacing = 2;
 	constexpr auto textOffset = NAS2D::Vector{iconSize.x + internalSpacing, 0};
 }
@@ -70,7 +70,7 @@ const std::string& RadioButtonGroup::RadioButton::text() const
 void RadioButtonGroup::RadioButton::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y + 1) / 2};
+	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y) / 2};
 	renderer.drawSubImage(mSkin, iconPosition, (mChecked ? selectedIconRect : unselectedIconRect));
 	renderer.drawText(mFont, text(), position() + textOffset, NAS2D::Color::White);
 }
