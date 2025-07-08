@@ -40,7 +40,7 @@ NavControl::NavControl(MapView& mapView) :
 	mFontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)}
 {
 	onMove({0, 0});
-	size(NAS2D::Vector{(iconSizeSmall.x + constants::MarginTight) * 3, iconSizeLarge.y * 2 + 35});
+	size(NAS2D::Vector{(iconSizeSmall.x + constants::MarginTight) * 3, iconSizeLarge.y * 2 + mFont.height() + mFontMediumBold.height()});
 }
 
 
