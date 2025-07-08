@@ -93,12 +93,12 @@ void NavControl::draw() const
 
 	const std::array buttonDrawRects
 	{
-		std::tuple{mMoveDownIconRect, NAS2D::Rectangle<int>{{64, 128}, iconSizeLarge}},
-		std::tuple{mMoveUpIconRect, NAS2D::Rectangle<int>{{96, 128}, iconSizeLarge}},
-		std::tuple{mMoveEastIconRect, NAS2D::Rectangle<int>{{32, 128}, iconSizeSmall}},
-		std::tuple{mMoveWestIconRect, NAS2D::Rectangle<int>{{32, 144}, iconSizeSmall}},
-		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle<int>{{0, 128}, iconSizeSmall}},
-		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle<int>{{0, 144}, iconSizeSmall}},
+		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{{64, 128}, iconSizeLarge}},
+		std::tuple{mMoveUpIconRect, NAS2D::Rectangle{{96, 128}, iconSizeLarge}},
+		std::tuple{mMoveEastIconRect, NAS2D::Rectangle{{32, 128}, iconSizeSmall}},
+		std::tuple{mMoveWestIconRect, NAS2D::Rectangle{{32, 144}, iconSizeSmall}},
+		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle{{0, 128}, iconSizeSmall}},
+		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle{{0, 144}, iconSizeSmall}},
 	};
 	for (const auto& [currentIconRect, subImageRect] : buttonDrawRects)
 	{
