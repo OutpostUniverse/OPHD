@@ -14,7 +14,6 @@
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <array>
 #include <string>
 #include <iterator>
 #include <algorithm>
@@ -71,8 +70,7 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 {
 	auto buttonOffset = NAS2D::Vector{10, 10};
 	const auto buttonSize = NAS2D::Vector{94, 20};
-	const auto buttons = std::array{&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled};
-	for (auto button : buttons)
+	for (auto button : {&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled})
 	{
 		button->size(buttonSize);
 		button->type(Button::Type::Toggle);
