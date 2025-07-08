@@ -31,7 +31,9 @@ namespace
 
 NavControl::NavControl(MapView& mapView) :
 	mMapView{mapView},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{imageCache.load("ui/icons.png")},
+	mFont{Control::getDefaultFont()},
+	mFontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)}
 {
 	onMove({0, 0});
 	size(NAS2D::Vector{(32 + constants::MarginTight) * 3, 99});
@@ -102,22 +104,20 @@ void NavControl::draw() const
 	}
 
 	// Display the levels "bar"
-	const auto& font = Control::getDefaultFont();
-	const auto stepSizeWidth = font.width("IX");
+	const auto stepSizeWidth = mFont.width("IX");
 	auto position = mRect.endPoint() - NAS2D::Vector{5, 30 - constants::Margin};
 	for (int i = mMapView.maxDepth(); i >= 0; i--)
 	{
 		const auto levelString = (i == 0) ? std::string{"S"} : std::to_string(i);
-		const auto textSize = font.size(levelString);
+		const auto textSize = mFont.size(levelString);
 		bool isCurrentDepth = i == mMapView.currentDepth();
 		NAS2D::Color color = isCurrentDepth ? NAS2D::Color::Red : NAS2D::Color{200, 200, 200};
-		renderer.drawText(font, levelString, position - textSize, color);
+		renderer.drawText(mFont, levelString, position - textSize, color);
 		position.x -= stepSizeWidth;
 	}
 
 	// Explicit current level
 	const auto& currentLevelString = levelString(mMapView.currentDepth());
-	const auto& fontBoldMedium = fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium);
-	const auto currentLevelPosition = mRect.endPoint() - fontBoldMedium.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
-	renderer.drawText(fontBoldMedium, currentLevelString, currentLevelPosition, NAS2D::Color::White);
+	const auto currentLevelPosition = mRect.endPoint() - mFontMediumBold.size(currentLevelString) - NAS2D::Vector{constants::Margin, constants::Margin};
+	renderer.drawText(mFontMediumBold, currentLevelString, currentLevelPosition, NAS2D::Color::White);
 }

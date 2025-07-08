@@ -9,6 +9,7 @@
 namespace NAS2D
 {
 	class Image;
+	class Font;
 }
 
 class MapView;
@@ -31,6 +32,8 @@ protected:
 private:
 	MapView& mMapView;
 	const NAS2D::Image& mUiIcons;
+	const NAS2D::Font& mFont;
+	const NAS2D::Font& mFontMediumBold;
 
 	NAS2D::Rectangle<int> mMoveNorthIconRect;
 	NAS2D::Rectangle<int> mMoveSouthIconRect;
