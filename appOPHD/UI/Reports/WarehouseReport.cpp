@@ -69,11 +69,11 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	lstStructures{{this, &WarehouseReport::onStructureSelectionChange}}
 {
 	const auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
-	const auto buttonSize = NAS2D::Vector{94, 20};
+	const auto filterButtonSize = NAS2D::Vector{94, 20};
 	auto buttonOffset = filterButtonSectionOffset;
 	for (auto button : {&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled})
 	{
-		button->size(buttonSize);
+		button->size(filterButtonSize);
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
 		add(*button, buttonOffset);
