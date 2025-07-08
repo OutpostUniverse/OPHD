@@ -71,17 +71,6 @@ namespace
 	std::map<StructureID, StorableResources> StructureRecycleValueTable;
 
 
-	const StorableResources& findOrDefault(const std::map<StructureID, StorableResources>& container, StructureID key)
-	{
-		const auto it = container.find(key);
-		if (it != container.end())
-		{
-			return it->second;
-		}
-		return container.at(StructureID::SID_NONE);
-	}
-
-
 	/**
 	 * Fills out the recycle value for all structures.
 	 */
@@ -405,7 +394,7 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
  */
 const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 {
-	return findOrDefault(StructureRecycleValueTable, id);
+	return StructureRecycleValueTable.at(id);
 }
 
 
