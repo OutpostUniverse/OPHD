@@ -144,7 +144,7 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	else
 	{
 		mIsPressed = !mIsPressed;
-		if (mClickHandler) { mClickHandler(); }
+		click();
 	}
 }
 
@@ -160,7 +160,7 @@ void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 
 		if (mRect.contains(position))
 		{
-			if (mClickHandler) { mClickHandler(); }
+			click();
 		}
 	}
 }
