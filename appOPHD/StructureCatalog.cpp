@@ -186,7 +186,7 @@ void StructureCatalog::init(const std::string& filename)
 
 const StructureType& StructureCatalog::getType(StructureID id)
 {
-	return structureTypes.at(static_cast<std::size_t>(id));
+	return getType(static_cast<std::size_t>(id));
 }
 
 
