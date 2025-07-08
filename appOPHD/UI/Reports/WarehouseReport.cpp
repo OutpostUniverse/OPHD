@@ -24,6 +24,8 @@ using namespace NAS2D;
 
 namespace
 {
+	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
+	constexpr auto filterButtonSize = NAS2D::Vector{94, 20};
 	constexpr auto infoSectionOffset = NAS2D::Vector{10, 40};
 	constexpr auto infoSectionHeight = 66;
 
@@ -68,8 +70,6 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}},
 	lstStructures{{this, &WarehouseReport::onStructureSelectionChange}}
 {
-	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
-	constexpr auto filterButtonSize = NAS2D::Vector{94, 20};
 	auto buttonOffset = filterButtonSectionOffset;
 	for (auto button : {&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled})
 	{
