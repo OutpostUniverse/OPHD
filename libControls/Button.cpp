@@ -41,7 +41,8 @@ Button::Button(std::string newText) :
 }
 
 
-Button::Button(std::string newText, ClickDelegate clickHandler) : Button(newText)
+Button::Button(std::string newText, ClickDelegate clickHandler) :
+	Button(newText)
 {
 	mClickHandler = clickHandler;
 }
@@ -54,7 +55,8 @@ Button::Button(std::string text, NAS2D::Vector<int> sz, ClickDelegate clickHandl
 }
 
 
-Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) : Button()
+Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
+	Button()
 {
 	mImage = &image;
 	size(mImage->size() + internalPadding * 2);
@@ -75,6 +77,12 @@ Button::~Button()
 	eventHandler.mouseButtonDown().disconnect({this, &Button::onMouseDown});
 	eventHandler.mouseButtonUp().disconnect({this, &Button::onMouseUp});
 	eventHandler.mouseMotion().disconnect({this, &Button::onMouseMove});
+}
+
+
+void Button::click() const
+{
+	if (mClickHandler) { mClickHandler(); }
 }
 
 
@@ -138,7 +146,7 @@ void Button::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 	else
 	{
 		mIsPressed = !mIsPressed;
-		if (mClickHandler) { mClickHandler(); }
+		click();
 	}
 }
 
@@ -154,7 +162,7 @@ void Button::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 
 		if (mRect.contains(position))
 		{
-			if (mClickHandler) { mClickHandler(); }
+			click();
 		}
 	}
 }
