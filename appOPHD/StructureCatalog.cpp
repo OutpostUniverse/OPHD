@@ -94,7 +94,7 @@ namespace
 		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
 		{
 			const auto structureId = static_cast<StructureID>(i);
-			structureRecycleValueTable[structureId] = StructureCatalog::costToBuild(structureId) * recoveryPercent / 100;
+			structureRecycleValueTable[structureId] = StructureCatalog::getType(structureId).buildCost * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
