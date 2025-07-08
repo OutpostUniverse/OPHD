@@ -235,8 +235,10 @@ void WarehouseReport::onResize()
 	Control::onResize();
 
 	lstStructures.size({(mRect.size.x / 2) - 20, mRect.position.y + mRect.size.y - lstStructures.position().y - 10});
-	lstProducts.size({(mRect.size.x / 2) - 20, mRect.size.y - 184});
-	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.position().y});
+	lstProducts.area({
+		{Utility<Renderer>::get().center().x + 10, lstProducts.position().y},
+		{(mRect.size.x / 2) - 20, mRect.size.y - 184}
+	});
 
 	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, position().y + 35});
 }
