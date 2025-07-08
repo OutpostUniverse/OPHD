@@ -54,11 +54,11 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 	// Top line
 	mMoveWestIconRect = {{position.x, position.y + 8}, iconSizeSmall};
 	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, iconSizeSmall};
-	mMoveUpIconRect = {{position.x + 2 * navIconSpacing, position.y}, iconSizeLarge};
+	mMoveUpIconRect = {{position.x + navIconSpacing * 2, position.y}, iconSizeLarge};
 	// Bottom line
 	mMoveSouthIconRect = {{position.x, position.y + navIconSpacing + 8}, iconSizeSmall};
 	mMoveEastIconRect = {{position.x + navIconSpacing, position.y + navIconSpacing + 8}, iconSizeSmall};
-	mMoveDownIconRect = {{position.x + 2 * navIconSpacing, position.y + navIconSpacing}, iconSizeLarge};
+	mMoveDownIconRect = {{position.x + navIconSpacing * 2, position.y + navIconSpacing}, iconSizeLarge};
 }
 
 
