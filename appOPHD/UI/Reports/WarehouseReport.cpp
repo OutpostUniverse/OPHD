@@ -346,11 +346,11 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarPosition = textOrigin + NAS2D::Vector{capacityUsedTextWidth + 10, textLineSpacing * 2};
-	const auto capacityBarWidth = valueOrigin.x - capacityBarPosition.x;
+	const auto capacityBarSize = NAS2D::Vector{valueOrigin.x - capacityBarPosition.x, 20};
 	drawProgressBar(
 		warehouseCapacityUsed,
 		warehouseCapacityTotal,
-		{capacityBarPosition, {capacityBarWidth, 20}}
+		{capacityBarPosition, capacityBarSize}
 	);
 }
 
