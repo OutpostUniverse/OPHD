@@ -192,12 +192,13 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Position UI Buttons
-	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
-	mBtnToggleHeightmap.position({mBtnTurns.position().x, mMiniMapRect.position.y});
-	mBtnToggleRouteOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize});
-	mBtnToggleConnectedness.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize * 2});
-	mBtnToggleCommRangeOverlay.position({mBtnTurns.position().x, mMiniMapRect.position.y + constants::MainButtonSize * 3});
-	mBtnTogglePoliceOverlay.position({mBtnTurns.position().x - constants::MainButtonSize, mMiniMapRect.position.y});
+	const auto buttonColumnOrigin = mMiniMapRect.position + NAS2D::Vector{-constants::MainButtonSize - constants::MarginTight, 0};
+	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x, size.y - constants::Margin - constants::MainButtonSize});
+	mBtnToggleHeightmap.position({buttonColumnOrigin.x, buttonColumnOrigin.y});
+	mBtnToggleRouteOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize});
+	mBtnToggleConnectedness.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 2});
+	mBtnToggleCommRangeOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 3});
+	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x - constants::MainButtonSize, buttonColumnOrigin.y});
 
 	// UI Panels
 	mRobots.position({mBtnTogglePoliceOverlay.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
