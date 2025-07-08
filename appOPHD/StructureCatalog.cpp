@@ -91,10 +91,10 @@ namespace
 	{
 		std::map<StructureID, StorableResources> structureRecycleValueTable;
 
-		for (std::size_t i = 1; i < StructureID::SID_COUNT; ++i)
+		for (std::size_t index = 1; index < StructureID::SID_COUNT; ++index)
 		{
-			const auto structureId = static_cast<StructureID>(i);
-			structureRecycleValueTable[structureId] = StructureCatalog::getType(structureId).buildCost * recoveryPercent / 100;
+			const auto structureId = static_cast<StructureID>(index);
+			structureRecycleValueTable[structureId] = StructureCatalog::getType(index).buildCost * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
