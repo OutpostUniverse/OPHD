@@ -58,6 +58,7 @@ protected:
 	void updateScrollLayout();
 
 	void onVisibilityChange(bool visible) override;
+	void onMove(NAS2D::Vector<int> displacement) override;
 	void onResize() override;
 	void onSlideChange(int newPosition);
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
