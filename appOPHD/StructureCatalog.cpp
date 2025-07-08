@@ -119,13 +119,13 @@ namespace
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
 		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
-		std::vector<StructureType> structureTypes;
+		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
 		{
 			const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 			NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, optionalFields);
 
-			structureTypes.push_back({
+			loadedStructureTypes.push_back({
 				dictionary.get("Name"),
 				dictionary.get("ImagePath"),
 				readResources(*structureElement, "BuildCost"),
@@ -151,7 +151,7 @@ namespace
 				dictionary.get<bool>("IsCrimeTarget"),
 			});
 		}
-		return structureTypes;
+		return loadedStructureTypes;
 	}
 
 
