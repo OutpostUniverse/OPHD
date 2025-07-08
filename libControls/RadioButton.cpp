@@ -70,7 +70,7 @@ const std::string& RadioButtonGroup::RadioButton::text() const
 void RadioButtonGroup::RadioButton::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y + 1) / 2};
+	const auto iconPosition = position() + NAS2D::Vector{0, (mRect.size.y - iconSize.y) / 2};
 	renderer.drawSubImage(mSkin, iconPosition, (mChecked ? selectedIconRect : unselectedIconRect));
 	renderer.drawText(mFont, text(), position() + textOffset, NAS2D::Color::White);
 }
