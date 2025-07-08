@@ -41,6 +41,7 @@ public:
 	Button(std::string text, NAS2D::Vector<int> size, ClickDelegate clickHandler);
 	Button(const NAS2D::Image& image, ClickDelegate clickHandler);
 	Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler);
+	Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NAS2D::Font& font, std::string newText, ClickDelegate clickHandler);
 	~Button() override;
 
 	void click() const;

@@ -71,6 +71,22 @@ Button::Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler) :
 }
 
 
+Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NAS2D::Font& font, std::string newText, ClickDelegate clickHandler) :
+	mButtonSkin{buttonSkin},
+	mImage{image},
+	mFont{&font},
+	mText{newText},
+	mClickHandler{clickHandler}
+{
+	size(mFont->size(mText) + internalPadding * 2);
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
+	eventHandler.mouseButtonUp().connect({this, &Button::onMouseUp});
+	eventHandler.mouseMotion().connect({this, &Button::onMouseMove});
+}
+
+
 Button::~Button()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
