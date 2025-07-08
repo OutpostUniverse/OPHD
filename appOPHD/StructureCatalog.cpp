@@ -189,6 +189,12 @@ void StructureCatalog::init(const std::string& filename)
 }
 
 
+std::size_t StructureCatalog::count()
+{
+	return structureTypes.size();
+}
+
+
 const StructureType& StructureCatalog::getType(StructureID id)
 {
 	return getType(static_cast<std::size_t>(id));
