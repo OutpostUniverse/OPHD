@@ -12,7 +12,6 @@
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/ParserHelper.h>
 
-#include <map>
 #include <array>
 #include <stdexcept>
 
@@ -68,15 +67,15 @@ namespace
 	const int DefaultRecyclePercent = 90;
 
 	std::vector<StructureType> structureTypes;
-	std::map<StructureID, StorableResources> recycleValueTable;
+	std::vector<StorableResources> recycleValueTable;
 
 
 	/**
 	 * Fills out the recycle value for all structures.
 	 */
-	std::map<StructureID, StorableResources> buildRecycleValueTable(int recoveryPercent)
+	std::vector<StorableResources> buildRecycleValueTable(int recoveryPercent)
 	{
-		std::map<StructureID, StorableResources> structureRecycleValueTable;
+		std::vector<StorableResources> structureRecycleValueTable{StructureCatalog::count()};
 
 		for (std::size_t index = 0; index < StructureCatalog::count(); ++index)
 		{
