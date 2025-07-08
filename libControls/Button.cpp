@@ -41,7 +41,8 @@ Button::Button(std::string newText) :
 }
 
 
-Button::Button(std::string newText, ClickDelegate clickHandler) : Button(newText)
+Button::Button(std::string newText, ClickDelegate clickHandler) :
+	Button(newText)
 {
 	mClickHandler = clickHandler;
 }
@@ -54,7 +55,8 @@ Button::Button(std::string text, NAS2D::Vector<int> sz, ClickDelegate clickHandl
 }
 
 
-Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) : Button()
+Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
+	Button()
 {
 	mImage = &image;
 	size(mImage->size() + internalPadding * 2);
