@@ -382,7 +382,6 @@ $(AllObjectShortNames):
 
 .PHONY: flame-charts
 flame-charts:
-	@$(MAKE) clean > /dev/null
 	$(MAKE) all CXX=clang++ CXXFLAGS_EXTRA="-ftime-trace"
 
 
