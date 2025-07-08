@@ -186,11 +186,11 @@ namespace constants
 	// = POPULATION PANEL STRINGS
 	// =====================================
 	const std::string ToolTipBtnTurns = "Advances to the next turn";
-	const std::string ToolTipBtnHeightmap = "Toggles display of the Terrain Height Map";
-	const std::string ToolTipBtnConnectedness = "Toggles display of the Tile Connection Overlay";
-	const std::string ToolTipBtnCommRange = "Toggles display of the Communications Range Overlay";
-	const std::string ToolTipBtnRoutes = "Toggles display of the Trucking Routes Overlay";
-	const std::string ToolTipBtnPolice = "Toggles display of the Police Station Coverage";
+	const std::string ToolTipBtnHeightmap = "Terrain Height Map";
+	const std::string ToolTipBtnConnectedness = "Tile Connection Overlay";
+	const std::string ToolTipBtnCommRange = "Communications Range Overlay";
+	const std::string ToolTipBtnRoutes = "Trucking Routes Overlay";
+	const std::string ToolTipBtnPolice = "Police Station Coverage";
 	const std::string ToolTipRefinedResources = "Breakdown of storage levels for Smelted Resources";
 	const std::string ToolTipResourceStorage = "Smelted Resources Storage. Current Level / Capacity";
 	const std::string ToolTipFoodStorage = "Food Storage. Current Level / Capacity";
