@@ -18,6 +18,10 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
+	constexpr auto iconSizeSmall = NAS2D::Vector{32, 16};
+	constexpr auto iconSizeLarge = NAS2D::Vector{32, 32};
+
+
 	std::string levelString(int currentDepth)
 	{
 		if (currentDepth == 0)
@@ -48,13 +52,13 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 	const auto position = mRect.position;
 	const auto navIconSpacing = 32 + constants::MarginTight;
 	// Top line
-	mMoveWestIconRect = {{position.x, position.y + 8}, {32, 16}};
-	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, {32, 16}};
-	mMoveUpIconRect = {{position.x + 2 * navIconSpacing, position.y}, {32, 32}};
+	mMoveWestIconRect = {{position.x, position.y + 8}, iconSizeSmall};
+	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, iconSizeSmall};
+	mMoveUpIconRect = {{position.x + 2 * navIconSpacing, position.y}, iconSizeLarge};
 	// Bottom line
-	mMoveSouthIconRect = {{position.x, position.y + navIconSpacing + 8}, {32, 16}};
-	mMoveEastIconRect = {{position.x + navIconSpacing, position.y + navIconSpacing + 8}, {32, 16}};
-	mMoveDownIconRect = {{position.x + 2 * navIconSpacing, position.y + navIconSpacing}, {32, 32}};
+	mMoveSouthIconRect = {{position.x, position.y + navIconSpacing + 8}, iconSizeSmall};
+	mMoveEastIconRect = {{position.x + navIconSpacing, position.y + navIconSpacing + 8}, iconSizeSmall};
+	mMoveDownIconRect = {{position.x + 2 * navIconSpacing, position.y + navIconSpacing}, iconSizeLarge};
 }
 
 
@@ -89,12 +93,12 @@ void NavControl::draw() const
 
 	const std::array buttonDrawRects
 	{
-		std::tuple{mMoveDownIconRect, NAS2D::Rectangle<int>{{64, 128}, {32, 32}}},
-		std::tuple{mMoveUpIconRect, NAS2D::Rectangle<int>{{96, 128}, {32, 32}}},
-		std::tuple{mMoveEastIconRect, NAS2D::Rectangle<int>{{32, 128}, {32, 16}}},
-		std::tuple{mMoveWestIconRect, NAS2D::Rectangle<int>{{32, 144}, {32, 16}}},
-		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle<int>{{0, 128}, {32, 16}}},
-		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle<int>{{0, 144}, {32, 16}}},
+		std::tuple{mMoveDownIconRect, NAS2D::Rectangle<int>{{64, 128}, iconSizeLarge}},
+		std::tuple{mMoveUpIconRect, NAS2D::Rectangle<int>{{96, 128}, iconSizeLarge}},
+		std::tuple{mMoveEastIconRect, NAS2D::Rectangle<int>{{32, 128}, iconSizeSmall}},
+		std::tuple{mMoveWestIconRect, NAS2D::Rectangle<int>{{32, 144}, iconSizeSmall}},
+		std::tuple{mMoveNorthIconRect, NAS2D::Rectangle<int>{{0, 128}, iconSizeSmall}},
+		std::tuple{mMoveSouthIconRect, NAS2D::Rectangle<int>{{0, 144}, iconSizeSmall}},
 	};
 	for (const auto& [currentIconRect, subImageRect] : buttonDrawRects)
 	{
