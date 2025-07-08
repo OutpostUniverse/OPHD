@@ -25,10 +25,10 @@ using namespace NAS2D;
 namespace
 {
 	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
-	constexpr auto filterButtonSize = NAS2D::Vector{94, 20};
+	constexpr auto filterButtonSize = NAS2D::Vector{94, 26};
 	constexpr auto infoSectionOffset = filterButtonSectionOffset + NAS2D::Vector{0, filterButtonSize.y + 10};
 	constexpr auto infoSectionHeight = 66;
-	constexpr auto structureListBoxOffset = infoSectionOffset + NAS2D::Vector{0, infoSectionHeight + 9};
+	constexpr auto structureListBoxOffset = infoSectionOffset + NAS2D::Vector{0, infoSectionHeight + 10};
 
 
 	template <typename Predicate>
@@ -339,7 +339,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, textLineSpacing}, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", textOrigin + NAS2D::Vector{0, textLineSpacing * 2}, constants::PrimaryTextColor);
 
-	const auto valueOrigin = textOrigin + NAS2D::Vector{mRect.size.x / 2 - 20, -5};
+	const auto valueOrigin = textOrigin + NAS2D::Vector{mRect.size.x / 2 - 20, fontMediumBold.height() - fontMedium.height()};
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
@@ -348,7 +348,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 	renderer.drawText(fontMedium, warehouseCapacityText, valueOrigin + NAS2D::Vector{-capacityTextWidth, textLineSpacing}, constants::PrimaryTextColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
-	const auto capacityBarPosition = textOrigin + NAS2D::Vector{capacityUsedTextWidth + 10, textLineSpacing * 2};
+	const auto capacityBarPosition = textOrigin + NAS2D::Vector{capacityUsedTextWidth + 10, 3 + textLineSpacing * 2};
 	const auto capacityBarSize = NAS2D::Vector{valueOrigin.x - capacityBarPosition.x, 20};
 	drawProgressBar(
 		warehouseCapacityUsed,
