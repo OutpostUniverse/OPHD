@@ -80,8 +80,7 @@ namespace
 
 		for (std::size_t index = 0; index < StructureCatalog::count(); ++index)
 		{
-			const auto structureId = static_cast<StructureID>(index);
-			structureRecycleValueTable[structureId] = StructureCatalog::getType(index).buildCost * recoveryPercent / 100;
+			structureRecycleValueTable[index] = StructureCatalog::getType(index).buildCost * recoveryPercent / 100;
 		}
 
 		// Set recycling values for landers and automatically built structures.
