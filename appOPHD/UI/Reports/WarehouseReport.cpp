@@ -336,12 +336,13 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, textLineSpacing}, constants::PrimaryTextColor);
 	renderer.drawText(fontMediumBold, "Capacity Used", textOrigin + NAS2D::Vector{0, textLineSpacing * 2}, constants::PrimaryTextColor);
 
+	const auto valueOrigin = textOrigin + NAS2D::Vector{mRect.size.x / 2 - 20, -5};
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
 	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
-	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, position().y + 35}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, position().y + 57}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCountText, valueOrigin + NAS2D::Vector{-countTextWidth, 0}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCapacityText, valueOrigin + NAS2D::Vector{-capacityTextWidth, textLineSpacing}, constants::PrimaryTextColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
 	const auto capacityBarWidth = mRect.size.x / 2 - 30 - capacityUsedTextWidth;
