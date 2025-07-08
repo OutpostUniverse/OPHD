@@ -65,7 +65,7 @@ namespace
 
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
-	const int DefaultRecyclePercent = 90;
+	const int defaultRecyclePercent = 90;
 
 	std::vector<StructureType> structureTypes;
 	std::vector<StorableResources> recycleValueTable;
@@ -168,7 +168,7 @@ void StructureCatalog::init(const std::string& filename)
 {
 	structureTypes = loadStructureTypes(filename);
 	verifyStructureTypeOrder();
-	recycleValueTable = buildRecycleValueTable(DefaultRecyclePercent);
+	recycleValueTable = buildRecycleValueTable(defaultRecyclePercent);
 }
 
 
