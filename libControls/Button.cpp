@@ -78,6 +78,12 @@ Button::~Button()
 }
 
 
+void Button::click() const
+{
+	if (mClickHandler) { mClickHandler(); }
+}
+
+
 void Button::type(Type type)
 {
 	mType = type;

@@ -43,6 +43,8 @@ public:
 	Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler);
 	~Button() override;
 
+	void click() const;
+
 	void type(Type type);
 
 	void toggle(bool toggle);
