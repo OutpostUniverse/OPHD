@@ -40,7 +40,7 @@ NavControl::NavControl(MapView& mapView) :
 	mFontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)}
 {
 	onMove({0, 0});
-	size(NAS2D::Vector{(32 + constants::MarginTight) * 3, 99});
+	size(NAS2D::Vector{(iconSizeSmall.x + constants::MarginTight) * 3, 99});
 }
 
 
@@ -50,7 +50,7 @@ void NavControl::onMove(NAS2D::Vector<int> displacement)
 
 	// NAVIGATION BUTTONS
 	const auto position = mRect.position;
-	const auto navIconSpacing = 32 + constants::MarginTight;
+	const auto navIconSpacing = iconSizeSmall.x + constants::MarginTight;
 	// Top line
 	mMoveWestIconRect = {{position.x, position.y + 8}, iconSizeSmall};
 	mMoveNorthIconRect = {{position.x + navIconSpacing, position.y + 8}, iconSizeSmall};
