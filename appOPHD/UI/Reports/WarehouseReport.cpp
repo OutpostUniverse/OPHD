@@ -14,7 +14,6 @@
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <array>
 #include <string>
 #include <iterator>
 #include <algorithm>
@@ -25,6 +24,13 @@ using namespace NAS2D;
 
 namespace
 {
+	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
+	constexpr auto filterButtonSize = NAS2D::Vector{94, 20};
+	constexpr auto infoSectionOffset = filterButtonSectionOffset + NAS2D::Vector{0, filterButtonSize.y + 10};
+	constexpr auto infoSectionHeight = 66;
+	constexpr auto structureListBoxOffset = infoSectionOffset + NAS2D::Vector{0, infoSectionHeight + 9};
+
+
 	template <typename Predicate>
 	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
 	{
@@ -65,11 +71,10 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	btnTakeMeThere{constants::TakeMeThere, {this, &WarehouseReport::onTakeMeThere}},
 	lstStructures{{this, &WarehouseReport::onStructureSelectionChange}}
 {
-	auto buttonOffset = NAS2D::Vector{10, 10};
-	const auto buttons = std::array{&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled};
-	for (auto button : buttons)
+	auto buttonOffset = filterButtonSectionOffset;
+	for (auto button : {&btnShowAll, &btnFull, &btnVacancy, &btnEmpty, &btnDisabled})
 	{
-		button->size({94, 20});
+		button->size(filterButtonSize);
 		button->type(Button::Type::Toggle);
 		button->toggle(false);
 		add(*button, buttonOffset);
@@ -85,7 +90,7 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 	fillLists();
 
 	add(btnTakeMeThere, {10, 10});
-	add(lstStructures, {10, 115});
+	add(lstStructures, structureListBoxOffset);
 	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
 }
 
@@ -229,7 +234,7 @@ void WarehouseReport::onResize()
 {
 	Control::onResize();
 
-	lstStructures.size({(mRect.size.x / 2) - 20, mRect.size.y - 126});
+	lstStructures.size({(mRect.size.x / 2) - 20, mRect.position.y + mRect.size.y - lstStructures.position().y - 10});
 	lstProducts.size({(mRect.size.x / 2) - 20, mRect.size.y - 184});
 	lstProducts.position({Utility<Renderer>::get().center().x + 10, lstProducts.position().y});
 
@@ -324,27 +329,29 @@ void WarehouseReport::onStructureSelectionChange()
 	setVisibility();
 }
 
-
 void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 {
-	renderer.drawText(fontMediumBold, "Warehouse Count", NAS2D::Point{10, position().y + 40}, constants::PrimaryTextColor);
-	renderer.drawText(fontMediumBold, "Total Storage", NAS2D::Point{10, position().y + 62}, constants::PrimaryTextColor);
-	renderer.drawText(fontMediumBold, "Capacity Used", NAS2D::Point{10, position().y + 84}, constants::PrimaryTextColor);
+	const auto textLineSpacing = infoSectionHeight / 3;
+	const auto textOrigin = position() + infoSectionOffset;
+	renderer.drawText(fontMediumBold, "Warehouse Count", textOrigin, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Total Storage", textOrigin + NAS2D::Vector{0, textLineSpacing}, constants::PrimaryTextColor);
+	renderer.drawText(fontMediumBold, "Capacity Used", textOrigin + NAS2D::Vector{0, textLineSpacing * 2}, constants::PrimaryTextColor);
 
+	const auto valueOrigin = textOrigin + NAS2D::Vector{mRect.size.x / 2 - 20, -5};
 	const auto warehouseCountText = std::to_string(warehouseCount);
 	const auto warehouseCapacityText = std::to_string(warehouseCapacityTotal);
 	const auto countTextWidth = fontMedium.width(warehouseCountText);
 	const auto capacityTextWidth = fontMedium.width(warehouseCapacityText);
-	renderer.drawText(fontMedium, warehouseCountText, NAS2D::Point{mRect.size.x / 2 - 10 - countTextWidth, position().y + 35}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, warehouseCapacityText, NAS2D::Point{mRect.size.x / 2 - 10 - capacityTextWidth, position().y + 57}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCountText, valueOrigin + NAS2D::Vector{-countTextWidth, 0}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, warehouseCapacityText, valueOrigin + NAS2D::Vector{-capacityTextWidth, textLineSpacing}, constants::PrimaryTextColor);
 
 	const auto capacityUsedTextWidth = fontMediumBold.width("Capacity Used");
-	const auto capacityBarWidth = mRect.size.x / 2 - 30 - capacityUsedTextWidth;
-	const auto capacityBarPosition = NAS2D::Point{20 + capacityUsedTextWidth, position().y + 84};
+	const auto capacityBarPosition = textOrigin + NAS2D::Vector{capacityUsedTextWidth + 10, textLineSpacing * 2};
+	const auto capacityBarSize = NAS2D::Vector{valueOrigin.x - capacityBarPosition.x, 20};
 	drawProgressBar(
 		warehouseCapacityUsed,
 		warehouseCapacityTotal,
-		{capacityBarPosition, {capacityBarWidth, 20}}
+		{capacityBarPosition, capacityBarSize}
 	);
 }
 
