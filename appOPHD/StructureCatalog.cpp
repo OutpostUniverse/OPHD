@@ -190,6 +190,12 @@ const StructureType& StructureCatalog::getType(StructureID id)
 }
 
 
+const StructureType& StructureCatalog::getType(std::size_t index)
+{
+	return structureTypes.at(index);
+}
+
+
 /**
  * Gets a new Structure object given a StructureID.
  *

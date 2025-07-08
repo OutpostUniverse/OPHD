@@ -28,6 +28,7 @@ public:
 	static void init(const std::string& filename);
 
 	static const StructureType& getType(StructureID id);
+	static const StructureType& getType(std::size_t index);
 
 	static Structure* create(StructureID id, Tile* tile = nullptr);
 
