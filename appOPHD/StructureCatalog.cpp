@@ -13,6 +13,7 @@
 #include <NAS2D/ParserHelper.h>
 
 #include <array>
+#include <vector>
 #include <stdexcept>
 
 
