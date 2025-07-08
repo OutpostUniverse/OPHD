@@ -21,7 +21,7 @@ namespace
 {
 	static const std::array<std::string, StructureID::SID_COUNT> StructureNameTable =
 	{
-		"Not a Structure",
+		"Null",
 		constants::Agridome,
 		constants::AirShaft,
 		constants::CargoLander,
@@ -165,7 +165,7 @@ namespace
 			throw std::runtime_error("Unexpected number of StructureType entries: Read: " + std::to_string(structureTypes.size()) + " Expected: " + std::to_string(StructureID::SID_COUNT));
 		}
 
-		for (std::size_t i = 1; i < structureTypes.size(); ++i)
+		for (std::size_t i = 0; i < structureTypes.size(); ++i)
 		{
 			const auto& expectedName = StructureNameTable[i];
 			const auto& actualName = structureTypes[i].name;
