@@ -30,6 +30,10 @@ private:
 	Label labelFontBoldRed;
 	Label labelInfo;
 	TextField textField;
+	TextField textFieldNumbers;
+	TextField textFieldNumbersMax;
+	TextField textFieldMax;
+	TextField textFieldOverflow;
 	Button button;
 	RadioButtonGroup radioButtonGroup;
 	ListBox<> listBox1;

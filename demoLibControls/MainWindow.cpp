@@ -10,6 +10,8 @@ MainWindow::MainWindow() :
 	labelFontBold{"Big Font"},
 	labelFontBoldRed{"Big Red Font"},
 	labelInfo{"Info:"},
+	textFieldNumbersMax{4},
+	textFieldMax{4},
 	button{"Button", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
@@ -35,8 +37,16 @@ MainWindow::MainWindow() :
 	labelFontBoldRed.font(&getDefaultFontBold());
 	labelFontBoldRed.color(NAS2D::Color::Red);
 
-	textField.size(button.size());
-	textField.text("Overflowing text");
+	textField.width(130);
+	textField.text("This is a text field");
+	textFieldNumbers.width(130);
+	textFieldNumbers.numbersOnly(true);
+	textFieldNumbers.text("1234567890");
+	textFieldNumbersMax.numbersOnly(true);
+	textFieldNumbersMax.text("1234");
+	textFieldMax.text("Max4");
+	textFieldOverflow.size(button.size());
+	textFieldOverflow.text("Overflowing text");
 
 	button.size(button.size() + NAS2D::Vector{8, 2});
 
@@ -74,6 +84,10 @@ MainWindow::MainWindow() :
 	add(labelInfo, {10, 120});
 
 	add(textField, {150, 30});
+	add(textFieldNumbers, {150, 60});
+	add(textFieldNumbersMax, {150, 90});
+	add(textFieldMax, {150, 120});
+	add(textFieldOverflow, {150, 150});
 
 	add(button, {300, 30});
 
