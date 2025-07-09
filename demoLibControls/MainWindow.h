@@ -2,15 +2,15 @@
 
 #include <libControls/Window.h>
 
-#include <libControls/Button.h>
-#include <libControls/Image.h>
 #include <libControls/Label.h>
-#include <libControls/ProgressBar.h>
+#include <libControls/TextField.h>
+#include <libControls/Button.h>
 #include <libControls/RadioButtonGroup.h>
-#include <libControls/Rectangle.h>
 #include <libControls/ListBox.h>
 #include <libControls/ComboBox.h>
-#include <libControls/TextField.h>
+#include <libControls/Rectangle.h>
+#include <libControls/ProgressBar.h>
+#include <libControls/Image.h>
 
 
 class MainWindow : public Window
