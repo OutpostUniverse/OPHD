@@ -13,6 +13,8 @@
 #include <libControls/ProgressBar.h>
 #include <libControls/Image.h>
 
+#include <NAS2D/Resource/Image.h>
+
 
 class MainWindow : public Window
 {
@@ -36,7 +38,13 @@ private:
 	TextField textFieldNumbersMax;
 	TextField textFieldMax;
 	TextField textFieldOverflow;
+	NAS2D::Image imageButton;
+	Button::ButtonSkin buttonSkin;
 	Button button;
+	Button buttonWithSkin;
+	Button buttonEmpty;
+	Button buttonImage;
+	Button buttonAll;
 	RadioButtonGroup radioButtonGroup;
 	CheckBox checkBox1;
 	CheckBox checkBox2;
