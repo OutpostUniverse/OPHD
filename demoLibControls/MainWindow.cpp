@@ -70,9 +70,9 @@ MainWindow::MainWindow() :
 	add(listBox2, {400, 30});
 	add(comboBox2, {400, 150});
 
-	add(progressBar, {500, 30});
-	add(rectangle1, {500, 60});
-	add(rectangle2, {500, 70});
+	add(rectangle1, {500, 30});
+	add(rectangle2, {500, 40});
+	add(progressBar, {500, 50});
 
 	add(image, {600, 30});
 }
