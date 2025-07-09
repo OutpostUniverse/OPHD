@@ -6,8 +6,13 @@
 
 MainWindow::MainWindow() :
 	Window{"Main Window"},
-	button{"Button", {this, &MainWindow::onButtonClick}},
 	label{"Label"},
+	labelFontBold{"Big Font"},
+	labelFontBoldRed{"Big Red Font"},
+	labelInfo{"Info:"},
+	textFieldNumbersMax{4},
+	textFieldMax{4},
+	button{"Button", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
 			"Option 1",
@@ -16,17 +21,37 @@ MainWindow::MainWindow() :
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	},
-	image{getImage("ui/interface/product_robodozer.png")},
+	checkBox1{"CheckBox 1", {this, &MainWindow::onCheckBoxClick}},
+	checkBox2{"CheckBox 2", {this, &MainWindow::onCheckBoxClick}},
+	checkBox3{"CheckBox 3", {this, &MainWindow::onCheckBoxClick}},
+	listBox1{{this, &MainWindow::onListBoxSelect}},
+	listBox2{{this, &MainWindow::onListBoxSelect}},
+	comboBox1{{this, &MainWindow::onComboBoxSelect}},
+	comboBox2{{this, &MainWindow::onComboBoxSelect}},
+	rectangle1{NAS2D::Color::Green, {80, 1}},
+	rectangle2{NAS2D::Color::Red, {80, 5}},
 	progressBar{100, 50},
-	rectangle1{NAS2D::Color::Green, {108, 1}},
-	rectangle2{NAS2D::Color::Red, {108, 5}}
+	image{getImage("ui/interface/product_robodozer.png")}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
 
+	labelFontBold.font(&getDefaultFontBold());
+	labelFontBoldRed.font(&getDefaultFontBold());
+	labelFontBoldRed.color(NAS2D::Color::Red);
+
+	textField.width(130);
+	textField.text("This is a text field");
+	textFieldNumbers.width(130);
+	textFieldNumbers.numbersOnly(true);
+	textFieldNumbers.text("1234567890");
+	textFieldNumbersMax.numbersOnly(true);
+	textFieldNumbersMax.text("1234");
+	textFieldMax.text("Max4");
+	textFieldOverflow.size(button.size());
+	textFieldOverflow.text("Overflowing text");
+
 	button.size(button.size() + NAS2D::Vector{8, 2});
-	textField.size(button.size());
-	textField.text("Overflowing text");
 
 	listBox1.size({80, 100});
 	listBox1.add("Item 1");
@@ -36,11 +61,6 @@ MainWindow::MainWindow() :
 	listBox1.add("Item 5");
 	listBox1.add("Item 6");
 
-	listBox2.size({60, 100});
-	listBox2.add("Item 1");
-	listBox2.add("Item 2");
-	listBox2.add("Item 3");
-
 	comboBox1.width(80);
 	comboBox1.addItem("Item1");
 	comboBox1.addItem("Item2");
@@ -49,35 +69,75 @@ MainWindow::MainWindow() :
 	comboBox1.addItem("Item5");
 	comboBox1.addItem("Item6");
 
+	listBox2.size({60, 100});
+	listBox2.add("Item 1");
+	listBox2.add("Item 2");
+	listBox2.add("Item 3");
+
 	comboBox2.width(60);
 	comboBox2.addItem("Item1");
 	comboBox2.addItem("Item2");
 	comboBox2.addItem("Item3");
 
-	add(button, {10, 30});
-	add(label, {10, 56});
-	add(radioButtonGroup, {10, 80});
-	add(textField, {10, 150});
+	progressBar.width(80);
 
-	add(listBox1, {130, 30});
-	add(listBox2, {220, 30});
-	add(comboBox1, {130, 150});
-	add(comboBox2, {220, 150});
+	add(label, {10, 30});
+	add(labelFontBold, {10, 60});
+	add(labelFontBoldRed, {10, 90});
+	add(labelInfo, {10, 120});
 
-	add(image, {310, 30});
-	add(progressBar, {310, 160});
-	add(rectangle1, {310, 190});
-	add(rectangle2, {310, 200});
+	add(textField, {150, 30});
+	add(textFieldNumbers, {150, 60});
+	add(textFieldNumbersMax, {150, 90});
+	add(textFieldMax, {150, 120});
+	add(textFieldOverflow, {150, 150});
+
+	add(button, {300, 30});
+
+	add(radioButtonGroup, {400, 30});
+	add(checkBox1, {400, 100});
+	add(checkBox2, {400, 120});
+	add(checkBox3, {400, 140});
+
+	add(listBox1, {500, 30});
+	add(comboBox1, {500, 150});
+
+	add(listBox2, {600, 30});
+	add(comboBox2, {600, 150});
+
+	add(rectangle1, {700, 30});
+	add(rectangle2, {700, 40});
+	add(progressBar, {700, 50});
+
+	add(image, {800, 30});
 }
 
 
 void MainWindow::onButtonClick()
 {
-	label.text("Button clicked");
+	labelInfo.text("Button clicked");
 }
 
 
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
-	label.text("RadioButton : " + std::to_string(index));
+	labelInfo.text("RadioButton : " + std::to_string(index));
+}
+
+
+void MainWindow::onCheckBoxClick()
+{
+	labelInfo.text("CheckBox clicked");
+}
+
+
+void MainWindow::onListBoxSelect()
+{
+	labelInfo.text("ListBox select");
+}
+
+
+void MainWindow::onComboBoxSelect()
+{
+	labelInfo.text("ComboBox select");
 }
