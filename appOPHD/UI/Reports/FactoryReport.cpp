@@ -383,7 +383,10 @@ void FactoryReport::onClearProduction()
 
 void FactoryReport::onTakeMeThere()
 {
-	if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedFactory); }
+	if (selectedFactory)
+	{
+		if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedFactory); }
+	}
 }
 
 
