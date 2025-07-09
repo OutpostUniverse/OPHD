@@ -9,6 +9,7 @@ MainWindow::MainWindow() :
 	label{"Label"},
 	labelFontBold{"Big Font"},
 	labelFontBoldRed{"Big Red Font"},
+	labelInfo{"Info:"},
 	button{"Button", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
@@ -66,6 +67,7 @@ MainWindow::MainWindow() :
 	add(label, {10, 30});
 	add(labelFontBold, {10, 60});
 	add(labelFontBoldRed, {10, 90});
+	add(labelInfo, {10, 120});
 
 	add(textField, {150, 30});
 
@@ -89,11 +91,11 @@ MainWindow::MainWindow() :
 
 void MainWindow::onButtonClick()
 {
-	label.text("Button clicked");
+	labelInfo.text("Button clicked");
 }
 
 
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
-	label.text("RadioButton : " + std::to_string(index));
+	labelInfo.text("RadioButton : " + std::to_string(index));
 }

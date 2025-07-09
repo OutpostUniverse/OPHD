@@ -26,6 +26,7 @@ private:
 	Label label;
 	Label labelFontBold;
 	Label labelFontBoldRed;
+	Label labelInfo;
 	TextField textField;
 	Button button;
 	RadioButtonGroup radioButtonGroup;
