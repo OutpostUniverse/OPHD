@@ -23,16 +23,16 @@ protected:
 	void onRadioButtonSelect(std::size_t index);
 
 private:
-	Button button;
 	Label label;
+	TextField textField;
+	Button button;
 	RadioButtonGroup radioButtonGroup;
-	Image image;
-	ProgressBar progressBar;
-	Rectangle rectangle1;
-	Rectangle rectangle2;
 	ListBox<> listBox1;
 	ListBox<> listBox2;
 	ComboBox comboBox1;
 	ComboBox comboBox2;
-	TextField textField;
+	Rectangle rectangle1;
+	Rectangle rectangle2;
+	ProgressBar progressBar;
+	Image image;
 };

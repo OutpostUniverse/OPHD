@@ -6,8 +6,8 @@
 
 MainWindow::MainWindow() :
 	Window{"Main Window"},
-	button{"Button", {this, &MainWindow::onButtonClick}},
 	label{"Label"},
+	button{"Button", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
 			"Option 1",
@@ -16,10 +16,10 @@ MainWindow::MainWindow() :
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	},
-	image{getImage("ui/interface/product_robodozer.png")},
-	progressBar{100, 50},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
-	rectangle2{NAS2D::Color::Red, {80, 5}}
+	rectangle2{NAS2D::Color::Red, {80, 5}},
+	progressBar{100, 50},
+	image{getImage("ui/interface/product_robodozer.png")}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
