@@ -41,7 +41,7 @@ MainWindow::MainWindow() :
 	listBox2.add("Item 2");
 	listBox2.add("Item 3");
 
-	comboBox1.size({80, 20});
+	comboBox1.width(80);
 	comboBox1.addItem("Item1");
 	comboBox1.addItem("Item2");
 	comboBox1.addItem("Item3");
@@ -49,7 +49,7 @@ MainWindow::MainWindow() :
 	comboBox1.addItem("Item5");
 	comboBox1.addItem("Item6");
 
-	comboBox2.size({60, 20});
+	comboBox2.width(60);
 	comboBox2.addItem("Item1");
 	comboBox2.addItem("Item2");
 	comboBox2.addItem("Item3");
