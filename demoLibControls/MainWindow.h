@@ -24,6 +24,8 @@ protected:
 
 private:
 	Label label;
+	Label labelFontBold;
+	Label labelFontBoldRed;
 	TextField textField;
 	Button button;
 	RadioButtonGroup radioButtonGroup;

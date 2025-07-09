@@ -7,6 +7,8 @@
 MainWindow::MainWindow() :
 	Window{"Main Window"},
 	label{"Label"},
+	labelFontBold{"Big Font"},
+	labelFontBoldRed{"Big Red Font"},
 	button{"Button", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
@@ -23,6 +25,10 @@ MainWindow::MainWindow() :
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
+
+	labelFontBold.font(&getDefaultFontBold());
+	labelFontBoldRed.font(&getDefaultFontBold());
+	labelFontBoldRed.color(NAS2D::Color::Red);
 
 	textField.size(button.size());
 	textField.text("Overflowing text");
@@ -58,6 +64,8 @@ MainWindow::MainWindow() :
 	progressBar.width(80);
 
 	add(label, {10, 30});
+	add(labelFontBold, {10, 60});
+	add(labelFontBoldRed, {10, 90});
 
 	add(textField, {150, 30});
 
