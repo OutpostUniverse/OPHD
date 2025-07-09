@@ -21,6 +21,7 @@ public:
 protected:
 	void onButtonClick();
 	void onRadioButtonSelect(std::size_t index);
+	void onListBoxSelect();
 
 private:
 	Label label;

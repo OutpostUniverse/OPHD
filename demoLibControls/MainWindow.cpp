@@ -19,6 +19,8 @@ MainWindow::MainWindow() :
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	},
+	listBox1{{this, &MainWindow::onListBoxSelect}},
+	listBox2{{this, &MainWindow::onListBoxSelect}},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
 	rectangle2{NAS2D::Color::Red, {80, 5}},
 	progressBar{100, 50},
@@ -98,4 +100,10 @@ void MainWindow::onButtonClick()
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
 	labelInfo.text("RadioButton : " + std::to_string(index));
+}
+
+
+void MainWindow::onListBoxSelect()
+{
+	labelInfo.text("ListBox select");
 }
