@@ -317,7 +317,11 @@ void WarehouseReport::onDisabled()
 
 void WarehouseReport::onTakeMeThere()
 {
-	if (mTakeMeThereHandler) { mTakeMeThereHandler(selectedWarehouse()); }
+	const auto* warehouse = selectedWarehouse();
+	if (warehouse)
+	{
+		if (mTakeMeThereHandler) { mTakeMeThereHandler(warehouse); }
+	}
 }
 
 
