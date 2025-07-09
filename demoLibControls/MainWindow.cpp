@@ -21,9 +21,9 @@ MainWindow::MainWindow() :
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	},
-	checkBox1{"CheckBox 1"},
-	checkBox2{"CheckBox 2"},
-	checkBox3{"CheckBox 3"},
+	checkBox1{"CheckBox 1", {this, &MainWindow::onCheckBoxClick}},
+	checkBox2{"CheckBox 2", {this, &MainWindow::onCheckBoxClick}},
+	checkBox3{"CheckBox 3", {this, &MainWindow::onCheckBoxClick}},
 	listBox1{{this, &MainWindow::onListBoxSelect}},
 	listBox2{{this, &MainWindow::onListBoxSelect}},
 	comboBox1{{this, &MainWindow::onComboBoxSelect}},
@@ -122,6 +122,12 @@ void MainWindow::onButtonClick()
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
 	labelInfo.text("RadioButton : " + std::to_string(index));
+}
+
+
+void MainWindow::onCheckBoxClick()
+{
+	labelInfo.text("CheckBox clicked");
 }
 
 

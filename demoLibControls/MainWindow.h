@@ -22,6 +22,7 @@ public:
 protected:
 	void onButtonClick();
 	void onRadioButtonSelect(std::size_t index);
+	void onCheckBoxClick();
 	void onListBoxSelect();
 	void onComboBoxSelect();
 
