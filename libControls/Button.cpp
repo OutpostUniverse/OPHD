@@ -47,8 +47,8 @@ Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
 }
 
 
-Button::Button(const ButtonSkin& buttonSkin, ClickDelegate clickHandler) :
-	Button{buttonSkin, nullptr, getDefaultFont(), {}, clickHandler}
+Button::Button(const ButtonSkin& buttonSkin, std::string text, ClickDelegate clickHandler) :
+	Button{buttonSkin, nullptr, getDefaultFont(), text, clickHandler}
 {
 }
 
