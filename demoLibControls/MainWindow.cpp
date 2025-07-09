@@ -24,7 +24,7 @@ MainWindow::MainWindow() :
 	buttonWithSkin{buttonSkin, "Skin", {this, &MainWindow::onButtonClick}},
 	buttonEmpty{"", {this, &MainWindow::onButtonClick}},
 	buttonImage{imageButton, {this, &MainWindow::onButtonClick}},
-	buttonAll{buttonSkin, &imageButton, getDefaultFont(), "S +          + I", {this, &MainWindow::onButtonClick}},
+	buttonAll{buttonSkin, &imageButton, getDefaultFont(), "ABC          DEF", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
 			"Option 1",
