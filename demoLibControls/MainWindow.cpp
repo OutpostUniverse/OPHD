@@ -62,8 +62,6 @@ MainWindow::MainWindow() :
 	textFieldOverflow.size(button.size());
 	textFieldOverflow.text("Overflowing text");
 
-	button.size(button.size() + NAS2D::Vector{8, 2});
-
 	listBox1.size({80, 100});
 	listBox1.add("Item 1");
 	listBox1.add("Item 2");
