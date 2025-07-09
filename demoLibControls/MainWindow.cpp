@@ -1,5 +1,7 @@
 #include "MainWindow.h"
 
+#include <libControls/LoadRectangleSkin.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -12,7 +14,16 @@ MainWindow::MainWindow() :
 	labelInfo{"Info:"},
 	textFieldNumbersMax{4},
 	textFieldMax{4},
+	imageButton{"ui/icons/mine.png"},
+	buttonSkin{
+		loadRectangleSkin("ui/skin/button_normal"),
+		loadRectangleSkin("ui/skin/button_hover"),
+		loadRectangleSkin("ui/skin/button_pressed"),
+	},
 	button{"Button", {this, &MainWindow::onButtonClick}},
+	buttonWithSkin{buttonSkin, "Skin", {this, &MainWindow::onButtonClick}},
+	buttonImage{imageButton, {this, &MainWindow::onButtonClick}},
+	buttonAll{buttonSkin, &imageButton, getDefaultFont(), "S +          + I", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
 		{
 			"Option 1",
@@ -93,6 +104,9 @@ MainWindow::MainWindow() :
 	add(textFieldOverflow, {150, 150});
 
 	add(button, {300, 30});
+	add(buttonWithSkin, {300, 60});
+	add(buttonImage, {300, 90});
+	add(buttonAll, {300, 135});
 
 	add(radioButtonGroup, {400, 30});
 	add(checkBox1, {400, 100});
