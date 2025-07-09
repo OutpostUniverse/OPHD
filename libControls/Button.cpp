@@ -53,11 +53,11 @@ Button::Button(const ButtonSkin& buttonSkin, std::string text, ClickDelegate cli
 }
 
 
-Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NAS2D::Font& font, std::string newText, ClickDelegate clickHandler) :
+Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NAS2D::Font& font, std::string text, ClickDelegate clickHandler) :
 	mButtonSkin{buttonSkin},
 	mImage{image},
 	mFont{&font},
-	mText{newText},
+	mText{text},
 	mClickHandler{clickHandler}
 {
 	size(mFont->size(mText) + internalPadding * 2);
