@@ -21,6 +21,9 @@ MainWindow::MainWindow() :
 		},
 		{this, &MainWindow::onRadioButtonSelect}
 	},
+	checkBox1{"CheckBox 1"},
+	checkBox2{"CheckBox 2"},
+	checkBox3{"CheckBox 3"},
 	listBox1{{this, &MainWindow::onListBoxSelect}},
 	listBox2{{this, &MainWindow::onListBoxSelect}},
 	comboBox1{{this, &MainWindow::onComboBoxSelect}},
@@ -92,6 +95,9 @@ MainWindow::MainWindow() :
 	add(button, {300, 30});
 
 	add(radioButtonGroup, {400, 30});
+	add(checkBox1, {400, 100});
+	add(checkBox2, {400, 120});
+	add(checkBox3, {400, 140});
 
 	add(listBox1, {500, 30});
 	add(comboBox1, {500, 150});

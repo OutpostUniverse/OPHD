@@ -6,6 +6,7 @@
 #include <libControls/TextField.h>
 #include <libControls/Button.h>
 #include <libControls/RadioButtonGroup.h>
+#include <libControls/CheckBox.h>
 #include <libControls/ListBox.h>
 #include <libControls/ComboBox.h>
 #include <libControls/Rectangle.h>
@@ -36,6 +37,9 @@ private:
 	TextField textFieldOverflow;
 	Button button;
 	RadioButtonGroup radioButtonGroup;
+	CheckBox checkBox1;
+	CheckBox checkBox2;
+	CheckBox checkBox3;
 	ListBox<> listBox1;
 	ListBox<> listBox2;
 	ComboBox comboBox1;
