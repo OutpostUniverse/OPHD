@@ -9,6 +9,8 @@
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Font.h>
 
+#include <utility>
+
 
 namespace
 {
@@ -28,13 +30,13 @@ namespace
 
 
 Button::Button(std::string text, ClickDelegate clickHandler) :
-	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), std::move(text), clickHandler}
 {
 }
 
 
 Button::Button(std::string text, NAS2D::Vector<int> initialSize, ClickDelegate clickHandler):
-	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
+	Button{defaultButtonSkin(), nullptr, getDefaultFont(), std::move(text), clickHandler}
 {
 	size(initialSize);
 }
@@ -47,7 +49,7 @@ Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
 
 
 Button::Button(const ButtonSkin& buttonSkin, std::string text, ClickDelegate clickHandler) :
-	Button{buttonSkin, nullptr, getDefaultFont(), text, clickHandler}
+	Button{buttonSkin, nullptr, getDefaultFont(), std::move(text), clickHandler}
 {
 }
 
@@ -56,7 +58,7 @@ Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NA
 	mButtonSkin{buttonSkin},
 	mImage{image},
 	mFont{&font},
-	mText{text},
+	mText{std::move(text)},
 	mClickHandler{clickHandler}
 {
 	const auto imageSize = mImage ? mImage->size() : NAS2D::Vector{0, 0};
