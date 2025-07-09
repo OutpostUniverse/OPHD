@@ -33,10 +33,10 @@ Button::Button(std::string text, ClickDelegate clickHandler) :
 }
 
 
-Button::Button(std::string text, NAS2D::Vector<int> sz, ClickDelegate clickHandler):
+Button::Button(std::string text, NAS2D::Vector<int> initialSize, ClickDelegate clickHandler):
 	Button{defaultButtonSkin(), nullptr, getDefaultFont(), text, clickHandler}
 {
-	size(sz);
+	size(initialSize);
 }
 
 
