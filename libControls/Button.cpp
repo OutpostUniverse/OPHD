@@ -14,7 +14,8 @@
 
 namespace
 {
-	constexpr auto internalPadding = NAS2D::Vector{2, 2};
+	constexpr auto textPadding = NAS2D::Vector{2, 2};
+	constexpr auto imagePadding = NAS2D::Vector{2, 2};
 
 
 	const Button::ButtonSkin& defaultButtonSkin()
@@ -61,16 +62,16 @@ Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NA
 	mText{std::move(text)},
 	mClickHandler{clickHandler}
 {
-	const auto imageSize = mImage ? mImage->size() : NAS2D::Vector{0, 0};
-	const auto textSize = !mText.empty() ? mFont->size(mText) :
-		!mImage ? NAS2D::Vector{mFont->height(), mFont->height()} : NAS2D::Vector{0, 0};
+	const auto imageSize = mImage ? mImage->size() + imagePadding * 2 : NAS2D::Vector{0, 0};
+	const auto textSize = !mText.empty() ? mFont->size(mText) + textPadding * 2 :
+		!mImage ? NAS2D::Vector{mFont->height(), mFont->height()} + textPadding * 2 : NAS2D::Vector{0, 0};
 
 	const auto defaultSize = NAS2D::Vector{
 		(imageSize.x > textSize.x) ? imageSize.x : textSize.x,
 		(imageSize.y > textSize.y) ? imageSize.y : textSize.y,
 	};
 
-	size(defaultSize + internalPadding * 2);
+	size(defaultSize);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
