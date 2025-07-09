@@ -60,7 +60,7 @@ MainWindow::MainWindow() :
 	add(label, {10, 30});
 	add(textField, {10, 60});
 
-	add(button, {100, 30});
+	add(button, {130, 30});
 
 	add(radioButtonGroup, {200, 30});
 
