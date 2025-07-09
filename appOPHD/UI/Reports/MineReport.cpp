@@ -289,7 +289,10 @@ void MineReport::onDigNewLevel()
 
 void MineReport::onTakeMeThere()
 {
-	if (mTakeMeThereHandler) { mTakeMeThereHandler(mSelectedFacility); }
+	if (mSelectedFacility)
+	{
+		if (mTakeMeThereHandler) { mTakeMeThereHandler(mSelectedFacility); }
+	}
 }
 
 
