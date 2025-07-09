@@ -42,6 +42,7 @@ private:
 	Button::ButtonSkin buttonSkin;
 	Button button;
 	Button buttonWithSkin;
+	Button buttonEmpty;
 	Button buttonImage;
 	Button buttonAll;
 	RadioButtonGroup radioButtonGroup;

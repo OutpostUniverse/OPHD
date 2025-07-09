@@ -22,6 +22,7 @@ MainWindow::MainWindow() :
 	},
 	button{"Button", {this, &MainWindow::onButtonClick}},
 	buttonWithSkin{buttonSkin, "Skin", {this, &MainWindow::onButtonClick}},
+	buttonEmpty{"", {this, &MainWindow::onButtonClick}},
 	buttonImage{imageButton, {this, &MainWindow::onButtonClick}},
 	buttonAll{buttonSkin, &imageButton, getDefaultFont(), "S +          + I", {this, &MainWindow::onButtonClick}},
 	radioButtonGroup{
@@ -103,8 +104,9 @@ MainWindow::MainWindow() :
 
 	add(button, {300, 30});
 	add(buttonWithSkin, {300, 60});
-	add(buttonImage, {300, 90});
-	add(buttonAll, {300, 135});
+	add(buttonEmpty, {300, 90});
+	add(buttonImage, {300, 120});
+	add(buttonAll, {300, 165});
 
 	add(radioButtonGroup, {400, 30});
 	add(checkBox1, {400, 100});
