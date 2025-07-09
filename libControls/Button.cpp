@@ -43,7 +43,6 @@ Button::Button(std::string text, NAS2D::Vector<int> initialSize, ClickDelegate c
 Button::Button(const NAS2D::Image& image, ClickDelegate clickHandler) :
 	Button{defaultButtonSkin(), &image, getDefaultFont(), {}, clickHandler}
 {
-	size(mImage->size() + internalPadding * 2);
 }
 
 
@@ -60,7 +59,16 @@ Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NA
 	mText{text},
 	mClickHandler{clickHandler}
 {
-	size(mFont->size(mText) + internalPadding * 2);
+	const auto imageSize = mImage ? mImage->size() : NAS2D::Vector{0, 0};
+	const auto textSize = !mText.empty() ? mFont->size(mText) :
+		!mImage ? NAS2D::Vector{mFont->height(), mFont->height()} : NAS2D::Vector{0, 0};
+
+	const auto defaultSize = NAS2D::Vector{
+		(imageSize.x > textSize.x) ? imageSize.x : textSize.x,
+		(imageSize.y > textSize.y) ? imageSize.y : textSize.y,
+	};
+
+	size(defaultSize + internalPadding * 2);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &Button::onMouseDown});
