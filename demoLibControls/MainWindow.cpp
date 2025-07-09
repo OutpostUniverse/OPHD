@@ -21,6 +21,8 @@ MainWindow::MainWindow() :
 	},
 	listBox1{{this, &MainWindow::onListBoxSelect}},
 	listBox2{{this, &MainWindow::onListBoxSelect}},
+	comboBox1{{this, &MainWindow::onComboBoxSelect}},
+	comboBox2{{this, &MainWindow::onComboBoxSelect}},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
 	rectangle2{NAS2D::Color::Red, {80, 5}},
 	progressBar{100, 50},
@@ -106,4 +108,10 @@ void MainWindow::onRadioButtonSelect(std::size_t index)
 void MainWindow::onListBoxSelect()
 {
 	labelInfo.text("ListBox select");
+}
+
+
+void MainWindow::onComboBoxSelect()
+{
+	labelInfo.text("ComboBox select");
 }
