@@ -2,6 +2,11 @@
 
 #include "../Constants/Strings.h"
 #include "../ShellOpenPath.h"
+
+#include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Utility.h>
+
 #include <array>
 
 
@@ -19,6 +24,7 @@ GameOptionsDialog::GameOptionsDialog(
 	ClickHandler continueClickHandler
 ) :
 	Window{constants::WindowSystemTitle},
+	mContinueClickHandler{continueClickHandler},
 	btnSave{"Save Game", saveClickHandler},
 	btnLoad{"Load Game", loadClickHandler},
 	btnHelp{"Help", {this, &GameOptionsDialog::onHelp}},
@@ -39,6 +45,20 @@ GameOptionsDialog::GameOptionsDialog(
 	size({buttonSize.x + 2 * buttonMargin.x, position.y});
 
 	anchored(true);
+
+	NAS2D::Utility<NAS2D::EventHandler>::get().keyDown().connect({this, &GameOptionsDialog::onKeyDown});
+}
+
+
+GameOptionsDialog::~GameOptionsDialog()
+{
+	NAS2D::Utility<NAS2D::EventHandler>::get().keyDown().disconnect({this, &GameOptionsDialog::onKeyDown});
+}
+
+
+void GameOptionsDialog::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
+{
+	if (key == NAS2D::KeyCode::Escape) { mContinueClickHandler(); }
 }
 
 
