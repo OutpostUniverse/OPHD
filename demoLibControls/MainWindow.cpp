@@ -58,23 +58,24 @@ MainWindow::MainWindow() :
 	progressBar.width(80);
 
 	add(label, {10, 30});
-	add(textField, {10, 60});
 
-	add(button, {130, 30});
+	add(textField, {150, 30});
 
-	add(radioButtonGroup, {200, 30});
+	add(button, {300, 30});
 
-	add(listBox1, {300, 30});
-	add(comboBox1, {300, 150});
+	add(radioButtonGroup, {400, 30});
 
-	add(listBox2, {400, 30});
-	add(comboBox2, {400, 150});
+	add(listBox1, {500, 30});
+	add(comboBox1, {500, 150});
 
-	add(rectangle1, {500, 30});
-	add(rectangle2, {500, 40});
-	add(progressBar, {500, 50});
+	add(listBox2, {600, 30});
+	add(comboBox2, {600, 150});
 
-	add(image, {600, 30});
+	add(rectangle1, {700, 30});
+	add(rectangle2, {700, 40});
+	add(progressBar, {700, 50});
+
+	add(image, {800, 30});
 }
 
 
