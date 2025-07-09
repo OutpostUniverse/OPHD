@@ -14,8 +14,8 @@
 
 namespace
 {
-	constexpr auto textPadding = NAS2D::Vector{2, 2};
-	constexpr auto imagePadding = NAS2D::Vector{2, 2};
+	constexpr auto textPadding = NAS2D::Vector{8, 2};
+	constexpr auto imagePadding = NAS2D::Vector{4, 4};
 
 
 	const Button::ButtonSkin& defaultButtonSkin()
