@@ -14,6 +14,7 @@
 
 namespace
 {
+	constexpr auto emptyPadding = NAS2D::Vector{2, 2};
 	constexpr auto textPadding = NAS2D::Vector{8, 2};
 	constexpr auto imagePadding = NAS2D::Vector{4, 4};
 
@@ -64,7 +65,7 @@ Button::Button(const ButtonSkin& buttonSkin, const NAS2D::Image* image, const NA
 {
 	const auto imageSize = mImage ? mImage->size() + imagePadding * 2 : NAS2D::Vector{0, 0};
 	const auto textSize = !mText.empty() ? mFont->size(mText) + textPadding * 2 :
-		!mImage ? NAS2D::Vector{mFont->height(), mFont->height()} + textPadding * 2 : NAS2D::Vector{0, 0};
+		!mImage ? NAS2D::Vector{mFont->height(), mFont->height()} + emptyPadding * 2: NAS2D::Vector{0, 0};
 
 	const auto defaultSize = NAS2D::Vector{
 		(imageSize.x > textSize.x) ? imageSize.x : textSize.x,
