@@ -24,9 +24,10 @@ MainWindow::MainWindow() :
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	size(renderer.size());
 
-	button.size(button.size() + NAS2D::Vector{8, 2});
 	textField.size(button.size());
 	textField.text("Overflowing text");
+
+	button.size(button.size() + NAS2D::Vector{8, 2});
 
 	listBox1.size({80, 100});
 	listBox1.add("Item 1");
@@ -36,11 +37,6 @@ MainWindow::MainWindow() :
 	listBox1.add("Item 5");
 	listBox1.add("Item 6");
 
-	listBox2.size({60, 100});
-	listBox2.add("Item 1");
-	listBox2.add("Item 2");
-	listBox2.add("Item 3");
-
 	comboBox1.width(80);
 	comboBox1.addItem("Item1");
 	comboBox1.addItem("Item2");
@@ -49,6 +45,11 @@ MainWindow::MainWindow() :
 	comboBox1.addItem("Item5");
 	comboBox1.addItem("Item6");
 
+	listBox2.size({60, 100});
+	listBox2.add("Item 1");
+	listBox2.add("Item 2");
+	listBox2.add("Item 3");
+
 	comboBox2.width(60);
 	comboBox2.addItem("Item1");
 	comboBox2.addItem("Item2");
@@ -56,20 +57,24 @@ MainWindow::MainWindow() :
 
 	progressBar.width(80);
 
-	add(button, {100, 30});
 	add(label, {10, 30});
-	add(radioButtonGroup, {200, 30});
 	add(textField, {10, 60});
 
+	add(button, {100, 30});
+
+	add(radioButtonGroup, {200, 30});
+
 	add(listBox1, {300, 30});
-	add(listBox2, {400, 30});
 	add(comboBox1, {300, 150});
+
+	add(listBox2, {400, 30});
 	add(comboBox2, {400, 150});
 
-	add(image, {600, 30});
 	add(progressBar, {500, 30});
 	add(rectangle1, {500, 60});
 	add(rectangle2, {500, 70});
+
+	add(image, {600, 30});
 }
 
 
