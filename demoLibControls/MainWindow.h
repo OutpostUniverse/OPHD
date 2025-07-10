@@ -4,6 +4,7 @@
 
 #include <libControls/Label.h>
 #include <libControls/TextField.h>
+#include <libControls/TextArea.h>
 #include <libControls/Button.h>
 #include <libControls/RadioButtonGroup.h>
 #include <libControls/CheckBox.h>
@@ -38,6 +39,7 @@ private:
 	TextField textFieldNumbersMax;
 	TextField textFieldMax;
 	TextField textFieldOverflow;
+	TextArea textArea;
 	NAS2D::Image imageButton;
 	Button::ButtonSkin buttonSkin;
 	Button button;
