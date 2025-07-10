@@ -55,9 +55,9 @@ protected:
 	void onDropdownButtonClick();
 
 private:
+	TextField txtField;
 	Button btnDown;
 	ListBox<> lstItems;
-	TextField txtField;
 
 	NAS2D::Rectangle<int> mBarRect;
 
