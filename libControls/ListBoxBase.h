@@ -55,6 +55,7 @@ protected:
 	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;
 
 	void clear();
+	void setSelectedInternal(std::size_t index);
 	void updateScrollLayout();
 
 	void onVisibilityChange(bool visible) override;
