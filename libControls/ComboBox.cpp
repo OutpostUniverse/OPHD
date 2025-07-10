@@ -53,7 +53,7 @@ void ComboBox::onResize()
 		size({std::max(mRect.size.x, 50), std::max(mRect.size.y, 20)});
 	}
 
-	txtField.size(size() - NAS2D::Vector{20, 0});
+	txtField.size(size() - NAS2D::Vector{btnDown.size().x, 0});
 	btnDown.position(txtField.area().crossXPoint());
 	btnDown.height(mRect.size.y);
 	lstItems.width(mRect.size.x);
