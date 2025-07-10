@@ -65,23 +65,21 @@ void ListBoxBase::selectedIndex(std::size_t index)
 	{
 		throw std::runtime_error("Invalid list box selected index: " + std::to_string(index));
 	}
-	mSelectedIndex = index;
-	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+	setSelectedInternal(index);
 }
 
 
 void ListBoxBase::clearSelected()
 {
-	mSelectedIndex = NoSelection;
-	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+	setSelectedInternal(NoSelection);
 }
 
 
 void ListBoxBase::clear()
 {
-	mSelectedIndex = NoSelection;
 	mHighlightIndex = NoSelection;
 	updateScrollLayout();
+	setSelectedInternal(NoSelection);
 }
 
 
