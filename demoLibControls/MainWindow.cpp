@@ -42,7 +42,12 @@ MainWindow::MainWindow() :
 	comboBox2{{this, &MainWindow::onComboBoxSelect}},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
 	rectangle2{NAS2D::Color::Red, {80, 5}},
-	progressBar{100, 50},
+	progressBarUndefined{0, 0},
+	progressBar0{100, 0},
+	progressBar10{100, 10},
+	progressBar50{100, 50},
+	progressBar90{100, 90},
+	progressBar100{100, 100},
 	image{getImage("ui/interface/product_robodozer.png")}
 {
 	const auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -89,7 +94,12 @@ MainWindow::MainWindow() :
 	comboBox2.addItem("Item2");
 	comboBox2.addItem("Item3");
 
-	progressBar.width(80);
+	progressBarUndefined.width(80);
+	progressBar0.width(80);
+	progressBar10.width(80);
+	progressBar50.width(80);
+	progressBar90.width(80);
+	progressBar100.width(80);
 
 	add(label, {10, 30});
 	add(labelFontBold, {10, 60});
@@ -121,7 +131,12 @@ MainWindow::MainWindow() :
 
 	add(rectangle1, {700, 30});
 	add(rectangle2, {700, 40});
-	add(progressBar, {700, 50});
+	add(progressBarUndefined, {700, 50});
+	add(progressBar0, {700, 80});
+	add(progressBar10, {700, 110});
+	add(progressBar50, {700, 140});
+	add(progressBar90, {700, 170});
+	add(progressBar100, {700, 200});
 
 	add(image, {800, 30});
 }
