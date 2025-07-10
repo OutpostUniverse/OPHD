@@ -133,16 +133,16 @@ MainWindow::MainWindow() :
 	add(listBox2, {600, 30});
 	add(comboBox2, {600, 150});
 
-	add(rectangle1, {700, 30});
-	add(rectangle2, {700, 40});
-	add(progressBarUndefined, {700, 50});
-	add(progressBar0, {700, 80});
-	add(progressBar10, {700, 110});
-	add(progressBar50, {700, 140});
-	add(progressBar90, {700, 170});
-	add(progressBar100, {700, 200});
+	add(rectangle1, {750, 30});
+	add(rectangle2, {750, 40});
+	add(progressBarUndefined, {750, 50});
+	add(progressBar0, {750, 80});
+	add(progressBar10, {750, 110});
+	add(progressBar50, {750, 140});
+	add(progressBar90, {750, 170});
+	add(progressBar100, {750, 200});
 
-	add(image, {800, 30});
+	add(image, {850, 30});
 }
 
 
