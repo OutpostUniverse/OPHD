@@ -68,6 +68,9 @@ MainWindow::MainWindow() :
 	textFieldOverflow.size(textFieldMax.size());
 	textFieldOverflow.text("Overflowing text");
 
+	textArea.size({100, 100});
+	textArea.text("This is some\nTextArea\ntext.");
+
 	listBox1.size({80, 100});
 	listBox1.add("Item 1");
 	listBox1.add("Item 2");
@@ -111,6 +114,7 @@ MainWindow::MainWindow() :
 	add(textFieldNumbersMax, {150, 90});
 	add(textFieldMax, {150, 120});
 	add(textFieldOverflow, {150, 150});
+	add(textArea, {150, 180});
 
 	add(button, {300, 30});
 	add(buttonWithSkin, {300, 60});
