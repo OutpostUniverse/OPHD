@@ -125,6 +125,12 @@ void ComboBox::onListSelectionChange()
 }
 
 
+std::size_t ComboBox::maxDisplayItems() const
+{
+	return mMaxDisplayItems;
+}
+
+
 /**
  * Sets the maximum number of items to display before showing a scroll bar.
  */

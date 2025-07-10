@@ -29,7 +29,7 @@ public:
 
 	void addItem(const std::string& item, int tag = 0);
 
-	std::size_t maxDisplayItems() const { return mMaxDisplayItems; }
+	std::size_t maxDisplayItems() const;
 	void maxDisplayItems(std::size_t count);
 
 	void clearSelected();
