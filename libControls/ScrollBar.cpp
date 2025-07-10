@@ -12,25 +12,37 @@
 
 namespace
 {
+	ScrollBar::Skins loadSkinVertical()
+	{
+		return {
+			loadRectangleSkin("ui/skin/scrollbar_vertical_track"),
+			loadRectangleSkin("ui/skin/scrollbar_vertical_thumb"),
+			loadRectangleSkin("ui/skin/scrollbar_vertical_button_decrease"),
+			loadRectangleSkin("ui/skin/scrollbar_vertical_button_increase"),
+		};
+	}
+
+
+	ScrollBar::Skins loadSkinHorizontal()
+	{
+		return {
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_track"),
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_thumb"),
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_button_decrease"),
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_button_increase"),
+		};
+	}
+
+
 	ScrollBar::Skins loadSkins(ScrollBar::ScrollBarType scrollBarType)
 	{
 		if (scrollBarType == ScrollBar::ScrollBarType::Vertical)
 		{
-			return {
-				loadRectangleSkin("ui/skin/scrollbar_vertical_track"),
-				loadRectangleSkin("ui/skin/scrollbar_vertical_thumb"),
-				loadRectangleSkin("ui/skin/scrollbar_vertical_button_decrease"),
-				loadRectangleSkin("ui/skin/scrollbar_vertical_button_increase"),
-			};
+			return loadSkinVertical();
 		}
 		else
 		{
-			return {
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_track"),
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_thumb"),
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_button_decrease"),
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_button_increase"),
-			};
+			return loadSkinHorizontal();
 		}
 	}
 }
