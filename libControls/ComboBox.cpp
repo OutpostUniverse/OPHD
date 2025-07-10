@@ -16,11 +16,12 @@ namespace
 
 ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	ControlContainer{{&btnDown, &txtField, &lstItems}},
+	btnDown{getImage("ui/icons/down.png")},
 	lstItems{{this, &ComboBox::onListSelectionChange}},
+	mMinHeight{std::max(txtField.size().y, btnDown.size().y)},
 	mSelectionChangedHandler{selectionChangedHandler},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
-	btnDown.image("ui/icons/down.png");
 	btnDown.size({20, 20});
 
 	txtField.editable(false);
@@ -48,12 +49,12 @@ void ComboBox::onResize()
 	Control::onResize();
 
 	// Enforce minimum size
-	if (mRect.size.x < 50 || mRect.size.y < 20)
+	if (mRect.size.x < 50 || mRect.size.y < mMinHeight)
 	{
-		size({std::max(mRect.size.x, 50), std::max(mRect.size.y, 20)});
+		size({std::max(mRect.size.x, 50), std::max(mRect.size.y, mMinHeight)});
 	}
 
-	txtField.size(size() - NAS2D::Vector{20, 0});
+	txtField.size(mRect.size - NAS2D::Vector{btnDown.size().x, 0});
 	btnDown.position(txtField.area().crossXPoint());
 	btnDown.height(mRect.size.y);
 	lstItems.width(mRect.size.x);
@@ -85,19 +86,25 @@ void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 
 	if (mBarRect.contains(position))
 	{
-		lstItems.visible(!lstItems.visible());
-		if (lstItems.visible())
-		{
-			mRect.size.y += lstItems.size().y;
-		}
-		else
-		{
-			mRect = mBarRect;
-		}
+		onDropdownButtonClick();
 	}
 	else if (!lstItems.area().contains(position))
 	{
 		lstItems.visible(false);
+		mRect = mBarRect;
+	}
+}
+
+
+void ComboBox::onDropdownButtonClick()
+{
+	lstItems.visible(!lstItems.visible());
+	if (lstItems.visible())
+	{
+		mRect.size.y += lstItems.size().y;
+	}
+	else
+	{
 		mRect = mBarRect;
 	}
 }
@@ -116,6 +123,12 @@ void ComboBox::onListSelectionChange()
 	lstItems.visible(false);
 	mRect = mBarRect;
 	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+}
+
+
+std::size_t ComboBox::maxDisplayItems() const
+{
+	return mMaxDisplayItems;
 }
 
 
@@ -157,17 +170,16 @@ bool ComboBox::isItemSelected() const
 }
 
 
-void ComboBox::setSelected(std::size_t index) {
-	lstItems.selectedIndex(index);
-	text(selectionText());
-	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+std::size_t ComboBox::selectedIndex() const
+{
+	return lstItems.selectedIndex();
 }
 
-void ComboBox::text(const std::string& text) {
-	txtField.text(text);
-	lstItems.selectIf([target = NAS2D::toLowercase(txtField.text())](const auto& item){ return NAS2D::toLowercase(item.text) == target; });
-	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+
+void ComboBox::setSelected(std::size_t index) {
+	lstItems.selectedIndex(index);
 }
+
 
 const std::string& ComboBox::text() const {
 	return txtField.text();

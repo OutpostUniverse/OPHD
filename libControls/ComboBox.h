@@ -29,7 +29,7 @@ public:
 
 	void addItem(const std::string& item, int tag = 0);
 
-	std::size_t maxDisplayItems() const { return mMaxDisplayItems; }
+	std::size_t maxDisplayItems() const;
 	void maxDisplayItems(std::size_t count);
 
 	void clearSelected();
@@ -38,10 +38,9 @@ public:
 	int selectionUserData() const;
 
 	bool isItemSelected() const;
-	std::size_t selectedIndex() { return lstItems.selectedIndex(); }
+	std::size_t selectedIndex() const;
 	void setSelected(std::size_t index);
 
-	void text(const std::string& text);
 	const std::string& text() const;
 
 protected:
@@ -52,12 +51,14 @@ protected:
 
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
+	void onDropdownButtonClick();
 
 private:
+	TextField txtField;
 	Button btnDown;
 	ListBox<> lstItems;
-	TextField txtField;
 
+	const int mMinHeight;
 	NAS2D::Rectangle<int> mBarRect;
 
 	SelectionChangedDelegate mSelectionChangedHandler;
