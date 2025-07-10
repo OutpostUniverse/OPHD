@@ -38,7 +38,7 @@ public:
 	int selectionUserData() const;
 
 	bool isItemSelected() const;
-	std::size_t selectedIndex() { return lstItems.selectedIndex(); }
+	std::size_t selectedIndex() const { return lstItems.selectedIndex(); }
 	void setSelected(std::size_t index);
 
 	void text(const std::string& text);
