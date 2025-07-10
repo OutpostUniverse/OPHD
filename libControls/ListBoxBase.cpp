@@ -130,9 +130,10 @@ void ListBoxBase::onVisibilityChange(bool visible)
 }
 
 
-void ListBoxBase::onMove(NAS2D::Vector<int> /*displacement*/)
+void ListBoxBase::onMove(NAS2D::Vector<int> displacement)
 {
-	updateScrollLayout();
+	mScrollArea.position += displacement;
+	mScrollBar.position(mScrollBar.position() + displacement);
 }
 
 
