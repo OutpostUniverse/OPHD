@@ -76,6 +76,7 @@ void ScrollBar::value(int newValue)
 	mValue = std::clamp(newValue, 0, mMax);
 	if (mValue != oldValue)
 	{
+		onLayoutChange();
 		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
 	}
 }
