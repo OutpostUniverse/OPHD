@@ -198,11 +198,10 @@ void ScrollBar::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rel
 
 	if (mThumbPressed && mTrackRect.contains(position))
 	{
-		value(
-			(mScrollBarType == ScrollBarType::Vertical) ?
-				mMax * (position.y - mTrackRect.position.y - mThumbRect.size.y / 2) / std::max(mTrackRect.size.y - mThumbRect.size.y, 1) :
-				mMax * (position.x - mTrackRect.position.x - mThumbRect.size.x / 2) / std::max(mTrackRect.size.x - mThumbRect.size.x, 1)
-		);
+		const auto [mouseTrackPosition, trackEmptySize] = (mScrollBarType == ScrollBarType::Vertical) ?
+			std::tuple{position.y - mTrackRect.position.y - mThumbRect.size.y / 2, std::max(mTrackRect.size.y - mThumbRect.size.y, 1)} :
+			std::tuple{position.x - mTrackRect.position.x - mThumbRect.size.x / 2, std::max(mTrackRect.size.x - mThumbRect.size.x, 1)};
+		value(mMax * mouseTrackPosition / trackEmptySize);
 	}
 }
 
