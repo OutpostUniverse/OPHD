@@ -227,7 +227,7 @@ void ScrollBar::onLayoutChange()
 	{
 		const auto squareEndCapSize = NAS2D::Vector{mRect.size.x, mRect.size.x};
 		mButtonDecreaseRect = {mRect.position, squareEndCapSize};
-		mButtonIncreaseRect = {{mRect.position.x, mRect.position.y + mRect.size.y - mRect.size.x}, squareEndCapSize};
+		mButtonIncreaseRect = {mRect.crossYPoint() - NAS2D::Vector{0, squareEndCapSize.y}, squareEndCapSize};
 		mTrackRect = {{mRect.position.x, mRect.position.y + mRect.size.x}, {mRect.size.x, mRect.size.y - 2 * mRect.size.x}};
 		const auto thumbLength = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
 		const auto thumbOffset = (mTrackRect.size.y - thumbLength) * mValue / std::max(mMax, 1);
@@ -237,7 +237,7 @@ void ScrollBar::onLayoutChange()
 	{
 		const auto squareEndCapSize = NAS2D::Vector{mRect.size.y, mRect.size.y};
 		mButtonDecreaseRect = {mRect.position, squareEndCapSize};
-		mButtonIncreaseRect = {{mRect.position.x + mRect.size.x - mRect.size.y, mRect.position.y}, squareEndCapSize};
+		mButtonIncreaseRect = {mRect.crossXPoint() - NAS2D::Vector{squareEndCapSize.x, 0}, squareEndCapSize};
 		mTrackRect = {{mRect.position.x + mRect.size.y, mRect.position.y}, {mRect.size.x - 2 * mRect.size.y, mRect.size.y}};
 		const auto thumbLength = std::min(mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1), mTrackRect.size.x);
 		const auto thumbOffset = (mTrackRect.size.x - thumbLength) * mValue / std::max(mMax, 1);
