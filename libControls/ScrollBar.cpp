@@ -78,10 +78,10 @@ int ScrollBar::value() const
 
 void ScrollBar::value(int newValue)
 {
-	const auto oldValue = mValue;
-	mValue = std::clamp(newValue, 0, mMax);
-	if (mValue != oldValue)
+	const auto newValueClamped = std::clamp(newValue, 0, mMax);
+	if (mValue != newValueClamped)
 	{
+		mValue = newValueClamped;
 		onLayoutChange();
 		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
 	}
