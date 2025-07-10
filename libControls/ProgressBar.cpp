@@ -6,7 +6,6 @@
 #include <NAS2D/Math/Rectangle.h>
 
 #include <algorithm>
-#include <stdexcept>
 
 
 namespace
@@ -21,10 +20,6 @@ ProgressBar::ProgressBar(int max, int value, int padding) :
 	mMax{max},
 	mValue{value}
 {
-	if (mMax == 0)
-	{
-		throw std::runtime_error("ProgressBar needs a non-zero max: " + std::to_string(mMax));
-	}
 	size({mMax + padding * 2, padding * 5});
 }
 

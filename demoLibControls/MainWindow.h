@@ -55,6 +55,11 @@ private:
 	ComboBox comboBox2;
 	Rectangle rectangle1;
 	Rectangle rectangle2;
-	ProgressBar progressBar;
+	ProgressBar progressBarUndefined;
+	ProgressBar progressBar0;
+	ProgressBar progressBar10;
+	ProgressBar progressBar50;
+	ProgressBar progressBar90;
+	ProgressBar progressBar100;
 	Image image;
 };
