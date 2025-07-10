@@ -122,9 +122,11 @@ void ListBoxBase::updateScrollLayout()
 
 void ListBoxBase::onVisibilityChange(bool visible)
 {
-	Control::onVisibilityChange(visible);
-
-	updateScrollLayout();
+	if (visible)
+	{
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
+		mScrollBar.visible(neededDisplaySize > mRect.size.y);
+	}
 }
 
 
