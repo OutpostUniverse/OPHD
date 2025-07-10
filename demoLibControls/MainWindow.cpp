@@ -40,6 +40,12 @@ MainWindow::MainWindow() :
 	listBox2{{this, &MainWindow::onListBoxSelect}},
 	comboBox1{{this, &MainWindow::onComboBoxSelect}},
 	comboBox2{{this, &MainWindow::onComboBoxSelect}},
+	scrollBarHorizontalMax0{ScrollBar::ScrollBarType::Horizontal, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarHorizontalMax1{ScrollBar::ScrollBarType::Horizontal, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarHorizontal{ScrollBar::ScrollBarType::Horizontal, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarVerticalMax0{ScrollBar::ScrollBarType::Vertical, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarVerticalMax1{ScrollBar::ScrollBarType::Vertical, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarVertical{ScrollBar::ScrollBarType::Vertical, 1, {this, &MainWindow::onScrollBarChange}},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
 	rectangle2{NAS2D::Color::Red, {80, 5}},
 	progressBarUndefined{0, 0},
@@ -97,6 +103,18 @@ MainWindow::MainWindow() :
 	comboBox2.addItem("Item2");
 	comboBox2.addItem("Item3");
 
+	scrollBarHorizontalMax1.max(1);
+	scrollBarHorizontal.max(200);
+	scrollBarVerticalMax1.max(1);
+	scrollBarVertical.max(200);
+
+	scrollBarHorizontalMax0.size({70, 20});
+	scrollBarHorizontalMax1.size({70, 20});
+	scrollBarHorizontal.size({70, 20});
+	scrollBarVerticalMax0.size({20, 200});
+	scrollBarVerticalMax1.size({20, 200});
+	scrollBarVertical.size({20, 200});
+
 	progressBarUndefined.width(80);
 	progressBar0.width(80);
 	progressBar10.width(80);
@@ -133,16 +151,23 @@ MainWindow::MainWindow() :
 	add(listBox2, {600, 30});
 	add(comboBox2, {600, 150});
 
-	add(rectangle1, {700, 30});
-	add(rectangle2, {700, 40});
-	add(progressBarUndefined, {700, 50});
-	add(progressBar0, {700, 80});
-	add(progressBar10, {700, 110});
-	add(progressBar50, {700, 140});
-	add(progressBar90, {700, 170});
-	add(progressBar100, {700, 200});
+	add(scrollBarHorizontalMax0, {670, 30});
+	add(scrollBarHorizontalMax1, {670, 60});
+	add(scrollBarHorizontal, {670, 90});
+	add(scrollBarVerticalMax0, {720, 120});
+	add(scrollBarVerticalMax1, {695, 120});
+	add(scrollBarVertical, {670, 120});
 
-	add(image, {800, 30});
+	add(rectangle1, {750, 30});
+	add(rectangle2, {750, 40});
+	add(progressBarUndefined, {750, 50});
+	add(progressBar0, {750, 80});
+	add(progressBar10, {750, 110});
+	add(progressBar50, {750, 140});
+	add(progressBar90, {750, 170});
+	add(progressBar100, {750, 200});
+
+	add(image, {850, 30});
 }
 
 
@@ -173,4 +198,10 @@ void MainWindow::onListBoxSelect()
 void MainWindow::onComboBoxSelect()
 {
 	labelInfo.text("ComboBox select");
+}
+
+
+void MainWindow::onScrollBarChange(int newValue)
+{
+	labelInfo.text("ScrollBar: " + std::to_string(newValue));
 }
