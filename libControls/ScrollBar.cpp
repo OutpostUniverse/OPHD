@@ -42,15 +42,15 @@ namespace
 }
 
 
-ScrollBar::ScrollBar(ScrollBarType scrollBarType, int smallChange, ValueChangeDelegate valueChangeHandler) :
-	ScrollBar{loadSkins(scrollBarType), scrollBarType, smallChange, valueChangeHandler}
+ScrollBar::ScrollBar(ScrollBarType scrollBarType, int smallDelta, ValueChangeDelegate valueChangeHandler) :
+	ScrollBar{loadSkins(scrollBarType), scrollBarType, smallDelta, valueChangeHandler}
 {
 }
 
 
-ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, int smallChange, ValueChangeDelegate valueChangeHandler) :
+ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, int smallDelta, ValueChangeDelegate valueChangeHandler) :
 	mScrollBarType{scrollBarType},
-	mSmallChange{smallChange},
+	mSmallDelta{smallDelta},
 	mValueChangeHandler{valueChangeHandler},
 	mSkins{skins}
 {
@@ -117,7 +117,7 @@ void ScrollBar::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			changeValue((mButtonDecreaseHeld ? -mSmallChange : mSmallChange));
+			changeValue((mButtonDecreaseHeld ? -mSmallDelta : mSmallDelta));
 		}
 	}
 
@@ -158,11 +158,11 @@ void ScrollBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> positio
 		}
 		else if (mButtonDecreaseRect.contains(position))
 		{
-			onButtonClick(mButtonDecreaseHeld, -mSmallChange);
+			onButtonClick(mButtonDecreaseHeld, -mSmallDelta);
 		}
 		else if (mButtonIncreaseRect.contains(position))
 		{
-			onButtonClick(mButtonIncreaseHeld, mSmallChange);
+			onButtonClick(mButtonIncreaseHeld, mSmallDelta);
 		}
 	}
 }
