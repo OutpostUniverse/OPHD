@@ -77,8 +77,9 @@ void ListBoxBase::clearSelected()
 
 void ListBoxBase::clear()
 {
-	mHighlightIndex = NoSelection;
 	updateScrollLayout();
+
+	mHighlightIndex = NoSelection;
 	setSelectedInternal(NoSelection);
 }
 
