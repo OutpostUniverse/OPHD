@@ -45,6 +45,9 @@ public:
 	int max() const;
 	void max(int newMax);
 
+	int largeDelta() const;
+	void largeDelta(int newLargeDelta);
+
 	void update() override;
 
 protected:
@@ -63,6 +66,7 @@ protected:
 private:
 	const ScrollBarType mScrollBarType;
 	const int mSmallDelta;
+	int mLargeDelta{1};
 	int mMax{0};
 	int mValue{0};
 	ValueChangeDelegate mValueChangeHandler;

@@ -112,6 +112,18 @@ void ScrollBar::max(int newMax)
 }
 
 
+int ScrollBar::largeDelta() const
+{
+	return mLargeDelta;
+}
+
+
+void ScrollBar::largeDelta(int newLargeDelta)
+{
+	mLargeDelta = newLargeDelta;
+}
+
+
 void ScrollBar::update()
 {
 	if (!visible()) { return; }
