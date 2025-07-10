@@ -65,7 +65,7 @@ MainWindow::MainWindow() :
 	textFieldNumbersMax.numbersOnly(true);
 	textFieldNumbersMax.text("1234");
 	textFieldMax.text("Max4");
-	textFieldOverflow.size(button.size());
+	textFieldOverflow.size(textFieldMax.size());
 	textFieldOverflow.text("Overflowing text");
 
 	listBox1.size({80, 100});
