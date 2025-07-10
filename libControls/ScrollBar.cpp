@@ -36,14 +36,8 @@ namespace
 
 	ScrollBar::Skins loadSkins(ScrollBar::ScrollBarType scrollBarType)
 	{
-		if (scrollBarType == ScrollBar::ScrollBarType::Vertical)
-		{
-			return loadSkinVertical();
-		}
-		else
-		{
-			return loadSkinHorizontal();
-		}
+		return (scrollBarType == ScrollBar::ScrollBarType::Vertical) ?
+			loadSkinVertical() : loadSkinHorizontal();
 	}
 }
 
