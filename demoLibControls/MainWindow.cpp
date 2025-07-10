@@ -115,6 +115,9 @@ MainWindow::MainWindow() :
 	scrollBarVerticalMax1.max(1);
 	scrollBarVertical.max(200);
 
+	scrollBarHorizontal.largeDelta(10);
+	scrollBarVertical.largeDelta(10);
+
 	scrollBarHorizontalMax0.size({70, 20});
 	scrollBarHorizontalMax1.size({70, 20});
 	scrollBarHorizontal.size({70, 20});
