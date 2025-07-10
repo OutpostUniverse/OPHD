@@ -85,6 +85,16 @@ void ListBoxBase::clear()
 }
 
 
+void ListBoxBase::setSelectedInternal(std::size_t index)
+{
+	if (mSelectedIndex != index)
+	{
+		mSelectedIndex = index;
+		if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
+	}
+}
+
+
 void ListBoxBase::updateScrollLayout()
 {
 	// Account for border around control
