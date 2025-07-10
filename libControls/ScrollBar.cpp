@@ -83,7 +83,7 @@ void ScrollBar::value(int newValue)
 	if (mValue != newValueClamped)
 	{
 		mValue = newValueClamped;
-		onLayoutChange();
+		onThumbMove();
 		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
 	}
 }
@@ -104,6 +104,7 @@ int ScrollBar::max() const
 void ScrollBar::max(int newMax)
 {
 	mMax = newMax;
+	onThumbResize();
 	value(mValue); // Re-clamp to new max
 }
 
