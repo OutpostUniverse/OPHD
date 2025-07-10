@@ -206,9 +206,12 @@ void ScrollBar::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rel
 }
 
 
-void ScrollBar::onMove(NAS2D::Vector<int> /*displacement*/)
+void ScrollBar::onMove(NAS2D::Vector<int> displacement)
 {
-	onLayoutChange();
+	mTrackRect.position += displacement;
+	mThumbRect.position += displacement;
+	mButtonDecreaseRect.position += displacement;
+	mButtonIncreaseRect.position += displacement;
 }
 
 
