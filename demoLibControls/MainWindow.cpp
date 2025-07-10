@@ -40,12 +40,12 @@ MainWindow::MainWindow() :
 	listBox2{{this, &MainWindow::onListBoxSelect}},
 	comboBox1{{this, &MainWindow::onComboBoxSelect}},
 	comboBox2{{this, &MainWindow::onComboBoxSelect}},
-	scrollBarHorizontalMax0{ScrollBar::ScrollBarType::Horizontal},
-	scrollBarHorizontalMax1{ScrollBar::ScrollBarType::Horizontal},
-	scrollBarHorizontal{ScrollBar::ScrollBarType::Horizontal},
-	scrollBarVerticalMax0{ScrollBar::ScrollBarType::Vertical},
-	scrollBarVerticalMax1{ScrollBar::ScrollBarType::Vertical},
-	scrollBarVertical{ScrollBar::ScrollBarType::Vertical},
+	scrollBarHorizontalMax0{ScrollBar::ScrollBarType::Horizontal, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarHorizontalMax1{ScrollBar::ScrollBarType::Horizontal, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarHorizontal{ScrollBar::ScrollBarType::Horizontal, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarVerticalMax0{ScrollBar::ScrollBarType::Vertical, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarVerticalMax1{ScrollBar::ScrollBarType::Vertical, 1, {this, &MainWindow::onScrollBarChange}},
+	scrollBarVertical{ScrollBar::ScrollBarType::Vertical, 1, {this, &MainWindow::onScrollBarChange}},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
 	rectangle2{NAS2D::Color::Red, {80, 5}},
 	progressBarUndefined{0, 0},
@@ -198,4 +198,10 @@ void MainWindow::onListBoxSelect()
 void MainWindow::onComboBoxSelect()
 {
 	labelInfo.text("ComboBox select");
+}
+
+
+void MainWindow::onScrollBarChange(int newValue)
+{
+	labelInfo.text("ScrollBar: " + std::to_string(newValue));
 }

@@ -29,6 +29,7 @@ protected:
 	void onCheckBoxClick();
 	void onListBoxSelect();
 	void onComboBoxSelect();
+	void onScrollBarChange(int newValue);
 
 private:
 	Label label;
