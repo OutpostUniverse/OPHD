@@ -180,11 +180,6 @@ void ComboBox::setSelected(std::size_t index) {
 	lstItems.selectedIndex(index);
 }
 
-void ComboBox::text(const std::string& text) {
-	txtField.text(text);
-	lstItems.selectIf([target = NAS2D::toLowercase(txtField.text())](const auto& item){ return NAS2D::toLowercase(item.text) == target; });
-	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
-}
 
 const std::string& ComboBox::text() const {
 	return txtField.text();

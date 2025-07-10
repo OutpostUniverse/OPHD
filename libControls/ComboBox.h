@@ -41,7 +41,6 @@ public:
 	std::size_t selectedIndex() const;
 	void setSelected(std::size_t index);
 
-	void text(const std::string& text);
 	const std::string& text() const;
 
 protected:
