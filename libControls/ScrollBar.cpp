@@ -229,8 +229,8 @@ void ScrollBar::onLayoutChange()
 		mButtonIncreaseRect = {{mRect.position.x, mRect.position.y + mRect.size.y - mRect.size.x}, {mRect.size.x, mRect.size.x}};
 		mTrackRect = {{mRect.position.x, mRect.position.y + mRect.size.x}, {mRect.size.x, mRect.size.y - 2 * mRect.size.x}};
 		const auto thumbLength = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
-		const auto drawOffset = (mTrackRect.size.y - thumbLength) * mValue / std::max(mMax, 1);
-		mThumbRect = {{mTrackRect.position.x, mTrackRect.position.y + drawOffset}, {mTrackRect.size.x, thumbLength}};
+		const auto thumbOffset = (mTrackRect.size.y - thumbLength) * mValue / std::max(mMax, 1);
+		mThumbRect = {{mTrackRect.position.x, mTrackRect.position.y + thumbOffset}, {mTrackRect.size.x, thumbLength}};
 	}
 	else
 	{
@@ -238,7 +238,7 @@ void ScrollBar::onLayoutChange()
 		mButtonIncreaseRect = {{mRect.position.x + mRect.size.x - mRect.size.y, mRect.position.y}, {mRect.size.y, mRect.size.y}};
 		mTrackRect = {{mRect.position.x + mRect.size.y, mRect.position.y}, {mRect.size.x - 2 * mRect.size.y, mRect.size.y}};
 		const auto thumbLength = std::min(mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1), mTrackRect.size.x);
-		const auto drawOffset = (mTrackRect.size.x - thumbLength) * mValue / std::max(mMax, 1);
-		mThumbRect = {{mTrackRect.position.x + drawOffset, mTrackRect.position.y}, {thumbLength, mTrackRect.size.y}};
+		const auto thumbOffset = (mTrackRect.size.x - thumbLength) * mValue / std::max(mMax, 1);
+		mThumbRect = {{mTrackRect.position.x + thumbOffset, mTrackRect.position.y}, {thumbLength, mTrackRect.size.y}};
 	}
 }
