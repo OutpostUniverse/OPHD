@@ -218,12 +218,6 @@ void ScrollBar::onMove(NAS2D::Vector<int> displacement)
 
 void ScrollBar::onResize()
 {
-	onLayoutChange();
-}
-
-
-void ScrollBar::onLayoutChange()
-{
 	if (mScrollBarType == ScrollBarType::Vertical)
 	{
 		const auto squareEndCapSize = NAS2D::Vector{mRect.size.x, mRect.size.x};

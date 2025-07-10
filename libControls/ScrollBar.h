@@ -57,7 +57,6 @@ protected:
 
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onResize() override;
-	void onLayoutChange();
 	void onThumbResize();
 	void onThumbMove();
 
