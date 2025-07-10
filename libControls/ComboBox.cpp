@@ -178,8 +178,6 @@ std::size_t ComboBox::selectedIndex() const
 
 void ComboBox::setSelected(std::size_t index) {
 	lstItems.selectedIndex(index);
-	text(selectionText());
-	if (mSelectionChangedHandler) { mSelectionChangedHandler(); }
 }
 
 void ComboBox::text(const std::string& text) {
