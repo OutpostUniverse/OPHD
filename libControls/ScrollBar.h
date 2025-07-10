@@ -34,13 +34,13 @@ public:
 	using ValueChangeDelegate = NAS2D::Delegate<void(int)>;
 
 
-	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical, int smallChange = 1, ValueChangeDelegate valueChangeHandler = {});
-	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical, int smallChange = 1, ValueChangeDelegate valueChangeHandler = {});
+	ScrollBar(ScrollBarType scrollBarType = ScrollBarType::Vertical, int smallDelta = 1, ValueChangeDelegate valueChangeHandler = {});
+	ScrollBar(Skins skins, ScrollBarType scrollBarType = ScrollBarType::Vertical, int smallDelta = 1, ValueChangeDelegate valueChangeHandler = {});
 	~ScrollBar() override;
 
 	int value() const;
 	void value(int newValue);
-	void changeValue(int change);
+	void changeValue(int valueDelta);
 
 	int max() const;
 	void max(int newMax);
@@ -57,11 +57,12 @@ protected:
 
 	void onMove(NAS2D::Vector<int> displacement) override;
 	void onResize() override;
-	void onLayoutChange();
+	void onThumbResize();
+	void onThumbMove();
 
 private:
 	const ScrollBarType mScrollBarType;
-	const int mSmallChange;
+	const int mSmallDelta;
 	int mMax{0};
 	int mValue{0};
 	ValueChangeDelegate mValueChangeHandler;

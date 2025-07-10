@@ -8,43 +8,50 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
+#include <tuple>
 
 
 namespace
 {
+	ScrollBar::Skins loadSkinVertical()
+	{
+		return {
+			loadRectangleSkin("ui/skin/scrollbar_vertical_track"),
+			loadRectangleSkin("ui/skin/scrollbar_vertical_thumb"),
+			loadRectangleSkin("ui/skin/scrollbar_vertical_button_decrease"),
+			loadRectangleSkin("ui/skin/scrollbar_vertical_button_increase"),
+		};
+	}
+
+
+	ScrollBar::Skins loadSkinHorizontal()
+	{
+		return {
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_track"),
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_thumb"),
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_button_decrease"),
+			loadRectangleSkin("ui/skin/scrollbar_horizontal_button_increase"),
+		};
+	}
+
+
 	ScrollBar::Skins loadSkins(ScrollBar::ScrollBarType scrollBarType)
 	{
-		if (scrollBarType == ScrollBar::ScrollBarType::Vertical)
-		{
-			return {
-				loadRectangleSkin("ui/skin/scrollbar_vertical_track"),
-				loadRectangleSkin("ui/skin/scrollbar_vertical_thumb"),
-				loadRectangleSkin("ui/skin/scrollbar_vertical_button_decrease"),
-				loadRectangleSkin("ui/skin/scrollbar_vertical_button_increase"),
-			};
-		}
-		else
-		{
-			return {
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_track"),
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_thumb"),
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_button_decrease"),
-				loadRectangleSkin("ui/skin/scrollbar_horizontal_button_increase"),
-			};
-		}
+		return (scrollBarType == ScrollBar::ScrollBarType::Vertical) ?
+			loadSkinVertical() : loadSkinHorizontal();
 	}
 }
 
 
-ScrollBar::ScrollBar(ScrollBarType scrollBarType, int smallChange, ValueChangeDelegate valueChangeHandler) :
-	ScrollBar{loadSkins(scrollBarType), scrollBarType, smallChange, valueChangeHandler}
+ScrollBar::ScrollBar(ScrollBarType scrollBarType, int smallDelta, ValueChangeDelegate valueChangeHandler) :
+	ScrollBar{loadSkins(scrollBarType), scrollBarType, smallDelta, valueChangeHandler}
 {
 }
 
 
-ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, int smallChange, ValueChangeDelegate valueChangeHandler) :
+ScrollBar::ScrollBar(ScrollBar::Skins skins, ScrollBarType scrollBarType, int smallDelta, ValueChangeDelegate valueChangeHandler) :
 	mScrollBarType{scrollBarType},
-	mSmallChange{smallChange},
+	mSmallDelta{smallDelta},
 	mValueChangeHandler{valueChangeHandler},
 	mSkins{skins}
 {
@@ -72,19 +79,19 @@ int ScrollBar::value() const
 
 void ScrollBar::value(int newValue)
 {
-	const auto oldValue = mValue;
-	mValue = std::clamp(newValue, 0, mMax);
-	if (mValue != oldValue)
+	const auto newValueClamped = std::clamp(newValue, 0, mMax);
+	if (mValue != newValueClamped)
 	{
-		onLayoutChange();
+		mValue = newValueClamped;
+		onThumbMove();
 		if(mValueChangeHandler) { mValueChangeHandler(mValue); }
 	}
 }
 
 
-void ScrollBar::changeValue(int change)
+void ScrollBar::changeValue(int valueDelta)
 {
-	value(mValue + change);
+	value(mValue + valueDelta);
 }
 
 
@@ -97,6 +104,7 @@ int ScrollBar::max() const
 void ScrollBar::max(int newMax)
 {
 	mMax = newMax;
+	onThumbResize();
 	value(mValue); // Re-clamp to new max
 }
 
@@ -111,7 +119,7 @@ void ScrollBar::update()
 		{
 			mPressedAccumulator = 30;
 			mTimer.reset();
-			changeValue((mButtonDecreaseHeld ? -mSmallChange : mSmallChange));
+			changeValue((mButtonDecreaseHeld ? -mSmallDelta : mSmallDelta));
 		}
 	}
 
@@ -130,9 +138,9 @@ void ScrollBar::draw() const
 }
 
 
-void ScrollBar::onButtonClick(bool& buttonFlag, int value)
+void ScrollBar::onButtonClick(bool& buttonFlag, int valueDelta)
 {
-	changeValue(value);
+	changeValue(valueDelta);
 	buttonFlag = true;
 
 	mTimer.reset();
@@ -152,11 +160,11 @@ void ScrollBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> positio
 		}
 		else if (mButtonDecreaseRect.contains(position))
 		{
-			onButtonClick(mButtonDecreaseHeld, -mSmallChange);
+			onButtonClick(mButtonDecreaseHeld, -mSmallDelta);
 		}
 		else if (mButtonIncreaseRect.contains(position))
 		{
-			onButtonClick(mButtonIncreaseHeld, mSmallChange);
+			onButtonClick(mButtonIncreaseHeld, mSmallDelta);
 		}
 	}
 }
@@ -178,9 +186,9 @@ void ScrollBar::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
 			(mScrollBarType == ScrollBarType::Vertical) ?
 				std::tuple{position.y, mThumbRect.position.y, mRect.size.y} :
 				std::tuple{position.x, mThumbRect.position.x, mRect.size.x};
-		const auto changeAmount = (clickPosition < thumbPosition) ?
+		const auto valueDelta = (clickPosition < thumbPosition) ?
 			-viewSize : viewSize;
-		changeValue(changeAmount);
+		changeValue(valueDelta);
 	}
 }
 
@@ -191,45 +199,71 @@ void ScrollBar::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*rel
 
 	if (mThumbPressed && mTrackRect.contains(position))
 	{
-		value(
-			(mScrollBarType == ScrollBarType::Vertical) ?
-				mMax * (position.y - mTrackRect.position.y - mThumbRect.size.y / 2) / std::max(mTrackRect.size.y - mThumbRect.size.y, 1) :
-				mMax * (position.x - mTrackRect.position.x - mThumbRect.size.x / 2) / std::max(mTrackRect.size.x - mThumbRect.size.x, 1)
-		);
+		const auto [mouseTrackPosition, trackEmptySize] = (mScrollBarType == ScrollBarType::Vertical) ?
+			std::tuple{position.y - mTrackRect.position.y - mThumbRect.size.y / 2, std::max(mTrackRect.size.y - mThumbRect.size.y, 1)} :
+			std::tuple{position.x - mTrackRect.position.x - mThumbRect.size.x / 2, std::max(mTrackRect.size.x - mThumbRect.size.x, 1)};
+		value(mMax * mouseTrackPosition / trackEmptySize);
 	}
 }
 
 
-void ScrollBar::onMove(NAS2D::Vector<int> /*displacement*/)
+void ScrollBar::onMove(NAS2D::Vector<int> displacement)
 {
-	onLayoutChange();
+	mTrackRect.position += displacement;
+	mThumbRect.position += displacement;
+	mButtonDecreaseRect.position += displacement;
+	mButtonIncreaseRect.position += displacement;
 }
 
 
 void ScrollBar::onResize()
 {
-	onLayoutChange();
-}
-
-
-void ScrollBar::onLayoutChange()
-{
 	if (mScrollBarType == ScrollBarType::Vertical)
 	{
-		mButtonDecreaseRect = {mRect.position, {mRect.size.x, mRect.size.x}};
-		mButtonIncreaseRect = {{mRect.position.x, mRect.position.y + mRect.size.y - mRect.size.x}, {mRect.size.x, mRect.size.x}};
-		mTrackRect = {{mRect.position.x, mRect.position.y + mRect.size.x}, {mRect.size.x, mRect.size.y - 2 * mRect.size.x}};
-		const auto newSize = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
-		const auto drawOffset = (mTrackRect.size.y - newSize) * mValue / std::max(mMax, 1);
-		mThumbRect = {{mTrackRect.position.x, mTrackRect.position.y + drawOffset}, {mTrackRect.size.x, newSize}};
+		const auto squareEndCapSize = NAS2D::Vector{mRect.size.x, mRect.size.x};
+		mButtonDecreaseRect = {mRect.position, squareEndCapSize};
+		mButtonIncreaseRect = {mRect.crossYPoint() - NAS2D::Vector{0, squareEndCapSize.y}, squareEndCapSize};
+		mTrackRect = {mButtonDecreaseRect.crossYPoint(), mRect.size - NAS2D::Vector{0, squareEndCapSize.y * 2}};
 	}
 	else
 	{
-		mButtonDecreaseRect = {mRect.position, {mRect.size.y, mRect.size.y}};
-		mButtonIncreaseRect = {{mRect.position.x + mRect.size.x - mRect.size.y, mRect.position.y}, {mRect.size.y, mRect.size.y}};
-		mTrackRect = {{mRect.position.x + mRect.size.y, mRect.position.y}, {mRect.size.x - 2 * mRect.size.y, mRect.size.y}};
-		const auto newSize = std::min(mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1), mTrackRect.size.x);
-		const auto drawOffset = (mTrackRect.size.x - newSize) * mValue / std::max(mMax, 1);
-		mThumbRect = {{mTrackRect.position.x + drawOffset, mTrackRect.position.y}, {newSize, mTrackRect.size.y}};
+		const auto squareEndCapSize = NAS2D::Vector{mRect.size.y, mRect.size.y};
+		mButtonDecreaseRect = {mRect.position, squareEndCapSize};
+		mButtonIncreaseRect = {mRect.crossXPoint() - NAS2D::Vector{squareEndCapSize.x, 0}, squareEndCapSize};
+		mTrackRect = {mButtonDecreaseRect.crossXPoint(), mRect.size - NAS2D::Vector{squareEndCapSize.x * 2, 0}};
+	}
+	onThumbResize();
+	onThumbMove();
+}
+
+
+void ScrollBar::onThumbResize()
+{
+	if (mScrollBarType == ScrollBarType::Vertical)
+	{
+		const auto thumbLength = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
+		mThumbRect.size = {mTrackRect.size.x, thumbLength};
+	}
+	else
+	{
+		const auto thumbLength = std::min(mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1), mTrackRect.size.x);
+		mThumbRect.size = {thumbLength, mTrackRect.size.y};
+	}
+}
+
+
+void ScrollBar::onThumbMove()
+{
+	if (mScrollBarType == ScrollBarType::Vertical)
+	{
+		const auto emptyTrackLength = mTrackRect.size.y - mThumbRect.size.y;
+		const auto thumbOffset = emptyTrackLength * mValue / std::max(mMax, 1);
+		mThumbRect.position = mTrackRect.position + NAS2D::Vector{0, thumbOffset};
+	}
+	else
+	{
+		const auto emptyTrackLength = mTrackRect.size.x - mThumbRect.size.x;
+		const auto thumbOffset = emptyTrackLength * mValue / std::max(mMax, 1);
+		mThumbRect.position = mTrackRect.position + NAS2D::Vector{thumbOffset, 0};
 	}
 }
