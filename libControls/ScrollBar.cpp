@@ -229,8 +229,6 @@ void ScrollBar::onLayoutChange()
 		mButtonDecreaseRect = {mRect.position, squareEndCapSize};
 		mButtonIncreaseRect = {mRect.crossYPoint() - NAS2D::Vector{0, squareEndCapSize.y}, squareEndCapSize};
 		mTrackRect = {mButtonDecreaseRect.crossYPoint(), mRect.size - NAS2D::Vector{0, squareEndCapSize.y * 2}};
-		const auto thumbLength = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
-		mThumbRect.size = {mTrackRect.size.x, thumbLength};
 	}
 	else
 	{
@@ -238,10 +236,24 @@ void ScrollBar::onLayoutChange()
 		mButtonDecreaseRect = {mRect.position, squareEndCapSize};
 		mButtonIncreaseRect = {mRect.crossXPoint() - NAS2D::Vector{squareEndCapSize.x, 0}, squareEndCapSize};
 		mTrackRect = {mButtonDecreaseRect.crossXPoint(), mRect.size - NAS2D::Vector{squareEndCapSize.x * 2, 0}};
+	}
+	onThumbResize();
+	onThumbMove();
+}
+
+
+void ScrollBar::onThumbResize()
+{
+	if (mScrollBarType == ScrollBarType::Vertical)
+	{
+		const auto thumbLength = std::min(mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1), mTrackRect.size.y);
+		mThumbRect.size = {mTrackRect.size.x, thumbLength};
+	}
+	else
+	{
 		const auto thumbLength = std::min(mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1), mTrackRect.size.x);
 		mThumbRect.size = {thumbLength, mTrackRect.size.y};
 	}
-	onThumbMove();
 }
 
 
