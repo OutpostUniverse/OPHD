@@ -163,6 +163,12 @@ bool ComboBox::isItemSelected() const
 }
 
 
+std::size_t ComboBox::selectedIndex() const
+{
+	return lstItems.selectedIndex();
+}
+
+
 void ComboBox::setSelected(std::size_t index) {
 	lstItems.selectedIndex(index);
 	text(selectionText());
