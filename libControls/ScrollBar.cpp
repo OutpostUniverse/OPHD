@@ -136,9 +136,9 @@ void ScrollBar::draw() const
 }
 
 
-void ScrollBar::onButtonClick(bool& buttonFlag, int value)
+void ScrollBar::onButtonClick(bool& buttonFlag, int valueDelta)
 {
-	changeValue(value);
+	changeValue(valueDelta);
 	buttonFlag = true;
 
 	mTimer.reset();
