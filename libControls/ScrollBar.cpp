@@ -88,9 +88,9 @@ void ScrollBar::value(int newValue)
 }
 
 
-void ScrollBar::changeValue(int change)
+void ScrollBar::changeValue(int valueDelta)
 {
-	value(mValue + change);
+	value(mValue + valueDelta);
 }
 
 

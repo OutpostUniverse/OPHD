@@ -40,7 +40,7 @@ public:
 
 	int value() const;
 	void value(int newValue);
-	void changeValue(int change);
+	void changeValue(int valueDelta);
 
 	int max() const;
 	void max(int newMax);
