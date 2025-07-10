@@ -10,6 +10,7 @@
 #include <libControls/CheckBox.h>
 #include <libControls/ListBox.h>
 #include <libControls/ComboBox.h>
+#include <libControls/ScrollBar.h>
 #include <libControls/Rectangle.h>
 #include <libControls/ProgressBar.h>
 #include <libControls/Image.h>
@@ -55,6 +56,12 @@ private:
 	ListBox<> listBox2;
 	ComboBox comboBox1;
 	ComboBox comboBox2;
+	ScrollBar scrollBarHorizontalMax0;
+	ScrollBar scrollBarHorizontalMax1;
+	ScrollBar scrollBarHorizontal;
+	ScrollBar scrollBarVerticalMax0;
+	ScrollBar scrollBarVerticalMax1;
+	ScrollBar scrollBarVertical;
 	Rectangle rectangle1;
 	Rectangle rectangle2;
 	ProgressBar progressBarUndefined;

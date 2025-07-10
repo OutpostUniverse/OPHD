@@ -40,6 +40,12 @@ MainWindow::MainWindow() :
 	listBox2{{this, &MainWindow::onListBoxSelect}},
 	comboBox1{{this, &MainWindow::onComboBoxSelect}},
 	comboBox2{{this, &MainWindow::onComboBoxSelect}},
+	scrollBarHorizontalMax0{ScrollBar::ScrollBarType::Horizontal},
+	scrollBarHorizontalMax1{ScrollBar::ScrollBarType::Horizontal},
+	scrollBarHorizontal{ScrollBar::ScrollBarType::Horizontal},
+	scrollBarVerticalMax0{ScrollBar::ScrollBarType::Vertical},
+	scrollBarVerticalMax1{ScrollBar::ScrollBarType::Vertical},
+	scrollBarVertical{ScrollBar::ScrollBarType::Vertical},
 	rectangle1{NAS2D::Color::Green, {80, 1}},
 	rectangle2{NAS2D::Color::Red, {80, 5}},
 	progressBarUndefined{0, 0},
@@ -97,6 +103,18 @@ MainWindow::MainWindow() :
 	comboBox2.addItem("Item2");
 	comboBox2.addItem("Item3");
 
+	scrollBarHorizontalMax1.max(1);
+	scrollBarHorizontal.max(200);
+	scrollBarVerticalMax1.max(1);
+	scrollBarVertical.max(200);
+
+	scrollBarHorizontalMax0.size({70, 20});
+	scrollBarHorizontalMax1.size({70, 20});
+	scrollBarHorizontal.size({70, 20});
+	scrollBarVerticalMax0.size({20, 200});
+	scrollBarVerticalMax1.size({20, 200});
+	scrollBarVertical.size({20, 200});
+
 	progressBarUndefined.width(80);
 	progressBar0.width(80);
 	progressBar10.width(80);
@@ -132,6 +150,13 @@ MainWindow::MainWindow() :
 
 	add(listBox2, {600, 30});
 	add(comboBox2, {600, 150});
+
+	add(scrollBarHorizontalMax0, {670, 30});
+	add(scrollBarHorizontalMax1, {670, 60});
+	add(scrollBarHorizontal, {670, 90});
+	add(scrollBarVerticalMax0, {720, 120});
+	add(scrollBarVerticalMax1, {695, 120});
+	add(scrollBarVertical, {670, 120});
 
 	add(rectangle1, {750, 30});
 	add(rectangle2, {750, 40});
