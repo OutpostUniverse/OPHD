@@ -85,19 +85,25 @@ void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position
 
 	if (mBarRect.contains(position))
 	{
-		lstItems.visible(!lstItems.visible());
-		if (lstItems.visible())
-		{
-			mRect.size.y += lstItems.size().y;
-		}
-		else
-		{
-			mRect = mBarRect;
-		}
+		onDropdownButtonClick();
 	}
 	else if (!lstItems.area().contains(position))
 	{
 		lstItems.visible(false);
+		mRect = mBarRect;
+	}
+}
+
+
+void ComboBox::onDropdownButtonClick()
+{
+	lstItems.visible(!lstItems.visible());
+	if (lstItems.visible())
+	{
+		mRect.size.y += lstItems.size().y;
+	}
+	else
+	{
 		mRect = mBarRect;
 	}
 }

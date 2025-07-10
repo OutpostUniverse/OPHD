@@ -52,6 +52,7 @@ protected:
 
 	void onMouseWheel(NAS2D::Vector<int> scrollAmount);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
+	void onDropdownButtonClick();
 
 private:
 	Button btnDown;
