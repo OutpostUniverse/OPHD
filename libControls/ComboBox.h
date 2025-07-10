@@ -59,6 +59,7 @@ private:
 	Button btnDown;
 	ListBox<> lstItems;
 
+	const int mMinHeight;
 	NAS2D::Rectangle<int> mBarRect;
 
 	SelectionChangedDelegate mSelectionChangedHandler;

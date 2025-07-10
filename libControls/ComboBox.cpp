@@ -18,6 +18,7 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	ControlContainer{{&btnDown, &txtField, &lstItems}},
 	btnDown{getImage("ui/icons/down.png")},
 	lstItems{{this, &ComboBox::onListSelectionChange}},
+	mMinHeight{std::max(txtField.size().y, btnDown.size().y)},
 	mSelectionChangedHandler{selectionChangedHandler},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
@@ -48,9 +49,9 @@ void ComboBox::onResize()
 	Control::onResize();
 
 	// Enforce minimum size
-	if (mRect.size.x < 50 || mRect.size.y < 20)
+	if (mRect.size.x < 50 || mRect.size.y < mMinHeight)
 	{
-		size({std::max(mRect.size.x, 50), std::max(mRect.size.y, 20)});
+		size({std::max(mRect.size.x, 50), std::max(mRect.size.y, mMinHeight)});
 	}
 
 	txtField.size(size() - NAS2D::Vector{btnDown.size().x, 0});
