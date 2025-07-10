@@ -16,11 +16,11 @@ namespace
 
 ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	ControlContainer{{&btnDown, &txtField, &lstItems}},
+	btnDown{getImage("ui/icons/down.png")},
 	lstItems{{this, &ComboBox::onListSelectionChange}},
 	mSelectionChangedHandler{selectionChangedHandler},
 	mMaxDisplayItems{MinimumDisplayItems}
 {
-	btnDown.image("ui/icons/down.png");
 	btnDown.size({20, 20});
 
 	txtField.editable(false);
