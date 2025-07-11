@@ -105,8 +105,8 @@ void ListBoxBase::updateScrollLayout()
 		mScrollBar.size({14, mScrollArea.size.y});
 		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
 		mScrollBar.max(neededDisplaySize - mRect.size.y);
-		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 		mScrollBar.visible(true);
+		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 	}
 	else
 	{
