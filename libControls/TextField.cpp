@@ -141,7 +141,7 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
+	const auto cursorX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
 	const auto viewWidth = mRect.size.x - fieldPadding * 2;
 
 	// Check if cursor is after visible area
