@@ -173,7 +173,8 @@ void TextField::draw() const
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
-	const auto showFocused = hasFocus() && editable();
+	const auto showFocused = (mBorderVisibility == BorderVisibility::Always) ||
+		((mBorderVisibility == BorderVisibility::FocusOnly) && hasFocus() && editable());
 	const auto& skin = showFocused ? mSkinFocus : mSkinNormal;
 	skin.draw(renderer, mRect);
 
