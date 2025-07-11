@@ -96,7 +96,7 @@ void Control::position(NAS2D::Point<int> pos)
 	if (mRect.position != pos)
 	{
 		const auto displacement = pos - mRect.position;
-		mRect.startPoint(pos);
+		mRect.position = pos;
 		onMove(displacement);
 	}
 }
