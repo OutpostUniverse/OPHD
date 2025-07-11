@@ -142,9 +142,9 @@ void ListBoxBase::onResize()
 }
 
 
-void ListBoxBase::onSlideChange(int /*newPosition*/)
+void ListBoxBase::onSlideChange(int newPosition)
 {
-	mScrollOffsetInPixels = mScrollBar.value();
+	mScrollOffsetInPixels = newPosition;
 }
 
 
