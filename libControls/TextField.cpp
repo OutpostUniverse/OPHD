@@ -323,7 +323,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
 	mText.insert(mCursorCharacterIndex, newTextInput);
-	mCursorCharacterIndex++;
+	mCursorCharacterIndex += newTextInput.length();
 	updateScrollPosition();
 	onTextChange();
 }
