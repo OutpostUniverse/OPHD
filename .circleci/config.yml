@@ -14,8 +14,6 @@ commands:
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
       - run: make package
-      - store_artifacts:
-          path: .build/package/
 
 jobs:
   build-macos:
