@@ -103,7 +103,7 @@ void ListBoxBase::updateScrollLayout()
 	if (neededDisplaySize > mScrollArea.size.y)
 	{
 		constexpr auto scrollBarWidth = 14;
-		mScrollArea.size.x -= scrollBarWidth; // Remove scroll bar from scroll area
+		mScrollArea.size.x -= scrollBarWidth;
 		mScrollBar.size({scrollBarWidth, mScrollArea.size.y});
 		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x, mScrollArea.position.y});
 		mScrollBar.max(neededDisplaySize - mScrollArea.size.y);
