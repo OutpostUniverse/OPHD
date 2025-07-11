@@ -224,8 +224,11 @@ void Control::show()
  */
 void Control::hasFocus(bool focus)
 {
-	mHasFocus = focus;
-	onFocusChange();
+	if (mHasFocus != focus)
+	{
+		mHasFocus = focus;
+		onFocusChange();
+	}
 }
 
 
