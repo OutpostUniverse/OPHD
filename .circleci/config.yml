@@ -13,7 +13,6 @@ commands:
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
-      - run: make package
 
 jobs:
   build-macos:
