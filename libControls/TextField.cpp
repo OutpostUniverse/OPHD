@@ -72,9 +72,12 @@ bool TextField::isEmpty() const
 
 void TextField::clear()
 {
-	mText.clear();
-	mCursorCharacterIndex = 0;
-	onTextChange();
+	if (!mText.empty())
+	{
+		mText.clear();
+		mCursorCharacterIndex = 0;
+		onTextChange();
+	}
 }
 
 
