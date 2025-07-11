@@ -70,7 +70,6 @@ public:
 
 protected:
 	void updateScrollPosition();
-	int textAreaWidth() const;
 
 	void draw() const override;
 	void drawCursor() const;
