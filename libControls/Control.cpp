@@ -93,9 +93,12 @@ void Control::area(const NAS2D::Rectangle<int>& newRect)
  */
 void Control::position(NAS2D::Point<int> pos)
 {
-	const auto displacement = pos - mRect.position;
-	mRect.startPoint(pos);
-	onMove(displacement);
+	if (mRect.position != pos)
+	{
+		const auto displacement = pos - mRect.position;
+		mRect.startPoint(pos);
+		onMove(displacement);
+	}
 }
 
 
