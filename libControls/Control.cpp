@@ -167,8 +167,11 @@ bool Control::highlight() const
  */
 void Control::enabled(bool enabled)
 {
-	mEnabled = enabled;
-	onEnableChange();
+	if (mEnabled != enabled)
+	{
+		mEnabled = enabled;
+		onEnableChange();
+	}
 }
 
 
