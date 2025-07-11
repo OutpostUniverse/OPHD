@@ -23,7 +23,7 @@ TextArea::TextArea(const NAS2D::Font& font, NAS2D::Color textColor) :
 void TextArea::text(const std::string& text)
 {
 	mText = text;
-	onTextChange();
+	onLayoutText();
 }
 
 
@@ -34,12 +34,6 @@ const std::string& TextArea::text() const
 
 
 void TextArea::onResize()
-{
-	onLayoutText();
-}
-
-
-void TextArea::onTextChange()
 {
 	onLayoutText();
 }

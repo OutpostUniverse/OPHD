@@ -27,7 +27,6 @@ public:
 
 protected:
 	void onResize() override;
-	void onTextChange();
 	void onLayoutText();
 
 private:
