@@ -30,8 +30,8 @@ TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedH
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
 	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
-	mTextChangedHandler{textChangedHandler},
-	mMaxCharacters{maxCharacters}
+	mMaxCharacters{maxCharacters},
+	mTextChangedHandler{textChangedHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
