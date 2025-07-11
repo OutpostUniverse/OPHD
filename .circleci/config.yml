@@ -13,14 +13,11 @@ commands:
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
       - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
-      - run: make package
-      - store_artifacts:
-          path: .build/package/
 
 jobs:
   build-macos:
     macos:
-      xcode: "16.2.0"
+      xcode: "16.4.0"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
