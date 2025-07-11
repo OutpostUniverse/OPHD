@@ -100,11 +100,11 @@ void ListBoxBase::updateScrollLayout()
 	mScrollArea = mRect.inset(1);
 
 	const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
-	if (neededDisplaySize > mRect.size.y)
+	if (neededDisplaySize > mScrollArea.size.y)
 	{
 		mScrollBar.size({14, mScrollArea.size.y});
 		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
-		mScrollBar.max(neededDisplaySize - mRect.size.y);
+		mScrollBar.max(neededDisplaySize - mScrollArea.size.y);
 		mScrollBar.visible(true);
 		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 	}
@@ -123,7 +123,7 @@ void ListBoxBase::onVisibilityChange(bool visible)
 	if (visible)
 	{
 		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
-		mScrollBar.visible(neededDisplaySize > mRect.size.y);
+		mScrollBar.visible(neededDisplaySize > mScrollArea.size.y);
 	}
 }
 
