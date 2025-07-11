@@ -35,7 +35,6 @@ const std::string& TextArea::text() const
 
 void TextArea::onResize()
 {
-	Control::onResize();
 	processString();
 }
 
