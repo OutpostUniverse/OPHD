@@ -74,6 +74,13 @@ MainWindow::MainWindow() :
 	textFieldOverflow.size(textFieldMax.size());
 	textFieldOverflow.text("Overflowing text");
 
+	textFieldBorderNever.width(130);
+	textFieldBorderNever.text("Border Never");
+	textFieldBorderNever.border(TextField::BorderVisibility::Never);
+	textFieldBorderAlways.width(130);
+	textFieldBorderAlways.text("Border Always");
+	textFieldBorderAlways.border(TextField::BorderVisibility::Always);
+
 	textArea.size({100, 100});
 	textArea.text("This is some\nTextArea\ntext.");
 
@@ -132,7 +139,9 @@ MainWindow::MainWindow() :
 	add(textFieldNumbersMax, {150, 90});
 	add(textFieldMax, {150, 120});
 	add(textFieldOverflow, {150, 150});
-	add(textArea, {150, 180});
+	add(textFieldBorderNever, {150, 180});
+	add(textFieldBorderAlways, {150, 210});
+	add(textArea, {150, 240});
 
 	add(button, {300, 30});
 	add(buttonWithSkin, {300, 60});
