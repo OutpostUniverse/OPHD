@@ -41,6 +41,8 @@ private:
 	TextField textFieldNumbersMax;
 	TextField textFieldMax;
 	TextField textFieldOverflow;
+	TextField textFieldBorderNever;
+	TextField textFieldBorderAlways;
 	TextArea textArea;
 	NAS2D::Image imageButton;
 	Button::ButtonSkin buttonSkin;

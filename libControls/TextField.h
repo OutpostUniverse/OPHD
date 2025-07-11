@@ -84,6 +84,7 @@ private:
 	const NAS2D::Font& mFont;
 	const NAS2D::RectangleSkin mSkinNormal;
 	const NAS2D::RectangleSkin mSkinFocus;
+	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly;
 
 	std::string mText;
 	TextChangedDelegate mTextChangedHandler;
@@ -94,8 +95,6 @@ private:
 	int mScrollOffsetPixelX = 0;
 
 	std::size_t mMaxCharacters = 0;
-
-	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly;
 
 	bool mEditable = true;
 	bool mShowCursor = true;
