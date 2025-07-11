@@ -105,7 +105,6 @@ void ListBoxBase::updateScrollLayout()
 		mScrollBar.size({14, mScrollArea.size.y});
 		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
 		mScrollBar.max(neededDisplaySize - mRect.size.y);
-		mScrollOffsetInPixels = mScrollBar.value();
 		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 		mScrollBar.visible(true);
 	}
@@ -145,7 +144,7 @@ void ListBoxBase::onResize()
 
 void ListBoxBase::onSlideChange(int /*newPosition*/)
 {
-	updateScrollLayout();
+	mScrollOffsetInPixels = mScrollBar.value();
 }
 
 
