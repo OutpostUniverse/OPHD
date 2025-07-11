@@ -70,16 +70,12 @@ void ControlContainer::bringToFront(Control* control)
 
 void ControlContainer::onVisibilityChange(bool visible)
 {
-	Control::onVisibilityChange(visible);
-
 	for (auto control : mControls) { control->visible(visible); }
 }
 
 
 void ControlContainer::onMove(NAS2D::Vector<int> displacement)
 {
-	Control::onMove(displacement);
-
 	for (auto control : mControls)
 	{
 		control->position(control->position() + displacement);
