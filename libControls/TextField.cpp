@@ -17,6 +17,7 @@
 #include <NAS2D/Math/Point.h>
 
 #include <locale>
+#include <string_view>
 
 
 namespace
@@ -30,8 +31,8 @@ TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedH
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
 	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
-	mTextChangedHandler{textChangedHandler},
-	mMaxCharacters{maxCharacters}
+	mMaxCharacters{maxCharacters},
+	mTextChangedHandler{textChangedHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
@@ -79,6 +80,7 @@ void TextField::clear()
 	{
 		mText.clear();
 		mCursorCharacterIndex = 0;
+		updateScrollPosition();
 		onTextChange();
 	}
 }
@@ -125,9 +127,6 @@ void TextField::update()
 {
 	if (!visible()) { return; }
 
-	// Should be called only on events relating to the cursor so this is temporary.
-	updateScrollPosition();
-
 	if (mCursorBlinkTimer.elapsedTicks() > cursorBlinkDelay)
 	{
 		mCursorBlinkTimer.reset();
@@ -140,18 +139,19 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(mText.substr(0, mCursorCharacterIndex));
+	const auto cursorX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
+	const auto viewWidth = mRect.size.x - fieldPadding * 2;
 
 	// Check if cursor is after visible area
-	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
+	if (mScrollOffsetPixelX <= cursorX - viewWidth)
 	{
-		mScrollOffsetPixelX = cursorX - textAreaWidth();
+		mScrollOffsetPixelX = cursorX - viewWidth;
 	}
 
 	// Check if cursor is before visible area
 	if (mScrollOffsetPixelX >= cursorX)
 	{
-		mScrollOffsetPixelX = cursorX - textAreaWidth() / 2;
+		mScrollOffsetPixelX = cursorX - viewWidth / 2;
 	}
 
 	if (mScrollOffsetPixelX < 0)
@@ -160,12 +160,6 @@ void TextField::updateScrollPosition()
 	}
 
 	mCursorPixelX = mRect.position.x + fieldPadding + cursorX - mScrollOffsetPixelX;
-}
-
-
-int TextField::textAreaWidth() const
-{
-	return mRect.size.x - fieldPadding * 2;
 }
 
 
@@ -219,6 +213,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	if (virtualOffsetX > mFont.width(mText))
 	{
 		mCursorCharacterIndex = mText.length();
+		updateScrollPosition();
 		return;
 	}
 
@@ -230,6 +225,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 		if (subStringSizeX > virtualOffsetX)
 		{
 			mCursorCharacterIndex = subStringLength - 1;
+			updateScrollPosition();
 			break;
 		}
 	}
@@ -249,6 +245,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			{
 				mCursorCharacterIndex--;
 				mText.erase(mCursorCharacterIndex, 1);
+				updateScrollPosition();
 				onTextChange();
 			}
 			break;
@@ -257,38 +254,53 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			if (!mText.empty())
 			{
 				mText = mText.erase(mCursorCharacterIndex, 1);
+				updateScrollPosition();
 				onTextChange();
 			}
 			break;
 
 		case NAS2D::KeyCode::Home:
 			mCursorCharacterIndex = 0;
+			updateScrollPosition();
 			break;
 
 		case NAS2D::KeyCode::End:
 			mCursorCharacterIndex = mText.length();
+			updateScrollPosition();
 			break;
 
 		// Arrow keys
 		case NAS2D::KeyCode::Left:
 			if (mCursorCharacterIndex > 0)
+			{
 				--mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		case NAS2D::KeyCode::Right:
 			if (mCursorCharacterIndex < mText.length())
+			{
 				++mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		// Keypad arrow keys
 		case NAS2D::KeyCode::Keypad4:
 			if ((mCursorCharacterIndex > 0) && !NAS2D::EventHandler::numlock(mod))
+			{
 				--mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
 			if ((mCursorCharacterIndex < mText.length()) && !NAS2D::EventHandler::numlock(mod))
+			{
 				++mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		// Enter/Return (ignore)
@@ -311,8 +323,9 @@ void TextField::onTextInput(const std::string& newTextInput)
 	if (mNumbersOnly && !std::isdigit(newTextInput[0], std::locale{})) { return; }
 
 	mText.insert(mCursorCharacterIndex, newTextInput);
+	mCursorCharacterIndex += newTextInput.length();
+	updateScrollPosition();
 	onTextChange();
-	mCursorCharacterIndex++;
 }
 
 

@@ -70,7 +70,6 @@ public:
 
 protected:
 	void updateScrollPosition();
-	int textAreaWidth() const;
 
 	void draw() const override;
 	void drawCursor() const;
@@ -86,6 +85,7 @@ private:
 	const NAS2D::RectangleSkin mSkinFocus;
 	BorderVisibility mBorderVisibility = BorderVisibility::FocusOnly;
 
+	std::size_t mMaxCharacters = 0;
 	std::string mText;
 	TextChangedDelegate mTextChangedHandler;
 
@@ -93,8 +93,6 @@ private:
 	std::size_t mCursorCharacterIndex = 0;
 	int mCursorPixelX = 0;
 	int mScrollOffsetPixelX = 0;
-
-	std::size_t mMaxCharacters = 0;
 
 	bool mEditable = true;
 	bool mShowCursor = true;
