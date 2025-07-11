@@ -51,7 +51,7 @@ public:
 	void area(const NAS2D::Rectangle<int>& area);
 
 	NAS2D::Point<int> position() const { return mRect.position; }
-	void position(NAS2D::Point<int> pos);
+	void position(NAS2D::Point<int> newPosition);
 
 	NAS2D::Vector<int> size() const { return mRect.size; }
 	void size(NAS2D::Vector<int> newSize);

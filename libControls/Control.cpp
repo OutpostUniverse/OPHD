@@ -89,14 +89,14 @@ void Control::area(const NAS2D::Rectangle<int>& newRect)
 /**
  * Sets the position of the Control.
  *
- * \param pos	2D Coordinate to position the Control at.
+ * \param newPosition	2D Coordinate to position the Control at.
  */
-void Control::position(NAS2D::Point<int> pos)
+void Control::position(NAS2D::Point<int> newPosition)
 {
-	if (mRect.position != pos)
+	if (mRect.position != newPosition)
 	{
-		const auto displacement = pos - mRect.position;
-		mRect.position = pos;
+		const auto displacement = newPosition - mRect.position;
+		mRect.position = newPosition;
 		onMove(displacement);
 	}
 }
