@@ -103,8 +103,11 @@ int ScrollBar::max() const
 
 void ScrollBar::max(int newMax)
 {
-	mMax = newMax;
-	onThumbResize();
+	if (mMax != newMax)
+	{
+		mMax = newMax;
+		onThumbResize();
+	}
 	value(mValue); // Re-clamp to new max
 }
 

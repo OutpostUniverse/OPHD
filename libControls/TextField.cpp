@@ -53,8 +53,11 @@ TextField::~TextField()
 
 void TextField::text(const std::string& text)
 {
-	mText = text;
-	onTextChange();
+	if (mText != text)
+	{
+		mText = text;
+		onTextChange();
+	}
 }
 
 
@@ -72,9 +75,12 @@ bool TextField::isEmpty() const
 
 void TextField::clear()
 {
-	mText.clear();
-	mCursorCharacterIndex = 0;
-	onTextChange();
+	if (!mText.empty())
+	{
+		mText.clear();
+		mCursorCharacterIndex = 0;
+		onTextChange();
+	}
 }
 
 

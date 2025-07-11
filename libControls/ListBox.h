@@ -154,11 +154,6 @@ protected:
 	}
 
 
-	void onMove(NAS2D::Vector<int> /*displacement*/) override
-	{
-		updateScrollLayout();
-	}
-
 private:
 	ListBoxTheme mListBoxTheme;
 	std::vector<ListBoxItem> mItems;

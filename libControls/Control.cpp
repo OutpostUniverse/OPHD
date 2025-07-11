@@ -80,29 +80,37 @@ const NAS2D::Rectangle<int>& Control::area() const
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
 	const auto displacement = newRect.position - mRect.position;
+	const auto hasMoved = mRect.position != newRect.position;
+	const auto hasResized = mRect.size != newRect.size;
 	mRect = newRect;
-	onMove(displacement);
-	onResize();
+	if (hasMoved) { onMove(displacement); }
+	if (hasResized) { onResize(); }
 }
 
 
 /**
  * Sets the position of the Control.
  *
- * \param pos	2D Coordinate to position the Control at.
+ * \param newPosition	2D Coordinate to position the Control at.
  */
-void Control::position(NAS2D::Point<int> pos)
+void Control::position(NAS2D::Point<int> newPosition)
 {
-	const auto displacement = pos - mRect.position;
-	mRect.startPoint(pos);
-	onMove(displacement);
+	if (mRect.position != newPosition)
+	{
+		const auto displacement = newPosition - mRect.position;
+		mRect.position = newPosition;
+		onMove(displacement);
+	}
 }
 
 
 void Control::size(NAS2D::Vector<int> newSize)
 {
-	mRect.size = newSize;
-	onResize();
+	if (mRect.size != newSize)
+	{
+		mRect.size = newSize;
+		onResize();
+	}
 }
 
 
@@ -167,8 +175,11 @@ bool Control::highlight() const
  */
 void Control::enabled(bool enabled)
 {
-	mEnabled = enabled;
-	onEnableChange();
+	if (mEnabled != enabled)
+	{
+		mEnabled = enabled;
+		onEnableChange();
+	}
 }
 
 
@@ -190,8 +201,11 @@ bool Control::enabled() const
  */
 void Control::visible(bool visible)
 {
-	mVisible = visible;
-	onVisibilityChange(mVisible);
+	if (mVisible != visible)
+	{
+		mVisible = visible;
+		onVisibilityChange(mVisible);
+	}
 }
 
 
@@ -221,8 +235,11 @@ void Control::show()
  */
 void Control::hasFocus(bool focus)
 {
-	mHasFocus = focus;
-	onFocusChange();
+	if (mHasFocus != focus)
+	{
+		mHasFocus = focus;
+		onFocusChange();
+	}
 }
 
 

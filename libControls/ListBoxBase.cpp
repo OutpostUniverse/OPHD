@@ -100,18 +100,16 @@ void ListBoxBase::updateScrollLayout()
 	mScrollArea = mRect.inset(1);
 
 	const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
-	if (neededDisplaySize > mRect.size.y)
+	if (neededDisplaySize > mScrollArea.size.y)
 	{
 		mScrollBar.size({14, mScrollArea.size.y});
 		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
-		mScrollBar.max(neededDisplaySize - mRect.size.y);
-		mScrollOffsetInPixels = mScrollBar.value();
-		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
+		mScrollBar.max(neededDisplaySize - mScrollArea.size.y);
 		mScrollBar.visible(true);
+		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
 	}
 	else
 	{
-		mScrollOffsetInPixels = 0;
 		mScrollBar.max(0);
 		mScrollBar.visible(false);
 	}
@@ -122,15 +120,18 @@ void ListBoxBase::updateScrollLayout()
 
 void ListBoxBase::onVisibilityChange(bool visible)
 {
-	Control::onVisibilityChange(visible);
-
-	updateScrollLayout();
+	if (visible)
+	{
+		const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
+		mScrollBar.visible(neededDisplaySize > mScrollArea.size.y);
+	}
 }
 
 
-void ListBoxBase::onMove(NAS2D::Vector<int> /*displacement*/)
+void ListBoxBase::onMove(NAS2D::Vector<int> displacement)
 {
-	updateScrollLayout();
+	mScrollArea.position += displacement;
+	mScrollBar.position(mScrollBar.position() + displacement);
 }
 
 
@@ -140,9 +141,9 @@ void ListBoxBase::onResize()
 }
 
 
-void ListBoxBase::onSlideChange(int /*newPosition*/)
+void ListBoxBase::onSlideChange(int newPosition)
 {
-	updateScrollLayout();
+	mScrollOffsetInPixels = newPosition;
 }
 
 
