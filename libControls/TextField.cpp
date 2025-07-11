@@ -80,6 +80,7 @@ void TextField::clear()
 	{
 		mText.clear();
 		mCursorCharacterIndex = 0;
+		updateScrollPosition();
 		onTextChange();
 	}
 }
@@ -125,9 +126,6 @@ void TextField::maxCharacters(std::size_t count)
 void TextField::update()
 {
 	if (!visible()) { return; }
-
-	// Should be called only on events relating to the cursor so this is temporary.
-	updateScrollPosition();
 
 	if (mCursorBlinkTimer.elapsedTicks() > cursorBlinkDelay)
 	{
@@ -215,6 +213,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 	if (virtualOffsetX > mFont.width(mText))
 	{
 		mCursorCharacterIndex = mText.length();
+		updateScrollPosition();
 		return;
 	}
 
@@ -226,6 +225,7 @@ void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> pos
 		if (subStringSizeX > virtualOffsetX)
 		{
 			mCursorCharacterIndex = subStringLength - 1;
+			updateScrollPosition();
 			break;
 		}
 	}
@@ -245,6 +245,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			{
 				mCursorCharacterIndex--;
 				mText.erase(mCursorCharacterIndex, 1);
+				updateScrollPosition();
 				onTextChange();
 			}
 			break;
@@ -253,38 +254,53 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 			if (!mText.empty())
 			{
 				mText = mText.erase(mCursorCharacterIndex, 1);
+				updateScrollPosition();
 				onTextChange();
 			}
 			break;
 
 		case NAS2D::KeyCode::Home:
 			mCursorCharacterIndex = 0;
+			updateScrollPosition();
 			break;
 
 		case NAS2D::KeyCode::End:
 			mCursorCharacterIndex = mText.length();
+			updateScrollPosition();
 			break;
 
 		// Arrow keys
 		case NAS2D::KeyCode::Left:
 			if (mCursorCharacterIndex > 0)
+			{
 				--mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		case NAS2D::KeyCode::Right:
 			if (mCursorCharacterIndex < mText.length())
+			{
 				++mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		// Keypad arrow keys
 		case NAS2D::KeyCode::Keypad4:
 			if ((mCursorCharacterIndex > 0) && !NAS2D::EventHandler::numlock(mod))
+			{
 				--mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		case NAS2D::KeyCode::Keypad6:
 			if ((mCursorCharacterIndex < mText.length()) && !NAS2D::EventHandler::numlock(mod))
+			{
 				++mCursorCharacterIndex;
+				updateScrollPosition();
+			}
 			break;
 
 		// Enter/Return (ignore)
@@ -309,6 +325,7 @@ void TextField::onTextInput(const std::string& newTextInput)
 	mText.insert(mCursorCharacterIndex, newTextInput);
 	onTextChange();
 	mCursorCharacterIndex++;
+	updateScrollPosition();
 }
 
 
