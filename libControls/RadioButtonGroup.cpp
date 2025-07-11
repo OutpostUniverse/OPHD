@@ -52,8 +52,6 @@ void RadioButtonGroup::select(RadioButtonGroup::RadioButton& button)
 
 void RadioButtonGroup::onMove(NAS2D::Vector<int> displacement)
 {
-	Control::onMove(displacement);
-
 	for (auto &control : mRadioButtons)
 	{
 		control.position(control.position() + displacement);
