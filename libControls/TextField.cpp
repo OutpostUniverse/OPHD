@@ -17,6 +17,7 @@
 #include <NAS2D/Math/Point.h>
 
 #include <locale>
+#include <string_view>
 
 
 namespace
@@ -140,7 +141,7 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	int cursorX = mFont.width(mText.substr(0, mCursorCharacterIndex));
+	int cursorX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
 
 	// Check if cursor is after visible area
 	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
