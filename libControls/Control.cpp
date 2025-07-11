@@ -190,8 +190,11 @@ bool Control::enabled() const
  */
 void Control::visible(bool visible)
 {
-	mVisible = visible;
-	onVisibilityChange(mVisible);
+	if (mVisible != visible)
+	{
+		mVisible = visible;
+		onVisibilityChange(mVisible);
+	}
 }
 
 
