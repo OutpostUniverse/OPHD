@@ -101,8 +101,11 @@ void Control::position(NAS2D::Point<int> pos)
 
 void Control::size(NAS2D::Vector<int> newSize)
 {
-	mRect.size = newSize;
-	onResize();
+	if (mRect.size != newSize)
+	{
+		mRect.size = newSize;
+		onResize();
+	}
 }
 
 
