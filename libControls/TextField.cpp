@@ -143,16 +143,17 @@ void TextField::updateScrollPosition()
 {
 	int cursorX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
 
+	const auto viewWidth = textAreaWidth();
 	// Check if cursor is after visible area
-	if (mScrollOffsetPixelX <= cursorX - textAreaWidth())
+	if (mScrollOffsetPixelX <= cursorX - viewWidth)
 	{
-		mScrollOffsetPixelX = cursorX - textAreaWidth();
+		mScrollOffsetPixelX = cursorX - viewWidth;
 	}
 
 	// Check if cursor is before visible area
 	if (mScrollOffsetPixelX >= cursorX)
 	{
-		mScrollOffsetPixelX = cursorX - textAreaWidth() / 2;
+		mScrollOffsetPixelX = cursorX - viewWidth / 2;
 	}
 
 	if (mScrollOffsetPixelX < 0)
