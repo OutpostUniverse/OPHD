@@ -28,8 +28,7 @@ public:
 protected:
 	void onResize() override;
 	void onTextChange();
-
-	void processString();
+	void onLayoutText();
 
 private:
 	const NAS2D::Font& mFont;

@@ -35,13 +35,13 @@ const std::string& TextArea::text() const
 
 void TextArea::onResize()
 {
-	processString();
+	onLayoutText();
 }
 
 
 void TextArea::onTextChange()
 {
-	processString();
+	onLayoutText();
 }
 
 
@@ -62,7 +62,7 @@ void TextArea::draw() const
 }
 
 
-void TextArea::processString()
+void TextArea::onLayoutText()
 {
 	mFormattedList.clear();
 
