@@ -80,9 +80,11 @@ const NAS2D::Rectangle<int>& Control::area() const
 void Control::area(const NAS2D::Rectangle<int>& newRect)
 {
 	const auto displacement = newRect.position - mRect.position;
+	const auto hasMoved = mRect.position != newRect.position;
+	const auto hasResized = mRect.size != newRect.size;
 	mRect = newRect;
-	onMove(displacement);
-	onResize();
+	if (hasMoved) { onMove(displacement); }
+	if (hasResized) { onResize(); }
 }
 
 
