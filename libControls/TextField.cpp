@@ -53,8 +53,11 @@ TextField::~TextField()
 
 void TextField::text(const std::string& text)
 {
-	mText = text;
-	onTextChange();
+	if (mText != text)
+	{
+		mText = text;
+		onTextChange();
+	}
 }
 
 
