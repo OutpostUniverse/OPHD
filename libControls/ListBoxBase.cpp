@@ -110,7 +110,6 @@ void ListBoxBase::updateScrollLayout()
 	}
 	else
 	{
-		mScrollOffsetInPixels = 0;
 		mScrollBar.max(0);
 		mScrollBar.visible(false);
 	}
