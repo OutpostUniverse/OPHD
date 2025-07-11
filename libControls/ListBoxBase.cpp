@@ -105,7 +105,7 @@ void ListBoxBase::updateScrollLayout()
 		constexpr auto scrollBarWidth = 14;
 		mScrollArea.size.x -= scrollBarWidth;
 		mScrollBar.size({scrollBarWidth, mScrollArea.size.y});
-		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x, mScrollArea.position.y});
+		mScrollBar.position(mScrollArea.crossXPoint());
 		mScrollBar.max(neededDisplaySize - mScrollArea.size.y);
 		mScrollBar.largeDelta((mScrollArea.size.y / mItemSize.y) * mItemSize.y); // Pixel size of integral number of displayed items
 		mScrollBar.visible(true);
