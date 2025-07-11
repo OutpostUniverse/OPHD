@@ -102,12 +102,13 @@ void ListBoxBase::updateScrollLayout()
 	const auto neededDisplaySize = mItemSize.y * static_cast<int>(count());
 	if (neededDisplaySize > mScrollArea.size.y)
 	{
-		mScrollBar.size({14, mScrollArea.size.y});
+		constexpr auto scrollBarWidth = 14;
+		mScrollBar.size({scrollBarWidth, mScrollArea.size.y});
 		mScrollBar.position({mScrollArea.position.x + mScrollArea.size.x - mScrollBar.size().x, mScrollArea.position.y});
 		mScrollBar.max(neededDisplaySize - mScrollArea.size.y);
 		mScrollBar.largeDelta((mScrollArea.size.y / mItemSize.y) * mItemSize.y); // Pixel size of integral number of displayed items
 		mScrollBar.visible(true);
-		mScrollArea.size.x -= mScrollBar.size().x; // Remove scroll bar from scroll area
+		mScrollArea.size.x -= scrollBarWidth; // Remove scroll bar from scroll area
 	}
 	else
 	{
