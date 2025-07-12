@@ -4,6 +4,8 @@
 #include "Tile.h"
 #include "../StructureManager.h"
 #include "../MapObjects/Structures/OreRefining.h"
+#include "../MicroPather/micropather.h"
+
 
 #include <libOPHD/EnumTerrainType.h>
 
