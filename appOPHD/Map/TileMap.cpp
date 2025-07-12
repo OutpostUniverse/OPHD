@@ -9,7 +9,6 @@
 #include <libOPHD/RandomNumberGenerator.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
@@ -116,6 +115,12 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 
 TileMap::~TileMap()
 {
+}
+
+
+const std::vector<NAS2D::Point<int>>& TileMap::oreDepositLocations() const
+{
+	return mOreDepositLocations;
 }
 
 

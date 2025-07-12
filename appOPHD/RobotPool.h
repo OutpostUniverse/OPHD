@@ -49,13 +49,13 @@ public:
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }
 	void update();
 
-	DiggerList& diggers() { return mDiggers; }
-	DozerList& dozers() { return mDozers; }
-	MinerList& miners() { return mMiners; }
+	DiggerList& diggers();
+	DozerList& dozers();
+	MinerList& miners();
 
-	const DiggerList& diggers() const { return mDiggers; }
-	const DozerList& dozers() const { return mDozers; }
-	const MinerList& miners() const { return mMiners; }
+	const DiggerList& diggers() const;
+	const DozerList& dozers() const;
+	const MinerList& miners() const;
 
 	void clear();
 	void erase(Robot* robot);

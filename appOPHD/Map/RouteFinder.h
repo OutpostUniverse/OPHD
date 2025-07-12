@@ -1,8 +1,12 @@
 #pragma once
 
-#include "../MicroPather/micropather.h"
-
 #include <vector>
+
+
+namespace micropather
+{
+	class MicroPather;
+}
 
 
 struct Route;
