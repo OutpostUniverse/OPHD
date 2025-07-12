@@ -1,7 +1,6 @@
 #include "CrimeExecution.h"
 
 #include "../Resources.h"
-#include "../StructureManager.h"
 #include "../MapObjects/Structure.h"
 #include "../MapObjects/Structures/FoodProduction.h"
 
