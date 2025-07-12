@@ -5,6 +5,12 @@
 #include "../MapObjects/RobotType.h"
 
 
+void MapViewState::onMapObjectSelectionChanged()
+{
+	setCursor(isInserting() ? PointerType::PlaceTile : PointerType::Normal);
+}
+
+
 bool MapViewState::isInserting() const
 {
 	return mInsertMode != InsertMode::None;
@@ -23,10 +29,9 @@ bool MapViewState::isInsertingRobot() const
 void MapViewState::clearMode()
 {
 	mInsertMode = InsertMode::None;
-	setCursor(PointerType::Normal);
-
 	mCurrentStructure = StructureID::SID_NONE;
 	mCurrentRobot = RobotType::None;
+	onMapObjectSelectionChanged();
 }
 
 
@@ -61,7 +66,7 @@ void MapViewState::onStructuresSelectionChange(const IconGridItem* item)
 
 	mCurrentStructure = structureId;
 	mInsertMode = InsertMode::Structure;
-	setCursor(PointerType::PlaceTile);
+	onMapObjectSelectionChanged();
 }
 
 
@@ -81,7 +86,7 @@ void MapViewState::onConnectionsSelectionChange(const IconGridItem* item)
 
 	mCurrentStructure = StructureID::SID_TUBE;
 	mInsertMode = InsertMode::Tube;
-	setCursor(PointerType::PlaceTile);
+	onMapObjectSelectionChanged();
 }
 
 
@@ -101,5 +106,5 @@ void MapViewState::onRobotsSelectionChange(const IconGridItem* item)
 
 	mCurrentRobot = static_cast<RobotType>(item->meta);
 	mInsertMode = InsertMode::Robot;
-	setCursor(PointerType::PlaceTile);
+	onMapObjectSelectionChanged();
 }

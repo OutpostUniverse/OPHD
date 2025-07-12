@@ -273,6 +273,7 @@ private:
 	void onReturnToGame();
 	void onGameOver();
 
+	void onMapObjectSelectionChanged();
 	void onStructuresSelectionChange(const IconGridItem*);
 	void onConnectionsSelectionChange(const IconGridItem*);
 	void onRobotsSelectionChange(const IconGridItem*);
