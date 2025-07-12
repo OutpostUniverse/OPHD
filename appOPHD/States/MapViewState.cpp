@@ -730,7 +730,7 @@ void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
 		changePoliceOverlayDepth(oldDepth, newDepth);
 	}
 
-	if (mInsertMode != InsertMode::Robot) { clearMode(); }
+	if (!isInsertingRobot()) { clearMode(); }
 
 	populateStructureMenu();
 }
@@ -764,6 +764,12 @@ void MapViewState::changeViewDepth(int depth)
 bool MapViewState::isInserting() const
 {
 	return mInsertMode != InsertMode::None;
+}
+
+
+bool MapViewState::isInsertingRobot() const
+{
+	return mInsertMode == InsertMode::Robot;
 }
 
 
