@@ -697,7 +697,7 @@ void MapViewState::onClickMap()
 
 	if (mInsertMode == InsertMode::Structure)
 	{
-		placeStructure(tile);
+		placeStructure(tile, mCurrentStructure);
 	}
 	else if (mInsertMode == InsertMode::Robot)
 	{
@@ -811,11 +811,11 @@ void MapViewState::placeTubes(Tile& tile)
 /**
  * Places a structure into the map.
  */
-void MapViewState::placeStructure(Tile& tile)
+void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
-	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
+	if (structureID == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
-	if (!selfSustained(mCurrentStructure) && !isInCcRange(tile.xy()))
+	if (!selfSustained(structureID) && !isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -840,7 +840,7 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if ((!tile.isBulldozed() && !structureIsLander(mCurrentStructure)))
+	if ((!tile.isBulldozed() && !structureIsLander(structureID)))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTerrain);
 		return;
@@ -853,11 +853,11 @@ void MapViewState::placeStructure(Tile& tile)
 	}
 
 	// The player may only place one seed lander per game.
-	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
+	if (structureID == StructureID::SID_SEED_LANDER)
 	{
 		insertSeedLander(tile.xy());
 	}
-	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
+	else if (structureID == StructureID::SID_COLONIST_LANDER)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -871,7 +871,7 @@ void MapViewState::placeStructure(Tile& tile)
 			populateStructureMenu();
 		}
 	}
-	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
+	else if (structureID == StructureID::SID_CARGO_LANDER)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -887,20 +887,20 @@ void MapViewState::placeStructure(Tile& tile)
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(structureID))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
 		}
 
 		// Check build cost
-		if (!StructureCatalog::canBuild(mCurrentStructure, mResourcesCount))
+		if (!StructureCatalog::canBuild(structureID, mResourcesCount))
 		{
-			resourceShortageMessage(mResourcesCount, mCurrentStructure);
+			resourceShortageMessage(mResourcesCount, structureID);
 			return;
 		}
 
-		auto& structure = NAS2D::Utility<StructureManager>::get().create(mCurrentStructure, tile);
+		auto& structure = NAS2D::Utility<StructureManager>::get().create(structureID, tile);
 
 		if (structure.isFactory())
 		{
@@ -914,7 +914,7 @@ void MapViewState::placeStructure(Tile& tile)
 			dynamic_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
 
-		auto cost = StructureCatalog::costToBuild(mCurrentStructure);
+		auto cost = StructureCatalog::costToBuild(structureID);
 		removeRefinedResources(cost);
 		updatePlayerResources();
 		updateStructuresAvailability();

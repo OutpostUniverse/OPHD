@@ -167,7 +167,7 @@ private:
 	void insertTube(ConnectorDir dir, int depth, Tile& tile);
 
 	void placeTubes(Tile& tile);
-	void placeStructure(Tile& tile);
+	void placeStructure(Tile& tile, StructureID structureID);
 	void placeRobot(Tile& tile, RobotType robotType);
 
 	void placeRobodozer(Tile&);
