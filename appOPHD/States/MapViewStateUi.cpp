@@ -315,6 +315,20 @@ void MapViewState::populateStructureMenu()
 
 
 /**
+ * Update IconGridItems availability
+ */
+void MapViewState::updateStructuresAvailability()
+{
+	for (std::size_t id = 1; id < StructureCatalog::count(); ++id)
+	{
+		const auto& structureType = StructureCatalog::getType(id);
+		const auto hasSufficientResources = structureType.buildCost <= mResourcesCount;
+		mStructures.itemAvailable(structureType.name, hasSufficientResources);
+	}
+}
+
+
+/**
  * Some UI elements should be treated as 'modal' and block input when they're
  * visible. This is a central way to check for a modal UI element without
  * having to check for multiple elements in a variety of places in the code.
@@ -628,17 +642,4 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 	updatePlayerResources();
 	updateStructuresAvailability();
 	updateFood();
-}
-
-/**
- * Update IconGridItems availability
- */
-void MapViewState::updateStructuresAvailability()
-{
-	for (std::size_t id = 1; id < StructureCatalog::count(); ++id)
-	{
-		const auto& structureType = StructureCatalog::getType(id);
-		const auto hasSufficientResources = structureType.buildCost <= mResourcesCount;
-		mStructures.itemAvailable(structureType.name, hasSufficientResources);
-	}
 }
