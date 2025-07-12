@@ -112,6 +112,15 @@ RobotPool::~RobotPool()
 }
 
 
+RobotPool::DiggerList& RobotPool::diggers() { return mDiggers; }
+RobotPool::DozerList& RobotPool::dozers() { return mDozers; }
+RobotPool::MinerList& RobotPool::miners() { return mMiners; }
+
+const RobotPool::DiggerList& RobotPool::diggers() const { return mDiggers; }
+const RobotPool::DozerList& RobotPool::dozers() const { return mDozers; }
+const RobotPool::MinerList& RobotPool::miners() const { return mMiners; }
+
+
 void RobotPool::clear()
 {
 	mDiggers.clear();
