@@ -9,7 +9,6 @@
 #include <libOPHD/RandomNumberGenerator.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
