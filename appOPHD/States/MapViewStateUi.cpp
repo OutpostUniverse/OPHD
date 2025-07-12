@@ -130,10 +130,6 @@ void MapViewState::initUi()
 	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
 
-	// Menus
-	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
-	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
-
 	// Initial Structures
 	mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
 
@@ -197,6 +193,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
 
+	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
+	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
 	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 
 	// Allow for centering with rounding to integer values
