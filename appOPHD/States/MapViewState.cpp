@@ -856,7 +856,7 @@ void MapViewState::placeStructure(Tile& tile)
 	// The player may only place one seed lander per game.
 	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
-		insertSeedLander(mMouseTilePosition.xy);
+		insertSeedLander(tile.xy());
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
@@ -888,7 +888,7 @@ void MapViewState::placeStructure(Tile& tile)
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, mMouseTilePosition) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
