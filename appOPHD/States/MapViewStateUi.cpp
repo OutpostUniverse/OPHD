@@ -189,13 +189,17 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
 
 	// UI Panels
-	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
+	const auto mapObjectPickerArea = NAS2D::Rectangle<int>{
+		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
+		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
+	};
+	mRobots.position(mapObjectPickerArea.crossXPoint() - NAS2D::Vector{52, 0});
+	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mapObjectPickerArea.position.y});
+	mStructures.position(mapObjectPickerArea.position);
 
-	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
-	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
-	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
+	mRobots.size({52, mapObjectPickerArea.size.y});
+	mConnections.size({52, mapObjectPickerArea.size.y});
+	mStructures.size({mapObjectPickerArea.size.x - 52 * 2 - constants::MarginTight * 2, mapObjectPickerArea.size.y});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
