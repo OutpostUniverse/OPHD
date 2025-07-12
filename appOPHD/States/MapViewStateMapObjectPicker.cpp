@@ -16,9 +16,6 @@ bool MapViewState::isInsertingRobot() const
 }
 
 
-/**
- * Clears the build mode.
- */
 void MapViewState::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;
