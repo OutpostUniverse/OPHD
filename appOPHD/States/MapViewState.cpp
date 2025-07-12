@@ -614,7 +614,6 @@ void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> re
 {
 	if (!active()) { return; }
 	mMiniMap->onMouseMove(position, relative);
-	mMouseTilePosition = mDetailMap->mouseTilePosition();
 }
 
 
@@ -795,9 +794,9 @@ void MapViewState::placeTubes(Tile& tile)
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
 
-	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
+	if (validTubeConnection(*mTileMap, tile.xyz(), cd))
 	{
-		insertTube(cd, mMapView->currentDepth(), mTileMap->getTile(mMouseTilePosition));
+		insertTube(cd, mMapView->currentDepth(), tile);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();
@@ -856,7 +855,7 @@ void MapViewState::placeStructure(Tile& tile)
 	// The player may only place one seed lander per game.
 	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
 	{
-		insertSeedLander(mMouseTilePosition.xy);
+		insertSeedLander(tile.xy());
 	}
 	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
 	{
@@ -888,7 +887,7 @@ void MapViewState::placeStructure(Tile& tile)
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, mMouseTilePosition) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(mCurrentStructure))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
@@ -971,7 +970,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		}
 
 		mMineOperationsWindow.hide();
-		const auto tilePosition = mDetailMap->mouseTilePosition().xy;
+		const auto tilePosition = tile.xy();
 		mTileMap->removeOreDepositLocation(tilePosition);
 		tile.placeOreDeposit(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
@@ -1068,7 +1067,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 void MapViewState::placeRobodigger(Tile& tile)
 {
 	// Keep digger within a safe margin of the map boundaries.
-	if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(mMouseTilePosition.xy))
+	if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerEdgeBuffer);
 		return;
