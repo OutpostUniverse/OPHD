@@ -118,6 +118,12 @@ TileMap::~TileMap()
 }
 
 
+const std::vector<NAS2D::Point<int>>& TileMap::oreDepositLocations() const
+{
+	return mOreDepositLocations;
+}
+
+
 void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
 {
 	auto& tile = getTile({pt, 0});
