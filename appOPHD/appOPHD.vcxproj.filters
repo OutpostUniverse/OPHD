@@ -231,6 +231,9 @@
     <ClCompile Include="States\MapViewStateIO.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="States\MapViewStateMapObjectPicker.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
     <ClCompile Include="States\MapViewStateTurn.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>

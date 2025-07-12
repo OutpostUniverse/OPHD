@@ -617,14 +617,6 @@ void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> re
 }
 
 
-void MapViewState::onMouseWheel(NAS2D::Vector<int> changeAmount)
-{
-	if (mInsertMode != InsertMode::Tube) { return; }
-
-	changeAmount.y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
-}
-
-
 void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModifier)
 {
 	auto& tile = mTileMap->getTile(tilePosition);
@@ -758,31 +750,6 @@ void MapViewState::changeViewDepth(int depth)
 	if (oldZLevel != newZLevel) {
 		onChangeDepth(oldZLevel, newZLevel);
 	}
-}
-
-
-bool MapViewState::isInserting() const
-{
-	return mInsertMode != InsertMode::None;
-}
-
-
-bool MapViewState::isInsertingRobot() const
-{
-	return mInsertMode == InsertMode::Robot;
-}
-
-
-/**
- * Clears the build mode.
- */
-void MapViewState::clearMode()
-{
-	mInsertMode = InsertMode::None;
-	setCursor(PointerType::Normal);
-
-	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = RobotType::None;
 }
 
 

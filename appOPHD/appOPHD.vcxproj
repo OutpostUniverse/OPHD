@@ -236,6 +236,7 @@
     <ClCompile Include="States\MapViewStateEvent.cpp" />
     <ClCompile Include="States\MapViewStateHelper.cpp" />
     <ClCompile Include="States\MapViewStateIO.cpp" />
+    <ClCompile Include="States\MapViewStateMapObjectPicker.cpp" />
     <ClCompile Include="States\MapViewStateTurn.cpp" />
     <ClCompile Include="States\MapViewStateUi.cpp" />
     <ClCompile Include="States\PlanetSelectState.cpp" />

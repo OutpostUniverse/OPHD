@@ -13,7 +13,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include "../PointerType.h"
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
@@ -493,73 +492,6 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 	mNotificationWindow.notification(notification);
 	mNotificationWindow.show();
 	mWindowStack.bringToFront(mNotificationWindow);
-}
-
-
-void MapViewState::onStructuresSelectionChange(const IconGridItem* item)
-{
-	if (!item)
-	{
-		clearMode();
-		return;
-	}
-
-	mConnections.clearSelection();
-	mRobots.clearSelection();
-
-	const auto structureId = static_cast<StructureID>(item->meta);
-
-	// Check availability
-	if (!item->available)
-	{
-		resourceShortageMessage(mResourcesCount, structureId);
-		mStructures.clearSelection();
-		return;
-	}
-
-	mCurrentStructure = structureId;
-	mInsertMode = InsertMode::Structure;
-	setCursor(PointerType::PlaceTile);
-}
-
-
-/**
- * Handler for the Tubes Pallette dialog.
- */
-void MapViewState::onConnectionsSelectionChange(const IconGridItem* item)
-{
-	if (!item)
-	{
-		clearMode();
-		return;
-	}
-
-	mRobots.clearSelection();
-	mStructures.clearSelection();
-
-	mCurrentStructure = StructureID::SID_TUBE;
-	mInsertMode = InsertMode::Tube;
-	setCursor(PointerType::PlaceTile);
-}
-
-
-/**
- * Handles clicks of the Robot Selection Menu.
- */
-void MapViewState::onRobotsSelectionChange(const IconGridItem* item)
-{
-	if (!item)
-	{
-		clearMode();
-		return;
-	}
-
-	mConnections.clearSelection();
-	mStructures.clearSelection();
-
-	mCurrentRobot = static_cast<RobotType>(item->meta);
-	mInsertMode = InsertMode::Robot;
-	setCursor(PointerType::PlaceTile);
 }
 
 
