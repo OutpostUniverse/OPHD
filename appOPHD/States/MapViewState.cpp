@@ -701,7 +701,7 @@ void MapViewState::onClickMap()
 	}
 	else if (mInsertMode == InsertMode::Robot)
 	{
-		placeRobot(tile);
+		placeRobot(tile, mCurrentRobot);
 	}
 	else if (mInsertMode == InsertMode::Tube)
 	{
@@ -922,7 +922,7 @@ void MapViewState::placeStructure(Tile& tile)
 }
 
 
-void MapViewState::placeRobot(Tile& tile)
+void MapViewState::placeRobot(Tile& tile, RobotType robotType)
 {
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
@@ -933,7 +933,7 @@ void MapViewState::placeRobot(Tile& tile)
 		return;
 	}
 
-	switch (mCurrentRobot)
+	switch (robotType)
 	{
 	case RobotType::Dozer:
 		placeRobodozer(tile);

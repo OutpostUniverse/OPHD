@@ -168,7 +168,7 @@ private:
 
 	void placeTubes(Tile& tile);
 	void placeStructure(Tile& tile);
-	void placeRobot(Tile& tile);
+	void placeRobot(Tile& tile, RobotType robotType);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
