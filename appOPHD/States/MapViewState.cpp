@@ -539,7 +539,7 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 
 	if (button == NAS2D::MouseButton::Right || button == NAS2D::MouseButton::Middle)
 	{
-		if (mInsertMode != InsertMode::None)
+		if (isInserting())
 		{
 			resetUi();
 			return;
@@ -758,6 +758,12 @@ void MapViewState::changeViewDepth(int depth)
 	if (oldZLevel != newZLevel) {
 		onChangeDepth(oldZLevel, newZLevel);
 	}
+}
+
+
+bool MapViewState::isInserting() const
+{
+	return mInsertMode != InsertMode::None;
 }
 
 

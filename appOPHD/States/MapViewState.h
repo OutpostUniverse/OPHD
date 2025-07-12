@@ -234,6 +234,7 @@ private:
 	NAS2D::Xml::XmlElement* serializeProperties();
 
 	// UI MANAGEMENT FUNCTIONS
+	bool isInserting() const;
 	void clearMode();
 	void clearSelections();
 
