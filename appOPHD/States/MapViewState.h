@@ -166,9 +166,9 @@ private:
 	void insertSeedLander(NAS2D::Point<int> point);
 	void insertTube(ConnectorDir dir, int depth, Tile& tile);
 
-	void placeTubes(Tile& tile);
-	void placeStructure(Tile& tile);
-	void placeRobot(Tile& tile);
+	void placeTubes(Tile& tile, ConnectorDir connectorDirection);
+	void placeStructure(Tile& tile, StructureID structureID);
+	void placeRobot(Tile& tile, RobotType robotType);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
@@ -234,7 +234,9 @@ private:
 	NAS2D::Xml::XmlElement* serializeProperties();
 
 	// UI MANAGEMENT FUNCTIONS
-	void clearMode();
+	bool isInserting() const;
+	bool isInsertingRobot() const;
+	void clearBuildMode();
 	void clearSelections();
 
 	void hideUi();
@@ -271,6 +273,7 @@ private:
 	void onReturnToGame();
 	void onGameOver();
 
+	void onMapObjectSelectionChanged();
 	void onStructuresSelectionChange(const IconGridItem*);
 	void onConnectionsSelectionChange(const IconGridItem*);
 	void onRobotsSelectionChange(const IconGridItem*);
@@ -285,6 +288,7 @@ private:
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
+	ColonyShip& mColonyShip;
 	StructureTracker mStructureTracker;
 
 	ResearchTracker mResearchTracker;
@@ -325,9 +329,13 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
+	// Map Object picking
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
 	RobotType mCurrentRobot; /**< Robot being placed. */
+	IconGrid mStructures;
+	IconGrid mRobots;
+	IconGrid mConnections;
 
 	// USER INTERFACE
 	Button mBtnTurns;
@@ -342,10 +350,6 @@ private:
 	Control mTooltipCurrentTurns;
 
 	ToolTip mToolTip;
-
-	IconGrid mStructures;
-	IconGrid mRobots;
-	IconGrid mConnections;
 
 	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;
@@ -384,6 +388,4 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
-
-	ColonyShip& mColonyShip;
 };

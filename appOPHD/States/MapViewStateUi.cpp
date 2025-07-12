@@ -13,7 +13,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
-#include "../PointerType.h"
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
@@ -131,16 +130,6 @@ void MapViewState::initUi()
 	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
 
-	// Menus
-	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
-
-	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
-
-	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
-	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
-
 	// Initial Structures
 	mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
 
@@ -200,11 +189,17 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
 
 	// UI Panels
-	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
-	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
+	const auto mapObjectPickerArea = NAS2D::Rectangle<int>{
+		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
+		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
+	};
+	mRobots.position(mapObjectPickerArea.crossXPoint() - NAS2D::Vector{52, 0});
+	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mapObjectPickerArea.position.y});
+	mStructures.position(mapObjectPickerArea.position);
 
-	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
+	mRobots.size({52, mapObjectPickerArea.size.y});
+	mConnections.size({52, mapObjectPickerArea.size.y});
+	mStructures.size({mapObjectPickerArea.size.x - 52 * 2 - constants::MarginTight * 2, mapObjectPickerArea.size.y});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
@@ -279,18 +274,10 @@ void MapViewState::unhideUi()
  */
 void MapViewState::resetUi()
 {
-	clearMode();
+	clearBuildMode();
 	clearSelections();
 
 	mWindowStack.hide();
-}
-
-
-void MapViewState::clearSelections()
-{
-	mStructures.clearSelection();
-	mConnections.clearSelection();
-	mRobots.clearSelection();
 }
 
 
@@ -328,6 +315,20 @@ void MapViewState::populateStructureMenu()
 	updateStructuresAvailability();
 
 	mStructures.sort();
+}
+
+
+/**
+ * Update IconGridItems availability
+ */
+void MapViewState::updateStructuresAvailability()
+{
+	for (std::size_t id = 1; id < StructureCatalog::count(); ++id)
+	{
+		const auto& structureType = StructureCatalog::getType(id);
+		const auto hasSufficientResources = structureType.buildCost <= mResourcesCount;
+		mStructures.itemAvailable(structureType.name, hasSufficientResources);
+	}
 }
 
 
@@ -496,73 +497,6 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 }
 
 
-void MapViewState::onStructuresSelectionChange(const IconGridItem* item)
-{
-	if (!item)
-	{
-		clearMode();
-		return;
-	}
-
-	mConnections.clearSelection();
-	mRobots.clearSelection();
-
-	const auto structureId = static_cast<StructureID>(item->meta);
-
-	// Check availability
-	if (!item->available)
-	{
-		resourceShortageMessage(mResourcesCount, structureId);
-		mStructures.clearSelection();
-		return;
-	}
-
-	mCurrentStructure = structureId;
-	mInsertMode = InsertMode::Structure;
-	setCursor(PointerType::PlaceTile);
-}
-
-
-/**
- * Handler for the Tubes Pallette dialog.
- */
-void MapViewState::onConnectionsSelectionChange(const IconGridItem* item)
-{
-	if (!item)
-	{
-		clearMode();
-		return;
-	}
-
-	mRobots.clearSelection();
-	mStructures.clearSelection();
-
-	mCurrentStructure = StructureID::SID_TUBE;
-	mInsertMode = InsertMode::Tube;
-	setCursor(PointerType::PlaceTile);
-}
-
-
-/**
- * Handles clicks of the Robot Selection Menu.
- */
-void MapViewState::onRobotsSelectionChange(const IconGridItem* item)
-{
-	if (!item)
-	{
-		clearMode();
-		return;
-	}
-
-	mConnections.clearSelection();
-	mStructures.clearSelection();
-
-	mCurrentRobot = static_cast<RobotType>(item->meta);
-	mInsertMode = InsertMode::Robot;
-	setCursor(PointerType::PlaceTile);
-}
-
-
 void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 {
 	// Before doing anything, if we're going down and the depth is not the surface,
@@ -589,7 +523,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotType::Digger))
 	{
 		mRobots.removeItem(constants::Robodigger);
-		clearMode();
+		clearBuildMode();
 	}
 
 	mDiggerDirection.visible(false);
@@ -712,17 +646,4 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 	updatePlayerResources();
 	updateStructuresAvailability();
 	updateFood();
-}
-
-/**
- * Update IconGridItems availability
- */
-void MapViewState::updateStructuresAvailability()
-{
-	for (std::size_t id = 1; id < StructureCatalog::count(); ++id)
-	{
-		const auto& structureType = StructureCatalog::getType(id);
-		const auto hasSufficientResources = structureType.buildCost <= mResourcesCount;
-		mStructures.itemAvailable(structureType.name, hasSufficientResources);
-	}
 }

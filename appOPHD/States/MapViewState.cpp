@@ -157,21 +157,22 @@ namespace
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
+	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
 	mCurrentRobot{RobotType::None},
+	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
+	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
+	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleRouteOverlay{Control::getImage("ui/icons/route.png"), {this, &MapViewState::onToggleRouteOverlay}},
 	mBtnToggleConnectedness{Control::getImage("ui/icons/connection.png"), {this, &MapViewState::onToggleConnectedness}},
 	mBtnToggleCommRangeOverlay{Control::getImage("ui/icons/comm_overlay.png"), {this, &MapViewState::onToggleCommRangeOverlay}},
 	mBtnTogglePoliceOverlay{Control::getImage("ui/icons/police.png"), {this, &MapViewState::onTogglePoliceOverlay}},
-	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
-	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
-	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mCheatMenu{{this, &MapViewState::onCheatCodeEntry}},
 	mDiggerDirection{{this, &MapViewState::onDiggerSelectionDialog}},
 	mFileIoDialog{gameState.fileIoDialog()},
@@ -187,8 +188,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mQuitHandler{quitHandler},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool},
-	mColonyShip{gameState.colonyShip()}
+	mRobotDeploymentSummary{mRobotPool}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
@@ -199,21 +199,22 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
+	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mCurrentRobot{RobotType::None},
+	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
+	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
+	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleRouteOverlay{Control::getImage("ui/icons/route.png"), {this, &MapViewState::onToggleRouteOverlay}},
 	mBtnToggleConnectedness{Control::getImage("ui/icons/connection.png"), {this, &MapViewState::onToggleConnectedness}},
 	mBtnToggleCommRangeOverlay{Control::getImage("ui/icons/comm_overlay.png"), {this, &MapViewState::onToggleCommRangeOverlay}},
 	mBtnTogglePoliceOverlay{Control::getImage("ui/icons/police.png"), {this, &MapViewState::onTogglePoliceOverlay}},
-	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
-	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
-	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
 	mCheatMenu{{this, &MapViewState::onCheatCodeEntry}},
 	mDiggerDirection{{this, &MapViewState::onDiggerSelectionDialog}},
 	mFileIoDialog{gameState.fileIoDialog()},
@@ -233,8 +234,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mMapView)},
-	mColonyShip{gameState.colonyShip()}
+	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -539,7 +539,7 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 
 	if (button == NAS2D::MouseButton::Right || button == NAS2D::MouseButton::Middle)
 	{
-		if (mInsertMode != InsertMode::None)
+		if (isInserting())
 		{
 			resetUi();
 			return;
@@ -617,11 +617,9 @@ void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> re
 }
 
 
-void MapViewState::onMouseWheel(NAS2D::Vector<int> changeAmount)
+void MapViewState::onMapObjectSelectionChanged()
 {
-	if (mInsertMode != InsertMode::Tube) { return; }
-
-	changeAmount.y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
+	setCursor(isInserting() ? PointerType::PlaceTile : PointerType::Normal);
 }
 
 
@@ -697,15 +695,20 @@ void MapViewState::onClickMap()
 
 	if (mInsertMode == InsertMode::Structure)
 	{
-		placeStructure(tile);
+		placeStructure(tile, mCurrentStructure);
 	}
 	else if (mInsertMode == InsertMode::Robot)
 	{
-		placeRobot(tile);
+		placeRobot(tile, mCurrentRobot);
 	}
 	else if (mInsertMode == InsertMode::Tube)
 	{
-		placeTubes(tile);
+		/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
+		* Should instead take advantage of the updated meta data in the IconGridItem.
+		*/
+		auto connectorDirection = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
+
+		placeTubes(tile, connectorDirection);
 	}
 }
 
@@ -725,7 +728,7 @@ void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
 		changePoliceOverlayDepth(oldDepth, newDepth);
 	}
 
-	if (mInsertMode != InsertMode::Robot) { clearMode(); }
+	if (!isInsertingRobot()) { clearBuildMode(); }
 
 	populateStructureMenu();
 }
@@ -756,19 +759,6 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
-/**
- * Clears the build mode.
- */
-void MapViewState::clearMode()
-{
-	mInsertMode = InsertMode::None;
-	setCursor(PointerType::Normal);
-
-	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = RobotType::None;
-}
-
-
 void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 {
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
@@ -780,7 +770,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 }
 
 
-void MapViewState::placeTubes(Tile& tile)
+void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
 {
 	if (!tile.isBulldozed()) {
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeTerrain);
@@ -789,14 +779,9 @@ void MapViewState::placeTubes(Tile& tile)
 
 	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
-	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 * Should instead take advantage of the updated meta data in the IconGridItem.
-	 */
-	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
-
-	if (validTubeConnection(*mTileMap, tile.xyz(), cd))
+	if (validTubeConnection(*mTileMap, tile.xyz(), connectorDirection))
 	{
-		insertTube(cd, mMapView->currentDepth(), tile);
+		insertTube(connectorDirection, mMapView->currentDepth(), tile);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();
@@ -811,11 +796,11 @@ void MapViewState::placeTubes(Tile& tile)
 /**
  * Places a structure into the map.
  */
-void MapViewState::placeStructure(Tile& tile)
+void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
-	if (mCurrentStructure == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but mCurrentStructure == STRUCTURE_NONE"); }
+	if (structureID == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
-	if (!selfSustained(mCurrentStructure) && !isInCcRange(tile.xy()))
+	if (!selfSustained(structureID) && !isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -840,7 +825,7 @@ void MapViewState::placeStructure(Tile& tile)
 		return;
 	}
 
-	if ((!tile.isBulldozed() && !structureIsLander(mCurrentStructure)))
+	if ((!tile.isBulldozed() && !structureIsLander(structureID)))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureTerrain);
 		return;
@@ -853,11 +838,11 @@ void MapViewState::placeStructure(Tile& tile)
 	}
 
 	// The player may only place one seed lander per game.
-	if (mCurrentStructure == StructureID::SID_SEED_LANDER)
+	if (structureID == StructureID::SID_SEED_LANDER)
 	{
 		insertSeedLander(tile.xy());
 	}
-	else if (mCurrentStructure == StructureID::SID_COLONIST_LANDER)
+	else if (structureID == StructureID::SID_COLONIST_LANDER)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -871,7 +856,7 @@ void MapViewState::placeStructure(Tile& tile)
 			populateStructureMenu();
 		}
 	}
-	else if (mCurrentStructure == StructureID::SID_CARGO_LANDER)
+	else if (structureID == StructureID::SID_CARGO_LANDER)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -887,20 +872,20 @@ void MapViewState::placeStructure(Tile& tile)
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(mCurrentStructure))
+		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(structureID))
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
 		}
 
 		// Check build cost
-		if (!StructureCatalog::canBuild(mCurrentStructure, mResourcesCount))
+		if (!StructureCatalog::canBuild(structureID, mResourcesCount))
 		{
-			resourceShortageMessage(mResourcesCount, mCurrentStructure);
+			resourceShortageMessage(mResourcesCount, structureID);
 			return;
 		}
 
-		auto& structure = NAS2D::Utility<StructureManager>::get().create(mCurrentStructure, tile);
+		auto& structure = NAS2D::Utility<StructureManager>::get().create(structureID, tile);
 
 		if (structure.isFactory())
 		{
@@ -914,7 +899,7 @@ void MapViewState::placeStructure(Tile& tile)
 			dynamic_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
 
-		auto cost = StructureCatalog::costToBuild(mCurrentStructure);
+		auto cost = StructureCatalog::costToBuild(structureID);
 		removeRefinedResources(cost);
 		updatePlayerResources();
 		updateStructuresAvailability();
@@ -922,7 +907,7 @@ void MapViewState::placeStructure(Tile& tile)
 }
 
 
-void MapViewState::placeRobot(Tile& tile)
+void MapViewState::placeRobot(Tile& tile, RobotType robotType)
 {
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
@@ -933,7 +918,7 @@ void MapViewState::placeRobot(Tile& tile)
 		return;
 	}
 
-	switch (mCurrentRobot)
+	switch (robotType)
 	{
 	case RobotType::Dozer:
 		placeRobodozer(tile);
@@ -1059,7 +1044,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotType::Dozer))
 	{
 		mRobots.removeItem(constants::Robodozer);
-		clearMode();
+		clearBuildMode();
 	}
 }
 
@@ -1169,7 +1154,7 @@ void MapViewState::placeRobominer(Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotType::Miner))
 	{
 		mRobots.removeItem(constants::Robominer);
-		clearMode();
+		clearBuildMode();
 	}
 }
 
