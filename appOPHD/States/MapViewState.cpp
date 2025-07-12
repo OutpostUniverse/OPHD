@@ -728,7 +728,7 @@ void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
 		changePoliceOverlayDepth(oldDepth, newDepth);
 	}
 
-	if (!isInsertingRobot()) { clearMode(); }
+	if (!isInsertingRobot()) { clearBuildMode(); }
 
 	populateStructureMenu();
 }
@@ -1044,7 +1044,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotType::Dozer))
 	{
 		mRobots.removeItem(constants::Robodozer);
-		clearMode();
+		clearBuildMode();
 	}
 }
 
@@ -1154,7 +1154,7 @@ void MapViewState::placeRobominer(Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotType::Miner))
 	{
 		mRobots.removeItem(constants::Robominer);
-		clearMode();
+		clearBuildMode();
 	}
 }
 

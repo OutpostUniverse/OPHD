@@ -19,7 +19,7 @@ bool MapViewState::isInsertingRobot() const
 /**
  * Clears the build mode.
  */
-void MapViewState::clearMode()
+void MapViewState::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;
 	mCurrentStructure = StructureID::SID_NONE;
@@ -40,7 +40,7 @@ void MapViewState::onStructuresSelectionChange(const IconGridItem* item)
 {
 	if (!item)
 	{
-		clearMode();
+		clearBuildMode();
 		return;
 	}
 
@@ -70,7 +70,7 @@ void MapViewState::onConnectionsSelectionChange(const IconGridItem* item)
 {
 	if (!item)
 	{
-		clearMode();
+		clearBuildMode();
 		return;
 	}
 
@@ -90,7 +90,7 @@ void MapViewState::onRobotsSelectionChange(const IconGridItem* item)
 {
 	if (!item)
 	{
-		clearMode();
+		clearBuildMode();
 		return;
 	}
 

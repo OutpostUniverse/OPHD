@@ -278,7 +278,7 @@ void MapViewState::unhideUi()
  */
 void MapViewState::resetUi()
 {
-	clearMode();
+	clearBuildMode();
 	clearSelections();
 
 	mWindowStack.hide();
@@ -521,7 +521,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotType::Digger))
 	{
 		mRobots.removeItem(constants::Robodigger);
-		clearMode();
+		clearBuildMode();
 	}
 
 	mDiggerDirection.visible(false);
