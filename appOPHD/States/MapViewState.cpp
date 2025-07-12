@@ -617,6 +617,12 @@ void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> re
 }
 
 
+void MapViewState::onMapObjectSelectionChanged()
+{
+	setCursor(isInserting() ? PointerType::PlaceTile : PointerType::Normal);
+}
+
+
 void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModifier)
 {
 	auto& tile = mTileMap->getTile(tilePosition);

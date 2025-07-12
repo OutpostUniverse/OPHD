@@ -1,14 +1,7 @@
 #include "MapViewState.h"
 
 #include "MapViewStateHelper.h"
-#include "../PointerType.h"
 #include "../MapObjects/RobotType.h"
-
-
-void MapViewState::onMapObjectSelectionChanged()
-{
-	setCursor(isInserting() ? PointerType::PlaceTile : PointerType::Normal);
-}
 
 
 bool MapViewState::isInserting() const
