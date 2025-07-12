@@ -131,14 +131,8 @@ void MapViewState::initUi()
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
 
 	// Menus
-	mRobots.position({mBtnTurns.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mRobots.size({52, constants::BottomUiHeight - constants::Margin * 2});
-
-	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mBottomUiRect.position.y + constants::Margin});
 	mConnections.size({52, constants::BottomUiHeight - constants::Margin * 2});
-
-	mStructures.position(NAS2D::Point{constants::Margin, mBottomUiRect.position.y + constants::Margin});
-	mStructures.size({mConnections.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2});
 
 	// Initial Structures
 	mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
