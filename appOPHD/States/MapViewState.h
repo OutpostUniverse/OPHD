@@ -288,6 +288,7 @@ private:
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 
+	ColonyShip& mColonyShip;
 	StructureTracker mStructureTracker;
 
 	ResearchTracker mResearchTracker;
@@ -387,6 +388,4 @@ private:
 	std::unique_ptr<NavControl> mNavControl;
 
 	NAS2D::Fade mFade;
-
-	ColonyShip& mColonyShip;
 };

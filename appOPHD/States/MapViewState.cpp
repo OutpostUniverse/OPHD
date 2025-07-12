@@ -157,6 +157,7 @@ namespace
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
+	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mLoadingExisting{true},
@@ -187,8 +188,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mQuitHandler{quitHandler},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
-	mRobotDeploymentSummary{mRobotPool},
-	mColonyShip{gameState.colonyShip()}
+	mRobotDeploymentSummary{mRobotPool}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
 }
@@ -199,6 +199,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
+	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
@@ -233,8 +234,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
-	mNavControl{std::make_unique<NavControl>(*mMapView)},
-	mColonyShip{gameState.colonyShip()}
+	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
 	setMeanSolarDistance(mPlanetAttributes.meanSolarDistance);
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
