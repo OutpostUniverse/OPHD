@@ -327,9 +327,13 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
+	// Map Object picking
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
 	RobotType mCurrentRobot; /**< Robot being placed. */
+	IconGrid mStructures;
+	IconGrid mRobots;
+	IconGrid mConnections;
 
 	// USER INTERFACE
 	Button mBtnTurns;
@@ -344,10 +348,6 @@ private:
 	Control mTooltipCurrentTurns;
 
 	ToolTip mToolTip;
-
-	IconGrid mStructures;
-	IconGrid mRobots;
-	IconGrid mConnections;
 
 	CheatMenu mCheatMenu;
 	DiggerDirection mDiggerDirection;
