@@ -21,7 +21,7 @@ namespace
 		Invalid
 	};
 
-	static const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
+	const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
 	{
 		{"goldrush", CheatMenu::CheatCode::AddResources },         // Add 1000 of each resource.
 		{"orderpizza", CheatMenu::CheatCode::AddFood},             // Refill your food supply completely
@@ -38,7 +38,7 @@ namespace
 		{"beepboop", CheatMenu::CheatCode::AddRobots}              // Add a RoboDigger, RoboMiner, and RoboDozer to the robot pool
 	};
 
-	static const auto maxCheatLength = std::ranges::max(std::views::transform(std::views::keys(cheatCodeTable), &std::string::size));
+	const auto maxCheatLength = std::ranges::max(std::views::transform(std::views::keys(cheatCodeTable), &std::string::size));
 }
 
 
