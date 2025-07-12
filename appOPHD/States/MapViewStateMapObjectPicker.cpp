@@ -25,6 +25,14 @@ void MapViewState::clearBuildMode()
 }
 
 
+void MapViewState::clearSelections()
+{
+	mStructures.clearSelection();
+	mConnections.clearSelection();
+	mRobots.clearSelection();
+}
+
+
 void MapViewState::onMouseWheel(NAS2D::Vector<int> changeAmount)
 {
 	if (mInsertMode != InsertMode::Tube) { return; }

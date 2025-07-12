@@ -277,14 +277,6 @@ void MapViewState::resetUi()
 }
 
 
-void MapViewState::clearSelections()
-{
-	mStructures.clearSelection();
-	mConnections.clearSelection();
-	mRobots.clearSelection();
-}
-
-
 /**
  * Adds selection options to the Structure Menu
  */
