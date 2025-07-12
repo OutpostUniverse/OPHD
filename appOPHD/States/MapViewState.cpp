@@ -705,7 +705,12 @@ void MapViewState::onClickMap()
 	}
 	else if (mInsertMode == InsertMode::Tube)
 	{
-		placeTubes(tile);
+		/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
+		* Should instead take advantage of the updated meta data in the IconGridItem.
+		*/
+		auto connectorDirection = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
+
+		placeTubes(tile, connectorDirection);
 	}
 }
 
@@ -780,7 +785,7 @@ void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
 }
 
 
-void MapViewState::placeTubes(Tile& tile)
+void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
 {
 	if (!tile.isBulldozed()) {
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeTerrain);
@@ -789,14 +794,9 @@ void MapViewState::placeTubes(Tile& tile)
 
 	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
-	/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
-	 * Should instead take advantage of the updated meta data in the IconGridItem.
-	 */
-	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
-
-	if (validTubeConnection(*mTileMap, tile.xyz(), cd))
+	if (validTubeConnection(*mTileMap, tile.xyz(), connectorDirection))
 	{
-		insertTube(cd, mMapView->currentDepth(), tile);
+		insertTube(connectorDirection, mMapView->currentDepth(), tile);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();
