@@ -795,9 +795,9 @@ void MapViewState::placeTubes(Tile& tile)
 	 */
 	auto cd = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
 
-	if (validTubeConnection(*mTileMap, mMouseTilePosition, cd))
+	if (validTubeConnection(*mTileMap, tile.xyz(), cd))
 	{
-		insertTube(cd, mMapView->currentDepth(), mTileMap->getTile(mMouseTilePosition));
+		insertTube(cd, mMapView->currentDepth(), tile);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();
