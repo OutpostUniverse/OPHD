@@ -614,7 +614,6 @@ void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> re
 {
 	if (!active()) { return; }
 	mMiniMap->onMouseMove(position, relative);
-	mMouseTilePosition = mDetailMap->mouseTilePosition();
 }
 
 
