@@ -970,7 +970,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		}
 
 		mMineOperationsWindow.hide();
-		const auto tilePosition = mDetailMap->mouseTilePosition().xy;
+		const auto tilePosition = tile.xy();
 		mTileMap->removeOreDepositLocation(tilePosition);
 		tile.placeOreDeposit(nullptr);
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
