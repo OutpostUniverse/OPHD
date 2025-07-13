@@ -74,7 +74,7 @@ public:
 	virtual void hasFocus(bool focus);
 	bool hasFocus() const;
 
-	virtual void update() { draw(); }
+	virtual void update();
 
 protected:
 	virtual void draw() const {}

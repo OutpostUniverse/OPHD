@@ -243,6 +243,12 @@ void Control::hasFocus(bool focus)
 }
 
 
+void Control::update()
+{
+	draw();
+}
+
+
 /**
  * Gets whether the Control is in focus or not.
  */
