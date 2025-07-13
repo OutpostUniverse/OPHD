@@ -82,8 +82,7 @@ namespace
 
 		if (robot.isPlaced())
 		{
-			const auto& tile = robot.tile();
-			const auto mapCoordinate = tile.xyz();
+			const auto mapCoordinate = robot.mapCoordinate();
 			dictionary += NAS2D::Dictionary{{
 				{"x", mapCoordinate.xy.x},
 				{"y", mapCoordinate.xy.y},
