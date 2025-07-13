@@ -372,11 +372,11 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 			auto& tile = mTileMap->getTile({{x, y}, depth});
 			mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 			tile.bulldoze();
-		}
 
-		if (depth > 0)
-		{
-			mRobotList[&robot]->excavated(true);
+			if (depth > 0)
+			{
+				mRobotList[&robot]->excavated(true);
+			}
 		}
 	}
 
