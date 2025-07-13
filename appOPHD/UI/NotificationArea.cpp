@@ -131,10 +131,8 @@ void NotificationArea::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int
 }
 
 
-void NotificationArea::draw() const
+void NotificationArea::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	size_t count = 0;
 	for (auto& notification : mNotificationList)
 	{

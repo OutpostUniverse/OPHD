@@ -17,7 +17,7 @@ public:
 	void playerResources(const StorableResources* resources) { mPlayerResources = resources; }
 	void previousResources(const StorableResources& resources) { mPreviousResources = resources; }
 	StorableResources& previousResources() { return mPreviousResources; }
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 private:
 	const NAS2D::Font& mFont;

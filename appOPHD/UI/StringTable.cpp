@@ -155,11 +155,6 @@ void StringTable::computeRelativeCellPositions()
 	}
 }
 
-void StringTable::draw() const
-{
-	draw(NAS2D::Utility<NAS2D::Renderer>::get());
-}
-
 void StringTable::accountForCellJustification(std::size_t index, int columnWidth)
 {
 	auto& cell = mCells[index];

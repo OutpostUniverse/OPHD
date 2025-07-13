@@ -169,7 +169,8 @@ void ResearchReport::refresh()
 
 void ResearchReport::update()
 {
-	draw();
+	auto& renderer = Utility<Renderer>::get();
+	draw(renderer);
 	ControlContainer::update();
 }
 
@@ -449,7 +450,7 @@ void ResearchReport::drawTopicDetailsPanel() const
 }
 
 
-void ResearchReport::draw() const
+void ResearchReport::draw(NAS2D::Renderer& /*renderer*/) const
 {
 	drawCategories();
 	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);

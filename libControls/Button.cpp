@@ -184,11 +184,9 @@ void Button::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relati
 }
 
 
-void Button::draw() const
+void Button::draw(NAS2D::Renderer& renderer) const
 {
 	if (!visible()) { return; }
-
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto& skin = (mIsPressed) ? mButtonSkin.pressed :
 		(enabled() && mMouseHover) ? mButtonSkin.hover : mButtonSkin.normal;

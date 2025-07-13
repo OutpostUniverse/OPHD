@@ -58,7 +58,7 @@ public:
 	void image(const std::string& path);
 	bool hasImage() const;
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);

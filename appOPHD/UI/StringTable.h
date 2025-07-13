@@ -49,7 +49,7 @@ public:
 	// Set default fonts in constructor
 	StringTable(std::size_t columns, std::size_t rows);
 
-	void draw(NAS2D::Renderer& renderer) const;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 	void setDefaultFont(NAS2D::Font& font);
 	void setDefaultTitleFont(const NAS2D::Font* font);
@@ -73,8 +73,6 @@ public:
 	void computeRelativeCellPositions();
 
 protected:
-	void draw() const override;
-
 	void accountForCellJustification(std::size_t index, int columnWidth);
 	std::vector<int> computeColumnWidths() const;
 	std::vector<int> computeRowHeights() const;

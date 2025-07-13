@@ -66,13 +66,14 @@ void Window::anchored(bool isAnchored)
 
 void Window::update()
 {
-	draw();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	draw(renderer);
 
 	ControlContainer::update();
 }
 
 
-void Window::draw() const
+void Window::draw(NAS2D::Renderer& /*renderer*/) const
 {
 	if (!visible()) { return; }
 

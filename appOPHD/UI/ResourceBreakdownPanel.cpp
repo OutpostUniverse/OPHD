@@ -36,9 +36,8 @@ ResourceBreakdownPanel::ResourceBreakdownPanel() :
 }
 
 
-void ResourceBreakdownPanel::draw() const
+void ResourceBreakdownPanel::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
 	const std::array resources

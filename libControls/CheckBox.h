@@ -28,7 +28,7 @@ public:
 	bool checked() const;
 
 protected:
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 

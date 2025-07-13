@@ -12,10 +12,9 @@ Image::Image(const NAS2D::Image& image) :
 }
 
 
-void Image::draw() const
+void Image::draw(NAS2D::Renderer& renderer) const
 {
 	if (!visible()) { return; }
 
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawImage(mImage, mRect.position);
 }

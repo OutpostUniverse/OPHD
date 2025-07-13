@@ -68,7 +68,7 @@ private:
 	void drawTopicLabRequirements() const;
 	void drawTopicHeaderPanel() const;
 	void drawTopicDetailsPanel() const;
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 private:
 	struct CategoryPanel

@@ -198,10 +198,8 @@ void IconGrid::hide()
 }
 
 
-void IconGrid::draw() const
+void IconGrid::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	mSkin.draw(renderer, mRect);
 
 	if (mGridSizeInIcons.x == 0) { return; }

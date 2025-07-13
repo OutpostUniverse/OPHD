@@ -14,7 +14,7 @@ class Image : public Control
 public:
 	Image(const NAS2D::Image& image);
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 private:
 	const NAS2D::Image& mImage;

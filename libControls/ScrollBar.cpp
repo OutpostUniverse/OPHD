@@ -138,14 +138,13 @@ void ScrollBar::update()
 		}
 	}
 
-	draw();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	draw(renderer);
 }
 
 
-void ScrollBar::draw() const
+void ScrollBar::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	mSkins.skinTrack.draw(renderer, mTrackRect);
 	mSkins.skinThumb.draw(renderer, mThumbRect);
 	mSkins.skinButtonDecrease.draw(renderer, mButtonDecreaseRect);

@@ -500,7 +500,7 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 		const auto productImagePosition = NAS2D::Point{originRight.x, lstProducts.position().y};
 		renderer.drawText(fontBigBold, ProductCatalog::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), productImagePosition);
-		mTxtProductDescription.draw();
+		mTxtProductDescription.draw(renderer);
 	}
 
 	if (selectedFactory->productType() == ProductType::PRODUCT_NONE) { return; }
@@ -529,14 +529,14 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 void FactoryReport::update()
 {
 	ControlContainer::update();
-	draw();
+	auto& renderer = Utility<Renderer>::get();
+	draw(renderer);
 }
 
 
-void FactoryReport::draw() const
+void FactoryReport::draw(NAS2D::Renderer& renderer) const
 {
 	if (!visible()) { return; }
-	auto& renderer = Utility<Renderer>::get();
 
 	const auto positionX = cboFilterByProduct.area().position.x + cboFilterByProduct.area().size.x;
 	renderer.drawLine(NAS2D::Point{positionX + 10, mRect.position.y + 10}, NAS2D::Point{positionX + 10, mRect.position.y + mRect.size.y - 10}, constants::PrimaryTextColor);

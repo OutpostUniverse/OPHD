@@ -26,7 +26,7 @@ public:
 	void mouseExitHandler(MouseEventDelegate newMouseExitHandler);
 
 	void update() override;
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	bool pointInCircle(NAS2D::Point<int> point) const;

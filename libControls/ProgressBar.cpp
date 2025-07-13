@@ -24,10 +24,8 @@ ProgressBar::ProgressBar(int max, int value, int padding) :
 }
 
 
-void ProgressBar::draw() const
+void ProgressBar::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	renderer.drawBox(mRect, borderColor);
 	if (mMax > 0)
 	{

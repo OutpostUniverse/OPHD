@@ -86,9 +86,8 @@ PopulationPanel::~PopulationPanel()
 }
 
 
-void PopulationPanel::draw() const
+void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
 	const int fontHeight = mFont.height();

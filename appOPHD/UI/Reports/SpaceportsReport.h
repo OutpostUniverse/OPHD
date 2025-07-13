@@ -32,7 +32,7 @@ private:
 	void onResize() override;
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;

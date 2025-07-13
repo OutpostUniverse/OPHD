@@ -98,15 +98,15 @@ void ToolTip::update()
 	{
 		return;
 	}
-	draw();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	draw(renderer);
 }
 
 
-void ToolTip::draw() const
+void ToolTip::draw(NAS2D::Renderer& renderer) const
 {
 	if (mFocus)
 	{
-		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 		renderer.drawBoxFilled(area(), NAS2D::Color::DarkGray);
 		renderer.drawBox(area(), NAS2D::Color::Black);
 		renderer.drawText(mFont, mFocus->text, position() + PaddingSize);

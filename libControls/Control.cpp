@@ -1,5 +1,7 @@
 #include "Control.h"
 
+#include <NAS2D/Utility.h>
+#include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/ResourceCache.h>
 
@@ -245,7 +247,8 @@ void Control::hasFocus(bool focus)
 
 void Control::update()
 {
-	draw();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	draw(renderer);
 }
 
 

@@ -11,6 +11,7 @@ namespace NAS2D
 {
 	class Font;
 	class Image;
+	class Renderer;
 
 	template <typename Resource, typename... Params> class ResourceCache;
 }
@@ -77,7 +78,7 @@ public:
 	virtual void update();
 
 protected:
-	virtual void draw() const {}
+	virtual void draw(NAS2D::Renderer& /*renderer*/) const {}
 
 	virtual void onMove(NAS2D::Vector<int> /*displacement*/) {}
 	virtual void onResize() {}

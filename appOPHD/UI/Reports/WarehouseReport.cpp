@@ -376,14 +376,13 @@ void WarehouseReport::drawRightPanel(Renderer& renderer) const
 void WarehouseReport::update()
 {
 	ControlContainer::update();
-	draw();
+	auto& renderer = Utility<Renderer>::get();
+	draw(renderer);
 }
 
 
-void WarehouseReport::draw() const
+void WarehouseReport::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	// Left Panel
 	drawLeftPanel(renderer);
 	const auto position = NAS2D::Point{renderer.center().x, this->position().y};

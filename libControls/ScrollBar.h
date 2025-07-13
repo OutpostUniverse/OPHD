@@ -51,7 +51,7 @@ public:
 	void update() override;
 
 protected:
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 	void onButtonClick(bool& buttonFlag, int value);
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);

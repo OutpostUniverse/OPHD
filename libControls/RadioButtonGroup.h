@@ -36,7 +36,7 @@ private:
 		const std::string& text() const;
 
 	protected:
-		void draw() const override;
+		void draw(NAS2D::Renderer& renderer) const override;
 
 		void onResize() override;
 		void onTextChange();

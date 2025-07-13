@@ -38,7 +38,7 @@ public:
 	void refresh() override;
 
 	void update() override;
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 private:
 	const Warehouse* selectedWarehouse() const;

@@ -31,7 +31,7 @@ public:
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	friend MapViewState;

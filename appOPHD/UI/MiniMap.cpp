@@ -54,9 +54,8 @@ void MiniMap::heightMapVisible(bool isVisible)
 /**
  * Draws the minimap and all icons/overlays for it.
  */
-void MiniMap::draw() const
+void MiniMap::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto miniMapFloatRect = mRect.to<float>();
 	renderer.clipRect(miniMapFloatRect);
 

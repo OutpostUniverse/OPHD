@@ -87,10 +87,8 @@ void NavControl::onClick(NAS2D::Point<int> mousePosition)
 /**
  * Draws navigation UI.
  */
-void NavControl::draw() const
+void NavControl::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	const auto buttonDrawRects =
 	{
 		std::tuple{mMoveDownIconRect, NAS2D::Rectangle{{64, 128}, iconSizeLarge}},
