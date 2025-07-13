@@ -12,8 +12,7 @@ namespace NAS2D
 	class Font;
 	class Image;
 
-	template <typename Resource, typename... Params>
-	class ResourceCache;
+	template <typename Resource, typename... Params> class ResourceCache;
 }
 
 
