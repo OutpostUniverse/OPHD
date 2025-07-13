@@ -375,7 +375,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 
 			if (depth > 0)
 			{
-				mRobotList[&robot]->excavated(true);
+				tile.excavated(true);
 			}
 		}
 	}
