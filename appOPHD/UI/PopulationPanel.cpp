@@ -15,7 +15,6 @@
 
 #include <libControls/LoadRectangleSkin.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>
 

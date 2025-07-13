@@ -7,7 +7,6 @@
 
 #include <libOPHD/DirectionOffset.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Math/Point.h>
