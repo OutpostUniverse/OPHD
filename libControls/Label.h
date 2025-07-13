@@ -32,7 +32,7 @@ public:
 	void color(const NAS2D::Color& color);
 
 protected:
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 	void autoSize();
 
 private:

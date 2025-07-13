@@ -23,7 +23,7 @@ public:
 	void text(const std::string& text);
 	const std::string& text() const;
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onResize() override;

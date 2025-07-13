@@ -29,7 +29,7 @@ public:
 	void ignoreGlow(const bool ignore);
 
 	void update() override;
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;

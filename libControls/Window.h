@@ -30,7 +30,7 @@ public:
 	const std::string& title() const { return mTitle; }
 
 protected:
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 	void drawTitleBar() const;
 	virtual void drawClientArea() const {}
 

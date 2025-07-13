@@ -39,10 +39,8 @@ void TextArea::onResize()
 }
 
 
-void TextArea::draw() const
+void TextArea::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::White); }
 
 	const auto displayAreaLineCount = static_cast<std::size_t>(mRect.size.y / mFont.height());

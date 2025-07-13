@@ -15,7 +15,6 @@
 
 #include <libControls/LoadRectangleSkin.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -86,9 +85,8 @@ PopulationPanel::~PopulationPanel()
 }
 
 
-void PopulationPanel::draw() const
+void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
 	mSkin.draw(renderer, mRect);
 
 	const int fontHeight = mFont.height();

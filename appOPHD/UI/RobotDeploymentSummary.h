@@ -16,7 +16,7 @@ class RobotDeploymentSummary : public Control
 public:
 	RobotDeploymentSummary(const RobotPool& robotPool);
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 private:
 	const RobotPool& mRobotPool;

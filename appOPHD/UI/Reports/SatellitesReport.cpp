@@ -53,7 +53,8 @@ void SatellitesReport::refresh()
 
 void SatellitesReport::update()
 {
-	draw();
+	auto& renderer = Utility<Renderer>::get();
+	draw(renderer);
 	ControlContainer::update();
 }
 
@@ -68,10 +69,8 @@ void SatellitesReport::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<i
 }
 
 
-void SatellitesReport::draw() const
+void SatellitesReport::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	renderer.drawImage(imageNotImplemented, area().startPoint() + Vector<int>{10, 10});
 	renderer.drawText(fontBigBold, "Satellites Report", area().startPoint() + Vector<int>{148, 10}, constants::PrimaryTextColor);
 	renderer.drawText(fontMedium, "This panel intentionally left blank.", area().startPoint() + Vector<int>{148, 20 + fontBigBold.height()}, constants::PrimaryTextColor);

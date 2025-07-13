@@ -21,7 +21,7 @@ class NavControl : public Control
 public:
 	NavControl(MapView& mapView);
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onMove(NAS2D::Vector<int> displacement) override;

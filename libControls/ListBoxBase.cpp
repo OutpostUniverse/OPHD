@@ -213,14 +213,14 @@ void ListBoxBase::update()
 {
 	if (!visible()) { return; }
 
-	draw();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	draw(renderer);
 	mScrollBar.update();
 }
 
 
-void ListBoxBase::draw() const
+void ListBoxBase::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBox(mRect, borderColor());
 	drawScrollArea(renderer);
 }

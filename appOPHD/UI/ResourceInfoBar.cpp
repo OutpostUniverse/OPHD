@@ -117,17 +117,16 @@ void ResourceInfoBar::ignoreGlow(const bool ignore)
 void ResourceInfoBar::update()
 {
 	ControlContainer::update();
-	draw();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	draw(renderer);
 }
 
 
 /**
  * Draws the resource information bar.
  */
-void ResourceInfoBar::draw() const
+void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	renderer.drawBoxFilled(mRect, NAS2D::Color{39, 39, 39});
 	renderer.drawBox(mRect, NAS2D::Color{21, 21, 21});
 	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.size().x - 2, 0}, NAS2D::Color{56, 56, 56});

@@ -11,9 +11,8 @@ Rectangle::Rectangle(NAS2D::Color color, NAS2D::Vector<int> newSize) :
 }
 
 
-void Rectangle::draw() const
+void Rectangle::draw(NAS2D::Renderer& renderer) const
 {
 	if (!visible()) { return; }
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(mRect, mColor);
 }

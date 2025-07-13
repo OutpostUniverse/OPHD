@@ -359,7 +359,7 @@ NAS2D::State* MapViewState::update()
 	}
 
 	mDetailMap->update();
-	mDetailMap->draw();
+	mDetailMap->draw(renderer);
 
 	// FIXME: Ugly / hacky
 	if (modalUiElementDisplayed())

@@ -1,6 +1,5 @@
 #include "StringTable.h"
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Renderer/Renderer.h>
 
@@ -153,11 +152,6 @@ void StringTable::computeRelativeCellPositions()
 	{
 		mRect.size = mCells.back().textOffset + NAS2D::Vector{columnWidths.back(), rowHeights.back()};
 	}
-}
-
-void StringTable::draw() const
-{
-	draw(NAS2D::Utility<NAS2D::Renderer>::get());
 }
 
 void StringTable::accountForCellJustification(std::size_t index, int columnWidth)

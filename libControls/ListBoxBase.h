@@ -49,7 +49,7 @@ public:
 	void update() override;
 
 protected:
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 	void drawScrollArea(NAS2D::Renderer& renderer) const;
 	virtual void drawItemCell(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const;
 	virtual void drawItem(NAS2D::Renderer& renderer, NAS2D::Rectangle<int> drawArea, std::size_t index) const = 0;

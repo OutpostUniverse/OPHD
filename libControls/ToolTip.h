@@ -33,7 +33,7 @@ protected:
 		std::string text;
 	};
 
-	void draw() const override;
+	void draw(NAS2D::Renderer& renderer) const override;
 
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 

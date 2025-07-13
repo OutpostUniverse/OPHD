@@ -129,10 +129,8 @@ void DetailMap::update()
 }
 
 
-void DetailMap::draw() const
+void DetailMap::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	int tsetOffset = mMapView.currentDepth() > 0 ? TileDrawSize.y : 0;
 
 	for (const auto tilePosition : PointInRectangleRange{mMapView.viewTileRect()})

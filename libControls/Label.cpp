@@ -46,11 +46,9 @@ void Label::color(const NAS2D::Color& color)
 }
 
 
-void Label::draw() const
+void Label::draw(NAS2D::Renderer& renderer) const
 {
 	if (!visible()) { return; }
-
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 
 	const auto textPosition = mRect.position + padding;
 	renderer.drawText(*mFont, mText, textPosition, mTextColor);

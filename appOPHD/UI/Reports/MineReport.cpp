@@ -473,14 +473,13 @@ void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin) const
 void MineReport::update()
 {
 	ControlContainer::update();
-	draw();
+	auto& renderer = Utility<Renderer>::get();
+	draw(renderer);
 }
 
 
-void MineReport::draw() const
+void MineReport::draw(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	const auto startPoint = NAS2D::Point{area().center().x , area().position.y + 10};
 
 	renderer.drawLine(startPoint, startPoint + NAS2D::Vector{0, area().size.y - 20}, constants::PrimaryTextColor);

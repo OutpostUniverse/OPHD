@@ -357,9 +357,9 @@ void MapViewState::drawUI()
 	renderer.drawBox(mBottomUiRect, NAS2D::Color{21, 21, 21});
 	renderer.drawLine(NAS2D::Point{mBottomUiRect.position.x + 1, mBottomUiRect.position.y}, NAS2D::Point{mBottomUiRect.position.x + mBottomUiRect.size.x - 2, mBottomUiRect.position.y}, NAS2D::Color{56, 56, 56});
 
-	mMiniMap->draw();
-	mNavControl->draw();
-	mRobotDeploymentSummary.draw();
+	mMiniMap->draw(renderer);
+	mNavControl->draw(renderer);
+	mRobotDeploymentSummary.draw(renderer);
 
 	if (mResourceInfoBar.isPopulationPanelVisible()) { mPopulationPanel.update(); }
 	if (mResourceInfoBar.isResourcePanelVisible()) { mResourceBreakdownPanel.update(); }
