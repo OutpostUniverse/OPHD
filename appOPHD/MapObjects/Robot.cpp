@@ -82,6 +82,12 @@ void Robot::startTask(Tile& tile, int turns)
 }
 
 
+bool Robot::isPlaced() const
+{
+	return mTurnsToCompleteTask > 0 && mTile;
+}
+
+
 Tile& Robot::tile()
 {
 	if (!mTile) { throw std::runtime_error("Robot must be placed"); }

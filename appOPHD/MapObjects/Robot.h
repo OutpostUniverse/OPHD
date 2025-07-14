@@ -41,6 +41,7 @@ public:
 
 	virtual void abortTask(Tile& /*tile*/) {}
 
+	bool isPlaced() const;
 	Tile& tile();
 	const Tile& tile() const;
 
