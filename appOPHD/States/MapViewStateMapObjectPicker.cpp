@@ -1,7 +1,7 @@
 #include "MapViewState.h"
 
 #include "MapViewStateHelper.h"
-#include "../MapObjects/RobotType.h"
+#include "../MapObjects/RobotTypeIndex.h"
 
 
 bool MapViewState::isInserting() const
@@ -20,7 +20,7 @@ void MapViewState::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;
 	mCurrentStructure = StructureID::SID_NONE;
-	mCurrentRobot = RobotType::None;
+	mCurrentRobot = RobotTypeIndex::None;
 	onMapObjectSelectionChanged();
 }
 
@@ -102,7 +102,7 @@ void MapViewState::onRobotsSelectionChange(const IconGridItem* item)
 	mConnections.clearSelection();
 	mStructures.clearSelection();
 
-	mCurrentRobot = static_cast<RobotType>(item->meta);
+	mCurrentRobot = static_cast<RobotTypeIndex>(item->meta);
 	mInsertMode = InsertMode::Robot;
 	onMapObjectSelectionChanged();
 }

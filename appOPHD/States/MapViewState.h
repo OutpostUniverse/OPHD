@@ -70,7 +70,7 @@ namespace micropather
 }
 
 enum class Direction;
-enum class RobotType;
+enum class RobotTypeIndex;
 
 class Structure;
 class Tile;
@@ -168,13 +168,13 @@ private:
 
 	void placeTubes(Tile& tile, ConnectorDir connectorDirection);
 	void placeStructure(Tile& tile, StructureID structureID);
-	void placeRobot(Tile& tile, RobotType robotType);
+	void placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
 
-	Robot& addRobot(RobotType type);
+	Robot& addRobot(RobotTypeIndex robotTypeIndex);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
@@ -332,7 +332,7 @@ private:
 	// Map Object picking
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
-	RobotType mCurrentRobot; /**< Robot being placed. */
+	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
 	IconGrid mStructures;
 	IconGrid mRobots;
 	IconGrid mConnections;

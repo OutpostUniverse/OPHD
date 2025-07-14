@@ -305,7 +305,7 @@
     <ClInclude Include="MapObjects\Robots\Robominer.h" />
     <ClInclude Include="MapObjects\Robot.h" />
     <ClInclude Include="MapObjects\Robots.h" />
-    <ClInclude Include="MapObjects\RobotType.h" />
+    <ClInclude Include="MapObjects\RobotTypeIndex.h" />
     <ClInclude Include="MapObjects\Structure.h" />
     <ClInclude Include="MapObjects\StructureClass.h" />
     <ClInclude Include="MapObjects\Structures.h" />

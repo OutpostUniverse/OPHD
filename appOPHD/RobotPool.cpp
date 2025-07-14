@@ -144,28 +144,28 @@ void RobotPool::erase(Robot* robot)
 
 
 /**
- * Adds a robot of specified type to the pool.
+ * Adds a robot of specified robotTypeIndex to the pool.
  *
- * \return Returns a reference to the robot, or throws if type was invalid.
+ * \return Returns a reference to the robot, or throws if robotTypeIndex was invalid.
  */
-Robot& RobotPool::addRobot(RobotType type)
+Robot& RobotPool::addRobot(RobotTypeIndex robotTypeIndex)
 {
-	switch (type)
+	switch (robotTypeIndex)
 	{
-	case RobotType::Dozer:
+	case RobotTypeIndex::Dozer:
 		mDozers.emplace_back();
 		mRobots.push_back(&mDozers.back());
 		break;
-	case RobotType::Digger:
+	case RobotTypeIndex::Digger:
 		mDiggers.emplace_back();
 		mRobots.push_back(&mDiggers.back());
 		break;
-	case RobotType::Miner:
+	case RobotTypeIndex::Miner:
 		mMiners.emplace_back();
 		mRobots.push_back(&mMiners.back());
 		break;
 	default:
-		throw std::runtime_error("Unknown RobotType: " + std::to_string(static_cast<int>(type)));
+		throw std::runtime_error("Unknown RobotTypeIndex: " + std::to_string(static_cast<int>(robotTypeIndex)));
 	}
 
 	return *mRobots.back();
@@ -200,23 +200,23 @@ Robominer& RobotPool::getMiner()
 
 
 /**
- * Determines if a requested robot type is available.
+ * Determines if a requested robot robotTypeIndex is available.
  *
- * \return	Returns true if the requested robot type is available. False otherwise.
+ * \return	Returns true if the requested robot robotTypeIndex is available. False otherwise.
  */
-bool RobotPool::robotAvailable(RobotType type) const
+bool RobotPool::robotAvailable(RobotTypeIndex robotTypeIndex) const
 {
-	switch (type)
+	switch (robotTypeIndex)
 	{
-	case RobotType::Digger:
+	case RobotTypeIndex::Digger:
 	{
 		return hasIdleRobot(mDiggers);
 	}
-	case RobotType::Dozer:
+	case RobotTypeIndex::Dozer:
 	{
 		return hasIdleRobot(mDozers);
 	}
-	case RobotType::Miner:
+	case RobotTypeIndex::Miner:
 	{
 		return hasIdleRobot(mMiners);
 	}
@@ -228,17 +228,17 @@ bool RobotPool::robotAvailable(RobotType type) const
 }
 
 
-std::size_t RobotPool::getAvailableCount(RobotType type) const
+std::size_t RobotPool::getAvailableCount(RobotTypeIndex robotTypeIndex) const
 {
-	switch (type)
+	switch (robotTypeIndex)
 	{
-	case RobotType::Digger:
+	case RobotTypeIndex::Digger:
 		return getIdleCount(mDiggers);
 
-	case RobotType::Dozer:
+	case RobotTypeIndex::Dozer:
 		return getIdleCount(mDozers);
 
-	case RobotType::Miner:
+	case RobotTypeIndex::Miner:
 		return getIdleCount(mMiners);
 
 	default:
