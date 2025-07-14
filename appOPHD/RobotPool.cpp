@@ -76,14 +76,13 @@ namespace
 	}
 
 
-	NAS2D::Dictionary robotToDictionary(RobotPool::RobotTileTable& robotTileTable, Robot& robot)
+	NAS2D::Dictionary robotToDictionary(RobotPool::RobotTileTable& /*robotTileTable*/, Robot& robot)
 	{
 		NAS2D::Dictionary dictionary = robot.getDataDict();
 
-		const auto it = robotTileTable.find(&robot);
-		if (it != robotTileTable.end())
+		if (robot.isPlaced())
 		{
-			const auto& tile = *it->second;
+			const auto& tile = robot.tile();
 			const auto position = tile.xy();
 			dictionary += NAS2D::Dictionary{{
 				{"x", position.x},
