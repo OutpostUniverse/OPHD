@@ -18,15 +18,15 @@ namespace
 		RobotType{constants::Robominer, "robots/robominer.sprite", "ui/interface/product_robominer.png"},
 	};
 
-	const std::map<RobotTypeIndex, int> basicTaskTime{
-		{RobotTypeIndex::Dozer, 0},
-		{RobotTypeIndex::Digger, constants::DiggerTaskTime},
-		{RobotTypeIndex::Miner, constants::MinerTaskTime},
+	constexpr std::array basicTaskTime{
+		constants::DiggerTaskTime,
+		0,
+		constants::MinerTaskTime,
 	};
 
 	int getTaskTime(RobotTypeIndex robotTypeIndex, Tile& tile)
 	{
-		return std::max(1, basicTaskTime.at(robotTypeIndex) + static_cast<int>(tile.index()));
+		return std::max(1, basicTaskTime.at(static_cast<std::size_t>(robotTypeIndex)) + static_cast<int>(tile.index()));
 	}
 }
 
