@@ -13,20 +13,14 @@
 namespace
 {
 	const std::array robotTypes{
-		RobotType{constants::Robodigger, "robots/robodigger.sprite", "ui/interface/product_robodigger.png"},
-		RobotType{constants::Robodozer, "robots/robodozer.sprite", "ui/interface/product_robodozer.png"},
-		RobotType{constants::Robominer, "robots/robominer.sprite", "ui/interface/product_robominer.png"},
-	};
-
-	constexpr std::array basicTaskTime{
-		constants::DiggerTaskTime,
-		0,
-		constants::MinerTaskTime,
+		RobotType{constants::Robodigger, "robots/robodigger.sprite", "ui/interface/product_robodigger.png", constants::DiggerTaskTime},
+		RobotType{constants::Robodozer, "robots/robodozer.sprite", "ui/interface/product_robodozer.png", 0},
+		RobotType{constants::Robominer, "robots/robominer.sprite", "ui/interface/product_robominer.png", constants::MinerTaskTime},
 	};
 
 	int getTaskTime(RobotTypeIndex robotTypeIndex, Tile& tile)
 	{
-		return std::max(1, basicTaskTime.at(static_cast<std::size_t>(robotTypeIndex)) + static_cast<int>(tile.index()));
+		return std::max(1, Robot::robotType(robotTypeIndex).basicTaskTime + static_cast<int>(tile.index()));
 	}
 }
 
