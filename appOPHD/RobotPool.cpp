@@ -265,7 +265,7 @@ void RobotPool::update()
 }
 
 
-void RobotPool::insertRobotIntoTable(std::map<Robot*, Tile*>& deployedRobots, Robot& robot, Tile& tile)
+void RobotPool::insertRobotIntoTable(std::vector<Robot*>& deployedRobots, Robot& robot, Tile& tile)
 {
 	// Add pre-check for control count against max capacity, with one caveat
 	// When loading saved games a control max won't have been set yet as robots are loaded before structures
@@ -275,10 +275,10 @@ void RobotPool::insertRobotIntoTable(std::map<Robot*, Tile*>& deployedRobots, Ro
 		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + " / " + std::to_string(mRobotControlMax));
 	}
 
-	auto it = deployedRobots.find(&robot);
+	auto it = std::find(deployedRobots.begin(), deployedRobots.end(), &robot);
 	if (it != deployedRobots.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
-	deployedRobots[&robot] = &tile;
+	deployedRobots.push_back(&robot);
 	tile.mapObject(&robot);
 
 	++mRobotControlCount;

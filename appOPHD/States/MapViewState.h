@@ -50,7 +50,7 @@
 
 #include <string>
 #include <memory>
-#include <map>
+#include <vector>
 
 
 namespace NAS2D
@@ -310,7 +310,7 @@ private:
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
-	std::map<Robot*, Tile*> mDeployedRobots;
+	std::vector<Robot*> mDeployedRobots;
 	Population mPopulation;
 
 	// ROUTING

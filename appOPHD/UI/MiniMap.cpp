@@ -28,7 +28,7 @@ namespace
 }
 
 
-MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::map<Robot*, Tile*>& deployedRobots, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::vector<Robot*>& deployedRobots, const std::string& mapName) :
 	mMapView{mapView},
 	mTileMap{tileMap},
 	mDeployedRobots{deployedRobots},
@@ -108,9 +108,9 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 		}
 	}
 
-	for (auto robotEntry : mDeployedRobots)
+	for (const auto* robot : mDeployedRobots)
 	{
-		const auto robotPosition = robotEntry.first->tile().xy();
+		const auto robotPosition = robot->tile().xy();
 		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 

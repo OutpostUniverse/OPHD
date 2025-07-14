@@ -1238,7 +1238,7 @@ void MapViewState::updateRobots()
 	auto robot_it = mDeployedRobots.begin();
 	while (robot_it != mDeployedRobots.end())
 	{
-		auto& robot = *robot_it->first;
+		auto& robot = **robot_it;
 		auto& tile = robot.tile();
 
 		robot.processTurn(*mTileMap);
@@ -1370,9 +1370,9 @@ void MapViewState::updatePoliceOverlay()
  */
 void MapViewState::scrubRobotList()
 {
-	for (auto it : mDeployedRobots)
+	for (auto* robot : mDeployedRobots)
 	{
-		it.second->removeMapObject();
+		robot->tile().removeMapObject();
 	}
 }
 
