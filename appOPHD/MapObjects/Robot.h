@@ -28,6 +28,7 @@ public:
 	Robot(RobotTypeIndex robotTypeIndex);
 	Robot(RobotTypeIndex robotTypeIndex, const RobotType& robotType);
 
+	const RobotType& robotType() const;
 	const std::string& name() const override;
 
 	bool isDead() const;

@@ -49,6 +49,12 @@ Robot::Robot(RobotTypeIndex robotTypeIndex, const RobotType& robotType) :
 {}
 
 
+const RobotType& Robot::robotType() const
+{
+	return mRobotType;
+}
+
+
 const std::string& Robot::name() const
 {
 	return mRobotType.name;
