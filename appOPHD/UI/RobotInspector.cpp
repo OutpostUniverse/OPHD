@@ -10,6 +10,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
+#include <array>
 #include <algorithm>
 
 
@@ -20,13 +21,13 @@ namespace
 {
 	const NAS2D::Image& robotImage(RobotTypeIndex robotTypeIndex)
 	{
-		static const std::map<RobotTypeIndex, const Image*> robotImages
+		static const std::array robotImages
 		{
-			{RobotTypeIndex::Digger, &imageCache.load(Robot::robotType(RobotTypeIndex::Digger).imagePath)},
-			{RobotTypeIndex::Dozer, &imageCache.load(Robot::robotType(RobotTypeIndex::Dozer).imagePath)},
-			{RobotTypeIndex::Miner, &imageCache.load(Robot::robotType(RobotTypeIndex::Miner).imagePath)}
+			&imageCache.load(Robot::robotType(RobotTypeIndex::Digger).imagePath),
+			&imageCache.load(Robot::robotType(RobotTypeIndex::Dozer).imagePath),
+			&imageCache.load(Robot::robotType(RobotTypeIndex::Miner).imagePath),
 		};
-		return *robotImages.at(robotTypeIndex);
+		return *robotImages.at(static_cast<std::size_t>(robotTypeIndex));
 	}
 }
 
