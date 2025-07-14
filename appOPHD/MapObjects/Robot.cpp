@@ -31,8 +31,14 @@ namespace
 }
 
 
+const RobotType& Robot::robotType(RobotTypeIndex robotTypeIndex)
+{
+	return robotTypes.at(static_cast<std::size_t>(robotTypeIndex));
+}
+
+
 Robot::Robot(RobotTypeIndex robotTypeIndex) :
-	Robot{robotTypeIndex, robotTypes.at(static_cast<std::size_t>(robotTypeIndex))}
+	Robot{robotTypeIndex, robotType(robotTypeIndex)}
 {}
 
 

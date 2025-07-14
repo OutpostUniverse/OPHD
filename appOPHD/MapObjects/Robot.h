@@ -22,6 +22,8 @@ class Robot : public MapObject
 public:
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
+	static const RobotType& robotType(RobotTypeIndex robotTypeIndex);
+
 public:
 	Robot(RobotTypeIndex robotTypeIndex);
 	Robot(RobotTypeIndex robotTypeIndex, const RobotType& robotType);
