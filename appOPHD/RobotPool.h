@@ -30,7 +30,6 @@ public:
 	using DiggerList = std::list<Robodigger>;
 	using DozerList = std::list<Robodozer>;
 	using MinerList = std::list<Robominer>;
-	using RobotTileTable = std::map<Robot*, Tile*>;
 
 public:
 	RobotPool();
@@ -59,7 +58,7 @@ public:
 
 	void clear();
 	void erase(Robot* robot);
-	void insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile);
+	void insertRobotIntoTable(std::map<Robot*, Tile*>& robotMap, Robot& robot, Tile& tile);
 
 	std::size_t robotControlMax() const { return mRobotControlMax; }
 	std::size_t currentControlCount() const { return mRobotControlCount; }

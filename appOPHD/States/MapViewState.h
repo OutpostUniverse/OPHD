@@ -93,8 +93,6 @@ enum class InsertMode
 	Structure
 };
 
-using RobotTileTable = std::map<Robot*, Tile*>;
-
 
 class MapViewState : public Wrapper
 {
@@ -312,7 +310,7 @@ private:
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
-	RobotTileTable mRobotList; /**< List of active robots and their positions on the map. */
+	std::map<Robot*, Tile*> mRobotList; /**< List of active robots and their positions on the map. */
 	Population mPopulation;
 
 	// ROUTING

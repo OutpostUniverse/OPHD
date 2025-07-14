@@ -265,7 +265,7 @@ void RobotPool::update()
 }
 
 
-void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile)
+void RobotPool::insertRobotIntoTable(std::map<Robot*, Tile*>& robotMap, Robot& robot, Tile& tile)
 {
 	// Add pre-check for control count against max capacity, with one caveat
 	// When loading saved games a control max won't have been set yet as robots are loaded before structures
