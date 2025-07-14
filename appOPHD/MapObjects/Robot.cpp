@@ -1,13 +1,23 @@
 #include "Robot.h"
 
+#include "RobotType.h"
 #include "../Constants/Numbers.h"
+#include "../Constants/Strings.h"
 #include "../Map/Tile.h"
 
 #include <NAS2D/Dictionary.h>
 
+#include <array>
+
 
 namespace
 {
+	const std::array robotTypes{
+		RobotType{constants::Robodigger, "robots/robodigger.sprite"},
+		RobotType{constants::Robodozer, "robots/robodozer.sprite"},
+		RobotType{constants::Robominer, "robots/robominer.sprite"},
+	};
+
 	const std::map<RobotTypeIndex, int> basicTaskTime{
 		{RobotTypeIndex::Dozer, 0},
 		{RobotTypeIndex::Digger, constants::DiggerTaskTime},
@@ -21,9 +31,15 @@ namespace
 }
 
 
-Robot::Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex robotTypeIndex) :
-	MapObject(spritePath, "running"),
-	mName(name),
+Robot::Robot(RobotTypeIndex robotTypeIndex) :
+	Robot{robotTypeIndex, robotTypes.at(static_cast<std::size_t>(robotTypeIndex))}
+{}
+
+
+Robot::Robot(RobotTypeIndex robotTypeIndex, const RobotType& robotType) :
+	MapObject(robotType.spritePath, "running"),
+	mRobotType{robotType},
+	mName(robotType.name),
 	mRobotTypeIndex{robotTypeIndex}
 {}
 

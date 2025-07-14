@@ -14,7 +14,7 @@
 
 
 Robominer::Robominer() :
-	Robot(constants::Robominer, "robots/robominer.sprite", RobotTypeIndex::Miner)
+	Robot(RobotTypeIndex::Miner)
 {
 }
 

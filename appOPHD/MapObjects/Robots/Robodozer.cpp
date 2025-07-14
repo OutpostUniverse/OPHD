@@ -5,7 +5,7 @@
 
 
 Robodozer::Robodozer() :
-	Robot(constants::Robodozer, "robots/robodozer.sprite", RobotTypeIndex::Dozer)
+	Robot(RobotTypeIndex::Dozer)
 {
 }
 
