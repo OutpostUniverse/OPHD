@@ -37,7 +37,7 @@ public:
 	virtual void processTurn(TileMap& tileMap);
 
 	virtual void startTask(Tile& tile);
-	void startTask(int turns);
+	void startTask(Tile& tile, int turns);
 
 	virtual void abortTask(Tile& /*tile*/) {}
 
