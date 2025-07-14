@@ -61,7 +61,6 @@ protected:
 
 private:
 	const RobotType& mRobotType;
-	const std::string& mName;
 	const RobotTypeIndex mRobotTypeIndex;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;

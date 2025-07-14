@@ -39,14 +39,13 @@ Robot::Robot(RobotTypeIndex robotTypeIndex) :
 Robot::Robot(RobotTypeIndex robotTypeIndex, const RobotType& robotType) :
 	MapObject(robotType.spritePath, "running"),
 	mRobotType{robotType},
-	mName(robotType.name),
 	mRobotTypeIndex{robotTypeIndex}
 {}
 
 
 const std::string& Robot::name() const
 {
-	return mName;
+	return mRobotType.name;
 }
 
 
