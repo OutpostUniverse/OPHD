@@ -76,7 +76,7 @@ namespace
 	}
 
 
-	NAS2D::Dictionary robotToDictionary(RobotPool::RobotTileTable& /*robotTileTable*/, Robot& robot)
+	NAS2D::Dictionary robotToDictionary(Robot& robot)
 	{
 		NAS2D::Dictionary dictionary = robot.getDataDict();
 
@@ -285,13 +285,13 @@ void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 }
 
 
-NAS2D::Xml::XmlElement* RobotPool::writeRobots(RobotTileTable& robotMap)
+NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 {
 	auto* robots = new NAS2D::Xml::XmlElement("robots");
 
 	for (auto robot : mRobots)
 	{
-		auto dictionary = robotToDictionary(robotMap, *robot);
+		auto dictionary = robotToDictionary(*robot);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 

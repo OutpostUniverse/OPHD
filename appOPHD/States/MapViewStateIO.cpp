@@ -169,7 +169,7 @@ void MapViewState::save(NAS2D::Xml::XmlDocument& saveGameDocument)
 	mTileMap->serialize(root);
 	mMapView->serialize(root);
 	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
-	root->linkEndChild(mRobotPool.writeRobots(mRobotList));
+	root->linkEndChild(mRobotPool.writeRobots());
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));

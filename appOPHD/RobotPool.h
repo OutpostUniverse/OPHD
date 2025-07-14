@@ -66,7 +66,7 @@ public:
 
 	const RobotList& robots() const { return mRobots; }
 
-	NAS2D::Xml::XmlElement* writeRobots(RobotTileTable& robotMap);
+	NAS2D::Xml::XmlElement* writeRobots();
 
 private:
 	DiggerList mDiggers;
