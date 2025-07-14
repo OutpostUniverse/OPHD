@@ -36,14 +36,14 @@ public:
 	RobotPool();
 	~RobotPool();
 
-	Robot& addRobot(RobotTypeIndex type);
+	Robot& addRobot(RobotTypeIndex robotTypeIndex);
 
 	Robodigger& getDigger();
 	Robodozer& getDozer();
 	Robominer& getMiner();
 
-	bool robotAvailable(RobotTypeIndex type) const;
-	std::size_t getAvailableCount(RobotTypeIndex type) const;
+	bool robotAvailable(RobotTypeIndex robotTypeIndex) const;
+	std::size_t getAvailableCount(RobotTypeIndex robotTypeIndex) const;
 
 	bool isControlCapacityAvailable() const { return mRobotControlCount < mRobotControlMax; }
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }

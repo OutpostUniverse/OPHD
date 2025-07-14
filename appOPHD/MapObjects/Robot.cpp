@@ -14,17 +14,17 @@ namespace
 		{RobotTypeIndex::Miner, constants::MinerTaskTime},
 	};
 
-	int getTaskTime(RobotTypeIndex type, Tile& tile)
+	int getTaskTime(RobotTypeIndex robotTypeIndex, Tile& tile)
 	{
-		return std::max(1, basicTaskTime.at(type) + static_cast<int>(tile.index()));
+		return std::max(1, basicTaskTime.at(robotTypeIndex) + static_cast<int>(tile.index()));
 	}
 }
 
 
-Robot::Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex type) :
+Robot::Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex robotTypeIndex) :
 	MapObject(spritePath, "running"),
 	mName(name),
-	mType{type}
+	mType{robotTypeIndex}
 {}
 
 

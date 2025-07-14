@@ -22,7 +22,7 @@ public:
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
 public:
-	Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex type);
+	Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex robotTypeIndex);
 
 	const std::string& name() const override;
 

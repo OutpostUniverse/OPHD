@@ -1159,7 +1159,7 @@ void MapViewState::placeRobominer(Tile& tile)
 }
 
 
-Robot& MapViewState::addRobot(RobotTypeIndex type)
+Robot& MapViewState::addRobot(RobotTypeIndex robotTypeIndex)
 {
 	const std::map<RobotTypeIndex, void (MapViewState::*)(Robot&)> RobotTypeIndexToHandler
 	{
@@ -1168,13 +1168,13 @@ Robot& MapViewState::addRobot(RobotTypeIndex type)
 		{RobotTypeIndex::Miner, &MapViewState::onMinerTaskComplete},
 	};
 
-	if (RobotTypeIndexToHandler.find(type) == RobotTypeIndexToHandler.end())
+	if (RobotTypeIndexToHandler.find(robotTypeIndex) == RobotTypeIndexToHandler.end())
 	{
-		throw std::runtime_error("Unknown RobotTypeIndex: " + std::to_string(static_cast<int>(type)));
+		throw std::runtime_error("Unknown RobotTypeIndex: " + std::to_string(static_cast<int>(robotTypeIndex)));
 	}
 
-	auto& robot = mRobotPool.addRobot(type);
-	robot.taskCompleteHandler({this, RobotTypeIndexToHandler.at(type)});
+	auto& robot = mRobotPool.addRobot(robotTypeIndex);
+	robot.taskCompleteHandler({this, RobotTypeIndexToHandler.at(robotTypeIndex)});
 	return robot;
 }
 

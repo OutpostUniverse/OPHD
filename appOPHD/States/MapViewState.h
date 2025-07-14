@@ -174,7 +174,7 @@ private:
 	void placeRobodigger(Tile&);
 	void placeRobominer(Tile&);
 
-	Robot& addRobot(RobotTypeIndex type);
+	Robot& addRobot(RobotTypeIndex robotTypeIndex);
 
 	// MISCELLANEOUS UTILITY FUNCTIONS
 	void updateFood();
