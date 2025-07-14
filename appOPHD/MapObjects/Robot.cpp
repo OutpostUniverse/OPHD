@@ -82,6 +82,20 @@ void Robot::startTask(Tile& tile, int turns)
 }
 
 
+Tile& Robot::tile()
+{
+	if (!mTile) { throw std::runtime_error("Robot must be placed"); }
+	return *mTile;
+}
+
+
+const Tile& Robot::tile() const
+{
+	if (!mTile) { throw std::runtime_error("Robot must be placed"); }
+	return *mTile;
+}
+
+
 void Robot::taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler)
 {
 	mTaskCompleteHandler = newTaskCompleteHandler;

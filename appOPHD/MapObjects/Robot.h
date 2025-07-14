@@ -41,6 +41,9 @@ public:
 
 	virtual void abortTask(Tile& /*tile*/) {}
 
+	Tile& tile();
+	const Tile& tile() const;
+
 	void fuelCellAge(int age) { mFuelCellAge = age; }
 	int fuelCellAge() const { return mFuelCellAge; }
 	int turnsToCompleteTask() const { return mTurnsToCompleteTask; }
