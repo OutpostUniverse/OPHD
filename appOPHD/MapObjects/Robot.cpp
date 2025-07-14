@@ -24,7 +24,7 @@ namespace
 Robot::Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex robotTypeIndex) :
 	MapObject(spritePath, "running"),
 	mName(name),
-	mType{robotTypeIndex}
+	mRobotTypeIndex{robotTypeIndex}
 {}
 
 
@@ -49,7 +49,7 @@ bool Robot::isDead() const
 
 void Robot::startTask(Tile& tile)
 {
-	startTask(getTaskTime(mType, tile));
+	startTask(getTaskTime(mRobotTypeIndex, tile));
 }
 
 
@@ -69,7 +69,7 @@ void Robot::taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler)
 NAS2D::Dictionary Robot::getDataDict() const
 {
 	return {{
-		{"type", static_cast<int>(mType)},
+		{"type", static_cast<int>(mRobotTypeIndex)},
 		{"age", mFuelCellAge},
 		{"production", mTurnsToCompleteTask},
 	}};

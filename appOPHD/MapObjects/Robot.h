@@ -48,7 +48,7 @@ public:
 	bool taskCanceled() const { return mCancelTask; }
 	void reset() { mCancelTask = false; }
 
-	RobotTypeIndex type() const { return mType; }
+	RobotTypeIndex type() const { return mRobotTypeIndex; }
 
 	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
 
@@ -59,7 +59,7 @@ protected:
 
 private:
 	const std::string& mName;
-	const RobotTypeIndex mType;
+	const RobotTypeIndex mRobotTypeIndex;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 
