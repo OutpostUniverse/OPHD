@@ -28,13 +28,6 @@ Robot::Robot(const std::string& name, const std::string& spritePath, RobotType t
 {}
 
 
-Robot::Robot(const std::string& name, const std::string& spritePath, const std::string& initialAction, RobotType type) :
-	MapObject(spritePath, initialAction),
-	mName(name),
-	mType{type}
-{}
-
-
 const std::string& Robot::name() const
 {
 	return mName;
