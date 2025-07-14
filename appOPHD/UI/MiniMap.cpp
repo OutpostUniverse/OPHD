@@ -110,7 +110,7 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 
 	for (auto robotEntry : mDeployedRobots)
 	{
-		const auto robotPosition = robotEntry.second->xy();
+		const auto robotPosition = robotEntry.first->tile().xy();
 		renderer.drawPoint(robotPosition + miniMapOffset, NAS2D::Color::Cyan);
 	}
 
