@@ -12,6 +12,7 @@ namespace NAS2D
 	class Dictionary;
 }
 
+struct RobotType;
 class Tile;
 class TileMap;
 
@@ -21,9 +22,13 @@ class Robot : public MapObject
 public:
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
-public:
-	Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex robotTypeIndex);
+	static const RobotType& robotType(RobotTypeIndex robotTypeIndex);
 
+public:
+	Robot(RobotTypeIndex robotTypeIndex);
+	Robot(RobotTypeIndex robotTypeIndex, const RobotType& robotType);
+
+	const RobotType& robotType() const;
 	const std::string& name() const override;
 
 	bool isDead() const;
@@ -58,7 +63,7 @@ protected:
 	virtual void onTaskComplete(TileMap& tileMap) = 0;
 
 private:
-	const std::string& mName;
+	const RobotType& mRobotType;
 	const RobotTypeIndex mRobotTypeIndex;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
