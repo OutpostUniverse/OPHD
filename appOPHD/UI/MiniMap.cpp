@@ -28,10 +28,10 @@ namespace
 }
 
 
-MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::map<Robot*, Tile*>& deployedRobots, const std::string& mapName) :
 	mMapView{mapView},
 	mTileMap{tileMap},
-	mDeployedRobots{robotList},
+	mDeployedRobots{deployedRobots},
 	mIsHeightMapVisible{false},
 	mBackgroundSatellite{mapName + MapDisplayExtension},
 	mBackgroundHeightMap{mapName + MapTerrainExtension},
