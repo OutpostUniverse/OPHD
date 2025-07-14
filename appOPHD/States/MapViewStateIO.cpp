@@ -351,7 +351,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 
 		const auto type = dictionary.get<int>("type");
 		const auto age = dictionary.get<int>("age");
-		const auto production_time = dictionary.get<int>("production");
+		const auto productionTime = dictionary.get<int>("production");
 		const auto x = dictionary.get<int>("x", 0);
 		const auto y = dictionary.get<int>("y", 0);
 		const auto depth = dictionary.get<int>("depth", 0);
@@ -366,16 +366,13 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 
 		robot.fuelCellAge(age);
 
-		if (production_time > 0)
+		if (productionTime > 0)
 		{
-			robot.startTask(production_time);
-			mRobotPool.insertRobotIntoTable(mRobotList, robot, mTileMap->getTile({{x, y}, depth}));
-			mRobotList[&robot]->bulldoze();
-		}
-
-		if (depth > 0)
-		{
-			mRobotList[&robot]->excavated(true);
+			robot.startTask(productionTime);
+			auto& tile = mTileMap->getTile({{x, y}, depth});
+			mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+			tile.bulldoze();
+			tile.excavated(true);
 		}
 	}
 
