@@ -237,9 +237,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
  */
 void MapViewState::onMinerTaskComplete(Robot& robot)
 {
-	if (mRobotList.find(&robot) == mRobotList.end()) { throw std::runtime_error("MapViewState::onMinerTaskComplete() called with a Robot not in the Robot List!"); }
-
-	auto& robotTile = *mRobotList[&robot];
+	auto& robotTile = robot.tile();
 	auto& miner = dynamic_cast<Robominer&>(robot);
 
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
