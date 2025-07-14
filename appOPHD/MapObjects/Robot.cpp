@@ -74,10 +74,11 @@ void Robot::startTask(Tile& tile)
 }
 
 
-void Robot::startTask(Tile& /*tile*/, int turns)
+void Robot::startTask(Tile& tile, int turns)
 {
 	if (turns < 1) { throw std::runtime_error("Robot task time must be at least 1 turn"); }
 	mTurnsToCompleteTask = turns;
+	mTile = &tile;
 }
 
 

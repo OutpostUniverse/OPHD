@@ -67,6 +67,7 @@ private:
 	const RobotTypeIndex mRobotTypeIndex;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
+	Tile* mTile = nullptr;
 
 	bool mIsDead = false;
 	bool mSelfDestruct = false;
