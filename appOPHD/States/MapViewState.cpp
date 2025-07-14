@@ -1239,7 +1239,7 @@ void MapViewState::updateRobots()
 	while (robot_it != mRobotList.end())
 	{
 		auto robot = robot_it->first;
-		auto tile = robot_it->second;
+		auto tile = &robot->tile();
 
 		robot->processTurn(*mTileMap);
 
