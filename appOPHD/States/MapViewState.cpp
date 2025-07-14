@@ -1239,11 +1239,11 @@ void MapViewState::updateRobots()
 	while (robot_it != mRobotList.end())
 	{
 		auto robot = robot_it->first;
-		auto tile = &robot->tile();
+		auto& tile = robot->tile();
 
 		robot->processTurn(*mTileMap);
 
-		const auto& position = tile->xyz();
+		const auto& position = tile.xyz();
 
 		pushAgingRobotMessage(robot, position, mNotificationArea);
 
@@ -1262,12 +1262,12 @@ void MapViewState::updateRobots()
 			{
 				const auto text = "Your " + robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
-				robot->abortTask(*tile);
+				robot->abortTask(tile);
 			}
 
-			if (tile->mapObject() == robot)
+			if (tile.mapObject() == robot)
 			{
-				tile->removeMapObject();
+				tile.removeMapObject();
 			}
 
 			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
@@ -1277,14 +1277,14 @@ void MapViewState::updateRobots()
 		}
 		else if (robot->idle())
 		{
-			if (tile->mapObject() == robot)
+			if (tile.mapObject() == robot)
 			{
-				tile->removeMapObject();
+				tile.removeMapObject();
 
 				mNotificationArea.push({
 					"Robot Task Completed",
-					robot->name() + " completed its task at " + NAS2D::stringFrom(tile->xy()) + ".",
-					tile->xyz(),
+					robot->name() + " completed its task at " + NAS2D::stringFrom(tile.xy()) + ".",
+					tile.xyz(),
 					NotificationArea::NotificationType::Success
 				});
 			}
@@ -1292,14 +1292,14 @@ void MapViewState::updateRobots()
 
 			if (robot->taskCanceled())
 			{
-				robot->abortTask(*tile);
+				robot->abortTask(tile);
 				populateRobotMenu();
 				robot->reset();
 
 				mNotificationArea.push({
 					"Robot Task Canceled",
-					robot->name() + " canceled its task at " + NAS2D::stringFrom(tile->xy()) + ".",
-					tile->xyz(),
+					robot->name() + " canceled its task at " + NAS2D::stringFrom(tile.xy()) + ".",
+					tile.xyz(),
 					NotificationArea::NotificationType::Information
 				});
 			}
