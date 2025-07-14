@@ -357,9 +357,9 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		const auto depth = dictionary.get<int>("depth", 0);
 		const auto direction = dictionary.get<int>("direction", 0);
 
-		const auto robotType = static_cast<RobotTypeIndex>(type);
-		auto& robot = addRobot(robotType);
-		if (robotType == RobotTypeIndex::Digger)
+		const auto robotTypeIndex = static_cast<RobotTypeIndex>(type);
+		auto& robot = addRobot(robotTypeIndex);
+		if (robotTypeIndex == RobotTypeIndex::Digger)
 		{
 			dynamic_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
 		}

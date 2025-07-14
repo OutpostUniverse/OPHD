@@ -168,7 +168,7 @@ private:
 
 	void placeTubes(Tile& tile, ConnectorDir connectorDirection);
 	void placeStructure(Tile& tile, StructureID structureID);
-	void placeRobot(Tile& tile, RobotTypeIndex robotType);
+	void placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex);
 
 	void placeRobodozer(Tile&);
 	void placeRobodigger(Tile&);

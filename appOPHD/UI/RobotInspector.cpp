@@ -17,7 +17,7 @@ using namespace NAS2D;
 
 namespace
 {
-	const NAS2D::Image& robotImage(RobotTypeIndex robotType)
+	const NAS2D::Image& robotImage(RobotTypeIndex robotTypeIndex)
 	{
 		static const std::map<RobotTypeIndex, const Image*> robotImages
 		{
@@ -25,7 +25,7 @@ namespace
 			{RobotTypeIndex::Dozer, &imageCache.load("ui/interface/product_robodozer.png")},
 			{RobotTypeIndex::Miner, &imageCache.load("ui/interface/product_robominer.png")}
 		};
-		return *robotImages.at(robotType);
+		return *robotImages.at(robotTypeIndex);
 	}
 }
 

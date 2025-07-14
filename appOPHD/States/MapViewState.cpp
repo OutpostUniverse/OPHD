@@ -907,7 +907,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 }
 
 
-void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotType)
+void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex)
 {
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
@@ -918,7 +918,7 @@ void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotType)
 		return;
 	}
 
-	switch (robotType)
+	switch (robotTypeIndex)
 	{
 	case RobotTypeIndex::Dozer:
 		placeRobodozer(tile);
@@ -1187,11 +1187,11 @@ void MapViewState::populateRobotMenu()
 {
 	mRobots.clear();
 
-	for (auto& [robotType, robotMeta] : RobotMetaTable)
+	for (auto& [robotTypeIndex, robotMeta] : RobotMetaTable)
 	{
-		if (mRobotPool.robotAvailable(robotType))
+		if (mRobotPool.robotAvailable(robotTypeIndex))
 		{
-			mRobots.addItem({robotMeta.name, robotMeta.sheetIndex, static_cast<int>(robotType)});
+			mRobots.addItem({robotMeta.name, robotMeta.sheetIndex, static_cast<int>(robotTypeIndex)});
 		}
 	}
 
