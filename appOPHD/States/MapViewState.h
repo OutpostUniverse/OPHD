@@ -310,7 +310,7 @@ private:
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
-	std::map<Robot*, Tile*> mRobotList; /**< List of active robots and their positions on the map. */
+	std::map<Robot*, Tile*> mRobotList;
 	Population mPopulation;
 
 	// ROUTING
