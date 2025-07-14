@@ -187,13 +187,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
 	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
 	auto& tileMap = *mTileMap;
-
-	if (mRobotList.find(&roboDigger) == mRobotList.end())
-	{
-		throw std::runtime_error("MapViewState::onDiggerTaskComplete() called with a Robot not in the Robot List!");
-	}
-
-	auto& tile = *mRobotList[&roboDigger];
+	auto& tile = roboDigger.tile();
 	const auto& position = tile.xyz();
 
 	if (position.z > tileMap.maxDepth())
