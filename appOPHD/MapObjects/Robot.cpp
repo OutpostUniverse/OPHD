@@ -13,9 +13,9 @@
 namespace
 {
 	const std::array robotTypes{
-		RobotType{constants::Robodigger, "robots/robodigger.sprite"},
-		RobotType{constants::Robodozer, "robots/robodozer.sprite"},
-		RobotType{constants::Robominer, "robots/robominer.sprite"},
+		RobotType{constants::Robodigger, "robots/robodigger.sprite", "ui/interface/product_robodigger.png"},
+		RobotType{constants::Robodozer, "robots/robodozer.sprite", "ui/interface/product_robodozer.png"},
+		RobotType{constants::Robominer, "robots/robominer.sprite", "ui/interface/product_robominer.png"},
 	};
 
 	const std::map<RobotTypeIndex, int> basicTaskTime{
