@@ -232,7 +232,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mDeployedRobots, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
@@ -1039,7 +1039,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 	auto& robot = mRobotPool.getDozer();
 	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
@@ -1149,7 +1149,7 @@ void MapViewState::placeRobominer(Tile& tile)
 
 	auto& robot = mRobotPool.getMiner();
 	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{
@@ -1235,8 +1235,8 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
  */
 void MapViewState::updateRobots()
 {
-	auto robot_it = mRobotList.begin();
-	while (robot_it != mRobotList.end())
+	auto robot_it = mDeployedRobots.begin();
+	while (robot_it != mDeployedRobots.end())
 	{
 		auto& robot = *robot_it->first;
 		auto& tile = robot.tile();
@@ -1273,7 +1273,7 @@ void MapViewState::updateRobots()
 			if (mRobotInspector.focusedRobot() == &robot) { mRobotInspector.hide(); }
 
 			mRobotPool.erase(&robot);
-			robot_it = mRobotList.erase(robot_it);
+			robot_it = mDeployedRobots.erase(robot_it);
 		}
 		else if (robot.idle())
 		{
@@ -1288,7 +1288,7 @@ void MapViewState::updateRobots()
 					NotificationArea::NotificationType::Success
 				});
 			}
-			robot_it = mRobotList.erase(robot_it);
+			robot_it = mDeployedRobots.erase(robot_it);
 
 			if (robot.taskCanceled())
 			{
@@ -1370,7 +1370,7 @@ void MapViewState::updatePoliceOverlay()
  */
 void MapViewState::scrubRobotList()
 {
-	for (auto it : mRobotList)
+	for (auto it : mDeployedRobots)
 	{
 		it.second->removeMapObject();
 	}

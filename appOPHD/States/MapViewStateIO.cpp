@@ -266,7 +266,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
-	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, mPlanetAttributes.mapImagePath);
+	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mDeployedRobots, mPlanetAttributes.mapImagePath);
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView);
 
@@ -343,7 +343,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 {
 	mRobotPool.clear();
-	mRobotList.clear();
+	mDeployedRobots.clear();
 
 	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
@@ -370,7 +370,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		{
 			auto& tile = mTileMap->getTile({{x, y}, depth});
 			robot.startTask(tile, productionTime);
-			mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+			mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 			tile.bulldoze();
 			tile.excavated(true);
 		}

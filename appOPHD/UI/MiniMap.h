@@ -44,7 +44,7 @@ protected:
 private:
 	MapView& mMapView;
 	TileMap& mTileMap;
-	const std::map<Robot*, Tile*>& mRobotList;
+	const std::map<Robot*, Tile*>& mDeployedRobots;
 	bool mIsHeightMapVisible;
 	NAS2D::Image mBackgroundSatellite;
 	NAS2D::Image mBackgroundHeightMap;
