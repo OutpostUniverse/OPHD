@@ -3,7 +3,7 @@
 #include "../RobotPool.h"
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
-#include "../MapObjects/RobotType.h"
+#include "../MapObjects/RobotTypeIndex.h"
 #include "../States/MapViewStateHelper.h"
 
 #include <NAS2D/Renderer/Renderer.h>
@@ -31,9 +31,9 @@ void RobotDeploymentSummary::draw(NAS2D::Renderer& renderer) const
 
 	const std::array icons{
 		std::tuple{robotSummaryImageRect, mRobotPool.currentControlCount(), mRobotPool.robotControlMax()},
-		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(RobotType::Digger), mRobotPool.diggers().size()},
-		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(RobotType::Dozer), mRobotPool.dozers().size()},
-		std::tuple{minerImageRect, mRobotPool.getAvailableCount(RobotType::Miner), mRobotPool.miners().size()},
+		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(RobotTypeIndex::Digger), mRobotPool.diggers().size()},
+		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(RobotTypeIndex::Dozer), mRobotPool.dozers().size()},
+		std::tuple{minerImageRect, mRobotPool.getAvailableCount(RobotTypeIndex::Miner), mRobotPool.miners().size()},
 	};
 
 	for (const auto& [imageRect, parts, total] : icons)

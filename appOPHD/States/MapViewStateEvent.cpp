@@ -30,21 +30,21 @@
 
 void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factory)
 {
-	const std::map<ProductType, RobotType> ProductTypeToRobotType
+	const std::map<ProductType, RobotTypeIndex> ProductTypeToRobotTypeIndex
 	{
-		{ProductType::PRODUCT_DIGGER, RobotType::Digger},
-		{ProductType::PRODUCT_DOZER, RobotType::Dozer},
-		{ProductType::PRODUCT_MINER, RobotType::Miner},
+		{ProductType::PRODUCT_DIGGER, RobotTypeIndex::Digger},
+		{ProductType::PRODUCT_DOZER, RobotTypeIndex::Dozer},
+		{ProductType::PRODUCT_MINER, RobotTypeIndex::Miner},
 	};
 
-	if (ProductTypeToRobotType.find(productType) == ProductTypeToRobotType.end())
+	if (ProductTypeToRobotTypeIndex.find(productType) == ProductTypeToRobotTypeIndex.end())
 	{
 		throw std::runtime_error("pullRobotFromFactory():: unsuitable ProductType: " + std::to_string(static_cast<int>(productType)));
 	}
 
 	if (mRobotPool.commandCapacityAvailable())
 	{
-		addRobot(ProductTypeToRobotType.at(productType));
+		addRobot(ProductTypeToRobotTypeIndex.at(productType));
 		factory.pullProduct();
 
 		populateRobotMenu();
@@ -163,9 +163,9 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	seedFactory.resourcePool(&mResourcesCount);
 	seedFactory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 
-	mRobotPool.addRobot(RobotType::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
-	mRobotPool.addRobot(RobotType::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
-	mRobotPool.addRobot(RobotType::Miner).taskCompleteHandler({this, &MapViewState::onMinerTaskComplete});
+	mRobotPool.addRobot(RobotTypeIndex::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
+	mRobotPool.addRobot(RobotTypeIndex::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
+	mRobotPool.addRobot(RobotTypeIndex::Miner).taskCompleteHandler({this, &MapViewState::onMinerTaskComplete});
 
 	populateRobotMenu();
 }

@@ -6,7 +6,7 @@
 #include <map>
 
 
-enum class RobotType;
+enum class RobotTypeIndex;
 class Robot;
 class Robodigger;
 class Robodozer;
@@ -36,14 +36,14 @@ public:
 	RobotPool();
 	~RobotPool();
 
-	Robot& addRobot(RobotType type);
+	Robot& addRobot(RobotTypeIndex type);
 
 	Robodigger& getDigger();
 	Robodozer& getDozer();
 	Robominer& getMiner();
 
-	bool robotAvailable(RobotType type) const;
-	std::size_t getAvailableCount(RobotType type) const;
+	bool robotAvailable(RobotTypeIndex type) const;
+	std::size_t getAvailableCount(RobotTypeIndex type) const;
 
 	bool isControlCapacityAvailable() const { return mRobotControlCount < mRobotControlMax; }
 	bool commandCapacityAvailable() { return mRobots.size() < mRobotControlMax; }

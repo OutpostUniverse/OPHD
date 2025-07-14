@@ -1,7 +1,7 @@
 #pragma once
 
 
-enum class RobotType
+enum class RobotTypeIndex
 {
 	Digger,
 	Dozer,

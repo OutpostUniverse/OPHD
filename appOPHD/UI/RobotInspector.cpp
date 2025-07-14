@@ -17,13 +17,13 @@ using namespace NAS2D;
 
 namespace
 {
-	const NAS2D::Image& robotImage(RobotType robotType)
+	const NAS2D::Image& robotImage(RobotTypeIndex robotType)
 	{
-		static const std::map<RobotType, const Image*> robotImages
+		static const std::map<RobotTypeIndex, const Image*> robotImages
 		{
-			{RobotType::Digger, &imageCache.load("ui/interface/product_robodigger.png")},
-			{RobotType::Dozer, &imageCache.load("ui/interface/product_robodozer.png")},
-			{RobotType::Miner, &imageCache.load("ui/interface/product_robominer.png")}
+			{RobotTypeIndex::Digger, &imageCache.load("ui/interface/product_robodigger.png")},
+			{RobotTypeIndex::Dozer, &imageCache.load("ui/interface/product_robodozer.png")},
+			{RobotTypeIndex::Miner, &imageCache.load("ui/interface/product_robominer.png")}
 		};
 		return *robotImages.at(robotType);
 	}
@@ -42,7 +42,7 @@ RobotInspector::RobotInspector() :
 	const auto buttonSize = mainFont.size("Cancel Orders") + NAS2D::Vector{padding, padding};
 	const int buttonOffsetY = buttonSize.y + constants::MarginTight;
 
-	const int imageWidth = robotImage(RobotType::Digger).size().x + padding;
+	const int imageWidth = robotImage(RobotTypeIndex::Digger).size().x + padding;
 	const int contentWidth = imageWidth + buttonSize.x;
 
 	mContentRect = {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RobotType.h"
+#include "RobotTypeIndex.h"
 
 #include <libOPHD/MapObjects/MapObject.h>
 
@@ -22,7 +22,7 @@ public:
 	using TaskCompleteDelegate = NAS2D::Delegate<void(Robot&)>;
 
 public:
-	Robot(const std::string& name, const std::string& spritePath, RobotType type);
+	Robot(const std::string& name, const std::string& spritePath, RobotTypeIndex type);
 
 	const std::string& name() const override;
 
@@ -48,7 +48,7 @@ public:
 	bool taskCanceled() const { return mCancelTask; }
 	void reset() { mCancelTask = false; }
 
-	RobotType type() const { return mType; }
+	RobotTypeIndex type() const { return mType; }
 
 	void taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler);
 
@@ -59,7 +59,7 @@ protected:
 
 private:
 	const std::string& mName;
-	const RobotType mType;
+	const RobotTypeIndex mType;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
 

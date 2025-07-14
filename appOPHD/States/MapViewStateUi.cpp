@@ -520,7 +520,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 		mTileMap->getTile(tile.xyz().translate(direction)).excavated(true);
 	}
 
-	if (!mRobotPool.robotAvailable(RobotType::Digger))
+	if (!mRobotPool.robotAvailable(RobotTypeIndex::Digger))
 	{
 		mRobots.removeItem(constants::Robodigger);
 		clearBuildMode();
@@ -637,9 +637,9 @@ void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
 			mPopulation.removePopulation({0, 0, 0, 0, 10});
 		break;
 		case CheatMenu::CheatCode::AddRobots:
-			mRobotPool.addRobot(RobotType::Digger);
-			mRobotPool.addRobot(RobotType::Dozer);
-			mRobotPool.addRobot(RobotType::Miner);
+			mRobotPool.addRobot(RobotTypeIndex::Digger);
+			mRobotPool.addRobot(RobotTypeIndex::Dozer);
+			mRobotPool.addRobot(RobotTypeIndex::Miner);
 		break;
 
 	}

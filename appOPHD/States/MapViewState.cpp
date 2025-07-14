@@ -21,7 +21,7 @@
 #include "../Map/MapView.h"
 
 #include "../MapObjects/Robots.h"
-#include "../MapObjects/RobotType.h"
+#include "../MapObjects/RobotTypeIndex.h"
 
 #include "../MapObjects/Structures/CargoLander.h"
 #include "../MapObjects/Structures/ColonistLander.h"
@@ -77,11 +77,11 @@ namespace
 		const int sheetIndex;
 	};
 
-	const std::map<RobotType, RobotMeta> RobotMetaTable
+	const std::map<RobotTypeIndex, RobotMeta> RobotMetaTable
 	{
-		{RobotType::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-		{RobotType::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-		{RobotType::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
+		{RobotTypeIndex::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
+		{RobotTypeIndex::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
+		{RobotTypeIndex::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
 	};
 
 
@@ -163,7 +163,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
-	mCurrentRobot{RobotType::None},
+	mCurrentRobot{RobotTypeIndex::None},
 	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
 	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
@@ -205,7 +205,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
-	mCurrentRobot{RobotType::None},
+	mCurrentRobot{RobotTypeIndex::None},
 	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
 	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
@@ -907,7 +907,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 }
 
 
-void MapViewState::placeRobot(Tile& tile, RobotType robotType)
+void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotType)
 {
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
@@ -920,13 +920,13 @@ void MapViewState::placeRobot(Tile& tile, RobotType robotType)
 
 	switch (robotType)
 	{
-	case RobotType::Dozer:
+	case RobotTypeIndex::Dozer:
 		placeRobodozer(tile);
 		break;
-	case RobotType::Digger:
+	case RobotTypeIndex::Digger:
 		placeRobodigger(tile);
 		break;
-	case RobotType::Miner:
+	case RobotTypeIndex::Miner:
 		placeRobominer(tile);
 		break;
 	default:
@@ -1041,7 +1041,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
-	if (!mRobotPool.robotAvailable(RobotType::Dozer))
+	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
 		mRobots.removeItem(constants::Robodozer);
 		clearBuildMode();
@@ -1151,7 +1151,7 @@ void MapViewState::placeRobominer(Tile& tile)
 	robot.startTask(tile);
 	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
 
-	if (!mRobotPool.robotAvailable(RobotType::Miner))
+	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{
 		mRobots.removeItem(constants::Robominer);
 		clearBuildMode();
@@ -1159,22 +1159,22 @@ void MapViewState::placeRobominer(Tile& tile)
 }
 
 
-Robot& MapViewState::addRobot(RobotType type)
+Robot& MapViewState::addRobot(RobotTypeIndex type)
 {
-	const std::map<RobotType, void (MapViewState::*)(Robot&)> RobotTypeToHandler
+	const std::map<RobotTypeIndex, void (MapViewState::*)(Robot&)> RobotTypeIndexToHandler
 	{
-		{RobotType::Digger, &MapViewState::onDiggerTaskComplete},
-		{RobotType::Dozer, &MapViewState::onDozerTaskComplete},
-		{RobotType::Miner, &MapViewState::onMinerTaskComplete},
+		{RobotTypeIndex::Digger, &MapViewState::onDiggerTaskComplete},
+		{RobotTypeIndex::Dozer, &MapViewState::onDozerTaskComplete},
+		{RobotTypeIndex::Miner, &MapViewState::onMinerTaskComplete},
 	};
 
-	if (RobotTypeToHandler.find(type) == RobotTypeToHandler.end())
+	if (RobotTypeIndexToHandler.find(type) == RobotTypeIndexToHandler.end())
 	{
-		throw std::runtime_error("Unknown RobotType: " + std::to_string(static_cast<int>(type)));
+		throw std::runtime_error("Unknown RobotTypeIndex: " + std::to_string(static_cast<int>(type)));
 	}
 
 	auto& robot = mRobotPool.addRobot(type);
-	robot.taskCompleteHandler({this, RobotTypeToHandler.at(type)});
+	robot.taskCompleteHandler({this, RobotTypeIndexToHandler.at(type)});
 	return robot;
 }
 
@@ -1258,7 +1258,7 @@ void MapViewState::updateRobots()
 					NotificationArea::NotificationType::Critical
 				});
 			}
-			else if (robot->type() != RobotType::Miner)
+			else if (robot->type() != RobotTypeIndex::Miner)
 			{
 				const auto text = "Your " + robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
