@@ -1,6 +1,18 @@
 # OutpostHD Player Guide
 
+A brief guide to playing OutpostHD.
+
+## Starting Out
+
+The first task is to choose a suitable landing spot to start a colony. It will need to be near an ore deposit. The closer the better. In fact, it may be wise to place the lander so the initial ore refinery is adjacent to the ore deposit. Certainly you'd want the lander to at least be placed within communications range of the ore deposit so you can deploy a robominer right away. For mines further from the smelter, make sure not to block the ore haul routes with obstructions, such as landers, tubes, or structures. Robots will also block ore haul routes, though their deployments are temporary.
+
+Avoid landing colonists before you can support them, or before you have a use for them, but not so late that they die in a colony ship de-orbit.
+
+You'll need a CHAP to support the operation of many other structures. Be aware that it takes resources to run the CHAP, so if you completely run out of resources you may be in a difficult spot. Early on, you can gain extra resources by bulldozing landers to reclaim the materials.
+
 ## Key Bindings
+
+F1: Reports view
 
 F2: Save Game
 
@@ -35,6 +47,7 @@ ARROWS: Same as WASD
 4: Go to Underground 4
 
 ## FAQ
+
 **Q: When I try to launch OutpostHD, I'm told that I'm missing "msvcp140.dll" and "vcruntime140.dll". How do I fix this?**
 
 A: You are missing some dependencies that OutpostHD requires in order to run. You'll need to visit the Microsoft website in order to download and install the [Visual C++ Redistributable](https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170) package.
