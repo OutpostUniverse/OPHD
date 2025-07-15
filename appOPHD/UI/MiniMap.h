@@ -7,7 +7,7 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
-#include <map>
+#include <vector>
 #include <string>
 
 
@@ -26,7 +26,7 @@ class MapViewState;
 class MiniMap : public Control
 {
 public:
-	MiniMap(MapView& mapView, TileMap& tileMap, const std::map<Robot*, Tile*>& robotList, const std::string& mapName);
+	MiniMap(MapView& mapView, TileMap& tileMap, const std::vector<Robot*>& deployedRobots, const std::string& mapName);
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
@@ -44,7 +44,7 @@ protected:
 private:
 	MapView& mMapView;
 	TileMap& mTileMap;
-	const std::map<Robot*, Tile*>& mRobotList;
+	const std::vector<Robot*>& mDeployedRobots;
 	bool mIsHeightMapVisible;
 	NAS2D::Image mBackgroundSatellite;
 	NAS2D::Image mBackgroundHeightMap;

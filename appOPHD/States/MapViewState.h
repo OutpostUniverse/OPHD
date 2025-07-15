@@ -50,7 +50,7 @@
 
 #include <string>
 #include <memory>
-#include <map>
+#include <vector>
 
 
 namespace NAS2D
@@ -92,8 +92,6 @@ enum class InsertMode
 	Tube,
 	Structure
 };
-
-using RobotTileTable = std::map<Robot*, Tile*>;
 
 
 class MapViewState : public Wrapper
@@ -312,7 +310,7 @@ private:
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
-	RobotTileTable mRobotList; /**< List of active robots and their positions on the map. */
+	std::vector<Robot*> mDeployedRobots;
 	Population mPopulation;
 
 	// ROUTING

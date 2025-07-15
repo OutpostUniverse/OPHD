@@ -37,9 +37,13 @@ public:
 	virtual void processTurn(TileMap& tileMap);
 
 	virtual void startTask(Tile& tile);
-	void startTask(int turns);
+	void startTask(Tile& tile, int turns);
 
 	virtual void abortTask(Tile& /*tile*/) {}
+
+	bool isPlaced() const;
+	Tile& tile();
+	const Tile& tile() const;
 
 	void fuelCellAge(int age) { mFuelCellAge = age; }
 	int fuelCellAge() const { return mFuelCellAge; }
@@ -67,6 +71,7 @@ private:
 	const RobotTypeIndex mRobotTypeIndex;
 	int mFuelCellAge = 0;
 	int mTurnsToCompleteTask = 0;
+	Tile* mTile = nullptr;
 
 	bool mIsDead = false;
 	bool mSelfDestruct = false;

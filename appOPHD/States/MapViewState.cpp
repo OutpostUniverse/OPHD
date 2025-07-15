@@ -232,7 +232,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mRobotList, planetAttributes.mapImagePath)},
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mDeployedRobots, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
@@ -1039,7 +1039,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 	auto& robot = mRobotPool.getDozer();
 	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
@@ -1149,7 +1149,7 @@ void MapViewState::placeRobominer(Tile& tile)
 
 	auto& robot = mRobotPool.getMiner();
 	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mRobotList, robot, tile);
+	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{
@@ -1235,71 +1235,71 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
  */
 void MapViewState::updateRobots()
 {
-	auto robot_it = mRobotList.begin();
-	while (robot_it != mRobotList.end())
+	auto robot_it = mDeployedRobots.begin();
+	while (robot_it != mDeployedRobots.end())
 	{
-		auto robot = robot_it->first;
-		auto tile = robot_it->second;
+		auto& robot = **robot_it;
+		auto& tile = robot.tile();
 
-		robot->processTurn(*mTileMap);
+		robot.processTurn(*mTileMap);
 
-		const auto& position = tile->xyz();
+		const auto& position = tile.xyz();
 
-		pushAgingRobotMessage(robot, position, mNotificationArea);
+		pushAgingRobotMessage(&robot, position, mNotificationArea);
 
-		if (robot->isDead())
+		if (robot.isDead())
 		{
-			if (robot->selfDestruct())
+			if (robot.selfDestruct())
 			{
 				mNotificationArea.push({
 					"Robot Self-Destructed",
-					robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " self destructed.",
+					robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " self destructed.",
 					position,
 					NotificationArea::NotificationType::Critical
 				});
 			}
-			else if (robot->type() != RobotTypeIndex::Miner)
+			else if (robot.type() != RobotTypeIndex::Miner)
 			{
-				const auto text = "Your " + robot->name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
+				const auto text = "Your " + robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
 				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
-				robot->abortTask(*tile);
+				robot.abortTask(tile);
 			}
 
-			if (tile->mapObject() == robot)
+			if (tile.mapObject() == &robot)
 			{
-				tile->removeMapObject();
+				tile.removeMapObject();
 			}
 
-			if (mRobotInspector.focusedRobot() == robot) { mRobotInspector.hide(); }
+			if (mRobotInspector.focusedRobot() == &robot) { mRobotInspector.hide(); }
 
-			mRobotPool.erase(robot);
-			robot_it = mRobotList.erase(robot_it);
+			mRobotPool.erase(&robot);
+			robot_it = mDeployedRobots.erase(robot_it);
 		}
-		else if (robot->idle())
+		else if (robot.idle())
 		{
-			if (tile->mapObject() == robot)
+			if (tile.mapObject() == &robot)
 			{
-				tile->removeMapObject();
+				tile.removeMapObject();
 
 				mNotificationArea.push({
 					"Robot Task Completed",
-					robot->name() + " completed its task at " + NAS2D::stringFrom(tile->xy()) + ".",
-					tile->xyz(),
+					robot.name() + " completed its task at " + NAS2D::stringFrom(tile.xy()) + ".",
+					tile.xyz(),
 					NotificationArea::NotificationType::Success
 				});
 			}
-			robot_it = mRobotList.erase(robot_it);
+			robot_it = mDeployedRobots.erase(robot_it);
 
-			if (robot->taskCanceled())
+			if (robot.taskCanceled())
 			{
-				robot->abortTask(*tile);
+				robot.abortTask(tile);
 				populateRobotMenu();
-				robot->reset();
+				robot.reset();
 
 				mNotificationArea.push({
 					"Robot Task Canceled",
-					robot->name() + " canceled its task at " + NAS2D::stringFrom(tile->xy()) + ".",
-					tile->xyz(),
+					robot.name() + " canceled its task at " + NAS2D::stringFrom(tile.xy()) + ".",
+					tile.xyz(),
 					NotificationArea::NotificationType::Information
 				});
 			}
@@ -1370,9 +1370,9 @@ void MapViewState::updatePoliceOverlay()
  */
 void MapViewState::scrubRobotList()
 {
-	for (auto it : mRobotList)
+	for (auto* robot : mDeployedRobots)
 	{
-		it.second->removeMapObject();
+		robot->tile().removeMapObject();
 	}
 }
 

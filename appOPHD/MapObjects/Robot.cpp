@@ -70,14 +70,35 @@ bool Robot::isDead() const
 
 void Robot::startTask(Tile& tile)
 {
-	startTask(getTaskTime(mRobotTypeIndex, tile));
+	startTask(tile, getTaskTime(mRobotTypeIndex, tile));
 }
 
 
-void Robot::startTask(int turns)
+void Robot::startTask(Tile& tile, int turns)
 {
 	if (turns < 1) { throw std::runtime_error("Robot task time must be at least 1 turn"); }
 	mTurnsToCompleteTask = turns;
+	mTile = &tile;
+}
+
+
+bool Robot::isPlaced() const
+{
+	return mTurnsToCompleteTask > 0 && mTile;
+}
+
+
+Tile& Robot::tile()
+{
+	if (!mTile) { throw std::runtime_error("Robot must be placed"); }
+	return *mTile;
+}
+
+
+const Tile& Robot::tile() const
+{
+	if (!mTile) { throw std::runtime_error("Robot must be placed"); }
+	return *mTile;
 }
 
 

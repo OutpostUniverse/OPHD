@@ -76,14 +76,13 @@ namespace
 	}
 
 
-	NAS2D::Dictionary robotToDictionary(RobotPool::RobotTileTable& robotTileTable, Robot& robot)
+	NAS2D::Dictionary robotToDictionary(Robot& robot)
 	{
 		NAS2D::Dictionary dictionary = robot.getDataDict();
 
-		const auto it = robotTileTable.find(&robot);
-		if (it != robotTileTable.end())
+		if (robot.isPlaced())
 		{
-			const auto& tile = *it->second;
+			const auto& tile = robot.tile();
 			const auto position = tile.xy();
 			dictionary += NAS2D::Dictionary{{
 				{"x", position.x},
@@ -266,7 +265,7 @@ void RobotPool::update()
 }
 
 
-void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Tile& tile)
+void RobotPool::insertRobotIntoTable(std::vector<Robot*>& deployedRobots, Robot& robot, Tile& tile)
 {
 	// Add pre-check for control count against max capacity, with one caveat
 	// When loading saved games a control max won't have been set yet as robots are loaded before structures
@@ -276,23 +275,23 @@ void RobotPool::insertRobotIntoTable(RobotTileTable& robotMap, Robot& robot, Til
 		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + " / " + std::to_string(mRobotControlMax));
 	}
 
-	auto it = robotMap.find(&robot);
-	if (it != robotMap.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
+	auto it = std::find(deployedRobots.begin(), deployedRobots.end(), &robot);
+	if (it != deployedRobots.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
-	robotMap[&robot] = &tile;
+	deployedRobots.push_back(&robot);
 	tile.mapObject(&robot);
 
 	++mRobotControlCount;
 }
 
 
-NAS2D::Xml::XmlElement* RobotPool::writeRobots(RobotTileTable& robotMap)
+NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 {
 	auto* robots = new NAS2D::Xml::XmlElement("robots");
 
 	for (auto robot : mRobots)
 	{
-		auto dictionary = robotToDictionary(robotMap, *robot);
+		auto dictionary = robotToDictionary(*robot);
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
