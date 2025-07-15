@@ -2,6 +2,8 @@
 
 ## Key Bindings
 
+F1: Reports view
+
 F2: Save Game
 
 F3: Load Game
