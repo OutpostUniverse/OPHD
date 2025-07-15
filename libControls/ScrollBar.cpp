@@ -103,9 +103,10 @@ int ScrollBar::max() const
 
 void ScrollBar::max(int newMax)
 {
-	if (mMax != newMax)
+	const auto clampedMax = std::max(newMax, 0);
+	if (mMax != clampedMax)
 	{
-		mMax = newMax;
+		mMax = clampedMax;
 		onThumbResize();
 	}
 	value(mValue); // Re-clamp to new max
