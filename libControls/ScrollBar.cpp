@@ -120,7 +120,7 @@ int ScrollBar::largeDelta() const
 
 void ScrollBar::largeDelta(int newLargeDelta)
 {
-	mLargeDelta = newLargeDelta;
+	mLargeDelta = std::max(newLargeDelta, 1);
 	onThumbResize();
 	onThumbMove();
 }
