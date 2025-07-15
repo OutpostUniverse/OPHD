@@ -185,7 +185,9 @@ MainWindow::MainWindow() :
 
 void MainWindow::logEvent(std::string eventDescription)
 {
-	labelInfo.text(eventDescription);
+	static std::size_t sequenceNumber{0};
+	++sequenceNumber;
+	labelInfo.text("Info:\n" + std::to_string(sequenceNumber) + ". " + eventDescription);
 }
 
 
