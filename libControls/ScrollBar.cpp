@@ -121,6 +121,8 @@ int ScrollBar::largeDelta() const
 void ScrollBar::largeDelta(int newLargeDelta)
 {
 	mLargeDelta = newLargeDelta;
+	onThumbResize();
+	onThumbMove();
 }
 
 
@@ -255,13 +257,13 @@ void ScrollBar::onThumbResize()
 {
 	if (mScrollBarType == ScrollBarType::Vertical)
 	{
-		const auto naturalThumbLength = mTrackRect.size.y * mRect.size.y / std::max(mMax + mRect.size.y, 1);
+		const auto naturalThumbLength = mTrackRect.size.y * mLargeDelta / std::max(mMax + mLargeDelta, 1);
 		const auto thumbLength = std::clamp(naturalThumbLength, mSkins.skinThumb.minSize().y, mTrackRect.size.y);
 		mThumbRect.size = {mTrackRect.size.x, thumbLength};
 	}
 	else
 	{
-		const auto naturalThumbLength = mTrackRect.size.x * mRect.size.x / std::max(mMax + mRect.size.x, 1);
+		const auto naturalThumbLength = mTrackRect.size.x * mLargeDelta / std::max(mMax + mLargeDelta, 1);
 		const auto thumbLength = std::clamp(naturalThumbLength, mSkins.skinThumb.minSize().x, mTrackRect.size.x);
 		mThumbRect.size = {thumbLength, mTrackRect.size.y};
 	}
