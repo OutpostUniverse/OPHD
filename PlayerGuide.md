@@ -37,6 +37,7 @@ ARROWS: Same as WASD
 4: Go to Underground 4
 
 ## FAQ
+
 **Q: When I try to launch OutpostHD, I'm told that I'm missing "msvcp140.dll" and "vcruntime140.dll". How do I fix this?**
 
 A: You are missing some dependencies that OutpostHD requires in order to run. You'll need to visit the Microsoft website in order to download and install the [Visual C++ Redistributable](https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170) package.
