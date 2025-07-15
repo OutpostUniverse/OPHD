@@ -24,6 +24,8 @@ public:
 	MainWindow();
 
 protected:
+	void logEvent(std::string eventDescription);
+
 	void onButtonClick();
 	void onRadioButtonSelect(std::size_t index);
 	void onCheckBoxClick();
