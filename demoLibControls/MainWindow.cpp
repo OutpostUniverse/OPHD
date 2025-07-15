@@ -183,37 +183,43 @@ MainWindow::MainWindow() :
 }
 
 
+void MainWindow::logEvent(std::string eventDescription)
+{
+	labelInfo.text(eventDescription);
+}
+
+
 void MainWindow::onButtonClick()
 {
-	labelInfo.text("Button clicked");
+	logEvent("Button clicked");
 }
 
 
 void MainWindow::onRadioButtonSelect(std::size_t index)
 {
-	labelInfo.text("RadioButton : " + std::to_string(index));
+	logEvent("RadioButton : " + std::to_string(index));
 }
 
 
 void MainWindow::onCheckBoxClick()
 {
-	labelInfo.text("CheckBox clicked");
+	logEvent("CheckBox clicked");
 }
 
 
 void MainWindow::onListBoxSelect()
 {
-	labelInfo.text("ListBox select");
+	logEvent("ListBox select");
 }
 
 
 void MainWindow::onComboBoxSelect()
 {
-	labelInfo.text("ComboBox select");
+	logEvent("ComboBox select");
 }
 
 
 void MainWindow::onScrollBarChange(int newValue)
 {
-	labelInfo.text("ScrollBar: " + std::to_string(newValue));
+	logEvent("ScrollBar: " + std::to_string(newValue));
 }
