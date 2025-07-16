@@ -1,15 +1,16 @@
 #include "Tube.h"
 
+#include "../../Map/Tile.h"
 #include "../../Constants/Strings.h"
 
 #include <stdexcept>
 
 
-Tube::Tube(ConnectorDir dir, bool underground) :
+Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
 		StructureClass::Tube,
 		StructureID::SID_TUBE,
-		getAnimationName(dir, underground),
+		getAnimationName(dir, tile.depth() != 0),
 	}
 {
 	connectorDirection(dir);
