@@ -198,7 +198,7 @@ const StructureType& StructureCatalog::getType(std::size_t index)
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalog::create(StructureID id, Tile* tile)
+Structure* StructureCatalog::create(StructureID id, Tile& tile)
 {
 	Structure* structure = nullptr;
 

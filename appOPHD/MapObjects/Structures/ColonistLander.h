@@ -14,7 +14,7 @@ public:
 	using DeployDelegate = NAS2D::Delegate<void()>;
 
 public:
-	ColonistLander(Tile* tile);
+	ColonistLander(Tile& tile);
 
 	void deployHandler(DeployDelegate newDeployHandler);
 
@@ -24,5 +24,5 @@ protected:
 private:
 	DeployDelegate mDeployHandler;
 
-	Tile* mTile;
+	Tile& mTile;
 };

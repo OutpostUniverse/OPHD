@@ -4,7 +4,7 @@
 #include "../../Map/Tile.h"
 
 
-CargoLander::CargoLander(Tile* tile) :
+CargoLander::CargoLander(Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_CARGO_LANDER},
 	mTile{tile}
 {
@@ -23,6 +23,6 @@ void CargoLander::think()
 	if (age() == turnsToBuild())
 	{
 		if (mDeployHandler) { mDeployHandler(); }
-		mTile->bulldoze();
+		mTile.bulldoze();
 	}
 }

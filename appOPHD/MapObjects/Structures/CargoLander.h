@@ -13,7 +13,7 @@ class CargoLander : public Structure
 public:
 	using DeployDelegate = NAS2D::Delegate<void()>;
 
-	CargoLander(Tile* tile);
+	CargoLander(Tile& tile);
 
 	void deployHandler(DeployDelegate newDeployHandler);
 
@@ -27,5 +27,5 @@ private:
 
 private:
 	DeployDelegate mDeployHandler;
-	Tile* mTile = nullptr;
+	Tile& mTile;
 };

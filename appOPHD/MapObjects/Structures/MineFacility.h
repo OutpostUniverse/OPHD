@@ -16,7 +16,7 @@ public:
 	using ExtensionCompleteDelegate = NAS2D::Delegate<void(MineFacility*)>;
 
 public:
-	MineFacility(Tile* tile);
+	MineFacility(Tile& tile);
 
 	void maxDepth(int depth);
 

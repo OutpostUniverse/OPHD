@@ -39,10 +39,10 @@ public:
 	StructureManager();
 
 	template <typename StructureType>
-	requires std::derived_from<StructureType, Structure> && std::constructible_from<StructureType, Tile*>
+	requires std::derived_from<StructureType, Structure> && std::constructible_from<StructureType, Tile&>
 	StructureType& create(Tile& tile)
 	{
-		auto& structure = *new StructureType(&tile);
+		auto& structure = *new StructureType(tile);
 		addStructure(structure, tile);
 		return structure;
 	}
