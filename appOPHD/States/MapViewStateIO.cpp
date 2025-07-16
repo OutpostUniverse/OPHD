@@ -17,6 +17,7 @@
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/Route.h"
+#include "../Map/RouteFinder.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../MapObjects/Robots.h"
@@ -270,7 +271,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView);
 
-	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
+	mPathSolver = std::make_unique<RouteFinder>(*mTileMap);
 	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	routeTable.clear();
 

@@ -2,14 +2,17 @@
 
 #include "Route.h"
 #include "Tile.h"
+#include "TileMap.h"
 #include "../StructureManager.h"
 #include "../MapObjects/Structures/OreRefining.h"
 #include "../MicroPather/micropather.h"
 
-
 #include <libOPHD/EnumTerrainType.h>
+#include <libOPHD/DirectionOffset.h>
 
 #include <NAS2D/Utility.h>
+
+#include <cmath>
 
 
 namespace
@@ -47,6 +50,57 @@ namespace
 }
 
 
+class TileMapGraph : public micropather::Graph
+{
+public:
+	TileMapGraph(TileMap& tileMap) :
+		mTileMap{tileMap}
+	{
+	}
+
+
+	/**
+	* Implements MicroPather interface.
+	*
+	* \warning	Assumes stateStart and stateEnd are never nullptr.
+	*/
+	float LeastCostEstimate(void* stateStart, void* stateEnd) override
+	{
+		return sqrtf(static_cast<float>((static_cast<Tile*>(stateEnd)->xy() - static_cast<Tile*>(stateStart)->xy()).lengthSquared()));
+	}
+
+
+	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override
+	{
+		auto& tile = *static_cast<Tile*>(state);
+		const auto tilePosition = tile.xy();
+
+		for (const auto& offset : DirectionClockwise4)
+		{
+			const auto position = tilePosition + offset;
+			if (!NAS2D::Rectangle{{0, 0}, mTileMap.size()}.contains(position))
+			{
+				continue;
+			}
+
+			auto& adjacentTile = mTileMap.getTile({position, 0});
+			float cost = adjacentTile.movementCost();
+
+			micropather::StateCost nodeCost = {&adjacentTile, cost};
+			adjacent->push_back(nodeCost);
+		}
+	}
+
+
+	void PrintStateInfo(void* /*state*/) override
+	{
+	}
+
+private:
+	TileMap& mTileMap;
+};
+
+
 Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 {
 	auto routeList = findRoutes(solver, mineFacility, smelters);
@@ -68,4 +122,22 @@ bool routeObstructed(Route& route)
 	}
 
 	return false;
+}
+
+
+RouteFinder::RouteFinder(TileMap& tileMap) :
+	mTileMapGraph{std::make_unique<TileMapGraph>(tileMap)},
+	mPathSolver{std::make_unique<micropather::MicroPather>(mTileMapGraph.get(), 250, 6, false)}
+{
+}
+
+
+RouteFinder::~RouteFinder()
+{
+}
+
+
+Route RouteFinder::findLowestCostRoute(const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+{
+	return ::findLowestCostRoute(mPathSolver.get(), mineFacility, smelters);
 }

@@ -275,39 +275,6 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-/**
- * Implements MicroPather interface.
- *
- * \warning	Assumes stateStart and stateEnd are never nullptr.
- */
-float TileMap::LeastCostEstimate(void* stateStart, void* stateEnd)
-{
-	return sqrtf(static_cast<float>((static_cast<Tile*>(stateEnd)->xy() - static_cast<Tile*>(stateStart)->xy()).lengthSquared()));
-}
-
-
-void TileMap::AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent)
-{
-	auto& tile = *static_cast<Tile*>(state);
-	const auto tilePosition = tile.xy();
-
-	for (const auto& offset : DirectionClockwise4)
-	{
-		const auto position = tilePosition + offset;
-		if (!NAS2D::Rectangle{{0, 0}, mSizeInTiles}.contains(position))
-		{
-			continue;
-		}
-
-		auto& adjacentTile = getTile({position, 0});
-		float cost = adjacentTile.movementCost();
-
-		micropather::StateCost nodeCost = {&adjacentTile, cost};
-		adjacent->push_back(nodeCost);
-	}
-}
-
-
 bool TileMap::isTileBlockedByOreDeposit(const Tile& tile) const
 {
 	return getTile({tile.xy(), 0}).hasOreDeposit();

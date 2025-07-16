@@ -38,6 +38,8 @@
 
 #include <vector>
 #include <algorithm>
+#include <cfloat>
+
 
 namespace
 {
@@ -270,7 +272,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto newRoute = findLowestCostRoute(mPathSolver.get(), mineFacility, smelterList);
+			auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelterList);
 
 			if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
 
