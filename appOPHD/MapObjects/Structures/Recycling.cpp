@@ -13,7 +13,7 @@ namespace
 
 
 Recycling::Recycling() :
-	Structure(StructureClass::Recycling, StructureID::SID_RECYCLING)
+	Structure{StructureClass::Recycling, StructureID::SID_RECYCLING}
 {
 }
 

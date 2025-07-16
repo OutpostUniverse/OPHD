@@ -7,7 +7,7 @@ class SeedFactory : public Factory
 {
 public:
 	SeedFactory() :
-		Factory(
+		Factory{
 			StructureID::SID_SEED_FACTORY,
 			{
 				ProductType::PRODUCT_DIGGER,
@@ -15,7 +15,7 @@ public:
 				ProductType::PRODUCT_MINER,
 				ProductType::PRODUCT_TRUCK,
 			}
-		)
+		}
 	{
 	}
 };

@@ -10,7 +10,7 @@ class FusionReactor : public PowerStructure
 {
 public:
 	FusionReactor() :
-		PowerStructure(StructureClass::EnergyProduction, StructureID::SID_FUSION_REACTOR)
+		PowerStructure{StructureClass::EnergyProduction, StructureID::SID_FUSION_REACTOR}
 	{
 	}
 

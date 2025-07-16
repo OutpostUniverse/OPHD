@@ -7,7 +7,7 @@ class SurfaceFactory : public Factory
 {
 public:
 	SurfaceFactory() :
-		Factory(
+		Factory{
 			StructureID::SID_SURFACE_FACTORY,
 			{
 				ProductType::PRODUCT_DIGGER,
@@ -15,7 +15,7 @@ public:
 				ProductType::PRODUCT_MINER,
 				ProductType::PRODUCT_TRUCK,
 			}
-		)
+		}
 	{
 	}
 };

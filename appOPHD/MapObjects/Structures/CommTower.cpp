@@ -6,7 +6,7 @@
 
 
 CommTower::CommTower() :
-	Structure(StructureClass::Communication, StructureID::SID_COMM_TOWER)
+	Structure{StructureClass::Communication, StructureID::SID_COMM_TOWER}
 {
 }
 

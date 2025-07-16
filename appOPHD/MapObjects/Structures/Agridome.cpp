@@ -4,7 +4,7 @@
 
 
 Agridome::Agridome() :
-	FoodProduction(StructureClass::FoodProduction, StructureID::SID_AGRIDOME)
+	FoodProduction{StructureClass::FoodProduction, StructureID::SID_AGRIDOME}
 {
 }
 

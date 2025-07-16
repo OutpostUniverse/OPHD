@@ -9,7 +9,7 @@ class Warehouse : public Structure
 {
 public:
 	Warehouse() :
-		Structure(StructureClass::Warehouse, StructureID::SID_WAREHOUSE)
+		Structure{StructureClass::Warehouse, StructureID::SID_WAREHOUSE}
 	{
 	}
 

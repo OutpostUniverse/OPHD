@@ -6,7 +6,7 @@
 
 
 StorageTanks::StorageTanks() :
-	Structure(StructureClass::Storage, StructureID::SID_STORAGE_TANKS)
+	Structure{StructureClass::Storage, StructureID::SID_STORAGE_TANKS}
 {
 }
 

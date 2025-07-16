@@ -2,7 +2,7 @@
 
 
 CommandCenter::CommandCenter() :
-	FoodProduction(StructureClass::Command, StructureID::SID_COMMAND_CENTER)
+	FoodProduction{StructureClass::Command, StructureID::SID_COMMAND_CENTER}
 {
 }
 

@@ -13,7 +13,7 @@ namespace
 
 
 Residence::Residence() :
-	Structure(StructureClass::Residence, StructureID::SID_RESIDENCE)
+	Structure{StructureClass::Residence, StructureID::SID_RESIDENCE}
 {
 }
 

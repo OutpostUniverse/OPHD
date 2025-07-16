@@ -7,7 +7,7 @@ class UndergroundFactory : public Factory
 {
 public:
 	UndergroundFactory() :
-		Factory(
+		Factory{
 			StructureID::SID_UNDERGROUND_FACTORY,
 			{
 				// Need to be replaced by non robot/surface goods
@@ -15,7 +15,7 @@ public:
 				ProductType::PRODUCT_CLOTHING,
 				ProductType::PRODUCT_MEDICINE,
 			}
-		)
+		}
 	{
 	}
 };

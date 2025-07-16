@@ -5,8 +5,8 @@
 
 
 CargoLander::CargoLander(Tile* tile) :
-	Structure(StructureClass::Lander, StructureID::SID_CARGO_LANDER),
-	mTile(tile)
+	Structure{StructureClass::Lander, StructureID::SID_CARGO_LANDER},
+	mTile{tile}
 {
 	enable();
 }

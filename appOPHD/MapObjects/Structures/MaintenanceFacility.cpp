@@ -16,7 +16,7 @@ namespace
 
 
 MaintenanceFacility::MaintenanceFacility() :
-	Structure(StructureClass::Maintenance, StructureID::SID_MAINTENANCE_FACILITY),
+	Structure{StructureClass::Maintenance, StructureID::SID_MAINTENANCE_FACILITY},
 	mMaterialsLevel{0},
 	mMaintenancePersonnel{MinimumPersonnel},
 	mAssignedPersonnel{0},
