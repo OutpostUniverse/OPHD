@@ -5,9 +5,8 @@
 #include "../../UI/StringTable.h"
 
 
-StorageTanks::StorageTanks() : Structure(
-	StructureClass::Storage,
-	StructureID::SID_STORAGE_TANKS)
+StorageTanks::StorageTanks() :
+	Structure(StructureClass::Storage, StructureID::SID_STORAGE_TANKS)
 {
 }
 
