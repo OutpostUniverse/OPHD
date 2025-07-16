@@ -4,8 +4,7 @@
 
 
 SeedLander::SeedLander(Tile& tile) :
-	Structure{StructureClass::Lander, StructureID::SID_SEED_LANDER},
-	mTile{tile}
+	Structure{StructureClass::Lander, StructureID::SID_SEED_LANDER, tile}
 {
 	enable();
 }

@@ -208,11 +208,11 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 	switch (id)
 	{
 		case StructureID::SID_AGRIDOME:
-			structure = new Agridome();
+			structure = new Agridome(tile);
 			break;
 
 		case StructureID::SID_AIR_SHAFT:
-			structure = new AirShaft();
+			structure = new AirShaft(tile);
 			break;
 
 		case StructureID::SID_CARGO_LANDER:
@@ -220,7 +220,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_CHAP:
-			structure = new Structure(StructureClass::LifeSupport, StructureID::SID_CHAP);
+			structure = new Structure(StructureClass::LifeSupport, StructureID::SID_CHAP, tile);
 			break;
 
 		case StructureID::SID_COLONIST_LANDER:
@@ -228,35 +228,35 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_COMMAND_CENTER:
-			structure = new CommandCenter();
+			structure = new CommandCenter(tile);
 			break;
 
 		case StructureID::SID_COMMERCIAL:
-			structure = new Structure(StructureClass::Commercial, StructureID::SID_COMMERCIAL);
+			structure = new Structure(StructureClass::Commercial, StructureID::SID_COMMERCIAL, tile);
 			break;
 
 		case StructureID::SID_COMM_TOWER:
-			structure = new CommTower();
+			structure = new CommTower(tile);
 			break;
 
 		case StructureID::SID_FUSION_REACTOR:
-			structure = new FusionReactor();
+			structure = new FusionReactor(tile);
 			break;
 
 		case StructureID::SID_HOT_LABORATORY:
-			structure = new HotLaboratory();
+			structure = new HotLaboratory(tile);
 			break;
 
 		case StructureID::SID_LABORATORY:
-			structure = new Laboratory();
+			structure = new Laboratory(tile);
 			break;
 
 		case StructureID::SID_MAINTENANCE_FACILITY:
-			structure = new MaintenanceFacility();
+			structure = new MaintenanceFacility(tile);
 			break;
 
 		case StructureID::SID_MEDICAL_CENTER:
-			structure = new Structure(StructureClass::MedicalCenter, StructureID::SID_MEDICAL_CENTER);
+			structure = new Structure(StructureClass::MedicalCenter, StructureID::SID_MEDICAL_CENTER, tile);
 			break;
 
 		case StructureID::SID_MINE_FACILITY:
@@ -264,51 +264,51 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_MINE_SHAFT:
-			structure = new MineShaft();
+			structure = new MineShaft(tile);
 			break;
 
 		case StructureID::SID_NURSERY:
-			structure = new Structure(StructureClass::Nursery, StructureID::SID_NURSERY);
+			structure = new Structure(StructureClass::Nursery, StructureID::SID_NURSERY, tile);
 			break;
 
 		case StructureID::SID_PARK:
-			structure = new Structure(StructureClass::Park, StructureID::SID_PARK);
+			structure = new Structure(StructureClass::Park, StructureID::SID_PARK, tile);
 			break;
 
 		case StructureID::SID_ROAD:
-			structure = new Road();
+			structure = new Road(tile);
 			break;
 
 		case StructureID::SID_SURFACE_POLICE:
-			structure = new Structure(StructureClass::SurfacePolice, StructureID::SID_SURFACE_POLICE);
+			structure = new Structure(StructureClass::SurfacePolice, StructureID::SID_SURFACE_POLICE, tile);
 			break;
 
 		case StructureID::SID_UNDERGROUND_POLICE:
-			structure = new Structure(StructureClass::UndergroundPolice, StructureID::SID_UNDERGROUND_POLICE);
+			structure = new Structure(StructureClass::UndergroundPolice, StructureID::SID_UNDERGROUND_POLICE, tile);
 			break;
 
 		case StructureID::SID_RECREATION_CENTER:
-			structure = new Structure(StructureClass::RecreationCenter, StructureID::SID_RECREATION_CENTER);
+			structure = new Structure(StructureClass::RecreationCenter, StructureID::SID_RECREATION_CENTER, tile);
 			break;
 
 		case StructureID::SID_RECYCLING:
-			structure = new Recycling();
+			structure = new Recycling(tile);
 			break;
 
 		case StructureID::SID_RED_LIGHT_DISTRICT:
-			structure = new Structure(StructureClass::Residence, StructureID::SID_RED_LIGHT_DISTRICT);
+			structure = new Structure(StructureClass::Residence, StructureID::SID_RED_LIGHT_DISTRICT, tile);
 			break;
 
 		case StructureID::SID_RESIDENCE:
-			structure = new Residence();
+			structure = new Residence(tile);
 			break;
 
 		case StructureID::SID_ROBOT_COMMAND:
-			structure = new Structure(StructureClass::RobotCommand, StructureID::SID_ROBOT_COMMAND);
+			structure = new Structure(StructureClass::RobotCommand, StructureID::SID_ROBOT_COMMAND, tile);
 			break;
 
 		case StructureID::SID_SEED_FACTORY:
-			structure = new SeedFactory();
+			structure = new SeedFactory(tile);
 			break;
 
 		case StructureID::SID_SEED_LANDER:
@@ -316,43 +316,43 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_SEED_POWER:
-			structure = new SeedPower();
+			structure = new SeedPower(tile);
 			break;
 
 		case StructureID::SID_SEED_SMELTER:
-			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SEED_SMELTER);
+			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SEED_SMELTER, tile);
 			break;
 
 		case StructureID::SID_SMELTER:
-			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SMELTER);
+			structure = new OreRefining(StructureClass::Smelter, StructureID::SID_SMELTER, tile);
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray();
+			structure = new SolarPanelArray(tile);
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			structure = new SolarPlant();
+			structure = new SolarPlant(tile);
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:
-			structure = new StorageTanks();
+			structure = new StorageTanks(tile);
 			break;
 
 		case StructureID::SID_SURFACE_FACTORY:
-			structure = new SurfaceFactory();
+			structure = new SurfaceFactory(tile);
 			break;
 
 		case StructureID::SID_UNDERGROUND_FACTORY:
-			structure = new UndergroundFactory();
+			structure = new UndergroundFactory(tile);
 			break;
 
 		case StructureID::SID_UNIVERSITY:
-			structure = new Structure(StructureClass::University, StructureID::SID_UNIVERSITY);
+			structure = new Structure(StructureClass::University, StructureID::SID_UNIVERSITY, tile);
 			break;
 
 		case StructureID::SID_WAREHOUSE:
-			structure = new Warehouse();
+			structure = new Warehouse(tile);
 			break;
 
 

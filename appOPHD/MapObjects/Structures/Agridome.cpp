@@ -3,8 +3,8 @@
 #include <algorithm>
 
 
-Agridome::Agridome() :
-	FoodProduction{StructureClass::FoodProduction, StructureID::SID_AGRIDOME}
+Agridome::Agridome(Tile& tile) :
+	FoodProduction{StructureClass::FoodProduction, StructureID::SID_AGRIDOME, tile}
 {
 }
 

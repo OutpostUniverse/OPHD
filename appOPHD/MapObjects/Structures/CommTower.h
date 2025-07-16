@@ -6,7 +6,7 @@
 class CommTower : public Structure
 {
 public:
-	CommTower();
+	CommTower(Tile& tile);
 
 	StringTable createInspectorViewTable() const override;
 };

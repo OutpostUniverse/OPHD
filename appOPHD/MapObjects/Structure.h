@@ -18,6 +18,7 @@ namespace NAS2D
 
 
 struct StructureType;
+class Tile;
 class StringTable;
 
 
@@ -37,8 +38,8 @@ enum class StructureState
 class Structure : public MapObject
 {
 public:
-	Structure(StructureClass structureClass, StructureID id);
-	Structure(StructureClass structureClass, StructureID id, const std::string& initialAction);
+	Structure(StructureClass structureClass, StructureID id, Tile& tile);
+	Structure(StructureClass structureClass, StructureID id, Tile& tile, const std::string& initialAction);
 
 	~Structure() override = default;
 
@@ -171,10 +172,11 @@ private:
 	 */
 	virtual void activated() {}
 
-private:
+protected:
 	const StructureType& mStructureType;
 	const StructureID mStructureId{StructureID::SID_NONE};
 	const StructureClass mStructureClass;
+	Tile& mTile;
 
 	int mAge{0};
 	int mCrimeRate{0};

@@ -9,8 +9,8 @@ constexpr int FusionReactorBaseProduction = 1000;
 class FusionReactor : public PowerStructure
 {
 public:
-	FusionReactor() :
-		PowerStructure{StructureClass::EnergyProduction, StructureID::SID_FUSION_REACTOR}
+	FusionReactor(Tile& tile) :
+		PowerStructure{StructureClass::EnergyProduction, StructureID::SID_FUSION_REACTOR, tile}
 	{
 	}
 

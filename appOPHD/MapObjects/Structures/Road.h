@@ -9,8 +9,8 @@ class TileMap;
 class Road : public Structure
 {
 public:
-	Road() :
-		Structure{StructureClass::Road, StructureID::SID_ROAD}
+	Road(Tile& tile) :
+		Structure{StructureClass::Road, StructureID::SID_ROAD, tile}
 	{
 	}
 

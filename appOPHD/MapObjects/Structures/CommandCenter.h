@@ -6,7 +6,7 @@
 class CommandCenter : public FoodProduction
 {
 public:
-	CommandCenter();
+	CommandCenter(Tile& tile);
 
 protected:
 	int calculateProduction() const override;

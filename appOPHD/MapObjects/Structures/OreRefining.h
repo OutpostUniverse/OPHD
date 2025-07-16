@@ -13,7 +13,7 @@
 class OreRefining : public Structure
 {
 public:
-	OreRefining(StructureClass structureClass, StructureID id);
+	OreRefining(StructureClass structureClass, StructureID id, Tile& tile);
 
 	StringTable createInspectorViewTable() const override;
 

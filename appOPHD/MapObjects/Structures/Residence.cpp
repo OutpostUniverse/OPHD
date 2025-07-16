@@ -12,8 +12,8 @@ namespace
 }
 
 
-Residence::Residence() :
-	Structure{StructureClass::Residence, StructureID::SID_RESIDENCE}
+Residence::Residence(Tile& tile) :
+	Structure{StructureClass::Residence, StructureID::SID_RESIDENCE, tile}
 {
 }
 

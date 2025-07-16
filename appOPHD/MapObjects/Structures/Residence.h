@@ -12,7 +12,7 @@
 class Residence : public Structure
 {
 public:
-	Residence();
+	Residence(Tile& tile);
 
 	int capacity() const;
 	int wasteCapacity() const;

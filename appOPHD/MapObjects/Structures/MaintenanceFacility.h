@@ -9,7 +9,7 @@ struct StorableResources;
 class MaintenanceFacility : public Structure
 {
 public:
-	MaintenanceFacility();
+	MaintenanceFacility(Tile& tile);
 
 	void resources(const StorableResources& resources);
 	bool suppliesAvailable() const;

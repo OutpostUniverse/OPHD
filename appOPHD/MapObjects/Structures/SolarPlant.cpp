@@ -9,8 +9,8 @@ namespace
 }
 
 
-SolarPlant::SolarPlant() :
-	PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SOLAR_PLANT}
+SolarPlant::SolarPlant(Tile& tile) :
+	PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SOLAR_PLANT, tile}
 {
 }
 

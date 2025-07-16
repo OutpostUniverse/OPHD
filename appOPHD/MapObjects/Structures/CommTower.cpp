@@ -5,8 +5,8 @@
 #include "../../UI/StringTable.h"
 
 
-CommTower::CommTower() :
-	Structure{StructureClass::Communication, StructureID::SID_COMM_TOWER}
+CommTower::CommTower(Tile& tile) :
+	Structure{StructureClass::Communication, StructureID::SID_COMM_TOWER, tile}
 {
 }
 

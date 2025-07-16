@@ -4,10 +4,11 @@
 #include "../../Constants/Strings.h"
 
 
-AirShaft::AirShaft() :
+AirShaft::AirShaft(Tile& tile) :
 	Structure{
 		StructureClass::Tube,
 		StructureID::SID_AIR_SHAFT,
+		tile,
 		constants::StructureStateOperational,
 	}
 {
