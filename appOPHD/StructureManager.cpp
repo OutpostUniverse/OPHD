@@ -150,7 +150,7 @@ StructureManager::StructureManager() :
 
 Structure& StructureManager::create(StructureID structureId, Tile& tile)
 {
-	auto& structure = *StructureCatalog::create(structureId);
+	auto& structure = *StructureCatalog::create(structureId, &tile);
 	addStructure(structure, tile);
 	return structure;
 }
