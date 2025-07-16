@@ -60,6 +60,4 @@ private:
 	const int mMaxDepth = 0;
 	std::vector<Tile> mTileMap;
 	std::vector<NAS2D::Point<int>> mOreDepositLocations;
-
-	std::string mMapPath;
 };
