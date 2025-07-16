@@ -32,7 +32,7 @@ public:
 	static const StructureType& getType(StructureID id);
 	static const StructureType& getType(std::size_t index);
 
-	static Structure* create(StructureID id, Tile* tile = nullptr);
+	static Structure* create(StructureID id, Tile* tile);
 
 	static const StorableResources& costToBuild(StructureID id);
 	static const StorableResources& recyclingValue(StructureID id);
