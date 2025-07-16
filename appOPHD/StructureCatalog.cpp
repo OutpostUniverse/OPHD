@@ -198,7 +198,7 @@ const StructureType& StructureCatalog::getType(std::size_t index)
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalog::create(StructureID id, Tile* tile)
+Structure* StructureCatalog::create(StructureID id, Tile& tile)
 {
 	Structure* structure = nullptr;
 
@@ -216,7 +216,7 @@ Structure* StructureCatalog::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_CARGO_LANDER:
-			structure = new CargoLander(tile);
+			structure = new CargoLander(&tile);
 			break;
 
 		case StructureID::SID_CHAP:
@@ -224,7 +224,7 @@ Structure* StructureCatalog::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_COLONIST_LANDER:
-			structure = new ColonistLander(tile);
+			structure = new ColonistLander(&tile);
 			break;
 
 		case StructureID::SID_COMMAND_CENTER:
@@ -260,7 +260,7 @@ Structure* StructureCatalog::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_MINE_FACILITY:
-			structure = new MineFacility(tile);
+			structure = new MineFacility(&tile);
 			break;
 
 		case StructureID::SID_MINE_SHAFT:
@@ -312,7 +312,7 @@ Structure* StructureCatalog::create(StructureID id, Tile* tile)
 			break;
 
 		case StructureID::SID_SEED_LANDER:
-			structure = new SeedLander(tile);
+			structure = new SeedLander(&tile);
 			break;
 
 		case StructureID::SID_SEED_POWER:
