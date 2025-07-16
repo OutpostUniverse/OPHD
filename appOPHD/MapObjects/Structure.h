@@ -38,7 +38,7 @@ class Structure : public MapObject
 {
 public:
 	Structure(StructureClass structureClass, StructureID id);
-	Structure(const std::string& initialAction, StructureClass structureClass, StructureID id);
+	Structure(StructureClass structureClass, StructureID id, const std::string& initialAction);
 
 	~Structure() override = default;
 
