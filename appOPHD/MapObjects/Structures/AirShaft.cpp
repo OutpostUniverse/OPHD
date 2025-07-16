@@ -4,10 +4,12 @@
 #include "../../Constants/Strings.h"
 
 
-AirShaft::AirShaft() : Structure(
-	constants::StructureStateOperational,
-	StructureClass::Tube,
-	StructureID::SID_AIR_SHAFT)
+AirShaft::AirShaft() :
+	Structure(
+		constants::StructureStateOperational,
+		StructureClass::Tube,
+		StructureID::SID_AIR_SHAFT
+	)
 {
 	connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);
 
