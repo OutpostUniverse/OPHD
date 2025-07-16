@@ -5,7 +5,7 @@
 
 SeedLander::SeedLander(const Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_SEED_LANDER},
-	mPosition{tile.xy()}
+	mTile{tile}
 {
 	enable();
 }
@@ -21,6 +21,6 @@ void SeedLander::think()
 {
 	if (age() == turnsToBuild())
 	{
-		if (mDeployHandler) { mDeployHandler(mPosition); }
+		if (mDeployHandler) { mDeployHandler(mTile.xy()); }
 	}
 }

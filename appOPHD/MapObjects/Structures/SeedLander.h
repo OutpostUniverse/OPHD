@@ -25,5 +25,5 @@ protected:
 
 private:
 	DeployDelegate mDeployHandler;
-	NAS2D::Point<int> mPosition;
+	const Tile& mTile;
 };
