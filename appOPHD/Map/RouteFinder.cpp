@@ -2,6 +2,7 @@
 
 #include "Route.h"
 #include "Tile.h"
+#include "TileMap.h"
 #include "../StructureManager.h"
 #include "../MapObjects/Structures/OreRefining.h"
 #include "../MicroPather/micropather.h"
@@ -68,4 +69,22 @@ bool routeObstructed(Route& route)
 	}
 
 	return false;
+}
+
+
+RouteFinder::RouteFinder(TileMap& tileMap) :
+	mTileMap{tileMap},
+	mPathSolver{std::make_unique<micropather::MicroPather>(&mTileMap, 250, 6, false)}
+{
+}
+
+
+RouteFinder::~RouteFinder()
+{
+}
+
+
+Route RouteFinder::findLowestCostRoute(const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+{
+	return ::findLowestCostRoute(mPathSolver.get(), mineFacility, smelters);
 }
