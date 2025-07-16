@@ -81,7 +81,7 @@ Structure::Structure(StructureClass structureClass, StructureID id) :
 }
 
 
-Structure::Structure(const std::string& initialAction, StructureClass structureClass, StructureID id) :
+Structure::Structure(StructureClass structureClass, StructureID id, const std::string& initialAction) :
 	MapObject(StructureCatalog::getType(id).spritePath, initialAction),
 	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),

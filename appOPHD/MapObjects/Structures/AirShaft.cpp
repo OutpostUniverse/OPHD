@@ -6,9 +6,9 @@
 
 AirShaft::AirShaft() :
 	Structure{
-		constants::StructureStateOperational,
 		StructureClass::Tube,
-		StructureID::SID_AIR_SHAFT
+		StructureID::SID_AIR_SHAFT,
+		constants::StructureStateOperational,
 	}
 {
 	connectorDirection(ConnectorDir::CONNECTOR_VERTICAL);

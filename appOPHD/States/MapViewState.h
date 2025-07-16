@@ -158,7 +158,7 @@ private:
 	void onDeployColonistLander();
 	void onDeploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
-	void insertTube(ConnectorDir dir, int depth, Tile& tile);
+	void insertTube(Tile& tile, ConnectorDir dir);
 
 	void placeTubes(Tile& tile, ConnectorDir connectorDirection);
 	void placeStructure(Tile& tile, StructureID structureID);
