@@ -27,5 +27,5 @@ private:
 
 private:
 	DeployDelegate mDeployHandler;
-	Tile* mTile = nullptr;
+	Tile* mTile;
 };
