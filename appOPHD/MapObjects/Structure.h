@@ -172,7 +172,7 @@ private:
 	 */
 	virtual void activated() {}
 
-private:
+protected:
 	const StructureType& mStructureType;
 	const StructureID mStructureId{StructureID::SID_NONE};
 	const StructureClass mStructureClass;
