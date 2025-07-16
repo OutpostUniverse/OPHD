@@ -47,15 +47,6 @@ public:
 		return structure;
 	}
 
-	template <typename StructureType>
-	requires std::derived_from<StructureType, Structure> && std::constructible_from<StructureType>
-	StructureType& create(Tile& tile)
-	{
-		auto& structure = *new StructureType();
-		addStructure(structure, tile);
-		return structure;
-	}
-
 	Structure& create(StructureID structureId, Tile& tile);
 
 	void addStructure(Structure& structure, Tile& tile);
