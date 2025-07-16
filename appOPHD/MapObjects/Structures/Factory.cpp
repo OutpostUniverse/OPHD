@@ -60,7 +60,7 @@ const ProductionCost& productCost(ProductType productType)
 
 
 Factory::Factory(StructureID id, std::vector<ProductType> products) :
-	Structure(StructureClass::Factory, id),
+	Structure{StructureClass::Factory, id},
 	mAvailableProducts{std::move(products)}
 {
 	assertNoDuplicates(mAvailableProducts);

@@ -7,7 +7,7 @@
 
 
 OreRefining::OreRefining(StructureClass structureClass, StructureID id) :
-	Structure(structureClass, id)
+	Structure{structureClass, id}
 {
 }
 
