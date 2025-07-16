@@ -3,7 +3,7 @@
 #include "../../Map/Tile.h"
 
 
-SeedLander::SeedLander(const Tile& tile) :
+SeedLander::SeedLander(Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_SEED_LANDER},
 	mTile{tile}
 {

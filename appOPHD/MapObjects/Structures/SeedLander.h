@@ -16,7 +16,7 @@ public:
 
 public:
 	SeedLander() = delete;
-	SeedLander(const Tile& tile);
+	SeedLander(Tile& tile);
 
 	void deployHandler(DeployDelegate newDeployHandler);
 
@@ -25,5 +25,5 @@ protected:
 
 private:
 	DeployDelegate mDeployHandler;
-	const Tile& mTile;
+	Tile& mTile;
 };
