@@ -16,7 +16,7 @@ public:
 
 public:
 	SeedLander() = delete;
-	SeedLander(const Tile* tile);
+	SeedLander(const Tile& tile);
 
 	void deployHandler(DeployDelegate newDeployHandler);
 

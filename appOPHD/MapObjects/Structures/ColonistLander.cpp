@@ -4,9 +4,9 @@
 #include "../../Map/Tile.h"
 
 
-ColonistLander::ColonistLander(Tile* tile) :
+ColonistLander::ColonistLander(Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_COLONIST_LANDER},
-	mTile{tile}
+	mTile{&tile}
 {
 	enable();
 }

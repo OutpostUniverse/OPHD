@@ -4,9 +4,9 @@
 #include "../../Map/Tile.h"
 
 
-CargoLander::CargoLander(Tile* tile) :
+CargoLander::CargoLander(Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_CARGO_LANDER},
-	mTile{tile}
+	mTile{&tile}
 {
 	enable();
 }
