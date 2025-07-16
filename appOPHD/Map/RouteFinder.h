@@ -14,6 +14,7 @@ struct Route;
 class Structure;
 class OreRefining;
 class TileMap;
+class TileMapGraph;
 
 
 Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters);
@@ -29,6 +30,6 @@ public:
 	Route findLowestCostRoute(const Structure* mineFacility, const std::vector<OreRefining*>& smelters);
 
 private:
-	TileMap& mTileMap;
+	std::unique_ptr<TileMapGraph> mTileMapGraph;
 	std::unique_ptr<micropather::MicroPather> mPathSolver;
 };

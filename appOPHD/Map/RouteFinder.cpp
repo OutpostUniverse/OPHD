@@ -126,8 +126,8 @@ bool routeObstructed(Route& route)
 
 
 RouteFinder::RouteFinder(TileMap& tileMap) :
-	mTileMap{tileMap},
-	mPathSolver{std::make_unique<micropather::MicroPather>(&mTileMap, 250, 6, false)}
+	mTileMapGraph{std::make_unique<TileMapGraph>(tileMap)},
+	mPathSolver{std::make_unique<micropather::MicroPather>(mTileMapGraph.get(), 250, 6, false)}
 {
 }
 
