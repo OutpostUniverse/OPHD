@@ -38,6 +38,8 @@
 
 #include <vector>
 #include <algorithm>
+#include <cfloat>
+
 
 namespace
 {
