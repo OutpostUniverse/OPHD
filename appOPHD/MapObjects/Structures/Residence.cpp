@@ -12,9 +12,8 @@ namespace
 }
 
 
-Residence::Residence() : Structure(
-	StructureClass::Residence,
-	StructureID::SID_RESIDENCE)
+Residence::Residence() :
+	Structure(StructureClass::Residence, StructureID::SID_RESIDENCE)
 {
 }
 
