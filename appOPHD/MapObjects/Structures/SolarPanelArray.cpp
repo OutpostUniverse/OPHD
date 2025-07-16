@@ -9,8 +9,8 @@ namespace
 }
 
 
-SolarPanelArray::SolarPanelArray() :
-	PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SOLAR_PANEL1}
+SolarPanelArray::SolarPanelArray(Tile& tile) :
+	PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SOLAR_PANEL1, tile}
 {
 }
 

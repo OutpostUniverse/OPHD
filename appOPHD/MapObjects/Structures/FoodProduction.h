@@ -11,7 +11,7 @@
 class FoodProduction : public Structure
 {
 public:
-	FoodProduction(StructureClass structureClass, StructureID id);
+	FoodProduction(StructureClass structureClass, StructureID id, Tile& tile);
 
 	StringTable createInspectorViewTable() const override;
 

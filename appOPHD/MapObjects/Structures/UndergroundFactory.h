@@ -6,7 +6,7 @@
 class UndergroundFactory : public Factory
 {
 public:
-	UndergroundFactory() :
+	UndergroundFactory(Tile& tile) :
 		Factory{
 			StructureID::SID_UNDERGROUND_FACTORY,
 			{
@@ -14,7 +14,8 @@ public:
 				// Produces luxuries, clothing, or medicine
 				ProductType::PRODUCT_CLOTHING,
 				ProductType::PRODUCT_MEDICINE,
-			}
+			},
+			tile,
 		}
 	{
 	}

@@ -6,7 +6,7 @@
 class StorageTanks : public Structure
 {
 public:
-	StorageTanks();
+	StorageTanks(Tile& tile);
 
 	StringTable createInspectorViewTable() const override;
 };

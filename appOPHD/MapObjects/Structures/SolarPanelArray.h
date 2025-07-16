@@ -6,7 +6,7 @@
 class SolarPanelArray : public PowerStructure
 {
 public:
-	SolarPanelArray();
+	SolarPanelArray(Tile& tile);
 
 protected:
 	int calculateMaxEnergyProduction() const override;

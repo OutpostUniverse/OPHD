@@ -8,8 +8,8 @@ const int SeedPowerProduction = 50;
 class SeedPower : public PowerStructure
 {
 public:
-	SeedPower() :
-		PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SEED_POWER}
+	SeedPower(Tile& tile) :
+		PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SEED_POWER, tile}
 	{
 	}
 

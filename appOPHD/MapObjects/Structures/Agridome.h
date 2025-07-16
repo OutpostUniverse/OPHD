@@ -6,7 +6,7 @@
 class Agridome : public FoodProduction
 {
 public:
-	Agridome();
+	Agridome(Tile& tile);
 
 protected:
 	void think() override;

@@ -5,8 +5,8 @@
 #include <algorithm>
 
 
-FoodProduction::FoodProduction(StructureClass structureClass, StructureID id) :
-	Structure{structureClass, id}
+FoodProduction::FoodProduction(StructureClass structureClass, StructureID id, Tile& tile) :
+	Structure{structureClass, id, tile}
 {
 }
 

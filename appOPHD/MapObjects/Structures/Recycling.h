@@ -6,7 +6,7 @@
 class Recycling : public Structure
 {
 public:
-	Recycling();
+	Recycling(Tile& tile);
 
 	virtual int wasteProcessingCapacity() const;
 	virtual int residentialSupportCount() const;

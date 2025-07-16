@@ -72,7 +72,7 @@ std::vector<StructureClass> allStructureClasses()
 }
 
 
-Structure::Structure(StructureClass structureClass, StructureID id) :
+Structure::Structure(StructureClass structureClass, StructureID id, Tile& /*tile*/) :
 	MapObject(StructureCatalog::getType(id).spritePath, constants::StructureStateConstruction),
 	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),

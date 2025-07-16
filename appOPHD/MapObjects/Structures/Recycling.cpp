@@ -12,8 +12,8 @@ namespace
 }
 
 
-Recycling::Recycling() :
-	Structure{StructureClass::Recycling, StructureID::SID_RECYCLING}
+Recycling::Recycling(Tile& tile) :
+	Structure{StructureClass::Recycling, StructureID::SID_RECYCLING, tile}
 {
 }
 

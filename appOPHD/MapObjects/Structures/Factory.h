@@ -33,7 +33,7 @@ public:
 	using ProductionTypeList = std::vector<ProductType>;
 
 public:
-	Factory(StructureID id, std::vector<ProductType> products);
+	Factory(StructureID id, std::vector<ProductType> products, Tile& tile);
 
 	virtual void updateProduction();
 

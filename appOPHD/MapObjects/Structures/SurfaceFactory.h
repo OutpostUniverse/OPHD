@@ -6,7 +6,7 @@
 class SurfaceFactory : public Factory
 {
 public:
-	SurfaceFactory() :
+	SurfaceFactory(Tile& tile) :
 		Factory{
 			StructureID::SID_SURFACE_FACTORY,
 			{
@@ -14,7 +14,8 @@ public:
 				ProductType::PRODUCT_DOZER,
 				ProductType::PRODUCT_MINER,
 				ProductType::PRODUCT_TRUCK,
-			}
+			},
+			tile,
 		}
 	{
 	}

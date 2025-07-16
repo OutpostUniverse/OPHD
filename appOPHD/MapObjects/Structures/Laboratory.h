@@ -6,8 +6,8 @@
 class Laboratory : public ResearchFacility
 {
 public:
-	Laboratory() :
-		ResearchFacility{StructureClass::Laboratory, StructureID::SID_LABORATORY}
+	Laboratory(Tile& tile) :
+		ResearchFacility{StructureClass::Laboratory, StructureID::SID_LABORATORY, tile}
 	{
 		maxScientistsAllowed(3);
 		regularPointsPerScientist(1);
