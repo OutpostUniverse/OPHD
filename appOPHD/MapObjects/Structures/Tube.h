@@ -3,9 +3,6 @@
 #include "../Structure.h"
 
 
-class Tile;
-
-
 class Tube : public Structure
 {
 public:

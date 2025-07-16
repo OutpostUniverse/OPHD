@@ -6,7 +6,7 @@
 class AirShaft : public Structure
 {
 public:
-	AirShaft();
+	AirShaft(Tile& tile);
 
 	void underground();
 

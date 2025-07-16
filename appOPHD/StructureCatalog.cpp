@@ -212,7 +212,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_AIR_SHAFT:
-			structure = new AirShaft();
+			structure = new AirShaft(tile);
 			break;
 
 		case StructureID::SID_CARGO_LANDER:
