@@ -5,9 +5,6 @@
 #include <NAS2D/Signal/Delegate.h>
 
 
-class Tile;
-
-
 class ColonistLander : public Structure
 {
 public:
@@ -23,6 +20,4 @@ protected:
 
 private:
 	DeployDelegate mDeployHandler;
-
-	Tile& mTile;
 };

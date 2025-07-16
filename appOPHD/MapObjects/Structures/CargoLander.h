@@ -5,9 +5,6 @@
 #include <NAS2D/Signal/Delegate.h>
 
 
-class Tile;
-
-
 class CargoLander : public Structure
 {
 public:
@@ -27,5 +24,4 @@ private:
 
 private:
 	DeployDelegate mDeployHandler;
-	Tile& mTile;
 };

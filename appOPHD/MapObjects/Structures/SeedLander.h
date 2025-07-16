@@ -6,9 +6,6 @@
 #include <NAS2D/Signal/Delegate.h>
 
 
-class Tile;
-
-
 class SeedLander : public Structure
 {
 public:
@@ -25,5 +22,4 @@ protected:
 
 private:
 	DeployDelegate mDeployHandler;
-	Tile& mTile;
 };

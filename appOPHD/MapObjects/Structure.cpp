@@ -72,20 +72,22 @@ std::vector<StructureClass> allStructureClasses()
 }
 
 
-Structure::Structure(StructureClass structureClass, StructureID id, Tile& /*tile*/) :
+Structure::Structure(StructureClass structureClass, StructureID id, Tile& tile) :
 	MapObject(StructureCatalog::getType(id).spritePath, constants::StructureStateConstruction),
 	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),
-	mStructureClass(structureClass)
+	mStructureClass(structureClass),
+	mTile{tile}
 {
 }
 
 
-Structure::Structure(StructureClass structureClass, StructureID id, Tile& /*tile*/, const std::string& initialAction) :
+Structure::Structure(StructureClass structureClass, StructureID id, Tile& tile, const std::string& initialAction) :
 	MapObject(StructureCatalog::getType(id).spritePath, initialAction),
 	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),
-	mStructureClass(structureClass)
+	mStructureClass(structureClass),
+	mTile{tile}
 {
 }
 
