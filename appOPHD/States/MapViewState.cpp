@@ -760,14 +760,14 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
-void MapViewState::insertTube(ConnectorDir dir, int depth, Tile& tile)
+void MapViewState::insertTube(ConnectorDir dir, Tile& tile)
 {
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir parameter.");
 	}
 
-	NAS2D::Utility<StructureManager>::get().addStructure(*new Tube(dir, depth != 0), tile);
+	NAS2D::Utility<StructureManager>::get().addStructure(*new Tube(dir, tile.depth() != 0), tile);
 }
 
 
@@ -782,7 +782,7 @@ void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
 
 	if (validTubeConnection(*mTileMap, tile.xyz(), connectorDirection))
 	{
-		insertTube(connectorDirection, mMapView->currentDepth(), tile);
+		insertTube(connectorDirection, tile);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();
