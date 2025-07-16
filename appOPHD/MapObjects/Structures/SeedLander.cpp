@@ -4,10 +4,7 @@
 
 
 SeedLander::SeedLander(const Tile* tile) :
-	Structure{
-		StructureClass::Lander,
-		StructureID::SID_SEED_LANDER
-	},
+	Structure{StructureClass::Lander, StructureID::SID_SEED_LANDER},
 	mPosition{tile->xy()}
 {
 	enable();
