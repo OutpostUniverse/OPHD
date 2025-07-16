@@ -6,9 +6,8 @@
 class MineShaft : public Structure
 {
 public:
-	MineShaft() : Structure(
-		StructureClass::Undefined,
-		StructureID::SID_MINE_SHAFT)
+	MineShaft() :
+		Structure(StructureClass::Undefined, StructureID::SID_MINE_SHAFT)
 	{
 	}
 };
