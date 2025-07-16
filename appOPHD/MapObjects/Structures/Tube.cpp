@@ -9,7 +9,8 @@ Tube::Tube(ConnectorDir dir, bool underground) :
 	Structure(
 		getAnimationName(dir, underground),
 		StructureClass::Tube,
-		StructureID::SID_TUBE)
+		StructureID::SID_TUBE
+	)
 {
 	connectorDirection(dir);
 	state(StructureState::Operational);
