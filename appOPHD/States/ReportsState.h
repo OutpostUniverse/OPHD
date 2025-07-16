@@ -5,8 +5,8 @@
 #include <NAS2D/Signal/Delegate.h>
 #include <NAS2D/Math/Point.h>
 
-#include <vector>
 #include <cstdint>
+
 
 class Structure;
 class TechnologyCatalog;
