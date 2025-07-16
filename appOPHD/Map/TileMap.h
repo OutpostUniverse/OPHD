@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../MicroPather/micropather.h"
-
 #include <NAS2D/Math/Vector.h>
 
 #include <string>
@@ -24,7 +22,7 @@ struct MapCoordinate;
 class Tile;
 
 
-class TileMap : public micropather::Graph
+class TileMap
 {
 public:
 	using OreDepositYields = std::array<int, 3>; // {low, med, high}
@@ -33,7 +31,7 @@ public:
 	TileMap(const std::string& mapPath, int maxDepth);
 	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
-	~TileMap() override;
+	~TileMap();
 
 	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 	int maxDepth() const { return mMaxDepth; }
@@ -48,12 +46,6 @@ public:
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
-
-
-	/** MicroPather public interface implementation. */
-	float LeastCostEstimate(void* stateStart, void* stateEnd) override;
-	void AdjacentCost(void* state, std::vector<micropather::StateCost>* adjacent) override;
-	void PrintStateInfo(void* /*state*/) override {}
 
 	bool isTileBlockedByOreDeposit(const Tile&) const;
 
