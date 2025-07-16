@@ -760,7 +760,7 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
-void MapViewState::insertTube(ConnectorDir dir, Tile& tile)
+void MapViewState::insertTube(Tile& tile, ConnectorDir dir)
 {
 	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
 	{
@@ -782,7 +782,7 @@ void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
 
 	if (validTubeConnection(*mTileMap, tile.xyz(), connectorDirection))
 	{
-		insertTube(connectorDirection, tile);
+		insertTube(tile, connectorDirection);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();
