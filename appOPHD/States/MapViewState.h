@@ -64,17 +64,13 @@ namespace NAS2D
 	template <typename BaseType> struct Point;
 }
 
-namespace micropather
-{
-	class MicroPather;
-}
-
 enum class Direction;
 enum class RobotTypeIndex;
 
 class Structure;
 class Tile;
 class TileMap;
+class RouteFinder;
 class MapView;
 class DetailMap;
 class MiniMap;
@@ -314,7 +310,7 @@ private:
 	Population mPopulation;
 
 	// ROUTING
-	std::unique_ptr<micropather::MicroPather> mPathSolver;
+	std::unique_ptr<RouteFinder> mPathSolver;
 
 	bool mLoadingExisting = false;
 	NAS2D::Xml::XmlDocument* mExistingToLoad = nullptr; 

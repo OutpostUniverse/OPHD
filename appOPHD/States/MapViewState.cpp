@@ -16,6 +16,7 @@
 #include "../StructureManager.h"
 
 #include "../Map/Route.h"
+#include "../Map/RouteFinder.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
@@ -300,7 +301,7 @@ void MapViewState::initialize()
 	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
 	eventHandler.mouseWheel().connect({this, &MapViewState::onMouseWheel});
 
-	mPathSolver = std::make_unique<micropather::MicroPather>(mTileMap.get(), 250, 6, false);
+	mPathSolver = std::make_unique<RouteFinder>(*mTileMap);
 }
 
 
