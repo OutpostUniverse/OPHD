@@ -6,7 +6,7 @@
 
 CargoLander::CargoLander(Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_CARGO_LANDER},
-	mTile{&tile}
+	mTile{tile}
 {
 	enable();
 }
@@ -23,6 +23,6 @@ void CargoLander::think()
 	if (age() == turnsToBuild())
 	{
 		if (mDeployHandler) { mDeployHandler(); }
-		mTile->bulldoze();
+		mTile.bulldoze();
 	}
 }

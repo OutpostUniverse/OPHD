@@ -24,5 +24,5 @@ protected:
 private:
 	DeployDelegate mDeployHandler;
 
-	Tile* mTile;
+	Tile& mTile;
 };

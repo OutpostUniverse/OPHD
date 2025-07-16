@@ -6,7 +6,7 @@
 
 ColonistLander::ColonistLander(Tile& tile) :
 	Structure{StructureClass::Lander, StructureID::SID_COLONIST_LANDER},
-	mTile{&tile}
+	mTile{tile}
 {
 	enable();
 }
@@ -23,6 +23,6 @@ void ColonistLander::think()
 	if (age() == turnsToBuild())
 	{
 		if (mDeployHandler) { mDeployHandler(); }
-		mTile->bulldoze();
+		mTile.bulldoze();
 	}
 }
