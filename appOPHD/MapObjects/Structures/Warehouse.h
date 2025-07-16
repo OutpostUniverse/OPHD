@@ -8,9 +8,8 @@
 class Warehouse : public Structure
 {
 public:
-	Warehouse() : Structure(
-		StructureClass::Warehouse,
-		StructureID::SID_WAREHOUSE)
+	Warehouse() :
+		Structure(StructureClass::Warehouse, StructureID::SID_WAREHOUSE)
 	{
 	}
 
