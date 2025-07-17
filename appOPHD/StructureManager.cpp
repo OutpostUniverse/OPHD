@@ -232,14 +232,7 @@ StructureList StructureManager::allStructures() const
 
 Tile& StructureManager::tileFromStructure(const Structure* structure) const
 {
-	for (const auto& [keyStructure, valueTile] : mStructureTileTable)
-	{
-		if (keyStructure == structure)
-		{
-			return *valueTile;
-		}
-	}
-	throw std::runtime_error("Could not find tile for structure");
+	return structure->tile();
 }
 
 
