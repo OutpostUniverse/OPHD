@@ -126,8 +126,8 @@ private:
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
-	std::map<Structure*, Tile*> mStructureTileTable; /**< List mapping Structures to a particular tile. */
-	std::map<StructureClass, StructureList> mStructureLists; /**< Map containing all of the structure list types available. */
+	std::map<Structure*, Tile*> mStructureTileTable;
+	std::map<StructureClass, StructureList> mStructureLists;
 
 	StructureList mAgingStructures;
 	StructureList mNewlyBuiltStructures;
