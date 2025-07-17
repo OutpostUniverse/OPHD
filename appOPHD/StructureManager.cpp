@@ -243,7 +243,7 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 	{
 		if (commandCenter->operational())
 		{
-			positions.push_back(tileFromStructure(commandCenter).xyz());
+			positions.push_back(commandCenter->xyz());
 		}
 	}
 	return positions;
