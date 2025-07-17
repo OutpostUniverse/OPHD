@@ -532,7 +532,7 @@ void MapViewState::checkAgingStructures()
 
 	for (const auto* structure : structures)
 	{
-		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+		const auto& structureTile = structure->tile();
 
 		if (structure->age() == structure->maxAge() - 10)
 		{
@@ -560,7 +560,7 @@ void MapViewState::checkNewlyBuiltStructures()
 
 	for (const auto* structure : structures)
 	{
-		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+		const auto& structureTile = structure->tile();
 
 		mNotificationArea.push({
 			"Construction Finished",
