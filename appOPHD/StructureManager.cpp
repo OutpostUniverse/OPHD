@@ -52,9 +52,9 @@ namespace
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeStructure(const Structure& structure, Tile& tile)
+	NAS2D::Xml::XmlElement* serializeStructure(const Structure& structure)
 	{
-		const auto& position = tile.xyz();
+		const auto& position = structure.xyz();
 		NAS2D::Dictionary dictionary =
 		{{
 			{"x", position.xy.x},
@@ -507,7 +507,7 @@ NAS2D::Xml::XmlElement* StructureManager::serialize() const
 
 	for (auto& [structure, tile] : mStructureTileTable)
 	{
-		structures->linkEndChild(serializeStructure(*structure, *tile));
+		structures->linkEndChild(serializeStructure(*structure));
 	}
 
 	return structures;
