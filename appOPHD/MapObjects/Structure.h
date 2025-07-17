@@ -18,6 +18,7 @@ namespace NAS2D
 
 
 struct StructureType;
+struct MapCoordinate;
 class Tile;
 class StringTable;
 
@@ -50,6 +51,8 @@ public:
 	StructureState state() const { return mStructureState; }
 
 	StructureID structureId() const { return mStructureId; }
+
+	const MapCoordinate& xyz() const;
 
 	bool connected() const { return mConnected; }
 	void connected(bool value) { mConnected = value; }
