@@ -3,14 +3,11 @@
 #include "Route.h"
 #include "Tile.h"
 #include "TileMap.h"
-#include "../StructureManager.h"
 #include "../MapObjects/Structures/OreRefining.h"
 #include "../MicroPather/micropather.h"
 
 #include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/DirectionOffset.h>
-
-#include <NAS2D/Utility.h>
 
 #include <cmath>
 
@@ -19,8 +16,7 @@ namespace
 {
 	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
 	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		auto& start = structureManager.tileFromStructure(mineFacility);
+		auto& start = mineFacility->tile();
 
 		std::vector<Route> routeList;
 
@@ -28,7 +24,7 @@ namespace
 		{
 			if (!smelter->operational()) { continue; }
 
-			auto& end = structureManager.tileFromStructure(smelter);
+			auto& end = smelter->tile();
 
 			Route route;
 			solver->Reset();

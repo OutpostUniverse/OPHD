@@ -2,6 +2,7 @@
 
 #include "../StructureCatalog.h"
 #include "../Constants/Strings.h"
+#include "../Map/Tile.h"
 
 #include "../UI/StringTable.h"
 
@@ -101,6 +102,18 @@ const StructureType& Structure::type() const
 const std::string& Structure::name() const
 {
 	return mStructureType.name;
+}
+
+
+Tile& Structure::tile() const
+{
+	return mTile;
+}
+
+
+const MapCoordinate& Structure::xyz() const
+{
+	return mTile.xyz();
 }
 
 

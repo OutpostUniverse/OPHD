@@ -26,7 +26,7 @@ namespace
 
 	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
 	{
-		const auto& structureTile = NAS2D::Utility<StructureManager>::get().tileFromStructure(structure);
+		const auto& structureTile = structure->tile();
 
 		for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
 		{

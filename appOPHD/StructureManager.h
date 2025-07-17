@@ -72,8 +72,6 @@ public:
 	const StructureList& structureList(StructureClass structureClass) const;
 	StructureList allStructures() const;
 
-	Tile& tileFromStructure(const Structure* structure) const;
-
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
 	void updateConnectedness(TileMap& tileMap);

@@ -230,19 +230,6 @@ StructureList StructureManager::allStructures() const
 }
 
 
-Tile& StructureManager::tileFromStructure(const Structure* structure) const
-{
-	for (const auto& [keyStructure, valueTile] : mStructureTileTable)
-	{
-		if (keyStructure == structure)
-		{
-			return *valueTile;
-		}
-	}
-	throw std::runtime_error("Could not find tile for structure");
-}
-
-
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;
@@ -250,7 +237,7 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 	{
 		if (commandCenter->operational())
 		{
-			positions.push_back(tileFromStructure(commandCenter).xyz());
+			positions.push_back(commandCenter->xyz());
 		}
 	}
 	return positions;
