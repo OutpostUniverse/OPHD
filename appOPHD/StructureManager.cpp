@@ -230,12 +230,6 @@ StructureList StructureManager::allStructures() const
 }
 
 
-Tile& StructureManager::tileFromStructure(const Structure* structure) const
-{
-	return structure->tile();
-}
-
-
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;
