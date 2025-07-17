@@ -52,6 +52,7 @@ public:
 
 	StructureID structureId() const { return mStructureId; }
 
+	Tile& tile() const;
 	const MapCoordinate& xyz() const;
 
 	bool connected() const { return mConnected; }

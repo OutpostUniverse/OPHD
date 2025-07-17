@@ -105,6 +105,12 @@ const std::string& Structure::name() const
 }
 
 
+Tile& Structure::tile() const
+{
+	return mTile;
+}
+
+
 const MapCoordinate& Structure::xyz() const
 {
 	return mTile.xyz();
