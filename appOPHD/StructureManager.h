@@ -126,7 +126,7 @@ private:
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
-	std::map<Structure*, Tile*> mDeployedStructures;
+	std::vector<Structure*> mDeployedStructures;
 	std::map<StructureClass, StructureList> mStructureLists;
 
 	StructureList mAgingStructures;
