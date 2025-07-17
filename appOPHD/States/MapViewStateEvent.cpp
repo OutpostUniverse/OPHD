@@ -79,11 +79,10 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 			else
 			{
 				factory.idle(IdleReason::FactoryInsufficientWarehouseSpace);
-				const auto& factoryPos = factory.tile();
 				mNotificationArea.push({
 					"Warehouses full",
 					"A factory has shut down due to lack of available warehouse space.",
-					factoryPos.xyz(),
+					factory.xyz(),
 					NotificationArea::NotificationType::Warning
 				});
 			}
@@ -252,8 +251,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	auto& mineFacilityTile = mineFacility->tile();
-	auto& mineDepthTile = mTileMap->getTile({mineFacilityTile.xy(), mineFacility->oreDeposit().digDepth()});
+	auto& mineDepthTile = mTileMap->getTile({mineFacility->xyz().xy, mineFacility->oreDeposit().digDepth()});
 	structureManager.create<MineShaft>(mineDepthTile);
 	mineDepthTile.bulldoze();
 	mineDepthTile.excavated(true);
@@ -262,12 +260,10 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 
 void MapViewState::onCrimeEvent(std::string title, std::string text, const Structure& structure)
 {
-	const auto& structureTile = structure.tile();
-
 	mNotificationArea.push({
 		std::move(title),
 		std::move(text),
-		structureTile.xyz(),
+		structure.xyz(),
 		NotificationArea::NotificationType::Warning
 	});
 }
