@@ -122,15 +122,12 @@ public:
 	NAS2D::Xml::XmlElement* serialize() const;
 
 private:
-	using StructureTileTable = std::map<Structure*, Tile*>;
-	using StructureClassTable = std::map<StructureClass, StructureList>;
-
 	void disconnectAll();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
-	StructureTileTable mStructureTileTable; /**< List mapping Structures to a particular tile. */
-	StructureClassTable mStructureLists; /**< Map containing all of the structure list types available. */
+	std::map<Structure*, Tile*> mStructureTileTable; /**< List mapping Structures to a particular tile. */
+	std::map<StructureClass, StructureList> mStructureLists; /**< Map containing all of the structure list types available. */
 
 	StructureList mAgingStructures;
 	StructureList mNewlyBuiltStructures;
