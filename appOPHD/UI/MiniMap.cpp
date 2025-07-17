@@ -75,7 +75,7 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 	{
 		if (commTower->operational())
 		{
-			const auto commTowerPosition = structureManager.tileFromStructure(commTower).xy();
+			const auto commTowerPosition = commTower->xyz().xy;
 			const auto commTowerRangeImageRect = NAS2D::Rectangle<int>{{146, 236}, {20, 20}};
 			renderer.drawSubImage(mUiIcons, commTowerPosition + miniMapOffset - commTowerRangeImageRect.size / 2, commTowerRangeImageRect);
 		}
