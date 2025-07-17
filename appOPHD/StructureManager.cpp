@@ -52,9 +52,9 @@ namespace
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeStructure(const Structure& structure, Tile& tile)
+	NAS2D::Xml::XmlElement* serializeStructure(const Structure& structure)
 	{
-		const auto& position = tile.xyz();
+		const auto& position = structure.xyz();
 		NAS2D::Dictionary dictionary =
 		{{
 			{"x", position.xy.x},
@@ -161,7 +161,7 @@ Structure& StructureManager::create(StructureID structureId, Tile& tile)
  */
 void StructureManager::addStructure(Structure& structure, Tile& tile)
 {
-	if (mStructureTileTable.find(&structure) != mStructureTileTable.end())
+	if (std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure) != mDeployedStructures.end())
 	{
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 	}
@@ -171,7 +171,7 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 		tile.removeMapObject();
 	}
 
-	mStructureTileTable[&structure] = &tile;
+	mDeployedStructures.push_back(&structure);
 
 	mStructureLists[structure.structureClass()].push_back(&structure);
 	tile.mapObject(&structure);
@@ -195,12 +195,12 @@ void StructureManager::removeStructure(Structure& structure)
 		structures.erase(it);
 	}
 
-	const auto tileTableIt = mStructureTileTable.find(&structure);
-	const auto isFoundTileTable = tileTableIt != mStructureTileTable.end();
+	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
+	const auto isFoundTileTable = tileTableIt != mDeployedStructures.end();
 	if (isFoundTileTable)
 	{
-		tileTableIt->second->deleteMapObject();
-		mStructureTileTable.erase(tileTableIt);
+		(*tileTableIt)->tile().deleteMapObject();
+		mDeployedStructures.erase(tileTableIt);
 	}
 
 	if (!isFoundStructureTable || !isFoundTileTable)
@@ -254,12 +254,12 @@ void StructureManager::updateConnectedness(TileMap& tileMap)
 std::vector<Tile*> StructureManager::getConnectednessOverlay() const
 {
 	std::vector<Tile*> result;
-	result.reserve(mStructureTileTable.size());
-	for (const auto& [structure, tile] : mStructureTileTable)
+	result.reserve(mDeployedStructures.size());
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->connected())
 		{
-			result.push_back(tile);
+			result.push_back(&structure->tile());
 		}
 	}
 	return result;
@@ -271,21 +271,21 @@ std::vector<Tile*> StructureManager::getConnectednessOverlay() const
  */
 void StructureManager::disconnectAll()
 {
-	for (auto& pair : mStructureTileTable)
+	for (auto* structure : mDeployedStructures)
 	{
-		pair.first->connected(false);
+		structure->connected(false);
 	}
 }
 
 
 void StructureManager::dropAllStructures()
 {
-	for (auto& pair : mStructureTileTable)
+	for (const auto* structure : mDeployedStructures)
 	{
-		pair.second->deleteMapObject();
+		structure->tile().deleteMapObject();
 	}
 
-	mStructureTileTable.clear();
+	mDeployedStructures.clear();
 	mStructureLists = populateKeys();
 }
 
@@ -505,9 +505,9 @@ NAS2D::Xml::XmlElement* StructureManager::serialize() const
 {
 	auto* structures = new NAS2D::Xml::XmlElement("structures");
 
-	for (auto& [structure, tile] : mStructureTileTable)
+	for (const auto* structure : mDeployedStructures)
 	{
-		structures->linkEndChild(serializeStructure(*structure, *tile));
+		structures->linkEndChild(serializeStructure(*structure));
 	}
 
 	return structures;
