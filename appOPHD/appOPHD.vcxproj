@@ -196,6 +196,7 @@
     <ClCompile Include="MapObjects\Robots\Robodozer.cpp" />
     <ClCompile Include="MapObjects\Robots\Robominer.cpp" />
     <ClCompile Include="MapObjects\Structure.cpp" />
+    <ClCompile Include="MapObjects\StructureIdToClass.cpp" />
     <ClCompile Include="MapObjects\Structures\Agridome.cpp" />
     <ClCompile Include="MapObjects\Structures\AirShaft.cpp" />
     <ClCompile Include="MapObjects\Structures\CargoLander.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="MapObjects\RobotTypeIndex.h" />
     <ClInclude Include="MapObjects\Structure.h" />
     <ClInclude Include="MapObjects\StructureClass.h" />
+    <ClInclude Include="MapObjects\StructureIdToClass.h" />
     <ClInclude Include="MapObjects\Structures.h" />
     <ClInclude Include="MapObjects\StructureTypeToClass.h" />
     <ClInclude Include="MapObjects\Structures\Agridome.h" />
