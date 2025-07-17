@@ -64,7 +64,7 @@ bool isInCcRange(NAS2D::Point<int> position)
 	const auto& ccList = structureManager.getStructures<CommandCenter>();
 	for (const auto* commandCenter : ccList)
 	{
-		const auto location = structureManager.tileFromStructure(commandCenter).xy();
+		const auto location = commandCenter->xyz().xy;
 		if (isPointInRange(position, location, range))
 		{
 			return true;
@@ -85,7 +85,7 @@ bool isInCommRange(NAS2D::Point<int> position)
 	for (const auto* structure : structures)
 	{
 		const auto commRange = structure->commRange();
-		if (commRange > 0 && isPointInRange(position, structureManager.tileFromStructure(structure).xy(), commRange))
+		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
 		{
 			return true;
 		}
