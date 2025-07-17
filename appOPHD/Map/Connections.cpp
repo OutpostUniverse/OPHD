@@ -2,14 +2,12 @@
 
 #include "Tile.h"
 #include "TileMap.h"
-#include "../StructureManager.h"
 #include "../MapObjects/Structures/Road.h"
 #include "../Constants/Numbers.h"
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Math/Point.h>
 
 
@@ -69,7 +67,7 @@ namespace
 
 std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 {
-	const auto tileLocation = NAS2D::Utility<StructureManager>::get().tileFromStructure(&road).xy();
+	const auto tileLocation = road.xyz().xy;
 	const auto surroundingTiles = getSurroundingRoads(tileMap, tileLocation);
 	return roadAnimationName(road.integrity(), surroundingTiles);
 }
