@@ -323,7 +323,7 @@ void MapViewState::onDeactivate()
 void MapViewState::focusOnStructure(const Structure* structure)
 {
 	if (!structure) { return; }
-	onTakeMeThere(NAS2D::Utility<StructureManager>::get().tileFromStructure(structure).xyz());
+	onTakeMeThere(structure->xyz());
 }
 
 
@@ -1337,7 +1337,7 @@ void MapViewState::updateCommRangeOverlay()
 		const auto commRange = structure->commRange();
 		if (commRange > 0)
 		{
-			const auto& centerTile = structureManager.tileFromStructure(structure);
+			const auto& centerTile = structure->tile();
 			fillOverlayCircle(*mTileMap, mCommRangeOverlay, centerTile, commRange);
 		}
 	}
@@ -1357,7 +1357,7 @@ void MapViewState::updatePoliceOverlay()
 		const auto policeRange = structure->policeRange();
 		if (policeRange > 0)
 		{
-			const auto& centerTile = structureManager.tileFromStructure(structure);
+			const auto& centerTile = structure->tile();
 			const auto depth = static_cast<std::size_t>(centerTile.depth());
 			fillOverlayCircle(*mTileMap, mPoliceOverlays[depth], centerTile, policeRange);
 		}
