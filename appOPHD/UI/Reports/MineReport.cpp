@@ -35,8 +35,7 @@ namespace
 {
 	std::string getStructureDescription(const Structure& structure)
 	{
-		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		const auto& surfaceLocation = structureManager.tileFromStructure(&structure).xy();
+		const auto& surfaceLocation = structure.xyz().xy;
 		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
 	}
 
