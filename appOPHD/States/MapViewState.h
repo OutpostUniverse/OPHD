@@ -277,7 +277,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
-	Difficulty mDifficulty = Difficulty::Medium;
+	Difficulty mDifficulty;
 	std::unique_ptr<TileMap> mTileMap;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;

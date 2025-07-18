@@ -156,6 +156,7 @@ namespace
 
 
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
+	mDifficulty{Difficulty::Medium},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mColonyShip{gameState.colonyShip()},
