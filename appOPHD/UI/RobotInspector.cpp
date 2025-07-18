@@ -12,6 +12,7 @@
 
 #include <array>
 #include <algorithm>
+#include <stdexcept>
 
 
 using namespace NAS2D;
