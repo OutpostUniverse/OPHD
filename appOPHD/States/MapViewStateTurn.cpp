@@ -29,6 +29,7 @@
 #include "../Constants/Strings.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/EnumMoraleIndex.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
@@ -46,7 +47,7 @@ namespace
 {
 	const std::map<std::string, IconGridItem> StructureItemFromString =
 	{
-		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, SID_FUSION_REACTOR}},
+		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, StructureID::SID_FUSION_REACTOR}},
 		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
 	};
 

@@ -40,6 +40,7 @@
 #include "../UI/NavControl.h"
 #include "../UI/MiniMap.h"
 
+#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>
@@ -156,6 +157,7 @@ namespace
 
 
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
+	mDifficulty{Difficulty::Medium},
 	mCrimeRateUpdate{mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mColonyShip{gameState.colonyShip()},
@@ -164,6 +166,8 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
+	mInsertMode{InsertMode::None},
+	mCurrentStructure{StructureID::SID_NONE},
 	mCurrentRobot{RobotTypeIndex::None},
 	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
 	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
@@ -206,6 +210,8 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
+	mInsertMode{InsertMode::None},
+	mCurrentStructure{StructureID::SID_NONE},
 	mCurrentRobot{RobotTypeIndex::None},
 	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
 	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},

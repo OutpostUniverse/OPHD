@@ -27,7 +27,6 @@
 #include "../UI/CheatMenu.h"
 
 #include <libOPHD/EnumConnectorDir.h>
-#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/StorableResources.h>
@@ -64,6 +63,7 @@ namespace NAS2D
 	template <typename BaseType> struct Point;
 }
 
+enum class Difficulty;
 enum class Direction;
 enum class RobotTypeIndex;
 
@@ -92,13 +92,6 @@ enum class InsertMode
 
 class MapViewState : public Wrapper
 {
-public:
-	enum class PopulationLevel
-	{
-		Small = 1,
-		Large = 2
-	};
-
 public:
 	using EventDelegate = NAS2D::Delegate<void()>;
 
@@ -277,7 +270,7 @@ private:
 	void onTakeMeThere(const MapCoordinate& position);
 
 private:
-	Difficulty mDifficulty = Difficulty::Medium;
+	Difficulty mDifficulty;
 	std::unique_ptr<TileMap> mTileMap;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
@@ -324,8 +317,8 @@ private:
 	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
 	// Map Object picking
-	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
-	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
+	InsertMode mInsertMode; /**< What's being inserted into the TileMap if anything. */
+	StructureID mCurrentStructure; /**< Structure being placed. */
 	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
 	IconGrid mStructures;
 	IconGrid mRobots;
