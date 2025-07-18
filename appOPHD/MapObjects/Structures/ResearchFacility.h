@@ -6,7 +6,7 @@
 class ResearchFacility : public Structure
 {
 public:
-	ResearchFacility(StructureClass structureClass, StructureID id, Tile& tile);
+	ResearchFacility(StructureID id, Tile& tile);
 
 	StringTable createInspectorViewTable() const override;
 

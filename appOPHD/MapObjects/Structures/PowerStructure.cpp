@@ -5,8 +5,8 @@
 #include "../../UI/StringTable.h"
 
 
-PowerStructure::PowerStructure(StructureClass structureClass, StructureID id, Tile& tile) :
-	Structure{structureClass, id, tile}
+PowerStructure::PowerStructure(StructureID id, Tile& tile) :
+	Structure{id, tile}
 {
 }
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "StructureClass.h"
-
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
@@ -17,6 +15,7 @@ namespace NAS2D
 }
 
 
+enum class StructureClass;
 struct StructureType;
 struct MapCoordinate;
 class Tile;
@@ -39,8 +38,8 @@ enum class StructureState
 class Structure : public MapObject
 {
 public:
-	Structure(StructureClass structureClass, StructureID id, Tile& tile);
-	Structure(StructureClass structureClass, StructureID id, Tile& tile, const std::string& initialAction);
+	Structure(StructureID id, Tile& tile);
+	Structure(StructureID id, Tile& tile, const std::string& initialAction);
 
 	~Structure() override = default;
 

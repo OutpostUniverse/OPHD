@@ -25,7 +25,7 @@ namespace
 
 
 MineFacility::MineFacility(Tile& tile) :
-	Structure{StructureClass::Mine, StructureID::SID_MINE_FACILITY, tile},
+	Structure{StructureID::SID_MINE_FACILITY, tile},
 	mOreDeposit{tile.oreDeposit()}
 {
 	if (mOreDeposit == nullptr)

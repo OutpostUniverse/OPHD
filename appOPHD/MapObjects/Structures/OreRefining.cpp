@@ -6,8 +6,8 @@
 #include "../../UI/StringTable.h"
 
 
-OreRefining::OreRefining(StructureClass structureClass, StructureID id, Tile& tile) :
-	Structure{structureClass, id, tile}
+OreRefining::OreRefining(StructureID id, Tile& tile) :
+	Structure{id, tile}
 {
 }
 

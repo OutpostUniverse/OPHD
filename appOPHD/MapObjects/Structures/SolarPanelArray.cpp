@@ -10,7 +10,7 @@ namespace
 
 
 SolarPanelArray::SolarPanelArray(Tile& tile) :
-	PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SOLAR_PANEL1, tile}
+	PowerStructure{StructureID::SID_SOLAR_PANEL1, tile}
 {
 }
 

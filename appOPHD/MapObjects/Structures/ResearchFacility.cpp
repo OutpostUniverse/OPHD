@@ -6,8 +6,8 @@
 #include <cmath>
 
 
-ResearchFacility::ResearchFacility(StructureClass structureClass, StructureID id, Tile& tile) :
-	Structure{structureClass, id, tile}
+ResearchFacility::ResearchFacility(StructureID id, Tile& tile) :
+	Structure{id, tile}
 {}
 
 

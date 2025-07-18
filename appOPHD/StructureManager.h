@@ -1,5 +1,6 @@
 #pragma once
 
+#include "MapObjects/StructureClass.h"
 #include "MapObjects/StructureTypeToClass.h"
 
 #include <libOPHD/EnumStructureID.h>

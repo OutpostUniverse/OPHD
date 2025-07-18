@@ -13,7 +13,7 @@ namespace
 
 
 Residence::Residence(Tile& tile) :
-	Structure{StructureClass::Residence, StructureID::SID_RESIDENCE, tile}
+	Structure{StructureID::SID_RESIDENCE, tile}
 {
 }
 

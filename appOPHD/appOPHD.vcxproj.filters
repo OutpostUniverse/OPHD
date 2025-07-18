@@ -111,6 +111,9 @@
     <ClCompile Include="MapObjects\Structure.cpp">
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
+    <ClCompile Include="MapObjects\StructureIdToClass.cpp">
+      <Filter>Source Files\MapObjects</Filter>
+    </ClCompile>
     <ClCompile Include="MapObjects\Structures\Agridome.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
@@ -444,6 +447,9 @@
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\StructureClass.h">
+      <Filter>Header Files\MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObjects\StructureIdToClass.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures.h">
