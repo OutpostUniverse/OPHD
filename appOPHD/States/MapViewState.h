@@ -324,7 +324,7 @@ private:
 	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
 	// Map Object picking
-	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
+	InsertMode mInsertMode; /**< What's being inserted into the TileMap if anything. */
 	StructureID mCurrentStructure; /**< Structure being placed. */
 	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
 	IconGrid mStructures;
