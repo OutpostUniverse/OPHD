@@ -94,6 +94,11 @@ void Window::drawTitleBar(NAS2D::Renderer& renderer) const
 }
 
 
+void Window::drawClientArea() const
+{
+}
+
+
 void Window::title(const std::string& title)
 {
 	mTitle = title;
