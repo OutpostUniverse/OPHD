@@ -47,7 +47,7 @@ namespace
 {
 	const std::map<std::string, IconGridItem> StructureItemFromString =
 	{
-		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, SID_FUSION_REACTOR}},
+		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, StructureID::SID_FUSION_REACTOR}},
 		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
 	};
 
