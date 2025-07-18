@@ -93,13 +93,6 @@ enum class InsertMode
 class MapViewState : public Wrapper
 {
 public:
-	enum class PopulationLevel
-	{
-		Small = 1,
-		Large = 2
-	};
-
-public:
 	using EventDelegate = NAS2D::Delegate<void()>;
 
 public:
