@@ -14,7 +14,6 @@
 
 #include <libControls/LoadRectangleSkin.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 
@@ -132,10 +131,8 @@ void MineOperationsWindow::updateTruckAvailability()
 }
 
 
-void MineOperationsWindow::drawClientArea() const
+void MineOperationsWindow::drawClientArea(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	const auto origin = mRect.position;
 	renderer.drawImage(mUiIcon, origin + NAS2D::Vector{10, 30});
 

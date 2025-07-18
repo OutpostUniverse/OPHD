@@ -28,7 +28,7 @@ public:
 	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
-	void drawGrid() const;
+	void drawGrid(NAS2D::Renderer& renderer) const;
 
 private:
 	MapView& mMapView;

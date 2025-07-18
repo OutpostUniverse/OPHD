@@ -43,7 +43,7 @@ void WarehouseInspector::hide()
 }
 
 
-void WarehouseInspector::drawClientArea() const
+void WarehouseInspector::drawClientArea(NAS2D::Renderer& /*renderer*/) const
 {
 	const auto& pool = mWarehouse->products();
 

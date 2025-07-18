@@ -38,9 +38,8 @@ namespace
 }
 
 
-void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons)
+void drawNotificationIcon(NAS2D::Renderer& renderer, NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons)
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	const auto& iconDrawParameters = NotificationIconDrawParameters.at(type);
 	renderer.drawSubImage(icons, position, {{160, 64}, {32, 32}}, iconDrawParameters.color);
 	renderer.drawSubImage(icons, position, iconDrawParameters.iconRect, NAS2D::Color::Normal);
@@ -137,7 +136,7 @@ void NotificationArea::draw(NAS2D::Renderer& renderer) const
 	for (auto& notification : mNotificationList)
 	{
 		const auto& rect = notificationRect(count);
-		drawNotificationIcon(rect.position, notification.type, mIcons);
+		drawNotificationIcon(renderer, rect.position, notification.type, mIcons);
 
 		if (mNotificationIndex == count)
 		{

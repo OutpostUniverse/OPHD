@@ -9,10 +9,10 @@
 
 #include <libOPHD/ProductCatalog.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
+#include <stdexcept>
 
 
 using namespace NAS2D;
@@ -204,10 +204,10 @@ void FactoryProduction::factory(Factory* newFactory)
 }
 
 
-void FactoryProduction::drawClientArea() const
+void FactoryProduction::drawClientArea(NAS2D::Renderer& renderer) const
 {
 	auto stringTable = factoryProductionStringTable(mProductCost, mFactory->productionTurnsCompleted());
 	stringTable.position(mProductGrid.area().crossXPoint() + NAS2D::Vector{constants::Margin, 0});
 	stringTable.computeRelativeCellPositions();
-	stringTable.draw(Utility<Renderer>::get());
+	stringTable.draw(renderer);
 }

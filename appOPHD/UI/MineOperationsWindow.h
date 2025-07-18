@@ -22,7 +22,7 @@ public:
 
 	void updateTruckAvailability();
 
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 	void hide() override;
 
 protected:

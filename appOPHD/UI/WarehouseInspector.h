@@ -18,7 +18,7 @@ public:
 	void warehouse(const Warehouse* w);
 
 	void hide() override;
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 private:
 	void onClose();

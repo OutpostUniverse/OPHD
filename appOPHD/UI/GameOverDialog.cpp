@@ -2,7 +2,6 @@
 
 #include "../Cache.h"
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
 
 
@@ -20,10 +19,8 @@ GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
 }
 
 
-void GameOverDialog::drawClientArea() const
+void GameOverDialog::drawClientArea(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
 	const auto& font = Control::getDefaultFont();

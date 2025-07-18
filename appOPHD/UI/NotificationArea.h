@@ -74,4 +74,4 @@ private:
 	NotificationClickedDelegate mNotificationClickedHandler;
 };
 
-void drawNotificationIcon(NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons);
+void drawNotificationIcon(NAS2D::Renderer& renderer, NAS2D::Point<int> position, NotificationArea::NotificationType type, const NAS2D::Image& icons);

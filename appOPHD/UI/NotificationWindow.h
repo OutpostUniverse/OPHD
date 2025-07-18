@@ -22,7 +22,7 @@ public:
 
 	void notification(const NotificationArea::Notification&);
 
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 private:
 	void onVisibilityChange(bool isVisible) override;

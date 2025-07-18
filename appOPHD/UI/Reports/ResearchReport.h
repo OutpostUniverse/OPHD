@@ -62,12 +62,12 @@ private:
 	void resetResearchDetails();
 	void handleTopicChanged();
 
-	void drawCategories() const;
-	void drawCategoryHeader() const;
-	void drawVerticalSectionSpacer(const int column) const;
-	void drawTopicLabRequirements() const;
-	void drawTopicHeaderPanel() const;
-	void drawTopicDetailsPanel() const;
+	void drawCategories(NAS2D::Renderer& renderer) const;
+	void drawCategoryHeader(NAS2D::Renderer& renderer) const;
+	void drawVerticalSectionSpacer(NAS2D::Renderer& renderer, const int column) const;
+	void drawTopicLabRequirements(NAS2D::Renderer& renderer) const;
+	void drawTopicHeaderPanel(NAS2D::Renderer& renderer) const;
+	void drawTopicDetailsPanel(NAS2D::Renderer& renderer) const;
 	void draw(NAS2D::Renderer& renderer) const override;
 
 private:

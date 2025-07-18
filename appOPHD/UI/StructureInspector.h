@@ -19,7 +19,7 @@ public:
 	void showStructure(const Structure& structure);
 	void hideStructure(const Structure& structure);
 
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onVisibilityChange(bool visible) override;
