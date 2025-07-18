@@ -10,8 +10,6 @@
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 
-#include <NAS2D/Utility.h>
-
 #include <algorithm>
 #include <stdexcept>
 
