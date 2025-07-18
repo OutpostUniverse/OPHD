@@ -177,7 +177,7 @@ private:
 
 protected:
 	const StructureType& mStructureType;
-	const StructureID mStructureId{StructureID::SID_NONE};
+	const StructureID mStructureId;
 	const StructureClass mStructureClass;
 	Tile& mTile;
 
