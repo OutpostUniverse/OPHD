@@ -83,10 +83,10 @@ Structure::Structure(StructureID id, Tile& tile) :
 
 
 Structure::Structure(StructureID id, Tile& tile, const std::string& initialAction) :
-	MapObject(StructureCatalog::getType(id).spritePath, initialAction),
-	mStructureType(StructureCatalog::getType(id)),
-	mStructureId(id),
-	mStructureClass(structureIdToClass(id)),
+	MapObject{StructureCatalog::getType(id).spritePath, initialAction},
+	mStructureType{StructureCatalog::getType(id)},
+	mStructureId{id},
+	mStructureClass{structureIdToClass(id)},
 	mTile{tile}
 {
 }
