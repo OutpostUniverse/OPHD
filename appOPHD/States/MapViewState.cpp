@@ -40,6 +40,7 @@
 #include "../UI/NavControl.h"
 #include "../UI/MiniMap.h"
 
+#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>

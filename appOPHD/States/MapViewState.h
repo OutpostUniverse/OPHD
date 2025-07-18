@@ -27,7 +27,6 @@
 #include "../UI/CheatMenu.h"
 
 #include <libOPHD/EnumConnectorDir.h>
-#include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/PlanetAttributes.h>
 #include <libOPHD/StorableResources.h>
@@ -64,6 +63,7 @@ namespace NAS2D
 	template <typename BaseType> struct Point;
 }
 
+enum class Difficulty;
 enum class Direction;
 enum class RobotTypeIndex;
 
