@@ -60,11 +60,11 @@ namespace
 		return itemsToAdd;
 	}
 
-	void drawDetailsHeaderSeparator(const Rectangle<int>& area)
+	void drawDetailsHeaderSeparator(NAS2D::Renderer& renderer, const Rectangle<int>& area)
 	{
 		const Point<int> lineStartPoint{area.crossYPoint() + Vector<int>{0, SectionPadding.y}};
 		const Point<int> lineEndPoint{area.endPoint() + Vector<int>{0, SectionPadding.y}};
-		Utility<Renderer>::get().drawLine(lineStartPoint, lineEndPoint, constants::PrimaryTextColor);
+		renderer.drawLine(lineStartPoint, lineEndPoint, constants::PrimaryTextColor);
 	}
 
 	Rectangle<int> getCategorySlice(const int imageWidth, const int iconIndex)
@@ -430,7 +430,7 @@ void ResearchReport::drawTopicHeaderPanel(NAS2D::Renderer& renderer) const
 	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, mTopicDetailsHeaderArea.startPoint(), constants::PrimaryTextColor);
 
 	drawTopicLabRequirements(renderer);
-	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
+	drawDetailsHeaderSeparator(renderer, mTopicDetailsHeaderArea);
 }
 
 
