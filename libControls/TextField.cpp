@@ -173,7 +173,7 @@ void TextField::draw(NAS2D::Renderer& renderer) const
 
 	if (highlight()) { renderer.drawBox(mRect, NAS2D::Color::Yellow); }
 
-	drawCursor();
+	drawCursor(renderer);
 
 	const auto textDrawArea = mRect.inset(fieldPadding);
 	renderer.clipRect(textDrawArea);
@@ -182,13 +182,12 @@ void TextField::draw(NAS2D::Renderer& renderer) const
 }
 
 
-void TextField::drawCursor() const
+void TextField::drawCursor(NAS2D::Renderer& renderer) const
 {
 	if (hasFocus() && editable())
 	{
 		if (mShowCursor)
 		{
-			auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 			const auto startPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + fieldPadding};
 			const auto endPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + mRect.size.y - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);

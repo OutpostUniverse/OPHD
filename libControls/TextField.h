@@ -72,7 +72,7 @@ protected:
 	void updateScrollPosition();
 
 	void draw(NAS2D::Renderer& renderer) const override;
-	void drawCursor() const;
+	void drawCursor(NAS2D::Renderer& renderer) const;
 
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
