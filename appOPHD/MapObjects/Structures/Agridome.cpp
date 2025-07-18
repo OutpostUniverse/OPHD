@@ -1,5 +1,7 @@
 #include "Agridome.h"
 
+#include <libOPHD/EnumIdleReason.h>
+
 #include <algorithm>
 
 

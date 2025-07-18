@@ -20,6 +20,7 @@
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/Utility.h>

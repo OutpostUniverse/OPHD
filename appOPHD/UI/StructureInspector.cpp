@@ -7,6 +7,9 @@
 #include "StringTable.h"
 #include "TextRender.h"
 
+#include <libOPHD/EnumDisabledReason.h>
+#include <libOPHD/EnumIdleReason.h>
+
 #include <NAS2D/Utility.h>
 
 #include <algorithm>

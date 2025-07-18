@@ -18,6 +18,7 @@
 
 #include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
 
+#include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/ParserHelper.h>

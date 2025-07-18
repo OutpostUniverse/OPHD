@@ -9,6 +9,8 @@
 
 #include "../UI/StringTable.h"
 
+#include <libOPHD/EnumDisabledReason.h>
+#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/RandomNumberGenerator.h>
 

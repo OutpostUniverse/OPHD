@@ -2,6 +2,7 @@
 
 #include "../../States/MapViewStateHelper.h"
 
+#include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/StorableResources.h>
 
 #include <algorithm>

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <libOPHD/EnumConnectorDir.h>
-#include <libOPHD/EnumDisabledReason.h>
-#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/MapObject.h>
@@ -15,6 +13,8 @@ namespace NAS2D
 }
 
 
+enum class DisabledReason;
+enum class IdleReason;
 enum class StructureClass;
 struct StructureType;
 struct MapCoordinate;
