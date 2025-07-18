@@ -1,5 +1,7 @@
 #include "Structure.h"
 
+#include "StructureIdToClass.h"
+
 #include "../StructureCatalog.h"
 #include "../Constants/Strings.h"
 #include "../Map/Tile.h"
@@ -73,21 +75,21 @@ std::vector<StructureClass> allStructureClasses()
 }
 
 
-Structure::Structure(StructureClass structureClass, StructureID id, Tile& tile) :
+Structure::Structure(StructureID id, Tile& tile) :
 	MapObject(StructureCatalog::getType(id).spritePath, constants::StructureStateConstruction),
 	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),
-	mStructureClass(structureClass),
+	mStructureClass(structureIdToClass(id)),
 	mTile{tile}
 {
 }
 
 
-Structure::Structure(StructureClass structureClass, StructureID id, Tile& tile, const std::string& initialAction) :
+Structure::Structure(StructureID id, Tile& tile, const std::string& initialAction) :
 	MapObject(StructureCatalog::getType(id).spritePath, initialAction),
 	mStructureType(StructureCatalog::getType(id)),
 	mStructureId(id),
-	mStructureClass(structureClass),
+	mStructureClass(structureIdToClass(id)),
 	mTile{tile}
 {
 }

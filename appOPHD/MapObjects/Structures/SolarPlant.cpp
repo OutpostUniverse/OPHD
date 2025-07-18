@@ -10,7 +10,7 @@ namespace
 
 
 SolarPlant::SolarPlant(Tile& tile) :
-	PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SOLAR_PLANT, tile}
+	PowerStructure{StructureID::SID_SOLAR_PLANT, tile}
 {
 }
 

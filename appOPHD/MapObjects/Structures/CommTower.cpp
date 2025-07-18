@@ -6,7 +6,7 @@
 
 
 CommTower::CommTower(Tile& tile) :
-	Structure{StructureClass::Communication, StructureID::SID_COMM_TOWER, tile}
+	Structure{StructureID::SID_COMM_TOWER, tile}
 {
 }
 

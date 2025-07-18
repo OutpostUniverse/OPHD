@@ -2,7 +2,7 @@
 
 
 CommandCenter::CommandCenter(Tile& tile) :
-	FoodProduction{StructureClass::Command, StructureID::SID_COMMAND_CENTER, tile}
+	FoodProduction{StructureID::SID_COMMAND_CENTER, tile}
 {
 }
 

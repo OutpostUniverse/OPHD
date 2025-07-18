@@ -9,7 +9,7 @@ class SeedPower : public PowerStructure
 {
 public:
 	SeedPower(Tile& tile) :
-		PowerStructure{StructureClass::EnergyProduction, StructureID::SID_SEED_POWER, tile}
+		PowerStructure{StructureID::SID_SEED_POWER, tile}
 	{
 	}
 
