@@ -325,7 +325,7 @@ private:
 
 	// Map Object picking
 	InsertMode mInsertMode = InsertMode::None; /**< What's being inserted into the TileMap if anything. */
-	StructureID mCurrentStructure = StructureID::SID_NONE; /**< Structure being placed. */
+	StructureID mCurrentStructure; /**< Structure being placed. */
 	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
 	IconGrid mStructures;
 	IconGrid mRobots;
