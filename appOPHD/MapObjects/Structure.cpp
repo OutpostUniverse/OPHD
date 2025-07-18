@@ -9,6 +9,8 @@
 
 #include "../UI/StringTable.h"
 
+#include <libOPHD/EnumDisabledReason.h>
+#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/RandomNumberGenerator.h>
 
@@ -77,21 +79,21 @@ std::vector<StructureClass> allStructureClasses()
 
 
 Structure::Structure(StructureID id, Tile& tile) :
-	MapObject(StructureCatalog::getType(id).spritePath, constants::StructureStateConstruction),
-	mStructureType(StructureCatalog::getType(id)),
-	mStructureId(id),
-	mStructureClass(structureIdToClass(id)),
-	mTile{tile}
+	Structure{id, tile, constants::StructureStateConstruction}
 {
 }
 
 
 Structure::Structure(StructureID id, Tile& tile, const std::string& initialAction) :
-	MapObject(StructureCatalog::getType(id).spritePath, initialAction),
-	mStructureType(StructureCatalog::getType(id)),
-	mStructureId(id),
-	mStructureClass(structureIdToClass(id)),
-	mTile{tile}
+	MapObject{StructureCatalog::getType(id).spritePath, initialAction},
+	mStructureType{StructureCatalog::getType(id)},
+	mStructureId{id},
+	mStructureClass{structureIdToClass(id)},
+	mTile{tile},
+	mStructureState{StructureState::UnderConstruction},
+	mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION},
+	mDisabledReason{DisabledReason::None},
+	mIdleReason{IdleReason::None}
 {
 }
 

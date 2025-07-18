@@ -2,6 +2,7 @@
 
 #include "../../States/MapViewStateHelper.h" // yuck
 
+#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/ProductionCost.h>
 
 #include <NAS2D/Dictionary.h>

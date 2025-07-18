@@ -5,6 +5,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <libOPHD/EnumIdleReason.h>
+
 
 OreRefining::OreRefining(StructureID id, Tile& tile) :
 	Structure{id, tile}

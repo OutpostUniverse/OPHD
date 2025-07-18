@@ -30,6 +30,7 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumMoraleIndex.h>
+#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 

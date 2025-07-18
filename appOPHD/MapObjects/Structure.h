@@ -1,8 +1,6 @@
 #pragma once
 
 #include <libOPHD/EnumConnectorDir.h>
-#include <libOPHD/EnumDisabledReason.h>
-#include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/MapObject.h>
@@ -15,6 +13,8 @@ namespace NAS2D
 }
 
 
+enum class DisabledReason;
+enum class IdleReason;
 enum class StructureClass;
 struct StructureType;
 struct MapCoordinate;
@@ -177,7 +177,7 @@ private:
 
 protected:
 	const StructureType& mStructureType;
-	const StructureID mStructureId{StructureID::SID_NONE};
+	const StructureID mStructureId;
 	const StructureClass mStructureClass;
 	Tile& mTile;
 
@@ -185,16 +185,16 @@ protected:
 	int mCrimeRate{0};
 	int mIntegrity{100};
 
-	StructureState mStructureState{StructureState::UnderConstruction};
-	ConnectorDir mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION};
+	StructureState mStructureState;
+	ConnectorDir mConnectorDirection;
 
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
 
 	StorableResources mProductionPool; /**< Resource pool used for production. */
 	StorableResources mStoragePool; /**< Resource storage pool. */
 
-	DisabledReason mDisabledReason{DisabledReason::None};
-	IdleReason mIdleReason{IdleReason::None};
+	DisabledReason mDisabledReason;
+	IdleReason mIdleReason;
 
 	bool mConnected{false};
 	bool mForcedIdle{false}; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
