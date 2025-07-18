@@ -75,10 +75,8 @@ void MajorEventAnnouncement::onColonyShipCrash(WindowStack& windowStack, const C
 }
 
 
-void MajorEventAnnouncement::drawClientArea() const
+void MajorEventAnnouncement::drawClientArea(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	renderer.drawImage(mHeader, position() + NAS2D::Vector{5, 25});
 
 	const auto& font = Control::getDefaultFont();

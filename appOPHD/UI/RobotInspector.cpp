@@ -100,9 +100,8 @@ void RobotInspector::onCancel()
 }
 
 
-void RobotInspector::drawClientArea() const
+void RobotInspector::drawClientArea(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
 	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
 
 	const auto labelPosition = area().position + Vector{mContentRect.position.x, mContentRect.position.y};

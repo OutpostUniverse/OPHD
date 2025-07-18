@@ -204,13 +204,12 @@ StringTable StructureInspector::buildSpecificStringTable(NAS2D::Point<int> posit
 }
 
 
-void StructureInspector::drawClientArea() const
+void StructureInspector::drawClientArea(NAS2D::Renderer& renderer) const
 {
 	const auto genericStructureAttributes = buildGenericStringTable();
 	const auto specificAttributeTablePosition = genericStructureAttributes.area().crossYPoint() + NAS2D::Vector{0, 20 + constants::Margin};
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
-	auto& renderer = Utility<Renderer>::get();
 	genericStructureAttributes.draw(renderer);
 	specificStructureAttributes.draw(renderer);
 }

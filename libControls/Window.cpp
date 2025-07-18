@@ -78,7 +78,7 @@ void Window::draw(NAS2D::Renderer& renderer) const
 	if (!visible()) { return; }
 
 	drawTitleBar(renderer);
-	drawClientArea();
+	drawClientArea(renderer);
 }
 
 
@@ -94,7 +94,7 @@ void Window::drawTitleBar(NAS2D::Renderer& renderer) const
 }
 
 
-void Window::drawClientArea() const
+void Window::drawClientArea(NAS2D::Renderer& /*renderer*/) const
 {
 }
 

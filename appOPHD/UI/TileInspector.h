@@ -13,7 +13,7 @@ public:
 
 	void tile(Tile& tile) { mTile = &tile; }
 
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onVisibilityChange(bool visible) override;

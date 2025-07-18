@@ -14,7 +14,7 @@ public:
 public:
 	GameOverDialog(ClickDelegate clickHandler);
 
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 private:
 	const NAS2D::Image& mHeader;

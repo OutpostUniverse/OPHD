@@ -26,7 +26,7 @@ public:
 
 	void hide() override;
 
-	void drawClientArea() const override;
+	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onProductSelectionChange(const IconGridItem*);

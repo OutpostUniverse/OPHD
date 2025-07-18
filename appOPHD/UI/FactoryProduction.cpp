@@ -204,10 +204,10 @@ void FactoryProduction::factory(Factory* newFactory)
 }
 
 
-void FactoryProduction::drawClientArea() const
+void FactoryProduction::drawClientArea(NAS2D::Renderer& renderer) const
 {
 	auto stringTable = factoryProductionStringTable(mProductCost, mFactory->productionTurnsCompleted());
 	stringTable.position(mProductGrid.area().crossXPoint() + NAS2D::Vector{constants::Margin, 0});
 	stringTable.computeRelativeCellPositions();
-	stringTable.draw(Utility<Renderer>::get());
+	stringTable.draw(renderer);
 }

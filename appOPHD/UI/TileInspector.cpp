@@ -44,7 +44,7 @@ TileInspector::TileInspector() :
 }
 
 
-void TileInspector::drawClientArea() const
+void TileInspector::drawClientArea(NAS2D::Renderer& /*renderer*/) const
 {
 	auto position = mRect.position + NAS2D::Vector{5, 25};
 	const auto tilePosition = mTile->xy();
