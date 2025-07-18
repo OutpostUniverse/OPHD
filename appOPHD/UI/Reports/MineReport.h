@@ -56,9 +56,9 @@ protected:
 	void onAddTruck();
 	void onRemoveTruck();
 
-	void drawMineFacilityPane(const NAS2D::Point<int>& origin) const;
-	void drawStatusPane(const NAS2D::Point<int>& origin) const;
-	void drawOreProductionPane(const NAS2D::Point<int>& origin) const;
+	void drawMineFacilityPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const;
+	void drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const;
+	void drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const;
 
 private:
 	TakeMeThereDelegate mTakeMeThereHandler;

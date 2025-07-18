@@ -327,22 +327,18 @@ void MineReport::onRemoveTruck()
 }
 
 
-void MineReport::drawMineFacilityPane(const NAS2D::Point<int>& origin) const
+void MineReport::drawMineFacilityPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	renderer.drawImage(mineFacilityImage, origin);
 	const auto text = mSelectedFacility ? getStructureDescription(*mSelectedFacility) : "";
 	renderer.drawText(fontBigBold, text, origin + NAS2D::Vector{0, -33}, constants::PrimaryTextColor);
 
-	drawStatusPane(origin + NAS2D::Vector{138, 0});
+	drawStatusPane(renderer, origin + NAS2D::Vector{138, 0});
 }
 
 
-void MineReport::drawStatusPane(const NAS2D::Point<int>& origin) const
+void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	renderer.drawText(fontMediumBold, "Status", origin, constants::PrimaryTextColor);
 
 	const auto& mineFacility = *mSelectedFacility;
@@ -421,10 +417,8 @@ void MineReport::drawStatusPane(const NAS2D::Point<int>& origin) const
 }
 
 
-void MineReport::drawOreProductionPane(const NAS2D::Point<int>& origin) const
+void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	renderer.drawText(fontMediumBold, "Ore Production", origin, constants::PrimaryTextColor);
 	const auto panelWidth = renderer.size().x - origin.x - 10;
 	drawLabelRightJustify(origin, panelWidth, fontMediumBold, "Haul Capacity", constants::PrimaryTextColor);
@@ -485,7 +479,7 @@ void MineReport::draw(NAS2D::Renderer& renderer) const
 
 	if (mSelectedFacility)
 	{
-		drawMineFacilityPane(startPoint + NAS2D::Vector{10, 30});
-		drawOreProductionPane(startPoint + NAS2D::Vector{10, 260});
+		drawMineFacilityPane(renderer, startPoint + NAS2D::Vector{10, 30});
+		drawOreProductionPane(renderer, startPoint + NAS2D::Vector{10, 260});
 	}
 }
