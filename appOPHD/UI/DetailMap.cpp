@@ -165,10 +165,8 @@ void DetailMap::draw(NAS2D::Renderer& renderer) const
 }
 
 
-void DetailMap::drawGrid() const
+void DetailMap::drawGrid(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	const auto viewSize = mMapView.viewSize();
 	const auto incrementY = NAS2D::Vector{-TileSize.x, TileSize.y};
 	const auto leftEdge = mOriginPixelPosition + incrementY * viewSize / 2;
