@@ -378,10 +378,8 @@ void ResearchReport::handleTopicChanged()
 }
 
 
-void ResearchReport::drawCategories() const
+void ResearchReport::drawCategories(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	for (const auto& panel : mCategoryPanels)
 	{
 		const auto panelRect = Rectangle<int>::Create(
@@ -402,26 +400,22 @@ void ResearchReport::drawCategories() const
 }
 
 
-void ResearchReport::drawCategoryHeader() const
+void ResearchReport::drawCategoryHeader(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
 	renderer.drawText(fontBigBold, mSelectedCategory->name, mCategoryHeaderTextPosition, constants::PrimaryTextColor);
 }
 
 
-void ResearchReport::drawVerticalSectionSpacer(const int startX) const
+void ResearchReport::drawVerticalSectionSpacer(NAS2D::Renderer& renderer, const int startX) const
 {
-	auto& renderer = Utility<Renderer>::get();
-
 	const Point<int> start{startX, area().position.y + SectionPadding.y};
 	const Point<int> end{startX, area().position.y + area().size.y - SectionPadding.y};
 	renderer.drawLine(start, end, constants::PrimaryColor);
 }
 
 
-void ResearchReport::drawTopicLabRequirements() const
+void ResearchReport::drawTopicLabRequirements(NAS2D::Renderer& renderer) const
 {
-	auto& renderer = Utility<Renderer>::get();
 	renderer.drawSubImage(imageUiIcons, mStdLabIconPosition, StandardLabIconRect);
 	renderer.drawSubImage(imageUiIcons, mHotLabIconPosition, HotLabIconRect);
 	renderer.drawText(fontMedium, "0 of X", mStdLabTextPosition, constants::PrimaryTextColor);
@@ -429,33 +423,31 @@ void ResearchReport::drawTopicLabRequirements() const
 }
 
 
-void ResearchReport::drawTopicHeaderPanel() const
+void ResearchReport::drawTopicHeaderPanel(NAS2D::Renderer& renderer) const
 {
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
-	auto& renderer = Utility<Renderer>::get();
 	renderer.drawText(fontBigBold, constants::ResearchReportTopicDetails, mTopicDetailsHeaderArea.startPoint(), constants::PrimaryTextColor);
 
-	drawTopicLabRequirements();
+	drawTopicLabRequirements(renderer);
 	drawDetailsHeaderSeparator(mTopicDetailsHeaderArea);
 }
 
 
-void ResearchReport::drawTopicDetailsPanel() const
+void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 {
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
-	auto& renderer = Utility<Renderer>::get();
 	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconUV, TopicIconSize});
 }
 
 
-void ResearchReport::draw(NAS2D::Renderer& /*renderer*/) const
+void ResearchReport::draw(NAS2D::Renderer& renderer) const
 {
-	drawCategories();
-	drawVerticalSectionSpacer(mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
-	drawCategoryHeader();
-	drawVerticalSectionSpacer((area().size.x / 3) * 2);
-	drawTopicHeaderPanel();
-	drawTopicDetailsPanel();
+	drawCategories(renderer);
+	drawVerticalSectionSpacer(renderer, mCategoryPanels.front().rect.endPoint().x + SectionPadding.x);
+	drawCategoryHeader(renderer);
+	drawVerticalSectionSpacer(renderer, (area().size.x / 3) * 2);
+	drawTopicHeaderPanel(renderer);
+	drawTopicDetailsPanel(renderer);
 }
