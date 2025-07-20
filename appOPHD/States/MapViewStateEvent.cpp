@@ -205,11 +205,6 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		structureManager.create<AirShaft>(bottomTile);
 	}
 
-	/**
-	 * \todo	Add checks for obstructions and things that explode if
-	 *			a digger gets in the way (or should diggers be smarter than
-	 *			puncturing a fusion reactor containment vessel?)
-	 */
 	for (const auto& offset : DirectionScan3x3)
 	{
 		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
