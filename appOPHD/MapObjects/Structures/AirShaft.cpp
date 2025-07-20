@@ -26,8 +26,4 @@ void AirShaft::underground()
 
 void AirShaft::forced_state_change(StructureState, DisabledReason, IdleReason)
 {
-	if (mIsUnderground)
-	{
-		return;
-	}
 }
