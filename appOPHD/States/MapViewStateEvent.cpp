@@ -191,12 +191,6 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	auto& tileMap = *mTileMap;
 	auto& tile = roboDigger.tile();
 	const auto& position = tile.xyz();
-
-	if (position.z > tileMap.maxDepth())
-	{
-		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
-	}
-
 	const auto direction = roboDigger.direction();
 	const auto newPosition = position.translate(direction);
 
