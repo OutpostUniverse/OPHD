@@ -202,13 +202,14 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 
 	if (direction == Direction::Down)
 	{
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		auto& bottomTile = tileMap.getTile(newPosition);
 
+		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		structureManager.create<AirShaft>(tile);
-		structureManager.create<AirShaft>(tileMap.getTile(newPosition));
+		structureManager.create<AirShaft>(bottomTile);
 
 		tile.bulldoze();
-		tileMap.getTile(newPosition).bulldoze();
+		bottomTile.bulldoze();
 	}
 
 	/**
