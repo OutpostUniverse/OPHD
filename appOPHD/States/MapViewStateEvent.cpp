@@ -191,34 +191,20 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	auto& tileMap = *mTileMap;
 	auto& tile = roboDigger.tile();
 	const auto& position = tile.xyz();
-
-	if (position.z > tileMap.maxDepth())
-	{
-		throw std::runtime_error("Digger defines a depth that exceeds the maximum digging depth!");
-	}
-
 	const auto direction = roboDigger.direction();
 	const auto newPosition = position.translate(direction);
 
 	if (direction == Direction::Down)
 	{
+		auto& bottomTile = tileMap.getTile(newPosition);
+		tile.bulldoze();
+		bottomTile.bulldoze();
+
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-		auto& airShaftTop = structureManager.create<AirShaft>(tile);
-		if (position.z > 0) { airShaftTop.underground(); }
-
-		auto& airShaftBottom = structureManager.create<AirShaft>(tileMap.getTile(newPosition));
-		airShaftBottom.underground();
-
-		tileMap.getTile(position).bulldoze();
-		tileMap.getTile(newPosition).bulldoze();
+		structureManager.create<AirShaft>(tile);
+		structureManager.create<AirShaft>(bottomTile);
 	}
 
-	/**
-	 * \todo	Add checks for obstructions and things that explode if
-	 *			a digger gets in the way (or should diggers be smarter than
-	 *			puncturing a fusion reactor containment vessel?)
-	 */
 	for (const auto& offset : DirectionScan3x3)
 	{
 		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
