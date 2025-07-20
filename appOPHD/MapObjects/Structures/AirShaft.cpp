@@ -20,7 +20,6 @@ AirShaft::AirShaft(Tile& tile) :
 void AirShaft::underground()
 {
 	mSprite.play(constants::StructureStateOperationalUg);
-	mIsUnderground = true;
 }
 
 

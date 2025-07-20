@@ -11,7 +11,4 @@ public:
 	void underground();
 
 	void forced_state_change(StructureState, DisabledReason, IdleReason) override;
-
-private:
-	bool mIsUnderground = false;
 };
