@@ -50,7 +50,7 @@ namespace
 			const auto& tile = tileMap.getTile(surfacePosition);
 			if (!tile.hasStructure()) { continue; }
 
-			surroundingTiles[i] = tile.structure()->structureId() == StructureID::SID_ROAD;
+			surroundingTiles[i] = tile.structure()->isRoad();
 		}
 		return surroundingTiles;
 	}

@@ -175,7 +175,7 @@ void MaintenanceFacility::repairStructure(Structure* structure)
 		++mAssignedPersonnel;
 		structure->integrity(100);
 
-		if (structure->structureId() == StructureID::SID_ROAD)
+		if (structure->isRoad())
 		{
 			structure->rebuild();
 		}
