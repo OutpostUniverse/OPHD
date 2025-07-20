@@ -207,7 +207,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		structureManager.create<AirShaft>(tile);
 		structureManager.create<AirShaft>(tileMap.getTile(newPosition));
 
-		tileMap.getTile(position).bulldoze();
+		tile.bulldoze();
 		tileMap.getTile(newPosition).bulldoze();
 	}
 
