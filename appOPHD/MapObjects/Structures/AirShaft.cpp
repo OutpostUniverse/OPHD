@@ -17,12 +17,6 @@ AirShaft::AirShaft(Tile& tile) :
 }
 
 
-void AirShaft::underground()
-{
-	mSprite.play(constants::StructureStateOperationalUg);
-}
-
-
 void AirShaft::forced_state_change(StructureState, DisabledReason, IdleReason)
 {
 }

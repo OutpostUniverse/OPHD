@@ -449,11 +449,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 		}
 
-		if (structureId == StructureID::SID_AIR_SHAFT && mapCoordinate.z != 0)
-		{
-			dynamic_cast<AirShaft&>(structure).underground();
-		}
-
 		if (structureId == StructureID::SID_AGRIDOME ||
 			structureId == StructureID::SID_COMMAND_CENTER)
 		{
