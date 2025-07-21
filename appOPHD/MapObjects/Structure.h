@@ -134,6 +134,7 @@ public:
 	bool isFoodProducer() const;
 	bool isFoodStore() const;
 	bool isOreStore() const;
+	bool isComms() const;
 	bool isPolice() const;
 	bool isLander() const;
 	bool isConnector() const;
