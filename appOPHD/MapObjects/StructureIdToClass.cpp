@@ -52,7 +52,7 @@ namespace
 	};
 
 
-	static_assert(structureIdToClassTable.size() == StructureID::SID_COUNT);
+	static_assert(structureIdToClassTable.size() == static_cast<std::size_t>(StructureID::SID_COUNT));
 }
 
 
