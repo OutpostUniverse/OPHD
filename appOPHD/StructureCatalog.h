@@ -28,14 +28,19 @@ public:
 	static void init(const std::string& filename);
 
 	static std::size_t count();
+	static std::size_t typeIndex(StructureID id);
 
 	static const StructureType& getType(StructureID id);
-	static const StructureType& getType(std::size_t index);
+	static const StructureType& getType(std::size_t structureTypeIndex);
 
 	static Structure* create(StructureID id, Tile& tile);
+	static Structure* create(std::size_t structureTypeIndex, Tile& tile);
 
 	static const StorableResources& costToBuild(StructureID id);
+	static const StorableResources& costToBuild(std::size_t structureTypeIndex);
 	static const StorableResources& recyclingValue(StructureID id);
+	static const StorableResources& recyclingValue(std::size_t structureTypeIndex);
 
 	static bool canBuild(StructureID id, const StorableResources& source);
+	static bool canBuild(std::size_t structureTypeIndex, const StorableResources& source);
 };

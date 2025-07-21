@@ -178,15 +178,21 @@ std::size_t StructureCatalog::count()
 }
 
 
-const StructureType& StructureCatalog::getType(StructureID id)
+std::size_t StructureCatalog::typeIndex(StructureID id)
 {
-	return getType(static_cast<std::size_t>(id));
+	return static_cast<std::size_t>(id);
 }
 
 
-const StructureType& StructureCatalog::getType(std::size_t index)
+const StructureType& StructureCatalog::getType(StructureID id)
 {
-	return structureTypes.at(index);
+	return getType(typeIndex(id));
+}
+
+
+const StructureType& StructureCatalog::getType(std::size_t structureTypeIndex)
+{
+	return structureTypes.at(structureTypeIndex);
 }
 
 
@@ -375,6 +381,12 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 }
 
 
+Structure* StructureCatalog::create(std::size_t structureTypeIndex, Tile& tile)
+{
+	return create(static_cast<StructureID>(structureTypeIndex), tile);
+}
+
+
 /**
  * Gets the cost in resources required to build a given Structure.
  *
@@ -386,6 +398,12 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
 }
 
 
+const StorableResources& StructureCatalog::costToBuild(std::size_t structureTypeIndex)
+{
+	return getType(structureTypeIndex).buildCost;
+}
+
+
 /**
  * Gets the recycling value of a specified structure type.
  *
@@ -393,7 +411,13 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
  */
 const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 {
-	return recycleValueTable.at(id);
+	return recyclingValue(typeIndex(id));
+}
+
+
+const StorableResources& StructureCatalog::recyclingValue(std::size_t structureTypeIndex)
+{
+	return recycleValueTable.at(structureTypeIndex);
 }
 
 
@@ -404,4 +428,10 @@ const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 bool StructureCatalog::canBuild(StructureID id, const StorableResources& source)
 {
 	return costToBuild(id) <= source;
+}
+
+
+bool StructureCatalog::canBuild(std::size_t structureTypeIndex, const StorableResources& source)
+{
+	return costToBuild(structureTypeIndex) <= source;
 }
