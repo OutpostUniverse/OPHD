@@ -482,9 +482,6 @@
     <ClInclude Include="MapObjects\Structures\FoodProduction.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
-    <ClInclude Include="MapObjects\Structures\FusionReactor.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
     <ClInclude Include="MapObjects\Structures\HotLaboratory.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
@@ -522,9 +519,6 @@
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\SeedLander.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\SeedPower.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\SolarPanelArray.h">

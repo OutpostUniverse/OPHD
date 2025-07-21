@@ -321,7 +321,6 @@
     <ClInclude Include="MapObjects\Structures\CommTower.h" />
     <ClInclude Include="MapObjects\Structures\Factory.h" />
     <ClInclude Include="MapObjects\Structures\FoodProduction.h" />
-    <ClInclude Include="MapObjects\Structures\FusionReactor.h" />
     <ClInclude Include="MapObjects\Structures\HotLaboratory.h" />
     <ClInclude Include="MapObjects\Structures\Laboratory.h" />
     <ClInclude Include="MapObjects\Structures\MaintenanceFacility.h" />
@@ -335,7 +334,6 @@
     <ClInclude Include="MapObjects\Structures\Road.h" />
     <ClInclude Include="MapObjects\Structures\SeedFactory.h" />
     <ClInclude Include="MapObjects\Structures\SeedLander.h" />
-    <ClInclude Include="MapObjects\Structures\SeedPower.h" />
     <ClInclude Include="MapObjects\Structures\SolarPanelArray.h" />
     <ClInclude Include="MapObjects\Structures\SolarPlant.h" />
     <ClInclude Include="MapObjects\Structures\StorageTanks.h" />

@@ -247,7 +247,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_FUSION_REACTOR:
-			structure = new FusionReactor(tile);
+			structure = new PowerStructure(StructureID::SID_FUSION_REACTOR, tile);
 			break;
 
 		case StructureID::SID_HOT_LABORATORY:
@@ -323,7 +323,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_SEED_POWER:
-			structure = new SeedPower(tile);
+			structure = new PowerStructure(StructureID::SID_SEED_POWER, tile);
 			break;
 
 		case StructureID::SID_SEED_SMELTER:

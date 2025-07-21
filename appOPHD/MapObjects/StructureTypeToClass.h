@@ -13,7 +13,6 @@ class CommandCenter;
 class CommTower;
 class Factory;
 class FoodProduction;
-class FusionReactor;
 class HotLaboratory;
 class Laboratory;
 class MaintenanceFacility;
@@ -27,7 +26,6 @@ class Residence;
 class Road;
 class SeedFactory;
 class SeedLander;
-class SeedPower;
 class SolarPanelArray;
 class SolarPlant;
 class StorageTanks;
@@ -50,7 +48,6 @@ constexpr StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, CommTower>) { return StructureClass::Communication; }
 	else if constexpr (std::is_same_v<StructureType, Factory>) { return StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, FoodProduction>) { return StructureClass::FoodProduction; }
-	else if constexpr (std::is_same_v<StructureType, FusionReactor>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, HotLaboratory>) { return StructureClass::Laboratory; }
 	else if constexpr (std::is_same_v<StructureType, Laboratory>) { return StructureClass::Laboratory; }
 	else if constexpr (std::is_same_v<StructureType, MaintenanceFacility>) { return StructureClass::Maintenance; }
@@ -64,7 +61,6 @@ constexpr StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, Road>) { return StructureClass::Road; }
 	else if constexpr (std::is_same_v<StructureType, SeedFactory>) { return StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, SeedLander>) { return StructureClass::Lander; }
-	else if constexpr (std::is_same_v<StructureType, SeedPower>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, SolarPanelArray>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, SolarPlant>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, StorageTanks>) { return StructureClass::Storage; }
