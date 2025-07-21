@@ -5,7 +5,6 @@
 #include "../../UI/StringTable.h"
 
 #include <libOPHD/MapObjects/StructureType.h>
-#include <libOPHD/MeanSolarDistance.h>
 
 
 PowerStructure::PowerStructure(StructureID id, Tile& tile) :
@@ -30,16 +29,4 @@ StringTable PowerStructure::createInspectorViewTable() const
 	}
 
 	return stringTable;
-}
-
-
-int PowerStructure::energyProduced() const
-{
-	return operational() ? calculateMaxEnergyProduction() : 0;
-}
-
-
-int PowerStructure::calculateMaxEnergyProduction() const
-{
-	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
 }

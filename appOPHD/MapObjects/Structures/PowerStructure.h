@@ -12,9 +12,4 @@ public:
 	PowerStructure(StructureID id, Tile& tile);
 
 	StringTable createInspectorViewTable() const override;
-
-	int energyProduced() const;
-
-protected:
-	int calculateMaxEnergyProduction() const;
 };

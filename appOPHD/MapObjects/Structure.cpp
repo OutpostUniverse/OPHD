@@ -13,6 +13,7 @@
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/RandomNumberGenerator.h>
+#include <libOPHD/MeanSolarDistance.h>
 
 #include <NAS2D/Dictionary.h>
 
@@ -243,6 +244,16 @@ int Structure::maxAge() const
 int Structure::energyRequirement() const
 {
 	return mStructureType.energyRequired;
+}
+
+int Structure::energyProduced() const
+{
+	return operational() ? calculateMaxEnergyProduction() : 0;
+}
+
+int Structure::calculateMaxEnergyProduction() const
+{
+	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
 }
 
 int Structure::foodProduced() const
