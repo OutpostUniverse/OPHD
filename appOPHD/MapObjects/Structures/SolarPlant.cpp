@@ -3,12 +3,6 @@
 #include <libOPHD/MeanSolarDistance.h>
 
 
-namespace
-{
-	const int SolarPlantBaseProduction = 2000;
-}
-
-
 SolarPlant::SolarPlant(Tile& tile) :
 	PowerStructure{StructureID::SID_SOLAR_PLANT, tile}
 {
@@ -17,5 +11,5 @@ SolarPlant::SolarPlant(Tile& tile) :
 
 int SolarPlant::calculateMaxEnergyProduction() const
 {
-	return scaleSolarOutput(SolarPlantBaseProduction);
+	return scaleSolarOutput(PowerStructure::calculateMaxEnergyProduction());
 }
