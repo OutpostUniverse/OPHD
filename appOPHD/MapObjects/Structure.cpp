@@ -302,10 +302,15 @@ bool Structure::isWarehouse() const { return mStructureClass == StructureClass::
 bool Structure::isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
 bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
 bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
-bool Structure::isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
-bool Structure::isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
-bool Structure::isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
+bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0; }
+bool Structure::isFoodProducer() const { return mStructureType.foodProduced > 0; }
+bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
+bool Structure::isOreStore() const { return mStructureType.oreStorageCapacity > 0; }
+bool Structure::isComms() const { return mStructureType.commRange > 0; }
+bool Structure::isPolice() const { return mStructureType.policeRange > 0; }
 bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
+bool Structure::isPark() const { return mStructureClass == StructureClass::Park; }
+bool Structure::isMaintenance() const { return mStructureClass == StructureClass::Maintenance; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
 

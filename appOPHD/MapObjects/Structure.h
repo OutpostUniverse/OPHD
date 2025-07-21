@@ -131,9 +131,14 @@ public:
 	bool isMineFacility() const;
 	bool isSmelter() const;
 	bool isEnergyProducer() const;
+	bool isFoodProducer() const;
 	bool isFoodStore() const;
+	bool isOreStore() const;
+	bool isComms() const;
 	bool isPolice() const;
 	bool isLander() const;
+	bool isPark() const;
+	bool isMaintenance() const;
 	bool isConnector() const;
 	bool isRoad() const;
 
