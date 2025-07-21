@@ -186,7 +186,7 @@ std::size_t StructureCatalog::typeIndex(StructureID id)
 
 const StructureType& StructureCatalog::getType(StructureID id)
 {
-	return getType(static_cast<std::size_t>(id));
+	return getType(typeIndex(id));
 }
 
 
