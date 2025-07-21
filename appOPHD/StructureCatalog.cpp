@@ -375,7 +375,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(id));
+		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(static_cast<std::size_t>(id)));
 	}
 
 	return structure;
