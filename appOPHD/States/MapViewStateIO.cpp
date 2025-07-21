@@ -449,8 +449,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 		}
 
-		if (structureId == StructureID::SID_AGRIDOME ||
-			structureId == StructureID::SID_COMMAND_CENTER)
+		if (structure.isFoodStore())
 		{
 			auto& foodProduction = dynamic_cast<FoodProduction&>(structure);
 
