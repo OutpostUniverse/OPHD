@@ -5,6 +5,7 @@
 #include "../../UI/StringTable.h"
 
 #include <libOPHD/MapObjects/StructureType.h>
+#include <libOPHD/MeanSolarDistance.h>
 
 
 PowerStructure::PowerStructure(StructureID id, Tile& tile) :
@@ -40,5 +41,5 @@ int PowerStructure::energyProduced() const
 
 int PowerStructure::calculateMaxEnergyProduction() const
 {
-	return mStructureType.energyProduced;
+	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
 }
