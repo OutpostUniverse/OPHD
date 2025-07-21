@@ -18,5 +18,5 @@ public:
 	int energyProduced() const;
 
 protected:
-	virtual int calculateMaxEnergyProduction() const = 0;
+	virtual int calculateMaxEnergyProduction() const;
 };

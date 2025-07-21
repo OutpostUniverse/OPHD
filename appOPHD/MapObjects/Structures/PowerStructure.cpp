@@ -4,6 +4,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <libOPHD/MapObjects/StructureType.h>
+
 
 PowerStructure::PowerStructure(StructureID id, Tile& tile) :
 	Structure{id, tile}
@@ -33,4 +35,10 @@ StringTable PowerStructure::createInspectorViewTable() const
 int PowerStructure::energyProduced() const
 {
 	return operational() ? calculateMaxEnergyProduction() : 0;
+}
+
+
+int PowerStructure::calculateMaxEnergyProduction() const
+{
+	return mStructureType.energyProduced;
 }
