@@ -178,6 +178,12 @@ std::size_t StructureCatalog::count()
 }
 
 
+std::size_t StructureCatalog::typeIndex(StructureID id)
+{
+	return static_cast<std::size_t>(id);
+}
+
+
 const StructureType& StructureCatalog::getType(StructureID id)
 {
 	return getType(static_cast<std::size_t>(id));

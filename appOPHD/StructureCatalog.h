@@ -28,6 +28,7 @@ public:
 	static void init(const std::string& filename);
 
 	static std::size_t count();
+	static std::size_t typeIndex(StructureID id);
 
 	static const StructureType& getType(StructureID id);
 	static const StructureType& getType(std::size_t index);
