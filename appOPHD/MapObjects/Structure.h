@@ -103,6 +103,7 @@ public:
 	bool ages() const { return maxAge() > 0; }
 
 	int energyRequirement() const;
+	int energyProduced() const;
 	int foodProduced() const;
 	int foodStorageCapacity() const;
 	int storageCapacity() const;
@@ -167,6 +168,8 @@ protected:
 	virtual void disabledStateSet() {}
 
 	void state(StructureState newState) { mStructureState = newState; }
+
+	int calculateMaxEnergyProduction() const;
 
 private:
 	Structure() = delete;

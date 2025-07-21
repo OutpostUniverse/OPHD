@@ -104,7 +104,7 @@ namespace
 		const auto& structuresElement = *document.firstChildElement("Structures");
 
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
-		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
 		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
@@ -126,6 +126,7 @@ namespace
 				dictionary.get<int>("MaxAge"),
 				dictionary.get<int>("EnergyRequired"),
 				dictionary.get<int>("EnergyProduced"),
+				dictionary.get<int>("SolarEnergyProduced", 0),
 				dictionary.get<int>("FoodProduced"),
 				dictionary.get<int>("FoodStorageCapacity"),
 				dictionary.get<int>("OreStorageCapacity"),
@@ -247,7 +248,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_FUSION_REACTOR:
-			structure = new PowerStructure(StructureID::SID_FUSION_REACTOR, tile);
+			structure = new Structure(StructureID::SID_FUSION_REACTOR, tile);
 			break;
 
 		case StructureID::SID_HOT_LABORATORY:
@@ -323,7 +324,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_SEED_POWER:
-			structure = new PowerStructure(StructureID::SID_SEED_POWER, tile);
+			structure = new Structure(StructureID::SID_SEED_POWER, tile);
 			break;
 
 		case StructureID::SID_SEED_SMELTER:
@@ -335,11 +336,11 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray(tile);
+			structure = new Structure(StructureID::SID_SOLAR_PANEL1, tile);
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			structure = new SolarPlant(tile);
+			structure = new Structure(StructureID::SID_SOLAR_PLANT, tile);
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:

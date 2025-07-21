@@ -19,15 +19,12 @@ class MaintenanceFacility;
 class MineFacility;
 class MineShaft;
 class OreRefining;
-class PowerStructure;
 class Recycling;
 class ResearchFacility;
 class Residence;
 class Road;
 class SeedFactory;
 class SeedLander;
-class SolarPanelArray;
-class SolarPlant;
 class StorageTanks;
 class SurfaceFactory;
 class Tube;
@@ -54,15 +51,12 @@ constexpr StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, MineFacility>) { return StructureClass::Mine; }
 	else if constexpr (std::is_same_v<StructureType, MineShaft>) { return StructureClass::Undefined; }
 	else if constexpr (std::is_same_v<StructureType, OreRefining>) { return StructureClass::Smelter; }
-	else if constexpr (std::is_same_v<StructureType, PowerStructure>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, Recycling>) { return StructureClass::Recycling; }
 	else if constexpr (std::is_same_v<StructureType, ResearchFacility>) { return StructureClass::Laboratory; }
 	else if constexpr (std::is_same_v<StructureType, Residence>) { return StructureClass::Residence; }
 	else if constexpr (std::is_same_v<StructureType, Road>) { return StructureClass::Road; }
 	else if constexpr (std::is_same_v<StructureType, SeedFactory>) { return StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, SeedLander>) { return StructureClass::Lander; }
-	else if constexpr (std::is_same_v<StructureType, SolarPanelArray>) { return StructureClass::EnergyProduction; }
-	else if constexpr (std::is_same_v<StructureType, SolarPlant>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, StorageTanks>) { return StructureClass::Storage; }
 	else if constexpr (std::is_same_v<StructureType, SurfaceFactory>) { return StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, Tube>) { return StructureClass::Tube; }

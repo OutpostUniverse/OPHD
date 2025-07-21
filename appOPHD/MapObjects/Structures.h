@@ -18,8 +18,6 @@
 #include "Structures/Road.h"
 #include "Structures/SeedFactory.h"
 #include "Structures/SeedLander.h"
-#include "Structures/SolarPanelArray.h"
-#include "Structures/SolarPlant.h"
 #include "Structures/StorageTanks.h"
 #include "Structures/SurfaceFactory.h"
 #include "Structures/Tube.h"

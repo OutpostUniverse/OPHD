@@ -5,6 +5,7 @@
 
 #include "../StructureCatalog.h"
 #include "../Constants/Strings.h"
+#include "../Constants/UiConstants.h"
 #include "../Map/Tile.h"
 
 #include "../UI/StringTable.h"
@@ -13,6 +14,7 @@
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/RandomNumberGenerator.h>
+#include <libOPHD/MeanSolarDistance.h>
 
 #include <NAS2D/Dictionary.h>
 
@@ -245,6 +247,16 @@ int Structure::energyRequirement() const
 	return mStructureType.energyRequired;
 }
 
+int Structure::energyProduced() const
+{
+	return operational() ? calculateMaxEnergyProduction() : 0;
+}
+
+int Structure::calculateMaxEnergyProduction() const
+{
+	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
+}
+
 int Structure::foodProduced() const
 {
 	return operational() ? mStructureType.foodProduced : 0;
@@ -302,7 +314,7 @@ bool Structure::isWarehouse() const { return mStructureClass == StructureClass::
 bool Structure::isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
 bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
 bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
-bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0; }
+bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0 || mStructureType.solarEnergyProduced > 0; }
 bool Structure::isFoodProducer() const { return mStructureType.foodProduced > 0; }
 bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
 bool Structure::isOreStore() const { return mStructureType.oreStorageCapacity > 0; }
@@ -451,6 +463,24 @@ void Structure::integrity(int integrity)
 
 StringTable Structure::createInspectorViewTable() const
 {
+	if (calculateMaxEnergyProduction() > 0)
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Power Produced:";
+
+		auto produced = energyProduced();
+
+		stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(calculateMaxEnergyProduction());
+
+		if (produced == 0)
+		{
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
+		}
+
+		return stringTable;
+	}
+
 	return StringTable(0, 0);
 }
 
