@@ -41,4 +41,5 @@ public:
 	static const StorableResources& recyclingValue(std::size_t structureTypeIndex);
 
 	static bool canBuild(StructureID id, const StorableResources& source);
+	static bool canBuild(std::size_t structureTypeIndex, const StorableResources& source);
 };

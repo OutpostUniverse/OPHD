@@ -423,3 +423,9 @@ bool StructureCatalog::canBuild(StructureID id, const StorableResources& source)
 {
 	return costToBuild(id) <= source;
 }
+
+
+bool StructureCatalog::canBuild(std::size_t structureTypeIndex, const StorableResources& source)
+{
+	return costToBuild(structureTypeIndex) <= source;
+}
