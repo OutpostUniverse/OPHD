@@ -430,7 +430,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			dynamic_cast<CargoLander&>(structure).deployHandler({this, &MapViewState::onDeployCargoLander});
 		}
 
-		if (structureId == StructureID::SID_MINE_FACILITY)
+		if (structure.isMineFacility())
 		{
 			auto& mineFacility = dynamic_cast<MineFacility&>(structure);
 			mineFacility.maxDepth(mTileMap->maxDepth());
