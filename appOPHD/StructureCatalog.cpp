@@ -336,11 +336,11 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			break;
 
 		case StructureID::SID_SOLAR_PANEL1:
-			structure = new SolarPanelArray(tile);
+			structure = new PowerStructure(StructureID::SID_SOLAR_PANEL1, tile);
 			break;
 
 		case StructureID::SID_SOLAR_PLANT:
-			structure = new SolarPlant(tile);
+			structure = new PowerStructure(StructureID::SID_SOLAR_PLANT, tile);
 			break;
 
 		case StructureID::SID_STORAGE_TANKS:

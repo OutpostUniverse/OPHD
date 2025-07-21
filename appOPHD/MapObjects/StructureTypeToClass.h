@@ -26,8 +26,6 @@ class Residence;
 class Road;
 class SeedFactory;
 class SeedLander;
-class SolarPanelArray;
-class SolarPlant;
 class StorageTanks;
 class SurfaceFactory;
 class Tube;
@@ -61,8 +59,6 @@ constexpr StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, Road>) { return StructureClass::Road; }
 	else if constexpr (std::is_same_v<StructureType, SeedFactory>) { return StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, SeedLander>) { return StructureClass::Lander; }
-	else if constexpr (std::is_same_v<StructureType, SolarPanelArray>) { return StructureClass::EnergyProduction; }
-	else if constexpr (std::is_same_v<StructureType, SolarPlant>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, StorageTanks>) { return StructureClass::Storage; }
 	else if constexpr (std::is_same_v<StructureType, SurfaceFactory>) { return StructureClass::Factory; }
 	else if constexpr (std::is_same_v<StructureType, Tube>) { return StructureClass::Tube; }

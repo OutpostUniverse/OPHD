@@ -214,8 +214,6 @@
     <ClCompile Include="MapObjects\Structures\Residence.cpp" />
     <ClCompile Include="MapObjects\Structures\Road.cpp" />
     <ClCompile Include="MapObjects\Structures\SeedLander.cpp" />
-    <ClCompile Include="MapObjects\Structures\SolarPanelArray.cpp" />
-    <ClCompile Include="MapObjects\Structures\SolarPlant.cpp" />
     <ClCompile Include="MapObjects\Structures\StorageTanks.cpp" />
     <ClCompile Include="MapObjects\Structures\Tube.cpp" />
     <ClCompile Include="MicroPather\micropather.cpp" />
@@ -334,8 +332,6 @@
     <ClInclude Include="MapObjects\Structures\Road.h" />
     <ClInclude Include="MapObjects\Structures\SeedFactory.h" />
     <ClInclude Include="MapObjects\Structures\SeedLander.h" />
-    <ClInclude Include="MapObjects\Structures\SolarPanelArray.h" />
-    <ClInclude Include="MapObjects\Structures\SolarPlant.h" />
     <ClInclude Include="MapObjects\Structures\StorageTanks.h" />
     <ClInclude Include="MapObjects\Structures\SurfaceFactory.h" />
     <ClInclude Include="MapObjects\Structures\Tube.h" />
