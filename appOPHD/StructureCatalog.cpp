@@ -403,6 +403,12 @@ const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 }
 
 
+const StorableResources& StructureCatalog::recyclingValue(std::size_t structureTypeIndex)
+{
+	return recycleValueTable.at(structureTypeIndex);
+}
+
+
 /**
  * Indicates that the source ResourcePool has enough resources to accommodate
  * the resource requirements of the specified structure.
