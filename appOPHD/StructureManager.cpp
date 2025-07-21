@@ -366,7 +366,7 @@ void StructureManager::updateEnergyProduction()
 	mTotalEnergyOutput = 0;
 	mTotalEnergyUsed = 0;
 
-	for (auto* structure : mStructureLists[StructureClass::EnergyProduction])
+	for (auto* structure : allStructures())
 	{
 		mTotalEnergyOutput += structure->energyProduced();
 	}
