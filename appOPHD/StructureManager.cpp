@@ -368,10 +368,7 @@ void StructureManager::updateEnergyProduction()
 
 	for (auto* structure : mStructureLists[StructureClass::EnergyProduction])
 	{
-		if (structure->operational())
-		{
-			mTotalEnergyOutput += structure->energyProduced();
-		}
+		mTotalEnergyOutput += structure->energyProduced();
 	}
 }
 
