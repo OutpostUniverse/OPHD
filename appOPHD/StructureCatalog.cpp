@@ -399,7 +399,7 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
  */
 const StorableResources& StructureCatalog::recyclingValue(StructureID id)
 {
-	return recycleValueTable.at(id);
+	return recyclingValue(typeIndex(id));
 }
 
 
