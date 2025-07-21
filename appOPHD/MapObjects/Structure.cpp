@@ -302,7 +302,7 @@ bool Structure::isWarehouse() const { return mStructureClass == StructureClass::
 bool Structure::isRobotCommand() const { return mStructureClass == StructureClass::RobotCommand; }
 bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
 bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
-bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0; }
+bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0 || mStructureType.solarEnergyProduced > 0; }
 bool Structure::isFoodProducer() const { return mStructureType.foodProduced > 0; }
 bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
 bool Structure::isOreStore() const { return mStructureType.oreStorageCapacity > 0; }
