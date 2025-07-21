@@ -309,6 +309,7 @@ bool Structure::isOreStore() const { return mStructureType.oreStorageCapacity > 
 bool Structure::isComms() const { return mStructureType.commRange > 0; }
 bool Structure::isPolice() const { return mStructureType.policeRange > 0; }
 bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
+bool Structure::isPark() const { return mStructureClass == StructureClass::Park; }
 bool Structure::isMaintenance() const { return mStructureClass == StructureClass::Maintenance; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
