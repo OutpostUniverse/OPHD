@@ -19,6 +19,7 @@ struct StructureType
 	int maxAge{0};
 	int energyRequired{0};
 	int energyProduced{0};
+	int solarEnergyProduced{0};
 	int foodProduced{0};
 	int foodStorageCapacity{0};
 	int oreStorageCapacity{0};
