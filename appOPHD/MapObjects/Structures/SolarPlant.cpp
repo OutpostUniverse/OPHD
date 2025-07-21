@@ -17,5 +17,5 @@ SolarPlant::SolarPlant(Tile& tile) :
 
 int SolarPlant::calculateMaxEnergyProduction() const
 {
-	return static_cast<int>(SolarPlantBaseProduction / getMeanSolarDistance());
+	return scaleSolarOutput(SolarPlantBaseProduction);
 }
