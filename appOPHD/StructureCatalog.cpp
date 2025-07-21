@@ -190,9 +190,9 @@ const StructureType& StructureCatalog::getType(StructureID id)
 }
 
 
-const StructureType& StructureCatalog::getType(std::size_t index)
+const StructureType& StructureCatalog::getType(std::size_t structureTypeIndex)
 {
-	return structureTypes.at(index);
+	return structureTypes.at(structureTypeIndex);
 }
 
 

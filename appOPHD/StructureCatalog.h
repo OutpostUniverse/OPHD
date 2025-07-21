@@ -31,7 +31,7 @@ public:
 	static std::size_t typeIndex(StructureID id);
 
 	static const StructureType& getType(StructureID id);
-	static const StructureType& getType(std::size_t index);
+	static const StructureType& getType(std::size_t structureTypeIndex);
 
 	static Structure* create(StructureID id, Tile& tile);
 
