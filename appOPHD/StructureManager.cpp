@@ -6,12 +6,12 @@
 #include "ProductPool.h"
 #include "StructureCatalog.h"
 #include "Map/Tile.h"
+#include "MapObjects/Structure.h"
 #include "MapObjects/Robot.h"
 
 #include "MapObjects/Structures/FoodProduction.h"
 #include "MapObjects/Structures/MaintenanceFacility.h"
 #include "MapObjects/Structures/MineFacility.h"
-#include "MapObjects/Structures/PowerStructure.h"
 #include "MapObjects/Structures/ResearchFacility.h"
 #include "MapObjects/Structures/Residence.h"
 #include "MapObjects/Structures/Warehouse.h"
@@ -368,10 +368,9 @@ void StructureManager::updateEnergyProduction()
 
 	for (auto* structure : mStructureLists[StructureClass::EnergyProduction])
 	{
-		auto* powerStructure = dynamic_cast<PowerStructure*>(structure);
-		if (powerStructure->operational())
+		if (structure->operational())
 		{
-			mTotalEnergyOutput += powerStructure->energyProduced();
+			mTotalEnergyOutput += structure->energyProduced();
 		}
 	}
 }
