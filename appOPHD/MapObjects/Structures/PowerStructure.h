@@ -10,6 +10,4 @@ class PowerStructure : public Structure
 {
 public:
 	PowerStructure(StructureID id, Tile& tile);
-
-	StringTable createInspectorViewTable() const override;
 };
