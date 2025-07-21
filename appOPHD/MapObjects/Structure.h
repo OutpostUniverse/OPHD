@@ -137,6 +137,7 @@ public:
 	bool isComms() const;
 	bool isPolice() const;
 	bool isLander() const;
+	bool isMaintenance() const;
 	bool isConnector() const;
 	bool isRoad() const;
 
