@@ -901,7 +901,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 			factory.resourcePool(&mResourcesCount);
 		}
 
-		if (structure.structureId() == StructureID::SID_MAINTENANCE_FACILITY)
+		if (structure.isMaintenance())
 		{
 			dynamic_cast<MaintenanceFacility&>(structure).resources(mResourcesCount);
 		}
