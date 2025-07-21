@@ -36,6 +36,7 @@ public:
 	static Structure* create(StructureID id, Tile& tile);
 
 	static const StorableResources& costToBuild(StructureID id);
+	static const StorableResources& costToBuild(std::size_t structureTypeIndex);
 	static const StorableResources& recyclingValue(StructureID id);
 	static const StorableResources& recyclingValue(std::size_t structureTypeIndex);
 

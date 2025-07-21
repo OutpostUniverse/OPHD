@@ -392,6 +392,12 @@ const StorableResources& StructureCatalog::costToBuild(StructureID id)
 }
 
 
+const StorableResources& StructureCatalog::costToBuild(std::size_t structureTypeIndex)
+{
+	return getType(structureTypeIndex).buildCost;
+}
+
+
 /**
  * Gets the recycling value of a specified structure type.
  *
