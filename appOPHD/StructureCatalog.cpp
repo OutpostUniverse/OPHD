@@ -62,6 +62,7 @@ namespace
 		constants::MaintenanceFacility
 	};
 
+	constexpr auto structureIdCount = static_cast<std::size_t>(StructureID::SID_COUNT);
 
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
@@ -143,9 +144,9 @@ namespace
 
 	void verifyStructureTypeOrder()
 	{
-		if (structureTypes.size() != StructureID::SID_COUNT)
+		if (structureTypes.size() != structureIdCount)
 		{
-			throw std::runtime_error("Unexpected number of StructureType entries: Read: " + std::to_string(structureTypes.size()) + " Expected: " + std::to_string(StructureID::SID_COUNT));
+			throw std::runtime_error("Unexpected number of StructureType entries: Read: " + std::to_string(structureTypes.size()) + " Expected: " + std::to_string(structureIdCount));
 		}
 
 		for (std::size_t i = 0; i < structureTypes.size(); ++i)
