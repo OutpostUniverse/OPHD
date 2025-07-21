@@ -303,6 +303,7 @@ bool Structure::isRobotCommand() const { return mStructureClass == StructureClas
 bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
 bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
 bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0; }
+bool Structure::isFoodProducer() const { return mStructureType.foodProduced > 0; }
 bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
 bool Structure::isPolice() const { return mStructureType.policeRange > 0; }
 bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }

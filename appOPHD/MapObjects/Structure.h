@@ -131,6 +131,7 @@ public:
 	bool isMineFacility() const;
 	bool isSmelter() const;
 	bool isEnergyProducer() const;
+	bool isFoodProducer() const;
 	bool isFoodStore() const;
 	bool isPolice() const;
 	bool isLander() const;
