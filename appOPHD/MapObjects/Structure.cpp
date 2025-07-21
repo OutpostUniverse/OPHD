@@ -303,7 +303,7 @@ bool Structure::isRobotCommand() const { return mStructureClass == StructureClas
 bool Structure::isMineFacility() const { return mStructureClass == StructureClass::Mine; }
 bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
 bool Structure::isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
-bool Structure::isFoodStore() const { return mStructureClass == StructureClass::FoodProduction || mStructureId == StructureID::SID_COMMAND_CENTER; }
+bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
 bool Structure::isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
 bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
