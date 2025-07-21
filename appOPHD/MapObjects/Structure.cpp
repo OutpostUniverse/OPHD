@@ -304,7 +304,7 @@ bool Structure::isMineFacility() const { return mStructureClass == StructureClas
 bool Structure::isSmelter() const { return mStructureClass == StructureClass::Smelter; }
 bool Structure::isEnergyProducer() const { return mStructureClass == StructureClass::EnergyProduction; }
 bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
-bool Structure::isPolice() const { return mStructureClass == StructureClass::SurfacePolice || mStructureClass == StructureClass::UndergroundPolice; }
+bool Structure::isPolice() const { return mStructureType.policeRange > 0; }
 bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
