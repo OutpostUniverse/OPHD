@@ -381,6 +381,12 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 }
 
 
+Structure* StructureCatalog::create(std::size_t structureTypeIndex, Tile& tile)
+{
+	return create(static_cast<StructureID>(structureTypeIndex), tile);
+}
+
+
 /**
  * Gets the cost in resources required to build a given Structure.
  *

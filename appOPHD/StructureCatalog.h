@@ -34,6 +34,7 @@ public:
 	static const StructureType& getType(std::size_t structureTypeIndex);
 
 	static Structure* create(StructureID id, Tile& tile);
+	static Structure* create(std::size_t structureTypeIndex, Tile& tile);
 
 	static const StorableResources& costToBuild(StructureID id);
 	static const StorableResources& costToBuild(std::size_t structureTypeIndex);
