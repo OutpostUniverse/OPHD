@@ -133,6 +133,7 @@ public:
 	bool isEnergyProducer() const;
 	bool isFoodProducer() const;
 	bool isFoodStore() const;
+	bool isOreStore() const;
 	bool isPolice() const;
 	bool isLander() const;
 	bool isConnector() const;

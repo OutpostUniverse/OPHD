@@ -305,6 +305,7 @@ bool Structure::isSmelter() const { return mStructureClass == StructureClass::Sm
 bool Structure::isEnergyProducer() const { return mStructureType.energyProduced > 0; }
 bool Structure::isFoodProducer() const { return mStructureType.foodProduced > 0; }
 bool Structure::isFoodStore() const { return mStructureType.foodStorageCapacity > 0; }
+bool Structure::isOreStore() const { return mStructureType.oreStorageCapacity > 0; }
 bool Structure::isPolice() const { return mStructureType.policeRange > 0; }
 bool Structure::isLander() const { return mStructureClass == StructureClass::Lander; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
