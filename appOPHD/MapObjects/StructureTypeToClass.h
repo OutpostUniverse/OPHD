@@ -19,7 +19,6 @@ class MaintenanceFacility;
 class MineFacility;
 class MineShaft;
 class OreRefining;
-class PowerStructure;
 class Recycling;
 class ResearchFacility;
 class Residence;
@@ -52,7 +51,6 @@ constexpr StructureClass structureTypeToClass() {
 	else if constexpr (std::is_same_v<StructureType, MineFacility>) { return StructureClass::Mine; }
 	else if constexpr (std::is_same_v<StructureType, MineShaft>) { return StructureClass::Undefined; }
 	else if constexpr (std::is_same_v<StructureType, OreRefining>) { return StructureClass::Smelter; }
-	else if constexpr (std::is_same_v<StructureType, PowerStructure>) { return StructureClass::EnergyProduction; }
 	else if constexpr (std::is_same_v<StructureType, Recycling>) { return StructureClass::Recycling; }
 	else if constexpr (std::is_same_v<StructureType, ResearchFacility>) { return StructureClass::Laboratory; }
 	else if constexpr (std::is_same_v<StructureType, Residence>) { return StructureClass::Residence; }

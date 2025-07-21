@@ -147,9 +147,6 @@
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\Structures\PowerStructure.cpp">
-      <Filter>Source Files\MapObjects\Structures</Filter>
-    </ClCompile>
     <ClCompile Include="MapObjects\Structures\Recycling.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
@@ -492,9 +489,6 @@
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\OreRefining.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\PowerStructure.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\Recycling.h">

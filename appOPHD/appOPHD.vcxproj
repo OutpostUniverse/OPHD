@@ -208,7 +208,6 @@
     <ClCompile Include="MapObjects\Structures\MaintenanceFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\MineFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\OreRefining.cpp" />
-    <ClCompile Include="MapObjects\Structures\PowerStructure.cpp" />
     <ClCompile Include="MapObjects\Structures\Recycling.cpp" />
     <ClCompile Include="MapObjects\Structures\ResearchFacility.cpp" />
     <ClCompile Include="MapObjects\Structures\Residence.cpp" />
@@ -325,7 +324,6 @@
     <ClInclude Include="MapObjects\Structures\MineFacility.h" />
     <ClInclude Include="MapObjects\Structures\MineShaft.h" />
     <ClInclude Include="MapObjects\Structures\OreRefining.h" />
-    <ClInclude Include="MapObjects\Structures\PowerStructure.h" />
     <ClInclude Include="MapObjects\Structures\Recycling.h" />
     <ClInclude Include="MapObjects\Structures\ResearchFacility.h" />
     <ClInclude Include="MapObjects\Structures\Residence.h" />
