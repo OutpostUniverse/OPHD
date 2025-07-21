@@ -430,7 +430,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			dynamic_cast<CargoLander&>(structure).deployHandler({this, &MapViewState::onDeployCargoLander});
 		}
 
-		if (structureId == StructureID::SID_MINE_FACILITY)
+		if (structure.isMineFacility())
 		{
 			auto& mineFacility = dynamic_cast<MineFacility&>(structure);
 			mineFacility.maxDepth(mTileMap->maxDepth());
@@ -449,8 +449,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 		}
 
-		if (structureId == StructureID::SID_AGRIDOME ||
-			structureId == StructureID::SID_COMMAND_CENTER)
+		if (structure.isFoodStore())
 		{
 			auto& foodProduction = dynamic_cast<FoodProduction&>(structure);
 
@@ -483,7 +482,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 		}
 
-		if (structure.structureClass() == StructureClass::Maintenance)
+		if (structure.isMaintenance())
 		{
 			auto personnel = structureElement->firstChildElement("personnel");
 			if (personnel)

@@ -88,22 +88,21 @@ void CrimeExecution::executeCrimes(const std::vector<Structure*>& structuresComm
 
 	for (auto& structure : structuresCommittingCrime)
 	{
-		switch (structure->structureId())
+		if (structure->isFoodStore())
 		{
-		case StructureID::SID_AGRIDOME:
 			stealFood(dynamic_cast<FoodProduction&>(*structure));
-			break;
-		case StructureID::SID_SMELTER:
+		}
+		else if (structure->isSmelter())
+		{
 			stealRawResources(*structure);
-			break;
-		case StructureID::SID_STORAGE_TANKS:
+		}
+		else if (structure->isOreStore())
+		{
 			stealRefinedResources(*structure);
-			break;
-		case StructureID::SID_PARK:
+		}
+		else if (structure->isPark())
+		{
 			vandalize(*structure);
-			break;
-		default:
-			break;
 		}
 	}
 }
