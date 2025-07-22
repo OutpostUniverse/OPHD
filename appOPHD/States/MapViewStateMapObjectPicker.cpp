@@ -34,6 +34,12 @@ StructureID MapViewState::selectedStructureId() const
 }
 
 
+RobotTypeIndex MapViewState::selectedRobotIndex() const
+{
+	return mCurrentRobot;
+}
+
+
 void MapViewState::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;
