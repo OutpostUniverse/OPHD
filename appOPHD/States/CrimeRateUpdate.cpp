@@ -24,9 +24,9 @@ namespace
 	};
 
 
-	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, const Structure* structure)
+	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, const Structure& structure)
 	{
-		const auto& structureTile = structure->tile();
+		const auto& structureTile = structure.tile();
 
 		for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
 		{
@@ -65,7 +65,7 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 
 	for (auto* structure : structuresWithCrime)
 	{
-		int crimeRateChange = isProtectedByPolice(policeOverlays, structure) ? -1 : 1;
+		int crimeRateChange = isProtectedByPolice(policeOverlays, *structure) ? -1 : 1;
 		structure->increaseCrimeRate(crimeRateChange);
 
 		// Crime Rate of 0% means no crime
