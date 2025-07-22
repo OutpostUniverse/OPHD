@@ -222,6 +222,7 @@ private:
 
 	// UI MANAGEMENT FUNCTIONS
 	bool isInserting() const;
+	bool isInsertingStructure() const;
 	bool isInsertingRobot() const;
 	void clearBuildMode();
 	void clearSelections();

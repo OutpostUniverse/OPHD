@@ -10,6 +10,12 @@ bool MapViewState::isInserting() const
 }
 
 
+bool MapViewState::isInsertingStructure() const
+{
+	return mInsertMode == InsertMode::Structure;
+}
+
+
 bool MapViewState::isInsertingRobot() const
 {
 	return mInsertMode == InsertMode::Robot;
