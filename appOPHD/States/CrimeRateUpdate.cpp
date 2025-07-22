@@ -24,7 +24,7 @@ namespace
 	};
 
 
-	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
+	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, const Structure* structure)
 	{
 		const auto& structureTile = structure->tile();
 
