@@ -224,6 +224,7 @@ private:
 	bool isInserting() const;
 	bool isInsertingStructure() const;
 	bool isInsertingRobot() const;
+	bool isInsertingTube() const;
 	void clearBuildMode();
 	void clearSelections();
 

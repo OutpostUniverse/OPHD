@@ -22,6 +22,12 @@ bool MapViewState::isInsertingRobot() const
 }
 
 
+bool MapViewState::isInsertingTube() const
+{
+	return mInsertMode == InsertMode::Tube;
+}
+
+
 void MapViewState::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;
