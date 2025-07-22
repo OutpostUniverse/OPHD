@@ -702,11 +702,11 @@ void MapViewState::onClickMap()
 
 	if (isInsertingStructure())
 	{
-		placeStructure(tile, mCurrentStructure);
+		placeStructure(tile, selectedStructureId());
 	}
 	else if (isInsertingRobot())
 	{
-		placeRobot(tile, mCurrentRobot);
+		placeRobot(tile, selectedRobotIndex());
 	}
 	else if (isInsertingTube())
 	{
