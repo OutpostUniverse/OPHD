@@ -222,7 +222,11 @@ private:
 
 	// UI MANAGEMENT FUNCTIONS
 	bool isInserting() const;
+	bool isInsertingStructure() const;
 	bool isInsertingRobot() const;
+	bool isInsertingTube() const;
+	StructureID selectedStructureId() const;
+	RobotTypeIndex selectedRobotIndex() const;
 	void clearBuildMode();
 	void clearSelections();
 

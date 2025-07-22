@@ -700,15 +700,15 @@ void MapViewState::onClickMap()
 	if (!mDetailMap->isMouseOverTile()) { return; }
 	Tile& tile = mDetailMap->mouseTile();
 
-	if (mInsertMode == InsertMode::Structure)
+	if (isInsertingStructure())
 	{
-		placeStructure(tile, mCurrentStructure);
+		placeStructure(tile, selectedStructureId());
 	}
-	else if (mInsertMode == InsertMode::Robot)
+	else if (isInsertingRobot())
 	{
-		placeRobot(tile, mCurrentRobot);
+		placeRobot(tile, selectedRobotIndex());
 	}
-	else if (mInsertMode == InsertMode::Tube)
+	else if (isInsertingTube())
 	{
 		/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 		* Should instead take advantage of the updated meta data in the IconGridItem.

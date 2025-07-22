@@ -10,9 +10,33 @@ bool MapViewState::isInserting() const
 }
 
 
+bool MapViewState::isInsertingStructure() const
+{
+	return mInsertMode == InsertMode::Structure;
+}
+
+
 bool MapViewState::isInsertingRobot() const
 {
 	return mInsertMode == InsertMode::Robot;
+}
+
+
+bool MapViewState::isInsertingTube() const
+{
+	return mInsertMode == InsertMode::Tube;
+}
+
+
+StructureID MapViewState::selectedStructureId() const
+{
+	return mCurrentStructure;
+}
+
+
+RobotTypeIndex MapViewState::selectedRobotIndex() const
+{
+	return mCurrentRobot;
 }
 
 
