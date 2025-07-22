@@ -101,6 +101,12 @@ bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int dist
 }
 
 
+bool isPointInRangeSameZ(MapCoordinate point1, MapCoordinate point2, int distance)
+{
+	return (point1.z == point2.z) && isPointInRange(point1.xy, point2.xy, distance);
+}
+
+
 /**
  * Checks to see if a given tube connection is valid.
  */

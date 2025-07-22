@@ -3,6 +3,7 @@
 #include "../Map/Tile.h"
 #include "../MapObjects/Structure.h"
 #include "../StructureManager.h"
+#include "../States/MapViewStateHelper.h"
 
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/RandomNumberGenerator.h>
@@ -24,18 +25,31 @@ namespace
 	};
 
 
-	bool isProtectedByPolice(const std::vector<std::vector<Tile*>>& policeOverlays, Structure* structure)
+	std::vector<const Structure*> activePoliceStations()
 	{
-		const auto& structureTile = structure->tile();
-
-		for (const auto& tile : policeOverlays[static_cast<std::size_t>(structureTile.depth())])
+		std::vector<const Structure*> policeStations;
+		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+		for (const auto* structure : structureManager.allStructures())
 		{
-			if (tile->xy() == structureTile.xy())
+			if (structure->operational() && structure->isPolice())
+			{
+				policeStations.push_back(structure);
+			}
+		}
+		return policeStations;
+	}
+
+
+	bool isProtectedByPolice(const std::vector<const Structure*>& policeStations, const Structure& structure)
+	{
+		const auto& position = structure.xyz();
+		for (const auto* policeStation : policeStations)
+		{
+			if (isPointInRangeSameZ(position, policeStation->xyz(), policeStation->policeRange()))
 			{
 				return true;
 			}
 		}
-
 		return false;
 	}
 }
@@ -47,7 +61,7 @@ CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
 }
 
 
-void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverlays)
+void CrimeRateUpdate::update()
 {
 	mMeanCrimeRate = 0;
 	mStructuresCommittingCrimes.clear();
@@ -63,9 +77,10 @@ void CrimeRateUpdate::update(const std::vector<std::vector<Tile*>>& policeOverla
 
 	double accumulatedCrime{0};
 
+	const auto& policeStations = activePoliceStations();
 	for (auto* structure : structuresWithCrime)
 	{
-		int crimeRateChange = isProtectedByPolice(policeOverlays, structure) ? -1 : 1;
+		int crimeRateChange = isProtectedByPolice(policeStations, *structure) ? -1 : 1;
 		structure->increaseCrimeRate(crimeRateChange);
 
 		// Crime Rate of 0% means no crime
