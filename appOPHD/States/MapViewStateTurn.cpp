@@ -672,7 +672,7 @@ void MapViewState::nextTurn()
 
 	if (isMoraleEnabled)
 	{
-		mCrimeRateUpdate.update(mPoliceOverlays);
+		mCrimeRateUpdate.update();
 		auto structuresCommittingCrimes = mCrimeRateUpdate.structuresCommittingCrimes();
 		mCrimeExecution.executeCrimes(structuresCommittingCrimes);
 	}

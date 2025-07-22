@@ -6,7 +6,6 @@
 enum class Difficulty;
 struct MoraleChangeEntry;
 class Structure;
-class Tile;
 
 
 class CrimeRateUpdate
@@ -14,7 +13,7 @@ class CrimeRateUpdate
 public:
 	CrimeRateUpdate(const Difficulty& difficulty);
 
-	void update(const std::vector<std::vector<Tile*>>& policeOverlays);
+	void update();
 
 	int meanCrimeRate() const;
 	std::vector<MoraleChangeEntry> moraleChanges() const;
