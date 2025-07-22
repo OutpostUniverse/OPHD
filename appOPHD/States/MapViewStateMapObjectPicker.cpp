@@ -28,6 +28,12 @@ bool MapViewState::isInsertingTube() const
 }
 
 
+StructureID MapViewState::selectedStructureId() const
+{
+	return mCurrentStructure;
+}
+
+
 void MapViewState::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;

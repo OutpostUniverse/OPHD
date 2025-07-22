@@ -225,6 +225,7 @@ private:
 	bool isInsertingStructure() const;
 	bool isInsertingRobot() const;
 	bool isInsertingTube() const;
+	StructureID selectedStructureId() const;
 	void clearBuildMode();
 	void clearSelections();
 
