@@ -233,9 +233,7 @@ void MapViewState::hideUi()
 	mBtnToggleCommRangeOverlay.hide();
 	mBtnTogglePoliceOverlay.hide();
 
-	mStructures.hide();
-	mRobots.hide();
-	mConnections.hide();
+	mMapObjectPicker.hide();
 
 	mWindowStack.hide();
 }
@@ -254,9 +252,7 @@ void MapViewState::unhideUi()
 	mBtnToggleCommRangeOverlay.show();
 	mBtnTogglePoliceOverlay.visible(true);
 
-	mStructures.show();
-	mRobots.show();
-	mConnections.show();
+	mMapObjectPicker.show();
 
 	mGameOverDialog.enabled(true);
 	mGameOptionsDialog.enabled(true);
@@ -372,9 +368,7 @@ void MapViewState::drawUI()
 	mBtnTogglePoliceOverlay.update();
 
 	// Menus
-	mRobots.update();
-	mConnections.update();
-	mStructures.update();
+	mMapObjectPicker.update();
 
 	// Windows
 	mFileIoDialog.update();

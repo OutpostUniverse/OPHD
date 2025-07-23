@@ -35,6 +35,8 @@ public:
 	void clearBuildMode();
 	void clearSelections();
 
+	using ControlContainer::update;
+
 protected:
 	void onStructuresSelectionChange(const IconGridItem*);
 	void onConnectionsSelectionChange(const IconGridItem*);
