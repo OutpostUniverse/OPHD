@@ -225,9 +225,6 @@
     <ClCompile Include="States\MapViewStateIO.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="States\MapViewStateMapObjectPicker.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="States\MapViewStateTurn.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -283,6 +280,9 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\MajorEventAnnouncement.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\MapObjectPicker.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\MessageBox.cpp">
@@ -627,6 +627,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\MajorEventAnnouncement.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MapObjectPicker.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\MessageBox.h">
