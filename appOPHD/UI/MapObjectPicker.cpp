@@ -18,6 +18,7 @@ enum class InsertMode
 
 
 MapObjectPicker::MapObjectPicker(const StorableResources& resources, SelectionChangedDelegate selectionChangedHandler) :
+	ControlContainer{{&mStructures, &mConnections, &mRobots}},
 	mSelectionChangedHandler{selectionChangedHandler},
 	mResourcesCount{resources},
 	mInsertMode{InsertMode::None},
@@ -164,4 +165,16 @@ void MapObjectPicker::onRobotsSelectionChange(const IconGridItem* item)
 	mCurrentRobot = static_cast<RobotTypeIndex>(item->meta);
 	mInsertMode = InsertMode::Robot;
 	mSelectionChangedHandler();
+}
+
+
+void MapObjectPicker::onResize()
+{
+	mRobots.position(mRect.crossXPoint() - NAS2D::Vector{52, 0});
+	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mRect.position.y});
+	mStructures.position(mRect.position);
+
+	mRobots.size({52, mRect.size.y});
+	mConnections.size({52, mRect.size.y});
+	mStructures.size({mRect.size.x - 52 * 2 - constants::MarginTight * 2, mRect.size.y});
 }

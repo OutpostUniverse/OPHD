@@ -193,13 +193,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
 		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
 	};
-	mRobots.position(mapObjectPickerArea.crossXPoint() - NAS2D::Vector{52, 0});
-	mConnections.position({mRobots.position().x - constants::MarginTight - 52, mapObjectPickerArea.position.y});
-	mStructures.position(mapObjectPickerArea.position);
-
-	mRobots.size({52, mapObjectPickerArea.size.y});
-	mConnections.size({52, mapObjectPickerArea.size.y});
-	mStructures.size({mapObjectPickerArea.size.x - 52 * 2 - constants::MarginTight * 2, mapObjectPickerArea.size.y});
+	mMapObjectPicker.area(mapObjectPickerArea);
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();

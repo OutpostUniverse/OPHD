@@ -4,7 +4,7 @@
 
 #include <libOPHD/EnumStructureID.h>
 
-#include <libControls/Control.h>
+#include <libControls/ControlContainer.h>
 
 #include <NAS2D/Signal/Delegate.h>
 
@@ -14,7 +14,7 @@ enum class InsertMode;
 struct StorableResources;
 
 
-class MapObjectPicker : public Control
+class MapObjectPicker : public ControlContainer
 {
 public:
 	using SelectionChangedDelegate = NAS2D::Delegate<void()>;
@@ -40,6 +40,7 @@ protected:
 	void onConnectionsSelectionChange(const IconGridItem*);
 	void onRobotsSelectionChange(const IconGridItem*);
 	void onMouseWheel(NAS2D::Vector<int> changeAmount);
+	void onResize() override;
 
 public:
 	const SelectionChangedDelegate mSelectionChangedHandler;
