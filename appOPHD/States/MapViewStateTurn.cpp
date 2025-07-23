@@ -650,8 +650,8 @@ void MapViewState::nextTurn()
 
 	mMorale.closeJournal();
 
-	clearBuildMode();
-	clearSelections();
+	mMapObjectPicker.clearBuildMode();
+	mMapObjectPicker.clearSelections();
 
 	mPopulationPool.clear();
 

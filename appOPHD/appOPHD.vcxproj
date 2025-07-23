@@ -234,7 +234,6 @@
     <ClCompile Include="States\MapViewStateEvent.cpp" />
     <ClCompile Include="States\MapViewStateHelper.cpp" />
     <ClCompile Include="States\MapViewStateIO.cpp" />
-    <ClCompile Include="States\MapViewStateMapObjectPicker.cpp" />
     <ClCompile Include="States\MapViewStateTurn.cpp" />
     <ClCompile Include="States\MapViewStateUi.cpp" />
     <ClCompile Include="States\PlanetSelectState.cpp" />
@@ -254,6 +253,7 @@
     <ClCompile Include="UI\GameOverDialog.cpp" />
     <ClCompile Include="UI\IconGrid.cpp" />
     <ClCompile Include="UI\MajorEventAnnouncement.cpp" />
+    <ClCompile Include="UI\MapObjectPicker.cpp" />
     <ClCompile Include="UI\MessageBox.cpp" />
     <ClCompile Include="UI\MineOperationsWindow.cpp" />
     <ClCompile Include="UI\MiniMap.cpp" />
@@ -370,6 +370,7 @@
     <ClInclude Include="UI\GameOverDialog.h" />
     <ClInclude Include="UI\IconGrid.h" />
     <ClInclude Include="UI\MajorEventAnnouncement.h" />
+    <ClInclude Include="UI\MapObjectPicker.h" />
     <ClInclude Include="UI\MessageBox.h" />
     <ClInclude Include="UI\MineOperationsWindow.h" />
     <ClInclude Include="UI\MiniMap.h" />

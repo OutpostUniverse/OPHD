@@ -166,12 +166,10 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
-	mInsertMode{InsertMode::None},
-	mCurrentStructure{StructureID::SID_NONE},
-	mCurrentRobot{RobotTypeIndex::None},
-	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
-	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
-	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
+	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
+	mStructures{mMapObjectPicker.structures()},
+	mRobots{mMapObjectPicker.robots()},
+	mConnections{mMapObjectPicker.tubes()},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleRouteOverlay{Control::getImage("ui/icons/route.png"), {this, &MapViewState::onToggleRouteOverlay}},
@@ -210,12 +208,10 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
-	mInsertMode{InsertMode::None},
-	mCurrentStructure{StructureID::SID_NONE},
-	mCurrentRobot{RobotTypeIndex::None},
-	mStructures{{this, &MapViewState::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
-	mRobots{{this, &MapViewState::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
-	mConnections{{this, &MapViewState::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight},
+	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
+	mStructures{mMapObjectPicker.structures()},
+	mRobots{mMapObjectPicker.robots()},
+	mConnections{mMapObjectPicker.tubes()},
 	mBtnTurns{Control::getImage("ui/icons/turns.png"), {this, &MapViewState::onTurns}},
 	mBtnToggleHeightmap{Control::getImage("ui/icons/height.png"), {this, &MapViewState::onToggleHeightmap}},
 	mBtnToggleRouteOverlay{Control::getImage("ui/icons/route.png"), {this, &MapViewState::onToggleRouteOverlay}},
@@ -261,7 +257,6 @@ MapViewState::~MapViewState()
 	eventHandler.mouseButtonUp().disconnect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().disconnect({this, &MapViewState::onMouseDoubleClick});
 	eventHandler.mouseMotion().disconnect({this, &MapViewState::onMouseMove});
-	eventHandler.mouseWheel().disconnect({this, &MapViewState::onMouseWheel});
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
 	NAS2D::Utility<std::map<const MineFacility*, Route>>::get().clear();
@@ -305,7 +300,6 @@ void MapViewState::initialize()
 	eventHandler.mouseButtonUp().connect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
 	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
-	eventHandler.mouseWheel().connect({this, &MapViewState::onMouseWheel});
 
 	mPathSolver = std::make_unique<RouteFinder>(*mTileMap);
 }
@@ -546,7 +540,7 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 
 	if (button == NAS2D::MouseButton::Right || button == NAS2D::MouseButton::Middle)
 	{
-		if (isInserting())
+		if (mMapObjectPicker.isInserting())
 		{
 			resetUi();
 			return;
@@ -626,7 +620,7 @@ void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> re
 
 void MapViewState::onMapObjectSelectionChanged()
 {
-	setCursor(isInserting() ? PointerType::PlaceTile : PointerType::Normal);
+	setCursor(mMapObjectPicker.isInserting() ? PointerType::PlaceTile : PointerType::Normal);
 }
 
 
@@ -700,15 +694,15 @@ void MapViewState::onClickMap()
 	if (!mDetailMap->isMouseOverTile()) { return; }
 	Tile& tile = mDetailMap->mouseTile();
 
-	if (isInsertingStructure())
+	if (mMapObjectPicker.isInsertingStructure())
 	{
-		placeStructure(tile, selectedStructureId());
+		placeStructure(tile, mMapObjectPicker.selectedStructureId());
 	}
-	else if (isInsertingRobot())
+	else if (mMapObjectPicker.isInsertingRobot())
 	{
-		placeRobot(tile, selectedRobotIndex());
+		placeRobot(tile, mMapObjectPicker.selectedRobotIndex());
 	}
-	else if (isInsertingTube())
+	else if (mMapObjectPicker.isInsertingTube())
 	{
 		/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
 		* Should instead take advantage of the updated meta data in the IconGridItem.
@@ -735,7 +729,7 @@ void MapViewState::onChangeDepth(int oldDepth, int newDepth) {
 		changePoliceOverlayDepth(oldDepth, newDepth);
 	}
 
-	if (!isInsertingRobot()) { clearBuildMode(); }
+	if (!mMapObjectPicker.isInsertingRobot()) { mMapObjectPicker.clearBuildMode(); }
 
 	populateStructureMenu();
 }
@@ -1051,7 +1045,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
 		mRobots.removeItem(constants::Robodozer);
-		clearBuildMode();
+		mMapObjectPicker.clearBuildMode();
 	}
 }
 
@@ -1161,7 +1155,7 @@ void MapViewState::placeRobominer(Tile& tile)
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{
 		mRobots.removeItem(constants::Robominer);
-		clearBuildMode();
+		mMapObjectPicker.clearBuildMode();
 	}
 }
 

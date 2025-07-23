@@ -15,6 +15,7 @@
 #include "../UI/GameOptionsDialog.h"
 #include "../UI/IconGrid.h"
 #include "../UI/MajorEventAnnouncement.h"
+#include "../UI/MapObjectPicker.h"
 #include "../UI/MineOperationsWindow.h"
 #include "../UI/PopulationPanel.h"
 #include "../UI/ResourceBreakdownPanel.h"
@@ -125,7 +126,6 @@ private:
 	void onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
-	void onMouseWheel(NAS2D::Vector<int> changeAmount);
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void onInspect(const MapCoordinate& tilePosition, bool inspectModifier);
@@ -220,16 +220,6 @@ private:
 	void load(NAS2D::Xml::XmlDocument*);
 	NAS2D::Xml::XmlElement* serializeProperties();
 
-	// UI MANAGEMENT FUNCTIONS
-	bool isInserting() const;
-	bool isInsertingStructure() const;
-	bool isInsertingRobot() const;
-	bool isInsertingTube() const;
-	StructureID selectedStructureId() const;
-	RobotTypeIndex selectedRobotIndex() const;
-	void clearBuildMode();
-	void clearSelections();
-
 	void hideUi();
 	void unhideUi();
 	void initUi();
@@ -265,10 +255,6 @@ private:
 	void onGameOver();
 
 	void onMapObjectSelectionChanged();
-	void onStructuresSelectionChange(const IconGridItem*);
-	void onConnectionsSelectionChange(const IconGridItem*);
-	void onRobotsSelectionChange(const IconGridItem*);
-
 	void onDiggerSelectionDialog(Direction direction, Tile& tile);
 
 	void onTakeMeThere(const MapCoordinate& position);
@@ -320,13 +306,10 @@ private:
 
 	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
 
-	// Map Object picking
-	InsertMode mInsertMode; /**< What's being inserted into the TileMap if anything. */
-	StructureID mCurrentStructure; /**< Structure being placed. */
-	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
-	IconGrid mStructures;
-	IconGrid mRobots;
-	IconGrid mConnections;
+	MapObjectPicker mMapObjectPicker;
+	IconGrid& mStructures;
+	IconGrid& mRobots;
+	IconGrid& mConnections;
 
 	// USER INTERFACE
 	Button mBtnTurns;
