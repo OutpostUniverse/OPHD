@@ -1,8 +1,9 @@
 #pragma once
 
-#include <libOPHD/EnumStructureID.h>
-
 #include <vector>
+
+
+enum class StructureID;
 
 
 class StructureTracker
