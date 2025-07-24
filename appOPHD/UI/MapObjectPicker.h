@@ -53,9 +53,9 @@ protected:
 public:
 	const SelectionChangedDelegate mSelectionChangedHandler;
 	const StorableResources& mResourcesCount;
-	InsertMode mInsertMode; /**< What's being inserted into the TileMap if anything. */
-	StructureID mCurrentStructure; /**< Structure being placed. */
-	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
+	InsertMode mInsertMode;
+	StructureID mCurrentStructure;
+	RobotTypeIndex mCurrentRobot;
 	IconGrid mStructures;
 	IconGrid mRobots;
 	IconGrid mConnections;
