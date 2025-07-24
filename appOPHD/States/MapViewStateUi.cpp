@@ -39,18 +39,6 @@
 extern NAS2D::Point<int> MOUSE_COORDS;
 
 
-namespace
-{
-	void fillList(IconGrid& grid, const std::vector<IconGridItem>& itemList)
-	{
-		for (const auto& item : itemList)
-		{
-			grid.addItem(item);
-		}
-	}
-}
-
-
 /**
  * Sets up the user interface elements
  *
@@ -290,7 +278,7 @@ void MapViewState::populateStructureMenu()
 	else if (mMapView->isSurface())
 	{
 		mMapObjectPicker.setStructureIds(mStructureTracker.availableSurfaceStructures());
-		fillList(mConnections, mStructureTracker.surfaceTubes());
+		mMapObjectPicker.setTubesAboveGround();
 
 		// Special case code, not thrilled with this
 		if (mColonyShip.colonistLanders() > 0) { mStructures.addItem({constants::ColonistLander, 2, StructureID::SID_COLONIST_LANDER}); }
@@ -299,7 +287,7 @@ void MapViewState::populateStructureMenu()
 	else
 	{
 		mMapObjectPicker.setStructureIds(mStructureTracker.availableUndergroundStructures());
-		fillList(mConnections, mStructureTracker.undergroundTubes());
+		mMapObjectPicker.setTubesUnderGround();
 	}
 
 	updateStructuresAvailability();

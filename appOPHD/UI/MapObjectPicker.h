@@ -29,6 +29,8 @@ public:
 	IconGrid& robots() { return mRobots; }
 
 	void setStructureIds(const std::vector<StructureID>& structureIds);
+	void setTubesAboveGround();
+	void setTubesUnderGround();
 
 	bool isInserting() const;
 	bool isInsertingStructure() const;

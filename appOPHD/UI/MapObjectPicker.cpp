@@ -1,10 +1,12 @@
 #include "MapObjectPicker.h"
 
 #include "../States/MapViewStateHelper.h"
+#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/RobotTypeIndex.h"
 #include "../StructureCatalog.h"
 
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
@@ -72,6 +74,29 @@ namespace
 			static_cast<int>(index),
 		};
 	}
+
+
+	const std::vector<IconGridItem> SurfaceTubes = {
+		{constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION},
+		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_EAST_WEST},
+		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_NORTH_SOUTH},
+	};
+
+	const std::vector<IconGridItem> UndergroundTubes = {
+		{constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION},
+		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_EAST_WEST},
+		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_NORTH_SOUTH},
+	};
+
+
+	void setTubes(IconGrid& tubesGrid, const std::vector<IconGridItem>& items)
+	{
+		tubesGrid.clear();
+		for (const auto& item : items)
+		{
+			tubesGrid.addItem(item);
+		}
+	}
 }
 
 
@@ -114,6 +139,18 @@ void MapObjectPicker::setStructureIds(const std::vector<StructureID>& structureI
 	{
 		mStructures.addItem(idToIconGridItem(structureId));
 	}
+}
+
+
+void MapObjectPicker::setTubesAboveGround()
+{
+	setTubes(mConnections, SurfaceTubes);
+}
+
+
+void MapObjectPicker::setTubesUnderGround()
+{
+	setTubes(mConnections, UndergroundTubes);
 }
 
 
