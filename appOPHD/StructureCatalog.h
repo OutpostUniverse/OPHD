@@ -1,10 +1,9 @@
 #pragma once
 
-#include <libOPHD/EnumStructureID.h>
-
 #include <string>
 
 
+enum class StructureID;
 class Structure;
 class Tile;
 struct StructureType;

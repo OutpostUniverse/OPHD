@@ -4,6 +4,7 @@
 #include "IOHelper.h"
 #include "Constants/Strings.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/XmlSerializer.h>
