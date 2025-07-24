@@ -11,7 +11,7 @@ class Warehouse : public Structure
 {
 public:
 	Warehouse(Tile& tile) :
-		Structure{StructureID::SID_WAREHOUSE, tile}
+		Structure{StructureID::Warehouse, tile}
 	{
 	}
 

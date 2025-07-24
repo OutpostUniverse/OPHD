@@ -10,7 +10,7 @@ class SurfaceFactory : public Factory
 public:
 	SurfaceFactory(Tile& tile) :
 		Factory{
-			StructureID::SID_SURFACE_FACTORY,
+			StructureID::SurfaceFactory,
 			{
 				ProductType::PRODUCT_DIGGER,
 				ProductType::PRODUCT_DOZER,

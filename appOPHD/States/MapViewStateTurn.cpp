@@ -47,8 +47,8 @@ namespace
 {
 	const std::map<std::string, StructureID> StructureIdFromString =
 	{
-		{"SID_FUSION_REACTOR", StructureID::SID_FUSION_REACTOR},
-		{"SID_SOLAR_PLANT", StructureID::SID_SOLAR_PLANT}
+		{"FusionReactor", StructureID::FusionReactor},
+		{"SolarPlant", StructureID::SolarPlant}
 	};
 
 	// Length of "honeymoon period" of no crime/morale updates after landing, in turns

@@ -7,7 +7,7 @@
 
 
 Agridome::Agridome(Tile& tile) :
-	FoodProduction{StructureID::SID_AGRIDOME, tile}
+	FoodProduction{StructureID::Agridome, tile}
 {
 }
 

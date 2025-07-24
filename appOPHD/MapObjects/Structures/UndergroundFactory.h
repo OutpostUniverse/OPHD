@@ -10,7 +10,7 @@ class UndergroundFactory : public Factory
 public:
 	UndergroundFactory(Tile& tile) :
 		Factory{
-			StructureID::SID_UNDERGROUND_FACTORY,
+			StructureID::UndergroundFactory,
 			{
 				// Need to be replaced by non robot/surface goods
 				// Produces luxuries, clothing, or medicine

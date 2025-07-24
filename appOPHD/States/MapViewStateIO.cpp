@@ -411,7 +411,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		tile.excavated(true);
 
 		auto structureId = static_cast<StructureID>(type);
-		if (structureId == StructureID::SID_TUBE)
+		if (structureId == StructureID::Tube)
 		{
 			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
 			insertTube(mTileMap->getTile(mapCoordinate), connectorDir);
@@ -420,12 +420,12 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		auto& structure = *StructureCatalog::create(structureId, tile);
 
-		if (structureId == StructureID::SID_COLONIST_LANDER)
+		if (structureId == StructureID::ColonistLander)
 		{
 			dynamic_cast<ColonistLander&>(structure).deployHandler({this, &MapViewState::onDeployColonistLander});
 		}
 
-		if (structureId == StructureID::SID_CARGO_LANDER)
+		if (structureId == StructureID::CargoLander)
 		{
 			dynamic_cast<CargoLander&>(structure).deployHandler({this, &MapViewState::onDeployCargoLander});
 		}

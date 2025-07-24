@@ -22,48 +22,48 @@ namespace
 	constexpr auto NotSet = int{54};
 
 	constexpr auto structureIconTable = std::array{
-		NotSet, // SID_NONE
-		5, // SID_AGRIDOME
-		NotSet, // SID_AIR_SHAFT
-		1, // SID_CARGO_LANDER
-		3, // SID_CHAP
-		2, // SID_COLONIST_LANDER
-		NotSet, // SID_COMMAND_CENTER
-		66, // SID_COMMERCIAL
-		22, // SID_COMM_TOWER
-		21, // SID_FUSION_REACTOR
-		18, // SID_HOT_LABORATORY
-		58, // SID_LABORATORY
-		62, // SID_MEDICAL_CENTER
-		NotSet, // SID_MINE_FACILITY
-		NotSet, // SID_MINE_SHAFT
-		77, // SID_NURSERY
-		75, // SID_PARK
-		73, // SID_RECREATION_CENTER
-		76, // SID_RED_LIGHT_DISTRICT
-		55, // SID_RESIDENCE
-		24, // SID_ROAD
-		14, // SID_ROBOT_COMMAND
-		98, // SID_SEED_FACTORY
-		0, // SID_SEED_LANDER
-		98, // SID_SEED_POWER
-		98, // SID_SEED_SMELTER
-		4, // SID_SMELTER
-		33, // SID_SOLAR_PANEL1
-		10, // SID_SOLAR_PLANT
-		8, // SID_STORAGE_TANKS
-		11, // SID_SURFACE_FACTORY
-		23, // SID_SURFACE_POLICE
-		110, // SID_TUBE
-		69, // SID_UNDERGROUND_FACTORY
-		61, // SID_UNDERGROUND_POLICE
-		63, // SID_UNIVERSITY
-		9, // SID_WAREHOUSE
-		16, // SID_RECYCLING
-		54, // SID_MAINTENANCE_FACILITY
+		NotSet, // None
+		5, // Agridome
+		NotSet, // AirShaft
+		1, // CargoLander
+		3, // Chap
+		2, // ColonistLander
+		NotSet, // CommandCenter
+		66, // Commercial
+		22, // CommTower
+		21, // FusionReactor
+		18, // HotLaboratory
+		58, // Laboratory
+		62, // MedicalCenter
+		NotSet, // MineFacility
+		NotSet, // MineShaft
+		77, // Nursery
+		75, // Park
+		73, // RecreationCenter
+		76, // RedLightDistrict
+		55, // Residence
+		24, // Road
+		14, // RobotCommand
+		98, // SeedFactory
+		0, // SeedLander
+		98, // SeedPower
+		98, // SeedSmelter
+		4, // Smelter
+		33, // SolarPanel1
+		10, // SolarPlant
+		8, // StorageTanks
+		11, // SurfaceFactory
+		23, // SurfacePolice
+		110, // Tube
+		69, // UndergroundFactory
+		61, // UndergroundPolice
+		63, // University
+		9, // Warehouse
+		16, // Recycling
+		54, // MaintenanceFacility
 	};
 
-	static_assert(structureIconTable.size() == static_cast<std::size_t>(StructureID::SID_COUNT));
+	static_assert(structureIconTable.size() == static_cast<std::size_t>(StructureID::Count));
 
 
 	IconGridItem idToIconGridItem(StructureID structureId)
@@ -115,7 +115,7 @@ MapObjectPicker::MapObjectPicker(const StorableResources& resources, SelectionCh
 	mSelectionChangedHandler{selectionChangedHandler},
 	mResourcesCount{resources},
 	mInsertMode{InsertMode::None},
-	mCurrentStructure{StructureID::SID_NONE},
+	mCurrentStructure{StructureID::None},
 	mCurrentRobot{RobotTypeIndex::None},
 	mStructures{{this, &MapObjectPicker::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
 	mRobots{{this, &MapObjectPicker::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
@@ -200,7 +200,7 @@ RobotTypeIndex MapObjectPicker::selectedRobotIndex() const
 void MapObjectPicker::clearBuildMode()
 {
 	mInsertMode = InsertMode::None;
-	mCurrentStructure = StructureID::SID_NONE;
+	mCurrentStructure = StructureID::None;
 	mCurrentRobot = RobotTypeIndex::None;
 	mSelectionChangedHandler();
 }
@@ -263,7 +263,7 @@ void MapObjectPicker::onConnectionsSelectionChange(const IconGridItem* item)
 	mRobots.clearSelection();
 	mStructures.clearSelection();
 
-	mCurrentStructure = StructureID::SID_TUBE;
+	mCurrentStructure = StructureID::Tube;
 	mInsertMode = InsertMode::Tube;
 	mSelectionChangedHandler();
 }

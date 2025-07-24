@@ -8,7 +8,7 @@
 
 
 StorageTanks::StorageTanks(Tile& tile) :
-	Structure{StructureID::SID_STORAGE_TANKS, tile}
+	Structure{StructureID::StorageTanks, tile}
 {
 }
 

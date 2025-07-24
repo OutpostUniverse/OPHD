@@ -10,7 +10,7 @@ class SeedFactory : public Factory
 public:
 	SeedFactory(Tile& tile) :
 		Factory{
-			StructureID::SID_SEED_FACTORY,
+			StructureID::SeedFactory,
 			{
 				ProductType::PRODUCT_DIGGER,
 				ProductType::PRODUCT_DOZER,

@@ -12,49 +12,49 @@
 namespace
 {
 	constexpr auto structureIdToClassTable = std::array{
-		StructureClass::Undefined, // SID_NONE
-		StructureClass::FoodProduction, // SID_AGRIDOME
-		StructureClass::Tube, // SID_AIR_SHAFT
-		StructureClass::Lander, // SID_CARGO_LANDER
-		StructureClass::LifeSupport, // SID_CHAP
-		StructureClass::Lander, // SID_COLONIST_LANDER
-		StructureClass::Command, // SID_COMMAND_CENTER
-		StructureClass::Commercial, // SID_COMMERCIAL
-		StructureClass::Communication, // SID_COMM_TOWER
-		StructureClass::EnergyProduction, // SID_FUSION_REACTOR
-		StructureClass::Laboratory, // SID_HOT_LABORATORY
-		StructureClass::Laboratory, // SID_LABORATORY
-		StructureClass::MedicalCenter, // SID_MEDICAL_CENTER
-		StructureClass::Mine, // SID_MINE_FACILITY
-		StructureClass::Undefined, // SID_MINE_SHAFT
-		StructureClass::Nursery, // SID_NURSERY
-		StructureClass::Park, // SID_PARK
-		StructureClass::RecreationCenter, // SID_RECREATION_CENTER
-		StructureClass::Residence, // SID_RED_LIGHT_DISTRICT
-		StructureClass::Residence, // SID_RESIDENCE
-		StructureClass::Road, // SID_ROAD
-		StructureClass::RobotCommand, // SID_ROBOT_COMMAND
-		StructureClass::Factory, // SID_SEED_FACTORY
-		StructureClass::Lander, // SID_SEED_LANDER
-		StructureClass::EnergyProduction, // SID_SEED_POWER
-		StructureClass::Smelter, // SID_SEED_SMELTER
-		StructureClass::Smelter, // SID_SMELTER
-		StructureClass::EnergyProduction, // SID_SOLAR_PANEL1
-		StructureClass::EnergyProduction, // SID_SOLAR_PLANT
-		StructureClass::Storage, // SID_STORAGE_TANKS
-		StructureClass::Factory, // SID_SURFACE_FACTORY
-		StructureClass::SurfacePolice, // SID_SURFACE_POLICE
-		StructureClass::Tube, // SID_TUBE
-		StructureClass::Factory, // SID_UNDERGROUND_FACTORY
-		StructureClass::UndergroundPolice, // SID_UNDERGROUND_POLICE
-		StructureClass::University, // SID_UNIVERSITY
-		StructureClass::Warehouse, // SID_WAREHOUSE
-		StructureClass::Recycling, // SID_RECYCLING
-		StructureClass::Maintenance, // SID_MAINTENANCE_FACILITY
+		StructureClass::Undefined, // None
+		StructureClass::FoodProduction, // Agridome
+		StructureClass::Tube, // AirShaft
+		StructureClass::Lander, // CargoLander
+		StructureClass::LifeSupport, // Chap
+		StructureClass::Lander, // ColonistLander
+		StructureClass::Command, // CommandCenter
+		StructureClass::Commercial, // Commercial
+		StructureClass::Communication, // CommTower
+		StructureClass::EnergyProduction, // FusionReactor
+		StructureClass::Laboratory, // HotLaboratory
+		StructureClass::Laboratory, // Laboratory
+		StructureClass::MedicalCenter, // MedicalCenter
+		StructureClass::Mine, // MineFacility
+		StructureClass::Undefined, // MineShaft
+		StructureClass::Nursery, // Nursery
+		StructureClass::Park, // Park
+		StructureClass::RecreationCenter, // RecreationCenter
+		StructureClass::Residence, // RedLightDistrict
+		StructureClass::Residence, // Residence
+		StructureClass::Road, // Road
+		StructureClass::RobotCommand, // RobotCommand
+		StructureClass::Factory, // SeedFactory
+		StructureClass::Lander, // SeedLander
+		StructureClass::EnergyProduction, // SeedPower
+		StructureClass::Smelter, // SeedSmelter
+		StructureClass::Smelter, // Smelter
+		StructureClass::EnergyProduction, // SolarPanel1
+		StructureClass::EnergyProduction, // SolarPlant
+		StructureClass::Storage, // StorageTanks
+		StructureClass::Factory, // SurfaceFactory
+		StructureClass::SurfacePolice, // SurfacePolice
+		StructureClass::Tube, // Tube
+		StructureClass::Factory, // UndergroundFactory
+		StructureClass::UndergroundPolice, // UndergroundPolice
+		StructureClass::University, // University
+		StructureClass::Warehouse, // Warehouse
+		StructureClass::Recycling, // Recycling
+		StructureClass::Maintenance, // MaintenanceFacility
 	};
 
 
-	static_assert(structureIdToClassTable.size() == static_cast<std::size_t>(StructureID::SID_COUNT));
+	static_assert(structureIdToClassTable.size() == static_cast<std::size_t>(StructureID::Count));
 }
 
 

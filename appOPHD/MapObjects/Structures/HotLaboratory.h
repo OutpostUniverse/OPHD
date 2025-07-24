@@ -9,7 +9,7 @@ class HotLaboratory : public ResearchFacility
 {
 public:
 	HotLaboratory(Tile& tile) :
-		ResearchFacility{StructureID::SID_HOT_LABORATORY, tile}
+		ResearchFacility{StructureID::HotLaboratory, tile}
 	{
 		maxScientistsAllowed(3);
 		hotPointsPerScientist(1.0f);

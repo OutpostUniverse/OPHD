@@ -6,7 +6,7 @@
 
 
 SeedLander::SeedLander(Tile& tile) :
-	Structure{StructureID::SID_SEED_LANDER, tile}
+	Structure{StructureID::SeedLander, tile}
 {
 	enable();
 }

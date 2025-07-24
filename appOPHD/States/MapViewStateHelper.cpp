@@ -60,7 +60,7 @@ bool isCcPlaced()
 
 bool isInCcRange(NAS2D::Point<int> position)
 {
-	const auto range = StructureCatalog::getType(StructureID::SID_COMMAND_CENTER).commRange;
+	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
 	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto& ccList = structureManager.getStructures<CommandCenter>();
 	for (const auto* commandCenter : ccList)
@@ -250,7 +250,7 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
  */
 bool structureIsLander(StructureID id)
 {
-	return id == StructureID::SID_SEED_LANDER || id == StructureID::SID_COLONIST_LANDER || id == StructureID::SID_CARGO_LANDER;
+	return id == StructureID::SeedLander || id == StructureID::ColonistLander || id == StructureID::CargoLander;
 }
 
 
