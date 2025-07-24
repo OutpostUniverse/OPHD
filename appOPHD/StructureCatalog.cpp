@@ -194,6 +194,10 @@ const StructureType& StructureCatalog::getType(StructureID id)
 
 const StructureType& StructureCatalog::getType(std::size_t structureTypeIndex)
 {
+	if (structureTypeIndex >= structureTypes.size())
+	{
+		throw std::runtime_error("StructureCatalog::getType called with invalid index: " + std::to_string(structureTypeIndex) + " of " + std::to_string(structureTypes.size()));
+	}
 	return structureTypes.at(structureTypeIndex);
 }
 
