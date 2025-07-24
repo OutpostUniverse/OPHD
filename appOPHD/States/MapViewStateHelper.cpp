@@ -24,6 +24,7 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
