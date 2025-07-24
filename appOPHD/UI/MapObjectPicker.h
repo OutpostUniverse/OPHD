@@ -32,6 +32,8 @@ public:
 	void setTubesAboveGround();
 	void setTubesUnderGround();
 
+	void addStructure(StructureID structureId);
+
 	bool isInserting() const;
 	bool isInsertingStructure() const;
 	bool isInsertingRobot() const;
