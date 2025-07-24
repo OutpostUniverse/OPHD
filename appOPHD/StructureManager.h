@@ -3,8 +3,6 @@
 #include "MapObjects/StructureClass.h"
 #include "MapObjects/StructureTypeToClass.h"
 
-#include <libOPHD/EnumStructureID.h>
-
 #include <map>
 #include <vector>
 
@@ -17,6 +15,7 @@ namespace NAS2D
 	}
 }
 
+enum class StructureID;
 enum class StructureState;
 class Tile;
 class TileMap;
