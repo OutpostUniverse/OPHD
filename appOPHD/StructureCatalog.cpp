@@ -72,6 +72,12 @@ namespace
 	std::vector<StorableResources> recycleValueTable;
 
 
+	std::size_t typeIndex(StructureID id)
+	{
+		return static_cast<std::size_t>(id);
+	}
+
+
 	/**
 	 * Fills out the recycle value for all structures.
 	 */
@@ -86,13 +92,13 @@ namespace
 
 		// Set recycling values for landers and automatically built structures.
 		// Resources: {Common Metals, Common Minerals, Rare Metals, Rare Minerals}
-		structureRecycleValueTable[StructureID::SID_MINE_FACILITY] = {15, 10, 5, 5};
-		structureRecycleValueTable[StructureID::SID_CARGO_LANDER] = {15, 10, 5, 5};
-		structureRecycleValueTable[StructureID::SID_COLONIST_LANDER] = {15, 10, 5, 5};
-		structureRecycleValueTable[StructureID::SID_SEED_LANDER] = {10, 5, 5, 5};
-		structureRecycleValueTable[StructureID::SID_SEED_FACTORY] = {15, 10, 5, 5};
-		structureRecycleValueTable[StructureID::SID_SEED_POWER] = {15, 10, 5, 5};
-		structureRecycleValueTable[StructureID::SID_SEED_SMELTER] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_MINE_FACILITY)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_CARGO_LANDER)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_COLONIST_LANDER)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_LANDER)] = {10, 5, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_FACTORY)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_POWER)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_SMELTER)] = {15, 10, 5, 5};
 
 		return structureRecycleValueTable;
 	}
