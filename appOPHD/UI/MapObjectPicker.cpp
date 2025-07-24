@@ -3,6 +3,9 @@
 #include "../States/MapViewStateHelper.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/RobotTypeIndex.h"
+#include "../StructureCatalog.h"
+
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
@@ -58,6 +61,17 @@ namespace
 	};
 
 	static_assert(structureIconTable.size() == static_cast<std::size_t>(StructureID::SID_COUNT));
+
+
+	IconGridItem idToIconGridItem(StructureID structureId)
+	{
+		const auto index = StructureCatalog::typeIndex(structureId);
+		return {
+			StructureCatalog::getType(index).name,
+			structureIconTable.at(index),
+			static_cast<int>(index),
+		};
+	}
 }
 
 
@@ -90,6 +104,16 @@ MapObjectPicker::~MapObjectPicker()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().disconnect({this, &MapObjectPicker::onMouseWheel});
+}
+
+
+void MapObjectPicker::setStructureIds(const std::vector<StructureID>& structureIds)
+{
+	mStructures.clear();
+	for (const auto structureId : structureIds)
+	{
+		mStructures.addItem(idToIconGridItem(structureId));
+	}
 }
 
 

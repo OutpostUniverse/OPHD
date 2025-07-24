@@ -8,6 +8,8 @@
 
 #include <NAS2D/Signal/Delegate.h>
 
+#include <vector>
+
 
 enum class RobotTypeIndex;
 enum class InsertMode;
@@ -25,6 +27,8 @@ public:
 	IconGrid& structures() { return mStructures; }
 	IconGrid& tubes() { return mConnections; }
 	IconGrid& robots() { return mRobots; }
+
+	void setStructureIds(const std::vector<StructureID>& structureIds);
 
 	bool isInserting() const;
 	bool isInsertingStructure() const;
