@@ -2,6 +2,8 @@
 
 #include "StructureClass.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 #include <array>
 #include <string>
 #include <stdexcept>

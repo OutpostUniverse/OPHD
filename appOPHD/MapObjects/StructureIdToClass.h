@@ -1,8 +1,7 @@
 #pragma once
 
-#include <libOPHD/EnumStructureID.h>
 
-
+enum class StructureID;
 enum class StructureClass;
 
 
