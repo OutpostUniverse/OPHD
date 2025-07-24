@@ -45,10 +45,10 @@
 
 namespace
 {
-	const std::map<std::string, IconGridItem> StructureItemFromString =
+	const std::map<std::string, StructureID> StructureIdFromString =
 	{
-		{"SID_FUSION_REACTOR", {constants::FusionReactor, 21, StructureID::SID_FUSION_REACTOR}},
-		{"SID_SOLAR_PLANT", {constants::SolarPlant, 10, StructureID::SID_SOLAR_PLANT}}
+		{"SID_FUSION_REACTOR", StructureID::SID_FUSION_REACTOR},
+		{"SID_SOLAR_PLANT", StructureID::SID_SOLAR_PLANT}
 	};
 
 	// Length of "honeymoon period" of no crime/morale updates after landing, in turns
@@ -629,8 +629,8 @@ void MapViewState::updateResearch()
 	{
 		for (const auto& unlock : tech->unlocks)
 		{
-			const auto& structureItem = StructureItemFromString.at(unlock.value);
-			mStructureTracker.addUnlockedSurfaceStructure(structureItem);
+			const auto structureId = StructureIdFromString.at(unlock.value);
+			mStructureTracker.addUnlockedSurfaceStructure(structureId);
 		}
 	}
 

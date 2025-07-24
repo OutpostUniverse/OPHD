@@ -284,12 +284,12 @@ void MapViewState::populateStructureMenu()
 	{
 		if (mMapView->isSurface())
 		{
-			mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
+			mMapObjectPicker.setStructureIds({StructureID::SID_SEED_LANDER});
 		}
 	}
 	else if (mMapView->isSurface())
 	{
-		fillList(mStructures, mStructureTracker.availableSurfaceStructures());
+		mMapObjectPicker.setStructureIds(mStructureTracker.availableSurfaceStructures());
 		fillList(mConnections, mStructureTracker.surfaceTubes());
 
 		// Special case code, not thrilled with this
@@ -298,7 +298,7 @@ void MapViewState::populateStructureMenu()
 	}
 	else
 	{
-		fillList(mStructures, mStructureTracker.availableUndergroundStructures());
+		mMapObjectPicker.setStructureIds(mStructureTracker.availableUndergroundStructures());
 		fillList(mConnections, mStructureTracker.undergroundTubes());
 	}
 
