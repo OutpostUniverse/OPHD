@@ -8,6 +8,8 @@
 
 #include <NAS2D/Signal/Delegate.h>
 
+#include <vector>
+
 
 enum class RobotTypeIndex;
 enum class InsertMode;
@@ -25,6 +27,10 @@ public:
 	IconGrid& structures() { return mStructures; }
 	IconGrid& tubes() { return mConnections; }
 	IconGrid& robots() { return mRobots; }
+
+	void setStructureIds(const std::vector<StructureID>& structureIds);
+	void setTubesAboveGround();
+	void setTubesUnderGround();
 
 	bool isInserting() const;
 	bool isInsertingStructure() const;
@@ -47,9 +53,9 @@ protected:
 public:
 	const SelectionChangedDelegate mSelectionChangedHandler;
 	const StorableResources& mResourcesCount;
-	InsertMode mInsertMode; /**< What's being inserted into the TileMap if anything. */
-	StructureID mCurrentStructure; /**< Structure being placed. */
-	RobotTypeIndex mCurrentRobot; /**< Robot being placed. */
+	InsertMode mInsertMode;
+	StructureID mCurrentStructure;
+	RobotTypeIndex mCurrentRobot;
 	IconGrid mStructures;
 	IconGrid mRobots;
 	IconGrid mConnections;

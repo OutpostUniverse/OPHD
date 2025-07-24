@@ -1,11 +1,103 @@
 #include "MapObjectPicker.h"
 
 #include "../States/MapViewStateHelper.h"
+#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/RobotTypeIndex.h"
+#include "../StructureCatalog.h"
+
+#include <libOPHD/EnumConnectorDir.h>
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
+
+
+#include <array>
+
+
+namespace
+{
+	constexpr auto NotSet = int{54};
+
+	constexpr auto structureIconTable = std::array{
+		NotSet, // SID_NONE
+		5, // SID_AGRIDOME
+		NotSet, // SID_AIR_SHAFT
+		1, // SID_CARGO_LANDER
+		3, // SID_CHAP
+		2, // SID_COLONIST_LANDER
+		NotSet, // SID_COMMAND_CENTER
+		66, // SID_COMMERCIAL
+		22, // SID_COMM_TOWER
+		21, // SID_FUSION_REACTOR
+		18, // SID_HOT_LABORATORY
+		58, // SID_LABORATORY
+		62, // SID_MEDICAL_CENTER
+		NotSet, // SID_MINE_FACILITY
+		NotSet, // SID_MINE_SHAFT
+		77, // SID_NURSERY
+		75, // SID_PARK
+		73, // SID_RECREATION_CENTER
+		76, // SID_RED_LIGHT_DISTRICT
+		55, // SID_RESIDENCE
+		24, // SID_ROAD
+		14, // SID_ROBOT_COMMAND
+		98, // SID_SEED_FACTORY
+		0, // SID_SEED_LANDER
+		98, // SID_SEED_POWER
+		98, // SID_SEED_SMELTER
+		4, // SID_SMELTER
+		33, // SID_SOLAR_PANEL1
+		10, // SID_SOLAR_PLANT
+		8, // SID_STORAGE_TANKS
+		11, // SID_SURFACE_FACTORY
+		23, // SID_SURFACE_POLICE
+		110, // SID_TUBE
+		69, // SID_UNDERGROUND_FACTORY
+		61, // SID_UNDERGROUND_POLICE
+		63, // SID_UNIVERSITY
+		9, // SID_WAREHOUSE
+		16, // SID_RECYCLING
+		54, // SID_MAINTENANCE_FACILITY
+	};
+
+	static_assert(structureIconTable.size() == static_cast<std::size_t>(StructureID::SID_COUNT));
+
+
+	IconGridItem idToIconGridItem(StructureID structureId)
+	{
+		const auto index = StructureCatalog::typeIndex(structureId);
+		return {
+			StructureCatalog::getType(index).name,
+			structureIconTable.at(index),
+			static_cast<int>(index),
+		};
+	}
+
+
+	const std::vector<IconGridItem> SurfaceTubes = {
+		{constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION},
+		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_EAST_WEST},
+		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_NORTH_SOUTH},
+	};
+
+	const std::vector<IconGridItem> UndergroundTubes = {
+		{constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION},
+		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_EAST_WEST},
+		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_NORTH_SOUTH},
+	};
+
+
+	void setTubes(IconGrid& tubesGrid, const std::vector<IconGridItem>& items)
+	{
+		tubesGrid.clear();
+		for (const auto& item : items)
+		{
+			tubesGrid.addItem(item);
+		}
+	}
+}
 
 
 enum class InsertMode
@@ -37,6 +129,28 @@ MapObjectPicker::~MapObjectPicker()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseWheel().disconnect({this, &MapObjectPicker::onMouseWheel});
+}
+
+
+void MapObjectPicker::setStructureIds(const std::vector<StructureID>& structureIds)
+{
+	mStructures.clear();
+	for (const auto structureId : structureIds)
+	{
+		mStructures.addItem(idToIconGridItem(structureId));
+	}
+}
+
+
+void MapObjectPicker::setTubesAboveGround()
+{
+	setTubes(mConnections, SurfaceTubes);
+}
+
+
+void MapObjectPicker::setTubesUnderGround()
+{
+	setTubes(mConnections, UndergroundTubes);
 }
 
 

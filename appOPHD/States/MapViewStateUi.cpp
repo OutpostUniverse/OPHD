@@ -39,18 +39,6 @@
 extern NAS2D::Point<int> MOUSE_COORDS;
 
 
-namespace
-{
-	void fillList(IconGrid& grid, const std::vector<IconGridItem>& itemList)
-	{
-		for (const auto& item : itemList)
-		{
-			grid.addItem(item);
-		}
-	}
-}
-
-
 /**
  * Sets up the user interface elements
  *
@@ -284,13 +272,13 @@ void MapViewState::populateStructureMenu()
 	{
 		if (mMapView->isSurface())
 		{
-			mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
+			mMapObjectPicker.setStructureIds({StructureID::SID_SEED_LANDER});
 		}
 	}
 	else if (mMapView->isSurface())
 	{
-		fillList(mStructures, mStructureTracker.availableSurfaceStructures());
-		fillList(mConnections, mStructureTracker.surfaceTubes());
+		mMapObjectPicker.setStructureIds(mStructureTracker.availableSurfaceStructures());
+		mMapObjectPicker.setTubesAboveGround();
 
 		// Special case code, not thrilled with this
 		if (mColonyShip.colonistLanders() > 0) { mStructures.addItem({constants::ColonistLander, 2, StructureID::SID_COLONIST_LANDER}); }
@@ -298,8 +286,8 @@ void MapViewState::populateStructureMenu()
 	}
 	else
 	{
-		fillList(mStructures, mStructureTracker.availableUndergroundStructures());
-		fillList(mConnections, mStructureTracker.undergroundTubes());
+		mMapObjectPicker.setStructureIds(mStructureTracker.availableUndergroundStructures());
+		mMapObjectPicker.setTubesUnderGround();
 	}
 
 	updateStructuresAvailability();
