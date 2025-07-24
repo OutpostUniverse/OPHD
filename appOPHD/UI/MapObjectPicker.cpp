@@ -6,6 +6,7 @@
 #include "../MapObjects/RobotTypeIndex.h"
 #include "../StructureCatalog.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/MapObjects/StructureType.h>
 
