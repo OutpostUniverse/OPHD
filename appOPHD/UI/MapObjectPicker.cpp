@@ -154,6 +154,12 @@ void MapObjectPicker::setTubesUnderGround()
 }
 
 
+void MapObjectPicker::addStructure(StructureID structureId)
+{
+	mStructures.addItem(idToIconGridItem(structureId));
+}
+
+
 bool MapObjectPicker::isInserting() const
 {
 	return mInsertMode != InsertMode::None;

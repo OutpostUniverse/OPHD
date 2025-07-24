@@ -119,7 +119,7 @@ void MapViewState::initUi()
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
 
 	// Initial Structures
-	mStructures.addItem({constants::SeedLander, 0, StructureID::SID_SEED_LANDER});
+	mMapObjectPicker.addStructure(StructureID::SID_SEED_LANDER);
 
 	// tooltip control sizes
 	constexpr auto hudHeight = constants::ResourceIconSize + constants::MarginTight * 2;
@@ -281,8 +281,8 @@ void MapViewState::populateStructureMenu()
 		mMapObjectPicker.setTubesAboveGround();
 
 		// Special case code, not thrilled with this
-		if (mColonyShip.colonistLanders() > 0) { mStructures.addItem({constants::ColonistLander, 2, StructureID::SID_COLONIST_LANDER}); }
-		if (mColonyShip.cargoLanders() > 0) { mStructures.addItem({constants::CargoLander, 1, StructureID::SID_CARGO_LANDER}); }
+		if (mColonyShip.colonistLanders() > 0) { mMapObjectPicker.addStructure(StructureID::SID_COLONIST_LANDER); }
+		if (mColonyShip.cargoLanders() > 0) { mMapObjectPicker.addStructure(StructureID::SID_CARGO_LANDER); }
 	}
 	else
 	{

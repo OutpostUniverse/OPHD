@@ -8,7 +8,7 @@
  *			the structure Class code which is used to group like structures into
  *			lists for structure updates.
  */
-enum StructureID
+enum class StructureID
 {
 	SID_NONE,
 

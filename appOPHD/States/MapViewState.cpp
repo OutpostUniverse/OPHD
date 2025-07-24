@@ -268,6 +268,9 @@ MapViewState::~MapViewState()
  */
 void MapViewState::initialize()
 {
+	StructureCatalog::init("StructureTypes.xml");
+	ProductCatalog::init("factory_products.xml");
+
 	// UI
 	initUi();
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
@@ -275,9 +278,6 @@ void MapViewState::initialize()
 	setCursor(PointerType::Normal);
 
 	mPopulationPool.population(&mPopulation);
-
-	StructureCatalog::init("StructureTypes.xml");
-	ProductCatalog::init("factory_products.xml");
 
 	if (mLoadingExisting)
 	{
