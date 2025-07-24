@@ -3,6 +3,8 @@
 #include "../../Constants/Strings.h"
 #include "../../Map/Tile.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 AirShaft::AirShaft(Tile& tile) :
 	Structure{

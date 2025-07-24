@@ -4,6 +4,7 @@
 #include "../../Constants/Strings.h"
 #include "../../Map/Tile.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/OreDeposit.h>

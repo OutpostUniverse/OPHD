@@ -2,6 +2,8 @@
 
 #include "Factory.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 class UndergroundFactory : public Factory
 {

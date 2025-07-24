@@ -4,6 +4,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 StorageTanks::StorageTanks(Tile& tile) :
 	Structure{StructureID::SID_STORAGE_TANKS, tile}

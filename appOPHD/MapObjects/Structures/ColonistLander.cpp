@@ -1,7 +1,8 @@
 #include "ColonistLander.h"
 
-
 #include "../../Map/Tile.h"
+
+#include <libOPHD/EnumStructureID.h>
 
 
 ColonistLander::ColonistLander(Tile& tile) :

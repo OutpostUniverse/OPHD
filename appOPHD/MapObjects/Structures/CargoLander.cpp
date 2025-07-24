@@ -1,7 +1,8 @@
 #include "CargoLander.h"
 
-
 #include "../../Map/Tile.h"
+
+#include <libOPHD/EnumStructureID.h>
 
 
 CargoLander::CargoLander(Tile& tile) :

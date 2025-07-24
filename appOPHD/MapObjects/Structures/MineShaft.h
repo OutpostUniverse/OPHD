@@ -2,6 +2,8 @@
 
 #include "../Structure.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 class MineShaft : public Structure
 {

@@ -4,6 +4,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 CommTower::CommTower(Tile& tile) :
 	Structure{StructureID::SID_COMM_TOWER, tile}

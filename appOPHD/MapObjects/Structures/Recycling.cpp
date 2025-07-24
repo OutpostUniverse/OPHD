@@ -4,6 +4,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 namespace
 {
