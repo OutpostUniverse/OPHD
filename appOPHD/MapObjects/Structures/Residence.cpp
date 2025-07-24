@@ -15,7 +15,7 @@ namespace
 
 
 Residence::Residence(Tile& tile) :
-	Structure{StructureID::SID_RESIDENCE, tile}
+	Structure{StructureID::Residence, tile}
 {
 }
 

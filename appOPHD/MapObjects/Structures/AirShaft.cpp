@@ -8,7 +8,7 @@
 
 AirShaft::AirShaft(Tile& tile) :
 	Structure{
-		StructureID::SID_AIR_SHAFT,
+		StructureID::AirShaft,
 		tile,
 		(tile.depth() == 0) ? constants::StructureStateOperational : constants::StructureStateOperationalUg,
 	}

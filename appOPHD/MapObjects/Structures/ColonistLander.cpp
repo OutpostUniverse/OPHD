@@ -6,7 +6,7 @@
 
 
 ColonistLander::ColonistLander(Tile& tile) :
-	Structure{StructureID::SID_COLONIST_LANDER, tile}
+	Structure{StructureID::ColonistLander, tile}
 {
 	enable();
 }

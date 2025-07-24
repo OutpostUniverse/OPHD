@@ -799,7 +799,7 @@ void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
  */
 void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
-	if (structureID == StructureID::SID_NONE) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
+	if (structureID == StructureID::None) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
 	if (!selfSustained(structureID) && !isInCcRange(tile.xy()))
 	{
@@ -839,11 +839,11 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 	}
 
 	// The player may only place one seed lander per game.
-	if (structureID == StructureID::SID_SEED_LANDER)
+	if (structureID == StructureID::SeedLander)
 	{
 		insertSeedLander(tile.xy());
 	}
-	else if (structureID == StructureID::SID_COLONIST_LANDER)
+	else if (structureID == StructureID::ColonistLander)
 	{
 		if (!validLanderSite(tile)) { return; }
 
@@ -857,7 +857,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 			populateStructureMenu();
 		}
 	}
-	else if (structureID == StructureID::SID_CARGO_LANDER)
+	else if (structureID == StructureID::CargoLander)
 	{
 		if (!validLanderSite(tile)) { return; }
 

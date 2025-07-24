@@ -18,7 +18,7 @@ namespace
 
 
 MaintenanceFacility::MaintenanceFacility(Tile& tile) :
-	Structure{StructureID::SID_MAINTENANCE_FACILITY, tile},
+	Structure{StructureID::MaintenanceFacility, tile},
 	mMaterialsLevel{0},
 	mMaintenancePersonnel{MinimumPersonnel},
 	mAssignedPersonnel{0},

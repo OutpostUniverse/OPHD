@@ -8,7 +8,7 @@
 
 
 CommTower::CommTower(Tile& tile) :
-	Structure{StructureID::SID_COMM_TOWER, tile}
+	Structure{StructureID::CommTower, tile}
 {
 }
 

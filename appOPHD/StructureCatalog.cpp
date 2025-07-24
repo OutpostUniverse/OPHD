@@ -63,7 +63,7 @@ namespace
 		constants::MaintenanceFacility
 	};
 
-	constexpr auto structureIdCount = static_cast<std::size_t>(StructureID::SID_COUNT);
+	constexpr auto structureIdCount = static_cast<std::size_t>(StructureID::Count);
 
 	/**	Currently set at 90% but this should probably be
 	 *	lowered for actual gameplay with modifiers to improve efficiency. */
@@ -93,13 +93,13 @@ namespace
 
 		// Set recycling values for landers and automatically built structures.
 		// Resources: {Common Metals, Common Minerals, Rare Metals, Rare Minerals}
-		structureRecycleValueTable[typeIndex(StructureID::SID_MINE_FACILITY)] = {15, 10, 5, 5};
-		structureRecycleValueTable[typeIndex(StructureID::SID_CARGO_LANDER)] = {15, 10, 5, 5};
-		structureRecycleValueTable[typeIndex(StructureID::SID_COLONIST_LANDER)] = {15, 10, 5, 5};
-		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_LANDER)] = {10, 5, 5, 5};
-		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_FACTORY)] = {15, 10, 5, 5};
-		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_POWER)] = {15, 10, 5, 5};
-		structureRecycleValueTable[typeIndex(StructureID::SID_SEED_SMELTER)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::MineFacility)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::CargoLander)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::ColonistLander)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SeedLander)] = {10, 5, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SeedFactory)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SeedPower)] = {15, 10, 5, 5};
+		structureRecycleValueTable[typeIndex(StructureID::SeedSmelter)] = {15, 10, 5, 5};
 
 		return structureRecycleValueTable;
 	}
@@ -226,162 +226,162 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 	// derived types.
 	switch (id)
 	{
-		case StructureID::SID_AGRIDOME:
+		case StructureID::Agridome:
 			structure = new Agridome(tile);
 			break;
 
-		case StructureID::SID_AIR_SHAFT:
+		case StructureID::AirShaft:
 			structure = new AirShaft(tile);
 			break;
 
-		case StructureID::SID_CARGO_LANDER:
+		case StructureID::CargoLander:
 			structure = new CargoLander(tile);
 			break;
 
-		case StructureID::SID_CHAP:
-			structure = new Structure(StructureID::SID_CHAP, tile);
+		case StructureID::Chap:
+			structure = new Structure(StructureID::Chap, tile);
 			break;
 
-		case StructureID::SID_COLONIST_LANDER:
+		case StructureID::ColonistLander:
 			structure = new ColonistLander(tile);
 			break;
 
-		case StructureID::SID_COMMAND_CENTER:
+		case StructureID::CommandCenter:
 			structure = new CommandCenter(tile);
 			break;
 
-		case StructureID::SID_COMMERCIAL:
-			structure = new Structure(StructureID::SID_COMMERCIAL, tile);
+		case StructureID::Commercial:
+			structure = new Structure(StructureID::Commercial, tile);
 			break;
 
-		case StructureID::SID_COMM_TOWER:
+		case StructureID::CommTower:
 			structure = new CommTower(tile);
 			break;
 
-		case StructureID::SID_FUSION_REACTOR:
-			structure = new Structure(StructureID::SID_FUSION_REACTOR, tile);
+		case StructureID::FusionReactor:
+			structure = new Structure(StructureID::FusionReactor, tile);
 			break;
 
-		case StructureID::SID_HOT_LABORATORY:
+		case StructureID::HotLaboratory:
 			structure = new HotLaboratory(tile);
 			break;
 
-		case StructureID::SID_LABORATORY:
+		case StructureID::Laboratory:
 			structure = new Laboratory(tile);
 			break;
 
-		case StructureID::SID_MAINTENANCE_FACILITY:
+		case StructureID::MaintenanceFacility:
 			structure = new MaintenanceFacility(tile);
 			break;
 
-		case StructureID::SID_MEDICAL_CENTER:
-			structure = new Structure(StructureID::SID_MEDICAL_CENTER, tile);
+		case StructureID::MedicalCenter:
+			structure = new Structure(StructureID::MedicalCenter, tile);
 			break;
 
-		case StructureID::SID_MINE_FACILITY:
+		case StructureID::MineFacility:
 			structure = new MineFacility(tile);
 			break;
 
-		case StructureID::SID_MINE_SHAFT:
+		case StructureID::MineShaft:
 			structure = new MineShaft(tile);
 			break;
 
-		case StructureID::SID_NURSERY:
-			structure = new Structure(StructureID::SID_NURSERY, tile);
+		case StructureID::Nursery:
+			structure = new Structure(StructureID::Nursery, tile);
 			break;
 
-		case StructureID::SID_PARK:
-			structure = new Structure(StructureID::SID_PARK, tile);
+		case StructureID::Park:
+			structure = new Structure(StructureID::Park, tile);
 			break;
 
-		case StructureID::SID_ROAD:
+		case StructureID::Road:
 			structure = new Road(tile);
 			break;
 
-		case StructureID::SID_SURFACE_POLICE:
-			structure = new Structure(StructureID::SID_SURFACE_POLICE, tile);
+		case StructureID::SurfacePolice:
+			structure = new Structure(StructureID::SurfacePolice, tile);
 			break;
 
-		case StructureID::SID_UNDERGROUND_POLICE:
-			structure = new Structure(StructureID::SID_UNDERGROUND_POLICE, tile);
+		case StructureID::UndergroundPolice:
+			structure = new Structure(StructureID::UndergroundPolice, tile);
 			break;
 
-		case StructureID::SID_RECREATION_CENTER:
-			structure = new Structure(StructureID::SID_RECREATION_CENTER, tile);
+		case StructureID::RecreationCenter:
+			structure = new Structure(StructureID::RecreationCenter, tile);
 			break;
 
-		case StructureID::SID_RECYCLING:
+		case StructureID::Recycling:
 			structure = new Recycling(tile);
 			break;
 
-		case StructureID::SID_RED_LIGHT_DISTRICT:
-			structure = new Structure(StructureID::SID_RED_LIGHT_DISTRICT, tile);
+		case StructureID::RedLightDistrict:
+			structure = new Structure(StructureID::RedLightDistrict, tile);
 			break;
 
-		case StructureID::SID_RESIDENCE:
+		case StructureID::Residence:
 			structure = new Residence(tile);
 			break;
 
-		case StructureID::SID_ROBOT_COMMAND:
-			structure = new Structure(StructureID::SID_ROBOT_COMMAND, tile);
+		case StructureID::RobotCommand:
+			structure = new Structure(StructureID::RobotCommand, tile);
 			break;
 
-		case StructureID::SID_SEED_FACTORY:
+		case StructureID::SeedFactory:
 			structure = new SeedFactory(tile);
 			break;
 
-		case StructureID::SID_SEED_LANDER:
+		case StructureID::SeedLander:
 			structure = new SeedLander(tile);
 			break;
 
-		case StructureID::SID_SEED_POWER:
-			structure = new Structure(StructureID::SID_SEED_POWER, tile);
+		case StructureID::SeedPower:
+			structure = new Structure(StructureID::SeedPower, tile);
 			break;
 
-		case StructureID::SID_SEED_SMELTER:
-			structure = new OreRefining(StructureID::SID_SEED_SMELTER, tile);
+		case StructureID::SeedSmelter:
+			structure = new OreRefining(StructureID::SeedSmelter, tile);
 			break;
 
-		case StructureID::SID_SMELTER:
-			structure = new OreRefining(StructureID::SID_SMELTER, tile);
+		case StructureID::Smelter:
+			structure = new OreRefining(StructureID::Smelter, tile);
 			break;
 
-		case StructureID::SID_SOLAR_PANEL1:
-			structure = new Structure(StructureID::SID_SOLAR_PANEL1, tile);
+		case StructureID::SolarPanel1:
+			structure = new Structure(StructureID::SolarPanel1, tile);
 			break;
 
-		case StructureID::SID_SOLAR_PLANT:
-			structure = new Structure(StructureID::SID_SOLAR_PLANT, tile);
+		case StructureID::SolarPlant:
+			structure = new Structure(StructureID::SolarPlant, tile);
 			break;
 
-		case StructureID::SID_STORAGE_TANKS:
+		case StructureID::StorageTanks:
 			structure = new StorageTanks(tile);
 			break;
 
-		case StructureID::SID_SURFACE_FACTORY:
+		case StructureID::SurfaceFactory:
 			structure = new SurfaceFactory(tile);
 			break;
 
-		case StructureID::SID_UNDERGROUND_FACTORY:
+		case StructureID::UndergroundFactory:
 			structure = new UndergroundFactory(tile);
 			break;
 
-		case StructureID::SID_UNIVERSITY:
-			structure = new Structure(StructureID::SID_UNIVERSITY, tile);
+		case StructureID::University:
+			structure = new Structure(StructureID::University, tile);
 			break;
 
-		case StructureID::SID_WAREHOUSE:
+		case StructureID::Warehouse:
 			structure = new Warehouse(tile);
 			break;
 
 
-		case StructureID::SID_TUBE:
+		case StructureID::Tube:
 			break;
 
-		case StructureID::SID_NONE:
+		case StructureID::None:
 			break;
 
-		case StructureID::SID_COUNT:
+		case StructureID::Count:
 			break;
 	}
 

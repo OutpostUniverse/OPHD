@@ -10,7 +10,7 @@
 
 Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
-		StructureID::SID_TUBE,
+		StructureID::Tube,
 		tile,
 		getAnimationName(dir, tile.depth() != 0),
 	}

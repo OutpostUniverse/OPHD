@@ -146,10 +146,10 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	}
 
 	constexpr std::array initialStructures{
-		std::tuple{DirectionNorthWest, StructureID::SID_SEED_POWER},
-		std::tuple{DirectionNorthEast, StructureID::SID_COMMAND_CENTER},
-		std::tuple{DirectionSouthWest, StructureID::SID_SEED_FACTORY},
-		std::tuple{DirectionSouthEast, StructureID::SID_SEED_SMELTER},
+		std::tuple{DirectionNorthWest, StructureID::SeedPower},
+		std::tuple{DirectionNorthEast, StructureID::CommandCenter},
+		std::tuple{DirectionSouthWest, StructureID::SeedFactory},
+		std::tuple{DirectionSouthEast, StructureID::SeedSmelter},
 	};
 
 	std::vector<Structure*> structures;

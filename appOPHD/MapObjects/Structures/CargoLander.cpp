@@ -6,7 +6,7 @@
 
 
 CargoLander::CargoLander(Tile& tile) :
-	Structure{StructureID::SID_CARGO_LANDER, tile}
+	Structure{StructureID::CargoLander, tile}
 {
 	enable();
 }

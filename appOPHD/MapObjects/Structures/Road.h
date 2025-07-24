@@ -12,7 +12,7 @@ class Road : public Structure
 {
 public:
 	Road(Tile& tile) :
-		Structure{StructureID::SID_ROAD, tile}
+		Structure{StructureID::Road, tile}
 	{
 	}
 
