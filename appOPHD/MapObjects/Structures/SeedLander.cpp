@@ -2,6 +2,8 @@
 
 #include "../../Map/Tile.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 SeedLander::SeedLander(Tile& tile) :
 	Structure{StructureID::SID_SEED_LANDER, tile}

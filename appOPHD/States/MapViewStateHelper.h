@@ -11,7 +11,6 @@
 
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumProductType.h>
-#include <libOPHD/EnumStructureID.h>
 
 #include <libOPHD/Map/MapCoordinate.h>
 
@@ -23,6 +22,7 @@ class TileMap;
 class CommandCenter;
 class Warehouse;
 struct StorableResources;
+enum class StructureID;
 enum class Direction;
 
 CommandCenter& firstCc();

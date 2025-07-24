@@ -3,6 +3,8 @@
 #include "../../Map/Tile.h"
 #include "../../Constants/Strings.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 #include <stdexcept>
 
 

@@ -2,8 +2,6 @@
 
 #include "IconGrid.h"
 
-#include <libOPHD/EnumStructureID.h>
-
 #include <libControls/ControlContainer.h>
 
 #include <NAS2D/Signal/Delegate.h>
@@ -11,6 +9,7 @@
 #include <vector>
 
 
+enum class StructureID;
 enum class RobotTypeIndex;
 enum class InsertMode;
 struct StorableResources;

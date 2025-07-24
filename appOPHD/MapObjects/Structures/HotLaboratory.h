@@ -2,6 +2,8 @@
 
 #include "ResearchFacility.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 class HotLaboratory : public ResearchFacility
 {

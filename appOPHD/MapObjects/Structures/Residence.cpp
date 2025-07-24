@@ -2,6 +2,8 @@
 
 #include "../../UI/StringTable.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 #include <algorithm>
 
 

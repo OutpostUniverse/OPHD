@@ -4,6 +4,8 @@
 
 #include "../../ProductPool.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 class Warehouse : public Structure
 {

@@ -1,5 +1,7 @@
 #include "StructureTracker.h"
 
+#include <libOPHD/EnumStructureID.h>
+
 
 namespace
 {
