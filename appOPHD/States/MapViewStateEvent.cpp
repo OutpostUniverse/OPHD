@@ -139,31 +139,28 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	// Place initial tubes
-	for (const auto& direction : DirectionClockwise4)
-	{
-		auto& tile = mTileMap->getTile({point + direction, 0});
-		structureManager.create(StructureID::Tube, tile);
-	}
-
 	constexpr std::array initialStructures{
+		std::tuple{DirectionNorth, StructureID::Tube},
+		std::tuple{DirectionSouth, StructureID::Tube},
+		std::tuple{DirectionWest, StructureID::Tube},
+		std::tuple{DirectionEast, StructureID::Tube},
 		std::tuple{DirectionNorthWest, StructureID::SeedPower},
 		std::tuple{DirectionNorthEast, StructureID::CommandCenter},
 		std::tuple{DirectionSouthWest, StructureID::SeedFactory},
 		std::tuple{DirectionSouthEast, StructureID::SeedSmelter},
 	};
 
-	std::vector<Structure*> structures;
 	for (const auto& [direction, structureId] : initialStructures)
 	{
 		auto& tile = mTileMap->getTile({point + direction, 0});
 		auto& structure = structureManager.create(structureId, tile);
-		structures.push_back(&structure);
-	}
 
-	auto& seedFactory = *dynamic_cast<SeedFactory*>(structures[2]);
-	seedFactory.resourcePool(&mResourcesCount);
-	seedFactory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
+		if (auto* seedFactory = dynamic_cast<SeedFactory*>(&structure))
+		{
+			seedFactory->resourcePool(&mResourcesCount);
+			seedFactory->productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
+		}
+	}
 
 	mRobotPool.addRobot(RobotTypeIndex::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
 	mRobotPool.addRobot(RobotTypeIndex::Digger).taskCompleteHandler({this, &MapViewState::onDiggerTaskComplete});
