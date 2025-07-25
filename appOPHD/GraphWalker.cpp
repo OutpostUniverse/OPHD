@@ -37,9 +37,6 @@ static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direct
 }
 
 
-/**
- * Utility function to check if there's a valid connection between src and dst.
- */
 static bool canConnect(Structure& src, Structure& dst, Direction direction)
 {
 	const auto srcConnectorDir = src.connectorDirection();
