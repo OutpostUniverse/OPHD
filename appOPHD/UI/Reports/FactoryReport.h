@@ -108,5 +108,5 @@ private:
 	TextArea mTxtProductDescription;
 
 	Factory* selectedFactory = nullptr;
-	ProductType selectedProductType = ProductType::PRODUCT_NONE;
+	ProductType selectedProductType;
 };

@@ -79,7 +79,8 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	cboFilterByProduct{{this, &FactoryReport::onProductFilterSelectionChange}},
 	lstFactoryList{{this, &FactoryReport::onListSelectionChange}},
 	lstProducts{{this, &FactoryReport::onProductSelectionChange}},
-	mTxtProductDescription{constants::PrimaryTextColor}
+	mTxtProductDescription{constants::PrimaryTextColor},
+	selectedProductType{ProductType::PRODUCT_NONE}
 {
 	add(lstFactoryList, {10, viewFilterOriginRow2.y + viewFilterButtonSize.y + 10});
 
