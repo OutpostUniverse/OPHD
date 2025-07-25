@@ -20,9 +20,8 @@ using namespace NAS2D;
  * Check which way a tube is facing to determine if it connects to the destination tube.
  * Broken off into its own function while fixing issue #11 to avoid code duplication.
  */
-static bool checkSourceTubeAlignment(Structure* src, Direction direction)
+static bool checkSourceTubeAlignment(ConnectorDir srcConnectorDir, Direction direction)
 {
-	const auto srcConnectorDir = src->connectorDirection();
 	if (srcConnectorDir == ConnectorDir::Intersection || srcConnectorDir == ConnectorDir::Vertical)
 	{
 		return true;
@@ -52,7 +51,9 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
 	}
 
+	const auto srcConnectorDir = src->connectorDirection();
 	const auto dstConnectorDir = dst->connectorDirection();
+
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
 		return src->isConnector() && src->connectorDirection() == ConnectorDir::Vertical;
@@ -61,7 +62,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	{
 		if (dstConnectorDir == ConnectorDir::Intersection || dstConnectorDir == ConnectorDir::Vertical)
 		{
-			return !src->isConnector() || checkSourceTubeAlignment(src, direction);
+			return !src->isConnector() || checkSourceTubeAlignment(srcConnectorDir, direction);
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
@@ -74,7 +75,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	}
 	else
 	{
-		return src->isConnector() && checkSourceTubeAlignment(src, direction);
+		return src->isConnector() && checkSourceTubeAlignment(srcConnectorDir, direction);
 	}
 
 	return false;
