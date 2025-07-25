@@ -12,5 +12,5 @@ enum class ConnectorDir
 	Intersection = 1,
 	EastWest,
 	NorthSouth,
-	Vertical // Functions as an intersection
+	Vertical, // Functions as an intersection
 };
