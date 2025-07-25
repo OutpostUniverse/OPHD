@@ -85,10 +85,10 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		const auto nextPosition = position.translate(direction);
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
-		auto& tile = tileMap.getTile(nextPosition);
-		if (!tile.hasStructure() || tile.structure()->connected()) { continue; }
+		auto& nextTile = tileMap.getTile(nextPosition);
+		if (!nextTile.hasStructure() || nextTile.structure()->connected()) { continue; }
 
-		if (canConnect(*thisTile.structure(), *tile.structure(), direction))
+		if (canConnect(*thisTile.structure(), *nextTile.structure(), direction))
 		{
 			walkGraph(nextPosition, tileMap);
 		}
