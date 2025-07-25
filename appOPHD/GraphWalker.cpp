@@ -20,9 +20,13 @@ using namespace NAS2D;
  */
 static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
 {
-	if (srcConnectorDir == ConnectorDir::Intersection || srcConnectorDir == ConnectorDir::Vertical)
+	if (srcConnectorDir == ConnectorDir::Vertical)
 	{
 		return true;
+	}
+	else if (srcConnectorDir == ConnectorDir::Intersection)
+	{
+		return direction == Direction::North || direction == Direction::South || direction == Direction::East || direction == Direction::West;
 	}
 	else if (direction == Direction::East || direction == Direction::West)
 	{
