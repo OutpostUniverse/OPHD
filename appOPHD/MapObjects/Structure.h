@@ -1,5 +1,7 @@
 #pragma once
 
+#include "StructureState.h"
+
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/MapObject.h>
 #include <libOPHD/Population/PopulationRequirements.h>
@@ -20,16 +22,6 @@ struct StructureType;
 struct MapCoordinate;
 class Tile;
 class StringTable;
-
-
-enum class StructureState
-{
-	UnderConstruction,
-	Operational,
-	Idle,
-	Disabled,
-	Destroyed
-};
 
 
 class Structure : public MapObject
