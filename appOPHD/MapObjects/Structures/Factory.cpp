@@ -62,6 +62,8 @@ const ProductionCost& productCost(ProductType productType)
 
 Factory::Factory(StructureID id, std::vector<ProductType> products, Tile& tile) :
 	Structure{id, tile},
+	mProduct{ProductType::PRODUCT_NONE},
+	mProductWaiting{ProductType::PRODUCT_NONE},
 	mAvailableProducts{std::move(products)}
 {
 	assertNoDuplicates(mAvailableProducts);

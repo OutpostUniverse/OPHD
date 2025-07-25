@@ -79,7 +79,8 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	cboFilterByProduct{{this, &FactoryReport::onProductFilterSelectionChange}},
 	lstFactoryList{{this, &FactoryReport::onListSelectionChange}},
 	lstProducts{{this, &FactoryReport::onProductSelectionChange}},
-	mTxtProductDescription{constants::PrimaryTextColor}
+	mTxtProductDescription{constants::PrimaryTextColor},
+	selectedProductType{ProductType::PRODUCT_NONE}
 {
 	add(lstFactoryList, {10, viewFilterOriginRow2.y + viewFilterButtonSize.y + 10});
 
@@ -422,7 +423,7 @@ void FactoryReport::onListSelectionChange()
 	{
 		for (auto item : selectedFactory->productList())
 		{
-			lstProducts.add(ProductCatalog::get(item).Name, static_cast<int>(item));
+			lstProducts.add(ProductCatalog::get(item).name, static_cast<int>(item));
 		}
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.userData == productType; });
@@ -435,7 +436,7 @@ void FactoryReport::onListSelectionChange()
 void FactoryReport::onProductSelectionChange()
 {
 	selectedProductType = lstProducts.isItemSelected() ? static_cast<ProductType>(lstProducts.selected().userData) : ProductType::PRODUCT_NONE;
-	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalog::get(selectedProductType).Description : "");
+	mTxtProductDescription.text(productTypeInRange(selectedProductType) ? ProductCatalog::get(selectedProductType).description : "");
 }
 
 
@@ -498,7 +499,7 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 	if (selectedProductType != ProductType::PRODUCT_NONE)
 	{
 		const auto productImagePosition = NAS2D::Point{originRight.x, lstProducts.position().y};
-		renderer.drawText(fontBigBold, ProductCatalog::get(selectedProductType).Name, originRight, constants::PrimaryTextColor);
+		renderer.drawText(fontBigBold, ProductCatalog::get(selectedProductType).name, originRight, constants::PrimaryTextColor);
 		renderer.drawImage(productImage(selectedProductType), productImagePosition);
 		mTxtProductDescription.draw(renderer);
 	}
@@ -508,7 +509,7 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 	const auto progressTextPosition = originRight + NAS2D::Vector{0, mRect.size.y - originRight.y - 115};
 	const auto buildingProductNamePosition = progressTextPosition + NAS2D::Vector{0, 35};
 	renderer.drawText(fontBigBold, "Progress", progressTextPosition, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "Building " + ProductCatalog::get(selectedFactory->productType()).Name, buildingProductNamePosition, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "Building " + ProductCatalog::get(selectedFactory->productType()).name, buildingProductNamePosition, constants::PrimaryTextColor);
 
 	const auto progressBarPosition = buildingProductNamePosition + NAS2D::Vector{0, fontMedium.height()};
 	const auto progressBarSize = NAS2D::Vector{mRect.size.x - originRight.x - 10, 30};

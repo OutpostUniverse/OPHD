@@ -45,14 +45,14 @@ void ProductCatalog::init(const std::string& filename)
 	for (const auto* node = rootElement->firstChildElement(ProductElement); node; node = node->nextSiblingElement(ProductElement))
 	{
 		const auto product = parseProduct(node);
-		const auto productId = static_cast<ProductType>(product.Id);
+		const auto productId = static_cast<ProductType>(product.id);
 
 		if (mProductTable.find(productId) != mProductTable.end())
 		{
-			throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.Id) + ", Name = " + product.Name + ", filename = " + filename);
+			throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.id) + ", Name = " + product.name + ", filename = " + filename);
 		}
 
-		mProductTable[productId] = product;
+		mProductTable.try_emplace(productId, product);
 	}
 }
 

@@ -65,7 +65,7 @@ void WarehouseInspector::drawClientArea(NAS2D::Renderer& /*renderer*/) const
 		if (pool.count(productType) == 0) { continue; }
 		if (storageRequiredPerUnit(productType) == 0) { continue; }
 
-		drawLabelAndValueLeftJustify(position, labelWidth, ProductCatalog::get(productType).Name + ":", std::to_string(pool.count(productType)));
+		drawLabelAndValueLeftJustify(position, labelWidth, ProductCatalog::get(productType).name + ":", std::to_string(pool.count(productType)));
 
 		position.y += 15;
 	}

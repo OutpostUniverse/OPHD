@@ -70,8 +70,8 @@ private:
 	int mTurnsCompleted = 0;
 	int mTurnsToComplete = 0;
 
-	ProductType mProduct = ProductType::PRODUCT_NONE;
-	ProductType mProductWaiting = ProductType::PRODUCT_NONE; /**< Product that is waiting to be pulled from the factory. */
+	ProductType mProduct;
+	ProductType mProductWaiting; /**< Product that is waiting to be pulled from the factory. */
 
 	ProductionTypeList mAvailableProducts; /**< List of products that the Factory can produce. */
 
