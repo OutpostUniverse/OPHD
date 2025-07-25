@@ -49,7 +49,7 @@ namespace
 	{
 		const auto& productPool = warehouse.products();
 
-		if (warehouse.state() != StructureState::Operational) { return warehouse.stateDescription(); }
+		if (!warehouse.operational()) { return warehouse.stateDescription(); }
 		else if (productPool.empty()) { return constants::WarehouseEmpty; }
 		else if (productPool.atCapacity()) { return constants::WarehouseFull; }
 		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseVacancy; }

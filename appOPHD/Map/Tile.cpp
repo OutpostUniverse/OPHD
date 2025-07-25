@@ -157,7 +157,7 @@ float Tile::movementCost() const
 	{
 		Structure& road = *structure();
 
-		if (road.state() != StructureState::Operational)
+		if (!road.operational())
 		{
 			return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
 		}
