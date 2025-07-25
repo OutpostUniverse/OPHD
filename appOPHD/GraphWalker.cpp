@@ -51,23 +51,25 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	{
 		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
 	}
+
+	const auto dstConnectorDir = dst->connectorDirection();
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
 		return src->isConnector() && src->connectorDirection() == ConnectorDir::Vertical;
 	}
 	else if (dst->isConnector())
 	{
-		if (dst->connectorDirection() == ConnectorDir::Intersection || dst->connectorDirection() == ConnectorDir::Vertical)
+		if (dstConnectorDir == ConnectorDir::Intersection || dstConnectorDir == ConnectorDir::Vertical)
 		{
 			return !src->isConnector() || checkSourceTubeAlignment(src, direction);
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
-			return dst->connectorDirection() == ConnectorDir::EastWest;
+			return dstConnectorDir == ConnectorDir::EastWest;
 		}
 		else if (direction == Direction::North || direction == Direction::South)
 		{
-			return dst->connectorDirection() == ConnectorDir::NorthSouth;
+			return dstConnectorDir == ConnectorDir::NorthSouth;
 		}
 	}
 	else
