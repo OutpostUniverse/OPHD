@@ -153,18 +153,16 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 		std::tuple{DirectionSouthEast, StructureID::SeedSmelter},
 	};
 
-	std::vector<Structure*> structures;
 	for (const auto& [direction, structureId] : initialStructures)
 	{
 		auto& tile = mTileMap->getTile({point + direction, 0});
 		auto& structure = structureManager.create(structureId, tile);
-		structures.push_back(&structure);
-	}
 
-	if (auto* seedFactory = dynamic_cast<SeedFactory*>(structures[2]))
-	{
-		seedFactory->resourcePool(&mResourcesCount);
-		seedFactory->productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
+		if (auto* seedFactory = dynamic_cast<SeedFactory*>(&structure))
+		{
+			seedFactory->resourcePool(&mResourcesCount);
+			seedFactory->productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
+		}
 	}
 
 	mRobotPool.addRobot(RobotTypeIndex::Dozer).taskCompleteHandler({this, &MapViewState::onDozerTaskComplete});
