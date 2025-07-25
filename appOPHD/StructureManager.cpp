@@ -8,7 +8,7 @@
 #include "Map/Tile.h"
 #include "MapObjects/Structure.h"
 #include "MapObjects/Robot.h"
-
+#include "MapObjects/StructureState.h"
 #include "MapObjects/Structures/FoodProduction.h"
 #include "MapObjects/Structures/MaintenanceFacility.h"
 #include "MapObjects/Structures/MineFacility.h"

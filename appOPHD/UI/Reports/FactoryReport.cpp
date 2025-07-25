@@ -8,7 +8,7 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../StructureManager.h"
-
+#include "../../MapObjects/StructureState.h"
 #include "../../MapObjects/Structures/SurfaceFactory.h"
 #include "../../MapObjects/Structures/SeedFactory.h"
 #include "../../MapObjects/Structures/UndergroundFactory.h"

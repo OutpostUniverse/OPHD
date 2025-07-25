@@ -1,5 +1,6 @@
 #include "Structure.h"
 
+#include "StructureState.h"
 #include "StructureClass.h"
 #include "StructureIdToClass.h"
 
@@ -125,6 +126,12 @@ const MapCoordinate& Structure::xyz() const
 }
 
 
+bool Structure::disabled() const
+{
+	return mStructureState == StructureState::Disabled;
+}
+
+
 /**
  * Sets a Disabled state for the Structure.
  */
@@ -136,6 +143,12 @@ void Structure::disable(DisabledReason reason)
 	mDisabledReason = reason;
 	mIdleReason = IdleReason::None;
 	disabledStateSet();
+}
+
+
+bool Structure::operational() const
+{
+	return mStructureState == StructureState::Operational;
 }
 
 
@@ -158,6 +171,12 @@ void Structure::enable()
 }
 
 
+bool Structure::isIdle() const
+{
+	return mStructureState == StructureState::Idle;
+}
+
+
 /**
 * Sets idle state of the Structure.
 */
@@ -173,6 +192,18 @@ void Structure::idle(IdleReason reason)
 	mDisabledReason = DisabledReason::None;
 	mIdleReason = reason;
 	state(StructureState::Idle);
+}
+
+
+bool Structure::destroyed() const
+{
+	return mStructureState == StructureState::Destroyed;
+}
+
+
+bool Structure::underConstruction() const
+{
+	return mStructureState == StructureState::UnderConstruction;
 }
 
 

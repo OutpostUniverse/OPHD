@@ -446,6 +446,9 @@
     <ClInclude Include="MapObjects\Structures.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
+    <ClInclude Include="MapObjects\StructureState.h">
+      <Filter>Header Files\MapObjects</Filter>
+    </ClInclude>
     <ClInclude Include="MapObjects\StructureTypeToClass.h">
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>

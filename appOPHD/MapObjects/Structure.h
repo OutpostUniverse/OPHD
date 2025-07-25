@@ -16,23 +16,11 @@ enum class ConnectorDir;
 enum class DisabledReason;
 enum class IdleReason;
 enum class StructureClass;
+enum class StructureState;
 struct StructureType;
 struct MapCoordinate;
 class Tile;
 class StringTable;
-
-
-/**
- * State of an individual Structure.
- */
-enum class StructureState
-{
-	UnderConstruction,
-	Operational,
-	Idle,
-	Disabled,
-	Destroyed
-};
 
 
 class Structure : public MapObject
@@ -57,21 +45,21 @@ public:
 	bool connected() const { return mConnected; }
 	void connected(bool value) { mConnected = value; }
 
-	bool disabled() const { return mStructureState == StructureState::Disabled; }
+	bool disabled() const;
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
 
-	bool operational() const { return mStructureState == StructureState::Operational; }
+	bool operational() const;
 	void enable();
 
-	bool isIdle() const { return mStructureState == StructureState::Idle; }
+	bool isIdle() const;
 	void idle(IdleReason);
 	IdleReason idleReason() const { return mIdleReason; }
 
-	bool destroyed() const { return mStructureState == StructureState::Destroyed; }
+	bool destroyed() const;
 	void destroy();
 
-	bool underConstruction() const { return mStructureState == StructureState::UnderConstruction; }
+	bool underConstruction() const;
 
 	void forceIdle(bool force);
 	bool forceIdle() const { return mForcedIdle; }

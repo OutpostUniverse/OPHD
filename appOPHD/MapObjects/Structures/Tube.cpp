@@ -1,5 +1,6 @@
 #include "Tube.h"
 
+#include "../StructureState.h"
 #include "../../Map/Tile.h"
 #include "../../Constants/Strings.h"
 
