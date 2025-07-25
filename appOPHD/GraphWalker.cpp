@@ -14,64 +14,43 @@
 using namespace NAS2D;
 
 
-/**
- * Check which way a tube is facing to determine if it connects to the destination tube.
- * Broken off into its own function while fixing issue #11 to avoid code duplication.
- */
 static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
 {
-	if (srcConnectorDir == ConnectorDir::Intersection || srcConnectorDir == ConnectorDir::Vertical)
+	if (srcConnectorDir == ConnectorDir::Vertical)
 	{
 		return true;
 	}
-	else if (direction == Direction::East || direction == Direction::West)
+	else if (srcConnectorDir == ConnectorDir::Intersection)
 	{
-		if (srcConnectorDir == ConnectorDir::EastWest)
-			return true;
+		return direction == Direction::North || direction == Direction::South || direction == Direction::East || direction == Direction::West;
 	}
-	else if (direction == Direction::North || direction == Direction::South)
+	else if (srcConnectorDir == ConnectorDir::NorthSouth)
 	{
-		if (srcConnectorDir == ConnectorDir::NorthSouth)
-			return true;
+		return direction == Direction::North || direction == Direction::South;
+	}
+	else if (srcConnectorDir == ConnectorDir::EastWest)
+	{
+		return direction == Direction::East || direction == Direction::West;
 	}
 
 	return false;
 }
 
 
-/**
- * Utility function to check if there's a valid connection between src and dst.
- */
-static bool validConnection(Structure& src, Structure& dst, Direction direction)
+static bool canConnect(Structure& src, Structure& dst, Direction direction)
 {
 	const auto srcConnectorDir = src.connectorDirection();
 	const auto dstConnectorDir = dst.connectorDirection();
 
-	if (direction == Direction::Up || direction == Direction::Down)
-	{
-		return src.isConnector() && src.connectorDirection() == ConnectorDir::Vertical;
-	}
-	else if (dst.isConnector())
-	{
-		if (dstConnectorDir == ConnectorDir::Intersection || dstConnectorDir == ConnectorDir::Vertical)
-		{
-			return !src.isConnector() || hasConnectorDirection(srcConnectorDir, direction);
-		}
-		else if (direction == Direction::East || direction == Direction::West)
-		{
-			return dstConnectorDir == ConnectorDir::EastWest;
-		}
-		else if (direction == Direction::North || direction == Direction::South)
-		{
-			return dstConnectorDir == ConnectorDir::NorthSouth;
-		}
-	}
-	else
-	{
-		return src.isConnector() && hasConnectorDirection(srcConnectorDir, direction);
-	}
+	// At least one end must be a Tube as Structures don't connect to each other
+	if (!src.isConnector() && !dst.isConnector()) { return false; }
 
-	return false;
+	// Only follow directions that are valid for source connector
+	if (!hasConnectorDirection(srcConnectorDir, direction)) { return false; }
+
+	// Check if destination can receive a connection from the given direction
+	// (Relies on symmetry of connector directions)
+	return hasConnectorDirection(dstConnectorDir, direction);
 }
 
 
@@ -103,10 +82,10 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		const auto nextPosition = position.translate(direction);
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
-		auto& tile = tileMap.getTile(nextPosition);
-		if (!tile.hasStructure() || tile.structure()->connected()) { continue; }
+		auto& nextTile = tileMap.getTile(nextPosition);
+		if (!nextTile.hasStructure() || nextTile.structure()->connected()) { continue; }
 
-		if (validConnection(*thisTile.structure(), *tile.structure(), direction))
+		if (canConnect(*thisTile.structure(), *nextTile.structure(), direction))
 		{
 			walkGraph(nextPosition, tileMap);
 		}
