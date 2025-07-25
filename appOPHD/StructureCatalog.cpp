@@ -374,9 +374,10 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new Warehouse(tile);
 			break;
 
-
 		case StructureID::Tube:
+			structure = new Tube(tile);
 			break;
+
 
 		case StructureID::None:
 			break;
