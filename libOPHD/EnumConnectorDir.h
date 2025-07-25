@@ -7,7 +7,7 @@
  * \note	CONNECTOR_INTERSECTION is intentionally set to '1' to prevent
  *			breaking changes with save files.
  */
-enum ConnectorDir
+enum class ConnectorDir
 {
 	CONNECTOR_INTERSECTION = 1,
 	CONNECTOR_EAST_WEST,
