@@ -10,8 +10,6 @@
 
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <stdexcept>
-
 
 using namespace NAS2D;
 
@@ -20,20 +18,20 @@ using namespace NAS2D;
  * Check which way a tube is facing to determine if it connects to the destination tube.
  * Broken off into its own function while fixing issue #11 to avoid code duplication.
  */
-static bool checkSourceTubeAlignment(Structure* src, Direction direction)
+static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
 {
-	if (src->connectorDirection() == ConnectorDir::Intersection || src->connectorDirection() == ConnectorDir::Vertical)
+	if (srcConnectorDir == ConnectorDir::Intersection || srcConnectorDir == ConnectorDir::Vertical)
 	{
 		return true;
 	}
 	else if (direction == Direction::East || direction == Direction::West)
 	{
-		if (src->connectorDirection() == ConnectorDir::EastWest)
+		if (srcConnectorDir == ConnectorDir::EastWest)
 			return true;
 	}
 	else if (direction == Direction::North || direction == Direction::South)
 	{
-		if (src->connectorDirection() == ConnectorDir::NorthSouth)
+		if (srcConnectorDir == ConnectorDir::NorthSouth)
 			return true;
 	}
 
@@ -44,34 +42,33 @@ static bool checkSourceTubeAlignment(Structure* src, Direction direction)
 /**
  * Utility function to check if there's a valid connection between src and dst.
  */
-static bool validConnection(Structure* src, Structure* dst, Direction direction)
+static bool validConnection(Structure& src, Structure& dst, Direction direction)
 {
-	if (src == nullptr || dst == nullptr)
-	{
-		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
-	}
+	const auto srcConnectorDir = src.connectorDirection();
+	const auto dstConnectorDir = dst.connectorDirection();
+
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
-		return src->isConnector() && src->connectorDirection() == ConnectorDir::Vertical;
+		return src.isConnector() && src.connectorDirection() == ConnectorDir::Vertical;
 	}
-	else if (dst->isConnector())
+	else if (dst.isConnector())
 	{
-		if (dst->connectorDirection() == ConnectorDir::Intersection || dst->connectorDirection() == ConnectorDir::Vertical)
+		if (dstConnectorDir == ConnectorDir::Intersection || dstConnectorDir == ConnectorDir::Vertical)
 		{
-			return !src->isConnector() || checkSourceTubeAlignment(src, direction);
+			return !src.isConnector() || hasConnectorDirection(srcConnectorDir, direction);
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
-			return dst->connectorDirection() == ConnectorDir::EastWest;
+			return dstConnectorDir == ConnectorDir::EastWest;
 		}
 		else if (direction == Direction::North || direction == Direction::South)
 		{
-			return dst->connectorDirection() == ConnectorDir::NorthSouth;
+			return dstConnectorDir == ConnectorDir::NorthSouth;
 		}
 	}
 	else
 	{
-		return src->isConnector() && checkSourceTubeAlignment(src, direction);
+		return src.isConnector() && hasConnectorDirection(srcConnectorDir, direction);
 	}
 
 	return false;
@@ -109,7 +106,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		auto& tile = tileMap.getTile(nextPosition);
 		if (!tile.hasStructure() || tile.structure()->connected()) { continue; }
 
-		if (validConnection(thisTile.structure(), tile.structure(), direction))
+		if (validConnection(*thisTile.structure(), *tile.structure(), direction))
 		{
 			walkGraph(nextPosition, tileMap);
 		}
