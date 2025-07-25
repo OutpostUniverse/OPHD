@@ -15,9 +15,9 @@ class ProductCatalog
 public:
 	struct Product
 	{
-		int Id;
-		std::string Name;
-		std::string Description;
+		int id;
+		std::string name;
+		std::string description;
 	};
 
 public:

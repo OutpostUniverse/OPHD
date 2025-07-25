@@ -45,7 +45,7 @@ void ProductListBox::productPool(const ProductPool& pool)
 		if (productCount > 0)
 		{
 			mItems.emplace_back(ProductListBoxItem{
-				ProductCatalog::has(productType) ? ProductCatalog::get(productType).Name : "Invalid product type",
+				ProductCatalog::has(productType) ? ProductCatalog::get(productType).name : "Invalid product type",
 				productCount,
 				productCount * pool.productStorageRequirement(productType),
 				pool.capacity()
