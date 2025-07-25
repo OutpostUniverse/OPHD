@@ -52,7 +52,7 @@ void ProductCatalog::init(const std::string& filename)
 			throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.Id) + ", Name = " + product.Name + ", filename = " + filename);
 		}
 
-		mProductTable[productId] = product;
+		mProductTable.try_emplace(productId, product);
 	}
 }
 
