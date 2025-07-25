@@ -10,8 +10,6 @@
 
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <stdexcept>
-
 
 using namespace NAS2D;
 
@@ -46,11 +44,6 @@ static bool checkSourceTubeAlignment(ConnectorDir srcConnectorDir, Direction dir
  */
 static bool validConnection(Structure* src, Structure* dst, Direction direction)
 {
-	if (src == nullptr || dst == nullptr)
-	{
-		throw std::runtime_error("GraphWalker::validConnection() was passed a NULL Pointer.");
-	}
-
 	const auto srcConnectorDir = src->connectorDirection();
 	const auto dstConnectorDir = dst->connectorDirection();
 
