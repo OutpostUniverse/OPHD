@@ -42,20 +42,20 @@ static bool checkSourceTubeAlignment(ConnectorDir srcConnectorDir, Direction dir
 /**
  * Utility function to check if there's a valid connection between src and dst.
  */
-static bool validConnection(Structure* src, Structure* dst, Direction direction)
+static bool validConnection(Structure& src, Structure& dst, Direction direction)
 {
-	const auto srcConnectorDir = src->connectorDirection();
-	const auto dstConnectorDir = dst->connectorDirection();
+	const auto srcConnectorDir = src.connectorDirection();
+	const auto dstConnectorDir = dst.connectorDirection();
 
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
-		return src->isConnector() && src->connectorDirection() == ConnectorDir::Vertical;
+		return src.isConnector() && src.connectorDirection() == ConnectorDir::Vertical;
 	}
-	else if (dst->isConnector())
+	else if (dst.isConnector())
 	{
 		if (dstConnectorDir == ConnectorDir::Intersection || dstConnectorDir == ConnectorDir::Vertical)
 		{
-			return !src->isConnector() || checkSourceTubeAlignment(srcConnectorDir, direction);
+			return !src.isConnector() || checkSourceTubeAlignment(srcConnectorDir, direction);
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
@@ -68,7 +68,7 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	}
 	else
 	{
-		return src->isConnector() && checkSourceTubeAlignment(srcConnectorDir, direction);
+		return src.isConnector() && checkSourceTubeAlignment(srcConnectorDir, direction);
 	}
 
 	return false;
@@ -106,7 +106,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		auto& tile = tileMap.getTile(nextPosition);
 		if (!tile.hasStructure() || tile.structure()->connected()) { continue; }
 
-		if (validConnection(thisTile.structure(), tile.structure(), direction))
+		if (validConnection(*thisTile.structure(), *tile.structure(), direction))
 		{
 			walkGraph(nextPosition, tileMap);
 		}
