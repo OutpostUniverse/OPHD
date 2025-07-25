@@ -2,8 +2,6 @@
 
 #include "Tile.h"
 
-#include "../MapObjects/Structure.h"
-
 #include <libOPHD/EnumOreDepositYield.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/RandomNumberGenerator.h>
