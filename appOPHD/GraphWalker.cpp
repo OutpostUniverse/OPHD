@@ -28,13 +28,13 @@ static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direct
 	{
 		return direction == Direction::North || direction == Direction::South || direction == Direction::East || direction == Direction::West;
 	}
-	else if (srcConnectorDir == ConnectorDir::EastWest)
-	{
-		return direction == Direction::East || direction == Direction::West;
-	}
 	else if (srcConnectorDir == ConnectorDir::NorthSouth)
 	{
 		return direction == Direction::North || direction == Direction::South;
+	}
+	else if (srcConnectorDir == ConnectorDir::EastWest)
+	{
+		return direction == Direction::East || direction == Direction::West;
 	}
 
 	return false;
