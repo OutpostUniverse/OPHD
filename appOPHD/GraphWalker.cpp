@@ -14,10 +14,6 @@
 using namespace NAS2D;
 
 
-/**
- * Check which way a tube is facing to determine if it connects to the destination tube.
- * Broken off into its own function while fixing issue #11 to avoid code duplication.
- */
 static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
 {
 	if (srcConnectorDir == ConnectorDir::Vertical)
