@@ -78,15 +78,15 @@ namespace
 
 
 	const std::vector<IconGridItem> SurfaceTubes = {
-		{constants::AgTubeIntersection, 110, ConnectorDir::CONNECTOR_INTERSECTION},
-		{constants::AgTubeRight, 112, ConnectorDir::CONNECTOR_EAST_WEST},
-		{constants::AgTubeLeft, 111, ConnectorDir::CONNECTOR_NORTH_SOUTH},
+		{constants::AgTubeIntersection, 110, static_cast<int>(ConnectorDir::CONNECTOR_INTERSECTION)},
+		{constants::AgTubeRight, 112, static_cast<int>(ConnectorDir::CONNECTOR_EAST_WEST)},
+		{constants::AgTubeLeft, 111, static_cast<int>(ConnectorDir::CONNECTOR_NORTH_SOUTH)},
 	};
 
 	const std::vector<IconGridItem> UndergroundTubes = {
-		{constants::UgTubeIntersection, 113, ConnectorDir::CONNECTOR_INTERSECTION},
-		{constants::UgTubeRight, 115, ConnectorDir::CONNECTOR_EAST_WEST},
-		{constants::UgTubelLeft, 114, ConnectorDir::CONNECTOR_NORTH_SOUTH},
+		{constants::UgTubeIntersection, 113, static_cast<int>(ConnectorDir::CONNECTOR_INTERSECTION)},
+		{constants::UgTubeRight, 115, static_cast<int>(ConnectorDir::CONNECTOR_EAST_WEST)},
+		{constants::UgTubelLeft, 114, static_cast<int>(ConnectorDir::CONNECTOR_NORTH_SOUTH)},
 	};
 
 
