@@ -4,6 +4,7 @@
 #include "../../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
+#include <libOPHD/EnumConnectorDir.h>
 
 #include <stdexcept>
 
