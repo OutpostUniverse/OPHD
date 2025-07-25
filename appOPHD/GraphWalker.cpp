@@ -45,31 +45,15 @@ static bool validConnection(Structure& src, Structure& dst, Direction direction)
 	const auto srcConnectorDir = src.connectorDirection();
 	const auto dstConnectorDir = dst.connectorDirection();
 
-	if (direction == Direction::Up || direction == Direction::Down)
-	{
-		return src.isConnector() && src.connectorDirection() == ConnectorDir::Vertical;
-	}
-	else if (dst.isConnector())
-	{
-		if (dstConnectorDir == ConnectorDir::Intersection || dstConnectorDir == ConnectorDir::Vertical)
-		{
-			return !src.isConnector() || hasConnectorDirection(srcConnectorDir, direction);
-		}
-		else if (direction == Direction::East || direction == Direction::West)
-		{
-			return dstConnectorDir == ConnectorDir::EastWest;
-		}
-		else if (direction == Direction::North || direction == Direction::South)
-		{
-			return dstConnectorDir == ConnectorDir::NorthSouth;
-		}
-	}
-	else
-	{
-		return src.isConnector() && hasConnectorDirection(srcConnectorDir, direction);
-	}
+	// At least one end must be a Tube as Structures don't connect to each other
+	if (!src.isConnector() && !dst.isConnector()) { return false; }
 
-	return false;
+	// Only follow directions that are valid for source connector
+	if (!hasConnectorDirection(srcConnectorDir, direction)) { return false; }
+
+	// Check if destination can receive a connection from the given direction
+	// (Relies on symmetry of connector directions)
+	return hasConnectorDirection(dstConnectorDir, direction);
 }
 
 
