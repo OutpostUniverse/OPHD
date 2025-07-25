@@ -142,7 +142,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	for (const auto& direction : DirectionClockwise4)
 	{
 		auto& tile = mTileMap->getTile({point + direction, 0});
-		structureManager.addStructure(*new Tube(tile, ConnectorDir::CONNECTOR_INTERSECTION), tile);
+		structureManager.addStructure(*new Tube(tile, ConnectorDir::Intersection), tile);
 	}
 
 	constexpr std::array initialStructures{

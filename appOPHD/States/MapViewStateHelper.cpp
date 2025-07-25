@@ -121,20 +121,20 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 	Structure* structure = tile.structure();
 	const auto connectorDirection = structure->connectorDirection();
 
-	if (sourceConnectorDir == ConnectorDir::CONNECTOR_INTERSECTION)
+	if (sourceConnectorDir == ConnectorDir::Intersection)
 	{
-		return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL) ||
+		return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::Vertical) ||
 			((dir == Direction::East || dir == Direction::West) ?
-				(connectorDirection == ConnectorDir::CONNECTOR_EAST_WEST) :
-				(connectorDirection == ConnectorDir::CONNECTOR_NORTH_SOUTH));
+				(connectorDirection == ConnectorDir::EastWest) :
+				(connectorDirection == ConnectorDir::NorthSouth));
 	}
-	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_EAST_WEST && (dir == Direction::East || dir == Direction::West))
+	else if (sourceConnectorDir == ConnectorDir::EastWest && (dir == Direction::East || dir == Direction::West))
 	{
-		return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_EAST_WEST || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
+		return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::EastWest || connectorDirection == ConnectorDir::Vertical);
 	}
-	else if (sourceConnectorDir == ConnectorDir::CONNECTOR_NORTH_SOUTH && (dir == Direction::North || dir == Direction::South))
+	else if (sourceConnectorDir == ConnectorDir::NorthSouth && (dir == Direction::North || dir == Direction::South))
 	{
-		return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_NORTH_SOUTH || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL);
+		return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::NorthSouth || connectorDirection == ConnectorDir::Vertical);
 	}
 
 	return false;
@@ -153,10 +153,10 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 	}
 
 	const auto connectorDirection = structure->connectorDirection();
-	return (connectorDirection == ConnectorDir::CONNECTOR_INTERSECTION || connectorDirection == ConnectorDir::CONNECTOR_VERTICAL) ||
+	return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::Vertical) ||
 		((dir == Direction::East || dir == Direction::West) ?
-			(connectorDirection == ConnectorDir::CONNECTOR_EAST_WEST) :
-			(connectorDirection == ConnectorDir::CONNECTOR_NORTH_SOUTH));
+			(connectorDirection == ConnectorDir::EastWest) :
+			(connectorDirection == ConnectorDir::NorthSouth));
 }
 
 

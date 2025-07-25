@@ -762,7 +762,7 @@ void MapViewState::changeViewDepth(int depth)
 
 void MapViewState::insertTube(Tile& tile, ConnectorDir dir)
 {
-	if (dir == ConnectorDir::CONNECTOR_VERTICAL)
+	if (dir == ConnectorDir::Vertical)
 	{
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir parameter.");
 	}
@@ -1084,12 +1084,12 @@ void MapViewState::placeRobodigger(Tile& tile)
 	{
 		if (!tile.isSurface())
 		{
-			if (tile.hasStructure() && tile.structure()->connectorDirection() != ConnectorDir::CONNECTOR_VERTICAL) // Air shaft
+			if (tile.hasStructure() && tile.structure()->connectorDirection() != ConnectorDir::Vertical) // Air shaft
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 				return;
 			}
-			else if (tile.hasStructure() && tile.structure()->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL && tile.depth() == mTileMap->maxDepth())
+			else if (tile.hasStructure() && tile.structure()->connectorDirection() == ConnectorDir::Vertical && tile.depth() == mTileMap->maxDepth())
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMaxDigDepth);
 				return;

@@ -93,7 +93,7 @@ Structure::Structure(StructureID id, Tile& tile, const std::string& initialActio
 	mStructureClass{structureIdToClass(id)},
 	mTile{tile},
 	mStructureState{StructureState::UnderConstruction},
-	mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION},
+	mConnectorDirection{ConnectorDir::Intersection},
 	mDisabledReason{DisabledReason::None},
 	mIdleReason{IdleReason::None}
 {
