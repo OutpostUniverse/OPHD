@@ -2,7 +2,6 @@
 
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
-#include "../MapObjects/Structure.h"
 
 #include "../UI/Reports/Report.h"
 
@@ -21,6 +20,8 @@
 
 #include <array>
 
+
+class Structure;
 
 extern NAS2D::Point<int> MOUSE_COORDS;
 

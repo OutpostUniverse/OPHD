@@ -6,7 +6,6 @@
 #include "../../StructureManager.h"
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
-#include "../../MapObjects/Structure.h"
 #include "../../MapObjects/Structures/Warehouse.h"
 
 #include <NAS2D/Utility.h>
@@ -17,6 +16,9 @@
 #include <string>
 #include <iterator>
 #include <algorithm>
+
+
+class Structure;
 
 
 using namespace NAS2D;

@@ -2,8 +2,6 @@
 
 #include "Tile.h"
 
-#include "../MapObjects/Structure.h"
-
 #include <libOPHD/EnumOreDepositYield.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/RandomNumberGenerator.h>
@@ -12,6 +10,8 @@
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
+#include <NAS2D/Renderer/Color.h>
+#include <NAS2D/Resource/Image.h>
 
 #include <algorithm>
 #include <functional>
