@@ -20,6 +20,7 @@
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include <libOPHD/DirectionOffset.h>
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
