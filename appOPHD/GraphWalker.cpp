@@ -22,18 +22,19 @@ using namespace NAS2D;
  */
 static bool checkSourceTubeAlignment(Structure* src, Direction direction)
 {
-	if (src->connectorDirection() == ConnectorDir::Intersection || src->connectorDirection() == ConnectorDir::Vertical)
+	const auto srcConnectorDir = src->connectorDirection();
+	if (srcConnectorDir == ConnectorDir::Intersection || srcConnectorDir == ConnectorDir::Vertical)
 	{
 		return true;
 	}
 	else if (direction == Direction::East || direction == Direction::West)
 	{
-		if (src->connectorDirection() == ConnectorDir::EastWest)
+		if (srcConnectorDir == ConnectorDir::EastWest)
 			return true;
 	}
 	else if (direction == Direction::North || direction == Direction::South)
 	{
-		if (src->connectorDirection() == ConnectorDir::NorthSouth)
+		if (srcConnectorDir == ConnectorDir::NorthSouth)
 			return true;
 	}
 
