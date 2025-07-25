@@ -1,6 +1,6 @@
 #include "StructureColor.h"
 
-#include "../MapObjects/Structure.h"
+#include "../MapObjects/StructureState.h"
 
 #include <map>
 
