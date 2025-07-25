@@ -40,7 +40,7 @@ static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direct
 /**
  * Utility function to check if there's a valid connection between src and dst.
  */
-static bool validConnection(Structure& src, Structure& dst, Direction direction)
+static bool canConnect(Structure& src, Structure& dst, Direction direction)
 {
 	const auto srcConnectorDir = src.connectorDirection();
 	const auto dstConnectorDir = dst.connectorDirection();
@@ -88,7 +88,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		auto& tile = tileMap.getTile(nextPosition);
 		if (!tile.hasStructure() || tile.structure()->connected()) { continue; }
 
-		if (validConnection(*thisTile.structure(), *tile.structure(), direction))
+		if (canConnect(*thisTile.structure(), *tile.structure(), direction))
 		{
 			walkGraph(nextPosition, tileMap);
 		}
