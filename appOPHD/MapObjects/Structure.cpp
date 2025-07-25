@@ -495,7 +495,7 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"disabled_reason", static_cast<int>(mDisabledReason)},
 		{"idle_reason", static_cast<int>(mIdleReason)},
 		{"type", static_cast<std::size_t>(mStructureId)},
-		{"direction", mConnectorDirection},
+		{"direction", static_cast<int>(mConnectorDirection)},
 		{"integrity", mIntegrity},
 		{"pop0", mPopulationAvailable.workers},
 		{"pop1", mPopulationAvailable.scientists},
