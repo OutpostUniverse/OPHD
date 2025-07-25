@@ -4,8 +4,8 @@
 #include "Map/TileMap.h"
 #include "MapObjects/Structure.h"
 
-#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
+#include <libOPHD/DirectionOffset.h>
 
 #include <libOPHD/Map/MapCoordinate.h>
 
