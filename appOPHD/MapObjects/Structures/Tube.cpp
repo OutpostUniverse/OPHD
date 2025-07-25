@@ -10,6 +10,12 @@
 #include <stdexcept>
 
 
+Tube::Tube(Tile& tile) :
+	Tube{tile, ConnectorDir::Intersection}
+{
+}
+
+
 Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
 		StructureID::Tube,
