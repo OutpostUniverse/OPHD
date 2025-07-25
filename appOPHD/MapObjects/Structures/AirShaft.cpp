@@ -1,7 +1,8 @@
 #include "AirShaft.h"
 
-#include "../../Constants/Strings.h"
+#include "../StructureState.h"
 #include "../../Map/Tile.h"
+#include "../../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/EnumConnectorDir.h>

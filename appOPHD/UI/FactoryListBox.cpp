@@ -3,6 +3,7 @@
 #include "ProgressBar.h"
 #include "StructureColor.h"
 
+#include "../MapObjects/StructureState.h"
 #include "../MapObjects/Structures/Factory.h"
 
 #include "../Cache.h"

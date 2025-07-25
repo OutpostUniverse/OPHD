@@ -12,6 +12,7 @@
 #include "../Map/RouteFinder.h"
 #include "../Map/TileMap.h"
 
+#include "../MapObjects/StructureState.h"
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MineFacility.h"

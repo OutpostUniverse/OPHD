@@ -1,5 +1,6 @@
 #include "Structure.h"
 
+#include "StructureState.h"
 #include "StructureClass.h"
 #include "StructureIdToClass.h"
 

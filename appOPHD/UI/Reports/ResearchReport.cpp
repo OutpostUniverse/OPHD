@@ -4,7 +4,7 @@
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
 #include "../../StructureManager.h"
-
+#include "../../MapObjects/StructureState.h"
 #include "../../MapObjects/Structures/HotLaboratory.h"
 #include "../../MapObjects/Structures/Laboratory.h"
 

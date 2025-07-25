@@ -1,7 +1,5 @@
 #pragma once
 
-#include "StructureState.h"
-
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/MapObject.h>
 #include <libOPHD/Population/PopulationRequirements.h>
@@ -18,6 +16,7 @@ enum class ConnectorDir;
 enum class DisabledReason;
 enum class IdleReason;
 enum class StructureClass;
+enum class StructureState;
 struct StructureType;
 struct MapCoordinate;
 class Tile;
