@@ -10,6 +10,7 @@
 
 #include "../UI/StringTable.h"
 
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/StructureType.h>
@@ -93,7 +94,7 @@ Structure::Structure(StructureID id, Tile& tile, const std::string& initialActio
 	mStructureClass{structureIdToClass(id)},
 	mTile{tile},
 	mStructureState{StructureState::UnderConstruction},
-	mConnectorDirection{ConnectorDir::CONNECTOR_INTERSECTION},
+	mConnectorDirection{ConnectorDir::Intersection},
 	mDisabledReason{DisabledReason::None},
 	mIdleReason{IdleReason::None}
 {
@@ -495,7 +496,7 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"disabled_reason", static_cast<int>(mDisabledReason)},
 		{"idle_reason", static_cast<int>(mIdleReason)},
 		{"type", static_cast<std::size_t>(mStructureId)},
-		{"direction", mConnectorDirection},
+		{"direction", static_cast<int>(mConnectorDirection)},
 		{"integrity", mIntegrity},
 		{"pop0", mPopulationAvailable.workers},
 		{"pop1", mPopulationAvailable.scientists},

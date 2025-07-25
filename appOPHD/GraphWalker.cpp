@@ -4,8 +4,9 @@
 #include "Map/TileMap.h"
 #include "MapObjects/Structure.h"
 
-#include <libOPHD/DirectionOffset.h>
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDirection.h>
+#include <libOPHD/DirectionOffset.h>
 
 #include <libOPHD/Map/MapCoordinate.h>
 
@@ -21,18 +22,18 @@ using namespace NAS2D;
  */
 static bool checkSourceTubeAlignment(Structure* src, Direction direction)
 {
-	if (src->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
+	if (src->connectorDirection() == ConnectorDir::Intersection || src->connectorDirection() == ConnectorDir::Vertical)
 	{
 		return true;
 	}
 	else if (direction == Direction::East || direction == Direction::West)
 	{
-		if (src->connectorDirection() == ConnectorDir::CONNECTOR_EAST_WEST)
+		if (src->connectorDirection() == ConnectorDir::EastWest)
 			return true;
 	}
 	else if (direction == Direction::North || direction == Direction::South)
 	{
-		if (src->connectorDirection() == ConnectorDir::CONNECTOR_NORTH_SOUTH)
+		if (src->connectorDirection() == ConnectorDir::NorthSouth)
 			return true;
 	}
 
@@ -51,21 +52,21 @@ static bool validConnection(Structure* src, Structure* dst, Direction direction)
 	}
 	if (direction == Direction::Up || direction == Direction::Down)
 	{
-		return src->isConnector() && src->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL;
+		return src->isConnector() && src->connectorDirection() == ConnectorDir::Vertical;
 	}
 	else if (dst->isConnector())
 	{
-		if (dst->connectorDirection() == ConnectorDir::CONNECTOR_INTERSECTION || dst->connectorDirection() == ConnectorDir::CONNECTOR_VERTICAL)
+		if (dst->connectorDirection() == ConnectorDir::Intersection || dst->connectorDirection() == ConnectorDir::Vertical)
 		{
 			return !src->isConnector() || checkSourceTubeAlignment(src, direction);
 		}
 		else if (direction == Direction::East || direction == Direction::West)
 		{
-			return dst->connectorDirection() == ConnectorDir::CONNECTOR_EAST_WEST;
+			return dst->connectorDirection() == ConnectorDir::EastWest;
 		}
 		else if (direction == Direction::North || direction == Direction::South)
 		{
-			return dst->connectorDirection() == ConnectorDir::CONNECTOR_NORTH_SOUTH;
+			return dst->connectorDirection() == ConnectorDir::NorthSouth;
 		}
 	}
 	else

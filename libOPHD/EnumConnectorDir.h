@@ -4,13 +4,13 @@
 /**
  * Connector Direction.
  *
- * \note	CONNECTOR_INTERSECTION is intentionally set to '1' to prevent
+ * \note	Intersection is intentionally set to '1' to prevent
  *			breaking changes with save files.
  */
-enum ConnectorDir
+enum class ConnectorDir
 {
-	CONNECTOR_INTERSECTION = 1,
-	CONNECTOR_EAST_WEST,
-	CONNECTOR_NORTH_SOUTH,
-	CONNECTOR_VERTICAL // Functions as an intersection
+	Intersection = 1,
+	EastWest,
+	NorthSouth,
+	Vertical, // Functions as an intersection
 };

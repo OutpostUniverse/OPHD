@@ -4,6 +4,7 @@
 #include "../../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
+#include <libOPHD/EnumConnectorDir.h>
 
 #include <stdexcept>
 
@@ -23,11 +24,11 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 const std::string& Tube::getAnimationName(ConnectorDir dir, bool underground)
 {
 	return *(
-		(dir == ConnectorDir::CONNECTOR_INTERSECTION) ?
+		(dir == ConnectorDir::Intersection) ?
 			(underground ? &constants::UgTubeIntersection : &constants::AgTubeIntersection) :
-		(dir == ConnectorDir::CONNECTOR_EAST_WEST) ?
+		(dir == ConnectorDir::EastWest) ?
 			(underground ? &constants::UgTubeRight : &constants::AgTubeRight) :
-		(dir == ConnectorDir::CONNECTOR_NORTH_SOUTH) ?
+		(dir == ConnectorDir::NorthSouth) ?
 			(underground ? &constants::UgTubelLeft : &constants::AgTubeLeft) :
 		throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter."));
 }
