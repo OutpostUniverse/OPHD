@@ -9,9 +9,7 @@
 
 #pragma once
 
-#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumProductType.h>
-
 #include <libOPHD/Map/MapCoordinate.h>
 
 #include <cstddef>
@@ -24,6 +22,7 @@ class Warehouse;
 struct StorableResources;
 enum class StructureID;
 enum class Direction;
+enum class ConnectorDir;
 
 CommandCenter& firstCc();
 bool isCcPlaced();
