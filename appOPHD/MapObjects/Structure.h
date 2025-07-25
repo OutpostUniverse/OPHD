@@ -22,9 +22,6 @@ class Tile;
 class StringTable;
 
 
-/**
- * State of an individual Structure.
- */
 enum class StructureState
 {
 	UnderConstruction,
