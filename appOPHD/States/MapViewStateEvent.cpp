@@ -143,7 +143,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	for (const auto& direction : DirectionClockwise4)
 	{
 		auto& tile = mTileMap->getTile({point + direction, 0});
-		structureManager.addStructure(*new Tube(tile, ConnectorDir::Intersection), tile);
+		structureManager.create(StructureID::Tube, tile);
 	}
 
 	constexpr std::array initialStructures{
@@ -157,9 +157,8 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	for (const auto& [direction, structureId] : initialStructures)
 	{
 		auto& tile = mTileMap->getTile({point + direction, 0});
-		auto* structure = StructureCatalog::create(structureId, tile);
-		structureManager.addStructure(*structure, tile);
-		structures.push_back(structure);
+		auto& structure = structureManager.create(structureId, tile);
+		structures.push_back(&structure);
 	}
 
 	auto& seedFactory = *dynamic_cast<SeedFactory*>(structures[2]);
