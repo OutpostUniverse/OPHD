@@ -139,14 +139,11 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 
-	// Place initial tubes
-	for (const auto& direction : DirectionClockwise4)
-	{
-		auto& tile = mTileMap->getTile({point + direction, 0});
-		structureManager.create(StructureID::Tube, tile);
-	}
-
 	constexpr std::array initialStructures{
+		std::tuple{DirectionNorth, StructureID::Tube},
+		std::tuple{DirectionSouth, StructureID::Tube},
+		std::tuple{DirectionWest, StructureID::Tube},
+		std::tuple{DirectionEast, StructureID::Tube},
 		std::tuple{DirectionNorthWest, StructureID::SeedPower},
 		std::tuple{DirectionNorthEast, StructureID::CommandCenter},
 		std::tuple{DirectionSouthWest, StructureID::SeedFactory},
