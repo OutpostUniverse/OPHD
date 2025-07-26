@@ -304,8 +304,6 @@ private:
 	const NAS2D::Image mUiIcons{"ui/icons.png"}; /**< User interface icons. */
 	const NAS2D::Image mBackground{"sys/bg1.png"}; /**< Background image drawn behind the tile map. */
 
-	NAS2D::Rectangle<int> mMiniMapRect; /**< Area of the site map display. */
-
 	MapObjectPicker mMapObjectPicker;
 	IconGrid& mStructures;
 	IconGrid& mRobots;

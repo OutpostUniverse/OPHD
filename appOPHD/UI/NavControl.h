@@ -41,5 +41,4 @@ private:
 	NAS2D::Rectangle<int> mMoveWestIconRect;
 	NAS2D::Rectangle<int> mMoveUpIconRect;
 	NAS2D::Rectangle<int> mMoveDownIconRect;
-	NAS2D::Rectangle<int> mBottomUiRect;
 };

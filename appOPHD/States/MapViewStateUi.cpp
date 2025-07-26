@@ -42,9 +42,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 /**
  * Sets up the user interface elements
- *
- * \note	The explicit casts to int to truncate floating point values to force
- *			window positions to a whole number.
  */
 void MapViewState::initUi()
 {
@@ -67,9 +64,6 @@ void MapViewState::initUi()
 
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
-
-	const auto populationPanelX = std::min(675, renderer.size().x - mPopulationPanel.size().x);
-	mPopulationPanel.position({populationPanelX, constants::ResourceIconSize + 4 + constants::MarginTight});
 
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);
@@ -95,12 +89,8 @@ void MapViewState::initUi()
 
 	mNotificationWindow.hide();
 
-	const auto size = renderer.size().to<int>();
-	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
-
 	// BUTTONS
 
-	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnTurns.size(constants::MainButtonSize);
 	mBtnTurns.enabled(false);
 
@@ -157,8 +147,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mRobotDeploymentSummary.area({{8, size.y - constants::BottomUiHeight - 8 - 100}, {200, 100}});
 
 	// Mini Map
-	mMiniMapRect = {{size.x - 300 - constants::Margin, mBottomUiRect.position.y + constants::Margin}, {300, 150}};
-	mMiniMap->area(mMiniMapRect);
+	mMiniMap->area({{size.x - 300 - constants::Margin, mBottomUiRect.position.y + constants::Margin}, {300, 150}});
 
 	const auto navControlEndPoint = NAS2D::Point{size.x, mBottomUiRect.position.y};
 	mNavControl->position(navControlEndPoint - mNavControl->size());
@@ -169,7 +158,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Position UI Buttons
-	const auto buttonColumnOrigin = mMiniMapRect.position + NAS2D::Vector{-constants::MainButtonSize - constants::MarginTight, 0};
+	const auto buttonColumnOrigin = mMiniMap->position() + NAS2D::Vector{-constants::MainButtonSize - constants::MarginTight, 0};
 	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x - constants::MainButtonSize, buttonColumnOrigin.y});
 	mBtnToggleHeightmap.position({buttonColumnOrigin.x, buttonColumnOrigin.y});
 	mBtnToggleRouteOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize});
@@ -178,11 +167,10 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
 
 	// UI Panels
-	const auto mapObjectPickerArea = NAS2D::Rectangle<int>{
+	mMapObjectPicker.area({
 		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
 		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
-	};
-	mMapObjectPicker.area(mapObjectPickerArea);
+	});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
