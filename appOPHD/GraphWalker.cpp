@@ -14,7 +14,7 @@
 using namespace NAS2D;
 
 
-static bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
+bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
 {
 	if (srcConnectorDir == ConnectorDir::Vertical)
 	{
