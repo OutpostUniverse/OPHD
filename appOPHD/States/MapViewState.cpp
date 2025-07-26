@@ -270,7 +270,7 @@ MapViewState::~MapViewState()
 void MapViewState::initialize()
 {
 	StructureCatalog::init("StructureTypes.xml");
-	ProductCatalog::init("factory_products.xml");
+	ProductCatalog::init("ProductTypes.xml");
 
 	// UI
 	initUi();
