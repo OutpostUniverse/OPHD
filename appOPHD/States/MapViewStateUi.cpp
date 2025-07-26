@@ -95,9 +95,6 @@ void MapViewState::initUi()
 
 	mNotificationWindow.hide();
 
-	const auto size = renderer.size().to<int>();
-	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
-
 	// BUTTONS
 
 	mBtnTurns.size(constants::MainButtonSize);
