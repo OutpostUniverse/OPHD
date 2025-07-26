@@ -18,6 +18,7 @@ public:
 		int id;
 		std::string name;
 		std::string description;
+		int storageSpace;
 	};
 
 public:
