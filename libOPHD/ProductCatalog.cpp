@@ -19,7 +19,8 @@ namespace
 		return {
 			dictionary.get<int>("id"),
 			dictionary.get("name"),
-			dictionary.get("description")
+			dictionary.get("description"),
+			dictionary.get<int>("storageSpace"),
 		};
 	}
 }
