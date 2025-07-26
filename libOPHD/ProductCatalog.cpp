@@ -13,7 +13,7 @@ namespace
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*node);
 
-		const auto requiredFields = std::vector<std::string>{"id", "name", "description"};
+		const auto requiredFields = std::vector<std::string>{"id", "name", "description", "storageSpace"};
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
 		return {
