@@ -67,6 +67,6 @@ const ProductCatalog::Product& ProductCatalog::get(ProductType type)
 	}
 	catch (std::out_of_range&)
 	{
-		throw std::runtime_error("Product type (" + std::to_string(static_cast<int>(type)) + ") not found in Product Catalogue.");
+		throw std::runtime_error("Product type not found in Product Catalogue: " + std::to_string(static_cast<int>(type)) + " of " + std::to_string(mProductTable.size()));
 	}
 }
