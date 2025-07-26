@@ -3,7 +3,6 @@
 #include "Constants/Numbers.h"
 #include "GraphWalker.h"
 #include "IOHelper.h"
-#include "ProductPool.h"
 #include "StructureCatalog.h"
 #include "Map/Tile.h"
 #include "MapObjects/Structure.h"
