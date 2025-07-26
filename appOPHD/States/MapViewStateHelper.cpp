@@ -13,6 +13,7 @@
 #include "../Constants/Strings.h"
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
+#include "../GraphWalker.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 
@@ -122,23 +123,12 @@ bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnector
 	Structure* structure = tile.structure();
 	const auto connectorDirection = structure->connectorDirection();
 
-	if (sourceConnectorDir == ConnectorDir::Intersection)
-	{
-		return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::Vertical) ||
-			((dir == Direction::East || dir == Direction::West) ?
-				(connectorDirection == ConnectorDir::EastWest) :
-				(connectorDirection == ConnectorDir::NorthSouth));
-	}
-	else if (sourceConnectorDir == ConnectorDir::EastWest && (dir == Direction::East || dir == Direction::West))
-	{
-		return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::EastWest || connectorDirection == ConnectorDir::Vertical);
-	}
-	else if (sourceConnectorDir == ConnectorDir::NorthSouth && (dir == Direction::North || dir == Direction::South))
-	{
-		return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::NorthSouth || connectorDirection == ConnectorDir::Vertical);
-	}
+	// Only follow directions that are valid for source connector
+	if (!hasConnectorDirection(sourceConnectorDir, dir)) { return false; }
 
-	return false;
+	// Check if destination can receive a connection from the given direction
+	// (Relies on symmetry of connector directions)
+	return hasConnectorDirection(connectorDirection, dir);
 }
 
 
@@ -153,11 +143,8 @@ bool checkStructurePlacement(Tile& tile, Direction dir)
 		return false;
 	}
 
-	const auto connectorDirection = structure->connectorDirection();
-	return (connectorDirection == ConnectorDir::Intersection || connectorDirection == ConnectorDir::Vertical) ||
-		((dir == Direction::East || dir == Direction::West) ?
-			(connectorDirection == ConnectorDir::EastWest) :
-			(connectorDirection == ConnectorDir::NorthSouth));
+	// Rely on symmetry of connector direction for back connection
+	return hasConnectorDirection(structure->connectorDirection(), dir);
 }
 
 
