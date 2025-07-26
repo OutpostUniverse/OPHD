@@ -42,9 +42,6 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 /**
  * Sets up the user interface elements
- *
- * \note	The explicit casts to int to truncate floating point values to force
- *			window positions to a whole number.
  */
 void MapViewState::initUi()
 {
