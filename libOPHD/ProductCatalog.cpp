@@ -11,14 +11,9 @@ namespace
 {
 	ProductCatalog::Product parseProduct(const NAS2D::Xml::XmlElement* node)
 	{
-		NAS2D::Dictionary dictionary{};
-		for (const auto* element = node->firstChildElement(); element; element = element->nextSiblingElement())
-		{
-			dictionary.set(element->value(), element->getText());
-		}
+		const auto dictionary = NAS2D::attributesToDictionary(*node);
 
 		const auto requiredFields = std::vector<std::string>{"id", "name", "description"};
-
 		NAS2D::reportMissingOrUnexpected(dictionary.keys(), requiredFields, {});
 
 		return {
