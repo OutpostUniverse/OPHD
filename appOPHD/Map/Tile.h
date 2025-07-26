@@ -74,8 +74,6 @@ public:
 	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }
 
-	float movementCost() const;
-
 private:
 	TerrainType mIndex;
 
