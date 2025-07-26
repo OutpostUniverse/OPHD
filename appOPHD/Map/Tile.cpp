@@ -3,12 +3,9 @@
 #include "../MapObjects/Robot.h"
 #include "../MapObjects/Structure.h"
 
-#include "../Constants/Numbers.h"
-
 #include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
-#include <cfloat>
 #include <stdexcept>
 
 
@@ -143,38 +140,4 @@ Structure* Tile::structure() const
 Robot* Tile::robot() const
 {
 	return dynamic_cast<Robot*>(mapObject());
-}
-
-
-float Tile::movementCost() const
-{
-	if (index() == TerrainType::Impassable)
-	{
-		return FLT_MAX;
-	}
-
-	if (!empty() && hasStructure() && structure()->isRoad())
-	{
-		Structure& road = *structure();
-
-		if (!road.operational())
-		{
-			return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
-		}
-		else if (road.integrity() < constants::RoadIntegrityChange)
-		{
-			return 0.75f;
-		}
-		else
-		{
-			return 0.5f;
-		}
-	}
-
-	if (!empty() && (!hasStructure() || (!structure()->isMineFacility() && !structure()->isSmelter())))
-	{
-		return FLT_MAX;
-	}
-
-	return constants::RouteBaseCost * static_cast<float>(index()) + 1.0f;
 }

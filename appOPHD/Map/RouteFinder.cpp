@@ -5,6 +5,7 @@
 #include "TileMap.h"
 #include "../MapObjects/Structures/OreRefining.h"
 #include "../MicroPather/micropather.h"
+#include "../Constants/Numbers.h"
 
 #include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/DirectionOffset.h>
@@ -43,6 +44,40 @@ namespace
 
 		return std::ranges::min(routeList, {}, [](const Route& a) { return a.cost; });
 	}
+
+
+	float tileMovementCost(const Tile& tile)
+	{
+		if (tile.index() == TerrainType::Impassable)
+		{
+			return FLT_MAX;
+		}
+
+		if (!tile.empty() && tile.hasStructure() && tile.structure()->isRoad())
+		{
+			Structure& road = *tile.structure();
+
+			if (!road.operational())
+			{
+				return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
+			}
+			else if (road.integrity() < constants::RoadIntegrityChange)
+			{
+				return 0.75f;
+			}
+			else
+			{
+				return 0.5f;
+			}
+		}
+
+		if (!tile.empty() && (!tile.hasStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))
+		{
+			return FLT_MAX;
+		}
+
+		return constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
+	}
 }
 
 
@@ -80,7 +115,7 @@ public:
 			}
 
 			auto& adjacentTile = mTileMap.getTile({position, 0});
-			float cost = adjacentTile.movementCost();
+			float cost = tileMovementCost(adjacentTile);
 
 			micropather::StateCost nodeCost = {&adjacentTile, cost};
 			adjacent->push_back(nodeCost);
