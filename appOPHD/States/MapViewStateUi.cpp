@@ -167,11 +167,10 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
 
 	// UI Panels
-	const auto mapObjectPickerArea = NAS2D::Rectangle<int>{
+	mMapObjectPicker.area({
 		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
 		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
-	};
-	mMapObjectPicker.area(mapObjectPickerArea);
+	});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
