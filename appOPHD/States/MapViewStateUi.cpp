@@ -68,9 +68,6 @@ void MapViewState::initUi()
 	mFileIoDialog.anchored(true);
 	mFileIoDialog.hide();
 
-	const auto populationPanelX = std::min(675, renderer.size().x - mPopulationPanel.size().x);
-	mPopulationPanel.position({populationPanelX, constants::ResourceIconSize + 4 + constants::MarginTight});
-
 	mResourceBreakdownPanel.position({0, 22});
 	mResourceBreakdownPanel.playerResources(&mResourcesCount);
 
