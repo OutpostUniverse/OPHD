@@ -100,7 +100,6 @@ void MapViewState::initUi()
 
 	// BUTTONS
 
-	mBtnTurns.position(NAS2D::Point{mMiniMapRect.position.x - constants::MainButtonSize - constants::MarginTight, size.y - constants::Margin - constants::MainButtonSize});
 	mBtnTurns.size(constants::MainButtonSize);
 	mBtnTurns.enabled(false);
 
