@@ -14,9 +14,6 @@
 #include <stdexcept>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	const NAS2D::Image& robotImage(RobotTypeIndex robotTypeIndex)
@@ -54,7 +51,7 @@ RobotInspector::RobotInspector() :
 		mainFont.height() + constants::Margin}
 	};
 
-	auto buttonPosition = Vector{imageWidth,  mContentRect.position.y + mContentRect.size.y + constants::Margin};
+	auto buttonPosition = NAS2D::Vector{imageWidth,  mContentRect.position.y + mContentRect.size.y + constants::Margin};
 
 	btnCancelOrders.size(buttonSize);
 	add(btnCancelOrders, buttonPosition);
@@ -102,8 +99,8 @@ void RobotInspector::onCancel()
 
 void RobotInspector::drawClientArea(NAS2D::Renderer& renderer) const
 {
-	renderer.drawImage(robotImage(mRobot->type()), position() + Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
+	renderer.drawImage(robotImage(mRobot->type()), position() + NAS2D::Vector{constants::Margin, constants::Margin + sWindowTitleBarHeight});
 
-	const auto labelPosition = area().position + Vector{mContentRect.position.x, mContentRect.position.y};
+	const auto labelPosition = area().position + NAS2D::Vector{mContentRect.position.x, mContentRect.position.y};
 	drawLabelAndValueRightJustify(labelPosition, mContentRect.size.x, "Age", std::to_string(mRobot->fuelCellAge()));
 }
