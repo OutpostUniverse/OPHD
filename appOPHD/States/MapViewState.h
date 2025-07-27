@@ -349,10 +349,10 @@ private:
 	EventDelegate mQuitHandler;
 	EventDelegate mMapChangedHandler;
 
+	std::vector<Tile*> mTruckRouteOverlay;
 	std::vector<Tile*> mConnectednessOverlay;
 	std::vector<Tile*> mCommRangeOverlay;
 	std::vector<std::vector<Tile*>> mPoliceOverlays;
-	std::vector<Tile*> mTruckRouteOverlay;
 
 	ResourceInfoBar mResourceInfoBar;
 	RobotDeploymentSummary mRobotDeploymentSummary;
