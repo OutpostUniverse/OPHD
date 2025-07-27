@@ -161,6 +161,10 @@ void TextField::updateScrollPosition()
 	}
 
 	mCursorOffsetPixelX = cursorVirtualPixelX - mScrollOffsetPixelX;
+
+	// Show cursor immediately at new position (responsiveness)
+	mCursorBlinkTimer.reset();
+	mShowCursor = true;
 }
 
 
