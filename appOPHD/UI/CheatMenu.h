@@ -34,6 +34,8 @@ public:
 	CheatMenu(CheatDelegate cheatHandler);
 
 protected:
+	void onVisibilityChange(bool visible) override;
+
 	void onOkay();
 	void onEnter(TextField& textField);
 
