@@ -655,7 +655,9 @@ void MapViewState::nextTurn()
 	mResourceBreakdownPanel.previousResources(mResourcesCount);
 
 	updateConnectedness();
-	NAS2D::Utility<StructureManager>::get().update(mResourcesCount, mPopulationPool);
+
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	structureManager.update(mResourcesCount, mPopulationPool);
 
 	checkAgingStructures();
 	checkNewlyBuiltStructures();
@@ -695,7 +697,7 @@ void MapViewState::nextTurn()
 
 	updateOverlays();
 
-	const auto& factories = NAS2D::Utility<StructureManager>::get().getStructures<Factory>();
+	const auto& factories = structureManager.getStructures<Factory>();
 	for (auto* factory : factories)
 	{
 		factory->updateProduction();
