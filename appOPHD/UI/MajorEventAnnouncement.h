@@ -3,13 +3,14 @@
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 
+
 class WindowStack;
 struct ColonyShipLanders;
+
 
 class MajorEventAnnouncement : public Window
 {
 public:
-
 	enum class AnnouncementType
 	{
 		ColonyShipCrash,
