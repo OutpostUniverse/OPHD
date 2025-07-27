@@ -24,7 +24,7 @@ public:
 	using FileLoadDelegate = NAS2D::Delegate<void(const std::string&)>;
 	using FileSaveDelegate = NAS2D::Delegate<void(const std::string&)>;
 
-	FileIo(FileLoadDelegate, FileSaveDelegate = {});
+	FileIo(FileLoadDelegate fileLoadHandler, FileSaveDelegate fileSaveHandler = {});
 	~FileIo() override;
 
 	void showOpen(const std::string& directory);
