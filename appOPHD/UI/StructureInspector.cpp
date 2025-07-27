@@ -14,9 +14,6 @@
 #include <stdexcept>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	const std::map<DisabledReason, std::string> disabledReasonTable =
@@ -102,14 +99,14 @@ namespace
 		{
 			stringTable[{0, 3}].text = "Workers:";
 			stringTable[{1, 3}].text = std::to_string(populationAvailable.workers) + " / " + std::to_string(populationRequirements.workers);
-			stringTable[{1, 3}].textColor = populationAvailable.workers >= populationRequirements.workers ? Color::White : Color::Red;
+			stringTable[{1, 3}].textColor = populationAvailable.workers >= populationRequirements.workers ? NAS2D::Color::White : NAS2D::Color::Red;
 		}
 
 		if (populationRequirements.scientists > 0)
 		{
 			stringTable[{0, 4}].text = "Scientists:";
 			stringTable[{1, 4}].text = std::to_string(populationAvailable.scientists) + " / " + std::to_string(populationRequirements.scientists);
-			stringTable[{1, 4}].textColor = populationAvailable.scientists >= populationRequirements.scientists ? Color::White : Color::Red;
+			stringTable[{1, 4}].textColor = populationAvailable.scientists >= populationRequirements.scientists ? NAS2D::Color::White : NAS2D::Color::Red;
 		}
 
 		if (structure.hasCrime())
