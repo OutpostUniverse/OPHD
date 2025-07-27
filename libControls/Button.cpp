@@ -207,5 +207,3 @@ void Button::draw(NAS2D::Renderer& renderer) const
 		renderer.drawBoxFilled(mRect, NAS2D::Color{125, 125, 125, 100});
 	}
 }
-
-
