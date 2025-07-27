@@ -51,8 +51,8 @@ protected:
 	void onFileDelete();
 
 private:
-	FileLoadDelegate mFileLoadDelegate;
-	FileSaveDelegate mFileSaveDelegate;
+	FileLoadDelegate mFileLoadHandler;
+	FileSaveDelegate mFileSaveHandler;
 
 	FileOperation mMode;
 

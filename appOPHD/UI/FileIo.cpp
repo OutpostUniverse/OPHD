@@ -19,15 +19,15 @@
 using namespace NAS2D;
 
 
-FileIo::FileIo(FileLoadDelegate fileLoadDelegate) :
-	FileIo{fileLoadDelegate, FileSaveDelegate{}}
+FileIo::FileIo(FileLoadDelegate fileLoadHandler) :
+	FileIo{fileLoadHandler, FileSaveDelegate{}}
 {}
 
 
-FileIo::FileIo(FileLoadDelegate fileLoadDelegate, FileSaveDelegate fileSaveDelegate) :
+FileIo::FileIo(FileLoadDelegate fileLoadHandler, FileSaveDelegate fileSaveHandler) :
 	Window{"File I/O"},
-	mFileLoadDelegate{fileLoadDelegate},
-	mFileSaveDelegate{fileSaveDelegate},
+	mFileLoadHandler{fileLoadHandler},
+	mFileSaveHandler{fileSaveHandler},
 	mMode{FileOperation::Load},
 	mOpenSaveFolder{"Open Save Folder", {this, &FileIo::onOpenFolder}},
 	mCancel{"Cancel", {this, &FileIo::onClose}},
@@ -196,12 +196,12 @@ void FileIo::onFileIo()
 {
 	if(mMode == FileOperation::Save)
 	{
-		if(mFileSaveDelegate) { mFileSaveDelegate(mFileName.text()); }
+		if(mFileSaveHandler) { mFileSaveHandler(mFileName.text()); }
 	}
 
 	if(mMode == FileOperation::Load)
 	{
-		mFileLoadDelegate(mFileName.text());
+		mFileLoadHandler(mFileName.text());
 	}
 	mFileName.clear();
 	mFileOperation.enabled(false);
