@@ -26,7 +26,7 @@ public:
 	StructureListBox(SelectionChangedDelegate selectionChangedHandler = {});
 
 	void addItem(Structure* structure, std::string stateDescription = std::string{});
-	void setSelected(const Structure*);
+	void setSelected(const Structure* structure);
 
 	const Structure* selectedStructure() const;
 	Structure* selectedStructure();
@@ -36,7 +36,7 @@ public:
 	void clear();
 
 protected:
-	void add(Structure* s, std::string stateDescription);
+	void add(Structure* structure, std::string stateDescription);
 
 	virtual std::size_t count() const override;
 
