@@ -29,7 +29,7 @@ public:
 private:
 	void onClose();
 
-	MajorEventAnnouncement::AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders);
+	AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders);
 
 	const NAS2D::Image& mHeader;
 	std::string mMessage;
