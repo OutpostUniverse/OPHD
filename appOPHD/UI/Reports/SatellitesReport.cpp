@@ -64,11 +64,6 @@ void SatellitesReport::onResize()
 }
 
 
-void SatellitesReport::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
-{
-}
-
-
 void SatellitesReport::draw(NAS2D::Renderer& renderer) const
 {
 	renderer.drawImage(imageNotImplemented, area().startPoint() + Vector<int>{10, 10});

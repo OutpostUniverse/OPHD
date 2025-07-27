@@ -62,11 +62,6 @@ void SpaceportsReport::onResize()
 }
 
 
-void SpaceportsReport::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
-{
-}
-
-
 void SpaceportsReport::draw(NAS2D::Renderer& renderer) const
 {
 	renderer.drawImage(imageNotImplemented, area().startPoint() + Vector<int>{10, 10});
