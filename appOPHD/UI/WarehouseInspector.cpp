@@ -24,9 +24,9 @@ WarehouseInspector::WarehouseInspector() :
 }
 
 
-void WarehouseInspector::warehouse(const Warehouse* w)
+void WarehouseInspector::warehouse(const Warehouse* warehouse)
 {
-	mWarehouse = w;
+	mWarehouse = warehouse;
 }
 
 
