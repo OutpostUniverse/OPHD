@@ -367,10 +367,10 @@ void MapViewState::setOverlay(std::vector<Tile*>& tileList, Tile::Overlay overla
 
 void MapViewState::clearOverlays()
 {
+	clearOverlay(mTruckRouteOverlay);
 	clearOverlay(mConnectednessOverlay);
 	clearOverlay(mCommRangeOverlay);
 	clearOverlay(mPoliceOverlays[static_cast<std::size_t>(mMapView->currentDepth())]);
-	clearOverlay(mTruckRouteOverlay);
 }
 
 

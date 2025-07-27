@@ -1316,6 +1316,23 @@ void MapViewState::updateRobots()
 }
 
 
+void MapViewState::updateRouteOverlay()
+{
+	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
+
+	mTruckRouteOverlay.clear();
+	for (auto& [mineFacility, route] : routeTable)
+	{
+		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; }
+
+		for (auto* tile : route.path)
+		{
+			mTruckRouteOverlay.push_back(tile);
+		}
+	}
+}
+
+
 /**
  * Checks the connectedness of all tiles surrounding
  * the Command Center.
