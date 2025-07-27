@@ -27,12 +27,13 @@ namespace
 }
 
 
-TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedHandler) :
+TextField::TextField(std::size_t maxCharacters, TextChangedDelegate textChangedHandler, TextChangedDelegate enterHandler) :
 	mFont{getDefaultFont()},
 	mSkinNormal{loadRectangleSkin("ui/skin/textbox_normal")},
 	mSkinFocus{loadRectangleSkin("ui/skin/textbox_highlight")},
 	mMaxCharacters{maxCharacters},
-	mTextChangedHandler{textChangedHandler}
+	mTextChangedHandler{textChangedHandler},
+	mEnterHandler{enterHandler}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &TextField::onMouseDown});
@@ -319,6 +320,7 @@ void TextField::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*rep
 		// Enter/Return (ignore)
 		case NAS2D::KeyCode::Enter:
 		case NAS2D::KeyCode::KeypadEnter:
+			if (mEnterHandler) { mEnterHandler(*this); }
 			break;
 
 		// Regular keys
