@@ -39,6 +39,19 @@ namespace
 	};
 
 	const auto maxCheatLength = std::ranges::max(std::views::transform(std::views::keys(cheatCodeTable), &std::string::size));
+
+
+	CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode)
+	{
+		try
+		{
+			return stringToEnum(cheatCodeTable, cheatCode);
+		}
+		catch (const std::runtime_error&)
+		{
+			return CheatMenu::CheatCode::Invalid;
+		}
+	}
 }
 
 
@@ -69,17 +82,4 @@ void CheatMenu::onOkay()
 	hide();
 	// Transfer focus back to text field (from "Okay" button)
 	bringToFront(&txtCheatCode);
-}
-
-
-CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
-{
-	try
-	{
-		return stringToEnum(cheatCodeTable, cheatCode);
-	}
-	catch (const std::runtime_error&)
-	{
-		return CheatCode::Invalid;
-	}
 }

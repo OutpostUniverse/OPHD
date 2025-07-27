@@ -37,8 +37,6 @@ public:
 protected:
 	void onOkay();
 
-	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
-
 private:
 	CheatDelegate mCheatHandler;
 
