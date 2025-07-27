@@ -16,9 +16,6 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 FileIo::FileIo(FileLoadDelegate fileLoadHandler, FileSaveDelegate fileSaveHandler) :
 	Window{"File I/O"},
 	mFileLoadHandler{fileLoadHandler},
@@ -31,7 +28,7 @@ FileIo::FileIo(FileLoadDelegate fileLoadHandler, FileSaveDelegate fileSaveHandle
 	mFileName{50, {this, &FileIo::onFileNameChange}},
 	mListBox{{this, &FileIo::onFileSelect}}
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseDoubleClick().connect({this, &FileIo::onDoubleClick});
 	eventHandler.keyDown().connect({this, &FileIo::onKeyDown});
 
@@ -64,7 +61,7 @@ FileIo::FileIo(FileLoadDelegate fileLoadHandler, FileSaveDelegate fileSaveHandle
 
 FileIo::~FileIo()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseDoubleClick().disconnect({this, &FileIo::onDoubleClick});
 	eventHandler.keyDown().disconnect({this, &FileIo::onKeyDown});
 }
@@ -92,9 +89,9 @@ void FileIo::showSave(const std::string& directory)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
-	mScanPath = (Utility<Filesystem>::get().prefPath() / directory).string();
+	mScanPath = (NAS2D::Utility<NAS2D::Filesystem>::get().prefPath() / directory).string();
 
-	const auto& filesystem = Utility<Filesystem>::get();
+	const auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::get();
 	auto dirList = filesystem.directoryList(directory);
 	std::sort(dirList.begin(), dirList.end());
 
@@ -109,7 +106,7 @@ void FileIo::scanDirectory(const std::string& directory)
 }
 
 
-void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
+void FileIo::onDoubleClick(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
 
@@ -126,18 +123,18 @@ void FileIo::onDoubleClick(MouseButton /*button*/, NAS2D::Point<int> position)
 /**
  * Event handler for Key Down.
  */
-void FileIo::onKeyDown(KeyCode key, KeyModifier /*mod*/, bool /*repeat*/)
+void FileIo::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier /*mod*/, bool /*repeat*/)
 {
 	if (!visible()) { return; } // ignore key presses when hidden.
 
-	if (key == KeyCode::Enter || key == KeyCode::KeypadEnter)
+	if (key == NAS2D::KeyCode::Enter || key == NAS2D::KeyCode::KeypadEnter)
 	{
 		if (!mFileName.isEmpty())
 		{
 			onFileIo();
 		}
 	}
-	else if (key == KeyCode::Escape)
+	else if (key == NAS2D::KeyCode::Escape)
 	{
 		onClose();
 	}
@@ -211,7 +208,7 @@ void FileIo::onFileDelete()
 	{
 		if(doYesNoMessage(constants::WindowFileIoTitleDelete, "Are you sure you want to delete " + mFileName.text() + "?"))
 		{
-			Utility<Filesystem>::get().del(filename);
+			NAS2D::Utility<NAS2D::Filesystem>::get().del(filename);
 		}
 	}
 	catch(const std::exception& e)
