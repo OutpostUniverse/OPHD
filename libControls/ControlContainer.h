@@ -14,11 +14,6 @@ namespace NAS2D
 }
 
 
-/**
- * Control Object that contains other Control objects.
- *
- * Generally not intended to be used by itself.
- */
 class ControlContainer : public Control
 {
 protected:

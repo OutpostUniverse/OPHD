@@ -39,9 +39,6 @@ void ControlContainer::add(Control& control, NAS2D::Vector<int> offset)
 }
 
 
-/**
- * Drops all controls.
- */
 void ControlContainer::clear()
 {
 	mControls.clear();
@@ -63,13 +60,6 @@ void ControlContainer::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-/**
- * Updates all Controls in the ControlContainer.
- * 
- * \note	This function can be overridden in derived types
- *			but if done, don't forget to update all contained
- *			Controls.
- */
 void ControlContainer::update()
 {
 	if (!visible()) { return; }
