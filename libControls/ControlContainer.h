@@ -29,8 +29,6 @@ protected:
 	void add(Control& control, NAS2D::Vector<int> offset);
 	void clear();
 
-	void bringToFront(Control* control);
-
 	void update() override;
 
 protected:

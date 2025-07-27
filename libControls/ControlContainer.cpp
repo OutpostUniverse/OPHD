@@ -52,22 +52,6 @@ void ControlContainer::clear()
 }
 
 
-void ControlContainer::bringToFront(Control* control)
-{
-	auto control_iterator = std::find(mControls.begin(), mControls.end(), control);
-	if (control_iterator == mControls.end())
-	{
-		throw std::runtime_error("ControlContainer::bringToFront(): Control is not managed by this container.");
-	}
-
-	mControls.back()->hasFocus(false);
-
-	mControls.erase(control_iterator);
-	mControls.push_back(control);
-	control->hasFocus(true);
-}
-
-
 void ControlContainer::onVisibilityChange(bool visible)
 {
 	for (auto control : mControls) { control->visible(visible); }
@@ -83,21 +67,8 @@ void ControlContainer::onMove(NAS2D::Vector<int> displacement)
 }
 
 
-void ControlContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
+void ControlContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
 {
-	if (!visible()) { return; }
-
-	Control* control = nullptr;
-	for (auto it = mControls.rbegin(); it != mControls.rend(); ++it)
-	{
-		control = (*it);
-		if (control->visible() && control->area().contains(position))
-		{
-			if (control == mControls.back()) { return; }
-			bringToFront(control);
-			return;
-		}
-	}
 }
 
 
