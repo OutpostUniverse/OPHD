@@ -10,19 +10,6 @@
 
 namespace
 {
-	enum class CheatCode
-	{
-		AddResources,
-		AddFood,
-		AddRobots,
-		AddChildren,
-		AddStudents,
-		AddWorkers,
-		AddScientists,
-		AddRetired,
-		Invalid
-	};
-
 	const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
 	{
 		{"goldrush", CheatMenu::CheatCode::AddResources },         // Add 1000 of each resource.
