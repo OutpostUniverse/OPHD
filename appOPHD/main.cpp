@@ -28,11 +28,8 @@
 #include <fstream>
 
 
-using namespace NAS2D;
-
-
 namespace {
-	void dumpGraphicsInfo(RendererOpenGL& renderer)
+	void dumpGraphicsInfo(NAS2D::RendererOpenGL& renderer)
 	{
 		std::vector<std::string> info{
 			"- OpenGL System Info -",
@@ -65,15 +62,15 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		auto& filesystem = Utility<Filesystem>::init<Filesystem>("OutpostHD", "LairWorks");
+		auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::init<NAS2D::Filesystem>("OutpostHD", "LairWorks");
 		filesystem.mountSoftFail("data");
 		filesystem.mount(filesystem.findInParents("data", filesystem.basePath()));
 		filesystem.mountReadWrite(filesystem.prefPath());
 
 		filesystem.makeDirectory(constants::SaveGamePath);
 
-		Configuration& cf = Utility<Configuration>::init(
-			std::map<std::string, Dictionary>{
+		NAS2D::Configuration& cf = NAS2D::Utility<NAS2D::Configuration>::init(
+			std::map<std::string, NAS2D::Dictionary>{
 				{
 					"graphics",
 					{{
@@ -117,17 +114,17 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			Utility<Mixer>::init<MixerSDL>();
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>();
 		}
 		catch (...)
 		{
-			Utility<Mixer>::init<MixerNull>();
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerNull>();
 		}
 
 		WindowEventWrapper windowEventWrapper;
 
 		std::cout << "Starting OpenGL Renderer:" << std::endl;
-		auto& renderer = Utility<Renderer>::init<RendererOpenGL>("OutpostHD");
+		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::init<NAS2D::RendererOpenGL>("OutpostHD");
 
 		dumpGraphicsInfo(renderer);
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
@@ -150,9 +147,9 @@ int main(int argc, char *argv[])
 		}
 
 		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
-		Utility<Mixer>::get().playMusic(*trackMars);
+		NAS2D::Utility<NAS2D::Mixer>::get().playMusic(*trackMars);
 
-		StateManager stateManager;
+		NAS2D::StateManager stateManager;
 		stateManager.forceStopAudio(false);
 
 		if (argc > 1)
@@ -164,7 +161,7 @@ int main(int argc, char *argv[])
 				stateManager.setState(new MainMenuState());
 			}
 
-			Utility<Mixer>::get().stopMusic();
+			NAS2D::Utility<NAS2D::Mixer>::get().stopMusic();
 
 			stateManager.setState(new GameState(filename));
 		}
@@ -191,13 +188,13 @@ int main(int argc, char *argv[])
 	}
 
 	imageCache.clear();
-	Utility<Renderer>::clear();
+	NAS2D::Utility<NAS2D::Renderer>::clear();
 	std::cout << "OpenGL Renderer Terminated." << std::endl;
-	Utility<EventHandler>::clear();
+	NAS2D::Utility<NAS2D::EventHandler>::clear();
 	std::cout << "EventHandler Terminated." << std::endl;
-	Utility<Mixer>::clear();
-	Utility<Configuration>::clear();
-	Utility<Filesystem>::clear();
+	NAS2D::Utility<NAS2D::Mixer>::clear();
+	NAS2D::Utility<NAS2D::Configuration>::clear();
+	NAS2D::Utility<NAS2D::Filesystem>::clear();
 
 	#ifdef NDEBUG
 	// Reset to stdout again (prevents crashes on exit)
