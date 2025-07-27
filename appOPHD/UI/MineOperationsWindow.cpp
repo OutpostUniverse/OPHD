@@ -17,9 +17,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	const auto truckAvailabilityOffset = NAS2D::Vector{148, 80};

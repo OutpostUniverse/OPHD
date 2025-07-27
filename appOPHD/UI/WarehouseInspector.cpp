@@ -10,9 +10,6 @@
 #include <libOPHD/ProductCatalog.h>
 
 
-using namespace NAS2D;
-
-
 WarehouseInspector::WarehouseInspector() :
 	Window{constants::WindowWarehouseInspector},
 	btnClose{"Okay", {this, &WarehouseInspector::onClose}}

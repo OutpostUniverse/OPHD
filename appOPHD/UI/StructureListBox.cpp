@@ -12,9 +12,6 @@
 #include <stdexcept>
 
 
-using namespace NAS2D;
-
-
 StructureListBox::StructureListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{{0, 30}, selectionChangedHandler},
 	mFont{fontCache.load(constants::FontPrimary, 12)},
