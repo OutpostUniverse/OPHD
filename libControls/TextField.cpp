@@ -140,19 +140,19 @@ void TextField::update()
 
 void TextField::updateScrollPosition()
 {
-	const auto cursorX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
+	const auto cursorVirtualPixelX = mFont.width(std::string_view{mText}.substr(0, mCursorCharacterIndex));
 	const auto viewWidth = mRect.size.x - fieldPadding * 2;
 
 	// Check if cursor is after visible area
-	if (mScrollOffsetPixelX <= cursorX - viewWidth)
+	if (mScrollOffsetPixelX <= cursorVirtualPixelX - viewWidth)
 	{
-		mScrollOffsetPixelX = cursorX - viewWidth;
+		mScrollOffsetPixelX = cursorVirtualPixelX - viewWidth;
 	}
 
 	// Check if cursor is before visible area
-	if (mScrollOffsetPixelX >= cursorX)
+	if (mScrollOffsetPixelX >= cursorVirtualPixelX)
 	{
-		mScrollOffsetPixelX = cursorX - viewWidth / 2;
+		mScrollOffsetPixelX = cursorVirtualPixelX - viewWidth / 2;
 	}
 
 	if (mScrollOffsetPixelX < 0)
@@ -160,7 +160,11 @@ void TextField::updateScrollPosition()
 		mScrollOffsetPixelX = 0;
 	}
 
-	mCursorPixelX = mRect.position.x + fieldPadding + cursorX - mScrollOffsetPixelX;
+	mCursorOffsetPixelX = cursorVirtualPixelX - mScrollOffsetPixelX;
+
+	// Show cursor immediately at new position (responsiveness)
+	mCursorBlinkTimer.reset();
+	mShowCursor = true;
 }
 
 
@@ -188,11 +192,22 @@ void TextField::drawCursor(NAS2D::Renderer& renderer) const
 	{
 		if (mShowCursor)
 		{
-			const auto startPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + fieldPadding};
-			const auto endPosition = NAS2D::Point{mCursorPixelX, mRect.position.y + mRect.size.y - fieldPadding - 1};
+			const auto startPosition = mRect.position + NAS2D::Vector{mCursorOffsetPixelX + fieldPadding, fieldPadding};
+			const auto endPosition = mRect.position + NAS2D::Vector{mCursorOffsetPixelX + fieldPadding, mRect.size.y - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}
+	}
+}
+
+
+void TextField::onVisibilityChange(bool visible)
+{
+	if (visible)
+	{
+		// Show cursor immediately (responsiveness)
+		mCursorBlinkTimer.reset();
+		mShowCursor = true;
 	}
 }
 
