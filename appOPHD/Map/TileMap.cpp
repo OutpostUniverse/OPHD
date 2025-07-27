@@ -19,9 +19,6 @@
 #include <array>
 
 
-using namespace NAS2D;
-
-
 namespace {
 	const std::string MapTerrainExtension = "_a.png";
 	const auto MapSize = NAS2D::Vector{300, 150};
@@ -162,7 +159,7 @@ Tile& TileMap::getTile(const MapCoordinate& position)
 
 void TileMap::buildTerrainMap(const std::string& path)
 {
-	const Image heightmap(path + MapTerrainExtension);
+	const NAS2D::Image heightmap(path + MapTerrainExtension);
 
 	mTileMap.resize(linearSize());
 
@@ -176,7 +173,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 */
 	for (int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for (const auto point : PointInRectangleRange{Rectangle{{0, 0}, mSizeInTiles}})
+		for (const auto point : NAS2D::PointInRectangleRange{NAS2D::Rectangle{{0, 0}, mSizeInTiles}})
 		{
 			auto color = heightmap.pixelColor(point);
 			auto& tile = getTile({point, depth});
@@ -212,7 +209,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// underground and excavated or surface and bulldozed.
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (const auto point : PointInRectangleRange{Rectangle{{0, 0}, mSizeInTiles}})
+		for (const auto point : NAS2D::PointInRectangleRange{NAS2D::Rectangle{{0, 0}, mSizeInTiles}})
 		{
 			auto& tile = getTile({point, depth});
 			if (
@@ -254,7 +251,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		tile.placeOreDeposit(oreDeposit);
 		tile.bulldoze();
 
-		mOreDepositLocations.push_back(Point{x, y});
+		mOreDepositLocations.push_back(NAS2D::Point{x, y});
 	}
 
 	// Tiles indexes
