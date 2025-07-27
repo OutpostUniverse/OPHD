@@ -35,6 +35,7 @@ public:
 
 protected:
 	void onOkay();
+	void onEnter(TextField& textField);
 
 private:
 	CheatDelegate mCheatHandler;

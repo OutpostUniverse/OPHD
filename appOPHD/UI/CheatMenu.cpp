@@ -48,7 +48,7 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 	Window{"Cheating"},
 	mCheatHandler{cheatHandler},
 	mLabelCheatCode{"Code:"},
-	txtCheatCode{maxCheatLength},
+	txtCheatCode{maxCheatLength, {}, {this, &CheatMenu::onEnter}},
 	btnOkay{"Okay", {this, &CheatMenu::onOkay}}
 {
 	btnOkay.size(btnOkay.size() + NAS2D::Vector{6, 2});
@@ -71,4 +71,10 @@ void CheatMenu::onOkay()
 	hide();
 	// Transfer focus back to text field (from "Okay" button)
 	bringToFront(&txtCheatCode);
+}
+
+
+void CheatMenu::onEnter(TextField& /*textField*/)
+{
+	onOkay();
 }

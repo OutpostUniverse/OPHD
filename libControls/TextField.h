@@ -51,7 +51,7 @@ public:
 	using TextChangedDelegate = NAS2D::Delegate<void(TextField&)>;
 
 public:
-	TextField(std::size_t maxCharacters = 0, TextChangedDelegate textChangedHandler = {});
+	TextField(std::size_t maxCharacters = 0, TextChangedDelegate textChangedHandler = {}, TextChangedDelegate enterHandler = {});
 	~TextField() override;
 
 	void text(const std::string& text);
@@ -89,6 +89,7 @@ private:
 	std::size_t mMaxCharacters = 0;
 	std::string mText;
 	TextChangedDelegate mTextChangedHandler;
+	TextChangedDelegate mEnterHandler;
 
 	NAS2D::Timer mCursorBlinkTimer;
 	std::size_t mCursorCharacterIndex = 0;
