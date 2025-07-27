@@ -28,7 +28,7 @@ public:
 	FactoryListBox(SelectionChangedDelegate selectionChangedHandler = {});
 
 	void addItem(Factory* factory);
-	void setSelected(Factory*);
+	void setSelected(Factory* factory);
 
 	Factory* selectedFactory();
 
