@@ -28,9 +28,6 @@
 #include <algorithm>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	std::string getStructureDescription(const Structure& structure)
@@ -466,7 +463,7 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 void MineReport::update()
 {
 	ControlContainer::update();
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	draw(renderer);
 }
 
