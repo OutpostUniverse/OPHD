@@ -34,7 +34,7 @@ protected:
 	void drawTitleBar(NAS2D::Renderer& renderer) const;
 	virtual void drawClientArea(NAS2D::Renderer& renderer) const;
 
-	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 

@@ -22,6 +22,7 @@ class ResourceInfoBar : public ControlContainer
 {
 public:
 	ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food);
+	~ResourceInfoBar() override;
 
 	bool isResourcePanelVisible() const;
 	bool isPopulationPanelVisible() const;
@@ -32,7 +33,7 @@ public:
 	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
-	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position) override;
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
 	int totalStorage(StructureClass, int) const;
 

@@ -18,6 +18,7 @@ Window::Window(std::string newTitle, const NAS2D::Font& titleFont) :
 	title(newTitle);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &Window::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &Window::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Window::onMouseMove});
 }
@@ -26,6 +27,7 @@ Window::Window(std::string newTitle, const NAS2D::Font& titleFont) :
 Window::~Window()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect({this, &Window::onMouseDown});
 	eventHandler.mouseButtonUp().disconnect({this, &Window::onMouseUp});
 	eventHandler.mouseMotion().disconnect({this, &Window::onMouseMove});
 }

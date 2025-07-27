@@ -1,7 +1,5 @@
 #include "ControlContainer.h"
 
-#include <NAS2D/Utility.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
@@ -17,13 +15,11 @@ ControlContainer::ControlContainer() : ControlContainer{{}}
 ControlContainer::ControlContainer(std::vector<Control*> controls) :
 	mControls{std::move(controls)}
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ControlContainer::onMouseDown});
 }
 
 
 ControlContainer::~ControlContainer()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ControlContainer::onMouseDown});
 }
 
 
@@ -64,11 +60,6 @@ void ControlContainer::onMove(NAS2D::Vector<int> displacement)
 	{
 		control->position(control->position() + displacement);
 	}
-}
-
-
-void ControlContainer::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
-{
 }
 
 

@@ -17,6 +17,7 @@
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
@@ -94,6 +95,16 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Popul
 	mToolTip.add(mTooltipFoodStorage, constants::ToolTipFoodStorage);
 	mToolTip.add(mTooltipEnergy, constants::ToolTipEnergy);
 	mToolTip.add(mTooltipPopulation, constants::ToolTipPopulation);
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &ResourceInfoBar::onMouseDown});
+}
+
+
+ResourceInfoBar::~ResourceInfoBar()
+{
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect({this, &ResourceInfoBar::onMouseDown});
 }
 
 
