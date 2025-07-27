@@ -11,9 +11,6 @@
 #include <libOPHD/Map/MapCoordinate.h>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	bool canConnect(Structure& src, Structure& dst, Direction direction)
