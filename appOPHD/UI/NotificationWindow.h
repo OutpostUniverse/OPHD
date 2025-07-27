@@ -24,11 +24,12 @@ public:
 
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
-private:
+protected:
 	void onVisibilityChange(bool isVisible) override;
 	void onOkayClicked();
 	void onTakeMeThereClicked();
 
+private:
 	const NAS2D::Image& mIcons;
 
 	NotificationArea::Notification mNotification;
