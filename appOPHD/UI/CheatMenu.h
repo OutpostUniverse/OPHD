@@ -30,7 +30,7 @@ public:
 		Invalid
 	};
 
-	using CheatDelegate = NAS2D::Delegate<void(const std::string&)>;
+	using CheatDelegate = NAS2D::Delegate<void(CheatCode)>;
 
 	CheatMenu(CheatDelegate cheatHandler);
 

@@ -64,7 +64,7 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 
 void CheatMenu::onOkay()
 {
-	if (mCheatHandler) { mCheatHandler(txtCheatCode.text()); }
+	if (mCheatHandler) { mCheatHandler(stringToCheatCode(txtCheatCode.text())); }
 	txtCheatCode.clear();
 	hide();
 	// Transfer focus back to text field (from "Okay" button)
