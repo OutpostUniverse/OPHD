@@ -35,5 +35,5 @@ protected:
 private:
 	const NAS2D::Image& mHeader;
 	std::string mMessage;
-	Button btnClose{"Okay", {this, &MajorEventAnnouncement::onClose}};
+	Button btnClose;
 };
