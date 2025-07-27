@@ -7,9 +7,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 SatellitesReport::SatellitesReport(TakeMeThereDelegate takeMeThereHandler) :
 	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
@@ -53,7 +50,7 @@ void SatellitesReport::refresh()
 
 void SatellitesReport::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	draw(renderer);
 	ControlContainer::update();
 }
@@ -66,7 +63,7 @@ void SatellitesReport::onResize()
 
 void SatellitesReport::draw(NAS2D::Renderer& renderer) const
 {
-	renderer.drawImage(imageNotImplemented, area().startPoint() + Vector<int>{10, 10});
-	renderer.drawText(fontBigBold, "Satellites Report", area().startPoint() + Vector<int>{148, 10}, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "This panel intentionally left blank.", area().startPoint() + Vector<int>{148, 20 + fontBigBold.height()}, constants::PrimaryTextColor);
+	renderer.drawImage(imageNotImplemented, area().startPoint() + NAS2D::Vector<int>{10, 10});
+	renderer.drawText(fontBigBold, "Satellites Report", area().startPoint() + NAS2D::Vector<int>{148, 10}, constants::PrimaryTextColor);
+	renderer.drawText(fontMedium, "This panel intentionally left blank.", area().startPoint() + NAS2D::Vector<int>{148, 20 + fontBigBold.height()}, constants::PrimaryTextColor);
 }

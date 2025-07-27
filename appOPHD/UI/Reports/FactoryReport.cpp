@@ -23,9 +23,6 @@
 #include <array>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	constexpr auto viewFilterButtonSize = NAS2D::Vector{104, 26};
@@ -42,7 +39,7 @@ namespace
 
 	const NAS2D::Image& productImage(ProductType productType)
 	{
-		static const std::map<ProductType, const Image*> productImages{
+		static const std::map<ProductType, const NAS2D::Image*> productImages{
 			{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
 			{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
 			{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
@@ -103,7 +100,7 @@ FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
 	add(btnShowDisabled, viewFilterOriginRow2 + viewFilterSpacing * 2);
 	btnShowDisabled.type(Button::Type::Toggle);
 
-	const auto positionX = Utility<Renderer>::get().size().x - 110;
+	const auto positionX = NAS2D::Utility<NAS2D::Renderer>::get().size().x - 110;
 	add(btnIdle, {positionX, 35});
 	btnIdle.type(Button::Type::Toggle);
 
@@ -166,7 +163,7 @@ void FactoryReport::fillLists()
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
 	{
 		lstFactoryList.addItem(factory);
 	}
@@ -190,7 +187,7 @@ void FactoryReport::fillFactoryList(ProductType type)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
 	{
 		if (factory->productType() == type)
 		{
@@ -209,7 +206,7 @@ void FactoryReport::fillFactoryList(bool surface)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
 	{
 		if (surface && (factory->name() == constants::SurfaceFactory || factory->name() == constants::SeedFactory))
 		{
@@ -232,7 +229,7 @@ void FactoryReport::fillFactoryList(StructureState state)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
 	{
 		if (factory->state() == state)
 		{
@@ -448,7 +445,7 @@ void FactoryReport::onProductFilterSelectionChange()
 }
 
 
-void FactoryReport::drawDetailPane(Renderer& renderer) const
+void FactoryReport::drawDetailPane(NAS2D::Renderer& renderer) const
 {
 	const auto startPoint = detailPanelRect.position;
 	renderer.drawImage(*factoryImage, startPoint + NAS2D::Vector{0, 25});
@@ -489,7 +486,7 @@ void FactoryReport::drawDetailPane(Renderer& renderer) const
 }
 
 
-void FactoryReport::drawProductPane(Renderer& renderer) const
+void FactoryReport::drawProductPane(NAS2D::Renderer& renderer) const
 {
 	const auto originLeft = detailPanelRect.position + NAS2D::Vector{0, 180};
 	renderer.drawText(fontBigBold, "Production", originLeft, constants::PrimaryTextColor);
@@ -530,7 +527,7 @@ void FactoryReport::drawProductPane(Renderer& renderer) const
 void FactoryReport::update()
 {
 	ControlContainer::update();
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	draw(renderer);
 }
 

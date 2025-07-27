@@ -21,9 +21,6 @@
 class Structure;
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};
@@ -36,7 +33,7 @@ namespace
 	template <typename Predicate>
 	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
 	{
-		const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+		const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
 
 		std::vector<Warehouse*> output;
 		std::copy_if(warehouses.begin(), warehouses.end(), std::back_inserter(output), predicate);
@@ -87,19 +84,19 @@ WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
 
 	btnTakeMeThere.size({140, 30});
 
-	Utility<EventHandler>::get().mouseDoubleClick().connect({this, &WarehouseReport::onDoubleClick});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseDoubleClick().connect({this, &WarehouseReport::onDoubleClick});
 
 	fillLists();
 
 	add(btnTakeMeThere, {10, 10});
 	add(lstStructures, structureListBoxOffset);
-	add(lstProducts, {Utility<Renderer>::get().center().x + 10, 173});
+	add(lstProducts, {NAS2D::Utility<NAS2D::Renderer>::get().center().x + 10, 173});
 }
 
 
 WarehouseReport::~WarehouseReport()
 {
-	Utility<EventHandler>::get().mouseDoubleClick().disconnect({this, &WarehouseReport::onDoubleClick});
+	NAS2D::Utility<NAS2D::EventHandler>::get().mouseDoubleClick().disconnect({this, &WarehouseReport::onDoubleClick});
 }
 
 
@@ -148,7 +145,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityTotal = 0;
 	int capacityAvailable = 0;
 
-	const auto& warehouses = Utility<StructureManager>::get().getStructures<Warehouse>();
+	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
 	for (const auto* warehouse : warehouses)
 	{
 		if (warehouse->operational())
@@ -220,10 +217,10 @@ void WarehouseReport::fillListDisabled()
 }
 
 
-void WarehouseReport::onDoubleClick(MouseButton button, NAS2D::Point<int> position)
+void WarehouseReport::onDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!visible()) { return; }
-	if (button != MouseButton::Left) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
 	if (lstStructures.area().contains(position) && selectedWarehouse())
 	{
@@ -238,11 +235,11 @@ void WarehouseReport::onResize()
 
 	lstStructures.size({(mRect.size.x / 2) - 20, mRect.position.y + mRect.size.y - lstStructures.position().y - 10});
 	lstProducts.area({
-		{Utility<Renderer>::get().center().x + 10, lstProducts.position().y},
+		{NAS2D::Utility<NAS2D::Renderer>::get().center().x + 10, lstProducts.position().y},
 		{(mRect.size.x / 2) - 20, mRect.size.y - 184}
 	});
 
-	btnTakeMeThere.position({Utility<Renderer>::get().size().x - 150, position().y + 35});
+	btnTakeMeThere.position({NAS2D::Utility<NAS2D::Renderer>::get().size().x - 150, position().y + 35});
 }
 
 
@@ -337,7 +334,7 @@ void WarehouseReport::onStructureSelectionChange()
 	setVisibility();
 }
 
-void WarehouseReport::drawLeftPanel(Renderer& renderer) const
+void WarehouseReport::drawLeftPanel(NAS2D::Renderer& renderer) const
 {
 	const auto textLineSpacing = infoSectionHeight / 3;
 	const auto textOrigin = position() + infoSectionOffset;
@@ -364,7 +361,7 @@ void WarehouseReport::drawLeftPanel(Renderer& renderer) const
 }
 
 
-void WarehouseReport::drawRightPanel(Renderer& renderer) const
+void WarehouseReport::drawRightPanel(NAS2D::Renderer& renderer) const
 {
 	const auto* warehouse = selectedWarehouse();
 	if (!warehouse) { return; }
@@ -378,7 +375,7 @@ void WarehouseReport::drawRightPanel(Renderer& renderer) const
 void WarehouseReport::update()
 {
 	ControlContainer::update();
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	draw(renderer);
 }
 
