@@ -26,7 +26,7 @@ public:
 		RemoveWorkers,
 		RemoveScientists,
 		RemoveRetired,
-		Invalid
+		Invalid,
 	};
 
 	using CheatDelegate = NAS2D::Delegate<void(CheatCode)>;
