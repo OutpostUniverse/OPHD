@@ -256,11 +256,12 @@ void MapViewState::notifyBirthsAndDeaths()
 
 void MapViewState::findMineRoutes()
 {
-	const auto& smelterList = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto& smelterList = structureManager.getStructures<OreRefining>();
 	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 	mTruckRouteOverlay.clear();
 
-	for (const auto* mineFacility : NAS2D::Utility<StructureManager>::get().getStructures<MineFacility>())
+	for (const auto* mineFacility : structureManager.getStructures<MineFacility>())
 	{
 		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; } // consider a different control path.
 
