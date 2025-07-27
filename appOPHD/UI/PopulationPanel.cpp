@@ -22,9 +22,6 @@
 #include <array>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	static constexpr int IconSize = 32;
@@ -38,10 +35,10 @@ namespace
 
 	static const std::array moraleStringColor
 	{
-		Color::Red,
-		Color::Orange,
-		Color::Yellow,
-		Color::White,
+		NAS2D::Color::Red,
+		NAS2D::Color::Orange,
+		NAS2D::Color::Yellow,
+		NAS2D::Color::White,
 		constants::PrimaryColor
 	};
 }
@@ -123,7 +120,7 @@ void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 	}
 
 	// DIVIDER LINE Between population statistics and population availability statistics
-	renderer.drawLine(position, position + NAS2D::Vector<int>{mFont.width(constants::PopulationBreakdown) + constants::Margin, 0}, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{mFont.width(constants::PopulationBreakdown) + constants::Margin, 0}, NAS2D::Color::DarkGray);
 	position.y += constants::Margin;
 
 	const std::array populationAvailabilityStatistics{
@@ -134,8 +131,8 @@ void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 	for (const auto& [statisticLabel, personCount] : populationAvailabilityStatistics)
 	{
 		const auto personCountString = std::to_string(personCount);
-		const Color statusColor = personCount <= 0 ? Color::Red : Color::White;
-		renderer.drawText(mFont, statisticLabel, position, Color::White);
+		const NAS2D::Color statusColor = personCount <= 0 ? NAS2D::Color::Red : NAS2D::Color::White;
+		renderer.drawText(mFont, statisticLabel, position, NAS2D::Color::White);
 		const NAS2D::Point<int> labelPosition = {this->position().x + mPopulationPanelWidth - mFont.width(personCountString) - constants::Margin, position.y};
 		renderer.drawText(mFont, personCountString, labelPosition, statusColor);
 		position.y += fontBoldHeight + constants::Margin;
@@ -143,7 +140,7 @@ void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 
 	// DIVIDER LINE Between population statistics and morale statistics
 	position = this->position() + NAS2D::Vector{mPopulationPanelWidth, constants::Margin};
-	renderer.drawLine(position, position + NAS2D::Vector<int>{0, area().size.y - 10}, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{0, area().size.y - 10}, NAS2D::Color::DarkGray);
 
 	// MORALE
 	position.x += constants::Margin;
@@ -167,7 +164,7 @@ void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 	position.y += fontHeight + constants::Margin;
 
 	// DIVIDER LINE Between morale breakdown and morale change reasons
-	renderer.drawLine(position, position + NAS2D::Vector<int>{area().size.x - mPopulationPanelWidth - constants::Margin * 2, 0}, Color::DarkGray);
+	renderer.drawLine(position, position + NAS2D::Vector<int>{area().size.x - mPopulationPanelWidth - constants::Margin * 2, 0}, NAS2D::Color::DarkGray);
 
 	position.y += constants::Margin;
 

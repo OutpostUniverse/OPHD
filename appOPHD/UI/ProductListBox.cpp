@@ -11,9 +11,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-using namespace NAS2D;
-
-
 ProductListBox::ProductListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{{0, 30}, selectionChangedHandler},
 	mFont{fontCache.load(constants::FontPrimary, 12)},

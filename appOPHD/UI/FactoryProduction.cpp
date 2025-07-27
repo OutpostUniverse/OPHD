@@ -15,9 +15,6 @@
 #include <stdexcept>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	StringTable factoryProductionStringTable(const ProductionCost& productionCost, int turnsCompleted)
@@ -78,8 +75,8 @@ FactoryProduction::FactoryProduction() :
 
 	mProductGrid.height(chkIdle.area().endPoint().y - mProductGrid.area().position.y);
 
-	const auto buttonArea = Rectangle{mProductGrid.area().endPoint() + Vector{constants::Margin, constants::MarginTight}, {std::max(162, stringTable.area().size.x), 22}};
-	const auto buttonSize = Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
+	const auto buttonArea = NAS2D::Rectangle{mProductGrid.area().endPoint() + NAS2D::Vector{constants::Margin, constants::MarginTight}, {std::max(162, stringTable.area().size.x), 22}};
+	const auto buttonSize = NAS2D::Vector{(buttonArea.size.x - (constants::MarginTight * 2)) / 3, buttonArea.size.y};
 	const auto buttonSpacing = buttonSize.x + constants::MarginTight;
 
 	btnClearSelection.size({mProductGrid.size().x, buttonSize.y});

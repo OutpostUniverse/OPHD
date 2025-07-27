@@ -17,9 +17,6 @@
 #include <limits>
 
 
-using namespace NAS2D;
-
-
 const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 
 
@@ -41,7 +38,7 @@ IconGrid::IconGrid(Delegate selectionChangedHandler, const std::string& filePath
 		throw std::runtime_error("IconGrid::iconMargin must be non-negative: " + std::to_string(margin));
 	}
 
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &IconGrid::onMouseDown});
 	eventHandler.mouseMotion().connect({this, &IconGrid::onMouseMove});
 }
@@ -49,7 +46,7 @@ IconGrid::IconGrid(Delegate selectionChangedHandler, const std::string& filePath
 
 IconGrid::~IconGrid()
 {
-	auto& eventHandler = Utility<EventHandler>::get();
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &IconGrid::onMouseDown});
 	eventHandler.mouseMotion().disconnect({this, &IconGrid::onMouseMove});
 }
@@ -246,10 +243,10 @@ void IconGrid::onResize()
 }
 
 
-void IconGrid::onMouseDown(MouseButton button, NAS2D::Point<int> position)
+void IconGrid::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible() || !mRect.contains(position)) { return; }
-	if (button != MouseButton::Left) { return; }
+	if (button != NAS2D::MouseButton::Left) { return; }
 
 	setSelectionInternal(positionToIndex(position));
 }

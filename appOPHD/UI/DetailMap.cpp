@@ -15,9 +15,6 @@
 #include <map>
 
 
-using namespace NAS2D;
-
-
 namespace {
 	const auto TileSize = NAS2D::Vector{128, 55};
 	const auto TileDrawSize = NAS2D::Vector{128, 64};
@@ -75,7 +72,7 @@ DetailMap::DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tile
 	mTileset{tilesetPath},
 	mMineBeacon{"structures/mine_beacon.png"}
 {
-	resize(Utility<Renderer>::get().size());
+	resize(NAS2D::Utility<NAS2D::Renderer>::get().size());
 }
 
 
@@ -117,7 +114,7 @@ Tile& DetailMap::mouseTile()
 
 void DetailMap::update()
 {
-	for (const auto tilePosition : PointInRectangleRange{mMapView.viewTileRect()})
+	for (const auto tilePosition : NAS2D::PointInRectangleRange{mMapView.viewTileRect()})
 	{
 		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
@@ -133,7 +130,7 @@ void DetailMap::draw(NAS2D::Renderer& renderer) const
 {
 	int tsetOffset = mMapView.currentDepth() > 0 ? TileDrawSize.y : 0;
 
-	for (const auto tilePosition : PointInRectangleRange{mMapView.viewTileRect()})
+	for (const auto tilePosition : NAS2D::PointInRectangleRange{mMapView.viewTileRect()})
 	{
 		auto& tile = mTileMap.getTile({tilePosition, mMapView.currentDepth()});
 
