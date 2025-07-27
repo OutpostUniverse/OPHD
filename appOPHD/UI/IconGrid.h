@@ -42,7 +42,7 @@ public:
 	IconGrid(Delegate selectionChangedHandler, const std::string& filePath, int iconSize, int margin, bool showTooltip = false);
 	~IconGrid() override;
 
-	void addItem(const IconGridItem&);
+	void addItem(const IconGridItem& item);
 	void sort();
 	void clear();
 	bool isEmpty() const { return mIconItemList.empty(); }
