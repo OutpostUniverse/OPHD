@@ -14,11 +14,6 @@ namespace NAS2D
 }
 
 
-/**
- * Control Object that contains other Control objects.
- *
- * Generally not intended to be used by itself.
- */
 class ControlContainer : public Control
 {
 protected:
@@ -29,17 +24,11 @@ protected:
 	void add(Control& control, NAS2D::Vector<int> offset);
 	void clear();
 
-	void bringToFront(Control* control);
-
 	void update() override;
-
-	const std::vector<Control*>& controls() const;
 
 protected:
 	void onVisibilityChange(bool visible) override;
 	void onMove(NAS2D::Vector<int> displacement) override;
-
-	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
 private:
 	std::vector<Control*> mControls;

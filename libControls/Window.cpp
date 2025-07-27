@@ -18,6 +18,7 @@ Window::Window(std::string newTitle, const NAS2D::Font& titleFont) :
 	title(newTitle);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &Window::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &Window::onMouseUp});
 	eventHandler.mouseMotion().connect({this, &Window::onMouseMove});
 }
@@ -26,6 +27,7 @@ Window::Window(std::string newTitle, const NAS2D::Font& titleFont) :
 Window::~Window()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect({this, &Window::onMouseDown});
 	eventHandler.mouseButtonUp().disconnect({this, &Window::onMouseUp});
 	eventHandler.mouseMotion().disconnect({this, &Window::onMouseMove});
 }
@@ -34,8 +36,6 @@ Window::~Window()
 void Window::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!enabled() || !visible()) { return; }
-
-	ControlContainer::onMouseDown(button, position);
 
 	const auto titleBarBounds = NAS2D::Rectangle{mRect.position, {mRect.size.x, sWindowTitleBarHeight}};
 	mMouseDrag = (button == NAS2D::MouseButton::Left && titleBarBounds.contains(position));

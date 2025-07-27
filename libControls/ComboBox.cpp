@@ -2,6 +2,8 @@
 
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/StringUtils.h>
+#include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 
 #include <algorithm>
 
@@ -27,11 +29,16 @@ ComboBox::ComboBox(SelectionChangedDelegate selectionChangedHandler) :
 	lstItems.visible(false);
 
 	size(txtField.size() + NAS2D::Vector{btnDown.size().x, 0});
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &ComboBox::onMouseDown});
 }
 
 
 ComboBox::~ComboBox()
 {
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect({this, &ComboBox::onMouseDown});
 }
 
 
@@ -77,8 +84,6 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 
 void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	ControlContainer::onMouseDown(button, position);
-
 	if (!enabled() || !visible()) { return; }
 
 	if (button != NAS2D::MouseButton::Left) { return; }
