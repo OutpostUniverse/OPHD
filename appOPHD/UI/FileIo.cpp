@@ -19,11 +19,6 @@
 using namespace NAS2D;
 
 
-FileIo::FileIo(FileLoadDelegate fileLoadHandler) :
-	FileIo{fileLoadHandler, FileSaveDelegate{}}
-{}
-
-
 FileIo::FileIo(FileLoadDelegate fileLoadHandler, FileSaveDelegate fileSaveHandler) :
 	Window{"File I/O"},
 	mFileLoadHandler{fileLoadHandler},
