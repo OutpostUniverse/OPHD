@@ -77,8 +77,6 @@ void ComboBox::onMove(NAS2D::Vector<int> displacement)
 
 void ComboBox::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
-	ControlContainer::onMouseDown(button, position);
-
 	if (!enabled() || !visible()) { return; }
 
 	if (button != NAS2D::MouseButton::Left) { return; }
