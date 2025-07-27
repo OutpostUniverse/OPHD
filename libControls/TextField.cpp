@@ -201,6 +201,17 @@ void TextField::drawCursor(NAS2D::Renderer& renderer) const
 }
 
 
+void TextField::onVisibilityChange(bool visible)
+{
+	if (visible)
+	{
+		// Show cursor immediately (responsiveness)
+		mCursorBlinkTimer.reset();
+		mShowCursor = true;
+	}
+}
+
+
 void TextField::onMouseDown(NAS2D::MouseButton /*button*/, NAS2D::Point<int> position)
 {
 	hasFocus(mRect.contains(position)); // This is a very useful check, should probably include this in all controls.

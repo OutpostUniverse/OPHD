@@ -74,6 +74,7 @@ protected:
 	void draw(NAS2D::Renderer& renderer) const override;
 	void drawCursor(NAS2D::Renderer& renderer) const;
 
+	void onVisibilityChange(bool visible) override;
 	virtual void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	virtual void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onTextInput(const std::string& newTextInput);
