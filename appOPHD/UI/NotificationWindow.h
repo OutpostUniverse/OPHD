@@ -20,7 +20,7 @@ public:
 public:
 	NotificationWindow(TakeMeThereDelegate takeMeThereHandler);
 
-	void notification(const NotificationArea::Notification&);
+	void notification(const NotificationArea::Notification& notification);
 
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
