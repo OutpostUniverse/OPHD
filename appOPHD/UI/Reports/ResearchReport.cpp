@@ -25,13 +25,12 @@ extern NAS2D::Point<int> MOUSE_COORDS;	// <-- Yuck, really need to find a better
 										// poll mouse position. Might make sense to add a
 										// method to NAS2D::EventHandler for that.
 
-using namespace NAS2D;
 
 namespace
 {
-	constexpr Vector<int> LabTypeIconSize{32, 32};
-	constexpr Vector<int> CategoryIconSize{64, 64};
-	constexpr Vector<int> TopicIconSize{128, 128};
+	constexpr NAS2D::Vector<int> LabTypeIconSize{32, 32};
+	constexpr NAS2D::Vector<int> CategoryIconSize{64, 64};
+	constexpr NAS2D::Vector<int> TopicIconSize{128, 128};
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
@@ -60,17 +59,17 @@ namespace
 		return itemsToAdd;
 	}
 
-	void drawDetailsHeaderSeparator(NAS2D::Renderer& renderer, const Rectangle<int>& area)
+	void drawDetailsHeaderSeparator(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& area)
 	{
-		const Point<int> lineStartPoint{area.crossYPoint() + Vector<int>{0, SectionPadding.y}};
-		const Point<int> lineEndPoint{area.endPoint() + Vector<int>{0, SectionPadding.y}};
+		const NAS2D::Point<int> lineStartPoint{area.crossYPoint() + NAS2D::Vector<int>{0, SectionPadding.y}};
+		const NAS2D::Point<int> lineEndPoint{area.endPoint() + NAS2D::Vector<int>{0, SectionPadding.y}};
 		renderer.drawLine(lineStartPoint, lineEndPoint, constants::PrimaryTextColor);
 	}
 
-	Rectangle<int> getCategorySlice(const int imageWidth, const int iconIndex)
+	NAS2D::Rectangle<int> getCategorySlice(const int imageWidth, const int iconIndex)
 	{
 		const int columns = imageWidth / CategoryIconSize.x;
-		const Point<int> sliceStartPosition
+		const NAS2D::Point<int> sliceStartPosition
 		{
 			(iconIndex % columns) * CategoryIconSize.x,
 			(iconIndex / columns) * CategoryIconSize.y
@@ -79,7 +78,7 @@ namespace
 		return {sliceStartPosition, CategoryIconSize};
 	}
 
-	Point<int> getIconTextureCoords(const Technology& tech, const int textureWidth)
+	NAS2D::Point<int> getIconTextureCoords(const Technology& tech, const int textureWidth)
 	{
 		const auto columns = textureWidth / TopicIconSize.x;
 
@@ -158,7 +157,7 @@ void ResearchReport::refresh()
 	setSectionRects();
 	setIconPositions();
 
-	mCategoryHeaderTextPosition = {area().position + Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
+	mCategoryHeaderTextPosition = {area().position + NAS2D::Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
 
 	lstResearchTopics.area(mResearchTopicArea);
 
@@ -169,7 +168,7 @@ void ResearchReport::refresh()
 
 void ResearchReport::update()
 {
-	auto& renderer = Utility<Renderer>::get();
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	draw(renderer);
 	ControlContainer::update();
 }
@@ -236,10 +235,10 @@ void ResearchReport::setIconPositions()
 {
 	const auto startPoint{mTopicDetailsHeaderArea.startPoint()};
 
-	mHotLabIconPosition = {startPoint + Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
-	mStdLabIconPosition = {startPoint + Vector<int>{(area().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
-	mStdLabTextPosition = {mStdLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
-	mHotLabTextPosition = {mHotLabIconPosition + Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
+	mHotLabIconPosition = {startPoint + NAS2D::Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
+	mStdLabIconPosition = {startPoint + NAS2D::Vector<int>{(area().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
+	mStdLabTextPosition = {mStdLabIconPosition + NAS2D::Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
+	mHotLabTextPosition = {mHotLabIconPosition + NAS2D::Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 }
 
 
@@ -270,7 +269,7 @@ void ResearchReport::setSectionRects()
 	
 	mTopicDetailsHeaderArea =
 	{
-		area().position + Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
+		area().position + NAS2D::Vector<int>{SectionPadding.x * 2 + mResearchTopicArea.endPoint().x, SectionPadding.y},
 		{
 			area().size.x - mResearchTopicArea.endPoint().x - SectionPadding.x * 3,
 			100
@@ -283,7 +282,7 @@ void ResearchReport::setSectionRects()
 		mTopicDetailsHeaderArea.crossYPoint().y + SectionPadding.y * 2
 	};
 
-	const Point<int> topicDetailStart{mTopicDetailsIconPosition + Vector<int>{0, TopicIconSize.y + SectionPadding.y}};
+	const NAS2D::Point<int> topicDetailStart{mTopicDetailsIconPosition + NAS2D::Vector<int>{0, TopicIconSize.y + SectionPadding.y}};
 	mTopicDetailsArea =
 	{
 		topicDetailStart,
@@ -315,7 +314,7 @@ void ResearchReport::adjustCategoryIconSpacing()
 
 void ResearchReport::checkForLabAvailability()
 {
-	auto& mgr = Utility<StructureManager>::get();
+	auto& mgr = NAS2D::Utility<StructureManager>::get();
 	mLabsAvailable = {mgr.countInState<Laboratory>(StructureState::Operational), mgr.countInState<HotLaboratory>(StructureState::Operational)};
 }
 
@@ -324,7 +323,7 @@ void ResearchReport::processCategories()
 {
 	for (const auto& category : mTechCatalog->categories())
 	{
-		const Rectangle<int> sliceRect{getCategorySlice(imageCategoryIcons.size().x, category.icon_index)};
+		const NAS2D::Rectangle<int> sliceRect{getCategorySlice(imageCategoryIcons.size().x, category.icon_index)};
 		mCategoryPanels.emplace_back(CategoryPanel{{}, sliceRect, category.name, false});
 	}
 
@@ -382,7 +381,7 @@ void ResearchReport::drawCategories(NAS2D::Renderer& renderer) const
 {
 	for (const auto& panel : mCategoryPanels)
 	{
-		const auto panelRect = Rectangle<int>::Create(
+		const auto panelRect = NAS2D::Rectangle<int>::Create(
 			panel.rect.position - CategorySelectorPadding,
 			panel.rect.endPoint() + CategorySelectorPadding);
 
@@ -408,8 +407,8 @@ void ResearchReport::drawCategoryHeader(NAS2D::Renderer& renderer) const
 
 void ResearchReport::drawVerticalSectionSpacer(NAS2D::Renderer& renderer, const int startX) const
 {
-	const Point<int> start{startX, area().position.y + SectionPadding.y};
-	const Point<int> end{startX, area().position.y + area().size.y - SectionPadding.y};
+	const NAS2D::Point<int> start{startX, area().position.y + SectionPadding.y};
+	const NAS2D::Point<int> end{startX, area().position.y + area().size.y - SectionPadding.y};
 	renderer.drawLine(start, end, constants::PrimaryColor);
 }
 
