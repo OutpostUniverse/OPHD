@@ -7,7 +7,6 @@
 
 #include <NAS2D/Signal/Delegate.h>
 
-#include <map>
 
 class CheatMenu : public Window
 {
@@ -27,16 +26,15 @@ public:
 		RemoveWorkers,
 		RemoveScientists,
 		RemoveRetired,
-		Invalid
+		Invalid,
 	};
 
-	using CheatDelegate = NAS2D::Delegate<void(const std::string&)>;
+	using CheatDelegate = NAS2D::Delegate<void(CheatCode)>;
 
 	CheatMenu(CheatDelegate cheatHandler);
 
+protected:
 	void onOkay();
-
-	static CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode);
 
 private:
 	CheatDelegate mCheatHandler;

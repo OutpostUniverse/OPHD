@@ -549,10 +549,9 @@ void MapViewState::onTurns()
 	nextTurn();
 }
 
-void MapViewState::onCheatCodeEntry(const std::string& cheatCode)
+void MapViewState::onCheatCodeEntry(CheatMenu::CheatCode cheatCode)
 {
-	CheatMenu::CheatCode code = CheatMenu::stringToCheatCode(cheatCode);
-	switch(code)
+	switch(cheatCode)
 	{
 		case CheatMenu::CheatCode::Invalid:
 			return;

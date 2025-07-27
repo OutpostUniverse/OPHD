@@ -4,23 +4,12 @@
 
 #include <algorithm>
 #include <ranges>
+#include <string>
+#include <map>
 
 
 namespace
 {
-	enum class CheatCode
-	{
-		AddResources,
-		AddFood,
-		AddRobots,
-		AddChildren,
-		AddStudents,
-		AddWorkers,
-		AddScientists,
-		AddRetired,
-		Invalid
-	};
-
 	const std::map<std::string, CheatMenu::CheatCode>& cheatCodeTable =
 	{
 		{"goldrush", CheatMenu::CheatCode::AddResources },         // Add 1000 of each resource.
@@ -39,6 +28,19 @@ namespace
 	};
 
 	const auto maxCheatLength = std::ranges::max(std::views::transform(std::views::keys(cheatCodeTable), &std::string::size));
+
+
+	CheatMenu::CheatCode stringToCheatCode(const std::string& cheatCode)
+	{
+		try
+		{
+			return stringToEnum(cheatCodeTable, cheatCode);
+		}
+		catch (const std::runtime_error&)
+		{
+			return CheatMenu::CheatCode::Invalid;
+		}
+	}
 }
 
 
@@ -64,22 +66,9 @@ CheatMenu::CheatMenu(CheatDelegate cheatHandler) :
 
 void CheatMenu::onOkay()
 {
-	if (mCheatHandler) { mCheatHandler(txtCheatCode.text()); }
+	if (mCheatHandler) { mCheatHandler(stringToCheatCode(txtCheatCode.text())); }
 	txtCheatCode.clear();
 	hide();
 	// Transfer focus back to text field (from "Okay" button)
 	bringToFront(&txtCheatCode);
-}
-
-
-CheatMenu::CheatCode CheatMenu::stringToCheatCode(const std::string& cheatCode)
-{
-	try
-	{
-		return stringToEnum(cheatCodeTable, cheatCode);
-	}
-	catch (const std::runtime_error&)
-	{
-		return CheatCode::Invalid;
-	}
 }

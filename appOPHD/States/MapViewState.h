@@ -177,7 +177,7 @@ private:
 
 	void pullRobotFromFactory(ProductType pt, Factory& factory);
 	void onFactoryProductionComplete(Factory& factory);
-	void onCheatCodeEntry(const std::string& cheatCode);
+	void onCheatCodeEntry(CheatMenu::CheatCode cheatCode);
 
 	void onMineFacilityExtend(MineFacility* mf);
 
