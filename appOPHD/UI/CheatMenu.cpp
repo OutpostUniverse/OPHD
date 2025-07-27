@@ -66,7 +66,7 @@ void CheatMenu::onVisibilityChange(bool visible)
 {
 	if (visible)
 	{
-		bringToFront(&txtCheatCode);
+		txtCheatCode.hasFocus(true);
 	}
 }
 
