@@ -160,7 +160,7 @@ void TextField::updateScrollPosition()
 		mScrollOffsetPixelX = 0;
 	}
 
-	mCursorPixelX = cursorX - mScrollOffsetPixelX;
+	mCursorOffsetPixelX = cursorX - mScrollOffsetPixelX;
 }
 
 
@@ -188,8 +188,8 @@ void TextField::drawCursor(NAS2D::Renderer& renderer) const
 	{
 		if (mShowCursor)
 		{
-			const auto startPosition = mRect.position + NAS2D::Vector{mCursorPixelX + fieldPadding, fieldPadding};
-			const auto endPosition = mRect.position + NAS2D::Vector{mCursorPixelX + fieldPadding, mRect.size.y - fieldPadding - 1};
+			const auto startPosition = mRect.position + NAS2D::Vector{mCursorOffsetPixelX + fieldPadding, fieldPadding};
+			const auto endPosition = mRect.position + NAS2D::Vector{mCursorOffsetPixelX + fieldPadding, mRect.size.y - fieldPadding - 1};
 			renderer.drawLine(startPosition + NAS2D::Vector{1, 1}, endPosition + NAS2D::Vector{1, 1}, NAS2D::Color::Black);
 			renderer.drawLine(startPosition, endPosition, NAS2D::Color::White);
 		}

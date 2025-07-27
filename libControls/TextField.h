@@ -91,7 +91,7 @@ private:
 
 	NAS2D::Timer mCursorBlinkTimer;
 	std::size_t mCursorCharacterIndex = 0;
-	int mCursorPixelX = 0;
+	int mCursorOffsetPixelX = 0;
 	int mScrollOffsetPixelX = 0;
 
 	bool mEditable = true;
