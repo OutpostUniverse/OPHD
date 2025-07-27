@@ -20,16 +20,16 @@ public:
 
 	MajorEventAnnouncement();
 
-	void announcement(AnnouncementType a);
+	void announcement(AnnouncementType announcementType);
 
-	void onColonyShipCrash(WindowStack&, const ColonyShipLanders&);
+	void onColonyShipCrash(WindowStack& windowStack, const ColonyShipLanders& colonyShipLanders);
 
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 private:
 	void onClose();
 
-	MajorEventAnnouncement::AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders&);
+	MajorEventAnnouncement::AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders);
 
 	const NAS2D::Image& mHeader;
 	std::string mMessage;

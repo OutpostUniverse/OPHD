@@ -46,9 +46,9 @@ MajorEventAnnouncement::AnnouncementType MajorEventAnnouncement::colonyShipCrash
 }
 
 
-void MajorEventAnnouncement::announcement(AnnouncementType a)
+void MajorEventAnnouncement::announcement(AnnouncementType announcementType)
 {
-	switch (a)
+	switch (announcementType)
 	{
 	case AnnouncementType::ColonyShipCrash:
 		mMessage = "Colony ship deorbited and crashed.";
