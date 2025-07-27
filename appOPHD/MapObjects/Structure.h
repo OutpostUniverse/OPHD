@@ -149,8 +149,6 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	friend class StructureCatalog;
-
 	void activate();
 
 	virtual void disabledStateSet() {}

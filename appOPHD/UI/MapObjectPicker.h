@@ -45,9 +45,9 @@ public:
 	using ControlContainer::update;
 
 protected:
-	void onStructuresSelectionChange(const IconGridItem*);
-	void onConnectionsSelectionChange(const IconGridItem*);
-	void onRobotsSelectionChange(const IconGridItem*);
+	void onStructuresSelectionChange(const IconGridItem* item);
+	void onConnectionsSelectionChange(const IconGridItem* item);
+	void onRobotsSelectionChange(const IconGridItem* item);
 	void onMouseWheel(NAS2D::Vector<int> changeAmount);
 	void onResize() override;
 

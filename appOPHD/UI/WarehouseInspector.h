@@ -15,14 +15,15 @@ class WarehouseInspector : public Window
 public:
 	WarehouseInspector();
 
-	void warehouse(const Warehouse* w);
+	void warehouse(const Warehouse* warehouse);
 
 	void hide() override;
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
-private:
+protected:
 	void onClose();
 
+private:
 	const Warehouse* mWarehouse = nullptr;
 	Button btnClose;
 };

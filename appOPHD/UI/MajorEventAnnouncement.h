@@ -3,13 +3,14 @@
 #include <libControls/Window.h>
 #include <libControls/Button.h>
 
+
 class WindowStack;
 struct ColonyShipLanders;
+
 
 class MajorEventAnnouncement : public Window
 {
 public:
-
 	enum class AnnouncementType
 	{
 		ColonyShipCrash,
@@ -20,18 +21,19 @@ public:
 
 	MajorEventAnnouncement();
 
-	void announcement(AnnouncementType a);
+	void announcement(AnnouncementType announcementType);
 
-	void onColonyShipCrash(WindowStack&, const ColonyShipLanders&);
+	void onColonyShipCrash(WindowStack& windowStack, const ColonyShipLanders& colonyShipLanders);
 
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
-private:
+protected:
 	void onClose();
 
-	MajorEventAnnouncement::AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders&);
+	AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders);
 
+private:
 	const NAS2D::Image& mHeader;
 	std::string mMessage;
-	Button btnClose{"Okay", {this, &MajorEventAnnouncement::onClose}};
+	Button btnClose;
 };

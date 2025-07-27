@@ -103,9 +103,9 @@ void StructureListBox::clear()
 }
 
 
-void StructureListBox::add(Structure* s, std::string stateDescription)
+void StructureListBox::add(Structure* structure, std::string stateDescription)
 {
-	mItems.emplace_back(StructureListBoxItem{s->name(), s, std::move(stateDescription)});
+	mItems.emplace_back(StructureListBoxItem{structure->name(), structure, std::move(stateDescription)});
 	updateScrollLayout();
 }
 

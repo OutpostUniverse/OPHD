@@ -12,7 +12,7 @@ class RobotInspector : public Window
 public:
 	RobotInspector();
 
-	void focusOnRobot(Robot*);
+	void focusOnRobot(Robot* robot);
 	const Robot* focusedRobot() const { return mRobot; }
 
 	void drawClientArea(NAS2D::Renderer& renderer) const override;

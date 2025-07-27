@@ -29,7 +29,7 @@ public:
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
 protected:
-	void onProductSelectionChange(const IconGridItem*);
+	void onProductSelectionChange(const IconGridItem* item);
 	void onClearSelection();
 	void onApply();
 	void onOkay();
