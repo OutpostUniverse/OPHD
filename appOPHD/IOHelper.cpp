@@ -7,14 +7,20 @@
 #include <NAS2D/ParserHelper.h>
 
 
-StorableResources readResourcesOptional(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName)
+StorableResources readResourcesOptional(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName, const StorableResources& defaultValue)
 {
 	const auto* childElement = parentElement.firstChildElement(subElementName);
 	if (!childElement) {
-		return {};
+		return defaultValue;
 	}
 
 	return readResources(*childElement);
+}
+
+
+StorableResources readResourcesOptional(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName)
+{
+	return readResourcesOptional(parentElement, subElementName, {});
 }
 
 
