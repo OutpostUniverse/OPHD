@@ -7,7 +7,6 @@
 
 #include <NAS2D/Signal/Delegate.h>
 
-#include <map>
 
 class CheatMenu : public Window
 {
