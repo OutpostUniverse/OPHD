@@ -14,9 +14,6 @@
 #include <sstream>
 
 
-using namespace NAS2D;
-
-
 namespace
 {
 	const auto lineSpacing = 18;
@@ -40,7 +37,7 @@ TileInspector::TileInspector() :
 	size({200, sWindowTitleBarHeight + lineSpacing * 5 + sectionSpacing + constants::Margin * 2});
 
 	btnClose.size({50, 20});
-	add(btnClose, size() - btnClose.size() - Vector{constants::Margin, constants::Margin});
+	add(btnClose, size() - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
 
