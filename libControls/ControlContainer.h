@@ -33,8 +33,6 @@ protected:
 
 	void update() override;
 
-	const std::vector<Control*>& controls() const;
-
 protected:
 	void onVisibilityChange(bool visible) override;
 	void onMove(NAS2D::Vector<int> displacement) override;

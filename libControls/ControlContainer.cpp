@@ -122,8 +122,3 @@ void ControlContainer::update()
 		*/
 	}
 }
-
-
-const std::vector<Control*>& ControlContainer::controls() const {
-	return mControls;
-}
