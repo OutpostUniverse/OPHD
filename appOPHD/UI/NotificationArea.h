@@ -62,7 +62,7 @@ protected:
 	NAS2D::Rectangle<int> notificationRect(std::size_t index) const;
 	std::size_t notificationIndex(NAS2D::Point<int> pixelPosition);
 
-	void onMouseDown(NAS2D::MouseButton, NAS2D::Point<int> position);
+	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:
