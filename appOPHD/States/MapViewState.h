@@ -167,6 +167,7 @@ private:
 	void updateFood();
 	void transferFoodToCommandCenter();
 
+	void updateRouteOverlay();
 	void updateCommRangeOverlay();
 	void updatePoliceOverlay();
 	void updateConnectedness();

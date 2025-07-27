@@ -259,7 +259,6 @@ void MapViewState::findMineRoutes()
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto& smelterList = structureManager.getStructures<OreRefining>();
 	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-	mTruckRouteOverlay.clear();
 
 	for (const auto* mineFacility : structureManager.getStructures<MineFacility>())
 	{
@@ -281,11 +280,6 @@ void MapViewState::findMineRoutes()
 			if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
 
 			routeTable[mineFacility] = newRoute;
-
-			for (auto tile : newRoute.path)
-			{
-				mTruckRouteOverlay.push_back(tile);
-			}
 		}
 	}
 }
@@ -592,6 +586,7 @@ void MapViewState::updateMaintenance()
 
 void MapViewState::updateOverlays()
 {
+	updateRouteOverlay();
 	updateCommRangeOverlay();
 	updatePoliceOverlay();
 
