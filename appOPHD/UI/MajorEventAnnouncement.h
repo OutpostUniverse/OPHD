@@ -27,11 +27,12 @@ public:
 
 	void drawClientArea(NAS2D::Renderer& renderer) const override;
 
-private:
+protected:
 	void onClose();
 
 	AnnouncementType colonyShipCrashAnnouncement(const ColonyShipLanders& colonyShipLanders);
 
+private:
 	const NAS2D::Image& mHeader;
 	std::string mMessage;
 	Button btnClose{"Okay", {this, &MajorEventAnnouncement::onClose}};
