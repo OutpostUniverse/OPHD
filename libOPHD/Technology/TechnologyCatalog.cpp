@@ -14,8 +14,6 @@
 #include <stdexcept>
 
 
-using namespace NAS2D;
-
 namespace
 {
 	std::map<std::string, Technology::Modifier::Modifies> StringToModifier =
@@ -117,7 +115,7 @@ namespace
 
 		try
 		{
-			reportMissingOrUnexpected(dictionary.keys(), {"id", "lab_type", "cost", "name", "icon_index"}, {"description", "requires", "effects", "icon_index"});
+			NAS2D::reportMissingOrUnexpected(dictionary.keys(), {"id", "lab_type", "cost", "name", "icon_index"}, {"description", "requires", "effects", "icon_index"});
 		}
 		catch(std::exception& error)
 		{
@@ -196,7 +194,7 @@ namespace
 
 TechnologyCatalog::TechnologyCatalog(const std::string& techFile)
 {
-	Xml::XmlDocument xmlDocument = openXmlFile(techFile, "technology");
+	NAS2D::Xml::XmlDocument xmlDocument = openXmlFile(techFile, "technology");
 
 	auto root = xmlDocument.firstChildElement("technology");
 
