@@ -470,6 +470,11 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		structure.integrity(integrity);
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");
+		structure.populationAvailable() = {pop0, pop1};
+		if (structure.hasCrime())
+		{
+			structure.crimeRate(crimeRate);
+		}
 
 		if (auto* residence = dynamic_cast<Residence*>(&structure))
 		{
@@ -508,13 +513,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			factory.resourcePool(&mResourcesCount);
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
-
-		if (structure.hasCrime())
-		{
-			structure.crimeRate(crimeRate);
-		}
-
-		structure.populationAvailable() = {pop0, pop1};
 
 		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 	}
