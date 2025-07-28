@@ -397,7 +397,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto disabledReason = dictionary.get<int>("disabled_reason");
 		const auto idleReason = dictionary.get<int>("idle_reason");
 
-		const auto crime_rate = dictionary.get<int>("crime_rate", 0);
+		const auto crimeRate = dictionary.get<int>("crime_rate", 0);
 		const auto integrity = dictionary.get<int>("integrity", 100);
 
 		const auto production_completed = dictionary.get<int>("production_completed", 0);
@@ -513,7 +513,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structure.hasCrime())
 		{
-			structure.crimeRate(crime_rate);
+			structure.crimeRate(crimeRate);
 		}
 
 		structure.populationAvailable() = {pop0, pop1};
