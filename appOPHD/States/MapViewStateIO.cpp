@@ -421,6 +421,19 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		auto& structure = *StructureCatalog::create(structureId, tile);
 
+		structure.age(age);
+		structure.forcedStateChange(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
+		if (forcedIdle) { structure.forceIdle(forcedIdle); }
+		structure.connectorDirection(static_cast<ConnectorDir>(direction));
+		structure.integrity(integrity);
+		structure.production() = readResourcesOptional(*structureElement, "production");
+		structure.storage() = readResourcesOptional(*structureElement, "storage");
+		structure.populationAvailable() = {pop0, pop1};
+		if (structure.hasCrime())
+		{
+			structure.crimeRate(crimeRate);
+		}
+
 		if (structureId == StructureID::ColonistLander)
 		{
 			dynamic_cast<ColonistLander&>(structure).deployHandler({this, &MapViewState::onDeployColonistLander});
@@ -461,19 +474,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			}
 
 			foodProduction.foodLevel(NAS2D::attributesToDictionary(*foodStorage).get<int>("level"));
-		}
-
-		structure.age(age);
-		structure.forcedStateChange(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
-		if (forcedIdle) { structure.forceIdle(forcedIdle); }
-		structure.connectorDirection(static_cast<ConnectorDir>(direction));
-		structure.integrity(integrity);
-		structure.production() = readResourcesOptional(*structureElement, "production");
-		structure.storage() = readResourcesOptional(*structureElement, "storage");
-		structure.populationAvailable() = {pop0, pop1};
-		if (structure.hasCrime())
-		{
-			structure.crimeRate(crimeRate);
 		}
 
 		if (auto* residence = dynamic_cast<Residence*>(&structure))
