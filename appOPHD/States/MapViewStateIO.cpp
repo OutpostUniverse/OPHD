@@ -389,7 +389,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
-		const auto type = dictionary.get<int>("type");
+		const auto structureId = static_cast<StructureID>(dictionary.get<int>("type"));
 		const auto age = dictionary.get<int>("age");
 		const auto state = dictionary.get<int>("state");
 		const auto direction = static_cast<ConnectorDir>(dictionary.get<int>("direction"));
@@ -411,7 +411,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		tile.bulldoze();
 		tile.excavated(true);
 
-		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::Tube)
 		{
 			insertTube(mTileMap->getTile(mapCoordinate), direction);
