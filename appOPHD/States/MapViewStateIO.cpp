@@ -389,13 +389,13 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*structureElement);
 
-		const auto type = dictionary.get<int>("type");
+		const auto structureId = static_cast<StructureID>(dictionary.get<int>("type"));
 		const auto age = dictionary.get<int>("age");
-		const auto state = dictionary.get<int>("state");
-		const auto direction = dictionary.get<int>("direction");
+		const auto state = static_cast<StructureState>(dictionary.get<int>("state"));
+		const auto direction = static_cast<ConnectorDir>(dictionary.get<int>("direction"));
 		const auto forcedIdle = dictionary.get<bool>("forced_idle");
-		const auto disabledReason = dictionary.get<int>("disabled_reason");
-		const auto idleReason = dictionary.get<int>("idle_reason");
+		const auto disabledReason = static_cast<DisabledReason>(dictionary.get<int>("disabled_reason"));
+		const auto idleReason = static_cast<IdleReason>(dictionary.get<int>("idle_reason"));
 
 		const auto crimeRate = dictionary.get<int>("crime_rate", 0);
 		const auto integrity = dictionary.get<int>("integrity", 100);
@@ -411,15 +411,26 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		tile.bulldoze();
 		tile.excavated(true);
 
-		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::Tube)
 		{
-			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(mTileMap->getTile(mapCoordinate), connectorDir);
+			insertTube(mTileMap->getTile(mapCoordinate), direction);
 			continue; // FIXME: ugly
 		}
 
 		auto& structure = *StructureCatalog::create(structureId, tile);
+
+		structure.age(age);
+		structure.forcedStateChange(state, disabledReason, idleReason);
+		if (forcedIdle) { structure.forceIdle(forcedIdle); }
+		structure.connectorDirection(direction);
+		structure.integrity(integrity);
+		structure.production() = readResourcesOptional(*structureElement, "production");
+		structure.storage() = readResourcesOptional(*structureElement, "storage");
+		structure.populationAvailable() = {pop0, pop1};
+		if (structure.hasCrime())
+		{
+			structure.crimeRate(crimeRate);
+		}
 
 		if (structureId == StructureID::ColonistLander)
 		{
@@ -463,16 +474,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			foodProduction.foodLevel(NAS2D::attributesToDictionary(*foodStorage).get<int>("level"));
 		}
 
-		structure.age(age);
-		structure.forcedStateChange(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
-		structure.connectorDirection(static_cast<ConnectorDir>(direction));
-		structure.integrity(integrity);
-
-		if (forcedIdle) { structure.forceIdle(forcedIdle); }
-
-		structure.production() = readResourcesOptional(*structureElement, "production");
-		structure.storage() = readResourcesOptional(*structureElement, "storage");
-
 		if (auto* residence = dynamic_cast<Residence*>(&structure))
 		{
 			if (const auto* waste = structureElement->firstChildElement("waste"))
@@ -510,13 +511,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			factory.resourcePool(&mResourcesCount);
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
-
-		if (structure.hasCrime())
-		{
-			structure.crimeRate(crimeRate);
-		}
-
-		structure.populationAvailable() = {pop0, pop1};
 
 		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
 	}
