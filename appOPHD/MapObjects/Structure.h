@@ -61,7 +61,7 @@ public:
 
 	bool underConstruction() const;
 
-	void forceIdle(bool force);
+	void forceIdle(bool forcedIdle);
 	bool forceIdle() const { return mForcedIdle; }
 
 	// RESOURCES AND RESOURCE MANAGEMENT

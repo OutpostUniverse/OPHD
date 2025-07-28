@@ -211,13 +211,13 @@ bool Structure::underConstruction() const
  * Forces an idle state. Used to prevent automatic enabling of the
  * Structure.
  */
-void Structure::forceIdle(bool force)
+void Structure::forceIdle(bool forcedIdle)
 {
 	if (disabled() || destroyed()) { return; }
 
 	// Note that the order in which the flag is set matters
 	// in terms of the logic involved here.
-	if (force)
+	if (forcedIdle)
 	{
 		idle(IdleReason::PlayerSet);
 		mForcedIdle = true;
