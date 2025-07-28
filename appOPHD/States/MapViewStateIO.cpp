@@ -401,7 +401,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto integrity = dictionary.get<int>("integrity", 100);
 
 		const auto productionCompleted = dictionary.get<int>("production_completed", 0);
-		const auto production_type = dictionary.get<int>("production_type", 0);
+		const auto productionType = dictionary.get<int>("production_type", 0);
 
 		const auto pop0 = dictionary.get<int>("pop0");
 		const auto pop1 = dictionary.get<int>("pop1");
@@ -505,7 +505,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		if (structure.isFactory())
 		{
 			auto& factory = dynamic_cast<Factory&>(structure);
-			factory.productType(static_cast<ProductType>(production_type));
+			factory.productType(static_cast<ProductType>(productionType));
 			factory.productionTurnsCompleted(productionCompleted);
 			factory.resourcePool(&mResourcesCount);
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
