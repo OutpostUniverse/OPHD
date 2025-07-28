@@ -392,7 +392,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto type = dictionary.get<int>("type");
 		const auto age = dictionary.get<int>("age");
 		const auto state = dictionary.get<int>("state");
-		const auto direction = dictionary.get<int>("direction");
+		const auto direction = static_cast<ConnectorDir>(dictionary.get<int>("direction"));
 		const auto forcedIdle = dictionary.get<bool>("forced_idle");
 		const auto disabledReason = dictionary.get<int>("disabled_reason");
 		const auto idleReason = dictionary.get<int>("idle_reason");
@@ -414,8 +414,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		auto structureId = static_cast<StructureID>(type);
 		if (structureId == StructureID::Tube)
 		{
-			ConnectorDir connectorDir = static_cast<ConnectorDir>(direction);
-			insertTube(mTileMap->getTile(mapCoordinate), connectorDir);
+			insertTube(mTileMap->getTile(mapCoordinate), direction);
 			continue; // FIXME: ugly
 		}
 
@@ -424,7 +423,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		structure.age(age);
 		structure.forcedStateChange(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
 		if (forcedIdle) { structure.forceIdle(forcedIdle); }
-		structure.connectorDirection(static_cast<ConnectorDir>(direction));
+		structure.connectorDirection(direction);
 		structure.integrity(integrity);
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");
