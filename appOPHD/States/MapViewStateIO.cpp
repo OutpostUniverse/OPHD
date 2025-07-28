@@ -395,7 +395,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto direction = dictionary.get<int>("direction");
 		const auto forcedIdle = dictionary.get<bool>("forced_idle");
 		const auto disabledReason = dictionary.get<int>("disabled_reason");
-		const auto idle_reason = dictionary.get<int>("idle_reason");
+		const auto idleReason = dictionary.get<int>("idle_reason");
 
 		const auto crime_rate = dictionary.get<int>("crime_rate", 0);
 		const auto integrity = dictionary.get<int>("integrity", 100);
@@ -464,7 +464,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		}
 
 		structure.age(age);
-		structure.forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idle_reason));
+		structure.forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
 		structure.connectorDirection(static_cast<ConnectorDir>(direction));
 		structure.integrity(integrity);
 
