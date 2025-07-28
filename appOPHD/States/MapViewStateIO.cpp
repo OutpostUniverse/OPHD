@@ -393,15 +393,15 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto age = dictionary.get<int>("age");
 		const auto state = dictionary.get<int>("state");
 		const auto direction = dictionary.get<int>("direction");
-		const auto forced_idle = dictionary.get<bool>("forced_idle");
-		const auto disabled_reason = dictionary.get<int>("disabled_reason");
-		const auto idle_reason = dictionary.get<int>("idle_reason");
+		const auto forcedIdle = dictionary.get<bool>("forced_idle");
+		const auto disabledReason = dictionary.get<int>("disabled_reason");
+		const auto idleReason = dictionary.get<int>("idle_reason");
 
-		const auto crime_rate = dictionary.get<int>("crime_rate", 0);
+		const auto crimeRate = dictionary.get<int>("crime_rate", 0);
 		const auto integrity = dictionary.get<int>("integrity", 100);
 
-		const auto production_completed = dictionary.get<int>("production_completed", 0);
-		const auto production_type = dictionary.get<int>("production_type", 0);
+		const auto productionCompleted = dictionary.get<int>("production_completed", 0);
+		const auto productionType = dictionary.get<int>("production_type", 0);
 
 		const auto pop0 = dictionary.get<int>("pop0");
 		const auto pop1 = dictionary.get<int>("pop1");
@@ -464,11 +464,11 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		}
 
 		structure.age(age);
-		structure.forced_state_change(static_cast<StructureState>(state), static_cast<DisabledReason>(disabled_reason), static_cast<IdleReason>(idle_reason));
+		structure.forcedStateChange(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
 		structure.connectorDirection(static_cast<ConnectorDir>(direction));
 		structure.integrity(integrity);
 
-		if (forced_idle != 0) { structure.forceIdle(forced_idle != 0); }
+		if (forcedIdle) { structure.forceIdle(forcedIdle); }
 
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");
@@ -505,15 +505,15 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		if (structure.isFactory())
 		{
 			auto& factory = dynamic_cast<Factory&>(structure);
-			factory.productType(static_cast<ProductType>(production_type));
-			factory.productionTurnsCompleted(production_completed);
+			factory.productType(static_cast<ProductType>(productionType));
+			factory.productionTurnsCompleted(productionCompleted);
 			factory.resourcePool(&mResourcesCount);
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
 
 		if (structure.hasCrime())
 		{
-			structure.crimeRate(crime_rate);
+			structure.crimeRate(crimeRate);
 		}
 
 		structure.populationAvailable() = {pop0, pop1};

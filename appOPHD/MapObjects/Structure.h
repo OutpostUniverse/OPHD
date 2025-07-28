@@ -61,7 +61,7 @@ public:
 
 	bool underConstruction() const;
 
-	void forceIdle(bool force);
+	void forceIdle(bool forcedIdle);
 	bool forceIdle() const { return mForcedIdle; }
 
 	// RESOURCES AND RESOURCE MANAGEMENT
@@ -134,7 +134,7 @@ public:
 	void age(int newAge) { mAge = newAge; }
 	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
 
-	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
+	virtual void forcedStateChange(StructureState, DisabledReason, IdleReason);
 
 	void rebuild();
 
