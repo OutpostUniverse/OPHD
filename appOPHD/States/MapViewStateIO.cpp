@@ -465,11 +465,9 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		structure.age(age);
 		structure.forcedStateChange(static_cast<StructureState>(state), static_cast<DisabledReason>(disabledReason), static_cast<IdleReason>(idleReason));
+		if (forcedIdle) { structure.forceIdle(forcedIdle); }
 		structure.connectorDirection(static_cast<ConnectorDir>(direction));
 		structure.integrity(integrity);
-
-		if (forcedIdle) { structure.forceIdle(forcedIdle); }
-
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");
 
