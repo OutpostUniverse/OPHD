@@ -21,6 +21,6 @@ AirShaft::AirShaft(Tile& tile) :
 }
 
 
-void AirShaft::forced_state_change(StructureState, DisabledReason, IdleReason)
+void AirShaft::forcedStateChange(StructureState, DisabledReason, IdleReason)
 {
 }

@@ -459,7 +459,7 @@ void Structure::destroy()
 /**
  * Provided for loading purposes.
  */
-void Structure::forced_state_change(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
+void Structure::forcedStateChange(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
 	if (age() >= turnsToBuild())
 	{

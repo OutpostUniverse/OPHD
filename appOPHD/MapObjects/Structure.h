@@ -134,7 +134,7 @@ public:
 	void age(int newAge) { mAge = newAge; }
 	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
 
-	virtual void forced_state_change(StructureState, DisabledReason, IdleReason);
+	virtual void forcedStateChange(StructureState, DisabledReason, IdleReason);
 
 	void rebuild();
 

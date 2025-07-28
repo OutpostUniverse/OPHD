@@ -8,5 +8,5 @@ class AirShaft : public Structure
 public:
 	AirShaft(Tile& tile);
 
-	void forced_state_change(StructureState, DisabledReason, IdleReason) override;
+	void forcedStateChange(StructureState, DisabledReason, IdleReason) override;
 };
