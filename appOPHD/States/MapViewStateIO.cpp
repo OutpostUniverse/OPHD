@@ -468,7 +468,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		structure.connectorDirection(static_cast<ConnectorDir>(direction));
 		structure.integrity(integrity);
 
-		if (forcedIdle != 0) { structure.forceIdle(forcedIdle != 0); }
+		if (forcedIdle) { structure.forceIdle(forcedIdle); }
 
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");
