@@ -13,10 +13,9 @@ struct StructureType
 	StorableResources operationalCost{};
 	PopulationRequirements populationRequirements{};
 
-	int priority{0};
-
 	int turnsToBuild{0};
 	int maxAge{0};
+	int priority{0};
 	int energyRequired{0};
 	int energyProduced{0};
 	int solarEnergyProduced{0};
