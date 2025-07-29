@@ -35,10 +35,10 @@ namespace
 	constexpr NAS2D::Rectangle<int> ResourcePanelPinRect{{0, 1}, {8, 19}};
 	constexpr NAS2D::Rectangle<int> PopulationPanelPinRect{{675, 1}, {8, 19}};
 
-	constexpr auto iconSize = constants::ResourceIconSize;
-	constexpr NAS2D::Rectangle<int> oreIconRect{{96, 32}, {iconSize, iconSize}};
-	constexpr NAS2D::Rectangle<int> foodIconRect{{64, 32}, {iconSize, iconSize}};
-	constexpr NAS2D::Rectangle<int> powerIconRect{{80, 32}, {iconSize, iconSize}};
+	constexpr auto iconSize = NAS2D::Vector{constants::ResourceIconSize, constants::ResourceIconSize};
+	constexpr NAS2D::Rectangle<int> oreIconRect{{96, 32}, iconSize};
+	constexpr NAS2D::Rectangle<int> foodIconRect{{64, 32}, iconSize};
+	constexpr NAS2D::Rectangle<int> powerIconRect{{80, 32}, iconSize};
 
 
 	uint8_t calcGlowIntensity()
