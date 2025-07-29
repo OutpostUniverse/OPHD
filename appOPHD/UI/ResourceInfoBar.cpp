@@ -32,8 +32,8 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	constexpr auto ResourcePanelPinRect = NAS2D::Rectangle<int>{{0, 1}, {8, 19}};
-	constexpr auto PopulationPanelPinRect = NAS2D::Rectangle<int>{{675, 1}, {8, 19}};
+	constexpr auto resourcePanelPinRect = NAS2D::Rectangle<int>{{0, 1}, {8, 19}};
+	constexpr auto populationPanelPinRect = NAS2D::Rectangle<int>{{675, 1}, {8, 19}};
 
 	constexpr auto iconSize = NAS2D::Vector{constants::ResourceIconSize, constants::ResourceIconSize};
 	constexpr auto oreIconRect = NAS2D::Rectangle{{96, 32}, iconSize};
@@ -225,8 +225,8 @@ void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> /
 {
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (ResourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
-		if (PopulationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
+		if (resourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
+		if (populationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 	}
 }
 
