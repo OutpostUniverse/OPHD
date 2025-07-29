@@ -39,6 +39,7 @@ public:
 protected:
 	friend class MapViewState;
 
+	StorableResources maxCapacity() const;
 	StorableResources maxTransferAmounts() const;
 
 	void assignedTrucks(int count);

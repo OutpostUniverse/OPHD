@@ -8,22 +8,10 @@
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <algorithm>
 #include <stdexcept>
-
-
-namespace
-{
-	const int MineFacilityStorageCapacity = 500;
-
-	const StorableResources MaxCapacity{
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-		MineFacilityStorageCapacity / 4,
-	};
-}
 
 
 MineFacility::MineFacility(Tile& tile) :
@@ -51,9 +39,16 @@ void MineFacility::activated()
 }
 
 
+StorableResources MineFacility::maxCapacity() const
+{
+	const auto oreCapacity = mStructureType.rawOreStorageCapacity;
+	return {oreCapacity, oreCapacity, oreCapacity, oreCapacity};
+}
+
+
 StorableResources MineFacility::maxTransferAmounts() const
 {
-	const auto remainingCapacity = MaxCapacity - production();
+	const auto remainingCapacity = maxCapacity() - production();
 	auto maxTransfer = remainingCapacity.cap(constants::BaseMineProductionRate);
 	return maxTransfer;
 }
@@ -78,7 +73,7 @@ void MineFacility::think()
 
 	if (isIdle())
 	{
-		if (storage() < MaxCapacity)
+		if (storage() < maxCapacity())
 		{
 			enable();
 		}
@@ -90,7 +85,7 @@ void MineFacility::think()
 		return;
 	}
 
-	if (storage() >= MaxCapacity)
+	if (storage() >= maxCapacity())
 	{
 		idle(IdleReason::InternalStorageFull);
 		return;
