@@ -210,6 +210,18 @@ void StructureManager::removeStructure(Structure& structure)
 }
 
 
+void StructureManager::dropAllStructures()
+{
+	for (const auto* structure : mDeployedStructures)
+	{
+		structure->tile().deleteMapObject();
+	}
+
+	mDeployedStructures.clear();
+	mStructureLists = populateKeys();
+}
+
+
 const StructureList& StructureManager::structureList(StructureClass structureClass) const
 {
 	return mStructureLists.at(structureClass);
@@ -275,18 +287,6 @@ void StructureManager::disconnectAll()
 	{
 		structure->connected(false);
 	}
-}
-
-
-void StructureManager::dropAllStructures()
-{
-	for (const auto* structure : mDeployedStructures)
-	{
-		structure->tile().deleteMapObject();
-	}
-
-	mDeployedStructures.clear();
-	mStructureLists = populateKeys();
 }
 
 
