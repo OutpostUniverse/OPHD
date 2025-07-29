@@ -63,19 +63,11 @@ StringTable OreRefining::createInspectorViewTable() const
 StorableResources OreRefining::storageCapacities() const
 {
 	return {
-		individualMaterialCapacity(),
-		individualMaterialCapacity(),
-		individualMaterialCapacity(),
-		individualMaterialCapacity(),
+		storageCapacity(),
+		storageCapacity(),
+		storageCapacity(),
+		storageCapacity(),
 	};
-}
-
-/**
- * Capacity of an individual type of refined resource
- */
-int OreRefining::individualMaterialCapacity() const
-{
-	return storageCapacity();
 }
 
 
@@ -109,7 +101,7 @@ void OreRefining::updateProduction()
 
 	auto& stored = storage();
 	auto total = stored + converted;
-	auto capped = total.cap(individualMaterialCapacity());
+	auto capped = total.cap(storageCapacity());
 	auto overflow = total - capped;
 
 	stored = capped;
@@ -135,5 +127,5 @@ void OreRefining::updateProduction()
 
 std::string OreRefining::writeStorageAmount(int storageAmount) const
 {
-	return std::to_string(storageAmount) + " / " + std::to_string(individualMaterialCapacity());
+	return std::to_string(storageAmount) + " / " + std::to_string(storageCapacity());
 }

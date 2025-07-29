@@ -22,11 +22,6 @@ protected:
 
 	StorableResources storageCapacities() const;
 
-	/**
-	 * Capacity of an individual type of refined resource
-	 */
-	int individualMaterialCapacity() const;
-
 	void think() override;
 
 	virtual void updateProduction();
