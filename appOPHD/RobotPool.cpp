@@ -254,9 +254,9 @@ void RobotPool::update()
 	std::size_t maxRobots = 0;
 	if (commandCenters.size() > 0) { maxRobots += 3; }
 	// the 10 per robot command facility
-	for (std::size_t s = 0; s < robotCommands.size(); ++s)
+	for (const auto* structure : robotCommands)
 	{
-		if (robotCommands[s]->operational()) { maxRobots += 10; }
+		if (structure->operational()) { maxRobots += 10; }
 	}
 
 	mRobotControlMax = maxRobots;
