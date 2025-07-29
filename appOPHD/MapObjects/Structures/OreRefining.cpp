@@ -7,6 +7,14 @@
 
 #include <libOPHD/EnumIdleReason.h>
 
+#include <array>
+
+
+namespace
+{
+	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
+}
+
 
 OreRefining::OreRefining(StructureID id, Tile& tile) :
 	Structure{id, tile}
