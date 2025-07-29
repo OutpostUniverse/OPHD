@@ -470,7 +470,6 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 	if (tile.depth() > 0 && direction == Direction::Down)
 	{
 		NAS2D::Utility<StructureManager>::get().removeStructure(*tile.structure());
-		tile.deleteMapObject();
 		updateConnectedness();
 	}
 
