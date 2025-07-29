@@ -32,8 +32,14 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	constexpr NAS2D::Rectangle<int> ResourcePanelPinRect{{0, 1}, {8, 19}};
-	constexpr NAS2D::Rectangle<int> PopulationPanelPinRect{{675, 1}, {8, 19}};
+	constexpr auto pinIconSize = NAS2D::Vector{8, 19};
+	constexpr auto resourcePanelPinRect = NAS2D::Rectangle{{0, 1}, pinIconSize};
+	constexpr auto populationPanelPinRect = NAS2D::Rectangle{{675, 1}, pinIconSize};
+
+	constexpr auto iconSize = NAS2D::Vector{constants::ResourceIconSize, constants::ResourceIconSize};
+	constexpr auto oreIconRect = NAS2D::Rectangle{{96, 32}, iconSize};
+	constexpr auto foodIconRect = NAS2D::Rectangle{{64, 32}, iconSize};
+	constexpr auto powerIconRect = NAS2D::Rectangle{{80, 32}, iconSize};
 
 
 	uint8_t calcGlowIntensity()
@@ -163,7 +169,6 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
-	constexpr auto iconSize = constants::ResourceIconSize;
 	const std::array resources
 	{
 		std::tuple{ResourceImageRectsRefined[0], mResourcesCount.resources[0], offsetX},
@@ -183,12 +188,14 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	}
 
 	// Capacity (Storage, Food, Energy)
-	const auto& sm = NAS2D::Utility<StructureManager>::get();
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto refinedOreCapacity = totalStorage(StructureClass::Storage, 1000);
+	const auto energyAvailable = structureManager.totalEnergyAvailable();
 	const std::array storageCapacities
 	{
-		std::tuple{NAS2D::Rectangle<int>{{96, 32}, {iconSize, iconSize}}, mResourcesCount.total(), totalStorage(StructureClass::Storage, 1000), totalStorage(StructureClass::Storage, 1000) - mResourcesCount.total() <= 100},
-		std::tuple{NAS2D::Rectangle<int>{{64, 32}, {iconSize, iconSize}}, mFood, sm.totalFoodStorageCapacity(), mFood <= 10},
-		std::tuple{NAS2D::Rectangle<int>{{80, 32}, {iconSize, iconSize}}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
+		std::tuple{oreIconRect, mResourcesCount.total(), refinedOreCapacity, refinedOreCapacity - mResourcesCount.total() <= 100},
+		std::tuple{foodIconRect, mFood, structureManager.totalFoodStorageCapacity(), mFood <= 10},
+		std::tuple{powerIconRect, energyAvailable, structureManager.totalEnergyProduction(), energyAvailable <= 5}
 	};
 
 	position.x += x + offsetX;
@@ -219,8 +226,8 @@ void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> /
 {
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (ResourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
-		if (PopulationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
+		if (resourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
+		if (populationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 	}
 }
 
