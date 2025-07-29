@@ -5,6 +5,8 @@
 #include "MapObjects/Robots.h"
 #include "MapObjects/Structures/CommandCenter.h"
 
+#include <libOPHD/MapObjects/StructureType.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
@@ -250,13 +252,11 @@ void RobotPool::update()
 	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
 	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(StructureClass::RobotCommand);
 
-	// 3 for the first command center
 	int totalRobotCommandCapacity = 0;
-	if (commandCenters.size() > 0) { totalRobotCommandCapacity += 3; }
-	// the 10 per robot command facility
+	if (commandCenters.size() > 0) { totalRobotCommandCapacity += commandCenters[0]->type().robotCommandCapacity; }
 	for (const auto* structure : robotCommands)
 	{
-		if (structure->operational()) { totalRobotCommandCapacity += 10; }
+		if (structure->operational()) { totalRobotCommandCapacity += structure->type().robotCommandCapacity; }
 	}
 
 	mRobotControlMax = static_cast<std::size_t>(totalRobotCommandCapacity);
