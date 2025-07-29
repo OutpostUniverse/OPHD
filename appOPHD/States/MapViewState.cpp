@@ -379,8 +379,8 @@ NAS2D::State* MapViewState::update()
 
 void MapViewState::updatePlayerResources()
 {
-	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
