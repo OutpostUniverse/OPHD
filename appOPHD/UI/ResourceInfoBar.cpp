@@ -185,11 +185,12 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	// Capacity (Storage, Food, Energy)
 	const auto& sm = NAS2D::Utility<StructureManager>::get();
 	const auto refinedOreCapacity = totalStorage(StructureClass::Storage, 1000);
+	const auto energyAvailable = sm.totalEnergyAvailable();
 	const std::array storageCapacities
 	{
 		std::tuple{NAS2D::Rectangle<int>{{96, 32}, {iconSize, iconSize}}, mResourcesCount.total(), refinedOreCapacity, refinedOreCapacity - mResourcesCount.total() <= 100},
 		std::tuple{NAS2D::Rectangle<int>{{64, 32}, {iconSize, iconSize}}, mFood, sm.totalFoodStorageCapacity(), mFood <= 10},
-		std::tuple{NAS2D::Rectangle<int>{{80, 32}, {iconSize, iconSize}}, sm.totalEnergyAvailable(), sm.totalEnergyProduction(), sm.totalEnergyAvailable() <= 5}
+		std::tuple{NAS2D::Rectangle<int>{{80, 32}, {iconSize, iconSize}}, energyAvailable, sm.totalEnergyProduction(), energyAvailable <= 5}
 	};
 
 	position.x += x + offsetX;
