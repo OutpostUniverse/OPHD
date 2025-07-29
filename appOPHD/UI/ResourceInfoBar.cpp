@@ -32,13 +32,13 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	constexpr NAS2D::Rectangle<int> ResourcePanelPinRect{{0, 1}, {8, 19}};
-	constexpr NAS2D::Rectangle<int> PopulationPanelPinRect{{675, 1}, {8, 19}};
+	constexpr auto ResourcePanelPinRect = NAS2D::Rectangle<int>{{0, 1}, {8, 19}};
+	constexpr auto PopulationPanelPinRect = NAS2D::Rectangle<int>{{675, 1}, {8, 19}};
 
 	constexpr auto iconSize = NAS2D::Vector{constants::ResourceIconSize, constants::ResourceIconSize};
-	constexpr NAS2D::Rectangle<int> oreIconRect{{96, 32}, iconSize};
-	constexpr NAS2D::Rectangle<int> foodIconRect{{64, 32}, iconSize};
-	constexpr NAS2D::Rectangle<int> powerIconRect{{80, 32}, iconSize};
+	constexpr auto oreIconRect = NAS2D::Rectangle<int>{{96, 32}, iconSize};
+	constexpr auto foodIconRect = NAS2D::Rectangle<int>{{64, 32}, iconSize};
+	constexpr auto powerIconRect = NAS2D::Rectangle<int>{{80, 32}, iconSize};
 
 
 	uint8_t calcGlowIntensity()
