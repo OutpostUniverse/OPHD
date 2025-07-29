@@ -32,8 +32,9 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
-	constexpr auto resourcePanelPinRect = NAS2D::Rectangle<int>{{0, 1}, {8, 19}};
-	constexpr auto populationPanelPinRect = NAS2D::Rectangle<int>{{675, 1}, {8, 19}};
+	constexpr auto pinIconSize = NAS2D::Vector{8, 19};
+	constexpr auto resourcePanelPinRect = NAS2D::Rectangle<int>{{0, 1}, pinIconSize};
+	constexpr auto populationPanelPinRect = NAS2D::Rectangle<int>{{675, 1}, pinIconSize};
 
 	constexpr auto iconSize = NAS2D::Vector{constants::ResourceIconSize, constants::ResourceIconSize};
 	constexpr auto oreIconRect = NAS2D::Rectangle{{96, 32}, iconSize};
