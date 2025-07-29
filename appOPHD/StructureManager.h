@@ -112,6 +112,7 @@ public:
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
 
+	int totalRefinedOreStorageCapacity() const;
 	int totalFoodStorageCapacity() const;
 
 	void assignColonistsToResidences(PopulationPool&);

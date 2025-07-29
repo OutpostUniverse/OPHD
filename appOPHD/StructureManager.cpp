@@ -393,6 +393,22 @@ void StructureManager::updateEnergyConsumed()
 }
 
 
+int StructureManager::totalRefinedOreStorageCapacity() const
+{
+	int storageCapacity = 0;
+
+	for (const auto* structure : allStructures())
+	{
+		if (structure->operational() || structure->isIdle())
+		{
+			storageCapacity += structure->refinedOreStorageCapacity();
+		}
+	}
+
+	return storageCapacity;
+}
+
+
 int StructureManager::totalFoodStorageCapacity() const
 {
 	int storageCapacity = 0;

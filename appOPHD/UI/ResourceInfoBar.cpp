@@ -189,7 +189,7 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 
 	// Capacity (Storage, Food, Energy)
 	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	const auto refinedOreCapacity = totalStorage(StructureClass::Storage, 1000);
+	const auto refinedOreCapacity = structureManager.totalRefinedOreStorageCapacity() * 4;
 	const auto energyAvailable = structureManager.totalEnergyAvailable();
 	const std::array storageCapacities
 	{
@@ -229,31 +229,4 @@ void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> /
 		if (resourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
 		if (populationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
 	}
-}
-
-
-/**
- * Get the total amount of storage given a structure class and capacity of each
- * structure.
- */
-int ResourceInfoBar::totalStorage(StructureClass structureClass, int capacity) const
-{
-	int storageCapacity = 0;
-
-	// Command Center has a limited amount of storage for when colonists first land.
-	if (isCcPlaced())
-	{
-		storageCapacity += constants::BaseStorageCapacity;
-	}
-
-	const auto& structures = NAS2D::Utility<StructureManager>::get().structureList(structureClass);
-	for (const auto* structure : structures)
-	{
-		if (structure->operational() || structure->isIdle())
-		{
-			storageCapacity += capacity;
-		}
-	}
-
-	return storageCapacity;
 }
