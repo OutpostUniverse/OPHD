@@ -1038,7 +1038,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updateStructuresAvailability();
 
 		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
-		tile.deleteMapObject();
 		updateConnectedness();
 	}
 

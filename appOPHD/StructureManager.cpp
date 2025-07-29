@@ -203,7 +203,7 @@ void StructureManager::removeStructure(Structure& structure)
 		mDeployedStructures.erase(tileTableIt);
 	}
 
-	if (!isFoundStructureTable || !isFoundTileTable)
+	if (!isFoundStructureTable && !isFoundTileTable)
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
