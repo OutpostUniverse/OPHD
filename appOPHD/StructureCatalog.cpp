@@ -122,8 +122,8 @@ namespace
 			loadedStructureTypes.push_back({
 				dictionary.get("Name"),
 				dictionary.get("ImagePath"),
-				readResources(*structureElement, "BuildCost"),
-				readResources(*structureElement, "OperationalCost"),
+				readResourcesOptional(*structureElement, "BuildCost"),
+				readResourcesOptional(*structureElement, "OperationalCost"),
 				{
 					dictionary.get<int>("RequiredWorkers"),
 					dictionary.get<int>("RequiredScientists"),
