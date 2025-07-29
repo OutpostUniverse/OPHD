@@ -111,7 +111,7 @@ namespace
 		const auto& structuresElement = *document.firstChildElement("Structures");
 
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath"};
-		const auto optionalFields = std::vector<std::string>{"TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+		const auto optionalFields = std::vector<std::string>{"TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "RobotCommandCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
 		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
@@ -138,6 +138,7 @@ namespace
 				dictionary.get<int>("FoodStorageCapacity", 0),
 				dictionary.get<int>("RawOreStorageCapacity", 0),
 				dictionary.get<int>("OreStorageCapacity", 0),
+				dictionary.get<int>("RobotCommandCapacity", 0),
 				dictionary.get<int>("CommRange", 0),
 				dictionary.get<int>("PoliceRange", 0),
 				dictionary.get<int>("IntegrityDecayRate", 1),
