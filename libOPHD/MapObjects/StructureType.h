@@ -22,6 +22,7 @@ struct StructureType
 	int solarEnergyProduced{0};
 	int foodProduced{0};
 	int foodStorageCapacity{0};
+	int rawOreStorageCapacity{0};
 	int oreStorageCapacity{0};
 	int commRange{0};
 	int policeRange{0};

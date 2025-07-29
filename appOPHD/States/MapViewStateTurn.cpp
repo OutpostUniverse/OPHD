@@ -34,6 +34,7 @@
 #include <libOPHD/EnumMoraleIndex.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
+#include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 
 #include <NAS2D/Utility.h>
@@ -313,7 +314,7 @@ void MapViewState::transportOreFromMines()
 			auto& smelterStored = smelter.production();
 
 			const auto oreAvailable = smelterStored + mineStorage.cap(movementCap);
-			const auto newSmelterStored = oreAvailable.cap(250);
+			const auto newSmelterStored = oreAvailable.cap(smelter.type().rawOreStorageCapacity);
 			const auto movedOre = newSmelterStored - smelterStored;
 
 			mineStorage -= movedOre;
