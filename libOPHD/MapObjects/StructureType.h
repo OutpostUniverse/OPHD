@@ -23,6 +23,7 @@ struct StructureType
 	int foodStorageCapacity{0};
 	int rawOreStorageCapacity{0};
 	int oreStorageCapacity{0};
+	int robotCommandCapacity{0};
 	int commRange{0};
 	int policeRange{0};
 	int integrityDecayRate{1};

@@ -5,6 +5,8 @@
 #include "MapObjects/Robots.h"
 #include "MapObjects/Structures/CommandCenter.h"
 
+#include <libOPHD/MapObjects/StructureType.h>
+
 #include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
@@ -247,19 +249,26 @@ std::size_t RobotPool::getAvailableCount(RobotTypeIndex robotTypeIndex) const
 
 void RobotPool::update()
 {
-	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(StructureClass::RobotCommand);
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto& structures = structureManager.allStructures();
 
-	// 3 for the first command center
-	std::size_t maxRobots = 0;
-	if (commandCenters.size() > 0) { maxRobots += 3; }
-	// the 10 per robot command facility
-	for (std::size_t s = 0; s < robotCommands.size(); ++s)
+	int totalRobotCommandCapacity = 0;
+	for (const auto* structure : structures)
 	{
-		if (robotCommands[s]->operational()) { maxRobots += 10; }
+		if (structure->operational()) { totalRobotCommandCapacity += structure->type().robotCommandCapacity; }
 	}
 
-	mRobotControlMax = maxRobots;
+	// Special case hack to allow robot use during initial colony deploy
+	if (totalRobotCommandCapacity == 0)
+	{
+		const auto& commandCenters = structureManager.getStructures<CommandCenter>();
+		if (commandCenters.size() > 0)
+		{
+			totalRobotCommandCapacity += commandCenters[0]->type().robotCommandCapacity;
+		}
+	}
+
+	mRobotControlMax = static_cast<std::size_t>(totalRobotCommandCapacity);
 	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
