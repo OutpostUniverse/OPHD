@@ -28,6 +28,7 @@
 #include "../MapObjects/Structures/ColonistLander.h"
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
+#include "../MapObjects/Structures/OreRefining.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/SeedLander.h"
@@ -380,10 +381,12 @@ NAS2D::State* MapViewState::update()
 void MapViewState::updatePlayerResources()
 {
 	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
 	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
+	storage.insert(storage.end(), smelters.begin(), smelters.end());
 	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
 
 	StorableResources resources;
