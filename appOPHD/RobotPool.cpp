@@ -251,15 +251,15 @@ void RobotPool::update()
 	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(StructureClass::RobotCommand);
 
 	// 3 for the first command center
-	std::size_t maxRobots = 0;
-	if (commandCenters.size() > 0) { maxRobots += 3; }
+	std::size_t totalRobotCommandCapacity = 0;
+	if (commandCenters.size() > 0) { totalRobotCommandCapacity += 3; }
 	// the 10 per robot command facility
 	for (const auto* structure : robotCommands)
 	{
-		if (structure->operational()) { maxRobots += 10; }
+		if (structure->operational()) { totalRobotCommandCapacity += 10; }
 	}
 
-	mRobotControlMax = maxRobots;
+	mRobotControlMax = totalRobotCommandCapacity;
 	mRobotControlCount = robotControlCount(mDiggers) + robotControlCount(mDozers) + robotControlCount(mMiners);
 }
 
