@@ -249,14 +249,23 @@ std::size_t RobotPool::getAvailableCount(RobotTypeIndex robotTypeIndex) const
 
 void RobotPool::update()
 {
-	const auto& commandCenters = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& robotCommands = NAS2D::Utility<StructureManager>::get().structureList(StructureClass::RobotCommand);
+	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	const auto& structures = structureManager.allStructures();
 
 	int totalRobotCommandCapacity = 0;
-	if (commandCenters.size() > 0) { totalRobotCommandCapacity += commandCenters[0]->type().robotCommandCapacity; }
-	for (const auto* structure : robotCommands)
+	for (const auto* structure : structures)
 	{
 		if (structure->operational()) { totalRobotCommandCapacity += structure->type().robotCommandCapacity; }
+	}
+
+	// Special case hack to allow robot use during initial colony deploy
+	if (totalRobotCommandCapacity == 0)
+	{
+		const auto& commandCenters = structureManager.getStructures<CommandCenter>();
+		if (commandCenters.size() > 0)
+		{
+			totalRobotCommandCapacity += commandCenters[0]->type().robotCommandCapacity;
+		}
 	}
 
 	mRobotControlMax = static_cast<std::size_t>(totalRobotCommandCapacity);
