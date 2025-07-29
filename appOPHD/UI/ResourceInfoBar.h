@@ -35,8 +35,6 @@ public:
 protected:
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 
-	int totalStorage(StructureClass, int) const;
-
 private:
 	const StorableResources& mResourcesCount;
 	const Population& mPopulation;
