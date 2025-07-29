@@ -75,7 +75,7 @@ StorableResources OreRefining::storageCapacities() const
  */
 int OreRefining::individualMaterialCapacity() const
 {
-	return storageCapacity() / 4;
+	return storageCapacity();
 }
 
 
