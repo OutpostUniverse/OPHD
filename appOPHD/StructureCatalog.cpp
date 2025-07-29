@@ -110,8 +110,8 @@ namespace
 		const auto document = openXmlFile(filePath, "Structures");
 		const auto& structuresElement = *document.firstChildElement("Structures");
 
-		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath", "TurnsToBuild", "MaxAge"};
-		const auto optionalFields = std::vector<std::string>{"RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath"};
+		const auto optionalFields = std::vector<std::string>{"TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
 		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
@@ -128,8 +128,8 @@ namespace
 					dictionary.get<int>("RequiredWorkers", 0),
 					dictionary.get<int>("RequiredScientists", 0),
 				},
-				dictionary.get<int>("TurnsToBuild"),
-				dictionary.get<int>("MaxAge"),
+				dictionary.get<int>("TurnsToBuild", 0),
+				dictionary.get<int>("MaxAge", 0),
 				dictionary.get<int>("Priority", 0),
 				dictionary.get<int>("EnergyRequired", 0),
 				dictionary.get<int>("EnergyProduced", 0),
