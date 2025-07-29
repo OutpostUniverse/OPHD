@@ -35,6 +35,11 @@ namespace
 	constexpr NAS2D::Rectangle<int> ResourcePanelPinRect{{0, 1}, {8, 19}};
 	constexpr NAS2D::Rectangle<int> PopulationPanelPinRect{{675, 1}, {8, 19}};
 
+	constexpr auto iconSize = constants::ResourceIconSize;
+	constexpr NAS2D::Rectangle<int> oreIconRect{{96, 32}, {iconSize, iconSize}};
+	constexpr NAS2D::Rectangle<int> foodIconRect{{64, 32}, {iconSize, iconSize}};
+	constexpr NAS2D::Rectangle<int> powerIconRect{{80, 32}, {iconSize, iconSize}};
+
 
 	uint8_t calcGlowIntensity()
 	{
@@ -163,7 +168,6 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	const auto glowIntensity = calcGlowIntensity();
 	const auto glowColor = NAS2D::Color{255, glowIntensity, glowIntensity};
 
-	constexpr auto iconSize = constants::ResourceIconSize;
 	const std::array resources
 	{
 		std::tuple{ResourceImageRectsRefined[0], mResourcesCount.resources[0], offsetX},
@@ -188,9 +192,9 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	const auto energyAvailable = structureManager.totalEnergyAvailable();
 	const std::array storageCapacities
 	{
-		std::tuple{NAS2D::Rectangle<int>{{96, 32}, {iconSize, iconSize}}, mResourcesCount.total(), refinedOreCapacity, refinedOreCapacity - mResourcesCount.total() <= 100},
-		std::tuple{NAS2D::Rectangle<int>{{64, 32}, {iconSize, iconSize}}, mFood, structureManager.totalFoodStorageCapacity(), mFood <= 10},
-		std::tuple{NAS2D::Rectangle<int>{{80, 32}, {iconSize, iconSize}}, energyAvailable, structureManager.totalEnergyProduction(), energyAvailable <= 5}
+		std::tuple{oreIconRect, mResourcesCount.total(), refinedOreCapacity, refinedOreCapacity - mResourcesCount.total() <= 100},
+		std::tuple{foodIconRect, mFood, structureManager.totalFoodStorageCapacity(), mFood <= 10},
+		std::tuple{powerIconRect, energyAvailable, structureManager.totalEnergyProduction(), energyAvailable <= 5}
 	};
 
 	position.x += x + offsetX;
