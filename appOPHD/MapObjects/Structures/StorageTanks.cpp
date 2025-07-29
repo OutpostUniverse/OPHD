@@ -29,7 +29,7 @@ StringTable StorageTanks::createInspectorViewTable() const
 	stringTable.setColumnText(
 		1,
 		{
-			std::to_string(storage().total()) + " / " + std::to_string(storageCapacity() * 4),
+			std::to_string(storage().total()) + " / " + std::to_string(refinedOreStorageCapacity() * 4),
 			std::to_string(storage().resources[0]),
 			std::to_string(storage().resources[1]),
 			std::to_string(storage().resources[2]),
