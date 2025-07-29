@@ -210,7 +210,7 @@ void StructureManager::removeStructure(Structure& structure)
 }
 
 
-void StructureManager::dropAllStructures()
+void StructureManager::removeAllStructures()
 {
 	for (const auto* structure : mDeployedStructures)
 	{

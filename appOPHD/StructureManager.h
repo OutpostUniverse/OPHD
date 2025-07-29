@@ -49,7 +49,7 @@ public:
 
 	void addStructure(Structure& structure, Tile& tile);
 	void removeStructure(Structure& structure);
-	void dropAllStructures();
+	void removeAllStructures();
 
 	template <typename StructureType>
 	const std::vector<StructureType*> getStructures() const

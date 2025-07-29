@@ -243,7 +243,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mMorale.closeJournal();
 
 	scrubRobotList();
-	NAS2D::Utility<StructureManager>::get().dropAllStructures();
+	NAS2D::Utility<StructureManager>::get().removeAllStructures();
 
 	mStructureTracker = StructureTracker{};
 
