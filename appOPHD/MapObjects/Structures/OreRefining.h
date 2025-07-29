@@ -2,8 +2,6 @@
 
 #include "../Structure.h"
 
-#include <array>
-
 
 /**
  * Virtual class for structures whose primary purpose is ore processing
@@ -18,14 +16,7 @@ public:
 	StringTable createInspectorViewTable() const override;
 
 protected:
-	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
-
 	StorableResources storageCapacities() const;
-
-	/**
-	 * Capacity of an individual type of refined resource
-	 */
-	int individualMaterialCapacity() const;
 
 	void think() override;
 

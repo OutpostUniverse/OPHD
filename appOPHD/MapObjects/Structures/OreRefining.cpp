@@ -7,6 +7,14 @@
 
 #include <libOPHD/EnumIdleReason.h>
 
+#include <array>
+
+
+namespace
+{
+	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
+}
+
 
 OreRefining::OreRefining(StructureID id, Tile& tile) :
 	Structure{id, tile}
@@ -63,19 +71,11 @@ StringTable OreRefining::createInspectorViewTable() const
 StorableResources OreRefining::storageCapacities() const
 {
 	return {
-		individualMaterialCapacity(),
-		individualMaterialCapacity(),
-		individualMaterialCapacity(),
-		individualMaterialCapacity(),
+		refinedOreStorageCapacity(),
+		refinedOreStorageCapacity(),
+		refinedOreStorageCapacity(),
+		refinedOreStorageCapacity(),
 	};
-}
-
-/**
- * Capacity of an individual type of refined resource
- */
-int OreRefining::individualMaterialCapacity() const
-{
-	return storageCapacity() / 4;
 }
 
 
@@ -109,7 +109,7 @@ void OreRefining::updateProduction()
 
 	auto& stored = storage();
 	auto total = stored + converted;
-	auto capped = total.cap(individualMaterialCapacity());
+	auto capped = total.cap(refinedOreStorageCapacity());
 	auto overflow = total - capped;
 
 	stored = capped;
@@ -135,5 +135,5 @@ void OreRefining::updateProduction()
 
 std::string OreRefining::writeStorageAmount(int storageAmount) const
 {
-	return std::to_string(storageAmount) + " / " + std::to_string(individualMaterialCapacity());
+	return std::to_string(storageAmount) + " / " + std::to_string(refinedOreStorageCapacity());
 }

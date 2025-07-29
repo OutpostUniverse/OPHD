@@ -382,7 +382,7 @@ StorableResources addRefinedResources(StorableResources resourcesToAdd)
 		auto& storageTanksResources = structure->storage();
 
 		auto newResources = storageTanksResources + resourcesToAdd;
-		auto capped = newResources.cap(structure->storageCapacity() / 4);
+		auto capped = newResources.cap(structure->refinedOreStorageCapacity());
 
 		storageTanksResources = capped;
 		resourcesToAdd = newResources - capped;
