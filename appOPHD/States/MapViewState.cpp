@@ -961,6 +961,9 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		mMineOperationsWindow.hide();
 
+		const auto* mineFacility = dynamic_cast<MineFacility*>(tile.structure());
+		NAS2D::Utility<std::map<const MineFacility*, Route>>::get().erase(mineFacility);
+
 		const auto tilePosition = tile.xy();
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
