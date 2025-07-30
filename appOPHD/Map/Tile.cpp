@@ -53,7 +53,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 Tile::~Tile()
 {
 	delete mOreDeposit;
-	delete mMapObject;
 }
 
 
@@ -94,18 +93,6 @@ void Tile::mapObject(MapObject* mapObject)
 	}
 
 	mMapObject = mapObject;
-}
-
-
-/**
- * Clears a MapObject from the Tile.
- *
- * \note	Garbage collects the MapObject. Deletes and frees memory.
- */
-void Tile::deleteMapObject()
-{
-	delete mMapObject;
-	removeMapObject();
 }
 
 

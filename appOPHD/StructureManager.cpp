@@ -200,8 +200,9 @@ void StructureManager::removeStructure(Structure& structure)
 	}
 
 	structures.erase(it);
-	(*tileTableIt)->tile().deleteMapObject();
+	(*tileTableIt)->tile().removeMapObject();
 	mDeployedStructures.erase(tileTableIt);
+	delete &structure;
 }
 
 
@@ -209,7 +210,8 @@ void StructureManager::removeAllStructures()
 {
 	for (const auto* structure : mDeployedStructures)
 	{
-		structure->tile().deleteMapObject();
+		structure->tile().removeMapObject();
+		delete structure;
 	}
 
 	mDeployedStructures.clear();
