@@ -961,8 +961,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		mMineOperationsWindow.hide();
 		const auto tilePosition = tile.xy();
-		mTileMap->removeOreDepositLocation(tilePosition);
-		tile.placeOreDeposit(nullptr);
 		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
@@ -972,6 +970,8 @@ void MapViewState::placeRobodozer(Tile& tile)
 				structureManager.removeStructure(*mineShaftTile.structure());
 			}
 		}
+		mTileMap->removeOreDepositLocation(tilePosition);
+		tile.placeOreDeposit(nullptr);
 	}
 	else if (tile.hasStructure())
 	{
