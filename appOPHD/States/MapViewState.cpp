@@ -967,7 +967,10 @@ void MapViewState::placeRobodozer(Tile& tile)
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
-			structureManager.removeStructure(*mineShaftTile.structure());
+			if (mineShaftTile.hasStructure())
+			{
+				structureManager.removeStructure(*mineShaftTile.structure());
+			}
 		}
 	}
 	else if (tile.hasStructure())
