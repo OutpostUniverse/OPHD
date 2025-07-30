@@ -194,7 +194,7 @@ void StructureManager::removeStructure(Structure& structure)
 	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
 	const auto isFoundTileTable = tileTableIt != mDeployedStructures.end();
 
-	if (!isFoundStructureTable && !isFoundTileTable)
+	if (!isFoundStructureTable || !isFoundTileTable)
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
