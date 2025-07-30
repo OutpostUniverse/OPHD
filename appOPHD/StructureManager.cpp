@@ -190,23 +190,32 @@ void StructureManager::removeStructure(Structure& structure)
 
 	const auto it = std::find(structures.begin(), structures.end(), &structure);
 	const auto isFoundStructureTable = it != structures.end();
-	if (isFoundStructureTable)
-	{
-		structures.erase(it);
-	}
 
 	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
 	const auto isFoundTileTable = tileTableIt != mDeployedStructures.end();
-	if (isFoundTileTable)
-	{
-		(*tileTableIt)->tile().deleteMapObject();
-		mDeployedStructures.erase(tileTableIt);
-	}
 
-	if (!isFoundStructureTable && !isFoundTileTable)
+	if (!isFoundStructureTable || !isFoundTileTable)
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
+
+	structures.erase(it);
+	(*tileTableIt)->tile().removeMapObject();
+	mDeployedStructures.erase(tileTableIt);
+	delete &structure;
+}
+
+
+void StructureManager::removeAllStructures()
+{
+	for (const auto* structure : mDeployedStructures)
+	{
+		structure->tile().removeMapObject();
+		delete structure;
+	}
+
+	mDeployedStructures.clear();
+	mStructureLists = populateKeys();
 }
 
 
@@ -275,18 +284,6 @@ void StructureManager::disconnectAll()
 	{
 		structure->connected(false);
 	}
-}
-
-
-void StructureManager::dropAllStructures()
-{
-	for (const auto* structure : mDeployedStructures)
-	{
-		structure->tile().deleteMapObject();
-	}
-
-	mDeployedStructures.clear();
-	mStructureLists = populateKeys();
 }
 
 

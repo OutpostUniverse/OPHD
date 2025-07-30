@@ -49,6 +49,7 @@ public:
 
 	void addStructure(Structure& structure, Tile& tile);
 	void removeStructure(Structure& structure);
+	void removeAllStructures();
 
 	template <typename StructureType>
 	const std::vector<StructureType*> getStructures() const
@@ -76,8 +77,6 @@ public:
 
 	void updateConnectedness(TileMap& tileMap);
 	std::vector<Tile*> getConnectednessOverlay() const;
-
-	void dropAllStructures();
 
 	int count() const;
 

@@ -53,7 +53,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 Tile::~Tile()
 {
 	delete mOreDeposit;
-	delete mMapObject;
 }
 
 
@@ -90,26 +89,10 @@ void Tile::mapObject(MapObject* mapObject)
 {
 	if (mMapObject)
 	{
-		if (mMapObject == mapObject)
-		{
-			throw std::runtime_error("Attempting to set MapObject on a tile where it's already set");
-		}
-		deleteMapObject();
+		throw std::runtime_error("Attempting to set MapObject on a tile where it's already set");
 	}
 
 	mMapObject = mapObject;
-}
-
-
-/**
- * Clears a MapObject from the Tile.
- *
- * \note	Garbage collects the MapObject. Deletes and frees memory.
- */
-void Tile::deleteMapObject()
-{
-	delete mMapObject;
-	removeMapObject();
 }
 
 

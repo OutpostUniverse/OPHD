@@ -55,7 +55,6 @@ public:
 	void mapObject(MapObject*);
 	MapObject* mapObject() const { return mMapObject; }
 
-	void deleteMapObject();
 	void removeMapObject();
 
 	bool empty() const { return mMapObject == nullptr; }

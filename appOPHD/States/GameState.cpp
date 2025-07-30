@@ -54,7 +54,7 @@ GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty select
 
 GameState::~GameState()
 {
-	NAS2D::Utility<StructureManager>::get().dropAllStructures();
+	NAS2D::Utility<StructureManager>::get().removeAllStructures();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
