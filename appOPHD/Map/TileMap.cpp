@@ -281,7 +281,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-bool TileMap::isTileBlockedByOreDeposit(const Tile& tile) const
+bool TileMap::hasOreDeposit(const Tile& tile) const
 {
 	return getTile({tile.xy(), 0}).hasOreDeposit();
 }

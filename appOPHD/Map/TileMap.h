@@ -47,7 +47,7 @@ public:
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
-	bool isTileBlockedByOreDeposit(const Tile&) const;
+	bool hasOreDeposit(const Tile&) const;
 
 private:
 	std::size_t linearSize() const;

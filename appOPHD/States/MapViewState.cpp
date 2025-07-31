@@ -811,7 +811,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 		return;
 	}
 
-	if (mTileMap->isTileBlockedByOreDeposit(tile))
+	if (mTileMap->hasOreDeposit(tile))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOreDepositInWay);
 		return;
