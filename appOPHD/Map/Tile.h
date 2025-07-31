@@ -47,14 +47,12 @@ public:
 
 	bool isImpassable() const;
 
-	void mapObject(MapObject*);
 	MapObject* mapObject() const { return mMapObject; }
-
+	void mapObject(MapObject*);
 	void removeMapObject();
 
-	bool empty() const { return mMapObject == nullptr; }
-
 	bool hasOreDeposit() const { return mOreDeposit != nullptr; }
+	bool hasMapObject() const { return mMapObject != nullptr; }
 	bool hasStructure() const { return structure() != nullptr; }
 	bool hasRobot() const { return robot() != nullptr; }
 

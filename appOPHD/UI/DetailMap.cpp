@@ -144,7 +144,7 @@ void DetailMap::draw(NAS2D::Renderer& renderer) const
 			renderer.drawSubImage(mTileset, position, subImageRect, overlayColor(tile.overlay(), isTileHighlighted));
 
 			// Draw a beacon on an unoccupied tile with a mine
-			if (mTileMap.isTileBlockedByOreDeposit(tile) && !tile.mapObject())
+			if (mTileMap.hasOreDeposit(tile.xyz()) && !tile.mapObject())
 			{
 				constexpr NAS2D::Vector<int> beaconOffsetInTile{0, -64};
 				constexpr NAS2D::Vector<int> beaconLightOffsetInTile{59, 15};

@@ -223,7 +223,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 			auto& tile = getTile({point, depth});
 			if (
 				((depth > 0 && tile.excavated()) || tile.isBulldozed()) &&
-				(tile.empty() && tile.oreDeposit() == nullptr)
+				(!tile.hasMapObject() && !tile.hasOreDeposit())
 			)
 			{
 				tiles->linkEndChild(
@@ -281,9 +281,9 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-bool TileMap::isTileBlockedByOreDeposit(const Tile& tile) const
+bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
 {
-	return getTile({tile.xy(), 0}).hasOreDeposit();
+	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
 }
 
 

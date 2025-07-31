@@ -631,7 +631,7 @@ void MapViewState::onMapObjectSelectionChanged()
 void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModifier)
 {
 	auto& tile = mTileMap->getTile(tilePosition);
-	if (tile.empty())
+	if (!tile.hasMapObject())
 	{
 		onInspectTile(tile);
 	}
@@ -811,7 +811,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 		return;
 	}
 
-	if (mTileMap->isTileBlockedByOreDeposit(tile))
+	if (mTileMap->hasOreDeposit(tile.xyz()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOreDepositInWay);
 		return;
@@ -1070,7 +1070,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	}
 
 	// Check for obstructions underneath the digger location.
-	if (tile.depth() != mTileMap->maxDepth() && !mTileMap->getTile({tile.xy(), tile.depth() + 1}).empty())
+	if (tile.depth() != mTileMap->maxDepth() && mTileMap->getTile({tile.xy(), tile.depth() + 1}).hasMapObject())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerBlockedBelow);
 		return;
@@ -1090,7 +1090,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 	}
 
 	// Die if tile is occupied or not excavated.
-	if (!tile.empty())
+	if (tile.hasMapObject())
 	{
 		if (!tile.isSurface())
 		{
