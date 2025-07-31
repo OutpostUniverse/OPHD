@@ -36,7 +36,7 @@ public:
 	bool isExhausted() const;
 
 public:
-	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);
+	static NAS2D::Xml::XmlElement* serialize(const OreDeposit& oreDeposit, NAS2D::Point<int> location);
 	static OreDeposit deserialize(NAS2D::Xml::XmlElement* element);
 
 private:

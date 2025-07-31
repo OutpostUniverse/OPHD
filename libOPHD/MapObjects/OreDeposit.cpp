@@ -106,30 +106,31 @@ bool OreDeposit::isExhausted() const
 // ===============================================================================
 
 
-NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
+NAS2D::Xml::XmlElement* OreDeposit::serialize(const OreDeposit& oreDeposit, NAS2D::Point<int> location)
 {
 	auto* element = NAS2D::dictionaryToAttributes(
 		"mine",
 		{{
 			{"x", location.x},
 			{"y", location.y},
-			{"depth", mDigDepth},
-			{"yield", static_cast<int>(mYield)},
+			{"depth", oreDeposit.digDepth()},
+			{"yield", static_cast<int>(oreDeposit.yield())},
 			// Unused fields, retained for backwards compatibility
 			{"active", true},
 			{"flags", "011111"},
 		}}
 	);
 
-	if (!mTappedReserves.isEmpty())
+	const auto& availableResources = oreDeposit.availableResources();
+	if (!availableResources.isEmpty())
 	{
 		element->linkEndChild(NAS2D::dictionaryToAttributes(
 			"vein",
 			{{
-				{ResourceFieldNames[0], mTappedReserves.resources[0]},
-				{ResourceFieldNames[1], mTappedReserves.resources[1]},
-				{ResourceFieldNames[2], mTappedReserves.resources[2]},
-				{ResourceFieldNames[3], mTappedReserves.resources[3]},
+				{ResourceFieldNames[0], availableResources.resources[0]},
+				{ResourceFieldNames[1], availableResources.resources[1]},
+				{ResourceFieldNames[2], availableResources.resources[2]},
+				{ResourceFieldNames[3], availableResources.resources[3]},
 			}}
 		));
 	}

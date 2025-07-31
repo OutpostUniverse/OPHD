@@ -204,7 +204,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	for (const auto& location : mOreDepositLocations)
 	{
 		auto& oreDeposit = *getTile({location, 0}).oreDeposit();
-		oreDeposits->linkEndChild(oreDeposit.serialize(location));
+		oreDeposits->linkEndChild(OreDeposit::serialize(oreDeposit, location));
 	}
 
 
