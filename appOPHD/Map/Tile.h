@@ -47,9 +47,8 @@ public:
 
 	bool isImpassable() const;
 
-	void mapObject(MapObject*);
 	MapObject* mapObject() const { return mMapObject; }
-
+	void mapObject(MapObject*);
 	void removeMapObject();
 
 	bool hasOreDeposit() const { return mOreDeposit != nullptr; }
