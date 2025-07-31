@@ -975,7 +975,6 @@ void MapViewState::placeRobodozer(Tile& tile)
 			}
 		}
 		mTileMap->removeOreDepositLocation(tilePosition);
-		tile.placeOreDeposit(nullptr);
 	}
 	else if (tile.hasStructure())
 	{
