@@ -52,9 +52,6 @@ void OreDeposit::increaseDepth()
 }
 
 
-/**
- * Gets the current depth of the mine.
- */
 int OreDeposit::digDepth() const
 {
 	return mDigDepth;
@@ -92,9 +89,6 @@ StorableResources OreDeposit::extract(const StorableResources& maxTransfer)
 }
 
 
-/**
- * Indicates that there are no resources available at this mine.
- */
 bool OreDeposit::isExhausted() const
 {
 	return mTappedReserves.isEmpty();
@@ -104,9 +98,6 @@ bool OreDeposit::isExhausted() const
 // ===============================================================================
 
 
-/**
- * Serializes current mine information.
- */
 NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 {
 	auto* element = NAS2D::dictionaryToAttributes(
