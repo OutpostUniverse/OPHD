@@ -811,7 +811,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 		return;
 	}
 
-	if (mTileMap->hasOreDeposit(tile))
+	if (mTileMap->hasOreDeposit(tile.xyz()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOreDepositInWay);
 		return;

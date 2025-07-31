@@ -281,9 +281,9 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-bool TileMap::hasOreDeposit(const Tile& tile) const
+bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
 {
-	return getTile({tile.xy(), 0}).hasOreDeposit();
+	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
 }
 
 
