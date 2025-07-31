@@ -53,7 +53,7 @@ namespace
 			return FLT_MAX;
 		}
 
-		if (tile.hasMapObject() && tile.hasStructure() && tile.structure()->isRoad())
+		if (tile.hasStructure() && tile.structure()->isRoad())
 		{
 			Structure& road = *tile.structure();
 
