@@ -28,11 +28,6 @@ public:
 public:
 	Tile();
 	Tile(const MapCoordinate& position, TerrainType);
-	Tile(const Tile&) = delete;
-	Tile& operator=(const Tile&) = delete;
-	Tile(Tile&&) noexcept;
-	Tile& operator=(Tile&&) noexcept;
-	~Tile();
 
 	TerrainType index() const { return mIndex; }
 	void index(TerrainType index) { mIndex = index; }
@@ -69,6 +64,7 @@ public:
 	const OreDeposit* oreDeposit() const { return mOreDeposit; }
 	OreDeposit* oreDeposit() { return mOreDeposit; }
 	void placeOreDeposit(OreDeposit*);
+	void removeOreDeposit();
 
 	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }

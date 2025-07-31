@@ -112,6 +112,13 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 
 TileMap::~TileMap()
 {
+	for (const auto& oreDepositLocation : mOreDepositLocations)
+	{
+		auto& tile = getTile({oreDepositLocation, 0});
+		const auto* oreDeposit = tile.oreDeposit();
+		tile.removeOreDeposit();
+		delete oreDeposit;
+	}
 }
 
 
@@ -130,7 +137,9 @@ void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
 	}
 
 	mOreDepositLocations.erase(find(mOreDepositLocations.begin(), mOreDepositLocations.end(), pt));
-	tile.placeOreDeposit(nullptr);
+	auto* oreDeposit = tile.oreDeposit();
+	tile.removeOreDeposit();
+	delete oreDeposit;
 }
 
 
