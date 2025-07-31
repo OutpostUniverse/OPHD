@@ -175,7 +175,7 @@ bool validStructurePlacement(TileMap& tilemap, MapCoordinate position)
  */
 bool validLanderSite(Tile& tile)
 {
-	if (!tile.empty())
+	if (tile.hasMapObject())
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderTileObstructed);
 		return false;

@@ -166,7 +166,7 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
 	}
 
-	if (!tile.empty())
+	if (tile.hasMapObject())
 	{
 		tile.removeMapObject();
 	}

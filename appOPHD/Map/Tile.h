@@ -52,9 +52,8 @@ public:
 
 	void removeMapObject();
 
-	bool empty() const { return mMapObject == nullptr; }
-
 	bool hasOreDeposit() const { return mOreDeposit != nullptr; }
+	bool hasMapObject() const { return mMapObject != nullptr; }
 	bool hasStructure() const { return structure() != nullptr; }
 	bool hasRobot() const { return robot() != nullptr; }
 
