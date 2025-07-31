@@ -2,9 +2,6 @@
 
 #include "../EnumOreDepositYield.h"
 
-#include <NAS2D/ParserHelper.h>
-#include <NAS2D/Xml/XmlElement.h>
-
 #include <algorithm>
 #include <array>
 #include <map>
@@ -17,12 +14,6 @@ namespace
 		{OreDepositYield::Low, {800, 800, 800, 800}},
 		{OreDepositYield::Medium, {1000, 1000, 1000, 1000}},
 		{OreDepositYield::High, {1250, 1250, 1250, 1250}}
-	};
-
-
-	const std::array<std::string, 4> ResourceFieldNames =
-	{
-		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
 	};
 }
 
@@ -100,65 +91,4 @@ StorableResources OreDeposit::extract(const StorableResources& maxTransfer)
 bool OreDeposit::isExhausted() const
 {
 	return mTappedReserves.isEmpty();
-}
-
-
-// ===============================================================================
-
-
-NAS2D::Xml::XmlElement* OreDeposit::serialize(const OreDeposit& oreDeposit, NAS2D::Point<int> location)
-{
-	auto* element = NAS2D::dictionaryToAttributes(
-		"mine",
-		{{
-			{"x", location.x},
-			{"y", location.y},
-			{"depth", oreDeposit.digDepth()},
-			{"yield", static_cast<int>(oreDeposit.yield())},
-			// Unused fields, retained for backwards compatibility
-			{"active", true},
-			{"flags", "011111"},
-		}}
-	);
-
-	const auto& availableResources = oreDeposit.availableResources();
-	if (!availableResources.isEmpty())
-	{
-		element->linkEndChild(NAS2D::dictionaryToAttributes(
-			"vein",
-			{{
-				{ResourceFieldNames[0], availableResources.resources[0]},
-				{ResourceFieldNames[1], availableResources.resources[1]},
-				{ResourceFieldNames[2], availableResources.resources[2]},
-				{ResourceFieldNames[3], availableResources.resources[3]},
-			}}
-		));
-	}
-
-	return element;
-}
-
-
-OreDeposit OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
-{
-	const auto dictionary = NAS2D::attributesToDictionary(*element);
-
-	const auto digDepth = dictionary.get<int>("depth");
-	const auto yield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
-
-	StorableResources availableResources = {};
-	// Keep the vein iteration so we can still load old saved games
-	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
-	{
-		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
-		const auto veinReserves = StorableResources{
-			veinDictionary.get<int>(ResourceFieldNames[0], 0),
-			veinDictionary.get<int>(ResourceFieldNames[1], 0),
-			veinDictionary.get<int>(ResourceFieldNames[2], 0),
-			veinDictionary.get<int>(ResourceFieldNames[3], 0),
-		};
-		availableResources += veinReserves;
-	}
-
-	return {availableResources, yield, digDepth};
 }

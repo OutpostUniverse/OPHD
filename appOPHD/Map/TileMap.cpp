@@ -9,6 +9,7 @@
 
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
+#include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Resource/Image.h>
@@ -22,6 +23,12 @@
 namespace {
 	const std::string MapTerrainExtension = "_a.png";
 	const auto MapSize = NAS2D::Vector{300, 150};
+
+
+	const std::array<std::string, 4> ResourceFieldNames =
+	{
+		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
+	};
 
 
 	constexpr std::size_t linearSize(NAS2D::Vector<int> size)
@@ -90,6 +97,64 @@ namespace {
 			tile.placeOreDeposit(new OreDeposit(randYield()));
 			tile.bulldoze();
 		}
+	}
+
+
+	NAS2D::Xml::XmlElement* serializeOreDeposit(const OreDeposit& oreDeposit, NAS2D::Point<int> location)
+	{
+		auto* element = NAS2D::dictionaryToAttributes(
+			"mine",
+			{{
+				{"x", location.x},
+				{"y", location.y},
+				{"depth", oreDeposit.digDepth()},
+				{"yield", static_cast<int>(oreDeposit.yield())},
+				// Unused fields, retained for backwards compatibility
+				{"active", true},
+				{"flags", "011111"},
+			}}
+		);
+
+		const auto& availableResources = oreDeposit.availableResources();
+		if (!availableResources.isEmpty())
+		{
+			element->linkEndChild(NAS2D::dictionaryToAttributes(
+				"vein",
+				{{
+					{ResourceFieldNames[0], availableResources.resources[0]},
+					{ResourceFieldNames[1], availableResources.resources[1]},
+					{ResourceFieldNames[2], availableResources.resources[2]},
+					{ResourceFieldNames[3], availableResources.resources[3]},
+				}}
+			));
+		}
+
+		return element;
+	}
+
+
+	OreDeposit deserializeOreDeposit(NAS2D::Xml::XmlElement* element)
+	{
+		const auto dictionary = NAS2D::attributesToDictionary(*element);
+
+		const auto digDepth = dictionary.get<int>("depth");
+		const auto yield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
+
+		StorableResources availableResources = {};
+		// Keep the vein iteration so we can still load old saved games
+		for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
+		{
+			const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
+			const auto veinReserves = StorableResources{
+				veinDictionary.get<int>(ResourceFieldNames[0], 0),
+				veinDictionary.get<int>(ResourceFieldNames[1], 0),
+				veinDictionary.get<int>(ResourceFieldNames[2], 0),
+				veinDictionary.get<int>(ResourceFieldNames[3], 0),
+			};
+			availableResources += veinReserves;
+		}
+
+		return {availableResources, yield, digDepth};
 	}
 }
 
@@ -204,7 +269,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	for (const auto& location : mOreDepositLocations)
 	{
 		auto& oreDeposit = *getTile({location, 0}).oreDeposit();
-		oreDeposits->linkEndChild(OreDeposit::serialize(oreDeposit, location));
+		oreDeposits->linkEndChild(serializeOreDeposit(oreDeposit, location));
 	}
 
 
@@ -253,7 +318,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		const auto x = oreDepositDictionary.get<int>("x");
 		const auto y = oreDepositDictionary.get<int>("y");
 
-		OreDeposit* oreDeposit = new OreDeposit(OreDeposit::deserialize(oreDepositElement));
+		OreDeposit* oreDeposit = new OreDeposit(deserializeOreDeposit(oreDepositElement));
 
 		auto& tile = getTile({{x, y}, 0});
 		tile.placeOreDeposit(oreDeposit);
@@ -292,7 +357,6 @@ std::size_t TileMap::linearSize() const
 	const auto adjustedZ = mMaxDepth + 1;
 	return convertedSize.x * convertedSize.y * static_cast<std::size_t>(adjustedZ);
 }
-
 
 
 std::size_t TileMap::linearIndex(const MapCoordinate& position) const
