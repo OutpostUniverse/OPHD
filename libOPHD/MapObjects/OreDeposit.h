@@ -37,7 +37,7 @@ public:
 
 public:
 	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);
-	void deserialize(NAS2D::Xml::XmlElement* element);
+	static OreDeposit deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
 	StorableResources mTappedReserves;

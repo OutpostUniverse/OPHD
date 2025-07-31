@@ -138,14 +138,14 @@ NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
 }
 
 
-void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
+OreDeposit OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 {
 	const auto dictionary = NAS2D::attributesToDictionary(*element);
 
-	mDigDepth = dictionary.get<int>("depth");
-	mYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
+	const auto digDepth = dictionary.get<int>("depth");
+	const auto yield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 
-	mTappedReserves = {};
+	StorableResources availableResources = {};
 	// Keep the vein iteration so we can still load old saved games
 	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
 	{
@@ -156,6 +156,8 @@ void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
 			veinDictionary.get<int>(ResourceFieldNames[2], 0),
 			veinDictionary.get<int>(ResourceFieldNames[3], 0),
 		};
-		mTappedReserves += veinReserves;
+		availableResources += veinReserves;
 	}
+
+	return {availableResources, yield, digDepth};
 }

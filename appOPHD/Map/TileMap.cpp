@@ -253,8 +253,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		const auto x = oreDepositDictionary.get<int>("x");
 		const auto y = oreDepositDictionary.get<int>("y");
 
-		OreDeposit* oreDeposit = new OreDeposit();
-		oreDeposit->deserialize(oreDepositElement);
+		OreDeposit* oreDeposit = new OreDeposit(OreDeposit::deserialize(oreDepositElement));
 
 		auto& tile = getTile({{x, y}, 0});
 		tile.placeOreDeposit(oreDeposit);
