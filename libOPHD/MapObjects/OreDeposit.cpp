@@ -39,6 +39,14 @@ OreDeposit::OreDeposit(OreDepositYield yield) :
 }
 
 
+OreDeposit::OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth) :
+	mTappedReserves{availableReserves},
+	mYield{yield},
+	mDigDepth{digDepth}
+{
+}
+
+
 /**
  * Increases the depth of the mine.
  *

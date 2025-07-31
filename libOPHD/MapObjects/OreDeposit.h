@@ -22,6 +22,7 @@ class OreDeposit
 public:
 	OreDeposit();
 	OreDeposit(OreDepositYield yield);
+	OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth);
 
 	int digDepth() const;
 	void increaseDepth();
