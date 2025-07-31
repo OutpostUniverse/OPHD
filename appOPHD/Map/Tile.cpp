@@ -21,35 +21,6 @@ Tile::Tile(const MapCoordinate& position, TerrainType index) :
 {}
 
 
-Tile::Tile(Tile&& other) noexcept :
-	mIndex{other.mIndex},
-	mPosition{other.mPosition},
-	mMapObject{other.mMapObject},
-	mOreDeposit{other.mOreDeposit},
-	mOverlay{other.mOverlay},
-	mExcavated{other.mExcavated}
-{
-	other.mMapObject = nullptr;
-	other.mOreDeposit = nullptr;
-}
-
-
-Tile& Tile::operator=(Tile&& other) noexcept
-{
-	mIndex = other.mIndex;
-	mPosition = other.mPosition;
-	mMapObject = other.mMapObject;
-	mOreDeposit = other.mOreDeposit;
-	mOverlay = other.mOverlay;
-	mExcavated = other.mExcavated;
-
-	other.mMapObject = nullptr;
-	other.mOreDeposit = nullptr;
-
-	return *this;
-}
-
-
 bool Tile::isSurface() const
 {
 	return mPosition.z == 0;

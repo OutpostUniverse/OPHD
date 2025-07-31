@@ -28,10 +28,6 @@ public:
 public:
 	Tile();
 	Tile(const MapCoordinate& position, TerrainType);
-	Tile(const Tile&) = delete;
-	Tile& operator=(const Tile&) = delete;
-	Tile(Tile&&) noexcept;
-	Tile& operator=(Tile&&) noexcept;
 
 	TerrainType index() const { return mIndex; }
 	void index(TerrainType index) { mIndex = index; }
