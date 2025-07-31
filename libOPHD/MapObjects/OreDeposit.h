@@ -39,10 +39,6 @@ public:
 	void deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
-	OreDeposit(const OreDeposit&) = delete;
-	OreDeposit& operator=(const OreDeposit&) = delete;
-
-private:
 	StorableResources mTappedReserves;
 	OreDepositYield mYield;
 	int mDigDepth{0};
