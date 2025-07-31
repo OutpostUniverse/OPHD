@@ -130,7 +130,7 @@ void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
 	}
 
 	mOreDepositLocations.erase(find(mOreDepositLocations.begin(), mOreDepositLocations.end(), pt));
-	tile.placeOreDeposit(nullptr);
+	tile.removeOreDeposit();
 }
 
 

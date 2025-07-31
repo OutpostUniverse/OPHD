@@ -69,6 +69,7 @@ public:
 	const OreDeposit* oreDeposit() const { return mOreDeposit; }
 	OreDeposit* oreDeposit() { return mOreDeposit; }
 	void placeOreDeposit(OreDeposit*);
+	void removeOreDeposit();
 
 	void overlay(Overlay overlay) { mOverlay = overlay; }
 	Overlay overlay() const { return mOverlay; }

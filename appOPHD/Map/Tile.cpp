@@ -109,8 +109,18 @@ void Tile::removeMapObject()
 
 void Tile::placeOreDeposit(OreDeposit* oreDeposit)
 {
-	delete mOreDeposit;
+	if (mOreDeposit)
+	{
+		throw std::runtime_error("Attempting to set OreDeposit on a tile where it's already set");
+	}
 	mOreDeposit = oreDeposit;
+}
+
+
+void Tile::removeOreDeposit()
+{
+	delete mOreDeposit;
+	mOreDeposit = nullptr;
 }
 
 
