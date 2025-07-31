@@ -18,12 +18,6 @@ namespace
 }
 
 
-OreDeposit::OreDeposit() :
-	mYield{OreDepositYield::Low}
-{
-}
-
-
 OreDeposit::OreDeposit(OreDepositYield yield) :
 	mYield{yield}
 {

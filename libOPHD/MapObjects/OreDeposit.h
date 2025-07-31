@@ -9,7 +9,6 @@ enum class OreDepositYield;
 class OreDeposit
 {
 public:
-	OreDeposit();
 	OreDeposit(OreDepositYield yield);
 	OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth);
 
