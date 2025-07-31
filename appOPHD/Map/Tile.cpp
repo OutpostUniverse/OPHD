@@ -52,7 +52,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 
 Tile::~Tile()
 {
-	delete mOreDeposit;
 }
 
 
@@ -119,7 +118,6 @@ void Tile::placeOreDeposit(OreDeposit* oreDeposit)
 
 void Tile::removeOreDeposit()
 {
-	delete mOreDeposit;
 	mOreDeposit = nullptr;
 }
 
