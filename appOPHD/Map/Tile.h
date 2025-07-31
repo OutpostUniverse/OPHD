@@ -32,7 +32,6 @@ public:
 	Tile& operator=(const Tile&) = delete;
 	Tile(Tile&&) noexcept;
 	Tile& operator=(Tile&&) noexcept;
-	~Tile();
 
 	TerrainType index() const { return mIndex; }
 	void index(TerrainType index) { mIndex = index; }

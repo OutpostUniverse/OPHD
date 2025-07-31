@@ -50,11 +50,6 @@ Tile& Tile::operator=(Tile&& other) noexcept
 }
 
 
-Tile::~Tile()
-{
-}
-
-
 bool Tile::isSurface() const
 {
 	return mPosition.z == 0;
