@@ -77,5 +77,5 @@ private:
 
 	Overlay mOverlay{Overlay::None};
 
-	bool mExcavated = false; /**< Used when a Digger uncovers underground tiles. */
+	bool mExcavated = false;
 };
