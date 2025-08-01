@@ -18,18 +18,26 @@ namespace
 }
 
 
-OreDeposit::OreDeposit(OreDepositYield yield) :
+OreDeposit::OreDeposit(OreDepositYield yield, NAS2D::Point<int> location) :
 	mYield{yield},
+	mLocation{location},
 	mDigDepth{0}
 {
 }
 
 
-OreDeposit::OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth) :
+OreDeposit::OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, NAS2D::Point<int> location, int digDepth) :
 	mTappedReserves{availableReserves},
 	mYield{yield},
+	mLocation{location},
 	mDigDepth{digDepth}
 {
+}
+
+
+NAS2D::Point<int> OreDeposit::location() const
+{
+	return mLocation;
 }
 
 

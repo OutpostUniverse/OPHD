@@ -94,14 +94,15 @@ namespace {
 		for (const auto& location : locations)
 		{
 			auto& tile = tileMap.getTile({location, 0});
-			tile.placeOreDeposit(new OreDeposit(randYield()));
+			tile.placeOreDeposit(new OreDeposit(randYield(), location));
 			tile.bulldoze();
 		}
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeOreDeposit(const OreDeposit& oreDeposit, NAS2D::Point<int> location)
+	NAS2D::Xml::XmlElement* serializeOreDeposit(const OreDeposit& oreDeposit)
 	{
+		const auto location = oreDeposit.location();
 		auto* element = NAS2D::dictionaryToAttributes(
 			"mine",
 			{{
@@ -137,6 +138,8 @@ namespace {
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*element);
 
+		const auto x = dictionary.get<int>("x");
+		const auto y = dictionary.get<int>("y");
 		const auto digDepth = dictionary.get<int>("depth");
 		const auto yield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 
@@ -154,7 +157,7 @@ namespace {
 			availableResources += veinReserves;
 		}
 
-		return {availableResources, yield, digDepth};
+		return {availableResources, yield, {x, y}, digDepth};
 	}
 }
 
@@ -269,7 +272,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	for (const auto& location : mOreDepositLocations)
 	{
 		auto& oreDeposit = *getTile({location, 0}).oreDeposit();
-		oreDeposits->linkEndChild(serializeOreDeposit(oreDeposit, location));
+		oreDeposits->linkEndChild(serializeOreDeposit(oreDeposit));
 	}
 
 
@@ -313,18 +316,13 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	// Ore deposits
 	for (auto* oreDepositElement = element->firstChildElement("mines")->firstChildElement("mine"); oreDepositElement; oreDepositElement = oreDepositElement->nextSiblingElement())
 	{
-		const auto oreDepositDictionary = NAS2D::attributesToDictionary(*oreDepositElement);
-
-		const auto x = oreDepositDictionary.get<int>("x");
-		const auto y = oreDepositDictionary.get<int>("y");
-
 		OreDeposit* oreDeposit = new OreDeposit(deserializeOreDeposit(oreDepositElement));
 
-		auto& tile = getTile({{x, y}, 0});
+		auto& tile = getTile({oreDeposit->location(), 0});
 		tile.placeOreDeposit(oreDeposit);
 		tile.bulldoze();
 
-		mOreDepositLocations.push_back(NAS2D::Point{x, y});
+		mOreDepositLocations.push_back(oreDeposit->location());
 	}
 
 	// Tiles indexes

@@ -2,6 +2,8 @@
 
 #include "../StorableResources.h"
 
+#include <NAS2D/Math/Point.h>
+
 
 enum class OreDepositYield;
 
@@ -9,9 +11,10 @@ enum class OreDepositYield;
 class OreDeposit
 {
 public:
-	OreDeposit(OreDepositYield yield);
-	OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth);
+	OreDeposit(OreDepositYield yield, NAS2D::Point<int> location);
+	OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, NAS2D::Point<int> location, int digDepth);
 
+	NAS2D::Point<int> location() const;
 	int digDepth() const;
 	void increaseDepth();
 
@@ -26,5 +29,6 @@ public:
 private:
 	StorableResources mTappedReserves;
 	OreDepositYield mYield;
+	NAS2D::Point<int> mLocation;
 	int mDigDepth;
 };
