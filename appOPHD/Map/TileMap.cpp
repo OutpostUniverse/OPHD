@@ -80,8 +80,11 @@ namespace {
 	}
 
 
-	void placeOreDeposits(TileMap& tileMap, const std::vector<NAS2D::Point<int>>& locations, const TileMap::OreDepositYields& oreDepositYields)
+	std::vector<OreDeposit*> placeOreDeposits(TileMap& tileMap, const std::vector<NAS2D::Point<int>>& locations, const TileMap::OreDepositYields& oreDepositYields)
 	{
+		std::vector<OreDeposit*> oreDeposits;
+		oreDeposits.reserve(locations.size());
+
 		const auto total = std::accumulate(oreDepositYields.begin(), oreDepositYields.end(), 0);
 
 		const auto randYield = [oreDepositYields, total]() {
@@ -94,14 +97,17 @@ namespace {
 		for (const auto& location : locations)
 		{
 			auto& tile = tileMap.getTile({location, 0});
-			tile.placeOreDeposit(new OreDeposit(randYield()));
+			auto* oreDeposit = oreDeposits.emplace_back(new OreDeposit(randYield(), location));
+			tile.placeOreDeposit(oreDeposit);
 			tile.bulldoze();
 		}
+		return oreDeposits;
 	}
 
 
-	NAS2D::Xml::XmlElement* serializeOreDeposit(const OreDeposit& oreDeposit, NAS2D::Point<int> location)
+	NAS2D::Xml::XmlElement* serializeOreDeposit(const OreDeposit& oreDeposit)
 	{
+		const auto location = oreDeposit.location();
 		auto* element = NAS2D::dictionaryToAttributes(
 			"mine",
 			{{
@@ -137,6 +143,8 @@ namespace {
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*element);
 
+		const auto x = dictionary.get<int>("x");
+		const auto y = dictionary.get<int>("y");
 		const auto digDepth = dictionary.get<int>("depth");
 		const auto yield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
 
@@ -154,7 +162,7 @@ namespace {
 			availableResources += veinReserves;
 		}
 
-		return {availableResources, yield, digDepth};
+		return {availableResources, yield, {x, y}, digDepth};
 	}
 }
 
@@ -162,8 +170,7 @@ namespace {
 TileMap::TileMap(const std::string& mapPath, int maxDepth, std::size_t oreDepositCount, const OreDepositYields& oreDepositYields) :
 	TileMap{mapPath, maxDepth}
 {
-	mOreDepositLocations = generateOreDeposits(mSizeInTiles, oreDepositCount);
-	placeOreDeposits(*this, mOreDepositLocations, oreDepositYields);
+	mOreDeposits = placeOreDeposits(*this, generateOreDeposits(mSizeInTiles, oreDepositCount), oreDepositYields);
 }
 
 
@@ -177,31 +184,30 @@ TileMap::TileMap(const std::string& mapPath, int maxDepth) :
 
 TileMap::~TileMap()
 {
-	for (const auto& oreDepositLocation : mOreDepositLocations)
+	for (const auto* oreDeposit : mOreDeposits)
 	{
-		auto& tile = getTile({oreDepositLocation, 0});
-		const auto* oreDeposit = tile.oreDeposit();
+		auto& tile = getTile({oreDeposit->location(), 0});
 		tile.removeOreDeposit();
 		delete oreDeposit;
 	}
 }
 
 
-const std::vector<NAS2D::Point<int>>& TileMap::oreDepositLocations() const
+const std::vector<OreDeposit*>& TileMap::oreDeposits() const
 {
-	return mOreDepositLocations;
+	return mOreDeposits;
 }
 
 
-void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
+void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
 {
-	auto& tile = getTile({pt, 0});
+	auto& tile = getTile({location, 0});
 	if (!tile.hasOreDeposit())
 	{
 		throw std::runtime_error("No ore deposit found to remove");
 	}
 
-	mOreDepositLocations.erase(find(mOreDepositLocations.begin(), mOreDepositLocations.end(), pt));
+	mOreDeposits.erase(find_if(mOreDeposits.begin(), mOreDeposits.end(), [location](OreDeposit* oreDeposit){ return oreDeposit->location() == location; }));
 	auto* oreDeposit = tile.oreDeposit();
 	tile.removeOreDeposit();
 	delete oreDeposit;
@@ -266,10 +272,9 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	auto* oreDeposits = new NAS2D::Xml::XmlElement("mines");
 	element->linkEndChild(oreDeposits);
 
-	for (const auto& location : mOreDepositLocations)
+	for (const auto* oreDeposit : mOreDeposits)
 	{
-		auto& oreDeposit = *getTile({location, 0}).oreDeposit();
-		oreDeposits->linkEndChild(serializeOreDeposit(oreDeposit, location));
+		oreDeposits->linkEndChild(serializeOreDeposit(*oreDeposit));
 	}
 
 
@@ -313,18 +318,13 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	// Ore deposits
 	for (auto* oreDepositElement = element->firstChildElement("mines")->firstChildElement("mine"); oreDepositElement; oreDepositElement = oreDepositElement->nextSiblingElement())
 	{
-		const auto oreDepositDictionary = NAS2D::attributesToDictionary(*oreDepositElement);
-
-		const auto x = oreDepositDictionary.get<int>("x");
-		const auto y = oreDepositDictionary.get<int>("y");
-
 		OreDeposit* oreDeposit = new OreDeposit(deserializeOreDeposit(oreDepositElement));
 
-		auto& tile = getTile({{x, y}, 0});
+		auto& tile = getTile({oreDeposit->location(), 0});
 		tile.placeOreDeposit(oreDeposit);
 		tile.bulldoze();
 
-		mOreDepositLocations.push_back(NAS2D::Point{x, y});
+		mOreDeposits.push_back(oreDeposit);
 	}
 
 	// Tiles indexes

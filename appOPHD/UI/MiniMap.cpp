@@ -81,19 +81,15 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 		}
 	}
 
-	for (auto oreDepositPosition : mTileMap.oreDepositLocations())
+	for (const auto* oreDeposit : mTileMap.oreDeposits())
 	{
-		const auto& tile = mTileMap.getTile({oreDepositPosition, 0});
-		const OreDeposit* oreDeposit = tile.oreDeposit();
 		if (!oreDeposit) { break; } // avoids potential race condition where an Ore Deposit is destroyed during an updated cycle.
 
-		auto mineBeaconStatusOffsetX = 0;
-		if (!tile.hasStructure() || !tile.structure()->isMineFacility()) { mineBeaconStatusOffsetX = 0; }
-		else if (!oreDeposit->isExhausted()) { mineBeaconStatusOffsetX = 8; }
-		else { mineBeaconStatusOffsetX = 16; }
-
+		const auto& tile = mTileMap.getTile({oreDeposit->location(), 0});
+		const auto mineBeaconStatusOffsetX = (!tile.hasStructure() || !tile.structure()->isMineFacility()) ? 0 :
+			(!oreDeposit->isExhausted()) ? 8 : 16;
 		const auto beaconImageRect = NAS2D::Rectangle<int>{{mineBeaconStatusOffsetX, 0}, {7, 7}};
-		renderer.drawSubImage(mUiIcons, oreDepositPosition + miniMapOffset - NAS2D::Vector{2, 2}, beaconImageRect);
+		renderer.drawSubImage(mUiIcons, oreDeposit->location() + miniMapOffset - NAS2D::Vector{2, 2}, beaconImageRect);
 	}
 
 	// Temporary debug aid, will be slow with high numbers of mines

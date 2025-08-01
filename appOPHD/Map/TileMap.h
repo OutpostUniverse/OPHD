@@ -20,6 +20,7 @@ namespace NAS2D
 enum class Direction;
 struct MapCoordinate;
 class Tile;
+class OreDeposit;
 
 
 class TileMap
@@ -41,8 +42,8 @@ public:
 	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
 
-	const std::vector<NAS2D::Point<int>>& oreDepositLocations() const;
-	void removeOreDepositLocation(const NAS2D::Point<int>& pt);
+	const std::vector<OreDeposit*>& oreDeposits() const;
+	void removeOreDepositLocation(const NAS2D::Point<int>& location);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
@@ -59,5 +60,5 @@ private:
 	const NAS2D::Vector<int> mSizeInTiles;
 	const int mMaxDepth = 0;
 	std::vector<Tile> mTileMap;
-	std::vector<NAS2D::Point<int>> mOreDepositLocations;
+	std::vector<OreDeposit*> mOreDeposits;
 };
