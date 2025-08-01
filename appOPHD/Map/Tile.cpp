@@ -55,11 +55,6 @@ void Tile::mapObject(MapObject* mapObject)
 }
 
 
-/**
- * Removes a MapObject from the Tile.
- *
- * \note	Does NOT delete or free memory. Simply clears the pointer, not the memory.
- */
 void Tile::removeMapObject()
 {
 	mMapObject = nullptr;
