@@ -4,7 +4,6 @@
 #include "../MapObjects/Structure.h"
 
 #include <libOPHD/EnumTerrainType.h>
-#include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <stdexcept>
 
@@ -45,11 +44,6 @@ bool Tile::isImpassable() const
 }
 
 
-/**
- * Adds a new MapObject to the tile.
- *
- * \param	mapObject		Pointer to a MapObject.
- */
 void Tile::mapObject(MapObject* mapObject)
 {
 	if (mMapObject)
@@ -61,11 +55,6 @@ void Tile::mapObject(MapObject* mapObject)
 }
 
 
-/**
- * Removes a MapObject from the Tile.
- *
- * \note	Does NOT delete or free memory. Simply clears the pointer, not the memory.
- */
 void Tile::removeMapObject()
 {
 	mMapObject = nullptr;

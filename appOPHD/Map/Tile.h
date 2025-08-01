@@ -43,7 +43,7 @@ public:
 	void bulldoze();
 
 	bool excavated() const { return mExcavated; }
-	void excavated(bool value) { mExcavated = value; }
+	void excavate() { mExcavated = true; }
 
 	bool isImpassable() const;
 
@@ -69,13 +69,9 @@ public:
 
 private:
 	TerrainType mIndex;
-
-	MapCoordinate mPosition;
-
+	bool mExcavated = false;
 	MapObject* mMapObject = nullptr;
 	OreDeposit* mOreDeposit = nullptr;
-
+	MapCoordinate mPosition;
 	Overlay mOverlay{Overlay::None};
-
-	bool mExcavated = true; /**< Used when a Digger uncovers underground tiles. */
 };

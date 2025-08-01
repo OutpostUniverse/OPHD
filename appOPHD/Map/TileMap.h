@@ -50,13 +50,13 @@ public:
 
 	bool hasOreDeposit(const MapCoordinate& mapCoordinate) const;
 
-private:
+protected:
 	std::size_t linearSize() const;
 	std::size_t linearIndex(const MapCoordinate& position) const;
 
 	void buildTerrainMap(const std::string& path);
 
-
+private:
 	const NAS2D::Vector<int> mSizeInTiles;
 	const int mMaxDepth = 0;
 	std::vector<Tile> mTileMap;

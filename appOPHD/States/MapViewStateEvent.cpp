@@ -204,7 +204,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 
 	for (const auto& offset : DirectionScan3x3)
 	{
-		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavated(true);
+		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavate();
 	}
 
 	if (direction == Direction::Down)
@@ -238,7 +238,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	auto& mineDepthTile = mTileMap->getTile({mineFacility->xyz().xy, mineFacility->oreDeposit().digDepth()});
 	structureManager.create<MineShaft>(mineDepthTile);
 	mineDepthTile.bulldoze();
-	mineDepthTile.excavated(true);
+	mineDepthTile.excavate();
 }
 
 

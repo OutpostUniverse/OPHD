@@ -481,7 +481,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 
 	if (direction != Direction::Down)
 	{
-		mTileMap->getTile(tile.xyz().translate(direction)).excavated(true);
+		mTileMap->getTile(tile.xyz().translate(direction)).excavate();
 	}
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Digger))
