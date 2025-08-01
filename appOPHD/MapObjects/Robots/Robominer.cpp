@@ -34,7 +34,7 @@ MineFacility& Robominer::buildMine(TileMap& tileMap, const MapCoordinate& positi
 
 	robotTile.bulldoze();
 	tileBelow.bulldoze();
-	tileBelow.excavated(true);
+	tileBelow.excavate();
 
 	die();
 

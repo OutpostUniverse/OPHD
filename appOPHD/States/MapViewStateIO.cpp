@@ -375,7 +375,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 			robot.startTask(tile, productionTime);
 			mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 			tile.bulldoze();
-			tile.excavated(true);
+			tile.excavate();
 		}
 	}
 
@@ -409,7 +409,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto mapCoordinate = loadMapCoordinate(dictionary);
 		auto& tile = mTileMap->getTile(mapCoordinate);
 		tile.bulldoze();
-		tile.excavated(true);
+		tile.excavate();
 
 		if (structureId == StructureID::Tube)
 		{
