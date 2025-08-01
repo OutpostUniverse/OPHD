@@ -2,9 +2,6 @@
 
 #include "../EnumOreDepositYield.h"
 
-#include <NAS2D/ParserHelper.h>
-#include <NAS2D/Xml/XmlElement.h>
-
 #include <algorithm>
 #include <array>
 #include <map>
@@ -18,23 +15,19 @@ namespace
 		{OreDepositYield::Medium, {1000, 1000, 1000, 1000}},
 		{OreDepositYield::High, {1250, 1250, 1250, 1250}}
 	};
-
-
-	const std::array<std::string, 4> ResourceFieldNames =
-	{
-		"common_metals", "common_minerals", "rare_metals", "rare_minerals"
-	};
-}
-
-
-OreDeposit::OreDeposit() :
-	mYield{OreDepositYield::Low}
-{
 }
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
 	mYield{yield}
+{
+}
+
+
+OreDeposit::OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth) :
+	mTappedReserves{availableReserves},
+	mYield{yield},
+	mDigDepth{digDepth}
 {
 }
 
@@ -52,9 +45,6 @@ void OreDeposit::increaseDepth()
 }
 
 
-/**
- * Gets the current depth of the mine.
- */
 int OreDeposit::digDepth() const
 {
 	return mDigDepth;
@@ -92,71 +82,7 @@ StorableResources OreDeposit::extract(const StorableResources& maxTransfer)
 }
 
 
-/**
- * Indicates that there are no resources available at this mine.
- */
 bool OreDeposit::isExhausted() const
 {
 	return mTappedReserves.isEmpty();
-}
-
-
-// ===============================================================================
-
-
-/**
- * Serializes current mine information.
- */
-NAS2D::Xml::XmlElement* OreDeposit::serialize(NAS2D::Point<int> location)
-{
-	auto* element = NAS2D::dictionaryToAttributes(
-		"mine",
-		{{
-			{"x", location.x},
-			{"y", location.y},
-			{"depth", mDigDepth},
-			{"yield", static_cast<int>(mYield)},
-			// Unused fields, retained for backwards compatibility
-			{"active", true},
-			{"flags", "011111"},
-		}}
-	);
-
-	if (!mTappedReserves.isEmpty())
-	{
-		element->linkEndChild(NAS2D::dictionaryToAttributes(
-			"vein",
-			{{
-				{ResourceFieldNames[0], mTappedReserves.resources[0]},
-				{ResourceFieldNames[1], mTappedReserves.resources[1]},
-				{ResourceFieldNames[2], mTappedReserves.resources[2]},
-				{ResourceFieldNames[3], mTappedReserves.resources[3]},
-			}}
-		));
-	}
-
-	return element;
-}
-
-
-void OreDeposit::deserialize(NAS2D::Xml::XmlElement* element)
-{
-	const auto dictionary = NAS2D::attributesToDictionary(*element);
-
-	mDigDepth = dictionary.get<int>("depth");
-	mYield = static_cast<OreDepositYield>(dictionary.get<int>("yield"));
-
-	mTappedReserves = {};
-	// Keep the vein iteration so we can still load old saved games
-	for (auto* vein = element->firstChildElement(); vein != nullptr; vein = vein->nextSiblingElement())
-	{
-		const auto veinDictionary = NAS2D::attributesToDictionary(*vein);
-		const auto veinReserves = StorableResources{
-			veinDictionary.get<int>(ResourceFieldNames[0], 0),
-			veinDictionary.get<int>(ResourceFieldNames[1], 0),
-			veinDictionary.get<int>(ResourceFieldNames[2], 0),
-			veinDictionary.get<int>(ResourceFieldNames[3], 0),
-		};
-		mTappedReserves += veinReserves;
-	}
 }

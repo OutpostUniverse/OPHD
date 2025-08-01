@@ -2,17 +2,6 @@
 
 #include "../StorableResources.h"
 
-#include <NAS2D/Math/Point.h>
-
-
-namespace NAS2D
-{
-	namespace Xml
-	{
-		class XmlElement;
-	}
-}
-
 
 enum class OreDepositYield;
 
@@ -20,8 +9,8 @@ enum class OreDepositYield;
 class OreDeposit
 {
 public:
-	OreDeposit();
 	OreDeposit(OreDepositYield yield);
+	OreDeposit(const StorableResources& availableReserves, OreDepositYield yield, int digDepth);
 
 	int digDepth() const;
 	void increaseDepth();
@@ -33,10 +22,6 @@ public:
 	StorableResources extract(const StorableResources& maxTransfer);
 
 	bool isExhausted() const;
-
-public:
-	NAS2D::Xml::XmlElement* serialize(NAS2D::Point<int> location);
-	void deserialize(NAS2D::Xml::XmlElement* element);
 
 private:
 	StorableResources mTappedReserves;
