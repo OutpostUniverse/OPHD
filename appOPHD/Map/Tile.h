@@ -43,7 +43,6 @@ public:
 	void bulldoze();
 
 	bool excavated() const { return mExcavated; }
-	void excavated(bool value) { mExcavated = value; }
 	void excavate() { mExcavated = true; }
 
 	bool isImpassable() const;
