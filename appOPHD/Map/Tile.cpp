@@ -44,11 +44,6 @@ bool Tile::isImpassable() const
 }
 
 
-/**
- * Adds a new MapObject to the tile.
- *
- * \param	mapObject		Pointer to a MapObject.
- */
 void Tile::mapObject(MapObject* mapObject)
 {
 	if (mMapObject)
