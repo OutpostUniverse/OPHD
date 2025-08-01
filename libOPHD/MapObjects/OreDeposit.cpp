@@ -19,7 +19,8 @@ namespace
 
 
 OreDeposit::OreDeposit(OreDepositYield yield) :
-	mYield{yield}
+	mYield{yield},
+	mDigDepth{0}
 {
 }
 
