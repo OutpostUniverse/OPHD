@@ -69,13 +69,9 @@ public:
 
 private:
 	TerrainType mIndex;
-
-	MapCoordinate mPosition;
-
+	bool mExcavated = false;
 	MapObject* mMapObject = nullptr;
 	OreDeposit* mOreDeposit = nullptr;
-
+	MapCoordinate mPosition;
 	Overlay mOverlay{Overlay::None};
-
-	bool mExcavated = false;
 };
