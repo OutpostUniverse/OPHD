@@ -199,15 +199,15 @@ const std::vector<OreDeposit*>& TileMap::oreDeposits() const
 }
 
 
-void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& pt)
+void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
 {
-	auto& tile = getTile({pt, 0});
+	auto& tile = getTile({location, 0});
 	if (!tile.hasOreDeposit())
 	{
 		throw std::runtime_error("No ore deposit found to remove");
 	}
 
-	mOreDeposits.erase(find_if(mOreDeposits.begin(), mOreDeposits.end(), [pt](OreDeposit* oreDeposit){ return oreDeposit->location() == pt; }));
+	mOreDeposits.erase(find_if(mOreDeposits.begin(), mOreDeposits.end(), [location](OreDeposit* oreDeposit){ return oreDeposit->location() == location; }));
 	auto* oreDeposit = tile.oreDeposit();
 	tile.removeOreDeposit();
 	delete oreDeposit;

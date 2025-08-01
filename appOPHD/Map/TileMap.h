@@ -43,7 +43,7 @@ public:
 	Tile& getTile(const MapCoordinate& position);
 
 	const std::vector<OreDeposit*>& oreDeposits() const;
-	void removeOreDepositLocation(const NAS2D::Point<int>& pt);
+	void removeOreDepositLocation(const NAS2D::Point<int>& location);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
