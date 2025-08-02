@@ -80,19 +80,7 @@ namespace
 
 	NAS2D::Dictionary robotToDictionary(Robot& robot)
 	{
-		NAS2D::Dictionary dictionary = robot.getDataDict();
-
-		if (robot.isPlaced())
-		{
-			const auto mapCoordinate = robot.mapCoordinate();
-			dictionary += NAS2D::Dictionary{{
-				{"x", mapCoordinate.xy.x},
-				{"y", mapCoordinate.xy.y},
-				{"depth", mapCoordinate.z},
-			}};
-		}
-
-		return dictionary;
+		return robot.getDataDict();
 	}
 }
 

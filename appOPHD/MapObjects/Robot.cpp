@@ -119,11 +119,23 @@ void Robot::taskCompleteHandler(TaskCompleteDelegate newTaskCompleteHandler)
 
 NAS2D::Dictionary Robot::getDataDict() const
 {
-	return {{
+	auto dictionary = NAS2D::Dictionary{{
 		{"type", static_cast<int>(mRobotTypeIndex)},
 		{"age", mFuelCellAge},
 		{"production", mTurnsToCompleteTask},
 	}};
+
+	if (isPlaced())
+	{
+		const auto location = mapCoordinate();
+		dictionary += NAS2D::Dictionary{{
+			{"x", location.xy.x},
+			{"y", location.xy.y},
+			{"depth", location.z},
+		}};
+	}
+
+	return dictionary;
 }
 
 
