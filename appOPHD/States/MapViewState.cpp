@@ -1271,7 +1271,6 @@ void MapViewState::updateRobots()
 			if (mRobotInspector.focusedRobot() == &robot) { mRobotInspector.hide(); }
 
 			mRobotPool.erase(&robot);
-			robot_it = mDeployedRobots.erase(robot_it);
 		}
 		else if (robot.idle())
 		{
@@ -1281,7 +1280,6 @@ void MapViewState::updateRobots()
 
 				onRobotTaskComplete(robot);
 			}
-			robot_it = mDeployedRobots.erase(robot_it);
 
 			if (robot.taskCanceled())
 			{
@@ -1292,11 +1290,10 @@ void MapViewState::updateRobots()
 				onRobotTaskCancel(robot);
 			}
 		}
-		else
-		{
-			++robot_it;
-		}
+		++robot_it;
 	}
+
+	std::erase_if(mDeployedRobots, [](const Robot* robot){ return robot->isDead() || robot->idle(); });
 
 	for (const auto* robot : mDeployedRobots)
 	{
