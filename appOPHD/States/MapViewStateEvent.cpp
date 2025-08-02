@@ -59,9 +59,6 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
 }
 
 
-/**
- * Called whenever a Factory's production is complete.
- */
 void MapViewState::onFactoryProductionComplete(Factory& factory)
 {
 	const auto productType = factory.productWaiting();
@@ -98,9 +95,6 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 }
 
 
-/**
- * Lands colonists on the surfaces and adds them to the population pool.
- */
 void MapViewState::onDeployColonistLander()
 {
 	if (mTurnNumberOfLanding > mTurnCount) {
@@ -110,9 +104,6 @@ void MapViewState::onDeployColonistLander()
 }
 
 
-/**
- * Lands cargo on the surface and adds resources to the resource pool.
- */
 void MapViewState::onDeployCargoLander()
 {
 	auto& cc = firstCc();
@@ -171,18 +162,12 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 }
 
 
-/**
- * Called whenever a RoboDozer completes its task.
- */
 void MapViewState::onDozerTaskComplete(Robot& /*robot*/)
 {
 	populateRobotMenu();
 }
 
 
-/**
- * Called whenever a RoboDigger completes its task.
- */
 void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
 	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
@@ -218,9 +203,6 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 }
 
 
-/**
- * Called whenever a RoboMiner completes its task.
- */
 void MapViewState::onMinerTaskComplete(Robot& robot)
 {
 	auto& robotTile = robot.tile();
