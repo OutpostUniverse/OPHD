@@ -1083,7 +1083,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		const auto position = tile.xy();
 		mNotificationArea.push({
 			"Mine destroyed",
-			"Digger destroyed a Mine at " + NAS2D::stringFrom(position) + ".",
+			"Digger destroyed a Mine.",
 			tile.xyz(),
 			NotificationArea::NotificationType::Information});
 		mTileMap->removeOreDepositLocation(position);
