@@ -281,8 +281,7 @@ NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 
 	for (auto robot : mRobots)
 	{
-		auto dictionary = robot->getDataDict();
-		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", robot->getDataDict()));
 	}
 
 	return robots;
