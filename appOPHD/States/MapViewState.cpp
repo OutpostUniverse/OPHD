@@ -1251,8 +1251,6 @@ void MapViewState::updateRobots()
 
 		robot.processTurn(*mTileMap);
 
-		pushAgingRobotMessage(&robot, robot.mapCoordinate(), mNotificationArea);
-
 		if (robot.isDead())
 		{
 			if (robot.selfDestruct())
@@ -1298,6 +1296,11 @@ void MapViewState::updateRobots()
 		{
 			++robot_it;
 		}
+	}
+
+	for (const auto* robot : mDeployedRobots)
+	{
+		pushAgingRobotMessage(robot, robot->mapCoordinate(), mNotificationArea);
 	}
 
 	mRobotPool.update();
