@@ -25,6 +25,7 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/StringFrom.h>
 
 #include <stdexcept>
 #include <array>
@@ -58,9 +59,6 @@ void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factor
 }
 
 
-/**
- * Called whenever a Factory's production is complete.
- */
 void MapViewState::onFactoryProductionComplete(Factory& factory)
 {
 	const auto productType = factory.productWaiting();
@@ -97,9 +95,6 @@ void MapViewState::onFactoryProductionComplete(Factory& factory)
 }
 
 
-/**
- * Lands colonists on the surfaces and adds them to the population pool.
- */
 void MapViewState::onDeployColonistLander()
 {
 	if (mTurnNumberOfLanding > mTurnCount) {
@@ -109,9 +104,6 @@ void MapViewState::onDeployColonistLander()
 }
 
 
-/**
- * Lands cargo on the surface and adds resources to the resource pool.
- */
 void MapViewState::onDeployCargoLander()
 {
 	auto& cc = firstCc();
@@ -170,18 +162,12 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 }
 
 
-/**
- * Called whenever a RoboDozer completes its task.
- */
 void MapViewState::onDozerTaskComplete(Robot& /*robot*/)
 {
 	populateRobotMenu();
 }
 
 
-/**
- * Called whenever a RoboDigger completes its task.
- */
 void MapViewState::onDiggerTaskComplete(Robot& robot)
 {
 	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
@@ -217,9 +203,6 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 }
 
 
-/**
- * Called whenever a RoboMiner completes its task.
- */
 void MapViewState::onMinerTaskComplete(Robot& robot)
 {
 	auto& robotTile = robot.tile();
@@ -228,6 +211,56 @@ void MapViewState::onMinerTaskComplete(Robot& robot)
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
 	mineFacility.extensionCompleteHandler({this, &MapViewState::onMineFacilityExtend});
 }
+
+
+void MapViewState::onRobotSelfDestruct(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Self-Destructed",
+		robot.name() + " self destructed at " + NAS2D::stringFrom(position.xy) + ".",
+		position,
+		NotificationArea::NotificationType::Critical
+	});
+}
+
+
+void MapViewState::onRobotBreakDown(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Broke Down",
+		robot.name() + " has broken down at " + NAS2D::stringFrom(position.xy) + ". It will not be able to complete its task and will be removed from your inventory.",
+		position,
+		NotificationArea::NotificationType::Critical
+	});
+}
+
+
+void MapViewState::onRobotTaskComplete(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Task Completed",
+		robot.name() + " completed its task at " + NAS2D::stringFrom(position.xy) + ".",
+		position,
+		NotificationArea::NotificationType::Success
+	});
+}
+
+
+void MapViewState::onRobotTaskCancel(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Task Canceled",
+		robot.name() + " canceled its task at " + NAS2D::stringFrom(position.xy) + ".",
+		position,
+		NotificationArea::NotificationType::Information
+	});
+}
+
+
 
 
 void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)

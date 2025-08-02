@@ -1241,9 +1241,6 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 }
 
 
-/**
- * Updates all robots.
- */
 void MapViewState::updateRobots()
 {
 	auto robot_it = mDeployedRobots.begin();
@@ -1254,25 +1251,15 @@ void MapViewState::updateRobots()
 
 		robot.processTurn(*mTileMap);
 
-		const auto& position = tile.xyz();
-
-		pushAgingRobotMessage(&robot, position, mNotificationArea);
-
 		if (robot.isDead())
 		{
 			if (robot.selfDestruct())
 			{
-				mNotificationArea.push({
-					"Robot Self-Destructed",
-					robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " self destructed.",
-					position,
-					NotificationArea::NotificationType::Critical
-				});
+				onRobotSelfDestruct(robot);
 			}
 			else if (robot.type() != RobotTypeIndex::Miner)
 			{
-				const auto text = "Your " + robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
-				mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
+				onRobotBreakDown(robot);
 				robot.abortTask(tile);
 			}
 
@@ -1292,12 +1279,7 @@ void MapViewState::updateRobots()
 			{
 				tile.removeMapObject();
 
-				mNotificationArea.push({
-					"Robot Task Completed",
-					robot.name() + " completed its task at " + NAS2D::stringFrom(tile.xy()) + ".",
-					tile.xyz(),
-					NotificationArea::NotificationType::Success
-				});
+				onRobotTaskComplete(robot);
 			}
 			robot_it = mDeployedRobots.erase(robot_it);
 
@@ -1307,18 +1289,18 @@ void MapViewState::updateRobots()
 				populateRobotMenu();
 				robot.reset();
 
-				mNotificationArea.push({
-					"Robot Task Canceled",
-					robot.name() + " canceled its task at " + NAS2D::stringFrom(tile.xy()) + ".",
-					tile.xyz(),
-					NotificationArea::NotificationType::Information
-				});
+				onRobotTaskCancel(robot);
 			}
 		}
 		else
 		{
 			++robot_it;
 		}
+	}
+
+	for (const auto* robot : mDeployedRobots)
+	{
+		pushAgingRobotMessage(robot, robot->mapCoordinate(), mNotificationArea);
 	}
 
 	mRobotPool.update();
