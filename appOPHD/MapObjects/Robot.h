@@ -40,7 +40,7 @@ public:
 	virtual void startTask(Tile& tile);
 	void startTask(Tile& tile, int turns);
 
-	virtual void abortTask(Tile& /*tile*/) {}
+	virtual void abortTask() {}
 
 	bool isPlaced() const;
 	Tile& tile();

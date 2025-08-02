@@ -1259,7 +1259,7 @@ void MapViewState::updateRobots()
 			else if (robot.type() != RobotTypeIndex::Miner)
 			{
 				onRobotBreakDown(robot);
-				robot.abortTask(tile);
+				robot.abortTask();
 			}
 
 			if (tile.mapObject() == &robot)
@@ -1282,7 +1282,7 @@ void MapViewState::updateRobots()
 
 			if (robot.taskCanceled())
 			{
-				robot.abortTask(tile);
+				robot.abortTask();
 				populateRobotMenu();
 				robot.reset();
 
