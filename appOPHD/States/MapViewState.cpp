@@ -1251,8 +1251,7 @@ void MapViewState::updateRobots()
 
 		robot.processTurn(*mTileMap);
 
-		const auto& position = robot.mapCoordinate();
-		pushAgingRobotMessage(&robot, position, mNotificationArea);
+		pushAgingRobotMessage(&robot, robot.mapCoordinate(), mNotificationArea);
 
 		if (robot.isDead())
 		{
