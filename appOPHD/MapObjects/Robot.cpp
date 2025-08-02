@@ -84,6 +84,11 @@ void Robot::startTask(Tile& tile, int turns)
 }
 
 
+void Robot::abortTask()
+{
+}
+
+
 bool Robot::isPlaced() const
 {
 	return mTurnsToCompleteTask > 0 && mTile;
