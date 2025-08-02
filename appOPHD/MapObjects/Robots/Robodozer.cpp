@@ -21,6 +21,7 @@ void Robodozer::startTask(Tile& tile)
 
 void Robodozer::abortTask()
 {
+	Robot::abortTask();
 	tile().index(static_cast<TerrainType>(mTileIndex));
 }
 
