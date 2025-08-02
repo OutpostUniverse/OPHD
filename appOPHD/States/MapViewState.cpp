@@ -1243,10 +1243,9 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 void MapViewState::updateRobots()
 {
-	auto robot_it = mDeployedRobots.begin();
-	while (robot_it != mDeployedRobots.end())
+	for (auto* robotPointer : mDeployedRobots)
 	{
-		auto& robot = **robot_it;
+		auto& robot = *robotPointer;
 		auto& tile = robot.tile();
 
 		robot.processTurn(*mTileMap);
@@ -1290,7 +1289,6 @@ void MapViewState::updateRobots()
 				onRobotTaskCancel(robot);
 			}
 		}
-		++robot_it;
 	}
 
 	std::erase_if(mDeployedRobots, [](const Robot* robot){ return robot->isDead() || robot->idle(); });
