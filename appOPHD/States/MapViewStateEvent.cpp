@@ -247,7 +247,12 @@ void MapViewState::onRobotBreakDown(const Robot& robot)
 {
 	const auto& position = robot.mapCoordinate();
 	const auto text = robot.name() + " has broken down at " + NAS2D::stringFrom(position.xy) + ". It will not be able to complete its task and will be removed from your inventory.";
-	mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
+	mNotificationArea.push({
+		"Robot Broke Down",
+		text,
+		position,
+		NotificationArea::NotificationType::Critical
+	});
 }
 
 
