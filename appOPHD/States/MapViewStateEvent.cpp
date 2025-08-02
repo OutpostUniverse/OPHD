@@ -236,7 +236,7 @@ void MapViewState::onRobotSelfDestruct(const Robot& robot)
 	const auto& position = robot.mapCoordinate();
 	mNotificationArea.push({
 		"Robot Self-Destructed",
-		robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " self destructed.",
+		robot.name() + " self destructed at " + NAS2D::stringFrom(position.xy) + ".",
 		position,
 		NotificationArea::NotificationType::Critical
 	});
