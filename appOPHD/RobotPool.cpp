@@ -76,24 +76,6 @@ namespace
 		}
 		return controlCounter;
 	}
-
-
-	NAS2D::Dictionary robotToDictionary(Robot& robot)
-	{
-		NAS2D::Dictionary dictionary = robot.getDataDict();
-
-		if (robot.isPlaced())
-		{
-			const auto mapCoordinate = robot.mapCoordinate();
-			dictionary += NAS2D::Dictionary{{
-				{"x", mapCoordinate.xy.x},
-				{"y", mapCoordinate.xy.y},
-				{"depth", mapCoordinate.z},
-			}};
-		}
-
-		return dictionary;
-	}
 }
 
 
@@ -299,8 +281,7 @@ NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 
 	for (auto robot : mRobots)
 	{
-		auto dictionary = robotToDictionary(*robot);
-		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
+		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", robot->getDataDict()));
 	}
 
 	return robots;
