@@ -1241,9 +1241,6 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 }
 
 
-/**
- * Updates all robots.
- */
 void MapViewState::updateRobots()
 {
 	auto robot_it = mDeployedRobots.begin();
