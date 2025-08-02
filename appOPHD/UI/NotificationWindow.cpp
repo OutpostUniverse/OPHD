@@ -2,6 +2,9 @@
 
 #include "../Cache.h"
 
+#include <NAS2D/StringFrom.h>
+#include <NAS2D/Renderer/Renderer.h>
+
 
 NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
 	mIcons{imageCache.load("ui/icons.png")},
@@ -55,4 +58,12 @@ void NotificationWindow::drawClientArea(NAS2D::Renderer& renderer) const
 {
 	const auto iconLocation = position() + NAS2D::Vector{10, 30};
 	drawNotificationIcon(renderer, iconLocation, mNotification.type, mIcons);
+
+	if (mNotification.hasMapCoordinate())
+	{
+		const auto& font = getDefaultFont();
+		const auto textPosition = btnTakeMeThere.position() + NAS2D::Vector{2, -font.height() - 2};
+		const auto text = "At location: " + NAS2D::stringFrom(mNotification.position.xy);
+		renderer.drawText(font, text, textPosition);
+	}
 }
