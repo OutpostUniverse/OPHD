@@ -1291,8 +1291,8 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Completed",
-					robot.name() + " completed its task at " + NAS2D::stringFrom(tile.xy()) + ".",
-					tile.xyz(),
+					robot.name() + " completed its task at " + NAS2D::stringFrom(position.xy) + ".",
+					position,
 					NotificationArea::NotificationType::Success
 				});
 			}
@@ -1306,8 +1306,8 @@ void MapViewState::updateRobots()
 
 				mNotificationArea.push({
 					"Robot Task Canceled",
-					robot.name() + " canceled its task at " + NAS2D::stringFrom(tile.xy()) + ".",
-					tile.xyz(),
+					robot.name() + " canceled its task at " + NAS2D::stringFrom(position.xy) + ".",
+					position,
 					NotificationArea::NotificationType::Information
 				});
 			}
