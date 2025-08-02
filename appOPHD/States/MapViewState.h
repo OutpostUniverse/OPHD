@@ -142,6 +142,11 @@ private:
 	void onDiggerTaskComplete(Robot& robot);
 	void onMinerTaskComplete(Robot& robot);
 
+	void onRobotSelfDestruct(const Robot& robot);
+	void onRobotBreakDown(const Robot& robot);
+	void onRobotTaskComplete(const Robot& robot);
+	void onRobotTaskCancel(const Robot& robot);
+
 	// DRAWING FUNCTIONS
 	void drawUI();
 	void drawSystemButton() const;

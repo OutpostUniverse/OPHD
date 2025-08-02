@@ -25,6 +25,7 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/StringFrom.h>
 
 #include <stdexcept>
 #include <array>
@@ -228,6 +229,52 @@ void MapViewState::onMinerTaskComplete(Robot& robot)
 	auto& mineFacility = miner.buildMine(*mTileMap, robotTile.xyz());
 	mineFacility.extensionCompleteHandler({this, &MapViewState::onMineFacilityExtend});
 }
+
+
+void MapViewState::onRobotSelfDestruct(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Self-Destructed",
+		robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " self destructed.",
+		position,
+		NotificationArea::NotificationType::Critical
+	});
+}
+
+
+void MapViewState::onRobotBreakDown(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	const auto text = "Your " + robot.name() + " at location " + NAS2D::stringFrom(position.xy) + " has broken down. It will not be able to complete its task and will be removed from your inventory.";
+	mNotificationArea.push({"Robot Broke Down", text, position, NotificationArea::NotificationType::Critical});
+}
+
+
+void MapViewState::onRobotTaskComplete(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Task Completed",
+		robot.name() + " completed its task at " + NAS2D::stringFrom(position.xy) + ".",
+		position,
+		NotificationArea::NotificationType::Success
+	});
+}
+
+
+void MapViewState::onRobotTaskCancel(const Robot& robot)
+{
+	const auto& position = robot.mapCoordinate();
+	mNotificationArea.push({
+		"Robot Task Canceled",
+		robot.name() + " canceled its task at " + NAS2D::stringFrom(position.xy) + ".",
+		position,
+		NotificationArea::NotificationType::Information
+	});
+}
+
+
 
 
 void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
