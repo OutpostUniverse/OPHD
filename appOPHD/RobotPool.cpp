@@ -76,12 +76,6 @@ namespace
 		}
 		return controlCounter;
 	}
-
-
-	NAS2D::Dictionary robotToDictionary(Robot& robot)
-	{
-		return robot.getDataDict();
-	}
 }
 
 
@@ -287,7 +281,7 @@ NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 
 	for (auto robot : mRobots)
 	{
-		auto dictionary = robotToDictionary(*robot);
+		auto dictionary = robot->getDataDict();
 		robots->linkEndChild(NAS2D::dictionaryToAttributes("robot", dictionary));
 	}
 
