@@ -101,7 +101,7 @@ public:
 	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
 	int disabled() const;
-	int destroyed() const;
+	int destroyedCount() const;
 
 	bool CHAPAvailable() const;
 

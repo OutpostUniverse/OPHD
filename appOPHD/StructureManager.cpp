@@ -334,7 +334,7 @@ int StructureManager::disabled() const
 /**
  * Gets a count of the number of destroyed buildings.
  */
-int StructureManager::destroyed() const
+int StructureManager::destroyedCount() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
