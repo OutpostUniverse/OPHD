@@ -156,9 +156,6 @@ Structure& StructureManager::create(StructureID structureId, Tile& tile)
 }
 
 
-/**
- * Adds a new Structure to the StructureManager.
- */
 void StructureManager::addStructure(Structure& structure, Tile& tile)
 {
 	if (std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure) != mDeployedStructures.end())
