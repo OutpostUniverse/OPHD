@@ -525,10 +525,8 @@ NAS2D::Xml::XmlElement* StructureManager::serialize() const
 
 void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
-	Structure* structure = nullptr;
-	for (std::size_t i = 0; i < structures.size(); ++i)
+	for (auto* structure : structures)
 	{
-		structure = structures[i];
 		structure->processTurn();
 
 		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
