@@ -319,7 +319,7 @@ int StructureManager::getCountInState(StructureClass structureClass, StructureSt
 /**
  * Gets a count of the number of disabled buildings.
  */
-int StructureManager::disabled() const
+int StructureManager::disabledCount() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)

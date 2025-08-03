@@ -100,7 +100,7 @@ public:
 	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
 	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
-	int disabled() const;
+	int disabledCount() const;
 	int destroyedCount() const;
 
 	bool CHAPAvailable() const;
