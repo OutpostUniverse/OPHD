@@ -121,11 +121,12 @@ public:
 
 	NAS2D::Xml::XmlElement* serialize() const;
 
-private:
+protected:
 	void disconnectAll();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
+private:
 	std::vector<Structure*> mDeployedStructures;
 	std::map<StructureClass, StructureList> mStructureLists;
 
