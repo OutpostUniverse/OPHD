@@ -100,8 +100,8 @@ public:
 	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
 	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
-	int disabled() const;
-	int destroyed() const;
+	int disabledCount() const;
+	int destroyedCount() const;
 
 	bool CHAPAvailable() const;
 
@@ -121,11 +121,12 @@ public:
 
 	NAS2D::Xml::XmlElement* serialize() const;
 
-private:
+protected:
 	void disconnectAll();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 
+private:
 	std::vector<Structure*> mDeployedStructures;
 	std::map<StructureClass, StructureList> mStructureLists;
 

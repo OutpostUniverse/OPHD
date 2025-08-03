@@ -156,9 +156,6 @@ Structure& StructureManager::create(StructureID structureId, Tile& tile)
 }
 
 
-/**
- * Adds a new Structure to the StructureManager.
- */
 void StructureManager::addStructure(Structure& structure, Tile& tile)
 {
 	if (std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure) != mDeployedStructures.end())
@@ -316,10 +313,7 @@ int StructureManager::getCountInState(StructureClass structureClass, StructureSt
 }
 
 
-/**
- * Gets a count of the number of disabled buildings.
- */
-int StructureManager::disabled() const
+int StructureManager::disabledCount() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
@@ -331,10 +325,7 @@ int StructureManager::disabled() const
 }
 
 
-/**
- * Gets a count of the number of destroyed buildings.
- */
-int StructureManager::destroyed() const
+int StructureManager::destroyedCount() const
 {
 	int count = 0;
 	for (auto& pair : mStructureLists)
@@ -525,10 +516,8 @@ NAS2D::Xml::XmlElement* StructureManager::serialize() const
 
 void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
-	Structure* structure = nullptr;
-	for (std::size_t i = 0; i < structures.size(); ++i)
+	for (auto* structure : structures)
 	{
-		structure = structures[i];
 		structure->processTurn();
 
 		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))

@@ -188,8 +188,8 @@ void MapViewState::updateMorale()
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
 	const int deathCount = mPopulation.deathCount();
-	const int structuresDisabled = structureManager.disabled();
-	const int structuresDestroyed = structureManager.destroyed();
+	const int structuresDisabled = structureManager.disabledCount();
+	const int structuresDestroyed = structureManager.destroyedCount();
 	const int residentialOverCapacityHit = mPopulation.getPopulations().size() > mResidentialCapacity ? 2 : 0;
 	const int foodProductionHit = foodProducingStructures > 0 ? 0 : 5;
 
