@@ -316,9 +316,6 @@ int StructureManager::getCountInState(StructureClass structureClass, StructureSt
 }
 
 
-/**
- * Gets a count of the number of disabled buildings.
- */
 int StructureManager::disabledCount() const
 {
 	int count = 0;
@@ -331,9 +328,6 @@ int StructureManager::disabledCount() const
 }
 
 
-/**
- * Gets a count of the number of destroyed buildings.
- */
 int StructureManager::destroyedCount() const
 {
 	int count = 0;
