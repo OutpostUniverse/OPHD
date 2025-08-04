@@ -269,6 +269,10 @@ ophd: $(ophd_OUTPUT)
 run: $(ophd_OUTPUT)
 	$(RunPrefix) $(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
 
+.PHONY: valgrind
+valgrind: $(ophd_OUTPUT)
+	valgrind $(RunPrefix) $(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
+
 
 ## Compile rules ##
 
