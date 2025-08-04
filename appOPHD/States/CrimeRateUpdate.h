@@ -12,7 +12,7 @@ class StructureManager;
 class CrimeRateUpdate
 {
 public:
-	CrimeRateUpdate(const Difficulty& difficulty);
+	CrimeRateUpdate(const StructureManager& structureManager, const Difficulty& difficulty);
 
 	void update();
 

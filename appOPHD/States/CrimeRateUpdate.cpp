@@ -55,8 +55,8 @@ namespace
 }
 
 
-CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+CrimeRateUpdate::CrimeRateUpdate(const StructureManager& structureManager, const Difficulty& difficulty) :
+	mStructureManager{structureManager},
 	mDifficulty{difficulty}
 {
 }

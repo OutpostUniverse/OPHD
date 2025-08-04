@@ -161,7 +161,7 @@ namespace
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mDifficulty{Difficulty::Medium},
 	mStructureManager{gameState.structureManager()},
-	mCrimeRateUpdate{mDifficulty},
+	mCrimeRateUpdate{mStructureManager, mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
@@ -205,7 +205,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
 	mStructureManager{gameState.structureManager()},
-	mCrimeRateUpdate{mDifficulty},
+	mCrimeRateUpdate{mStructureManager, mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
