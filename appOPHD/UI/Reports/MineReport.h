@@ -25,7 +25,7 @@ class MineReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	MineReport(TakeMeThereDelegate takeMeThereHandler);
+	MineReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 
 	bool canView(const Structure& structure) override;
 	void selectStructure(Structure& structure) override;

@@ -67,8 +67,8 @@ namespace
 }
 
 
-MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+MineReport::MineReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
