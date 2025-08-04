@@ -19,6 +19,7 @@
 
 enum class Difficulty;
 
+class StructureManager;
 class Structure;
 class Wrapper;
 
@@ -56,6 +57,7 @@ protected:
 	void onTakeMeThere(const Structure*);
 
 private:
+	StructureManager& mStructureManager;
 	NAS2D::Xml::XmlDocument mSaveGameDocument;
 	ReportsState mReportsState;
 	MapViewState mMapViewState;

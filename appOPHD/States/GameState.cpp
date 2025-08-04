@@ -36,6 +36,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 
 GameState::GameState(const std::string& savedGameFilename) :
+	mStructureManager{NAS2D::Utility<StructureManager>::get()},
 	mSaveGameDocument{saveGameDocument(savedGameFilename)},
 	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, mSaveGameDocument, {this, &GameState::onQuit}},
@@ -45,6 +46,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 
 GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
+	mStructureManager{NAS2D::Utility<StructureManager>::get()},
 	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, planetAttributes, selectedDifficulty, {this, &GameState::onQuit}},
 	mColonyShip{},
@@ -54,7 +56,7 @@ GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty select
 
 GameState::~GameState()
 {
-	NAS2D::Utility<StructureManager>::get().removeAllStructures();
+	mStructureManager.removeAllStructures();
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
