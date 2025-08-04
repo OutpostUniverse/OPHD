@@ -56,6 +56,7 @@ namespace
 
 
 CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
+	mStructureManager{NAS2D::Utility<StructureManager>::get()},
 	mDifficulty{difficulty}
 {
 }
@@ -67,7 +68,7 @@ void CrimeRateUpdate::update()
 	mStructuresCommittingCrimes.clear();
 	mMoraleChanges.clear();
 
-	const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
+	const auto& structuresWithCrime = mStructureManager.structuresWithCrime();
 
 	// Colony will not have a crime rate until at least one structure that supports crime is built
 	if (structuresWithCrime.empty())
