@@ -21,6 +21,7 @@ namespace NAS2D
 }
 
 enum class StructureState;
+class StructureManager;
 class Factory;
 
 
@@ -74,6 +75,8 @@ private:
 	void onVisibilityChange(bool visible) override;
 
 private:
+	const StructureManager& mStructureManager;
+
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;
