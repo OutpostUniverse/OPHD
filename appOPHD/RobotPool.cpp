@@ -79,8 +79,10 @@ namespace
 }
 
 
-RobotPool::RobotPool()
-{}
+RobotPool::RobotPool() :
+	mStructureManager{NAS2D::Utility<StructureManager>::get()}
+{
+}
 
 
 /**
@@ -231,8 +233,7 @@ std::size_t RobotPool::getAvailableCount(RobotTypeIndex robotTypeIndex) const
 
 void RobotPool::update()
 {
-	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	const auto& structures = structureManager.allStructures();
+	const auto& structures = mStructureManager.allStructures();
 
 	int totalRobotCommandCapacity = 0;
 	for (const auto* structure : structures)
@@ -243,7 +244,7 @@ void RobotPool::update()
 	// Special case hack to allow robot use during initial colony deploy
 	if (totalRobotCommandCapacity == 0)
 	{
-		const auto& commandCenters = structureManager.getStructures<CommandCenter>();
+		const auto& commandCenters = mStructureManager.getStructures<CommandCenter>();
 		if (commandCenters.size() > 0)
 		{
 			totalRobotCommandCapacity += commandCenters[0]->type().robotCommandCapacity;
