@@ -25,11 +25,11 @@ namespace
 	};
 
 
-	std::vector<const Structure*> activePoliceStations()
+	std::vector<Structure*> activePoliceStations()
 	{
-		std::vector<const Structure*> policeStations;
+		std::vector<Structure*> policeStations;
 		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (const auto* structure : structureManager.allStructures())
+		for (auto* structure : structureManager.allStructures())
 		{
 			if (structure->operational() && structure->isPolice())
 			{
@@ -40,7 +40,7 @@ namespace
 	}
 
 
-	bool isProtectedByPolice(const std::vector<const Structure*>& policeStations, const Structure& structure)
+	bool isProtectedByPolice(const std::vector<Structure*>& policeStations, const Structure& structure)
 	{
 		const auto& position = structure.xyz();
 		for (const auto* policeStation : policeStations)
