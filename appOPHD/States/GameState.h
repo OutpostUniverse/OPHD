@@ -19,6 +19,7 @@
 
 enum class Difficulty;
 
+class StructureManager;
 class Structure;
 class Wrapper;
 
@@ -34,6 +35,8 @@ public:
 
 	ReportsState& reportsState() { return mReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
+
+	StructureManager& structureManager() { return mStructureManager; }
 	ColonyShip& colonyShip() { return mColonyShip; }
 
 protected:
@@ -56,6 +59,7 @@ protected:
 	void onTakeMeThere(const Structure*);
 
 private:
+	StructureManager& mStructureManager;
 	NAS2D::Xml::XmlDocument mSaveGameDocument;
 	ReportsState mReportsState;
 	MapViewState mMapViewState;

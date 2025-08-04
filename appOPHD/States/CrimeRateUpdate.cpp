@@ -9,8 +9,6 @@
 #include <libOPHD/RandomNumberGenerator.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 
-#include <NAS2D/Utility.h>
-
 #include <map>
 
 
@@ -25,22 +23,7 @@ namespace
 	};
 
 
-	std::vector<const Structure*> activePoliceStations()
-	{
-		std::vector<const Structure*> policeStations;
-		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		for (const auto* structure : structureManager.allStructures())
-		{
-			if (structure->operational() && structure->isPolice())
-			{
-				policeStations.push_back(structure);
-			}
-		}
-		return policeStations;
-	}
-
-
-	bool isProtectedByPolice(const std::vector<const Structure*>& policeStations, const Structure& structure)
+	bool isProtectedByPolice(const std::vector<Structure*>& policeStations, const Structure& structure)
 	{
 		const auto& position = structure.xyz();
 		for (const auto* policeStation : policeStations)
@@ -55,7 +38,8 @@ namespace
 }
 
 
-CrimeRateUpdate::CrimeRateUpdate(const Difficulty& difficulty) :
+CrimeRateUpdate::CrimeRateUpdate(const StructureManager& structureManager, const Difficulty& difficulty) :
+	mStructureManager{structureManager},
 	mDifficulty{difficulty}
 {
 }
@@ -67,7 +51,7 @@ void CrimeRateUpdate::update()
 	mStructuresCommittingCrimes.clear();
 	mMoraleChanges.clear();
 
-	const auto& structuresWithCrime = NAS2D::Utility<StructureManager>::get().structuresWithCrime();
+	const auto& structuresWithCrime = mStructureManager.structuresWithCrime();
 
 	// Colony will not have a crime rate until at least one structure that supports crime is built
 	if (structuresWithCrime.empty())
@@ -77,7 +61,7 @@ void CrimeRateUpdate::update()
 
 	double accumulatedCrime{0};
 
-	const auto& policeStations = activePoliceStations();
+	const auto& policeStations = mStructureManager.activePoliceStations();
 	for (auto* structure : structuresWithCrime)
 	{
 		int crimeRateChange = isProtectedByPolice(policeStations, *structure) ? -1 : 1;

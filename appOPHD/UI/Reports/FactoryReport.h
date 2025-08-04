@@ -21,6 +21,7 @@ namespace NAS2D
 }
 
 enum class StructureState;
+class StructureManager;
 class Factory;
 
 
@@ -29,7 +30,7 @@ class FactoryReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
+	FactoryReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 
 	bool canView(const Structure& structure) override;
 	void selectStructure(Structure&) override;
@@ -74,6 +75,8 @@ private:
 	void onVisibilityChange(bool visible) override;
 
 private:
+	const StructureManager& mStructureManager;
+
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontMedium;

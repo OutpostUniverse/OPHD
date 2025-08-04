@@ -56,7 +56,8 @@ namespace
 }
 
 
-WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
+WarehouseReport::WarehouseReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
@@ -145,7 +146,7 @@ void WarehouseReport::computeTotalWarehouseCapacity()
 	int capacityTotal = 0;
 	int capacityAvailable = 0;
 
-	const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
+	const auto& warehouses = mStructureManager.getStructures<Warehouse>();
 	for (const auto* warehouse : warehouses)
 	{
 		if (warehouse->operational())

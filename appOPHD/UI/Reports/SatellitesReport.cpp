@@ -7,7 +7,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-SatellitesReport::SatellitesReport(TakeMeThereDelegate takeMeThereHandler) :
+SatellitesReport::SatellitesReport(const StructureManager& /*structureManager*/, TakeMeThereDelegate takeMeThereHandler) :
 	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},

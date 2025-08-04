@@ -69,6 +69,7 @@ enum class StructureID;
 enum class RobotTypeIndex;
 
 class Structure;
+class StructureManager;
 class Tile;
 class TileMap;
 class RouteFinder;
@@ -268,6 +269,7 @@ private:
 private:
 	Difficulty mDifficulty;
 	std::unique_ptr<TileMap> mTileMap;
+	StructureManager& mStructureManager;
 	CrimeRateUpdate mCrimeRateUpdate;
 	CrimeExecution mCrimeExecution;
 

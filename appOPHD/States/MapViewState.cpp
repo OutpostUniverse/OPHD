@@ -160,11 +160,13 @@ namespace
 
 MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
 	mDifficulty{Difficulty::Medium},
-	mCrimeRateUpdate{mDifficulty},
+	mStructureManager{gameState.structureManager()},
+	mCrimeRateUpdate{mStructureManager, mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
+	mRobotPool{mStructureManager},
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
@@ -192,7 +194,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mNotificationWindow{{this, &MapViewState::onTakeMeThere}},
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mQuitHandler{quitHandler},
-	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
+	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -202,12 +204,14 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty, EventDelegate quitHandler) :
 	mDifficulty{selectedDifficulty},
 	mTileMap{std::make_unique<TileMap>(planetAttributes.mapImagePath, planetAttributes.maxDepth, planetAttributes.maxOreDeposits, HostilityOreDepositYields.at(planetAttributes.hostility))},
-	mCrimeRateUpdate{mDifficulty},
+	mStructureManager{gameState.structureManager()},
+	mCrimeRateUpdate{mStructureManager, mDifficulty},
 	mCrimeExecution{mDifficulty, {this, &MapViewState::onCrimeEvent}},
 	mColonyShip{gameState.colonyShip()},
 	mTechnologyReader{"tech0-1.xml"},
 	mPlanetAttributes{planetAttributes},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
+	mRobotPool{mStructureManager},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
@@ -235,9 +239,9 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
 	mQuitHandler{quitHandler},
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
-	mResourceInfoBar{mResourcesCount, mPopulation, mMorale, mFood},
+	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulation, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mDeployedRobots, planetAttributes.mapImagePath)},
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
@@ -380,9 +384,9 @@ NAS2D::State* MapViewState::update()
 
 void MapViewState::updatePlayerResources()
 {
-	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures<OreRefining>();
-	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
+	const auto& command = mStructureManager.getStructures<CommandCenter>();
+	const auto& smelters = mStructureManager.getStructures<OreRefining>();
+	const auto& storageTanks = mStructureManager.getStructures<StorageTanks>();
 
 	std::vector<Structure*> storage;
 	storage.insert(storage.end(), command.begin(), command.end());
@@ -771,7 +775,7 @@ void MapViewState::insertTube(Tile& tile, ConnectorDir dir)
 		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir parameter.");
 	}
 
-	NAS2D::Utility<StructureManager>::get().addStructure(*new Tube(tile, dir), tile);
+	mStructureManager.addStructure(*new Tube(tile, dir), tile);
 }
 
 
@@ -851,7 +855,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 	{
 		if (!validLanderSite(tile)) { return; }
 
-		auto& s = NAS2D::Utility<StructureManager>::get().create<ColonistLander>(tile);
+		auto& s = mStructureManager.create<ColonistLander>(tile);
 		s.deployHandler({this, &MapViewState::onDeployColonistLander});
 
 		mColonyShip.onDeployColonistLander();
@@ -865,7 +869,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 	{
 		if (!validLanderSite(tile)) { return; }
 
-		auto& cargoLander = NAS2D::Utility<StructureManager>::get().create<CargoLander>(tile);
+		auto& cargoLander = mStructureManager.create<CargoLander>(tile);
 		cargoLander.deployHandler({this, &MapViewState::onDeployCargoLander});
 
 		mColonyShip.onDeployCargoLander();
@@ -890,7 +894,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 			return;
 		}
 
-		auto& structure = NAS2D::Utility<StructureManager>::get().create(structureID, tile);
+		auto& structure = mStructureManager.create(structureID, tile);
 
 		if (structure.isFactory())
 		{
@@ -965,13 +969,12 @@ void MapViewState::placeRobodozer(Tile& tile)
 		NAS2D::Utility<std::map<const MineFacility*, Route>>::get().erase(mineFacility);
 
 		const auto tilePosition = tile.xy();
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
 		{
 			auto& mineShaftTile = mTileMap->getTile({tilePosition, i});
 			if (mineShaftTile.hasStructure())
 			{
-				structureManager.removeStructure(*mineShaftTile.structure());
+				mStructureManager.removeStructure(*mineShaftTile.structure());
 			}
 		}
 		mTileMap->removeOreDepositLocation(tilePosition);
@@ -1044,7 +1047,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updatePlayerResources();
 		updateStructuresAvailability();
 
-		NAS2D::Utility<StructureManager>::get().removeStructure(*structure);
+		mStructureManager.removeStructure(*structure);
 		updateConnectedness();
 	}
 
@@ -1226,7 +1229,7 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 		}
 
 		auto& tile = mTileMap->getTile({point, 0}); // Can only ever be placed on depth level 0
-		auto& s = NAS2D::Utility<StructureManager>::get().create<SeedLander>(tile);
+		auto& s = mStructureManager.create<SeedLander>(tile);
 		s.deployHandler({this, &MapViewState::onDeploySeedLander});
 
 		resetUi();
@@ -1325,9 +1328,8 @@ void MapViewState::updateRouteOverlay()
  */
 void MapViewState::updateConnectedness()
 {
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	structureManager.updateConnectedness(*mTileMap);
-	mConnectednessOverlay = structureManager.getConnectednessOverlay();
+	mStructureManager.updateConnectedness(*mTileMap);
+	mConnectednessOverlay = mStructureManager.getConnectednessOverlay();
 }
 
 
@@ -1335,8 +1337,7 @@ void MapViewState::updateCommRangeOverlay()
 {
 	mCommRangeOverlay.clear();
 
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	for (const auto* structure : structureManager.allStructures())
+	for (const auto* structure : mStructureManager.allStructures())
 	{
 		const auto commRange = structure->commRange();
 		if (commRange > 0)
@@ -1355,8 +1356,7 @@ void MapViewState::updatePoliceOverlay()
 		policeOverlayLevel.clear();
 	}
 
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	for (const auto* structure : structureManager.allStructures())
+	for (const auto* structure : mStructureManager.allStructures())
 	{
 		const auto policeRange = structure->policeRange();
 		if (policeRange > 0)

@@ -54,7 +54,8 @@ namespace
 }
 
 
-FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
+FactoryReport::FactoryReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
@@ -163,7 +164,7 @@ void FactoryReport::fillLists()
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : mStructureManager.getStructures<Factory>())
 	{
 		lstFactoryList.addItem(factory);
 	}
@@ -187,7 +188,7 @@ void FactoryReport::fillFactoryList(ProductType type)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : mStructureManager.getStructures<Factory>())
 	{
 		if (factory->productType() == type)
 		{
@@ -206,7 +207,7 @@ void FactoryReport::fillFactoryList(bool surface)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : mStructureManager.getStructures<Factory>())
 	{
 		if (surface && (factory->name() == constants::SurfaceFactory || factory->name() == constants::SeedFactory))
 		{
@@ -229,7 +230,7 @@ void FactoryReport::fillFactoryList(StructureState state)
 {
 	selectedFactory = nullptr;
 	lstFactoryList.clear();
-	for (auto* factory : NAS2D::Utility<StructureManager>::get().getStructures<Factory>())
+	for (auto* factory : mStructureManager.getStructures<Factory>())
 	{
 		if (factory->state() == state)
 		{

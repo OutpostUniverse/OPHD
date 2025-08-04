@@ -24,8 +24,6 @@
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
-#include <NAS2D/Utility.h>
-
 #include <stdexcept>
 #include <array>
 
@@ -128,8 +126,6 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 		mTileMap->getTile({point + direction, 0}).bulldoze();
 	}
 
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
 	constexpr std::array initialStructures{
 		std::tuple{DirectionNorth, StructureID::Tube},
 		std::tuple{DirectionSouth, StructureID::Tube},
@@ -144,7 +140,7 @@ void MapViewState::onDeploySeedLander(NAS2D::Point<int> point)
 	for (const auto& [direction, structureId] : initialStructures)
 	{
 		auto& tile = mTileMap->getTile({point + direction, 0});
-		auto& structure = structureManager.create(structureId, tile);
+		auto& structure = mStructureManager.create(structureId, tile);
 
 		if (auto* seedFactory = dynamic_cast<SeedFactory*>(&structure))
 		{
@@ -182,9 +178,8 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		tile.bulldoze();
 		bottomTile.bulldoze();
 
-		auto& structureManager = NAS2D::Utility<StructureManager>::get();
-		structureManager.create<AirShaft>(tile);
-		structureManager.create<AirShaft>(bottomTile);
+		mStructureManager.create<AirShaft>(tile);
+		mStructureManager.create<AirShaft>(bottomTile);
 	}
 
 	for (const auto& offset : DirectionScan3x3)
@@ -266,9 +261,8 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 {
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	auto& mineDepthTile = mTileMap->getTile({mineFacility->xyz().xy, mineFacility->oreDeposit().digDepth()});
-	structureManager.create<MineShaft>(mineDepthTile);
+	mStructureManager.create<MineShaft>(mineDepthTile);
 	mineDepthTile.bulldoze();
 	mineDepthTile.excavate();
 }

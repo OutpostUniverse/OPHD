@@ -6,12 +6,13 @@
 enum class Difficulty;
 struct MoraleChangeEntry;
 class Structure;
+class StructureManager;
 
 
 class CrimeRateUpdate
 {
 public:
-	CrimeRateUpdate(const Difficulty& difficulty);
+	CrimeRateUpdate(const StructureManager& structureManager, const Difficulty& difficulty);
 
 	void update();
 
@@ -20,6 +21,7 @@ public:
 	std::vector<Structure*> structuresCommittingCrimes() const;
 
 private:
+	const StructureManager& mStructureManager;
 	const Difficulty& mDifficulty;
 	int mMeanCrimeRate{0};
 	std::vector<MoraleChangeEntry> mMoraleChanges;

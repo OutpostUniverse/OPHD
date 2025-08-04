@@ -257,7 +257,7 @@ void MapViewState::populateStructureMenu()
 	mConnections.clear();
 
 	// Above Ground structures only
-	if (NAS2D::Utility<StructureManager>::get().count() == 0)
+	if (mStructureManager.count() == 0)
 	{
 		if (mMapView->isSurface())
 		{
@@ -469,7 +469,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 	// so clear it from the tile, disconnect the tile and run a connectedness search.
 	if (tile.depth() > 0 && direction == Direction::Down)
 	{
-		NAS2D::Utility<StructureManager>::get().removeStructure(*tile.structure());
+		mStructureManager.removeStructure(*tile.structure());
 		updateConnectedness();
 	}
 
@@ -559,8 +559,8 @@ void MapViewState::onCheatCodeEntry(CheatMenu::CheatCode cheatCode)
 		break;
 		case CheatMenu::CheatCode::AddFood:
 		{
-			auto foodProducers = NAS2D::Utility<StructureManager>::get().getStructures<FoodProduction>();
-			const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
+			auto foodProducers = mStructureManager.getStructures<FoodProduction>();
+			const auto& command = mStructureManager.getStructures<CommandCenter>();
 			foodProducers.insert(foodProducers.begin(), command.begin(), command.end());
 
 			for (auto* foodProducer : foodProducers)

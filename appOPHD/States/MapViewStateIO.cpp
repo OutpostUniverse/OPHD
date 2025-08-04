@@ -170,7 +170,7 @@ void MapViewState::save(NAS2D::Xml::XmlDocument& saveGameDocument)
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);
 	mMapView->serialize(root);
-	root->linkEndChild(NAS2D::Utility<StructureManager>::get().serialize());
+	root->linkEndChild(mStructureManager.serialize());
 	root->linkEndChild(mRobotPool.writeRobots());
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 	root->linkEndChild(writeResearch(mResearchTracker));
@@ -243,7 +243,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mMorale.closeJournal();
 
 	scrubRobotList();
-	NAS2D::Utility<StructureManager>::get().removeAllStructures();
+	mStructureManager.removeAllStructures();
 
 	mStructureTracker = StructureTracker{};
 
@@ -268,7 +268,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
-	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mDeployedRobots, mPlanetAttributes.mapImagePath);
+	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, mPlanetAttributes.mapImagePath);
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView);
 
@@ -289,9 +289,9 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	updateConnectedness();
 
-	NAS2D::Utility<StructureManager>::get().updateEnergyProduction();
-	NAS2D::Utility<StructureManager>::get().updateEnergyConsumed();
-	NAS2D::Utility<StructureManager>::get().assignColonistsToResidences(mPopulationPool);
+	mStructureManager.updateEnergyProduction();
+	mStructureManager.updateEnergyConsumed();
+	mStructureManager.assignColonistsToResidences(mPopulationPool);
 
 	mRobotPool.update();
 	updateResidentialCapacity();
@@ -305,7 +305,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	if (mTurnCount == 0)
 	{
-		if (NAS2D::Utility<StructureManager>::get().count() == 0)
+		if (mStructureManager.count() == 0)
 		{
 			mBtnTurns.enabled(false);
 			populateStructureMenu();
@@ -316,7 +316,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 			 * There should only ever be one structure if the turn count is 0, the
 			 * SEED Lander which at this point should not have been deployed.
 			 */
-			const auto& list = NAS2D::Utility<StructureManager>::get().getStructures<SeedLander>();
+			const auto& list = mStructureManager.getStructures<SeedLander>();
 			if (list.size() != 1) { throw std::runtime_error("MapViewState::load(): Turn counter at 0 but more than one structure in list."); }
 
 			SeedLander* seedLander = list[0];
@@ -512,7 +512,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
 
-		NAS2D::Utility<StructureManager>::get().addStructure(structure, tile);
+		mStructureManager.addStructure(structure, tile);
 	}
 }
 

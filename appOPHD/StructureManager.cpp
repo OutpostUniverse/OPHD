@@ -236,6 +236,20 @@ StructureList StructureManager::allStructures() const
 }
 
 
+StructureList StructureManager::activePoliceStations() const
+{
+	StructureList policeStations;
+	for (auto* structure : allStructures())
+	{
+		if (structure->operational() && structure->isPolice())
+		{
+			policeStations.push_back(structure);
+		}
+	}
+	return policeStations;
+}
+
+
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;

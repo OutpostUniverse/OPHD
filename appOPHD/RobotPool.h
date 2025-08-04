@@ -11,6 +11,7 @@ class Robodigger;
 class Robodozer;
 class Robominer;
 class Tile;
+class StructureManager;
 
 using RobotList = std::vector<Robot*>;
 
@@ -31,7 +32,7 @@ public:
 	using MinerList = std::list<Robominer>;
 
 public:
-	RobotPool();
+	RobotPool(const StructureManager& structureManager);
 	~RobotPool();
 
 	Robot& addRobot(RobotTypeIndex robotTypeIndex);
@@ -67,6 +68,8 @@ public:
 	NAS2D::Xml::XmlElement* writeRobots();
 
 private:
+	const StructureManager& mStructureManager;
+
 	DiggerList mDiggers;
 	DozerList mDozers;
 	MinerList mMiners;

@@ -21,6 +21,7 @@ namespace NAS2D
 
 class Warehouse;
 class Structure;
+class StructureManager;
 
 
 class WarehouseReport : public Report
@@ -28,7 +29,7 @@ class WarehouseReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	WarehouseReport(TakeMeThereDelegate takeMeThereHandler);
+	WarehouseReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 	~WarehouseReport() override;
 
 	bool canView(const Structure& structure) override;
@@ -71,6 +72,9 @@ private:
 
 	void drawLeftPanel(NAS2D::Renderer&) const;
 	void drawRightPanel(NAS2D::Renderer&) const;
+
+private:
+	const StructureManager& mStructureManager;
 
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;

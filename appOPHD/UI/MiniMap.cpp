@@ -28,9 +28,10 @@ namespace
 }
 
 
-MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::vector<Robot*>& deployedRobots, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const std::string& mapName) :
 	mMapView{mapView},
 	mTileMap{tileMap},
+	mStructureManager{structureManager},
 	mDeployedRobots{deployedRobots},
 	mIsHeightMapVisible{false},
 	mBackgroundSatellite{mapName + MapDisplayExtension},
@@ -61,9 +62,8 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 
 	renderer.drawImage((mIsHeightMapVisible ? mBackgroundHeightMap : mBackgroundSatellite), miniMapFloatRect.position);
 
-	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 	const auto miniMapOffset = mRect.position - NAS2D::Point{0, 0};
-	for (const auto& ccPosition : structureManager.operationalCommandCenterPositions())
+	for (const auto& ccPosition : mStructureManager.operationalCommandCenterPositions())
 	{
 		const auto ccOffsetPosition = ccPosition.xy + miniMapOffset;
 		const auto ccCommRangeImageRect = NAS2D::Rectangle<int>{{166, 226}, {30, 30}};
@@ -71,7 +71,7 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 		renderer.drawBoxFilled(NAS2D::Rectangle{ccOffsetPosition - NAS2D::Vector{1, 1}, {3, 3}}, NAS2D::Color::White);
 	}
 
-	for (const auto* commTower : structureManager.getStructures<CommTower>())
+	for (const auto* commTower : mStructureManager.getStructures<CommTower>())
 	{
 		if (commTower->operational())
 		{

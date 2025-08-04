@@ -6,11 +6,10 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../States/MapViewStateHelper.h"
-#include "../MapObjects/StructureClass.h"
-#include "../MapObjects/Structure.h"
 
 #include "../StructureManager.h"
 
+#include <libOPHD/StorableResources.h>
 #include <libOPHD/Population/Population.h>
 #include <libOPHD/Population/Morale.h>
 
@@ -69,9 +68,10 @@ namespace
 }
 
 
-ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food) :
+ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const Population& population, const Morale& morale, const int& food) :
 	ControlContainer{{&mToolTip}},
 	mResourcesCount{resources},
+	mStructureManager{structureManager},
 	mPopulation{population},
 	mMorale{morale},
 	mFood{food},
@@ -188,14 +188,13 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	}
 
 	// Capacity (Storage, Food, Energy)
-	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	const auto refinedOreCapacity = structureManager.totalRefinedOreStorageCapacity() * 4;
-	const auto energyAvailable = structureManager.totalEnergyAvailable();
+	const auto refinedOreCapacity = mStructureManager.totalRefinedOreStorageCapacity() * 4;
+	const auto energyAvailable = mStructureManager.totalEnergyAvailable();
 	const std::array storageCapacities
 	{
 		std::tuple{oreIconRect, mResourcesCount.total(), refinedOreCapacity, refinedOreCapacity - mResourcesCount.total() <= 100},
-		std::tuple{foodIconRect, mFood, structureManager.totalFoodStorageCapacity(), mFood <= 10},
-		std::tuple{powerIconRect, energyAvailable, structureManager.totalEnergyProduction(), energyAvailable <= 5}
+		std::tuple{foodIconRect, mFood, mStructureManager.totalFoodStorageCapacity(), mFood <= 10},
+		std::tuple{powerIconRect, energyAvailable, mStructureManager.totalEnergyProduction(), energyAvailable <= 5}
 	};
 
 	position.x += x + offsetX;

@@ -20,6 +20,7 @@ namespace NAS2D
 }
 
 class Structure;
+class StructureManager;
 class TechnologyCatalog;
 class ResearchTracker;
 
@@ -29,7 +30,7 @@ class ResearchReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	ResearchReport(TakeMeThereDelegate takeMeThereHandler);
+	ResearchReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 	~ResearchReport() override;
 
 	bool canView(const Structure& structure) override;
@@ -91,6 +92,8 @@ private:
 	};
 
 private:
+	const StructureManager& mStructureManager;
+
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;

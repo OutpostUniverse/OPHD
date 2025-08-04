@@ -11,13 +11,15 @@ namespace NAS2D
 	class Image;
 }
 
+class StructureManager;
+
 
 class SatellitesReport : public Report
 {
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	SatellitesReport(TakeMeThereDelegate takeMeThereHandler);
+	SatellitesReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 	~SatellitesReport() override;
 
 	bool canView(const Structure& structure) override;

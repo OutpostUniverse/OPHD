@@ -16,6 +16,7 @@ namespace NAS2D
 	class Image;
 }
 
+class StructureManager;
 class MineFacility;
 
 
@@ -24,7 +25,7 @@ class MineReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	MineReport(TakeMeThereDelegate takeMeThereHandler);
+	MineReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 
 	bool canView(const Structure& structure) override;
 	void selectStructure(Structure& structure) override;
@@ -61,6 +62,8 @@ protected:
 	void drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const;
 
 private:
+	const StructureManager& mStructureManager;
+
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontBold;
