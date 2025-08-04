@@ -269,6 +269,10 @@ ophd: $(ophd_OUTPUT)
 run: $(ophd_OUTPUT)
 	$(RunPrefix) $(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
 
+.PHONY: valgrind
+valgrind: $(ophd_OUTPUT)
+	valgrind $(RunPrefix) $(ophd_OUTPUT) $(OPHD_RUN_FLAGS)
+
 
 ## Compile rules ##
 
@@ -352,6 +356,10 @@ cppclean:
 
 .PHONY: cppinclude
 cppinclude:
+	cppinclude --show_details=false --report_limit=30
+
+.PHONY: cppinclude-detailed
+cppinclude-detailed:
 	cppinclude
 
 .PHONY: format
