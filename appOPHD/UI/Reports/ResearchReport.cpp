@@ -90,6 +90,7 @@ namespace
 
 
 ResearchReport::ResearchReport(TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{NAS2D::Utility<StructureManager>::get()},
 	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
@@ -314,8 +315,7 @@ void ResearchReport::adjustCategoryIconSpacing()
 
 void ResearchReport::checkForLabAvailability()
 {
-	auto& mgr = NAS2D::Utility<StructureManager>::get();
-	mLabsAvailable = {mgr.countInState<Laboratory>(StructureState::Operational), mgr.countInState<HotLaboratory>(StructureState::Operational)};
+	mLabsAvailable = {mStructureManager.countInState<Laboratory>(StructureState::Operational), mStructureManager.countInState<HotLaboratory>(StructureState::Operational)};
 }
 
 

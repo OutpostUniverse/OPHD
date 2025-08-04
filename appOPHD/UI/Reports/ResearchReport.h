@@ -20,6 +20,7 @@ namespace NAS2D
 }
 
 class Structure;
+class StructureManager;
 class TechnologyCatalog;
 class ResearchTracker;
 
@@ -91,6 +92,8 @@ private:
 	};
 
 private:
+	const StructureManager& mStructureManager;
+
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;
 	const NAS2D::Font& fontMediumBold;
