@@ -97,7 +97,7 @@ namespace
 		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		/* NOTE: Matches the order in enum NavigationPanel */
 		panels = std::array<Panel, 7>{
-			Panel{new ResearchReport(takeMeThereHandler), "Research", &imageCache.load("ui/icons/research.png")},
+			Panel{new ResearchReport(structureManager, takeMeThereHandler), "Research", &imageCache.load("ui/icons/research.png")},
 			Panel{new FactoryReport(structureManager, takeMeThereHandler), "Factories", &imageCache.load("ui/icons/production.png")},
 			Panel{new WarehouseReport(takeMeThereHandler), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
 			Panel{new MineReport(structureManager, takeMeThereHandler), "Mines", &imageCache.load("ui/icons/mine.png")},

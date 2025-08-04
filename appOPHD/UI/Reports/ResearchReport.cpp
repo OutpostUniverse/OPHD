@@ -89,8 +89,8 @@ namespace
 }
 
 
-ResearchReport::ResearchReport(TakeMeThereDelegate takeMeThereHandler) :
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},

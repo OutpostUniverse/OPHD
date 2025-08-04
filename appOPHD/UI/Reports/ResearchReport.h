@@ -30,7 +30,7 @@ class ResearchReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	ResearchReport(TakeMeThereDelegate takeMeThereHandler);
+	ResearchReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 	~ResearchReport() override;
 
 	bool canView(const Structure& structure) override;
