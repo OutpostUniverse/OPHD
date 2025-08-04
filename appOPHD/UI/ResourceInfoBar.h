@@ -14,6 +14,7 @@ namespace NAS2D
 
 enum class StructureClass;
 struct StorableResources;
+class StructureManager;
 class Population;
 class Morale;
 
@@ -37,6 +38,7 @@ protected:
 
 private:
 	const StorableResources& mResourcesCount;
+	const StructureManager& mStructureManager;
 	const Population& mPopulation;
 	const Morale& mMorale;
 	const int& mFood;
