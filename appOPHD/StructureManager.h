@@ -73,6 +73,8 @@ public:
 	const StructureList& structureList(StructureClass structureClass) const;
 	StructureList allStructures() const;
 
+	StructureList activePoliceStations() const;
+
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
 	void updateConnectedness(TileMap& tileMap);
