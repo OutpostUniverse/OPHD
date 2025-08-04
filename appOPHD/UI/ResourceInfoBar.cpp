@@ -6,10 +6,10 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../States/MapViewStateHelper.h"
-#include "../MapObjects/Structure.h"
 
 #include "../StructureManager.h"
 
+#include <libOPHD/StorableResources.h>
 #include <libOPHD/Population/Population.h>
 #include <libOPHD/Population/Morale.h>
 
