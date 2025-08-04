@@ -54,8 +54,8 @@ namespace
 }
 
 
-FactoryReport::FactoryReport(TakeMeThereDelegate takeMeThereHandler) :
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+FactoryReport::FactoryReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},

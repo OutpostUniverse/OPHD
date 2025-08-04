@@ -30,7 +30,7 @@ class FactoryReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	FactoryReport(TakeMeThereDelegate takeMeThereHandler);
+	FactoryReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 
 	bool canView(const Structure& structure) override;
 	void selectStructure(Structure&) override;
