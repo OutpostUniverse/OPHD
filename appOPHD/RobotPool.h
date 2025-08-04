@@ -32,7 +32,7 @@ public:
 	using MinerList = std::list<Robominer>;
 
 public:
-	RobotPool();
+	RobotPool(const StructureManager& structureManager);
 	~RobotPool();
 
 	Robot& addRobot(RobotTypeIndex robotTypeIndex);

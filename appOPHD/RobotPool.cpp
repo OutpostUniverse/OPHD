@@ -7,7 +7,6 @@
 
 #include <libOPHD/MapObjects/StructureType.h>
 
-#include <NAS2D/Utility.h>
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/Xml/XmlElement.h>
 
@@ -79,8 +78,8 @@ namespace
 }
 
 
-RobotPool::RobotPool() :
-	mStructureManager{NAS2D::Utility<StructureManager>::get()}
+RobotPool::RobotPool(const StructureManager& structureManager) :
+	mStructureManager{structureManager}
 {
 }
 
