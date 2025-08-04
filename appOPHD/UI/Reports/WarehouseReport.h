@@ -21,6 +21,7 @@ namespace NAS2D
 
 class Warehouse;
 class Structure;
+class StructureManager;
 
 
 class WarehouseReport : public Report
@@ -71,6 +72,9 @@ private:
 
 	void drawLeftPanel(NAS2D::Renderer&) const;
 	void drawRightPanel(NAS2D::Renderer&) const;
+
+private:
+	const StructureManager& mStructureManager;
 
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& fontMedium;
