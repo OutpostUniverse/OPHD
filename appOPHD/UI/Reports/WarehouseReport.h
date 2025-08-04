@@ -29,7 +29,7 @@ class WarehouseReport : public Report
 public:
 	using TakeMeThereDelegate = NAS2D::Delegate<void(const Structure*)>;
 
-	WarehouseReport(TakeMeThereDelegate takeMeThereHandler);
+	WarehouseReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler);
 	~WarehouseReport() override;
 
 	bool canView(const Structure& structure) override;

@@ -99,7 +99,7 @@ namespace
 		panels = std::array<Panel, 7>{
 			Panel{new ResearchReport(structureManager, takeMeThereHandler), "Research", &imageCache.load("ui/icons/research.png")},
 			Panel{new FactoryReport(structureManager, takeMeThereHandler), "Factories", &imageCache.load("ui/icons/production.png")},
-			Panel{new WarehouseReport(takeMeThereHandler), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
+			Panel{new WarehouseReport(structureManager, takeMeThereHandler), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
 			Panel{new MineReport(structureManager, takeMeThereHandler), "Mines", &imageCache.load("ui/icons/mine.png")},
 			Panel{new SatellitesReport(takeMeThereHandler), "Satellites", &imageCache.load("ui/icons/satellite.png")},
 			Panel{new SpaceportsReport(takeMeThereHandler), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},

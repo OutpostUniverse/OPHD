@@ -56,8 +56,8 @@ namespace
 }
 
 
-WarehouseReport::WarehouseReport(TakeMeThereDelegate takeMeThereHandler) :
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+WarehouseReport::WarehouseReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
 	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
