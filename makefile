@@ -358,6 +358,10 @@ cppclean:
 cppinclude:
 	cppinclude --show_details=false --report_limit=30
 
+.PHONY: cppinclude-detailed
+cppinclude-detailed:
+	cppinclude
+
 .PHONY: format
 format:
 	@clang-format --version
