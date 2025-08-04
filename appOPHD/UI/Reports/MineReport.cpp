@@ -68,6 +68,7 @@ namespace
 
 
 MineReport::MineReport(TakeMeThereDelegate takeMeThereHandler) :
+	mStructureManager{NAS2D::Utility<StructureManager>::get()},
 	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
@@ -145,8 +146,7 @@ void MineReport::clearSelected()
 void MineReport::fillLists()
 {
 	lstMineFacilities.clear();
-	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	for (auto* mineFacility : structureManager.getStructures<MineFacility>())
+	for (auto* mineFacility : mStructureManager.getStructures<MineFacility>())
 	{
 		lstMineFacilities.addItem(mineFacility);
 		lstMineFacilities.last()->text = getStructureDescription(*mineFacility);

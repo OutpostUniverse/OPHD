@@ -16,6 +16,7 @@ namespace NAS2D
 	class Image;
 }
 
+class StructureManager;
 class MineFacility;
 
 
@@ -61,6 +62,8 @@ protected:
 	void drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::Point<int>& origin) const;
 
 private:
+	const StructureManager& mStructureManager;
+
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
 	const NAS2D::Font& fontBold;
