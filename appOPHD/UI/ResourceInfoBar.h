@@ -21,7 +21,7 @@ class Morale;
 class ResourceInfoBar : public ControlContainer
 {
 public:
-	ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food);
+	ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const Population& population, const Morale& morale, const int& food);
 	~ResourceInfoBar() override;
 
 	bool isResourcePanelVisible() const;

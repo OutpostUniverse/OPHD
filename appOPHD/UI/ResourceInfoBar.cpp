@@ -68,10 +68,10 @@ namespace
 }
 
 
-ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Population& population, const Morale& morale, const int& food) :
+ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const Population& population, const Morale& morale, const int& food) :
 	ControlContainer{{&mToolTip}},
 	mResourcesCount{resources},
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+	mStructureManager{structureManager},
 	mPopulation{population},
 	mMorale{morale},
 	mFood{food},
