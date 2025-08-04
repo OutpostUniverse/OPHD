@@ -28,10 +28,10 @@ namespace
 }
 
 
-MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const std::vector<Robot*>& deployedRobots, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const std::string& mapName) :
 	mMapView{mapView},
 	mTileMap{tileMap},
-	mStructureManager{NAS2D::Utility<StructureManager>::get()},
+	mStructureManager{structureManager},
 	mDeployedRobots{deployedRobots},
 	mIsHeightMapVisible{false},
 	mBackgroundSatellite{mapName + MapDisplayExtension},

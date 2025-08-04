@@ -268,7 +268,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mTileMap->deserialize(root);
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
-	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mDeployedRobots, mPlanetAttributes.mapImagePath);
+	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, mPlanetAttributes.mapImagePath);
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView);
 

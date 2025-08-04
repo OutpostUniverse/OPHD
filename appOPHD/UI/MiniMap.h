@@ -27,7 +27,7 @@ class MapViewState;
 class MiniMap : public Control
 {
 public:
-	MiniMap(MapView& mapView, TileMap& tileMap, const std::vector<Robot*>& deployedRobots, const std::string& mapName);
+	MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const std::string& mapName);
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
