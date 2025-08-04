@@ -18,6 +18,7 @@ namespace NAS2D
 
 class Tile;
 class TileMap;
+class StructureManager;
 class MapView;
 class Robot;
 class MapViewState;
@@ -44,6 +45,7 @@ protected:
 private:
 	MapView& mMapView;
 	TileMap& mTileMap;
+	const StructureManager& mStructureManager;
 	const std::vector<Robot*>& mDeployedRobots;
 	bool mIsHeightMapVisible;
 	NAS2D::Image mBackgroundSatellite;
