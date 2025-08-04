@@ -35,6 +35,8 @@ public:
 
 	ReportsState& reportsState() { return mReportsState; }
 	FileIo& fileIoDialog() { return mFileIoDialog; }
+
+	StructureManager& structureManager() { return mStructureManager; }
 	ColonyShip& colonyShip() { return mColonyShip; }
 
 protected:
