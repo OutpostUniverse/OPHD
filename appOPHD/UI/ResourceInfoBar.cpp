@@ -6,7 +6,6 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../States/MapViewStateHelper.h"
-#include "../MapObjects/StructureClass.h"
 #include "../MapObjects/Structure.h"
 
 #include "../StructureManager.h"

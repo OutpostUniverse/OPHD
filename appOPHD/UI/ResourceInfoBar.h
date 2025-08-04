@@ -12,7 +12,6 @@ namespace NAS2D
 	enum class MouseButton;
 }
 
-enum class StructureClass;
 struct StorableResources;
 class StructureManager;
 class Population;
