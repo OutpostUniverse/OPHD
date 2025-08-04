@@ -1243,10 +1243,9 @@ void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 
 void MapViewState::updateRobots()
 {
-	auto robot_it = mDeployedRobots.begin();
-	while (robot_it != mDeployedRobots.end())
+	for (auto* robotPointer : mDeployedRobots)
 	{
-		auto& robot = **robot_it;
+		auto& robot = *robotPointer;
 		auto& tile = robot.tile();
 
 		robot.processTurn(*mTileMap);
@@ -1260,7 +1259,7 @@ void MapViewState::updateRobots()
 			else if (robot.type() != RobotTypeIndex::Miner)
 			{
 				onRobotBreakDown(robot);
-				robot.abortTask(tile);
+				robot.abortTask();
 			}
 
 			if (tile.mapObject() == &robot)
@@ -1271,7 +1270,6 @@ void MapViewState::updateRobots()
 			if (mRobotInspector.focusedRobot() == &robot) { mRobotInspector.hide(); }
 
 			mRobotPool.erase(&robot);
-			robot_it = mDeployedRobots.erase(robot_it);
 		}
 		else if (robot.idle())
 		{
@@ -1281,22 +1279,19 @@ void MapViewState::updateRobots()
 
 				onRobotTaskComplete(robot);
 			}
-			robot_it = mDeployedRobots.erase(robot_it);
 
 			if (robot.taskCanceled())
 			{
-				robot.abortTask(tile);
+				robot.abortTask();
 				populateRobotMenu();
 				robot.reset();
 
 				onRobotTaskCancel(robot);
 			}
 		}
-		else
-		{
-			++robot_it;
-		}
 	}
+
+	std::erase_if(mDeployedRobots, [](const Robot* robot){ return robot->isDead() || robot->idle(); });
 
 	for (const auto* robot : mDeployedRobots)
 	{

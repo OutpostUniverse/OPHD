@@ -11,7 +11,7 @@ public:
 	Robodozer();
 
 	void startTask(Tile& tile) override;
-	void abortTask(Tile& tile) override;
+	void abortTask() override;
 
 protected:
 	void onTaskComplete(TileMap& tileMap) override;
