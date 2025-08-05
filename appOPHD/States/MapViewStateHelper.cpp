@@ -44,8 +44,7 @@ constexpr std::array AllDirections4{
 
 bool isCcPlaced()
 {
-	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	return !ccList.empty();
+	return NAS2D::Utility<StructureManager>::get().isCcPlaced();
 }
 
 
