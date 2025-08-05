@@ -6,7 +6,7 @@
 
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <array>
+#include <tuple>
 
 
 RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
@@ -27,7 +27,7 @@ void RobotDeploymentSummary::draw(NAS2D::Renderer& renderer) const
 	const auto dozerImageRect = NAS2D::Rectangle<int>{{206, 18}, {25, 25}};
 	const auto minerImageRect = NAS2D::Rectangle<int>{{231, 18}, {25, 25}};
 
-	const std::array icons{
+	const auto icons = {
 		std::tuple{robotCommandImageRect, mRobotPool.currentControlCount(), mRobotPool.robotControlMax()},
 		std::tuple{diggerImageRect, mRobotPool.getAvailableCount(RobotTypeIndex::Digger), mRobotPool.diggers().size()},
 		std::tuple{dozerImageRect, mRobotPool.getAvailableCount(RobotTypeIndex::Dozer), mRobotPool.dozers().size()},
