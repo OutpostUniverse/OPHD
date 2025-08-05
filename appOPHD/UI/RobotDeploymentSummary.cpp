@@ -19,7 +19,7 @@ RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
 
 void RobotDeploymentSummary::draw(NAS2D::Renderer& renderer) const
 {
-	if (!isCcPlaced()) { return; }
+	if (mRobotPool.currentControlCount() == 0 && mRobotPool.robotControlMax() == 0) { return; }
 
 	auto position = mRect.position;
 	constexpr auto textOffset = NAS2D::Vector{30, 7};
