@@ -809,7 +809,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
 	if (structureID == StructureID::None) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
-	if (!selfSustained(structureID) && !isInCcRange(tile.xy()))
+	if (!selfSustained(structureID) && !mStructureManager.isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -921,7 +921,7 @@ void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex)
 	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
 
-	if (!isInCommRange(tile.xy()))
+	if (!mStructureManager.isInCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;

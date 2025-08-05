@@ -42,59 +42,9 @@ constexpr std::array AllDirections4{
 };
 
 
-CommandCenter& firstCc()
-{
-	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	if (ccList.empty())
-	{
-		throw std::runtime_error("firstCc() called with no active CommandCenter");
-	}
-	return *ccList.at(0);
-}
-
-
 bool isCcPlaced()
 {
-	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	return !ccList.empty();
-}
-
-
-bool isInCcRange(NAS2D::Point<int> position)
-{
-	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
-	const auto& structureManager = NAS2D::Utility<StructureManager>::get();
-	const auto& ccList = structureManager.getStructures<CommandCenter>();
-	for (const auto* commandCenter : ccList)
-	{
-		const auto location = commandCenter->xyz().xy;
-		if (isPointInRange(position, location, range))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-
-/**
- * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
- */
-bool isInCommRange(NAS2D::Point<int> position)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& structures = structureManager.allStructures();
-	for (const auto* structure : structures)
-	{
-		const auto commRange = structure->commRange();
-		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
-		{
-			return true;
-		}
-	}
-
-	return false;
+	return NAS2D::Utility<StructureManager>::get().isCcPlaced();
 }
 
 
@@ -181,7 +131,8 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isInCommRange(tile.xy()))
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	if (!structureManager.isInCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;

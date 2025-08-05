@@ -8,6 +8,7 @@
 #include "MapObjects/Structure.h"
 #include "MapObjects/Robot.h"
 #include "MapObjects/StructureState.h"
+#include "MapObjects/Structures/CommandCenter.h"
 #include "MapObjects/Structures/FoodProduction.h"
 #include "MapObjects/Structures/MaintenanceFacility.h"
 #include "MapObjects/Structures/MineFacility.h"
@@ -15,9 +16,11 @@
 #include "MapObjects/Structures/Residence.h"
 #include "MapObjects/Structures/Warehouse.h"
 
-#include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
+#include "States/MapViewStateHelper.h"
 
 #include <libOPHD/EnumDisabledReason.h>
+#include <libOPHD/EnumStructureID.h>
+#include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/ParserHelper.h>
@@ -250,6 +253,17 @@ StructureList StructureManager::activePoliceStations() const
 }
 
 
+CommandCenter& StructureManager::firstCc() const
+{
+	const auto& ccList = getStructures<CommandCenter>();
+	if (ccList.empty())
+	{
+		throw std::runtime_error("firstCc() called with no active CommandCenter");
+	}
+	return *ccList.at(0);
+}
+
+
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;
@@ -261,6 +275,45 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 		}
 	}
 	return positions;
+}
+
+
+bool StructureManager::isCcPlaced() const
+{
+	const auto& ccList = getStructures<CommandCenter>();
+	return !ccList.empty();
+}
+
+
+bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
+{
+	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
+	const auto& ccList = getStructures<CommandCenter>();
+	for (const auto* commandCenter : ccList)
+	{
+		const auto location = commandCenter->xyz().xy;
+		if (isPointInRange(position, location, range))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+bool StructureManager::isInCommRange(NAS2D::Point<int> position) const
+{
+	const auto& structures = allStructures();
+	for (const auto* structure : structures)
+	{
+		const auto commRange = structure->commRange();
+		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 
