@@ -13,6 +13,8 @@ namespace NAS2D
 	{
 		class XmlElement;
 	}
+
+	template <typename BaseType> struct Point;
 }
 
 enum class StructureID;
@@ -78,6 +80,7 @@ public:
 
 	CommandCenter& firstCc() const;
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
+	bool isInCcRange(NAS2D::Point<int> position) const;
 
 	void updateConnectedness(TileMap& tileMap);
 	std::vector<Tile*> getConnectednessOverlay() const;

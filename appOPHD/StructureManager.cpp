@@ -16,9 +16,11 @@
 #include "MapObjects/Structures/Residence.h"
 #include "MapObjects/Structures/Warehouse.h"
 
-#include "States/MapViewStateHelper.h" // <-- For removeRefinedResources()
+#include "States/MapViewStateHelper.h"
 
 #include <libOPHD/EnumDisabledReason.h>
+#include <libOPHD/EnumStructureID.h>
+#include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/ParserHelper.h>
@@ -273,6 +275,22 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 		}
 	}
 	return positions;
+}
+
+
+bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
+{
+	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
+	const auto& ccList = getStructures<CommandCenter>();
+	for (const auto* commandCenter : ccList)
+	{
+		const auto location = commandCenter->xyz().xy;
+		if (isPointInRange(position, location, range))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 
