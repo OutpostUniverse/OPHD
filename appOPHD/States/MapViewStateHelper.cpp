@@ -77,9 +77,6 @@ bool isInCcRange(NAS2D::Point<int> position)
 }
 
 
-/**
- * Indicates that a specified tile is out of communications range (out of range of a CC or Comm Tower).
- */
 bool isInCommRange(NAS2D::Point<int> position)
 {
 	auto& structureManager = NAS2D::Utility<StructureManager>::get();
