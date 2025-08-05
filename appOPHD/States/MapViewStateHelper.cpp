@@ -42,12 +42,6 @@ constexpr std::array AllDirections4{
 };
 
 
-bool isCcPlaced()
-{
-	return NAS2D::Utility<StructureManager>::get().isCcPlaced();
-}
-
-
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
 {
 	return (point2 - point1).lengthSquared() <= distance * distance;

@@ -80,7 +80,6 @@ public:
 
 	CommandCenter& firstCc() const;
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
-	bool isCcPlaced() const;
 	bool isInCcRange(NAS2D::Point<int> position) const;
 	bool isInCommRange(NAS2D::Point<int> position) const;
 
