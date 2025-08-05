@@ -4,7 +4,6 @@
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/RobotTypeIndex.h"
-#include "../States/MapViewStateHelper.h"
 
 #include <NAS2D/Renderer/Renderer.h>
 
