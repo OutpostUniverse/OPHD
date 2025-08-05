@@ -294,6 +294,22 @@ bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
 }
 
 
+bool StructureManager::isInCommRange(NAS2D::Point<int> position) const
+{
+	const auto& structures = allStructures();
+	for (const auto* structure : structures)
+	{
+		const auto commRange = structure->commRange();
+		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 void StructureManager::updateConnectedness(TileMap& tileMap)
 {
 	disconnectAll();

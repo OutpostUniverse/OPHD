@@ -49,24 +49,6 @@ bool isCcPlaced()
 }
 
 
-bool isInCommRange(NAS2D::Point<int> position)
-{
-	auto& structureManager = NAS2D::Utility<StructureManager>::get();
-
-	const auto& structures = structureManager.allStructures();
-	for (const auto* structure : structures)
-	{
-		const auto commRange = structure->commRange();
-		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance)
 {
 	return (point2 - point1).lengthSquared() <= distance * distance;
@@ -150,7 +132,8 @@ bool validLanderSite(Tile& tile)
 		return false;
 	}
 
-	if (!isInCommRange(tile.xy()))
+	auto& structureManager = NAS2D::Utility<StructureManager>::get();
+	if (!structureManager.isInCommRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertLanderLocation, constants::AlertLanderCommRange);
 		return false;
