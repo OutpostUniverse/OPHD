@@ -23,7 +23,6 @@ enum class StructureID;
 enum class Direction;
 enum class ConnectorDir;
 
-bool isCcPlaced();
 
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
 bool isPointInRangeSameZ(MapCoordinate point1, MapCoordinate point2, int distance);
