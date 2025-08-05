@@ -103,7 +103,7 @@ void MapViewState::onDeployColonistLander()
 
 void MapViewState::onDeployCargoLander()
 {
-	auto& cc = firstCc();
+	auto& cc = mStructureManager.firstCc();
 	cc.foodLevel(cc.foodLevel() + 125);
 	cc.storage() += StorableResources{25, 25, 15, 15};
 

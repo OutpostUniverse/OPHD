@@ -17,14 +17,12 @@
 
 class Tile;
 class TileMap;
-class CommandCenter;
 class Warehouse;
 struct StorableResources;
 enum class StructureID;
 enum class Direction;
 enum class ConnectorDir;
 
-CommandCenter& firstCc();
 bool isCcPlaced();
 bool isInCcRange(NAS2D::Point<int> position);
 

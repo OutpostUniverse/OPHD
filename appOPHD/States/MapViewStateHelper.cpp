@@ -42,17 +42,6 @@ constexpr std::array AllDirections4{
 };
 
 
-CommandCenter& firstCc()
-{
-	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	if (ccList.empty())
-	{
-		throw std::runtime_error("firstCc() called with no active CommandCenter");
-	}
-	return *ccList.at(0);
-}
-
-
 bool isCcPlaced()
 {
 	const auto& ccList = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();

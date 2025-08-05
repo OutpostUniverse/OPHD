@@ -8,6 +8,7 @@
 #include "MapObjects/Structure.h"
 #include "MapObjects/Robot.h"
 #include "MapObjects/StructureState.h"
+#include "MapObjects/Structures/CommandCenter.h"
 #include "MapObjects/Structures/FoodProduction.h"
 #include "MapObjects/Structures/MaintenanceFacility.h"
 #include "MapObjects/Structures/MineFacility.h"
@@ -247,6 +248,17 @@ StructureList StructureManager::activePoliceStations() const
 		}
 	}
 	return policeStations;
+}
+
+
+CommandCenter& StructureManager::firstCc() const
+{
+	const auto& ccList = getStructures<CommandCenter>();
+	if (ccList.empty())
+	{
+		throw std::runtime_error("firstCc() called with no active CommandCenter");
+	}
+	return *ccList.at(0);
 }
 
 

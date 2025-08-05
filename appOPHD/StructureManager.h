@@ -20,6 +20,7 @@ enum class StructureState;
 class Tile;
 class TileMap;
 class Structure;
+class CommandCenter;
 class PopulationPool;
 struct StorableResources;
 struct MapCoordinate;
@@ -75,6 +76,7 @@ public:
 
 	StructureList activePoliceStations() const;
 
+	CommandCenter& firstCc() const;
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 
 	void updateConnectedness(TileMap& tileMap);
