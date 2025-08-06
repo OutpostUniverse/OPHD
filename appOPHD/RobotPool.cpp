@@ -269,6 +269,7 @@ void RobotPool::deploy(Robot& robot, Tile& tile)
 	if (it != mDeployedRobots.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
 	mDeployedRobots.push_back(&robot);
+	robot.startTask(tile);
 	tile.mapObject(&robot);
 
 	++mRobotControlCount;
