@@ -253,6 +253,12 @@ StructureList StructureManager::activePoliceStations() const
 }
 
 
+bool StructureManager::hasCommandCenter() const
+{
+	return !getStructures<CommandCenter>().empty();
+}
+
+
 CommandCenter& StructureManager::firstCc() const
 {
 	const auto& ccList = getStructures<CommandCenter>();
@@ -470,6 +476,22 @@ int StructureManager::totalFoodStorageCapacity() const
 	}
 
 	return storageCapacity;
+}
+
+
+int StructureManager::totalRobotCommandCapacity() const
+{
+	int totalRobotCommandCapacity = 0;
+
+	for (const auto* structure : allStructures())
+	{
+		if (structure->operational())
+		{
+			totalRobotCommandCapacity += structure->type().robotCommandCapacity;
+		}
+	}
+
+	return totalRobotCommandCapacity;
 }
 
 

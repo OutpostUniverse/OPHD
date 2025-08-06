@@ -78,6 +78,7 @@ public:
 
 	StructureList activePoliceStations() const;
 
+	bool hasCommandCenter() const;
 	CommandCenter& firstCc() const;
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 	bool isInCcRange(NAS2D::Point<int> position) const;
@@ -121,6 +122,7 @@ public:
 
 	int totalRefinedOreStorageCapacity() const;
 	int totalFoodStorageCapacity() const;
+	int totalRobotCommandCapacity() const;
 
 	void assignColonistsToResidences(PopulationPool&);
 	void assignScientistsToResearchFacilities(PopulationPool&);
