@@ -83,15 +83,6 @@ class FileIo;
 class ColonyShip;
 
 
-enum class InsertMode
-{
-	None,
-	Robot,
-	Tube,
-	Structure
-};
-
-
 class MapViewState : public Wrapper
 {
 public:
