@@ -104,6 +104,15 @@ const RobotPool::DozerList& RobotPool::dozers() const { return mDozers; }
 const RobotPool::MinerList& RobotPool::miners() const { return mMiners; }
 
 
+void RobotPool::removeDeployedRobots()
+{
+	for (auto* robot : mDeployedRobots)
+	{
+		robot->tile().removeMapObject();
+	}
+}
+
+
 void RobotPool::clear()
 {
 	mDiggers.clear();

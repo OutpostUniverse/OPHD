@@ -242,7 +242,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mBtnTogglePoliceOverlay.toggle(false);
 	mMorale.closeJournal();
 
-	removeDeployedRobots();
+	mRobotPool.removeDeployedRobots();
 	mStructureManager.removeAllStructures();
 
 	mStructureTracker = StructureTracker{};

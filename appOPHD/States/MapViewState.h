@@ -222,8 +222,6 @@ private:
 	void readPopulation(NAS2D::Xml::XmlElement* element);
 	void readMoraleChanges(NAS2D::Xml::XmlElement*);
 
-	void removeDeployedRobots();
-
 	void load(NAS2D::Xml::XmlDocument*);
 	NAS2D::Xml::XmlElement* serializeProperties();
 

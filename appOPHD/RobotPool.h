@@ -53,6 +53,7 @@ public:
 	const DozerList& dozers() const;
 	const MinerList& miners() const;
 
+	void removeDeployedRobots();
 	void clear();
 	void erase(Robot* robot);
 	void deploy(Robot& robot, Tile& tile);

@@ -254,7 +254,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 
 MapViewState::~MapViewState()
 {
-	removeDeployedRobots();
+	mRobotPool.removeDeployedRobots();
 
 	setCursor(PointerType::Normal);
 
@@ -1363,19 +1363,6 @@ void MapViewState::updatePoliceOverlay()
 			const auto depth = static_cast<std::size_t>(centerTile.depth());
 			fillOverlayCircle(*mTileMap, mPoliceOverlays[depth], centerTile, policeRange);
 		}
-	}
-}
-
-
-/**
- * Removes deployed robots from the TileMap to
- * prevent dangling pointers. Yay for raw memory!
- */
-void MapViewState::removeDeployedRobots()
-{
-	for (auto* robot : mDeployedRobots)
-	{
-		robot->tile().removeMapObject();
 	}
 }
 
