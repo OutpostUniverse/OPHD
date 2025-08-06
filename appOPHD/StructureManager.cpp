@@ -473,6 +473,22 @@ int StructureManager::totalFoodStorageCapacity() const
 }
 
 
+int StructureManager::totalRobotCommandCapacity() const
+{
+	int totalRobotCommandCapacity = 0;
+
+	for (const auto* structure : allStructures())
+	{
+		if (structure->operational())
+		{
+			totalRobotCommandCapacity += structure->type().robotCommandCapacity;
+		}
+	}
+
+	return totalRobotCommandCapacity;
+}
+
+
 void StructureManager::assignColonistsToResidences(PopulationPool& population)
 {
 	int populationCount = population.size();
