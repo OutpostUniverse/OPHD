@@ -1053,8 +1053,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updateConnectedness();
 	}
 
-	auto& robot = mRobotPool.getDozer();
-	mRobotPool.deploy(robot, tile);
+	mRobotPool.deployDozer(tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
@@ -1162,8 +1161,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		return;
 	}
 
-	auto& robot = mRobotPool.getMiner();
-	mRobotPool.deploy(robot, tile);
+	mRobotPool.deployMiner(tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{

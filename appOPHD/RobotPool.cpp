@@ -276,6 +276,28 @@ void RobotPool::deploy(Robot& robot, Tile& tile)
 }
 
 
+void RobotPool::deployDigger(Tile& tile, Direction direction)
+{
+	Robodigger& robot = getDigger();
+	robot.direction(direction);
+	deploy(robot, tile);
+}
+
+
+void RobotPool::deployDozer(Tile& tile)
+{
+	auto& robot = getDozer();
+	deploy(robot, tile);
+}
+
+
+void RobotPool::deployMiner(Tile& tile)
+{
+	auto& robot = getMiner();
+	deploy(robot, tile);
+}
+
+
 NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 {
 	auto* robots = new NAS2D::Xml::XmlElement("robots");

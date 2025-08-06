@@ -6,6 +6,7 @@
 
 
 enum class RobotTypeIndex;
+enum class Direction;
 class Robot;
 class Robodigger;
 class Robodozer;
@@ -59,6 +60,10 @@ public:
 	void clear();
 	void erase(Robot* robot);
 	void deploy(Robot& robot, Tile& tile);
+
+	void deployDigger(Tile& tile, Direction direction);
+	void deployDozer(Tile& tile);
+	void deployMiner(Tile& tile);
 
 	std::size_t robotControlMax() const { return mRobotControlMax; }
 	std::size_t currentControlCount() const { return mRobotControlCount; }
