@@ -297,7 +297,7 @@ private:
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
-	std::vector<Robot*> mDeployedRobots;
+	std::vector<Robot*>& mDeployedRobots;
 	Population mPopulation;
 
 	// ROUTING

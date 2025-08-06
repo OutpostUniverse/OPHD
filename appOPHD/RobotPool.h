@@ -64,6 +64,7 @@ public:
 	std::size_t currentControlCount() const { return mRobotControlCount; }
 
 	const RobotList& robots() const { return mRobots; }
+	RobotList& deployedRobots() { return mDeployedRobots; }
 
 	NAS2D::Xml::XmlElement* writeRobots();
 
@@ -75,6 +76,7 @@ private:
 	MinerList mMiners;
 
 	RobotList mRobots; // List of all robots by pointer to base class
+	RobotList mDeployedRobots;
 
 	std::size_t mRobotControlMax = 0;
 	std::size_t mRobotControlCount = 0;
