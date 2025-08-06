@@ -1055,7 +1055,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 	auto& robot = mRobotPool.getDozer();
 	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(robot, tile);
+	mRobotPool.deploy(robot, tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
@@ -1165,7 +1165,7 @@ void MapViewState::placeRobominer(Tile& tile)
 
 	auto& robot = mRobotPool.getMiner();
 	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(robot, tile);
+	mRobotPool.deploy(robot, tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{
