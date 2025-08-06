@@ -104,12 +104,23 @@ const RobotPool::DozerList& RobotPool::dozers() const { return mDozers; }
 const RobotPool::MinerList& RobotPool::miners() const { return mMiners; }
 
 
+void RobotPool::removeDeployedRobots()
+{
+	for (auto* robot : mDeployedRobots)
+	{
+		robot->tile().removeMapObject();
+	}
+}
+
+
 void RobotPool::clear()
 {
 	mDiggers.clear();
 	mDozers.clear();
 	mMiners.clear();
+
 	mRobots.clear();
+	mDeployedRobots.clear();
 
 	mRobotControlCount = 0;
 	mRobotControlMax = 0;
@@ -152,33 +163,6 @@ Robot& RobotPool::addRobot(RobotTypeIndex robotTypeIndex)
 	}
 
 	return *mRobots.back();
-}
-
-
-/**
- * Gets an idle Robodigger from the pool.
- */
-Robodigger& RobotPool::getDigger()
-{
-	return getIdleRobot(mDiggers);
-}
-
-
-/**
- * Gets an idle Robodozer from the pool.
- */
-Robodozer& RobotPool::getDozer()
-{
-	return getIdleRobot(mDozers);
-}
-
-
-/**
- * Gets an idle Robominer from the pool.
- */
-Robominer& RobotPool::getMiner()
-{
-	return getIdleRobot(mMiners);
 }
 
 
@@ -255,7 +239,7 @@ void RobotPool::update()
 }
 
 
-void RobotPool::insertRobotIntoTable(std::vector<Robot*>& deployedRobots, Robot& robot, Tile& tile)
+void RobotPool::deploy(Robot& robot, Tile& tile)
 {
 	// Add pre-check for control count against max capacity, with one caveat
 	// When loading saved games a control max won't have been set yet as robots are loaded before structures
@@ -265,13 +249,36 @@ void RobotPool::insertRobotIntoTable(std::vector<Robot*>& deployedRobots, Robot&
 		throw std::runtime_error("Must increase robot command capacity before placing more robots: " + std::to_string(mRobotControlCount) + " / " + std::to_string(mRobotControlMax));
 	}
 
-	auto it = std::find(deployedRobots.begin(), deployedRobots.end(), &robot);
-	if (it != deployedRobots.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
+	auto it = std::find(mDeployedRobots.begin(), mDeployedRobots.end(), &robot);
+	if (it != mDeployedRobots.end()) { throw std::runtime_error("MapViewState::insertRobot(): Attempting to add a duplicate Robot* pointer."); }
 
-	deployedRobots.push_back(&robot);
+	mDeployedRobots.push_back(&robot);
+	robot.startTask(tile);
 	tile.mapObject(&robot);
 
 	++mRobotControlCount;
+}
+
+
+void RobotPool::deployDigger(Tile& tile, Direction direction)
+{
+	Robodigger& robot = getDigger();
+	robot.direction(direction);
+	deploy(robot, tile);
+}
+
+
+void RobotPool::deployDozer(Tile& tile)
+{
+	auto& robot = getDozer();
+	deploy(robot, tile);
+}
+
+
+void RobotPool::deployMiner(Tile& tile)
+{
+	auto& robot = getMiner();
+	deploy(robot, tile);
 }
 
 
@@ -285,4 +292,31 @@ NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 	}
 
 	return robots;
+}
+
+
+/**
+ * Gets an idle Robodigger from the pool.
+ */
+Robodigger& RobotPool::getDigger()
+{
+	return getIdleRobot(mDiggers);
+}
+
+
+/**
+ * Gets an idle Robodozer from the pool.
+ */
+Robodozer& RobotPool::getDozer()
+{
+	return getIdleRobot(mDozers);
+}
+
+
+/**
+ * Gets an idle Robominer from the pool.
+ */
+Robominer& RobotPool::getMiner()
+{
+	return getIdleRobot(mMiners);
 }

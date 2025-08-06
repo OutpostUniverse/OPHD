@@ -6,6 +6,7 @@
 
 
 enum class RobotTypeIndex;
+enum class Direction;
 class Robot;
 class Robodigger;
 class Robodozer;
@@ -37,10 +38,6 @@ public:
 
 	Robot& addRobot(RobotTypeIndex robotTypeIndex);
 
-	Robodigger& getDigger();
-	Robodozer& getDozer();
-	Robominer& getMiner();
-
 	bool robotAvailable(RobotTypeIndex robotTypeIndex) const;
 	std::size_t getAvailableCount(RobotTypeIndex robotTypeIndex) const;
 
@@ -56,16 +53,27 @@ public:
 	const DozerList& dozers() const;
 	const MinerList& miners() const;
 
+	void removeDeployedRobots();
 	void clear();
 	void erase(Robot* robot);
-	void insertRobotIntoTable(std::vector<Robot*>& deployedRobots, Robot& robot, Tile& tile);
+	void deploy(Robot& robot, Tile& tile);
+
+	void deployDigger(Tile& tile, Direction direction);
+	void deployDozer(Tile& tile);
+	void deployMiner(Tile& tile);
 
 	std::size_t robotControlMax() const { return mRobotControlMax; }
 	std::size_t currentControlCount() const { return mRobotControlCount; }
 
 	const RobotList& robots() const { return mRobots; }
+	RobotList& deployedRobots() { return mDeployedRobots; }
 
 	NAS2D::Xml::XmlElement* writeRobots();
+
+protected:
+	Robodigger& getDigger();
+	Robodozer& getDozer();
+	Robominer& getMiner();
 
 private:
 	const StructureManager& mStructureManager;
@@ -75,6 +83,7 @@ private:
 	MinerList mMiners;
 
 	RobotList mRobots; // List of all robots by pointer to base class
+	RobotList mDeployedRobots;
 
 	std::size_t mRobotControlMax = 0;
 	std::size_t mRobotControlCount = 0;

@@ -242,7 +242,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mBtnTogglePoliceOverlay.toggle(false);
 	mMorale.closeJournal();
 
-	scrubRobotList();
+	mRobotPool.removeDeployedRobots();
 	mStructureManager.removeAllStructures();
 
 	mStructureTracker = StructureTracker{};
@@ -346,7 +346,6 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 {
 	mRobotPool.clear();
-	mDeployedRobots.clear();
 
 	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
@@ -372,8 +371,8 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		if (productionTime > 0)
 		{
 			auto& tile = mTileMap->getTile({{x, y}, depth});
+			mRobotPool.deploy(robot, tile);
 			robot.startTask(tile, productionTime);
-			mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
 			tile.bulldoze();
 			tile.excavate();
 		}

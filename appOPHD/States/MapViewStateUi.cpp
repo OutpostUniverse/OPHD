@@ -474,10 +474,7 @@ void MapViewState::onDiggerSelectionDialog(Direction direction, Tile& tile)
 	}
 
 	// Assumes a digger is available.
-	Robodigger& robot = mRobotPool.getDigger();
-	robot.direction(direction);
-	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
+	mRobotPool.deployDigger(tile, direction);
 
 	if (direction != Direction::Down)
 	{

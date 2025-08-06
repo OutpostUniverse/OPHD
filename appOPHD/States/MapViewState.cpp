@@ -167,6 +167,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mTechnologyReader{"tech0-1.xml"},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mRobotPool{mStructureManager},
+	mDeployedRobots{mRobotPool.deployedRobots()},
 	mLoadingExisting{true},
 	mExistingToLoad{&saveGameDocument},
 	mReportsState{gameState.reportsState()},
@@ -212,6 +213,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mPlanetAttributes{planetAttributes},
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mRobotPool{mStructureManager},
+	mDeployedRobots{mRobotPool.deployedRobots()},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
@@ -252,7 +254,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 
 MapViewState::~MapViewState()
 {
-	scrubRobotList();
+	mRobotPool.removeDeployedRobots();
 
 	setCursor(PointerType::Normal);
 
@@ -1051,9 +1053,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		updateConnectedness();
 	}
 
-	auto& robot = mRobotPool.getDozer();
-	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
+	mRobotPool.deployDozer(tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Dozer))
 	{
@@ -1161,9 +1161,7 @@ void MapViewState::placeRobominer(Tile& tile)
 		return;
 	}
 
-	auto& robot = mRobotPool.getMiner();
-	robot.startTask(tile);
-	mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
+	mRobotPool.deployMiner(tile);
 
 	if (!mRobotPool.robotAvailable(RobotTypeIndex::Miner))
 	{
@@ -1365,19 +1363,6 @@ void MapViewState::updatePoliceOverlay()
 			const auto depth = static_cast<std::size_t>(centerTile.depth());
 			fillOverlayCircle(*mTileMap, mPoliceOverlays[depth], centerTile, policeRange);
 		}
-	}
-}
-
-
-/**
- * Removes deployed robots from the TileMap to
- * prevent dangling pointers. Yay for raw memory!
- */
-void MapViewState::scrubRobotList()
-{
-	for (auto* robot : mDeployedRobots)
-	{
-		robot->tile().removeMapObject();
 	}
 }
 

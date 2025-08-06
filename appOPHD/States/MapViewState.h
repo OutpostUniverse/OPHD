@@ -222,8 +222,6 @@ private:
 	void readPopulation(NAS2D::Xml::XmlElement* element);
 	void readMoraleChanges(NAS2D::Xml::XmlElement*);
 
-	void scrubRobotList();
-
 	void load(NAS2D::Xml::XmlDocument*);
 	NAS2D::Xml::XmlElement* serializeProperties();
 
@@ -297,7 +295,7 @@ private:
 	RobotPool mRobotPool; /**< Robots that are currently available for use. */
 	PopulationPool mPopulationPool;
 
-	std::vector<Robot*> mDeployedRobots;
+	std::vector<Robot*>& mDeployedRobots;
 	Population mPopulation;
 
 	// ROUTING
