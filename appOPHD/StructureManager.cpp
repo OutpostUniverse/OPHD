@@ -253,6 +253,12 @@ StructureList StructureManager::activePoliceStations() const
 }
 
 
+bool StructureManager::hasCommandCenter() const
+{
+	return !getStructures<CommandCenter>().empty();
+}
+
+
 CommandCenter& StructureManager::firstCc() const
 {
 	const auto& ccList = getStructures<CommandCenter>();

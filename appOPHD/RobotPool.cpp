@@ -219,13 +219,9 @@ void RobotPool::update()
 	int totalRobotCommandCapacity = mStructureManager.totalRobotCommandCapacity();
 
 	// Special case hack to allow robot use during initial colony deploy
-	if (totalRobotCommandCapacity == 0)
+	if (totalRobotCommandCapacity == 0 && mStructureManager.hasCommandCenter())
 	{
-		const auto& commandCenters = mStructureManager.getStructures<CommandCenter>();
-		if (commandCenters.size() > 0)
-		{
-			totalRobotCommandCapacity += commandCenters[0]->type().robotCommandCapacity;
-		}
+		totalRobotCommandCapacity += mStructureManager.firstCc().type().robotCommandCapacity;
 	}
 
 	mRobotControlMax = static_cast<std::size_t>(totalRobotCommandCapacity);

@@ -78,6 +78,7 @@ public:
 
 	StructureList activePoliceStations() const;
 
+	bool hasCommandCenter() const;
 	CommandCenter& firstCc() const;
 	std::vector<MapCoordinate> operationalCommandCenterPositions() const;
 	bool isInCcRange(NAS2D::Point<int> position) const;
