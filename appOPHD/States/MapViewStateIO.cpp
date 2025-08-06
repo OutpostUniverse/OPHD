@@ -373,7 +373,7 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		{
 			auto& tile = mTileMap->getTile({{x, y}, depth});
 			robot.startTask(tile, productionTime);
-			mRobotPool.insertRobotIntoTable(mDeployedRobots, robot, tile);
+			mRobotPool.insertRobotIntoTable(robot, tile);
 			tile.bulldoze();
 			tile.excavate();
 		}
