@@ -254,7 +254,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 
 MapViewState::~MapViewState()
 {
-	scrubRobotList();
+	removeDeployedRobots();
 
 	setCursor(PointerType::Normal);
 
@@ -1371,7 +1371,7 @@ void MapViewState::updatePoliceOverlay()
  * Removes deployed robots from the TileMap to
  * prevent dangling pointers. Yay for raw memory!
  */
-void MapViewState::scrubRobotList()
+void MapViewState::removeDeployedRobots()
 {
 	for (auto* robot : mDeployedRobots)
 	{
