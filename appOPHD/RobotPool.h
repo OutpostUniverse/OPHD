@@ -38,10 +38,6 @@ public:
 
 	Robot& addRobot(RobotTypeIndex robotTypeIndex);
 
-	Robodigger& getDigger();
-	Robodozer& getDozer();
-	Robominer& getMiner();
-
 	bool robotAvailable(RobotTypeIndex robotTypeIndex) const;
 	std::size_t getAvailableCount(RobotTypeIndex robotTypeIndex) const;
 
@@ -72,6 +68,11 @@ public:
 	RobotList& deployedRobots() { return mDeployedRobots; }
 
 	NAS2D::Xml::XmlElement* writeRobots();
+
+protected:
+	Robodigger& getDigger();
+	Robodozer& getDozer();
+	Robominer& getMiner();
 
 private:
 	const StructureManager& mStructureManager;

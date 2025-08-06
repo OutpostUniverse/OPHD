@@ -156,33 +156,6 @@ Robot& RobotPool::addRobot(RobotTypeIndex robotTypeIndex)
 
 
 /**
- * Gets an idle Robodigger from the pool.
- */
-Robodigger& RobotPool::getDigger()
-{
-	return getIdleRobot(mDiggers);
-}
-
-
-/**
- * Gets an idle Robodozer from the pool.
- */
-Robodozer& RobotPool::getDozer()
-{
-	return getIdleRobot(mDozers);
-}
-
-
-/**
- * Gets an idle Robominer from the pool.
- */
-Robominer& RobotPool::getMiner()
-{
-	return getIdleRobot(mMiners);
-}
-
-
-/**
  * Determines if a requested robot robotTypeIndex is available.
  *
  * \return	Returns true if the requested robot robotTypeIndex is available. False otherwise.
@@ -308,4 +281,31 @@ NAS2D::Xml::XmlElement* RobotPool::writeRobots()
 	}
 
 	return robots;
+}
+
+
+/**
+ * Gets an idle Robodigger from the pool.
+ */
+Robodigger& RobotPool::getDigger()
+{
+	return getIdleRobot(mDiggers);
+}
+
+
+/**
+ * Gets an idle Robodozer from the pool.
+ */
+Robodozer& RobotPool::getDozer()
+{
+	return getIdleRobot(mDozers);
+}
+
+
+/**
+ * Gets an idle Robominer from the pool.
+ */
+Robominer& RobotPool::getMiner()
+{
+	return getIdleRobot(mMiners);
 }
