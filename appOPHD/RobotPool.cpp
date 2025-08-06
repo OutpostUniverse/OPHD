@@ -109,7 +109,9 @@ void RobotPool::clear()
 	mDiggers.clear();
 	mDozers.clear();
 	mMiners.clear();
+
 	mRobots.clear();
+	mDeployedRobots.clear();
 
 	mRobotControlCount = 0;
 	mRobotControlMax = 0;

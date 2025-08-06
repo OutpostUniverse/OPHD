@@ -346,7 +346,6 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 {
 	mRobotPool.clear();
-	mDeployedRobots.clear();
 
 	for (NAS2D::Xml::XmlElement* robotElement = element->firstChildElement(); robotElement; robotElement = robotElement->nextSiblingElement())
 	{
