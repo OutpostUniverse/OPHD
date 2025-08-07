@@ -239,6 +239,24 @@ StructureList StructureManager::allStructures() const
 }
 
 
+const StructureList& StructureManager::agingStructures() const
+{
+	return mAgingStructures;
+}
+
+
+const StructureList& StructureManager::newlyBuiltStructures() const
+{
+	return mNewlyBuiltStructures;
+}
+
+
+const StructureList& StructureManager::structuresWithCrime() const
+{
+	return mStructuresWithCrime;
+}
+
+
 StructureList StructureManager::activePoliceStations() const
 {
 	StructureList policeStations;
