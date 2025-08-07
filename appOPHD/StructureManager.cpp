@@ -600,94 +600,94 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 {
 	for (auto* structure : structures)
 	{
-		updateStructure(resources, population, structure);
+		updateStructure(resources, population, *structure);
 	}
 }
 
 
-void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure* structure)
+void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure& structure)
 {
-	structure->processTurn();
+	structure.processTurn();
 
-	if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
+	if (structure.ages() && (structure.age() >= structure.maxAge() - 10))
 	{
-		mAgingStructures.push_back(structure);
+		mAgingStructures.push_back(&structure);
 	}
 
-	if (structure->age() == structure->turnsToBuild())
+	if (structure.age() == structure.turnsToBuild())
 	{
-		mNewlyBuiltStructures.push_back(structure);
+		mNewlyBuiltStructures.push_back(&structure);
 	}
 
-	if (structure->hasCrime() && !structure->underConstruction())
+	if (structure.hasCrime() && !structure.underConstruction())
 	{
-		mStructuresWithCrime.push_back(structure);
+		mStructuresWithCrime.push_back(&structure);
 	}
 
 	// State Check
 	// ASSUMPTION:	Construction sites are considered self sufficient until they are
 	//				completed and connected to the rest of the colony.
-	if (structure->underConstruction() || structure->destroyed())
+	if (structure.underConstruction() || structure.destroyed())
 	{
 		return;
 	}
 
-	if (structure->disabled() && structure->disabledReason() == DisabledReason::StructuralIntegrity)
+	if (structure.disabled() && structure.disabledReason() == DisabledReason::StructuralIntegrity)
 	{
 		return;
 	}
 
 	// Connection Check
-	if (!structure->connected() && !structure->selfSustained())
+	if (!structure.connected() && !structure.selfSustained())
 	{
-		structure->disable(DisabledReason::Disconnected);
+		structure.disable(DisabledReason::Disconnected);
 		return;
 	}
 
 	// CHAP Check
-	if (structure->requiresCHAP() && !CHAPAvailable())
+	if (structure.requiresCHAP() && !CHAPAvailable())
 	{
-		structure->disable(DisabledReason::Chap);
+		structure.disable(DisabledReason::Chap);
 		return;
 	}
 
 	// Population Check
-	const auto& populationRequired = structure->populationRequirements();
-	auto& populationAvailable = structure->populationAvailable();
+	const auto& populationRequired = structure.populationRequirements();
+	auto& populationAvailable = structure.populationAvailable();
 
 	populationAvailable = fillPopulationRequirements(population, populationRequired);
 
 	if ((populationAvailable.workers < populationRequired.workers) ||
 		(populationAvailable.scientists < populationRequired.scientists))
 	{
-		structure->disable(DisabledReason::Population);
+		structure.disable(DisabledReason::Population);
 		return;
 	}
 
-	if (structure->energyRequirement() > totalEnergyAvailable())
+	if (structure.energyRequirement() > totalEnergyAvailable())
 	{
-		structure->disable(DisabledReason::Energy);
+		structure.disable(DisabledReason::Energy);
 		return;
 	}
 
 	// Check that enough resources are available for input.
-	if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
+	if (!structure.isIdle() && !(resources >= structure.resourcesIn()))
 	{
-		structure->disable(DisabledReason::RefinedResources);
+		structure.disable(DisabledReason::RefinedResources);
 		return;
 	}
 
-	structure->enable();
+	structure.enable();
 
-	if (structure->operational())
+	if (structure.operational())
 	{
 		population.usePopulation(populationRequired);
 
-		auto consumed = structure->resourcesIn();
+		auto consumed = structure.resourcesIn();
 		removeRefinedResources(consumed);
 
-		mTotalEnergyUsed += structure->energyRequirement();
+		mTotalEnergyUsed += structure.energyRequirement();
 
-		structure->think();
+		structure.think();
 	}
 }

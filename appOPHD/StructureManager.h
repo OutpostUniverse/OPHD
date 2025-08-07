@@ -135,7 +135,7 @@ protected:
 	void disconnectAll();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
-	void updateStructure(const StorableResources&, PopulationPool&, Structure*);
+	void updateStructure(const StorableResources&, PopulationPool&, Structure&);
 
 private:
 	std::vector<Structure*> mDeployedStructures;
