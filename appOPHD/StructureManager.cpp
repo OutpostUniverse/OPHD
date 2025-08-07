@@ -199,8 +199,8 @@ void StructureManager::removeStructure(Structure& structure)
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
-	structures.erase(it);
 	structure.tile().removeMapObject();
+	structures.erase(it);
 	mDeployedStructures.erase(tileTableIt);
 	delete &structure;
 }
