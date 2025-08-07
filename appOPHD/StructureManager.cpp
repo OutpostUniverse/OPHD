@@ -600,6 +600,13 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 {
 	for (auto* structure : structures)
 	{
+		updateStructure(resources, population, structure);
+	}
+}
+
+
+void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure* structure)
+{
 		structure->processTurn();
 
 		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
@@ -622,26 +629,26 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 		//				completed and connected to the rest of the colony.
 		if (structure->underConstruction() || structure->destroyed())
 		{
-			continue;
+			return;
 		}
 
 		if (structure->disabled() && structure->disabledReason() == DisabledReason::StructuralIntegrity)
 		{
-			continue;
+			return;
 		}
 
 		// Connection Check
 		if (!structure->connected() && !structure->selfSustained())
 		{
 			structure->disable(DisabledReason::Disconnected);
-			continue;
+			return;
 		}
 
 		// CHAP Check
 		if (structure->requiresCHAP() && !CHAPAvailable())
 		{
 			structure->disable(DisabledReason::Chap);
-			continue;
+			return;
 		}
 
 		// Population Check
@@ -654,20 +661,20 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 			(populationAvailable.scientists < populationRequired.scientists))
 		{
 			structure->disable(DisabledReason::Population);
-			continue;
+			return;
 		}
 
 		if (structure->energyRequirement() > totalEnergyAvailable())
 		{
 			structure->disable(DisabledReason::Energy);
-			continue;
+			return;
 		}
 
 		// Check that enough resources are available for input.
 		if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
 		{
 			structure->disable(DisabledReason::RefinedResources);
-			continue;
+			return;
 		}
 
 		structure->enable();
@@ -683,5 +690,4 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 
 			structure->think();
 		}
-	}
 }
