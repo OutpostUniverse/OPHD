@@ -76,9 +76,9 @@ public:
 	const StructureList& structureList(StructureClass structureClass) const;
 	StructureList allStructures() const;
 
-	const StructureList& agingStructures() const;
-	const StructureList& newlyBuiltStructures() const;
-	const StructureList& structuresWithCrime() const;
+	StructureList agingStructures() const;
+	StructureList newlyBuiltStructures() const;
+	StructureList structuresWithCrime() const;
 
 	StructureList activePoliceStations() const;
 
