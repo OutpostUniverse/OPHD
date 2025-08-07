@@ -141,7 +141,6 @@ private:
 	std::vector<Structure*> mDeployedStructures;
 	std::map<StructureClass, StructureList> mStructureLists;
 
-	StructureList mAgingStructures;
 	StructureList mNewlyBuiltStructures;
 	StructureList mStructuresWithCrime;
 

@@ -241,7 +241,17 @@ StructureList StructureManager::allStructures() const
 
 StructureList StructureManager::agingStructures() const
 {
-	return mAgingStructures;
+	StructureList agingStructures{};
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
+		{
+			agingStructures.push_back(structure);
+		}
+	}
+
+	return agingStructures;
 }
 
 
@@ -547,7 +557,6 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
-	mAgingStructures.clear();
 	mNewlyBuiltStructures.clear();
 	mStructuresWithCrime.clear();
 
@@ -626,11 +635,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure& structure)
 {
 	structure.processTurn();
-
-	if (structure.ages() && (structure.age() >= structure.maxAge() - 10))
-	{
-		mAgingStructures.push_back(&structure);
-	}
 
 	if (structure.age() == structure.turnsToBuild())
 	{
