@@ -600,88 +600,94 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 {
 	for (auto* structure : structures)
 	{
-		structure->processTurn();
+		updateStructure(resources, population, *structure);
+	}
+}
 
-		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
-		{
-			mAgingStructures.push_back(structure);
-		}
 
-		if (structure->age() == structure->turnsToBuild())
-		{
-			mNewlyBuiltStructures.push_back(structure);
-		}
+void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure& structure)
+{
+	structure.processTurn();
 
-		if (structure->hasCrime() && !structure->underConstruction())
-		{
-			mStructuresWithCrime.push_back(structure);
-		}
+	if (structure.ages() && (structure.age() >= structure.maxAge() - 10))
+	{
+		mAgingStructures.push_back(&structure);
+	}
 
-		// State Check
-		// ASSUMPTION:	Construction sites are considered self sufficient until they are
-		//				completed and connected to the rest of the colony.
-		if (structure->underConstruction() || structure->destroyed())
-		{
-			continue;
-		}
+	if (structure.age() == structure.turnsToBuild())
+	{
+		mNewlyBuiltStructures.push_back(&structure);
+	}
 
-		if (structure->disabled() && structure->disabledReason() == DisabledReason::StructuralIntegrity)
-		{
-			continue;
-		}
+	if (structure.hasCrime() && !structure.underConstruction())
+	{
+		mStructuresWithCrime.push_back(&structure);
+	}
 
-		// Connection Check
-		if (!structure->connected() && !structure->selfSustained())
-		{
-			structure->disable(DisabledReason::Disconnected);
-			continue;
-		}
+	// State Check
+	// ASSUMPTION:	Construction sites are considered self sufficient until they are
+	//				completed and connected to the rest of the colony.
+	if (structure.underConstruction() || structure.destroyed())
+	{
+		return;
+	}
 
-		// CHAP Check
-		if (structure->requiresCHAP() && !CHAPAvailable())
-		{
-			structure->disable(DisabledReason::Chap);
-			continue;
-		}
+	if (structure.disabled() && structure.disabledReason() == DisabledReason::StructuralIntegrity)
+	{
+		return;
+	}
 
-		// Population Check
-		const auto& populationRequired = structure->populationRequirements();
-		auto& populationAvailable = structure->populationAvailable();
+	// Connection Check
+	if (!structure.connected() && !structure.selfSustained())
+	{
+		structure.disable(DisabledReason::Disconnected);
+		return;
+	}
 
-		populationAvailable = fillPopulationRequirements(population, populationRequired);
+	// CHAP Check
+	if (structure.requiresCHAP() && !CHAPAvailable())
+	{
+		structure.disable(DisabledReason::Chap);
+		return;
+	}
 
-		if ((populationAvailable.workers < populationRequired.workers) ||
-			(populationAvailable.scientists < populationRequired.scientists))
-		{
-			structure->disable(DisabledReason::Population);
-			continue;
-		}
+	// Population Check
+	const auto& populationRequired = structure.populationRequirements();
+	auto& populationAvailable = structure.populationAvailable();
 
-		if (structure->energyRequirement() > totalEnergyAvailable())
-		{
-			structure->disable(DisabledReason::Energy);
-			continue;
-		}
+	populationAvailable = fillPopulationRequirements(population, populationRequired);
 
-		// Check that enough resources are available for input.
-		if (!structure->isIdle() && !(resources >= structure->resourcesIn()))
-		{
-			structure->disable(DisabledReason::RefinedResources);
-			continue;
-		}
+	if ((populationAvailable.workers < populationRequired.workers) ||
+		(populationAvailable.scientists < populationRequired.scientists))
+	{
+		structure.disable(DisabledReason::Population);
+		return;
+	}
 
-		structure->enable();
+	if (structure.energyRequirement() > totalEnergyAvailable())
+	{
+		structure.disable(DisabledReason::Energy);
+		return;
+	}
 
-		if (structure->operational())
-		{
-			population.usePopulation(populationRequired);
+	// Check that enough resources are available for input.
+	if (!structure.isIdle() && !(resources >= structure.resourcesIn()))
+	{
+		structure.disable(DisabledReason::RefinedResources);
+		return;
+	}
 
-			auto consumed = structure->resourcesIn();
-			removeRefinedResources(consumed);
+	structure.enable();
 
-			mTotalEnergyUsed += structure->energyRequirement();
+	if (structure.operational())
+	{
+		population.usePopulation(populationRequired);
 
-			structure->think();
-		}
+		auto consumed = structure.resourcesIn();
+		removeRefinedResources(consumed);
+
+		mTotalEnergyUsed += structure.energyRequirement();
+
+		structure.think();
 	}
 }
