@@ -76,6 +76,10 @@ public:
 	const StructureList& structureList(StructureClass structureClass) const;
 	StructureList allStructures() const;
 
+	const StructureList& agingStructures() const { return mAgingStructures; }
+	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
+	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
+
 	StructureList activePoliceStations() const;
 
 	bool hasCommandCenter() const;
@@ -104,10 +108,6 @@ public:
 		}
 		return count;
 	}
-
-	const StructureList& agingStructures() const { return mAgingStructures; }
-	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
-	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
 	int disabledCount() const;
 	int destroyedCount() const;
