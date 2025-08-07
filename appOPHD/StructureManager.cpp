@@ -395,13 +395,7 @@ void StructureManager::disconnectAll()
  */
 int StructureManager::count() const
 {
-	int count = 0;
-	for (auto& pair : mStructureLists)
-	{
-		count += static_cast<int>(pair.second.size());
-	}
-
-	return count;
+	return static_cast<int>(mDeployedStructures.size());
 }
 
 
