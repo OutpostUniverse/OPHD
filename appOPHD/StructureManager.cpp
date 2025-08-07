@@ -225,7 +225,7 @@ const StructureList& StructureManager::structureList(StructureClass structureCla
 }
 
 
-StructureList StructureManager::allStructures() const
+const StructureList& StructureManager::allStructures() const
 {
 	return mDeployedStructures;
 }
