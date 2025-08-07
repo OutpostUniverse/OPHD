@@ -227,15 +227,7 @@ const StructureList& StructureManager::structureList(StructureClass structureCla
 
 StructureList StructureManager::allStructures() const
 {
-	StructureList structuresOut;
-
-	for (auto& classListPair : mStructureLists)
-	{
-		auto& structures = classListPair.second;
-		std::copy(structures.begin(), structures.end(), std::back_inserter(structuresOut));
-	}
-
-	return structuresOut;
+	return mDeployedStructures;
 }
 
 
