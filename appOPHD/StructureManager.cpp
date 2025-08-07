@@ -257,7 +257,17 @@ StructureList StructureManager::agingStructures() const
 
 StructureList StructureManager::newlyBuiltStructures() const
 {
-	return mNewlyBuiltStructures;
+	StructureList newlyBuiltStructures{};
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->ages() && (structure->age() == structure->turnsToBuild()))
+		{
+			newlyBuiltStructures.push_back(structure);
+		}
+	}
+
+	return newlyBuiltStructures;
 }
 
 
@@ -557,7 +567,6 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
-	mNewlyBuiltStructures.clear();
 	mStructuresWithCrime.clear();
 
 	// Called separately so that 1) high priority structures can be updated first and
@@ -635,11 +644,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure& structure)
 {
 	structure.processTurn();
-
-	if (structure.age() == structure.turnsToBuild())
-	{
-		mNewlyBuiltStructures.push_back(&structure);
-	}
 
 	if (structure.hasCrime() && !structure.underConstruction())
 	{
