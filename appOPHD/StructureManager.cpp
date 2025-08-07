@@ -547,12 +547,15 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 	for (auto* laboratory : mStructureLists[StructureClass::Laboratory])
 	{
 		auto* lab = dynamic_cast<ResearchFacility*>(laboratory);
-		lab->assignScientists(0);
-		if (lab->operational())
+		if (lab)
 		{
-			lab->assignScientists(availableScientists);
-			availableScientists -= lab->assignedScientists();
-			population.usePopulation({0, lab->assignedScientists()});
+			lab->assignScientists(0);
+			if (lab->operational())
+			{
+				lab->assignScientists(availableScientists);
+				availableScientists -= lab->assignedScientists();
+				population.usePopulation({0, lab->assignedScientists()});
+			}
 		}
 	}
 }
