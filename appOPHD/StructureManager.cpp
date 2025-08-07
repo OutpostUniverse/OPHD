@@ -529,7 +529,7 @@ int StructureManager::totalRobotCommandCapacity() const
 void StructureManager::assignColonistsToResidences(PopulationPool& population)
 {
 	int populationCount = population.size();
-	for (auto* structure : mStructureLists[StructureClass::Residence])
+	for (auto* structure : mDeployedStructures)
 	{
 		Residence* residence = dynamic_cast<Residence*>(structure);
 		if (residence && residence->operational())
