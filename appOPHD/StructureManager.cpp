@@ -239,6 +239,54 @@ StructureList StructureManager::allStructures() const
 }
 
 
+StructureList StructureManager::agingStructures() const
+{
+	StructureList agingStructures{};
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
+		{
+			agingStructures.push_back(structure);
+		}
+	}
+
+	return agingStructures;
+}
+
+
+StructureList StructureManager::newlyBuiltStructures() const
+{
+	StructureList newlyBuiltStructures{};
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->ages() && (structure->age() == structure->turnsToBuild()))
+		{
+			newlyBuiltStructures.push_back(structure);
+		}
+	}
+
+	return newlyBuiltStructures;
+}
+
+
+StructureList StructureManager::structuresWithCrime() const
+{
+	StructureList structuresWithCrime{};
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->hasCrime() && !structure->underConstruction())
+		{
+			structuresWithCrime.push_back(structure);
+		}
+	}
+
+	return structuresWithCrime;
+}
+
+
 StructureList StructureManager::activePoliceStations() const
 {
 	StructureList policeStations;
@@ -529,10 +577,6 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
-	mAgingStructures.clear();
-	mNewlyBuiltStructures.clear();
-	mStructuresWithCrime.clear();
-
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
@@ -608,21 +652,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure& structure)
 {
 	structure.processTurn();
-
-	if (structure.ages() && (structure.age() >= structure.maxAge() - 10))
-	{
-		mAgingStructures.push_back(&structure);
-	}
-
-	if (structure.age() == structure.turnsToBuild())
-	{
-		mNewlyBuiltStructures.push_back(&structure);
-	}
-
-	if (structure.hasCrime() && !structure.underConstruction())
-	{
-		mStructuresWithCrime.push_back(&structure);
-	}
 
 	// State Check
 	// ASSUMPTION:	Construction sites are considered self sufficient until they are

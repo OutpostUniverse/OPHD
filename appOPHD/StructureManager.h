@@ -76,6 +76,10 @@ public:
 	const StructureList& structureList(StructureClass structureClass) const;
 	StructureList allStructures() const;
 
+	StructureList agingStructures() const;
+	StructureList newlyBuiltStructures() const;
+	StructureList structuresWithCrime() const;
+
 	StructureList activePoliceStations() const;
 
 	bool hasCommandCenter() const;
@@ -104,10 +108,6 @@ public:
 		}
 		return count;
 	}
-
-	const StructureList& agingStructures() const { return mAgingStructures; }
-	const StructureList& newlyBuiltStructures() const { return mNewlyBuiltStructures; }
-	const StructureList& structuresWithCrime() const { return mStructuresWithCrime; }
 
 	int disabledCount() const;
 	int destroyedCount() const;
@@ -140,10 +140,6 @@ protected:
 private:
 	std::vector<Structure*> mDeployedStructures;
 	std::map<StructureClass, StructureList> mStructureLists;
-
-	StructureList mAgingStructures;
-	StructureList mNewlyBuiltStructures;
-	StructureList mStructuresWithCrime;
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;
