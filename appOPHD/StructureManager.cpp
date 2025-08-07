@@ -544,7 +544,7 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 void StructureManager::assignScientistsToResearchFacilities(PopulationPool& population)
 {
 	int availableScientists = population.availableScientists();
-	for (auto* laboratory : mStructureLists[StructureClass::Laboratory])
+	for (auto* laboratory : mDeployedStructures)
 	{
 		auto* lab = dynamic_cast<ResearchFacility*>(laboratory);
 		if (lab)
