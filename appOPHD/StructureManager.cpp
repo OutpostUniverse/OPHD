@@ -273,7 +273,17 @@ StructureList StructureManager::newlyBuiltStructures() const
 
 StructureList StructureManager::structuresWithCrime() const
 {
-	return mStructuresWithCrime;
+	StructureList structuresWithCrime{};
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->hasCrime() && !structure->underConstruction())
+		{
+			structuresWithCrime.push_back(structure);
+		}
+	}
+
+	return structuresWithCrime;
 }
 
 
@@ -567,8 +577,6 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
-	mStructuresWithCrime.clear();
-
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
@@ -644,11 +652,6 @@ void StructureManager::updateStructures(const StorableResources& resources, Popu
 void StructureManager::updateStructure(const StorableResources& resources, PopulationPool& population, Structure& structure)
 {
 	structure.processTurn();
-
-	if (structure.hasCrime() && !structure.underConstruction())
-	{
-		mStructuresWithCrime.push_back(&structure);
-	}
 
 	// State Check
 	// ASSUMPTION:	Construction sites are considered self sufficient until they are
