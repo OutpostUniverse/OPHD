@@ -468,14 +468,11 @@ void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
 
-	for (auto& classListPair : mStructureLists)
+	for (const auto* structure : mDeployedStructures)
 	{
-		for (const auto* structure : classListPair.second)
+		if (structure->operational())
 		{
-			if (structure->operational())
-			{
-				mTotalEnergyUsed += structure->energyRequirement();
-			}
+			mTotalEnergyUsed += structure->energyRequirement();
 		}
 	}
 }
