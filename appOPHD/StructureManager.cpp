@@ -200,7 +200,7 @@ void StructureManager::removeStructure(Structure& structure)
 	}
 
 	structures.erase(it);
-	(*tileTableIt)->tile().removeMapObject();
+	structure.tile().removeMapObject();
 	mDeployedStructures.erase(tileTableIt);
 	delete &structure;
 }
