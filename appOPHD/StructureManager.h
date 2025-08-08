@@ -57,12 +57,9 @@ public:
 	template <typename StructureType>
 	const std::vector<StructureType*> getStructures() const
 	{
-		// Get list of structures with same function
-		const auto& sameClassStructures = structureList(structureTypeToClass<StructureType>());
-
 		std::vector<StructureType*> output;
 		// Filter for instances of the exact type parameter
-		for (auto* structure : sameClassStructures)
+		for (auto* structure : mDeployedStructures)
 		{
 			StructureType* derivedStructure = dynamic_cast<StructureType*>(structure);
 			if (derivedStructure)
