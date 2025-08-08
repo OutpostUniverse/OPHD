@@ -114,6 +114,7 @@ public:
 	bool repairable() const;
 
 	// CONVENIENCE FUCNTIONS
+	bool isCommand() const;
 	bool isFactory() const;
 	bool isWarehouse() const;
 	bool isRobotCommand() const;
