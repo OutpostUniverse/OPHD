@@ -90,7 +90,7 @@ public:
 	int count() const;
 
 	int operationalCount(StructureClass structureClass) const;
-	unsigned int operationalCount(StructureID structureId) const;
+	int operationalCount(StructureID structureId) const;
 
 	int disabledCount() const;
 	int destroyedCount() const;

@@ -412,9 +412,9 @@ int StructureManager::operationalCount(StructureClass structureClass) const
 }
 
 
-unsigned int StructureManager::operationalCount(StructureID structureId) const
+int StructureManager::operationalCount(StructureID structureId) const
 {
-	unsigned int count = 0;
+	int count = 0;
 	for (const auto* structure : mDeployedStructures)
 	{
 		if ((structure->structureId() == structureId) && structure->operational())
