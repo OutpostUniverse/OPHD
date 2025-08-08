@@ -289,6 +289,20 @@ StructureList StructureManager::structuresWithCrime() const
 }
 
 
+StructureList StructureManager::activeCommandCenters() const
+{
+	StructureList structures;
+	for (auto* structure : mDeployedStructures)
+	{
+		if (structure->isCommand() && structure->operational())
+		{
+			structures.push_back(structure);
+		}
+	}
+	return structures;
+}
+
+
 StructureList StructureManager::activePoliceStations() const
 {
 	StructureList structures;
