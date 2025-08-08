@@ -291,15 +291,15 @@ StructureList StructureManager::structuresWithCrime() const
 
 StructureList StructureManager::activePoliceStations() const
 {
-	StructureList policeStations;
+	StructureList structures;
 	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->isPolice() && structure->operational())
 		{
-			policeStations.push_back(structure);
+			structures.push_back(structure);
 		}
 	}
-	return policeStations;
+	return structures;
 }
 
 
