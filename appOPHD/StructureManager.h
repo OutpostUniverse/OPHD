@@ -76,6 +76,8 @@ public:
 	StructureList newlyBuiltStructures() const;
 	StructureList structuresWithCrime() const;
 
+	StructureList commandCenters() const;
+	StructureList activeCommandCenters() const;
 	StructureList activePoliceStations() const;
 
 	bool hasCommandCenter() const;

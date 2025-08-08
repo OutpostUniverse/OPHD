@@ -289,46 +289,81 @@ StructureList StructureManager::structuresWithCrime() const
 }
 
 
-StructureList StructureManager::activePoliceStations() const
+StructureList StructureManager::commandCenters() const
 {
-	StructureList policeStations;
+	StructureList structures;
 	for (auto* structure : mDeployedStructures)
 	{
-		if (structure->operational() && structure->isPolice())
+		if (structure->isCommand())
 		{
-			policeStations.push_back(structure);
+			structures.push_back(structure);
 		}
 	}
-	return policeStations;
+	return structures;
+}
+
+
+StructureList StructureManager::activeCommandCenters() const
+{
+	StructureList structures;
+	for (auto* structure : mDeployedStructures)
+	{
+		if (structure->isCommand() && structure->operational())
+		{
+			structures.push_back(structure);
+		}
+	}
+	return structures;
+}
+
+
+StructureList StructureManager::activePoliceStations() const
+{
+	StructureList structures;
+	for (auto* structure : mDeployedStructures)
+	{
+		if (structure->isPolice() && structure->operational())
+		{
+			structures.push_back(structure);
+		}
+	}
+	return structures;
 }
 
 
 bool StructureManager::hasCommandCenter() const
 {
-	return !getStructures<CommandCenter>().empty();
+	for (auto* structure : mDeployedStructures)
+	{
+		if (structure->isCommand())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 
 CommandCenter& StructureManager::firstCc() const
 {
-	const auto& ccList = getStructures<CommandCenter>();
-	if (ccList.empty())
+	for (auto* structure : mDeployedStructures)
 	{
-		throw std::runtime_error("firstCc() called with no active CommandCenter");
+		auto* commandCenter = dynamic_cast<CommandCenter*>(structure);
+		if (commandCenter)
+		{
+			return *commandCenter;
+		}
 	}
-	return *ccList.at(0);
+	throw std::runtime_error("firstCc() called with no active CommandCenter");
 }
 
 
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;
-	for (const auto* commandCenter : getStructures<CommandCenter>())
+	for (const auto* commandCenter : activeCommandCenters())
 	{
-		if (commandCenter->operational())
-		{
-			positions.push_back(commandCenter->xyz());
-		}
+		positions.push_back(commandCenter->xyz());
 	}
 	return positions;
 }
@@ -337,8 +372,7 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
 {
 	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
-	const auto& ccList = getStructures<CommandCenter>();
-	for (const auto* commandCenter : ccList)
+	for (const auto* commandCenter : commandCenters())
 	{
 		const auto location = commandCenter->xyz().xy;
 		if (isPointInRange(position, location, range))
@@ -468,7 +502,7 @@ bool StructureManager::CHAPAvailable() const
 {
 	for (const auto* structure : mDeployedStructures)
 	{
-		if (structure->providesCHAP() && structure->operational()) { return true; }
+		if (structure->isChap() && structure->operational()) { return true; }
 	}
 	return false;
 }

@@ -988,7 +988,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 		Structure* structure = tile.structure();
 
 		if (structure->isMineFacility()) { return; }
-		if (structure->structureClass() == StructureClass::Command)
+		if (structure->isCommand())
 		{
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertCannotBulldozeCc);
 			return;
