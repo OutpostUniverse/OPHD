@@ -339,12 +339,15 @@ bool StructureManager::hasCommandCenter() const
 
 CommandCenter& StructureManager::firstCc() const
 {
-	const auto& ccList = getStructures<CommandCenter>();
-	if (ccList.empty())
+	for (auto* structure : mDeployedStructures)
 	{
-		throw std::runtime_error("firstCc() called with no active CommandCenter");
+		auto* commandCenter = dynamic_cast<CommandCenter*>(structure);
+		if (commandCenter)
+		{
+			return *commandCenter;
+		}
 	}
-	return *ccList.at(0);
+	throw std::runtime_error("firstCc() called with no active CommandCenter");
 }
 
 
