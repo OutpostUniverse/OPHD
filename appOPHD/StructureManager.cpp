@@ -199,8 +199,8 @@ void StructureManager::removeStructure(Structure& structure)
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
+	structure.tile().removeMapObject();
 	structures.erase(it);
-	(*tileTableIt)->tile().removeMapObject();
 	mDeployedStructures.erase(tileTableIt);
 	delete &structure;
 }
@@ -225,17 +225,9 @@ const StructureList& StructureManager::structureList(StructureClass structureCla
 }
 
 
-StructureList StructureManager::allStructures() const
+const StructureList& StructureManager::allStructures() const
 {
-	StructureList structuresOut;
-
-	for (auto& classListPair : mStructureLists)
-	{
-		auto& structures = classListPair.second;
-		std::copy(structures.begin(), structures.end(), std::back_inserter(structuresOut));
-	}
-
-	return structuresOut;
+	return mDeployedStructures;
 }
 
 
@@ -243,7 +235,7 @@ StructureList StructureManager::agingStructures() const
 {
 	StructureList agingStructures{};
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
 		{
@@ -259,7 +251,7 @@ StructureList StructureManager::newlyBuiltStructures() const
 {
 	StructureList newlyBuiltStructures{};
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->ages() && (structure->age() == structure->turnsToBuild()))
 		{
@@ -275,7 +267,7 @@ StructureList StructureManager::structuresWithCrime() const
 {
 	StructureList structuresWithCrime{};
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->hasCrime() && !structure->underConstruction())
 		{
@@ -290,7 +282,7 @@ StructureList StructureManager::structuresWithCrime() const
 StructureList StructureManager::activePoliceStations() const
 {
 	StructureList policeStations;
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->operational() && structure->isPolice())
 		{
@@ -350,8 +342,7 @@ bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
 
 bool StructureManager::isInCommRange(NAS2D::Point<int> position) const
 {
-	const auto& structures = allStructures();
-	for (const auto* structure : structures)
+	for (const auto* structure : mDeployedStructures)
 	{
 		const auto commRange = structure->commRange();
 		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
@@ -403,13 +394,7 @@ void StructureManager::disconnectAll()
  */
 int StructureManager::count() const
 {
-	int count = 0;
-	for (auto& pair : mStructureLists)
-	{
-		count += static_cast<int>(pair.second.size());
-	}
-
-	return count;
+	return static_cast<int>(mDeployedStructures.size());
 }
 
 
@@ -430,11 +415,13 @@ int StructureManager::getCountInState(StructureClass structureClass, StructureSt
 int StructureManager::disabledCount() const
 {
 	int count = 0;
-	for (auto& pair : mStructureLists)
+	for (const auto* structure : mDeployedStructures)
 	{
-		count += getCountInState(pair.first, StructureState::Disabled);
+		if (structure->state() == StructureState::Disabled)
+		{
+			++count;
+		}
 	}
-
 	return count;
 }
 
@@ -442,11 +429,13 @@ int StructureManager::disabledCount() const
 int StructureManager::destroyedCount() const
 {
 	int count = 0;
-	for (auto& pair : mStructureLists)
+	for (const auto* structure : mDeployedStructures)
 	{
-		count += getCountInState(pair.first, StructureState::Destroyed);
+		if (structure->state() == StructureState::Destroyed)
+		{
+			++count;
+		}
 	}
-
 	return count;
 }
 
@@ -467,7 +456,7 @@ void StructureManager::updateEnergyProduction()
 	mTotalEnergyOutput = 0;
 	mTotalEnergyUsed = 0;
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		mTotalEnergyOutput += structure->energyProduced();
 	}
@@ -482,14 +471,11 @@ void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
 
-	for (auto& classListPair : mStructureLists)
+	for (const auto* structure : mDeployedStructures)
 	{
-		for (const auto* structure : classListPair.second)
+		if (structure->operational())
 		{
-			if (structure->operational())
-			{
-				mTotalEnergyUsed += structure->energyRequirement();
-			}
+			mTotalEnergyUsed += structure->energyRequirement();
 		}
 	}
 }
@@ -499,7 +485,7 @@ int StructureManager::totalRefinedOreStorageCapacity() const
 {
 	int storageCapacity = 0;
 
-	for (const auto* structure : allStructures())
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{
@@ -515,7 +501,7 @@ int StructureManager::totalFoodStorageCapacity() const
 {
 	int storageCapacity = 0;
 
-	for (const auto* structure : allStructures())
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{
@@ -531,7 +517,7 @@ int StructureManager::totalRobotCommandCapacity() const
 {
 	int totalRobotCommandCapacity = 0;
 
-	for (const auto* structure : allStructures())
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->operational())
 		{
@@ -546,7 +532,7 @@ int StructureManager::totalRobotCommandCapacity() const
 void StructureManager::assignColonistsToResidences(PopulationPool& population)
 {
 	int populationCount = population.size();
-	for (auto* structure : mStructureLists[StructureClass::Residence])
+	for (auto* structure : mDeployedStructures)
 	{
 		Residence* residence = dynamic_cast<Residence*>(structure);
 		if (residence && residence->operational())
@@ -561,15 +547,18 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 void StructureManager::assignScientistsToResearchFacilities(PopulationPool& population)
 {
 	int availableScientists = population.availableScientists();
-	for (auto* laboratory : mStructureLists[StructureClass::Laboratory])
+	for (auto* laboratory : mDeployedStructures)
 	{
 		auto* lab = dynamic_cast<ResearchFacility*>(laboratory);
-		lab->assignScientists(0);
-		if (lab->operational())
+		if (lab)
 		{
-			lab->assignScientists(availableScientists);
-			availableScientists -= lab->assignedScientists();
-			population.usePopulation({0, lab->assignedScientists()});
+			lab->assignScientists(0);
+			if (lab->operational())
+			{
+				lab->assignScientists(availableScientists);
+				availableScientists -= lab->assignedScientists();
+				population.usePopulation({0, lab->assignedScientists()});
+			}
 		}
 	}
 }
