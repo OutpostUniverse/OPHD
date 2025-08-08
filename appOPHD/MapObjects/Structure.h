@@ -109,11 +109,11 @@ public:
 
 	// FLAGS
 	bool requiresCHAP() const;
-	bool providesCHAP() const;
 	bool selfSustained() const;
 	bool repairable() const;
 
 	// CONVENIENCE FUCNTIONS
+	bool isChap() const;
 	bool isCommand() const;
 	bool isFactory() const;
 	bool isWarehouse() const;

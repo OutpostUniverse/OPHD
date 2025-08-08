@@ -502,7 +502,7 @@ bool StructureManager::CHAPAvailable() const
 {
 	for (const auto* structure : mDeployedStructures)
 	{
-		if (structure->providesCHAP() && structure->operational()) { return true; }
+		if (structure->isChap() && structure->operational()) { return true; }
 	}
 	return false;
 }

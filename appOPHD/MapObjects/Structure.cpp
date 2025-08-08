@@ -339,8 +339,7 @@ bool Structure::repairable() const
 	return mStructureType.isRepairable && (mStructureState != StructureState::Destroyed);
 }
 
-bool Structure::providesCHAP() const { return mStructureClass == StructureClass::LifeSupport; }
-
+bool Structure::isChap() const { return mStructureClass == StructureClass::LifeSupport; }
 bool Structure::isCommand() const { return mStructureClass == StructureClass::Command; }
 bool Structure::isFactory() const { return mStructureClass == StructureClass::Factory; }
 bool Structure::isWarehouse() const { return mStructureClass == StructureClass::Warehouse; }
