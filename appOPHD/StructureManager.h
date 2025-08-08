@@ -90,20 +90,7 @@ public:
 	int count() const;
 
 	int operationalCount(StructureClass structureClass) const;
-
-	template <typename StructureType>
-	unsigned int countInState(StructureState state) const
-	{
-		unsigned int count = 0;
-		for (const auto* structure : getStructures<StructureType>())
-		{
-			if (structure->state() == state)
-			{
-				++count;
-			}
-		}
-		return count;
-	}
+	unsigned int operationalCount(StructureID structureId) const;
 
 	int disabledCount() const;
 	int destroyedCount() const;

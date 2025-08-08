@@ -315,7 +315,7 @@ void ResearchReport::adjustCategoryIconSpacing()
 
 void ResearchReport::checkForLabAvailability()
 {
-	mLabsAvailable = {mStructureManager.countInState<Laboratory>(StructureState::Operational), mStructureManager.countInState<HotLaboratory>(StructureState::Operational)};
+	mLabsAvailable = {mStructureManager.operationalCount(StructureID::Laboratory), mStructureManager.operationalCount(StructureID::HotLaboratory)};
 }
 
 

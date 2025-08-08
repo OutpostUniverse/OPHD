@@ -412,6 +412,20 @@ int StructureManager::operationalCount(StructureClass structureClass) const
 }
 
 
+unsigned int StructureManager::operationalCount(StructureID structureId) const
+{
+	unsigned int count = 0;
+	for (const auto* structure : mDeployedStructures)
+	{
+		if ((structure->structureId() == structureId) && structure->operational())
+		{
+			++count;
+		}
+	}
+	return count;
+}
+
+
 int StructureManager::disabledCount() const
 {
 	int count = 0;
