@@ -412,20 +412,6 @@ int StructureManager::operationalCount(StructureClass structureClass) const
 }
 
 
-int StructureManager::getCountInState(StructureClass structureClass, StructureState state) const
-{
-	int count = 0;
-	for (const auto* structure : structureList(structureClass))
-	{
-		if (structure->state() == state)
-		{
-			++count;
-		}
-	}
-	return count;
-}
-
-
 int StructureManager::disabledCount() const
 {
 	int count = 0;

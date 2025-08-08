@@ -90,7 +90,6 @@ public:
 	int count() const;
 
 	int operationalCount(StructureClass structureClass) const;
-	int getCountInState(StructureClass structureClass, StructureState state) const;
 
 	template <typename StructureType>
 	unsigned int countInState(StructureState state) const
