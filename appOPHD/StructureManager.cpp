@@ -313,7 +313,7 @@ CommandCenter& StructureManager::firstCc() const
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;
-	for (const auto* commandCenter : structureList(StructureClass::Command))
+	for (const auto* commandCenter : getStructures<CommandCenter>())
 	{
 		if (commandCenter->operational())
 		{
