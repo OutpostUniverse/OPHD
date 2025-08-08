@@ -100,10 +100,10 @@ namespace
 
 void MapViewState::updatePopulation()
 {
-	int residences = mStructureManager.getCountInState(StructureClass::Residence, StructureState::Operational);
-	int universities = mStructureManager.getCountInState(StructureClass::University, StructureState::Operational);
-	int nurseries = mStructureManager.getCountInState(StructureClass::Nursery, StructureState::Operational);
-	int hospitals = mStructureManager.getCountInState(StructureClass::MedicalCenter, StructureState::Operational);
+	int residences = mStructureManager.operationalCount(StructureClass::Residence);
+	int universities = mStructureManager.operationalCount(StructureClass::University);
+	int nurseries = mStructureManager.operationalCount(StructureClass::Nursery);
+	int hospitals = mStructureManager.operationalCount(StructureClass::MedicalCenter);
 
 	auto foodProducers = mStructureManager.getStructures<FoodProduction>();
 	const auto& commandCenters = mStructureManager.getStructures<CommandCenter>();
@@ -122,7 +122,7 @@ void MapViewState::updateCommercial()
 	// No need to do anything if there are no commercial structures.
 	if (commercial.empty()) { return; }
 
-	int luxuryCount = mStructureManager.getCountInState(StructureClass::Commercial, StructureState::Operational);
+	int luxuryCount = mStructureManager.operationalCount(StructureClass::Commercial);
 	int commercialCount = luxuryCount;
 
 	for (auto* warehouse : warehouses)
@@ -174,10 +174,10 @@ void MapViewState::updateMorale()
 	// POSITIVE MORALE EFFECTS
 	// =========================================
 	const int birthCount = mPopulation.birthCount();
-	const int parkCount = mStructureManager.getCountInState(StructureClass::Park, StructureState::Operational);
-	const int recreationCount = mStructureManager.getCountInState(StructureClass::RecreationCenter, StructureState::Operational);
-	const int foodProducingStructures = mStructureManager.getCountInState(StructureClass::FoodProduction, StructureState::Operational);
-	const int commercialCount = mStructureManager.getCountInState(StructureClass::Commercial, StructureState::Operational);
+	const int parkCount = mStructureManager.operationalCount(StructureClass::Park);
+	const int recreationCount = mStructureManager.operationalCount(StructureClass::RecreationCenter);
+	const int foodProducingStructures = mStructureManager.operationalCount(StructureClass::FoodProduction);
+	const int commercialCount = mStructureManager.operationalCount(StructureClass::Commercial);
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================

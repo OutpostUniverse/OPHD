@@ -398,6 +398,20 @@ int StructureManager::count() const
 }
 
 
+int StructureManager::operationalCount(StructureClass structureClass) const
+{
+	int count = 0;
+	for (const auto* structure : mDeployedStructures)
+	{
+		if ((structure->structureClass() == structureClass) && structure->operational())
+		{
+			++count;
+		}
+	}
+	return count;
+}
+
+
 int StructureManager::getCountInState(StructureClass structureClass, StructureState state) const
 {
 	int count = 0;
