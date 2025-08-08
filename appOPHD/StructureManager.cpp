@@ -219,9 +219,19 @@ void StructureManager::removeAllStructures()
 }
 
 
-const StructureList& StructureManager::structureList(StructureClass structureClass) const
+StructureList StructureManager::structureList(StructureClass structureClass) const
 {
-	return mStructureLists.at(structureClass);
+	StructureList structuresOut;
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->structureClass() == structureClass)
+		{
+			structuresOut.push_back(structure);
+		}
+	}
+
+	return structuresOut;
 }
 
 
@@ -313,7 +323,7 @@ CommandCenter& StructureManager::firstCc() const
 std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions() const
 {
 	std::vector<MapCoordinate> positions;
-	for (const auto* commandCenter : structureList(StructureClass::Command))
+	for (const auto* commandCenter : getStructures<CommandCenter>())
 	{
 		if (commandCenter->operational())
 		{
@@ -398,12 +408,26 @@ int StructureManager::count() const
 }
 
 
-int StructureManager::getCountInState(StructureClass structureClass, StructureState state) const
+int StructureManager::operationalCount(StructureClass structureClass) const
 {
 	int count = 0;
-	for (const auto* structure : structureList(structureClass))
+	for (const auto* structure : mDeployedStructures)
 	{
-		if (structure->state() == state)
+		if ((structure->structureClass() == structureClass) && structure->operational())
+		{
+			++count;
+		}
+	}
+	return count;
+}
+
+
+int StructureManager::operationalCount(StructureID structureId) const
+{
+	int count = 0;
+	for (const auto* structure : mDeployedStructures)
+	{
+		if ((structure->structureId() == structureId) && structure->operational())
 		{
 			++count;
 		}
@@ -442,11 +466,10 @@ int StructureManager::destroyedCount() const
 
 bool StructureManager::CHAPAvailable() const
 {
-	for (const auto* chap : structureList(StructureClass::LifeSupport))
+	for (const auto* structure : mDeployedStructures)
 	{
-		if (chap->operational()) { return true; }
+		if (structure->providesCHAP() && structure->operational()) { return true; }
 	}
-
 	return false;
 }
 

@@ -310,7 +310,6 @@
     <ClInclude Include="MapObjects\StructureIdToClass.h" />
     <ClInclude Include="MapObjects\Structures.h" />
     <ClInclude Include="MapObjects\StructureState.h" />
-    <ClInclude Include="MapObjects\StructureTypeToClass.h" />
     <ClInclude Include="MapObjects\Structures\Agridome.h" />
     <ClInclude Include="MapObjects\Structures\AirShaft.h" />
     <ClInclude Include="MapObjects\Structures\CargoLander.h" />

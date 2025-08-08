@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MapObjects/StructureClass.h"
-#include "MapObjects/StructureTypeToClass.h"
 
 #include <map>
 #include <vector>
@@ -57,12 +56,9 @@ public:
 	template <typename StructureType>
 	const std::vector<StructureType*> getStructures() const
 	{
-		// Get list of structures with same function
-		const auto& sameClassStructures = structureList(structureTypeToClass<StructureType>());
-
 		std::vector<StructureType*> output;
 		// Filter for instances of the exact type parameter
-		for (auto* structure : sameClassStructures)
+		for (auto* structure : mDeployedStructures)
 		{
 			StructureType* derivedStructure = dynamic_cast<StructureType*>(structure);
 			if (derivedStructure)
@@ -73,7 +69,7 @@ public:
 		return output;
 	}
 
-	const StructureList& structureList(StructureClass structureClass) const;
+	StructureList structureList(StructureClass structureClass) const;
 	const StructureList& allStructures() const;
 
 	StructureList agingStructures() const;
@@ -93,21 +89,8 @@ public:
 
 	int count() const;
 
-	int getCountInState(StructureClass structureClass, StructureState state) const;
-
-	template <typename StructureType>
-	unsigned int countInState(StructureState state) const
-	{
-		unsigned int count = 0;
-		for (const auto* structure : getStructures<StructureType>())
-		{
-			if (structure->state() == state)
-			{
-				++count;
-			}
-		}
-		return count;
-	}
+	int operationalCount(StructureClass structureClass) const;
+	int operationalCount(StructureID structureId) const;
 
 	int disabledCount() const;
 	int destroyedCount() const;

@@ -87,8 +87,8 @@ private:
 
 	struct LabsAvailable
 	{
-		unsigned int standard{};
-		unsigned int hot{};
+		int standard{};
+		int hot{};
 	};
 
 private:
