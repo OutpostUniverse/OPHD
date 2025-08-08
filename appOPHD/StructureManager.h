@@ -69,7 +69,7 @@ public:
 		return output;
 	}
 
-	const StructureList& structureList(StructureClass structureClass) const;
+	StructureList structureList(StructureClass structureClass) const;
 	const StructureList& allStructures() const;
 
 	StructureList agingStructures() const;

@@ -219,7 +219,7 @@ void StructureManager::removeAllStructures()
 }
 
 
-const StructureList& StructureManager::structureList(StructureClass structureClass) const
+StructureList StructureManager::structureList(StructureClass structureClass) const
 {
 	return mStructureLists.at(structureClass);
 }
