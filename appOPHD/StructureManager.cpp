@@ -294,7 +294,7 @@ StructureList StructureManager::activePoliceStations() const
 	StructureList policeStations;
 	for (auto* structure : mDeployedStructures)
 	{
-		if (structure->operational() && structure->isPolice())
+		if (structure->isPolice() && structure->operational())
 		{
 			policeStations.push_back(structure);
 		}
