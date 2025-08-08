@@ -442,11 +442,10 @@ int StructureManager::destroyedCount() const
 
 bool StructureManager::CHAPAvailable() const
 {
-	for (const auto* chap : structureList(StructureClass::LifeSupport))
+	for (const auto* structure : mDeployedStructures)
 	{
-		if (chap->operational()) { return true; }
+		if (structure->providesCHAP() && structure->operational()) { return true; }
 	}
-
 	return false;
 }
 
