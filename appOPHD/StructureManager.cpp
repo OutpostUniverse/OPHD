@@ -416,11 +416,13 @@ int StructureManager::getCountInState(StructureClass structureClass, StructureSt
 int StructureManager::disabledCount() const
 {
 	int count = 0;
-	for (auto& pair : mStructureLists)
+	for (const auto* structure : mDeployedStructures)
 	{
-		count += getCountInState(pair.first, StructureState::Disabled);
+		if (structure->state() == StructureState::Disabled)
+		{
+			++count;
+		}
 	}
-
 	return count;
 }
 
