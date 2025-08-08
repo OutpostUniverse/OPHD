@@ -235,7 +235,7 @@ StructureList StructureManager::agingStructures() const
 {
 	StructureList agingStructures{};
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->ages() && (structure->age() >= structure->maxAge() - 10))
 		{
@@ -251,7 +251,7 @@ StructureList StructureManager::newlyBuiltStructures() const
 {
 	StructureList newlyBuiltStructures{};
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->ages() && (structure->age() == structure->turnsToBuild()))
 		{
@@ -267,7 +267,7 @@ StructureList StructureManager::structuresWithCrime() const
 {
 	StructureList structuresWithCrime{};
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->hasCrime() && !structure->underConstruction())
 		{
@@ -282,7 +282,7 @@ StructureList StructureManager::structuresWithCrime() const
 StructureList StructureManager::activePoliceStations() const
 {
 	StructureList policeStations;
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->operational() && structure->isPolice())
 		{
@@ -342,8 +342,7 @@ bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
 
 bool StructureManager::isInCommRange(NAS2D::Point<int> position) const
 {
-	const auto& structures = allStructures();
-	for (const auto* structure : structures)
+	for (const auto* structure : mDeployedStructures)
 	{
 		const auto commRange = structure->commRange();
 		if (commRange > 0 && isPointInRange(position, structure->xyz().xy, commRange))
@@ -457,7 +456,7 @@ void StructureManager::updateEnergyProduction()
 	mTotalEnergyOutput = 0;
 	mTotalEnergyUsed = 0;
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		mTotalEnergyOutput += structure->energyProduced();
 	}
@@ -486,7 +485,7 @@ int StructureManager::totalRefinedOreStorageCapacity() const
 {
 	int storageCapacity = 0;
 
-	for (const auto* structure : allStructures())
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{
@@ -502,7 +501,7 @@ int StructureManager::totalFoodStorageCapacity() const
 {
 	int storageCapacity = 0;
 
-	for (const auto* structure : allStructures())
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->operational() || structure->isIdle())
 		{
@@ -518,7 +517,7 @@ int StructureManager::totalRobotCommandCapacity() const
 {
 	int totalRobotCommandCapacity = 0;
 
-	for (const auto* structure : allStructures())
+	for (const auto* structure : mDeployedStructures)
 	{
 		if (structure->operational())
 		{
