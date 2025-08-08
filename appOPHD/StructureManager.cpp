@@ -333,7 +333,7 @@ StructureList StructureManager::activePoliceStations() const
 
 bool StructureManager::hasCommandCenter() const
 {
-	return !getStructures<CommandCenter>().empty();
+	return !commandCenters().empty();
 }
 
 
@@ -362,8 +362,7 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
 {
 	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
-	const auto& ccList = getStructures<CommandCenter>();
-	for (const auto* commandCenter : ccList)
+	for (const auto* commandCenter : commandCenters())
 	{
 		const auto location = commandCenter->xyz().xy;
 		if (isPointInRange(position, location, range))
