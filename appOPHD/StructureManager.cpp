@@ -221,7 +221,17 @@ void StructureManager::removeAllStructures()
 
 StructureList StructureManager::structureList(StructureClass structureClass) const
 {
-	return mStructureLists.at(structureClass);
+	StructureList structuresOut;
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->structureClass() == structureClass)
+		{
+			structuresOut.push_back(structure);
+		}
+	}
+
+	return structuresOut;
 }
 
 
