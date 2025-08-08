@@ -430,11 +430,13 @@ int StructureManager::disabledCount() const
 int StructureManager::destroyedCount() const
 {
 	int count = 0;
-	for (auto& pair : mStructureLists)
+	for (const auto* structure : mDeployedStructures)
 	{
-		count += getCountInState(pair.first, StructureState::Destroyed);
+		if (structure->state() == StructureState::Destroyed)
+		{
+			++count;
+		}
 	}
-
 	return count;
 }
 
