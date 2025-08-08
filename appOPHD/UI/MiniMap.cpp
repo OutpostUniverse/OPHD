@@ -21,6 +21,9 @@
 #include <map>
 
 
+class MineFacility;
+
+
 namespace
 {
 	const std::string MapTerrainExtension = "_a.png";
