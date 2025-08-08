@@ -333,7 +333,14 @@ StructureList StructureManager::activePoliceStations() const
 
 bool StructureManager::hasCommandCenter() const
 {
-	return !commandCenters().empty();
+	for (auto* structure : mDeployedStructures)
+	{
+		if (structure->isCommand())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 
