@@ -626,43 +626,13 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	mTotalEnergyOutput = 0;
 	mTotalEnergyUsed = 0;
 
-	// Called separately so that 1) high priority structures can be updated first and
-	// 2) so that resource handling code (like energy) can be handled between update
-	// calls to lower priority structures.
-	updateStructures(resources, population, mStructureLists[StructureClass::Lander]); // No resource needs
-	updateStructures(resources, population, mStructureLists[StructureClass::Command]); // Self sufficient
-	updateStructures(resources, population, mStructureLists[StructureClass::EnergyProduction]); // Nothing can work without energy
+	std::ranges::stable_sort(
+		mDeployedStructures,
+		std::ranges::greater(),
+		[](const Structure* structure) { return structure->type().priority; }
+	);
 
-	// Basic resource production
-	updateStructures(resources, population, mStructureLists[StructureClass::Mine]); // Can't operate without resources.
-	updateStructures(resources, population, mStructureLists[StructureClass::Smelter]);
-
-	updateStructures(resources, population, mStructureLists[StructureClass::LifeSupport]); // Air, water food must come before others
-	updateStructures(resources, population, mStructureLists[StructureClass::FoodProduction]);
-
-	updateStructures(resources, population, mStructureLists[StructureClass::MedicalCenter]); // No medical facilities, people die
-	updateStructures(resources, population, mStructureLists[StructureClass::Nursery]);
-
-	updateStructures(resources, population, mStructureLists[StructureClass::Factory]); // Production
-	updateStructures(resources, population, mStructureLists[StructureClass::Maintenance]);
-
-	updateStructures(resources, population, mStructureLists[StructureClass::Storage]); // Everything else.
-	updateStructures(resources, population, mStructureLists[StructureClass::Park]);
-	updateStructures(resources, population, mStructureLists[StructureClass::SurfacePolice]);
-	updateStructures(resources, population, mStructureLists[StructureClass::UndergroundPolice]);
-	updateStructures(resources, population, mStructureLists[StructureClass::RecreationCenter]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Recycling]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Residence]);
-	updateStructures(resources, population, mStructureLists[StructureClass::RobotCommand]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Warehouse]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Laboratory]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Commercial]);
-	updateStructures(resources, population, mStructureLists[StructureClass::University]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Communication]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Road]);
-
-	updateStructures(resources, population, mStructureLists[StructureClass::Tube]);
-	updateStructures(resources, population, mStructureLists[StructureClass::Undefined]);
+	updateStructures(resources, population, mDeployedStructures);
 
 	assignColonistsToResidences(population);
 
