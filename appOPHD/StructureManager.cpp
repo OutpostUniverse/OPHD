@@ -661,6 +661,7 @@ void StructureManager::update(const StorableResources& resources, PopulationPool
 	updateStructures(resources, population, mStructureLists[StructureClass::Communication]);
 	updateStructures(resources, population, mStructureLists[StructureClass::Road]);
 
+	updateStructures(resources, population, mStructureLists[StructureClass::Tube]);
 	updateStructures(resources, population, mStructureLists[StructureClass::Undefined]);
 
 	assignColonistsToResidences(population);
