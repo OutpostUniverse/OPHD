@@ -71,17 +71,6 @@ const std::map<StructureClass, std::string> StructureClassNames =
 };
 
 
-std::vector<StructureClass> allStructureClasses()
-{
-	std::vector<StructureClass> result;
-	for (const auto& entry : StructureClassNames)
-	{
-		result.push_back(entry.first);
-	}
-	return result;
-}
-
-
 Structure::Structure(StructureID id, Tile& tile) :
 	Structure{id, tile, constants::StructureStateConstruction}
 {

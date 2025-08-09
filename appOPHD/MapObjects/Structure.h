@@ -197,5 +197,3 @@ protected:
 
 
 using StructureList = std::vector<Structure*>;
-
-std::vector<StructureClass> allStructureClasses();
