@@ -623,14 +623,15 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
+	mTotalEnergyOutput = 0;
+	mTotalEnergyUsed = 0;
+
 	// Called separately so that 1) high priority structures can be updated first and
 	// 2) so that resource handling code (like energy) can be handled between update
 	// calls to lower priority structures.
 	updateStructures(resources, population, mStructureLists[StructureClass::Lander]); // No resource needs
 	updateStructures(resources, population, mStructureLists[StructureClass::Command]); // Self sufficient
 	updateStructures(resources, population, mStructureLists[StructureClass::EnergyProduction]); // Nothing can work without energy
-
-	updateEnergyProduction();
 
 	// Basic resource production
 	updateStructures(resources, population, mStructureLists[StructureClass::Mine]); // Can't operate without resources.
@@ -761,6 +762,7 @@ void StructureManager::updateStructure(const StorableResources& resources, Popul
 		auto consumed = structure.resourcesIn();
 		removeRefinedResources(consumed);
 
+		mTotalEnergyOutput += structure.energyProduced();
 		mTotalEnergyUsed += structure.energyRequirement();
 
 		structure.think();
