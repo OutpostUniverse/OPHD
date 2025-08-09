@@ -2,7 +2,6 @@
 
 #include "MapObjects/StructureClass.h"
 
-#include <map>
 #include <vector>
 
 
@@ -124,7 +123,6 @@ protected:
 
 private:
 	std::vector<Structure*> mDeployedStructures;
-	std::map<StructureClass, StructureList> mStructureLists;
 
 	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
 	int mTotalEnergyUsed = 0;
