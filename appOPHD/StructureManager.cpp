@@ -32,17 +32,6 @@
 
 namespace
 {
-	auto populateKeys()
-	{
-		std::map<StructureClass, StructureList> result;
-		for (const auto structureClass : allStructureClasses())
-		{
-			result[structureClass]; // Generate blank array value for given key
-		}
-		return result;
-	}
-
-
 	/**
 	 * Fills population requirements fields in a Structure.
 	 */
@@ -145,8 +134,7 @@ namespace
 }
 
 
-StructureManager::StructureManager() :
-	mStructureLists{populateKeys()}
+StructureManager::StructureManager()
 {
 }
 
@@ -172,8 +160,6 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 	}
 
 	mDeployedStructures.push_back(&structure);
-
-	mStructureLists[structure.structureClass()].push_back(&structure);
 	tile.mapObject(&structure);
 }
 
@@ -186,21 +172,15 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
  */
 void StructureManager::removeStructure(Structure& structure)
 {
-	StructureList& structures = mStructureLists[structure.structureClass()];
-
-	const auto it = std::find(structures.begin(), structures.end(), &structure);
-	const auto isFoundStructureTable = it != structures.end();
-
 	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
 	const auto isFoundTileTable = tileTableIt != mDeployedStructures.end();
 
-	if (!isFoundStructureTable || !isFoundTileTable)
+	if (!isFoundTileTable)
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
 
 	structure.tile().removeMapObject();
-	structures.erase(it);
 	mDeployedStructures.erase(tileTableIt);
 	delete &structure;
 }
@@ -215,7 +195,6 @@ void StructureManager::removeAllStructures()
 	}
 
 	mDeployedStructures.clear();
-	mStructureLists = populateKeys();
 }
 
 
