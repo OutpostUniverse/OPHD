@@ -2,7 +2,6 @@
 
 #include "MapObjects/StructureClass.h"
 
-#include <map>
 #include <vector>
 
 
