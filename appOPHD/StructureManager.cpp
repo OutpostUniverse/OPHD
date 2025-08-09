@@ -173,9 +173,7 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 void StructureManager::removeStructure(Structure& structure)
 {
 	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
-	const auto isFoundTileTable = tileTableIt != mDeployedStructures.end();
-
-	if (!isFoundTileTable)
+	if (tileTableIt == mDeployedStructures.end())
 	{
 		throw std::runtime_error("StructureManager::removeStructure(): Attempting to remove a Structure that is not managed by the StructureManager.");
 	}
