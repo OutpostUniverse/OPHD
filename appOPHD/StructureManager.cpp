@@ -587,15 +587,6 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
-	mTotalEnergyOutput = 0;
-	mTotalEnergyUsed = 0;
-
-	std::ranges::stable_sort(
-		mDeployedStructures,
-		std::ranges::greater(),
-		[](const Structure* structure) { return structure->type().priority; }
-	);
-
 	updateStructures(resources, population, mDeployedStructures);
 
 	assignColonistsToResidences(population);
@@ -624,6 +615,15 @@ NAS2D::Xml::XmlElement* StructureManager::serialize() const
 
 void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
+	mTotalEnergyOutput = 0;
+	mTotalEnergyUsed = 0;
+
+	std::ranges::stable_sort(
+		mDeployedStructures,
+		std::ranges::greater(),
+		[](const Structure* structure) { return structure->type().priority; }
+	);
+
 	for (auto* structure : structures)
 	{
 		updateStructure(resources, population, *structure);
