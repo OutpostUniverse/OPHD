@@ -161,12 +161,6 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 }
 
 
-/**
- * Removes a Structure from the StructureManager.
- *
- * \warning	A Structure removed from the StructureManager will be freed.
- *			Remaining pointers and references will be invalidated.
- */
 void StructureManager::removeStructure(Structure& structure)
 {
 	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
