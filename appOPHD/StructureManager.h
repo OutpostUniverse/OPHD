@@ -99,8 +99,6 @@ public:
 	bool CHAPAvailable() const;
 
 	void updateEnergy();
-	void updateEnergyProduction();
-	void updateEnergyConsumed();
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
@@ -118,6 +116,8 @@ public:
 
 protected:
 	void disconnectAll();
+	void updateEnergyProduction();
+	void updateEnergyConsumed();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 	void updateStructure(const StorableResources&, PopulationPool&, Structure&);
