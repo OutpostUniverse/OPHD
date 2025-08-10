@@ -98,8 +98,7 @@ public:
 
 	bool CHAPAvailable() const;
 
-	void updateEnergyProduction();
-	void updateEnergyConsumed();
+	void updateEnergy();
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
 	int totalEnergyUsed() const { return mTotalEnergyUsed; }
 	int totalEnergyAvailable() const { return mTotalEnergyOutput - mTotalEnergyUsed; }
@@ -117,6 +116,8 @@ public:
 
 protected:
 	void disconnectAll();
+	void updateEnergyProduction();
+	void updateEnergyConsumed();
 
 	void updateStructures(const StorableResources&, PopulationPool&, StructureList&);
 	void updateStructure(const StorableResources&, PopulationPool&, Structure&);
@@ -124,6 +125,6 @@ protected:
 private:
 	std::vector<Structure*> mDeployedStructures;
 
-	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
+	int mTotalEnergyOutput = 0;
 	int mTotalEnergyUsed = 0;
 };

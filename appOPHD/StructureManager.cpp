@@ -32,9 +32,6 @@
 
 namespace
 {
-	/**
-	 * Fills population requirements fields in a Structure.
-	 */
 	PopulationRequirements fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required)
 	{
 		return {
@@ -164,12 +161,6 @@ void StructureManager::addStructure(Structure& structure, Tile& tile)
 }
 
 
-/**
- * Removes a Structure from the StructureManager.
- *
- * \warning	A Structure removed from the StructureManager will be freed.
- *			Remaining pointers and references will be invalidated.
- */
 void StructureManager::removeStructure(Structure& structure)
 {
 	const auto tileTableIt = std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure);
@@ -398,9 +389,6 @@ std::vector<Tile*> StructureManager::getConnectednessOverlay() const
 }
 
 
-/**
- * Resets the 'connected' flag on all structures in the primary structure list.
- */
 void StructureManager::disconnectAll()
 {
 	for (auto* structure : mDeployedStructures)
@@ -410,9 +398,6 @@ void StructureManager::disconnectAll()
 }
 
 
-/**
- * Returns the number of structures currently being managed by the StructureManager.
- */
 int StructureManager::count() const
 {
 	return static_cast<int>(mDeployedStructures.size());
@@ -485,10 +470,16 @@ bool StructureManager::CHAPAvailable() const
 }
 
 
+void StructureManager::updateEnergy()
+{
+	updateEnergyProduction();
+	updateEnergyConsumed();
+}
+
+
 void StructureManager::updateEnergyProduction()
 {
 	mTotalEnergyOutput = 0;
-	mTotalEnergyUsed = 0;
 
 	for (auto* structure : mDeployedStructures)
 	{
@@ -497,10 +488,6 @@ void StructureManager::updateEnergyProduction()
 }
 
 
-/**
- * Updates the consumed energy used cache value. Does not
- * modify any structure values.
- */
 void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
@@ -600,15 +587,6 @@ void StructureManager::assignScientistsToResearchFacilities(PopulationPool& popu
 
 void StructureManager::update(const StorableResources& resources, PopulationPool& population)
 {
-	mTotalEnergyOutput = 0;
-	mTotalEnergyUsed = 0;
-
-	std::ranges::stable_sort(
-		mDeployedStructures,
-		std::ranges::greater(),
-		[](const Structure* structure) { return structure->type().priority; }
-	);
-
 	updateStructures(resources, population, mDeployedStructures);
 
 	assignColonistsToResidences(population);
@@ -637,6 +615,15 @@ NAS2D::Xml::XmlElement* StructureManager::serialize() const
 
 void StructureManager::updateStructures(const StorableResources& resources, PopulationPool& population, StructureList& structures)
 {
+	mTotalEnergyOutput = 0;
+	mTotalEnergyUsed = 0;
+
+	std::ranges::stable_sort(
+		mDeployedStructures,
+		std::ranges::greater(),
+		[](const Structure* structure) { return structure->type().priority; }
+	);
+
 	for (auto* structure : structures)
 	{
 		updateStructure(resources, population, *structure);
