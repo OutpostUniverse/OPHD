@@ -473,7 +473,6 @@ bool StructureManager::CHAPAvailable() const
 void StructureManager::updateEnergyProduction()
 {
 	mTotalEnergyOutput = 0;
-	mTotalEnergyUsed = 0;
 
 	for (auto* structure : mDeployedStructures)
 	{
