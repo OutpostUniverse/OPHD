@@ -470,6 +470,13 @@ bool StructureManager::CHAPAvailable() const
 }
 
 
+void StructureManager::updateEnergy()
+{
+	updateEnergyProduction();
+	updateEnergyConsumed();
+}
+
+
 void StructureManager::updateEnergyProduction()
 {
 	mTotalEnergyOutput = 0;

@@ -289,8 +289,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	updateConnectedness();
 
-	mStructureManager.updateEnergyProduction();
-	mStructureManager.updateEnergyConsumed();
+	mStructureManager.updateEnergy();
 	mStructureManager.assignColonistsToResidences(mPopulationPool);
 
 	mRobotPool.update();

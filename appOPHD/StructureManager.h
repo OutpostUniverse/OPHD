@@ -98,6 +98,7 @@ public:
 
 	bool CHAPAvailable() const;
 
+	void updateEnergy();
 	void updateEnergyProduction();
 	void updateEnergyConsumed();
 	int totalEnergyProduction() const { return mTotalEnergyOutput; }
