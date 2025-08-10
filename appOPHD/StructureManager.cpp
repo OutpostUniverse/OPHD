@@ -32,9 +32,6 @@
 
 namespace
 {
-	/**
-	 * Fills population requirements fields in a Structure.
-	 */
 	PopulationRequirements fillPopulationRequirements(PopulationPool& populationPool, const PopulationRequirements& required)
 	{
 		return {
@@ -398,9 +395,6 @@ std::vector<Tile*> StructureManager::getConnectednessOverlay() const
 }
 
 
-/**
- * Resets the 'connected' flag on all structures in the primary structure list.
- */
 void StructureManager::disconnectAll()
 {
 	for (auto* structure : mDeployedStructures)
@@ -410,9 +404,6 @@ void StructureManager::disconnectAll()
 }
 
 
-/**
- * Returns the number of structures currently being managed by the StructureManager.
- */
 int StructureManager::count() const
 {
 	return static_cast<int>(mDeployedStructures.size());
@@ -497,10 +488,6 @@ void StructureManager::updateEnergyProduction()
 }
 
 
-/**
- * Updates the consumed energy used cache value. Does not
- * modify any structure values.
- */
 void StructureManager::updateEnergyConsumed()
 {
 	mTotalEnergyUsed = 0;
