@@ -124,6 +124,6 @@ protected:
 private:
 	std::vector<Structure*> mDeployedStructures;
 
-	int mTotalEnergyOutput = 0; /**< Total energy output of all energy producers in the structure list. */
+	int mTotalEnergyOutput = 0;
 	int mTotalEnergyUsed = 0;
 };
