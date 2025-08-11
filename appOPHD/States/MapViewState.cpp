@@ -1025,7 +1025,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 			else { return; }
 		}
 
-		if (structure->structureClass() == StructureClass::Communication)
+		if (structure->isComms())
 		{
 			updateCommRangeOverlay();
 		}
