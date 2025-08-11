@@ -115,7 +115,7 @@ namespace
 			);
 		}
 
-		if (structure.structureClass() == StructureClass::Maintenance)
+		if (structure.isMaintenance())
 		{
 			auto& maintenance = dynamic_cast<const MaintenanceFacility&>(structure);
 			structureElement->linkEndChild(
