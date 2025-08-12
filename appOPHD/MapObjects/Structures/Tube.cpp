@@ -24,7 +24,7 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 	}
 {
 	connectorDirection(dir);
-	state(StructureState::Operational);
+	mStructureState = StructureState::Operational;
 }
 
 

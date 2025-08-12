@@ -90,7 +90,7 @@ void Structure::disable(DisabledReason reason)
 {
 	mSprite.pause();
 	mSprite.color(NAS2D::Color{255, 0, 0, 185});
-	state(StructureState::Disabled);
+	mStructureState = StructureState::Disabled;
 	mDisabledReason = reason;
 	mIdleReason = IdleReason::None;
 	disabledStateSet();
@@ -116,7 +116,7 @@ void Structure::enable()
 
 	mSprite.resume();
 	mSprite.color(NAS2D::Color::White);
-	state(StructureState::Operational);
+	mStructureState = StructureState::Operational;
 	mDisabledReason = DisabledReason::None;
 	mIdleReason = IdleReason::None;
 }
@@ -142,7 +142,7 @@ void Structure::idle(IdleReason reason)
 	mSprite.color(NAS2D::Color{255, 255, 255, 185});
 	mDisabledReason = DisabledReason::None;
 	mIdleReason = reason;
-	state(StructureState::Idle);
+	mStructureState = StructureState::Idle;
 }
 
 
@@ -323,7 +323,7 @@ void Structure::activate()
 void Structure::rebuild()
 {
 	mSprite.play(constants::StructureStateConstruction);
-	state(StructureState::UnderConstruction);
+	mStructureState = StructureState::UnderConstruction;
 
 	age(1);
 }
@@ -398,7 +398,7 @@ void Structure::updateIntegrityDecay()
 void Structure::destroy()
 {
 	mSprite.play(constants::StructureStateDestroyed);
-	state(StructureState::Destroyed);
+	mStructureState = StructureState::Destroyed;
 }
 
 
