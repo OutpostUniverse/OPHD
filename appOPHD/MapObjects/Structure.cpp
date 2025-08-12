@@ -23,9 +23,6 @@
 #include <algorithm>
 
 
-/**
- * Translation table for Structure States.
- */
 const std::map<StructureState, std::string> StructureStateDescriptions =
 {
 	{StructureState::UnderConstruction, "Under Construction"},
@@ -33,41 +30,6 @@ const std::map<StructureState, std::string> StructureStateDescriptions =
 	{StructureState::Idle, "Idle"},
 	{StructureState::Disabled, "Disabled"},
 	{StructureState::Destroyed, "Destroyed"},
-};
-
-
-/**
- * Translation table for Structure Classes.
- */
-const std::map<StructureClass, std::string> StructureClassNames =
-{
-	{StructureClass::Command, "Command"},
-	{StructureClass::Communication, "Communication"},
-	{StructureClass::Commercial, "Commercial"},
-	{StructureClass::EnergyProduction, "Energy Production"},
-	{StructureClass::Factory, "Factory"},
-	{StructureClass::FoodProduction, "Food Production"},
-	{StructureClass::Laboratory, "Laboratory"},
-	{StructureClass::Lander, "Lander"},
-	{StructureClass::LifeSupport, "Life Support"},
-	{StructureClass::Maintenance, "Maintenance Facility"},
-	{StructureClass::Mine, "Mine Facility"},
-	{StructureClass::MedicalCenter, "Medical Center"},
-	{StructureClass::Nursery, "Nursery"},
-	{StructureClass::Park, "Park / Reservoir"},
-	{StructureClass::Road, "Road"},
-	{StructureClass::SurfacePolice, "Police"},
-	{StructureClass::UndergroundPolice, "Police"},
-	{StructureClass::RecreationCenter, "Recreation Center"},
-	{StructureClass::Recycling, "Recycling"},
-	{StructureClass::Residence, "Residential"},
-	{StructureClass::RobotCommand, "Robot Command Center"},
-	{StructureClass::Smelter, "Raw Ore Processing"},
-	{StructureClass::Storage, "Storage"},
-	{StructureClass::Tube, "Tube"},
-	{StructureClass::Undefined, "UNDEFINED"},
-	{StructureClass::University, "University"},
-	{StructureClass::Warehouse, "Warehouse"}
 };
 
 
@@ -245,12 +207,7 @@ const std::string& Structure::stateDescription(StructureState state)
 
 const std::string& Structure::classDescription() const
 {
-	return classDescription(mStructureClass);
-}
-
-const std::string& Structure::classDescription(StructureClass structureClass)
-{
-	return StructureClassNames.at(structureClass);
+	return mStructureType.description;
 }
 
 int Structure::turnsToBuild() const

@@ -3,10 +3,13 @@
 #include "../StorableResources.h"
 #include "../Population/PopulationRequirements.h"
 
+#include <string>
+
 
 struct StructureType
 {
 	std::string name;
+	std::string description;
 	std::string spritePath;
 
 	StorableResources buildCost{};
