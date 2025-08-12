@@ -153,8 +153,6 @@ protected:
 
 	virtual void disabledStateSet() {}
 
-	void state(StructureState newState) { mStructureState = newState; }
-
 	int calculateMaxEnergyProduction() const;
 
 private:
