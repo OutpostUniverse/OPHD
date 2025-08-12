@@ -23,9 +23,6 @@
 #include <algorithm>
 
 
-/**
- * Translation table for Structure States.
- */
 const std::map<StructureState, std::string> StructureStateDescriptions =
 {
 	{StructureState::UnderConstruction, "Under Construction"},
@@ -36,9 +33,6 @@ const std::map<StructureState, std::string> StructureStateDescriptions =
 };
 
 
-/**
- * Translation table for Structure Classes.
- */
 const std::map<StructureClass, std::string> StructureClassNames =
 {
 	{StructureClass::Command, "Command"},
