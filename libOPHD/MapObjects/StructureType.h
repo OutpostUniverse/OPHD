@@ -3,6 +3,8 @@
 #include "../StorableResources.h"
 #include "../Population/PopulationRequirements.h"
 
+#include <string>
+
 
 struct StructureType
 {
