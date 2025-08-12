@@ -9,6 +9,7 @@
 struct StructureType
 {
 	std::string name;
+	std::string description;
 	std::string spritePath;
 
 	StorableResources buildCost{};
