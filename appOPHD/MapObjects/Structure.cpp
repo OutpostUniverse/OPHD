@@ -308,8 +308,7 @@ bool Structure::isRoad() const { return mStructureClass == StructureClass::Road;
  * Called when a building is finished being built.
  *
  * Sets the animation state of the Structure to Operational,
- * sets the building state to Operational and sets resource
- * requirements.
+ * sets the building state to Operational.
  */
 void Structure::activate()
 {
