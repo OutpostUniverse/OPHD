@@ -54,9 +54,6 @@ private:
 	MineFacility& operator=(const MineFacility&) = delete;
 
 private:
-	void activated() override;
-
-private:
 	int mMaxDepth = 0; /**< Maximum digging depth. */
 	int mDigTurnsRemaining = 0; /**< Turns remaining before extension is complete. */
 	int mAssignedTrucks = 1; /**< All mine facilities are built with at least one truck. */

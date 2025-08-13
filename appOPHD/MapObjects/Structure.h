@@ -162,12 +162,6 @@ private:
 	void incrementAge();
 	void updateIntegrityDecay();
 
-	/**
-	 * Provided so that structures that need to do something upon
-	 * activation can do so without overriding void activate();
-	 */
-	virtual void activated() {}
-
 protected:
 	const StructureType& mStructureType;
 	const StructureID mStructureId;

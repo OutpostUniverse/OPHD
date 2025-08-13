@@ -315,8 +315,6 @@ void Structure::activate()
 {
 	mSprite.play(constants::StructureStateOperational);
 	enable();
-
-	activated();
 }
 
 
