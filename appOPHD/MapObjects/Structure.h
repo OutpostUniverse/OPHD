@@ -154,7 +154,7 @@ protected:
 
 	virtual void disabledStateSet() {}
 
-	int calculateMaxEnergyProduction() const;
+	int energyProducedMax() const;
 
 private:
 	Structure() = delete;
