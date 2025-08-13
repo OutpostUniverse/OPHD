@@ -307,7 +307,7 @@ bool Structure::isRoad() const { return mStructureClass == StructureClass::Road;
 /**
  * Called when a building is finished being built.
  */
-void Structure::activate()
+void Structure::onConstructionComplete()
 {
 	mSprite.play(constants::StructureStateOperational);
 	enable();
@@ -340,7 +340,7 @@ void Structure::incrementAge()
 
 	if (isNew())
 	{
-		activate();
+		onConstructionComplete();
 	}
 	else if (ages() && (age() >= maxAge()))
 	{

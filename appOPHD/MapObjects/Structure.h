@@ -150,7 +150,7 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	void activate();
+	void onConstructionComplete();
 
 	virtual void disabledStateSet() {}
 
