@@ -92,6 +92,7 @@ public:
 
 	int energyRequirement() const;
 	int energyProduced() const;
+	int energyProducedMax() const;
 	int foodProduced() const;
 	int foodStorageCapacity() const;
 	int refinedOreStorageCapacity() const;
@@ -153,8 +154,6 @@ protected:
 	void onConstructionComplete();
 
 	virtual void disabledStateSet() {}
-
-	int calculateMaxEnergyProduction() const;
 
 private:
 	Structure() = delete;

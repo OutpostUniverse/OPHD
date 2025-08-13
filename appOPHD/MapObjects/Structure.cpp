@@ -227,10 +227,10 @@ int Structure::energyRequirement() const
 
 int Structure::energyProduced() const
 {
-	return operational() ? calculateMaxEnergyProduction() : 0;
+	return operational() ? energyProducedMax() : 0;
 }
 
-int Structure::calculateMaxEnergyProduction() const
+int Structure::energyProducedMax() const
 {
 	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
 }
@@ -422,7 +422,7 @@ void Structure::integrity(int integrity)
 
 StringTable Structure::createInspectorViewTable() const
 {
-	if (calculateMaxEnergyProduction() > 0)
+	if (energyProducedMax() > 0)
 	{
 		StringTable stringTable(2, 1);
 
@@ -430,7 +430,7 @@ StringTable Structure::createInspectorViewTable() const
 
 		auto produced = energyProduced();
 
-		stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(calculateMaxEnergyProduction());
+		stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(energyProducedMax());
 
 		if (produced == 0)
 		{
