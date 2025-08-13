@@ -20,7 +20,7 @@ void ColonistLander::deployHandler(DeployDelegate newDeployHandler)
 
 void ColonistLander::think()
 {
-	if (age() == turnsToBuild())
+	if (isNew())
 	{
 		if (mDeployHandler) { mDeployHandler(); }
 		mTile.bulldoze();

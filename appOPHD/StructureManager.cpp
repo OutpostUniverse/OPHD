@@ -231,7 +231,7 @@ StructureList StructureManager::newlyBuiltStructures() const
 
 	for (auto* structure : mDeployedStructures)
 	{
-		if (structure->ages() && (structure->age() == structure->turnsToBuild()))
+		if (structure->ages() && structure->isNew())
 		{
 			newlyBuiltStructures.push_back(structure);
 		}

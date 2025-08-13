@@ -344,7 +344,7 @@ void Structure::incrementAge()
 {
 	mAge++;
 
-	if (age() == turnsToBuild())
+	if (isNew())
 	{
 		activate();
 	}

@@ -20,7 +20,7 @@ void CargoLander::deployHandler(DeployDelegate newDeployHandler)
 
 void CargoLander::think()
 {
-	if (age() == turnsToBuild())
+	if (isNew())
 	{
 		if (mDeployHandler) { mDeployHandler(); }
 		mTile.bulldoze();

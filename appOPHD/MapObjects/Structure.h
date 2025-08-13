@@ -88,6 +88,7 @@ public:
 	int age() const { return mAge; }
 	int maxAge() const;
 	bool ages() const { return maxAge() > 0; }
+	bool isNew() const { return age() == turnsToBuild(); }
 
 	int energyRequirement() const;
 	int energyProduced() const;
