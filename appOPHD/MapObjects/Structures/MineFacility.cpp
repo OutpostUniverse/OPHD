@@ -33,12 +33,6 @@ void MineFacility::maxDepth(int depth)
 }
 
 
-void MineFacility::activated()
-{
-	mOreDeposit->increaseDepth();
-}
-
-
 StorableResources MineFacility::maxCapacity() const
 {
 	const auto oreCapacity = mStructureType.rawOreStorageCapacity;
@@ -56,6 +50,11 @@ StorableResources MineFacility::maxTransferAmounts() const
 
 void MineFacility::think()
 {
+	if (isNew())
+	{
+		mOreDeposit->increaseDepth();
+	}
+
 	if (forceIdle()) { return; }
 
 	if (mDigTurnsRemaining > 0)

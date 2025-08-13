@@ -304,19 +304,11 @@ bool Structure::isMaintenance() const { return mStructureClass == StructureClass
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
 
-/**
- * Called when a building is finished being built.
- *
- * Sets the animation state of the Structure to Operational,
- * sets the building state to Operational and sets resource
- * requirements.
- */
-void Structure::activate()
+
+void Structure::onConstructionComplete()
 {
 	mSprite.play(constants::StructureStateOperational);
 	enable();
-
-	activated();
 }
 
 
@@ -337,26 +329,15 @@ void Structure::processTurn()
 }
 
 
-/**
- * Updates age of the structure and performs some basic age management logic.
- */
 void Structure::incrementAge()
 {
 	mAge++;
 
-	if (age() == turnsToBuild())
+	if (isNew())
 	{
-		activate();
+		onConstructionComplete();
 	}
-	else if (maxAge() == 0)
-	{
-		/**
-		 * Structures defined with a max age of '0' are 'ageless'
-		 * and should continue to operate regardless of how old
-		 * they are (for example, the Command Center).
-		 */
-	}
-	else if (age() == maxAge())
+	else if (ages() && (age() >= maxAge()))
 	{
 		destroy();
 	}

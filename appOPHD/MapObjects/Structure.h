@@ -88,6 +88,7 @@ public:
 	int age() const { return mAge; }
 	int maxAge() const;
 	bool ages() const { return maxAge() > 0; }
+	bool isNew() const { return age() == turnsToBuild(); }
 
 	int energyRequirement() const;
 	int energyProduced() const;
@@ -149,7 +150,7 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	void activate();
+	void onConstructionComplete();
 
 	virtual void disabledStateSet() {}
 
@@ -160,12 +161,6 @@ private:
 
 	void incrementAge();
 	void updateIntegrityDecay();
-
-	/**
-	 * Provided so that structures that need to do something upon
-	 * activation can do so without overriding void activate();
-	 */
-	virtual void activated() {}
 
 protected:
 	const StructureType& mStructureType;

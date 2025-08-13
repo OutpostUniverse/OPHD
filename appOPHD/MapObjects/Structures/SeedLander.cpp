@@ -20,7 +20,7 @@ void SeedLander::deployHandler(DeployDelegate newDeployHandler)
 
 void SeedLander::think()
 {
-	if (age() == turnsToBuild())
+	if (isNew())
 	{
 		if (mDeployHandler) { mDeployHandler(mTile.xy()); }
 	}
