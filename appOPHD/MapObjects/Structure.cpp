@@ -304,9 +304,7 @@ bool Structure::isMaintenance() const { return mStructureClass == StructureClass
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
 
-/**
- * Called when a building is finished being built.
- */
+
 void Structure::onConstructionComplete()
 {
 	mSprite.play(constants::StructureStateOperational);
