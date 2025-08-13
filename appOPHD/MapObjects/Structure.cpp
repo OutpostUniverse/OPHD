@@ -329,9 +329,6 @@ void Structure::processTurn()
 }
 
 
-/**
- * Updates age of the structure and performs some basic age management logic.
- */
 void Structure::incrementAge()
 {
 	mAge++;
