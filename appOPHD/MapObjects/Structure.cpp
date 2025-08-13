@@ -348,15 +348,7 @@ void Structure::incrementAge()
 	{
 		activate();
 	}
-	else if (maxAge() == 0)
-	{
-		/**
-		 * Structures defined with a max age of '0' are 'ageless'
-		 * and should continue to operate regardless of how old
-		 * they are (for example, the Command Center).
-		 */
-	}
-	else if (age() == maxAge())
+	else if (ages() && (age() >= maxAge()))
 	{
 		destroy();
 	}
