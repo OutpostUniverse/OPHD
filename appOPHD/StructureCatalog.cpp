@@ -111,7 +111,7 @@ namespace
 		const auto& structuresElement = *document.firstChildElement("Structures");
 
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath"};
-		const auto optionalFields = std::vector<std::string>{"Description", "TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "RobotCommandCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+		const auto optionalFields = std::vector<std::string>{"Description", "TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "ResidentialCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "RobotCommandCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
 		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
@@ -137,6 +137,7 @@ namespace
 				dictionary.get<int>("SolarEnergyProduced", 0),
 				dictionary.get<int>("FoodProduced", 0),
 				dictionary.get<int>("FoodStorageCapacity", 0),
+				dictionary.get<int>("ResidentialCapacity", 0),
 				dictionary.get<int>("RawOreStorageCapacity", 0),
 				dictionary.get<int>("OreStorageCapacity", 0),
 				dictionary.get<int>("RobotCommandCapacity", 0),
