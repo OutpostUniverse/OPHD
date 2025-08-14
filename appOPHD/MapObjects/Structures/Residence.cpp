@@ -3,15 +3,9 @@
 #include "../../UI/StringTable.h"
 
 #include <libOPHD/EnumStructureID.h>
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <algorithm>
-
-
-namespace
-{
-	const int ResidentialWasteCapacityBase = 1000;
-	const int ResidentialColonistCapacityBase = 25;
-}
 
 
 Residence::Residence(Tile& tile) :
@@ -20,14 +14,14 @@ Residence::Residence(Tile& tile) :
 }
 
 
-int Residence::capacity() const { return ResidentialColonistCapacityBase; }
+int Residence::capacity() const { return mStructureType.residentialCapacity; }
 
-int Residence::wasteCapacity() const { return ResidentialWasteCapacityBase; }
+int Residence::wasteCapacity() const { return mStructureType.bioWasteCapacity; }
 
-int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, ResidentialWasteCapacityBase); }
+int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, mStructureType.bioWasteCapacity); }
 void Residence::wasteAccumulated(int amount) { mWasteAccumulated = amount; }
 
-int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - ResidentialWasteCapacityBase, 0); }
+int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - mStructureType.bioWasteCapacity, 0); }
 
 
 int Residence::removeWaste(int amount)

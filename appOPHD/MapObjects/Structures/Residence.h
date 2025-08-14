@@ -3,12 +3,6 @@
 #include "../Structure.h"
 
 
-/**
- * Base Residential structure.
- *
- * Implements the base Residence structures. Upgraded residences should derive
- * from this class and override the definition of mCapacity.
- */
 class Residence : public Structure
 {
 public:
