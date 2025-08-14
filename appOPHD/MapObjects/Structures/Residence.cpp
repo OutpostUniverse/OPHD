@@ -30,7 +30,7 @@ void Residence::wasteAccumulated(int amount) { mWasteAccumulated = amount; }
 int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - ResidentialWasteCapacityBase, 0); }
 
 
-int Residence::pullWaste(int amount)
+int Residence::removeWaste(int amount)
 {
 	const int pulledAmount = std::clamp(amount, 0, mWasteAccumulated);
 	mWasteAccumulated -= pulledAmount;

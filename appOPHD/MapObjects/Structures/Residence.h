@@ -19,7 +19,7 @@ public:
 	int wasteAccumulated() const;
 	void wasteAccumulated(int amount);
 	int wasteOverflow() const;
-	int pullWaste(int amount);
+	int removeWaste(int amount);
 
 	void assignColonists(int amount);
 	int assignedColonists() const;
