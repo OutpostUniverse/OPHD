@@ -32,9 +32,9 @@ int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - Resid
 
 int Residence::removeWaste(int amount)
 {
-	const int pulledAmount = std::clamp(amount, 0, mWasteAccumulated);
-	mWasteAccumulated -= pulledAmount;
-	return pulledAmount;
+	const int removedAmount = std::clamp(amount, 0, mWasteAccumulated);
+	mWasteAccumulated -= removedAmount;
+	return removedAmount;
 }
 
 
