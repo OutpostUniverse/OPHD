@@ -477,8 +477,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			if (const auto* waste = structureElement->firstChildElement("waste"))
 			{
 				const auto wasteDictionary = NAS2D::attributesToDictionary(*waste);
-				residence->wasteAccumulated(wasteDictionary.get<int>("accumulated"));
-				residence->wasteOverflow(wasteDictionary.get<int>("overflow"));
+				residence->wasteAccumulated(wasteDictionary.get<int>("accumulated") + wasteDictionary.get<int>("overflow"));
 			}
 		}
 

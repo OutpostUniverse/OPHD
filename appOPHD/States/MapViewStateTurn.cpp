@@ -448,7 +448,7 @@ void MapViewState::updateBiowasteRecycling()
 			}
 
 			auto& residence = dynamic_cast<Residence&>(**residenceIterator);
-			residence.pullWaste(recycling->wasteProcessingCapacity());
+			residence.removeWaste(recycling->wasteProcessingCapacity());
 			++residenceIterator;
 		}
 	}
