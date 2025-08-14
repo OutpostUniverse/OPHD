@@ -8,12 +8,6 @@
 #include <algorithm>
 
 
-namespace
-{
-	const int ResidentialWasteCapacityBase = 1000;
-}
-
-
 Residence::Residence(Tile& tile) :
 	Structure{StructureID::Residence, tile}
 {
@@ -22,12 +16,12 @@ Residence::Residence(Tile& tile) :
 
 int Residence::capacity() const { return mStructureType.residentialCapacity; }
 
-int Residence::wasteCapacity() const { return ResidentialWasteCapacityBase; }
+int Residence::wasteCapacity() const { return mStructureType.bioWasteCapacity; }
 
-int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, ResidentialWasteCapacityBase); }
+int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, mStructureType.bioWasteCapacity); }
 void Residence::wasteAccumulated(int amount) { mWasteAccumulated = amount; }
 
-int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - ResidentialWasteCapacityBase, 0); }
+int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - mStructureType.bioWasteCapacity, 0); }
 
 
 int Residence::removeWaste(int amount)
