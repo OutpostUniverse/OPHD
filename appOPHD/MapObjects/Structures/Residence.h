@@ -31,8 +31,7 @@ protected:
 	void think() override;
 
 protected:
+	int mAssignedColonists = 0;
 	int mWasteAccumulated = 0;
 	int mWasteOverflow = 0;
-
-	int mAssignedColonists = 0;
 };
