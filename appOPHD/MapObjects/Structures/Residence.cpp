@@ -24,25 +24,16 @@ int Residence::capacity() const { return ResidentialColonistCapacityBase; }
 
 int Residence::wasteCapacity() const { return ResidentialWasteCapacityBase; }
 
-int Residence::wasteAccumulated() const { return mWasteAccumulated; }
+int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, ResidentialWasteCapacityBase); }
 void Residence::wasteAccumulated(int amount) { mWasteAccumulated = amount; }
 
-int Residence::wasteOverflow() const { return mWasteOverflow; }
-void Residence::wasteOverflow(int amount) { mWasteOverflow = amount; }
+int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - ResidentialWasteCapacityBase, 0); }
 
 
 int Residence::pullWaste(int amount)
 {
-	const int pulledAmount = std::clamp(amount, 0, wasteAccumulated() + wasteOverflow());
-
-	const int pulledOverflow = std::clamp(pulledAmount, 0, wasteOverflow());
-	mWasteOverflow -= pulledOverflow;
-
-	if (pulledOverflow < amount)
-	{
-		mWasteAccumulated -= pulledAmount - pulledOverflow;
-	}
-
+	const int pulledAmount = std::clamp(amount, 0, mWasteAccumulated);
+	mWasteAccumulated -= pulledAmount;
 	return pulledAmount;
 }
 
@@ -82,9 +73,4 @@ StringTable Residence::createInspectorViewTable() const
 void Residence::think()
 {
 	mWasteAccumulated += mAssignedColonists;
-	if (mWasteAccumulated > wasteCapacity())
-	{
-		mWasteOverflow += mWasteAccumulated - wasteCapacity();
-		mWasteAccumulated = wasteCapacity();
-	}
 }
