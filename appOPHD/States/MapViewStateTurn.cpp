@@ -419,7 +419,7 @@ void MapViewState::updateResidentialCapacity()
 	const auto& residences = mStructureManager.getStructures<Residence>();
 	for (const auto* residence : residences)
 	{
-		if (residence->operational()) { mResidentialCapacity += residence->capacity(); }
+		if (residence->operational()) { mResidentialCapacity += residence->residentialCapacity(); }
 	}
 
 	if (residences.empty()) { mResidentialCapacity = constants::CommandCenterPopulationCapacity; }

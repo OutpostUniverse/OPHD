@@ -14,8 +14,6 @@ Residence::Residence(Tile& tile) :
 }
 
 
-int Residence::capacity() const { return mStructureType.residentialCapacity; }
-
 int Residence::wasteCapacity() const { return mStructureType.bioWasteCapacity; }
 
 int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, mStructureType.bioWasteCapacity); }
@@ -34,7 +32,7 @@ int Residence::removeWaste(int amount)
 
 void Residence::assignColonists(int amount)
 {
-	mAssignedColonists = std::clamp(amount, 0, capacity());
+	mAssignedColonists = std::clamp(amount, 0, residentialCapacity());
 }
 
 
@@ -46,7 +44,7 @@ StringTable Residence::createInspectorViewTable() const
 	StringTable stringTable(2, 6);
 
 	stringTable[{0, 0}].text = "Colonist Capacity:";
-	stringTable[{1, 0}].text = std::to_string(capacity());
+	stringTable[{1, 0}].text = std::to_string(residentialCapacity());
 
 	stringTable[{0, 1}].text = "Colonists Assigned:";
 	stringTable[{1, 1}].text = std::to_string(assignedColonists());

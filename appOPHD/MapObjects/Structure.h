@@ -95,6 +95,7 @@ public:
 	int energyProducedMax() const;
 	int foodProduced() const;
 	int foodStorageCapacity() const;
+	int residentialCapacity() const;
 	int refinedOreStorageCapacity() const;
 	int commRange() const;
 	int policeRange() const;
