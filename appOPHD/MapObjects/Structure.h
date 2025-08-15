@@ -96,6 +96,7 @@ public:
 	int foodProduced() const;
 	int foodStorageCapacity() const;
 	int residentialCapacity() const;
+	int bioWasteStorageCapacity() const;
 	int refinedOreStorageCapacity() const;
 	int commRange() const;
 	int policeRange() const;

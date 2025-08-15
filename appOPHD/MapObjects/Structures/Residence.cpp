@@ -14,12 +14,10 @@ Residence::Residence(Tile& tile) :
 }
 
 
-int Residence::wasteCapacity() const { return mStructureType.bioWasteCapacity; }
-
-int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, mStructureType.bioWasteCapacity); }
+int Residence::wasteAccumulated() const { return std::min(mWasteAccumulated, bioWasteStorageCapacity()); }
 void Residence::wasteAccumulated(int amount) { mWasteAccumulated = amount; }
 
-int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - mStructureType.bioWasteCapacity, 0); }
+int Residence::wasteOverflow() const { return std::max(mWasteAccumulated - bioWasteStorageCapacity(), 0); }
 
 
 int Residence::removeWaste(int amount)
@@ -50,7 +48,7 @@ StringTable Residence::createInspectorViewTable() const
 	stringTable[{1, 1}].text = std::to_string(assignedColonists());
 
 	stringTable[{0, 3}].text = "Waste Capacity:";
-	stringTable[{1, 3}].text = std::to_string(wasteCapacity());
+	stringTable[{1, 3}].text = std::to_string(bioWasteStorageCapacity());
 
 	stringTable[{0, 4}].text = "Waste Accumulated:";
 	stringTable[{1, 4}].text = std::to_string(wasteAccumulated());

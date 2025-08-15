@@ -8,7 +8,6 @@ class Residence : public Structure
 public:
 	Residence(Tile& tile);
 
-	int wasteCapacity() const;
 	int wasteAccumulated() const;
 	void wasteAccumulated(int amount);
 	int wasteOverflow() const;
