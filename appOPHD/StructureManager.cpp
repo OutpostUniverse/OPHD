@@ -534,6 +534,19 @@ int StructureManager::totalFoodStorageCapacity() const
 }
 
 
+int StructureManager::totalResidentialCapacity() const
+{
+	int residentialCapacity = 0;
+
+	for (const auto* structure : mDeployedStructures)
+	{
+		if (structure->operational()) { residentialCapacity += structure->residentialCapacity(); }
+	}
+
+	return residentialCapacity;
+}
+
+
 int StructureManager::totalRobotCommandCapacity() const
 {
 	int totalRobotCommandCapacity = 0;

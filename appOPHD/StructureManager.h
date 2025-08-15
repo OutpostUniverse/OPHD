@@ -105,6 +105,7 @@ public:
 
 	int totalRefinedOreStorageCapacity() const;
 	int totalFoodStorageCapacity() const;
+	int totalResidentialCapacity() const;
 	int totalRobotCommandCapacity() const;
 
 	void assignColonistsToResidences(PopulationPool&);

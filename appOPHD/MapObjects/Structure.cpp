@@ -245,6 +245,16 @@ int Structure::foodStorageCapacity() const
 	return mStructureType.foodStorageCapacity;
 }
 
+int Structure::residentialCapacity() const
+{
+	return mStructureType.residentialCapacity;
+}
+
+int Structure::bioWasteStorageCapacity() const
+{
+	return mStructureType.bioWasteCapacity;
+}
+
 int Structure::refinedOreStorageCapacity() const
 {
 	return mStructureType.oreStorageCapacity;
