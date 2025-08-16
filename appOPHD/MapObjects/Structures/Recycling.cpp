@@ -7,28 +7,9 @@
 #include <libOPHD/EnumStructureID.h>
 
 
-namespace
-{
-	const int WasteProcessingCapacity = 30;
-	const int ResidentialSupportCount = 10;
-}
-
-
 Recycling::Recycling(Tile& tile) :
 	Structure{StructureID::Recycling, tile}
 {
-}
-
-
-int Recycling::wasteProcessingCapacity() const
-{
-	return operational() ? WasteProcessingCapacity : 0;
-}
-
-
-int Recycling::residentialSupportCount() const
-{
-	return operational() ? ResidentialSupportCount : 0;
 }
 
 
