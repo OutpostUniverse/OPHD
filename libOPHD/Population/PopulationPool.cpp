@@ -1,6 +1,6 @@
 #include "PopulationPool.h"
 
-#include "Population.h"
+#include "PopulationModel.h"
 #include "PopulationRequirements.h"
 
 #include <algorithm>
@@ -9,26 +9,26 @@
 
 
 /**
- * Sets a pointer to a Population object.
+ * Sets a pointer to a PopulationModel object.
  *
  * \note	PopulationPool expects a valid object and does no checking
  *			for invalid states.
  */
-void PopulationPool::population(Population* pop)
+void PopulationPool::population(PopulationModel* pop)
 {
-	mPopulation = pop;
+	mPopulationModel = pop;
 }
 
 
 int PopulationPool::availableWorkers() const
 {
-	return mPopulation->getPopulations().worker - workersEmployed();
+	return mPopulationModel->getPopulations().worker - workersEmployed();
 }
 
 
 int PopulationPool::availableScientists() const
 {
-	return mPopulation->getPopulations().scientist - scientistsEmployed();
+	return mPopulationModel->getPopulations().scientist - scientistsEmployed();
 }
 
 
@@ -36,7 +36,7 @@ bool PopulationPool::usePopulation(PopulationRequirements populationRequirements
 {
 	const auto [workersRequired, scientistsRequired] = populationRequirements;
 
-	const auto& population = mPopulation->getPopulations();
+	const auto& population = mPopulationModel->getPopulations();
 	const auto scientistsAvailable = population.scientist - (mScientistsAsWorkers + mScientistsUsed);
 	const auto workersAvailable = population.worker - mWorkersUsed;
 
@@ -103,5 +103,5 @@ int PopulationPool::populationEmployed() const
 
 int PopulationPool::size() const
 {
-	return mPopulation->getPopulations().size();
+	return mPopulationModel->getPopulations().size();
 }

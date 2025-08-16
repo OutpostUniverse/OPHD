@@ -1,4 +1,4 @@
-#include "Population.h"
+#include "PopulationModel.h"
 #include "Morale.h"
 
 #include "../RandomNumberGenerator.h"
@@ -35,24 +35,24 @@ namespace
 }
 
 
-const PopulationTable& Population::getPopulations() const
+const PopulationTable& PopulationModel::getPopulations() const
 {
 	return mPopulation;
 }
 
 
-void Population::addPopulation(const PopulationTable& population)
+void PopulationModel::addPopulation(const PopulationTable& population)
 {
 	mPopulation += population;
 }
 
-void Population::removePopulation(const PopulationTable& population)
+void PopulationModel::removePopulation(const PopulationTable& population)
 {
 	mPopulation -= population.cap(mPopulation);
 }
 
 
-void Population::spawnPopulation(int morale, int residences, int nurseries, int universities)
+void PopulationModel::spawnPopulation(int morale, int residences, int nurseries, int universities)
 {
 	const int growthChild = (residences > 0 || nurseries > 0) ?
 		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
@@ -97,7 +97,7 @@ void Population::spawnPopulation(int morale, int residences, int nurseries, int 
 }
 
 
-PopulationTable Population::spawnRoles(const PopulationTable& growth, const PopulationTable& divisor)
+PopulationTable PopulationModel::spawnRoles(const PopulationTable& growth, const PopulationTable& divisor)
 {
 	mPopulationGrowth += growth;
 	const auto newRoles = mPopulationGrowth / divisor;
@@ -107,7 +107,7 @@ PopulationTable Population::spawnRoles(const PopulationTable& growth, const Popu
 }
 
 
-void Population::killRoles(const PopulationTable& divisor)
+void PopulationModel::killRoles(const PopulationTable& divisor)
 {
 	mPopulationDeath += mPopulation;
 
@@ -128,7 +128,7 @@ void Population::killRoles(const PopulationTable& divisor)
 }
 
 
-void Population::killPopulation(int morale, int nurseries, int hospitals)
+void PopulationModel::killPopulation(int morale, int nurseries, int hospitals)
 {
 	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityRate;
 
@@ -155,7 +155,7 @@ void Population::killPopulation(int morale, int nurseries, int hospitals)
  *
  * \return	Actual amount of food consumed.
  */
-int Population::consumeFood(int food)
+int PopulationModel::consumeFood(int food)
 {
 	const int PopulationPerFood = 10;
 	const int populationFed = food * PopulationPerFood;
@@ -181,7 +181,7 @@ int Population::consumeFood(int food)
 /**
  * \return	Actual amount of food consumed.
  */
-int Population::update(int morale, int food, int residences, int universities, int nurseries, int hospitals)
+int PopulationModel::update(int morale, int food, int residences, int universities, int nurseries, int hospitals)
 {
 	mBirthCount = 0;
 	mDeathCount = 0;

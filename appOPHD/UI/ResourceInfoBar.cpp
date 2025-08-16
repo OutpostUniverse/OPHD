@@ -10,7 +10,7 @@
 #include "../StructureManager.h"
 
 #include <libOPHD/StorableResources.h>
-#include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/PopulationModel.h>
 #include <libOPHD/Population/Morale.h>
 
 #include <NAS2D/EnumMouseButton.h>
@@ -68,11 +68,11 @@ namespace
 }
 
 
-ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const Population& population, const Morale& morale, const int& food) :
+ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const PopulationModel& population, const Morale& morale, const int& food) :
 	ControlContainer{{&mToolTip}},
 	mResourcesCount{resources},
 	mStructureManager{structureManager},
-	mPopulation{population},
+	mPopulationModel{population},
 	mMorale{morale},
 	mFood{food},
 	mUiIcons{imageCache.load("ui/icons.png")}
@@ -217,7 +217,7 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	const auto moraleLevel = (std::clamp(mMorale.currentMorale(), 1, 999) / 200);
 	const auto popMoraleImageRect = NAS2D::Rectangle<int>{{176 + moraleLevel * constants::ResourceIconSize, 0}, {constants::ResourceIconSize, constants::ResourceIconSize}};
 	drawIcon(position, popMoraleImageRect);
-	renderer.drawText(font, std::to_string(mPopulation.getPopulations().size()), position + textOffset, NAS2D::Color::White);
+	renderer.drawText(font, std::to_string(mPopulationModel.getPopulations().size()), position + textOffset, NAS2D::Color::White);
 }
 
 

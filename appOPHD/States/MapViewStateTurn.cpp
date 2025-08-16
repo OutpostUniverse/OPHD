@@ -109,7 +109,7 @@ void MapViewState::updatePopulation()
 	const auto& commandCenters = mStructureManager.getStructures<CommandCenter>();
 	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
-	int amountToConsume = mPopulation.update(mMorale.currentMorale(), mFood, residences, universities, nurseries, hospitals);
+	int amountToConsume = mPopulationModel.update(mMorale.currentMorale(), mFood, residences, universities, nurseries, hospitals);
 	consumeFood(foodProducers, amountToConsume);
 }
 
@@ -173,7 +173,7 @@ void MapViewState::updateMorale()
 {
 	// POSITIVE MORALE EFFECTS
 	// =========================================
-	const int birthCount = mPopulation.birthCount();
+	const int birthCount = mPopulationModel.birthCount();
 	const int parkCount = mStructureManager.operationalCount(StructureClass::Park);
 	const int recreationCount = mStructureManager.operationalCount(StructureClass::RecreationCenter);
 	const int foodProducingStructures = mStructureManager.operationalCount(StructureClass::FoodProduction);
@@ -181,10 +181,10 @@ void MapViewState::updateMorale()
 
 	// NEGATIVE MORALE EFFECTS
 	// =========================================
-	const int deathCount = mPopulation.deathCount();
+	const int deathCount = mPopulationModel.deathCount();
 	const int structuresDisabled = mStructureManager.disabledCount();
 	const int structuresDestroyed = mStructureManager.destroyedCount();
-	const int residentialOverCapacityHit = mPopulation.getPopulations().size() > mResidentialCapacity ? 2 : 0;
+	const int residentialOverCapacityHit = mPopulationModel.getPopulations().size() > mResidentialCapacity ? 2 : 0;
 	const int foodProductionHit = foodProducingStructures > 0 ? 0 : 5;
 
 	const auto& residences = mStructureManager.getStructures<Residence>();
@@ -225,8 +225,8 @@ void MapViewState::updateMorale()
 
 void MapViewState::notifyBirthsAndDeaths()
 {
-	const int birthCount = mPopulation.birthCount();
-	const int deathCount = mPopulation.deathCount();
+	const int birthCount = mPopulationModel.birthCount();
+	const int deathCount = mPopulationModel.deathCount();
 
 	// Push notifications
 	if (birthCount)
@@ -703,7 +703,7 @@ void MapViewState::nextTurn()
 	mMineOperationsWindow.updateTruckAvailability();
 
 	// Check for Game Over conditions
-	if (mPopulation.getPopulations().size() <= 0 && mColonyShip.colonistLanders() == 0)
+	if (mPopulationModel.getPopulations().size() <= 0 && mColonyShip.colonistLanders() == 0)
 	{
 		hideUi();
 		mGameOverDialog.show();

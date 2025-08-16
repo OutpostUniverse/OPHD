@@ -8,7 +8,7 @@
 
 
 struct MoraleChangeEntry;
-class Population;
+class PopulationModel;
 class PopulationPool;
 class Morale;
 
@@ -21,7 +21,7 @@ namespace NAS2D
 class PopulationPanel : public Control
 {
 public:
-	PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale);
+	PopulationPanel(const PopulationModel& pop, const PopulationPool& popPool, const Morale& morale);
 	~PopulationPanel() override;
 
 	void residentialCapacity(int val) { mResidentialCapacity = val; }
@@ -38,7 +38,7 @@ private:
 
 	std::vector<MoraleChangeEntry> mMoraleChangeReasons;
 
-	const Population& mPopulation;
+	const PopulationModel& mPopulationModel;
 	const PopulationPool& mPopulationPool;
 	const Morale& mMorale;
 

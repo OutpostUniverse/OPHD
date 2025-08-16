@@ -14,14 +14,14 @@ namespace NAS2D
 
 struct StorableResources;
 class StructureManager;
-class Population;
+class PopulationModel;
 class Morale;
 
 
 class ResourceInfoBar : public ControlContainer
 {
 public:
-	ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const Population& population, const Morale& morale, const int& food);
+	ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const PopulationModel& population, const Morale& morale, const int& food);
 	~ResourceInfoBar() override;
 
 	bool isResourcePanelVisible() const;
@@ -38,7 +38,7 @@ protected:
 private:
 	const StorableResources& mResourcesCount;
 	const StructureManager& mStructureManager;
-	const Population& mPopulation;
+	const PopulationModel& mPopulationModel;
 	const Morale& mMorale;
 	const int& mFood;
 

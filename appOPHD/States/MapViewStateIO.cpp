@@ -176,7 +176,7 @@ void MapViewState::save(NAS2D::Xml::XmlDocument& saveGameDocument)
 	root->linkEndChild(writeResearch(mResearchTracker));
 	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
 
-	const auto& population = mPopulation.getPopulations();
+	const auto& population = mPopulationModel.getPopulations();
 	root->linkEndChild(NAS2D::dictionaryToAttributes(
 		"population",
 		{{
@@ -536,7 +536,7 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 {
 	if (element)
 	{
-		mPopulation = {};
+		mPopulationModel = {};
 
 		const auto dictionary = NAS2D::attributesToDictionary(*element);
 
@@ -554,7 +554,7 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 
 		mPopulationPanel.crimeRate(meanCrimeRate);
 
-		mPopulation.addPopulation({children, students, workers, scientists, retired});
+		mPopulationModel.addPopulation({children, students, workers, scientists, retired});
 	}
 }
 

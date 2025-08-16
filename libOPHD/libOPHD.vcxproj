@@ -172,7 +172,7 @@
     <ClCompile Include="MapObjects\MapObject.cpp" />
     <ClCompile Include="MapObjects\OreDeposit.cpp" />
     <ClCompile Include="Population\Morale.cpp" />
-    <ClCompile Include="Population\Population.cpp" />
+    <ClCompile Include="Population\PopulationModel.cpp" />
     <ClCompile Include="Population\PopulationPool.cpp" />
     <ClCompile Include="Population\PopulationTable.cpp" />
     <ClCompile Include="Technology\ResearchTracker.cpp" />
@@ -204,7 +204,7 @@
     <ClInclude Include="MapObjects\StructureType.h" />
     <ClInclude Include="Population\Morale.h" />
     <ClInclude Include="Population\MoraleChangeEntry.h" />
-    <ClInclude Include="Population\Population.h" />
+    <ClInclude Include="Population\PopulationModel.h" />
     <ClInclude Include="Population\PopulationPool.h" />
     <ClInclude Include="Population\PopulationRequirements.h" />
     <ClInclude Include="Population\PopulationTable.h" />

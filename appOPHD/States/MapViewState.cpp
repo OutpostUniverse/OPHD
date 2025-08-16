@@ -193,9 +193,9 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	},
 	mNotificationArea{{this, &MapViewState::onNotificationClicked}},
 	mNotificationWindow{{this, &MapViewState::onTakeMeThere}},
-	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
+	mPopulationPanel{mPopulationModel, mPopulationPool, mMorale},
 	mQuitHandler{quitHandler},
-	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulation, mMorale, mFood},
+	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulationModel, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().windowResized().connect({this, &MapViewState::onWindowResized});
@@ -238,10 +238,10 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	},
 	mNotificationArea{{this, &MapViewState::onNotificationClicked}},
 	mNotificationWindow{{this, &MapViewState::onTakeMeThere}},
-	mPopulationPanel{mPopulation, mPopulationPool, mMorale},
+	mPopulationPanel{mPopulationModel, mPopulationPool, mMorale},
 	mQuitHandler{quitHandler},
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
-	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulation, mMorale, mFood},
+	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulationModel, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
 	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
@@ -285,7 +285,7 @@ void MapViewState::initialize()
 
 	setCursor(PointerType::Normal);
 
-	mPopulationPool.population(&mPopulation);
+	mPopulationPool.population(&mPopulationModel);
 
 	if (mLoadingExisting)
 	{
