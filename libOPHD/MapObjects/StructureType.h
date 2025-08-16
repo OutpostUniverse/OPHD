@@ -27,7 +27,7 @@ struct StructureType
 	int foodProduced{0};
 	int foodStorageCapacity{0};
 	int residentialCapacity{0};
-	int bioWasteCapacity{0};
+	int bioWasteStorageCapacity{0};
 	int robotCommandCapacity{0};
 	int commRange{0};
 	int policeRange{0};

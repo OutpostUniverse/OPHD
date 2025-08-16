@@ -257,7 +257,7 @@ int Structure::residentialCapacity() const
 
 int Structure::bioWasteStorageCapacity() const
 {
-	return mStructureType.bioWasteCapacity;
+	return mStructureType.bioWasteStorageCapacity;
 }
 
 int Structure::commRange() const
