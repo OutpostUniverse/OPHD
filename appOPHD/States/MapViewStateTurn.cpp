@@ -426,15 +426,16 @@ void MapViewState::updateResidentialCapacity()
 
 void MapViewState::updateBiowasteRecycling()
 {
-	const auto& residences = mStructureManager.getStructures<Residence>();
 	int bioWasteProcessingCapacity = mStructureManager.totalBioWasteProcessingCapacity();
+	if (bioWasteProcessingCapacity <= 0) { return; }
+
+	const auto& residences = mStructureManager.getStructures<Residence>();
 
 	for (auto* residence : residences)
 	{
-		if (bioWasteProcessingCapacity <= 0) { return; }
-
 		const auto processedWaste = residence->removeWaste(bioWasteProcessingCapacity);
 		bioWasteProcessingCapacity -= processedWaste;
+		if (bioWasteProcessingCapacity <= 0) { return; }
 	}
 }
 
