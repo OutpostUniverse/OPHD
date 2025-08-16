@@ -547,6 +547,19 @@ int StructureManager::totalResidentialCapacity() const
 }
 
 
+int StructureManager::totalBioWasteStorageCapacity() const
+{
+	int bioWasteStorageCapacity = 0;
+
+	for (const auto* structure : mDeployedStructures)
+	{
+		if (structure->operational()) { bioWasteStorageCapacity += structure->bioWasteStorageCapacity(); }
+	}
+
+	return bioWasteStorageCapacity;
+}
+
+
 int StructureManager::totalRobotCommandCapacity() const
 {
 	int totalRobotCommandCapacity = 0;
