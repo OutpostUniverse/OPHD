@@ -426,27 +426,26 @@ void MapViewState::updateResidentialCapacity()
 
 void MapViewState::updateBiowasteRecycling()
 {
-	const auto& residences = mStructureManager.getStructures<Residence>();
-	const auto& recyclingFacilities = mStructureManager.getStructures<Recycling>();
+	int bioWasteProcessingCapacity = mStructureManager.totalBioWasteProcessingCapacity();
+	if (bioWasteProcessingCapacity <= 0) { return; }
 
-	if (residences.empty() || recyclingFacilities.empty()) { return; }
-
-	auto residenceIterator = residences.begin();
-	for (const auto* recycling : recyclingFacilities)
+	// Process overflow first, prioritizing structures with minimal overflow
+	auto residences = mStructureManager.getStructures<Residence>();
+	std::ranges::stable_sort(residences, std::ranges::less{}, [](const Residence* residence) { return residence->wasteOverflow(); });
+	for (auto* residence : residences)
 	{
-		if (!recycling->operational()) { continue; } // Consider a different control structure
+		const auto amountToProcess = std::min(bioWasteProcessingCapacity, residence->wasteOverflow());
+		const auto processedWaste = residence->removeWaste(amountToProcess);
+		bioWasteProcessingCapacity -= processedWaste;
+		if (bioWasteProcessingCapacity <= 0) { return; }
+	}
 
-		for (int count = 0; count < recycling->residentialSupportCount(); ++count)
-		{
-			if (residenceIterator == residences.end())
-			{
-				return; // No more residences, so don't waste time iterating over remaining recycling facilities
-			}
-
-			auto& residence = dynamic_cast<Residence&>(**residenceIterator);
-			residence.removeWaste(recycling->wasteProcessingCapacity());
-			++residenceIterator;
-		}
+	// Process base amounts
+	for (auto* residence : mStructureManager.getStructures<Residence>())
+	{
+		const auto processedWaste = residence->removeWaste(bioWasteProcessingCapacity);
+		bioWasteProcessingCapacity -= processedWaste;
+		if (bioWasteProcessingCapacity <= 0) { return; }
 	}
 }
 

@@ -111,7 +111,7 @@ namespace
 		const auto& structuresElement = *document.firstChildElement("Structures");
 
 		const auto requiredFields = std::vector<std::string>{"Name", "ImagePath"};
-		const auto optionalFields = std::vector<std::string>{"Description", "TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "FoodProduced", "FoodStorageCapacity", "ResidentialCapacity", "BioWasteCapacity", "RawOreStorageCapacity", "OreStorageCapacity", "RobotCommandCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
+		const auto optionalFields = std::vector<std::string>{"Description", "TurnsToBuild", "MaxAge", "RequiredWorkers", "RequiredScientists", "Priority", "EnergyRequired", "EnergyProduced", "SolarEnergyProduced", "RawOreStorageCapacity", "OreStorageCapacity", "FoodProduced", "FoodStorageCapacity", "ResidentialCapacity", "BioWasteStorageCapacity", "BioWasteProcessingCapacity", "RobotCommandCapacity", "CommRange", "PoliceRange", "IntegrityDecayRate", "PopulationRequirements", "ResourceRequirements", "IsSelfSustained", "IsRepairable", "IsChapRequired", "IsCrimeTarget"};
 
 		std::vector<StructureType> loadedStructureTypes;
 		for (const auto* structureElement = structuresElement.firstChildElement(); structureElement; structureElement = structureElement->nextSiblingElement())
@@ -135,12 +135,13 @@ namespace
 				dictionary.get<int>("EnergyRequired", 0),
 				dictionary.get<int>("EnergyProduced", 0),
 				dictionary.get<int>("SolarEnergyProduced", 0),
+				dictionary.get<int>("RawOreStorageCapacity", 0),
+				dictionary.get<int>("OreStorageCapacity", 0),
 				dictionary.get<int>("FoodProduced", 0),
 				dictionary.get<int>("FoodStorageCapacity", 0),
 				dictionary.get<int>("ResidentialCapacity", 0),
-				dictionary.get<int>("BioWasteCapacity", 0),
-				dictionary.get<int>("RawOreStorageCapacity", 0),
-				dictionary.get<int>("OreStorageCapacity", 0),
+				dictionary.get<int>("BioWasteStorageCapacity", 0),
+				dictionary.get<int>("BioWasteProcessingCapacity", 0),
 				dictionary.get<int>("RobotCommandCapacity", 0),
 				dictionary.get<int>("CommRange", 0),
 				dictionary.get<int>("PoliceRange", 0),

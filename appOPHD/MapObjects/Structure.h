@@ -93,11 +93,12 @@ public:
 	int energyRequirement() const;
 	int energyProduced() const;
 	int energyProducedMax() const;
+	int refinedOreStorageCapacity() const;
 	int foodProduced() const;
 	int foodStorageCapacity() const;
 	int residentialCapacity() const;
 	int bioWasteStorageCapacity() const;
-	int refinedOreStorageCapacity() const;
+	int bioWasteProcessingCapacity() const;
 	int commRange() const;
 	int policeRange() const;
 

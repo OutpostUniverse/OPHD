@@ -235,6 +235,11 @@ int Structure::energyProducedMax() const
 	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
 }
 
+int Structure::refinedOreStorageCapacity() const
+{
+	return mStructureType.oreStorageCapacity;
+}
+
 int Structure::foodProduced() const
 {
 	return operational() ? mStructureType.foodProduced : 0;
@@ -252,12 +257,12 @@ int Structure::residentialCapacity() const
 
 int Structure::bioWasteStorageCapacity() const
 {
-	return mStructureType.bioWasteCapacity;
+	return mStructureType.bioWasteStorageCapacity;
 }
 
-int Structure::refinedOreStorageCapacity() const
+int Structure::bioWasteProcessingCapacity() const
 {
-	return mStructureType.oreStorageCapacity;
+	return mStructureType.bioWasteProcessingCapacity;
 }
 
 int Structure::commRange() const

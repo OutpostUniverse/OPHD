@@ -547,6 +547,32 @@ int StructureManager::totalResidentialCapacity() const
 }
 
 
+int StructureManager::totalBioWasteStorageCapacity() const
+{
+	int bioWasteStorageCapacity = 0;
+
+	for (const auto* structure : mDeployedStructures)
+	{
+		if (structure->operational()) { bioWasteStorageCapacity += structure->bioWasteStorageCapacity(); }
+	}
+
+	return bioWasteStorageCapacity;
+}
+
+
+int StructureManager::totalBioWasteProcessingCapacity() const
+{
+	int bioWasteProcessingCapacity = 0;
+
+	for (const auto* structure : mDeployedStructures)
+	{
+		if (structure->operational()) { bioWasteProcessingCapacity += structure->bioWasteProcessingCapacity(); }
+	}
+
+	return bioWasteProcessingCapacity;
+}
+
+
 int StructureManager::totalRobotCommandCapacity() const
 {
 	int totalRobotCommandCapacity = 0;
