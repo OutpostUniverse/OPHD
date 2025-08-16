@@ -8,7 +8,7 @@
 #include "../Constants/UiConstants.h"
 
 #include <libOPHD/EnumMoraleIndex.h>
-#include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/PopulationModel.h>
 #include <libOPHD/Population/PopulationPool.h>
 #include <libOPHD/Population/Morale.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
@@ -44,7 +44,7 @@ namespace
 }
 
 
-PopulationPanel::PopulationPanel(const Population& pop, const PopulationPool& popPool, const Morale& morale) :
+PopulationPanel::PopulationPanel(const PopulationModel& pop, const PopulationPool& popPool, const Morale& morale) :
 	mFont{Control::getDefaultFont()},
 	mFontBold{Control::getDefaultFontBold()},
 	mIcons{imageCache.load("ui/icons.png")},

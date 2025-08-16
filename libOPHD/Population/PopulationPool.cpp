@@ -1,6 +1,6 @@
 #include "PopulationPool.h"
 
-#include "Population.h"
+#include "PopulationModel.h"
 #include "PopulationRequirements.h"
 
 #include <algorithm>
@@ -9,12 +9,12 @@
 
 
 /**
- * Sets a pointer to a Population object.
+ * Sets a pointer to a PopulationModel object.
  *
  * \note	PopulationPool expects a valid object and does no checking
  *			for invalid states.
  */
-void PopulationPool::population(Population* pop)
+void PopulationPool::population(PopulationModel* pop)
 {
 	mPopulation = pop;
 }

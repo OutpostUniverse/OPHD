@@ -33,7 +33,7 @@
 #include <libOPHD/Map/MapCoordinate.h>
 
 #include <libOPHD/Population/PopulationPool.h>
-#include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/PopulationModel.h>
 #include <libOPHD/Population/Morale.h>
 
 #include <libOPHD/Technology/ResearchTracker.h>
@@ -287,7 +287,7 @@ private:
 	PopulationPool mPopulationPool;
 
 	std::vector<Robot*>& mDeployedRobots;
-	Population mPopulation;
+	PopulationModel mPopulation;
 
 	// ROUTING
 	std::unique_ptr<RouteFinder> mPathSolver;

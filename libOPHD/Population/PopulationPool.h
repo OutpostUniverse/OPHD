@@ -2,13 +2,13 @@
 
 
 struct PopulationRequirements;
-class Population;
+class PopulationModel;
 
 
 class PopulationPool
 {
 public:
-	void population(Population* pop);
+	void population(PopulationModel* pop);
 
 	int availableWorkers() const;
 	int availableScientists() const;
@@ -29,5 +29,5 @@ private:
 	int mScientistsUsed{0};
 	int mWorkersUsed{0};
 
-	Population* mPopulation{nullptr};
+	PopulationModel* mPopulation{nullptr};
 };

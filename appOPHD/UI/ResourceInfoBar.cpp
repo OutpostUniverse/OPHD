@@ -10,7 +10,7 @@
 #include "../StructureManager.h"
 
 #include <libOPHD/StorableResources.h>
-#include <libOPHD/Population/Population.h>
+#include <libOPHD/Population/PopulationModel.h>
 #include <libOPHD/Population/Morale.h>
 
 #include <NAS2D/EnumMouseButton.h>
@@ -68,7 +68,7 @@ namespace
 }
 
 
-ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const Population& population, const Morale& morale, const int& food) :
+ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const StructureManager& structureManager, const PopulationModel& population, const Morale& morale, const int& food) :
 	ControlContainer{{&mToolTip}},
 	mResourcesCount{resources},
 	mStructureManager{structureManager},

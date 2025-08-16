@@ -3,7 +3,7 @@
 #include "PopulationTable.h"
 
 
-class Population
+class PopulationModel
 {
 public:
 	int birthCount() const { return mBirthCount; }

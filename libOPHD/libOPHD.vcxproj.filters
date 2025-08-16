@@ -63,7 +63,7 @@
     <ClCompile Include="Population\Morale.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Population\Population.cpp">
+    <ClCompile Include="Population\PopulationModel.cpp">
       <Filter>Source Files\Population</Filter>
     </ClCompile>
     <ClCompile Include="Population\PopulationPool.cpp">
@@ -155,7 +155,7 @@
     <ClInclude Include="Population\MoraleChangeEntry.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
-    <ClInclude Include="Population\Population.h">
+    <ClInclude Include="Population\PopulationModel.h">
       <Filter>Header Files\Population</Filter>
     </ClInclude>
     <ClInclude Include="Population\PopulationPool.h">
