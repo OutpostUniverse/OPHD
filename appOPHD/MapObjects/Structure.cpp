@@ -260,6 +260,11 @@ int Structure::bioWasteStorageCapacity() const
 	return mStructureType.bioWasteStorageCapacity;
 }
 
+int Structure::bioWasteProcessingCapacity() const
+{
+	return mStructureType.bioWasteProcessingCapacity;
+}
+
 int Structure::commRange() const
 {
 	return operational() ? mStructureType.commRange : 0;

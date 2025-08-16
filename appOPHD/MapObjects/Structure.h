@@ -98,6 +98,7 @@ public:
 	int foodStorageCapacity() const;
 	int residentialCapacity() const;
 	int bioWasteStorageCapacity() const;
+	int bioWasteProcessingCapacity() const;
 	int commRange() const;
 	int policeRange() const;
 
