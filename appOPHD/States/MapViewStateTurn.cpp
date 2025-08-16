@@ -427,26 +427,15 @@ void MapViewState::updateResidentialCapacity()
 void MapViewState::updateBiowasteRecycling()
 {
 	const auto& residences = mStructureManager.getStructures<Residence>();
-	const auto& recyclingFacilities = mStructureManager.getStructures<Recycling>();
+	int bioWasteProcessingCapacity = mStructureManager.totalBioWasteProcessingCapacity();
 
-	if (residences.empty() || recyclingFacilities.empty()) { return; }
-
-	auto residenceIterator = residences.begin();
-	for (const auto* recycling : recyclingFacilities)
+	for (auto* structure : residences)
 	{
-		if (!recycling->operational()) { continue; } // Consider a different control structure
+		if (bioWasteProcessingCapacity <= 0) { return; }
 
-		for (int count = 0; count < recycling->residentialSupportCount(); ++count)
-		{
-			if (residenceIterator == residences.end())
-			{
-				return; // No more residences, so don't waste time iterating over remaining recycling facilities
-			}
-
-			auto& residence = dynamic_cast<Residence&>(**residenceIterator);
-			residence.removeWaste(recycling->wasteProcessingCapacity());
-			++residenceIterator;
-		}
+		auto& residence = *structure;
+		const auto processedWaste = residence.removeWaste(bioWasteProcessingCapacity);
+		bioWasteProcessingCapacity -= processedWaste;
 	}
 }
 
