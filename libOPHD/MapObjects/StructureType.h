@@ -22,12 +22,12 @@ struct StructureType
 	int energyRequired{0};
 	int energyProduced{0};
 	int solarEnergyProduced{0};
+	int rawOreStorageCapacity{0};
+	int oreStorageCapacity{0};
 	int foodProduced{0};
 	int foodStorageCapacity{0};
 	int residentialCapacity{0};
 	int bioWasteCapacity{0};
-	int rawOreStorageCapacity{0};
-	int oreStorageCapacity{0};
 	int robotCommandCapacity{0};
 	int commRange{0};
 	int policeRange{0};
