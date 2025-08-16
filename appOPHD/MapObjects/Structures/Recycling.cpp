@@ -34,17 +34,13 @@ int Recycling::residentialSupportCount() const
 
 StringTable Recycling::createInspectorViewTable() const
 {
-	StringTable stringTable(2, 2);
+	StringTable stringTable(2, 1);
 
-	stringTable[{0, 0}].text = "Max Residents Supported:";
-	stringTable[{1, 0}].text = std::to_string(residentialSupportCount());
-
-	stringTable[{0, 1}].text = "Max Waste Processing Capacity:";
-	stringTable[{1, 1}].text = std::to_string(wasteProcessingCapacity());
+	stringTable[{0, 0}].text = "Max Waste Processing Capacity:";
+	stringTable[{1, 0}].text = std::to_string(bioWasteProcessingCapacity());
 
 	if (!operational()) {
 		stringTable[{1, 0}].textColor = constants::WarningTextColor;
-		stringTable[{1, 1}].textColor = constants::WarningTextColor;
 	}
 
 	return stringTable;
