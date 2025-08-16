@@ -567,34 +567,34 @@ void MapViewState::onCheatCodeEntry(CheatMenu::CheatCode cheatCode)
 		}
 		break;
 		case CheatMenu::CheatCode::AddChildren:
-			mPopulation.addPopulation({10, 0, 0, 0, 0});
+			mPopulationModel.addPopulation({10, 0, 0, 0, 0});
 		break;
 		case CheatMenu::CheatCode::AddStudents:
-			mPopulation.addPopulation({0, 10, 0, 0, 0});
+			mPopulationModel.addPopulation({0, 10, 0, 0, 0});
 		break;
 		case CheatMenu::CheatCode::AddWorkers:
-			mPopulation.addPopulation({0, 0, 10, 0, 0});
+			mPopulationModel.addPopulation({0, 0, 10, 0, 0});
 		break;
 		case CheatMenu::CheatCode::AddScientists:
-			mPopulation.addPopulation({0, 0, 0, 10, 0});
+			mPopulationModel.addPopulation({0, 0, 0, 10, 0});
 		break;
 		case CheatMenu::CheatCode::AddRetired:
-			mPopulation.addPopulation({0, 0, 0, 0, 10});
+			mPopulationModel.addPopulation({0, 0, 0, 0, 10});
 		break;
 		case CheatMenu::CheatCode::RemoveChildren:
-			mPopulation.removePopulation({10, 0, 0, 0, 0});
+			mPopulationModel.removePopulation({10, 0, 0, 0, 0});
 		break;
 		case CheatMenu::CheatCode::RemoveStudents:
-			mPopulation.removePopulation({0, 10, 0, 0, 0});
+			mPopulationModel.removePopulation({0, 10, 0, 0, 0});
 		break;
 		case CheatMenu::CheatCode::RemoveWorkers:
-			mPopulation.removePopulation({0, 0, 10, 0, 0});
+			mPopulationModel.removePopulation({0, 0, 10, 0, 0});
 		break;
 		case CheatMenu::CheatCode::RemoveScientists:
-			mPopulation.removePopulation({0, 0, 0, 10, 0});
+			mPopulationModel.removePopulation({0, 0, 0, 10, 0});
 		break;
 		case CheatMenu::CheatCode::RemoveRetired:
-			mPopulation.removePopulation({0, 0, 0, 0, 10});
+			mPopulationModel.removePopulation({0, 0, 0, 0, 10});
 		break;
 		case CheatMenu::CheatCode::AddRobots:
 			mRobotPool.addRobot(RobotTypeIndex::Digger);

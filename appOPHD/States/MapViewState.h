@@ -287,7 +287,7 @@ private:
 	PopulationPool mPopulationPool;
 
 	std::vector<Robot*>& mDeployedRobots;
-	PopulationModel mPopulation;
+	PopulationModel mPopulationModel;
 
 	// ROUTING
 	std::unique_ptr<RouteFinder> mPathSolver;

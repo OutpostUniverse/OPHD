@@ -49,7 +49,7 @@ PopulationPanel::PopulationPanel(const PopulationModel& pop, const PopulationPoo
 	mFontBold{Control::getDefaultFontBold()},
 	mIcons{imageCache.load("ui/icons.png")},
 	mSkin{loadRectangleSkin("ui/skin/window")},
-	mPopulation(pop),
+	mPopulationModel(pop),
 	mPopulationPool(popPool),
 	mMorale(morale)
 {
@@ -93,7 +93,7 @@ void PopulationPanel::draw(NAS2D::Renderer& renderer) const
 
 	// POPULATION Statistics
 	renderer.drawText(mFontBold, constants::PopulationBreakdown, position);
-	const auto& population = mPopulation.getPopulations();
+	const auto& population = mPopulationModel.getPopulations();
 	const std::array populationData
 	{
 		std::tuple{NAS2D::Rectangle<int>{{0, 96}, {IconSize, IconSize}}, population.child, std::string("Children")},

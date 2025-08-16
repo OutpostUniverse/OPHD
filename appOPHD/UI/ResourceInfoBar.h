@@ -38,7 +38,7 @@ protected:
 private:
 	const StorableResources& mResourcesCount;
 	const StructureManager& mStructureManager;
-	const PopulationModel& mPopulation;
+	const PopulationModel& mPopulationModel;
 	const Morale& mMorale;
 	const int& mFood;
 

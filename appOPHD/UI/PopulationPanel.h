@@ -38,7 +38,7 @@ private:
 
 	std::vector<MoraleChangeEntry> mMoraleChangeReasons;
 
-	const PopulationModel& mPopulation;
+	const PopulationModel& mPopulationModel;
 	const PopulationPool& mPopulationPool;
 	const Morale& mMorale;
 

@@ -29,5 +29,5 @@ private:
 	int mScientistsUsed{0};
 	int mWorkersUsed{0};
 
-	PopulationModel* mPopulation{nullptr};
+	PopulationModel* mPopulationModel{nullptr};
 };
