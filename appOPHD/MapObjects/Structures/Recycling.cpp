@@ -20,19 +20,12 @@ Recycling::Recycling(Tile& tile) :
 }
 
 
-/**
- * Amount of waste the facility can process per turn.
- */
 int Recycling::wasteProcessingCapacity() const
 {
 	return operational() ? WasteProcessingCapacity : 0;
 }
 
 
-/**
- * Number of residential units the facility can support
- * each turn.
- */
 int Recycling::residentialSupportCount() const
 {
 	return operational() ? ResidentialSupportCount : 0;
