@@ -429,6 +429,18 @@ void MapViewState::updateBiowasteRecycling()
 	int bioWasteProcessingCapacity = mStructureManager.totalBioWasteProcessingCapacity();
 	if (bioWasteProcessingCapacity <= 0) { return; }
 
+	// Process overflow first, prioritizing structures with minimal overflow
+	auto residences = mStructureManager.getStructures<Residence>();
+	std::ranges::stable_sort(residences, std::ranges::less{}, [](const Residence* residence) { return residence->wasteOverflow(); });
+	for (auto* residence : residences)
+	{
+		const auto amountToProcess = std::min(bioWasteProcessingCapacity, residence->wasteOverflow());
+		const auto processedWaste = residence->removeWaste(amountToProcess);
+		bioWasteProcessingCapacity -= processedWaste;
+		if (bioWasteProcessingCapacity <= 0) { return; }
+	}
+
+	// Process base amounts
 	for (auto* residence : mStructureManager.getStructures<Residence>())
 	{
 		const auto processedWaste = residence->removeWaste(bioWasteProcessingCapacity);
