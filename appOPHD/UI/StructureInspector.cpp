@@ -15,6 +15,9 @@
 
 namespace
 {
+	constexpr auto windowSizeMin = NAS2D::Vector{350, 250};
+
+
 	const std::map<DisabledReason, std::string> disabledReasonTable =
 	{
 		{DisabledReason::None, "Not Disabled"},
@@ -124,7 +127,7 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({350, 250});
+	size(windowSizeMin);
 	add(btnClose, area().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
@@ -139,8 +142,8 @@ void StructureInspector::showStructure(const Structure& structure)
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
 	auto windowSize = NAS2D::Vector{
-		std::max({350, genericStructureAttributes.area().size.x, specificStructureAttributes.area().size.x}),
-		std::max({250, specificStructureAttributes.area().endPoint().y - genericStructureAttributes.area().position.y + btnClose.size().y})
+		std::max({windowSizeMin.x, genericStructureAttributes.area().size.x, specificStructureAttributes.area().size.x}),
+		std::max({windowSizeMin.y, specificStructureAttributes.area().endPoint().y - genericStructureAttributes.area().position.y + btnClose.size().y})
 	} + NAS2D::Vector{constants::Margin, constants::Margin} * 2;
 
 	size(windowSize);
