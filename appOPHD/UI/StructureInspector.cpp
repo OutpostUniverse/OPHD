@@ -1,7 +1,6 @@
 #include "StructureInspector.h"
 
 #include "../Cache.h"
-#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 #include "StringTable.h"
@@ -121,7 +120,7 @@ namespace
 
 
 StructureInspector::StructureInspector() :
-	Window{constants::WindowStructureInspector},
+	Window{"Structure Details"},
 	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {

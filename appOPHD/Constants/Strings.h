@@ -154,7 +154,6 @@ namespace constants
 	const std::string WindowFactoryProduction = "Factory Production";
 	const std::string WindowGameOver = "Game Over";
 	const std::string WindowMineOperations = "Mine Facility Operations";
-	const std::string WindowStructureInspector = "Structure Details";
 	const std::string WindowTileInspector = "Tile Inspector";
 	const std::string WindowWarehouseInspector = "Warehouse Details";
 
