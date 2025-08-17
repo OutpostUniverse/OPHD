@@ -18,92 +18,49 @@
 #include <stdexcept>
 
 
-namespace constants
-{
-	const std::string Agridome = "Agricultural Dome";
-	const std::string AirShaft = "Air Shaft";
-	const std::string CargoLander = "Cargo Lander";
-	const std::string Chap = "CHAP Facility";
-	const std::string ColonistLander = "Colonist Lander";
-	const std::string CommandCenter = "Command Center";
-	const std::string Commercial = "Commercial";
-	const std::string CommTower = "Communications Tower";
-	const std::string FusionReactor = "Fusion Reactor";
-	const std::string HotLaboratory = "Hot Laboratory";
-	const std::string Laboratory = "Laboratory";
-	const std::string MedicalCenter = "Medical Center";
-	const std::string MineFacility = "Mine Facility";
-	const std::string MineShaft = "Mine Shaft";
-	const std::string Nursery = "Nursery";
-	const std::string Park = "Park / Reservoir";
-	const std::string RecreationCenter = "Recreation Center";
-	const std::string RedLightDistrict = "Red Light District";
-	const std::string Residence = "Residential Facility";
-	const std::string Road = "Road";
-	const std::string RobotCommand = "Robot Command";
-	const std::string SeedFactory = "SEED Factory";
-	const std::string SeedLander = "SEED Lander";
-	const std::string SeedPower = "SEED Power";
-	const std::string SeedSmelter = "SEED Smelter";
-	const std::string Smelter = "Smelter";
-	const std::string SolarPanel1 = "Solar Panel Array";
-	const std::string SolarPlant = "Solar Powersat Receiver Array";
-	const std::string StorageTanks = "Storage Tanks";
-	const std::string SurfaceFactory = "Surface Factory";
-	const std::string SurfacePolice = "Police";
-	const std::string Tube = "Tube";
-	const std::string UndergroundFactory = "Underground Factory";
-	const std::string UndergroundPolice = "Police (UG)";
-	const std::string University = "University";
-	const std::string Warehouse = "Warehouse";
-	const std::string Recycling = "Recycling Facility";
-	const std::string MaintenanceFacility = "Maintenance Facility";
-}
-
-
 namespace
 {
 	static const std::array StructureNameTable =
 	{
 		std::string{"Null"},
-		constants::Agridome,
-		constants::AirShaft,
-		constants::CargoLander,
-		constants::Chap,
-		constants::ColonistLander,
-		constants::CommandCenter,
-		constants::Commercial,
-		constants::CommTower,
-		constants::FusionReactor,
-		constants::HotLaboratory,
-		constants::Laboratory,
-		constants::MedicalCenter,
-		constants::MineFacility,
-		constants::MineShaft,
-		constants::Nursery,
-		constants::Park,
-		constants::RecreationCenter,
-		constants::RedLightDistrict,
-		constants::Residence,
-		constants::Road,
-		constants::RobotCommand,
-		constants::SeedFactory,
-		constants::SeedLander,
-		constants::SeedPower,
-		constants::SeedSmelter,
-		constants::Smelter,
-		constants::SolarPanel1,
-		constants::SolarPlant,
-		constants::StorageTanks,
-		constants::SurfaceFactory,
-		constants::SurfacePolice,
-		constants::Tube,
-		constants::UndergroundFactory,
-		constants::UndergroundPolice,
-		constants::University,
-		constants::Warehouse,
-		constants::Recycling,
-		constants::MaintenanceFacility
+		std::string{"Agricultural Dome"},
+		std::string{"Air Shaft"},
+		std::string{"Cargo Lander"},
+		std::string{"CHAP Facility"},
+		std::string{"Colonist Lander"},
+		std::string{"Command Center"},
+		std::string{"Commercial"},
+		std::string{"Communications Tower"},
+		std::string{"Fusion Reactor"},
+		std::string{"Hot Laboratory"},
+		std::string{"Laboratory"},
+		std::string{"Medical Center"},
+		std::string{"Mine Facility"},
+		std::string{"Mine Shaft"},
+		std::string{"Nursery"},
+		std::string{"Park / Reservoir"},
+		std::string{"Recreation Center"},
+		std::string{"Red Light District"},
+		std::string{"Residential Facility"},
+		std::string{"Road"},
+		std::string{"Robot Command"},
+		std::string{"SEED Factory"},
+		std::string{"SEED Lander"},
+		std::string{"SEED Power"},
+		std::string{"SEED Smelter"},
+		std::string{"Smelter"},
+		std::string{"Solar Panel Array"},
+		std::string{"Solar Powersat Receiver Array"},
+		std::string{"Storage Tanks"},
+		std::string{"Surface Factory"},
+		std::string{"Police"},
+		std::string{"Tube"},
+		std::string{"Underground Factory"},
+		std::string{"Police (UG)"},
+		std::string{"University"},
+		std::string{"Warehouse"},
+		std::string{"Recycling Facility"},
+		std::string{"Maintenance Facility"},
 	};
 
 	constexpr auto structureIdCount = static_cast<std::size_t>(StructureID::Count);
