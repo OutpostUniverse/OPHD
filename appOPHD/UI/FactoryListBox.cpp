@@ -17,6 +17,15 @@
 #include <stdexcept>
 
 
+namespace
+{
+	constexpr auto IconPositionDestroyedFactory = NAS2D::Point{414, 368};
+	constexpr auto IconPositionUndergroundFactory = NAS2D::Point{138, 276};
+	constexpr auto IconPositionSeedFactory = NAS2D::Point{460, 368};
+	constexpr auto IconPositionSurfaceFactory = NAS2D::Point{0, 46};
+}
+
+
 FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{{0, 58}, selectionChangedHandler},
 	mFont{fontCache.load(constants::FontPrimary, 12)},
@@ -55,10 +64,10 @@ void FactoryListBox::addItem(Factory* factory)
 	}
 
 	const auto& text = factory->name();
-	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? NAS2D::Point<int>{414, 368} :
-		(text == constants::UndergroundFactory) ? NAS2D::Point<int>{138, 276} :
-		(text == constants::SeedFactory) ? NAS2D::Point<int>{460, 368} :
-		NAS2D::Point<int>{0, 46}; // Surface factory
+	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? IconPositionDestroyedFactory :
+		(text == constants::UndergroundFactory) ? IconPositionUndergroundFactory :
+		(text == constants::SeedFactory) ? IconPositionSeedFactory :
+		IconPositionSurfaceFactory;
 	add(text, factory, iconPosition);
 }
 
