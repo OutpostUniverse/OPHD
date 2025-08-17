@@ -2,7 +2,6 @@
 
 #include "MapObjects/Structures.h"
 #include "IOHelper.h"
-#include "Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/StructureType.h>
