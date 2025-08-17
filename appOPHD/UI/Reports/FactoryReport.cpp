@@ -13,6 +13,7 @@
 #include "../../MapObjects/Structures/SeedFactory.h"
 #include "../../MapObjects/Structures/UndergroundFactory.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/ProductCatalog.h>
 #include <libOPHD/ProductionCost.h>
 
@@ -209,11 +210,11 @@ void FactoryReport::fillFactoryList(bool surface)
 	lstFactoryList.clear();
 	for (auto* factory : mStructureManager.getStructures<Factory>())
 	{
-		if (surface && (factory->name() == constants::SurfaceFactory || factory->name() == constants::SeedFactory))
+		if (surface && (factory->structureId() == StructureID::SurfaceFactory || factory->structureId() == StructureID::SeedFactory))
 		{
 			lstFactoryList.addItem(factory);
 		}
-		else if (!surface && factory->name() == constants::UndergroundFactory)
+		else if (!surface && factory->structureId() == StructureID::UndergroundFactory)
 		{
 			lstFactoryList.addItem(factory);
 		}
@@ -406,10 +407,9 @@ void FactoryReport::onListSelectionChange()
 		return;
 	}
 
-	/// \fixme Ugly
-	if (selectedFactory->name() == constants::SeedFactory) { factoryImage = &factorySeed; }
-	else if (selectedFactory->name() == constants::SurfaceFactory) { factoryImage = &factoryAboveGround; }
-	else if (selectedFactory->name() == constants::UndergroundFactory) { factoryImage = &factoryUnderGround; }
+	if (selectedFactory->structureId() == StructureID::SeedFactory) { factoryImage = &factorySeed; }
+	else if (selectedFactory->structureId() == StructureID::SurfaceFactory) { factoryImage = &factoryAboveGround; }
+	else if (selectedFactory->structureId() == StructureID::UndergroundFactory) { factoryImage = &factoryUnderGround; }
 
 	btnIdle.toggle(selectedFactory->state() == StructureState::Idle);
 	btnIdle.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
