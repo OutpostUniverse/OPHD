@@ -61,10 +61,15 @@ namespace
 
 	StringTable buildGenericStructureAttributesStringTable(const Structure& structure)
 	{
-		StringTable stringTable{4, 9};
+		StringTable stringTable{2, 9};
 
 		stringTable[{0, 0}].text = "Type:";
 		stringTable[{1, 0}].text = structure.classDescription();
+
+		stringTable[{0, 1}].text = "State:";
+		stringTable[{1, 1}].text = structure.stateDescription(structure.state());
+
+		stringTable[{1, 2}].text = getDisabledReason(structure);
 
 		if (structure.underConstruction())
 		{
@@ -79,11 +84,6 @@ namespace
 
 		stringTable[{0, 4}].text = "Power Required:";
 		stringTable[{1, 4}].text = std::to_string(structure.energyRequirement());
-
-		stringTable[{2, 1}].text = "State:";
-		stringTable[{3, 1}].text = structure.stateDescription(structure.state());
-
-		stringTable[{3, 2}].text = getDisabledReason(structure);
 
 		if (!structure.underConstruction() && !structure.destroyed())
 		{
@@ -183,7 +183,6 @@ StringTable StructureInspector::buildGenericStringTable() const
 	auto stringTable = buildGenericStructureAttributesStringTable(*mStructure);
 	stringTable.position(mRect.position + NAS2D::Vector{constants::Margin, sWindowTitleBarHeight + constants::Margin});
 	stringTable.setVerticalPadding(5);
-	stringTable.setColumnFont(2, stringTable.GetDefaultTitleFont());
 	stringTable.computeRelativeCellPositions();
 	return stringTable;
 }
