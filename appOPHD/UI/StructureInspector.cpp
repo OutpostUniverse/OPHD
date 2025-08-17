@@ -15,6 +15,9 @@
 
 namespace
 {
+	constexpr auto windowSizeMin = NAS2D::Vector{390, 250};
+
+
 	const std::map<DisabledReason, std::string> disabledReasonTable =
 	{
 		{DisabledReason::None, "Not Disabled"},
@@ -33,13 +36,13 @@ namespace
 
 		{IdleReason::PlayerSet, "Manually set to Idle"},
 		{IdleReason::InternalStorageFull, "Internal storage pool full"},
-		{IdleReason::FactoryProductionComplete, "Production complete, waiting on product pull."},
-		{IdleReason::FactoryInsufficientResources, "Insufficient resources to continue production"},
-		{IdleReason::FactoryInsufficientRobotCommandCapacity, "Cannot pull robot due to lack of robot command capacity"},
-		{IdleReason::FactoryInsufficientWarehouseSpace, "Cannot pull product due to lack of Warehouse space"},
+		{IdleReason::FactoryProductionComplete, "Production complete, awaiting shipment"},
+		{IdleReason::FactoryInsufficientResources, "Insufficient resources"},
+		{IdleReason::FactoryInsufficientRobotCommandCapacity, "Lack of robot command capacity"},
+		{IdleReason::FactoryInsufficientWarehouseSpace, "Lack of Warehouse space"},
 		{IdleReason::MineExhausted, "Mine exhausted"},
 		{IdleReason::MineInactive, "Mine inactive"},
-		{IdleReason::InsufficientLuxuryProduct, "Insufficient Luxury Product available"}
+		{IdleReason::InsufficientLuxuryProduct, "Insufficient Luxury Product"}
 	};
 
 
@@ -124,7 +127,7 @@ StructureInspector::StructureInspector() :
 	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {
-	size({350, 250});
+	size(windowSizeMin);
 	add(btnClose, area().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});
 }
 
@@ -139,8 +142,8 @@ void StructureInspector::showStructure(const Structure& structure)
 	const auto specificStructureAttributes = buildSpecificStringTable(specificAttributeTablePosition);
 
 	auto windowSize = NAS2D::Vector{
-		std::max({350, genericStructureAttributes.area().size.x, specificStructureAttributes.area().size.x}),
-		std::max({250, specificStructureAttributes.area().endPoint().y - genericStructureAttributes.area().position.y + btnClose.size().y})
+		std::max({windowSizeMin.x, genericStructureAttributes.area().size.x, specificStructureAttributes.area().size.x}),
+		std::max({windowSizeMin.y, specificStructureAttributes.area().endPoint().y - genericStructureAttributes.area().position.y + btnClose.size().y})
 	} + NAS2D::Vector{constants::Margin, constants::Margin} * 2;
 
 	size(windowSize);
