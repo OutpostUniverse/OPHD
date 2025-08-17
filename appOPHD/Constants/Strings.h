@@ -233,9 +233,9 @@ namespace constants
 	const std::string AlertOutOfCommRange = "The selected tile is out of communications range.";
 
 	const std::string AlertLanderLocation = "Lander Location";
-	const std::string AlertSeedTerrain = "The " + SeedLander + " cannot be placed on or near Impassable terrain.";
-	const std::string AlertSeedOreDeposit = "The " + SeedLander + " cannot be placed on or near a tile flagged with a mine beacon.";
-	const std::string AlertSeedEdgeBuffer = SeedLander + "'s cannot be placed within 3 tiles of the edge of the site map.";
+	const std::string AlertSeedTerrain = "The SEED Lander cannot be placed on or near Impassable terrain.";
+	const std::string AlertSeedOreDeposit = "The SEED Lander cannot be placed on or near a tile flagged with a mine beacon.";
+	const std::string AlertSeedEdgeBuffer = "SEED Lander's cannot be placed within 3 tiles of the edge of the site map.";
 
 	const std::string AlertLanderTileObstructed = "Cannot place Lander because there is an object on the selected tile.";
 	const std::string AlertLanderTerrain = "Landers cannot be placed on Impassable Terrain.";
