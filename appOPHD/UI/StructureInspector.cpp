@@ -18,14 +18,14 @@ namespace
 {
 	const std::map<DisabledReason, std::string> disabledReasonTable =
 	{
-		{DisabledReason::None, constants::StructureDisabledNone},
+		{DisabledReason::None, "Not Disabled"},
 
-		{DisabledReason::Chap, constants::StructureDisabledChap},
-		{DisabledReason::Disconnected, constants::StructureDisabledDisconnected},
-		{DisabledReason::Energy, constants::StructureDisabledEnergy},
-		{DisabledReason::Population, constants::StructureDisabledPopulation},
-		{DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources},
-		{DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity}
+		{DisabledReason::Chap, "CHAP Facility unavailable"},
+		{DisabledReason::Disconnected, "Not connected to a Command Center"},
+		{DisabledReason::Energy, "Insufficient Energy"},
+		{DisabledReason::Population, "Insufficient Population"},
+		{DisabledReason::RefinedResources, "Insufficient refined resources"},
+		{DisabledReason::StructuralIntegrity, "Structural Integrity is compromised"}
 	};
 
 	const std::map<IdleReason, std::string> idleReadonTable =

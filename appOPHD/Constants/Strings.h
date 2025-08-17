@@ -209,17 +209,6 @@ namespace constants
 	const std::string Cancel = "Cancel";
 
 	// =====================================
-	// = STRUCTURE DISABLED REASONS
-	// =====================================
-	const std::string StructureDisabledNone = "Not Disabled";
-	const std::string StructureDisabledChap = "CHAP Facility unavailable";
-	const std::string StructureDisabledDisconnected = "Not connected to a Command Center";
-	const std::string StructureDisabledEnergy = "Insufficient Energy";
-	const std::string StructureDisabledPopulation = "Insufficient Population";
-	const std::string StructureDisabledRefinedResources = "Insufficient refined resources";
-	const std::string StructureDisabledStructuralIntegrity = "Structural Integrity is compromised";
-
-	// =====================================
 	// = STRUCTURE IDLE REASONS
 	// =====================================
 	const std::string StructureIdleNone = "Not Idle";
