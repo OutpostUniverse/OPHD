@@ -1,7 +1,6 @@
 #include "StructureInspector.h"
 
 #include "../Cache.h"
-#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 #include "StringTable.h"
@@ -18,29 +17,29 @@ namespace
 {
 	const std::map<DisabledReason, std::string> disabledReasonTable =
 	{
-		{DisabledReason::None, constants::StructureDisabledNone},
+		{DisabledReason::None, "Not Disabled"},
 
-		{DisabledReason::Chap, constants::StructureDisabledChap},
-		{DisabledReason::Disconnected, constants::StructureDisabledDisconnected},
-		{DisabledReason::Energy, constants::StructureDisabledEnergy},
-		{DisabledReason::Population, constants::StructureDisabledPopulation},
-		{DisabledReason::RefinedResources, constants::StructureDisabledRefinedResources},
-		{DisabledReason::StructuralIntegrity, constants::StructureDisabledStructuralIntegrity}
+		{DisabledReason::Chap, "CHAP Facility unavailable"},
+		{DisabledReason::Disconnected, "Not connected to a Command Center"},
+		{DisabledReason::Energy, "Insufficient Energy"},
+		{DisabledReason::Population, "Insufficient Population"},
+		{DisabledReason::RefinedResources, "Insufficient refined resources"},
+		{DisabledReason::StructuralIntegrity, "Structural Integrity is compromised"}
 	};
 
 	const std::map<IdleReason, std::string> idleReadonTable =
 	{
-		{IdleReason::None, constants::StructureIdleNone},
+		{IdleReason::None, "Not Idle"},
 
-		{IdleReason::PlayerSet, constants::StructureIdlePlayerSet},
-		{IdleReason::InternalStorageFull, constants::StructureIdleInternalStorageFull},
-		{IdleReason::FactoryProductionComplete, constants::StructureIdleFactoryProductionComplete},
-		{IdleReason::FactoryInsufficientResources, constants::StructureIdleFactoryInsufficientResources},
-		{IdleReason::FactoryInsufficientRobotCommandCapacity, constants::StructureIdleFactoryInsufficientRobotCommandCapacity},
-		{IdleReason::FactoryInsufficientWarehouseSpace, constants::StructureIdleFactoryInsufficnetWarehouseCapacity},
-		{IdleReason::MineExhausted, constants::StructureIdleMineExhausted},
-		{IdleReason::MineInactive, constants::StructureIdleMineInactive},
-		{IdleReason::InsufficientLuxuryProduct, constants::StructureIdleInsufficientLuxuryProduct}
+		{IdleReason::PlayerSet, "Manually set to Idle"},
+		{IdleReason::InternalStorageFull, "Internal storage pool full"},
+		{IdleReason::FactoryProductionComplete, "Production complete, waiting on product pull."},
+		{IdleReason::FactoryInsufficientResources, "Insufficient resources to continue production"},
+		{IdleReason::FactoryInsufficientRobotCommandCapacity, "Cannot pull robot due to lack of robot command capacity"},
+		{IdleReason::FactoryInsufficientWarehouseSpace, "Cannot pull product due to lack of Warehouse space"},
+		{IdleReason::MineExhausted, "Mine exhausted"},
+		{IdleReason::MineInactive, "Mine inactive"},
+		{IdleReason::InsufficientLuxuryProduct, "Insufficient Luxury Product available"}
 	};
 
 
@@ -121,7 +120,7 @@ namespace
 
 
 StructureInspector::StructureInspector() :
-	Window{constants::WindowStructureInspector},
+	Window{"Structure Details"},
 	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
 	mIcons{imageCache.load("ui/icons.png")}
 {

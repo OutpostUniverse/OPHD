@@ -154,7 +154,6 @@ namespace constants
 	const std::string WindowFactoryProduction = "Factory Production";
 	const std::string WindowGameOver = "Game Over";
 	const std::string WindowMineOperations = "Mine Facility Operations";
-	const std::string WindowStructureInspector = "Structure Details";
 	const std::string WindowTileInspector = "Tile Inspector";
 	const std::string WindowWarehouseInspector = "Warehouse Details";
 
@@ -207,31 +206,6 @@ namespace constants
 	const std::string AddTruck = "Add Truck";
 	const std::string RemoveTruck = "Remove Truck";
 	const std::string Cancel = "Cancel";
-
-	// =====================================
-	// = STRUCTURE DISABLED REASONS
-	// =====================================
-	const std::string StructureDisabledNone = "Not Disabled";
-	const std::string StructureDisabledChap = "CHAP Facility unavailable";
-	const std::string StructureDisabledDisconnected = "Not connected to a Command Center";
-	const std::string StructureDisabledEnergy = "Insufficient Energy";
-	const std::string StructureDisabledPopulation = "Insufficient Population";
-	const std::string StructureDisabledRefinedResources = "Insufficient refined resources";
-	const std::string StructureDisabledStructuralIntegrity = "Structural Integrity is compromised";
-
-	// =====================================
-	// = STRUCTURE IDLE REASONS
-	// =====================================
-	const std::string StructureIdleNone = "Not Idle";
-	const std::string StructureIdlePlayerSet = "Manually set to Idle";
-	const std::string StructureIdleInternalStorageFull = "Internal storage pool full";
-	const std::string StructureIdleFactoryProductionComplete = "Production complete, waiting on product pull.";
-	const std::string StructureIdleFactoryInsufficientResources = "Insufficient resources to continue production";
-	const std::string StructureIdleFactoryInsufficientRobotCommandCapacity = "Cannot pull robot due to lack of robot command capacity";
-	const std::string StructureIdleFactoryInsufficnetWarehouseCapacity = "Cannot pull product due to lack of Warehouse space";
-	const std::string StructureIdleMineExhausted = "Mine exhausted";
-	const std::string StructureIdleMineInactive = "Mine inactive";
-	const std::string StructureIdleInsufficientLuxuryProduct = "Insufficient Luxury Product available";
 
 	// =====================================
 	// = ALERT AND ERROR MESSAGES
