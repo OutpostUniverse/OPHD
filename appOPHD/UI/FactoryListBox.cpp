@@ -10,11 +10,21 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <stdexcept>
+
+
+namespace
+{
+	constexpr auto IconPositionDestroyedFactory = NAS2D::Point{414, 368};
+	constexpr auto IconPositionUndergroundFactory = NAS2D::Point{138, 276};
+	constexpr auto IconPositionSeedFactory = NAS2D::Point{460, 368};
+	constexpr auto IconPositionSurfaceFactory = NAS2D::Point{0, 46};
+}
 
 
 FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler) :
@@ -54,12 +64,13 @@ void FactoryListBox::addItem(Factory* factory)
 		}
 	}
 
-	const auto& text = factory->name();
-	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? NAS2D::Point<int>{414, 368} :
-		(text == constants::UndergroundFactory) ? NAS2D::Point<int>{138, 276} :
-		(text == constants::SeedFactory) ? NAS2D::Point<int>{460, 368} :
-		NAS2D::Point<int>{0, 46}; // Surface factory
-	add(text, factory, iconPosition);
+	const auto structureId = factory->structureId();
+	const auto iconPosition =
+		(factory->state() == StructureState::Destroyed) ? IconPositionDestroyedFactory :
+		(structureId == StructureID::UndergroundFactory) ? IconPositionUndergroundFactory :
+		(structureId == StructureID::SeedFactory) ? IconPositionSeedFactory :
+		IconPositionSurfaceFactory;
+	add(factory->name(), factory, iconPosition);
 }
 
 
