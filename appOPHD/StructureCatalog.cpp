@@ -20,9 +20,6 @@
 
 namespace constants
 {
-	// =====================================
-	// = STRUCTURES
-	// =====================================
 	const std::string Agridome = "Agricultural Dome";
 	const std::string AirShaft = "Air Shaft";
 	const std::string CargoLander = "Cargo Lander";
