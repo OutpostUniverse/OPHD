@@ -82,14 +82,14 @@ namespace
 			stringTable[{1, 3}].text = formatAge(structure);
 		}
 
-		stringTable[{0, 4}].text = "Power Required:";
-		stringTable[{1, 4}].text = std::to_string(structure.energyRequirement());
-
 		if (!structure.underConstruction() && !structure.destroyed())
 		{
-			stringTable[{0, 5}].text = "Integrity:";
-			stringTable[{1, 5}].text = std::to_string(structure.integrity());
+			stringTable[{0, 4}].text = "Integrity:";
+			stringTable[{1, 4}].text = std::to_string(structure.integrity());
 		}
+
+		stringTable[{0, 5}].text = "Power Required:";
+		stringTable[{1, 5}].text = std::to_string(structure.energyRequirement());
 
 		const auto& populationAvailable = structure.populationAvailable();
 		const auto& populationRequirements = structure.populationRequirements();
