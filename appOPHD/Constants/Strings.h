@@ -79,49 +79,6 @@ namespace constants
 
 
 	// =====================================
-	// = STRUCTURES
-	// =====================================
-	const std::string Agridome = "Agricultural Dome";
-	const std::string AirShaft = "Air Shaft";
-	const std::string CargoLander = "Cargo Lander";
-	const std::string Chap = "CHAP Facility";
-	const std::string ColonistLander = "Colonist Lander";
-	const std::string CommandCenter = "Command Center";
-	const std::string Commercial = "Commercial";
-	const std::string CommTower = "Communications Tower";
-	const std::string FusionReactor = "Fusion Reactor";
-	const std::string HotLaboratory = "Hot Laboratory";
-	const std::string Laboratory = "Laboratory";
-	const std::string MaintenanceFacility = "Maintenance Facility";
-	const std::string MedicalCenter = "Medical Center";
-	const std::string MineFacility = "Mine Facility";
-	const std::string MineShaft = "Mine Shaft";
-	const std::string Nursery = "Nursery";
-	const std::string Park = "Park / Reservoir";
-	const std::string RecreationCenter = "Recreation Center";
-	const std::string Recycling = "Recycling Facility";
-	const std::string RedLightDistrict = "Red Light District";
-	const std::string Residence = "Residential Facility";
-	const std::string Road = "Road";
-	const std::string RobotCommand = "Robot Command";
-	const std::string SeedFactory = "SEED Factory";
-	const std::string SeedLander = "SEED Lander";
-	const std::string SeedPower = "SEED Power";
-	const std::string SeedSmelter = "SEED Smelter";
-	const std::string Smelter = "Smelter";
-	const std::string SolarPlant = "Solar Powersat Receiver Array";
-	const std::string SolarPanel1 = "Solar Panel Array";
-	const std::string StorageTanks = "Storage Tanks";
-	const std::string SurfaceFactory = "Surface Factory";
-	const std::string SurfacePolice = "Police";
-	const std::string Tube = "Tube";
-	const std::string UndergroundFactory = "Underground Factory";
-	const std::string UndergroundPolice = "Police (UG)";
-	const std::string University = "University";
-	const std::string Warehouse = "Warehouse";
-
-
-	// =====================================
 	// = TUBE STATES
 	// =====================================
 	const std::string AgTubeIntersection = "ag_intersection";
