@@ -10,6 +10,7 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Renderer/Renderer.h>
@@ -63,12 +64,12 @@ void FactoryListBox::addItem(Factory* factory)
 		}
 	}
 
-	const auto& text = factory->name();
+	const auto structureId = factory->structureId();
 	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? IconPositionDestroyedFactory :
-		(text == constants::UndergroundFactory) ? IconPositionUndergroundFactory :
-		(text == constants::SeedFactory) ? IconPositionSeedFactory :
+		(structureId == StructureID::UndergroundFactory) ? IconPositionUndergroundFactory :
+		(structureId == StructureID::SeedFactory) ? IconPositionSeedFactory :
 		IconPositionSurfaceFactory;
-	add(text, factory, iconPosition);
+	add(factory->name(), factory, iconPosition);
 }
 
 
