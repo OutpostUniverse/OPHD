@@ -61,24 +61,24 @@ namespace
 
 	StringTable buildGenericStructureAttributesStringTable(const Structure& structure)
 	{
-		StringTable stringTable{4, 6};
+		StringTable stringTable{4, 9};
 
 		stringTable[{0, 0}].text = "Type:";
 		stringTable[{1, 0}].text = structure.classDescription();
 
 		if (structure.underConstruction())
 		{
-			stringTable[{2, 0}].text = "Turns Remaining:";
-			stringTable[{3, 0}].text = std::to_string(structure.turnsToBuild() - structure.age());
+			stringTable[{0, 3}].text = "Turns Remaining:";
+			stringTable[{1, 3}].text = std::to_string(structure.turnsToBuild() - structure.age());
 		}
 		else
 		{
-			stringTable[{2, 0}].text = "Age:";
-			stringTable[{3, 0}].text = formatAge(structure);
+			stringTable[{0, 3}].text = "Age:";
+			stringTable[{1, 3}].text = formatAge(structure);
 		}
 
-		stringTable[{0, 1}].text = "Power Required:";
-		stringTable[{1, 1}].text = std::to_string(structure.energyRequirement());
+		stringTable[{0, 4}].text = "Power Required:";
+		stringTable[{1, 4}].text = std::to_string(structure.energyRequirement());
 
 		stringTable[{2, 1}].text = "State:";
 		stringTable[{3, 1}].text = structure.stateDescription(structure.state());
@@ -87,8 +87,8 @@ namespace
 
 		if (!structure.underConstruction() && !structure.destroyed())
 		{
-			stringTable[{0, 2}].text = "Integrity:";
-			stringTable[{1, 2}].text = std::to_string(structure.integrity());
+			stringTable[{0, 5}].text = "Integrity:";
+			stringTable[{1, 5}].text = std::to_string(structure.integrity());
 		}
 
 		const auto& populationAvailable = structure.populationAvailable();
@@ -96,22 +96,22 @@ namespace
 
 		if (populationRequirements.workers > 0)
 		{
-			stringTable[{0, 3}].text = "Workers:";
-			stringTable[{1, 3}].text = std::to_string(populationAvailable.workers) + " / " + std::to_string(populationRequirements.workers);
-			stringTable[{1, 3}].textColor = populationAvailable.workers >= populationRequirements.workers ? NAS2D::Color::White : NAS2D::Color::Red;
+			stringTable[{0, 6}].text = "Workers:";
+			stringTable[{1, 6}].text = std::to_string(populationAvailable.workers) + " / " + std::to_string(populationRequirements.workers);
+			stringTable[{1, 6}].textColor = populationAvailable.workers >= populationRequirements.workers ? NAS2D::Color::White : NAS2D::Color::Red;
 		}
 
 		if (populationRequirements.scientists > 0)
 		{
-			stringTable[{0, 4}].text = "Scientists:";
-			stringTable[{1, 4}].text = std::to_string(populationAvailable.scientists) + " / " + std::to_string(populationRequirements.scientists);
-			stringTable[{1, 4}].textColor = populationAvailable.scientists >= populationRequirements.scientists ? NAS2D::Color::White : NAS2D::Color::Red;
+			stringTable[{0, 7}].text = "Scientists:";
+			stringTable[{1, 7}].text = std::to_string(populationAvailable.scientists) + " / " + std::to_string(populationRequirements.scientists);
+			stringTable[{1, 7}].textColor = populationAvailable.scientists >= populationRequirements.scientists ? NAS2D::Color::White : NAS2D::Color::Red;
 		}
 
 		if (structure.hasCrime())
 		{
-			stringTable[{0, 5}].text = "Crime Rate:";
-			stringTable[{1, 5}].text = std::to_string(structure.crimeRate()) + "%";
+			stringTable[{0, 8}].text = "Crime Rate:";
+			stringTable[{1, 8}].text = std::to_string(structure.crimeRate()) + "%";
 		}
 
 		return stringTable;
