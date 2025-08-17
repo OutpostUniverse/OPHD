@@ -65,7 +65,8 @@ void FactoryListBox::addItem(Factory* factory)
 	}
 
 	const auto structureId = factory->structureId();
-	const auto iconPosition = (factory->state() == StructureState::Destroyed) ? IconPositionDestroyedFactory :
+	const auto iconPosition =
+		(factory->state() == StructureState::Destroyed) ? IconPositionDestroyedFactory :
 		(structureId == StructureID::UndergroundFactory) ? IconPositionUndergroundFactory :
 		(structureId == StructureID::SeedFactory) ? IconPositionSeedFactory :
 		IconPositionSurfaceFactory;
