@@ -209,20 +209,6 @@ namespace constants
 	const std::string Cancel = "Cancel";
 
 	// =====================================
-	// = STRUCTURE IDLE REASONS
-	// =====================================
-	const std::string StructureIdleNone = "Not Idle";
-	const std::string StructureIdlePlayerSet = "Manually set to Idle";
-	const std::string StructureIdleInternalStorageFull = "Internal storage pool full";
-	const std::string StructureIdleFactoryProductionComplete = "Production complete, waiting on product pull.";
-	const std::string StructureIdleFactoryInsufficientResources = "Insufficient resources to continue production";
-	const std::string StructureIdleFactoryInsufficientRobotCommandCapacity = "Cannot pull robot due to lack of robot command capacity";
-	const std::string StructureIdleFactoryInsufficnetWarehouseCapacity = "Cannot pull product due to lack of Warehouse space";
-	const std::string StructureIdleMineExhausted = "Mine exhausted";
-	const std::string StructureIdleMineInactive = "Mine inactive";
-	const std::string StructureIdleInsufficientLuxuryProduct = "Insufficient Luxury Product available";
-
-	// =====================================
 	// = ALERT AND ERROR MESSAGES
 	// =====================================
 	const std::string AlertInvalidRobotPlacement = "Invalid Robot Action";
