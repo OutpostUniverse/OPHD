@@ -15,7 +15,7 @@
 
 namespace
 {
-	constexpr auto windowSizeMin = NAS2D::Vector{350, 250};
+	constexpr auto windowSizeMin = NAS2D::Vector{390, 250};
 
 
 	const std::map<DisabledReason, std::string> disabledReasonTable =
