@@ -36,13 +36,13 @@ namespace
 
 		{IdleReason::PlayerSet, "Manually set to Idle"},
 		{IdleReason::InternalStorageFull, "Internal storage pool full"},
-		{IdleReason::FactoryProductionComplete, "Production complete, waiting on product pull."},
-		{IdleReason::FactoryInsufficientResources, "Insufficient resources to continue production"},
-		{IdleReason::FactoryInsufficientRobotCommandCapacity, "Cannot pull robot due to lack of robot command capacity"},
-		{IdleReason::FactoryInsufficientWarehouseSpace, "Cannot pull product due to lack of Warehouse space"},
+		{IdleReason::FactoryProductionComplete, "Production complete, awaiting shipment"},
+		{IdleReason::FactoryInsufficientResources, "Insufficient resources"},
+		{IdleReason::FactoryInsufficientRobotCommandCapacity, "Lack of robot command capacity"},
+		{IdleReason::FactoryInsufficientWarehouseSpace, "Lack of Warehouse space"},
 		{IdleReason::MineExhausted, "Mine exhausted"},
 		{IdleReason::MineInactive, "Mine inactive"},
-		{IdleReason::InsufficientLuxuryProduct, "Insufficient Luxury Product available"}
+		{IdleReason::InsufficientLuxuryProduct, "Insufficient Luxury Product"}
 	};
 
 
