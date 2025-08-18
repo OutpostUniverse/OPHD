@@ -7,6 +7,4 @@ class Recycling : public Structure
 {
 public:
 	Recycling(Tile& tile);
-
-	StringTable createInspectorViewTable() const override;
 };

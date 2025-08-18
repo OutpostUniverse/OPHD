@@ -16,7 +16,7 @@ void Agridome::think()
 {
 	if (isIdle()) { return; }
 
-	mFoodLevel = std::clamp(mFoodLevel + calculateProduction(), 0, foodStorageCapacity());
+	mFoodLevel = std::clamp(mFoodLevel + foodProduced(), 0, foodStorageCapacity());
 
 	if (isStorageFull())
 	{
@@ -28,12 +28,6 @@ void Agridome::think()
 void Agridome::disabledStateSet()
 {
 	mFoodLevel = 0;
-}
-
-
-int Agridome::calculateProduction() const
-{
-	return std::min(foodProduced(), foodStorageCapacity() - mFoodLevel);
 }
 
 

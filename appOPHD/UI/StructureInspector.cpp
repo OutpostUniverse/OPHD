@@ -3,11 +3,17 @@
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
+#include "../MapObjects/Structures/FoodProduction.h"
+#include "../MapObjects/Structures/OreRefining.h"
+#include "../MapObjects/Structures/ResearchFacility.h"
+#include "../MapObjects/Structures/Residence.h"
+#include "../Resources.h"
 #include "StringTable.h"
 #include "TextRender.h"
 
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
+#include <libOPHD/EnumStructureID.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -119,6 +125,212 @@ namespace
 
 		return stringTable;
 	}
+
+
+	StringTable structureStringTable(const Structure& structure)
+	{
+		if (structure.energyProducedMax() > 0)
+		{
+			StringTable stringTable(2, 1);
+
+			stringTable[{0, 0}].text = "Power Produced:";
+
+			auto produced = structure.energyProduced();
+
+			stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(structure.energyProducedMax());
+
+			if (produced == 0)
+			{
+				stringTable[{1, 0}].textColor = constants::WarningTextColor;
+			}
+
+			return stringTable;
+		}
+
+		return StringTable(0, 0);
+	}
+
+
+	StringTable commTowerStringTable(const Structure& structure)
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Communication Range:";
+
+		auto communicationRange = structure.commRange();
+		stringTable[{1, 0}].text = std::to_string(communicationRange);
+
+		if (communicationRange == 0)
+		{
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
+		}
+
+		return stringTable;
+	}
+
+
+	StringTable foodProductionStringTable(const FoodProduction& foodProduction)
+	{
+		StringTable stringTable(2, 2);
+
+		stringTable[{0, 0}].text = "Food Stored:";
+		stringTable[{1, 0}].text = std::to_string(foodProduction.foodLevel()) + " / " + std::to_string(foodProduction.foodStorageCapacity());
+
+		stringTable[{0, 1}].text = "Production Rate:";
+		stringTable[{1, 1}].text = std::to_string(foodProduction.foodProduced());
+
+		return stringTable;
+	}
+
+
+	StringTable oreRefiningStringTable(const OreRefining& oreRefining)
+	{
+		StringTable stringTable(3, 5);
+
+		stringTable.setColumnFont(0, stringTable.GetDefaultFont());
+		stringTable.setRowFont(0, stringTable.GetDefaultTitleFont());
+		stringTable.setHorizontalPadding(20);
+		stringTable.setColumnJustification(1, StringTable::Justification::Center);
+		stringTable.setColumnJustification(2, StringTable::Justification::Center);
+
+		stringTable.setColumnText(
+			0,
+			{
+				"",
+				ResourceNamesRefined[0],
+				ResourceNamesRefined[1],
+				ResourceNamesRefined[2],
+				ResourceNamesRefined[3],
+			});
+
+		stringTable.setRowText(
+			0,
+			{
+				"Material",
+				"Storage",
+				"Ore Conversion Rate"
+			});
+
+		auto& resources = oreRefining.storage().resources;
+
+		const auto capacity = oreRefining.refinedOreStorageCapacity();
+		const auto formatStorageAmount = [capacity](int storageAmount) -> std::string
+		{
+			return std::to_string(storageAmount) + " / " + std::to_string(capacity);
+		};
+
+		stringTable[{1, 1}].text = formatStorageAmount(resources[0]);
+		stringTable[{2, 1}].text = std::to_string(oreRefining.oreConversionDivisor(0)) + " : 1";
+
+		stringTable[{1, 2}].text = formatStorageAmount(resources[1]);
+		stringTable[{2, 2}].text = std::to_string(oreRefining.oreConversionDivisor(1)) + " : 1";
+
+		stringTable[{1, 3}].text = formatStorageAmount(resources[2]);
+		stringTable[{2, 3}].text = std::to_string(oreRefining.oreConversionDivisor(2)) + " : 1";
+
+		stringTable[{1, 4}].text = formatStorageAmount(resources[3]);
+		stringTable[{2, 4}].text = std::to_string(oreRefining.oreConversionDivisor(3)) + " : 1";
+
+		return stringTable;
+	}
+
+
+	StringTable recyclingStringTable(const Structure& structure)
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Max Waste Processing Capacity:";
+		stringTable[{1, 0}].text = std::to_string(structure.bioWasteProcessingCapacity());
+
+		if (!structure.operational()) {
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
+		}
+
+		return stringTable;
+	}
+
+
+	StringTable researchFacilityStringTable(const ResearchFacility& researchFacility)
+	{
+		StringTable stringTable(2, 3);
+
+		stringTable[{0, 0}].text = "Research Produced:";
+		stringTable[{0, 1}].text = "Regular";
+		stringTable[{0, 2}].text = "Hot";
+
+		stringTable[{1, 1}].text = std::to_string(researchFacility.regularResearchProduced());
+		stringTable[{1, 2}].text = std::to_string(researchFacility.hotResearchProduced());
+
+		return stringTable;
+	}
+
+
+	StringTable residenceStringTable(const Residence& residence)
+	{
+		StringTable stringTable(2, 6);
+
+		stringTable[{0, 0}].text = "Colonist Capacity:";
+		stringTable[{1, 0}].text = std::to_string(residence.residentialCapacity());
+
+		stringTable[{0, 1}].text = "Colonists Assigned:";
+		stringTable[{1, 1}].text = std::to_string(residence.assignedColonists());
+
+		stringTable[{0, 3}].text = "Waste Capacity:";
+		stringTable[{1, 3}].text = std::to_string(residence.bioWasteStorageCapacity());
+
+		stringTable[{0, 4}].text = "Waste Accumulated:";
+		stringTable[{1, 4}].text = std::to_string(residence.wasteAccumulated());
+
+		stringTable[{0, 5}].text = "Waste Overflow:";
+		stringTable[{1, 5}].text = std::to_string(residence.wasteOverflow());
+
+		return stringTable;
+	}
+
+
+	StringTable storageTanksStringTable(const Structure& structure)
+	{
+		StringTable stringTable(2, 5);
+
+		stringTable.setColumnText(
+			0,
+			{
+				"Storage Capacity",
+				ResourceNamesRefined[0],
+				ResourceNamesRefined[1],
+				ResourceNamesRefined[2],
+				ResourceNamesRefined[3],
+			});
+
+		const auto& storage = structure.storage();
+		stringTable.setColumnText(
+			1,
+			{
+				std::to_string(storage.total()) + " / " + std::to_string(structure.refinedOreStorageCapacity() * 4),
+				std::to_string(storage.resources[0]),
+				std::to_string(storage.resources[1]),
+				std::to_string(storage.resources[2]),
+				std::to_string(storage.resources[3]),
+			});
+
+		return stringTable;
+	}
+
+
+	StringTable buildingSpecificStringTable(const Structure& structure)
+	{
+		const auto structureId = structure.structureId();
+
+		if (structureId == StructureID::CommTower) { return commTowerStringTable(structure); }
+		if (const auto* foodProduction = dynamic_cast<const FoodProduction*>(&structure)) { return foodProductionStringTable(*foodProduction); }
+		if (const auto* oreRefining = dynamic_cast<const OreRefining*>(&structure)) { return oreRefiningStringTable(*oreRefining); }
+		if (structureId == StructureID::Recycling) { return recyclingStringTable(structure); }
+		if (const auto* researchFacility = dynamic_cast<const ResearchFacility*>(&structure)) { return researchFacilityStringTable(*researchFacility); }
+		if (structureId == StructureID::Residence) { return residenceStringTable(dynamic_cast<const Residence&>(structure)); }
+		if (structureId == StructureID::StorageTanks) { return storageTanksStringTable(structure); }
+
+		return structureStringTable(structure);
+	}
 }
 
 
@@ -193,7 +405,7 @@ StringTable StructureInspector::buildGenericStringTable() const
 
 StringTable StructureInspector::buildSpecificStringTable(NAS2D::Point<int> position) const
 {
-	auto stringTable = mStructure->createInspectorViewTable();
+	auto stringTable = buildingSpecificStringTable(*mStructure);
 	stringTable.computeRelativeCellPositions();
 	stringTable.position(position);
 	return stringTable;

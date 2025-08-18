@@ -2,6 +2,8 @@
 
 #include "../Structure.h"
 
+#include <cstddef>
+
 
 /**
  * Virtual class for structures whose primary purpose is ore processing
@@ -13,7 +15,7 @@ class OreRefining : public Structure
 public:
 	OreRefining(StructureID id, Tile& tile);
 
-	StringTable createInspectorViewTable() const override;
+	int oreConversionDivisor(std::size_t index) const;
 
 protected:
 	StorableResources storageCapacities() const;
@@ -21,7 +23,4 @@ protected:
 	void think() override;
 
 	virtual void updateProduction();
-
-private:
-	std::string writeStorageAmount(int storageAmount) const;
 };
