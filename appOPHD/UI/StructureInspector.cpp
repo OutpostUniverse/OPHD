@@ -125,6 +125,21 @@ namespace
 	}
 
 
+	StringTable recyclingStringTable(const Structure& structure)
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Max Waste Processing Capacity:";
+		stringTable[{1, 0}].text = std::to_string(structure.bioWasteProcessingCapacity());
+
+		if (!structure.operational()) {
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
+		}
+
+		return stringTable;
+	}
+
+
 	StringTable researchFacilityStringTable(const ResearchFacility& researchFacility)
 	{
 		StringTable stringTable(2, 3);
@@ -196,6 +211,7 @@ namespace
 	{
 		const auto structureId = structure.structureId();
 
+		if (structureId == StructureID::Recycling) { return recyclingStringTable(structure); }
 		if (const auto* researchFacility = dynamic_cast<const ResearchFacility*>(&structure)) { return researchFacilityStringTable(*researchFacility); }
 		if (structureId == StructureID::Residence) { return residenceStringTable(dynamic_cast<const Residence&>(structure)); }
 		if (structureId == StructureID::StorageTanks) { return storageTanksStringTable(structure); }
