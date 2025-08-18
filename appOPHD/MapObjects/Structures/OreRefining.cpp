@@ -1,9 +1,6 @@
 #include "OreRefining.h"
 
-#include "../../Resources.h"
 #include "../../Constants/Numbers.h"
-
-#include "../../UI/StringTable.h"
 
 #include <libOPHD/EnumIdleReason.h>
 
@@ -25,58 +22,6 @@ OreRefining::OreRefining(StructureID id, Tile& tile) :
 int OreRefining::oreConversionDivisor(std::size_t index) const
 {
 	return OreConversionDivisor.at(index);
-}
-
-
-StringTable OreRefining::createInspectorViewTable() const
-{
-	StringTable stringTable(3, 5);
-
-	stringTable.setColumnFont(0, stringTable.GetDefaultFont());
-	stringTable.setRowFont(0, stringTable.GetDefaultTitleFont());
-	stringTable.setHorizontalPadding(20);
-	stringTable.setColumnJustification(1, StringTable::Justification::Center);
-	stringTable.setColumnJustification(2, StringTable::Justification::Center);
-
-	stringTable.setColumnText(
-		0,
-		{
-			"",
-			ResourceNamesRefined[0],
-			ResourceNamesRefined[1],
-			ResourceNamesRefined[2],
-			ResourceNamesRefined[3],
-		});
-
-	stringTable.setRowText(
-		0,
-		{
-			"Material",
-			"Storage",
-			"Ore Conversion Rate"
-		});
-
-	auto& resources = storage().resources;
-
-	const auto capacity = refinedOreStorageCapacity();
-	const auto formatStorageAmount = [capacity](int storageAmount) -> std::string
-	{
-		return std::to_string(storageAmount) + " / " + std::to_string(capacity);
-	};
-
-	stringTable[{1, 1}].text = formatStorageAmount(resources[0]);
-	stringTable[{2, 1}].text = std::to_string(OreConversionDivisor[0]) + " : 1";
-
-	stringTable[{1, 2}].text = formatStorageAmount(resources[1]);
-	stringTable[{2, 2}].text = std::to_string(OreConversionDivisor[1]) + " : 1";
-
-	stringTable[{1, 3}].text = formatStorageAmount(resources[2]);
-	stringTable[{2, 3}].text = std::to_string(OreConversionDivisor[2]) + " : 1";
-
-	stringTable[{1, 4}].text = formatStorageAmount(resources[3]);
-	stringTable[{2, 4}].text = std::to_string(OreConversionDivisor[3]) + " : 1";
-
-	return stringTable;
 }
 
 

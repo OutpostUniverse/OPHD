@@ -17,8 +17,6 @@ public:
 
 	int oreConversionDivisor(std::size_t index) const;
 
-	StringTable createInspectorViewTable() const override;
-
 protected:
 	StorableResources storageCapacities() const;
 
