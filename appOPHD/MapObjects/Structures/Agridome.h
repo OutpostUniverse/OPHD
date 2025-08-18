@@ -14,7 +14,5 @@ protected:
 	void disabledStateSet() override;
 
 private:
-	virtual int calculateProduction() const override;
-
 	bool isStorageFull();
 };

@@ -19,7 +19,5 @@ public:
 	void foodLevel(int level);
 
 protected:
-	virtual int calculateProduction() const = 0;
-
 	int mFoodLevel = 0;
 };

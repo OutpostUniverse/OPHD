@@ -19,7 +19,7 @@ StringTable FoodProduction::createInspectorViewTable() const
 	stringTable[{1, 0}].text = std::to_string(mFoodLevel) + " / " + std::to_string(foodStorageCapacity());
 
 	stringTable[{0, 1}].text = "Production Rate:";
-	stringTable[{1, 1}].text = std::to_string(calculateProduction());
+	stringTable[{1, 1}].text = std::to_string(foodProduced());
 
 	return stringTable;
 }
