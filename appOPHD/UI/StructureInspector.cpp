@@ -127,6 +127,24 @@ namespace
 	}
 
 
+	StringTable commTowerStringTable(const Structure& structure)
+	{
+		StringTable stringTable(2, 1);
+
+		stringTable[{0, 0}].text = "Communication Range:";
+
+		auto communicationRange = structure.commRange();
+		stringTable[{1, 0}].text = std::to_string(communicationRange);
+
+		if (communicationRange == 0)
+		{
+			stringTable[{1, 0}].textColor = constants::WarningTextColor;
+		}
+
+		return stringTable;
+	}
+
+
 	StringTable foodProductionStringTable(const FoodProduction& foodProduction)
 	{
 		StringTable stringTable(2, 2);
@@ -279,6 +297,7 @@ namespace
 	{
 		const auto structureId = structure.structureId();
 
+		if (structureId == StructureID::CommTower) { return commTowerStringTable(structure); }
 		if (const auto* foodProduction = dynamic_cast<const FoodProduction*>(&structure)) { return foodProductionStringTable(*foodProduction); }
 		if (const auto* oreRefining = dynamic_cast<const OreRefining*>(&structure)) { return oreRefiningStringTable(*oreRefining); }
 		if (structureId == StructureID::Recycling) { return recyclingStringTable(structure); }
