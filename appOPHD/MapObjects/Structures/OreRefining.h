@@ -21,7 +21,4 @@ protected:
 	void think() override;
 
 	virtual void updateProduction();
-
-private:
-	std::string formatStorageAmount(int storageAmount) const;
 };

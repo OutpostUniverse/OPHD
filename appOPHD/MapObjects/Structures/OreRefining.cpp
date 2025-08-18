@@ -52,6 +52,12 @@ StringTable OreRefining::createInspectorViewTable() const
 
 	auto& resources = storage().resources;
 
+	const auto capacity = refinedOreStorageCapacity();
+	const auto formatStorageAmount = [capacity](int storageAmount) -> std::string
+	{
+		return std::to_string(storageAmount) + " / " + std::to_string(capacity);
+	};
+
 	stringTable[{1, 1}].text = formatStorageAmount(resources[0]);
 	stringTable[{2, 1}].text = std::to_string(OreConversionDivisor[0]) + " : 1";
 
@@ -130,10 +136,4 @@ void OreRefining::updateProduction()
 			idle(IdleReason::InternalStorageFull);
 		}
 	}
-}
-
-
-std::string OreRefining::formatStorageAmount(int storageAmount) const
-{
-	return std::to_string(storageAmount) + " / " + std::to_string(refinedOreStorageCapacity());
 }
