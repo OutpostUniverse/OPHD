@@ -9,8 +9,6 @@
 #include "../Constants/UiConstants.h"
 #include "../Map/Tile.h"
 
-#include "../UI/StringTable.h"
-
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
@@ -432,30 +430,6 @@ void Structure::increaseCrimeRate(int deltaCrimeRate)
 void Structure::integrity(int integrity)
 {
 	mIntegrity = integrity;
-}
-
-
-StringTable Structure::createInspectorViewTable() const
-{
-	if (energyProducedMax() > 0)
-	{
-		StringTable stringTable(2, 1);
-
-		stringTable[{0, 0}].text = "Power Produced:";
-
-		auto produced = energyProduced();
-
-		stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(energyProducedMax());
-
-		if (produced == 0)
-		{
-			stringTable[{1, 0}].textColor = constants::WarningTextColor;
-		}
-
-		return stringTable;
-	}
-
-	return StringTable(0, 0);
 }
 
 

@@ -127,6 +127,30 @@ namespace
 	}
 
 
+	StringTable structureStringTable(const Structure& structure)
+	{
+		if (structure.energyProducedMax() > 0)
+		{
+			StringTable stringTable(2, 1);
+
+			stringTable[{0, 0}].text = "Power Produced:";
+
+			auto produced = structure.energyProduced();
+
+			stringTable[{1, 0}].text = std::to_string(produced) + " / " + std::to_string(structure.energyProducedMax());
+
+			if (produced == 0)
+			{
+				stringTable[{1, 0}].textColor = constants::WarningTextColor;
+			}
+
+			return stringTable;
+		}
+
+		return StringTable(0, 0);
+	}
+
+
 	StringTable commTowerStringTable(const Structure& structure)
 	{
 		StringTable stringTable(2, 1);
@@ -305,7 +329,7 @@ namespace
 		if (structureId == StructureID::Residence) { return residenceStringTable(dynamic_cast<const Residence&>(structure)); }
 		if (structureId == StructureID::StorageTanks) { return storageTanksStringTable(structure); }
 
-		return structure.createInspectorViewTable();
+		return structureStringTable(structure);
 	}
 }
 
