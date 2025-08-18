@@ -23,5 +23,5 @@ protected:
 	virtual void updateProduction();
 
 private:
-	std::string writeStorageAmount(int storageAmount) const;
+	std::string formatStorageAmount(int storageAmount) const;
 };
