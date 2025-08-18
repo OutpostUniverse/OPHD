@@ -119,6 +119,12 @@ namespace
 
 		return stringTable;
 	}
+
+
+	StringTable buildingSpecificStringTable(const Structure& structure)
+	{
+		return structure.createInspectorViewTable();
+	}
 }
 
 
@@ -193,7 +199,7 @@ StringTable StructureInspector::buildGenericStringTable() const
 
 StringTable StructureInspector::buildSpecificStringTable(NAS2D::Point<int> position) const
 {
-	auto stringTable = mStructure->createInspectorViewTable();
+	auto stringTable = buildingSpecificStringTable(*mStructure);
 	stringTable.computeRelativeCellPositions();
 	stringTable.position(position);
 	return stringTable;
