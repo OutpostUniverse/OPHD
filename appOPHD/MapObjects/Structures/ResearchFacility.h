@@ -8,8 +8,6 @@ class ResearchFacility : public Structure
 public:
 	ResearchFacility(StructureID id, Tile& tile);
 
-	StringTable createInspectorViewTable() const override;
-
 	int regularResearchProduced() const;
 	int hotResearchProduced() const;
 

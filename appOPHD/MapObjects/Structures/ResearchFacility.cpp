@@ -1,7 +1,5 @@
 #include "ResearchFacility.h"
 
-#include "../../UI/StringTable.h"
-
 #include <algorithm>
 #include <cmath>
 
@@ -9,21 +7,6 @@
 ResearchFacility::ResearchFacility(StructureID id, Tile& tile) :
 	Structure{id, tile}
 {}
-
-
-StringTable ResearchFacility::createInspectorViewTable() const
-{
-	StringTable stringTable(2, 3);
-
-	stringTable[{0, 0}].text = "Research Produced:";
-	stringTable[{0, 1}].text = "Regular";
-	stringTable[{0, 2}].text = "Hot";
-
-	stringTable[{1, 1}].text = std::to_string(regularResearchProduced());
-	stringTable[{1, 2}].text = std::to_string(hotResearchProduced());
-
-	return stringTable;
-}
 
 
 int ResearchFacility::regularResearchProduced() const

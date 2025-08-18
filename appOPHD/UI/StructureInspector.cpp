@@ -4,6 +4,7 @@
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 #include "../MapObjects/Structures/Residence.h"
+#include "../MapObjects/Structures/ResearchFacility.h"
 #include "../Resources.h"
 #include "StringTable.h"
 #include "TextRender.h"
@@ -124,6 +125,21 @@ namespace
 	}
 
 
+	StringTable researchFacilityStringTable(const ResearchFacility& researchFacility)
+	{
+		StringTable stringTable(2, 3);
+
+		stringTable[{0, 0}].text = "Research Produced:";
+		stringTable[{0, 1}].text = "Regular";
+		stringTable[{0, 2}].text = "Hot";
+
+		stringTable[{1, 1}].text = std::to_string(researchFacility.regularResearchProduced());
+		stringTable[{1, 2}].text = std::to_string(researchFacility.hotResearchProduced());
+
+		return stringTable;
+	}
+
+
 	StringTable residenceStringTable(const Residence& residence)
 	{
 		StringTable stringTable(2, 6);
@@ -180,6 +196,7 @@ namespace
 	{
 		const auto structureId = structure.structureId();
 
+		if (const auto* researchFacility = dynamic_cast<const ResearchFacility*>(&structure)) { return researchFacilityStringTable(*researchFacility); }
 		if (structureId == StructureID::Residence) { return residenceStringTable(dynamic_cast<const Residence&>(structure)); }
 		if (structureId == StructureID::StorageTanks) { return storageTanksStringTable(structure); }
 
