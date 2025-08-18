@@ -3,11 +3,13 @@
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
+#include "../Resources.h"
 #include "StringTable.h"
 #include "TextRender.h"
 
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
+#include <libOPHD/EnumStructureID.h>
 
 #include <algorithm>
 #include <stdexcept>
@@ -121,8 +123,41 @@ namespace
 	}
 
 
+	StringTable storageTanksStringTable(const Structure& structure)
+	{
+		StringTable stringTable(2, 5);
+
+		stringTable.setColumnText(
+			0,
+			{
+				"Storage Capacity",
+				ResourceNamesRefined[0],
+				ResourceNamesRefined[1],
+				ResourceNamesRefined[2],
+				ResourceNamesRefined[3],
+			});
+
+		const auto& storage = structure.storage();
+		stringTable.setColumnText(
+			1,
+			{
+				std::to_string(storage.total()) + " / " + std::to_string(structure.refinedOreStorageCapacity() * 4),
+				std::to_string(storage.resources[0]),
+				std::to_string(storage.resources[1]),
+				std::to_string(storage.resources[2]),
+				std::to_string(storage.resources[3]),
+			});
+
+		return stringTable;
+	}
+
+
 	StringTable buildingSpecificStringTable(const Structure& structure)
 	{
+		const auto structureId = structure.structureId();
+
+		if (structureId == StructureID::StorageTanks) { return storageTanksStringTable(structure); }
+
 		return structure.createInspectorViewTable();
 	}
 }
