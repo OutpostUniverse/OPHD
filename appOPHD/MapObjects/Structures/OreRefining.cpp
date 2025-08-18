@@ -22,6 +22,12 @@ OreRefining::OreRefining(StructureID id, Tile& tile) :
 }
 
 
+int OreRefining::oreConversionDivisor(std::size_t index) const
+{
+	return OreConversionDivisor.at(index);
+}
+
+
 StringTable OreRefining::createInspectorViewTable() const
 {
 	StringTable stringTable(3, 5);
