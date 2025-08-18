@@ -3,6 +3,7 @@
 #include "../Cache.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
+#include "../MapObjects/Structures/FoodProduction.h"
 #include "../MapObjects/Structures/OreRefining.h"
 #include "../MapObjects/Structures/ResearchFacility.h"
 #include "../MapObjects/Structures/Residence.h"
@@ -121,6 +122,20 @@ namespace
 			stringTable[{0, 8}].text = "Crime Rate:";
 			stringTable[{1, 8}].text = std::to_string(structure.crimeRate()) + "%";
 		}
+
+		return stringTable;
+	}
+
+
+	StringTable foodProductionStringTable(const FoodProduction& foodProduction)
+	{
+		StringTable stringTable(2, 2);
+
+		stringTable[{0, 0}].text = "Food Stored:";
+		stringTable[{1, 0}].text = std::to_string(foodProduction.foodLevel()) + " / " + std::to_string(foodProduction.foodStorageCapacity());
+
+		stringTable[{0, 1}].text = "Production Rate:";
+		stringTable[{1, 1}].text = std::to_string(foodProduction.foodProduced());
 
 		return stringTable;
 	}
@@ -264,6 +279,7 @@ namespace
 	{
 		const auto structureId = structure.structureId();
 
+		if (const auto* foodProduction = dynamic_cast<const FoodProduction*>(&structure)) { return foodProductionStringTable(*foodProduction); }
 		if (const auto* oreRefining = dynamic_cast<const OreRefining*>(&structure)) { return oreRefiningStringTable(*oreRefining); }
 		if (structureId == StructureID::Recycling) { return recyclingStringTable(structure); }
 		if (const auto* researchFacility = dynamic_cast<const ResearchFacility*>(&structure)) { return researchFacilityStringTable(*researchFacility); }

@@ -13,8 +13,6 @@ class FoodProduction : public Structure
 public:
 	FoodProduction(StructureID id, Tile& tile);
 
-	StringTable createInspectorViewTable() const override;
-
 	int foodLevel() const;
 	void foodLevel(int level);
 
