@@ -16,8 +16,6 @@ public:
 	void assignColonists(int amount);
 	int assignedColonists() const;
 
-	StringTable createInspectorViewTable() const override;
-
 protected:
 	void think() override;
 

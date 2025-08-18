@@ -1,9 +1,6 @@
 #include "Residence.h"
 
-#include "../../UI/StringTable.h"
-
 #include <libOPHD/EnumStructureID.h>
-#include <libOPHD/MapObjects/StructureType.h>
 
 #include <algorithm>
 
@@ -35,29 +32,6 @@ void Residence::assignColonists(int amount)
 
 
 int Residence::assignedColonists() const { return mAssignedColonists; }
-
-
-StringTable Residence::createInspectorViewTable() const
-{
-	StringTable stringTable(2, 6);
-
-	stringTable[{0, 0}].text = "Colonist Capacity:";
-	stringTable[{1, 0}].text = std::to_string(residentialCapacity());
-
-	stringTable[{0, 1}].text = "Colonists Assigned:";
-	stringTable[{1, 1}].text = std::to_string(assignedColonists());
-
-	stringTable[{0, 3}].text = "Waste Capacity:";
-	stringTable[{1, 3}].text = std::to_string(bioWasteStorageCapacity());
-
-	stringTable[{0, 4}].text = "Waste Accumulated:";
-	stringTable[{1, 4}].text = std::to_string(wasteAccumulated());
-
-	stringTable[{0, 5}].text = "Waste Overflow:";
-	stringTable[{1, 5}].text = std::to_string(wasteOverflow());
-
-	return stringTable;
-}
 
 
 void Residence::think()
