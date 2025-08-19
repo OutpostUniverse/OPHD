@@ -191,7 +191,7 @@ StructureList StructureManager::structureList(StructureClass structureClass) con
 {
 	StructureList structuresOut;
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->structureClass() == structureClass)
 		{
@@ -207,7 +207,7 @@ StructureList StructureManager::structureList(StructureID structureId) const
 {
 	StructureList structuresOut;
 
-	for (auto* structure : allStructures())
+	for (auto* structure : mDeployedStructures)
 	{
 		if (structure->structureId() == structureId)
 		{
