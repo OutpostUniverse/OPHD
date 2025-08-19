@@ -203,6 +203,22 @@ StructureList StructureManager::structureList(StructureClass structureClass) con
 }
 
 
+StructureList StructureManager::structureList(StructureID structureId) const
+{
+	StructureList structuresOut;
+
+	for (auto* structure : allStructures())
+	{
+		if (structure->structureId() == structureId)
+		{
+			structuresOut.push_back(structure);
+		}
+	}
+
+	return structuresOut;
+}
+
+
 const StructureList& StructureManager::allStructures() const
 {
 	return mDeployedStructures;

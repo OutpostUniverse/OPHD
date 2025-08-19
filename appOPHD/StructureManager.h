@@ -69,6 +69,7 @@ public:
 	}
 
 	StructureList structureList(StructureClass structureClass) const;
+	StructureList structureList(StructureID structureId) const;
 	const StructureList& allStructures() const;
 
 	StructureList agingStructures() const;
