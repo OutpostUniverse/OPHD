@@ -1,12 +1,10 @@
 #include "StructureManager.h"
 
-#include "Constants/Numbers.h"
 #include "GraphWalker.h"
 #include "IOHelper.h"
 #include "StructureCatalog.h"
 #include "Map/Tile.h"
 #include "MapObjects/Structure.h"
-#include "MapObjects/Robot.h"
 #include "MapObjects/StructureState.h"
 #include "MapObjects/Structures/CommandCenter.h"
 #include "MapObjects/Structures/FoodProduction.h"
@@ -24,7 +22,6 @@
 #include <libOPHD/Population/PopulationPool.h>
 
 #include <NAS2D/ParserHelper.h>
-#include <NAS2D/ContainerUtils.h>
 
 #include <algorithm>
 #include <stdexcept>
