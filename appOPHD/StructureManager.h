@@ -53,7 +53,7 @@ public:
 	void removeAllStructures();
 
 	template <typename StructureType>
-	const std::vector<StructureType*> getStructures() const
+	std::vector<StructureType*> getStructures() const
 	{
 		std::vector<StructureType*> output;
 		// Filter for instances of the exact type parameter
