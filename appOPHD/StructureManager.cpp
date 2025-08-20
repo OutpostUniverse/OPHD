@@ -27,6 +27,7 @@
 #include <NAS2D/ContainerUtils.h>
 
 #include <algorithm>
+#include <stdexcept>
 
 
 namespace
