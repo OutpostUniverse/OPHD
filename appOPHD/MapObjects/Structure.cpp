@@ -6,7 +6,6 @@
 
 #include "../StructureCatalog.h"
 #include "../Constants/Strings.h"
-#include "../Constants/UiConstants.h"
 #include "../Map/Tile.h"
 
 #include <libOPHD/EnumConnectorDir.h>
