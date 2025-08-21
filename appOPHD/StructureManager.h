@@ -68,6 +68,20 @@ public:
 		return output;
 	}
 
+	template <typename Predicate>
+	std::vector<Structure*> getStructures(Predicate predicate) const
+	{
+		std::vector<Structure*> output;
+		for (auto* structure : mDeployedStructures)
+		{
+			if (predicate(*structure))
+			{
+				output.push_back(structure);
+			}
+		}
+		return output;
+	}
+
 	StructureList structureList(StructureClass structureClass) const;
 	StructureList structureList(StructureID structureId) const;
 	const StructureList& allStructures() const;
