@@ -312,15 +312,9 @@ StorableResources addRefinedResources(StorableResources resourcesToAdd)
 	 * game before storage tanks are built. This ensure that the CC is in the storage
 	 * structure list and that it's always the first structure in the list.
 	 */
-
-	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
-
-	std::vector<Structure*> storage;
-	storage.insert(storage.end(), command.begin(), command.end());
-	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
-
-	for (auto* structure : storage)
+	const auto structureIsOreStore = [](const Structure& structure) { return structure.isOreStore(); };
+	const auto& storageStructures = NAS2D::Utility<StructureManager>::get().getStructures(structureIsOreStore);
+	for (auto* structure : storageStructures)
 	{
 		if (resourcesToAdd.isEmpty()) { break; }
 
