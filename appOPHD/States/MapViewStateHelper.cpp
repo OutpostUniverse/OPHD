@@ -341,15 +341,11 @@ StorableResources addRefinedResources(StorableResources resourcesToAdd)
 void removeRefinedResources(StorableResources& resourcesToRemove)
 {
 	// Command Center is backup storage, we want to pull from it last
+	const auto structureIsOreStore = [](const Structure& structure) { return structure.isOreStore(); };
+	auto storageStructures = NAS2D::Utility<StructureManager>::get().getStructures(structureIsOreStore);
+	std::ranges::reverse(storageStructures);
 
-	const auto& command = NAS2D::Utility<StructureManager>::get().getStructures<CommandCenter>();
-	const auto& storageTanks = NAS2D::Utility<StructureManager>::get().getStructures<StorageTanks>();
-
-	std::vector<Structure*> storage;
-	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
-	storage.insert(storage.end(), command.begin(), command.end());
-
-	for (auto* structure : storage)
+	for (auto* structure : storageStructures)
 	{
 		if (resourcesToRemove.isEmpty()) { break; }
 
