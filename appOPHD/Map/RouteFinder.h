@@ -12,12 +12,11 @@ namespace micropather
 
 struct Route;
 class Structure;
-class OreRefining;
 class TileMap;
 class TileMapGraph;
 
 
-Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters);
+Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters);
 bool routeObstructed(Route& route);
 
 
@@ -27,7 +26,7 @@ public:
 	RouteFinder(TileMap& tileMap);
 	~RouteFinder();
 
-	Route findLowestCostRoute(const Structure* mineFacility, const std::vector<OreRefining*>& smelters);
+	Route findLowestCostRoute(const Structure* mineFacility, const std::vector<Structure*>& smelters);
 
 private:
 	std::unique_ptr<TileMapGraph> mTileMapGraph;

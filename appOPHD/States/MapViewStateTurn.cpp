@@ -251,7 +251,8 @@ void MapViewState::notifyBirthsAndDeaths()
 
 void MapViewState::findMineRoutes()
 {
-	const auto& smelterList = mStructureManager.getStructures<OreRefining>();
+	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
+	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
 	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 
 	for (const auto* mineFacility : mStructureManager.getStructures<MineFacility>())
@@ -269,7 +270,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelterList);
+			auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelters);
 
 			if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
 

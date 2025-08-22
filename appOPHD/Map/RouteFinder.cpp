@@ -3,7 +3,7 @@
 #include "Route.h"
 #include "Tile.h"
 #include "TileMap.h"
-#include "../MapObjects/Structures/OreRefining.h"
+#include "../MapObjects/Structure.h"
 #include "../MicroPather/micropather.h"
 #include "../Constants/Numbers.h"
 
@@ -15,7 +15,7 @@
 
 namespace
 {
-	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters)
 	{
 		auto& start = mineFacility->tile();
 
@@ -132,7 +132,7 @@ private:
 };
 
 
-Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters)
 {
 	auto routeList = findRoutes(solver, mineFacility, smelters);
 	auto newRoute = findLowestCostRoute(routeList);
@@ -168,7 +168,7 @@ RouteFinder::~RouteFinder()
 }
 
 
-Route RouteFinder::findLowestCostRoute(const Structure* mineFacility, const std::vector<OreRefining*>& smelters)
+Route RouteFinder::findLowestCostRoute(const Structure* mineFacility, const std::vector<Structure*>& smelters)
 {
 	return ::findLowestCostRoute(mPathSolver.get(), mineFacility, smelters);
 }
