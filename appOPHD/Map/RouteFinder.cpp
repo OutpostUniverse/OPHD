@@ -46,6 +46,14 @@ namespace
 	}
 
 
+	Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters)
+	{
+		auto routeList = findRoutes(solver, mineFacility, smelters);
+		auto newRoute = findLowestCostRoute(routeList);
+		return newRoute;
+	}
+
+
 	float tileMovementCost(const Tile& tile)
 	{
 		if (tile.index() == TerrainType::Impassable)
@@ -130,14 +138,6 @@ public:
 private:
 	TileMap& mTileMap;
 };
-
-
-Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters)
-{
-	auto routeList = findRoutes(solver, mineFacility, smelters);
-	auto newRoute = findLowestCostRoute(routeList);
-	return newRoute;
-}
 
 
 bool routeObstructed(Route& route)

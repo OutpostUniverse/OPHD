@@ -16,7 +16,6 @@ class TileMap;
 class TileMapGraph;
 
 
-Route findLowestCostRoute(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters);
 bool routeObstructed(Route& route);
 
 
