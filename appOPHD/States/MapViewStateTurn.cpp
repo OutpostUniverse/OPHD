@@ -319,8 +319,9 @@ void MapViewState::transportOreFromMines()
 
 void MapViewState::transportResourcesToStorage()
 {
-	const auto& smelterList = mStructureManager.getStructures<OreRefining>();
-	for (auto* smelter : smelterList)
+	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
+	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
+	for (auto* smelter : smelters)
 	{
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
