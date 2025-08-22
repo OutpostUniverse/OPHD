@@ -386,17 +386,11 @@ NAS2D::State* MapViewState::update()
 
 void MapViewState::updatePlayerResources()
 {
-	const auto& command = mStructureManager.getStructures<CommandCenter>();
-	const auto& smelters = mStructureManager.getStructures<OreRefining>();
-	const auto& storageTanks = mStructureManager.getStructures<StorageTanks>();
-
-	std::vector<Structure*> storage;
-	storage.insert(storage.end(), command.begin(), command.end());
-	storage.insert(storage.end(), smelters.begin(), smelters.end());
-	storage.insert(storage.end(), storageTanks.begin(), storageTanks.end());
+	const auto structureIsOreStore = [](const Structure& structure) { return structure.isOreStore(); };
+	auto storageStructures = NAS2D::Utility<StructureManager>::get().getStructures(structureIsOreStore);
 
 	StorableResources resources;
-	for (auto* structure : storage)
+	for (auto* structure : storageStructures)
 	{
 		resources += structure->storage();
 	}
