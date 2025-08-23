@@ -226,9 +226,6 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 {
 	Structure* structure = nullptr;
 
-	// This seems like a naive approach... I usually see these implemented as the base
-	// object type has a static function that is used as an interface to instantiate
-	// derived types.
 	switch (structureId)
 	{
 		case StructureID::Agridome:
