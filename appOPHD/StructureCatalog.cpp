@@ -295,14 +295,6 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new SeedLander(tile);
 			break;
 
-		case StructureID::SeedSmelter:
-			structure = new OreRefining(structureId, tile);
-			break;
-
-		case StructureID::Smelter:
-			structure = new OreRefining(structureId, tile);
-			break;
-
 		case StructureID::StorageTanks:
 			structure = new StorageTanks(tile);
 			break;
@@ -321,6 +313,14 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 
 		case StructureID::Tube:
 			structure = new Tube(tile);
+			break;
+
+		case StructureID::SeedSmelter:
+			structure = new OreRefining(structureId, tile);
+			break;
+
+		case StructureID::Smelter:
+			structure = new OreRefining(structureId, tile);
 			break;
 
 		case StructureID::Chap:
