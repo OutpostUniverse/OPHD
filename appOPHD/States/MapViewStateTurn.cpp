@@ -17,7 +17,6 @@
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
-#include "../MapObjects/Structures/OreRefining.h"
 #include "../MapObjects/Structures/Recycling.h"
 #include "../MapObjects/Structures/Residence.h"
 #include "../MapObjects/Structures/Road.h"
@@ -251,7 +250,8 @@ void MapViewState::notifyBirthsAndDeaths()
 
 void MapViewState::findMineRoutes()
 {
-	const auto& smelterList = mStructureManager.getStructures<OreRefining>();
+	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
+	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
 	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
 
 	for (const auto* mineFacility : mStructureManager.getStructures<MineFacility>())
@@ -269,7 +269,7 @@ void MapViewState::findMineRoutes()
 
 		if (findNewRoute)
 		{
-			auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelterList);
+			auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelters);
 
 			if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
 
@@ -288,7 +288,7 @@ void MapViewState::transportOreFromMines()
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
-			auto& smelter = dynamic_cast<OreRefining&>(*route.path.back()->structure());
+			auto& smelter = *route.path.back()->structure();
 			auto& mineFacility = dynamic_cast<MineFacility&>(*route.path.front()->structure());
 
 			if (!smelter.operational()) { break; }
@@ -319,8 +319,9 @@ void MapViewState::transportOreFromMines()
 
 void MapViewState::transportResourcesToStorage()
 {
-	const auto& smelterList = mStructureManager.getStructures<OreRefining>();
-	for (auto* smelter : smelterList)
+	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
+	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
+	for (auto* smelter : smelters)
 	{
 		if (!smelter->operational() && !smelter->isIdle()) { continue; }
 
