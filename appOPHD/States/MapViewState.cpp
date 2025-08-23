@@ -28,7 +28,6 @@
 #include "../MapObjects/Structures/ColonistLander.h"
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
-#include "../MapObjects/Structures/OreRefining.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/SeedLander.h"
