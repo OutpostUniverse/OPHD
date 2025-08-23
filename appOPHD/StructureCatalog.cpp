@@ -217,19 +217,19 @@ const StructureType& StructureCatalog::getType(std::size_t structureTypeIndex)
 /**
  * Gets a new Structure object given a StructureID.
  *
- * \param	id	A valid StructureID value.
+ * \param	structureId	A valid StructureID value.
  *
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalog::create(StructureID id, Tile& tile)
+Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 {
 	Structure* structure = nullptr;
 
 	// This seems like a naive approach... I usually see these implemented as the base
 	// object type has a static function that is used as an interface to instantiate
 	// derived types.
-	switch (id)
+	switch (structureId)
 	{
 		case StructureID::Agridome:
 			structure = new Agridome(tile);
@@ -393,7 +393,7 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(static_cast<std::size_t>(id)));
+		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(static_cast<std::size_t>(structureId)));
 	}
 
 	return structure;
