@@ -243,10 +243,6 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new CargoLander(tile);
 			break;
 
-		case StructureID::Chap:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::ColonistLander:
 			structure = new ColonistLander(tile);
 			break;
@@ -255,16 +251,8 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new CommandCenter(tile);
 			break;
 
-		case StructureID::Commercial:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::CommTower:
 			structure = new CommTower(tile);
-			break;
-
-		case StructureID::FusionReactor:
-			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::HotLaboratory:
@@ -279,10 +267,6 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new MaintenanceFacility(tile);
 			break;
 
-		case StructureID::MedicalCenter:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::MineFacility:
 			structure = new MineFacility(tile);
 			break;
@@ -291,44 +275,16 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new MineShaft(tile);
 			break;
 
-		case StructureID::Nursery:
-			structure = new Structure(structureId, tile);
-			break;
-
-		case StructureID::Park:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::Road:
 			structure = new Road(tile);
-			break;
-
-		case StructureID::SurfacePolice:
-			structure = new Structure(structureId, tile);
-			break;
-
-		case StructureID::UndergroundPolice:
-			structure = new Structure(structureId, tile);
-			break;
-
-		case StructureID::RecreationCenter:
-			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::Recycling:
 			structure = new Recycling(tile);
 			break;
 
-		case StructureID::RedLightDistrict:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::Residence:
 			structure = new Residence(tile);
-			break;
-
-		case StructureID::RobotCommand:
-			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::SeedFactory:
@@ -339,24 +295,12 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new SeedLander(tile);
 			break;
 
-		case StructureID::SeedPower:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::SeedSmelter:
 			structure = new OreRefining(structureId, tile);
 			break;
 
 		case StructureID::Smelter:
 			structure = new OreRefining(structureId, tile);
-			break;
-
-		case StructureID::SolarPanel1:
-			structure = new Structure(structureId, tile);
-			break;
-
-		case StructureID::SolarPlant:
-			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::StorageTanks:
@@ -371,16 +315,72 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new UndergroundFactory(tile);
 			break;
 
-		case StructureID::University:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::Warehouse:
 			structure = new Warehouse(tile);
 			break;
 
 		case StructureID::Tube:
 			structure = new Tube(tile);
+			break;
+
+		case StructureID::Chap:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::Commercial:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::FusionReactor:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::MedicalCenter:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::Nursery:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::Park:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::SurfacePolice:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::UndergroundPolice:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::RecreationCenter:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::RedLightDistrict:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::RobotCommand:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::SeedPower:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::SolarPanel1:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::SolarPlant:
+			structure = new Structure(structureId, tile);
+			break;
+
+		case StructureID::University:
+			structure = new Structure(structureId, tile);
 			break;
 
 
