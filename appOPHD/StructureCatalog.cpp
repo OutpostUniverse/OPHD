@@ -316,77 +316,30 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::SeedSmelter:
-			structure = new OreRefining(structureId, tile);
-			break;
-
 		case StructureID::Smelter:
 			structure = new OreRefining(structureId, tile);
 			break;
 
 		case StructureID::Chap:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::Commercial:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::FusionReactor:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::MedicalCenter:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::Nursery:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::Park:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::SurfacePolice:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::UndergroundPolice:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::RecreationCenter:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::RedLightDistrict:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::RobotCommand:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::SeedPower:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::SolarPanel1:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::SolarPlant:
-			structure = new Structure(structureId, tile);
-			break;
-
 		case StructureID::University:
 			structure = new Structure(structureId, tile);
 			break;
 
 
 		case StructureID::None:
-			break;
-
 		case StructureID::Count:
 			break;
 	}
