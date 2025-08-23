@@ -217,19 +217,16 @@ const StructureType& StructureCatalog::getType(std::size_t structureTypeIndex)
 /**
  * Gets a new Structure object given a StructureID.
  *
- * \param	id	A valid StructureID value.
+ * \param	structureId	A valid StructureID value.
  *
  * \return	Pointer to a newly constructed Structure
  * \throw	std::runtime_error if the StructureID is unsupported/invalid
  */
-Structure* StructureCatalog::create(StructureID id, Tile& tile)
+Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 {
 	Structure* structure = nullptr;
 
-	// This seems like a naive approach... I usually see these implemented as the base
-	// object type has a static function that is used as an interface to instantiate
-	// derived types.
-	switch (id)
+	switch (structureId)
 	{
 		case StructureID::Agridome:
 			structure = new Agridome(tile);
@@ -243,10 +240,6 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new CargoLander(tile);
 			break;
 
-		case StructureID::Chap:
-			structure = new Structure(StructureID::Chap, tile);
-			break;
-
 		case StructureID::ColonistLander:
 			structure = new ColonistLander(tile);
 			break;
@@ -255,16 +248,8 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new CommandCenter(tile);
 			break;
 
-		case StructureID::Commercial:
-			structure = new Structure(StructureID::Commercial, tile);
-			break;
-
 		case StructureID::CommTower:
 			structure = new CommTower(tile);
-			break;
-
-		case StructureID::FusionReactor:
-			structure = new Structure(StructureID::FusionReactor, tile);
 			break;
 
 		case StructureID::HotLaboratory:
@@ -279,10 +264,6 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new MaintenanceFacility(tile);
 			break;
 
-		case StructureID::MedicalCenter:
-			structure = new Structure(StructureID::MedicalCenter, tile);
-			break;
-
 		case StructureID::MineFacility:
 			structure = new MineFacility(tile);
 			break;
@@ -291,44 +272,16 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new MineShaft(tile);
 			break;
 
-		case StructureID::Nursery:
-			structure = new Structure(StructureID::Nursery, tile);
-			break;
-
-		case StructureID::Park:
-			structure = new Structure(StructureID::Park, tile);
-			break;
-
 		case StructureID::Road:
 			structure = new Road(tile);
-			break;
-
-		case StructureID::SurfacePolice:
-			structure = new Structure(StructureID::SurfacePolice, tile);
-			break;
-
-		case StructureID::UndergroundPolice:
-			structure = new Structure(StructureID::UndergroundPolice, tile);
-			break;
-
-		case StructureID::RecreationCenter:
-			structure = new Structure(StructureID::RecreationCenter, tile);
 			break;
 
 		case StructureID::Recycling:
 			structure = new Recycling(tile);
 			break;
 
-		case StructureID::RedLightDistrict:
-			structure = new Structure(StructureID::RedLightDistrict, tile);
-			break;
-
 		case StructureID::Residence:
 			structure = new Residence(tile);
-			break;
-
-		case StructureID::RobotCommand:
-			structure = new Structure(StructureID::RobotCommand, tile);
 			break;
 
 		case StructureID::SeedFactory:
@@ -337,26 +290,6 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 
 		case StructureID::SeedLander:
 			structure = new SeedLander(tile);
-			break;
-
-		case StructureID::SeedPower:
-			structure = new Structure(StructureID::SeedPower, tile);
-			break;
-
-		case StructureID::SeedSmelter:
-			structure = new OreRefining(StructureID::SeedSmelter, tile);
-			break;
-
-		case StructureID::Smelter:
-			structure = new OreRefining(StructureID::Smelter, tile);
-			break;
-
-		case StructureID::SolarPanel1:
-			structure = new Structure(StructureID::SolarPanel1, tile);
-			break;
-
-		case StructureID::SolarPlant:
-			structure = new Structure(StructureID::SolarPlant, tile);
 			break;
 
 		case StructureID::StorageTanks:
@@ -371,10 +304,6 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new UndergroundFactory(tile);
 			break;
 
-		case StructureID::University:
-			structure = new Structure(StructureID::University, tile);
-			break;
-
 		case StructureID::Warehouse:
 			structure = new Warehouse(tile);
 			break;
@@ -383,17 +312,38 @@ Structure* StructureCatalog::create(StructureID id, Tile& tile)
 			structure = new Tube(tile);
 			break;
 
-
-		case StructureID::None:
+		case StructureID::SeedSmelter:
+		case StructureID::Smelter:
+			structure = new OreRefining(structureId, tile);
 			break;
 
+		case StructureID::Chap:
+		case StructureID::Commercial:
+		case StructureID::FusionReactor:
+		case StructureID::MedicalCenter:
+		case StructureID::Nursery:
+		case StructureID::Park:
+		case StructureID::SurfacePolice:
+		case StructureID::UndergroundPolice:
+		case StructureID::RecreationCenter:
+		case StructureID::RedLightDistrict:
+		case StructureID::RobotCommand:
+		case StructureID::SeedPower:
+		case StructureID::SolarPanel1:
+		case StructureID::SolarPlant:
+		case StructureID::University:
+			structure = new Structure(structureId, tile);
+			break;
+
+
+		case StructureID::None:
 		case StructureID::Count:
 			break;
 	}
 
 	if (!structure)
 	{
-		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(static_cast<std::size_t>(id)));
+		throw std::runtime_error("StructureCatalog::create(): Unsupported structure type: " + std::to_string(static_cast<std::size_t>(structureId)));
 	}
 
 	return structure;
