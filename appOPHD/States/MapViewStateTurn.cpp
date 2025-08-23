@@ -17,7 +17,6 @@
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
-#include "../MapObjects/Structures/OreRefining.h"
 #include "../MapObjects/Structures/Recycling.h"
 #include "../MapObjects/Structures/Residence.h"
 #include "../MapObjects/Structures/Road.h"
@@ -289,7 +288,7 @@ void MapViewState::transportOreFromMines()
 		if (routeIt != routeTable.end())
 		{
 			const auto& route = routeIt->second;
-			auto& smelter = dynamic_cast<OreRefining&>(*route.path.back()->structure());
+			auto& smelter = *route.path.back()->structure();
 			auto& mineFacility = dynamic_cast<MineFacility&>(*route.path.front()->structure());
 
 			if (!smelter.operational()) { break; }
