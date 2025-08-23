@@ -244,7 +244,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::Chap:
-			structure = new Structure(StructureID::Chap, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::ColonistLander:
@@ -256,7 +256,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::Commercial:
-			structure = new Structure(StructureID::Commercial, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::CommTower:
@@ -264,7 +264,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::FusionReactor:
-			structure = new Structure(StructureID::FusionReactor, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::HotLaboratory:
@@ -280,7 +280,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::MedicalCenter:
-			structure = new Structure(StructureID::MedicalCenter, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::MineFacility:
@@ -292,11 +292,11 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::Nursery:
-			structure = new Structure(StructureID::Nursery, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::Park:
-			structure = new Structure(StructureID::Park, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::Road:
@@ -304,15 +304,15 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::SurfacePolice:
-			structure = new Structure(StructureID::SurfacePolice, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::UndergroundPolice:
-			structure = new Structure(StructureID::UndergroundPolice, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::RecreationCenter:
-			structure = new Structure(StructureID::RecreationCenter, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::Recycling:
@@ -320,7 +320,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::RedLightDistrict:
-			structure = new Structure(StructureID::RedLightDistrict, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::Residence:
@@ -328,7 +328,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::RobotCommand:
-			structure = new Structure(StructureID::RobotCommand, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::SeedFactory:
@@ -340,23 +340,23 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::SeedPower:
-			structure = new Structure(StructureID::SeedPower, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::SeedSmelter:
-			structure = new OreRefining(StructureID::SeedSmelter, tile);
+			structure = new OreRefining(structureId, tile);
 			break;
 
 		case StructureID::Smelter:
-			structure = new OreRefining(StructureID::Smelter, tile);
+			structure = new OreRefining(structureId, tile);
 			break;
 
 		case StructureID::SolarPanel1:
-			structure = new Structure(StructureID::SolarPanel1, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::SolarPlant:
-			structure = new Structure(StructureID::SolarPlant, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::StorageTanks:
@@ -372,7 +372,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			break;
 
 		case StructureID::University:
-			structure = new Structure(StructureID::University, tile);
+			structure = new Structure(structureId, tile);
 			break;
 
 		case StructureID::Warehouse:
