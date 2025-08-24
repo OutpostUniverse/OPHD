@@ -259,13 +259,13 @@ void ScrollBar::onThumbResize()
 	if (mScrollBarType == ScrollBarType::Vertical)
 	{
 		const auto naturalThumbLength = mTrackRect.size.y * mLargeDelta / (mMax + mLargeDelta);
-		const auto thumbLength = std::clamp(naturalThumbLength, mSkins.skinThumb.minSize().y, mTrackRect.size.y);
+		const auto thumbLength = std::max(naturalThumbLength, mSkins.skinThumb.minSize().y);
 		mThumbRect.size = {mTrackRect.size.x, thumbLength};
 	}
 	else
 	{
 		const auto naturalThumbLength = mTrackRect.size.x * mLargeDelta / (mMax + mLargeDelta);
-		const auto thumbLength = std::clamp(naturalThumbLength, mSkins.skinThumb.minSize().x, mTrackRect.size.x);
+		const auto thumbLength = std::max(naturalThumbLength, mSkins.skinThumb.minSize().x);
 		mThumbRect.size = {thumbLength, mTrackRect.size.y};
 	}
 }
