@@ -97,7 +97,7 @@ public:
 
 	void focusOnStructure(const Structure* s);
 
-	Difficulty difficulty() { return mDifficulty; }
+	Difficulty difficulty() const { return mDifficulty; }
 	void difficulty(Difficulty difficulty);
 
 	bool hasGameEnded();
