@@ -31,7 +31,7 @@ public:
 		}
 		else
 		{
-			throw std::runtime_error("Inproper type provided for generating a random number");
+			throw std::runtime_error("Improper type provided for generating a random number");
 		}
 	}
 
