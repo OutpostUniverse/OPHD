@@ -32,7 +32,7 @@ namespace
 }
 
 
-NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrapers. */
+NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrappers. */
 
 
 GameState::GameState(const std::string& savedGameFilename) :
