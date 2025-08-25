@@ -261,7 +261,7 @@ void MapViewState::findMineRoutes()
 		auto routeIt = routeTable.find(mineFacility);
 		bool findNewRoute = routeIt == routeTable.end();
 
-		if (!findNewRoute && routeObstructed(routeIt->second))
+		if (!findNewRoute)
 		{
 			routeTable.erase(mineFacility);
 			findNewRoute = true;

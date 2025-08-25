@@ -143,22 +143,6 @@ private:
 };
 
 
-bool routeObstructed(Route& route)
-{
-	for (auto tilePtr : route.path)
-	{
-		auto& tile = *tilePtr;
-
-		// \note	Tile being occupied by a robot is not an obstruction for the
-		//			purposes of routing/pathing.
-		if (tile.hasStructure() && !tile.structure()->isRoad()) { return true; }
-		if (tile.index() == TerrainType::Impassable) { return true; }
-	}
-
-	return false;
-}
-
-
 RouteFinder::RouteFinder(TileMap& tileMap) :
 	mTileMapGraph{std::make_unique<TileMapGraph>(tileMap)},
 	mPathSolver{std::make_unique<micropather::MicroPather>(mTileMapGraph.get(), 250, 6, false)}
