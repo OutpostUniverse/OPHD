@@ -20,5 +20,4 @@ namespace constants
 	inline constexpr int RoadIntegrityChange{80};
 
 	inline constexpr float RouteBaseCost{0.5f};
-	inline constexpr float RouteRoadCost{0.25f};
 }
