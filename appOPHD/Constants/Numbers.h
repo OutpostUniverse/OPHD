@@ -8,8 +8,6 @@ namespace constants
 {
 	inline constexpr int SmeltingMinimumResourcesCount{20};
 
-	inline constexpr int BaseStorageCapacity{250};
-
 	inline constexpr int BaseProductCapacity{100};
 
 	inline constexpr int BaseMineProductionRate{10};
