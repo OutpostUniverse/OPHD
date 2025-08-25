@@ -16,9 +16,6 @@ class TileMap;
 class TileMapGraph;
 
 
-bool routeObstructed(Route& route);
-
-
 class RouteFinder
 {
 public:

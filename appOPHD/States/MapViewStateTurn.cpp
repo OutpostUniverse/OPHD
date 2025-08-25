@@ -258,23 +258,13 @@ void MapViewState::findMineRoutes()
 	{
 		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; } // consider a different control path.
 
-		auto routeIt = routeTable.find(mineFacility);
-		bool findNewRoute = routeIt == routeTable.end();
+		routeTable.erase(mineFacility);
 
-		if (!findNewRoute && routeObstructed(routeIt->second))
-		{
-			routeTable.erase(mineFacility);
-			findNewRoute = true;
-		}
+		auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelters);
 
-		if (findNewRoute)
-		{
-			auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelters);
+		if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
 
-			if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
-
-			routeTable[mineFacility] = newRoute;
-		}
+		routeTable[mineFacility] = newRoute;
 	}
 }
 
