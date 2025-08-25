@@ -15,6 +15,9 @@
 
 namespace
 {
+	constexpr float RouteBaseCost{0.5f};
+
+
 	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters)
 	{
 		auto& start = mineFacility->tile();
@@ -67,7 +70,7 @@ namespace
 
 			if (!road.operational())
 			{
-				return constants::RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
+				return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
 			}
 			else if (road.integrity() < constants::RoadIntegrityChange)
 			{
@@ -84,7 +87,7 @@ namespace
 			return FLT_MAX;
 		}
 
-		return constants::RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
+		return RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
 	}
 }
 

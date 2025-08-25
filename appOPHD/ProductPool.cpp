@@ -1,6 +1,5 @@
 #include "ProductPool.h"
 
-#include "Constants/Numbers.h"
 #include "Constants/Strings.h"
 
 #include <libOPHD/ProductCatalog.h>
@@ -13,6 +12,8 @@
 
 namespace
 {
+	constexpr int BaseProductCapacity{100};
+
 	/**
 	 * Gets the amount of storage required for a given number of Products.
 	 */
@@ -43,7 +44,7 @@ int storageRequiredPerUnit(ProductType type)
 
 
 ProductPool::ProductPool() :
-	mCapacity{constants::BaseProductCapacity}
+	mCapacity{BaseProductCapacity}
 {
 }
 

@@ -6,15 +6,6 @@
  */
 namespace constants
 {
-	inline constexpr int SmeltingMinimumResourcesCount{20};
-
-	inline constexpr int BaseStorageCapacity{250};
-
-	inline constexpr int BaseProductCapacity{100};
-
-	inline constexpr int BaseMineProductionRate{10};
-	inline constexpr int BaseMineExtensionTime{10};
-
 	/**<
 	 * The number of times a truck can traverse the shortest possible path
 	 * between a mine and a smelter (adjacent to one another). A truck can move 1
@@ -26,14 +17,5 @@ namespace constants
 
 	inline constexpr int ColonyShipOrbitTime{24};
 
-	inline constexpr int MinerTaskTime{6};
-
-	inline constexpr int DiggerTaskTime{5};
-
-	inline constexpr int RobotCommandCapacity{10};
-
 	inline constexpr int RoadIntegrityChange{80};
-
-	inline constexpr float RouteBaseCost{0.5f};
-	inline constexpr float RouteRoadCost{0.25f};
 }
