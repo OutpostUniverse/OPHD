@@ -18,6 +18,4 @@ namespace constants
 	inline constexpr int ColonyShipOrbitTime{24};
 
 	inline constexpr int RoadIntegrityChange{80};
-
-	inline constexpr float RouteBaseCost{0.5f};
 }
