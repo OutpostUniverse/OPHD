@@ -14,6 +14,13 @@
 #include <stdexcept>
 
 
+namespace
+{
+	constexpr int BaseMineProductionRate{10};
+	constexpr int BaseMineExtensionTime{10};
+}
+
+
 MineFacility::MineFacility(Tile& tile) :
 	Structure{StructureID::MineFacility, tile},
 	mOreDeposit{tile.oreDeposit()}
@@ -43,7 +50,7 @@ StorableResources MineFacility::maxCapacity() const
 StorableResources MineFacility::maxTransferAmounts() const
 {
 	const auto remainingCapacity = maxCapacity() - production();
-	auto maxTransfer = remainingCapacity.cap(constants::BaseMineProductionRate);
+	auto maxTransfer = remainingCapacity.cap(BaseMineProductionRate);
 	return maxTransfer;
 }
 
@@ -103,7 +110,7 @@ bool MineFacility::canExtend() const
 void MineFacility::extend()
 {
 	if (!canExtend()) { return; }
-	mDigTurnsRemaining = constants::BaseMineExtensionTime;
+	mDigTurnsRemaining = BaseMineExtensionTime;
 }
 
 

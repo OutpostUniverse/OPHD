@@ -6,9 +6,6 @@
  */
 namespace constants
 {
-	inline constexpr int BaseMineProductionRate{10};
-	inline constexpr int BaseMineExtensionTime{10};
-
 	/**<
 	 * The number of times a truck can traverse the shortest possible path
 	 * between a mine and a smelter (adjacent to one another). A truck can move 1
