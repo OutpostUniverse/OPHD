@@ -14,10 +14,13 @@
 
 namespace
 {
+	constexpr int MinerTaskTime{6};
+	constexpr int DiggerTaskTime{5};
+
 	const std::array robotTypes{
-		RobotType{constants::Robodigger, "robots/robodigger.sprite", "ui/interface/product_robodigger.png", constants::DiggerTaskTime},
+		RobotType{constants::Robodigger, "robots/robodigger.sprite", "ui/interface/product_robodigger.png", DiggerTaskTime},
 		RobotType{constants::Robodozer, "robots/robodozer.sprite", "ui/interface/product_robodozer.png", 0},
-		RobotType{constants::Robominer, "robots/robominer.sprite", "ui/interface/product_robominer.png", constants::MinerTaskTime},
+		RobotType{constants::Robominer, "robots/robominer.sprite", "ui/interface/product_robominer.png", MinerTaskTime},
 	};
 
 	int getTaskTime(RobotTypeIndex robotTypeIndex, Tile& tile)
