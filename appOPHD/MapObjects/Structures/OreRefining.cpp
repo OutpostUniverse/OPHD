@@ -9,6 +9,8 @@
 
 namespace
 {
+	constexpr int SmeltingMinimumResourcesCount{20};
+
 	std::array<int, 4> OreConversionDivisor{2, 2, 3, 3};
 }
 
@@ -57,10 +59,10 @@ void OreRefining::updateProduction()
 
 	for (size_t i = 0; i < ore.resources.size(); ++i)
 	{
-		if (ore.resources[i] >= constants::SmeltingMinimumResourcesCount)
+		if (ore.resources[i] >= SmeltingMinimumResourcesCount)
 		{
-			converted.resources[i] = constants::SmeltingMinimumResourcesCount / OreConversionDivisor[i];
-			ore.resources[i] = ore.resources[i] - constants::SmeltingMinimumResourcesCount;
+			converted.resources[i] = SmeltingMinimumResourcesCount / OreConversionDivisor[i];
+			ore.resources[i] = ore.resources[i] - SmeltingMinimumResourcesCount;
 		}
 	}
 
