@@ -1,6 +1,5 @@
 #include "MineFacility.h"
 
-#include "../../Constants/Numbers.h"
 #include "../../Constants/Strings.h"
 #include "../../Map/Tile.h"
 

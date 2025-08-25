@@ -1,7 +1,5 @@
 #include "OreRefining.h"
 
-#include "../../Constants/Numbers.h"
-
 #include <libOPHD/EnumIdleReason.h>
 
 #include <array>
