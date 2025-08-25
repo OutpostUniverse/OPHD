@@ -30,8 +30,6 @@ namespace constants
 
 	inline constexpr int DiggerTaskTime{5};
 
-	inline constexpr int RobotCommandCapacity{10};
-
 	inline constexpr int RoadIntegrityChange{80};
 
 	inline constexpr float RouteBaseCost{0.5f};
