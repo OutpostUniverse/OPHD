@@ -417,10 +417,6 @@ void MapViewState::checkWarehouseCapacity()
 void MapViewState::updateResidentialCapacity()
 {
 	mResidentialCapacity = mStructureManager.totalResidentialCapacity();
-
-	const auto& residences = mStructureManager.getStructures<Residence>();
-	if (residences.empty()) { mResidentialCapacity = constants::CommandCenterPopulationCapacity; }
-
 	mPopulationPanel.residentialCapacity(mResidentialCapacity);
 }
 
