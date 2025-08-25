@@ -6,8 +6,6 @@
  */
 namespace constants
 {
-	inline constexpr int BaseProductCapacity{100};
-
 	inline constexpr int BaseMineProductionRate{10};
 	inline constexpr int BaseMineExtensionTime{10};
 
