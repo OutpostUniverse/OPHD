@@ -22,7 +22,7 @@ namespace
 		{Difficulty::Hard, 6}
 	};
 
-	const std::vector<std::string> stealingResoureReasons
+	const std::vector<std::string> stealingResourceReasons
 	{
 		"There are no identified suspects",
 		"An investigation has been opened",
@@ -35,7 +35,7 @@ namespace
 
 	std::string getReasonForStealing()
 	{
-		return stealingResoureReasons[randomNumber.generate<std::size_t>(0, stealingResoureReasons.size() - 1)];
+		return stealingResourceReasons[randomNumber.generate<std::size_t>(0, stealingResourceReasons.size() - 1)];
 	}
 
 

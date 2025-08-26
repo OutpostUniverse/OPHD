@@ -100,13 +100,13 @@
       <Filter>Source Files\MapObjects</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Robots\Robodigger.cpp">
-      <Filter>Source Files\MapObjects</Filter>
+      <Filter>Source Files\MapObjects\Robots</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Robots\Robodozer.cpp">
-      <Filter>Source Files\MapObjects</Filter>
+      <Filter>Source Files\MapObjects\Robots</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Robots\Robominer.cpp">
-      <Filter>Source Files\MapObjects</Filter>
+      <Filter>Source Files\MapObjects\Robots</Filter>
     </ClCompile>
     <ClCompile Include="MapObjects\Structure.cpp">
       <Filter>Source Files\MapObjects</Filter>

@@ -160,7 +160,7 @@ void Control::highlight(bool highlight)
 
 
 /**
- * Gets whether or not the Control is highlighed.
+ * Gets whether or not the Control is highlighted.
  */
 bool Control::highlight() const
 {
@@ -195,7 +195,7 @@ bool Control::enabled() const
 
 
 /**
- * Sets vibility of the Control.
+ * Sets visibility of the Control.
  *
  * \param	visible	True sets Control to visible. False hides the Control.
  *

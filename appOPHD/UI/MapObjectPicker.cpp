@@ -250,7 +250,7 @@ void MapObjectPicker::onStructuresSelectionChange(const IconGridItem* item)
 
 
 /**
- * Handler for the Tubes Pallette dialog.
+ * Handler for the Tubes Palette dialog.
  */
 void MapObjectPicker::onConnectionsSelectionChange(const IconGridItem* item)
 {
