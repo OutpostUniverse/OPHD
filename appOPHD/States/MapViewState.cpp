@@ -647,7 +647,7 @@ void MapViewState::onInspect(const MapCoordinate& tilePosition, bool inspectModi
 
 void MapViewState::onInspectStructure(Structure& structure, bool inspectModifier)
 {
-	const bool notDisabled = structure.operational() || structure.isIdle();
+	const bool notDisabled = structure.isOperable();
 	const bool preferStructureSpecificView = notDisabled && !inspectModifier;
 
 	if (structure.isFactory() && preferStructureSpecificView)
@@ -1303,7 +1303,7 @@ void MapViewState::updateRouteOverlay()
 	mTruckRouteOverlay.clear();
 	for (auto& [mineFacility, route] : routeTable)
 	{
-		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; }
+		if (!mineFacility->isOperable()) { continue; }
 
 		for (auto* tile : route.path)
 		{

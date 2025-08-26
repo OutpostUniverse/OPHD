@@ -180,7 +180,7 @@ void WarehouseReport::fillListFromStructureList(const std::vector<Warehouse*>& w
 void WarehouseReport::fillListFull()
 {
 	const auto predicate = [](Warehouse* wh) {
-		return wh->products().atCapacity() && (wh->operational() || wh->isIdle());
+		return wh->products().atCapacity() && wh->isOperable();
 	};
 
 	fillListFromStructureList(selectWarehouses(predicate));
@@ -190,7 +190,7 @@ void WarehouseReport::fillListFull()
 void WarehouseReport::fillListVacancy()
 {
 	const auto predicate = [](Warehouse* wh) {
-		return !wh->products().atCapacity() && !wh->products().empty() && (wh->operational() || wh->isIdle());
+		return !wh->products().atCapacity() && !wh->products().empty() && wh->isOperable();
 	};
 
 	fillListFromStructureList(selectWarehouses(predicate));
@@ -201,7 +201,7 @@ void WarehouseReport::fillListVacancy()
 void WarehouseReport::fillListEmpty()
 {
 	const auto predicate = [](Warehouse* wh) {
-		return wh->products().empty() && (wh->operational() || wh->isIdle());
+		return wh->products().empty() && wh->isOperable();
 	};
 
 	fillListFromStructureList(selectWarehouses(predicate));

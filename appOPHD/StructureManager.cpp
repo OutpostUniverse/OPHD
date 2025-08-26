@@ -521,7 +521,7 @@ int StructureManager::totalRefinedOreStorageCapacity() const
 
 	for (const auto* structure : mDeployedStructures)
 	{
-		if (structure->operational() || structure->isIdle())
+		if (structure->isOperable())
 		{
 			storageCapacity += structure->refinedOreStorageCapacity();
 		}
@@ -537,7 +537,7 @@ int StructureManager::totalFoodStorageCapacity() const
 
 	for (const auto* structure : mDeployedStructures)
 	{
-		if (structure->operational() || structure->isIdle())
+		if (structure->isOperable())
 		{
 			storageCapacity += structure->foodStorageCapacity();
 		}

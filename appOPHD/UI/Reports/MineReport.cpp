@@ -260,10 +260,10 @@ void MineReport::onMineFacilitySelectionChange()
 
 	const auto& mineFacility = *mSelectedFacility;
 	btnIdle.toggle(mineFacility.isIdle());
-	btnIdle.enabled(mineFacility.operational() || mineFacility.isIdle());
+	btnIdle.enabled(mineFacility.isOperable());
 
 	btnDigNewLevel.toggle(mineFacility.extending());
-	btnDigNewLevel.enabled(mineFacility.canExtend() && (mineFacility.operational() || mineFacility.isIdle()));
+	btnDigNewLevel.enabled(mineFacility.canExtend() && (mineFacility.isOperable()));
 }
 
 
@@ -370,7 +370,7 @@ void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<in
 		constants::PrimaryTextColor
 	);
 
-	if (!(mineFacility.operational() || mineFacility.isIdle()))
+	if (!mineFacility.isOperable())
 	{
 		return;
 	}
