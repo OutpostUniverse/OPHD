@@ -94,6 +94,12 @@ void Structure::disable(DisabledReason reason)
 }
 
 
+bool Structure::isOperable() const
+{
+	return operational() || isIdle();
+}
+
+
 bool Structure::operational() const
 {
 	return mStructureState == StructureState::Operational;

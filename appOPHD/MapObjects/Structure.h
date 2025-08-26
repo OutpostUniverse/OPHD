@@ -49,6 +49,8 @@ public:
 	void disable(DisabledReason);
 	DisabledReason disabledReason() const { return mDisabledReason; }
 
+	bool isOperable() const;
+
 	bool operational() const;
 	void enable();
 

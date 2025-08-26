@@ -170,7 +170,7 @@ void MaintenanceFacility::repairStructure(Structure* structure)
 			addPriorityStructure(structure);
 		}
 	}
-	else if (structure->operational() || structure->isIdle())
+	else if (structure->isOperable())
 	{
 		--mMaterialsLevel;
 		++mAssignedPersonnel;

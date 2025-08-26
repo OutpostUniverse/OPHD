@@ -256,7 +256,7 @@ void MapViewState::findMineRoutes()
 
 	for (const auto* mineFacility : mStructureManager.getStructures<MineFacility>())
 	{
-		if (!mineFacility->operational() && !mineFacility->isIdle()) { continue; } // consider a different control path.
+		if (!mineFacility->isOperable()) { continue; } // consider a different control path.
 
 		routeTable.erase(mineFacility);
 
@@ -313,7 +313,7 @@ void MapViewState::transportResourcesToStorage()
 	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
 	for (auto* smelter : smelters)
 	{
-		if (!smelter->operational() && !smelter->isIdle()) { continue; }
+		if (!smelter->isOperable()) { continue; }
 
 		auto& stored = smelter->storage();
 		const auto toMove = stored.cap(25);
@@ -448,7 +448,7 @@ void MapViewState::updateFood()
 
 	for (const auto* foodProdcer : foodProducers)
 	{
-		if (foodProdcer->operational() || foodProdcer->isIdle())
+		if (foodProdcer->isOperable())
 		{
 			mFood += foodProdcer->foodLevel();
 		}
