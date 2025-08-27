@@ -39,6 +39,7 @@ public:
 protected:
 	friend class MapViewState;
 
+	bool isAtMaxStorageCapacity() const;
 	StorableResources maxCapacity() const;
 	StorableResources maxTransferAmounts() const;
 
