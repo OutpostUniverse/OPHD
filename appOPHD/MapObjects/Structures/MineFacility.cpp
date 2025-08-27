@@ -41,7 +41,7 @@ void MineFacility::maxDepth(int depth)
 
 StorableResources MineFacility::maxCapacity() const
 {
-	const auto oreCapacity = mStructureType.rawOreStorageCapacity;
+	const auto oreCapacity = rawOreStorageCapacity();
 	return {oreCapacity, oreCapacity, oreCapacity, oreCapacity};
 }
 

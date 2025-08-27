@@ -95,6 +95,7 @@ public:
 	int energyRequirement() const;
 	int energyProduced() const;
 	int energyProducedMax() const;
+	int rawOreStorageCapacity() const;
 	int refinedOreStorageCapacity() const;
 	int foodProduced() const;
 	int foodStorageCapacity() const;
