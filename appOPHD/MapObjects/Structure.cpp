@@ -238,6 +238,11 @@ int Structure::energyProducedMax() const
 	return mStructureType.energyProduced + scaleSolarOutput(mStructureType.solarEnergyProduced);
 }
 
+int Structure::rawOreStorageCapacity() const
+{
+	return mStructureType.rawOreStorageCapacity;
+}
+
 int Structure::refinedOreStorageCapacity() const
 {
 	return mStructureType.oreStorageCapacity;
