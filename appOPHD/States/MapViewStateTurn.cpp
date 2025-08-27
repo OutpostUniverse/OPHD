@@ -297,7 +297,7 @@ void MapViewState::transportOreFromMines()
 			auto& smelterStored = smelter.production();
 
 			const auto oreAvailable = smelterStored + mineStorage.cap(movementCap);
-			const auto newSmelterStored = oreAvailable.cap(smelter.type().rawOreStorageCapacity);
+			const auto newSmelterStored = oreAvailable.cap(smelter.rawOreStorageCapacity());
 			const auto movedOre = newSmelterStored - smelterStored;
 
 			mineStorage -= movedOre;
