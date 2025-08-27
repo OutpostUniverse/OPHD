@@ -78,7 +78,7 @@ void MineFacility::think()
 
 	if (isIdle())
 	{
-		if (storage() < maxCapacity())
+		if (!(storage() >= maxCapacity()))
 		{
 			enable();
 		}
