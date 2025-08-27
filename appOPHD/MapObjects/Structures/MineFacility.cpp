@@ -54,7 +54,7 @@ StorableResources MineFacility::maxCapacity() const
 
 StorableResources MineFacility::maxTransferAmounts() const
 {
-	const auto remainingCapacity = maxCapacity() - production();
+	const auto remainingCapacity = maxCapacity() - storage();
 	auto maxTransfer = remainingCapacity.cap(BaseMineProductionRate);
 	return maxTransfer;
 }
