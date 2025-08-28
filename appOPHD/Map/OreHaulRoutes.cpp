@@ -1,6 +1,5 @@
 #include "OreHaulRoutes.h"
 
-#include "../Constants/Numbers.h"
 #include "Route.h"
 #include "Tile.h"
 #include "../StructureManager.h"
@@ -15,6 +14,16 @@
 
 namespace
 {
+	/**<
+	 * The number of times a truck can traverse the shortest possible path
+	 * between a mine and a smelter (adjacent to one another). A truck can move 1
+	 * unit of ore per trip. The shortest path cost is 0.50f. This number
+	 * represents 100 round trips between the mine/smelter for effectively 100
+	 * units of ore transported per turn.
+	 */
+	inline constexpr float ShortestPathTraversalCount{100.0f};
+
+
 	auto& getRouteTable()
 	{
 		return NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
@@ -57,7 +66,7 @@ float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 int OreHaulRoutes::getOreHaulCapacity(const MineFacility& mineFacility) const
 {
 	const float routeCost = getRouteCost(mineFacility);
-	return static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
+	return static_cast<int>(ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
 }
 
 
@@ -111,7 +120,7 @@ void OreHaulRoutes::transportOreFromMines()
 			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
 
 			/* intentional truncation of fractional component*/
-			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
+			const int totalOreMovement = static_cast<int>(ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
