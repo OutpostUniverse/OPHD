@@ -9,6 +9,7 @@
 
 
 class Structure;
+class OreHaulRoutes;
 class TechnologyCatalog;
 class ResearchTracker;
 
@@ -37,6 +38,7 @@ public:
 	void showReport();
 	void showReport(Structure& structure);
 
+	void injectOreHaulRoutes(const OreHaulRoutes& oreHaulRoutes);
 	void injectTechnology(TechnologyCatalog&, ResearchTracker&);
 
 	void clearLists();

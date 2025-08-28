@@ -40,6 +40,7 @@ namespace
 	};
 
 	constexpr auto ResearchPanelIndex = static_cast<size_t>(NavigationPanel::Research);
+	constexpr auto MinePanelIndex = static_cast<size_t>(NavigationPanel::Mines);
 	constexpr auto ExitPanelIndex = static_cast<size_t>(NavigationPanel::Exit);
 
 
@@ -355,6 +356,13 @@ void ReportsState::showReport(Structure& structure)
 			}
 		}
 	}
+}
+
+
+void ReportsState::injectOreHaulRoutes(const OreHaulRoutes& oreHaulRoutes)
+{
+	auto* minePanel = panels[MinePanelIndex].report;
+	dynamic_cast<MineReport&>(*minePanel).injectOreHaulRoutes(oreHaulRoutes);
 }
 
 

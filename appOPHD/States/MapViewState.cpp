@@ -297,6 +297,7 @@ void MapViewState::initialize()
 
 	setupUiPositions(renderer.size());
 
+	mReportsState.injectOreHaulRoutes(*mOreHaulRoutes);
 	mReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
 
 	mFade.fadeIn(constants::FadeSpeed);

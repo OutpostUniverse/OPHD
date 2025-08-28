@@ -163,6 +163,12 @@ void MineReport::refresh()
 }
 
 
+void MineReport::injectOreHaulRoutes(const OreHaulRoutes& oreHaulRoutes)
+{
+	mOreHaulRoutes = &oreHaulRoutes;
+}
+
+
 void MineReport::onResize()
 {
 	Control::onResize();
