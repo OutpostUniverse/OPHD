@@ -72,7 +72,7 @@ class Structure;
 class StructureManager;
 class Tile;
 class TileMap;
-class RouteFinder;
+class OreHaulRoutes;
 class MapView;
 class DetailMap;
 class MiniMap;
@@ -199,8 +199,6 @@ private:
 	void updateRoads();
 	void updateRobots();
 
-	void findMineRoutes();
-	void transportOreFromMines();
 	void transportResourcesToStorage();
 
 	void checkAgingStructures();
@@ -290,7 +288,7 @@ private:
 	PopulationModel mPopulationModel;
 
 	// ROUTING
-	std::unique_ptr<RouteFinder> mPathSolver;
+	std::unique_ptr<OreHaulRoutes> mOreHaulRoutes;
 
 	bool mLoadingExisting = false;
 	NAS2D::Xml::XmlDocument* mExistingToLoad = nullptr; 

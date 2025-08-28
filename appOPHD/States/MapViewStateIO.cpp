@@ -16,6 +16,7 @@
 #include "../IOHelper.h"
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
+#include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
 #include "../Map/TileMap.h"
@@ -272,8 +273,8 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView);
 
-	mPathSolver = std::make_unique<RouteFinder>(*mTileMap);
-	NAS2D::Utility<std::map<const MineFacility*, Route>>::get().clear();
+	mOreHaulRoutes = std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager);
+	mOreHaulRoutes->clear();
 
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
@@ -296,7 +297,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 	updateStructuresAvailability();
 
 	updateRoads();
-	findMineRoutes();
+	mOreHaulRoutes->updateRoutes();
 	updateFood();
 	updatePlayerResources();
 	updateResearch();

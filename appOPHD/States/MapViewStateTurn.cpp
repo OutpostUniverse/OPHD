@@ -8,6 +8,7 @@
 
 
 #include "../Map/Connections.h"
+#include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
 #include "../Map/TileMap.h"
@@ -248,65 +249,6 @@ void MapViewState::notifyBirthsAndDeaths()
 }
 
 
-void MapViewState::findMineRoutes()
-{
-	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
-	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
-	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-
-	for (const auto* mineFacility : mStructureManager.getStructures<MineFacility>())
-	{
-		if (!mineFacility->isOperable()) { continue; } // consider a different control path.
-
-		routeTable.erase(mineFacility);
-
-		auto newRoute = mPathSolver->findLowestCostRoute(mineFacility, smelters);
-
-		if (newRoute.isEmpty()) { continue; } // give up and move on to the next mine facility.
-
-		routeTable[mineFacility] = newRoute;
-	}
-}
-
-
-void MapViewState::transportOreFromMines()
-{
-	const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-	for (const auto* mineFacilityPtr : mStructureManager.getStructures<MineFacility>())
-	{
-		auto routeIt = routeTable.find(mineFacilityPtr);
-		if (routeIt != routeTable.end())
-		{
-			const auto& route = routeIt->second;
-			auto& smelter = *route.path.back()->structure();
-			auto& mineFacility = dynamic_cast<MineFacility&>(*route.path.front()->structure());
-
-			if (!smelter.operational()) { break; }
-
-			/* clamp route cost to minimum of 1.0f for next computation to avoid
-			   unintended multiplication. */
-			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
-
-			/* intentional truncation of fractional component*/
-			const int totalOreMovement = static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
-			const int oreMovementPart = totalOreMovement / 4;
-			const int oreMovementRemainder = totalOreMovement % 4;
-			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
-
-			auto& mineStorage = mineFacility.storage();
-			auto& smelterStored = smelter.production();
-
-			const auto oreAvailable = smelterStored + mineStorage.cap(movementCap);
-			const auto newSmelterStored = oreAvailable.cap(smelter.rawOreStorageCapacity());
-			const auto movedOre = newSmelterStored - smelterStored;
-
-			mineStorage -= movedOre;
-			smelterStored = newSmelterStored;
-		}
-	}
-}
-
-
 void MapViewState::transportResourcesToStorage()
 {
 	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
@@ -326,8 +268,8 @@ void MapViewState::transportResourcesToStorage()
 
 void MapViewState::updateResources()
 {
-	findMineRoutes();
-	transportOreFromMines();
+	mOreHaulRoutes->updateRoutes();
+	mOreHaulRoutes->transportOreFromMines();
 	transportResourcesToStorage();
 	updatePlayerResources();
 }

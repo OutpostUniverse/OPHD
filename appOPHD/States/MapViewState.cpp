@@ -15,6 +15,7 @@
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 
+#include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
 #include "../Map/Tile.h"
@@ -266,7 +267,7 @@ MapViewState::~MapViewState()
 	eventHandler.mouseMotion().disconnect({this, &MapViewState::onMouseMove});
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
-	NAS2D::Utility<std::map<const MineFacility*, Route>>::get().clear();
+	mOreHaulRoutes->clear();
 }
 
 
@@ -308,7 +309,7 @@ void MapViewState::initialize()
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
 	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
 
-	mPathSolver = std::make_unique<RouteFinder>(*mTileMap);
+	mOreHaulRoutes = std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager);
 }
 
 
@@ -960,8 +961,8 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		mMineOperationsWindow.hide();
 
-		const auto* mineFacility = dynamic_cast<MineFacility*>(tile.structure());
-		NAS2D::Utility<std::map<const MineFacility*, Route>>::get().erase(mineFacility);
+		const auto& mineFacility = dynamic_cast<MineFacility&>(*tile.structure());
+		mOreHaulRoutes->removeMine(mineFacility);
 
 		const auto tilePosition = tile.xy();
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
@@ -1298,18 +1299,7 @@ void MapViewState::updateRobots()
 
 void MapViewState::updateRouteOverlay()
 {
-	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-
-	mTruckRouteOverlay.clear();
-	for (auto& [mineFacility, route] : routeTable)
-	{
-		if (!mineFacility->isOperable()) { continue; }
-
-		for (auto* tile : route.path)
-		{
-			mTruckRouteOverlay.push_back(tile);
-		}
-	}
+	mTruckRouteOverlay = mOreHaulRoutes->getRouteOverlay();
 }
 
 
