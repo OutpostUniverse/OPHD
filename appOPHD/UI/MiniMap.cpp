@@ -1,6 +1,7 @@
 #include "MiniMap.h"
 
 #include "../Cache.h"
+#include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
@@ -18,11 +19,6 @@
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <map>
-
-
-class MineFacility;
-
 
 namespace
 {
@@ -37,6 +33,7 @@ MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& str
 	mStructureManager{structureManager},
 	mDeployedRobots{deployedRobots},
 	mOreHaulRoutes{oreHaulRoutes},
+	mIsOreHaulRoutesVisible{true},
 	mIsHeightMapVisible{false},
 	mBackgroundSatellite{mapName + MapDisplayExtension},
 	mBackgroundHeightMap{mapName + MapTerrainExtension},
@@ -98,10 +95,9 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 
 	// Temporary debug aid, will be slow with high numbers of mines
 	// especially with routes of longer lengths.
-	const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-	for (auto route : routeTable)
+	if (mIsOreHaulRoutesVisible)
 	{
-		for (auto tile : route.second.path)
+		for (auto* tile : mOreHaulRoutes.getRouteOverlay())
 		{
 			const auto tilePosition = tile->xy();
 			renderer.drawPoint(tilePosition + miniMapOffset, NAS2D::Color::Magenta);

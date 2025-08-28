@@ -49,6 +49,7 @@ private:
 	const StructureManager& mStructureManager;
 	const std::vector<Robot*>& mDeployedRobots;
 	const OreHaulRoutes& mOreHaulRoutes;
+	bool mIsOreHaulRoutesVisible;
 	bool mIsHeightMapVisible;
 	NAS2D::Image mBackgroundSatellite;
 	NAS2D::Image mBackgroundHeightMap;
