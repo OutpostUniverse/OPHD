@@ -13,7 +13,6 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/EnumMouseButton.h>
-#include <NAS2D/Utility.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
