@@ -115,12 +115,7 @@ void OreHaulRoutes::transportOreFromMines()
 
 			if (!smelter.operational()) { break; }
 
-			/* clamp route cost to minimum of 1.0f for next computation to avoid
-			   unintended multiplication. */
-			const float routeCost = std::clamp(routeIt->second.cost, 1.0f, FLT_MAX);
-
-			/* intentional truncation of fractional component*/
-			const int totalOreMovement = static_cast<int>(ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
+			const int totalOreMovement = getOreHaulCapacity(mineFacility);
 			const int oreMovementPart = totalOreMovement / 4;
 			const int oreMovementRemainder = totalOreMovement % 4;
 			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
