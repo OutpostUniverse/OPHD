@@ -31,11 +31,12 @@ namespace
 }
 
 
-MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const std::string& mapName) :
+MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const OreHaulRoutes& oreHaulRoutes, const std::string& mapName) :
 	mMapView{mapView},
 	mTileMap{tileMap},
 	mStructureManager{structureManager},
 	mDeployedRobots{deployedRobots},
+	mOreHaulRoutes{oreHaulRoutes},
 	mIsHeightMapVisible{false},
 	mBackgroundSatellite{mapName + MapDisplayExtension},
 	mBackgroundHeightMap{mapName + MapTerrainExtension},

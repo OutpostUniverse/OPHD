@@ -244,7 +244,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulationModel, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, planetAttributes.mapImagePath)},
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, *mOreHaulRoutes, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {

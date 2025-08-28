@@ -19,6 +19,7 @@ namespace NAS2D
 class Tile;
 class TileMap;
 class StructureManager;
+class OreHaulRoutes;
 class MapView;
 class Robot;
 class MapViewState;
@@ -27,7 +28,7 @@ class MapViewState;
 class MiniMap : public Control
 {
 public:
-	MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const std::string& mapName);
+	MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const OreHaulRoutes& oreHaulRoutes, const std::string& mapName);
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
@@ -47,6 +48,7 @@ private:
 	TileMap& mTileMap;
 	const StructureManager& mStructureManager;
 	const std::vector<Robot*>& mDeployedRobots;
+	const OreHaulRoutes& mOreHaulRoutes;
 	bool mIsHeightMapVisible;
 	NAS2D::Image mBackgroundSatellite;
 	NAS2D::Image mBackgroundHeightMap;
