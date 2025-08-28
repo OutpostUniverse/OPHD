@@ -39,6 +39,12 @@ void MineFacility::maxDepth(int depth)
 }
 
 
+bool MineFacility::isAtMaxStorageCapacity() const
+{
+	return storage() >= maxCapacity();
+}
+
+
 StorableResources MineFacility::maxCapacity() const
 {
 	const auto oreCapacity = rawOreStorageCapacity();
@@ -48,8 +54,8 @@ StorableResources MineFacility::maxCapacity() const
 
 StorableResources MineFacility::maxTransferAmounts() const
 {
-	const auto remainingCapacity = maxCapacity() - production();
-	auto maxTransfer = remainingCapacity.cap(BaseMineProductionRate);
+	const auto availableCapacity = maxCapacity() - storage();
+	auto maxTransfer = availableCapacity.cap(BaseMineProductionRate);
 	return maxTransfer;
 }
 
@@ -78,7 +84,7 @@ void MineFacility::think()
 
 	if (isIdle())
 	{
-		if (storage() < maxCapacity())
+		if (!isAtMaxStorageCapacity())
 		{
 			enable();
 		}
@@ -90,7 +96,7 @@ void MineFacility::think()
 		return;
 	}
 
-	if (storage() >= maxCapacity())
+	if (isAtMaxStorageCapacity())
 	{
 		idle(IdleReason::InternalStorageFull);
 		return;
