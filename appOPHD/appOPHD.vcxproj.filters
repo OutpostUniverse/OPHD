@@ -87,6 +87,9 @@
     <ClCompile Include="Map\MapView.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Map\OreHaulRoutes.cpp">
+      <Filter>Source Files\Map</Filter>
+    </ClCompile>
     <ClCompile Include="Map\RouteFinder.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
@@ -399,6 +402,9 @@
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Map\MapView.h">
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map\OreHaulRoutes.h">
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="Map\Route.h">

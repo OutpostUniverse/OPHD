@@ -188,6 +188,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\Connections.cpp" />
     <ClCompile Include="Map\MapView.cpp" />
+    <ClCompile Include="Map\OreHaulRoutes.cpp" />
     <ClCompile Include="Map\RouteFinder.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="IOHelper.h" />
     <ClInclude Include="Map\Connections.h" />
     <ClInclude Include="Map\MapView.h" />
+    <ClInclude Include="Map\OreHaulRoutes.h" />
     <ClInclude Include="Map\Route.h" />
     <ClInclude Include="Map\RouteFinder.h" />
     <ClInclude Include="Map\Tile.h" />
