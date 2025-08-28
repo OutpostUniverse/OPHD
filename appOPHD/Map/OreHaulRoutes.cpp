@@ -21,12 +21,7 @@ namespace
 	 */
 	inline constexpr float ShortestPathTraversalCount{100.0f};
 
-
-	auto& getRouteTable()
-	{
-		static std::map<const MineFacility*, Route> routeTable;
-		return routeTable;
-	}
+	std::map<const MineFacility*, Route> routeTable;
 }
 
 
@@ -39,20 +34,18 @@ OreHaulRoutes::OreHaulRoutes(TileMap& tileMap, const StructureManager& structure
 
 bool OreHaulRoutes::hasRoute(const MineFacility& mineFacility) const
 {
-	const auto& routeTable = getRouteTable();
 	return routeTable.find(&mineFacility) != routeTable.end();
 }
 
 
 const Route& OreHaulRoutes::getRoute(const MineFacility& mineFacility) const
 {
-	return getRouteTable().at(&mineFacility);
+	return routeTable.at(&mineFacility);
 }
 
 
 float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 {
-	const auto& routeTable = getRouteTable();
 	if (routeTable.find(&mineFacility) == routeTable.end())
 	{
 		return FLT_MAX;
@@ -71,19 +64,18 @@ int OreHaulRoutes::getOreHaulCapacity(const MineFacility& mineFacility) const
 
 void OreHaulRoutes::removeMine(const MineFacility& mineFacility)
 {
-	getRouteTable().erase(&mineFacility);
+	routeTable.erase(&mineFacility);
 }
 
 
 void OreHaulRoutes::clear()
 {
-	getRouteTable().clear();
+	routeTable.clear();
 }
 
 
 void OreHaulRoutes::updateRoutes()
 {
-	auto& routeTable = getRouteTable();
 	routeTable.clear();
 
 	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
@@ -102,7 +94,6 @@ void OreHaulRoutes::updateRoutes()
 
 void OreHaulRoutes::transportOreFromMines()
 {
-	const auto& routeTable = getRouteTable();
 	for (const auto* mineFacilityPtr : mStructureManager.getStructures<MineFacility>())
 	{
 		auto routeIt = routeTable.find(mineFacilityPtr);
@@ -136,7 +127,7 @@ void OreHaulRoutes::transportOreFromMines()
 std::vector<Tile*> OreHaulRoutes::getRouteOverlay() const
 {
 	std::vector<Tile*> routeTiles;
-	for (auto& [_, route] : getRouteTable())
+	for (auto& [_, route] : routeTable)
 	{
 		for (auto* tile : route.path)
 		{
