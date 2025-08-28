@@ -93,8 +93,6 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 		renderer.drawSubImage(mUiIcons, oreDeposit->location() + miniMapOffset - NAS2D::Vector{2, 2}, beaconImageRect);
 	}
 
-	// Temporary debug aid, will be slow with high numbers of mines
-	// especially with routes of longer lengths.
 	if (mIsOreHaulRoutesVisible)
 	{
 		for (auto* tile : mOreHaulRoutes.getRouteOverlay())
