@@ -12,6 +12,7 @@
 #include "../../StructureManager.h"
 #include "../../TruckAvailability.h"
 
+#include "../../Map/OreHaulRoutes.h"
 #include "../../Map/Route.h"
 #include "../../Map/Tile.h"
 #include "../../MapObjects/Structures/MineFacility.h"
@@ -34,29 +35,6 @@ namespace
 	{
 		const auto& surfaceLocation = structure.xyz().xy;
 		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
-	}
-
-	bool hasRoute(MineFacility* mineFacility)
-	{
-		const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-		return routeTable.find(mineFacility) != routeTable.end();
-	}
-
-	float getRouteCost(MineFacility* mineFacility)
-	{
-		const auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-		if (routeTable.find(mineFacility) == routeTable.end())
-		{
-			return FLT_MAX;
-		}
-		const auto& route = routeTable.at(mineFacility);
-		return std::clamp(route.cost, 1.0f, FLT_MAX);
-	}
-
-	int getOreHaulCapacity(MineFacility* mineFacility)
-	{
-		const float routeCost = getRouteCost(mineFacility);
-		return static_cast<int>(constants::ShortestPathTraversalCount / routeCost) * mineFacility->assignedTrucks();
 	}
 
 	std::string formatRouteCost(float routeCost)
@@ -384,7 +362,7 @@ void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<in
 	const auto routeOrigin = truckValueOrigin + valueSpacing * 2;
 	renderer.drawText(fontMediumBold, "Route", routeOrigin, constants::PrimaryTextColor);
 
-	bool routeAvailable = hasRoute(mSelectedFacility);
+	bool routeAvailable = mOreHaulRoutes->hasRoute(*mSelectedFacility);
 
 	const auto routeValueOrigin = routeOrigin + titleSpacing;
 	drawLabelAndValueRightJustify(
@@ -400,7 +378,7 @@ void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<in
 		return;
 	}
 
-	const auto routeCost = getRouteCost(mSelectedFacility);
+	const auto routeCost = mOreHaulRoutes->getRouteCost(*mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		routeValueOrigin + valueSpacing,
 		labelWidth,
@@ -409,7 +387,7 @@ void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<in
 		constants::PrimaryTextColor
 	);
 
-	const auto oreMovementTotal = getOreHaulCapacity(mSelectedFacility);
+	const auto oreMovementTotal = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		routeValueOrigin + valueSpacing * 2,
 		labelWidth,
@@ -433,7 +411,7 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 	const auto oreAvailable = oreDeposit.availableResources();
 	const auto oreTotalYield = oreDeposit.totalYield();
 
-	const auto oreMovementTotal = getOreHaulCapacity(mSelectedFacility);
+	const auto oreMovementTotal = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
 	const auto oreMovementComponent = oreMovementTotal / 4;
 	const auto oreMovementRemainder = oreMovementComponent + (oreMovementTotal % 4);
 
