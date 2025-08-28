@@ -214,6 +214,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mRobotPool{mStructureManager},
 	mDeployedRobots{mRobotPool.deployedRobots()},
+	mOreHaulRoutes{std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager)},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
@@ -308,8 +309,6 @@ void MapViewState::initialize()
 	eventHandler.mouseButtonUp().connect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
 	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
-
-	mOreHaulRoutes = std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager);
 }
 
 

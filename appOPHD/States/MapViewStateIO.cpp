@@ -267,14 +267,13 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	mTileMap = std::make_unique<TileMap>(mPlanetAttributes.mapImagePath, mPlanetAttributes.maxDepth);
 	mTileMap->deserialize(root);
+	mOreHaulRoutes = std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager);
+	mOreHaulRoutes->clear();
 	mMapView = std::make_unique<MapView>(*mTileMap);
 	mMapView->deserialize(root);
 	mMiniMap = std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, mPlanetAttributes.mapImagePath);
 	mDetailMap = std::make_unique<DetailMap>(*mMapView, *mTileMap, mPlanetAttributes.tilesetPath);
 	mNavControl = std::make_unique<NavControl>(*mMapView);
-
-	mOreHaulRoutes = std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager);
-	mOreHaulRoutes->clear();
 
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
