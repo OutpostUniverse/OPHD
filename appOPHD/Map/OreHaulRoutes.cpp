@@ -5,8 +5,6 @@
 #include "../StructureManager.h"
 #include "../MapObjects/Structures/MineFacility.h"
 
-#include <NAS2D/Utility.h>
-
 #include <cfloat>
 #include <map>
 #include <algorithm>
@@ -26,7 +24,8 @@ namespace
 
 	auto& getRouteTable()
 	{
-		return NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
+		static std::map<const MineFacility*, Route> routeTable;
+		return routeTable;
 	}
 }
 
