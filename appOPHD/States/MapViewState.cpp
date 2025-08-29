@@ -15,6 +15,7 @@
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 
+#include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
 #include "../Map/Tile.h"
@@ -213,6 +214,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mTurnNumberOfLanding{constants::ColonyShipOrbitTime},
 	mRobotPool{mStructureManager},
 	mDeployedRobots{mRobotPool.deployedRobots()},
+	mOreHaulRoutes{std::make_unique<OreHaulRoutes>(*mTileMap, mStructureManager)},
 	mReportsState{gameState.reportsState()},
 	mMapView{std::make_unique<MapView>(*mTileMap)},
 	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
@@ -242,7 +244,7 @@ MapViewState::MapViewState(GameState& gameState, const PlanetAttributes& planetA
 	mPoliceOverlays{static_cast<std::vector<Tile*>::size_type>(mTileMap->maxDepth() + 1)},
 	mResourceInfoBar{mResourcesCount, mStructureManager, mPopulationModel, mMorale, mFood},
 	mRobotDeploymentSummary{mRobotPool},
-	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, planetAttributes.mapImagePath)},
+	mMiniMap{std::make_unique<MiniMap>(*mMapView, *mTileMap, mStructureManager, mDeployedRobots, *mOreHaulRoutes, planetAttributes.mapImagePath)},
 	mDetailMap{std::make_unique<DetailMap>(*mMapView, *mTileMap, planetAttributes.tilesetPath)},
 	mNavControl{std::make_unique<NavControl>(*mMapView)}
 {
@@ -266,7 +268,7 @@ MapViewState::~MapViewState()
 	eventHandler.mouseMotion().disconnect({this, &MapViewState::onMouseMove});
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
-	NAS2D::Utility<std::map<const MineFacility*, Route>>::get().clear();
+	mOreHaulRoutes->clear();
 }
 
 
@@ -295,6 +297,7 @@ void MapViewState::initialize()
 
 	setupUiPositions(renderer.size());
 
+	mReportsState.injectOreHaulRoutes(*mOreHaulRoutes);
 	mReportsState.injectTechnology(mTechnologyReader, mResearchTracker);
 
 	mFade.fadeIn(constants::FadeSpeed);
@@ -307,8 +310,6 @@ void MapViewState::initialize()
 	eventHandler.mouseButtonUp().connect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
 	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
-
-	mPathSolver = std::make_unique<RouteFinder>(*mTileMap);
 }
 
 
@@ -960,8 +961,8 @@ void MapViewState::placeRobodozer(Tile& tile)
 
 		mMineOperationsWindow.hide();
 
-		const auto* mineFacility = dynamic_cast<MineFacility*>(tile.structure());
-		NAS2D::Utility<std::map<const MineFacility*, Route>>::get().erase(mineFacility);
+		const auto& mineFacility = dynamic_cast<MineFacility&>(*tile.structure());
+		mOreHaulRoutes->removeMine(mineFacility);
 
 		const auto tilePosition = tile.xy();
 		for (int i = 0; i <= mTileMap->maxDepth(); ++i)
@@ -1298,18 +1299,7 @@ void MapViewState::updateRobots()
 
 void MapViewState::updateRouteOverlay()
 {
-	auto& routeTable = NAS2D::Utility<std::map<const MineFacility*, Route>>::get();
-
-	mTruckRouteOverlay.clear();
-	for (auto& [mineFacility, route] : routeTable)
-	{
-		if (!mineFacility->isOperable()) { continue; }
-
-		for (auto* tile : route.path)
-		{
-			mTruckRouteOverlay.push_back(tile);
-		}
-	}
+	mTruckRouteOverlay = mOreHaulRoutes->getRouteOverlay();
 }
 
 

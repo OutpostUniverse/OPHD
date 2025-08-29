@@ -18,6 +18,7 @@ namespace NAS2D
 
 class StructureManager;
 class MineFacility;
+class OreHaulRoutes;
 
 
 class MineReport : public Report
@@ -32,6 +33,8 @@ public:
 	void clearSelected() override;
 	void fillLists() override;
 	void refresh() override;
+
+	void injectOreHaulRoutes(const OreHaulRoutes& oreHaulRoutes);
 
 	void update() override;
 	void draw(NAS2D::Renderer& renderer) const override;
@@ -63,6 +66,7 @@ protected:
 
 private:
 	const StructureManager& mStructureManager;
+	const OreHaulRoutes* mOreHaulRoutes;
 
 	TakeMeThereDelegate mTakeMeThereHandler;
 	const NAS2D::Font& font;
