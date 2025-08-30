@@ -27,7 +27,7 @@ class ColonyShip
 {
 public:
 	ColonyShip();
-	ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnsOfManeuveringFuel);
+	ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnCount);
 
 	int colonistLanders() const { return mLanders.colonist; }
 	int cargoLanders() const { return mLanders.cargo; }

@@ -23,14 +23,6 @@ namespace
 	{
 		return (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
 	}
-
-
-	int readManeuveringFuel(NAS2D::Xml::XmlElement* element)
-	{
-		const auto turnCount = readTurnCount(element);
-		const auto maneuveringFuel = (turnCount <= constants::ColonyShipOrbitTime) ? constants::ColonyShipOrbitTime - turnCount + 1 : 0;
-		return maneuveringFuel;
-	}
 }
 
 
@@ -41,7 +33,7 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 
 	return {
 		readLanders(root->firstChildElement("population")),
-		readManeuveringFuel(root->firstChildElement("turns")),
+		readTurnCount(root->firstChildElement("turns")),
 	};
 }
 
@@ -56,9 +48,9 @@ ColonyShip::ColonyShip() :
 {}
 
 
-ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnsOfManeuveringFuel) :
+ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnCount) :
 	mLanders{colonyShipLanders},
-	mTurnsOfManeuveringFuel{turnsOfManeuveringFuel}
+	mTurnsOfManeuveringFuel{(turnCount <= constants::ColonyShipOrbitTime) ? constants::ColonyShipOrbitTime - turnCount + 1 : 0}
 {}
 
 
