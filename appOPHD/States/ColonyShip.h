@@ -26,6 +26,8 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument);
 class ColonyShip
 {
 public:
+	static int maxOrbitTime();
+
 	ColonyShip();
 	ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnCount);
 

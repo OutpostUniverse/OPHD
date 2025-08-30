@@ -38,6 +38,12 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 }
 
 
+int ColonyShip::maxOrbitTime()
+{
+	return constants::ColonyShipOrbitTime;
+}
+
+
 ColonyShip::ColonyShip() :
 	mLanders
 	{
