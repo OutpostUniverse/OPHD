@@ -11,7 +11,6 @@
 
 #include "../Cache.h"
 #include "../OpenSaveGame.h"
-#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
 #include "../StructureCatalog.h"
@@ -541,7 +540,7 @@ void MapViewState::readPopulation(NAS2D::Xml::XmlElement* element)
 
 		mMorale = Morale(dictionary.get<int>("morale"), dictionary.get<int>("prev_morale"));
 
-		mTurnNumberOfLanding = dictionary.get<int>("turn_number_of_landing", constants::ColonyShipOrbitTime);
+		mTurnNumberOfLanding = dictionary.get<int>("turn_number_of_landing", ColonyShip::maxOrbitTime());
 
 		const auto meanCrimeRate = dictionary.get<int>("mean_crime", 0);
 

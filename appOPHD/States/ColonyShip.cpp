@@ -1,12 +1,14 @@
 #include "ColonyShip.h"
 
-#include "../Constants/Numbers.h"
 #include "../Constants/Strings.h"
 
 #include <NAS2D/ParserHelper.h>
 
 namespace
 {
+	constexpr int ColonyShipOrbitTime{24};
+
+
 	ColonyShipLanders readLanders(NAS2D::Xml::XmlElement* element)
 	{
 		if (!element) { return {}; }
@@ -19,11 +21,9 @@ namespace
 	}
 
 
-	int readManeuveringFuel(NAS2D::Xml::XmlElement* element)
+	int readTurnCount(NAS2D::Xml::XmlElement* element)
 	{
-		const auto turnCount = (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
-		const auto maneuveringFuel = (turnCount <= constants::ColonyShipOrbitTime) ? constants::ColonyShipOrbitTime - turnCount + 1 : 0;
-		return maneuveringFuel;
+		return (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
 	}
 }
 
@@ -35,8 +35,14 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 
 	return {
 		readLanders(root->firstChildElement("population")),
-		readManeuveringFuel(root->firstChildElement("turns")),
+		readTurnCount(root->firstChildElement("turns")),
 	};
+}
+
+
+int ColonyShip::maxOrbitTime()
+{
+	return ColonyShipOrbitTime;
 }
 
 
@@ -46,13 +52,13 @@ ColonyShip::ColonyShip() :
 		.colonist = 2,
 		.cargo = 2,
 	},
-	mTurnsOfManeuveringFuel{constants::ColonyShipOrbitTime + 1}
+	mTurnsOfManeuveringFuel{ColonyShipOrbitTime + 1}
 {}
 
 
-ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnsOfManeuveringFuel) :
+ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnCount) :
 	mLanders{colonyShipLanders},
-	mTurnsOfManeuveringFuel{turnsOfManeuveringFuel}
+	mTurnsOfManeuveringFuel{(turnCount <= ColonyShipOrbitTime) ? ColonyShipOrbitTime - turnCount + 1 : 0}
 {}
 
 
