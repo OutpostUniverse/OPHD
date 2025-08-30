@@ -19,9 +19,15 @@ namespace
 	}
 
 
+	int readTurnCount(NAS2D::Xml::XmlElement* element)
+	{
+		return (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
+	}
+
+
 	int readManeuveringFuel(NAS2D::Xml::XmlElement* element)
 	{
-		const auto turnCount = (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
+		const auto turnCount = readTurnCount(element);
 		const auto maneuveringFuel = (turnCount <= constants::ColonyShipOrbitTime) ? constants::ColonyShipOrbitTime - turnCount + 1 : 0;
 		return maneuveringFuel;
 	}
