@@ -7,6 +7,9 @@
 
 namespace
 {
+	constexpr int ColonyShipOrbitTime{24};
+
+
 	ColonyShipLanders readLanders(NAS2D::Xml::XmlElement* element)
 	{
 		if (!element) { return {}; }
@@ -40,7 +43,7 @@ ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument)
 
 int ColonyShip::maxOrbitTime()
 {
-	return constants::ColonyShipOrbitTime;
+	return ColonyShipOrbitTime;
 }
 
 
@@ -50,13 +53,13 @@ ColonyShip::ColonyShip() :
 		.colonist = 2,
 		.cargo = 2,
 	},
-	mTurnsOfManeuveringFuel{constants::ColonyShipOrbitTime + 1}
+	mTurnsOfManeuveringFuel{ColonyShipOrbitTime + 1}
 {}
 
 
 ColonyShip::ColonyShip(const ColonyShipLanders& colonyShipLanders, int turnCount) :
 	mLanders{colonyShipLanders},
-	mTurnsOfManeuveringFuel{(turnCount <= constants::ColonyShipOrbitTime) ? constants::ColonyShipOrbitTime - turnCount + 1 : 0}
+	mTurnsOfManeuveringFuel{(turnCount <= ColonyShipOrbitTime) ? ColonyShipOrbitTime - turnCount + 1 : 0}
 {}
 
 
