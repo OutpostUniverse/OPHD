@@ -380,8 +380,7 @@ void Structure::updateIntegrityDecay()
 	}
 	else if (mIntegrity <= 20 && !destroyed())
 	{
-		/* range is 0 - 1000, 0 - 100 for 10% chance */
-		if (randomNumber.generate(0, 1000) < 100)
+		if (randomNumber.generate(0, 100) < 10)
 		{
 			destroy();
 		}
