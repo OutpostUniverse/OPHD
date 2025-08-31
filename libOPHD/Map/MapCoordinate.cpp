@@ -1,6 +1,7 @@
 
 #include "MapCoordinate.h"
 
+#include "MapOffset.h"
 #include "../DirectionOffset.h"
 
 

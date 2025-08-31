@@ -1,11 +1,10 @@
 #pragma once
 
-#include "MapOffset.h"
-
 #include <NAS2D/Math/Point.h>
 
 
 enum class Direction;
+struct MapOffset;
 
 
 struct MapCoordinate
