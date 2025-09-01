@@ -48,13 +48,12 @@ namespace
 	};
 
 
-	auto getSurroundingRoads(const TileMap& tileMap, const NAS2D::Point<int>& tileLocation)
+	auto getSurroundingRoads(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
 	{
 		std::array<bool, 4> surroundingTiles{false, false, false, false};
 		for (size_t i = 0; i < 4; ++i)
 		{
-			const auto tileToInspect = tileLocation + DirectionClockwise4[i];
-			const auto surfacePosition = MapCoordinate{tileToInspect, 0};
+			const auto surfacePosition = mapCoordinate.translate(DirectionClockwise4[i]);
 			if (!tileMap.isValidPosition(surfacePosition)) { continue; }
 			const auto& tile = tileMap.getTile(surfacePosition);
 			if (!tile.hasStructure()) { continue; }
@@ -76,6 +75,6 @@ namespace
 
 std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 {
-	const auto surroundingTiles = getSurroundingRoads(tileMap, road.xyz().xy);
+	const auto surroundingTiles = getSurroundingRoads(tileMap, road.xyz());
 	return roadAnimationName(road.integrity(), surroundingTiles);
 }
