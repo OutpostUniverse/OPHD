@@ -5,6 +5,7 @@
 #include "../MapObjects/Structures/Road.h"
 #include "../Constants/Numbers.h"
 
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
@@ -13,29 +14,37 @@
 
 namespace
 {
-	const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
+	const std::map<ConnectorDir, std::string> ConnectorDirStringTable =
 	{
-		{{true, false, true, false}, "left"},
-		{{true, false, false, false}, "left"},
-		{{false, false, true, false}, "left"},
+		{ConnectorDir::Intersection, "intersection"},
+		{ConnectorDir::NorthSouth, "left"},
+		{ConnectorDir::EastWest, "right"},
+	};
 
-		{{false, true, false, true}, "right"},
-		{{false, true, false, false}, "right"},
-		{{false, false, false, true}, "right"},
 
-		{{false, false, false, false}, "intersection"},
-		{{true, true, false, false}, "intersection"},
-		{{false, false, true, true}, "intersection"},
-		{{false, true, true, true}, "intersection"},
-		{{true, true, true, false}, "intersection"},
-		{{true, true, true, true}, "intersection"},
-		{{true, false, false, true}, "intersection"},
-		{{false, true, true, false}, "intersection"},
+	const std::map<std::array<bool, 4>, ConnectorDir> IntersectionPatternTable =
+	{
+		{{true, false, true, false}, ConnectorDir::NorthSouth},
+		{{true, false, false, false}, ConnectorDir::NorthSouth},
+		{{false, false, true, false}, ConnectorDir::NorthSouth},
 
-		{{false, true, true, true}, "intersection"},
-		{{true, false, true, true}, "intersection"},
-		{{true, true, false, true}, "intersection"},
-		{{true, true, true, false}, "intersection"}
+		{{false, true, false, true}, ConnectorDir::EastWest},
+		{{false, true, false, false}, ConnectorDir::EastWest},
+		{{false, false, false, true}, ConnectorDir::EastWest},
+
+		{{false, false, false, false}, ConnectorDir::Intersection},
+		{{true, true, false, false}, ConnectorDir::Intersection},
+		{{false, false, true, true}, ConnectorDir::Intersection},
+		{{false, true, true, true}, ConnectorDir::Intersection},
+		{{true, true, true, false}, ConnectorDir::Intersection},
+		{{true, true, true, true}, ConnectorDir::Intersection},
+		{{true, false, false, true}, ConnectorDir::Intersection},
+		{{false, true, true, false}, ConnectorDir::Intersection},
+
+		{{false, true, true, true}, ConnectorDir::Intersection},
+		{{true, false, true, true}, ConnectorDir::Intersection},
+		{{true, true, false, true}, ConnectorDir::Intersection},
+		{{true, true, true, false}, ConnectorDir::Intersection}
 	};
 
 
@@ -60,7 +69,7 @@ namespace
 	{
 		const std::string tag = (integrity == 0) ? "-destroyed" :
 			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
-		return IntersectionPatternTable.at(surroundingTiles) + tag;
+		return ConnectorDirStringTable.at(IntersectionPatternTable.at(surroundingTiles)) + tag;
 	}
 }
 
