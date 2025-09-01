@@ -8,8 +8,6 @@
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <NAS2D/Math/Point.h>
-
 
 namespace
 {
