@@ -71,19 +71,14 @@ namespace
 	{
 		return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
 	}
-
-
-	std::string roadAnimationName(int integrity, ConnectorDir connectorDir)
-	{
-		const std::string tag = (integrity == 0) ? "-destroyed" :
-			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
-		return ConnectorDirStringTable.at(connectorDir) + tag;
-	}
 }
 
 
 std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 {
 	const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
-	return roadAnimationName(road.integrity(), connectorDir);
+	const auto integrity = road.integrity();
+	const std::string tag = (integrity == 0) ? "-destroyed" :
+		(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
+	return ConnectorDirStringTable.at(connectorDir) + tag;
 }
