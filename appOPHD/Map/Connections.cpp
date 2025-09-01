@@ -22,55 +22,54 @@ namespace
 	};
 
 
-	const std::map<std::array<bool, 4>, ConnectorDir> IntersectionPatternTable =
-	{
-		{{true, false, true, false}, ConnectorDir::NorthSouth},
-		{{true, false, false, false}, ConnectorDir::NorthSouth},
-		{{false, false, true, false}, ConnectorDir::NorthSouth},
-
-		{{false, true, false, true}, ConnectorDir::EastWest},
-		{{false, true, false, false}, ConnectorDir::EastWest},
-		{{false, false, false, true}, ConnectorDir::EastWest},
-
-		{{false, false, false, false}, ConnectorDir::Intersection},
-		{{true, true, false, false}, ConnectorDir::Intersection},
-		{{false, false, true, true}, ConnectorDir::Intersection},
-		{{false, true, true, true}, ConnectorDir::Intersection},
-		{{true, true, true, false}, ConnectorDir::Intersection},
-		{{true, true, true, true}, ConnectorDir::Intersection},
-		{{true, false, false, true}, ConnectorDir::Intersection},
-		{{false, true, true, false}, ConnectorDir::Intersection},
-
-		{{false, true, true, true}, ConnectorDir::Intersection},
-		{{true, false, true, true}, ConnectorDir::Intersection},
-		{{true, true, false, true}, ConnectorDir::Intersection},
-		{{true, true, true, false}, ConnectorDir::Intersection}
+	constexpr std::array binaryEncodedIndexToConnectorDir = {
+		ConnectorDir::Intersection, // None
+		ConnectorDir::NorthSouth, // North
+		ConnectorDir::EastWest, // East
+		ConnectorDir::Intersection, // East + North
+		ConnectorDir::NorthSouth, // South
+		ConnectorDir::NorthSouth, // South + North
+		ConnectorDir::Intersection, // South + East
+		ConnectorDir::Intersection, // South + East + North
+		ConnectorDir::EastWest, // West
+		ConnectorDir::Intersection, // West + North
+		ConnectorDir::EastWest, // West + East
+		ConnectorDir::Intersection, // West + East + North
+		ConnectorDir::Intersection, // West + South
+		ConnectorDir::Intersection, // West + South + North
+		ConnectorDir::Intersection, // West + South + East
+		ConnectorDir::Intersection, // West + South + East + North
 	};
 
 
 	template <typename Predicate>
-	auto getSurroundingConnections(const TileMap& tileMap, const MapCoordinate& mapCoordinate, Predicate predicate)
+	std::size_t connectionBinaryEncodedIndex(const TileMap& tileMap, const MapCoordinate& mapCoordinate, Predicate predicate)
 	{
-		std::array<bool, 4> surroundingTiles{false, false, false, false};
-		for (size_t i = 0; i < 4; ++i)
+		std::size_t index = 0;
+		std::size_t directionValue = 1;
+		for (const auto& offset : DirectionClockwise4)
 		{
-			const auto adjacentCoordinate = mapCoordinate.translate(DirectionClockwise4[i]);
-			surroundingTiles[i] = tileMap.isValidPosition(adjacentCoordinate) && predicate(tileMap.getTile(adjacentCoordinate));
+			const auto adjacentCoordinate = mapCoordinate.translate(offset);
+			if (tileMap.isValidPosition(adjacentCoordinate) && predicate(tileMap.getTile(adjacentCoordinate)))
+			{
+				index += directionValue;
+			}
+			directionValue *= 2;
 		}
-		return surroundingTiles;
+		return index;
 	}
 
 
-	auto getSurroundingRoads(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	std::size_t roadConnectionBinaryEncodedIndex(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
 	{
 		const auto isRoadAdjacent = [](const Tile& tile) { return tile.hasStructure() && tile.structure()->isRoad(); };
-		return getSurroundingConnections(tileMap, mapCoordinate, isRoadAdjacent);
+		return connectionBinaryEncodedIndex(tileMap, mapCoordinate, isRoadAdjacent);
 	}
 
 
 	ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
 	{
-		return IntersectionPatternTable.at(getSurroundingRoads(tileMap, mapCoordinate));
+		return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
 	}
 
 
