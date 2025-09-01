@@ -48,19 +48,23 @@ namespace
 	};
 
 
-	auto getSurroundingRoads(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	template <typename Predicate>
+	auto getSurroundingConnections(const TileMap& tileMap, const MapCoordinate& mapCoordinate, Predicate predicate)
 	{
 		std::array<bool, 4> surroundingTiles{false, false, false, false};
 		for (size_t i = 0; i < 4; ++i)
 		{
 			const auto surfacePosition = mapCoordinate.translate(DirectionClockwise4[i]);
-			if (!tileMap.isValidPosition(surfacePosition)) { continue; }
-			const auto& tile = tileMap.getTile(surfacePosition);
-			if (!tile.hasStructure()) { continue; }
-
-			surroundingTiles[i] = tile.structure()->isRoad();
+			surroundingTiles[i] = tileMap.isValidPosition(surfacePosition) && predicate(tileMap.getTile(surfacePosition));
 		}
 		return surroundingTiles;
+	}
+
+
+	auto getSurroundingRoads(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	{
+		const auto isRoadAdjacent = [](const Tile& tile) { return tile.hasStructure() && tile.structure()->isRoad(); };
+		return getSurroundingConnections(tileMap, mapCoordinate, isRoadAdjacent);
 	}
 
 
