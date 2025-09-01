@@ -63,7 +63,7 @@ namespace
 		{
 			Structure& road = *tile.structure();
 
-			if (!road.operational())
+			if (road.integrity() < 35)
 			{
 				return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
 			}
