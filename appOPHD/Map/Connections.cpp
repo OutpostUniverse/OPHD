@@ -76,7 +76,6 @@ namespace
 
 std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 {
-	const auto tileLocation = road.xyz().xy;
-	const auto surroundingTiles = getSurroundingRoads(tileMap, tileLocation);
+	const auto surroundingTiles = getSurroundingRoads(tileMap, road.xyz().xy);
 	return roadAnimationName(road.integrity(), surroundingTiles);
 }
