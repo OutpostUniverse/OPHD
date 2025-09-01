@@ -2,8 +2,7 @@
 
 #include "Tile.h"
 #include "TileMap.h"
-#include "../MapObjects/Structures/Road.h"
-#include "../Constants/Numbers.h"
+#include "../MapObjects/Structure.h"
 
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/DirectionOffset.h>
@@ -14,14 +13,6 @@
 
 namespace
 {
-	const std::map<ConnectorDir, std::string> ConnectorDirStringTable =
-	{
-		{ConnectorDir::Intersection, "intersection"},
-		{ConnectorDir::NorthSouth, "left"},
-		{ConnectorDir::EastWest, "right"},
-	};
-
-
 	constexpr std::array binaryEncodedIndexToConnectorDir = {
 		ConnectorDir::Intersection, // None
 		ConnectorDir::NorthSouth, // North
@@ -71,14 +62,4 @@ namespace
 ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
 {
 	return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
-}
-
-
-std::string roadAnimationName(const Road& road, const TileMap& tileMap)
-{
-	const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
-	const auto integrity = road.integrity();
-	const std::string tag = (integrity == 0) ? "-destroyed" :
-		(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
-	return ConnectorDirStringTable.at(connectorDir) + tag;
 }
