@@ -185,6 +185,7 @@
     <ClInclude Include="EnumDirection.h" />
     <ClInclude Include="EnumDisabledReason.h" />
     <ClInclude Include="EnumIdleReason.h" />
+    <ClInclude Include="EnumIntegrityLevel.h" />
     <ClInclude Include="EnumOreDepositYield.h" />
     <ClInclude Include="EnumMoraleIndex.h" />
     <ClInclude Include="EnumProductType.h" />
