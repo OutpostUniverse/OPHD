@@ -54,8 +54,8 @@ namespace
 		std::array<bool, 4> surroundingTiles{false, false, false, false};
 		for (size_t i = 0; i < 4; ++i)
 		{
-			const auto surfacePosition = mapCoordinate.translate(DirectionClockwise4[i]);
-			surroundingTiles[i] = tileMap.isValidPosition(surfacePosition) && predicate(tileMap.getTile(surfacePosition));
+			const auto adjacentCoordinate = mapCoordinate.translate(DirectionClockwise4[i]);
+			surroundingTiles[i] = tileMap.isValidPosition(adjacentCoordinate) && predicate(tileMap.getTile(adjacentCoordinate));
 		}
 		return surroundingTiles;
 	}
