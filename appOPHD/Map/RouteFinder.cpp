@@ -59,11 +59,6 @@ namespace
 
 	float tileMovementCost(const Tile& tile)
 	{
-		if (tile.index() == TerrainType::Impassable)
-		{
-			return FLT_MAX;
-		}
-
 		if (tile.hasStructure() && tile.structure()->isRoad())
 		{
 			Structure& road = *tile.structure();
@@ -83,6 +78,11 @@ namespace
 		}
 
 		if (tile.hasMapObject() && (!tile.hasStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))
+		{
+			return FLT_MAX;
+		}
+
+		if (tile.index() == TerrainType::Impassable)
 		{
 			return FLT_MAX;
 		}
