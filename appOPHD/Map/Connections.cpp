@@ -65,12 +65,12 @@ namespace
 		const auto isRoadAdjacent = [](const Tile& tile) { return tile.hasStructure() && tile.structure()->isRoad(); };
 		return connectionBinaryEncodedIndex(tileMap, mapCoordinate, isRoadAdjacent);
 	}
+}
 
 
-	ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
-	{
-		return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
-	}
+ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+{
+	return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
 }
 
 
