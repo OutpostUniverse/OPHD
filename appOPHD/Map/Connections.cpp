@@ -2,26 +2,15 @@
 
 #include "Tile.h"
 #include "TileMap.h"
-#include "../MapObjects/Structures/Road.h"
-#include "../Constants/Numbers.h"
+#include "../MapObjects/Structure.h"
 
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
-#include <NAS2D/Math/Point.h>
-
 
 namespace
 {
-	const std::map<ConnectorDir, std::string> ConnectorDirStringTable =
-	{
-		{ConnectorDir::Intersection, "intersection"},
-		{ConnectorDir::NorthSouth, "left"},
-		{ConnectorDir::EastWest, "right"},
-	};
-
-
 	constexpr std::array binaryEncodedIndexToConnectorDir = {
 		ConnectorDir::Intersection, // None
 		ConnectorDir::NorthSouth, // North
@@ -65,25 +54,10 @@ namespace
 		const auto isRoadAdjacent = [](const Tile& tile) { return tile.hasStructure() && tile.structure()->isRoad(); };
 		return connectionBinaryEncodedIndex(tileMap, mapCoordinate, isRoadAdjacent);
 	}
-
-
-	ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
-	{
-		return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
-	}
-
-
-	std::string roadAnimationName(int integrity, ConnectorDir connectorDir)
-	{
-		const std::string tag = (integrity == 0) ? "-destroyed" :
-			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
-		return ConnectorDirStringTable.at(connectorDir) + tag;
-	}
 }
 
 
-std::string roadAnimationName(const Road& road, const TileMap& tileMap)
+ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
 {
-	const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
-	return roadAnimationName(road.integrity(), connectorDir);
+	return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
 }
