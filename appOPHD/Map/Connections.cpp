@@ -5,6 +5,7 @@
 #include "../MapObjects/Structures/Road.h"
 #include "../Constants/Numbers.h"
 
+#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/Map/MapCoordinate.h>
 
@@ -13,61 +14,76 @@
 
 namespace
 {
-	const std::map<std::array<bool, 4>, std::string> IntersectionPatternTable =
+	const std::map<ConnectorDir, std::string> ConnectorDirStringTable =
 	{
-		{{true, false, true, false}, "left"},
-		{{true, false, false, false}, "left"},
-		{{false, false, true, false}, "left"},
-
-		{{false, true, false, true}, "right"},
-		{{false, true, false, false}, "right"},
-		{{false, false, false, true}, "right"},
-
-		{{false, false, false, false}, "intersection"},
-		{{true, true, false, false}, "intersection"},
-		{{false, false, true, true}, "intersection"},
-		{{false, true, true, true}, "intersection"},
-		{{true, true, true, false}, "intersection"},
-		{{true, true, true, true}, "intersection"},
-		{{true, false, false, true}, "intersection"},
-		{{false, true, true, false}, "intersection"},
-
-		{{false, true, true, true}, "intersection"},
-		{{true, false, true, true}, "intersection"},
-		{{true, true, false, true}, "intersection"},
-		{{true, true, true, false}, "intersection"}
+		{ConnectorDir::Intersection, "intersection"},
+		{ConnectorDir::NorthSouth, "left"},
+		{ConnectorDir::EastWest, "right"},
 	};
 
 
-	auto getSurroundingRoads(const TileMap& tileMap, const NAS2D::Point<int>& tileLocation)
-	{
-		std::array<bool, 4> surroundingTiles{false, false, false, false};
-		for (size_t i = 0; i < 4; ++i)
-		{
-			const auto tileToInspect = tileLocation + DirectionClockwise4[i];
-			const auto surfacePosition = MapCoordinate{tileToInspect, 0};
-			if (!tileMap.isValidPosition(surfacePosition)) { continue; }
-			const auto& tile = tileMap.getTile(surfacePosition);
-			if (!tile.hasStructure()) { continue; }
+	constexpr std::array binaryEncodedIndexToConnectorDir = {
+		ConnectorDir::Intersection, // None
+		ConnectorDir::NorthSouth, // North
+		ConnectorDir::EastWest, // East
+		ConnectorDir::Intersection, // East + North
+		ConnectorDir::NorthSouth, // South
+		ConnectorDir::NorthSouth, // South + North
+		ConnectorDir::Intersection, // South + East
+		ConnectorDir::Intersection, // South + East + North
+		ConnectorDir::EastWest, // West
+		ConnectorDir::Intersection, // West + North
+		ConnectorDir::EastWest, // West + East
+		ConnectorDir::Intersection, // West + East + North
+		ConnectorDir::Intersection, // West + South
+		ConnectorDir::Intersection, // West + South + North
+		ConnectorDir::Intersection, // West + South + East
+		ConnectorDir::Intersection, // West + South + East + North
+	};
 
-			surroundingTiles[i] = tile.structure()->isRoad();
+
+	template <typename Predicate>
+	std::size_t connectionBinaryEncodedIndex(const TileMap& tileMap, const MapCoordinate& mapCoordinate, Predicate predicate)
+	{
+		std::size_t index = 0;
+		std::size_t directionValue = 1;
+		for (const auto& offset : DirectionClockwise4)
+		{
+			const auto adjacentCoordinate = mapCoordinate.translate(offset);
+			if (tileMap.isValidPosition(adjacentCoordinate) && predicate(tileMap.getTile(adjacentCoordinate)))
+			{
+				index += directionValue;
+			}
+			directionValue *= 2;
 		}
-		return surroundingTiles;
+		return index;
 	}
 
 
-	std::string roadAnimationName(int integrity, const std::array<bool, 4>& surroundingTiles)
+	std::size_t roadConnectionBinaryEncodedIndex(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	{
+		const auto isRoadAdjacent = [](const Tile& tile) { return tile.hasStructure() && tile.structure()->isRoad(); };
+		return connectionBinaryEncodedIndex(tileMap, mapCoordinate, isRoadAdjacent);
+	}
+
+
+	ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	{
+		return binaryEncodedIndexToConnectorDir.at(roadConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
+	}
+
+
+	std::string roadAnimationName(int integrity, ConnectorDir connectorDir)
 	{
 		const std::string tag = (integrity == 0) ? "-destroyed" :
 			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
-		return IntersectionPatternTable.at(surroundingTiles) + tag;
+		return ConnectorDirStringTable.at(connectorDir) + tag;
 	}
 }
 
 
 std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 {
-	const auto tileLocation = road.xyz().xy;
-	const auto surroundingTiles = getSurroundingRoads(tileMap, tileLocation);
-	return roadAnimationName(road.integrity(), surroundingTiles);
+	const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
+	return roadAnimationName(road.integrity(), connectorDir);
 }
