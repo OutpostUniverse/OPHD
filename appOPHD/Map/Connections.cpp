@@ -64,17 +64,23 @@ namespace
 	}
 
 
-	std::string roadAnimationName(int integrity, const std::array<bool, 4>& surroundingTiles)
+	ConnectorDir roadConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	{
+		return IntersectionPatternTable.at(getSurroundingRoads(tileMap, mapCoordinate));
+	}
+
+
+	std::string roadAnimationName(int integrity, ConnectorDir connectorDir)
 	{
 		const std::string tag = (integrity == 0) ? "-destroyed" :
 			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
-		return ConnectorDirStringTable.at(IntersectionPatternTable.at(surroundingTiles)) + tag;
+		return ConnectorDirStringTable.at(connectorDir) + tag;
 	}
 }
 
 
 std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 {
-	const auto surroundingTiles = getSurroundingRoads(tileMap, road.xyz());
-	return roadAnimationName(road.integrity(), surroundingTiles);
+	const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
+	return roadAnimationName(road.integrity(), connectorDir);
 }
