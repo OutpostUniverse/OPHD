@@ -20,14 +20,17 @@
 #include <algorithm>
 
 
-const std::map<StructureState, std::string> StructureStateDescriptions =
+namespace
 {
-	{StructureState::UnderConstruction, "Under Construction"},
-	{StructureState::Operational, "Operational"},
-	{StructureState::Idle, "Idle"},
-	{StructureState::Disabled, "Disabled"},
-	{StructureState::Destroyed, "Destroyed"},
-};
+	const std::map<StructureState, std::string> StructureStateDescriptions =
+	{
+		{StructureState::UnderConstruction, "Under Construction"},
+		{StructureState::Operational, "Operational"},
+		{StructureState::Idle, "Idle"},
+		{StructureState::Disabled, "Disabled"},
+		{StructureState::Destroyed, "Destroyed"},
+	};
+}
 
 
 Structure::Structure(StructureID id, Tile& tile) :
