@@ -63,18 +63,9 @@ namespace
 		{
 			Structure& road = *tile.structure();
 
-			if (road.integrityLevel() < IntegrityLevel::Worn)
-			{
-				return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
-			}
-			else if (road.integrityLevel() < IntegrityLevel::Good)
-			{
-				return 0.75f;
-			}
-			else
-			{
-				return 0.5f;
-			}
+			if (road.integrityLevel() >= IntegrityLevel::Good) { return 0.5f; }
+			else if (road.integrityLevel() >= IntegrityLevel::Worn) { return 0.75f; }
+			else { return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f; }
 		}
 
 		if (tile.hasMapObject() && (!tile.hasStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))
