@@ -58,7 +58,7 @@ int OreHaulRoutes::getOreHaulCapacity(const MineFacility& mineFacility) const
 {
 	if (!hasRoute(mineFacility)) { return 0; }
 	const auto routeCost = getRouteCost(mineFacility);
-	return ShortestPathTraversalCount / routeCost * mineFacility.assignedTrucks();
+	return ShortestPathTraversalCount * mineFacility.assignedTrucks() / routeCost;
 }
 
 
