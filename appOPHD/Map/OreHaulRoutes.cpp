@@ -41,17 +41,17 @@ bool OreHaulRoutes::hasRoute(const MineFacility& mineFacility) const
 
 const Route& OreHaulRoutes::getRoute(const MineFacility& mineFacility) const
 {
+	if (!hasRoute(mineFacility))
+	{
+		throw std::runtime_error("Called getRoute when no valid route");
+	}
 	return routeTable.at(&mineFacility);
 }
 
 
 float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 {
-	if (!hasRoute(mineFacility))
-	{
-		throw std::runtime_error("Called getRouteCost without a route");
-	}
-	const auto& route = routeTable.at(&mineFacility);
+	const auto& route = getRoute(mineFacility);
 	return route.cost;
 }
 
