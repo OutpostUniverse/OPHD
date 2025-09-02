@@ -51,8 +51,7 @@ const Route& OreHaulRoutes::getRoute(const MineFacility& mineFacility) const
 
 float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 {
-	const auto& route = getRoute(mineFacility);
-	return route.cost;
+	return getRoute(mineFacility).cost;
 }
 
 
