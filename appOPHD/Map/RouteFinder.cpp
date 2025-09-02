@@ -31,10 +31,15 @@ namespace
 			auto& end = smelter->tile();
 
 			Route route;
+			float floatCost;
 			solver->Reset();
-			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &route.cost);
+			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &floatCost);
 
-			if (!route.isEmpty()) { routeList.push_back(route); }
+			if (!route.isEmpty())
+			{
+				route.cost = static_cast<int>(floatCost);
+				routeList.push_back(route);
+			}
 		}
 
 		return routeList;

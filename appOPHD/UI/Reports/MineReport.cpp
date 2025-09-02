@@ -35,12 +35,6 @@ namespace
 		const auto& surfaceLocation = structure.xyz().xy;
 		return structure.name() + " at " + NAS2D::stringFrom(surfaceLocation);
 	}
-
-	std::string formatRouteCost(float routeCost)
-	{
-		const auto routeCostString = std::to_string(routeCost);
-		return routeCostString.substr(0, routeCostString.find(".") + 3);
-	}
 }
 
 
@@ -382,7 +376,7 @@ void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<in
 		routeValueOrigin + valueSpacing,
 		labelWidth,
 		"Cost",
-		formatRouteCost(routeCost),
+		std::to_string(routeCost),
 		constants::PrimaryTextColor
 	);
 

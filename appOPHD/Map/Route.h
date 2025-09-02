@@ -9,7 +9,7 @@ class Tile;
 struct Route
 {
 	std::vector<Tile*> path;
-	float cost = 0.0f;
+	int cost = 0;
 
 	bool isEmpty() const { return path.empty(); }
 };
