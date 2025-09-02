@@ -8,6 +8,7 @@
 #include <cfloat>
 #include <map>
 #include <algorithm>
+#include <stdexcept>
 
 
 namespace
@@ -48,7 +49,7 @@ float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 {
 	if (!hasRoute(mineFacility))
 	{
-		return FLT_MAX;
+		throw std::runtime_error("Called getRouteCost without a route");
 	}
 	const auto& route = routeTable.at(&mineFacility);
 	return route.cost;
