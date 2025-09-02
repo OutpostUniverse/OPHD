@@ -1,9 +1,9 @@
 #include "Road.h"
 
-#include "../../Constants/Numbers.h"
 #include "../../Map/Connections.h"
 
 #include <libOPHD/EnumConnectorDir.h>
+#include <libOPHD/EnumIntegrityLevel.h>
 
 #include <string>
 
@@ -21,9 +21,9 @@ namespace
 	std::string roadAnimationName(const Road& road, const TileMap& tileMap)
 	{
 		const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
-		const auto integrity = road.integrity();
-		const std::string tag = (integrity == 0) ? "-destroyed" :
-			(integrity < constants::RoadIntegrityChange) ? "-decayed" : "";
+		const auto integrityLevel = road.integrityLevel();
+		const std::string tag = (integrityLevel == IntegrityLevel::Destroyed) ? "-destroyed" :
+			(integrityLevel < IntegrityLevel::Good) ? "-decayed" : "";
 		return ConnectorDirStringTable.at(connectorDir) + tag;
 	}
 }

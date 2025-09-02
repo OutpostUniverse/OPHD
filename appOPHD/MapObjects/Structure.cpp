@@ -11,6 +11,7 @@
 #include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
+#include <libOPHD/EnumIntegrityLevel.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/RandomNumberGenerator.h>
 #include <libOPHD/MeanSolarDistance.h>
@@ -20,14 +21,17 @@
 #include <algorithm>
 
 
-const std::map<StructureState, std::string> StructureStateDescriptions =
+namespace
 {
-	{StructureState::UnderConstruction, "Under Construction"},
-	{StructureState::Operational, "Operational"},
-	{StructureState::Idle, "Idle"},
-	{StructureState::Disabled, "Disabled"},
-	{StructureState::Destroyed, "Destroyed"},
-};
+	const std::map<StructureState, std::string> StructureStateDescriptions =
+	{
+		{StructureState::UnderConstruction, "Under Construction"},
+		{StructureState::Operational, "Operational"},
+		{StructureState::Idle, "Idle"},
+		{StructureState::Disabled, "Disabled"},
+		{StructureState::Destroyed, "Destroyed"},
+	};
+}
 
 
 Structure::Structure(StructureID id, Tile& tile) :
@@ -369,25 +373,25 @@ void Structure::incrementAge()
 
 void Structure::updateIntegrityDecay()
 {
-	// structures being built don't decay
+	// Structures being built don't decay
 	if (state() == StructureState::UnderConstruction) { return; }
 
-	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
+	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, 100);
 
-	if (mIntegrity <= 35 && !disabled())
+	const auto level = integrityLevel();
+	if (level < IntegrityLevel::Worn && !disabled())
 	{
 		disable(DisabledReason::StructuralIntegrity);
 	}
-	else if (mIntegrity <= 20 && !destroyed())
+	else if (level < IntegrityLevel::Decayed && !destroyed())
 	{
 		if (randomNumber.generate(0, 100) < 10)
 		{
 			destroy();
 		}
 	}
-	else if (mIntegrity <= 0)
+	else if (level <= IntegrityLevel::Destroyed && !destroyed())
 	{
-		mIntegrity = 0;
 		destroy();
 	}
 }
@@ -402,6 +406,7 @@ void Structure::destroy()
 {
 	mSprite.play(constants::StructureStateDestroyed);
 	mStructureState = StructureState::Destroyed;
+	mIntegrity = 0;
 }
 
 
@@ -439,6 +444,12 @@ void Structure::increaseCrimeRate(int deltaCrimeRate)
 void Structure::integrity(int integrity)
 {
 	mIntegrity = integrity;
+}
+
+
+IntegrityLevel Structure::integrityLevel() const
+{
+	return ::integrityLevel(mIntegrity);
 }
 
 

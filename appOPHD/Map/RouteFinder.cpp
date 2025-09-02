@@ -5,8 +5,8 @@
 #include "TileMap.h"
 #include "../MapObjects/Structure.h"
 #include "../MicroPather/micropather.h"
-#include "../Constants/Numbers.h"
 
+#include <libOPHD/EnumIntegrityLevel.h>
 #include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/DirectionOffset.h>
 
@@ -59,30 +59,21 @@ namespace
 
 	float tileMovementCost(const Tile& tile)
 	{
-		if (tile.index() == TerrainType::Impassable)
-		{
-			return FLT_MAX;
-		}
-
 		if (tile.hasStructure() && tile.structure()->isRoad())
 		{
 			Structure& road = *tile.structure();
 
-			if (!road.operational())
-			{
-				return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
-			}
-			else if (road.integrity() < constants::RoadIntegrityChange)
-			{
-				return 0.75f;
-			}
-			else
-			{
-				return 0.5f;
-			}
+			if (road.integrityLevel() >= IntegrityLevel::Good) { return 0.5f; }
+			else if (road.integrityLevel() >= IntegrityLevel::Worn) { return 0.75f; }
+			else { return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f; }
 		}
 
 		if (tile.hasMapObject() && (!tile.hasStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))
+		{
+			return FLT_MAX;
+		}
+
+		if (tile.index() == TerrainType::Impassable)
 		{
 			return FLT_MAX;
 		}

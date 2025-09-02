@@ -15,6 +15,7 @@ enum class StructureID;
 enum class ConnectorDir;
 enum class DisabledReason;
 enum class IdleReason;
+enum class IntegrityLevel;
 enum class StructureClass;
 enum class StructureState;
 struct StructureType;
@@ -113,6 +114,7 @@ public:
 	int integrity() const { return mIntegrity; }
 	void integrity(int integrity);
 	int integrityDecayRate() const;
+	IntegrityLevel integrityLevel() const;
 
 	// FLAGS
 	bool requiresCHAP() const;
