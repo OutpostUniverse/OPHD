@@ -5,7 +5,6 @@
 #include "TileMap.h"
 #include "../MapObjects/Structure.h"
 #include "../MicroPather/micropather.h"
-#include "../Constants/Numbers.h"
 
 #include <libOPHD/EnumIntegrityLevel.h>
 #include <libOPHD/EnumTerrainType.h>

@@ -383,9 +383,6 @@
     <ClInclude Include="CacheMusic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\Numbers.h">
-      <Filter>Header Files\Constants</Filter>
-    </ClInclude>
     <ClInclude Include="Constants\Strings.h">
       <Filter>Header Files\Constants</Filter>
     </ClInclude>
