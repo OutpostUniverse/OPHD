@@ -159,7 +159,7 @@ void MaintenanceFacility::repairStructure(Structure* structure)
 	{
 		--mMaterialsLevel;
 		++mAssignedPersonnel;
-		if (structure->integrity() > 35) // \fixme magic number
+		if (structure->integrity() >= 35) // \fixme magic number
 		{
 			structure->integrity(100);
 			structure->enable();
