@@ -378,11 +378,11 @@ void Structure::updateIntegrityDecay()
 
 	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
 
-	if (mIntegrity <= 35 && !disabled())
+	if (mIntegrity < 35 && !disabled())
 	{
 		disable(DisabledReason::StructuralIntegrity);
 	}
-	else if (mIntegrity <= 20 && !destroyed())
+	else if (mIntegrity < 20 && !destroyed())
 	{
 		if (randomNumber.generate(0, 100) < 10)
 		{
