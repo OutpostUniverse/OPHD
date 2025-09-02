@@ -3,10 +3,10 @@
 
 enum class IntegrityLevel
 {
-	Mint,
-	Good,
-	Worn,
-	Decayed,
-	Unstable,
 	Destroyed,
+	Unstable,
+	Decayed,
+	Worn,
+	Good,
+	Mint,
 };
