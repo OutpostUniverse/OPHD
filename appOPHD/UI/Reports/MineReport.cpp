@@ -380,12 +380,12 @@ void MineReport::drawStatusPane(NAS2D::Renderer& renderer, const NAS2D::Point<in
 		constants::PrimaryTextColor
 	);
 
-	const auto oreMovementTotal = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
+	const auto oreHaulCapacity = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
 	drawLabelAndValueRightJustify(
 		routeValueOrigin + valueSpacing * 2,
 		labelWidth,
 		"Total Haul Capacity",
-		std::to_string(oreMovementTotal),
+		std::to_string(oreHaulCapacity * 4),
 		constants::PrimaryTextColor
 	);
 }
@@ -404,7 +404,7 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 	const auto oreAvailable = oreDeposit.availableResources();
 	const auto oreTotalYield = oreDeposit.totalYield();
 
-	const auto oreMovementComponent = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
+	const auto oreHaulCapacity = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
 
 	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
@@ -414,7 +414,7 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 		renderer.drawSubImage(uiIcons, resourcePosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
 		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourcePosition + resourceNameOffset, constants::PrimaryTextColor);
-		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreMovementComponent), constants::PrimaryTextColor);
+		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreHaulCapacity), constants::PrimaryTextColor);
 
 		const auto resourceNameHeight = std::max(ResourceImageRectsOre[i].size.y, fontBold.height());
 		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};

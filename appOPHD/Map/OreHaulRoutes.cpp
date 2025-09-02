@@ -105,8 +105,8 @@ void OreHaulRoutes::transportOreFromMines()
 
 			if (!smelter.operational()) { break; }
 
-			const int oreMovementPart = getOreHaulCapacity(mineFacility);
-			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart};
+			const int oreHaulCapacity = getOreHaulCapacity(mineFacility);
+			const auto movementCap = StorableResources{oreHaulCapacity, oreHaulCapacity, oreHaulCapacity, oreHaulCapacity};
 
 			auto& mineStorage = mineFacility.storage();
 			auto& smelterStored = smelter.production();
