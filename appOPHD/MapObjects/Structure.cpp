@@ -378,18 +378,19 @@ void Structure::updateIntegrityDecay()
 
 	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
 
-	if (mIntegrity < 35 && !disabled())
+	const auto level = integrityLevel();
+	if (level < IntegrityLevel::Worn && !disabled())
 	{
 		disable(DisabledReason::StructuralIntegrity);
 	}
-	else if (mIntegrity < 20 && !destroyed())
+	else if (level < IntegrityLevel::Decayed && !destroyed())
 	{
 		if (randomNumber.generate(0, 100) < 10)
 		{
 			destroy();
 		}
 	}
-	else if (mIntegrity <= 0)
+	else if (level <= IntegrityLevel::Destroyed)
 	{
 		mIntegrity = 0;
 		destroy();
