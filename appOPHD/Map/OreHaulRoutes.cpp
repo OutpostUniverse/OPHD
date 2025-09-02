@@ -107,8 +107,7 @@ void OreHaulRoutes::transportOreFromMines()
 
 			const int totalOreMovement = getOreHaulCapacity(mineFacility);
 			const int oreMovementPart = totalOreMovement / 4;
-			const int oreMovementRemainder = totalOreMovement % 4;
-			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
+			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart};
 
 			auto& mineStorage = mineFacility.storage();
 			auto& smelterStored = smelter.production();

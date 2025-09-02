@@ -406,7 +406,6 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 
 	const auto oreMovementTotal = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
 	const auto oreMovementComponent = oreMovementTotal / 4;
-	const auto oreMovementRemainder = oreMovementComponent + (oreMovementTotal % 4);
 
 	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
@@ -416,8 +415,7 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 		renderer.drawSubImage(uiIcons, resourcePosition, ResourceImageRectsOre[i]);
 		const auto resourceNameOffset = NAS2D::Vector{ResourceImageRectsOre[i].size.x + constants::MarginTight + 2, 0};
 		renderer.drawText(fontBold, "Mine " + ResourceNamesOre[i], resourcePosition + resourceNameOffset, constants::PrimaryTextColor);
-		const auto oreMovement = (i != 3) ? oreMovementComponent : oreMovementRemainder;
-		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreMovement), constants::PrimaryTextColor);
+		drawLabelRightJustify(resourcePosition, panelWidth, font, std::to_string(oreMovementComponent), constants::PrimaryTextColor);
 
 		const auto resourceNameHeight = std::max(ResourceImageRectsOre[i].size.y, fontBold.height());
 		const auto progressBarPosition = resourcePosition + NAS2D::Vector{0, resourceNameHeight + constants::MarginTight + 2};
