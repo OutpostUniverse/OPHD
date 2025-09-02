@@ -46,7 +46,7 @@ const Route& OreHaulRoutes::getRoute(const MineFacility& mineFacility) const
 
 float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 {
-	if (routeTable.find(&mineFacility) == routeTable.end())
+	if (!hasRoute(mineFacility))
 	{
 		return FLT_MAX;
 	}
