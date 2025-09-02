@@ -392,7 +392,6 @@ void Structure::updateIntegrityDecay()
 	}
 	else if (level <= IntegrityLevel::Destroyed)
 	{
-		mIntegrity = 0;
 		destroy();
 	}
 }
@@ -407,6 +406,7 @@ void Structure::destroy()
 {
 	mSprite.play(constants::StructureStateDestroyed);
 	mStructureState = StructureState::Destroyed;
+	mIntegrity = 0;
 }
 
 
