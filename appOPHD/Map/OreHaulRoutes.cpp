@@ -57,7 +57,7 @@ float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 
 int OreHaulRoutes::getOreHaulCapacity(const MineFacility& mineFacility) const
 {
-	const float routeCost = getRouteCost(mineFacility);
+	const auto routeCost = getRouteCost(mineFacility);
 	return static_cast<int>(ShortestPathTraversalCount / routeCost) * mineFacility.assignedTrucks();
 }
 
