@@ -19,7 +19,7 @@ public:
 
 	bool hasRoute(const MineFacility& mineFacility) const;
 	const Route& getRoute(const MineFacility& mineFacility) const;
-	float getRouteCost(const MineFacility& mineFacility) const;
+	int getRouteCost(const MineFacility& mineFacility) const;
 	int getOreHaulCapacity(const MineFacility& mineFacility) const;
 
 	void removeMine(const MineFacility& mineFacility);

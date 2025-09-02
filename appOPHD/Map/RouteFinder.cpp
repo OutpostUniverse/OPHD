@@ -15,7 +15,7 @@
 
 namespace
 {
-	constexpr float RouteBaseCost{0.5f};
+	constexpr float RouteBaseCost{2.0f};
 
 
 	std::vector<Route> findRoutes(micropather::MicroPather* solver, const Structure* mineFacility, const std::vector<Structure*>& smelters)
@@ -31,10 +31,15 @@ namespace
 			auto& end = smelter->tile();
 
 			Route route;
+			float floatCost;
 			solver->Reset();
-			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &route.cost);
+			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &floatCost);
 
-			if (!route.isEmpty()) { routeList.push_back(route); }
+			if (!route.isEmpty())
+			{
+				route.cost = static_cast<int>(floatCost);
+				routeList.push_back(route);
+			}
 		}
 
 		return routeList;
@@ -63,9 +68,9 @@ namespace
 		{
 			Structure& road = *tile.structure();
 
-			if (road.integrityLevel() >= IntegrityLevel::Good) { return 0.5f; }
-			else if (road.integrityLevel() >= IntegrityLevel::Worn) { return 0.75f; }
-			else { return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f; }
+			if (road.integrityLevel() >= IntegrityLevel::Good) { return 2.0f; }
+			else if (road.integrityLevel() >= IntegrityLevel::Worn) { return 3.0f; }
+			else { return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 4.0f; }
 		}
 
 		if (tile.hasMapObject() && (!tile.hasStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))
@@ -78,7 +83,7 @@ namespace
 			return FLT_MAX;
 		}
 
-		return RouteBaseCost * static_cast<float>(tile.index()) + 1.0f;
+		return RouteBaseCost * static_cast<float>(tile.index()) + 4.0f;
 	}
 }
 
