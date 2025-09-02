@@ -390,7 +390,7 @@ void Structure::updateIntegrityDecay()
 			destroy();
 		}
 	}
-	else if (level <= IntegrityLevel::Destroyed)
+	else if (level <= IntegrityLevel::Destroyed && !destroyed())
 	{
 		destroy();
 	}
