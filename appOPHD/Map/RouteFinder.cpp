@@ -7,6 +7,7 @@
 #include "../MicroPather/micropather.h"
 #include "../Constants/Numbers.h"
 
+#include <libOPHD/EnumIntegrityLevel.h>
 #include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/DirectionOffset.h>
 
@@ -63,11 +64,11 @@ namespace
 		{
 			Structure& road = *tile.structure();
 
-			if (road.integrity() < 35)
+			if (road.integrityLevel() < IntegrityLevel::Worn)
 			{
 				return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 1.0f;
 			}
-			else if (road.integrity() < constants::RoadIntegrityChange)
+			else if (road.integrityLevel() < IntegrityLevel::Good)
 			{
 				return 0.75f;
 			}

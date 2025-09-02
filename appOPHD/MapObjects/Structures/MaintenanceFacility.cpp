@@ -2,6 +2,7 @@
 
 #include "../../States/MapViewStateHelper.h"
 
+#include <libOPHD/EnumIntegrityLevel.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/StorableResources.h>
@@ -159,7 +160,7 @@ void MaintenanceFacility::repairStructure(Structure* structure)
 	{
 		--mMaterialsLevel;
 		++mAssignedPersonnel;
-		if (structure->integrity() >= 35) // \fixme magic number
+		if (structure->integrityLevel() >= IntegrityLevel::Worn)
 		{
 			structure->integrity(100);
 			structure->enable();
