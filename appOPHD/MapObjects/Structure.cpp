@@ -376,7 +376,7 @@ void Structure::updateIntegrityDecay()
 	// structures being built don't decay
 	if (state() == StructureState::UnderConstruction) { return; }
 
-	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, mIntegrity);
+	mIntegrity = std::clamp(mIntegrity - integrityDecayRate(), 0, 100);
 
 	const auto level = integrityLevel();
 	if (level < IntegrityLevel::Worn && !disabled())
