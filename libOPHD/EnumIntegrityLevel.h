@@ -10,3 +10,6 @@ enum class IntegrityLevel
 	Good,
 	Mint,
 };
+
+
+IntegrityLevel integrityLevel(int integrity);

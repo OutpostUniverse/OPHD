@@ -163,6 +163,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectionOffset.cpp" />
+    <ClCompile Include="EnumIntegrityLevel.cpp" />
     <ClCompile Include="MeanSolarDistance.cpp" />
     <ClCompile Include="PlanetAttributes.cpp" />
     <ClCompile Include="ProductCatalog.cpp" />

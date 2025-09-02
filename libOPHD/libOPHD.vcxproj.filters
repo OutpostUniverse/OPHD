@@ -36,6 +36,9 @@
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnumIntegrityLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="MeanSolarDistance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
