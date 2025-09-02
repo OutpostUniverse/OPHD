@@ -404,8 +404,7 @@ void MineReport::drawOreProductionPane(NAS2D::Renderer& renderer, const NAS2D::P
 	const auto oreAvailable = oreDeposit.availableResources();
 	const auto oreTotalYield = oreDeposit.totalYield();
 
-	const auto oreMovementTotal = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
-	const auto oreMovementComponent = oreMovementTotal / 4;
+	const auto oreMovementComponent = mOreHaulRoutes->getOreHaulCapacity(*mSelectedFacility);
 
 	auto resourceOffset = lineOffset + NAS2D::Vector{0, 1 + constants::Margin + 2};
 	const auto progressBarSize = NAS2D::Vector{renderer.size().x - origin.x - 10, std::max(25, fontBold.height() + constants::MarginTight * 2)};
