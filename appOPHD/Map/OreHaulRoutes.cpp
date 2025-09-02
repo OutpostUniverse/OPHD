@@ -5,7 +5,6 @@
 #include "../StructureManager.h"
 #include "../MapObjects/Structures/MineFacility.h"
 
-#include <cfloat>
 #include <map>
 #include <algorithm>
 #include <stdexcept>
