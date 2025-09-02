@@ -51,7 +51,7 @@ float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 		return FLT_MAX;
 	}
 	const auto& route = routeTable.at(&mineFacility);
-	return std::clamp(route.cost, 4.0f, FLT_MAX);
+	return route.cost;
 }
 
 
