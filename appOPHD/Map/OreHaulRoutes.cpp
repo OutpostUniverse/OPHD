@@ -19,7 +19,7 @@ namespace
 	 * represents 100 round trips between the mine/smelter for effectively 100
 	 * units of ore transported per turn.
 	 */
-	inline constexpr int ShortestPathTraversalCount{400};
+	inline constexpr int ShortestPathTraversalCount{100};
 
 	std::map<const MineFacility*, Route> routeTable;
 }
@@ -58,7 +58,7 @@ int OreHaulRoutes::getOreHaulCapacity(const MineFacility& mineFacility) const
 {
 	if (!hasRoute(mineFacility)) { return 0; }
 	const auto routeCost = getRouteCost(mineFacility);
-	return ShortestPathTraversalCount / routeCost * mineFacility.assignedTrucks();
+	return ShortestPathTraversalCount * mineFacility.assignedTrucks() / routeCost;
 }
 
 
@@ -105,10 +105,8 @@ void OreHaulRoutes::transportOreFromMines()
 
 			if (!smelter.operational()) { break; }
 
-			const int totalOreMovement = getOreHaulCapacity(mineFacility);
-			const int oreMovementPart = totalOreMovement / 4;
-			const int oreMovementRemainder = totalOreMovement % 4;
-			const auto movementCap = StorableResources{oreMovementPart, oreMovementPart, oreMovementPart, oreMovementPart + oreMovementRemainder};
+			const int oreHaulCapacity = getOreHaulCapacity(mineFacility);
+			const auto movementCap = StorableResources{oreHaulCapacity, oreHaulCapacity, oreHaulCapacity, oreHaulCapacity};
 
 			auto& mineStorage = mineFacility.storage();
 			auto& smelterStored = smelter.production();
