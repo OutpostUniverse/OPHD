@@ -19,7 +19,7 @@ namespace
 	 * represents 100 round trips between the mine/smelter for effectively 100
 	 * units of ore transported per turn.
 	 */
-	inline constexpr float ShortestPathTraversalCount{100.0f};
+	inline constexpr float ShortestPathTraversalCount{400.0f};
 
 	std::map<const MineFacility*, Route> routeTable;
 }
@@ -51,7 +51,7 @@ float OreHaulRoutes::getRouteCost(const MineFacility& mineFacility) const
 		return FLT_MAX;
 	}
 	const auto& route = routeTable.at(&mineFacility);
-	return std::clamp(route.cost, 1.0f, FLT_MAX);
+	return std::clamp(route.cost, 4.0f, FLT_MAX);
 }
 
 
