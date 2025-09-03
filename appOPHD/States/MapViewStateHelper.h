@@ -26,7 +26,6 @@ enum class Direction;
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
 bool isPointInRangeSameZ(MapCoordinate point1, MapCoordinate point2, int distance);
 
-bool checkStructurePlacement(Tile& tile, Direction dir);
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position);
 bool validStructurePlacement(TileMap& tilemap, MapCoordinate position);
 bool validLanderSite(Tile& t);
