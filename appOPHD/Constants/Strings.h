@@ -91,7 +91,6 @@ namespace constants
 	// =====================================
 	const std::string StructureStateConstruction = "construction";
 	const std::string StructureStateOperational = "operational";
-	const std::string StructureStateOperationalUg = "operational";
 	const std::string StructureStateDestroyed = "destroyed";
 
 
