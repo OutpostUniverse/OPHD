@@ -904,6 +904,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 		}
 
 		auto& structure = mStructureManager.create(structureID, tile);
+		updateSurroundingTubeConnectorDir(tile.xyz());
 
 		if (structure.isFactory())
 		{
