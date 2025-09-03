@@ -31,6 +31,13 @@ namespace
 		{StructureState::Disabled, "Disabled"},
 		{StructureState::Destroyed, "Destroyed"},
 	};
+
+
+	const std::string& getSpritePath(StructureID id, bool isSurface)
+	{
+		const auto& structureType = StructureCatalog::getType(id);
+		return (isSurface || structureType.spritePathUnderground.empty()) ? structureType.spritePath : structureType.spritePathUnderground;
+	}
 }
 
 
@@ -41,7 +48,7 @@ Structure::Structure(StructureID id, Tile& tile) :
 
 
 Structure::Structure(StructureID id, Tile& tile, const std::string& initialAction) :
-	MapObject{StructureCatalog::getType(id).spritePath, initialAction},
+	MapObject{getSpritePath(id, tile.isSurface()), initialAction},
 	mStructureType{StructureCatalog::getType(id)},
 	mStructureId{id},
 	mStructureClass{structureIdToClass(id)},

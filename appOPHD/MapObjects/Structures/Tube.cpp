@@ -1,7 +1,6 @@
 #include "Tube.h"
 
 #include "../StructureState.h"
-#include "../../Map/Tile.h"
 #include "../../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
@@ -20,7 +19,7 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
 		StructureID::Tube,
 		tile,
-		getAnimationName(dir, tile.isSurface()),
+		getAnimationName(dir),
 	}
 {
 	connectorDirection(dir);
@@ -28,14 +27,11 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 }
 
 
-const std::string& Tube::getAnimationName(ConnectorDir dir, bool isSurface)
+const std::string& Tube::getAnimationName(ConnectorDir dir)
 {
 	return
-		(dir == ConnectorDir::Intersection) ?
-			(isSurface ? constants::AgTubeIntersection : constants::UgTubeIntersection) :
-		(dir == ConnectorDir::EastWest) ?
-			(isSurface ? constants::AgTubeRight : constants::UgTubeRight) :
-		(dir == ConnectorDir::NorthSouth) ?
-			(isSurface ? constants::AgTubeLeft : constants::UgTubeLeft) :
+		(dir == ConnectorDir::Intersection) ? constants::TubeIntersection :
+		(dir == ConnectorDir::EastWest) ? constants::TubeRight :
+		(dir == ConnectorDir::NorthSouth) ? constants::TubeLeft :
 		throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter.");
 }

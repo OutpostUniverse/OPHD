@@ -81,13 +81,9 @@ namespace constants
 	// =====================================
 	// = TUBE STATES
 	// =====================================
-	const std::string AgTubeIntersection = "ag_intersection";
-	const std::string AgTubeRight = "ag_right";
-	const std::string AgTubeLeft = "ag_left";
-
-	const std::string UgTubeIntersection = "ug_intersection";
-	const std::string UgTubeRight = "ug_right";
-	const std::string UgTubeLeft = "ug_left";
+	const std::string TubeIntersection = "intersection";
+	const std::string TubeRight = "right";
+	const std::string TubeLeft = "left";
 
 
 	// =====================================
@@ -95,7 +91,6 @@ namespace constants
 	// =====================================
 	const std::string StructureStateConstruction = "construction";
 	const std::string StructureStateOperational = "operational";
-	const std::string StructureStateOperationalUg = "operational-ug";
 	const std::string StructureStateDestroyed = "destroyed";
 
 

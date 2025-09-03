@@ -1,7 +1,6 @@
 #include "AirShaft.h"
 
 #include "../StructureState.h"
-#include "../../Map/Tile.h"
 #include "../../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
@@ -12,7 +11,7 @@ AirShaft::AirShaft(Tile& tile) :
 	Structure{
 		StructureID::AirShaft,
 		tile,
-		tile.isSurface() ? constants::StructureStateOperational : constants::StructureStateOperationalUg,
+		constants::StructureStateOperational,
 	}
 {
 	connectorDirection(ConnectorDir::Vertical);
