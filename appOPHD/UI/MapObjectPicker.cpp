@@ -86,7 +86,7 @@ namespace
 	const std::vector<IconGridItem> UndergroundTubes = {
 		{constants::UgTubeIntersection, 113, static_cast<int>(ConnectorDir::Intersection)},
 		{constants::UgTubeRight, 115, static_cast<int>(ConnectorDir::EastWest)},
-		{constants::UgTubelLeft, 114, static_cast<int>(ConnectorDir::NorthSouth)},
+		{constants::UgTubeLeft, 114, static_cast<int>(ConnectorDir::NorthSouth)},
 	};
 
 
