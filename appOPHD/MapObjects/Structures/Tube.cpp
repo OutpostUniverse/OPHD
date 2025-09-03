@@ -32,10 +32,10 @@ const std::string& Tube::getAnimationName(ConnectorDir dir, bool isSurface)
 {
 	return
 		(dir == ConnectorDir::Intersection) ?
-			(isSurface ? constants::AgTubeIntersection : constants::UgTubeIntersection) :
+			(isSurface ? constants::TubeIntersection : constants::TubeIntersection) :
 		(dir == ConnectorDir::EastWest) ?
-			(isSurface ? constants::AgTubeRight : constants::UgTubeRight) :
+			(isSurface ? constants::TubeRight : constants::TubeRight) :
 		(dir == ConnectorDir::NorthSouth) ?
-			(isSurface ? constants::AgTubeLeft : constants::UgTubeLeft) :
+			(isSurface ? constants::TubeLeft : constants::TubeLeft) :
 		throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter.");
 }

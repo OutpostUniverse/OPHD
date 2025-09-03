@@ -81,13 +81,9 @@ namespace constants
 	// =====================================
 	// = TUBE STATES
 	// =====================================
-	const std::string AgTubeIntersection = "intersection";
-	const std::string AgTubeRight = "right";
-	const std::string AgTubeLeft = "left";
-
-	const std::string UgTubeIntersection = "intersection";
-	const std::string UgTubeRight = "right";
-	const std::string UgTubeLeft = "left";
+	const std::string TubeIntersection = "intersection";
+	const std::string TubeRight = "right";
+	const std::string TubeLeft = "left";
 
 
 	// =====================================
