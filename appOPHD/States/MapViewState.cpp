@@ -783,7 +783,7 @@ void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
 
 	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
-	if (validTubeConnection(*mTileMap, tile.xyz(), connectorDirection))
+	if (validTubeConnection(*mTileMap, tile.xyz()))
 	{
 		insertTube(tile, connectorDirection);
 
