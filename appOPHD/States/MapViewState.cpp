@@ -14,6 +14,7 @@
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 
+#include "../Map/Connections.h"
 #include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
@@ -707,12 +708,7 @@ void MapViewState::onClickMap()
 	}
 	else if (mMapObjectPicker.isInsertingTube())
 	{
-		/** FIXME: This is a kludge that only works because all of the tube structures are listed alphabetically.
-		* Should instead take advantage of the updated meta data in the IconGridItem.
-		*/
-		auto connectorDirection = static_cast<ConnectorDir>(mConnections.selectedIndex() + 1);
-
-		placeTubes(tile, connectorDirection);
+		placeTubes(tile);
 	}
 }
 
@@ -763,18 +759,31 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
-void MapViewState::insertTube(Tile& tile, ConnectorDir dir)
+void MapViewState::insertTube(Tile& tile)
 {
-	if (dir == ConnectorDir::Vertical)
-	{
-		throw std::runtime_error("MapViewState::insertTube() called with invalid ConnectorDir parameter.");
-	}
+	const auto& newTubeLocation = tile.xyz();
+	const auto connectorDir = tubeConnectorDir(*mTileMap, newTubeLocation);
+	mStructureManager.addStructure(*new Tube(tile, connectorDir), tile);
 
-	mStructureManager.addStructure(*new Tube(tile, dir), tile);
+	// Update connectorDir of surrounding tubes
+	for (const auto& offset : DirectionClockwise4)
+	{
+		const auto adjacentTileLocation = newTubeLocation.translate(offset);
+		const auto& adjacentTile = mTileMap->getTile(adjacentTileLocation);
+		if (adjacentTile.hasStructure())
+		{
+			auto& structure = *adjacentTile.structure();
+			if (structure.isTube())
+			{
+				const auto newConnectorDir = tubeConnectorDir(*mTileMap, adjacentTileLocation);
+				structure.connectorDirection(newConnectorDir);
+			}
+		}
+	}
 }
 
 
-void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
+void MapViewState::placeTubes(Tile& tile)
 {
 	if (!tile.isBulldozed()) {
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertTubeTerrain);
@@ -783,9 +792,9 @@ void MapViewState::placeTubes(Tile& tile, ConnectorDir connectorDirection)
 
 	if (tile.mapObject() || tile.oreDeposit() || !tile.excavated()) { return; }
 
-	if (validTubeConnection(*mTileMap, tile.xyz(), connectorDirection))
+	if (validTubeConnection(*mTileMap, tile.xyz()))
 	{
-		insertTube(tile, connectorDirection);
+		insertTube(tile);
 
 		// FIXME: Naive approach -- will be slow with larger colonies.
 		updateConnectedness();

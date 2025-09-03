@@ -388,7 +388,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		const auto structureId = static_cast<StructureID>(dictionary.get<int>("type"));
 		const auto age = dictionary.get<int>("age");
 		const auto state = static_cast<StructureState>(dictionary.get<int>("state"));
-		const auto direction = static_cast<ConnectorDir>(dictionary.get<int>("direction"));
 		const auto forcedIdle = dictionary.get<bool>("forced_idle");
 		const auto disabledReason = static_cast<DisabledReason>(dictionary.get<int>("disabled_reason"));
 		const auto idleReason = static_cast<IdleReason>(dictionary.get<int>("idle_reason"));
@@ -409,7 +408,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::Tube)
 		{
-			insertTube(mTileMap->getTile(mapCoordinate), direction);
+			insertTube(mTileMap->getTile(mapCoordinate));
 			continue; // FIXME: ugly
 		}
 
@@ -418,7 +417,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		structure.age(age);
 		structure.forcedStateChange(state, disabledReason, idleReason);
 		if (forcedIdle) { structure.forceIdle(forcedIdle); }
-		structure.connectorDirection(direction);
 		structure.integrity(integrity);
 		structure.production() = readResourcesOptional(*structureElement, "production");
 		structure.storage() = readResourcesOptional(*structureElement, "storage");

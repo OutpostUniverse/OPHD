@@ -21,15 +21,13 @@ class Warehouse;
 struct StorableResources;
 enum class StructureID;
 enum class Direction;
-enum class ConnectorDir;
 
 
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
 bool isPointInRangeSameZ(MapCoordinate point1, MapCoordinate point2, int distance);
 
-bool checkTubeConnection(Tile& tile, Direction dir, ConnectorDir sourceConnectorDir);
 bool checkStructurePlacement(Tile& tile, Direction dir);
-bool validTubeConnection(TileMap& tilemap, MapCoordinate position, ConnectorDir dir);
+bool validTubeConnection(TileMap& tilemap, MapCoordinate position);
 bool validStructurePlacement(TileMap& tilemap, MapCoordinate position);
 bool validLanderSite(Tile& t);
 bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position);

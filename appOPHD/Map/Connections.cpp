@@ -49,11 +49,24 @@ namespace
 	}
 
 
+	std::size_t tubeConnectionBinaryEncodedIndex(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+	{
+		const auto isAdjacent = [](const Tile& tile) { return tile.hasStructure(); };
+		return connectionBinaryEncodedIndex(tileMap, mapCoordinate, isAdjacent);
+	}
+
+
 	std::size_t roadConnectionBinaryEncodedIndex(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
 	{
 		const auto isRoadAdjacent = [](const Tile& tile) { return tile.hasStructure() && tile.structure()->isRoad(); };
 		return connectionBinaryEncodedIndex(tileMap, mapCoordinate, isRoadAdjacent);
 	}
+}
+
+
+ConnectorDir tubeConnectorDir(const TileMap& tileMap, const MapCoordinate& mapCoordinate)
+{
+	return binaryEncodedIndexToConnectorDir.at(tubeConnectionBinaryEncodedIndex(tileMap, mapCoordinate));
 }
 
 
