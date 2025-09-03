@@ -12,7 +12,7 @@ AirShaft::AirShaft(Tile& tile) :
 	Structure{
 		StructureID::AirShaft,
 		tile,
-		(tile.isSurface()) ? constants::StructureStateOperational : constants::StructureStateOperationalUg,
+		tile.isSurface() ? constants::StructureStateOperational : constants::StructureStateOperationalUg,
 	}
 {
 	connectorDirection(ConnectorDir::Vertical);
