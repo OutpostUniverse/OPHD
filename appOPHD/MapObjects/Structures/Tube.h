@@ -10,5 +10,5 @@ public:
 	Tube(Tile& tile, ConnectorDir dir);
 
 private:
-	static const std::string& getAnimationName(ConnectorDir dir, bool underground);
+	static const std::string& getAnimationName(ConnectorDir dir);
 };
