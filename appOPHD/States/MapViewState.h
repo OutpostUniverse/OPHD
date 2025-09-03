@@ -64,7 +64,6 @@ namespace NAS2D
 
 enum class Difficulty;
 enum class Direction;
-enum class ConnectorDir;
 enum class StructureID;
 enum class RobotTypeIndex;
 
@@ -148,9 +147,9 @@ private:
 	void onDeployColonistLander();
 	void onDeploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
-	void insertTube(Tile& tile, ConnectorDir dir);
+	void insertTube(Tile& tile);
 
-	void placeTubes(Tile& tile, ConnectorDir connectorDirection);
+	void placeTubes(Tile& tile);
 	void placeStructure(Tile& tile, StructureID structureID);
 	void placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex);
 

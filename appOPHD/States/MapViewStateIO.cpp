@@ -409,7 +409,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		if (structureId == StructureID::Tube)
 		{
-			insertTube(mTileMap->getTile(mapCoordinate), direction);
+			insertTube(mTileMap->getTile(mapCoordinate));
 			continue; // FIXME: ugly
 		}
 
