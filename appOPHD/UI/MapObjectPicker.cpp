@@ -7,7 +7,6 @@
 #include "../StructureCatalog.h"
 
 #include <libOPHD/EnumStructureID.h>
-#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
@@ -78,15 +77,11 @@ namespace
 
 
 	const std::vector<IconGridItem> SurfaceTubes = {
-		{constants::TubeIntersection, 110, static_cast<int>(ConnectorDir::Intersection)},
-		{constants::TubeRight, 112, static_cast<int>(ConnectorDir::EastWest)},
-		{constants::TubeLeft, 111, static_cast<int>(ConnectorDir::NorthSouth)},
+		{constants::TubeIntersection, 110},
 	};
 
 	const std::vector<IconGridItem> UndergroundTubes = {
-		{constants::TubeIntersection, 113, static_cast<int>(ConnectorDir::Intersection)},
-		{constants::TubeRight, 115, static_cast<int>(ConnectorDir::EastWest)},
-		{constants::TubeLeft, 114, static_cast<int>(ConnectorDir::NorthSouth)},
+		{constants::TubeIntersection, 113},
 	};
 
 
