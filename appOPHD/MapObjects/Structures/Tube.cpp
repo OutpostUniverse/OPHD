@@ -34,7 +34,7 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 		getAnimationName(dir),
 	}
 {
-	connectorDirection(dir);
+	Structure::connectorDirection(dir);
 	mStructureState = StructureState::Operational;
 }
 
