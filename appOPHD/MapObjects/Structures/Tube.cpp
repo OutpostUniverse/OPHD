@@ -36,6 +36,6 @@ const std::string& Tube::getAnimationName(ConnectorDir dir, bool underground)
 		(dir == ConnectorDir::EastWest) ?
 			(underground ? &constants::UgTubeRight : &constants::AgTubeRight) :
 		(dir == ConnectorDir::NorthSouth) ?
-			(underground ? &constants::UgTubelLeft : &constants::AgTubeLeft) :
+			(underground ? &constants::UgTubeLeft : &constants::AgTubeLeft) :
 		throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter."));
 }

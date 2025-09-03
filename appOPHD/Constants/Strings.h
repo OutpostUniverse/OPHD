@@ -87,7 +87,7 @@ namespace constants
 
 	const std::string UgTubeIntersection = "ug_intersection";
 	const std::string UgTubeRight = "ug_right";
-	const std::string UgTubelLeft = "ug_left";
+	const std::string UgTubeLeft = "ug_left";
 
 
 	// =====================================
