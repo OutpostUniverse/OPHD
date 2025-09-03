@@ -12,6 +12,7 @@
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumIntegrityLevel.h>
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/RandomNumberGenerator.h>
 #include <libOPHD/MeanSolarDistance.h>
@@ -336,6 +337,7 @@ bool Structure::isLander() const { return mStructureClass == StructureClass::Lan
 bool Structure::isPark() const { return mStructureClass == StructureClass::Park; }
 bool Structure::isMaintenance() const { return mStructureClass == StructureClass::Maintenance; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
+bool Structure::isTube() const { return mStructureId == StructureID::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
 
 

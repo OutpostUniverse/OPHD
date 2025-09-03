@@ -139,6 +139,7 @@ public:
 	bool isPark() const;
 	bool isMaintenance() const;
 	bool isConnector() const;
+	bool isTube() const;
 	bool isRoad() const;
 
 	void age(int newAge) { mAge = newAge; }
