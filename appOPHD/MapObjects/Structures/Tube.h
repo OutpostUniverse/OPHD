@@ -10,7 +10,4 @@ public:
 	Tube(Tile& tile, ConnectorDir dir);
 
 	void connectorDirection(ConnectorDir dir) override;
-
-private:
-	static const std::string& getAnimationName(ConnectorDir dir);
 };
