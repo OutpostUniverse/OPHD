@@ -759,16 +759,11 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
-void MapViewState::insertTube(Tile& tile)
+void MapViewState::updateSurroundingTubeConnectorDir(const MapCoordinate& updatedLocation)
 {
-	const auto& newTubeLocation = tile.xyz();
-	const auto connectorDir = tubeConnectorDir(*mTileMap, newTubeLocation);
-	mStructureManager.addStructure(*new Tube(tile, connectorDir), tile);
-
-	// Update connectorDir of surrounding tubes
 	for (const auto& offset : DirectionClockwise4)
 	{
-		const auto adjacentTileLocation = newTubeLocation.translate(offset);
+		const auto adjacentTileLocation = updatedLocation.translate(offset);
 		const auto& adjacentTile = mTileMap->getTile(adjacentTileLocation);
 		if (adjacentTile.hasStructure())
 		{
@@ -780,6 +775,16 @@ void MapViewState::insertTube(Tile& tile)
 			}
 		}
 	}
+}
+
+
+void MapViewState::insertTube(Tile& tile)
+{
+	const auto& newTubeLocation = tile.xyz();
+	const auto connectorDir = tubeConnectorDir(*mTileMap, newTubeLocation);
+	mStructureManager.addStructure(*new Tube(tile, connectorDir), tile);
+
+	updateSurroundingTubeConnectorDir(newTubeLocation);
 }
 
 
@@ -899,6 +904,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 		}
 
 		auto& structure = mStructureManager.create(structureID, tile);
+		updateSurroundingTubeConnectorDir(tile.xyz());
 
 		if (structure.isFactory())
 		{

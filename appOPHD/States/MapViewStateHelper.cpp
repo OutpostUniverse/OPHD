@@ -55,22 +55,6 @@ bool isPointInRangeSameZ(MapCoordinate point1, MapCoordinate point2, int distanc
 
 
 /**
- * Checks to see if the given tile offers a proper connection for a Structure.
- */
-bool checkStructurePlacement(Tile& tile, Direction dir)
-{
-	Structure* structure = tile.structure();
-	if (tile.oreDeposit() || !tile.isBulldozed() || !tile.excavated() || !tile.hasStructure() || !structure->connected() || !structure->isConnector())
-	{
-		return false;
-	}
-
-	// Rely on symmetry of connector direction for back connection
-	return hasConnectorDirection(structure->connectorDirection(), dir);
-}
-
-
-/**
  * Checks to see if a tile is a valid tile to place a tube onto.
  */
 bool validTubeConnection(TileMap& tilemap, MapCoordinate position)
@@ -87,7 +71,9 @@ bool validTubeConnection(TileMap& tilemap, MapCoordinate position)
 bool validStructurePlacement(TileMap& tilemap, MapCoordinate position)
 {
 	return std::any_of(AllDirections4.begin(), AllDirections4.end(), [&](Direction direction){
-		return checkStructurePlacement(tilemap.getTile(position.translate(direction)), direction);
+		const auto& tile = tilemap.getTile(position.translate(direction));
+		const auto* structure = tile.structure();
+		return tile.hasStructure() && structure->isConnector() && structure->connected();
 	});
 }
 
