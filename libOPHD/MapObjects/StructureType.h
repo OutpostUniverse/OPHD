@@ -11,6 +11,7 @@ struct StructureType
 	std::string name;
 	std::string description;
 	std::string spritePath;
+	std::string spritePathUnderground;
 
 	StorableResources buildCost{};
 	StorableResources operationalCost{};
