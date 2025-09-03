@@ -147,8 +147,9 @@ private:
 	void onDeployColonistLander();
 	void onDeploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
-	void insertTube(Tile& tile);
 
+	void updateSurroundingTubeConnectorDir(const MapCoordinate& updatedLocation);
+	void insertTube(Tile& tile);
 	void placeTubes(Tile& tile);
 	void placeStructure(Tile& tile, StructureID structureID);
 	void placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex);
