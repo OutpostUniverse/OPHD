@@ -20,7 +20,7 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
 		StructureID::Tube,
 		tile,
-		getAnimationName(dir, !tile.isSurface()),
+		getAnimationName(dir, tile.isSurface()),
 	}
 {
 	connectorDirection(dir);
@@ -28,14 +28,14 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 }
 
 
-const std::string& Tube::getAnimationName(ConnectorDir dir, bool underground)
+const std::string& Tube::getAnimationName(ConnectorDir dir, bool isSurface)
 {
 	return *(
 		(dir == ConnectorDir::Intersection) ?
-			(underground ? &constants::UgTubeIntersection : &constants::AgTubeIntersection) :
+			(isSurface ? &constants::AgTubeIntersection : &constants::UgTubeIntersection) :
 		(dir == ConnectorDir::EastWest) ?
-			(underground ? &constants::UgTubeRight : &constants::AgTubeRight) :
+			(isSurface ? &constants::AgTubeRight : &constants::UgTubeRight) :
 		(dir == ConnectorDir::NorthSouth) ?
-			(underground ? &constants::UgTubeLeft : &constants::AgTubeLeft) :
+			(isSurface ? &constants::AgTubeLeft : &constants::UgTubeLeft) :
 		throw std::runtime_error("Tried to create a Tube structure with invalid connector direction parameter."));
 }
