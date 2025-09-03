@@ -142,7 +142,7 @@ public:
 	bool isRoad() const;
 
 	void age(int newAge) { mAge = newAge; }
-	void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
+	virtual void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
 
 	virtual void forcedStateChange(StructureState, DisabledReason, IdleReason);
 

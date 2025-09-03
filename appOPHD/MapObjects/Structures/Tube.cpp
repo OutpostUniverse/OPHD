@@ -27,6 +27,13 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 }
 
 
+void Tube::connectorDirection(ConnectorDir dir)
+{
+	Structure::connectorDirection(dir);
+	mSprite.play(getAnimationName(dir));
+}
+
+
 const std::string& Tube::getAnimationName(ConnectorDir dir)
 {
 	return
