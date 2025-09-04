@@ -476,7 +476,7 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"disabled_reason", static_cast<int>(mDisabledReason)},
 		{"idle_reason", static_cast<int>(mIdleReason)},
 		{"type", static_cast<std::size_t>(mStructureId)},
-		{"direction", static_cast<int>(mConnectorDirection)},
+		{"direction", isAirShaft() ? 4 : 1}, // Unused, write for backwards compatibility
 		{"integrity", mIntegrity},
 		{"pop0", mPopulationAvailable.workers},
 		{"pop1", mPopulationAvailable.scientists},
