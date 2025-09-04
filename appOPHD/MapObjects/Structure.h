@@ -143,7 +143,7 @@ public:
 	bool isRoad() const;
 
 	void age(int newAge) { mAge = newAge; }
-	virtual void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
+	virtual void connectorDirection(ConnectorDir) {}
 
 	void forcedStateChange(StructureState, DisabledReason, IdleReason);
 
@@ -176,7 +176,6 @@ protected:
 	int mIntegrity{100};
 
 	StructureState mStructureState;
-	ConnectorDir mConnectorDirection;
 
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
 

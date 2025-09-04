@@ -14,6 +14,5 @@ AirShaft::AirShaft(Tile& tile) :
 		constants::StructureStateOperational,
 	}
 {
-	connectorDirection(ConnectorDir::Vertical);
 	mStructureState = StructureState::Operational;
 }
