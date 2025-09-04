@@ -276,6 +276,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
+	updateAllTubeConnectorDir();
 
 	mResearchTracker = readResearch(root->firstChildElement("research"));
 
