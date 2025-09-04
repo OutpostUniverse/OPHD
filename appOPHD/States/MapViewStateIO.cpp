@@ -406,13 +406,9 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		tile.bulldoze();
 		tile.excavate();
 
-		if (structureId == StructureID::Tube)
-		{
-			insertTube(mTileMap->getTile(mapCoordinate));
-			continue; // FIXME: ugly
-		}
-
 		auto& structure = mStructureManager.create(structureId, tile);
+
+		if (structureId == StructureID::Tube) { continue; } // FIXME: ugly
 
 		structure.age(age);
 		structure.forcedStateChange(state, disabledReason, idleReason);
