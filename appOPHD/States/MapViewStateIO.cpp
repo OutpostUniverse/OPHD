@@ -13,7 +13,6 @@
 #include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
-#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
@@ -413,8 +412,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			continue; // FIXME: ugly
 		}
 
-		auto& structure = *StructureCatalog::create(structureId, tile);
-		mStructureManager.addStructure(structure, tile);
+		auto& structure = mStructureManager.create(structureId, tile);
 
 		structure.age(age);
 		structure.forcedStateChange(state, disabledReason, idleReason);
