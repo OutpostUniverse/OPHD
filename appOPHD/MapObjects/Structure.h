@@ -85,7 +85,6 @@ public:
 	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	const std::string& classDescription() const;
-	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int turnsToBuild() const;
 	int age() const { return mAge; }
@@ -139,11 +138,12 @@ public:
 	bool isPark() const;
 	bool isMaintenance() const;
 	bool isConnector() const;
+	bool isAirShaft() const;
 	bool isTube() const;
 	bool isRoad() const;
 
 	void age(int newAge) { mAge = newAge; }
-	virtual void connectorDirection(ConnectorDir dir) { mConnectorDirection = dir; }
+	virtual void connectorDirection(ConnectorDir) {}
 
 	void forcedStateChange(StructureState, DisabledReason, IdleReason);
 
@@ -176,7 +176,6 @@ protected:
 	int mIntegrity{100};
 
 	StructureState mStructureState;
-	ConnectorDir mConnectorDirection;
 
 	PopulationRequirements mPopulationAvailable{}; /**< Determine how many of each type of population required was actually supplied to the structure. */
 

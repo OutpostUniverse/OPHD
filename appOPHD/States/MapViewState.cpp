@@ -41,7 +41,6 @@
 #include "../UI/MiniMap.h"
 
 #include <libOPHD/EnumDifficulty.h>
-#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>
@@ -1115,12 +1114,12 @@ void MapViewState::placeRobodigger(Tile& tile)
 	{
 		if (!tile.isSurface())
 		{
-			if (tile.hasStructure() && tile.structure()->connectorDirection() != ConnectorDir::Vertical) // Air shaft
+			if (tile.hasStructure() && !tile.structure()->isAirShaft())
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 				return;
 			}
-			else if (tile.hasStructure() && tile.structure()->connectorDirection() == ConnectorDir::Vertical && tile.depth() == mTileMap->maxDepth())
+			else if (tile.hasStructure() && tile.structure()->isAirShaft() && tile.depth() == mTileMap->maxDepth())
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMaxDigDepth);
 				return;

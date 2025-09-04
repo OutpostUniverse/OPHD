@@ -34,13 +34,11 @@ Tube::Tube(Tile& tile, ConnectorDir dir) :
 		getAnimationName(dir),
 	}
 {
-	Structure::connectorDirection(dir);
 	mStructureState = StructureState::Operational;
 }
 
 
 void Tube::connectorDirection(ConnectorDir dir)
 {
-	Structure::connectorDirection(dir);
 	mSprite.play(getAnimationName(dir));
 }

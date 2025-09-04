@@ -4,7 +4,6 @@
 #include "../../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
-#include <libOPHD/EnumConnectorDir.h>
 
 
 AirShaft::AirShaft(Tile& tile) :
@@ -14,6 +13,5 @@ AirShaft::AirShaft(Tile& tile) :
 		constants::StructureStateOperational,
 	}
 {
-	connectorDirection(ConnectorDir::Vertical);
 	mStructureState = StructureState::Operational;
 }

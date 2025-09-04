@@ -25,7 +25,6 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
-#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/StructureType.h>
 

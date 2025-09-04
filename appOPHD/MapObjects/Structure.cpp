@@ -8,7 +8,6 @@
 #include "../Constants/Strings.h"
 #include "../Map/Tile.h"
 
-#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumIntegrityLevel.h>
@@ -55,7 +54,6 @@ Structure::Structure(StructureID id, Tile& tile, const std::string& initialActio
 	mStructureClass{structureIdToClass(id)},
 	mTile{tile},
 	mStructureState{StructureState::UnderConstruction},
-	mConnectorDirection{ConnectorDir::Intersection},
 	mDisabledReason{DisabledReason::None},
 	mIdleReason{IdleReason::None}
 {
@@ -337,6 +335,7 @@ bool Structure::isLander() const { return mStructureClass == StructureClass::Lan
 bool Structure::isPark() const { return mStructureClass == StructureClass::Park; }
 bool Structure::isMaintenance() const { return mStructureClass == StructureClass::Maintenance; }
 bool Structure::isConnector() const { return mStructureClass == StructureClass::Tube; }
+bool Structure::isAirShaft() const { return mStructureId == StructureID::AirShaft; }
 bool Structure::isTube() const { return mStructureId == StructureID::Tube; }
 bool Structure::isRoad() const { return mStructureClass == StructureClass::Road; }
 
@@ -475,7 +474,7 @@ NAS2D::Dictionary Structure::getDataDict() const
 		{"disabled_reason", static_cast<int>(mDisabledReason)},
 		{"idle_reason", static_cast<int>(mIdleReason)},
 		{"type", static_cast<std::size_t>(mStructureId)},
-		{"direction", static_cast<int>(mConnectorDirection)},
+		{"direction", isAirShaft() ? 4 : 1}, // Unused, write for backwards compatibility
 		{"integrity", mIntegrity},
 		{"pop0", mPopulationAvailable.workers},
 		{"pop1", mPopulationAvailable.scientists},
