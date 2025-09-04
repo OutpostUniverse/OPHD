@@ -20,20 +20,28 @@ void walkGraph(const std::vector<MapCoordinate>& positions, TileMap& tileMap)
 void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 {
 	Tile& thisTile = tileMap.getTile(position);
-	thisTile.structure()->connected(true);
+	auto& thisStructure = *thisTile.structure();
+	thisStructure.connected(true);
 
-	for (const auto& direction : MapOffsetClockwise6)
+	for (const auto& offset : MapOffsetClockwise6)
 	{
-		const auto nextPosition = position.translate(direction);
+		const auto nextPosition = position.translate(offset);
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
 		auto& nextTile = tileMap.getTile(nextPosition);
-		if (!nextTile.hasStructure() || nextTile.structure()->connected()) { continue; }
+		if (!nextTile.hasStructure()) { continue; }
+
+		const auto& nextStructure = *nextTile.structure();
+		if (nextStructure.connected()) { continue; }
 
 		// At least one end must be a Tube or AirShaft as other Structures don't connect to each other
-		if (thisTile.structure()->isConnector() || nextTile.structure()->isConnector())
+		if (thisStructure.isConnector() || nextStructure.isConnector())
 		{
-			walkGraph(nextPosition, tileMap);
+			// Only traverse z for AirShaft structures
+			if ((offset.z == 0) || (thisStructure.isAirShaft() && nextStructure.isAirShaft()))
+			{
+				walkGraph(nextPosition, tileMap);
+			}
 		}
 	}
 }
