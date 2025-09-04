@@ -414,6 +414,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		}
 
 		auto& structure = *StructureCatalog::create(structureId, tile);
+		mStructureManager.addStructure(structure, tile);
 
 		structure.age(age);
 		structure.forcedStateChange(state, disabledReason, idleReason);
@@ -505,8 +506,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			factory.resourcePool(&mResourcesCount);
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
-
-		mStructureManager.addStructure(structure, tile);
 	}
 }
 
