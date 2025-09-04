@@ -408,8 +408,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 
 		auto& structure = mStructureManager.create(structureId, tile);
 
-		if (structureId == StructureID::Tube) { continue; } // FIXME: ugly
-
 		structure.age(age);
 		structure.forcedStateChange(state, disabledReason, idleReason);
 		if (forcedIdle) { structure.forceIdle(forcedIdle); }
