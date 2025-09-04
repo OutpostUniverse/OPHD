@@ -62,9 +62,6 @@ public:
 	void setSelection(Index newSelection);
 	void setSelectionByMeta(int selectionMetaValue);
 
-	void incrementSelection();
-	void decrementSelection();
-
 	void hide() override;
 	void draw(NAS2D::Renderer& renderer) const override;
 
