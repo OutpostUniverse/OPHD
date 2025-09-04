@@ -23,9 +23,9 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 	auto& thisStructure = *thisTile.structure();
 	thisStructure.connected(true);
 
-	for (const auto& direction : MapOffsetClockwise6)
+	for (const auto& offset : MapOffsetClockwise6)
 	{
-		const auto nextPosition = position.translate(direction);
+		const auto nextPosition = position.translate(offset);
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
 
 		auto& nextTile = tileMap.getTile(nextPosition);
