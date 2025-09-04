@@ -13,20 +13,10 @@
 
 namespace
 {
-	bool canConnect(Structure& src, Structure& dst, Direction direction)
+	bool canConnect(Structure& src, Structure& dst)
 	{
-		const auto srcConnectorDir = src.connectorDirection();
-		const auto dstConnectorDir = dst.connectorDirection();
-
 		// At least one end must be a Tube as Structures don't connect to each other
-		if (!src.isConnector() && !dst.isConnector()) { return false; }
-
-		// Only follow directions that are valid for source connector
-		if (!hasConnectorDirection(srcConnectorDir, direction)) { return false; }
-
-		// Check if destination can receive a connection from the given direction
-		// (Relies on symmetry of connector directions)
-		return hasConnectorDirection(dstConnectorDir, direction);
+		return src.isConnector() || dst.isConnector();
 	}
 }
 
@@ -85,7 +75,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		auto& nextTile = tileMap.getTile(nextPosition);
 		if (!nextTile.hasStructure() || nextTile.structure()->connected()) { continue; }
 
-		if (canConnect(*thisTile.structure(), *nextTile.structure(), direction))
+		if (canConnect(*thisTile.structure(), *nextTile.structure()))
 		{
 			walkGraph(nextPosition, tileMap);
 		}
