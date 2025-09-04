@@ -4,9 +4,7 @@
 #include "Map/TileMap.h"
 #include "MapObjects/Structure.h"
 
-#include <libOPHD/EnumDirection.h>
 #include <libOPHD/DirectionOffset.h>
-
 #include <libOPHD/Map/MapCoordinate.h>
 
 
@@ -24,16 +22,7 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 	Tile& thisTile = tileMap.getTile(position);
 	thisTile.structure()->connected(true);
 
-	const auto directions = std::array{
-		Direction::Up,
-		Direction::Down,
-		Direction::North,
-		Direction::East,
-		Direction::South,
-		Direction::West,
-	};
-
-	for (const auto direction : directions)
+	for (const auto& direction : MapOffsetClockwise6)
 	{
 		const auto nextPosition = position.translate(direction);
 		if (!tileMap.isValidPosition(nextPosition)) { continue; }
