@@ -21,29 +21,6 @@ namespace
 }
 
 
-bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
-{
-	if (srcConnectorDir == ConnectorDir::Vertical)
-	{
-		return true;
-	}
-	else if (srcConnectorDir == ConnectorDir::Intersection)
-	{
-		return direction == Direction::North || direction == Direction::South || direction == Direction::East || direction == Direction::West;
-	}
-	else if (srcConnectorDir == ConnectorDir::NorthSouth)
-	{
-		return direction == Direction::North || direction == Direction::South;
-	}
-	else if (srcConnectorDir == ConnectorDir::EastWest)
-	{
-		return direction == Direction::East || direction == Direction::West;
-	}
-
-	return false;
-}
-
-
 void walkGraph(const std::vector<MapCoordinate>& positions, TileMap& tileMap)
 {
 	for (const auto& position : positions)
