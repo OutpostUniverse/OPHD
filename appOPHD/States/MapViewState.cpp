@@ -759,6 +759,16 @@ void MapViewState::changeViewDepth(int depth)
 }
 
 
+void MapViewState::updateAllTubeConnectorDir()
+{
+	const auto& tubes = mStructureManager.structureList(StructureID::Tube);
+	for (auto* tube : tubes)
+	{
+		tube->connectorDirection(tubeConnectorDir(*mTileMap, tube->xyz()));
+	}
+}
+
+
 void MapViewState::updateSurroundingTubeConnectorDir(const MapCoordinate& updatedLocation)
 {
 	for (const auto& offset : DirectionClockwise4)
