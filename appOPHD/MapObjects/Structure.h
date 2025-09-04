@@ -85,7 +85,6 @@ public:
 	const std::string& stateDescription() const;
 	static const std::string& stateDescription(StructureState state);
 	const std::string& classDescription() const;
-	ConnectorDir connectorDirection() const { return mConnectorDirection; }
 
 	int turnsToBuild() const;
 	int age() const { return mAge; }
