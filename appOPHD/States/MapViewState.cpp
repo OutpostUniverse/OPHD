@@ -33,7 +33,6 @@
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/SeedLander.h"
 #include "../MapObjects/Structures/StorageTanks.h"
-#include "../MapObjects/Structures/Tube.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
@@ -792,7 +791,8 @@ void MapViewState::insertTube(Tile& tile)
 {
 	const auto& newTubeLocation = tile.xyz();
 	const auto connectorDir = tubeConnectorDir(*mTileMap, newTubeLocation);
-	mStructureManager.addStructure(*new Tube(tile, connectorDir), tile);
+	auto& tube = mStructureManager.create(StructureID::Tube, tile);
+	tube.connectorDirection(connectorDir);
 
 	updateSurroundingTubeConnectorDir(newTubeLocation);
 }
