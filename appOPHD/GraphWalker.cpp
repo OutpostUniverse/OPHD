@@ -37,7 +37,11 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		// At least one end must be a Tube or AirShaft as other Structures don't connect to each other
 		if (thisStructure.isConnector() || nextStructure.isConnector())
 		{
-			walkGraph(nextPosition, tileMap);
+			// Only traverse z for AirShaft structures
+			if ((offset.z == 0) || (thisStructure.isAirShaft() && nextStructure.isAirShaft()))
+			{
+				walkGraph(nextPosition, tileMap);
+			}
 		}
 	}
 }
