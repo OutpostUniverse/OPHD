@@ -9,9 +9,6 @@
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/StructureType.h>
 
-#include <NAS2D/Utility.h>
-#include <NAS2D/EventHandler.h>
-
 
 #include <array>
 
@@ -116,15 +113,11 @@ MapObjectPicker::MapObjectPicker(const StorableResources& resources, SelectionCh
 	mRobots{{this, &MapObjectPicker::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
 	mConnections{{this, &MapObjectPicker::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight}
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().connect({this, &MapObjectPicker::onMouseWheel});
 }
 
 
 MapObjectPicker::~MapObjectPicker()
 {
-	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.mouseWheel().disconnect({this, &MapObjectPicker::onMouseWheel});
 }
 
 
@@ -206,14 +199,6 @@ void MapObjectPicker::clearSelections()
 	mStructures.clearSelection();
 	mConnections.clearSelection();
 	mRobots.clearSelection();
-}
-
-
-void MapObjectPicker::onMouseWheel(NAS2D::Vector<int> changeAmount)
-{
-	if (mInsertMode != InsertMode::Tube) { return; }
-
-	changeAmount.y > 0 ? mConnections.decrementSelection() : mConnections.incrementSelection();
 }
 
 

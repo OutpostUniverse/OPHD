@@ -48,7 +48,6 @@ protected:
 	void onStructuresSelectionChange(const IconGridItem* item);
 	void onConnectionsSelectionChange(const IconGridItem* item);
 	void onRobotsSelectionChange(const IconGridItem* item);
-	void onMouseWheel(NAS2D::Vector<int> changeAmount);
 	void onResize() override;
 
 public:

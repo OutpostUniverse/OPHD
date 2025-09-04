@@ -3,8 +3,6 @@
 #include <vector>
 
 
-enum class ConnectorDir;
-enum class Direction;
 struct MapCoordinate;
 class TileMap;
 
