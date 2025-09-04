@@ -143,11 +143,6 @@ Structure& StructureManager::create(StructureID structureId, Tile& tile)
 
 void StructureManager::addStructure(Structure& structure, Tile& tile)
 {
-	if (std::find(mDeployedStructures.begin(), mDeployedStructures.end(), &structure) != mDeployedStructures.end())
-	{
-		throw std::runtime_error("StructureManager::addStructure(): Attempting to add a Structure that is already managed!");
-	}
-
 	if (tile.hasMapObject())
 	{
 		tile.removeMapObject();
