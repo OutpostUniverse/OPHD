@@ -148,6 +148,7 @@ private:
 	void onDeploySeedLander(NAS2D::Point<int> point);
 	void insertSeedLander(NAS2D::Point<int> point);
 
+	void updateAllTubeConnectorDir();
 	void updateSurroundingTubeConnectorDir(const MapCoordinate& updatedLocation);
 	void insertTube(Tile& tile);
 	void placeTubes(Tile& tile);

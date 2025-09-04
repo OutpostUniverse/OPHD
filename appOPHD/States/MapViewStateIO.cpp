@@ -13,7 +13,6 @@
 #include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
 #include "../IOHelper.h"
-#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
@@ -276,6 +275,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument* xmlDocument)
 
 	readRobots(root->firstChildElement("robots"));
 	readStructures(root->firstChildElement("structures"));
+	updateAllTubeConnectorDir();
 
 	mResearchTracker = readResearch(root->firstChildElement("research"));
 
@@ -406,13 +406,7 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 		tile.bulldoze();
 		tile.excavate();
 
-		if (structureId == StructureID::Tube)
-		{
-			insertTube(mTileMap->getTile(mapCoordinate));
-			continue; // FIXME: ugly
-		}
-
-		auto& structure = *StructureCatalog::create(structureId, tile);
+		auto& structure = mStructureManager.create(structureId, tile);
 
 		structure.age(age);
 		structure.forcedStateChange(state, disabledReason, idleReason);
@@ -504,8 +498,6 @@ void MapViewState::readStructures(NAS2D::Xml::XmlElement* element)
 			factory.resourcePool(&mResourcesCount);
 			factory.productionCompleteHandler({this, &MapViewState::onFactoryProductionComplete});
 		}
-
-		mStructureManager.addStructure(structure, tile);
 	}
 }
 

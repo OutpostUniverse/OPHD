@@ -424,6 +424,9 @@ void Structure::destroy()
  */
 void Structure::forcedStateChange(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
+	// No state changes for Tube or AirShaft
+	if (isConnector()) { return; }
+
 	if (age() >= turnsToBuild())
 	{
 		mSprite.play(constants::StructureStateOperational);
