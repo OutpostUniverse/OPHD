@@ -11,49 +11,6 @@
 #include <libOPHD/Map/MapCoordinate.h>
 
 
-namespace
-{
-	bool canConnect(Structure& src, Structure& dst, Direction direction)
-	{
-		const auto srcConnectorDir = src.connectorDirection();
-		const auto dstConnectorDir = dst.connectorDirection();
-
-		// At least one end must be a Tube as Structures don't connect to each other
-		if (!src.isConnector() && !dst.isConnector()) { return false; }
-
-		// Only follow directions that are valid for source connector
-		if (!hasConnectorDirection(srcConnectorDir, direction)) { return false; }
-
-		// Check if destination can receive a connection from the given direction
-		// (Relies on symmetry of connector directions)
-		return hasConnectorDirection(dstConnectorDir, direction);
-	}
-}
-
-
-bool hasConnectorDirection(ConnectorDir srcConnectorDir, Direction direction)
-{
-	if (srcConnectorDir == ConnectorDir::Vertical)
-	{
-		return true;
-	}
-	else if (srcConnectorDir == ConnectorDir::Intersection)
-	{
-		return direction == Direction::North || direction == Direction::South || direction == Direction::East || direction == Direction::West;
-	}
-	else if (srcConnectorDir == ConnectorDir::NorthSouth)
-	{
-		return direction == Direction::North || direction == Direction::South;
-	}
-	else if (srcConnectorDir == ConnectorDir::EastWest)
-	{
-		return direction == Direction::East || direction == Direction::West;
-	}
-
-	return false;
-}
-
-
 void walkGraph(const std::vector<MapCoordinate>& positions, TileMap& tileMap)
 {
 	for (const auto& position : positions)
@@ -85,7 +42,8 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		auto& nextTile = tileMap.getTile(nextPosition);
 		if (!nextTile.hasStructure() || nextTile.structure()->connected()) { continue; }
 
-		if (canConnect(*thisTile.structure(), *nextTile.structure(), direction))
+		// At least one end must be a Tube or AirShaft as other Structures don't connect to each other
+		if (thisTile.structure()->isConnector() || nextTile.structure()->isConnector())
 		{
 			walkGraph(nextPosition, tileMap);
 		}
