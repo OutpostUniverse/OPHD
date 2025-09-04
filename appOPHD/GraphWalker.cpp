@@ -11,16 +11,6 @@
 #include <libOPHD/Map/MapCoordinate.h>
 
 
-namespace
-{
-	bool canConnect(Structure& src, Structure& dst)
-	{
-		// At least one end must be a Tube as Structures don't connect to each other
-		return src.isConnector() || dst.isConnector();
-	}
-}
-
-
 void walkGraph(const std::vector<MapCoordinate>& positions, TileMap& tileMap)
 {
 	for (const auto& position : positions)
@@ -52,7 +42,8 @@ void walkGraph(const MapCoordinate& position, TileMap& tileMap)
 		auto& nextTile = tileMap.getTile(nextPosition);
 		if (!nextTile.hasStructure() || nextTile.structure()->connected()) { continue; }
 
-		if (canConnect(*thisTile.structure(), *nextTile.structure()))
+		// At least one end must be a Tube or AirShaft as other Structures don't connect to each other
+		if (thisTile.structure()->isConnector() || nextTile.structure()->isConnector())
 		{
 			walkGraph(nextPosition, tileMap);
 		}
