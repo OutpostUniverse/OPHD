@@ -8,7 +8,6 @@
 #include "../Constants/Strings.h"
 #include "../Map/Tile.h"
 
-#include <libOPHD/EnumConnectorDir.h>
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumIntegrityLevel.h>
