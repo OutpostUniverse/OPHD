@@ -48,7 +48,6 @@ public:
 
 	Structure& create(StructureID structureId, Tile& tile);
 
-	void addStructure(Structure& structure, Tile& tile);
 	void removeStructure(Structure& structure);
 	void removeAllStructures();
 
@@ -133,6 +132,8 @@ public:
 	NAS2D::Xml::XmlElement* serialize() const;
 
 protected:
+	void addStructure(Structure& structure, Tile& tile);
+
 	void disconnectAll();
 	void updateEnergyProduction();
 	void updateEnergyConsumed();
