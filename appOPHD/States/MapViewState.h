@@ -80,6 +80,7 @@ class ReportsState;
 class GameState;
 class FileIo;
 class ColonyShip;
+class SavedGameFile;
 
 
 class MapViewState : public Wrapper
@@ -88,7 +89,7 @@ public:
 	using EventDelegate = NAS2D::Delegate<void()>;
 
 public:
-	MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler);
+	MapViewState(GameState& gameState, SavedGameFile& saveGameFile, EventDelegate quitHandler);
 	MapViewState(GameState& gameState, const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty, EventDelegate quitHandler);
 	~MapViewState() override;
 
@@ -104,7 +105,7 @@ public:
 	void initialize() override;
 	State* update() override;
 
-	void save(NAS2D::Xml::XmlDocument&);
+	void save(SavedGameFile&);
 
 private:
 	void onDeactivate() override;
@@ -292,7 +293,7 @@ private:
 	std::unique_ptr<OreHaulRoutes> mOreHaulRoutes;
 
 	bool mLoadingExisting = false;
-	NAS2D::Xml::XmlDocument* mExistingToLoad = nullptr; 
+	SavedGameFile* mExistingToLoad = nullptr;
 
 	ReportsState& mReportsState;
 	std::unique_ptr<MapView> mMapView;

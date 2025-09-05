@@ -4,6 +4,7 @@
 #include "ReportsState.h"
 #include "ColonyShip.h"
 
+#include "../SavedGameFile.h"
 #include "../UI/FileIo.h"
 
 #include <libOPHD/PlanetAttributes.h>
@@ -12,7 +13,6 @@
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Fade.h>
-#include <NAS2D/Xml/XmlDocument.h>
 
 #include <string>
 
@@ -60,7 +60,7 @@ protected:
 
 private:
 	StructureManager& mStructureManager;
-	NAS2D::Xml::XmlDocument mSaveGameDocument;
+	SavedGameFile mSaveGameFile;
 	ReportsState mReportsState;
 	MapViewState mMapViewState;
 	ColonyShip mColonyShip;

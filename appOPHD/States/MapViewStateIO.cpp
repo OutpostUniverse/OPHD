@@ -10,8 +10,8 @@
 #include "MapViewStateHelper.h"
 
 #include "../Cache.h"
-#include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
+#include "../SavedGameFile.h"
 #include "../IOHelper.h"
 #include "../StructureManager.h"
 #include "../Map/OreHaulRoutes.h"
@@ -152,7 +152,7 @@ namespace
 }
 
 
-void MapViewState::save(NAS2D::Xml::XmlDocument& saveGameDocument)
+void MapViewState::save(SavedGameFile& savedGameFile)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{{0, 0}, renderer.size()}, NAS2D::Color{0, 0, 0, 100});
@@ -160,11 +160,7 @@ void MapViewState::save(NAS2D::Xml::XmlDocument& saveGameDocument)
 	renderer.drawImage(*imageSaving, renderer.center() - imageSaving->size() / 2);
 	renderer.update();
 
-	auto* root = NAS2D::dictionaryToAttributes(
-		constants::SaveGameRootNode,
-		{{{"version", constants::SaveGameVersion}}}
-	);
-	saveGameDocument.linkEndChild(root);
+	auto* root = &savedGameFile.root();
 
 	root->linkEndChild(serializeProperties());
 	mTileMap->serialize(root);

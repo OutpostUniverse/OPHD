@@ -2,7 +2,6 @@
 
 #include "MainMenuState.h"
 #include "Wrapper.h"
-#include "../OpenSaveGame.h"
 #include "../StructureManager.h"
 #include "../UI/MessageBox.h"
 #include "../Constants/Strings.h"
@@ -13,23 +12,10 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlMemoryBuffer.h>
 
 #include <stdexcept>
-
-
-namespace
-{
-	NAS2D::Xml::XmlDocument saveGameDocument(const std::string& filePath)
-	{
-		if (!NAS2D::Utility<NAS2D::Filesystem>::get().exists(filePath))
-		{
-			throw std::runtime_error("File '" + filePath + "' was not found.");
-		}
-		auto xmlDocument = openSavegame(filePath);
-		return xmlDocument;
-	}
-}
 
 
 NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wrappers. */
@@ -37,10 +23,10 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 
 GameState::GameState(const std::string& savedGameFilename) :
 	mStructureManager{NAS2D::Utility<StructureManager>::get()},
-	mSaveGameDocument{saveGameDocument(savedGameFilename)},
+	mSaveGameFile{savedGameFilename},
 	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
-	mMapViewState{*this, mSaveGameDocument, {this, &GameState::onQuit}},
-	mColonyShip{colonyShipFromSave(mSaveGameDocument)},
+	mMapViewState{*this, mSaveGameFile, {this, &GameState::onQuit}},
+	mColonyShip{colonyShipFromSave(mSaveGameFile.savedGameDocument())},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
 
@@ -182,12 +168,12 @@ void GameState::onSaveGame(const std::string& saveGameName)
 {
 	mFileIoDialog.hide();
 	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
-	NAS2D::Xml::XmlDocument saveGameDocument;
-	mMapViewState.save(saveGameDocument);
+	SavedGameFile savedGameFile;
+	mMapViewState.save(savedGameFile);
 
 	// Write out the XML file.
 	NAS2D::Xml::XmlMemoryBuffer buff;
-	saveGameDocument.accept(&buff);
+	savedGameFile.savedGameDocument().accept(&buff);
 
 	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(saveGamePath, buff.buffer());
 }
