@@ -195,6 +195,9 @@
     <ClCompile Include="RobotPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SavedGameFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ShellOpenPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -552,6 +555,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RobotPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SavedGameFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShellOpenPath.h">

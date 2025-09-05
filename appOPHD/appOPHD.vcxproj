@@ -224,6 +224,7 @@
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="RobotPool.cpp" />
+    <ClCompile Include="SavedGameFile.cpp" />
     <ClCompile Include="ShellOpenPath.cpp" />
     <ClCompile Include="States\ColonyShip.cpp" />
     <ClCompile Include="States\CrimeExecution.cpp" />
@@ -345,6 +346,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="RobotPool.h" />
+    <ClInclude Include="SavedGameFile.h" />
     <ClInclude Include="ShellOpenPath.h" />
     <ClInclude Include="States\ColonyShip.h" />
     <ClInclude Include="States\CrimeExecution.h" />
