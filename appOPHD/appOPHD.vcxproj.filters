@@ -180,9 +180,6 @@
     <ClCompile Include="MoraleString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenSaveGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PointerType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -537,9 +534,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoraleString.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenSaveGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointerType.h">

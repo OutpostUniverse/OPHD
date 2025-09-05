@@ -219,7 +219,6 @@
     <ClCompile Include="MicroPather\micropather.cpp" />
     <ClCompile Include="OreDepositYieldString.cpp" />
     <ClCompile Include="MoraleString.cpp" />
-    <ClCompile Include="OpenSaveGame.cpp" />
     <ClCompile Include="PointerType.cpp" />
     <ClCompile Include="ProductPool.cpp" />
     <ClCompile Include="Resources.cpp" />
@@ -340,7 +339,6 @@
     <ClInclude Include="MicroPather\micropather.h" />
     <ClInclude Include="OreDepositYieldString.h" />
     <ClInclude Include="MoraleString.h" />
-    <ClInclude Include="OpenSaveGame.h" />
     <ClInclude Include="PointerType.h" />
     <ClInclude Include="ProductPool.h" />
     <ClInclude Include="resource.h" />
