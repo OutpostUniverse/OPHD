@@ -1,5 +1,7 @@
 #include "SavedGameFile.h"
 
+#include "States/ColonyShip.h"
+
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/ParserHelper.h>
@@ -12,6 +14,24 @@ namespace
 {
 	const std::string saveGameVersionSupported = "0.31";
 	const std::string saveGameRootNode = "OutpostHD_SaveGame";
+
+
+	ColonyShipLanders readLanders(NAS2D::Xml::XmlElement* element)
+	{
+		if (!element) { return {}; }
+
+		const auto dictionary = NAS2D::attributesToDictionary(*element);
+		return {
+			.colonist = dictionary.get<int>("colonist_landers"),
+			.cargo = dictionary.get<int>("cargo_landers"),
+		};
+	}
+
+
+	int readTurnCount(NAS2D::Xml::XmlElement* element)
+	{
+		return (element) ? NAS2D::attributesToDictionary(*element).get<int>("count") : 0;
+	}
 }
 
 
@@ -55,4 +75,13 @@ const NAS2D::Xml::XmlElement& SavedGameFile::root() const
 NAS2D::Xml::XmlElement& SavedGameFile::root()
 {
 	return mRoot;
+}
+
+
+ColonyShip SavedGameFile::colonyShip() const
+{
+	return {
+		readLanders(mRoot.firstChildElement("population")),
+		readTurnCount(mRoot.firstChildElement("turns")),
+	};
 }

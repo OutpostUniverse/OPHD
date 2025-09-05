@@ -26,7 +26,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 	mSaveGameFile{savedGameFilename},
 	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, mSaveGameFile, {this, &GameState::onQuit}},
-	mColonyShip{colonyShipFromSave(mSaveGameFile.savedGameDocument())},
+	mColonyShip{mSaveGameFile.colonyShip()},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
 {}
 

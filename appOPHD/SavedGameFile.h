@@ -10,6 +10,8 @@ namespace NAS2D::Xml
 	class XmlElement;
 }
 
+class ColonyShip;
+
 
 class SavedGameFile
 {
@@ -22,6 +24,8 @@ public:
 
 	const NAS2D::Xml::XmlElement& root() const;
 	NAS2D::Xml::XmlElement& root();
+
+	ColonyShip colonyShip() const;
 
 private:
 	NAS2D::Xml::XmlDocument mSavedGameDocument;
