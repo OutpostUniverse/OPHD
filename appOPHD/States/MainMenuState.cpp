@@ -4,7 +4,6 @@
 
 #include "../Cache.h"
 #include "../CacheMusic.h"
-#include "../OpenSaveGame.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../ShellOpenPath.h"
@@ -136,7 +135,6 @@ void MainMenuState::onLoadGame(const std::string& filePath)
 
 	try
 	{
-		checkSavegameVersion(filename);
 		mReturnState = new GameState(filename);
 
 		mFade.fadeOut(constants::FadeSpeed);

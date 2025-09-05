@@ -180,9 +180,6 @@
     <ClCompile Include="MoraleString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OpenSaveGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PointerType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -193,6 +190,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RobotPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SavedGameFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ShellOpenPath.cpp">
@@ -536,9 +536,6 @@
     <ClInclude Include="MoraleString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OpenSaveGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PointerType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -552,6 +549,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RobotPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SavedGameFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShellOpenPath.h">

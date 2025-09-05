@@ -1,26 +1,11 @@
 #pragma once
 
 
-namespace NAS2D
-{
-	namespace Xml
-	{
-		class XmlDocument;
-	}
-}
-
-
 struct ColonyShipLanders
 {
 	int colonist{};
 	int cargo{};
 };
-
-
-class ColonyShip;
-
-
-ColonyShip colonyShipFromSave(NAS2D::Xml::XmlDocument& xmlDocument);
 
 
 class ColonyShip

@@ -156,7 +156,7 @@ namespace
 }
 
 
-MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGameDocument, EventDelegate quitHandler) :
+MapViewState::MapViewState(GameState& gameState, SavedGameFile& saveGameFile, EventDelegate quitHandler) :
 	mDifficulty{Difficulty::Medium},
 	mStructureManager{gameState.structureManager()},
 	mCrimeRateUpdate{mStructureManager, mDifficulty},
@@ -167,7 +167,7 @@ MapViewState::MapViewState(GameState& gameState, NAS2D::Xml::XmlDocument& saveGa
 	mRobotPool{mStructureManager},
 	mDeployedRobots{mRobotPool.deployedRobots()},
 	mLoadingExisting{true},
-	mExistingToLoad{&saveGameDocument},
+	mExistingToLoad{&saveGameFile},
 	mReportsState{gameState.reportsState()},
 	mMapObjectPicker{mResourcesCount, {this, &MapViewState::onMapObjectSelectionChanged}},
 	mStructures{mMapObjectPicker.structures()},
@@ -288,7 +288,7 @@ void MapViewState::initialize()
 
 	if (mLoadingExisting)
 	{
-		load(mExistingToLoad);
+		load(*mExistingToLoad);
 	}
 
 	mResourceInfoBar.ignoreGlow(mTurnCount == 0);
