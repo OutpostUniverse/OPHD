@@ -213,7 +213,7 @@ private:
 	void readPopulation(NAS2D::Xml::XmlElement* element);
 	void readMoraleChanges(NAS2D::Xml::XmlElement*);
 
-	void load(NAS2D::Xml::XmlDocument&);
+	void load(SavedGameFile&);
 	NAS2D::Xml::XmlElement* serializeProperties();
 
 	void hideUi();

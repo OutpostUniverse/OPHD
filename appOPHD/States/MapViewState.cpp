@@ -288,7 +288,7 @@ void MapViewState::initialize()
 
 	if (mLoadingExisting)
 	{
-		load(mExistingToLoad->savedGameDocument());
+		load(*mExistingToLoad);
 	}
 
 	mResourceInfoBar.ignoreGlow(mTurnCount == 0);

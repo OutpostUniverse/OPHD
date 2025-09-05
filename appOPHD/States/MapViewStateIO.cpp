@@ -10,7 +10,6 @@
 #include "MapViewStateHelper.h"
 
 #include "../Cache.h"
-#include "../Constants/Strings.h"
 #include "../SavedGameFile.h"
 #include "../IOHelper.h"
 #include "../StructureManager.h"
@@ -216,7 +215,7 @@ NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 }
 
 
-void MapViewState::load(NAS2D::Xml::XmlDocument& xmlDocument)
+void MapViewState::load(SavedGameFile& savedGameFile)
 {
 	resetUi();
 
@@ -240,7 +239,7 @@ void MapViewState::load(NAS2D::Xml::XmlDocument& xmlDocument)
 
 	mTileMap.reset();
 
-	auto* root = xmlDocument.firstChildElement(constants::SaveGameRootNode);
+	auto* root = &savedGameFile.root();
 
 	NAS2D::Xml::XmlElement* map = root->firstChildElement("properties");
 	const auto dictionary = NAS2D::attributesToDictionary(*map);
