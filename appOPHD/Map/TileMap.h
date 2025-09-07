@@ -15,6 +15,7 @@ namespace NAS2D
 	}
 
 	template <typename BaseType> struct Point;
+	template <typename BaseType> struct Rectangle;
 }
 
 enum class Direction;
@@ -34,6 +35,7 @@ public:
 	TileMap& operator=(const TileMap&) = delete;
 	~TileMap();
 
+	NAS2D::Rectangle<int> area() const;
 	NAS2D::Vector<int> size() const { return mSizeInTiles; }
 	int maxDepth() const { return mMaxDepth; }
 
