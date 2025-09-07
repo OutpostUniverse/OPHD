@@ -250,33 +250,6 @@ void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
 }
 
 
-void TileMap::buildTerrainMap(const std::string& path)
-{
-	const NAS2D::Image heightmap(path + MapTerrainExtension);
-
-	mTileMap.resize(linearSize());
-
-	/**
-	 * Builds a terrain map based on the pixel color values in
-	 * a maps height map.
-	 *
-	 * Height maps by default are in grey-scale. This method assumes
-	 * that all channels are the same value so it only looks at the red.
-	 * Color values are divided by 50 to get a height value from 1 - 4.
-	 */
-	for (int depth = 0; depth <= mMaxDepth; depth++)
-	{
-		for (const auto point : NAS2D::PointInRectangleRange{area()})
-		{
-			auto color = heightmap.pixelColor(point);
-			auto& tile = getTile({point, depth});
-			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
-			if (depth == 0) { tile.excavate(); }
-		}
-	}
-}
-
-
 void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 {
 	// ==========================================
@@ -372,4 +345,31 @@ std::size_t TileMap::linearIndex(const MapCoordinate& position) const
 	const auto convertedPosition = position.xy.to<std::size_t>();
 	const auto convertedZ = static_cast<std::size_t>(position.z);
 	return ((convertedZ * convertedSize.y) + convertedPosition.y) * convertedSize.x + convertedPosition.x;
+}
+
+
+void TileMap::buildTerrainMap(const std::string& path)
+{
+	const NAS2D::Image heightmap(path + MapTerrainExtension);
+
+	mTileMap.resize(linearSize());
+
+	/**
+	 * Builds a terrain map based on the pixel color values in
+	 * a maps height map.
+	 *
+	 * Height maps by default are in grey-scale. This method assumes
+	 * that all channels are the same value so it only looks at the red.
+	 * Color values are divided by 50 to get a height value from 1 - 4.
+	 */
+	for (int depth = 0; depth <= mMaxDepth; depth++)
+	{
+		for (const auto point : NAS2D::PointInRectangleRange{area()})
+		{
+			auto color = heightmap.pixelColor(point);
+			auto& tile = getTile({point, depth});
+			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
+			if (depth == 0) { tile.excavate(); }
+		}
+	}
 }
