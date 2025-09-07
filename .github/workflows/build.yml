@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [x86, x64]
-    runs-on: windows-latest
+    runs-on: windows-2025
     env:
       Platform: ${{ matrix.platform }}
       Configuration: Release
