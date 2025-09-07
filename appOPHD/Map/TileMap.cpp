@@ -200,6 +200,12 @@ NAS2D::Rectangle<int> TileMap::area() const
 }
 
 
+bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
+{
+	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
+}
+
+
 const std::vector<OreDeposit*>& TileMap::oreDeposits() const
 {
 	return mOreDeposits;
@@ -349,12 +355,6 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 
 		if (depth > 0) { tile.excavate(); }
 	}
-}
-
-
-bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
-{
-	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
 }
 
 

@@ -44,13 +44,12 @@ public:
 	const Tile& getTile(const MapCoordinate& position) const;
 	Tile& getTile(const MapCoordinate& position);
 
+	bool hasOreDeposit(const MapCoordinate& mapCoordinate) const;
 	const std::vector<OreDeposit*>& oreDeposits() const;
 	void removeOreDepositLocation(const NAS2D::Point<int>& location);
 
 	void serialize(NAS2D::Xml::XmlElement* element);
 	void deserialize(NAS2D::Xml::XmlElement* element);
-
-	bool hasOreDeposit(const MapCoordinate& mapCoordinate) const;
 
 protected:
 	std::size_t linearSize() const;
