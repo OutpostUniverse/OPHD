@@ -11,6 +11,7 @@
 #include <NAS2D/Xml/XmlElement.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
+#include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Resource/Image.h>
 
@@ -193,30 +194,15 @@ TileMap::~TileMap()
 }
 
 
-const std::vector<OreDeposit*>& TileMap::oreDeposits() const
+NAS2D::Rectangle<int> TileMap::area() const
 {
-	return mOreDeposits;
-}
-
-
-void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
-{
-	auto& tile = getTile({location, 0});
-	if (!tile.hasOreDeposit())
-	{
-		throw std::runtime_error("No ore deposit found to remove");
-	}
-
-	mOreDeposits.erase(find_if(mOreDeposits.begin(), mOreDeposits.end(), [location](OreDeposit* oreDeposit){ return oreDeposit->location() == location; }));
-	auto* oreDeposit = tile.oreDeposit();
-	tile.removeOreDeposit();
-	delete oreDeposit;
+	return {{0, 0}, mSizeInTiles};
 }
 
 
 bool TileMap::isValidPosition(const MapCoordinate& position) const
 {
-	return NAS2D::Rectangle{{0, 0}, mSizeInTiles}.contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
+	return area().contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
 }
 
 
@@ -237,30 +223,30 @@ Tile& TileMap::getTile(const MapCoordinate& position)
 }
 
 
-void TileMap::buildTerrainMap(const std::string& path)
+bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
 {
-	const NAS2D::Image heightmap(path + MapTerrainExtension);
+	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
+}
 
-	mTileMap.resize(linearSize());
 
-	/**
-	 * Builds a terrain map based on the pixel color values in
-	 * a maps height map.
-	 *
-	 * Height maps by default are in grey-scale. This method assumes
-	 * that all channels are the same value so it only looks at the red.
-	 * Color values are divided by 50 to get a height value from 1 - 4.
-	 */
-	for (int depth = 0; depth <= mMaxDepth; depth++)
+const std::vector<OreDeposit*>& TileMap::oreDeposits() const
+{
+	return mOreDeposits;
+}
+
+
+void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
+{
+	auto& tile = getTile({location, 0});
+	if (!tile.hasOreDeposit())
 	{
-		for (const auto point : NAS2D::PointInRectangleRange{NAS2D::Rectangle{{0, 0}, mSizeInTiles}})
-		{
-			auto color = heightmap.pixelColor(point);
-			auto& tile = getTile({point, depth});
-			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
-			if (depth == 0) { tile.excavate(); }
-		}
+		throw std::runtime_error("No ore deposit found to remove");
 	}
+
+	mOreDeposits.erase(find_if(mOreDeposits.begin(), mOreDeposits.end(), [location](OreDeposit* oreDeposit){ return oreDeposit->location() == location; }));
+	auto* oreDeposit = tile.oreDeposit();
+	tile.removeOreDeposit();
+	delete oreDeposit;
 }
 
 
@@ -288,7 +274,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// underground and excavated or surface and bulldozed.
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (const auto point : NAS2D::PointInRectangleRange{NAS2D::Rectangle{{0, 0}, mSizeInTiles}})
+		for (const auto point : NAS2D::PointInRectangleRange{area()})
 		{
 			auto& tile = getTile({point, depth});
 			if (
@@ -345,12 +331,6 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 }
 
 
-bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
-{
-	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
-}
-
-
 std::size_t TileMap::linearSize() const
 {
 	const auto convertedSize = mSizeInTiles.to<std::size_t>();
@@ -365,4 +345,31 @@ std::size_t TileMap::linearIndex(const MapCoordinate& position) const
 	const auto convertedPosition = position.xy.to<std::size_t>();
 	const auto convertedZ = static_cast<std::size_t>(position.z);
 	return ((convertedZ * convertedSize.y) + convertedPosition.y) * convertedSize.x + convertedPosition.x;
+}
+
+
+void TileMap::buildTerrainMap(const std::string& path)
+{
+	const NAS2D::Image heightmap(path + MapTerrainExtension);
+
+	mTileMap.resize(linearSize());
+
+	/**
+	 * Builds a terrain map based on the pixel color values in
+	 * a maps height map.
+	 *
+	 * Height maps by default are in grey-scale. This method assumes
+	 * that all channels are the same value so it only looks at the red.
+	 * Color values are divided by 50 to get a height value from 1 - 4.
+	 */
+	for (int depth = 0; depth <= mMaxDepth; depth++)
+	{
+		for (const auto point : NAS2D::PointInRectangleRange{area()})
+		{
+			auto color = heightmap.pixelColor(point);
+			auto& tile = getTile({point, depth});
+			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
+			if (depth == 0) { tile.excavate(); }
+		}
+	}
 }
