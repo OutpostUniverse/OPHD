@@ -223,7 +223,7 @@ void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
 
 bool TileMap::isValidPosition(const MapCoordinate& position) const
 {
-	return NAS2D::Rectangle{{0, 0}, mSizeInTiles}.contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
+	return area().contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
 }
 
 
@@ -260,7 +260,7 @@ void TileMap::buildTerrainMap(const std::string& path)
 	 */
 	for (int depth = 0; depth <= mMaxDepth; depth++)
 	{
-		for (const auto point : NAS2D::PointInRectangleRange{NAS2D::Rectangle{{0, 0}, mSizeInTiles}})
+		for (const auto point : NAS2D::PointInRectangleRange{area()})
 		{
 			auto color = heightmap.pixelColor(point);
 			auto& tile = getTile({point, depth});
@@ -295,7 +295,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 	// underground and excavated or surface and bulldozed.
 	for (int depth = 0; depth <= maxDepth(); ++depth)
 	{
-		for (const auto point : NAS2D::PointInRectangleRange{NAS2D::Rectangle{{0, 0}, mSizeInTiles}})
+		for (const auto point : NAS2D::PointInRectangleRange{area()})
 		{
 			auto& tile = getTile({point, depth});
 			if (
