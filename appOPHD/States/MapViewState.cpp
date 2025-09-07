@@ -1083,7 +1083,7 @@ void MapViewState::placeRobodozer(Tile& tile)
 void MapViewState::placeRobodigger(Tile& tile)
 {
 	// Keep digger within a safe margin of the map boundaries.
-	if (!NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(tile.xy()))
+	if (!mTileMap->area().inset(4).contains(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerEdgeBuffer);
 		return;
@@ -1235,7 +1235,7 @@ void MapViewState::populateRobotMenu()
 void MapViewState::insertSeedLander(NAS2D::Point<int> point)
 {
 	// Has to be built away from the edges of the map
-	if (NAS2D::Rectangle<int>::Create({4, 4}, NAS2D::Point{-4, -4} + mTileMap->size()).contains(point))
+	if (mTileMap->area().inset(4).contains(point))
 	{
 		// check for obstructions
 		if (!landingSiteSuitable(*mTileMap, point))
