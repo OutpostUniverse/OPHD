@@ -200,6 +200,29 @@ NAS2D::Rectangle<int> TileMap::area() const
 }
 
 
+bool TileMap::isValidPosition(const MapCoordinate& position) const
+{
+	return area().contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
+}
+
+
+const Tile& TileMap::getTile(const MapCoordinate& position) const
+{
+	if (!isValidPosition(position))
+	{
+		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
+	}
+	return mTileMap[linearIndex(position)];
+}
+
+
+Tile& TileMap::getTile(const MapCoordinate& position)
+{
+	const auto& constThis = *this;
+	return const_cast<Tile&>(constThis.getTile(position));
+}
+
+
 bool TileMap::hasOreDeposit(const MapCoordinate& mapCoordinate) const
 {
 	return getTile({mapCoordinate.xy, 0}).hasOreDeposit();
@@ -224,29 +247,6 @@ void TileMap::removeOreDepositLocation(const NAS2D::Point<int>& location)
 	auto* oreDeposit = tile.oreDeposit();
 	tile.removeOreDeposit();
 	delete oreDeposit;
-}
-
-
-bool TileMap::isValidPosition(const MapCoordinate& position) const
-{
-	return area().contains(position.xy) && position.z >= 0 && position.z <= mMaxDepth;
-}
-
-
-const Tile& TileMap::getTile(const MapCoordinate& position) const
-{
-	if (!isValidPosition(position))
-	{
-		throw std::runtime_error("Tile coordinates out of bounds: {" + std::to_string(position.xy.x) + ", " + std::to_string(position.xy.y) + ", " + std::to_string(position.z) + "}");
-	}
-	return mTileMap[linearIndex(position)];
-}
-
-
-Tile& TileMap::getTile(const MapCoordinate& position)
-{
-	const auto& constThis = *this;
-	return const_cast<Tile&>(constThis.getTile(position));
 }
 
 
