@@ -26,7 +26,6 @@
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDirection.h>
 #include <libOPHD/EnumStructureID.h>
-#include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/Utility.h>
 
@@ -147,15 +146,6 @@ bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position)
 bool structureIsLander(StructureID id)
 {
 	return id == StructureID::SeedLander || id == StructureID::ColonistLander || id == StructureID::CargoLander;
-}
-
-
-/**
- * Determines if the structure is able to operate without a tube connection.
- */
-bool selfSustained(StructureID id)
-{
-	return StructureCatalog::getType(id).isSelfSustained;
 }
 
 

@@ -46,6 +46,7 @@
 #include <libOPHD/ProductCatalog.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
@@ -827,7 +828,8 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
 	if (structureID == StructureID::None) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
-	if (!selfSustained(structureID) && !mStructureManager.isInCcRange(tile.xy()))
+	const auto isSelfSustained = StructureCatalog::getType(structureID).isSelfSustained;
+	if (!isSelfSustained && !mStructureManager.isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -899,7 +901,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(structureID))
+		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !isSelfSustained)
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;

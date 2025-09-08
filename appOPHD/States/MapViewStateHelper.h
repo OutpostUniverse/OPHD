@@ -20,7 +20,6 @@ class TileMap;
 class Warehouse;
 struct StorableResources;
 enum class StructureID;
-enum class Direction;
 
 
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
@@ -31,7 +30,6 @@ bool validStructurePlacement(TileMap& tilemap, MapCoordinate position);
 bool validLanderSite(Tile& t);
 bool landingSiteSuitable(TileMap& tilemap, NAS2D::Point<int> position);
 bool structureIsLander(StructureID id);
-bool selfSustained(StructureID id);
 
 Warehouse* getAvailableWarehouse(ProductType type, std::size_t count);
 
