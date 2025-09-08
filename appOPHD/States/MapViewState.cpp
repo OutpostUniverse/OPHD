@@ -837,7 +837,8 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
 	if (structureID == StructureID::None) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
-	if (!selfSustained(structureID) && !mStructureManager.isInCcRange(tile.xy()))
+	const auto isSelfSustained = selfSustained(structureID);
+	if (!isSelfSustained && !mStructureManager.isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
 		return;
@@ -909,7 +910,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 	}
 	else
 	{
-		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !selfSustained(structureID))
+		if (!validStructurePlacement(*mTileMap, tile.xyz()) && !isSelfSustained)
 		{
 			doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureNoTube);
 			return;
