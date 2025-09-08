@@ -36,7 +36,6 @@
 
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/MeanSolarDistance.h>
-#include <libOPHD/ProductCatalog.h>
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/Technology/ResearchTracker.h>
