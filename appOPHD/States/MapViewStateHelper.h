@@ -20,7 +20,6 @@ class TileMap;
 class Warehouse;
 struct StorableResources;
 enum class StructureID;
-enum class Direction;
 
 
 bool isPointInRange(NAS2D::Point<int> point1, NAS2D::Point<int> point2, int distance);
