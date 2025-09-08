@@ -88,15 +88,6 @@ namespace
 	};
 
 
-	/**
-	* Determines if the structure is able to operate without a tube connection.
-	*/
-	bool selfSustained(StructureID id)
-	{
-		return StructureCatalog::getType(id).isSelfSustained;
-	}
-
-
 	NAS2D::Point<int> clampPointToRect(NAS2D::Point<int> point, const NAS2D::Rectangle<int>& rect)
 	{
 		const auto endPoint = rect.endPoint();
@@ -837,7 +828,7 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 {
 	if (structureID == StructureID::None) { throw std::runtime_error("MapViewState::placeStructure() called but structureID == STRUCTURE_NONE"); }
 
-	const auto isSelfSustained = selfSustained(structureID);
+	const auto isSelfSustained = StructureCatalog::getType(structureID).isSelfSustained;
 	if (!isSelfSustained && !mStructureManager.isInCcRange(tile.xy()))
 	{
 		doAlertMessage(constants::AlertInvalidStructureAction, constants::AlertStructureOutOfRange);
