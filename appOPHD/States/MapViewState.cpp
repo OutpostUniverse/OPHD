@@ -46,6 +46,7 @@
 #include <libOPHD/ProductCatalog.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
+#include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
@@ -85,6 +86,15 @@ namespace
 		{RobotTypeIndex::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
 		{RobotTypeIndex::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
 	};
+
+
+	/**
+	* Determines if the structure is able to operate without a tube connection.
+	*/
+	bool selfSustained(StructureID id)
+	{
+		return StructureCatalog::getType(id).isSelfSustained;
+	}
 
 
 	NAS2D::Point<int> clampPointToRect(NAS2D::Point<int> point, const NAS2D::Rectangle<int>& rect)
