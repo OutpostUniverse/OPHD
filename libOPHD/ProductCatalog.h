@@ -2,7 +2,6 @@
 
 #include "EnumProductType.h"
 
-#include <map>
 #include <string>
 
 
@@ -31,7 +30,4 @@ public:
 	static void init(const std::string& filename);
 	static bool has(ProductType type);
 	static const Product& get(ProductType type);
-
-private:
-	static std::map<ProductType, Product> mProductTable;
 };

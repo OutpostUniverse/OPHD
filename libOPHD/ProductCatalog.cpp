@@ -4,11 +4,15 @@
 
 #include <NAS2D/ParserHelper.h>
 
+#include <map>
 #include <stdexcept>
 
 
 namespace
 {
+	std::map<ProductType, ProductCatalog::Product> mProductTable;
+
+
 	ProductCatalog::Product parseProduct(const NAS2D::Xml::XmlElement* node)
 	{
 		const auto dictionary = NAS2D::attributesToDictionary(*node);
@@ -24,9 +28,6 @@ namespace
 		};
 	}
 }
-
-
-std::map<ProductType, ProductCatalog::Product> ProductCatalog::mProductTable;
 
 
 void ProductCatalog::init(const std::string& filename)
