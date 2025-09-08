@@ -347,11 +347,10 @@ std::vector<MapCoordinate> StructureManager::operationalCommandCenterPositions()
 
 bool StructureManager::isInCcRange(NAS2D::Point<int> position) const
 {
-	const auto range = StructureCatalog::getType(StructureID::CommandCenter).commRange;
 	for (const auto* commandCenter : commandCenters())
 	{
 		const auto location = commandCenter->xyz().xy;
-		if (isPointInRange(position, location, range))
+		if (isPointInRange(position, location, commandCenter->commRange()))
 		{
 			return true;
 		}

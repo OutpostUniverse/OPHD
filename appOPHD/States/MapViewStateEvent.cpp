@@ -6,7 +6,6 @@
 
 #include "MapViewStateHelper.h"
 
-#include "../StructureCatalog.h"
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
