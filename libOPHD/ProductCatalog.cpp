@@ -27,30 +27,38 @@ namespace
 			dictionary.get<int>("storageSpace"),
 		};
 	}
+
+
+	std::map<ProductType, ProductCatalog::Product> loadProductTypes(const std::string& filename)
+	{
+		std::map<ProductType, ProductCatalog::Product> productTable;
+
+		const std::string RootElementName("products");
+		const std::string ProductElement("product");
+
+		auto xmlDocument = openXmlFile(filename, RootElementName);
+		auto rootElement = xmlDocument.firstChildElement(RootElementName);
+		for (const auto* node = rootElement->firstChildElement(ProductElement); node; node = node->nextSiblingElement(ProductElement))
+		{
+			const auto product = parseProduct(node);
+			const auto productId = static_cast<ProductType>(product.id);
+
+			if (productTable.contains(productId))
+			{
+				throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.id) + ", Name = " + product.name + ", filename = " + filename);
+			}
+
+			productTable.try_emplace(productId, product);
+		}
+
+		return productTable;
+	}
 }
 
 
 void ProductCatalog::init(const std::string& filename)
 {
-	mProductTable.clear();
-
-	const std::string RootElementName("products");
-	const std::string ProductElement("product");
-
-	auto xmlDocument = openXmlFile(filename, RootElementName);
-	auto rootElement = xmlDocument.firstChildElement(RootElementName);
-	for (const auto* node = rootElement->firstChildElement(ProductElement); node; node = node->nextSiblingElement(ProductElement))
-	{
-		const auto product = parseProduct(node);
-		const auto productId = static_cast<ProductType>(product.id);
-
-		if (mProductTable.contains(productId))
-		{
-			throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.id) + ", Name = " + product.name + ", filename = " + filename);
-		}
-
-		mProductTable.try_emplace(productId, product);
-	}
+	mProductTable = loadProductTypes(filename);
 }
 
 
