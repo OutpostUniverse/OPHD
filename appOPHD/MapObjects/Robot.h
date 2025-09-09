@@ -16,6 +16,7 @@ struct RobotType;
 struct MapCoordinate;
 class Tile;
 class TileMap;
+class StructureManager;
 
 
 class Robot : public MapObject
@@ -35,7 +36,7 @@ public:
 	bool isDead() const;
 	virtual void die();
 
-	virtual void processTurn(TileMap& tileMap);
+	virtual void processTurn(TileMap& tileMap, StructureManager& structureManager);
 
 	virtual void startTask(Tile& tile);
 	void startTask(Tile& tile, int turns);
@@ -66,7 +67,7 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	virtual void onTaskComplete(TileMap& tileMap) = 0;
+	virtual void onTaskComplete(TileMap& tileMap, StructureManager& structureManager) = 0;
 
 private:
 	const RobotType& mRobotType;

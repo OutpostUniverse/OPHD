@@ -14,7 +14,7 @@ public:
 	void abortTask() override;
 
 protected:
-	void onTaskComplete(TileMap& tileMap) override;
+	void onTaskComplete(TileMap& tileMap, StructureManager& structureManager) override;
 
 private:
 	std::size_t mTileIndex = 0;

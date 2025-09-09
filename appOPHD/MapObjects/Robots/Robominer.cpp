@@ -42,6 +42,6 @@ MineFacility& Robominer::buildMine(TileMap& tileMap, const MapCoordinate& positi
 }
 
 
-void Robominer::onTaskComplete(TileMap& /*tileMap*/)
+void Robominer::onTaskComplete(TileMap& /*tileMap*/, StructureManager& /*structureManager*/)
 {
 }
