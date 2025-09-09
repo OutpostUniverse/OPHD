@@ -9,7 +9,6 @@
 #include "../StructureManager.h"
 #include "../Map/TileMap.h"
 #include "../MapObjects/Robots.h"
-#include "../MapObjects/Structures/AirShaft.h"
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MineFacility.h"
@@ -20,6 +19,7 @@
 
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumIdleReason.h>
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <stdexcept>
@@ -176,8 +176,8 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 		tile.bulldoze();
 		bottomTile.bulldoze();
 
-		mStructureManager.create<AirShaft>(tile);
-		mStructureManager.create<AirShaft>(bottomTile);
+		mStructureManager.create(StructureID::AirShaft, tile);
+		mStructureManager.create(StructureID::AirShaft, bottomTile);
 	}
 
 	for (const auto& offset : DirectionScan3x3)
