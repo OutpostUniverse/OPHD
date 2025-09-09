@@ -93,9 +93,8 @@ namespace
 	static std::array<Panel, 7> panels;
 
 
-	void initializePanels(ReportsState::TakeMeThereDelegate takeMeThereHandler)
+	void initializePanels(const StructureManager& structureManager, ReportsState::TakeMeThereDelegate takeMeThereHandler)
 	{
-		const auto& structureManager = NAS2D::Utility<StructureManager>::get();
 		/* NOTE: Matches the order in enum NavigationPanel */
 		panels = std::array<Panel, 7>{
 			Panel{new ResearchReport(structureManager, takeMeThereHandler), "Research", &imageCache.load("ui/icons/research.png")},
@@ -164,8 +163,9 @@ namespace
 }
 
 
-ReportsState::ReportsState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
+ReportsState::ReportsState(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
 	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	mShowReportsHandler{showReportsHandler},
 	mHideReportsHandler{hideReportsHandler}
@@ -193,7 +193,7 @@ ReportsState::~ReportsState()
 
 void ReportsState::initialize()
 {
-	initializePanels({this, &ReportsState::onTakeMeThere});
+	initializePanels(mStructureManager, {this, &ReportsState::onTakeMeThere});
 	const auto size = NAS2D::Utility<NAS2D::Renderer>::get().size().to<int>();
 	onWindowResized(size);
 }
