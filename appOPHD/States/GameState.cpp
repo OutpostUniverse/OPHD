@@ -24,7 +24,7 @@ NAS2D::Point<int> MOUSE_COORDS; /**< Mouse Coordinates. Used by other states/wra
 GameState::GameState(const std::string& savedGameFilename) :
 	mStructureManager{NAS2D::Utility<StructureManager>::get()},
 	mSaveGameFile{savedGameFilename},
-	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
+	mReportsState{mStructureManager, {this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, mSaveGameFile, {this, &GameState::onQuit}},
 	mColonyShip{mSaveGameFile.colonyShip()},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}
@@ -33,7 +33,7 @@ GameState::GameState(const std::string& savedGameFilename) :
 
 GameState::GameState(const PlanetAttributes& planetAttributes, Difficulty selectedDifficulty) :
 	mStructureManager{NAS2D::Utility<StructureManager>::get()},
-	mReportsState{{this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
+	mReportsState{mStructureManager, {this, &GameState::onTakeMeThere}, {this, &GameState::onShowReports}, {this, &GameState::onHideReports}},
 	mMapViewState{*this, planetAttributes, selectedDifficulty, {this, &GameState::onQuit}},
 	mColonyShip{},
 	mFileIoDialog{{this, &GameState::onLoadGame}, {this, &GameState::onSaveGame}}

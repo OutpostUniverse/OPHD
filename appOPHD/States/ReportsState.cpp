@@ -164,8 +164,9 @@ namespace
 }
 
 
-ReportsState::ReportsState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
+ReportsState::ReportsState(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
 	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
+	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	mShowReportsHandler{showReportsHandler},
 	mHideReportsHandler{hideReportsHandler}

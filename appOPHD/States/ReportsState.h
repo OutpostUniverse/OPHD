@@ -8,6 +8,7 @@
 #include <cstdint>
 
 
+class StructureManager;
 class Structure;
 class OreHaulRoutes;
 class TechnologyCatalog;
@@ -31,7 +32,7 @@ public:
 	using HideReportsDelegate = NAS2D::Delegate<void()>;
 
 public:
-	ReportsState(TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler);
+	ReportsState(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler);
 
 	~ReportsState() override;
 
@@ -60,7 +61,7 @@ protected:
 
 private:
 	const NAS2D::Font& fontMain;
-
+	const StructureManager& mStructureManager;
 	TakeMeThereDelegate mTakeMeThereHandler;
 	ShowReportsDelegate mShowReportsHandler;
 	HideReportsDelegate mHideReportsHandler;
