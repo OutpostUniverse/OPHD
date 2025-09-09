@@ -259,9 +259,9 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
 	auto& mineDepthTile = mTileMap->getTile({mineFacility->xyz().xy, mineFacility->oreDeposit().digDepth()});
-	mStructureManager.create(StructureID::MineShaft, mineDepthTile);
 	mineDepthTile.bulldoze();
 	mineDepthTile.excavate();
+	mStructureManager.create(StructureID::MineShaft, mineDepthTile);
 }
 
 
