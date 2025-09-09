@@ -31,9 +31,9 @@ namespace
 
 
 	template <typename Predicate>
-	std::vector<Warehouse*> selectWarehouses(const Predicate& predicate)
+	std::vector<Warehouse*> selectWarehouses(const StructureManager& structureManager, const Predicate& predicate)
 	{
-		const auto& warehouses = NAS2D::Utility<StructureManager>::get().getStructures<Warehouse>();
+		const auto& warehouses = structureManager.getStructures<Warehouse>();
 
 		std::vector<Warehouse*> output;
 		std::copy_if(warehouses.begin(), warehouses.end(), std::back_inserter(output), predicate);
@@ -125,7 +125,7 @@ void WarehouseReport::clearSelected()
  */
 void WarehouseReport::fillLists()
 {
-	fillListFromStructureList(selectWarehouses([](Warehouse*) { return true; }));
+	fillListFromStructureList(selectWarehouses(mStructureManager, [](Warehouse*) { return true; }));
 }
 
 
@@ -183,7 +183,7 @@ void WarehouseReport::fillListFull()
 		return wh->products().atCapacity() && wh->isOperable();
 	};
 
-	fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(mStructureManager, predicate));
 }
 
 
@@ -193,7 +193,7 @@ void WarehouseReport::fillListVacancy()
 		return !wh->products().atCapacity() && !wh->products().empty() && wh->isOperable();
 	};
 
-	fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(mStructureManager, predicate));
 }
 
 
@@ -204,7 +204,7 @@ void WarehouseReport::fillListEmpty()
 		return wh->products().empty() && wh->isOperable();
 	};
 
-	fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(mStructureManager, predicate));
 }
 
 
@@ -214,7 +214,7 @@ void WarehouseReport::fillListDisabled()
 		return structure->disabled() || structure->destroyed();
 	};
 
-	fillListFromStructureList(selectWarehouses(predicate));
+	fillListFromStructureList(selectWarehouses(mStructureManager, predicate));
 }
 
 
