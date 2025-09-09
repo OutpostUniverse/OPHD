@@ -251,7 +251,7 @@ void MapViewState::notifyBirthsAndDeaths()
 void MapViewState::transportResourcesToStorage()
 {
 	const auto structureIsSmelter = [](const Structure& structure) { return structure.isSmelter(); };
-	const auto& smelters = NAS2D::Utility<StructureManager>::get().getStructures(structureIsSmelter);
+	const auto& smelters = mStructureManager.getStructures(structureIsSmelter);
 	for (auto* smelter : smelters)
 	{
 		if (!smelter->isOperable()) { continue; }

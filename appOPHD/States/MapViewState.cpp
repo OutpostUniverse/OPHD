@@ -386,7 +386,7 @@ NAS2D::State* MapViewState::update()
 void MapViewState::updatePlayerResources()
 {
 	const auto structureIsOreStore = [](const Structure& structure) { return structure.isOreStore(); };
-	const auto& storageStructures = NAS2D::Utility<StructureManager>::get().getStructures(structureIsOreStore);
+	const auto& storageStructures = mStructureManager.getStructures(structureIsOreStore);
 
 	StorableResources resources;
 	for (auto* structure : storageStructures)
