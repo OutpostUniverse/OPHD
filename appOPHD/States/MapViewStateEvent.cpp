@@ -12,7 +12,6 @@
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MineFacility.h"
-#include "../MapObjects/Structures/MineShaft.h"
 #include "../MapObjects/Structures/SeedFactory.h"
 #include "../MapObjects/Structures/Tube.h"
 #include "../MapObjects/Structures/Warehouse.h"
@@ -260,7 +259,7 @@ void MapViewState::onMineFacilityExtend(MineFacility* mineFacility)
 	if (mMineOperationsWindow.mineFacility() == mineFacility) { mMineOperationsWindow.mineFacility(mineFacility); }
 
 	auto& mineDepthTile = mTileMap->getTile({mineFacility->xyz().xy, mineFacility->oreDeposit().digDepth()});
-	mStructureManager.create<MineShaft>(mineDepthTile);
+	mStructureManager.create(StructureID::MineShaft, mineDepthTile);
 	mineDepthTile.bulldoze();
 	mineDepthTile.excavate();
 }
