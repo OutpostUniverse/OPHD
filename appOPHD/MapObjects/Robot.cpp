@@ -146,7 +146,7 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::processTurn(TileMap& tileMap)
+void Robot::processTurn(TileMap& tileMap, StructureManager& /*structureManager*/)
 {
 	if (mSelfDestruct)
 	{

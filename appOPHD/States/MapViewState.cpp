@@ -1268,7 +1268,7 @@ void MapViewState::updateRobots()
 		auto& robot = *robotPointer;
 		auto& tile = robot.tile();
 
-		robot.processTurn(*mTileMap);
+		robot.processTurn(*mTileMap, mStructureManager);
 
 		if (robot.isDead())
 		{
