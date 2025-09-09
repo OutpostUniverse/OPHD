@@ -26,6 +26,6 @@ void Robodozer::abortTask()
 }
 
 
-void Robodozer::onTaskComplete(TileMap& /*tileMap*/)
+void Robodozer::onTaskComplete(TileMap& /*tileMap*/, StructureManager& /*structureManager*/)
 {
 }

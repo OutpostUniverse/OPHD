@@ -67,7 +67,7 @@ public:
 	virtual NAS2D::Dictionary getDataDict() const;
 
 protected:
-	virtual void onTaskComplete(TileMap& tileMap) = 0;
+	virtual void onTaskComplete(TileMap& tileMap, StructureManager& structureManager) = 0;
 
 private:
 	const RobotType& mRobotType;

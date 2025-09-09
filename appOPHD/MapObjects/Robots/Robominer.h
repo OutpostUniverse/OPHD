@@ -16,5 +16,5 @@ public:
 	MineFacility& buildMine(TileMap& tileMap, const MapCoordinate& position);
 
 protected:
-	void onTaskComplete(TileMap& tileMap) override;
+	void onTaskComplete(TileMap& tileMap, StructureManager& structureManager) override;
 };

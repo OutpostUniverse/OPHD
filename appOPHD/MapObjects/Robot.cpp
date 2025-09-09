@@ -146,7 +146,7 @@ NAS2D::Dictionary Robot::getDataDict() const
 }
 
 
-void Robot::processTurn(TileMap& tileMap, StructureManager& /*structureManager*/)
+void Robot::processTurn(TileMap& tileMap, StructureManager& structureManager)
 {
 	if (mSelfDestruct)
 	{
@@ -164,7 +164,7 @@ void Robot::processTurn(TileMap& tileMap, StructureManager& /*structureManager*/
 
 	if (mTurnsToCompleteTask == 0)
 	{
-		onTaskComplete(tileMap);
+		onTaskComplete(tileMap, structureManager);
 		if (mTaskCompleteHandler) { mTaskCompleteHandler(*this); }
 	}
 

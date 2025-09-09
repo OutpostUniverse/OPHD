@@ -34,6 +34,6 @@ NAS2D::Dictionary Robodigger::getDataDict() const
 }
 
 
-void Robodigger::onTaskComplete(TileMap& /*tileMap*/)
+void Robodigger::onTaskComplete(TileMap& /*tileMap*/, StructureManager& /*structureManager*/)
 {
 }
