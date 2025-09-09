@@ -6,8 +6,8 @@
 #include "../../Map/TileMap.h"
 #include "../../StructureManager.h"
 #include "../Structures/MineFacility.h"
-#include "../Structures/MineShaft.h"
 
+#include <libOPHD/EnumStructureID.h>
 #include <libOPHD/DirectionOffset.h>
 
 #include <NAS2D/Utility.h>
@@ -30,7 +30,7 @@ MineFacility& Robominer::buildMine(TileMap& tileMap, const MapCoordinate& positi
 
 	// Tile immediately underneath facility.
 	auto& tileBelow = tileMap.getTile(position.translate(MapOffsetDown));
-	structureManager.create<MineShaft>(tileBelow);
+	structureManager.create(StructureID::MineShaft, tileBelow);
 
 	robotTile.bulldoze();
 	tileBelow.bulldoze();
