@@ -44,7 +44,7 @@ void ProductCatalog::init(const std::string& filename)
 		const auto product = parseProduct(node);
 		const auto productId = static_cast<ProductType>(product.id);
 
-		if (mProductTable.find(productId) != mProductTable.end())
+		if (mProductTable.contains(productId))
 		{
 			throw std::runtime_error("Duplicate ProductID in data file: ID = " + std::to_string(product.id) + ", Name = " + product.name + ", filename = " + filename);
 		}
