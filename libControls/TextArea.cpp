@@ -18,6 +18,17 @@ namespace
 		}
 		return maxLength;
 	}
+
+
+	std::size_t countLeadingSpaces(std::string_view lineChunk)
+	{
+		std::size_t count = 0;
+		while (count < lineChunk.size() && lineChunk[count] == ' ')
+		{
+			++count;
+		}
+		return count;
+	}
 }
 
 
@@ -86,6 +97,8 @@ void TextArea::onLayoutText()
 			const auto softLine = lineChunk.substr(0, splitLength);
 			mFormattedList.push_back(std::string{softLine});
 			lineChunk = lineChunk.substr(splitLength);
+			const auto spaceCount = countLeadingSpaces(lineChunk);
+			lineChunk = lineChunk.substr(spaceCount);
 		}
 	}
 }
