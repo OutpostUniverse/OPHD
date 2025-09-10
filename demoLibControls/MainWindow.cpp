@@ -81,6 +81,7 @@ MainWindow::MainWindow() :
 	textFieldBorderAlways.text("Border Always");
 	textFieldBorderAlways.border(TextField::BorderVisibility::Always);
 
+	textArea.highlight(true);
 	textArea.size({100, 100});
 	textArea.text("This is some\nTextArea\ntext.");
 
