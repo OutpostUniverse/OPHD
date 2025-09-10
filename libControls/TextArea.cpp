@@ -5,6 +5,22 @@
 #include <NAS2D/Resource/Font.h>
 
 
+namespace
+{
+	std::size_t findLastWordBreak(std::string_view lineChunk, std::size_t maxLength)
+	{
+		if (lineChunk.size() > maxLength)
+		{
+			while (maxLength > 0 && lineChunk[maxLength] != ' ')
+			{
+				--maxLength;
+			}
+		}
+		return maxLength;
+	}
+}
+
+
 TextArea::TextArea(NAS2D::Color textColor) :
 	mFont{getDefaultFont()},
 	mTextColor{textColor}
@@ -59,38 +75,18 @@ void TextArea::onLayoutText()
 
 	if (mRect.size.x < 10 || mText.empty()) { return; }
 
-	const auto tokenList = NAS2D::split(mText, ' ');
-
-	std::size_t i = 0;
-	int w = 0;
-	while (i < tokenList.size())
+	const auto hardLines = NAS2D::split(mText, '\n');
+	for (const auto& line : hardLines)
 	{
-		std::string line;
-		while (w < mRect.size.x && i < tokenList.size())
+		auto lineChunk = std::string_view{line};
+		while (!lineChunk.empty())
 		{
-			int tokenWidth = mFont.width(tokenList[i] + " ");
-			w += tokenWidth;
-			if (w >= mRect.size.x)
-			{
-				/**
-				 * \todo	In some edge cases where the width of the TextArea is too
-				 *			narrow for a single word/token, this will result in an infinite
-				 *			loop. This edge case will need to be resolved either by splitting
-				 *			the token that's too wide or by simply rendering it as is.
-				 */
-				//++i;
-				break;
-			}
-
-			if (tokenList[i] == "\n")
-			{
-				++i;
-				break;
-			}
-			line += (tokenList[i] + " ");
-			++i;
+			const auto maxFitLineCharacters = mFont.widthBoundedSubstringLength(lineChunk, mRect.size.x);
+			const auto lastWordBreak = findLastWordBreak(lineChunk, maxFitLineCharacters);
+			const auto splitLength = lastWordBreak > 0 ? lastWordBreak : maxFitLineCharacters;
+			const auto softLine = lineChunk.substr(0, splitLength);
+			mFormattedList.push_back(std::string{softLine});
+			lineChunk = lineChunk.substr(splitLength);
 		}
-		w = 0;
-		mFormattedList.push_back(line);
 	}
 }
