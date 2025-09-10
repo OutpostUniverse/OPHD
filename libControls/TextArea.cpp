@@ -73,8 +73,6 @@ void TextArea::onLayoutText()
 {
 	mFormattedList.clear();
 
-	if (mRect.size.x < 10 || mText.empty()) { return; }
-
 	const auto hardLines = NAS2D::split(mText, '\n');
 	for (const auto& line : hardLines)
 	{
@@ -83,7 +81,8 @@ void TextArea::onLayoutText()
 		{
 			const auto maxFitLineCharacters = mFont.widthBoundedSubstringLength(lineChunk, mRect.size.x);
 			const auto lastWordBreak = findLastWordBreak(lineChunk, maxFitLineCharacters);
-			const auto splitLength = lastWordBreak > 0 ? lastWordBreak : maxFitLineCharacters;
+			const auto splitOrSliceLength = lastWordBreak > 0 ? lastWordBreak : maxFitLineCharacters;
+			const auto splitLength = splitOrSliceLength > 0 ? splitOrSliceLength : 1;
 			const auto softLine = lineChunk.substr(0, splitLength);
 			mFormattedList.push_back(std::string{softLine});
 			lineChunk = lineChunk.substr(splitLength);
