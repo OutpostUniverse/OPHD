@@ -187,11 +187,12 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 	}
 
 	// Capacity (Storage, Food, Energy)
-	const auto refinedOreCapacity = mStructureManager.totalRefinedOreStorageCapacity() * 4;
+	const auto maxOreComponent = std::ranges::max(mResourcesCount.resources);
+	const auto refinedOreCapacity = mStructureManager.totalRefinedOreStorageCapacity();
 	const auto energyAvailable = mStructureManager.totalEnergyAvailable();
 	const std::array storageCapacities
 	{
-		std::tuple{oreIconRect, mResourcesCount.total(), refinedOreCapacity, refinedOreCapacity - mResourcesCount.total() <= 100},
+		std::tuple{oreIconRect, maxOreComponent, refinedOreCapacity, false},
 		std::tuple{foodIconRect, mFood, mStructureManager.totalFoodStorageCapacity(), mFood <= 10},
 		std::tuple{powerIconRect, energyAvailable, mStructureManager.totalEnergyProduction(), energyAvailable <= 5}
 	};
