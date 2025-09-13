@@ -287,8 +287,8 @@
     <ClCompile Include="WindowEventWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CacheImage.h" />
     <ClInclude Include="CacheFont.h" />
+    <ClInclude Include="CacheImage.h" />
     <ClInclude Include="CacheMusic.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />
