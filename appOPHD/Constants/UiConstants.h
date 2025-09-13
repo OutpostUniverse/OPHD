@@ -70,6 +70,5 @@ namespace constants
 	// =====================================
 	inline constexpr int FontPrimaryNormal{14};
 	inline constexpr int FontPrimaryMedium{18};
-	inline constexpr int FontPrimaryLarge{20};
 	inline constexpr int FontPrimaryHuge{24};
 }
