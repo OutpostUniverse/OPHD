@@ -5,7 +5,6 @@
 #include "StructureIdToClass.h"
 
 #include "../StructureCatalog.h"
-#include "../Constants/Strings.h"
 #include "../Map/Tile.h"
 
 #include <libOPHD/EnumDisabledReason.h>
@@ -18,11 +17,17 @@
 
 #include <NAS2D/Dictionary.h>
 
+#include <string>
 #include <algorithm>
 
 
 namespace
 {
+	const std::string StructureStateConstruction = "construction";
+	const std::string StructureStateOperational = "operational";
+	const std::string StructureStateDestroyed = "destroyed";
+
+
 	const std::map<StructureState, std::string> StructureStateDescriptions =
 	{
 		{StructureState::UnderConstruction, "Under Construction"},
@@ -42,7 +47,7 @@ namespace
 
 
 Structure::Structure(StructureID id, Tile& tile) :
-	Structure{id, tile, constants::StructureStateConstruction}
+	Structure{id, tile, StructureStateConstruction}
 {
 }
 
@@ -53,7 +58,7 @@ Structure::Structure(StructureID id, Tile& tile, const std::string& initialActio
 	mStructureId{id},
 	mStructureClass{structureIdToClass(id)},
 	mTile{tile},
-	mStructureState{StructureState::UnderConstruction},
+	mStructureState{(mStructureType.turnsToBuild > 0) ? StructureState::UnderConstruction : StructureState::Operational},
 	mDisabledReason{DisabledReason::None},
 	mIdleReason{IdleReason::None}
 {
@@ -342,14 +347,14 @@ bool Structure::isRoad() const { return mStructureClass == StructureClass::Road;
 
 void Structure::onConstructionComplete()
 {
-	mSprite.play(constants::StructureStateOperational);
+	mSprite.play(StructureStateOperational);
 	enable();
 }
 
 
 void Structure::rebuild()
 {
-	mSprite.play(constants::StructureStateConstruction);
+	mSprite.play(StructureStateConstruction);
 	mStructureState = StructureState::UnderConstruction;
 
 	age(1);
@@ -412,7 +417,7 @@ void Structure::updateIntegrityDecay()
 */
 void Structure::destroy()
 {
-	mSprite.play(constants::StructureStateDestroyed);
+	mSprite.play(StructureStateDestroyed);
 	mStructureState = StructureState::Destroyed;
 	mIntegrity = 0;
 }
@@ -423,13 +428,9 @@ void Structure::destroy()
  */
 void Structure::forcedStateChange(StructureState structureState, DisabledReason disabledReason, IdleReason idleReason)
 {
-	// No state changes for Tube or AirShaft
-	if (isConnector()) { return; }
-
 	if (age() >= turnsToBuild())
 	{
-		mSprite.play(constants::StructureStateOperational);
-		//enable();
+		mSprite.play(StructureStateOperational);
 	}
 
 	if (structureState == StructureState::Operational) { enable(); }

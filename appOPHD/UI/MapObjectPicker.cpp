@@ -74,11 +74,11 @@ namespace
 
 
 	const std::vector<IconGridItem> SurfaceTubes = {
-		{constants::TubeIntersection, 110},
+		{"Tube", 110},
 	};
 
 	const std::vector<IconGridItem> UndergroundTubes = {
-		{constants::TubeIntersection, 113},
+		{"Tube", 113},
 	};
 
 

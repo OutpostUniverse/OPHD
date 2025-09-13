@@ -2,7 +2,6 @@
 
 // Includes all Structures
 #include "Structures/Agridome.h"
-#include "Structures/AirShaft.h"
 #include "Structures/CargoLander.h"
 #include "Structures/ColonistLander.h"
 #include "Structures/CommandCenter.h"
