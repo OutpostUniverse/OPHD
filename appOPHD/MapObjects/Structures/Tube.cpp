@@ -1,6 +1,5 @@
 #include "Tube.h"
 
-#include "../StructureState.h"
 #include "../../Constants/Strings.h"
 #include "../../Map/Connections.h"
 
@@ -26,7 +25,6 @@ namespace
 Tube::Tube(Tile& tile) :
 	Structure{StructureID::Tube, tile}
 {
-	mStructureState = StructureState::Operational;
 }
 
 

@@ -53,7 +53,7 @@ Structure::Structure(StructureID id, Tile& tile, const std::string& initialActio
 	mStructureId{id},
 	mStructureClass{structureIdToClass(id)},
 	mTile{tile},
-	mStructureState{StructureState::UnderConstruction},
+	mStructureState{(mStructureType.turnsToBuild > 0) ? StructureState::UnderConstruction : StructureState::Operational},
 	mDisabledReason{DisabledReason::None},
 	mIdleReason{IdleReason::None}
 {
