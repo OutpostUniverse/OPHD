@@ -4,8 +4,6 @@
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Renderer/Color.h>
 
-#include <string>
-
 
 namespace constants
 {
@@ -50,10 +48,4 @@ namespace constants
 	const NAS2D::Color PrimaryTextColorVariant{PrimaryColorVariant};
 
 	const NAS2D::Color WarningTextColor = NAS2D::Color::Red;
-
-	// =====================================
-	// = MOUSE POINTERS
-	// =====================================
-	const std::string MousePointerNormal = "ui/pointers/normal.png";
-	const std::string MousePointerPlaceTile = "ui/pointers/place_tile.png";
 }
