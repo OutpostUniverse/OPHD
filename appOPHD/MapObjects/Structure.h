@@ -21,6 +21,7 @@ enum class StructureState;
 struct StructureType;
 struct MapCoordinate;
 class Tile;
+class TileMap;
 class StringTable;
 
 
@@ -143,7 +144,7 @@ public:
 	bool isRoad() const;
 
 	void age(int newAge) { mAge = newAge; }
-	virtual void connectorDirection(ConnectorDir) {}
+	virtual void updateConnections(const TileMap& /*tileMap*/) {}
 
 	void forcedStateChange(StructureState, DisabledReason, IdleReason);
 

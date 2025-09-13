@@ -14,7 +14,6 @@
 #include "../StructureCatalog.h"
 #include "../StructureManager.h"
 
-#include "../Map/Connections.h"
 #include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
@@ -763,7 +762,7 @@ void MapViewState::updateAllTubeConnectorDir()
 	const auto& tubes = mStructureManager.structureList(StructureID::Tube);
 	for (auto* tube : tubes)
 	{
-		tube->connectorDirection(tubeConnectorDir(*mTileMap, tube->xyz()));
+		tube->updateConnections(*mTileMap);
 	}
 }
 
@@ -779,8 +778,7 @@ void MapViewState::updateSurroundingTubeConnectorDir(const MapCoordinate& update
 			auto& structure = *adjacentTile.structure();
 			if (structure.isTube())
 			{
-				const auto newConnectorDir = tubeConnectorDir(*mTileMap, adjacentTileLocation);
-				structure.connectorDirection(newConnectorDir);
+				structure.updateConnections(*mTileMap);
 			}
 		}
 	}
@@ -790,9 +788,8 @@ void MapViewState::updateSurroundingTubeConnectorDir(const MapCoordinate& update
 void MapViewState::insertTube(Tile& tile)
 {
 	const auto& newTubeLocation = tile.xyz();
-	const auto connectorDir = tubeConnectorDir(*mTileMap, newTubeLocation);
 	auto& tube = mStructureManager.create(StructureID::Tube, tile);
-	tube.connectorDirection(connectorDir);
+	tube.updateConnections(*mTileMap);
 
 	updateSurroundingTubeConnectorDir(newTubeLocation);
 }

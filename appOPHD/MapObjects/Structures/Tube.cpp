@@ -39,9 +39,3 @@ void Tube::updateConnections(const TileMap& tileMap)
 	const auto connectorDir = tubeConnectorDir(tileMap, xyz());
 	mSprite.play(getAnimationName(connectorDir));
 }
-
-
-void Tube::connectorDirection(ConnectorDir dir)
-{
-	mSprite.play(getAnimationName(dir));
-}
