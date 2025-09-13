@@ -28,11 +28,6 @@ namespace constants
 	inline constexpr unsigned int StructureIconSize{46};
 	inline constexpr unsigned int RobotIconSize{46};
 
-	// ROBOT SELECTION UI SHEET ID
-	inline constexpr int RobodiggerSheetId{1};
-	inline constexpr int RobodozerSheetId{0};
-	inline constexpr int RobominerSheetId{2};
-
 	const NAS2D::Color MineColor = NAS2D::Color::Red;
 	const NAS2D::Color ActiveMineColor = NAS2D::Color::Yellow;
 

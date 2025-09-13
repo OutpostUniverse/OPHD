@@ -65,6 +65,11 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
+	// ROBOT SELECTION UI SHEET ID
+	inline constexpr int RobodiggerSheetId{1};
+	inline constexpr int RobodozerSheetId{0};
+	inline constexpr int RobominerSheetId{2};
+
 	// Relative proportion of Ore Deposits with yields {low, med, high}
 	const std::map<PlanetHostility, std::array<int, 3>> HostilityOreDepositYields =
 	{
@@ -81,9 +86,9 @@ namespace
 
 	const std::map<RobotTypeIndex, RobotMeta> RobotMetaTable
 	{
-		{RobotTypeIndex::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-		{RobotTypeIndex::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-		{RobotTypeIndex::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
+		{RobotTypeIndex::Digger, RobotMeta{constants::Robodigger, RobodiggerSheetId}},
+		{RobotTypeIndex::Dozer, RobotMeta{constants::Robodozer, RobodozerSheetId}},
+		{RobotTypeIndex::Miner, RobotMeta{constants::Robominer, RobominerSheetId}}
 	};
 
 
