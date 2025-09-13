@@ -18,10 +18,8 @@ namespace
 	};
 
 
-	std::string roadAnimationName(const Road& road, const TileMap& tileMap)
+	std::string roadAnimationName(ConnectorDir connectorDir, IntegrityLevel integrityLevel)
 	{
-		const auto connectorDir = roadConnectorDir(tileMap, road.xyz());
-		const auto integrityLevel = road.integrityLevel();
 		const std::string tag = (integrityLevel == IntegrityLevel::Destroyed) ? "-destroyed" :
 			(integrityLevel < IntegrityLevel::Good) ? "-decayed" : "";
 		return ConnectorDirStringTable.at(connectorDir) + tag;
@@ -31,5 +29,7 @@ namespace
 
 void Road::updateConnections(const TileMap& tileMap)
 {
-	mSprite.play(roadAnimationName(*this, tileMap));
+	const auto connectorDir = roadConnectorDir(tileMap, xyz());
+	const auto integrityLevel = this->integrityLevel();
+	mSprite.play(roadAnimationName(connectorDir, integrityLevel));
 }
