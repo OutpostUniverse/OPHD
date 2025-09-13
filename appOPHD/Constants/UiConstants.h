@@ -11,8 +11,6 @@ namespace constants
 
 	inline constexpr Duration PlanetAnimationSpeed{35};
 
-	inline constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
-
 	inline constexpr int BottomUiHeight{162};
 
 	inline constexpr int Margin{6};
