@@ -1,7 +1,6 @@
 #include "MapObjectPicker.h"
 
 #include "../States/MapViewStateHelper.h"
-#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/RobotTypeIndex.h"
 #include "../StructureCatalog.h"
