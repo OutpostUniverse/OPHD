@@ -1,6 +1,7 @@
 #include "ReportsState.h"
 
 #include "../Cache.h"
+#include "../CacheFont.h"
 #include "../Constants/UiConstants.h"
 #include "../StructureManager.h"
 
@@ -18,6 +19,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <array>
 
@@ -164,7 +166,7 @@ namespace
 
 
 ReportsState::ReportsState(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler, ShowReportsDelegate showReportsHandler, HideReportsDelegate hideReportsHandler) :
-	fontMain{fontCache.load(constants::FontPrimaryBold, 16)},
+	fontMain{getFontBold(16)},
 	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	mShowReportsHandler{showReportsHandler},

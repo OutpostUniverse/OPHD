@@ -5,17 +5,18 @@
 #include "../MapObjects/Structure.h"
 
 #include "../Cache.h"
-#include "../Constants/UiConstants.h"
+#include "../CacheFont.h"
 
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <stdexcept>
 
 
 StructureListBox::StructureListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{{0, 30}, selectionChangedHandler},
-	mFont{fontCache.load(constants::FontPrimary, 12)},
-	mFontBold{fontCache.load(constants::FontPrimaryBold, 12)}
+	mFont{getFont(12)},
+	mFontBold{getFontBold(12)}
 {
 }
 

@@ -2,7 +2,7 @@
 #include "MainMenuState.h"
 #include "PlanetSelectState.h"
 
-#include "../Cache.h"
+#include "../CacheFont.h"
 #include "../CacheMusic.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
@@ -52,15 +52,14 @@ void MainMenuState::initialize()
 
 	for (auto& button : buttons)
 	{
-		button.font(fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium));
+		button.font(getFontMedium());
 		button.size({200, 30});
 	}
 
 	mFileIoDialog.anchored(false);
 	mFileIoDialog.hide();
 
-	const NAS2D::Font* tiny_font = &Control::getDefaultFont();
-	lblVersion.font(tiny_font);
+	lblVersion.font(&Control::getDefaultFont());
 	lblVersion.color(NAS2D::Color::White);
 
 	positionButtons();

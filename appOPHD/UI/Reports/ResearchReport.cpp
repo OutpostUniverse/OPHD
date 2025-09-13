@@ -3,6 +3,7 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
+#include "../../CacheFont.h"
 #include "../../StructureManager.h"
 #include "../../MapObjects/StructureState.h"
 #include "../../MapObjects/Structures/HotLaboratory.h"
@@ -15,6 +16,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <array>
 #include <vector>
@@ -92,15 +94,15 @@ namespace
 ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
 	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
-	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
+	fontMedium{getFontMedium()},
+	fontMediumBold{getFontMediumBold()},
+	fontBigBold{getFontHugeBold()},
 	imageLab{imageCache.load("ui/interface/lab_ug.png")},
 	imageUiIcons{imageCache.load("ui/icons.png")},
 	imageCategoryIcons{imageCache.load("categoryicons.png")},
 	imageTopicIcons{imageCache.load("topicicons.png")},
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
-	txtTopicDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium), constants::PrimaryTextColor}
+	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor}
 {
 	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 

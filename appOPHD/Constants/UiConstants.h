@@ -56,20 +56,4 @@ namespace constants
 	// =====================================
 	const std::string MousePointerNormal = "ui/pointers/normal.png";
 	const std::string MousePointerPlaceTile = "ui/pointers/place_tile.png";
-
-
-	// =====================================
-	// = FONT STRINGS
-	// =====================================
-	const std::string FontPrimary = "fonts/opensans.ttf";
-	const std::string FontPrimaryBold = "fonts/opensans-bold.ttf";
-
-
-	// =====================================
-	// = FONT SIZES
-	// =====================================
-	inline constexpr int FontPrimaryNormal{14};
-	inline constexpr int FontPrimaryMedium{18};
-	inline constexpr int FontPrimaryLarge{20};
-	inline constexpr int FontPrimaryHuge{24};
 }

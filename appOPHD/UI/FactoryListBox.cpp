@@ -7,13 +7,14 @@
 #include "../MapObjects/Structures/Factory.h"
 
 #include "../Cache.h"
+#include "../CacheFont.h"
 #include "../Constants/Strings.h"
-#include "../Constants/UiConstants.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <stdexcept>
 
@@ -29,8 +30,8 @@ namespace
 
 FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{{0, 58}, selectionChangedHandler},
-	mFont{fontCache.load(constants::FontPrimary, 12)},
-	mFontBold{fontCache.load(constants::FontPrimaryBold, 12)},
+	mFont{getFont(12)},
+	mFontBold{getFontBold(12)},
 	mStructureIcons{imageCache.load("ui/structures.png")}
 {
 }

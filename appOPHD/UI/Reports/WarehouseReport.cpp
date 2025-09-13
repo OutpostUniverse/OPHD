@@ -3,6 +3,7 @@
 #include "../ProgressBar.h"
 
 #include "../../Cache.h"
+#include "../../CacheFont.h"
 #include "../../StructureManager.h"
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
@@ -12,6 +13,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <string>
 #include <iterator>
@@ -59,9 +61,9 @@ namespace
 WarehouseReport::WarehouseReport(const StructureManager& structureManager, TakeMeThereDelegate takeMeThereHandler) :
 	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
-	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
+	fontMedium{getFontMedium()},
+	fontMediumBold{getFontMediumBold()},
+	fontBigBold{getFontHugeBold()},
 	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},

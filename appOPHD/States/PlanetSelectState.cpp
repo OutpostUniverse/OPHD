@@ -5,7 +5,7 @@
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
-#include "../Cache.h"
+#include "../CacheFont.h"
 #include "../UI/PlanetImage.h"
 
 #include <libOPHD/EnumDifficulty.h>
@@ -17,6 +17,7 @@
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Math/Angle.h>
 #include <NAS2D/Math/Point.h>
 
@@ -39,7 +40,7 @@ namespace
 
 
 PlanetSelectState::PlanetSelectState() :
-	mFontBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
+	mFontBold{getFontMediumBold()},
 	mFontTiny{Control::getDefaultFont()},
 	mBackground{"sys/bg1.png"},
 	mCloud1{"sys/cloud_1.png"},
@@ -49,7 +50,7 @@ PlanetSelectState::PlanetSelectState() :
 	mHover{"sfx/menu4.ogg"},
 	mReturnState{this},
 	mQuit{"Main Menu", {100, 20}, {this, &PlanetSelectState::onQuit}},
-	mPlanetDescription{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
+	mPlanetDescription{getFontMedium()},
 	mPlanetSelection{NoSelection},
 	mPlanetAttributes{parsePlanetAttributes("planets/PlanetAttributes.xml")},
 	mPlanetImages{attributesToPlanetImages(mPlanetAttributes)}
