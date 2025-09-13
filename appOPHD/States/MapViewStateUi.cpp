@@ -40,6 +40,12 @@
 extern NAS2D::Point<int> MOUSE_COORDS;
 
 
+namespace
+{
+	constexpr int MainButtonSize{30};
+}
+
+
 /**
  * Sets up the user interface elements
  */
@@ -91,22 +97,22 @@ void MapViewState::initUi()
 
 	// BUTTONS
 
-	mBtnTurns.size(constants::MainButtonSize);
+	mBtnTurns.size(MainButtonSize);
 	mBtnTurns.enabled(false);
 
-	mBtnToggleHeightmap.size(constants::MainButtonSize);
+	mBtnToggleHeightmap.size(MainButtonSize);
 	mBtnToggleHeightmap.type(Button::Type::Toggle);
 
-	mBtnToggleRouteOverlay.size(constants::MainButtonSize);
+	mBtnToggleRouteOverlay.size(MainButtonSize);
 	mBtnToggleRouteOverlay.type(Button::Type::Toggle);
 
-	mBtnToggleConnectedness.size(constants::MainButtonSize);
+	mBtnToggleConnectedness.size(MainButtonSize);
 	mBtnToggleConnectedness.type(Button::Type::Toggle);
 
-	mBtnToggleCommRangeOverlay.size(constants::MainButtonSize);
+	mBtnToggleCommRangeOverlay.size(MainButtonSize);
 	mBtnToggleCommRangeOverlay.type(Button::Type::Toggle);
 
-	mBtnTogglePoliceOverlay.size(constants::MainButtonSize);
+	mBtnTogglePoliceOverlay.size(MainButtonSize);
 	mBtnTogglePoliceOverlay.type(Button::Type::Toggle);
 
 	// Initial Structures
@@ -158,13 +164,13 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mNotificationArea.position({renderer.size().x - mNotificationArea.size().x, 22});
 
 	// Position UI Buttons
-	const auto buttonColumnOrigin = mMiniMap->position() + NAS2D::Vector{-constants::MainButtonSize - constants::MarginTight, 0};
-	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x - constants::MainButtonSize, buttonColumnOrigin.y});
+	const auto buttonColumnOrigin = mMiniMap->position() + NAS2D::Vector{-MainButtonSize - constants::MarginTight, 0};
+	mBtnTurns.position(NAS2D::Point{buttonColumnOrigin.x - MainButtonSize, buttonColumnOrigin.y});
 	mBtnToggleHeightmap.position({buttonColumnOrigin.x, buttonColumnOrigin.y});
-	mBtnToggleRouteOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize});
-	mBtnToggleConnectedness.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 2});
-	mBtnToggleCommRangeOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 3});
-	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + constants::MainButtonSize * 4});
+	mBtnToggleRouteOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + MainButtonSize});
+	mBtnToggleConnectedness.position({buttonColumnOrigin.x, buttonColumnOrigin.y + MainButtonSize * 2});
+	mBtnToggleCommRangeOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + MainButtonSize * 3});
+	mBtnTogglePoliceOverlay.position({buttonColumnOrigin.x, buttonColumnOrigin.y + MainButtonSize * 4});
 
 	// UI Panels
 	mMapObjectPicker.area({
