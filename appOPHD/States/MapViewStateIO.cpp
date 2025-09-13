@@ -19,7 +19,6 @@
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
 #include "../MapObjects/Robots.h"
-#include "../MapObjects/Structures/AirShaft.h"
 #include "../MapObjects/Structures/CargoLander.h"
 #include "../MapObjects/Structures/ColonistLander.h"
 #include "../MapObjects/Structures/Factory.h"
