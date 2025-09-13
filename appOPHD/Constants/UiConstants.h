@@ -19,7 +19,6 @@ namespace constants
 	inline constexpr int MarginTight{2};
 
 	inline constexpr int MainButtonSize{30};
-	inline constexpr int MiniMapButtonSize{20};
 
 	inline constexpr int ResourceIconSize{16};
 
