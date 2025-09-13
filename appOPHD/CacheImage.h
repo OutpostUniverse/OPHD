@@ -5,3 +5,6 @@
 
 
 inline NAS2D::ResourceCache<NAS2D::Image, std::string> imageCache;
+
+
+const NAS2D::Image& getImage(const std::string& imageName);

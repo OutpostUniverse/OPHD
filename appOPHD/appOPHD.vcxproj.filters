@@ -75,6 +75,9 @@
     <ClCompile Include="CacheFont.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CacheImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GraphWalker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
