@@ -1,6 +1,6 @@
 #include "NotificationArea.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Constants/UiConstants.h"
 
 #include <NAS2D/EnumMouseButton.h>

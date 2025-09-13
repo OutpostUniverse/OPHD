@@ -9,7 +9,7 @@
 
 #include "MapViewStateHelper.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../SavedGameFile.h"
 #include "../IOHelper.h"
 #include "../StructureManager.h"

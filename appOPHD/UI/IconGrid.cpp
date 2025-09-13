@@ -1,6 +1,6 @@
 #include "IconGrid.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 
 #include <libControls/LoadRectangleSkin.h>
 

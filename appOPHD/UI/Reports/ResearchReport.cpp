@@ -2,7 +2,7 @@
 
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
-#include "../../Cache.h"
+#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../StructureManager.h"
 #include "../../MapObjects/StructureState.h"

@@ -1,6 +1,6 @@
 #include "MajorEventAnnouncement.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Constants/UiConstants.h"
 #include "../States/ColonyShip.h"
 

@@ -1,6 +1,6 @@
 #include "NotificationWindow.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Renderer/Renderer.h>

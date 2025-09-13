@@ -1,6 +1,6 @@
 #include "GameOverDialog.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 
 #include <NAS2D/Renderer/Renderer.h>
 

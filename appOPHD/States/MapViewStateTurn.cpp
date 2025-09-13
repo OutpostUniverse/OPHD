@@ -23,7 +23,7 @@
 #include "../MapObjects/Structures/Road.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../MoraleString.h"
 #include "../StructureManager.h"
 #include "../Constants/Strings.h"

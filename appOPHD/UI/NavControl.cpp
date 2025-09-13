@@ -1,6 +1,6 @@
 #include "NavControl.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../CacheFont.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"

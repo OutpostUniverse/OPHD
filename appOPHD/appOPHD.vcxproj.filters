@@ -380,7 +380,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cache.h">
+    <ClInclude Include="CacheImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CacheFont.h">

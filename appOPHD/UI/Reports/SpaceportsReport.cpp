@@ -1,7 +1,7 @@
 #include "SpaceportsReport.h"
 
 #include "../../Constants/UiConstants.h"
-#include "../../Cache.h"
+#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 
 #include <NAS2D/Utility.h>

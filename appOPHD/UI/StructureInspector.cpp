@@ -1,6 +1,6 @@
 #include "StructureInspector.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 #include "../MapObjects/Structures/FoodProduction.h"

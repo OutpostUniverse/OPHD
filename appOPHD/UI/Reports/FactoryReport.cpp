@@ -3,7 +3,7 @@
 #include "../ProgressBar.h"
 
 #include "../TextRender.h"
-#include "../../Cache.h"
+#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../Resources.h"
 #include "../../Constants/Strings.h"

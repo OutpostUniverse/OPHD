@@ -1,4 +1,4 @@
-#include "Cache.h"
+#include "CacheImage.h"
 #include "CacheFont.h"
 #include "CacheMusic.h"
 #include "Constants/Strings.h"

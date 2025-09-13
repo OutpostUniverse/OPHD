@@ -1,7 +1,7 @@
 #include "RobotInspector.h"
 #include "TextRender.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Robot.h"

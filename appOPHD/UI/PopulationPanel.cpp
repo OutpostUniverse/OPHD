@@ -2,7 +2,7 @@
 
 #include "TrendLabel.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../MoraleString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
