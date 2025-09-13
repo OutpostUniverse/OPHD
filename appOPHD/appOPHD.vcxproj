@@ -201,7 +201,6 @@
     <ClCompile Include="MapObjects\Structure.cpp" />
     <ClCompile Include="MapObjects\StructureIdToClass.cpp" />
     <ClCompile Include="MapObjects\Structures\Agridome.cpp" />
-    <ClCompile Include="MapObjects\Structures\AirShaft.cpp" />
     <ClCompile Include="MapObjects\Structures\CargoLander.cpp" />
     <ClCompile Include="MapObjects\Structures\ColonistLander.cpp" />
     <ClCompile Include="MapObjects\Structures\CommandCenter.cpp" />
@@ -315,7 +314,6 @@
     <ClInclude Include="MapObjects\Structures.h" />
     <ClInclude Include="MapObjects\StructureState.h" />
     <ClInclude Include="MapObjects\Structures\Agridome.h" />
-    <ClInclude Include="MapObjects\Structures\AirShaft.h" />
     <ClInclude Include="MapObjects\Structures\CargoLander.h" />
     <ClInclude Include="MapObjects\Structures\ColonistLander.h" />
     <ClInclude Include="MapObjects\Structures\CommandCenter.h" />

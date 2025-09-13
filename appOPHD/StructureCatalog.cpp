@@ -232,10 +232,6 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new Agridome(tile);
 			break;
 
-		case StructureID::AirShaft:
-			structure = new AirShaft(tile);
-			break;
-
 		case StructureID::CargoLander:
 			structure = new CargoLander(tile);
 			break;
@@ -317,6 +313,7 @@ Structure* StructureCatalog::create(StructureID structureId, Tile& tile)
 			structure = new OreRefining(structureId, tile);
 			break;
 
+		case StructureID::AirShaft:
 		case StructureID::Chap:
 		case StructureID::Commercial:
 		case StructureID::FusionReactor:

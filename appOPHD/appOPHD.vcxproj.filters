@@ -126,9 +126,6 @@
     <ClCompile Include="MapObjects\Structures\Agridome.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="MapObjects\Structures\AirShaft.cpp">
-      <Filter>Source Files\MapObjects\Structures</Filter>
-    </ClCompile>
     <ClCompile Include="MapObjects\Structures\CargoLander.cpp">
       <Filter>Source Files\MapObjects\Structures</Filter>
     </ClCompile>
@@ -462,9 +459,6 @@
       <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\Agridome.h">
-      <Filter>Header Files\MapObjects\Structures</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObjects\Structures\AirShaft.h">
       <Filter>Header Files\MapObjects\Structures</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\Structures\CargoLander.h">
