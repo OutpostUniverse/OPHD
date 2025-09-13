@@ -26,6 +26,7 @@
 
 #include <SDL2/SDL.h>
 
+#include <string>
 #include <iostream>
 #include <fstream>
 
@@ -134,8 +135,8 @@ int main(int argc, char *argv[])
 		renderer.minimumSize(constants::MinimumWindowSize);
 		renderer.resizeable(true);
 
-		addCursor(PointerType::Normal, constants::MousePointerNormal, {0, 0});
-		addCursor(PointerType::PlaceTile, constants::MousePointerPlaceTile, {16, 16});
+		addCursor(PointerType::Normal, "ui/pointers/normal.png", {0, 0});
+		addCursor(PointerType::PlaceTile, "ui/pointers/place_tile.png", {16, 16});
 		setCursor(PointerType::Normal);
 
 		Control::setDefaultFont(getFont());
