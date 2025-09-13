@@ -4,6 +4,7 @@
 
 #include "../TextRender.h"
 #include "../../Cache.h"
+#include "../../CacheFont.h"
 #include "../../Resources.h"
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
@@ -19,6 +20,7 @@
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <map>
 #include <array>
@@ -59,9 +61,9 @@ FactoryReport::FactoryReport(const StructureManager& structureManager, TakeMeThe
 	mStructureManager{structureManager},
 	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
-	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
+	fontMedium{getFontMedium()},
+	fontMediumBold{getFontMediumBold()},
+	fontBigBold{getFontHugeBold()},
 	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
 	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
 	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},

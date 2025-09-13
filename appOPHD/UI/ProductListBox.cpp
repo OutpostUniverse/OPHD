@@ -3,18 +3,20 @@
 #include "ProgressBar.h"
 
 #include "../Cache.h"
+#include "../CacheFont.h"
 #include "../Constants/UiConstants.h"
 #include "../ProductPool.h"
 
 #include <libOPHD/ProductCatalog.h>
 
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 
 ProductListBox::ProductListBox(SelectionChangedDelegate selectionChangedHandler) :
 	ListBoxBase{{0, 30}, selectionChangedHandler},
-	mFont{fontCache.load(constants::FontPrimary, 12)},
-	mFontBold{fontCache.load(constants::FontPrimaryBold, 12)}
+	mFont{getFont(12)},
+	mFontBold{getFontBold(12)}
 {
 }
 

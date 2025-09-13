@@ -1,6 +1,7 @@
 #include "NavControl.h"
 
 #include "../Cache.h"
+#include "../CacheFont.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Map/MapView.h"
@@ -36,7 +37,7 @@ NavControl::NavControl(MapView& mapView) :
 	mMapView{mapView},
 	mUiIcons{imageCache.load("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
-	mFontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)}
+	mFontMediumBold{getFontMediumBold()}
 {
 	onMove({0, 0});
 	size(NAS2D::Vector{(iconSizeSmall.x + constants::MarginTight) * 3, iconSizeLarge.y * 2 + mFont.height() + mFontMediumBold.height()});

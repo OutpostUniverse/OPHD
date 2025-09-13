@@ -2,16 +2,18 @@
 
 #include "../../Constants/UiConstants.h"
 #include "../../Cache.h"
+#include "../../CacheFont.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 
 SpaceportsReport::SpaceportsReport(const StructureManager& /*structureManager*/, TakeMeThereDelegate takeMeThereHandler) :
 	mTakeMeThereHandler{takeMeThereHandler},
-	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
+	fontMedium{getFontMedium()},
+	fontMediumBold{getFontMediumBold()},
+	fontBigBold{getFontHugeBold()},
 	imageNotImplemented{imageCache.load("ui/interface/ni.png")}
 {
 }

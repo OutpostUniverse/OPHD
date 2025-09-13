@@ -7,6 +7,7 @@
 #include "../../Constants/UiConstants.h"
 
 #include "../../Cache.h"
+#include "../../CacheFont.h"
 #include "../../Resources.h"
 #include "../../StructureManager.h"
 #include "../../TruckAvailability.h"
@@ -21,6 +22,7 @@
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Resource/Font.h>
 
 #include <array>
 #include <cfloat>
@@ -43,9 +45,9 @@ MineReport::MineReport(const StructureManager& structureManager, TakeMeThereDele
 	mTakeMeThereHandler{takeMeThereHandler},
 	font{Control::getDefaultFont()},
 	fontBold{Control::getDefaultFontBold()},
-	fontMedium{fontCache.load(constants::FontPrimary, constants::FontPrimaryMedium)},
-	fontMediumBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryMedium)},
-	fontBigBold{fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryHuge)},
+	fontMedium{getFontMedium()},
+	fontMediumBold{getFontMediumBold()},
+	fontBigBold{getFontHugeBold()},
 	mineFacilityImage{imageCache.load("ui/interface/mine.png")},
 	uiIcons{imageCache.load("ui/icons.png")},
 	btnShowAll{"All", {this, &MineReport::onShowAll}},

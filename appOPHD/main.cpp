@@ -1,4 +1,5 @@
 #include "Cache.h"
+#include "CacheFont.h"
 #include "CacheMusic.h"
 #include "Constants/Strings.h"
 #include "Constants/UiConstants.h"
@@ -136,8 +137,8 @@ int main(int argc, char *argv[])
 		addCursor(PointerType::PlaceTile, constants::MousePointerPlaceTile, {16, 16});
 		setCursor(PointerType::Normal);
 
-		Control::setDefaultFont(fontCache.load(constants::FontPrimary, constants::FontPrimaryNormal));
-		Control::setDefaultFontBold(fontCache.load(constants::FontPrimaryBold, constants::FontPrimaryNormal));
+		Control::setDefaultFont(getFont());
+		Control::setDefaultFontBold(getFontBold());
 		Control::setImageCache(imageCache);
 
 		const auto& options = cf["options"];
