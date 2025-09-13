@@ -16,9 +16,6 @@ namespace constants
 
 	inline constexpr int ResourceIconSize{16};
 
-	const NAS2D::Color MineColor = NAS2D::Color::Red;
-	const NAS2D::Color ActiveMineColor = NAS2D::Color::Yellow;
-
 	const NAS2D::Color PrimaryColor{0, 185, 0};
 	const NAS2D::Color PrimaryColorVariant{0, 85, 0};
 
