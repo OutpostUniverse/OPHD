@@ -15,6 +15,9 @@
 
 namespace
 {
+	constexpr unsigned int StructureIconSize{46};
+	constexpr unsigned int RobotIconSize{46};
+
 	constexpr auto NotSet = int{54};
 
 	constexpr auto structureIconTable = std::array{
@@ -109,9 +112,9 @@ MapObjectPicker::MapObjectPicker(const StorableResources& resources, SelectionCh
 	mInsertMode{InsertMode::None},
 	mCurrentStructure{StructureID::None},
 	mCurrentRobot{RobotTypeIndex::None},
-	mStructures{{this, &MapObjectPicker::onStructuresSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight, true},
-	mRobots{{this, &MapObjectPicker::onRobotsSelectionChange}, "ui/robots.png", constants::RobotIconSize, constants::MarginTight, true},
-	mConnections{{this, &MapObjectPicker::onConnectionsSelectionChange}, "ui/structures.png", constants::StructureIconSize, constants::MarginTight}
+	mStructures{{this, &MapObjectPicker::onStructuresSelectionChange}, "ui/structures.png", StructureIconSize, constants::MarginTight, true},
+	mRobots{{this, &MapObjectPicker::onRobotsSelectionChange}, "ui/robots.png", RobotIconSize, constants::MarginTight, true},
+	mConnections{{this, &MapObjectPicker::onConnectionsSelectionChange}, "ui/structures.png", StructureIconSize, constants::MarginTight}
 {
 }
 
