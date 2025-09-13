@@ -1,7 +1,15 @@
 #include "CacheFont.h"
 
-#include "Cache.h"
 #include "Constants/UiConstants.h"
+
+#include <NAS2D/Resource/Font.h>
+#include <NAS2D/Resource/ResourceCache.h>
+
+
+namespace
+{
+	NAS2D::ResourceCache<NAS2D::Font, std::string, unsigned int> fontCache;
+}
 
 
 const NAS2D::Font& getFont(unsigned int size) { return fontCache.load(constants::FontPrimary, size); }
