@@ -3,11 +3,13 @@
 #include "../Structure.h"
 
 
+class TileMap;
+
+
 class Tube : public Structure
 {
 public:
 	Tube(Tile& tile);
-	Tube(Tile& tile, ConnectorDir dir);
 
-	void connectorDirection(ConnectorDir dir) override;
+	void updateConnections(const TileMap& tileMap) override;
 };

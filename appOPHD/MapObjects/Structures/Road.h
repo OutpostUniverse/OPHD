@@ -17,5 +17,5 @@ public:
 	}
 
 
-	void updateConnections(const TileMap& tileMap);
+	void updateConnections(const TileMap& tileMap) override;
 };

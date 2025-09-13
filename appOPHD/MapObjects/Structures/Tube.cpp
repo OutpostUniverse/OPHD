@@ -2,6 +2,7 @@
 
 #include "../StructureState.h"
 #include "../../Constants/Strings.h"
+#include "../../Map/Connections.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/EnumConnectorDir.h>
@@ -21,24 +22,20 @@ namespace
 	}
 }
 
+
 Tube::Tube(Tile& tile) :
-	Tube{tile, ConnectorDir::Intersection}
-{
-}
-
-
-Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
 		StructureID::Tube,
 		tile,
-		getAnimationName(dir),
+		getAnimationName(ConnectorDir::Intersection),
 	}
 {
 	mStructureState = StructureState::Operational;
 }
 
 
-void Tube::connectorDirection(ConnectorDir dir)
+void Tube::updateConnections(const TileMap& tileMap)
 {
-	mSprite.play(getAnimationName(dir));
+	const auto connectorDir = tubeConnectorDir(tileMap, xyz());
+	mSprite.play(getAnimationName(connectorDir));
 }
