@@ -2,6 +2,7 @@
 
 #include "../StructureState.h"
 #include "../../Constants/Strings.h"
+#include "../../Map/Connections.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/EnumConnectorDir.h>
@@ -30,6 +31,13 @@ Tube::Tube(Tile& tile) :
 	}
 {
 	mStructureState = StructureState::Operational;
+}
+
+
+void Tube::updateConnections(const TileMap& tileMap)
+{
+	const auto connectorDir = tubeConnectorDir(tileMap, xyz());
+	mSprite.play(getAnimationName(connectorDir));
 }
 
 
