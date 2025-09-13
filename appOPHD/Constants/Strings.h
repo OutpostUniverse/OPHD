@@ -87,14 +87,6 @@ namespace constants
 
 
 	// =====================================
-	// = STRUCTURE ANIMATION STATES
-	// =====================================
-	const std::string StructureStateConstruction = "construction";
-	const std::string StructureStateOperational = "operational";
-	const std::string StructureStateDestroyed = "destroyed";
-
-
-	// =====================================
 	// = UI STRINGS
 	// =====================================
 	const std::string MainMenuNewGame = "New Game";
