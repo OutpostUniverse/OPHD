@@ -1,4 +1,4 @@
-#include "Cache.h"
+#include "CacheImage.h"
 #include "CacheFont.h"
 #include "CacheMusic.h"
 #include "Constants/Strings.h"
@@ -19,6 +19,7 @@
 #include <NAS2D/StateManager.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Resource/Music.h>
+#include <NAS2D/Resource/ResourceCache.h>
 #include <NAS2D/Mixer/MixerSDL.h>
 #include <NAS2D/Mixer/MixerNull.h>
 #include <NAS2D/Renderer/RendererOpenGL.h>
@@ -139,7 +140,7 @@ int main(int argc, char *argv[])
 
 		Control::setDefaultFont(getFont());
 		Control::setDefaultFontBold(getFontBold());
-		Control::setImageCache(imageCache);
+		Control::setImageCache(getImageCache());
 
 		const auto& options = cf["options"];
 		if (options.get<bool>("maximized"))
@@ -188,7 +189,7 @@ int main(int argc, char *argv[])
 		doNonFatalErrorMessage("Application Error", e.what());
 	}
 
-	imageCache.clear();
+	getImageCache().clear();
 	NAS2D::Utility<NAS2D::Renderer>::clear();
 	std::cout << "OpenGL Renderer Terminated." << std::endl;
 	NAS2D::Utility<NAS2D::EventHandler>::clear();

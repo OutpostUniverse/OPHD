@@ -2,7 +2,7 @@
 
 #include "TrendLabel.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Resources.h"
 #include "../Constants/UiConstants.h"
 
@@ -25,7 +25,7 @@ namespace
 
 ResourceBreakdownPanel::ResourceBreakdownPanel() :
 	mFont{Control::getDefaultFont()},
-	mIcons{imageCache.load("ui/icons.png")},
+	mIcons{getImage("ui/icons.png")},
 	mSkin{loadRectangleSkin("ui/skin/window")}
 {
 	size({270, 80});

@@ -1,7 +1,7 @@
 #include "RobotInspector.h"
 #include "TextRender.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Robot.h"
@@ -21,9 +21,9 @@ namespace
 	{
 		static const std::array robotImages
 		{
-			&imageCache.load(Robot::robotType(RobotTypeIndex::Digger).imagePath),
-			&imageCache.load(Robot::robotType(RobotTypeIndex::Dozer).imagePath),
-			&imageCache.load(Robot::robotType(RobotTypeIndex::Miner).imagePath),
+			&getImage(Robot::robotType(RobotTypeIndex::Digger).imagePath),
+			&getImage(Robot::robotType(RobotTypeIndex::Dozer).imagePath),
+			&getImage(Robot::robotType(RobotTypeIndex::Miner).imagePath),
 		};
 		return *robotImages.at(static_cast<std::size_t>(robotTypeIndex));
 	}

@@ -1,7 +1,7 @@
 #include "RobotDeploymentSummary.h"
 
 #include "../RobotPool.h"
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../MapObjects/RobotTypeIndex.h"
 
 #include <NAS2D/Renderer/Renderer.h>
@@ -11,7 +11,7 @@
 
 RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
 	mRobotPool{robotPool},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{getImage("ui/icons.png")}
 {}
 
 

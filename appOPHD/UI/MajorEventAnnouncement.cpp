@@ -1,6 +1,6 @@
 #include "MajorEventAnnouncement.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Constants/UiConstants.h"
 #include "../States/ColonyShip.h"
 
@@ -10,7 +10,7 @@
 
 
 MajorEventAnnouncement::MajorEventAnnouncement() :
-	mHeader{imageCache.load("ui/interface/colony_ship_crash.png")},
+	mHeader{getImage("ui/interface/colony_ship_crash.png")},
 	btnClose{"Okay", {this, &MajorEventAnnouncement::onClose}}
 {
 	position({0, 0});

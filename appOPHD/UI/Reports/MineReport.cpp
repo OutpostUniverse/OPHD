@@ -6,7 +6,7 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 
-#include "../../Cache.h"
+#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../Resources.h"
 #include "../../StructureManager.h"
@@ -48,8 +48,8 @@ MineReport::MineReport(const StructureManager& structureManager, TakeMeThereDele
 	fontMedium{getFontMedium()},
 	fontMediumBold{getFontMediumBold()},
 	fontBigBold{getFontHugeBold()},
-	mineFacilityImage{imageCache.load("ui/interface/mine.png")},
-	uiIcons{imageCache.load("ui/icons.png")},
+	mineFacilityImage{getImage("ui/interface/mine.png")},
+	uiIcons{getImage("ui/icons.png")},
 	btnShowAll{"All", {this, &MineReport::onShowAll}},
 	btnShowActive{"Active", {this, &MineReport::onShowActive}},
 	btnShowIdle{"Idle", {this, &MineReport::onShowIdle}},

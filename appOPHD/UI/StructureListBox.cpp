@@ -4,7 +4,7 @@
 
 #include "../MapObjects/Structure.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../CacheFont.h"
 
 #include <NAS2D/Renderer/Renderer.h>

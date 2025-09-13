@@ -184,6 +184,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CacheFont.cpp" />
+    <ClCompile Include="CacheImage.cpp" />
     <ClCompile Include="GraphWalker.cpp" />
     <ClCompile Include="IOHelper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -287,8 +288,8 @@
     <ClCompile Include="WindowEventWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cache.h" />
     <ClInclude Include="CacheFont.h" />
+    <ClInclude Include="CacheImage.h" />
     <ClInclude Include="CacheMusic.h" />
     <ClInclude Include="Constants\Strings.h" />
     <ClInclude Include="Constants\UiConstants.h" />

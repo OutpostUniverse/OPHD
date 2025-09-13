@@ -1,6 +1,6 @@
 #include "NavControl.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../CacheFont.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
@@ -35,7 +35,7 @@ namespace
 
 NavControl::NavControl(MapView& mapView) :
 	mMapView{mapView},
-	mUiIcons{imageCache.load("ui/icons.png")},
+	mUiIcons{getImage("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
 	mFontMediumBold{getFontMediumBold()}
 {

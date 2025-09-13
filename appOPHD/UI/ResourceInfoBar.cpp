@@ -1,6 +1,6 @@
 #include "ResourceInfoBar.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Resources.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
@@ -75,7 +75,7 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Struc
 	mPopulationModel{population},
 	mMorale{morale},
 	mFood{food},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{getImage("ui/icons.png")}
 {
 	const auto fontHeight = Control::getDefaultFont().height();
 	const auto contentHeight = std::max(fontHeight, constants::ResourceIconSize);

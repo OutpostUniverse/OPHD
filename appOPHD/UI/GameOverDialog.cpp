@@ -1,12 +1,12 @@
 #include "GameOverDialog.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 
 #include <NAS2D/Renderer/Renderer.h>
 
 
 GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
-	mHeader{imageCache.load("ui/interface/game_over.png")},
+	mHeader{getImage("ui/interface/game_over.png")},
 	btnClose{"Return to Main Menu", clickHandler}
 {
 	position({0, 0});

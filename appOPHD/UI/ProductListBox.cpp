@@ -2,7 +2,7 @@
 
 #include "ProgressBar.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../CacheFont.h"
 #include "../Constants/UiConstants.h"
 #include "../ProductPool.h"

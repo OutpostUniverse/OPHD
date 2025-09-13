@@ -23,7 +23,7 @@
 #include "../MapObjects/Structures/Road.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../MoraleString.h"
 #include "../StructureManager.h"
 #include "../Constants/Strings.h"
@@ -553,7 +553,7 @@ void MapViewState::updateResearch()
 void MapViewState::nextTurn()
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
-	const auto imageProcessingTurn = &imageCache.load("sys/processing_turn.png");
+	const auto imageProcessingTurn = &getImage("sys/processing_turn.png");
 	renderer.drawImage(*imageProcessingTurn, renderer.center() - imageProcessingTurn->size() / 2);
 	renderer.update();
 

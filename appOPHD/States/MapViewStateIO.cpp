@@ -9,7 +9,7 @@
 
 #include "MapViewStateHelper.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../SavedGameFile.h"
 #include "../IOHelper.h"
 #include "../StructureManager.h"
@@ -154,7 +154,7 @@ void MapViewState::save(SavedGameFile& savedGameFile)
 {
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{{0, 0}, renderer.size()}, NAS2D::Color{0, 0, 0, 100});
-	const auto imageSaving = &imageCache.load("sys/saving.png");
+	const auto imageSaving = &getImage("sys/saving.png");
 	renderer.drawImage(*imageSaving, renderer.center() - imageSaving->size() / 2);
 	renderer.update();
 
@@ -220,7 +220,7 @@ void MapViewState::load(SavedGameFile& savedGameFile)
 
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	renderer.drawBoxFilled(NAS2D::Rectangle{{0, 0}, renderer.size()}, NAS2D::Color{0, 0, 0, 100});
-	const auto imageLoading = &imageCache.load("sys/loading.png");
+	const auto imageLoading = &getImage("sys/loading.png");
 	renderer.drawImage(*imageLoading, renderer.center() - imageLoading->size() / 2);
 	renderer.update();
 

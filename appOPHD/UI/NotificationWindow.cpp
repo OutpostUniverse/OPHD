@@ -1,6 +1,6 @@
 #include "NotificationWindow.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 
 #include <NAS2D/StringFrom.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -8,7 +8,7 @@
 
 
 NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
-	mIcons{imageCache.load("ui/icons.png")},
+	mIcons{getImage("ui/icons.png")},
 	mTakeMeThereHandler{takeMeThereHandler}
 {
 	size({300, 220});

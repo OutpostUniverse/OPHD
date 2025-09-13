@@ -6,7 +6,7 @@
 #include "../MapObjects/StructureState.h"
 #include "../MapObjects/Structures/Factory.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../CacheFont.h"
 #include "../Constants/Strings.h"
 
@@ -32,7 +32,7 @@ FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler)
 	ListBoxBase{{0, 58}, selectionChangedHandler},
 	mFont{getFont(12)},
 	mFontBold{getFontBold(12)},
-	mStructureIcons{imageCache.load("ui/structures.png")}
+	mStructureIcons{getImage("ui/structures.png")}
 {
 }
 

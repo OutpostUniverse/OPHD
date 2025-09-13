@@ -2,7 +2,7 @@
 
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
-#include "../../Cache.h"
+#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../StructureManager.h"
 #include "../../MapObjects/StructureState.h"
@@ -97,10 +97,10 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	fontMedium{getFontMedium()},
 	fontMediumBold{getFontMediumBold()},
 	fontBigBold{getFontHugeBold()},
-	imageLab{imageCache.load("ui/interface/lab_ug.png")},
-	imageUiIcons{imageCache.load("ui/icons.png")},
-	imageCategoryIcons{imageCache.load("categoryicons.png")},
-	imageTopicIcons{imageCache.load("topicicons.png")},
+	imageLab{getImage("ui/interface/lab_ug.png")},
+	imageUiIcons{getImage("ui/icons.png")},
+	imageCategoryIcons{getImage("categoryicons.png")},
+	imageTopicIcons{getImage("topicicons.png")},
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
 	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor}
 {

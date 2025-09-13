@@ -1,6 +1,6 @@
 #include "MiniMap.h"
 
-#include "../Cache.h"
+#include "../CacheImage.h"
 #include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/Tile.h"
@@ -36,7 +36,7 @@ MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& str
 	mIsHeightMapVisible{false},
 	mBackgroundSatellite{mapName + MapDisplayExtension},
 	mBackgroundHeightMap{mapName + MapTerrainExtension},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{getImage("ui/icons.png")}
 {}
 
 
