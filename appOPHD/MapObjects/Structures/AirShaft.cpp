@@ -7,10 +7,7 @@
 
 
 AirShaft::AirShaft(Tile& tile) :
-	Structure{
-		StructureID::AirShaft,
-		tile,
-	}
+	Structure{StructureID::AirShaft, tile}
 {
 	mStructureState = StructureState::Operational;
 }

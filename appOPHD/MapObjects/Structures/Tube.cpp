@@ -24,10 +24,7 @@ namespace
 
 
 Tube::Tube(Tile& tile) :
-	Structure{
-		StructureID::Tube,
-		tile,
-	}
+	Structure{StructureID::Tube, tile}
 {
 	mStructureState = StructureState::Operational;
 }
