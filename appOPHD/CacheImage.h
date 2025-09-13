@@ -1,7 +1,13 @@
 #pragma once
 
-#include <NAS2D/Resource/Image.h>
-#include <NAS2D/Resource/ResourceCache.h>
+#include <string>
+
+
+namespace NAS2D
+{
+	class Image;
+	template <typename Resource, typename... Params> class ResourceCache;
+}
 
 
 NAS2D::ResourceCache<NAS2D::Image, std::string>& getImageCache();

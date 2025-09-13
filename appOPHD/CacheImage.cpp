@@ -1,5 +1,8 @@
 #include "CacheImage.h"
 
+#include <NAS2D/Resource/Image.h>
+#include <NAS2D/Resource/ResourceCache.h>
+
 
 namespace
 {
