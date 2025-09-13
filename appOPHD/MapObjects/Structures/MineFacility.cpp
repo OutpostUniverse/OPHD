@@ -1,6 +1,5 @@
 #include "MineFacility.h"
 
-#include "../../Constants/Strings.h"
 #include "../../Map/Tile.h"
 
 #include <libOPHD/EnumStructureID.h>
@@ -28,8 +27,6 @@ MineFacility::MineFacility(Tile& tile) :
 	{
 		throw std::runtime_error("Mine Facility is located on a Tile with no Ore Deposit.");
 	}
-
-	mSprite.play(constants::StructureStateConstruction);
 }
 
 
