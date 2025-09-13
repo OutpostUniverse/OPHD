@@ -9,8 +9,6 @@ namespace constants
 {
 	inline constexpr Duration FadeSpeed{300};
 
-	inline constexpr Duration PlanetAnimationSpeed{35};
-
 	inline constexpr int BottomUiHeight{162};
 
 	inline constexpr int Margin{6};
