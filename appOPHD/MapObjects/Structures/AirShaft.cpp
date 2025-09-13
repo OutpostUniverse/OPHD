@@ -10,7 +10,6 @@ AirShaft::AirShaft(Tile& tile) :
 	Structure{
 		StructureID::AirShaft,
 		tile,
-		constants::StructureStateOperational,
 	}
 {
 	mStructureState = StructureState::Operational;

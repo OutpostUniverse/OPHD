@@ -27,7 +27,6 @@ Tube::Tube(Tile& tile) :
 	Structure{
 		StructureID::Tube,
 		tile,
-		getAnimationName(ConnectorDir::Intersection),
 	}
 {
 	mStructureState = StructureState::Operational;
