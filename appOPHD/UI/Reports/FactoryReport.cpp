@@ -302,8 +302,7 @@ void FactoryReport::onVisibilityChange(bool visible)
 
 	if (!selectedFactory) { return; }
 
-	StructureState state = selectedFactory->state();
-	btnApply.visible(visible && (state == StructureState::Operational || state == StructureState::Idle));
+	btnApply.visible(visible && selectedFactory->isOperable());
 }
 
 
@@ -414,9 +413,9 @@ void FactoryReport::onListSelectionChange()
 	else if (selectedFactory->structureId() == StructureID::UndergroundFactory) { factoryImage = &factoryUnderGround; }
 
 	btnIdle.toggle(selectedFactory->state() == StructureState::Idle);
-	btnIdle.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
+	btnIdle.enabled(selectedFactory->isOperable());
 
-	btnClearProduction.enabled(selectedFactory->state() == StructureState::Operational || selectedFactory->state() == StructureState::Idle);
+	btnClearProduction.enabled(selectedFactory->isOperable());
 
 	lstProducts.clear();
 	if (selectedFactory->state() != StructureState::Destroyed)
@@ -428,8 +427,7 @@ void FactoryReport::onListSelectionChange()
 	}
 	lstProducts.selectIf([productType = selectedFactory->productType()](const auto& item){ return item.userData == productType; });
 
-	StructureState state = selectedFactory->state();
-	btnApply.visible(state == StructureState::Operational || state == StructureState::Idle);
+	btnApply.visible(selectedFactory->isOperable());
 }
 
 
