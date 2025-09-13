@@ -14,7 +14,7 @@ SatellitesReport::SatellitesReport(const StructureManager& /*structureManager*/,
 	fontMedium{getFontMedium()},
 	fontMediumBold{getFontMediumBold()},
 	fontBigBold{getFontHugeBold()},
-	imageNotImplemented{imageCache.load("ui/interface/ni.png")}
+	imageNotImplemented{getImage("ui/interface/ni.png")}
 {
 }
 

@@ -337,7 +337,7 @@ namespace
 StructureInspector::StructureInspector() :
 	Window{"Structure Details"},
 	btnClose{"Close", {50, 20}, {this, &StructureInspector::onClose}},
-	mIcons{imageCache.load("ui/icons.png")}
+	mIcons{getImage("ui/icons.png")}
 {
 	size(windowSizeMin);
 	add(btnClose, area().size - btnClose.size() - NAS2D::Vector{constants::Margin, constants::Margin});

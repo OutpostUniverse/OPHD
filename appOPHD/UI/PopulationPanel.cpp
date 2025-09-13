@@ -47,7 +47,7 @@ namespace
 PopulationPanel::PopulationPanel(const PopulationModel& pop, const PopulationPool& popPool, const Morale& morale) :
 	mFont{Control::getDefaultFont()},
 	mFontBold{Control::getDefaultFontBold()},
-	mIcons{imageCache.load("ui/icons.png")},
+	mIcons{getImage("ui/icons.png")},
 	mSkin{loadRectangleSkin("ui/skin/window")},
 	mPopulationModel(pop),
 	mPopulationPool(popPool),

@@ -99,13 +99,13 @@ namespace
 	{
 		/* NOTE: Matches the order in enum NavigationPanel */
 		panels = std::array<Panel, 7>{
-			Panel{new ResearchReport(structureManager, takeMeThereHandler), "Research", &imageCache.load("ui/icons/research.png")},
-			Panel{new FactoryReport(structureManager, takeMeThereHandler), "Factories", &imageCache.load("ui/icons/production.png")},
-			Panel{new WarehouseReport(structureManager, takeMeThereHandler), "Warehouses", &imageCache.load("ui/icons/warehouse.png")},
-			Panel{new MineReport(structureManager, takeMeThereHandler), "Mines", &imageCache.load("ui/icons/mine.png")},
-			Panel{new SatellitesReport(structureManager, takeMeThereHandler), "Satellites", &imageCache.load("ui/icons/satellite.png")},
-			Panel{new SpaceportsReport(structureManager, takeMeThereHandler), "Space Ports", &imageCache.load("ui/icons/spaceport.png")},
-			Panel{nullptr, "", &imageCache.load("ui/icons/exit.png")}
+			Panel{new ResearchReport(structureManager, takeMeThereHandler), "Research", &getImage("ui/icons/research.png")},
+			Panel{new FactoryReport(structureManager, takeMeThereHandler), "Factories", &getImage("ui/icons/production.png")},
+			Panel{new WarehouseReport(structureManager, takeMeThereHandler), "Warehouses", &getImage("ui/icons/warehouse.png")},
+			Panel{new MineReport(structureManager, takeMeThereHandler), "Mines", &getImage("ui/icons/mine.png")},
+			Panel{new SatellitesReport(structureManager, takeMeThereHandler), "Satellites", &getImage("ui/icons/satellite.png")},
+			Panel{new SpaceportsReport(structureManager, takeMeThereHandler), "Space Ports", &getImage("ui/icons/spaceport.png")},
+			Panel{nullptr, "", &getImage("ui/icons/exit.png")}
 		};
 
 		for (auto& panel : panels)

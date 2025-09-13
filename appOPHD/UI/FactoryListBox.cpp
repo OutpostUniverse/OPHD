@@ -32,7 +32,7 @@ FactoryListBox::FactoryListBox(SelectionChangedDelegate selectionChangedHandler)
 	ListBoxBase{{0, 58}, selectionChangedHandler},
 	mFont{getFont(12)},
 	mFontBold{getFontBold(12)},
-	mStructureIcons{imageCache.load("ui/structures.png")}
+	mStructureIcons{getImage("ui/structures.png")}
 {
 }
 

@@ -43,14 +43,14 @@ namespace
 	const NAS2D::Image& productImage(ProductType productType)
 	{
 		static const std::map<ProductType, const NAS2D::Image*> productImages{
-			{ProductType::PRODUCT_DIGGER, &imageCache.load("ui/interface/product_robodigger.png")},
-			{ProductType::PRODUCT_DOZER, &imageCache.load("ui/interface/product_robodozer.png")},
-			{ProductType::PRODUCT_MINER, &imageCache.load("ui/interface/product_robominer.png")},
-			{ProductType::PRODUCT_EXPLORER, &imageCache.load("ui/interface/product_roboexplorer.png")},
-			{ProductType::PRODUCT_TRUCK, &imageCache.load("ui/interface/product_truck.png")},
-			{ProductType::PRODUCT_MAINTENANCE_PARTS, &imageCache.load("ui/interface/product_maintenance_parts.png")},
-			{ProductType::PRODUCT_CLOTHING, &imageCache.load("ui/interface/product_clothing.png")},
-			{ProductType::PRODUCT_MEDICINE, &imageCache.load("ui/interface/product_medicine.png")}
+			{ProductType::PRODUCT_DIGGER, &getImage("ui/interface/product_robodigger.png")},
+			{ProductType::PRODUCT_DOZER, &getImage("ui/interface/product_robodozer.png")},
+			{ProductType::PRODUCT_MINER, &getImage("ui/interface/product_robominer.png")},
+			{ProductType::PRODUCT_EXPLORER, &getImage("ui/interface/product_roboexplorer.png")},
+			{ProductType::PRODUCT_TRUCK, &getImage("ui/interface/product_truck.png")},
+			{ProductType::PRODUCT_MAINTENANCE_PARTS, &getImage("ui/interface/product_maintenance_parts.png")},
+			{ProductType::PRODUCT_CLOTHING, &getImage("ui/interface/product_clothing.png")},
+			{ProductType::PRODUCT_MEDICINE, &getImage("ui/interface/product_medicine.png")}
 		};
 		return *productImages.at(productType);
 	}
@@ -64,9 +64,9 @@ FactoryReport::FactoryReport(const StructureManager& structureManager, TakeMeThe
 	fontMedium{getFontMedium()},
 	fontMediumBold{getFontMediumBold()},
 	fontBigBold{getFontHugeBold()},
-	factorySeed{imageCache.load("ui/interface/factory_seed.png")},
-	factoryAboveGround{imageCache.load("ui/interface/factory_ag.png")},
-	factoryUnderGround{imageCache.load("ui/interface/factory_ug.png")},
+	factorySeed{getImage("ui/interface/factory_seed.png")},
+	factoryAboveGround{getImage("ui/interface/factory_ag.png")},
+	factoryUnderGround{getImage("ui/interface/factory_ug.png")},
 	btnShowAll{"All", viewFilterButtonSize, {this, &FactoryReport::onShowAll}},
 	btnShowSurface{"Surface", viewFilterButtonSize, {this, &FactoryReport::onShowSurface}},
 	btnShowUnderground{"Underground", viewFilterButtonSize, {this, &FactoryReport::onShowUnderground}},

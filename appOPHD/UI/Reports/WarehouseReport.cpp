@@ -64,7 +64,7 @@ WarehouseReport::WarehouseReport(const StructureManager& structureManager, TakeM
 	fontMedium{getFontMedium()},
 	fontMediumBold{getFontMediumBold()},
 	fontBigBold{getFontHugeBold()},
-	imageWarehouse{imageCache.load("ui/interface/warehouse.png")},
+	imageWarehouse{getImage("ui/interface/warehouse.png")},
 	btnShowAll{"All", {this, &WarehouseReport::onShowAll}},
 	btnFull{"Full", {this, &WarehouseReport::onFull}},
 	btnVacancy{"Vacancy", {this, &WarehouseReport::onVacancy}},

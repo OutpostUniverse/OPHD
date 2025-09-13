@@ -11,7 +11,7 @@
 
 RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :
 	mRobotPool{robotPool},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{getImage("ui/icons.png")}
 {}
 
 

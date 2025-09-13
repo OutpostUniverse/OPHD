@@ -23,7 +23,7 @@ const IconGrid::Index IconGrid::NoSelection{std::numeric_limits<Index>::max()};
 IconGrid::IconGrid(Delegate selectionChangedHandler, const std::string& filePath, int iconEdgeSize, int margin, bool showTooltip) :
 	mSkin{loadRectangleSkin("ui/skin/textbox_normal")},
 	mFont{Control::getDefaultFont()},
-	mIconSheet{imageCache.load(filePath)},
+	mIconSheet{getImage(filePath)},
 	mShowTooltip{showTooltip},
 	mIconSize{iconEdgeSize},
 	mIconMargin{margin},

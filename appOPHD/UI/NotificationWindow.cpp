@@ -8,7 +8,7 @@
 
 
 NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
-	mIcons{imageCache.load("ui/icons.png")},
+	mIcons{getImage("ui/icons.png")},
 	mTakeMeThereHandler{takeMeThereHandler}
 {
 	size({300, 220});

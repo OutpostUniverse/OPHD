@@ -35,7 +35,7 @@ namespace
 
 NavControl::NavControl(MapView& mapView) :
 	mMapView{mapView},
-	mUiIcons{imageCache.load("ui/icons.png")},
+	mUiIcons{getImage("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
 	mFontMediumBold{getFontMediumBold()}
 {

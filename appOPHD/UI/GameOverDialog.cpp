@@ -6,7 +6,7 @@
 
 
 GameOverDialog::GameOverDialog(ClickDelegate clickHandler) :
-	mHeader{imageCache.load("ui/interface/game_over.png")},
+	mHeader{getImage("ui/interface/game_over.png")},
 	btnClose{"Return to Main Menu", clickHandler}
 {
 	position({0, 0});

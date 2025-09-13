@@ -47,7 +47,7 @@ void drawNotificationIcon(NAS2D::Renderer& renderer, NAS2D::Point<int> position,
 
 
 NotificationArea::NotificationArea(NotificationClickedDelegate notificationClickedHandler) :
-	mIcons{imageCache.load("ui/icons.png")},
+	mIcons{getImage("ui/icons.png")},
 	mFont{Control::getDefaultFont()},
 	mNotificationIndex{NoSelection},
 	mNotificationClickedHandler{notificationClickedHandler}

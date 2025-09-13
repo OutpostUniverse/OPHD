@@ -75,7 +75,7 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Struc
 	mPopulationModel{population},
 	mMorale{morale},
 	mFood{food},
-	mUiIcons{imageCache.load("ui/icons.png")}
+	mUiIcons{getImage("ui/icons.png")}
 {
 	const auto fontHeight = Control::getDefaultFont().height();
 	const auto contentHeight = std::max(fontHeight, constants::ResourceIconSize);
