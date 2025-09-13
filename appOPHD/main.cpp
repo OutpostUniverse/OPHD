@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
 
 		Control::setDefaultFont(getFont());
 		Control::setDefaultFontBold(getFontBold());
-		Control::setImageCache(imageCache);
+		Control::setImageCache(getImageCache());
 
 		const auto& options = cf["options"];
 		if (options.get<bool>("maximized"))
@@ -188,7 +188,7 @@ int main(int argc, char *argv[])
 		doNonFatalErrorMessage("Application Error", e.what());
 	}
 
-	imageCache.clear();
+	getImageCache().clear();
 	NAS2D::Utility<NAS2D::Renderer>::clear();
 	std::cout << "OpenGL Renderer Terminated." << std::endl;
 	NAS2D::Utility<NAS2D::EventHandler>::clear();
