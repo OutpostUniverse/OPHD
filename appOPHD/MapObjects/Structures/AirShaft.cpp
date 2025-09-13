@@ -1,7 +1,5 @@
 #include "AirShaft.h"
 
-#include "../../Constants/Strings.h"
-
 #include <libOPHD/EnumStructureID.h>
 
 
