@@ -79,14 +79,6 @@ namespace constants
 
 
 	// =====================================
-	// = TUBE STATES
-	// =====================================
-	const std::string TubeIntersection = "intersection";
-	const std::string TubeRight = "right";
-	const std::string TubeLeft = "left";
-
-
-	// =====================================
 	// = UI STRINGS
 	// =====================================
 	const std::string MainMenuNewGame = "New Game";
