@@ -21,17 +21,12 @@ namespace
 	}
 }
 
+
 Tube::Tube(Tile& tile) :
-	Tube{tile, ConnectorDir::Intersection}
-{
-}
-
-
-Tube::Tube(Tile& tile, ConnectorDir dir) :
 	Structure{
 		StructureID::Tube,
 		tile,
-		getAnimationName(dir),
+		getAnimationName(ConnectorDir::Intersection),
 	}
 {
 	mStructureState = StructureState::Operational;
