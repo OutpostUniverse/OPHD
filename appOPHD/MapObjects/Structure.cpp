@@ -429,7 +429,6 @@ void Structure::forcedStateChange(StructureState structureState, DisabledReason 
 	if (age() >= turnsToBuild())
 	{
 		mSprite.play(constants::StructureStateOperational);
-		//enable();
 	}
 
 	if (structureState == StructureState::Operational) { enable(); }
