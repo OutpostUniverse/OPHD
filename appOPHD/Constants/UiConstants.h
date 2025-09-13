@@ -20,8 +20,6 @@ namespace constants
 
 	inline constexpr int ResourceIconSize{16};
 
-	inline constexpr int ResourceBoxWidth{200};
-
 	inline constexpr unsigned int StructureIconSize{46};
 	inline constexpr unsigned int RobotIconSize{46};
 
