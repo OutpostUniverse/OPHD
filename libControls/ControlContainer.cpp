@@ -1,10 +1,25 @@
 #include "ControlContainer.h"
 
+#include <NAS2D/Utility.h>
+#include <NAS2D/Renderer/Renderer.h>
+#include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
 
 #include <algorithm>
 #include <stdexcept>
+
+
+namespace
+{
+	bool debugDrawBorders = false;
+}
+
+
+void ControlContainer::setDebugDrawBorders(bool drawBorders)
+{
+	debugDrawBorders = drawBorders;
+}
 
 
 ControlContainer::ControlContainer() : ControlContainer{{}}
@@ -66,11 +81,21 @@ void ControlContainer::update()
 	for (auto control : mControls)
 	{
 		control->update();
-		/*
-		if (control->hasFocus())
-		{
-			NAS2D::Utility<NAS2D::Renderer>::get().drawBox(control->area(), {255, 0, 255});
-		}
-		*/
+	}
+
+	if (debugDrawBorders)
+	{
+		drawControlBorders();
+	}
+}
+
+
+void ControlContainer::drawControlBorders() const
+{
+	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
+	for (auto control : mControls)
+	{
+		const auto borderColor = control->hasFocus() ? NAS2D::Color{255, 0, 255} : NAS2D::Color{255, 255, 255};
+		renderer.drawBox(control->area(), borderColor);
 	}
 }
