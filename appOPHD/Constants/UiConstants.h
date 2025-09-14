@@ -20,12 +20,10 @@ namespace constants
 	const NAS2D::Color PrimaryColorVariant{0, 85, 0};
 
 	const NAS2D::Color SecondaryColor{185, 185, 0};
-	const NAS2D::Color SecondaryColorVariant{100, 100, 0};
 
 	const NAS2D::Color HighlightColor{0, 185, 185, 100};
 
 	const NAS2D::Color PrimaryTextColor{PrimaryColor};
-	const NAS2D::Color PrimaryTextColorVariant{PrimaryColorVariant};
 
 	const NAS2D::Color WarningTextColor = NAS2D::Color::Red;
 }
