@@ -7,9 +7,13 @@
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 
+#include <libControls/ControlContainer.h>
+
 #include <NAS2D/Filesystem.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/EnumKeyModifier.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Xml/XmlDocument.h>
@@ -46,6 +50,7 @@ GameState::~GameState()
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &GameState::onMouseMove});
+	eventHandler.keyDown().disconnect({this, &GameState::onKeyDown});
 
 	NAS2D::Utility<NAS2D::Mixer>::get().removeMusicCompleteHandler({this, &GameState::onMusicComplete});
 	NAS2D::Utility<NAS2D::Mixer>::get().stopAllAudio();
@@ -61,6 +66,7 @@ void GameState::initializeGameState()
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().connect({this, &GameState::onMouseMove});
+	eventHandler.keyDown().connect({this, &GameState::onKeyDown});
 
 	NAS2D::Utility<NAS2D::Mixer>::get().addMusicCompleteHandler({this, &GameState::onMusicComplete});
 }
@@ -85,6 +91,21 @@ void GameState::initialize()
 void GameState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	MOUSE_COORDS = position;
+}
+
+
+void GameState::onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/)
+{
+	if (key == NAS2D::KeyCode::F12)
+	{
+		auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+		if (eventHandler.control(mod) && eventHandler.shift(mod))
+		{
+			static bool debugDrawBorders = false;
+			debugDrawBorders = !debugDrawBorders;
+			ControlContainer::setDebugDrawBorders(debugDrawBorders);
+		}
+	}
 }
 
 
