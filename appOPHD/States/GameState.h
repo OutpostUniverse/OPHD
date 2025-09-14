@@ -17,6 +17,12 @@
 #include <string>
 
 
+namespace NAS2D
+{
+	enum class KeyCode : uint32_t;
+	enum class KeyModifier : uint16_t;
+}
+
 enum class Difficulty;
 
 class StructureManager;
@@ -45,6 +51,7 @@ protected:
 	void initialize() override;
 
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
+	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool /*repeat*/);
 
 	void onFadeComplete();
 	void onMusicComplete();

@@ -16,6 +16,9 @@ namespace NAS2D
 
 class ControlContainer : public Control
 {
+public:
+	static void setDebugDrawBorders(bool draw);
+
 protected:
 	ControlContainer();
 	ControlContainer(std::vector<Control*> controls);
@@ -29,6 +32,8 @@ protected:
 protected:
 	void onVisibilityChange(bool visible) override;
 	void onMove(NAS2D::Vector<int> displacement) override;
+
+	void drawControlBorders() const;
 
 private:
 	std::vector<Control*> mControls;
