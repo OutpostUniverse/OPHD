@@ -1,19 +1,20 @@
 #include "PlanetImage.h"
 
-#include "../Constants/UiConstants.h"
-
 #include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/Rectangle.h>
+#include <NAS2D/Duration.h>
 
 
 namespace
 {
 	constexpr auto PlanetRadius = 64;
 	constexpr auto PlanetSize = NAS2D::Vector{PlanetRadius * 2, PlanetRadius * 2};
+
+	constexpr Duration PlanetAnimationSpeed{35};
 }
 
 
@@ -67,7 +68,7 @@ void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 
 void PlanetImage::update()
 {
-	if (mIsMouseOver && mTimer.elapsedTicks() >= constants::PlanetAnimationSpeed.milliseconds)
+	if (mIsMouseOver && mTimer.elapsedTicks() >= PlanetAnimationSpeed.milliseconds)
 	{
 		mTimer.reset(); // don't care about frame skips.
 		++mFrameIndex;

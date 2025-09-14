@@ -32,6 +32,9 @@
 
 
 namespace {
+	constexpr auto MinimumWindowSize{NAS2D::Vector{1000, 700}};
+
+
 	void dumpGraphicsInfo(NAS2D::RendererOpenGL& renderer)
 	{
 		std::vector<std::string> info{
@@ -77,8 +80,8 @@ int main(int argc, char *argv[])
 				{
 					"graphics",
 					{{
-						{"screenwidth", constants::MinimumWindowSize.x},
-						{"screenheight", constants::MinimumWindowSize.y},
+						{"screenwidth", MinimumWindowSize.x},
+						{"screenheight", MinimumWindowSize.y},
 						{"bitdepth", 32},
 						{"fullscreen", false},
 						{"vsync", true}
@@ -110,8 +113,8 @@ int main(int argc, char *argv[])
 
 		// Ensure minimum video resolution
 		auto& graphics = cf["graphics"];
-		if (graphics.get<int>("screenwidth") < constants::MinimumWindowSize.x) { graphics.set("screenwidth", constants::MinimumWindowSize.x); }
-		if (graphics.get<int>("screenheight") < constants::MinimumWindowSize.y) { graphics.set("screenheight", constants::MinimumWindowSize.y); }
+		if (graphics.get<int>("screenwidth") < MinimumWindowSize.x) { graphics.set("screenwidth", MinimumWindowSize.x); }
+		if (graphics.get<int>("screenheight") < MinimumWindowSize.y) { graphics.set("screenheight", MinimumWindowSize.y); }
 		// Force windowed mode
 		graphics.set("fullscreen", false);
 
@@ -132,7 +135,7 @@ int main(int argc, char *argv[])
 		dumpGraphicsInfo(renderer);
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
-		renderer.minimumSize(constants::MinimumWindowSize);
+		renderer.minimumSize(MinimumWindowSize);
 		renderer.resizeable(true);
 
 		addCursor(PointerType::Normal, "ui/pointers/normal.png", {0, 0});

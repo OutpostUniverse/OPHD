@@ -81,9 +81,9 @@ namespace
 
 	const std::map<RobotTypeIndex, RobotMeta> RobotMetaTable
 	{
-		{RobotTypeIndex::Digger, RobotMeta{constants::Robodigger, constants::RobodiggerSheetId}},
-		{RobotTypeIndex::Dozer, RobotMeta{constants::Robodozer, constants::RobodozerSheetId}},
-		{RobotTypeIndex::Miner, RobotMeta{constants::Robominer, constants::RobominerSheetId}}
+		{RobotTypeIndex::Digger, RobotMeta{constants::Robodigger, 1}},
+		{RobotTypeIndex::Dozer, RobotMeta{constants::Robodozer, 0}},
+		{RobotTypeIndex::Miner, RobotMeta{constants::Robominer, 2}}
 	};
 
 
