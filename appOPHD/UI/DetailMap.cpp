@@ -72,12 +72,14 @@ DetailMap::DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tile
 	mTileset{tilesetPath},
 	mMineBeacon{"structures/mine_beacon.png"}
 {
-	resize(NAS2D::Utility<NAS2D::Renderer>::get().size());
+	size(NAS2D::Utility<NAS2D::Renderer>::get().size());
 }
 
 
-void DetailMap::resize(NAS2D::Vector<int> size)
+void DetailMap::onResize()
 {
+	const auto size = this->size();
+
 	// Set up map draw position
 	const auto sizeInTiles = size.skewInverseBy(TileSize);
 	mMapView.viewSize(std::min(sizeInTiles.x, sizeInTiles.y));

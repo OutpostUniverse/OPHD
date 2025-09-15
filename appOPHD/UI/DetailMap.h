@@ -22,12 +22,13 @@ public:
 	Tile& mouseTile();
 
 	void onMouseMove(NAS2D::Point<int> position);
-	void resize(NAS2D::Vector<int> size);
 
 	void update() override;
 	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
+	void onResize() override;
+
 	void drawGrid(NAS2D::Renderer& renderer) const;
 
 private:
