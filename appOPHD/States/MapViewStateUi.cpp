@@ -179,7 +179,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
 	});
 
-	mDetailMap->size(size);
+	mDetailMap->size({size.x, size.y - mBottomUiRect.size.y});
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();

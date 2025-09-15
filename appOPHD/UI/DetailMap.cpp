@@ -1,6 +1,5 @@
 #include "DetailMap.h"
 
-#include "../Constants/UiConstants.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
@@ -85,7 +84,7 @@ void DetailMap::onResize()
 	mMapView.viewSize(std::min(sizeInTiles.x, sizeInTiles.y));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mMapView.viewSize() * TileSize.y) / 2};
+	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - mMapView.viewSize() * TileSize.y) / 2};
 }
 
 
