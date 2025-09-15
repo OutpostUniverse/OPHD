@@ -408,7 +408,6 @@ void MapViewState::onActivate(bool /*newActiveValue*/)
 void MapViewState::onWindowResized(NAS2D::Vector<int> newSize)
 {
 	setupUiPositions(newSize);
-	mDetailMap->size(newSize);
 }
 
 

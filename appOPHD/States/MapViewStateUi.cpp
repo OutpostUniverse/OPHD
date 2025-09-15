@@ -23,6 +23,7 @@
 
 #include "../UI/MessageBox.h"
 #include "../UI/NavControl.h"
+#include "../UI/DetailMap.h"
 #include "../UI/MiniMap.h"
 #include "../UI/CheatMenu.h"
 
@@ -177,6 +178,8 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
 		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
 	});
+
+	mDetailMap->size(size);
 
 	// Allow for centering with rounding to integer values
 	const auto rendererCenter = NAS2D::Utility<NAS2D::Renderer>::get().center().to<int>();
