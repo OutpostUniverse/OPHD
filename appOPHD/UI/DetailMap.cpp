@@ -1,6 +1,5 @@
 #include "DetailMap.h"
 
-#include "../Constants/UiConstants.h"
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
@@ -72,18 +71,20 @@ DetailMap::DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tile
 	mTileset{tilesetPath},
 	mMineBeacon{"structures/mine_beacon.png"}
 {
-	resize(NAS2D::Utility<NAS2D::Renderer>::get().size());
+	size(NAS2D::Utility<NAS2D::Renderer>::get().size());
 }
 
 
-void DetailMap::resize(NAS2D::Vector<int> size)
+void DetailMap::onResize()
 {
+	const auto size = this->size();
+
 	// Set up map draw position
 	const auto sizeInTiles = size.skewInverseBy(TileSize);
 	mMapView.viewSize(std::min(sizeInTiles.x, sizeInTiles.y));
 
 	// Find top left corner of rectangle containing top tile of diamond
-	mOriginPixelPosition = NAS2D::Point{size.x / 2, TileDrawOffset.y + (size.y - constants::BottomUiHeight - mMapView.viewSize() * TileSize.y) / 2};
+	mOriginPixelPosition = mRect.position + NAS2D::Vector{size.x / 2, TileDrawOffset.y + (size.y - mMapView.viewSize() * TileSize.y) / 2};
 }
 
 
