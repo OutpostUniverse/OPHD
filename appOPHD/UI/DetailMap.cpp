@@ -77,7 +77,7 @@ DetailMap::DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tile
 
 void DetailMap::onResize()
 {
-	const auto size = this->size();
+	const auto size = this->size() - NAS2D::Vector{0, TileDrawOffset.y};
 
 	// Set up map draw position
 	const auto sizeInTiles = size.skewInverseBy(TileSize);
