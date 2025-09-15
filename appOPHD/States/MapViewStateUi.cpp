@@ -44,6 +44,7 @@ extern NAS2D::Point<int> MOUSE_COORDS;
 namespace
 {
 	constexpr int MainButtonSize{30};
+	constexpr int BottomUiHeight{162};
 }
 
 
@@ -145,13 +146,13 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	mPopulationPanel.position({populationPanelX, constants::ResourceIconSize + 4 + constants::MarginTight});
 
 	// Bottom UI Area
-	mBottomUiRect = {{0, size.y - constants::BottomUiHeight}, {size.x, constants::BottomUiHeight}};
+	mBottomUiRect = {{0, size.y - BottomUiHeight}, {size.x, BottomUiHeight}};
 
 	// Menu / System Icon
 	mTooltipSystemButton.position({size.x - (constants::ResourceIconSize + constants::MarginTight * 2), 0});
 	mTooltipCurrentTurns.position({size.x - 80 , 0});
 
-	mRobotDeploymentSummary.area({{8, size.y - constants::BottomUiHeight - 8 - 100}, {200, 100}});
+	mRobotDeploymentSummary.area({{8, size.y - BottomUiHeight - 8 - 100}, {200, 100}});
 
 	// Mini Map
 	mMiniMap->area({{size.x - 300 - constants::Margin, mBottomUiRect.position.y + constants::Margin}, {300, 150}});
@@ -176,7 +177,7 @@ void MapViewState::setupUiPositions(NAS2D::Vector<int> size)
 	// UI Panels
 	mMapObjectPicker.area({
 		{constants::Margin, mBottomUiRect.position.y + constants::Margin},
-		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, constants::BottomUiHeight - constants::Margin * 2}
+		{mBtnTurns.position().x - constants::Margin - constants::MarginTight, BottomUiHeight - constants::Margin * 2}
 	});
 
 	mDetailMap->size({size.x, size.y - mBottomUiRect.size.y});
