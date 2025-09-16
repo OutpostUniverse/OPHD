@@ -335,7 +335,7 @@ void MapViewState::drawUI()
 	// Bottom UI
 	renderer.drawBoxFilled(mBottomUiRect.inset(1), NAS2D::Color{39, 39, 39});
 	renderer.drawBox(mBottomUiRect, NAS2D::Color{21, 21, 21});
-	renderer.drawLine(NAS2D::Point{mBottomUiRect.position.x + 2, mBottomUiRect.position.y}, NAS2D::Point{mBottomUiRect.position.x + mBottomUiRect.size.x - 2, mBottomUiRect.position.y}, NAS2D::Color{56, 56, 56});
+	renderer.drawLine(NAS2D::Point{mBottomUiRect.position.x + 1, mBottomUiRect.position.y}, NAS2D::Point{mBottomUiRect.position.x + mBottomUiRect.size.x - 1, mBottomUiRect.position.y}, NAS2D::Color{56, 56, 56});
 
 	mMiniMap->draw(renderer);
 	mNavControl->draw(renderer);
