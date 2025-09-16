@@ -144,7 +144,7 @@ void ResourceInfoBar::update()
  */
 void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 {
-	renderer.drawBoxFilled(mRect, NAS2D::Color{39, 39, 39});
+	renderer.drawBoxFilled(mRect.inset(1), NAS2D::Color{39, 39, 39});
 	renderer.drawBox(mRect, NAS2D::Color{21, 21, 21});
 	renderer.drawLine(NAS2D::Point{1, 0}, NAS2D::Point{renderer.size().x - 1, 0}, NAS2D::Color{56, 56, 56});
 
