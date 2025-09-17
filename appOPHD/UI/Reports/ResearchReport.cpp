@@ -104,7 +104,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
 	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor}
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
 
 	add(lstResearchTopics, {});
 
@@ -114,7 +115,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 
 ResearchReport::~ResearchReport()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ResearchReport::onMouseDown});
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect({this, &ResearchReport::onMouseDown});
 }
 
 
