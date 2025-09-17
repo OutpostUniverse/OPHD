@@ -17,15 +17,11 @@
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
+#include <NAS2D/Math/Vector.h>
 
 #include <array>
 #include <vector>
 #include <algorithm>
-
-
-extern NAS2D::Point<int> MOUSE_COORDS;	// <-- Yuck, really need to find a better way to
-										// poll mouse position. Might make sense to add a
-										// method to NAS2D::EventHandler for that.
 
 
 namespace
@@ -104,7 +100,9 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
 	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor}
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
+	eventHandler.mouseMotion().connect({this, &ResearchReport::onMouseMove});
 
 	add(lstResearchTopics, {});
 
@@ -114,7 +112,9 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 
 ResearchReport::~ResearchReport()
 {
-	NAS2D::Utility<NAS2D::EventHandler>::get().mouseButtonDown().disconnect({this, &ResearchReport::onMouseDown});
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseButtonDown().disconnect({this, &ResearchReport::onMouseDown});
+	eventHandler.mouseMotion().disconnect({this, &ResearchReport::onMouseMove});
 }
 
 
@@ -189,6 +189,20 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 void ResearchReport::onResize()
 {
 	refresh();
+}
+
+
+void ResearchReport::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	for (const auto& panel : mCategoryPanels)
+	{
+		if (panel.rect.contains(position))
+		{
+			mMouseHighlightPanel = &panel;
+			return;
+		}
+	}
+	mMouseHighlightPanel = nullptr;
 }
 
 
@@ -391,7 +405,7 @@ void ResearchReport::drawCategories(NAS2D::Renderer& renderer) const
 		{
 			renderer.drawBoxFilled(panelRect, constants::PrimaryColorVariant);
 		}
-		else if (panel.rect.contains(MOUSE_COORDS))
+		else if (&panel == mMouseHighlightPanel)
 		{
 			renderer.drawBoxFilled(panelRect, constants::HighlightColor);
 		}

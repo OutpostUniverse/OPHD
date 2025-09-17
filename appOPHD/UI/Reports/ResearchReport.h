@@ -17,6 +17,7 @@ namespace NAS2D
 {
 	class Font;
 	class Image;
+	template <typename BaseType> struct Vector;
 }
 
 class Structure;
@@ -45,7 +46,7 @@ public:
 
 private:
 	void onResize() override;
-
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
 
@@ -111,6 +112,7 @@ private:
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};
 
+	const CategoryPanel* mMouseHighlightPanel{nullptr};
 	CategoryPanel* mSelectedCategory{nullptr};
 	std::vector<CategoryPanel> mCategoryPanels;
 
