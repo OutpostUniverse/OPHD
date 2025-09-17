@@ -533,9 +533,9 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 
 	if (modalUiElementDisplayed()) { return; }
 
-	if (mWindowStack.pointInWindow(MOUSE_COORDS))
+	if (mWindowStack.pointInWindow(position))
 	{
-		mWindowStack.updateStack(MOUSE_COORDS);
+		mWindowStack.updateStack(position);
 		return;
 	}
 
@@ -559,13 +559,13 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (mTooltipSystemButton.area().contains(MOUSE_COORDS))
+		if (mTooltipSystemButton.area().contains(position))
 		{
 			onSystemMenu();
 		}
 
 		const auto oldDepth = mMapView->currentDepth();
-		mNavControl->onClick(MOUSE_COORDS);
+		mNavControl->onClick(position);
 		if (oldDepth != mMapView->currentDepth())
 		{
 			onChangeDepth(oldDepth, mMapView->currentDepth());
