@@ -38,9 +38,6 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 
-extern NAS2D::Point<int> MOUSE_COORDS;
-
-
 namespace
 {
 	constexpr int MainButtonSize{30};
