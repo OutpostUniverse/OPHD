@@ -583,13 +583,13 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 }
 
 
-void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> /*position*/)
+void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (!active()) { return; }
 
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (mWindowStack.pointInWindow(MOUSE_COORDS)) { return; }
+		if (mWindowStack.pointInWindow(position)) { return; }
 		if (!mDetailMap->isMouseOverTile()) { return; }
 		const auto tilePosition = mDetailMap->mouseTilePosition();
 		if (!mTileMap->isValidPosition(tilePosition)) { return; }
