@@ -28,7 +28,6 @@
 
 class Structure;
 
-extern NAS2D::Point<int> MOUSE_COORDS;
 
 namespace
 {
@@ -80,6 +79,16 @@ namespace
 			return mIsSelected;
 		}
 
+		void highlighted(bool isHighlighted)
+		{
+			mIsHighlighted = isHighlighted;
+		}
+
+		bool highlighted() const
+		{
+			return mIsHighlighted;
+		}
+
 	public:
 		Report* report = nullptr;
 		std::string name;
@@ -91,6 +100,7 @@ namespace
 
 	private:
 		bool mIsSelected = false;
+		bool mIsHighlighted = false;
 	};
 
 
@@ -144,7 +154,7 @@ namespace
 
 	void drawPanel(NAS2D::Renderer& renderer, Panel& panel, const NAS2D::Font& font)
 	{
-		if (panel.tabArea.contains(MOUSE_COORDS))
+		if (panel.highlighted())
 		{
 			renderer.drawBoxFilled(panel.tabArea, constants::HighlightColor);
 		}
@@ -178,6 +188,7 @@ ReportsState::ReportsState(const StructureManager& structureManager, TakeMeThere
 	eventHandler.windowResized().connect({this, &ReportsState::onWindowResized});
 	eventHandler.keyDown().connect({this, &ReportsState::onKeyDown});
 	eventHandler.mouseButtonDown().connect({this, &ReportsState::onMouseDown});
+	eventHandler.mouseMotion().connect({this, &ReportsState::onMouseMove});
 }
 
 
@@ -187,6 +198,7 @@ ReportsState::~ReportsState()
 	eventHandler.windowResized().disconnect({this, &ReportsState::onWindowResized});
 	eventHandler.keyDown().disconnect({this, &ReportsState::onKeyDown});
 	eventHandler.mouseButtonDown().disconnect({this, &ReportsState::onMouseDown});
+	eventHandler.mouseMotion().disconnect({this, &ReportsState::onMouseMove});
 
 	for (Panel& panel : panels)
 	{
@@ -310,6 +322,15 @@ void ReportsState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 	if (panels[ExitPanelIndex].selected())
 	{
 		onExit();
+	}
+}
+
+
+void ReportsState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	for (auto& panel : panels)
+	{
+		panel.highlighted(panel.tabArea.contains(position));
 	}
 }
 
