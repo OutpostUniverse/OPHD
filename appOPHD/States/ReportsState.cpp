@@ -295,7 +295,7 @@ void ReportsState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 	{
 		for (Panel& panel : panels)
 		{
-			bool selected = panel.tabArea.contains(MOUSE_COORDS);
+			bool selected = panel.tabArea.contains(position);
 			panel.selected(selected);
 
 			if (panel.report)
