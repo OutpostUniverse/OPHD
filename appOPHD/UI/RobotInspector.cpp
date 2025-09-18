@@ -19,7 +19,7 @@ namespace
 {
 	const NAS2D::Image& robotImage(RobotTypeIndex robotTypeIndex)
 	{
-		static const std::array robotImages
+		static const std::array robotImages =
 		{
 			&getImage(Robot::robotType(RobotTypeIndex::Digger).imagePath),
 			&getImage(Robot::robotType(RobotTypeIndex::Dozer).imagePath),
