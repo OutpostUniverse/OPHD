@@ -64,8 +64,6 @@ protected:
 	void addProduct(ProductType type);
 	bool enoughResourcesAvailable();
 
-	const StorableResources* resourcePool() { return mResources; }
-
 private:
 	int mTurnsCompleted = 0;
 	int mTurnsToComplete = 0;
