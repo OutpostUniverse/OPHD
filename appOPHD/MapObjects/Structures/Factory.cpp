@@ -70,6 +70,12 @@ Factory::Factory(StructureID id, std::vector<ProductType> products, Tile& tile) 
 }
 
 
+void Factory::resourcePool(const StorableResources* resources)
+{
+	mResources = resources;
+}
+
+
 void Factory::productType(ProductType type)
 {
 	if (type == mProduct) { return; }
