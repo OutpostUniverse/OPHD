@@ -26,9 +26,6 @@
 #include <array>
 
 
-class Structure;
-
-
 namespace
 {
 	enum class NavigationPanel

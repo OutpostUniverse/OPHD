@@ -20,9 +20,6 @@
 #include <algorithm>
 
 
-class Structure;
-
-
 namespace
 {
 	constexpr auto filterButtonSectionOffset = NAS2D::Vector{10, 10};

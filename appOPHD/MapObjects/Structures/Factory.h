@@ -37,7 +37,7 @@ public:
 
 	virtual void updateProduction();
 
-	void resourcePool(const StorableResources* resources) { mResources = resources; }
+	void resourcePool(const StorableResources* resources);
 
 	int productionTurnsToComplete() const { return mTurnsToComplete; }
 	void productionTurnsToComplete(int newTurnsToComplete) { mTurnsToComplete = newTurnsToComplete; }
@@ -63,8 +63,6 @@ protected:
 
 	void addProduct(ProductType type);
 	bool enoughResourcesAvailable();
-
-	const StorableResources* resourcePool() { return mResources; }
 
 private:
 	int mTurnsCompleted = 0;

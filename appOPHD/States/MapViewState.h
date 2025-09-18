@@ -55,7 +55,6 @@ namespace NAS2D
 {
 	namespace Xml
 	{
-		class XmlDocument;
 		class XmlElement;
 	}
 
