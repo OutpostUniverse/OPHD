@@ -3,8 +3,6 @@
 #include "Wrapper.h"
 
 #include <NAS2D/Signal/Delegate.h>
-#include <NAS2D/Math/Point.h>
-#include <NAS2D/Math/Vector.h>
 
 #include <cstdint>
 
@@ -22,6 +20,9 @@ namespace NAS2D
 	enum class MouseButton;
 
 	class Font;
+
+	template <typename BaseType> struct Point;
+	template <typename BaseType> struct Vector;
 }
 
 
