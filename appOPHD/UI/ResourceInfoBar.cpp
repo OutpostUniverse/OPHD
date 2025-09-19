@@ -21,6 +21,7 @@
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
+#include <NAS2D/Resource/Image.h>
 
 #include <cstdint>
 #include <algorithm>

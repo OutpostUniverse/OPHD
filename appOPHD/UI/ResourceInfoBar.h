@@ -3,13 +3,12 @@
 #include <libControls/ControlContainer.h>
 #include <libControls/ToolTip.h>
 
-#include <NAS2D/Math/Point.h>
-#include <NAS2D/Resource/Image.h>
-
 
 namespace NAS2D
 {
 	enum class MouseButton;
+	class Image;
+	template <typename BaseType> struct Point;
 }
 
 struct StorableResources;
