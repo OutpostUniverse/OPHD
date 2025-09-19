@@ -263,7 +263,6 @@ MapViewState::~MapViewState()
 	eventHandler.mouseButtonDown().disconnect({this, &MapViewState::onMouseDown});
 	eventHandler.mouseButtonUp().disconnect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().disconnect({this, &MapViewState::onMouseDoubleClick});
-	eventHandler.mouseMotion().disconnect({this, &MapViewState::onMouseMove});
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
 	mOreHaulRoutes->clear();
@@ -307,7 +306,6 @@ void MapViewState::initialize()
 	eventHandler.mouseButtonDown().connect({this, &MapViewState::onMouseDown});
 	eventHandler.mouseButtonUp().connect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
-	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
 }
 
 
@@ -604,13 +602,6 @@ void MapViewState::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> positi
 	{
 		mMiniMap->onMouseUp(button, position);
 	}
-}
-
-
-void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
-{
-	if (!active()) { return; }
-	mMiniMap->onMouseMove(position, relative);
 }
 
 

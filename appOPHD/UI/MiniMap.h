@@ -29,6 +29,7 @@ class MiniMap : public Control
 {
 public:
 	MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const OreHaulRoutes& oreHaulRoutes, const std::string& mapName);
+	~MiniMap() override;
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
