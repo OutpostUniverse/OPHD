@@ -6,10 +6,10 @@
 
 #include <libOPHD/MapObjects/MapObject.h>
 
-#include <NAS2D/Renderer/Color.h>
-#include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
+#include <NAS2D/Renderer/Color.h>
+#include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <map>
