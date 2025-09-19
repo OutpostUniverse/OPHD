@@ -258,7 +258,6 @@ MapViewState::~MapViewState()
 	setCursor(PointerType::Normal);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.activate().disconnect({this, &MapViewState::onActivate});
 	eventHandler.keyDown().disconnect({this, &MapViewState::onKeyDown});
 	eventHandler.mouseButtonDown().disconnect({this, &MapViewState::onMouseDown});
 	eventHandler.mouseDoubleClick().disconnect({this, &MapViewState::onMouseDoubleClick});
@@ -300,7 +299,6 @@ void MapViewState::initialize()
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
-	eventHandler.activate().connect({this, &MapViewState::onActivate});
 	eventHandler.keyDown().connect({this, &MapViewState::onKeyDown});
 	eventHandler.mouseButtonDown().connect({this, &MapViewState::onMouseDown});
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
@@ -384,15 +382,6 @@ void MapViewState::updatePlayerResources()
 		resources += structure->storage();
 	}
 	mResourcesCount = resources;
-}
-
-
-/**
- * Window activation handler.
- */
-void MapViewState::onActivate(bool /*newActiveValue*/)
-{
-	mMiniMap->onActivate();
 }
 
 

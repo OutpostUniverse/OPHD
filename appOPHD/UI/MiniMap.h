@@ -38,7 +38,7 @@ public:
 
 protected:
 	friend MapViewState;
-	void onActivate();
+	void onActivate(bool newActiveValue);
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);

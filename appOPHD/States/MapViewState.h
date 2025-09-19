@@ -111,7 +111,6 @@ private:
 	void onActivate() override;
 
 	// EVENT HANDLERS
-	void onActivate(bool newActiveValue);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
