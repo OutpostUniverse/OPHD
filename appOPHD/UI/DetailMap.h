@@ -15,19 +15,19 @@ class DetailMap : public Control
 {
 public:
 	DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tilesetPath);
+	~DetailMap() override;
 
 	bool isMouseOverTile() const;
 
 	MapCoordinate mouseTilePosition() const;
 	Tile& mouseTile();
 
-	void onMouseMove(NAS2D::Point<int> position);
-
 	void update() override;
 	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
 	void onResize() override;
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 	void drawGrid(NAS2D::Renderer& renderer) const;
 

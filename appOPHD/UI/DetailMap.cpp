@@ -9,6 +9,7 @@
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <map>
@@ -72,6 +73,16 @@ DetailMap::DetailMap(MapView& mapView, TileMap& tileMap, const std::string& tile
 	mMineBeacon{"structures/mine_beacon.png"}
 {
 	size(NAS2D::Utility<NAS2D::Renderer>::get().size());
+
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().connect({this, &DetailMap::onMouseMove});
+}
+
+
+DetailMap::~DetailMap()
+{
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.mouseMotion().disconnect({this, &DetailMap::onMouseMove});
 }
 
 
@@ -179,7 +190,7 @@ void DetailMap::drawGrid(NAS2D::Renderer& renderer) const
 }
 
 
-void DetailMap::onMouseMove(NAS2D::Point<int> position)
+void DetailMap::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
 {
 	const auto pixelOffset = position - mOriginPixelPosition;
 	const auto tileOffset = NAS2D::Vector{pixelOffset.x * TileSize.y + pixelOffset.y * TileSize.x, pixelOffset.y * TileSize.x - pixelOffset.x * TileSize.y} / (TileSize.x * TileSize.y);

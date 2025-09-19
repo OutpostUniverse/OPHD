@@ -360,11 +360,6 @@ NAS2D::State* MapViewState::update()
 
 	renderer.drawImageStretched(mBackground, windowClientRect);
 
-	if (!modalUiElementDisplayed())
-	{
-		mDetailMap->onMouseMove(MOUSE_COORDS);
-	}
-
 	mDetailMap->update();
 	mDetailMap->draw(renderer);
 
