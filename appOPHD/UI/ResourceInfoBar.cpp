@@ -222,11 +222,11 @@ void ResourceInfoBar::draw(NAS2D::Renderer& renderer) const
 }
 
 
-void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> /*position*/)
+void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position)
 {
 	if (button == NAS2D::MouseButton::Left)
 	{
-		if (resourcePanelPinRect.contains(MOUSE_COORDS)) { mPinResourcePanel = !mPinResourcePanel; }
-		if (populationPanelPinRect.contains(MOUSE_COORDS)) { mPinPopulationPanel = !mPinPopulationPanel; }
+		if (resourcePanelPinRect.contains(position)) { mPinResourcePanel = !mPinResourcePanel; }
+		if (populationPanelPinRect.contains(position)) { mPinPopulationPanel = !mPinPopulationPanel; }
 	}
 }
