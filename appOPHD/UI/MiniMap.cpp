@@ -42,6 +42,8 @@ MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& str
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().connect({this, &MiniMap::onMouseMove});
+	eventHandler.mouseButtonDown().connect({this, &MiniMap::onMouseDown});
+	eventHandler.mouseButtonUp().connect({this, &MiniMap::onMouseUp});
 }
 
 
@@ -49,6 +51,8 @@ MiniMap::~MiniMap()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseMotion().disconnect({this, &MiniMap::onMouseMove});
+	eventHandler.mouseButtonDown().disconnect({this, &MiniMap::onMouseDown});
+	eventHandler.mouseButtonUp().disconnect({this, &MiniMap::onMouseUp});
 }
 
 
@@ -133,9 +137,12 @@ void MiniMap::onActivate()
 }
 
 
-void MiniMap::onMouseUp(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void MiniMap::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> /*position*/)
 {
-	mLeftButtonDown = false;
+	if (button == NAS2D::MouseButton::Left)
+	{
+		mLeftButtonDown = false;
+	}
 }
 
 
