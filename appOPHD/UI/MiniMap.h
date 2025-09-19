@@ -37,7 +37,6 @@ public:
 	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
-	friend MapViewState;
 	void onActivate(bool newActiveValue);
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
