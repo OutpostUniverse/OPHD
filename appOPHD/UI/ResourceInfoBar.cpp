@@ -17,6 +17,7 @@
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Point.h>
+#include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -25,9 +26,6 @@
 
 #include <cstdint>
 #include <algorithm>
-
-
-extern NAS2D::Point<int> MOUSE_COORDS;
 
 
 namespace
@@ -105,6 +103,7 @@ ResourceInfoBar::ResourceInfoBar(const StorableResources& resources, const Struc
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ResourceInfoBar::onMouseDown});
+	eventHandler.mouseMotion().connect({this, &ResourceInfoBar::onMouseMove});
 }
 
 
@@ -112,18 +111,19 @@ ResourceInfoBar::~ResourceInfoBar()
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().disconnect({this, &ResourceInfoBar::onMouseDown});
+	eventHandler.mouseMotion().disconnect({this, &ResourceInfoBar::onMouseMove});
 }
 
 
 bool ResourceInfoBar::isResourcePanelVisible() const
 {
-	return mPinResourcePanel || NAS2D::Rectangle<int>{{0, 1}, {270, 19}}.contains(MOUSE_COORDS);
+	return mPinResourcePanel || mHoverResourcePanel;
 }
 
 
 bool ResourceInfoBar::isPopulationPanelVisible() const
 {
-	return mPinPopulationPanel || NAS2D::Rectangle<int>{{675, 1}, {75, 19}}.contains(MOUSE_COORDS);
+	return mPinPopulationPanel || mHoverPopulationPanel;
 }
 
 void ResourceInfoBar::ignoreGlow(const bool ignore)
@@ -230,4 +230,11 @@ void ResourceInfoBar::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> p
 		if (resourcePanelPinRect.contains(position)) { mPinResourcePanel = !mPinResourcePanel; }
 		if (populationPanelPinRect.contains(position)) { mPinPopulationPanel = !mPinPopulationPanel; }
 	}
+}
+
+
+void ResourceInfoBar::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*relative*/)
+{
+	mHoverResourcePanel = NAS2D::Rectangle<int>{{0, 1}, {270, 19}}.contains(position);
+	mHoverPopulationPanel = NAS2D::Rectangle<int>{{675, 1}, {75, 19}}.contains(position);
 }

@@ -9,6 +9,7 @@ namespace NAS2D
 	enum class MouseButton;
 	class Image;
 	template <typename BaseType> struct Point;
+	template <typename BaseType> struct Vector;
 }
 
 struct StorableResources;
@@ -33,6 +34,7 @@ public:
 
 protected:
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
+	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 
 private:
 	const StorableResources& mResourcesCount;
@@ -54,5 +56,7 @@ private:
 
 	bool mPinResourcePanel = false;
 	bool mPinPopulationPanel = false;
+	bool mHoverResourcePanel = false;
+	bool mHoverPopulationPanel = false;
 	bool mIgnoreGlow = false;
 };
