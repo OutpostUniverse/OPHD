@@ -14,7 +14,7 @@ namespace
 	constexpr auto PlanetRadius = 64;
 	constexpr auto PlanetSize = NAS2D::Vector{PlanetRadius * 2, PlanetRadius * 2};
 
-	constexpr Duration PlanetAnimationSpeed{35};
+	constexpr NAS2D::Duration PlanetAnimationSpeed{35};
 }
 
 

@@ -7,7 +7,7 @@
 
 namespace constants
 {
-	inline constexpr Duration FadeSpeed{300};
+	inline constexpr NAS2D::Duration FadeSpeed{300};
 
 	inline constexpr int Margin{6};
 	inline constexpr int MarginTight{2};
