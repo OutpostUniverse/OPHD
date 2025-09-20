@@ -135,7 +135,7 @@ void ScrollBar::update()
 	{
 		if (mTimer.elapsedTicks() >= mPressedAccumulator)
 		{
-			mPressedAccumulator = 30;
+			mPressedAccumulator = NAS2D::Duration{30};
 			mTimer.reset();
 			changeValue((mButtonDecreaseHeld ? -mSmallDelta : mSmallDelta));
 		}
@@ -161,7 +161,7 @@ void ScrollBar::onButtonClick(bool& buttonFlag, int valueDelta)
 	buttonFlag = true;
 
 	mTimer.reset();
-	mPressedAccumulator = 300;
+	mPressedAccumulator = NAS2D::Duration{300};
 }
 
 

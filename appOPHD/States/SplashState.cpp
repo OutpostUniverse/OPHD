@@ -2,6 +2,7 @@
 
 #include "MainMenuState.h"
 
+#include <NAS2D/Duration.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -23,8 +24,8 @@ namespace
 
 	LogoState currentState = LogoState::None;
 
-	const int pauseTime = 5800;
-	unsigned int fadePauseTime = 5000;
+	const auto pauseTime = NAS2D::Duration{5800};
+	auto fadePauseTime = NAS2D::Duration{5000};
 	const NAS2D::Duration fadeLength{800};
 
 	NAS2D::Timer bylineTimer;
@@ -34,7 +35,7 @@ namespace
 	{
 		if (logoState == LogoState::None)
 		{
-			fadePauseTime = 2500;
+			fadePauseTime = NAS2D::Duration{2500};
 			return LogoState::Lairworks;
 		}
 		if (logoState == LogoState::Lairworks)
@@ -119,7 +120,7 @@ NAS2D::State* SplashState::update()
 	}
 	if (currentState == LogoState::OutpostHD)
 	{
-		const unsigned int tick = bylineTimer.elapsedTicks();
+		const auto tick = bylineTimer.elapsedTicks().milliseconds;
 		const auto logoPosition = renderer.center() - mLogoOutpostHd.size() / 2 - NAS2D::Vector{100, 0};
 
 		renderer.drawImageRotated(mFlare, logoPosition + NAS2D::Vector{302 - 512, 241 - 512}, NAS2D::Angle::degrees(static_cast<float>(bylineTimer.tick()) / 600.0f));
@@ -144,7 +145,7 @@ NAS2D::State* SplashState::update()
 
 	if (currentState == LogoState::OutpostHD)
 	{
-		if (mTimer.elapsedTicks() > 11000)
+		if (mTimer.elapsedTicks() > NAS2D::Duration{11000})
 		{
 			skipSplash();
 			return this;

@@ -13,6 +13,7 @@
 #include <libOPHD/Population/Morale.h>
 
 #include <NAS2D/EnumMouseButton.h>
+#include <NAS2D/Duration.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
@@ -46,7 +47,7 @@ namespace
 		static int glowStepDelta = 20;
 		static int glowStep = 0;
 
-		if (glowTimer.elapsedTicks() >= 10)
+		if (glowTimer.elapsedTicks() >= NAS2D::Duration{10})
 		{
 			glowTimer.reset();
 

@@ -68,7 +68,7 @@ void PlanetImage::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> /*r
 
 void PlanetImage::update()
 {
-	if (mIsMouseOver && mTimer.elapsedTicks() >= PlanetAnimationSpeed.milliseconds)
+	if (mIsMouseOver && mTimer.elapsedTicks() >= PlanetAnimationSpeed)
 	{
 		mTimer.reset(); // don't care about frame skips.
 		++mFrameIndex;
