@@ -13,6 +13,8 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <NAS2D/EnumMouseButton.h>
+#include <NAS2D/Utility.h>
+#include <NAS2D/EventHandler.h>
 #include <NAS2D/Math/Vector.h>
 #include <NAS2D/Math/Rectangle.h>
 #include <NAS2D/Renderer/Color.h>
@@ -37,7 +39,23 @@ MiniMap::MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& str
 	mBackgroundSatellite{mapName + MapDisplayExtension},
 	mBackgroundHeightMap{mapName + MapTerrainExtension},
 	mUiIcons{getImage("ui/icons.png")}
-{}
+{
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.activate().connect({this, &MiniMap::onActivate});
+	eventHandler.mouseMotion().connect({this, &MiniMap::onMouseMove});
+	eventHandler.mouseButtonDown().connect({this, &MiniMap::onMouseDown});
+	eventHandler.mouseButtonUp().connect({this, &MiniMap::onMouseUp});
+}
+
+
+MiniMap::~MiniMap()
+{
+	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
+	eventHandler.activate().disconnect({this, &MiniMap::onActivate});
+	eventHandler.mouseMotion().disconnect({this, &MiniMap::onMouseMove});
+	eventHandler.mouseButtonDown().disconnect({this, &MiniMap::onMouseDown});
+	eventHandler.mouseButtonUp().disconnect({this, &MiniMap::onMouseUp});
+}
 
 
 bool MiniMap::heightMapVisible() const
@@ -115,15 +133,18 @@ void MiniMap::draw(NAS2D::Renderer& renderer) const
 }
 
 
-void MiniMap::onActivate()
+void MiniMap::onActivate(bool /*newActiveValue*/)
 {
 	mLeftButtonDown = false;
 }
 
 
-void MiniMap::onMouseUp(NAS2D::MouseButton /*button*/, NAS2D::Point<int> /*position*/)
+void MiniMap::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> /*position*/)
 {
-	mLeftButtonDown = false;
+	if (button == NAS2D::MouseButton::Left)
+	{
+		mLeftButtonDown = false;
+	}
 }
 
 

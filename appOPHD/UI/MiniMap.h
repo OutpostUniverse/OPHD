@@ -29,6 +29,7 @@ class MiniMap : public Control
 {
 public:
 	MiniMap(MapView& mapView, TileMap& tileMap, const StructureManager& structureManager, const std::vector<Robot*>& deployedRobots, const OreHaulRoutes& oreHaulRoutes, const std::string& mapName);
+	~MiniMap() override;
 
 	bool heightMapVisible() const;
 	void heightMapVisible(bool isVisible);
@@ -36,8 +37,7 @@ public:
 	void draw(NAS2D::Renderer& renderer) const override;
 
 protected:
-	friend MapViewState;
-	void onActivate();
+	void onActivate(bool newActiveValue);
 	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);

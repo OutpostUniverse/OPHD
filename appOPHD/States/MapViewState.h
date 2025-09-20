@@ -111,12 +111,9 @@ private:
 	void onActivate() override;
 
 	// EVENT HANDLERS
-	void onActivate(bool newActiveValue);
 	void onKeyDown(NAS2D::KeyCode key, NAS2D::KeyModifier mod, bool repeat);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<int> position);
-	void onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position);
-	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onWindowResized(NAS2D::Vector<int> newSize);
 
 	void onInspect(const MapCoordinate& tilePosition, bool inspectModifier);

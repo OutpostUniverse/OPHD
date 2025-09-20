@@ -258,12 +258,9 @@ MapViewState::~MapViewState()
 	setCursor(PointerType::Normal);
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
-	eventHandler.activate().disconnect({this, &MapViewState::onActivate});
 	eventHandler.keyDown().disconnect({this, &MapViewState::onKeyDown});
 	eventHandler.mouseButtonDown().disconnect({this, &MapViewState::onMouseDown});
-	eventHandler.mouseButtonUp().disconnect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().disconnect({this, &MapViewState::onMouseDoubleClick});
-	eventHandler.mouseMotion().disconnect({this, &MapViewState::onMouseMove});
 	eventHandler.windowResized().disconnect({this, &MapViewState::onWindowResized});
 
 	mOreHaulRoutes->clear();
@@ -302,12 +299,9 @@ void MapViewState::initialize()
 
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 
-	eventHandler.activate().connect({this, &MapViewState::onActivate});
 	eventHandler.keyDown().connect({this, &MapViewState::onKeyDown});
 	eventHandler.mouseButtonDown().connect({this, &MapViewState::onMouseDown});
-	eventHandler.mouseButtonUp().connect({this, &MapViewState::onMouseUp});
 	eventHandler.mouseDoubleClick().connect({this, &MapViewState::onMouseDoubleClick});
-	eventHandler.mouseMotion().connect({this, &MapViewState::onMouseMove});
 }
 
 
@@ -360,11 +354,6 @@ NAS2D::State* MapViewState::update()
 
 	renderer.drawImageStretched(mBackground, windowClientRect);
 
-	if (!modalUiElementDisplayed())
-	{
-		mDetailMap->onMouseMove(MOUSE_COORDS);
-	}
-
 	mDetailMap->update();
 	mDetailMap->draw(renderer);
 
@@ -393,15 +382,6 @@ void MapViewState::updatePlayerResources()
 		resources += structure->storage();
 	}
 	mResourcesCount = resources;
-}
-
-
-/**
- * Window activation handler.
- */
-void MapViewState::onActivate(bool /*newActiveValue*/)
-{
-	mMiniMap->onActivate();
 }
 
 
@@ -571,9 +551,6 @@ void MapViewState::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> posi
 			onChangeDepth(oldDepth, mMapView->currentDepth());
 		}
 
-		// MiniMap Check
-		mMiniMap->onMouseDown(button, position);
-
 		// Click was within the bounds of the TileMap.
 		if (mDetailMap->isMouseOverTile())
 		{
@@ -600,22 +577,6 @@ void MapViewState::onMouseDoubleClick(NAS2D::MouseButton button, NAS2D::Point<in
 			mReportsState.showReport(*tile.structure());
 		}
 	}
-}
-
-
-void MapViewState::onMouseUp(NAS2D::MouseButton button, NAS2D::Point<int> position)
-{
-	if (button == NAS2D::MouseButton::Left)
-	{
-		mMiniMap->onMouseUp(button, position);
-	}
-}
-
-
-void MapViewState::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative)
-{
-	if (!active()) { return; }
-	mMiniMap->onMouseMove(position, relative);
 }
 
 
