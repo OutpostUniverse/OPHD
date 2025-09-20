@@ -25,7 +25,7 @@ namespace
 
 	const int pauseTime = 5800;
 	unsigned int fadePauseTime = 5000;
-	const Duration fadeLength{800};
+	const NAS2D::Duration fadeLength{800};
 
 	NAS2D::Timer bylineTimer;
 
