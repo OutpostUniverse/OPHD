@@ -1,5 +1,7 @@
 #include "MapObject.h"
 
+#include <NAS2D/Math/Point.h>
+
 
 MapObject::MapObject(const std::string& spritePath, const std::string& initialAction) :
 	mSprite(spritePath, initialAction)
