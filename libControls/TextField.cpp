@@ -10,6 +10,7 @@
 #include "LoadRectangleSkin.h"
 
 #include <NAS2D/EnumKeyCode.h>
+#include <NAS2D/Duration.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -23,7 +24,7 @@
 namespace
 {
 	constexpr int fieldPadding = 4;
-	constexpr int cursorBlinkDelay = 250;
+	constexpr auto cursorBlinkDelay = NAS2D::Duration{250};
 }
 
 

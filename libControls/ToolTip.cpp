@@ -1,5 +1,6 @@
 #include "ToolTip.h"
 
+#include <NAS2D/Duration.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/Renderer/Renderer.h>
@@ -94,7 +95,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 
 void ToolTip::update()
 {
-	if (mTimer.elapsedTicks() < 1000)
+	if (mTimer.elapsedTicks() < NAS2D::Duration{1000})
 	{
 		return;
 	}

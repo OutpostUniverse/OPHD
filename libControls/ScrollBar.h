@@ -2,6 +2,7 @@
 
 #include "Control.h"
 
+#include <NAS2D/Duration.h>
 #include <NAS2D/Timer.h>
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Vector.h>
@@ -73,7 +74,7 @@ private:
 
 	// ScrollBar button responses
 	NAS2D::Timer mTimer;
-	uint32_t mPressedAccumulator{0}; /**< Accumulation value for pressed responses. */
+	NAS2D::Duration mPressedAccumulator{0}; /**< Accumulation value for pressed responses. */
 	bool mThumbPressed{false}; /**< Flag to indicate if this control is pressed. */
 	bool mButtonDecreaseHeld{false};
 	bool mButtonIncreaseHeld{false};
