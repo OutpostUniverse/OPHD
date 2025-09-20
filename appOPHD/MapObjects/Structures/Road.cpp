@@ -6,6 +6,7 @@
 #include <libOPHD/EnumIntegrityLevel.h>
 
 #include <string>
+#include <map>
 
 
 namespace

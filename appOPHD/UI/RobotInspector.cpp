@@ -9,6 +9,7 @@
 
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
+#include <NAS2D/Resource/Image.h>
 
 #include <array>
 #include <algorithm>

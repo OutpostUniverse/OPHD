@@ -10,6 +10,8 @@
 #include <libOPHD/EnumTerrainType.h>
 #include <libOPHD/DirectionOffset.h>
 
+#include <NAS2D/Math/Rectangle.h>
+
 #include <cmath>
 
 
