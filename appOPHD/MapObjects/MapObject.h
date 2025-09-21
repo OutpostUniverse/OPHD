@@ -8,8 +8,8 @@
 /**
  * MapObject interface
  *
- * Does not own it's own coordinates.
- * Owner is responsible for drawing at correct location.
+ * Does not own it's own screen coordinates.
+ * Owner is responsible for drawing at correct screen location.
  */
 class MapObject
 {
