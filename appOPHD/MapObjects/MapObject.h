@@ -6,8 +6,6 @@
 
 
 /**
- * MapObject interface
- *
  * Has Tile coordinates but not screen coordinates.
  * Owner is responsible for drawing at correct screen location.
  */
