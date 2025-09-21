@@ -1,8 +1,7 @@
 #pragma once
 
 #include "RobotTypeIndex.h"
-
-#include <libOPHD/MapObjects/MapObject.h>
+#include "MapObject.h"
 
 #include <NAS2D/Signal/Delegate.h>
 

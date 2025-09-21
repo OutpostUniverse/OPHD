@@ -3,8 +3,7 @@
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 #include "../Map/MapView.h"
-
-#include <libOPHD/MapObjects/MapObject.h>
+#include "../MapObjects/MapObject.h"
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
