@@ -194,6 +194,7 @@
     <ClCompile Include="Map\RouteFinder.cpp" />
     <ClCompile Include="Map\Tile.cpp" />
     <ClCompile Include="Map\TileMap.cpp" />
+    <ClCompile Include="MapObjects\MapObject.cpp" />
     <ClCompile Include="MapObjects\Robot.cpp" />
     <ClCompile Include="MapObjects\Robots\Robodigger.cpp" />
     <ClCompile Include="MapObjects\Robots\Robodozer.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="MapObjects\Robots\Robodigger.h" />
     <ClInclude Include="MapObjects\Robots\Robodozer.h" />
     <ClInclude Include="MapObjects\Robots\Robominer.h" />
+    <ClInclude Include="MapObjects\MapObject.h" />
     <ClInclude Include="MapObjects\Robot.h" />
     <ClInclude Include="MapObjects\Robots.h" />
     <ClInclude Include="MapObjects\RobotType.h" />

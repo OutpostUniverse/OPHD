@@ -1,7 +1,8 @@
 #pragma once
 
+#include "MapObject.h"
+
 #include <libOPHD/StorableResources.h>
-#include <libOPHD/MapObjects/MapObject.h>
 #include <libOPHD/Population/PopulationRequirements.h>
 
 
