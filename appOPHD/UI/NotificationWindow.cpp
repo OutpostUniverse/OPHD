@@ -30,6 +30,7 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	mNotification = notification;
 	title(mNotification.brief);
 	mMessageArea.text(mNotification.message);
+	btnTakeMeThere.visible(mNotification.hasMapCoordinate());
 }
 
 
