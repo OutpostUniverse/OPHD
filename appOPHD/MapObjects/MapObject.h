@@ -8,7 +8,7 @@
 /**
  * MapObject interface
  *
- * Does not own it's own screen coordinates.
+ * Has Tile coordinates but not screen coordinates.
  * Owner is responsible for drawing at correct screen location.
  */
 class MapObject
