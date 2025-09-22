@@ -47,9 +47,9 @@ namespace {
 	uint8_t glow()
 	{
 		static NAS2D::Timer throbTimer;
+		constexpr int throbCycleTime = 2000;
 		constexpr int glowAmplitude = 120;
 		constexpr int glowOffset = 120;
-		constexpr int throbCycleTime = 2000;
 
 		int sawtooth = static_cast<int>(throbTimer.tick()) % throbCycleTime;
 		int triangle = sawtooth < throbCycleTime / 2 ? sawtooth : (throbCycleTime - sawtooth);
