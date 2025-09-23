@@ -3,17 +3,19 @@
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/ResourceCache.h>
 
+#include <string_view>
+
 
 namespace
 {
-	const std::string FontPrimary = "fonts/opensans.ttf";
-	const std::string FontPrimaryBold = "fonts/opensans-bold.ttf";
+	const std::string_view FontPrimary = "fonts/opensans.ttf";
+	const std::string_view FontPrimaryBold = "fonts/opensans-bold.ttf";
 
 	constexpr int FontPrimaryNormal{14};
 	constexpr int FontPrimaryMedium{18};
 	constexpr int FontPrimaryHuge{24};
 
-	NAS2D::ResourceCache<NAS2D::Font, std::string, unsigned int> fontCache;
+	NAS2D::ResourceCache<NAS2D::Font, std::string_view, unsigned int> fontCache;
 }
 
 
