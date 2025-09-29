@@ -89,7 +89,7 @@ void FileIo::showSave(const std::string& directory)
 
 void FileIo::scanDirectory(const std::string& directory)
 {
-	mScanPath = (NAS2D::Utility<NAS2D::Filesystem>::get().prefPath() / directory).string();
+	mScanPath = (NAS2D::Utility<NAS2D::Filesystem>::get().prefPath() / NAS2D::VirtualPath{directory}).string();
 
 	const auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::get();
 	auto dirList = filesystem.directoryList(NAS2D::VirtualPath{directory});
