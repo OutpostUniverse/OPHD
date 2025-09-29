@@ -69,11 +69,11 @@ int main(int argc, char *argv[])
 	try
 	{
 		auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::init<NAS2D::Filesystem>("OutpostHD", "LairWorks");
-		filesystem.mountSoftFail("data");
-		filesystem.mount(filesystem.findInParents("data", filesystem.basePath()));
+		filesystem.mountSoftFail(NAS2D::RealPath{"data"});
+		filesystem.mount(filesystem.findInParents(NAS2D::RealPath{"data"}, filesystem.basePath()));
 		filesystem.mountReadWrite(filesystem.prefPath());
 
-		filesystem.makeDirectory(constants::SaveGamePath);
+		filesystem.makeDirectory(NAS2D::VirtualPath{constants::SaveGamePath});
 
 		NAS2D::Configuration& cf = NAS2D::Utility<NAS2D::Configuration>::init(
 			std::map<std::string, NAS2D::Dictionary>{
@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
 		if (argc > 1)
 		{
 			std::string filename = constants::SaveGamePath + argv[1] + ".xml";
-			if (!filesystem.exists(filename))
+			if (!filesystem.exists(NAS2D::VirtualPath{filename}))
 			{
 				std::cout << "Savegame specified on command line: " << argv[1] << " could not be found." << std::endl;
 				stateManager.setState(new MainMenuState());

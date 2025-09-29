@@ -92,13 +92,13 @@ void FileIo::scanDirectory(const std::string& directory)
 	mScanPath = (NAS2D::Utility<NAS2D::Filesystem>::get().prefPath() / directory).string();
 
 	const auto& filesystem = NAS2D::Utility<NAS2D::Filesystem>::get();
-	auto dirList = filesystem.directoryList(directory);
+	auto dirList = filesystem.directoryList(NAS2D::VirtualPath{directory});
 	std::sort(dirList.begin(), dirList.end());
 
 	mListBox.clear();
 	for (auto& dir : dirList)
 	{
-		if (!filesystem.isDirectory(directory + dir.string()))
+		if (!filesystem.isDirectory(NAS2D::VirtualPath{directory + dir.string()}))
 		{
 			mListBox.add(dir.stem().string());
 		}
@@ -208,7 +208,7 @@ void FileIo::onFileDelete()
 	{
 		if(doYesNoMessage(constants::WindowFileIoTitleDelete, "Are you sure you want to delete " + mFileName.text() + "?"))
 		{
-			NAS2D::Utility<NAS2D::Filesystem>::get().del(filename);
+			NAS2D::Utility<NAS2D::Filesystem>::get().del(NAS2D::VirtualPath{filename});
 		}
 	}
 	catch(const std::exception& e)

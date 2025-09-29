@@ -173,7 +173,7 @@ void GameState::onLoadGame(const std::string& saveGameName)
 	auto saveGamePath = constants::SaveGamePath + saveGameName + ".xml";
 	try
 	{
-		if (!filesystem.exists(saveGamePath)) { throw std::runtime_error("Save game file does not exist: " + saveGamePath); }
+		if (!filesystem.exists(NAS2D::VirtualPath{saveGamePath})) { throw std::runtime_error("Save game file does not exist: " + saveGamePath); }
 	}
 	catch (const std::exception& e)
 	{
@@ -196,7 +196,7 @@ void GameState::onSaveGame(const std::string& saveGameName)
 	NAS2D::Xml::XmlMemoryBuffer buff;
 	savedGameFile.savedGameDocument().accept(&buff);
 
-	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(saveGamePath, buff.buffer());
+	NAS2D::Utility<NAS2D::Filesystem>::get().writeFile(NAS2D::VirtualPath{saveGamePath}, buff.buffer());
 }
 
 
