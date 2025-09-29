@@ -8,7 +8,7 @@
 NAS2D::Xml::XmlDocument openXmlFile(std::string filename, std::string rootElementName)
 {
 	NAS2D::Xml::XmlDocument xmlDocument;
-	xmlDocument.parse(NAS2D::Utility<NAS2D::Filesystem>::get().readFile(filename).c_str());
+	xmlDocument.parse(NAS2D::Utility<NAS2D::Filesystem>::get().readFile(NAS2D::VirtualPath{filename}).c_str());
 
 	if (xmlDocument.error())
 	{
