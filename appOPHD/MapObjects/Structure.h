@@ -190,6 +190,3 @@ protected:
 	bool mConnected{false};
 	bool mForcedIdle{false}; /**< Indicates that the Structure was manually set to Idle by the user and should remain that way until the user says otherwise. */
 };
-
-
-using StructureList = std::vector<Structure*>;
