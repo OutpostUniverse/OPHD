@@ -6,6 +6,8 @@
 
 #include <NAS2D/Signal/Delegate.h>
 
+#include <vector>
+
 
 struct ProductionCost;
 struct StorableResources;
