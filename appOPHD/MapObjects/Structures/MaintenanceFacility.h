@@ -2,8 +2,12 @@
 
 #include "../Structure.h"
 
+#include <vector>
+
 
 struct StorableResources;
+
+using StructureList = std::vector<Structure*>;
 
 
 class MaintenanceFacility : public Structure
