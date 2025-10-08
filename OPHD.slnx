@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="appOPHD/appOPHD.vcxproj" Id="230ab062-fdca-4d56-a781-0d3b9e8ae310" />
+  <Project Path="demoLibControls/demoLibControls.vcxproj" Id="9dd61223-f1e9-4a4e-87e6-5f4eddd91266" />
+  <Project Path="libControls/libControls.vcxproj" Id="a6c25675-5e50-4bdf-9a05-25fc7c448713" />
+  <Project Path="libOPHD/libOPHD.vcxproj" Id="98c10163-d69f-4a70-a56f-fa8c41be1d95" />
+  <Project Path="nas2d-core/NAS2D/NAS2D.vcxproj" Id="3350562d-6204-42fc-898a-c85fd62e04e8" />
+  <Project Path="testLibControls/testLibControls.vcxproj" Id="352c8742-8775-4c25-a32c-ef1c7af06370" />
+  <Project Path="testLibOPHD/testLibOPHD.vcxproj" Id="29170e23-7782-4d14-81dc-5a0b6ba5e0e3" />
+</Solution>
