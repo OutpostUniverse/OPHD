@@ -14,22 +14,45 @@ You may also be interested in reading the [Player Guide](PlayerGuide.md).
 ### Windows
 Installation is simple: Extract the contents of the ZIP Archive into any folder. Double-click on OPHD.exe to launch the game.
 
-As this is not an installer package it is not distributed with any necessary dependencies. Please see the following sections for the requirements needed for your particular OS of choice.
+As this is not an installer package it is not distributed with any necessary dependencies.
 
-### macOS
-Simply download the disk image from the release section, mount it and drag OutpostHD into your Applications folder. If you have an existing installation, overwrite it.
+#### Dependencies
+The Windows build of OutpostHD is built in C++ using Microsoft's Visual Studio. If you haven't already, you may need to download and install the 64-bit [Visual C++ Redistributable](https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170) package from Microsoft.
 
-macOS will warn you on launch that the application was downloaded from the Internet and can't be verified. You can go into `System Preferences->Security & Privacy` to override this behavior and allow OutpostHD to run.
+### Linux, macOS
+We don't currently provide installation packages for non-Windows platforms, however we do maintain continuous integration builds for Linux and macOS. A source build can be done for these platforms.
 
-### Linux
-Use `git` to checkout OutpostHD's repository and then run the `make` command. Depending on your flavor of Linux you may need to install `SDL2`, `SDL2-Image`, `SDL2-Ttf`, `SDL2-Mixer` and `GLEW` libraries. OutpostHD doesn't yet have any officially supported application distributions so building from source is how you'll have to use it.
+#### Obtaining the source
+Clone the main repository and all git submodules:
+```sh
+git clone --recursive https://github.com/OutpostUniverse/OPHD.git
+```
 
-### FreeBSD
-See Linux installation above. The process should be identical.
+If you've already cloned the main repo without the `--recursive` flag, you can fetch the submodules as a second step, from the `OPHD` folder:
+```sh
+git submodule update --init
+```
 
-## Dependencies
-### Windows
-OutpostHD is built in C++ using Microsoft's Visual Studio. If you haven't already, you may need to download and install the 64-bit [Visual C++ Redistributable](https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170) package from Microsoft.
+#### Installing dependencies
+Development packages are needed for the following dependencies:
+`SDL2`, `SDL2-Image`, `SDL2-Ttf`, `SDL2-Mixer` and `GLEW`
+
+Installation of dependencies is typically done with platform specific package managers. Additionally the package names vary by platform. To ease this burden, there is a `make` target to `install-dependencies`, which attempts to detect a few common known platforms and run platform specific dependency installation. Dependency package installation typically needs to be prefixed with `sudo` to obtain root access (though good sense would dictate that people look at what the command does before running it with `sudo`, see the `makefile` in the `nas2d-core` submodule folder for details).
+```sh
+make install-dependencies
+```
+
+#### Building the source code
+Use `make` from the `OPHD` folder to build:
+```sh
+make
+```
+
+#### Running the game
+As the build outputs are tucked away in build folders, there is a `make` target to `run` the game:
+```sh
+make run
+```
 
 ## Configuration
 At the moment there are very few configurable options for OutpostHD. All of it must be done via the XML configuration file (config.xml) located in your User directory.
