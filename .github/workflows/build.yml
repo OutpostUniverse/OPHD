@@ -164,3 +164,18 @@ jobs:
 
     - name: Run libControls unit tests
       run: .build/${{env.Configuration}}_${{env.Platform}}_testLibControls/testLibControls.exe
+
+  linux-arm:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+    - run: sudo apt update && sudo apt --yes install libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev libglew-dev libgtest-dev libgmock-dev
+
+    - uses: actions/checkout@v4
+
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" ophd
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibOPHD
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
