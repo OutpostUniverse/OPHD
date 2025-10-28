@@ -1,7 +1,12 @@
 #pragma once
 
-#include <NAS2D/Xml/Xml.h>
 #include <string>
+
+
+namespace NAS2D::Xml
+{
+	class XmlElement;
+}
 
 struct StorableResources;
 
