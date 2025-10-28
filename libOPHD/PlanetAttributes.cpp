@@ -4,7 +4,8 @@
 
 #include <NAS2D/Dictionary.h>
 #include <NAS2D/ParserHelper.h>
-#include <NAS2D/Xml/Xml.h>
+#include <NAS2D/Xml/XmlDocument.h>
+#include <NAS2D/Xml/XmlElement.h>
 
 #include <unordered_map>
 
