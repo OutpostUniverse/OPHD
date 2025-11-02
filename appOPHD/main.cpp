@@ -128,6 +128,12 @@ int main(int argc, char *argv[])
 		renderer.minimumSize(MinimumWindowSize);
 		renderer.resizeable(true);
 
+		const auto& options = cf["options"];
+		if (options.get<bool>("maximized"))
+		{
+			renderer.maximize();
+		}
+
 		addCursor(PointerType::Normal, "ui/pointers/normal.png", {0, 0});
 		addCursor(PointerType::PlaceTile, "ui/pointers/place_tile.png", {16, 16});
 		setCursor(PointerType::Normal);
@@ -135,12 +141,6 @@ int main(int argc, char *argv[])
 		Control::setDefaultFont(getFont());
 		Control::setDefaultFontBold(getFontBold());
 		Control::setImageCache(getImageCache());
-
-		const auto& options = cf["options"];
-		if (options.get<bool>("maximized"))
-		{
-			renderer.maximize();
-		}
 
 		try
 		{
