@@ -118,25 +118,21 @@ int main(int argc, char *argv[])
 		// Force windowed mode
 		graphics.set("fullscreen", false);
 
-		try
-		{
-			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>();
-		}
-		catch (...)
-		{
-			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerNull>();
-		}
-
 		WindowEventWrapper windowEventWrapper;
 
 		std::cout << "Starting OpenGL Renderer:" << std::endl;
 		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::init<NAS2D::RendererOpenGL>("OutpostHD");
 
 		dumpGraphicsInfo(renderer);
-		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
 		renderer.minimumSize(MinimumWindowSize);
 		renderer.resizeable(true);
+
+		const auto& options = cf["options"];
+		if (options.get<bool>("maximized"))
+		{
+			renderer.maximize();
+		}
 
 		addCursor(PointerType::Normal, "ui/pointers/normal.png", {0, 0});
 		addCursor(PointerType::PlaceTile, "ui/pointers/place_tile.png", {16, 16});
@@ -146,10 +142,13 @@ int main(int argc, char *argv[])
 		Control::setDefaultFontBold(getFontBold());
 		Control::setImageCache(getImageCache());
 
-		const auto& options = cf["options"];
-		if (options.get<bool>("maximized"))
+		try
 		{
-			renderer.maximize();
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>();
+		}
+		catch (...)
+		{
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerNull>();
 		}
 
 		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
@@ -157,6 +156,8 @@ int main(int argc, char *argv[])
 
 		NAS2D::StateManager stateManager;
 		stateManager.forceStopAudio(false);
+
+		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
 		if (argc > 1)
 		{
