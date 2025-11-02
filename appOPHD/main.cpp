@@ -118,15 +118,6 @@ int main(int argc, char *argv[])
 		// Force windowed mode
 		graphics.set("fullscreen", false);
 
-		try
-		{
-			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>();
-		}
-		catch (...)
-		{
-			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerNull>();
-		}
-
 		WindowEventWrapper windowEventWrapper;
 
 		std::cout << "Starting OpenGL Renderer:" << std::endl;
@@ -149,6 +140,15 @@ int main(int argc, char *argv[])
 		if (options.get<bool>("maximized"))
 		{
 			renderer.maximize();
+		}
+
+		try
+		{
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>();
+		}
+		catch (...)
+		{
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerNull>();
 		}
 
 		trackMars = std::make_unique<NAS2D::Music>("music/mars.ogg");
