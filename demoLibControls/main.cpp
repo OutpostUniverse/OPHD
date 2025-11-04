@@ -3,7 +3,7 @@
 
 #include <libControls/Control.h>
 
-#include <NAS2D/Game.h>
+#include <NAS2D/Application.h>
 #include <NAS2D/Resource/ResourceCache.h>
 
 #include <iostream>
@@ -13,13 +13,13 @@ int main()
 {
 	try
 	{
-		NAS2D::Game game{"Demo libControls", "DemoLibControls", "LairWorks"};
+		NAS2D::Application application{"Demo libControls", "DemoLibControls", "LairWorks"};
 
 		Control::setDefaultFont(fontCache.load("fonts/opensans.ttf", 14));
 		Control::setDefaultFontBold(fontCache.load("fonts/opensans-bold.ttf", 14));
 		Control::setImageCache(imageCache);
 
-		game.go(new MainWindowState);
+		application.go(new MainWindowState);
 	}
 	catch (const std::exception& exception)
 	{
