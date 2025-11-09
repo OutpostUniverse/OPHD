@@ -155,7 +155,6 @@ int main(int argc, char *argv[])
 		NAS2D::Utility<NAS2D::Mixer>::get().playMusic(*trackMars);
 
 		NAS2D::StateManager stateManager;
-		stateManager.forceStopAudio(false);
 
 		std::cout << std::endl << "** GAME START **" << std::endl << std::endl;
 
