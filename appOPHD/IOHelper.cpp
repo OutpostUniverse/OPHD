@@ -5,6 +5,7 @@
 #include <libOPHD/StorableResources.h>
 
 #include <NAS2D/ParserHelper.h>
+#include <NAS2D/Xml/XmlElement.h>
 
 
 StorableResources readResourcesOptional(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName, const StorableResources& defaultValue)
