@@ -47,7 +47,7 @@ jobs:
       - build
   build-linux-mingw:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.13
+      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.14
     environment:
       Toolchain: "mingw"
       WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
