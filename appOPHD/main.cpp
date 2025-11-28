@@ -121,7 +121,8 @@ int main(int argc, char *argv[])
 		WindowEventWrapper windowEventWrapper;
 
 		std::cout << "Starting OpenGL Renderer:" << std::endl;
-		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::init<NAS2D::RendererOpenGL>("OutpostHD");
+		const auto rendererOptions = NAS2D::RendererOpenGL::ReadConfigurationOptions(cf);
+		auto& renderer = NAS2D::Utility<NAS2D::Renderer>::init<NAS2D::RendererOpenGL>("OutpostHD", rendererOptions);
 
 		dumpGraphicsInfo(renderer);
 
@@ -144,7 +145,8 @@ int main(int argc, char *argv[])
 
 		try
 		{
-			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>();
+			const auto mixerOptions = NAS2D::MixerSDL::ReadConfigurationOptions(cf);
+			NAS2D::Utility<NAS2D::Mixer>::init<NAS2D::MixerSDL>(mixerOptions);
 		}
 		catch (...)
 		{
