@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 			std::map<std::string, NAS2D::Dictionary>{
 				{
 					"graphics",
-					{{
+					NAS2D::Dictionary{{
 						{"screenwidth", MinimumWindowSize.x},
 						{"screenheight", MinimumWindowSize.y},
 						{"bitdepth", 32},
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 				},
 				{
 					"audio",
-					{{
+					NAS2D::Dictionary{{
 						{"mixer", "SDL"},
 						{"musicvolume", 100},
 						{"sfxvolume", 128},
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 				},
 				{
 					"options",
-					{{
+					NAS2D::Dictionary{{
 						{"skip-splash", false},
 						{"maximized", true}
 					}}

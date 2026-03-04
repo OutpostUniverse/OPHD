@@ -107,7 +107,7 @@ namespace
 		{
 			research->linkEndChild(NAS2D::dictionaryToAttributes(
 				"current",
-				{{
+				NAS2D::Dictionary{{
 					{"tech_id", techId},
 					{"progress", values.progress},
 					{"assigned", values.scientistsAssigned},
@@ -167,12 +167,12 @@ void MapViewState::save(SavedGameFile& savedGameFile)
 	root->linkEndChild(mRobotPool.writeRobots());
 	root->linkEndChild(writeResources(mResourceBreakdownPanel.previousResources(), "prev_resources"));
 	root->linkEndChild(writeResearch(mResearchTracker));
-	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", {{{"count", mTurnCount}}}));
+	root->linkEndChild(NAS2D::dictionaryToAttributes("turns", NAS2D::Dictionary{{{"count", mTurnCount}}}));
 
 	const auto& population = mPopulationModel.getPopulations();
 	root->linkEndChild(NAS2D::dictionaryToAttributes(
 		"population",
-		{{
+		NAS2D::Dictionary{{
 			{"morale", mMorale.currentMorale()},
 			{"prev_morale", mMorale.previousMorale()},
 			{"colonist_landers", mColonyShip.colonistLanders()},
@@ -192,7 +192,7 @@ void MapViewState::save(SavedGameFile& savedGameFile)
 	for (auto& [message, value] : moraleChangeList)
 	{
 		moraleChangeReasons->linkEndChild(NAS2D::dictionaryToAttributes(
-			"change", {{{"message", message}, {"val", value}}}
+			"change", NAS2D::Dictionary{{{"message", message}, {"val", value}}}
 		));
 	}
 	root->linkEndChild(moraleChangeReasons);
@@ -203,7 +203,7 @@ NAS2D::Xml::XmlElement* MapViewState::serializeProperties()
 {
 	return NAS2D::dictionaryToAttributes(
 		"properties",
-		{{
+		NAS2D::Dictionary{{
 			{"sitemap", mPlanetAttributes.mapImagePath},
 			{"tset", mPlanetAttributes.tilesetPath},
 			{"diggingdepth", mPlanetAttributes.maxDepth},

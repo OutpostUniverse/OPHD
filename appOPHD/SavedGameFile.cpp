@@ -36,7 +36,7 @@ namespace
 
 
 SavedGameFile::SavedGameFile() :
-	mRoot{*NAS2D::dictionaryToAttributes(saveGameRootNode, {{{"version", saveGameVersionSupported}}})}
+	mRoot{*NAS2D::dictionaryToAttributes(saveGameRootNode, NAS2D::Dictionary{{{"version", saveGameVersionSupported}}})}
 {
 	mSavedGameDocument.linkEndChild(&mRoot);
 }

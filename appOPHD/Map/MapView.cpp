@@ -117,7 +117,7 @@ void MapView::serialize(NAS2D::Xml::XmlElement* element)
 	// ==========================================
 	element->linkEndChild(NAS2D::dictionaryToAttributes(
 		"view_parameters",
-		{{
+		NAS2D::Dictionary{{
 			{"currentdepth", mOriginTilePosition.z},
 			{"viewlocation_x", mOriginTilePosition.xy.x},
 			{"viewlocation_y", mOriginTilePosition.xy.y},

@@ -111,7 +111,7 @@ namespace {
 		const auto location = oreDeposit.location();
 		auto* element = NAS2D::dictionaryToAttributes(
 			"mine",
-			{{
+			NAS2D::Dictionary{{
 				{"x", location.x},
 				{"y", location.y},
 				{"depth", oreDeposit.digDepth()},
@@ -127,7 +127,7 @@ namespace {
 		{
 			element->linkEndChild(NAS2D::dictionaryToAttributes(
 				"vein",
-				{{
+				NAS2D::Dictionary{{
 					{ResourceFieldNames[0], availableResources.resources[0]},
 					{ResourceFieldNames[1], availableResources.resources[1]},
 					{ResourceFieldNames[2], availableResources.resources[2]},
@@ -285,7 +285,7 @@ void TileMap::serialize(NAS2D::Xml::XmlElement* element)
 				tiles->linkEndChild(
 					NAS2D::dictionaryToAttributes(
 						"tile",
-						{{
+						NAS2D::Dictionary{{
 							{"x", point.x},
 							{"y", point.y},
 							{"depth", depth},

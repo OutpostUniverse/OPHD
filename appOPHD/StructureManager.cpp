@@ -42,8 +42,7 @@ namespace
 	NAS2D::Xml::XmlElement* serializeStructure(const Structure& structure)
 	{
 		const auto& position = structure.xyz();
-		NAS2D::Dictionary dictionary =
-		{{
+		NAS2D::Dictionary dictionary{{
 			{"x", position.xy.x},
 			{"y", position.xy.y},
 			{"depth", position.z},
@@ -77,7 +76,7 @@ namespace
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"food",
-					{{{"level", dynamic_cast<const FoodProduction&>(structure).foodLevel()}}}
+					NAS2D::Dictionary{{{"level", dynamic_cast<const FoodProduction&>(structure).foodLevel()}}}
 				)
 			);
 		}
@@ -87,7 +86,7 @@ namespace
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"waste",
-					{{
+					NAS2D::Dictionary{{
 						{"accumulated", residence->wasteAccumulated()},
 						{"overflow", residence->wasteOverflow()},
 					}}
@@ -102,13 +101,13 @@ namespace
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"trucks",
-					{{{"assigned", facility.assignedTrucks()}}}
+					NAS2D::Dictionary{{{"assigned", facility.assignedTrucks()}}}
 				)
 			);
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"extension",
-					{{{"turns_remaining", facility.digTimeRemaining()}}}
+					NAS2D::Dictionary{{{"turns_remaining", facility.digTimeRemaining()}}}
 				)
 			);
 		}
@@ -119,7 +118,7 @@ namespace
 			structureElement->linkEndChild(
 				NAS2D::dictionaryToAttributes(
 					"personnel",
-					{{{"assigned", maintenance.personnel()}}}
+					NAS2D::Dictionary{{{"assigned", maintenance.personnel()}}}
 				)
 			);
 		}
