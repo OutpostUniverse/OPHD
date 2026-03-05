@@ -56,7 +56,7 @@ NAS2D::Xml::XmlElement* writeResources(const StorableResources& resources, const
 {
 	return NAS2D::dictionaryToAttributes(
 		tagName,
-		{{
+		NAS2D::Dictionary{{
 			{constants::SaveGameResource0, resources.resources[0]},
 			{constants::SaveGameResource1, resources.resources[1]},
 			{constants::SaveGameResource2, resources.resources[2]},

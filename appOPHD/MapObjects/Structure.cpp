@@ -467,8 +467,7 @@ IntegrityLevel Structure::integrityLevel() const
 
 NAS2D::Dictionary Structure::getDataDict() const
 {
-	NAS2D::Dictionary dictionary =
-	{{
+	NAS2D::Dictionary dictionary{{
 		{"age", mAge},
 		{"state", static_cast<int>(mStructureState)},
 		{"forced_idle", mForcedIdle},
