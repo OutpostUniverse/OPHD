@@ -33,6 +33,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DiggerUtility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="DirectionOffset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,6 +83,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiggerUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="DirectionOffset.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -34,7 +34,9 @@
 #include "../UI/MiniMap.h"
 
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
+#include <libOPHD/Map/MapCoordinate.h>
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/Technology/ResearchTracker.h>
@@ -350,7 +352,15 @@ void MapViewState::readRobots(NAS2D::Xml::XmlElement* element)
 		auto& robot = addRobot(robotTypeIndex);
 		if (robotTypeIndex == RobotTypeIndex::Digger)
 		{
-			dynamic_cast<Robodigger&>(robot).direction(static_cast<Direction>(direction));
+			const auto directionEnum = static_cast<Direction>(direction);
+			const auto defaultTarget = MapCoordinate{{x, y}, depth}.translate(directionEnum);
+			const auto targetX = dictionary.get<int>("targetX", defaultTarget.xy.x);
+			const auto targetY = dictionary.get<int>("targetY", defaultTarget.xy.y);
+			const auto targetDepth = dictionary.get<int>("targetDepth", defaultTarget.z);
+
+			auto& digger = dynamic_cast<Robodigger&>(robot);
+			digger.direction(directionEnum);
+			digger.target({{targetX, targetY}, targetDepth});
 		}
 
 		robot.fuelCellAge(age);
