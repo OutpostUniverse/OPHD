@@ -324,7 +324,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 		const auto index = tileDictionary.get<int>("index");
 
 		auto& tile = getTile({{x, y}, depth});
-		tile.index(static_cast<TerrainType>(index));
+		tile.index(static_cast<TerrainType>(std::clamp(index, 0, 4)));
 
 		if (depth > 0) { tile.excavate(); }
 	}
