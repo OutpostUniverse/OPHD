@@ -368,7 +368,8 @@ void TileMap::buildTerrainMap(const std::string& path)
 		{
 			auto color = heightmap.pixelColor(point);
 			auto& tile = getTile({point, depth});
-			tile = {{point, depth}, static_cast<TerrainType>(color.red / 50)};
+			const auto terrainType = static_cast<TerrainType>(std::clamp(color.red / 50, 1, 4));
+			tile = {{point, depth}, terrainType};
 			if (depth == 0) { tile.excavate(); }
 		}
 	}
