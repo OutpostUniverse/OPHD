@@ -7,6 +7,7 @@
 
 enum class RobotTypeIndex;
 enum class Direction;
+struct MapCoordinate;
 class Robot;
 class Robodigger;
 class Robodozer;
@@ -58,6 +59,7 @@ public:
 	void erase(Robot* robot);
 	void deploy(Robot& robot, Tile& tile);
 
+	void deployDigger(Tile& tile, Direction direction, MapCoordinate target);
 	void deployDigger(Tile& tile, Direction direction);
 	void deployDozer(Tile& tile);
 	void deployMiner(Tile& tile);

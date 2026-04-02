@@ -5,6 +5,7 @@
 #include "MapObjects/Robots.h"
 #include "MapObjects/Structures/CommandCenter.h"
 
+#include <libOPHD/Map/MapCoordinate.h>
 #include <libOPHD/MapObjects/StructureType.h>
 
 #include <NAS2D/ParserHelper.h>
@@ -250,11 +251,18 @@ void RobotPool::deploy(Robot& robot, Tile& tile)
 }
 
 
-void RobotPool::deployDigger(Tile& tile, Direction direction)
+void RobotPool::deployDigger(Tile& tile, Direction direction, MapCoordinate target)
 {
 	Robodigger& robot = getDigger();
 	robot.direction(direction);
+	robot.target(target);
 	deploy(robot, tile);
+}
+
+
+void RobotPool::deployDigger(Tile& tile, Direction direction)
+{
+	deployDigger(tile, direction, tile.xyz().translate(direction));
 }
 
 
