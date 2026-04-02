@@ -34,7 +34,7 @@ DiggerDirection::DiggerDirection(DirectionSelectedDelegate directionSelectedHand
 
 	add(btnCancel, {5, 140});
 
-	if (directionSelectedHandler.empty())
+	if (!directionSelectedHandler)
 	{
 		throw std::runtime_error("DiggerDirection needs a non-empty directionSelectedHandler");
 	}

@@ -69,7 +69,7 @@ CrimeExecution::CrimeExecution(const Difficulty& difficulty, CrimeEventDelegate 
 	mDifficulty{difficulty},
 	mCrimeEventHandler{crimeEventHandler}
 {
-	if (mCrimeEventHandler.empty())
+	if (!mCrimeEventHandler)
 	{
 		throw std::runtime_error("CrimeExecution needs a non-empty crimeEventHandler");
 	}
