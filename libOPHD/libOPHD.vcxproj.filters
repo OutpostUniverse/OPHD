@@ -150,7 +150,7 @@
       <Filter>Header Files\Map</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\StructureType.h">
-      <Filter>Header Files\Map</Filter>
+      <Filter>Header Files\MapObjects</Filter>
     </ClInclude>
     <ClInclude Include="MapObjects\OreDeposit.h">
       <Filter>Header Files\MapObjects</Filter>
