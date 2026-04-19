@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{a106ce63-62be-4ae0-956c-53b458bed822}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\MapObjects">
+      <UniqueIdentifier>{3dee6652-3658-4168-92a1-538f1645af0d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Population">
       <UniqueIdentifier>{d903cae4-8bc6-462c-afb0-c731298b8840}</UniqueIdentifier>
     </Filter>
@@ -24,6 +27,9 @@
     </Filter>
     <Filter Include="Header Files\Map">
       <UniqueIdentifier>{402a7397-db9d-4c85-9cde-d12b218e5932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MapObjects">
+      <UniqueIdentifier>{3e1a602f-6a99-4481-a629-3c7b2bb30916}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Population">
       <UniqueIdentifier>{964e7130-2144-43ab-a0c0-ff1f199d1c15}</UniqueIdentifier>
