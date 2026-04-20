@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DiggerUtility.test.cpp" />
     <ClCompile Include="MapOffset.test.cpp" />
     <ClCompile Include="RandomNumberGenerator.test.cpp" />
   </ItemGroup>
