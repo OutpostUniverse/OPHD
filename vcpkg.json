@@ -9,5 +9,5 @@
     "sdl2-mixer",
     "gtest"
   ],
-  "builtin-baseline": "f3a67b0c4d7b0ee4feaf912ed1729ed1c4419826"
+  "builtin-baseline": "031f4afe03be385aee354f15be6e6b1fe57497c7"
 }
