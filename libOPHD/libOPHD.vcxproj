@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DiggerUtility.cpp" />
     <ClCompile Include="DirectionOffset.cpp" />
     <ClCompile Include="EnumIntegrityLevel.cpp" />
     <ClCompile Include="MeanSolarDistance.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="Technology\TechnologyCatalog.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiggerUtility.h" />
     <ClInclude Include="DirectionOffset.h" />
     <ClInclude Include="EnumConnectorDir.h" />
     <ClInclude Include="EnumDifficulty.h" />

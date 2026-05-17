@@ -158,6 +158,7 @@ namespace constants
 	const std::string AlertDiggerBlockedBelow = "The " + Robodigger + " cannot dig down because it is obstructed by something below.";
 	const std::string AlertDiggerMineTile = "Destroy mine?";
 	const std::string AlertDiggerMine = "The selected tile contains a mine. Placing a " + Robodigger + "here will destroy the mine. Do you want to place a " + Robodigger + " here?";
+	const std::string AlertDiggerAdjacentExcavation = "The " + Robodigger + " must be placed next to an excavated tile.";
 
 	const std::string AlertMinerTileObstructed = "Cannot place " + Robominer + " because there is an object on the selected tile.";
 	const std::string AlertMinerSurfaceOnly = "The " + Robominer + " can only be placed on the surface.";

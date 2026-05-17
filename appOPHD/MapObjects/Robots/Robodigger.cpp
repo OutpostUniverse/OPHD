@@ -26,10 +26,25 @@ Direction Robodigger::direction() const
 }
 
 
+void Robodigger::target(const MapCoordinate& target)
+{
+	mTarget = target;
+}
+
+
+const MapCoordinate& Robodigger::target() const
+{
+	return mTarget;
+}
+
+
 NAS2D::Dictionary Robodigger::getDataDict() const
 {
 	auto dictionary = Robot::getDataDict();
 	dictionary.set("direction", static_cast<int>(mDirection));
+	dictionary.set("targetX", mTarget.xy.x);
+	dictionary.set("targetY", mTarget.xy.y);
+	dictionary.set("targetDepth", mTarget.z);
 	return dictionary;
 }
 

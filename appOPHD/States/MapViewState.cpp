@@ -40,6 +40,7 @@
 #include "../UI/MiniMap.h"
 
 #include <libOPHD/EnumDifficulty.h>
+#include <libOPHD/DiggerUtility.h>
 #include <libOPHD/DirectionOffset.h>
 #include <libOPHD/MeanSolarDistance.h>
 #include <libOPHD/ProductCatalog.h>
@@ -55,6 +56,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Math/PointInRectangleRange.h>
 
+#include <array>
 #include <algorithm>
 #include <sstream>
 #include <vector>
@@ -896,7 +898,6 @@ void MapViewState::placeStructure(Tile& tile, StructureID structureID)
 
 void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex)
 {
-	if (!tile.excavated()) { return; }
 	if (!mRobotPool.isControlCapacityAvailable()) { return; }
 
 	if (!mStructureManager.isInCommRange(tile.xy()))
@@ -904,6 +905,8 @@ void MapViewState::placeRobot(Tile& tile, RobotTypeIndex robotTypeIndex)
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertOutOfCommRange);
 		return;
 	}
+
+	if (robotTypeIndex != RobotTypeIndex::Digger && !tile.excavated()) { return; }
 
 	switch (robotTypeIndex)
 	{
@@ -1039,6 +1042,28 @@ void MapViewState::placeRobodozer(Tile& tile)
 }
 
 
+namespace
+{
+	constexpr std::size_t AdjacentTileCount = 8;
+
+
+	std::array<bool, AdjacentTileCount> gatherExcavatedNeighbors(const TileMap& tileMap, const Tile& tile)
+	{
+		std::array<bool, AdjacentTileCount> neighborExcavation{};
+		for (std::size_t i = 0; i < AdjacentTileCount; ++i)
+		{
+			const auto neighborPosition = tile.xyz().translate(DirectionClockwise8[i]);
+			const auto isValidNeighbor = tileMap.isValidPosition(neighborPosition);
+			neighborExcavation[i] = isValidNeighbor && tileMap.getTile(neighborPosition).excavated();
+		}
+
+		return neighborExcavation;
+	}
+
+
+}
+
+
 void MapViewState::placeRobodigger(Tile& tile)
 {
 	// Keep digger within a safe margin of the map boundaries.
@@ -1068,7 +1093,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 		mTileMap->removeOreDepositLocation(position);
 	}
 
-	// Die if tile is occupied or not excavated.
+	// Check for blocking objects on the selected tile.
 	if (tile.hasMapObject())
 	{
 		if (!tile.isSurface())
@@ -1089,6 +1114,28 @@ void MapViewState::placeRobodigger(Tile& tile)
 			doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 			return;
 		}
+	}
+
+	const auto excavatedNeighbors = gatherExcavatedNeighbors(*mTileMap, tile);
+	const auto autoPlacement = decideAutoDiggerPlacement(tile.excavated(), excavatedNeighbors);
+
+	if (!autoPlacement.canAutoPlace && !tile.excavated())
+	{
+		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertDiggerAdjacentExcavation);
+		return;
+	}
+
+	if (autoPlacement.canAutoPlace)
+	{
+		tile.excavate();
+		mRobotPool.deployDigger(tile, autoPlacement.direction, tile.xyz());
+
+		if (!mRobotPool.robotAvailable(RobotTypeIndex::Digger))
+		{
+			mRobots.removeItem(constants::Robodigger);
+			mMapObjectPicker.clearBuildMode();
+		}
+		return;
 	}
 
 	if (!tile.mapObject() && mMapView->currentDepth() > 0) { mDiggerDirection.cardinalOnlyEnabled(); }

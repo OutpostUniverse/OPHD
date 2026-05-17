@@ -2,6 +2,7 @@
 
 #include "../Robot.h"
 
+#include <libOPHD/Map/MapCoordinate.h>
 
 enum class Direction;
 
@@ -14,6 +15,9 @@ public:
 	void direction(Direction dir);
 	Direction direction() const;
 
+	void target(const MapCoordinate& target);
+	const MapCoordinate& target() const;
+
 	NAS2D::Dictionary getDataDict() const override;
 
 protected:
@@ -21,4 +25,5 @@ protected:
 
 private:
 	Direction mDirection;
+	MapCoordinate mTarget;
 };

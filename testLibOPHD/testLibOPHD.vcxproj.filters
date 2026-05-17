@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DiggerUtility.test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="MapOffset.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

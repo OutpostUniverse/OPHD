@@ -165,13 +165,12 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 	auto& roboDigger = dynamic_cast<Robodigger&>(robot);
 	auto& tileMap = *mTileMap;
 	auto& tile = roboDigger.tile();
-	const auto& position = tile.xyz();
 	const auto direction = roboDigger.direction();
-	const auto newPosition = position.translate(direction);
+	const auto targetPosition = roboDigger.target();
 
 	if (direction == Direction::Down)
 	{
-		auto& bottomTile = tileMap.getTile(newPosition);
+		auto& bottomTile = tileMap.getTile(targetPosition);
 		tile.bulldoze();
 		bottomTile.bulldoze();
 
@@ -181,7 +180,7 @@ void MapViewState::onDiggerTaskComplete(Robot& robot)
 
 	for (const auto& offset : DirectionScan3x3)
 	{
-		mTileMap->getTile({newPosition.xy + offset, newPosition.z}).excavate();
+		mTileMap->getTile({targetPosition.xy + offset, targetPosition.z}).excavate();
 	}
 
 	if (direction == Direction::Down)
