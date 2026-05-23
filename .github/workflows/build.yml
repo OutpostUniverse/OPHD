@@ -61,7 +61,7 @@ jobs:
       env:
         VcpkgManifestInstall: true
       run: |
-        msbuild . /target:appOPHD:VcpkgInstallManifestDependencies
+        msbuild /target:appOPHD:VcpkgInstallManifestDependencies
 
     - name: Save vcpkg dependency cache
       uses: actions/cache/save@v5
@@ -73,14 +73,6 @@ jobs:
     - name: Copy vcpkg cache to NAS2D folder
       run: |
         xcopy vcpkg_installed nas2d-core\vcpkg_installed\ /s /e
-
-    - name: Install vcpkg dependencies - NAS2D
-      if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
-      working-directory: nas2d-core
-      env:
-        VcpkgManifestInstall: true
-      run: |
-        msbuild . /target:NAS2D:VcpkgInstallManifestDependencies
 
     - name: Set NAS2D modification time
       shell: bash
@@ -101,7 +93,7 @@ jobs:
 
     - name: Build NAS2D
       run: |
-        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /target:NAS2D
+        msbuild /maxCpuCount /warnAsError /property:RunCodeAnalysis=true /target:NAS2D
 
     - name: Save build cache - NAS2D
       uses: actions/cache/save@v5
@@ -150,7 +142,7 @@ jobs:
 
     - name: Build OPHD
       run: |
-        msbuild . /maxCpuCount /warnAsError /property:RunCodeAnalysis=true
+        msbuild /maxCpuCount /warnAsError /property:RunCodeAnalysis=true
 
     - name: Save incremental build cache - OPHD
       uses: actions/cache/save@v5
