@@ -76,7 +76,6 @@ jobs:
 
     - name: Install vcpkg dependencies - NAS2D
       if: steps.cacheRestoreVcpkg.outputs.cache-hit != 'true'
-      working-directory: nas2d-core
       env:
         VcpkgManifestInstall: true
       run: |
