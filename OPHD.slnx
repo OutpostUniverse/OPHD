@@ -1,5 +1,6 @@
 <Solution>
   <Configurations>
+    <Platform Name="ARM" />
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
