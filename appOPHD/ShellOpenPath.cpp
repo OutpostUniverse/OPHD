@@ -4,12 +4,15 @@
 #include <cstdlib>
 #include <tuple>
 
+#if defined(_WIN32)
+	#include <windows.h>
+	#include <shellapi.h>
+#endif
+
 
 namespace
 {
 	#if defined(_WIN32)
-		#include <windows.h>
-		#include <shellapi.h>
 	#elif defined(__APPLE__)
 		constexpr const std::string_view ShellOpenCommand{"open"};
 	#elif defined(__linux__) || defined(__FreeBSD__)
