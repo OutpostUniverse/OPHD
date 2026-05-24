@@ -9,10 +9,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [x86, x64]
-    runs-on: windows-2025
+        architecture:
+        # - { platform: ARM, image: windows-11-arm }
+        - { platform: ARM64, image: windows-11-arm }
+        - { platform: x86, image: windows-2025 }
+        - { platform: x64, image: windows-2025 }
+    runs-on: ${{ matrix.architecture.image }}
     env:
-      Platform: ${{ matrix.platform }}
+      Platform: ${{ matrix.architecture.platform }}
       Configuration: Release
       VcpkgManifestInstall: false
 
@@ -37,7 +41,7 @@ jobs:
         nas2dSha="$(git submodule status -- nas2d-core/ | awk '{print $1}')"
         ophdSha="${{ github.sha }}"
 
-        config="${{ runner.os }}-${{ matrix.platform }}"
+        config="${{ runner.os }}-${{ matrix.architecture.platform }}"
         cacheKeyPrefixOphd="ophd-${config}-${vcpkgSha::8}-${nas2dSha::8}-"
 
         cacheKeyVcpkg="vcpkg-${config}-${vcpkgSha::8}"
