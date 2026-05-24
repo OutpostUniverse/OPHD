@@ -152,10 +152,10 @@ jobs:
         key: ${{ env.cacheKeyOphd }}
 
     - name: Run libOPHD unit tests
-      run: .build/${{env.Configuration}}_${{env.Platform}}_testLibOPHD/testLibOPHD.exe
+      run: msbuild /target:testLibOPHD:Run
 
     - name: Run libControls unit tests
-      run: .build/${{env.Configuration}}_${{env.Platform}}_testLibControls/testLibControls.exe
+      run: msbuild /target:testLibControls:Run
 
   linux-arm:
     runs-on: ubuntu-24.04-arm
