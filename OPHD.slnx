@@ -1,9 +1,9 @@
 <Solution>
   <Configurations>
+    <Platform Name="x86" />
+    <Platform Name="x64" />
     <Platform Name="ARM" />
     <Platform Name="ARM64" />
-    <Platform Name="x64" />
-    <Platform Name="x86" />
   </Configurations>
   <Project Path="appOPHD/appOPHD.vcxproj" Id="230ab062-fdca-4d56-a781-0d3b9e8ae310" />
   <Project Path="demoLibControls/demoLibControls.vcxproj" Id="9dd61223-f1e9-4a4e-87e6-5f4eddd91266" />
