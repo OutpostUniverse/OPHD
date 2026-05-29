@@ -28,7 +28,9 @@ MainMenuState::MainMenuState() :
 	mReturnState{this},
 	mFade{{this, &MainMenuState::onFadeComplete}},
 	mFileIoDialog{{this, &MainMenuState::onLoadGame}}
-{}
+{
+	buttons[2].enabled(false);
+}
 
 
 MainMenuState::~MainMenuState()
@@ -117,6 +119,8 @@ void MainMenuState::enableButtons()
 	{
 		button.enabled(true);
 	}
+
+	buttons[2].enabled(false);
 }
 
 
