@@ -27,12 +27,10 @@ Interim release between major feature updates. A lot of improvements to the code
 - Various UI visual improvements including larger fonts, control placement and dynamic sizing
 - ProductCatalog will throw an exception instead of silently failing
 - Less punishing ore haul falloff
-- Fix offset error in drawLine
-- Fix "Take Me There" button visibility on message change
 
 
 ### Fixed
-- Robots that are set to self will no longer complete their tasks before terminating
+- Robots that are set to self-destruct will no longer complete their tasks before terminating
 - Fixed logic mistake regarding mine digging that caused a mine shaft to be built one level lower than it should be
 - Fixed check for self-sustained structures
 - Fixed issue where the structure picker didn't change when using pageUp/Down keys (alynsarcana)
@@ -55,6 +53,8 @@ Interim release between major feature updates. A lot of improvements to the code
 - Fixed crash in scroll bar UI element that could occur in specific circumstances
 - Fixed edge cases in tube connectedness checks
 - Fixed potential crash when bulldozing mine facilities or mine shafts
+- Fix offset error in drawLine
+- Fix "Take Me There" button visibility on message change
 
 
 ## [0.8.7] - 2023-04-09
