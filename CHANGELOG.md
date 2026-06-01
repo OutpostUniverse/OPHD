@@ -1,6 +1,62 @@
 # Change Log
 This is the changelog for OutpostHD.
 
+## [0.8.10] - 2026-06-01
+
+Interim release between major feature updates. A lot of improvements to the code that address some of the instability in previous releases.
+
+### Added
+- Technology catalog
+- Research Report panel in Reports Panel (WIP)
+- Added new announcement types for colony ship crashes with cargo and colonists (Alexander Hunt)
+- Add `<Ctrl> + <Shift> + <F12>` key combo for debug border drawing
+
+### Changed
+- Up/Down keybindings now move the camera in a more intuitive way for the user
+- Tubes can now be placed like roads -- they will automatically choose their direct based on what they're connected to
+- Moved structure definitions from hard-coded values in source to external definition file
+- Structures that are in a destroyed state can no longer be repaired
+- Mine Facility now transmits connection to Command Center
+- Larger font used throughout all views for improved visibility
+- Added difficulty-dependent "grace period" for crime and morale (Andrew Gorcester)
+- Added difficulty-dependent morale hit modifier for colony ship deorbit with colonists still aboard (Alexander Hunt)
+- Improved morale handling throughout code base (Alexander Hunt)
+- Improved morale change reasons reporting (Alexander Hunt)
+- Improved memory handling/management (should help with some odd crash behavior)
+- Adjustments to crime handling based on difficulty
+- Various UI visual improvements including larger fonts, control placement and dynamic sizing
+- ProductCatalog will throw an exception instead of silently failing
+- Less punishing ore haul falloff
+
+
+### Fixed
+- Robots that are set to self-destruct will no longer complete their tasks before terminating
+- Fixed logic mistake regarding mine digging that caused a mine shaft to be built one level lower than it should be
+- Fixed check for self-sustained structures
+- Fixed issue where the structure picker didn't change when using pageUp/Down keys (alynsarcana)
+- Fixed UI update issues in Factory Production Report (Alexander Hunt)
+- Fixed overlay toggle button behavior so their state doesn't carry over from a previous game when loading another game (Alex)
+- Fixed overlays being carried over when loading a different game (Alexander Hunt)
+- ToolTip UI elements now handle new lines properly (Alexander Hunt)
+- Fixed logic mistake in food theft calculation
+- Numerous spelling errors corrected (Brett)
+- Fix incorrect road decay state being set
+- Fix behavior of "Take Me There" buttons
+- Fix progress bars not showing progress
+- Fix underground structure conflicts with mine shafts (Alexander Hunt)
+- Fix TileInspector window showing details of underground tile that hasn't been excavated yet (Alexander Hunt)
+- Race condition in fade logic in NAS2D middleware fixed
+- Fixed crash when handling Red Light Districts
+- Fixed save game handling regarding Red Light Districts
+- Fixed incorrect structure names in description table
+- Fix crash when loading a game when the Mine Operations Window is open
+- Fixed crash in scroll bar UI element that could occur in specific circumstances
+- Fixed edge cases in tube connectedness checks
+- Fixed potential crash when bulldozing mine facilities or mine shafts
+- Fix offset error in drawLine
+- Fix "Take Me There" button visibility on message change
+
+
 ## [0.8.7] - 2023-04-09
 
 Addresses a few bugs and provides some quality of life balancing.

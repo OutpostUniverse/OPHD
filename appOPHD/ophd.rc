@@ -1,13 +1,14 @@
 // Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
+#include <Windows.h>
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "windows.h"
+
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -32,7 +33,7 @@ END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#include ""afxres.h""\r\n"
+    "\r\n"
     "\0"
 END
 
@@ -61,8 +62,8 @@ IDI_ICON1               ICON                    "outpost.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,8,7,0
- PRODUCTVERSION 0,8,7,0
+ FILEVERSION 0,8,10,0
+ PRODUCTVERSION 0,8,10,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +80,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "LairWorks Entertainment, LLC"
             VALUE "FileDescription", "OutpostHD"
-            VALUE "FileVersion", "0.8.7.0"
+            VALUE "FileVersion", "0.8.10.0"
             VALUE "InternalName", "OutpostHD"
-            VALUE "LegalCopyright", "Copyright © 2015 - 2023, Leeor Dicker"
+            VALUE "LegalCopyright", "Copyright © 2015 - 2026, Leeor Dicker"
             VALUE "OriginalFilename", "OPHD.EXE"
             VALUE "ProductName", "OutpostHD"
-            VALUE "ProductVersion", "0.8.7.0"
+            VALUE "ProductVersion", "0.8.10.0"
         END
     END
     BLOCK "VarFileInfo"
