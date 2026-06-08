@@ -104,7 +104,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
@@ -112,7 +111,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
     <IntDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\Intermediate\</IntDir>
     <OutDir>$(ProjectDir)..\.build\$(Configuration)_$(PlatformShortName)_$(ProjectName)\</OutDir>
@@ -120,13 +118,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <LinkIncremental>true</LinkIncremental>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
     <IncludePath>..\nas2d-core;..;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
