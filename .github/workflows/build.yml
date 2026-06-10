@@ -14,10 +14,11 @@ jobs:
         - { platform: ARM64, image: windows-11-arm }
         - { platform: x86, image: windows-2025 }
         - { platform: x64, image: windows-2025 }
+        configuration: [Release]
     runs-on: ${{ matrix.architecture.image }}
     env:
       Platform: ${{ matrix.architecture.platform }}
-      Configuration: Release
+      Configuration: ${{ matrix.configuration }}
       VcpkgManifestInstall: false
 
     steps:
