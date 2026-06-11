@@ -35,7 +35,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{29170e23-7782-4d14-81dc-5a0b6ba5e0e3}</ProjectGuid>
     <RootNamespace>testLibOPHD</RootNamespace>

@@ -35,7 +35,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{a6c25675-5e50-4bdf-9a05-25fc7c448713}</ProjectGuid>
     <RootNamespace>libControls</RootNamespace>
