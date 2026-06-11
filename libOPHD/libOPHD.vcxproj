@@ -119,8 +119,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,8 +130,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -145,8 +141,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -158,8 +152,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -171,8 +163,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
@@ -186,8 +176,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
@@ -201,8 +189,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
@@ -216,8 +202,6 @@
       <WarningLevel>Level4</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
