@@ -37,7 +37,7 @@
   <PropertyGroup Label="Globals">
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{9dd61223-f1e9-4a4e-87e6-5f4eddd91266}</ProjectGuid>
-    <RootNamespace>demoLibControls</RootNamespace>
+    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
