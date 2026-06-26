@@ -318,7 +318,7 @@ clean-all:
 PACKAGEDIR := $(ROOTBUILDDIR)/package/
 VERSION = $(shell git describe --tags --dirty)
 PLATFORM = x64
-CONFIG = $(TARGET_OS).$(PLATFORM)
+CONFIG = $(TARGET_OS)-$(PLATFORM)
 PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
 
 .PHONY: package
