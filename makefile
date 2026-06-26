@@ -71,7 +71,7 @@ RunPrefix := $($(TARGET_OS)RunPrefix)
 RunSuffixUnitTest := $($(TARGET_OS)RunSuffixUnitTest)
 
 ROOTBUILDDIR := .build
-BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_Linux_
+BUILDDIRPREFIX := $(ROOTBUILDDIR)/$(CONFIG)_$(TARGET_OS)_
 
 
 ## NAS2D project ##
