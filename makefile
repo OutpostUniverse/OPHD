@@ -18,6 +18,9 @@ check: all checkOPHD checkControls
 CURRENT_OS := $(shell uname 2>/dev/null || echo Unknown)
 TARGET_OS ?= $(CURRENT_OS)
 
+CURRENT_PLATFORM = $(shell uname -m)
+TARGET_PLATFORM ?= $(CURRENT_PLATFORM)
+
 # Toolchain: gcc, clang, mingw, (or blank for environment default)
 Toolchain ?=
 
@@ -317,7 +320,6 @@ clean-all:
 
 PACKAGEDIR := $(ROOTBUILDDIR)/package/
 VERSION = $(shell git describe --tags --dirty)
-TARGET_PLATFORM = $(shell uname -m)
 CONFIG = $(TARGET_OS)-$(TARGET_PLATFORM)
 PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
 
