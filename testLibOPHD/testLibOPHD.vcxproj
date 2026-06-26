@@ -36,9 +36,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{29170e23-7782-4d14-81dc-5a0b6ba5e0e3}</ProjectGuid>
+    <ConfigurationType>Application</ConfigurationType>
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
