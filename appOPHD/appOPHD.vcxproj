@@ -13,6 +13,7 @@
     <ProjectSubSystem>Console</ProjectSubSystem>
   </PropertyGroup>
   <PropertyGroup Label="CustomProperties" Condition="'$(Configuration)' == 'Release'">
+    <ProjectFavorSizeOrSpeed>Size</ProjectFavorSizeOrSpeed>
     <ProjectAdditionalDependencies>sdl2main.lib</ProjectAdditionalDependencies>
     <ProjectSubSystem>Windows</ProjectSubSystem>
   </PropertyGroup>
@@ -27,24 +28,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <ClCompile>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <ClCompile>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CacheFont.cpp" />
