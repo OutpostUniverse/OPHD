@@ -27,7 +27,7 @@ jobs:
       - build
   build-linux-gcc:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.6
+      - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.7
     environment:
       Toolchain: "gcc"
       WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
@@ -37,17 +37,17 @@ jobs:
       - build
   build-linux-clang:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-clang:1.5
+      - image: ghcr.io/lairworks/build-env-nas2d-clang:1.6
     environment:
       Toolchain: "clang"
-      WARN_EXTRA: "-Wno-weak-vtables -Wno-switch-enum -Wno-switch-default -Wno-missing-variable-declarations -Wno-float-equal -Wno-comma"
+      WARN_EXTRA: "-Wno-weak-vtables -Wno-switch-enum -Wno-switch-default -Wno-missing-variable-declarations -Wno-float-equal -Wno-comma -Wno-nrvo"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
       - build
   build-linux-mingw:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.14
+      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.16
     environment:
       Toolchain: "mingw"
       WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
