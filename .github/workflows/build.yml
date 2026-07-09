@@ -166,7 +166,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
 
     steps:
-    - run: sudo apt update && sudo apt --yes install libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev libglew-dev libgtest-dev libgmock-dev
+    - run: sudo apt-get update && sudo apt-get --yes install libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev libglew-dev libgtest-dev libgmock-dev
 
     - uses: actions/checkout@v6
 
