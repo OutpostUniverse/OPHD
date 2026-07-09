@@ -170,6 +170,9 @@ jobs:
 
     - uses: actions/checkout@v6
 
+    - name: Checkout NAS2D
+      run: git submodule update --init nas2d-core/
+
     - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
     - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" ophd
     - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibOPHD
