@@ -316,21 +316,6 @@ clean-all:
 	-rm -f $(ophd_OUTPUT)
 
 
-## Package ##
-
-PACKAGEDIR := $(ROOTBUILDDIR)/package/
-VERSION = $(shell git describe --tags --dirty)
-CONFIG = $(TARGET_OS)-$(TARGET_PLATFORM)
-PACKAGE_NAME = $(PACKAGEDIR)ophd-$(VERSION)-$(CONFIG).tar.gz
-
-.PHONY: package
-package: $(PACKAGE_NAME)
-
-$(PACKAGE_NAME): $(ophd_OUTPUT)
-	@mkdir -p "$(PACKAGEDIR)"
-	tar -czf $(PACKAGE_NAME) $(ophd_OUTPUT)
-
-
 ## Dependencies ##
 
 .PHONY: install-dependencies
