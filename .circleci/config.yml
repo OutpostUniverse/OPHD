@@ -39,7 +39,6 @@ jobs:
       - image: ghcr.io/lairworks/build-env-nas2d-clang:1.7
     environment:
       Toolchain: "clang"
-      WARN_EXTRA: "-Wno-nrvo"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
