@@ -30,7 +30,7 @@ jobs:
       - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.7
     environment:
       Toolchain: "gcc"
-      WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
+      WARN_EXTRA: "-Wno-effc++"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -50,7 +50,7 @@ jobs:
       - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.16
     environment:
       Toolchain: "mingw"
-      WARN_EXTRA: "-Wno-useless-cast -Wno-effc++"
+      WARN_EXTRA: "-Wno-effc++"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
