@@ -40,7 +40,7 @@ jobs:
       - image: ghcr.io/lairworks/build-env-nas2d-clang:1.6
     environment:
       Toolchain: "clang"
-      WARN_EXTRA: "-Wno-weak-vtables -Wno-switch-enum -Wno-switch-default -Wno-missing-variable-declarations -Wno-float-equal -Wno-comma -Wno-nrvo"
+      WARN_EXTRA: "-Wno-nrvo"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
