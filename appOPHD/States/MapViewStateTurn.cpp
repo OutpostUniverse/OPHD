@@ -410,7 +410,7 @@ void MapViewState::transferFoodToCommandCenter()
 
 		while (foodProducerIterator != foodProducers.end())
 		{
-			auto foodProducer = dynamic_cast<FoodProduction*>(*foodProducerIterator);
+			auto* foodProducer = *foodProducerIterator;
 			const int foodMoved = std::clamp(foodToMove, 0, foodProducer->foodLevel());
 			foodProducer->foodLevel(foodProducer->foodLevel() - foodMoved);
 			commandCenter->foodLevel(commandCenter->foodLevel() + foodMoved);
