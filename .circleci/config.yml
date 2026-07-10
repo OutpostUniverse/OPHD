@@ -28,8 +28,6 @@ jobs:
   build-linux-gcc:
     docker:
       - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.8
-    environment:
-      Toolchain: "gcc"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -37,8 +35,6 @@ jobs:
   build-linux-clang:
     docker:
       - image: ghcr.io/lairworks/build-env-nas2d-clang:1.7
-    environment:
-      Toolchain: "clang"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
@@ -46,8 +42,6 @@ jobs:
   build-linux-mingw:
     docker:
       - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.17
-    environment:
-      Toolchain: "mingw"
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
