@@ -27,28 +27,21 @@ jobs:
       - build
   build-linux-gcc:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.7
-    environment:
-      Toolchain: "gcc"
+      - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.8
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
       - build
   build-linux-clang:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-clang:1.6
-    environment:
-      Toolchain: "clang"
-      WARN_EXTRA: "-Wno-nrvo"
+      - image: ghcr.io/lairworks/build-env-nas2d-clang:1.7
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/
       - build
   build-linux-mingw:
     docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.16
-    environment:
-      Toolchain: "mingw"
+      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.17
     steps:
       - checkout
       - run: git submodule update --init nas2d-core/

@@ -65,9 +65,9 @@ namespace
 
 	template <typename UnaryOperation>
 	auto readSubElementArray(const NAS2D::Xml::XmlElement& parentElement, const std::string& subElementName, UnaryOperation mapFunction)
+		-> std::vector<std::remove_cvref_t<decltype(mapFunction(std::declval<NAS2D::Xml::XmlElement&>()))>>
 	{
-		using ResultType = decltype(mapFunction(std::declval<NAS2D::Xml::XmlElement&>()));
-		using ElementType = std::remove_cv_t<std::remove_reference_t<ResultType>>;
+		using ElementType = std::remove_cvref_t<decltype(mapFunction(std::declval<NAS2D::Xml::XmlElement&>()))>;
 
 		std::vector<ElementType> results;
 		for (auto subElement = parentElement.firstChildElement(subElementName); subElement; subElement = subElement->nextSiblingElement(subElementName))
