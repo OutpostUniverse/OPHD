@@ -162,6 +162,27 @@ jobs:
     - name: Run libControls unit tests
       run: msbuild /target:testLibControls:Run
 
+  macos:
+    runs-on: macos-26
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Checkout NAS2D
+      run: git submodule update --init nas2d-core/
+
+    - name: Brew install MacOS dependencies
+      run: make --directory nas2d-core/ install-dependencies
+
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" ophd
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibOPHD
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
+
   linux:
     strategy:
       fail-fast: false
