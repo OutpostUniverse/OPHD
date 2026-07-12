@@ -25,32 +25,8 @@ jobs:
       - run: git submodule update --init nas2d-core/
       - brew-install
       - build
-  build-linux-gcc:
-    docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-gcc:1.8
-    steps:
-      - checkout
-      - run: git submodule update --init nas2d-core/
-      - build
-  build-linux-clang:
-    docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-clang:1.7
-    steps:
-      - checkout
-      - run: git submodule update --init nas2d-core/
-      - build
-  build-linux-mingw:
-    docker:
-      - image: ghcr.io/lairworks/build-env-nas2d-mingw:1.17
-    steps:
-      - checkout
-      - run: git submodule update --init nas2d-core/
-      - build
 
 workflows:
   build:
     jobs:
       - build-macos
-      - build-linux-gcc
-      - build-linux-clang
-      - build-linux-mingw

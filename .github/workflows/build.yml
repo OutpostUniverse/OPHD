@@ -162,6 +162,33 @@ jobs:
     - name: Run libControls unit tests
       run: msbuild /target:testLibControls:Run
 
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+        - "build-env-nas2d-clang:1.7"
+        - "build-env-nas2d-gcc:1.8"
+        - "build-env-nas2d-mingw:1.17"
+    runs-on: ubuntu-latest
+    container:
+      image: "ghcr.io/lairworks/${{ matrix.image }}"
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Checkout NAS2D
+      run: |
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        git submodule update --init nas2d-core/
+
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" ophd
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibOPHD
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
+    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
+
   linux-arm:
     runs-on: ubuntu-24.04-arm
 
