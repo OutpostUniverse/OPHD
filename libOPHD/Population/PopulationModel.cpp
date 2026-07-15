@@ -30,7 +30,7 @@ namespace
 	 */
 	std::size_t moraleIndex(int morale)
 	{
-		return static_cast<std::size_t>(std::clamp(morale, 1, 999) / 200);
+		return static_cast<std::size_t>(4 - (std::clamp(morale, 0, 999) / 200));
 	}
 }
 
