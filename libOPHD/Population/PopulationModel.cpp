@@ -11,9 +11,9 @@
 
 namespace
 {
-	const int studentToScientistRate = 35;
-	const int studentToAdultBase = 190;
-	const int adultToRetireeBase = 2000;
+	constexpr auto studentToScientistRate = 35;
+	constexpr auto studentToAdultBase = 190;
+	constexpr auto adultToRetireeBase = 2000;
 
 	const std::array moraleModifierTable{
 		MoraleModifier{50, 50, 30, 110},  // Excellent
