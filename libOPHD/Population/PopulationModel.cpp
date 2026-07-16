@@ -16,11 +16,11 @@ namespace
 	const int adultToRetireeBase = 2000;
 
 	const std::array moraleModifierTable{
-		MoraleModifier{50, 50, 110, 80},  // Excellent
-		MoraleModifier{25, 25, 90, 75},   // Good
-		MoraleModifier{0, 0, 60, 40},     // Fair
-		MoraleModifier{-25, -25, 40, 20}, // Poor
-		MoraleModifier{-50, -50, 20, 10}  // Terrible
+		MoraleModifier{50, 50, 30, 110},  // Excellent
+		MoraleModifier{25, 25, 40, 90},   // Good
+		MoraleModifier{0, 0, 50, 70},     // Fair
+		MoraleModifier{-25, -25, 70, 50}, // Poor
+		MoraleModifier{-50, -50, 90, 30}  // Terrible
 	};
 
 
