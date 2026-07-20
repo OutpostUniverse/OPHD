@@ -11,9 +11,9 @@
 
 namespace
 {
-	constexpr auto studentToScientistRate = 35;
-	constexpr auto studentToAdultBase = 190;
-	constexpr auto adultToRetireeBase = 2000;
+	constexpr auto StudentToScientistRate = 35;
+	constexpr auto StudentToAdultBase = 190;
+	constexpr auto AdultToRetireeBase = 2000;
 
 	const std::array moraleModifierTable{
 		MoraleModifier{50, 50, 30, 110},  // Excellent
@@ -58,16 +58,16 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
 
 	// Account for universities
-	const int convertRate = (universities > 0) ? studentToScientistRate : 0;
+	const int convertRate = (universities > 0) ? StudentToScientistRate : 0;
 	const int growthWorker = mPopulation.student * (100 - convertRate) / 100;
 	const int growthScientist = mPopulation.student * convertRate / 100;
 
 	int totalAdults = mPopulation.worker + mPopulation.scientist;
 
 	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
-	int divisorStudent = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 16) * 4;
-	int divisorAdult = ((std::max(mPopulation.adults(), studentToAdultBase) / 40) * 3 + 45) * 4;
-	int divisorRetiree = ((std::max(totalAdults, adultToRetireeBase) / 40) * 3 + 40) * 4;
+	int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
+	int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
+	int divisorRetiree = ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
 
 	const auto newRoles = spawnRoles(
 		{growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10},
