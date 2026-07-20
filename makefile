@@ -382,7 +382,9 @@ flame-charts:
 
 
 ## GitHub ##
-.PHONY: cache-list-all cache-list-main cache-list-branch cache-delete-main-stale cache-delete-branch
+.PHONY: cache-list-all cache-list-main cache-list-current cache-list-stale cache-list-branch cache-delete-main-stale cache-delete-branch
+GhMain := origin/main
+GhMainSha = $(shell git rev-parse --short=8 ${GhMain})
 GhCacheKeyIncremental := ophd-
 GhCacheLimit := 100
 GhCacheFields := id,ref,key,version,sizeInBytes,createdAt,lastAccessedAt
@@ -397,11 +399,17 @@ cache-list-all:
 cache-list-main:
 	$(GhCacheListMain)
 
+cache-list-current:
+	$(GhCacheListMain) | jq ".[] | select(.key | endswith(\"${GhMainSha}\"))"
+
+cache-list-stale:
+	$(GhCacheListMain) | jq ".[] | select(.key | endswith(\"${GhMainSha}\") | not)"
+
 cache-list-branch:
 	$(GhCacheListBranch)
 
 cache-delete-main-stale:
-	$(GhCacheListMain) | jq '.[0:-2] | .[] .id' | $(GhCacheDeleteIds)
+	$(GhCacheListMain) | jq ".[] | select(.key | endswith(\"${GhMainSha}\") | not) | .id" | $(GhCacheDeleteIds)
 
 cache-delete-branch:
 	$(GhCacheListBranch) | jq '.id' | $(GhCacheDeleteIds)
