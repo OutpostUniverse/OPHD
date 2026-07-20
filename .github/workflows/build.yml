@@ -190,7 +190,7 @@ jobs:
         image:
         - "build-env-nas2d-clang:1.7"
         - "build-env-nas2d-gcc:1.8"
-        - "build-env-nas2d-mingw:1.17"
+        - "build-env-nas2d-mingw:1.18"
     runs-on: ubuntu-latest
     container:
       image: "ghcr.io/lairworks/${{ matrix.image }}"
