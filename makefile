@@ -62,7 +62,7 @@ WindowsSpecialPreprocessorFlags = -DGLEW_STATIC -DSDL_MAIN_HANDLED
 WindowsSpecialWarnFlags = -Wno-redundant-decls
 WindowsExeSuffix := .exe
 WindowsRunPrefix := wine
-WindowsRunSuffixUnitTest := --gtest_color=yes | cat -
+WindowsRunSuffixUnitTest := --gtest_color=yes > >(cat)
 
 DarwinIncludeSearchFlags = -isystem$(shell brew --prefix)/include
 
@@ -175,6 +175,7 @@ testLibOphd_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibOphd_LDLIBS)
 testLibOPHD: $(testLibOphd_OUTPUT)
 
 .PHONY: checkOPHD
+checkOPHD: SHELL := bash
 checkOPHD: $(testLibOphd_OUTPUT)
 	$(RunPrefix) $(testLibOphd_OUTPUT) $(GTEST_OPTIONS) $(RunSuffixUnitTest)
 
@@ -205,6 +206,7 @@ testLibControls_PROJECT_LINKFLAGS = $(LDFLAGS) $(testLibControls_LDLIBS)
 testLibControls: $(testLibControls_OUTPUT)
 
 .PHONY: checkControls
+checkControls: SHELL := bash
 checkControls: $(testLibControls_OUTPUT)
 	$(RunPrefix) $(testLibControls_OUTPUT) $(GTEST_OPTIONS) $(RunSuffixUnitTest)
 
