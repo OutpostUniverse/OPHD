@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <array>
+#include <limits>
 #include <stdexcept>
 #include <string>
 
@@ -14,6 +15,7 @@ namespace
 	constexpr auto StudentToScientistRate = 35;
 	constexpr auto StudentToAdultBase = 190;
 	constexpr auto AdultToRetireeBase = 2000;
+	constexpr auto MinRetireeGrowthThreshold = 1200; // Prevents retirees for approximately 150 turns
 
 	const std::array moraleModifierTable{
 		MoraleModifier{50, 50, 30, 110},  // Excellent
@@ -68,6 +70,11 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 	int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
 	int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
 	int divisorRetiree = ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
+
+	if (mPopulationGrowth.retiree < MinRetireeGrowthThreshold)
+	{
+		divisorRetiree = std::numeric_limits<int>::max();
+	}
 
 	const auto newRoles = spawnRoles(
 		{growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10},
