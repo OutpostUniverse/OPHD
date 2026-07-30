@@ -47,7 +47,7 @@ namespace
 
 	void retireAdults(int toRetire, PopulationTable& population)
 	{
-		for (toRetire; toRetire > 0;)
+		while (toRetire > 0)
 		{
 			/** Workers retire earlier than scientists. */
 			auto& retireRole = (randomNumber.generate(0, 100) <= 45) ? population.scientist : population.worker;
