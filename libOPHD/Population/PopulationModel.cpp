@@ -17,7 +17,7 @@ namespace
 	constexpr auto AdultToRetireeBase = 2000;
 	constexpr auto MinRetireeGrowthThreshold = 1200; // Prevents retirees for approximately 150 turns
 
-	const std::array moraleModifierTable {
+	const std::array MoraleModifierTable {
 		MoraleModifier{0, 0, 30, 110},	// Excellent
 		MoraleModifier{0, 0, 40, 90},	// Good
 		MoraleModifier{0, 0, 50, 70},	// Fair
@@ -66,7 +66,7 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 
 	int totalAdults = mPopulation.worker + mPopulation.scientist;
 
-	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityCost;
+	int divisorChild = MoraleModifierTable[moraleIndex(morale)].fertilityCost;
 	int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
 	int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
 	int divisorRetiree = ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
@@ -137,7 +137,7 @@ void PopulationModel::killRoles(const PopulationTable& divisor)
 
 void PopulationModel::killPopulation(int morale, int nurseries, int hospitals)
 {
-	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityResistance;
+	const auto mortalityRate = MoraleModifierTable[moraleIndex(morale)].mortalityResistance;
 
 	int divisorChild = mortalityRate + (nurseries * 10);
 	int divisorStudent = mortalityRate + (hospitals * 65);
