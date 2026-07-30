@@ -66,7 +66,7 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 
 	int totalAdults = mPopulation.worker + mPopulation.scientist;
 
-	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
+	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityCost;
 	int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
 	int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
 	int divisorRetiree = ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
@@ -137,7 +137,7 @@ void PopulationModel::killRoles(const PopulationTable& divisor)
 
 void PopulationModel::killPopulation(int morale, int nurseries, int hospitals)
 {
-	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityRate;
+	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityResistance;
 
 	int divisorChild = mortalityRate + (nurseries * 10);
 	int divisorStudent = mortalityRate + (hospitals * 65);
