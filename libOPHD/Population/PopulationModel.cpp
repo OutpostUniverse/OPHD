@@ -93,17 +93,13 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 	const int growthWorker = mPopulation.student * (100 - convertRate) / 100;
 	const int growthScientist = mPopulation.student * convertRate / 100;
 
-	int totalAdults = mPopulation.worker + mPopulation.scientist;
+	const int totalAdults = mPopulation.worker + mPopulation.scientist;
 
-	int divisorChild = MoraleModifierTable[moraleIndex(morale)].fertilityCost;
-	int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
-	int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
-	int divisorRetiree = ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
-
-	if (mPopulationGrowth.retiree < MinRetireeGrowthThreshold)
-	{
-		divisorRetiree = std::numeric_limits<int>::max();
-	}
+	const int divisorChild = MoraleModifierTable[moraleIndex(morale)].fertilityCost;
+	const int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
+	const int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
+	const int divisorRetiree = (mPopulationGrowth.retiree < MinRetireeGrowthThreshold) ?
+		std::numeric_limits<int>::max() : ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
 
 	const auto newRoles = spawnRoles(
 		{ growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10 },
