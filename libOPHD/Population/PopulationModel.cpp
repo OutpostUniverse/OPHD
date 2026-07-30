@@ -43,6 +43,22 @@ namespace
 			throw std::runtime_error("Retiring more people than employable population: Retiring: " + std::to_string(retirees));
 		}
 	}
+
+
+	void retireAdults(int toRetire, PopulationTable& population)
+	{
+		for (toRetire; toRetire > 0;)
+		{
+			/** Workers retire earlier than scientists. */
+			auto& retireRole = (randomNumber.generate(0, 100) <= 45) ? population.scientist : population.worker;
+
+			if (retireRole > 0)
+			{
+				--retireRole;
+				--toRetire;
+			}
+		}
+	}
 }
 
 
@@ -95,18 +111,7 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
 	assertNoOverritirement(newRoles.retiree, mPopulation.employable());
-
-	for (int toRetire = newRoles.retiree; toRetire > 0;)
-	{
-		/** Workers retire earlier than scientists. */
-		auto& retireRole = randomNumber.generate(0, 100) <= 45 ?
-			mPopulation.scientist : mPopulation.worker;
-		if (retireRole > 0)
-		{
-			--retireRole;
-			--toRetire;
-		}
-	}
+	retireAdults(newRoles.retiree, mPopulation);
 }
 
 
