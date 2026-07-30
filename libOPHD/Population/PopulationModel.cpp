@@ -34,6 +34,15 @@ namespace
 	{
 		return static_cast<std::size_t>(4 - (std::clamp(morale, 0, 999) / 200));
 	}
+
+
+	void assertNoOverritirement(int retirees, int employable)
+	{
+		if (retirees > employable)
+		{
+			throw std::runtime_error("Retiring more people than employable population: Retiring: " + std::to_string(retirees));
+		}
+	}
 }
 
 
@@ -85,10 +94,7 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 	mPopulation.child -= newRoles.student;
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
-	if (newRoles.retiree > mPopulation.employable())
-	{
-		throw std::runtime_error("Retiring more people than employable population: Retiring: " + std::to_string(newRoles.retiree));
-	}
+	assertNoOverritirement(newRoles.retiree, mPopulation.employable());
 
 	for (int toRetire = newRoles.retiree; toRetire > 0;)
 	{
