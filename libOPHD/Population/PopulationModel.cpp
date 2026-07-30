@@ -59,6 +59,12 @@ namespace
 			}
 		}
 	}
+
+
+	int childGrowth(int residences, int nurseries, PopulationTable& population)
+	{
+		return (residences > 0 || nurseries > 0) ? population.scientist / 4 + population.worker / 2 : 0;
+	}
 }
 
 
@@ -81,10 +87,8 @@ void PopulationModel::removePopulation(const PopulationTable& population)
 
 void PopulationModel::spawnPopulation(int morale, int residences, int nurseries, int universities)
 {
-	const int growthChild = (residences > 0 || nurseries > 0) ?
-		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
+	const auto growthChild = childGrowth(residences, nurseries, mPopulation);
 
-	// Account for universities
 	const int convertRate = (universities > 0) ? StudentToScientistRate : 0;
 	const int growthWorker = mPopulation.student * (100 - convertRate) / 100;
 	const int growthScientist = mPopulation.student * convertRate / 100;
@@ -102,8 +106,8 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 	}
 
 	const auto newRoles = spawnRoles(
-		{growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10},
-		{divisorChild, divisorStudent, divisorAdult, divisorAdult, divisorRetiree}
+		{ growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10 },
+		{ divisorChild, divisorStudent, divisorAdult, divisorAdult, divisorRetiree }
 	);
 
 	mBirthCount = newRoles.child;
