@@ -150,9 +150,9 @@ void PopulationModel::killPopulation(int morale, int nurseries, int hospitals)
 {
 	const auto mortalityRate = MoraleModifierTable[moraleIndex(morale)].mortalityResistance;
 
-	int divisorChild = mortalityRate + (nurseries * 10);
-	int divisorStudent = mortalityRate + (hospitals * 65);
-	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
+	const int divisorChild = mortalityRate + (nurseries * 10);
+	const int divisorStudent = mortalityRate + (hospitals * 65);
+	const int divisorAdult = mortalityRate + 250 + (hospitals * 60);
 
 	killRoles({divisorChild, divisorStudent, divisorAdult * 2 - 50, divisorAdult * 2 + 50, divisorAdult});
 
@@ -199,13 +199,13 @@ int PopulationModel::consumeFood(int food)
 /**
  * \return	Actual amount of food consumed.
  */
-int PopulationModel::update(int morale, int food, int residences, int universities, int nurseries, int hospitals)
+int PopulationModel::update(const UpdateParameters& paremters)
 {
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	spawnPopulation(morale, residences, nurseries, universities);
-	killPopulation(morale, nurseries, hospitals);
+	spawnPopulation(paremters.morale, paremters.residences, paremters.nurseries, paremters.universities);
+	killPopulation(paremters.morale, paremters.nurseries, paremters.hospitals);
 
-	return consumeFood(food);
+	return consumeFood(paremters.food);
 }

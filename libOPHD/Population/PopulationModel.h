@@ -6,6 +6,17 @@
 class PopulationModel
 {
 public:
+	struct UpdateParameters
+	{
+		int morale{0};
+		int food{0};
+		int residences{0};
+		int universities{0};
+		int nurseries{0};
+		int hospitals{0};
+	};
+
+public:
 	int birthCount() const { return mBirthCount; }
 	int deathCount() const { return mDeathCount; }
 
@@ -14,7 +25,7 @@ public:
 	void addPopulation(const PopulationTable& population);
 	void removePopulation(const PopulationTable& population);
 
-	int update(int morale, int food, int residences, int universities, int nurseries, int hospitals);
+	int update(const UpdateParameters& params);
 
 	void starveRate(float rate) { mStarveRate = rate; }
 
