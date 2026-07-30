@@ -17,12 +17,12 @@ namespace
 	constexpr auto AdultToRetireeBase = 2000;
 	constexpr auto MinRetireeGrowthThreshold = 1200; // Prevents retirees for approximately 150 turns
 
-	const std::array moraleModifierTable{
-		MoraleModifier{50, 50, 30, 110},  // Excellent
-		MoraleModifier{25, 25, 40, 90},   // Good
-		MoraleModifier{0, 0, 50, 70},     // Fair
-		MoraleModifier{-25, -25, 70, 50}, // Poor
-		MoraleModifier{-50, -50, 90, 30}  // Terrible
+	const std::array moraleModifierTable {
+		MoraleModifier{0, 0, 30, 110},	// Excellent
+		MoraleModifier{0, 0, 40, 90},	// Good
+		MoraleModifier{0, 0, 50, 70},	// Fair
+		MoraleModifier{0, 0, 70, 50},	// Poor
+		MoraleModifier{0, 0, 90, 30}	// Terrible
 	};
 
 
