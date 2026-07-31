@@ -36,7 +36,7 @@ namespace
 	}
 
 
-	void assertNoOverritirement(int retirees, int employable)
+	void assertNoOverretirement(int retirees, int employable)
 	{
 		if (retirees > employable)
 		{
@@ -110,7 +110,7 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 	mPopulation.child -= newRoles.student;
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
-	assertNoOverritirement(newRoles.retiree, mPopulation.employable());
+	assertNoOverretirement(newRoles.retiree, mPopulation.employable());
 	retireAdults(newRoles.retiree, mPopulation);
 }
 
