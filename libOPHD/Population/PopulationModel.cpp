@@ -95,7 +95,7 @@ void PopulationModel::spawnPopulation(int morale, int residences, int nurseries,
 
 	const int totalAdults = mPopulation.worker + mPopulation.scientist;
 
-	const int divisorChild = MoraleModifierTable[moraleIndex(morale)].fertilityCost;
+	const int divisorChild = MoraleModifierTable[moraleIndex(morale)].fertilityResistance;
 	const int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
 	const int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
 	const int divisorRetiree = (mPopulationGrowth.retiree < MinRetireeGrowthThreshold) ?
