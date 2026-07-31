@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <array>
+#include <limits>
 #include <stdexcept>
 #include <string>
 
@@ -14,13 +15,14 @@ namespace
 	constexpr auto StudentToScientistRate = 35;
 	constexpr auto StudentToAdultBase = 190;
 	constexpr auto AdultToRetireeBase = 2000;
+	constexpr auto MinRetireeGrowthThreshold = 1200; // Prevents retirees for approximately 150 turns
 
-	const std::array moraleModifierTable{
-		MoraleModifier{50, 50, 30, 110},  // Excellent
-		MoraleModifier{25, 25, 40, 90},   // Good
-		MoraleModifier{0, 0, 50, 70},     // Fair
-		MoraleModifier{-25, -25, 70, 50}, // Poor
-		MoraleModifier{-50, -50, 90, 30}  // Terrible
+	const std::array MoraleModifierTable {
+		MoraleModifier{0, 0, 30, 110},	// Excellent
+		MoraleModifier{0, 0, 40, 90},	// Good
+		MoraleModifier{0, 0, 50, 70},	// Fair
+		MoraleModifier{0, 0, 70, 50},	// Poor
+		MoraleModifier{0, 0, 90, 30}	// Terrible
 	};
 
 
@@ -31,6 +33,37 @@ namespace
 	std::size_t moraleIndex(int morale)
 	{
 		return static_cast<std::size_t>(4 - (std::clamp(morale, 0, 999) / 200));
+	}
+
+
+	void assertNoOverretirement(int retirees, int employable)
+	{
+		if (retirees > employable)
+		{
+			throw std::runtime_error("Retiring more people than employable population: Retiring: " + std::to_string(retirees));
+		}
+	}
+
+
+	void retireAdults(int toRetire, PopulationTable& population)
+	{
+		while (toRetire > 0)
+		{
+			/** Workers retire earlier than scientists. */
+			auto& retireRole = (randomNumber.generate(0, 100) <= 45) ? population.scientist : population.worker;
+
+			if (retireRole > 0)
+			{
+				--retireRole;
+				--toRetire;
+			}
+		}
+	}
+
+
+	int childGrowth(int residences, int nurseries, PopulationTable& population)
+	{
+		return (residences > 0 || nurseries > 0) ? population.scientist / 4 + population.worker / 2 : 0;
 	}
 }
 
@@ -54,46 +87,31 @@ void PopulationModel::removePopulation(const PopulationTable& population)
 
 void PopulationModel::spawnPopulation(int morale, int residences, int nurseries, int universities)
 {
-	const int growthChild = (residences > 0 || nurseries > 0) ?
-		mPopulation.scientist / 4 + mPopulation.worker / 2 : 0;
+	const auto growthChild = childGrowth(residences, nurseries, mPopulation);
 
-	// Account for universities
 	const int convertRate = (universities > 0) ? StudentToScientistRate : 0;
 	const int growthWorker = mPopulation.student * (100 - convertRate) / 100;
 	const int growthScientist = mPopulation.student * convertRate / 100;
 
-	int totalAdults = mPopulation.worker + mPopulation.scientist;
+	const int totalAdults = mPopulation.worker + mPopulation.scientist;
 
-	int divisorChild = moraleModifierTable[moraleIndex(morale)].fertilityRate;
-	int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
-	int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
-	int divisorRetiree = ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
+	const int divisorChild = MoraleModifierTable[moraleIndex(morale)].fertilityResistance;
+	const int divisorStudent = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 13) * 4;
+	const int divisorAdult = ((std::max(mPopulation.adults(), StudentToAdultBase) / 40) * 3 + 38) * 4;
+	const int divisorRetiree = (mPopulationGrowth.retiree < MinRetireeGrowthThreshold) ?
+		std::numeric_limits<int>::max() : ((std::max(totalAdults, AdultToRetireeBase) / 40) * 3 + 40) * 4;
 
 	const auto newRoles = spawnRoles(
-		{growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10},
-		{divisorChild, divisorStudent, divisorAdult, divisorAdult, divisorRetiree}
+		{ growthChild, mPopulation.child, growthWorker, growthScientist, totalAdults / 10 },
+		{ divisorChild, divisorStudent, divisorAdult, divisorAdult, divisorRetiree }
 	);
 
 	mBirthCount = newRoles.child;
 	mPopulation.child -= newRoles.student;
 	mPopulation.student -= (newRoles.worker + newRoles.scientist);
 
-	if (newRoles.retiree > mPopulation.employable())
-	{
-		throw std::runtime_error("Retiring more people than employable population: Retiring: " + std::to_string(newRoles.retiree));
-	}
-
-	for (int toRetire = newRoles.retiree; toRetire > 0;)
-	{
-		/** Workers retire earlier than scientists. */
-		auto& retireRole = randomNumber.generate(0, 100) <= 45 ?
-			mPopulation.scientist : mPopulation.worker;
-		if (retireRole > 0)
-		{
-			--retireRole;
-			--toRetire;
-		}
-	}
+	assertNoOverretirement(newRoles.retiree, mPopulation.employable());
+	retireAdults(newRoles.retiree, mPopulation);
 }
 
 
@@ -130,11 +148,11 @@ void PopulationModel::killRoles(const PopulationTable& divisor)
 
 void PopulationModel::killPopulation(int morale, int nurseries, int hospitals)
 {
-	const auto mortalityRate = moraleModifierTable[moraleIndex(morale)].mortalityRate;
+	const auto mortalityRate = MoraleModifierTable[moraleIndex(morale)].mortalityResistance;
 
-	int divisorChild = mortalityRate + (nurseries * 10);
-	int divisorStudent = mortalityRate + (hospitals * 65);
-	int divisorAdult = mortalityRate + 250 + (hospitals * 60);
+	const int divisorChild = mortalityRate + (nurseries * 10);
+	const int divisorStudent = mortalityRate + (hospitals * 65);
+	const int divisorAdult = mortalityRate + 250 + (hospitals * 60);
 
 	killRoles({divisorChild, divisorStudent, divisorAdult * 2 - 50, divisorAdult * 2 + 50, divisorAdult});
 
@@ -181,13 +199,13 @@ int PopulationModel::consumeFood(int food)
 /**
  * \return	Actual amount of food consumed.
  */
-int PopulationModel::update(int morale, int food, int residences, int universities, int nurseries, int hospitals)
+int PopulationModel::update(const UpdateParameters& paremters)
 {
 	mBirthCount = 0;
 	mDeathCount = 0;
 
-	spawnPopulation(morale, residences, nurseries, universities);
-	killPopulation(morale, nurseries, hospitals);
+	spawnPopulation(paremters.morale, paremters.residences, paremters.nurseries, paremters.universities);
+	killPopulation(paremters.morale, paremters.nurseries, paremters.hospitals);
 
-	return consumeFood(food);
+	return consumeFood(paremters.food);
 }

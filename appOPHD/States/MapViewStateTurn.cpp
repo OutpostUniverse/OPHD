@@ -98,16 +98,19 @@ namespace
 
 void MapViewState::updatePopulation()
 {
-	int residences = mStructureManager.operationalCount(StructureClass::Residence);
-	int universities = mStructureManager.operationalCount(StructureClass::University);
-	int nurseries = mStructureManager.operationalCount(StructureClass::Nursery);
-	int hospitals = mStructureManager.operationalCount(StructureClass::MedicalCenter);
-
 	auto foodProducers = mStructureManager.getStructures<FoodProduction>();
 	const auto& commandCenters = mStructureManager.getStructures<CommandCenter>();
 	foodProducers.insert(foodProducers.end(), commandCenters.begin(), commandCenters.end());
 
-	int amountToConsume = mPopulationModel.update(mMorale.currentMorale(), mFood, residences, universities, nurseries, hospitals);
+	int amountToConsume = mPopulationModel.update({
+			mMorale.currentMorale(),
+			mFood,
+			mStructureManager.operationalCount(StructureClass::Residence),
+			mStructureManager.operationalCount(StructureClass::University),
+			mStructureManager.operationalCount(StructureClass::Nursery),
+			mStructureManager.operationalCount(StructureClass::MedicalCenter)
+		});
+
 	consumeFood(foodProducers, amountToConsume);
 }
 
