@@ -188,33 +188,22 @@ jobs:
       fail-fast: false
       matrix:
         image:
-        - "build-env-nas2d-clang:1.7"
-        - "build-env-nas2d-gcc:1.8"
-        - "build-env-nas2d-mingw:1.18"
-    runs-on: ubuntu-latest
+        - build-env-nas2d-clang:2026-08-09
+        - build-env-nas2d-gcc:2026-08-09
+        - build-env-nas2d-mingw:2026-08-09
+        runner:
+        - ubuntu-latest
+        include:
+        - image: build-env-nas2d-clang:2026-08-09
+          runner: ubuntu-24.04-arm
+        - image: build-env-nas2d-gcc:2026-08-09
+          runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     container:
       image: "ghcr.io/lairworks/${{ matrix.image }}"
       options: --user=1001:1001
 
     steps:
-    - uses: actions/checkout@v6
-
-    - name: Checkout NAS2D
-      run: git submodule update --init nas2d-core/
-
-    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" nas2d
-    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" ophd
-    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibOPHD
-    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" testLibControls
-    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkOPHD
-    - run: make --keep-going --jobs 16 CXXFLAGS_EXTRA="-Werror" checkControls
-
-  linux-arm:
-    runs-on: ubuntu-24.04-arm
-
-    steps:
-    - run: sudo apt-get update && sudo apt-get --yes install libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev libglew-dev libgtest-dev libgmock-dev
-
     - uses: actions/checkout@v6
 
     - name: Checkout NAS2D
