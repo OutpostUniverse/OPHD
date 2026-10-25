@@ -27,6 +27,32 @@ TEST(ResearchTracker, IsInProgress)
 }
 
 
+TEST(ResearchTracker, PrerequisitesMetNoRequirements)
+{
+	ResearchTracker tracker;
+	EXPECT_TRUE(tracker.prerequisitesMet(Technology{}));
+}
+
+
+TEST(ResearchTracker, PrerequisitesMet)
+{
+	Technology technology{};
+	technology.requiredTechnologies = {1000, 5030};
+
+	ResearchTracker tracker;
+	EXPECT_FALSE(tracker.prerequisitesMet(technology));
+
+	tracker.addCompletedResearch(1000);
+	EXPECT_FALSE(tracker.prerequisitesMet(technology));
+
+	tracker.startResearch(5030, 0, 0);
+	EXPECT_FALSE(tracker.prerequisitesMet(technology));
+
+	tracker.addCompletedResearch(5030);
+	EXPECT_TRUE(tracker.prerequisitesMet(technology));
+}
+
+
 TEST(ResearchTracker, StartResearch)
 {
 	ResearchTracker tracker;
