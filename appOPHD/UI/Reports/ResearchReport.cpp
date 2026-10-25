@@ -47,7 +47,7 @@ namespace
 		std::vector<ListBoxItemText> itemsToAdd;
 		for (const auto& topic : catalog.technologiesInCategory(categoryName))
 		{
-			if (!tracker.isCompleted(topic.id))
+			if (!tracker.isCompleted(topic.id) && tracker.prerequisitesMet(topic))
 			{
 				itemsToAdd.emplace_back(ListBoxItemText{topic.name, topic.id});
 			}
