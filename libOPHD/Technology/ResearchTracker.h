@@ -34,6 +34,9 @@ public:
 	}
 
 
+	bool isCompleted(int techId) const;
+	bool isInProgress(int techId) const;
+
 	void startResearch(int techId, int progress, int assigned);
 	void updateResearch(int techId, int progress, int assigned);
 	const ResearchProgress& researchProgress(int techId) const;
