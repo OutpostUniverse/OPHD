@@ -45,11 +45,9 @@ namespace
 	std::vector<ListBoxItemText> availableTopics(const std::string& categoryName, const TechnologyCatalog& catalog, const ResearchTracker& tracker)
 	{
 		std::vector<ListBoxItemText> itemsToAdd;
-		const auto& completedTopics = tracker.completedResearch();
 		for (const auto& topic : catalog.technologiesInCategory(categoryName))
 		{
-			const auto it = std::find(completedTopics.begin(), completedTopics.end(), topic.id);
-			if (it == completedTopics.end())
+			if (!tracker.isCompleted(topic.id) && tracker.prerequisitesMet(topic))
 			{
 				itemsToAdd.emplace_back(ListBoxItemText{topic.name, topic.id});
 			}

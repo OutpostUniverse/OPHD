@@ -36,6 +36,7 @@ public:
 
 	bool isCompleted(int techId) const;
 	bool isInProgress(int techId) const;
+	bool prerequisitesMet(const Technology& technology) const;
 
 	void startResearch(int techId, int progress, int assigned);
 	void updateResearch(int techId, int progress, int assigned);
