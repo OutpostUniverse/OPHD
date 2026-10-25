@@ -16,6 +16,12 @@ bool ResearchTracker::isInProgress(int techId) const
 }
 
 
+bool ResearchTracker::prerequisitesMet(const Technology& technology) const
+{
+	return std::ranges::all_of(technology.requiredTechnologies, [this](int techId) { return isCompleted(techId); });
+}
+
+
 void ResearchTracker::startResearch(int techId, int progress, int assigned)
 {
 	if (isCompleted(techId))
