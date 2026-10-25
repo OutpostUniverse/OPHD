@@ -4,9 +4,21 @@
 #include <stdexcept>
 
 
+bool ResearchTracker::isCompleted(int techId) const
+{
+	return std::find(mCompleted.begin(), mCompleted.end(), techId) != mCompleted.end();
+}
+
+
+bool ResearchTracker::isInProgress(int techId) const
+{
+	return mTechnologiesBeingResearched.contains(techId);
+}
+
+
 void ResearchTracker::startResearch(int techId, int progress, int assigned)
 {
-	if (std::find(mCompleted.begin(), mCompleted.end(), techId) != mCompleted.end())
+	if (isCompleted(techId))
 	{
 		throw std::runtime_error("Can't update a technology that's already researched.");
 	}
@@ -17,7 +29,7 @@ void ResearchTracker::startResearch(int techId, int progress, int assigned)
 
 void ResearchTracker::updateResearch(int techId, int progress, int assigned)
 {
-	if (std::find(mCompleted.begin(), mCompleted.end(), techId) != mCompleted.end())
+	if (isCompleted(techId))
 	{
 		throw std::runtime_error("Can't update a technology that's already researched.");
 	}

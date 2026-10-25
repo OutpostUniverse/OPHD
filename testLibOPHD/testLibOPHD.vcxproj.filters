@@ -21,5 +21,8 @@
     <ClCompile Include="RandomNumberGenerator.test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ResearchTracker.test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

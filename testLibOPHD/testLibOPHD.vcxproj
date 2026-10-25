@@ -14,6 +14,7 @@
   <ItemGroup>
     <ClCompile Include="MapOffset.test.cpp" />
     <ClCompile Include="RandomNumberGenerator.test.cpp" />
+    <ClCompile Include="ResearchTracker.test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libOPHD\libOPHD.vcxproj">
