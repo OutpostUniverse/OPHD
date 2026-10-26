@@ -49,6 +49,8 @@ public:
 
 
 private:
+	void clearActiveResearch(const Technology& technology);
+
 	std::vector<int> mCompleted;
 	std::map<int, ResearchProgress> mTechnologiesBeingResearched;
 	std::map<int, int> mActiveResearch;

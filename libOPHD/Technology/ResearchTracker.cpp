@@ -97,3 +97,12 @@ void ResearchTracker::setActiveResearch(const Technology& technology)
 
 	mActiveResearch.insert_or_assign(technology.labType, technology.id);
 }
+
+
+void ResearchTracker::clearActiveResearch(const Technology& technology)
+{
+	if (activeResearch(technology.labType) == technology.id)
+	{
+		mActiveResearch.erase(technology.labType);
+	}
+}
