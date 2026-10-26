@@ -69,3 +69,26 @@ const ResearchTracker::ResearchProgress& ResearchTracker::researchProgress(int t
 {
 	return mTechnologiesBeingResearched.at(techId);
 }
+
+
+std::optional<int> ResearchTracker::activeResearch(int labType) const
+{
+	const auto it = mActiveResearch.find(labType);
+	if (it == mActiveResearch.end())
+	{
+		return std::nullopt;
+	}
+
+	return it->second;
+}
+
+
+void ResearchTracker::setActiveResearch(const Technology& technology)
+{
+	if (isCompleted(technology.id))
+	{
+		throw std::runtime_error("Can't research a technology that's already researched.");
+	}
+
+	mActiveResearch.insert_or_assign(technology.labType, technology.id);
+}
