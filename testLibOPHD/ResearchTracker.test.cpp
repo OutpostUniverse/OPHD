@@ -88,3 +88,69 @@ TEST(ResearchTracker, UpdateResearchNotStartedThrows)
 	ResearchTracker tracker;
 	EXPECT_THROW(tracker.updateResearch(1000, 0, 0), std::out_of_range);
 }
+
+
+TEST(ResearchTracker, AddProgressStartsResearch)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	EXPECT_FALSE(tracker.addProgress(technology, 10));
+	EXPECT_TRUE(tracker.isInProgress(1000));
+	EXPECT_EQ(10, tracker.researchProgress(1000).progress);
+}
+
+
+TEST(ResearchTracker, AddProgressAccumulates)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.addProgress(technology, 10);
+	EXPECT_FALSE(tracker.addProgress(technology, 15));
+	EXPECT_EQ(25, tracker.researchProgress(1000).progress);
+}
+
+
+TEST(ResearchTracker, AddProgressCompletesAtCost)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.addProgress(technology, 40);
+	EXPECT_TRUE(tracker.addProgress(technology, 10));
+	EXPECT_TRUE(tracker.isCompleted(1000));
+	EXPECT_FALSE(tracker.isInProgress(1000));
+}
+
+
+TEST(ResearchTracker, AddProgressCompletesOverCost)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	EXPECT_TRUE(tracker.addProgress(technology, 75));
+	EXPECT_TRUE(tracker.isCompleted(1000));
+	EXPECT_FALSE(tracker.isInProgress(1000));
+}
+
+
+TEST(ResearchTracker, AddProgressOnCompletedThrows)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.addCompletedResearch(1000);
+
+	EXPECT_THROW(tracker.addProgress(technology, 10), std::runtime_error);
+}

@@ -40,6 +40,7 @@ public:
 
 	void startResearch(int techId, int progress, int assigned);
 	void updateResearch(int techId, int progress, int assigned);
+	bool addProgress(const Technology& technology, int points);
 	const ResearchProgress& researchProgress(int techId) const;
 
 

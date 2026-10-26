@@ -44,6 +44,27 @@ void ResearchTracker::updateResearch(int techId, int progress, int assigned)
 }
 
 
+bool ResearchTracker::addProgress(const Technology& technology, int points)
+{
+	if (isCompleted(technology.id))
+	{
+		throw std::runtime_error("Can't add progress to a technology that's already researched.");
+	}
+
+	auto& researchProgress = mTechnologiesBeingResearched[technology.id];
+	researchProgress.progress += points;
+
+	if (researchProgress.progress < technology.cost)
+	{
+		return false;
+	}
+
+	mTechnologiesBeingResearched.erase(technology.id);
+	mCompleted.push_back(technology.id);
+	return true;
+}
+
+
 const ResearchTracker::ResearchProgress& ResearchTracker::researchProgress(int techId) const
 {
 	return mTechnologiesBeingResearched.at(techId);
