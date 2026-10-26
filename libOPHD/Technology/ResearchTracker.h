@@ -44,7 +44,7 @@ public:
 	bool addProgress(const Technology& technology, int points);
 	const ResearchProgress& researchProgress(int techId) const;
 
-	std::optional<int> activeResearch(int labType) const;
+	std::optional<int> activeResearch(LabType labType) const;
 	void setActiveResearch(const Technology& technology);
 
 
@@ -53,5 +53,5 @@ private:
 
 	std::vector<int> mCompleted;
 	std::map<int, ResearchProgress> mTechnologiesBeingResearched;
-	std::map<int, int> mActiveResearch;
+	std::map<LabType, int> mActiveResearch;
 };

@@ -72,7 +72,7 @@ const ResearchTracker::ResearchProgress& ResearchTracker::researchProgress(int t
 }
 
 
-std::optional<int> ResearchTracker::activeResearch(int labType) const
+std::optional<int> ResearchTracker::activeResearch(LabType labType) const
 {
 	const auto it = mActiveResearch.find(labType);
 	if (it == mActiveResearch.end())

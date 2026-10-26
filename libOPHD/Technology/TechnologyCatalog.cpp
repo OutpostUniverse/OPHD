@@ -130,7 +130,7 @@ namespace
 			dictionary.get("name"),
 			dictionary.get("description", std::string{""}),
 			dictionary.get<int>("id"),
-			dictionary.get<int>("lab_type"),
+			static_cast<LabType>(dictionary.get<int>("lab_type")),
 			dictionary.get<int>("cost"),
 			dictionary.get<int>("icon_index"),
 			NAS2D::mapToVector(NAS2D::split(dictionary.get("requires", std::string{""})), stoi),
