@@ -3,6 +3,7 @@
 #include "Technology.h"
 
 #include <map>
+#include <optional>
 #include <vector>
 
 
@@ -43,8 +44,14 @@ public:
 	bool addProgress(const Technology& technology, int points);
 	const ResearchProgress& researchProgress(int techId) const;
 
+	std::optional<int> activeResearch(LabType labType) const;
+	void setActiveResearch(const Technology& technology);
+
 
 private:
+	void clearActiveResearch(const Technology& technology);
+
 	std::vector<int> mCompleted;
 	std::map<int, ResearchProgress> mTechnologiesBeingResearched;
+	std::map<LabType, int> mActiveResearch;
 };

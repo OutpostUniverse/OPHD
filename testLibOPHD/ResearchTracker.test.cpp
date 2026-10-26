@@ -154,3 +154,127 @@ TEST(ResearchTracker, AddProgressOnCompletedThrows)
 
 	EXPECT_THROW(tracker.addProgress(technology, 10), std::runtime_error);
 }
+
+
+TEST(ResearchTracker, ActiveResearchNotSet)
+{
+	ResearchTracker tracker;
+	EXPECT_FALSE(tracker.activeResearch(LabType::Standard).has_value());
+	EXPECT_FALSE(tracker.activeResearch(LabType::Hot).has_value());
+}
+
+
+TEST(ResearchTracker, SetActiveResearch)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.labType = LabType::Standard;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(technology);
+
+	EXPECT_EQ(1000, tracker.activeResearch(LabType::Standard));
+	EXPECT_FALSE(tracker.activeResearch(LabType::Hot).has_value());
+}
+
+
+TEST(ResearchTracker, SetActiveResearchPerLabType)
+{
+	Technology standardTechnology{};
+	standardTechnology.id = 1000;
+	standardTechnology.labType = LabType::Standard;
+
+	Technology hotTechnology{};
+	hotTechnology.id = 1100;
+	hotTechnology.labType = LabType::Hot;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(standardTechnology);
+	tracker.setActiveResearch(hotTechnology);
+
+	EXPECT_EQ(1000, tracker.activeResearch(LabType::Standard));
+	EXPECT_EQ(1100, tracker.activeResearch(LabType::Hot));
+}
+
+
+TEST(ResearchTracker, SetActiveResearchReplacesAndKeepsProgress)
+{
+	Technology firstTechnology{};
+	firstTechnology.id = 1000;
+	firstTechnology.labType = LabType::Standard;
+	firstTechnology.cost = 50;
+
+	Technology secondTechnology{};
+	secondTechnology.id = 1020;
+	secondTechnology.labType = LabType::Standard;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(firstTechnology);
+	tracker.addProgress(firstTechnology, 10);
+	tracker.setActiveResearch(secondTechnology);
+
+	EXPECT_EQ(1020, tracker.activeResearch(LabType::Standard));
+	EXPECT_EQ(10, tracker.researchProgress(1000).progress);
+}
+
+
+TEST(ResearchTracker, SetActiveResearchOnCompletedThrows)
+{
+	Technology technology{};
+	technology.id = 1000;
+
+	ResearchTracker tracker;
+	tracker.addCompletedResearch(1000);
+
+	EXPECT_THROW(tracker.setActiveResearch(technology), std::runtime_error);
+}
+
+
+TEST(ResearchTracker, SetActiveResearchWithUnmetPrerequisitesThrows)
+{
+	Technology technology{};
+	technology.id = 1010;
+	technology.requiredTechnologies = {1000};
+
+	ResearchTracker tracker;
+	EXPECT_THROW(tracker.setActiveResearch(technology), std::runtime_error);
+	EXPECT_FALSE(tracker.activeResearch(technology.labType).has_value());
+
+	tracker.addCompletedResearch(1000);
+	EXPECT_NO_THROW(tracker.setActiveResearch(technology));
+	EXPECT_EQ(1010, tracker.activeResearch(technology.labType));
+}
+
+
+TEST(ResearchTracker, AddProgressCompletingActiveResearchClearsIt)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.labType = LabType::Standard;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(technology);
+	tracker.addProgress(technology, 50);
+
+	EXPECT_FALSE(tracker.activeResearch(LabType::Standard).has_value());
+}
+
+
+TEST(ResearchTracker, AddProgressCompletingOtherResearchKeepsActive)
+{
+	Technology activeTechnology{};
+	activeTechnology.id = 1000;
+	activeTechnology.labType = LabType::Standard;
+
+	Technology otherTechnology{};
+	otherTechnology.id = 1020;
+	otherTechnology.labType = LabType::Standard;
+	otherTechnology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(activeTechnology);
+	tracker.addProgress(otherTechnology, 50);
+
+	EXPECT_EQ(1000, tracker.activeResearch(LabType::Standard));
+}

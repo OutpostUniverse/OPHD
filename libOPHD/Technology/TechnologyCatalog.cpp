@@ -50,6 +50,17 @@ namespace
 	}
 
 
+	LabType toLabType(int value, const NAS2D::Xml::XmlNode& node)
+	{
+		if (value < static_cast<int>(LabType::Standard) || value > static_cast<int>(LabType::Hot))
+		{
+			throw std::runtime_error("TechnologyReader: Invalid lab_type '" + std::to_string(value) + "'" + nodeAtString(node));
+		}
+
+		return static_cast<LabType>(value);
+	}
+
+
 	void verifySubElementTypes(const NAS2D::Xml::XmlElement& parentElement, const std::vector<std::string>& allowedNames, const std::string& errorMessagePrefix)
 	{
 		for (auto subElement = parentElement.firstChildElement(); subElement; subElement = subElement->nextSiblingElement())
@@ -130,7 +141,7 @@ namespace
 			dictionary.get("name"),
 			dictionary.get("description", std::string{""}),
 			dictionary.get<int>("id"),
-			dictionary.get<int>("lab_type"),
+			toLabType(dictionary.get<int>("lab_type"), technology),
 			dictionary.get<int>("cost"),
 			dictionary.get<int>("icon_index"),
 			NAS2D::mapToVector(NAS2D::split(dictionary.get("requires", std::string{""})), stoi),

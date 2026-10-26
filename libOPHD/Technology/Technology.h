@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../EnumLabType.h"
+
 #include <string>
 #include <vector>
 
@@ -48,7 +50,7 @@ struct Technology
 	std::string description{""};
 
 	int id{};
-	int labType{};
+	LabType labType{};
 	int cost{};
 	int iconIndex{};
 

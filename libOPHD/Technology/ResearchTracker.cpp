@@ -61,6 +61,7 @@ bool ResearchTracker::addProgress(const Technology& technology, int points)
 
 	mTechnologiesBeingResearched.erase(technology.id);
 	mCompleted.push_back(technology.id);
+	clearActiveResearch(technology);
 	return true;
 }
 
@@ -68,4 +69,41 @@ bool ResearchTracker::addProgress(const Technology& technology, int points)
 const ResearchTracker::ResearchProgress& ResearchTracker::researchProgress(int techId) const
 {
 	return mTechnologiesBeingResearched.at(techId);
+}
+
+
+std::optional<int> ResearchTracker::activeResearch(LabType labType) const
+{
+	const auto it = mActiveResearch.find(labType);
+	if (it == mActiveResearch.end())
+	{
+		return std::nullopt;
+	}
+
+	return it->second;
+}
+
+
+void ResearchTracker::setActiveResearch(const Technology& technology)
+{
+	if (isCompleted(technology.id))
+	{
+		throw std::runtime_error("Can't research a technology that's already researched.");
+	}
+
+	if (!prerequisitesMet(technology))
+	{
+		throw std::runtime_error("Can't research a technology with unmet prerequisites.");
+	}
+
+	mActiveResearch.insert_or_assign(technology.labType, technology.id);
+}
+
+
+void ResearchTracker::clearActiveResearch(const Technology& technology)
+{
+	if (activeResearch(technology.labType) == technology.id)
+	{
+		mActiveResearch.erase(technology.labType);
+	}
 }

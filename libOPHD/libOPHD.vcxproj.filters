@@ -107,6 +107,9 @@
     <ClInclude Include="EnumIntegrityLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EnumLabType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="EnumOreDepositYield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
