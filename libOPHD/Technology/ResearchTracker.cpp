@@ -61,6 +61,7 @@ bool ResearchTracker::addProgress(const Technology& technology, int points)
 
 	mTechnologiesBeingResearched.erase(technology.id);
 	mCompleted.push_back(technology.id);
+	clearActiveResearch(technology);
 	return true;
 }
 
