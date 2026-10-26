@@ -244,3 +244,37 @@ TEST(ResearchTracker, SetActiveResearchWithUnmetPrerequisitesThrows)
 	EXPECT_NO_THROW(tracker.setActiveResearch(technology));
 	EXPECT_EQ(1010, tracker.activeResearch(technology.labType));
 }
+
+
+TEST(ResearchTracker, AddProgressCompletingActiveResearchClearsIt)
+{
+	Technology technology{};
+	technology.id = 1000;
+	technology.labType = 0;
+	technology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(technology);
+	tracker.addProgress(technology, 50);
+
+	EXPECT_FALSE(tracker.activeResearch(0).has_value());
+}
+
+
+TEST(ResearchTracker, AddProgressCompletingOtherResearchKeepsActive)
+{
+	Technology activeTechnology{};
+	activeTechnology.id = 1000;
+	activeTechnology.labType = 0;
+
+	Technology otherTechnology{};
+	otherTechnology.id = 1020;
+	otherTechnology.labType = 0;
+	otherTechnology.cost = 50;
+
+	ResearchTracker tracker;
+	tracker.setActiveResearch(activeTechnology);
+	tracker.addProgress(otherTechnology, 50);
+
+	EXPECT_EQ(1000, tracker.activeResearch(0));
+}
