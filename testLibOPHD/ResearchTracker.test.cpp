@@ -228,3 +228,19 @@ TEST(ResearchTracker, SetActiveResearchOnCompletedThrows)
 
 	EXPECT_THROW(tracker.setActiveResearch(technology), std::runtime_error);
 }
+
+
+TEST(ResearchTracker, SetActiveResearchWithUnmetPrerequisitesThrows)
+{
+	Technology technology{};
+	technology.id = 1010;
+	technology.requiredTechnologies = {1000};
+
+	ResearchTracker tracker;
+	EXPECT_THROW(tracker.setActiveResearch(technology), std::runtime_error);
+	EXPECT_FALSE(tracker.activeResearch(technology.labType).has_value());
+
+	tracker.addCompletedResearch(1000);
+	EXPECT_NO_THROW(tracker.setActiveResearch(technology));
+	EXPECT_EQ(1010, tracker.activeResearch(technology.labType));
+}
