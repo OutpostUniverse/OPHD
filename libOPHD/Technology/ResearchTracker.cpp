@@ -90,5 +90,10 @@ void ResearchTracker::setActiveResearch(const Technology& technology)
 		throw std::runtime_error("Can't research a technology that's already researched.");
 	}
 
+	if (!prerequisitesMet(technology))
+	{
+		throw std::runtime_error("Can't research a technology with unmet prerequisites.");
+	}
+
 	mActiveResearch.insert_or_assign(technology.labType, technology.id);
 }
