@@ -38,6 +38,7 @@
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/Technology/ResearchTracker.h>
+#include <libOPHD/Technology/TechnologyCatalog.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -119,7 +120,7 @@ namespace
 	}
 
 
-	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element)
+	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element, const TechnologyCatalog& /*catalog*/)
 	{
 		ResearchTracker tracker;
 
@@ -267,7 +268,7 @@ void MapViewState::load(SavedGameFile& savedGameFile)
 	readStructures(root->firstChildElement("structures"));
 	updateAllTubeConnectorDir();
 
-	mResearchTracker = readResearch(root->firstChildElement("research"));
+	mResearchTracker = readResearch(root->firstChildElement("research"), mTechnologyReader);
 
 	mResourceBreakdownPanel.previousResources() = readResources(*root, "prev_resources");
 	readPopulation(root->firstChildElement("population"));
