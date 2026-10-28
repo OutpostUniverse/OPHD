@@ -130,11 +130,17 @@ namespace
 	}
 
 
-	void readActiveResearch(ResearchTracker& tracker, const TechnologyCatalog& catalog, const std::string& techId)
+	void readActiveResearch(ResearchTracker& tracker, const TechnologyCatalog& catalog, const std::string& techId, LabType labType)
 	{
 		if (techId.empty()) { return; }
 
-		tracker.setActiveResearch(catalog.technologyFromId(std::stoi(techId)));
+		const auto& technology = catalog.technologyFromId(std::stoi(techId));
+		if (technology.labType != labType)
+		{
+			throw std::runtime_error("readResearch(): Active research '" + techId + "' does not match its lab type.");
+		}
+
+		tracker.setActiveResearch(technology);
 	}
 
 
@@ -151,8 +157,8 @@ namespace
 			tracker.addCompletedResearch(std::stoi(item));
 		}
 
-		readActiveResearch(tracker, catalog, element->attribute("active_standard"));
-		readActiveResearch(tracker, catalog, element->attribute("active_hot"));
+		readActiveResearch(tracker, catalog, element->attribute("active_standard"), LabType::Standard);
+		readActiveResearch(tracker, catalog, element->attribute("active_hot"), LabType::Hot);
 
 		for (auto currentResearch = element->firstChildElement();
 			currentResearch != nullptr;
