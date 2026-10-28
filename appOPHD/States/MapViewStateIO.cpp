@@ -130,6 +130,14 @@ namespace
 	}
 
 
+	void readActiveResearch(ResearchTracker& tracker, const TechnologyCatalog& catalog, const std::string& techId)
+	{
+		if (techId.empty()) { return; }
+
+		tracker.setActiveResearch(catalog.technologyFromId(std::stoi(techId)));
+	}
+
+
 	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element, const TechnologyCatalog& catalog)
 	{
 		ResearchTracker tracker;
@@ -143,17 +151,8 @@ namespace
 			tracker.addCompletedResearch(std::stoi(item));
 		}
 
-		const auto activeStandard = element->attribute("active_standard");
-		if (!activeStandard.empty())
-		{
-			tracker.setActiveResearch(catalog.technologyFromId(std::stoi(activeStandard)));
-		}
-
-		const auto activeHot = element->attribute("active_hot");
-		if (!activeHot.empty())
-		{
-			tracker.setActiveResearch(catalog.technologyFromId(std::stoi(activeHot)));
-		}
+		readActiveResearch(tracker, catalog, element->attribute("active_standard"));
+		readActiveResearch(tracker, catalog, element->attribute("active_hot"));
 
 		for (auto currentResearch = element->firstChildElement();
 			currentResearch != nullptr;
