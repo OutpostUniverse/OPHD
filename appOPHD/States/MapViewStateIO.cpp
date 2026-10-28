@@ -104,6 +104,16 @@ namespace
 
 		research->attribute("completed_techs", completedResearch);
 
+		if (const auto activeStandard = tracker.activeResearch(LabType::Standard))
+		{
+			research->attribute("active_standard", *activeStandard);
+		}
+
+		if (const auto activeHot = tracker.activeResearch(LabType::Hot))
+		{
+			research->attribute("active_hot", *activeHot);
+		}
+
 		for (const auto& [techId, values] : tracker.currentResearch())
 		{
 			research->linkEndChild(NAS2D::dictionaryToAttributes(
