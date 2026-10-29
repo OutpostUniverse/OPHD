@@ -38,6 +38,7 @@
 #include <libOPHD/XmlSerializer.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 #include <libOPHD/Technology/ResearchTracker.h>
+#include <libOPHD/Technology/TechnologyCatalog.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/Filesystem.h>
@@ -103,6 +104,16 @@ namespace
 
 		research->attribute("completed_techs", completedResearch);
 
+		if (const auto activeStandard = tracker.activeResearch(LabType::Standard))
+		{
+			research->attribute("active_standard", *activeStandard);
+		}
+
+		if (const auto activeHot = tracker.activeResearch(LabType::Hot))
+		{
+			research->attribute("active_hot", *activeHot);
+		}
+
 		for (const auto& [techId, values] : tracker.currentResearch())
 		{
 			research->linkEndChild(NAS2D::dictionaryToAttributes(
@@ -119,7 +130,21 @@ namespace
 	}
 
 
-	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element)
+	void readActiveResearch(ResearchTracker& tracker, const TechnologyCatalog& catalog, const std::string& techId, LabType labType)
+	{
+		if (techId.empty()) { return; }
+
+		const auto& technology = catalog.technologyFromId(std::stoi(techId));
+		if (technology.labType != labType)
+		{
+			throw std::runtime_error("readResearch(): Active research '" + techId + "' does not match its lab type.");
+		}
+
+		tracker.setActiveResearch(technology);
+	}
+
+
+	ResearchTracker readResearch(NAS2D::Xml::XmlElement* element, const TechnologyCatalog& catalog)
 	{
 		ResearchTracker tracker;
 
@@ -131,6 +156,9 @@ namespace
 		{
 			tracker.addCompletedResearch(std::stoi(item));
 		}
+
+		readActiveResearch(tracker, catalog, element->attribute("active_standard"), LabType::Standard);
+		readActiveResearch(tracker, catalog, element->attribute("active_hot"), LabType::Hot);
 
 		for (auto currentResearch = element->firstChildElement();
 			currentResearch != nullptr;
@@ -267,7 +295,7 @@ void MapViewState::load(SavedGameFile& savedGameFile)
 	readStructures(root->firstChildElement("structures"));
 	updateAllTubeConnectorDir();
 
-	mResearchTracker = readResearch(root->firstChildElement("research"));
+	mResearchTracker = readResearch(root->firstChildElement("research"), mTechnologyReader);
 
 	mResourceBreakdownPanel.previousResources() = readResources(*root, "prev_resources");
 	readPopulation(root->firstChildElement("population"));
