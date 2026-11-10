@@ -647,6 +647,7 @@ void MapViewState::nextTurn()
 		factory->updateProduction();
 	}
 
+	updateResearchProgress();
 	updateResearch();
 
 	if (!mColonyShip.crashed())
