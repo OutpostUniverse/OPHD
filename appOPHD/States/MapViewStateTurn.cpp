@@ -18,6 +18,7 @@
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
 #include "../MapObjects/Structures/Recycling.h"
+#include "../MapObjects/Structures/ResearchFacility.h"
 #include "../MapObjects/Structures/Residence.h"
 #include "../MapObjects/Structures/Road.h"
 #include "../MapObjects/Structures/Warehouse.h"
@@ -88,6 +89,17 @@ namespace
 			if (amountToConsume <= 0) { break; }
 			amountToConsume -= consumeFood(*foodProducer, amountToConsume);
 		}
+	}
+
+
+	int researchPointsProduced(const std::vector<ResearchFacility*>& researchFacilities, LabType labType)
+	{
+		int points = 0;
+		for (const auto* researchFacility : researchFacilities)
+		{
+			points += (labType == LabType::Hot) ? researchFacility->hotResearchProduced() : researchFacility->regularResearchProduced();
+		}
+		return points;
 	}
 
 
@@ -511,6 +523,22 @@ void MapViewState::updateOverlays()
 	if (mBtnToggleConnectedness.isPressed()) { onToggleConnectedness(); }
 	if (mBtnToggleCommRangeOverlay.isPressed()) { onToggleCommRangeOverlay(); }
 	if (mBtnTogglePoliceOverlay.isPressed()) { onTogglePoliceOverlay(); }
+}
+
+
+void MapViewState::updateResearchProgress()
+{
+	const auto& researchFacilities = mStructureManager.getStructures<ResearchFacility>();
+	for (const auto labType : {LabType::Standard, LabType::Hot})
+	{
+		const auto activeTechId = mResearchTracker.activeResearch(labType);
+		if (!activeTechId) { continue; }
+
+		const auto points = researchPointsProduced(researchFacilities, labType);
+		if (points <= 0) { continue; }
+
+		mResearchTracker.addProgress(mTechnologyReader.technologyFromId(*activeTechId), points);
+	}
 }
 
 
