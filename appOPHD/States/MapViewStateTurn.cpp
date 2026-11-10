@@ -537,8 +537,22 @@ void MapViewState::updateResearchProgress()
 		const auto points = researchPointsProduced(researchFacilities, labType);
 		if (points <= 0) { continue; }
 
-		mResearchTracker.addProgress(mTechnologyReader.technologyFromId(*activeTechId), points);
+		const auto& technology = mTechnologyReader.technologyFromId(*activeTechId);
+		if (mResearchTracker.addProgress(technology, points))
+		{
+			notifyResearchCompleted(technology);
+		}
 	}
+}
+
+
+void MapViewState::notifyResearchCompleted(const Technology& technology)
+{
+	mNotificationArea.push({
+		"Research Completed",
+		"Research on " + technology.name + " has been completed.",
+		{{-1, -1}, 0},
+		NotificationArea::NotificationType::Information});
 }
 
 

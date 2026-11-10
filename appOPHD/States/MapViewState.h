@@ -180,6 +180,7 @@ private:
 
 	void updatePlayerResources();
 	void updateResearchProgress();
+	void notifyResearchCompleted(const Technology& technology);
 	void updateResearch();
 
 	// TURN LOGIC
