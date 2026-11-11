@@ -405,6 +405,7 @@ void ResearchReport::handleTopicChanged()
 	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
+	updateStartResearchButton(technology);
 }
 
 
@@ -417,6 +418,13 @@ void ResearchReport::onStartResearch()
 
 	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
 	mResearchTracker->setActiveResearch(technology);
+	updateStartResearchButton(technology);
+}
+
+
+void ResearchReport::updateStartResearchButton(const Technology& technology)
+{
+	btnStartResearch.enabled(mResearchTracker->activeResearch(technology.labType) != technology.id);
 }
 
 

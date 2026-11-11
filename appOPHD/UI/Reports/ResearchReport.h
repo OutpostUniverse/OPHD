@@ -24,6 +24,7 @@ class Structure;
 class StructureManager;
 class TechnologyCatalog;
 class ResearchTracker;
+struct Technology;
 
 
 class ResearchReport : public Report
@@ -65,6 +66,7 @@ private:
 	void resetResearchDetails();
 	void handleTopicChanged();
 	void onStartResearch();
+	void updateStartResearchButton(const Technology& technology);
 
 	void drawCategories(NAS2D::Renderer& renderer) const;
 	void drawCategoryHeader(NAS2D::Renderer& renderer) const;
