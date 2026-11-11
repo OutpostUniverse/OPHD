@@ -99,7 +99,7 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	imageTopicIcons{getImage("topicicons.png")},
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
 	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor},
-	btnStartResearch{constants::ResearchReportStartResearch, StartResearchButtonSize}
+	btnStartResearch{constants::ResearchReportStartResearch, StartResearchButtonSize, {this, &ResearchReport::onStartResearch}}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
@@ -405,6 +405,18 @@ void ResearchReport::handleTopicChanged()
 	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
+}
+
+
+void ResearchReport::onStartResearch()
+{
+	if (!lstResearchTopics.isItemSelected())
+	{
+		return;
+	}
+
+	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
+	mResearchTracker->setActiveResearch(technology);
 }
 
 

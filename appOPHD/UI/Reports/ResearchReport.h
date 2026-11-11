@@ -64,6 +64,7 @@ private:
 
 	void resetResearchDetails();
 	void handleTopicChanged();
+	void onStartResearch();
 
 	void drawCategories(NAS2D::Renderer& renderer) const;
 	void drawCategoryHeader(NAS2D::Renderer& renderer) const;
