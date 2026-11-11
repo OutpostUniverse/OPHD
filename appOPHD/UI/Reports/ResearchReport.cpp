@@ -1,5 +1,7 @@
 #include "ResearchReport.h"
 
+#include "../ProgressBar.h"
+
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../CacheImage.h"
@@ -31,6 +33,7 @@ namespace
 	constexpr NAS2D::Vector<int> CategoryIconSize{64, 64};
 	constexpr NAS2D::Vector<int> TopicIconSize{128, 128};
 	constexpr NAS2D::Vector<int> StartResearchButtonSize{140, 30};
+	constexpr auto TopicProgressBarHeight = 20;
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
@@ -177,6 +180,9 @@ void ResearchReport::refresh()
 
 	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
 	mTopicProgressTextPosition = btnStartResearch.position() + NAS2D::Vector<int>{0, StartResearchButtonSize.y + SectionPadding.y};
+
+	const auto progressBarPosition = mTopicProgressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() + SectionPadding.y / 2};
+	mTopicProgressBarArea = {progressBarPosition, {mTopicDetailsHeaderArea.endPoint().x - progressBarPosition.x, TopicProgressBarHeight}};
 }
 
 
@@ -503,8 +509,10 @@ void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconUV, TopicIconSize});
 
 	const auto& technology = selectedTechnology();
-	const auto progressText = "Progress: " + std::to_string(topicProgress(*mResearchTracker, technology.id)) + " / " + std::to_string(technology.cost);
+	const auto progress = topicProgress(*mResearchTracker, technology.id);
+	const auto progressText = "Progress: " + std::to_string(progress) + " / " + std::to_string(technology.cost);
 	renderer.drawText(fontMedium, progressText, mTopicProgressTextPosition, constants::PrimaryTextColor);
+	drawProgressBar(progress, technology.cost, mTopicProgressBarArea);
 }
 
 

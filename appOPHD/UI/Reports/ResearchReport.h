@@ -137,6 +137,7 @@ private:
 	NAS2D::Rectangle<int> mResearchTopicArea{};
 	NAS2D::Rectangle<int> mTopicDetailsHeaderArea{};
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
+	NAS2D::Rectangle<int> mTopicProgressBarArea{};
 
 	LabsAvailable mLabsAvailable{};
 };
