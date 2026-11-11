@@ -110,6 +110,7 @@ namespace constants
 	const std::string WarehouseVacancy = "Vacancy";
 
 	const std::string ResearchReportTopicDetails = "Research Topic Details";
+	const std::string ResearchReportStartResearch = "Start Research";
 
 	// =====================================
 	// = POPULATION PANEL STRINGS

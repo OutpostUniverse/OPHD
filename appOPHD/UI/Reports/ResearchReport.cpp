@@ -30,6 +30,7 @@ namespace
 	constexpr NAS2D::Vector<int> LabTypeIconSize{32, 32};
 	constexpr NAS2D::Vector<int> CategoryIconSize{64, 64};
 	constexpr NAS2D::Vector<int> TopicIconSize{128, 128};
+	constexpr NAS2D::Vector<int> StartResearchButtonSize{140, 30};
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
@@ -97,7 +98,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	imageCategoryIcons{getImage("categoryicons.png")},
 	imageTopicIcons{getImage("topicicons.png")},
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
-	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor}
+	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor},
+	btnStartResearch{constants::ResearchReportStartResearch, StartResearchButtonSize}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
@@ -106,6 +108,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	add(lstResearchTopics, {});
 
 	add(txtTopicDescription, {});
+
+	add(btnStartResearch, {});
 }
 
 
@@ -165,6 +169,8 @@ void ResearchReport::refresh()
 
 	txtTopicDescription.text("");
 	txtTopicDescription.area(mTopicDetailsArea);
+
+	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
 }
 
 
@@ -188,6 +194,14 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 void ResearchReport::onResize()
 {
 	refresh();
+}
+
+
+void ResearchReport::onVisibilityChange(bool visible)
+{
+	Report::onVisibilityChange(visible);
+
+	btnStartResearch.visible(visible && lstResearchTopics.isItemSelected());
 }
 
 
@@ -374,12 +388,14 @@ void ResearchReport::resetResearchDetails()
 {
 	lstResearchTopics.clear();
 	txtTopicDescription.text("");
+	btnStartResearch.visible(false);
 }
 
 
 void ResearchReport::handleTopicChanged()
 {
 	txtTopicDescription.text("");
+	btnStartResearch.visible(lstResearchTopics.isItemSelected());
 
 	if (!lstResearchTopics.isItemSelected())
 	{

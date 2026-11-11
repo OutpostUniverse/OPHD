@@ -46,6 +46,7 @@ public:
 
 private:
 	void onResize() override;
+	void onVisibilityChange(bool visible) override;
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
@@ -108,6 +109,8 @@ private:
 	ListBox<> lstResearchTopics;
 
 	TextArea txtTopicDescription;
+
+	Button btnStartResearch;
 
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};
