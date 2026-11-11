@@ -24,6 +24,7 @@ class Structure;
 class StructureManager;
 class TechnologyCatalog;
 class ResearchTracker;
+struct Technology;
 
 
 class ResearchReport : public Report
@@ -46,6 +47,7 @@ public:
 
 private:
 	void onResize() override;
+	void onVisibilityChange(bool visible) override;
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
@@ -62,7 +64,10 @@ private:
 	void fillResearchTopicsList();
 
 	void resetResearchDetails();
+	const Technology& selectedTechnology() const;
 	void handleTopicChanged();
+	void onStartResearch();
+	void updateStartResearchButton(const Technology& technology);
 
 	void drawCategories(NAS2D::Renderer& renderer) const;
 	void drawCategoryHeader(NAS2D::Renderer& renderer) const;
@@ -109,6 +114,8 @@ private:
 
 	TextArea txtTopicDescription;
 
+	Button btnStartResearch;
+
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};
 
@@ -124,11 +131,13 @@ private:
 
 	NAS2D::Point<int> mTopicDetailsIconUV{};
 	NAS2D::Point<int> mTopicDetailsIconPosition{};
+	NAS2D::Point<int> mTopicProgressTextPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};
 	NAS2D::Rectangle<int> mTopicDetailsHeaderArea{};
 	NAS2D::Rectangle<int> mTopicDetailsArea{};
+	NAS2D::Rectangle<int> mTopicProgressBarArea{};
 
 	LabsAvailable mLabsAvailable{};
 };

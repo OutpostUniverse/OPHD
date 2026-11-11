@@ -1,5 +1,7 @@
 #include "ResearchReport.h"
 
+#include "../ProgressBar.h"
+
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 #include "../../CacheImage.h"
@@ -30,6 +32,8 @@ namespace
 	constexpr NAS2D::Vector<int> LabTypeIconSize{32, 32};
 	constexpr NAS2D::Vector<int> CategoryIconSize{64, 64};
 	constexpr NAS2D::Vector<int> TopicIconSize{128, 128};
+	constexpr NAS2D::Vector<int> StartResearchButtonSize{140, 30};
+	constexpr auto TopicProgressBarHeight = 20;
 	constexpr auto MarginSize = 10;
 
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
@@ -54,6 +58,11 @@ namespace
 		}
 
 		return itemsToAdd;
+	}
+
+	int topicProgress(const ResearchTracker& tracker, int techId)
+	{
+		return tracker.isInProgress(techId) ? tracker.researchProgress(techId).progress : 0;
 	}
 
 	void drawDetailsHeaderSeparator(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& area)
@@ -97,7 +106,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	imageCategoryIcons{getImage("categoryicons.png")},
 	imageTopicIcons{getImage("topicicons.png")},
 	lstResearchTopics{{this, &ResearchReport::handleTopicChanged}},
-	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor}
+	txtTopicDescription{getFontMedium(), constants::PrimaryTextColor},
+	btnStartResearch{constants::ResearchReportStartResearch, StartResearchButtonSize, {this, &ResearchReport::onStartResearch}}
 {
 	auto& eventHandler = NAS2D::Utility<NAS2D::EventHandler>::get();
 	eventHandler.mouseButtonDown().connect({this, &ResearchReport::onMouseDown});
@@ -106,6 +116,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	add(lstResearchTopics, {});
 
 	add(txtTopicDescription, {});
+
+	add(btnStartResearch, {});
 }
 
 
@@ -165,6 +177,12 @@ void ResearchReport::refresh()
 
 	txtTopicDescription.text("");
 	txtTopicDescription.area(mTopicDetailsArea);
+
+	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
+	mTopicProgressTextPosition = btnStartResearch.position() + NAS2D::Vector<int>{0, StartResearchButtonSize.y + SectionPadding.y};
+
+	const auto progressBarPosition = mTopicProgressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() + SectionPadding.y / 2};
+	mTopicProgressBarArea = {progressBarPosition, {mTopicDetailsHeaderArea.endPoint().x - progressBarPosition.x, TopicProgressBarHeight}};
 }
 
 
@@ -188,6 +206,14 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 void ResearchReport::onResize()
 {
 	refresh();
+}
+
+
+void ResearchReport::onVisibilityChange(bool visible)
+{
+	Report::onVisibilityChange(visible);
+
+	btnStartResearch.visible(visible && lstResearchTopics.isItemSelected());
 }
 
 
@@ -374,21 +400,49 @@ void ResearchReport::resetResearchDetails()
 {
 	lstResearchTopics.clear();
 	txtTopicDescription.text("");
+	btnStartResearch.visible(false);
+}
+
+
+const Technology& ResearchReport::selectedTechnology() const
+{
+	return mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
 }
 
 
 void ResearchReport::handleTopicChanged()
 {
 	txtTopicDescription.text("");
+	btnStartResearch.visible(lstResearchTopics.isItemSelected());
 
 	if (!lstResearchTopics.isItemSelected())
 	{
 		return;
 	}
 
-	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
+	const auto& technology = selectedTechnology();
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
+	updateStartResearchButton(technology);
+}
+
+
+void ResearchReport::onStartResearch()
+{
+	if (!lstResearchTopics.isItemSelected())
+	{
+		return;
+	}
+
+	const auto& technology = selectedTechnology();
+	mResearchTracker->setActiveResearch(technology);
+	updateStartResearchButton(technology);
+}
+
+
+void ResearchReport::updateStartResearchButton(const Technology& technology)
+{
+	btnStartResearch.enabled(mResearchTracker->activeResearch(technology.labType) != technology.id);
 }
 
 
@@ -453,6 +507,12 @@ void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
 	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconUV, TopicIconSize});
+
+	const auto& technology = selectedTechnology();
+	const auto progress = topicProgress(*mResearchTracker, technology.id);
+	const auto progressText = "Progress: " + std::to_string(progress) + " / " + std::to_string(technology.cost);
+	renderer.drawText(fontMedium, progressText, mTopicProgressTextPosition, constants::PrimaryTextColor);
+	drawProgressBar(progress, technology.cost, mTopicProgressBarArea);
 }
 
 
