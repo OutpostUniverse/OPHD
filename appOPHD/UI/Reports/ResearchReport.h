@@ -131,6 +131,7 @@ private:
 
 	NAS2D::Point<int> mTopicDetailsIconUV{};
 	NAS2D::Point<int> mTopicDetailsIconPosition{};
+	NAS2D::Point<int> mTopicProgressTextPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};

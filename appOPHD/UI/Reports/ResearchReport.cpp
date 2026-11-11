@@ -57,6 +57,11 @@ namespace
 		return itemsToAdd;
 	}
 
+	int topicProgress(const ResearchTracker& tracker, int techId)
+	{
+		return tracker.isInProgress(techId) ? tracker.researchProgress(techId).progress : 0;
+	}
+
 	void drawDetailsHeaderSeparator(NAS2D::Renderer& renderer, const NAS2D::Rectangle<int>& area)
 	{
 		const NAS2D::Point<int> lineStartPoint{area.crossYPoint() + NAS2D::Vector<int>{0, SectionPadding.y}};
@@ -171,6 +176,7 @@ void ResearchReport::refresh()
 	txtTopicDescription.area(mTopicDetailsArea);
 
 	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
+	mTopicProgressTextPosition = btnStartResearch.position() + NAS2D::Vector<int>{0, StartResearchButtonSize.y + SectionPadding.y};
 }
 
 
@@ -495,6 +501,10 @@ void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 	if (!lstResearchTopics.isItemSelected()) { return; }
 
 	renderer.drawSubImage(imageTopicIcons, mTopicDetailsIconPosition, {mTopicDetailsIconUV, TopicIconSize});
+
+	const auto& technology = selectedTechnology();
+	const auto progressText = "Progress: " + std::to_string(topicProgress(*mResearchTracker, technology.id)) + " / " + std::to_string(technology.cost);
+	renderer.drawText(fontMedium, progressText, mTopicProgressTextPosition, constants::PrimaryTextColor);
 }
 
 
