@@ -179,6 +179,8 @@ private:
 	void onCrimeEvent(std::string title, std::string text, const Structure& structure);
 
 	void updatePlayerResources();
+	void updateResearchProgress();
+	void notifyResearchCompleted(const Technology& technology);
 	void updateResearch();
 
 	// TURN LOGIC
