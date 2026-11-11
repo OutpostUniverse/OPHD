@@ -392,6 +392,12 @@ void ResearchReport::resetResearchDetails()
 }
 
 
+const Technology& ResearchReport::selectedTechnology() const
+{
+	return mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
+}
+
+
 void ResearchReport::handleTopicChanged()
 {
 	txtTopicDescription.text("");
@@ -402,7 +408,7 @@ void ResearchReport::handleTopicChanged()
 		return;
 	}
 
-	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
+	const auto& technology = selectedTechnology();
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
 	updateStartResearchButton(technology);
@@ -416,7 +422,7 @@ void ResearchReport::onStartResearch()
 		return;
 	}
 
-	const auto& technology = mTechCatalog->technologyFromId(lstResearchTopics.selected().userData);
+	const auto& technology = selectedTechnology();
 	mResearchTracker->setActiveResearch(technology);
 	updateStartResearchButton(technology);
 }

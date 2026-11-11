@@ -64,6 +64,7 @@ private:
 	void fillResearchTopicsList();
 
 	void resetResearchDetails();
+	const Technology& selectedTechnology() const;
 	void handleTopicChanged();
 	void onStartResearch();
 	void updateStartResearchButton(const Technology& technology);
