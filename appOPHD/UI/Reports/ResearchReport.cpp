@@ -60,6 +60,11 @@ namespace
 		return itemsToAdd;
 	}
 
+	std::string labsOperationalText(int labCount)
+	{
+		return std::to_string(labCount) + (labCount == 1 ? " lab operational" : " labs operational");
+	}
+
 	int topicProgress(const ResearchTracker& tracker, int techId)
 	{
 		return tracker.isInProgress(techId) ? tracker.researchProgress(techId).progress : 0;
@@ -484,10 +489,12 @@ void ResearchReport::drawVerticalSectionSpacer(NAS2D::Renderer& renderer, const 
 
 void ResearchReport::drawTopicLabRequirements(NAS2D::Renderer& renderer) const
 {
-	renderer.drawSubImage(imageUiIcons, mStdLabIconPosition, StandardLabIconRect);
-	renderer.drawSubImage(imageUiIcons, mHotLabIconPosition, HotLabIconRect);
-	renderer.drawText(fontMedium, "0 of X", mStdLabTextPosition, constants::PrimaryTextColor);
-	renderer.drawText(fontMedium, "0 of X", mHotLabTextPosition, constants::PrimaryTextColor);
+	const auto isHotLab = selectedTechnology().labType == LabType::Hot;
+	const auto& labIconRect = isHotLab ? HotLabIconRect : StandardLabIconRect;
+	const auto labCount = isHotLab ? mLabsAvailable.hot : mLabsAvailable.standard;
+
+	renderer.drawSubImage(imageUiIcons, mHotLabIconPosition, labIconRect);
+	renderer.drawText(fontMedium, labsOperationalText(labCount), mHotLabTextPosition, constants::PrimaryTextColor);
 }
 
 
