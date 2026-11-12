@@ -5,6 +5,7 @@
 #include <libControls/Button.h>
 #include <libControls/ListBox.h>
 #include <libControls/TextArea.h>
+#include <libControls/ToolTip.h>
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -68,6 +69,7 @@ private:
 	void handleTopicChanged();
 	void onStartResearch();
 	void updateStartResearchButton(const Technology& technology);
+	void updateInProgressToolTip(const Technology& technology);
 
 	void drawCategories(NAS2D::Renderer& renderer) const;
 	void drawCategoryHeader(NAS2D::Renderer& renderer) const;
@@ -116,6 +118,12 @@ private:
 
 	Button btnStartResearch;
 
+	// Bare Control used for ToolTips
+	Control mTooltipLabType;
+	Control mTooltipInProgress;
+
+	ToolTip mToolTip;
+
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};
 
@@ -124,14 +132,13 @@ private:
 	std::vector<CategoryPanel> mCategoryPanels;
 
 	NAS2D::Point<int> mCategoryHeaderTextPosition{};
-	NAS2D::Point<int> mHotLabIconPosition{};
-	NAS2D::Point<int> mHotLabTextPosition{};
-	NAS2D::Point<int> mStdLabIconPosition{};
-	NAS2D::Point<int> mStdLabTextPosition{};
+	NAS2D::Point<int> mLabIconPosition{};
+	NAS2D::Point<int> mLabTextPosition{};
 
 	NAS2D::Point<int> mTopicDetailsIconUV{};
 	NAS2D::Point<int> mTopicDetailsIconPosition{};
 	NAS2D::Point<int> mTopicProgressTextPosition{};
+	NAS2D::Point<int> mTopicInProgressIconPosition{};
 
 	NAS2D::Rectangle<int> mCategoryIconArea{};
 	NAS2D::Rectangle<int> mResearchTopicArea{};
