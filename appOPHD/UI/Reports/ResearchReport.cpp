@@ -248,7 +248,12 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 
 void ResearchReport::onResize()
 {
-	refresh();
+	if (mCategoryPanels.empty())
+	{
+		return;
+	}
+
+	updateLayout();
 }
 
 
