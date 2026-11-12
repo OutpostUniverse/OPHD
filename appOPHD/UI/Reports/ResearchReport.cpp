@@ -190,11 +190,19 @@ void ResearchReport::refresh()
 
 	checkForLabAvailability();
 
-	adjustCategoryIconSpacing();
-
 	resetCategorySelection();
 	resetResearchDetails();
 	fillResearchTopicsList();
+
+	txtTopicDescription.text("");
+
+	updateLayout();
+}
+
+
+void ResearchReport::updateLayout()
+{
+	adjustCategoryIconSpacing();
 
 	setSectionRects();
 	setIconPositions();
@@ -205,7 +213,6 @@ void ResearchReport::refresh()
 
 	lstResearchTopics.area(mResearchTopicArea);
 
-	txtTopicDescription.text("");
 	txtTopicDescription.area(mTopicDetailsArea);
 
 	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
@@ -214,6 +221,11 @@ void ResearchReport::refresh()
 
 	const auto progressBarPosition = mTopicProgressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() + SectionPadding.y / 2};
 	mTopicProgressBarArea = {progressBarPosition, {mTopicDetailsHeaderArea.endPoint().x - progressBarPosition.x, TopicProgressBarHeight}};
+
+	if (lstResearchTopics.isItemSelected())
+	{
+		updateInProgressToolTip(selectedTechnology());
+	}
 }
 
 
@@ -241,7 +253,12 @@ void ResearchReport::injectTechReferences(TechnologyCatalog& catalog, ResearchTr
 
 void ResearchReport::onResize()
 {
-	refresh();
+	if (mCategoryPanels.empty())
+	{
+		return;
+	}
+
+	updateLayout();
 }
 
 
