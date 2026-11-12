@@ -221,6 +221,11 @@ void ResearchReport::updateLayout()
 
 	const auto progressBarPosition = mTopicProgressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() + SectionPadding.y / 2};
 	mTopicProgressBarArea = {progressBarPosition, {mTopicDetailsHeaderArea.endPoint().x - progressBarPosition.x, TopicProgressBarHeight}};
+
+	if (lstResearchTopics.isItemSelected())
+	{
+		updateInProgressToolTip(selectedTechnology());
+	}
 }
 
 
