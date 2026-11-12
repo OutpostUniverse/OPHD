@@ -65,6 +65,11 @@ namespace
 		return std::to_string(labCount) + (labCount == 1 ? " lab operational" : " labs operational");
 	}
 
+	bool isActiveResearch(const ResearchTracker& tracker, const Technology& technology)
+	{
+		return tracker.activeResearch(technology.labType) == technology.id;
+	}
+
 	int topicProgress(const ResearchTracker& tracker, int techId)
 	{
 		return tracker.isInProgress(techId) ? tracker.researchProgress(techId).progress : 0;
@@ -453,7 +458,7 @@ void ResearchReport::onStartResearch()
 
 void ResearchReport::updateStartResearchButton(const Technology& technology)
 {
-	btnStartResearch.enabled(mResearchTracker->activeResearch(technology.labType) != technology.id);
+	btnStartResearch.enabled(!isActiveResearch(*mResearchTracker, technology));
 }
 
 
