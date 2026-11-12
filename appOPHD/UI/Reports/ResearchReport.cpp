@@ -2,32 +2,37 @@
 
 #include "../ProgressBar.h"
 
-#include "../../Constants/Strings.h"
-#include "../../Constants/UiConstants.h"
 #include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../StructureManager.h"
+
+#include "../../Constants/Strings.h"
+#include "../../Constants/UiConstants.h"
+
 #include "../../MapObjects/StructureState.h"
 #include "../../MapObjects/Structures/HotLaboratory.h"
 #include "../../MapObjects/Structures/Laboratory.h"
 
-#include <libOPHD/Technology/TechnologyCatalog.h>
 #include <libOPHD/Technology/ResearchTracker.h>
+#include <libOPHD/Technology/TechnologyCatalog.h>
 
-#include <NAS2D/Utility.h>
-#include <NAS2D/Timer.h>
-#include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumMouseButton.h>
+#include <NAS2D/EventHandler.h>
+#include <NAS2D/Timer.h>
+#include <NAS2D/Utility.h>
+
+#include <NAS2D/Math/Angle.h>
+#include <NAS2D/Math/Vector.h>
+
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
-#include <NAS2D/Math/Vector.h>
-#include <NAS2D/Math/Angle.h>
 
+
+#include <algorithm>
 #include <array>
 #include <cstdint>
 #include <vector>
-#include <algorithm>
 
 
 namespace
