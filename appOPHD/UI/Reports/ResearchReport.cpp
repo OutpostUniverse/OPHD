@@ -15,14 +15,17 @@
 #include <libOPHD/Technology/ResearchTracker.h>
 
 #include <NAS2D/Utility.h>
+#include <NAS2D/Timer.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Renderer/Renderer.h>
 #include <NAS2D/Resource/Font.h>
 #include <NAS2D/Resource/Image.h>
 #include <NAS2D/Math/Vector.h>
+#include <NAS2D/Math/Angle.h>
 
 #include <array>
+#include <cstdint>
 #include <vector>
 #include <algorithm>
 
@@ -40,6 +43,7 @@ namespace
 	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, LabTypeIconSize};
 
 	constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {{24, 192}, {24, 24}};
+	constexpr uint64_t TopicInProgressIconSpinPeriod = 2500;
 
 	// Will be used in future change sets
 	//constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {{0, 192}, {24, 24}};
@@ -69,6 +73,12 @@ namespace
 	bool isActiveResearch(const ResearchTracker& tracker, const Technology& technology)
 	{
 		return tracker.activeResearch(technology.labType) == technology.id;
+	}
+
+	NAS2D::Angle topicInProgressIconRotation()
+	{
+		const auto elapsed = NAS2D::Timer::tick() % TopicInProgressIconSpinPeriod;
+		return NAS2D::Angle::degrees(360.0f * static_cast<float>(elapsed) / static_cast<float>(TopicInProgressIconSpinPeriod));
 	}
 
 	int topicProgress(const ResearchTracker& tracker, int techId)
@@ -535,7 +545,7 @@ void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 	if (isActiveResearch(*mResearchTracker, technology))
 	{
 		const auto iconPosition = progressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() / 2 - TopicInProgressIconRect.size.y / 2};
-		renderer.drawSubImage(imageUiIcons, iconPosition, TopicInProgressIconRect);
+		renderer.drawSubImageRotated(imageUiIcons, iconPosition.to<float>(), TopicInProgressIconRect.to<float>(), topicInProgressIconRotation());
 		progressTextPosition.x += TopicInProgressIconRect.size.x + SectionPadding.x / 2;
 	}
 
