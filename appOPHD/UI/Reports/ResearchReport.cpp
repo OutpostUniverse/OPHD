@@ -290,8 +290,6 @@ void ResearchReport::setIconPositions()
 	const auto startPoint{mTopicDetailsHeaderArea.startPoint()};
 
 	mHotLabIconPosition = {startPoint + NAS2D::Vector<int>{0, fontBigBold.height() + SectionPadding.y}};
-	mStdLabIconPosition = {startPoint + NAS2D::Vector<int>{(area().size.x - startPoint.x) / 2, fontBigBold.height() + SectionPadding.y}};
-	mStdLabTextPosition = {mStdLabIconPosition + NAS2D::Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 	mHotLabTextPosition = {mHotLabIconPosition + NAS2D::Vector<int>{LabTypeIconSize.x + SectionPadding.x, LabTypeIconSize.y / 2 - fontMedium.height() / 2}};
 }
 
