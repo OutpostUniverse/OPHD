@@ -144,6 +144,8 @@ ResearchReport::ResearchReport(const StructureManager& structureManager, TakeMeT
 	add(txtTopicDescription, {});
 
 	add(btnStartResearch, {});
+
+	mToolTip.add(mTooltipInProgress, constants::ToolTipActiveResearch);
 }
 
 
@@ -456,6 +458,7 @@ void ResearchReport::handleTopicChanged()
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
 	updateStartResearchButton(technology);
+	updateInProgressToolTip(technology);
 	mToolTip.add(mTooltipLabType, technology.labType == LabType::Hot ? constants::ToolTipHotLab : constants::ToolTipStandardLab);
 }
 
@@ -470,12 +473,20 @@ void ResearchReport::onStartResearch()
 	const auto& technology = selectedTechnology();
 	mResearchTracker->setActiveResearch(technology);
 	updateStartResearchButton(technology);
+	updateInProgressToolTip(technology);
 }
 
 
 void ResearchReport::updateStartResearchButton(const Technology& technology)
 {
 	btnStartResearch.enabled(!isActiveResearch(*mResearchTracker, technology));
+}
+
+
+void ResearchReport::updateInProgressToolTip(const Technology& technology)
+{
+	const auto isActive = isActiveResearch(*mResearchTracker, technology);
+	mTooltipInProgress.area(isActive ? NAS2D::Rectangle<int>{mTopicInProgressIconPosition, TopicInProgressIconRect.size} : NAS2D::Rectangle<int>{});
 }
 
 

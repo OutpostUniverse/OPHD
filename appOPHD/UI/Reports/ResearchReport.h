@@ -69,6 +69,7 @@ private:
 	void handleTopicChanged();
 	void onStartResearch();
 	void updateStartResearchButton(const Technology& technology);
+	void updateInProgressToolTip(const Technology& technology);
 
 	void drawCategories(NAS2D::Renderer& renderer) const;
 	void drawCategoryHeader(NAS2D::Renderer& renderer) const;
@@ -119,6 +120,7 @@ private:
 
 	// Bare Control used for ToolTips
 	Control mTooltipLabType;
+	Control mTooltipInProgress;
 
 	ToolTip mToolTip;
 

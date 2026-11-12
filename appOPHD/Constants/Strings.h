@@ -136,6 +136,7 @@ namespace constants
 	const std::string ToolTipSystemMenu = "System Menu";
 	const std::string ToolTipStandardLab = "Standard Lab";
 	const std::string ToolTipHotLab = "Hot Lab";
+	const std::string ToolTipActiveResearch = "Research topic in progress";
 
 	// =====================================
 	// = UI STRINGS
