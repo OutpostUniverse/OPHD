@@ -190,11 +190,19 @@ void ResearchReport::refresh()
 
 	checkForLabAvailability();
 
-	adjustCategoryIconSpacing();
-
 	resetCategorySelection();
 	resetResearchDetails();
 	fillResearchTopicsList();
+
+	txtTopicDescription.text("");
+
+	updateLayout();
+}
+
+
+void ResearchReport::updateLayout()
+{
+	adjustCategoryIconSpacing();
 
 	setSectionRects();
 	setIconPositions();
@@ -205,7 +213,6 @@ void ResearchReport::refresh()
 
 	lstResearchTopics.area(mResearchTopicArea);
 
-	txtTopicDescription.text("");
 	txtTopicDescription.area(mTopicDetailsArea);
 
 	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
