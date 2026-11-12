@@ -39,9 +39,10 @@ namespace
 	constexpr NAS2D::Rectangle<int> HotLabIconRect = {{32, 224}, LabTypeIconSize};
 	constexpr NAS2D::Rectangle<int> StandardLabIconRect = {{0, 224}, LabTypeIconSize};
 
+	constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {{24, 192}, {24, 24}};
+
 	// Will be used in future change sets
 	//constexpr NAS2D::Rectangle<int> TopicCompleteIconRect = {{0, 192}, {24, 24}};
-	//constexpr NAS2D::Rectangle<int> TopicInProgressIconRect = {{24, 192}, {24, 24}};
 
 	constexpr NAS2D::Vector<int> CategorySelectorPadding{2, 2};
 	constexpr NAS2D::Vector<int> SectionPadding{10, 10};
@@ -529,7 +530,16 @@ void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 	const auto& technology = selectedTechnology();
 	const auto progress = topicProgress(*mResearchTracker, technology.id);
 	const auto progressText = "Progress: " + std::to_string(progress) + " / " + std::to_string(technology.cost);
-	renderer.drawText(fontMedium, progressText, mTopicProgressTextPosition, constants::PrimaryTextColor);
+
+	auto progressTextPosition = mTopicProgressTextPosition;
+	if (isActiveResearch(*mResearchTracker, technology))
+	{
+		const auto iconPosition = progressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() / 2 - TopicInProgressIconRect.size.y / 2};
+		renderer.drawSubImage(imageUiIcons, iconPosition, TopicInProgressIconRect);
+		progressTextPosition.x += TopicInProgressIconRect.size.x + SectionPadding.x / 2;
+	}
+
+	renderer.drawText(fontMedium, progressText, progressTextPosition, constants::PrimaryTextColor);
 	drawProgressBar(progress, technology.cost, mTopicProgressBarArea);
 }
 
