@@ -134,6 +134,8 @@ namespace constants
 	const std::string ToolTipPopulation = "Population and Morale details";
 	const std::string ToolTipCurrentTurns = "Current turn count";
 	const std::string ToolTipSystemMenu = "System Menu";
+	const std::string ToolTipStandardLab = "Standard Lab";
+	const std::string ToolTipHotLab = "Hot Lab";
 
 	// =====================================
 	// = UI STRINGS

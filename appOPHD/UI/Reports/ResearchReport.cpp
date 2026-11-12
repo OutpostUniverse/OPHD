@@ -176,6 +176,8 @@ void ResearchReport::refresh()
 	setSectionRects();
 	setIconPositions();
 
+	mTooltipLabType.area({mHotLabIconPosition, LabTypeIconSize});
+
 	mCategoryHeaderTextPosition = {area().position + NAS2D::Vector<int>{SectionPadding.x * 3 + CategoryIconSize.x, SectionPadding.y}};
 
 	lstResearchTopics.area(mResearchTopicArea);
@@ -196,6 +198,11 @@ void ResearchReport::update()
 	auto& renderer = NAS2D::Utility<NAS2D::Renderer>::get();
 	draw(renderer);
 	ControlContainer::update();
+
+	if (lstResearchTopics.isItemSelected())
+	{
+		mToolTip.update();
+	}
 }
 
 
@@ -429,6 +436,7 @@ void ResearchReport::handleTopicChanged()
 	txtTopicDescription.text(technology.description);
 	mTopicDetailsIconUV = getIconTextureCoords(technology, imageTopicIcons.size().x);
 	updateStartResearchButton(technology);
+	mToolTip.add(mTooltipLabType, technology.labType == LabType::Hot ? constants::ToolTipHotLab : constants::ToolTipStandardLab);
 }
 
 

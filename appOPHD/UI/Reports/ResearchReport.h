@@ -5,6 +5,7 @@
 #include <libControls/Button.h>
 #include <libControls/ListBox.h>
 #include <libControls/TextArea.h>
+#include <libControls/ToolTip.h>
 
 #include <NAS2D/Math/Point.h>
 #include <NAS2D/Math/Rectangle.h>
@@ -115,6 +116,11 @@ private:
 	TextArea txtTopicDescription;
 
 	Button btnStartResearch;
+
+	// Bare Control used for ToolTips
+	Control mTooltipLabType;
+
+	ToolTip mToolTip;
 
 	TechnologyCatalog* mTechCatalog{nullptr};
 	ResearchTracker* mResearchTracker{nullptr};
