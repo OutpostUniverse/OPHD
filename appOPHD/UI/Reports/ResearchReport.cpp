@@ -208,6 +208,7 @@ void ResearchReport::refresh()
 
 	btnStartResearch.position(mTopicDetailsIconPosition + NAS2D::Vector<int>{TopicIconSize.x + SectionPadding.x, 0});
 	mTopicProgressTextPosition = btnStartResearch.position() + NAS2D::Vector<int>{0, StartResearchButtonSize.y + SectionPadding.y};
+	mTopicInProgressIconPosition = mTopicProgressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() / 2 - TopicInProgressIconRect.size.y / 2};
 
 	const auto progressBarPosition = mTopicProgressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() + SectionPadding.y / 2};
 	mTopicProgressBarArea = {progressBarPosition, {mTopicDetailsHeaderArea.endPoint().x - progressBarPosition.x, TopicProgressBarHeight}};
@@ -549,8 +550,7 @@ void ResearchReport::drawTopicDetailsPanel(NAS2D::Renderer& renderer) const
 	auto progressTextPosition = mTopicProgressTextPosition;
 	if (isActiveResearch(*mResearchTracker, technology))
 	{
-		const auto iconPosition = progressTextPosition + NAS2D::Vector<int>{0, fontMedium.height() / 2 - TopicInProgressIconRect.size.y / 2};
-		renderer.drawSubImageRotated(imageUiIcons, iconPosition.to<float>(), TopicInProgressIconRect.to<float>(), topicInProgressIconRotation());
+		renderer.drawSubImageRotated(imageUiIcons, mTopicInProgressIconPosition.to<float>(), TopicInProgressIconRect.to<float>(), topicInProgressIconRotation());
 		progressTextPosition.x += TopicInProgressIconRect.size.x + SectionPadding.x / 2;
 	}
 
