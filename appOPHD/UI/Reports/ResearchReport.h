@@ -130,8 +130,8 @@ private:
 	std::vector<CategoryPanel> mCategoryPanels;
 
 	NAS2D::Point<int> mCategoryHeaderTextPosition{};
-	NAS2D::Point<int> mHotLabIconPosition{};
-	NAS2D::Point<int> mHotLabTextPosition{};
+	NAS2D::Point<int> mLabIconPosition{};
+	NAS2D::Point<int> mLabTextPosition{};
 
 	NAS2D::Point<int> mTopicDetailsIconUV{};
 	NAS2D::Point<int> mTopicDetailsIconPosition{};
