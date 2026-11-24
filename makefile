@@ -113,7 +113,7 @@ OpenGL_LIBS := $($(TARGET_OS)_OpenGL_LIBS)
 
 CPPFLAGS := -I$(NAS2DINCLUDEDIR) $(IncludeSearchFlags) $(SpecialPreprocessorFlags) $(CPPFLAGS_EXTRA)
 CXXFLAGS_WARN := $(WarnFlags) $(SpecialWarnFlags) $(WARN_EXTRA)
-CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++20 $(CXXFLAGS_WARN)
+CXXFLAGS := $(CXXFLAGS_EXTRA) $(CONFIG_CXX_FLAGS) -std=c++23 $(CXXFLAGS_WARN)
 LDFLAGS := $(LibrarySearchFlags) $(LDFLAGS_EXTRA)
 LDLIBS := $(LDLIBS_EXTRA) -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lSDL2 $(OpenGL_LIBS)
 
