@@ -375,8 +375,8 @@ void ReportsState::showReport(Structure& structure)
 			if (panel.report->canView(structure))
 			{
 				deselectAllPanels();
-				panel.select(structure);
 				showReport();
+				panel.select(structure);
 				return;
 			}
 		}
