@@ -359,7 +359,10 @@ void ReportsState::deselectAllPanels()
 
 void ReportsState::showReport()
 {
-	if (mShowReportsHandler) { mShowReportsHandler(); }
+	if (mShowReportsHandler)
+	{
+		mShowReportsHandler();
+	}
 }
 
 
