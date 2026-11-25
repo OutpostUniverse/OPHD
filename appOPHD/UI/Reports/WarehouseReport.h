@@ -93,7 +93,7 @@ private:
 	StructureListBox lstStructures;
 	ProductListBox lstProducts;
 
-	std::size_t warehouseCount;
-	int warehouseCapacityTotal;
-	int warehouseCapacityUsed;
+	std::size_t warehouseCount{0u};
+	int warehouseCapacityTotal{0};
+	int warehouseCapacityUsed{0};
 };
