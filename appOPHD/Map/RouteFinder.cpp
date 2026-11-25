@@ -51,7 +51,7 @@ namespace
 
 	Route findLowestCostRoute(const std::vector<Route>& routeList)
 	{
-		if (routeList.empty()) { return Route(); }
+		if (routeList.empty()) { return {}; }
 
 		return std::ranges::min(routeList, {}, [](const Route& a) { return a.cost; });
 	}

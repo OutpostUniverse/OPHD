@@ -147,7 +147,7 @@ namespace
 			return stringTable;
 		}
 
-		return StringTable(0, 0);
+		return {0, 0};
 	}
 
 
