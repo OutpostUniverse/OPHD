@@ -242,6 +242,7 @@ private:
 	void onTogglePoliceOverlay();
 
 	void onNotificationClicked(const NotificationArea::Notification&);
+	void onShowResearchReport();
 
 	void onOpenSaveGameDialog();
 	void onOpenLoadGameDialog();
