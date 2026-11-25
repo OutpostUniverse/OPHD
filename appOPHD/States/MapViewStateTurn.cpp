@@ -157,7 +157,7 @@ void MapViewState::updateCommercial()
 			luxuryCount = 0;
 			break;
 		}
-		else if (clothing < luxuryCount)
+		if (clothing < luxuryCount)
 		{
 			productPool.pull(ProductType::PRODUCT_CLOTHING, clothing);
 			luxuryCount -= clothing;
