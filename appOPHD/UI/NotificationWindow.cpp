@@ -20,6 +20,10 @@ NotificationWindow::NotificationWindow(TakeMeThereDelegate takeMeThereHandler):
 	btnTakeMeThere.size({125, 20});
 	btnTakeMeThere.hide();
 
+	add(btnAction, {10, 195});
+	btnAction.size({150, 20});
+	btnAction.hide();
+
 	add(mMessageArea, {5, 65});
 	mMessageArea.size({size().x - 10, 125});
 }
@@ -31,6 +35,8 @@ void NotificationWindow::notification(const NotificationArea::Notification& noti
 	title(mNotification.brief);
 	mMessageArea.text(mNotification.message);
 	btnTakeMeThere.visible(mNotification.hasMapCoordinate());
+	btnAction.text(mNotification.actionText);
+	btnAction.visible(mNotification.hasAction());
 }
 
 
@@ -40,6 +46,7 @@ void NotificationWindow::onVisibilityChange(bool isVisible)
 
 	if (!enabled() || !visible()) { return; }
 	btnTakeMeThere.visible(mNotification.hasMapCoordinate());
+	btnAction.visible(mNotification.hasAction());
 }
 
 
@@ -52,6 +59,16 @@ void NotificationWindow::onOkayClicked()
 void NotificationWindow::onTakeMeThereClicked()
 {
 	if (mTakeMeThereHandler) { mTakeMeThereHandler(mNotification.position); }
+	hide();
+}
+
+
+void NotificationWindow::onActionClicked()
+{
+	if (mNotification.hasAction())
+	{
+		mNotification.action();
+	}
 	hide();
 }
 

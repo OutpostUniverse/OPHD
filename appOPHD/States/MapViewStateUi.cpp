@@ -9,6 +9,7 @@
 #include "MapViewStateHelper.h"
 
 #include "MainMenuState.h"
+#include "ReportsState.h"
 
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
@@ -469,6 +470,12 @@ void MapViewState::onNotificationClicked(const NotificationArea::Notification& n
 	mNotificationWindow.notification(notification);
 	mNotificationWindow.show();
 	mWindowStack.bringToFront(mNotificationWindow);
+}
+
+
+void MapViewState::onShowResearchReport()
+{
+	mReportsState.showResearchReport();
 }
 
 

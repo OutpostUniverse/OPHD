@@ -359,7 +359,10 @@ void ReportsState::deselectAllPanels()
 
 void ReportsState::showReport()
 {
-	if (mShowReportsHandler) { mShowReportsHandler(); }
+	if (mShowReportsHandler)
+	{
+		mShowReportsHandler();
+	}
 }
 
 
@@ -373,11 +376,23 @@ void ReportsState::showReport(Structure& structure)
 			{
 				deselectAllPanels();
 				panel.select(structure);
-				if (mShowReportsHandler) { mShowReportsHandler(); }
+				showReport();
 				return;
 			}
 		}
 	}
+}
+
+
+void ReportsState::showResearchReport()
+{
+	deselectAllPanels();
+
+	auto& researchPanel = panels[ResearchPanelIndex];
+	researchPanel.selected(true);
+	researchPanel.report->visible(true);
+	
+	showReport();
 }
 
 

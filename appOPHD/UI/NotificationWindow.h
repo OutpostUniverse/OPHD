@@ -28,6 +28,7 @@ protected:
 	void onVisibilityChange(bool isVisible) override;
 	void onOkayClicked();
 	void onTakeMeThereClicked();
+	void onActionClicked();
 
 private:
 	const NAS2D::Image& mIcons;
@@ -35,6 +36,7 @@ private:
 	NotificationArea::Notification mNotification;
 	Button btnOkay{"Okay", {this, &NotificationWindow::onOkayClicked}};
 	Button btnTakeMeThere{"Take Me There", {this, &NotificationWindow::onTakeMeThereClicked}};
+	Button btnAction{"", {this, &NotificationWindow::onActionClicked}};
 	TextArea mMessageArea;
 
 	TakeMeThereDelegate mTakeMeThereHandler;

@@ -529,13 +529,21 @@ void MapViewState::updateOverlays()
 void MapViewState::updateResearchProgress()
 {
 	const auto& researchFacilities = mStructureManager.getStructures<ResearchFacility>();
+	bool labsIdle = false;
 	for (const auto labType : {LabType::Standard, LabType::Hot})
 	{
-		const auto activeTechId = mResearchTracker.activeResearch(labType);
-		if (!activeTechId) { continue; }
-
 		const auto points = researchPointsProduced(researchFacilities, labType);
-		if (points <= 0) { continue; }
+		if (points <= 0)
+		{
+			continue;
+		}
+
+		const auto activeTechId = mResearchTracker.activeResearch(labType);
+		if (!activeTechId)
+		{
+			labsIdle = true;
+			continue;
+		}
 
 		const auto& technology = mTechnologyReader.technologyFromId(*activeTechId);
 		if (mResearchTracker.addProgress(technology, points))
@@ -543,6 +551,12 @@ void MapViewState::updateResearchProgress()
 			notifyResearchCompleted(technology);
 		}
 	}
+
+	if (labsIdle && !mResearchLabsIdleNotified)
+	{
+		notifyResearchLabsIdle();
+	}
+	mResearchLabsIdleNotified = labsIdle;
 }
 
 
@@ -553,6 +567,18 @@ void MapViewState::notifyResearchCompleted(const Technology& technology)
 		"Research on " + technology.name + " has been completed.",
 		{{-1, -1}, 0},
 		NotificationArea::NotificationType::Information});
+}
+
+
+void MapViewState::notifyResearchLabsIdle()
+{
+	mNotificationArea.push({
+		"Research Labs Idle",
+		"One or more labs are idle. Select a research topic to put them to work.",
+		{{-1, -1}, 0},
+		NotificationArea::NotificationType::Warning,
+		"Go to Research Panel",
+		{this, &MapViewState::onShowResearchReport}});
 }
 
 

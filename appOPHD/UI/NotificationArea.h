@@ -36,14 +36,23 @@ public:
 
 	struct Notification
 	{
+		using ActionDelegate = NAS2D::Delegate<void()>;
+
 		std::string brief{};
 		std::string message{};
 		MapCoordinate position{{-1, -1}, 0};
 		NotificationType type{NotificationType::Information};
+		std::string actionText{};
+		ActionDelegate action{};
 
 		bool hasMapCoordinate() const
 		{
 			return position.xy != NAS2D::Point{-1, -1};
+		}
+
+		bool hasAction() const
+		{
+			return !actionText.empty() && action;
 		}
 	};
 

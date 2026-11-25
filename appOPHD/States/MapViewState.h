@@ -181,6 +181,7 @@ private:
 	void updatePlayerResources();
 	void updateResearchProgress();
 	void notifyResearchCompleted(const Technology& technology);
+	void notifyResearchLabsIdle();
 	void updateResearch();
 
 	// TURN LOGIC
@@ -242,6 +243,7 @@ private:
 	void onTogglePoliceOverlay();
 
 	void onNotificationClicked(const NotificationArea::Notification&);
+	void onShowResearchReport();
 
 	void onOpenSaveGameDialog();
 	void onOpenLoadGameDialog();
@@ -265,6 +267,7 @@ private:
 
 	ResearchTracker mResearchTracker;
 	TechnologyCatalog mTechnologyReader;
+	bool mResearchLabsIdleNotified = false;
 
 	PlanetAttributes mPlanetAttributes;
 
