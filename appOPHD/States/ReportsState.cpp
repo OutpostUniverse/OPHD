@@ -381,6 +381,21 @@ void ReportsState::showReport(Structure& structure)
 }
 
 
+void ReportsState::showResearchReport()
+{
+	deselectAllPanels();
+
+	auto& researchPanel = panels[ResearchPanelIndex];
+	researchPanel.selected(true);
+	researchPanel.report->visible(true);
+	
+	if (mShowReportsHandler)
+	{
+		mShowReportsHandler();
+	}
+}
+
+
 void ReportsState::injectOreHaulRoutes(const OreHaulRoutes& oreHaulRoutes)
 {
 	auto* minePanel = panels[MinePanelIndex].report;

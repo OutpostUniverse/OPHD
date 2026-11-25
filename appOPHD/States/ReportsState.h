@@ -40,6 +40,7 @@ public:
 
 	void showReport();
 	void showReport(Structure& structure);
+	void showResearchReport();
 
 	void injectOreHaulRoutes(const OreHaulRoutes& oreHaulRoutes);
 	void injectTechnology(TechnologyCatalog&, ResearchTracker&);
