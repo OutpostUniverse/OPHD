@@ -6,7 +6,7 @@
 #include "../MapObjects/Structures/MineFacility.h"
 
 #include <map>
-#include <algorithm>
+//#include <algorithm>
 #include <stdexcept>
 
 

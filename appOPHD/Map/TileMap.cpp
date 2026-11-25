@@ -16,7 +16,7 @@
 #include <NAS2D/Resource/Image.h>
 
 #include <algorithm>
-#include <functional>
+//#include <functional>
 #include <numeric>
 #include <array>
 

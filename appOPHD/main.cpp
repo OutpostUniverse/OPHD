@@ -2,7 +2,7 @@
 #include "CacheFont.h"
 #include "CacheMusic.h"
 #include "Constants/Strings.h"
-#include "Constants/UiConstants.h"
+//#include "Constants/UiConstants.h"
 #include "WindowEventWrapper.h"
 #include "PointerType.h"
 
@@ -28,7 +28,7 @@
 
 #include <string>
 #include <iostream>
-#include <fstream>
+//#include <fstream>
 
 
 namespace {

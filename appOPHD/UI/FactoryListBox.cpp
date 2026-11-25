@@ -6,9 +6,9 @@
 #include "../MapObjects/StructureState.h"
 #include "../MapObjects/Structures/Factory.h"
 
-#include "../CacheImage.h"
+//#include "../CacheImage.h"
 #include "../CacheFont.h"
-#include "../Constants/Strings.h"
+//#include "../Constants/Strings.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/ProductCatalog.h>

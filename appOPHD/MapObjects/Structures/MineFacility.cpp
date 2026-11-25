@@ -6,7 +6,7 @@
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
 #include <libOPHD/MapObjects/OreDeposit.h>
-#include <libOPHD/MapObjects/StructureType.h>
+//#include <libOPHD/MapObjects/StructureType.h>
 
 #include <algorithm>
 #include <stdexcept>

@@ -12,7 +12,7 @@
 
 #include <NAS2D/Math/Rectangle.h>
 
-#include <algorithm>
+//#include <algorithm>
 #include <cmath>
 
 

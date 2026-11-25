@@ -8,16 +8,16 @@
 
 
 #include "../Map/OreHaulRoutes.h"
-#include "../Map/Route.h"
+//#include "../Map/Route.h"
 #include "../Map/RouteFinder.h"
 #include "../Map/TileMap.h"
 
-#include "../MapObjects/StructureState.h"
+//#include "../MapObjects/StructureState.h"
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
-#include "../MapObjects/Structures/Recycling.h"
+//#include "../MapObjects/Structures/Recycling.h"
 #include "../MapObjects/Structures/ResearchFacility.h"
 #include "../MapObjects/Structures/Residence.h"
 #include "../MapObjects/Structures/Road.h"
@@ -26,14 +26,14 @@
 #include "../CacheImage.h"
 #include "../MoraleString.h"
 #include "../StructureManager.h"
-#include "../Constants/Strings.h"
+//#include "../Constants/Strings.h"
 
-#include <libOPHD/DirectionOffset.h>
+//#include <libOPHD/DirectionOffset.h>
 #include <libOPHD/EnumDifficulty.h>
 #include <libOPHD/EnumMoraleIndex.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/StorableResources.h>
-#include <libOPHD/MapObjects/StructureType.h>
+//#include <libOPHD/MapObjects/StructureType.h>
 #include <libOPHD/Population/MoraleChangeEntry.h>
 
 #include <NAS2D/Utility.h>
@@ -41,7 +41,7 @@
 
 #include <vector>
 #include <algorithm>
-#include <cfloat>
+//#include <cfloat>
 
 
 namespace

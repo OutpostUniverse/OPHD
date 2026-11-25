@@ -2,7 +2,7 @@
 
 #include <libOPHD/XmlSerializer.h>
 
-#include <algorithm>
+//#include <algorithm>
 #include <ranges>
 #include <string>
 #include <map>

@@ -8,6 +8,7 @@
 class HotLaboratory : public ResearchFacility
 {
 public:
+	//TODO (cugone): Move to implementation file to avoid pulling in EnumStructureID for all includes
 	HotLaboratory(Tile& tile) :
 		ResearchFacility{StructureID::HotLaboratory, tile}
 	{

@@ -26,12 +26,12 @@
 
 #include "../MapObjects/Structures/CargoLander.h"
 #include "../MapObjects/Structures/ColonistLander.h"
-#include "../MapObjects/Structures/CommandCenter.h"
+//#include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/SeedLander.h"
-#include "../MapObjects/Structures/StorageTanks.h"
+//#include "../MapObjects/Structures/StorageTanks.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
@@ -56,7 +56,7 @@
 #include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <algorithm>
-#include <sstream>
+//#include <sstream>
 #include <vector>
 
 

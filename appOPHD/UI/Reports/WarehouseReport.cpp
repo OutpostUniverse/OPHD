@@ -2,7 +2,7 @@
 
 #include "../ProgressBar.h"
 
-#include "../../CacheImage.h"
+//#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../StructureManager.h"
 #include "../../Constants/Strings.h"

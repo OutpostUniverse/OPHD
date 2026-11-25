@@ -1,7 +1,7 @@
 #include "ShellOpenPath.h"
 
-#include <string_view>
-#include <cstdlib>
+//#include <string_view>
+//#include <cstdlib>
 #include <tuple>
 
 #if defined(_WIN32)

@@ -1,12 +1,12 @@
 #include "RobotDeploymentSummary.h"
 
 #include "../RobotPool.h"
-#include "../CacheImage.h"
+//#include "../CacheImage.h"
 #include "../MapObjects/RobotTypeIndex.h"
 
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <tuple>
+//#include <tuple>
 
 
 RobotDeploymentSummary::RobotDeploymentSummary(const RobotPool& robotPool) :

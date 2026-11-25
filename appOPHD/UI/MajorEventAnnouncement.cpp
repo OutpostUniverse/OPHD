@@ -1,7 +1,7 @@
 #include "MajorEventAnnouncement.h"
 
-#include "../CacheImage.h"
-#include "../Constants/UiConstants.h"
+//#include "../CacheImage.h"
+//#include "../Constants/UiConstants.h"
 #include "../States/ColonyShip.h"
 
 #include <libControls/WindowStack.h>

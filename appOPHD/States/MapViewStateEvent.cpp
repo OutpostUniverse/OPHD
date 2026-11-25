@@ -22,7 +22,7 @@
 #include <libOPHD/MapObjects/OreDeposit.h>
 
 #include <stdexcept>
-#include <array>
+//#include <array>
 
 
 void MapViewState::pullRobotFromFactory(ProductType productType, Factory& factory)

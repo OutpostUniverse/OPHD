@@ -1,6 +1,6 @@
 #include "MiniMap.h"
 
-#include "../CacheImage.h"
+//#include "../CacheImage.h"
 #include "../Map/OreHaulRoutes.h"
 #include "../Map/Route.h"
 #include "../Map/Tile.h"

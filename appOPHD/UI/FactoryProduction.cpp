@@ -11,7 +11,7 @@
 
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <algorithm>
+//#include <algorithm>
 #include <stdexcept>
 
 
