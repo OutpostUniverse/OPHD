@@ -181,6 +181,7 @@ private:
 	void updatePlayerResources();
 	void updateResearchProgress();
 	void notifyResearchCompleted(const Technology& technology);
+	void notifyResearchLabsIdle();
 	void updateResearch();
 
 	// TURN LOGIC

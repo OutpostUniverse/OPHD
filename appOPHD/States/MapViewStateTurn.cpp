@@ -562,6 +562,18 @@ void MapViewState::notifyResearchCompleted(const Technology& technology)
 }
 
 
+void MapViewState::notifyResearchLabsIdle()
+{
+	mNotificationArea.push({
+		"Research Labs Idle",
+		"One or more labs are idle. Select a research topic to put them to work.",
+		{{-1, -1}, 0},
+		NotificationArea::NotificationType::Warning,
+		"Go to Research Panel",
+		{this, &MapViewState::onShowResearchReport}});
+}
+
+
 void MapViewState::updateResearch()
 {
 	// Update research points
