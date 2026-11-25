@@ -112,14 +112,7 @@ StorableResources StorableResources::cap(int max) const
 
 bool StorableResources::isEmpty() const
 {
-	for (size_t i = 0; i < resources.size(); ++i)
-	{
-		if (resources[i] > 0)
-		{
-			return false;
-		}
-	}
-	return true;
+	return std::none_of(std::cbegin(resources), std::cbegin(resources), [](auto resourceCount) { return resourceCount > 0; });
 }
 
 
