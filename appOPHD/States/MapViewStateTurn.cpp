@@ -319,7 +319,7 @@ void MapViewState::checkWarehouseCapacity()
 {
 	const auto& warehouses = mStructureManager.getStructures<Warehouse>();
 
-	if (warehouses.size() == 0) { return; } // no divisions by zero, pl0x
+	if (warehouses.empty()) { return; } // no divisions by zero, pl0x
 
 	int availableStorageTotal = 0;
 	for (const auto warehouse : warehouses)
