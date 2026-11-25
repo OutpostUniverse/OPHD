@@ -126,7 +126,7 @@ NAS2D::State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (mPlanetSelection != NoSelection)
+	if (mPlanetSelection != NoSelection)
 	{
 		return new GameState(mPlanetAttributes[mPlanetSelection], Difficulty::Medium);
 	}

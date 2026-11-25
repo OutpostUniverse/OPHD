@@ -46,9 +46,9 @@ namespace
 		const auto& productPool = warehouse.products();
 
 		if (!warehouse.operational()) { return warehouse.stateDescription(); }
-		else if (productPool.empty()) { return constants::WarehouseEmpty; }
-		else if (productPool.atCapacity()) { return constants::WarehouseFull; }
-		else if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseVacancy; }
+		if (productPool.empty()) { return constants::WarehouseEmpty; }
+		if (productPool.atCapacity()) { return constants::WarehouseFull; }
+		if (!productPool.empty() && !productPool.atCapacity()) { return constants::WarehouseVacancy; }
 
 		return std::string{};
 	}

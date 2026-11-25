@@ -104,17 +104,14 @@ std::vector<Structure*> CrimeRateUpdate::structuresCommittingCrimes() const
 
 int CrimeRateUpdate::calculateMoraleChange() const
 {
-	if (mMeanCrimeRate > 50)
-	{
-		// Reduce morale by 1 for every 10% above 50%
-		return -1 * (mMeanCrimeRate / 10 - 4);
-	}
-	else if (mMeanCrimeRate < 10)
-	{
+    if(mMeanCrimeRate < 10) {
 		return 1;
-	}
-
-	return 0;
+    }
+    if(mMeanCrimeRate <= 50) {
+		return 0;
+    }
+	// Reduce morale by 1 for every 10% above 50%
+	return -1 * (mMeanCrimeRate / 10 - 4);
 }
 
 
