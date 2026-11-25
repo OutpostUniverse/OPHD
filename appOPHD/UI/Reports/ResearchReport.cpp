@@ -75,6 +75,11 @@ namespace
 		return std::to_string(labCount) + (labCount == 1 ? " lab operational" : " labs operational");
 	}
 
+	LabType labType(const Structure& structure)
+	{
+		return structure.structureId() == StructureID::HotLaboratory ? LabType::Hot : LabType::Standard;
+	}
+
 	bool isActiveResearch(const ResearchTracker& tracker, const Technology& technology)
 	{
 		return tracker.activeResearch(technology.labType) == technology.id;
@@ -163,8 +168,23 @@ bool ResearchReport::canView(const Structure& structure)
 }
 
 
-void ResearchReport::selectStructure(Structure&)
+void ResearchReport::selectStructure(Structure& structure)
 {
+	const auto activeTechId = mResearchTracker->activeResearch(labType(structure));
+	if (!activeTechId)
+	{
+		return;
+	}
+
+	const auto& categoryName = mTechCatalog->categoryName(*activeTechId);
+	const auto category = std::ranges::find(mCategoryPanels, categoryName, &CategoryPanel::name);
+	if (category == mCategoryPanels.end())
+	{
+		return;
+	}
+
+	selectCategory(*category);
+	lstResearchTopics.selectIf([techId = *activeTechId](const auto& item) { return item.userData == techId; });
 }
 
 
@@ -302,27 +322,29 @@ void ResearchReport::onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> po
 
 void ResearchReport::handleMouseDownInCategories(NAS2D::Point<int>& position)
 {
-	CategoryPanel* lastPanel = mSelectedCategory;
-	bool panelClickedOn = false;
+	for (auto& panel : mCategoryPanels)
+	{
+		if (panel.rect.contains(position))
+		{
+			selectCategory(panel);
+			return;
+		}
+	}
+}
+
+
+void ResearchReport::selectCategory(CategoryPanel& category)
+{
 	for (auto& panel : mCategoryPanels)
 	{
 		panel.selected = false;
-
-		if (panel.rect.contains(position))
-		{
-			panel.selected = true;
-			mSelectedCategory = &panel;
-			panelClickedOn = true;
-			resetResearchDetails();
-			fillResearchTopicsList();
-		}
 	}
 
-	if (!panelClickedOn && lastPanel != nullptr)
-	{
-		mSelectedCategory = lastPanel;
-		mSelectedCategory->selected = true;
-	}
+	category.selected = true;
+	mSelectedCategory = &category;
+
+	resetResearchDetails();
+	fillResearchTopicsList();
 }
 
 

@@ -246,6 +246,20 @@ const Technology& TechnologyCatalog::technologyFromId(int id) const
 }
 
 
+const std::string& TechnologyCatalog::categoryName(int techId) const
+{
+	for (const auto& category : mCategories)
+	{
+		if (std::ranges::find(category.technologies, techId, &Technology::id) != category.technologies.end())
+		{
+			return category.name;
+		}
+	}
+
+	throw std::runtime_error("TechnologyCatalog: No category found for technology id '" + std::to_string(techId) + "'.");
+}
+
+
 const std::vector<Technology>& TechnologyCatalog::technologiesInCategory(const std::string& categoryName) const
 {
 	for (const auto& category : mCategories)
