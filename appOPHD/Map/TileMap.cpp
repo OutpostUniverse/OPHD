@@ -304,7 +304,7 @@ void TileMap::deserialize(NAS2D::Xml::XmlElement* element)
 	// Ore deposits
 	for (auto* oreDepositElement = element->firstChildElement("mines")->firstChildElement("mine"); oreDepositElement; oreDepositElement = oreDepositElement->nextSiblingElement())
 	{
-		OreDeposit* oreDeposit = new OreDeposit(deserializeOreDeposit(oreDepositElement));
+		auto* oreDeposit = new OreDeposit(deserializeOreDeposit(oreDepositElement));
 
 		auto& tile = getTile({oreDeposit->location(), 0});
 		tile.placeOreDeposit(oreDeposit);
