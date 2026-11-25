@@ -47,11 +47,32 @@ public:
 	void injectTechReferences(TechnologyCatalog&, ResearchTracker&);
 
 private:
+	struct CategoryPanel
+	{
+		NAS2D::Rectangle<int> rect{};
+		NAS2D::Rectangle<int> imageSlice{};
+		std::string name{};
+		bool selected{false};
+
+		bool operator<(const CategoryPanel& other) const
+		{
+			return name < other.name;
+		}
+	};
+
+	struct LabsAvailable
+	{
+		int standard{};
+		int hot{};
+	};
+
+private:
 	void onResize() override;
 	void onVisibilityChange(bool visible) override;
 	void onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relative);
 	void onMouseDown(NAS2D::MouseButton button, NAS2D::Point<int> position);
 	void handleMouseDownInCategories(NAS2D::Point<int>& position);
+	void selectCategory(CategoryPanel& category);
 
 	void updateLayout();
 	void setIconPositions();
@@ -79,26 +100,6 @@ private:
 	void drawTopicHeaderPanel(NAS2D::Renderer& renderer) const;
 	void drawTopicDetailsPanel(NAS2D::Renderer& renderer) const;
 	void draw(NAS2D::Renderer& renderer) const override;
-
-private:
-	struct CategoryPanel
-	{
-		NAS2D::Rectangle<int> rect{};
-		NAS2D::Rectangle<int> imageSlice{};
-		std::string name{};
-		bool selected{false};
-
-		bool operator<(const CategoryPanel& other) const
-		{
-			return name < other.name;
-		}
-	};
-
-	struct LabsAvailable
-	{
-		int standard{};
-		int hot{};
-	};
 
 private:
 	const StructureManager& mStructureManager;
