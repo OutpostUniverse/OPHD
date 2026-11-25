@@ -120,6 +120,22 @@ void ListBoxBase::updateScrollLayout()
 }
 
 
+void ListBoxBase::scrollToIndex(std::size_t index)
+{
+	const auto itemTop = static_cast<int>(index) * mItemSize.y;
+	const auto itemBottom = itemTop + mItemSize.y;
+
+	if (itemTop < mScrollOffsetInPixels)
+	{
+		mScrollBar.value(itemTop);
+	}
+	else if (itemBottom > mScrollOffsetInPixels + mScrollArea.size.y)
+	{
+		mScrollBar.value(itemBottom - mScrollArea.size.y);
+	}
+}
+
+
 void ListBoxBase::onVisibilityChange(bool visible)
 {
 	if (visible)
