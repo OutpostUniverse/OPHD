@@ -34,7 +34,7 @@ namespace
 			auto& end = smelter->tile();
 
 			Route route;
-			float floatCost;
+			float floatCost{0.0f};
 			solver->Reset();
 			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &floatCost);
 
