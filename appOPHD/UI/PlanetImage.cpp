@@ -1,6 +1,6 @@
 #include "PlanetImage.h"
 
-#include <libOPHD/XmlSerializer.h>
+//#include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>

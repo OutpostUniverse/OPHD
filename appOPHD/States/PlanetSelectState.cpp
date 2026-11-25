@@ -9,15 +9,15 @@
 #include "../UI/PlanetImage.h"
 
 #include <libOPHD/EnumDifficulty.h>
-#include <libOPHD/PlanetAttributes.h>
-#include <libOPHD/XmlSerializer.h>
+//#include <libOPHD/PlanetAttributes.h>
+//#include <libOPHD/XmlSerializer.h>
 
 #include <NAS2D/EnumMouseButton.h>
 #include <NAS2D/Utility.h>
 #include <NAS2D/EventHandler.h>
 #include <NAS2D/Mixer/Mixer.h>
 #include <NAS2D/Renderer/Renderer.h>
-#include <NAS2D/Resource/Font.h>
+//#include <NAS2D/Resource/Font.h>
 #include <NAS2D/Math/Angle.h>
 #include <NAS2D/Math/Point.h>
 
@@ -126,7 +126,7 @@ NAS2D::State* PlanetSelectState::update()
 	{
 		return this;
 	}
-	else if (mPlanetSelection != NoSelection)
+	if (mPlanetSelection != NoSelection)
 	{
 		return new GameState(mPlanetAttributes[mPlanetSelection], Difficulty::Medium);
 	}

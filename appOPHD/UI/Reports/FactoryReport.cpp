@@ -10,9 +10,10 @@
 #include "../../Constants/UiConstants.h"
 #include "../../StructureManager.h"
 #include "../../MapObjects/StructureState.h"
-#include "../../MapObjects/Structures/SurfaceFactory.h"
-#include "../../MapObjects/Structures/SeedFactory.h"
-#include "../../MapObjects/Structures/UndergroundFactory.h"
+#include "../../MapObjects/Structures/Factory.h"
+//#include "../../MapObjects/Structures/SurfaceFactory.h"
+//#include "../../MapObjects/Structures/SeedFactory.h"
+//#include "../../MapObjects/Structures/UndergroundFactory.h"
 
 #include <libOPHD/EnumStructureID.h>
 #include <libOPHD/ProductCatalog.h>
@@ -23,7 +24,7 @@
 #include <NAS2D/Resource/Font.h>
 
 #include <map>
-#include <array>
+//#include <array>
 
 
 namespace

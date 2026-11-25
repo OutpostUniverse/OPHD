@@ -601,7 +601,7 @@ void StructureManager::assignColonistsToResidences(PopulationPool& population)
 	int populationCount = population.size();
 	for (auto* structure : mDeployedStructures)
 	{
-		Residence* residence = dynamic_cast<Residence*>(structure);
+		auto* residence = dynamic_cast<Residence*>(structure);
 		if (residence && residence->operational())
 		{
 			residence->assignColonists(populationCount);

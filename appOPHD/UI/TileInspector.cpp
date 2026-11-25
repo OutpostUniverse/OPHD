@@ -11,7 +11,7 @@
 #include <NAS2D/StringFrom.h>
 
 #include <map>
-#include <sstream>
+//#include <sstream>
 
 
 namespace

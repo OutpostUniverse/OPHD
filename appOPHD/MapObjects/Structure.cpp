@@ -18,7 +18,7 @@
 #include <NAS2D/Dictionary.h>
 
 #include <string>
-#include <algorithm>
+//#include <algorithm>
 
 
 namespace

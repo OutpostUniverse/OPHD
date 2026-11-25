@@ -45,7 +45,7 @@ void ControlContainer::add(Control& control, NAS2D::Vector<int> offset)
 		throw std::runtime_error("ControlContainer::add(): Duplicate control");
 	}
 
-	if (mControls.size() > 0) { mControls.back()->hasFocus(false); }
+	if (!mControls.empty()) { mControls.back()->hasFocus(false); }
 	mControls.push_back(&control);
 
 	control.position(mRect.position + offset);

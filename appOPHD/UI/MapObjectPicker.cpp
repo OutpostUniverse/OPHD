@@ -9,7 +9,7 @@
 #include <libOPHD/MapObjects/StructureType.h>
 
 
-#include <array>
+//#include <array>
 
 
 namespace

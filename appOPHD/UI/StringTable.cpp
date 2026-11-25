@@ -144,7 +144,7 @@ void StringTable::computeRelativeCellPositions()
 		columnOffset += columnWidths[column] + mHorizontalPadding;
 	}
 
-	if (mCells.size() == 0)
+	if (mCells.empty())
 	{
 		mRect.size = {0, 0};
 	}

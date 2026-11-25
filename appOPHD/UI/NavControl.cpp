@@ -1,8 +1,8 @@
 #include "NavControl.h"
 
-#include "../CacheImage.h"
+//#include "../CacheImage.h"
 #include "../CacheFont.h"
-#include "../Constants/Strings.h"
+//#include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
 #include "../Map/MapView.h"
 

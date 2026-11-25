@@ -22,7 +22,7 @@
 #include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/FoodProduction.h"
 
-#include "../UI/MessageBox.h"
+//#include "../UI/MessageBox.h"
 #include "../UI/NavControl.h"
 #include "../UI/DetailMap.h"
 #include "../UI/MiniMap.h"

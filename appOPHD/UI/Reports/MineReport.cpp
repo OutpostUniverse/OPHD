@@ -6,14 +6,14 @@
 #include "../../Constants/Strings.h"
 #include "../../Constants/UiConstants.h"
 
-#include "../../CacheImage.h"
+//#include "../../CacheImage.h"
 #include "../../CacheFont.h"
 #include "../../Resources.h"
 #include "../../StructureManager.h"
 #include "../../TruckAvailability.h"
 
 #include "../../Map/OreHaulRoutes.h"
-#include "../../Map/Route.h"
+//#include "../../Map/Route.h"
 #include "../../Map/Tile.h"
 #include "../../MapObjects/Structures/MineFacility.h"
 
@@ -25,8 +25,8 @@
 #include <NAS2D/Resource/Font.h>
 
 #include <array>
-#include <cfloat>
-#include <map>
+//#include <cfloat>
+//#include <map>
 #include <algorithm>
 
 

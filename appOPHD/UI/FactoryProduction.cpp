@@ -11,7 +11,7 @@
 
 #include <NAS2D/Renderer/Renderer.h>
 
-#include <algorithm>
+//#include <algorithm>
 #include <stdexcept>
 
 
@@ -188,9 +188,9 @@ void FactoryProduction::factory(Factory* newFactory)
 		throw std::runtime_error("FactoryProduction::factory(): Factory provided with an empty production type list.");
 	}
 
-	for (std::size_t i = 0; i < ptlist.size(); ++i)
+	for (const auto& productionType : ptlist)
 	{
-		mProductGrid.addItem({ProductCatalog::get(ptlist[i]).name, ptlist[i], ptlist[i]});
+		mProductGrid.addItem({ProductCatalog::get(productionType).name, productionType, productionType});
 	}
 
 	if (mFactory->productType() == ProductType::PRODUCT_NONE) { mProductGrid.clearSelection(); }

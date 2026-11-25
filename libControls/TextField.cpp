@@ -18,7 +18,7 @@
 #include <NAS2D/Math/Point.h>
 
 #include <locale>
-#include <string_view>
+//#include <string_view>
 
 
 namespace

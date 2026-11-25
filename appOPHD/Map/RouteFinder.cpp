@@ -12,7 +12,7 @@
 
 #include <NAS2D/Math/Rectangle.h>
 
-#include <algorithm>
+//#include <algorithm>
 #include <cmath>
 
 
@@ -34,7 +34,7 @@ namespace
 			auto& end = smelter->tile();
 
 			Route route;
-			float floatCost;
+			float floatCost{0.0f};
 			solver->Reset();
 			solver->Solve(&start, &end, reinterpret_cast<std::vector<void*>*>(&route.path), &floatCost);
 
@@ -51,7 +51,7 @@ namespace
 
 	Route findLowestCostRoute(const std::vector<Route>& routeList)
 	{
-		if (routeList.empty()) { return Route(); }
+		if (routeList.empty()) { return {}; }
 
 		return std::ranges::min(routeList, {}, [](const Route& a) { return a.cost; });
 	}
@@ -72,8 +72,8 @@ namespace
 			Structure& road = *tile.structure();
 
 			if (road.integrityLevel() >= IntegrityLevel::Good) { return 2.0f; }
-			else if (road.integrityLevel() >= IntegrityLevel::Worn) { return 3.0f; }
-			else { return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 4.0f; }
+			if (road.integrityLevel() >= IntegrityLevel::Worn) { return 3.0f; }
+			return RouteBaseCost * static_cast<float>(TerrainType::Difficult) + 4.0f;
 		}
 
 		if (tile.hasMapObject() && (!tile.hasStructure() || (!tile.structure()->isMineFacility() && !tile.structure()->isSmelter())))

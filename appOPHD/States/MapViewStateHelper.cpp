@@ -17,8 +17,8 @@
 #include "../Map/Tile.h"
 #include "../Map/TileMap.h"
 
-#include "../MapObjects/Structures/CommandCenter.h"
-#include "../MapObjects/Structures/StorageTanks.h"
+//#include "../MapObjects/Structures/CommandCenter.h"
+//#include "../MapObjects/Structures/StorageTanks.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"

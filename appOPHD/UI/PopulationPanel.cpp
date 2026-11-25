@@ -2,7 +2,7 @@
 
 #include "TrendLabel.h"
 
-#include "../CacheImage.h"
+//#include "../CacheImage.h"
 #include "../MoraleString.h"
 #include "../Constants/Strings.h"
 #include "../Constants/UiConstants.h"
@@ -19,7 +19,7 @@
 #include <NAS2D/Renderer/Renderer.h>
 
 #include <algorithm>
-#include <array>
+//#include <array>
 
 
 namespace

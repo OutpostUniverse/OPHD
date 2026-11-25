@@ -26,12 +26,12 @@
 
 #include "../MapObjects/Structures/CargoLander.h"
 #include "../MapObjects/Structures/ColonistLander.h"
-#include "../MapObjects/Structures/CommandCenter.h"
+//#include "../MapObjects/Structures/CommandCenter.h"
 #include "../MapObjects/Structures/Factory.h"
 #include "../MapObjects/Structures/MaintenanceFacility.h"
 #include "../MapObjects/Structures/MineFacility.h"
 #include "../MapObjects/Structures/SeedLander.h"
-#include "../MapObjects/Structures/StorageTanks.h"
+//#include "../MapObjects/Structures/StorageTanks.h"
 #include "../MapObjects/Structures/Warehouse.h"
 
 #include "../UI/MessageBox.h"
@@ -56,7 +56,7 @@
 #include <NAS2D/Math/PointInRectangleRange.h>
 
 #include <algorithm>
-#include <sstream>
+//#include <sstream>
 #include <vector>
 
 
@@ -928,12 +928,12 @@ void MapViewState::placeRobodozer(Tile& tile)
 	{
 		return;
 	}
-	else if (tile.isBulldozed() && !tile.hasStructure())
+	if (tile.isBulldozed() && !tile.hasStructure())
 	{
 		doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertTileBulldozed);
 		return;
 	}
-	else if (tile.oreDeposit())
+	if (tile.oreDeposit())
 	{
 		if (tile.oreDeposit()->digDepth() != mTileMap->maxDepth() || !tile.oreDeposit()->isExhausted())
 		{
@@ -1078,7 +1078,7 @@ void MapViewState::placeRobodigger(Tile& tile)
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertStructureInWay);
 				return;
 			}
-			else if (tile.hasStructure() && tile.structure()->isAirShaft() && tile.depth() == mTileMap->maxDepth())
+			if (tile.hasStructure() && tile.structure()->isAirShaft() && tile.depth() == mTileMap->maxDepth())
 			{
 				doAlertMessage(constants::AlertInvalidRobotPlacement, constants::AlertMaxDigDepth);
 				return;

@@ -72,7 +72,7 @@ void ToolTip::onMouseMove(NAS2D::Point<int> position, NAS2D::Vector<int> relativ
 		if (mFocus)
 		{
 			if (mFocus->control.area().contains(position)) { return; }
-			else { mFocus = nullptr; }
+			mFocus = nullptr;
 		}
 
 		mTimer.reset();

@@ -7,7 +7,7 @@
 #include <NAS2D/ParserHelper.h>
 #include <NAS2D/ContainerUtils.h>
 #include <NAS2D/StringUtils.h>
-#include <NAS2D/Dictionary.h>
+//#include <NAS2D/Dictionary.h>
 #include <NAS2D/Xml/XmlNode.h>
 #include <NAS2D/Xml/XmlDocument.h>
 #include <NAS2D/Xml/XmlElement.h>

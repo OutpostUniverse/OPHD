@@ -1,6 +1,6 @@
 #include "StructureInspector.h"
 
-#include "../CacheImage.h"
+//#include "../CacheImage.h"
 #include "../Constants/UiConstants.h"
 #include "../MapObjects/Structure.h"
 #include "../MapObjects/Structures/FoodProduction.h"
@@ -9,13 +9,13 @@
 #include "../MapObjects/Structures/Residence.h"
 #include "../Resources.h"
 #include "StringTable.h"
-#include "TextRender.h"
+//#include "TextRender.h"
 
 #include <libOPHD/EnumDisabledReason.h>
 #include <libOPHD/EnumIdleReason.h>
 #include <libOPHD/EnumStructureID.h>
 
-#include <algorithm>
+//#include <algorithm>
 #include <stdexcept>
 
 
@@ -147,7 +147,7 @@ namespace
 			return stringTable;
 		}
 
-		return StringTable(0, 0);
+		return {0, 0};
 	}
 
 

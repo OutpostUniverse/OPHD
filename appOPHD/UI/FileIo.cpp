@@ -155,7 +155,7 @@ void FileIo::onFileSelect()
 
 void FileIo::onFileNameChange(TextField& control)
 {
-	std::string sFile = control.text();
+	const std::string& sFile = control.text();
 
 	const std::string RestrictedFilenameChars = "\\/:*?\"<>|";
 
