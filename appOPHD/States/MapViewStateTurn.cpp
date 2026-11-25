@@ -531,11 +531,17 @@ void MapViewState::updateResearchProgress()
 	const auto& researchFacilities = mStructureManager.getStructures<ResearchFacility>();
 	for (const auto labType : {LabType::Standard, LabType::Hot})
 	{
-		const auto activeTechId = mResearchTracker.activeResearch(labType);
-		if (!activeTechId) { continue; }
-
 		const auto points = researchPointsProduced(researchFacilities, labType);
-		if (points <= 0) { continue; }
+		if (points <= 0)
+		{
+			continue;
+		}
+
+		const auto activeTechId = mResearchTracker.activeResearch(labType);
+		if (!activeTechId)
+		{
+			continue;
+		}
 
 		const auto& technology = mTechnologyReader.technologyFromId(*activeTechId);
 		if (mResearchTracker.addProgress(technology, points))
