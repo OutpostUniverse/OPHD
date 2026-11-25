@@ -75,6 +75,11 @@ namespace
 		return std::to_string(labCount) + (labCount == 1 ? " lab operational" : " labs operational");
 	}
 
+	LabType labType(const Structure& structure)
+	{
+		return structure.structureId() == StructureID::HotLaboratory ? LabType::Hot : LabType::Standard;
+	}
+
 	bool isActiveResearch(const ResearchTracker& tracker, const Technology& technology)
 	{
 		return tracker.activeResearch(technology.labType) == technology.id;
@@ -163,8 +168,23 @@ bool ResearchReport::canView(const Structure& structure)
 }
 
 
-void ResearchReport::selectStructure(Structure&)
+void ResearchReport::selectStructure(Structure& structure)
 {
+	const auto activeTechId = mResearchTracker->activeResearch(labType(structure));
+	if (!activeTechId)
+	{
+		return;
+	}
+
+	const auto& categoryName = mTechCatalog->categoryName(*activeTechId);
+	const auto category = std::ranges::find(mCategoryPanels, categoryName, &CategoryPanel::name);
+	if (category == mCategoryPanels.end())
+	{
+		return;
+	}
+
+	selectCategory(*category);
+	lstResearchTopics.selectIf([techId = *activeTechId](const auto& item) { return item.userData == techId; });
 }
 
 
