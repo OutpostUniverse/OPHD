@@ -24,6 +24,7 @@ public:
 	const std::vector<std::string> categoryNames();
 
 	const Technology& technologyFromId(int id) const;
+	const std::string& categoryName(int techId) const;
 
 	const std::vector<Technology>& technologiesInCategory(const std::string& categoryName) const;
 
