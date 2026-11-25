@@ -373,7 +373,7 @@ void ReportsState::showReport(Structure& structure)
 			{
 				deselectAllPanels();
 				panel.select(structure);
-				if (mShowReportsHandler) { mShowReportsHandler(); }
+				showReport();
 				return;
 			}
 		}
@@ -389,10 +389,7 @@ void ReportsState::showResearchReport()
 	researchPanel.selected(true);
 	researchPanel.report->visible(true);
 	
-	if (mShowReportsHandler)
-	{
-		mShowReportsHandler();
-	}
+	showReport();
 }
 
 
