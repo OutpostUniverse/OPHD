@@ -529,6 +529,7 @@ void MapViewState::updateOverlays()
 void MapViewState::updateResearchProgress()
 {
 	const auto& researchFacilities = mStructureManager.getStructures<ResearchFacility>();
+	bool labsIdle = false;
 	for (const auto labType : {LabType::Standard, LabType::Hot})
 	{
 		const auto points = researchPointsProduced(researchFacilities, labType);
@@ -540,6 +541,7 @@ void MapViewState::updateResearchProgress()
 		const auto activeTechId = mResearchTracker.activeResearch(labType);
 		if (!activeTechId)
 		{
+			labsIdle = true;
 			continue;
 		}
 
@@ -549,6 +551,12 @@ void MapViewState::updateResearchProgress()
 			notifyResearchCompleted(technology);
 		}
 	}
+
+	if (labsIdle && !mResearchLabsIdleNotified)
+	{
+		notifyResearchLabsIdle();
+	}
+	mResearchLabsIdleNotified = labsIdle;
 }
 
 

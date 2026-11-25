@@ -267,6 +267,7 @@ private:
 
 	ResearchTracker mResearchTracker;
 	TechnologyCatalog mTechnologyReader;
+	bool mResearchLabsIdleNotified = false;
 
 	PlanetAttributes mPlanetAttributes;
 
