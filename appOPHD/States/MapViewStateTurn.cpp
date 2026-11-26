@@ -78,6 +78,17 @@ namespace
 	std::vector<std::string> LoggedUnknownUnlocks;
 
 
+	void logUnknownStructureUnlock(const Technology& technology, const std::string& value)
+	{
+		const auto found = std::ranges::find(LoggedUnknownUnlocks, value);
+		if (found == LoggedUnknownUnlocks.end())
+		{
+			std::cout << "Research topic '" << technology.name << "' id [" << technology.id << "] unlocks unknown structure '" << value << "'" << std::endl;
+			LoggedUnknownUnlocks.push_back(value);
+		}
+	}
+
+
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
 		const auto foodLevel = producer.foodLevel();
@@ -599,13 +610,7 @@ void MapViewState::updateResearch()
 			const auto structureIdIt = StructureIdFromString.find(unlock.value);
 			if (structureIdIt == StructureIdFromString.end())
 			{
-				const auto found = std::ranges::find(LoggedUnknownUnlocks, unlock.value);
-				if (found == LoggedUnknownUnlocks.end())
-				{
-					std::cout << "Research topic '" << technology.name << "' id [" << technology.id << "] unlocks unknown structure '" << unlock.value << "'" << std::endl;
-					LoggedUnknownUnlocks.push_back(unlock.value);
-				}
-
+				logUnknownStructureUnlock(technology, unlock.value);
 				continue;
 			}
 
