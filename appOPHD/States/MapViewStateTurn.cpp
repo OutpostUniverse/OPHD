@@ -602,23 +602,27 @@ void MapViewState::updateResearch()
 		const auto& technology = mTechnologyReader.technologyFromId(techId);
 		for (const auto& unlock : technology.unlocks)
 		{
-			if (unlock.unlocks != Technology::Unlock::Unlocks::Structure)
+			if (unlock.unlocks == Technology::Unlock::Unlocks::Structure)
 			{
-				continue;
+				unlockStructure(technology, unlock.value);
 			}
-
-			const auto structureIdIt = StructureIdFromString.find(unlock.value);
-			if (structureIdIt == StructureIdFromString.end())
-			{
-				logUnknownStructureUnlock(technology, unlock.value);
-				continue;
-			}
-
-			mStructureTracker.addUnlockedSurfaceStructure(structureIdIt->second);
 		}
 	}
 
 	// remove obsolete structures from available structure list
+}
+
+
+void MapViewState::unlockStructure(const Technology& technology, const std::string& structureName)
+{
+	const auto structureIdIt = StructureIdFromString.find(structureName);
+	if (structureIdIt == StructureIdFromString.end())
+	{
+		logUnknownStructureUnlock(technology, structureName);
+		return;
+	}
+
+	mStructureTracker.addUnlockedSurfaceStructure(structureIdIt->second);
 }
 
 
