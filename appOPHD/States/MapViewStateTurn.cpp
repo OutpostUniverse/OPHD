@@ -584,33 +584,16 @@ void MapViewState::notifyResearchLabsIdle()
 
 void MapViewState::updateResearch()
 {
-	// Update research points
-	// get list of completed technologies
-	const auto& completedTechs = mResearchTracker.completedResearch();
-	std::vector<const Technology*> techList;
-	for (const auto techId : completedTechs)
+	for (const auto techId : mResearchTracker.completedResearch())
 	{
-		techList.push_back(&mTechnologyReader.technologyFromId(techId));
-	}
-
-	// get list of completed technologies that unlock buildings
-	std::vector<const Technology*> unlockedStructures;
-
-	for (auto tech : techList)
-	{
-		for (const auto& unlock : (*tech).unlocks)
+		const auto& technology = mTechnologyReader.technologyFromId(techId);
+		for (const auto& unlock : technology.unlocks)
 		{
-			if (unlock.unlocks == Technology::Unlock::Unlocks::Structure)
+			if (unlock.unlocks != Technology::Unlock::Unlocks::Structure)
 			{
-				unlockedStructures.push_back(tech);
+				continue;
 			}
-		}
-	}
 
-	for (const auto& tech : unlockedStructures)
-	{
-		for (const auto& unlock : tech->unlocks)
-		{
 			const auto structureId = StructureIdFromString.at(unlock.value);
 			mStructureTracker.addUnlockedSurfaceStructure(structureId);
 		}
