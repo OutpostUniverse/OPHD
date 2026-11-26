@@ -66,6 +66,7 @@ void ListBoxBase::selectedIndex(std::size_t index)
 		throw std::runtime_error("Invalid list box selected index: " + std::to_string(index));
 	}
 	setSelectedInternal(index);
+	scrollToIndex(index);
 }
 
 
