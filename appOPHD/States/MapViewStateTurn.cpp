@@ -42,6 +42,7 @@
 #include <vector>
 #include <algorithm>
 #include <cfloat>
+#include <iostream>
 
 
 namespace
@@ -70,6 +71,22 @@ namespace
 		{Difficulty::Hard, 10}
 	};
 
+
+	constexpr inline int ColonistsPerLander = 50;
+	constexpr inline int CargoMoraleLossPerLander = 25;
+
+	std::vector<std::string> LoggedUnknownUnlocks;
+
+
+	void logUnknownStructureUnlock(const Technology& technology, const std::string& value)
+	{
+		const auto found = std::ranges::find(LoggedUnknownUnlocks, value);
+		if (found == LoggedUnknownUnlocks.end())
+		{
+			std::cout << "Research topic '" << technology.name << "' id [" << technology.id << "] unlocks unknown structure '" << value << "'" << std::endl;
+			LoggedUnknownUnlocks.push_back(value);
+		}
+	}
 
 
 	int consumeFood(FoodProduction& producer, int amountToConsume)
@@ -101,10 +118,6 @@ namespace
 		}
 		return points;
 	}
-
-
-	constexpr inline int ColonistsPerLander = 50;
-	constexpr inline int CargoMoraleLossPerLander = 25;
 }
 
 
@@ -584,39 +597,32 @@ void MapViewState::notifyResearchLabsIdle()
 
 void MapViewState::updateResearch()
 {
-	// Update research points
-	// get list of completed technologies
-	const auto& completedTechs = mResearchTracker.completedResearch();
-	std::vector<const Technology*> techList;
-	for (const auto techId : completedTechs)
+	for (const auto techId : mResearchTracker.completedResearch())
 	{
-		techList.push_back(&mTechnologyReader.technologyFromId(techId));
-	}
-
-	// get list of completed technologies that unlock buildings
-	std::vector<const Technology*> unlockedStructures;
-
-	for (auto tech : techList)
-	{
-		for (const auto& unlock : (*tech).unlocks)
+		const auto& technology = mTechnologyReader.technologyFromId(techId);
+		for (const auto& unlock : technology.unlocks)
 		{
 			if (unlock.unlocks == Technology::Unlock::Unlocks::Structure)
 			{
-				unlockedStructures.push_back(tech);
+				unlockStructure(technology, unlock.value);
 			}
 		}
 	}
 
-	for (const auto& tech : unlockedStructures)
+	// remove obsolete structures from available structure list
+}
+
+
+void MapViewState::unlockStructure(const Technology& technology, const std::string& structureName)
+{
+	const auto structureIdIt = StructureIdFromString.find(structureName);
+	if (structureIdIt == StructureIdFromString.end())
 	{
-		for (const auto& unlock : tech->unlocks)
-		{
-			const auto structureId = StructureIdFromString.at(unlock.value);
-			mStructureTracker.addUnlockedSurfaceStructure(structureId);
-		}
+		logUnknownStructureUnlock(technology, structureName);
+		return;
 	}
 
-	// remove obsolete structures from available structure list
+	mStructureTracker.addUnlockedSurfaceStructure(structureIdIt->second);
 }
 
 

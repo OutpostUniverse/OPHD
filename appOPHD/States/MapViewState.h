@@ -183,6 +183,7 @@ private:
 	void notifyResearchCompleted(const Technology& technology);
 	void notifyResearchLabsIdle();
 	void updateResearch();
+	void unlockStructure(const Technology& technology, const std::string& structureName);
 
 	// TURN LOGIC
 	void checkColonyShip();
