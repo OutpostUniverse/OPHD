@@ -66,6 +66,7 @@ void ListBoxBase::selectedIndex(std::size_t index)
 		throw std::runtime_error("Invalid list box selected index: " + std::to_string(index));
 	}
 	setSelectedInternal(index);
+	scrollToIndex(index);
 }
 
 
@@ -117,6 +118,22 @@ void ListBoxBase::updateScrollLayout()
 	}
 
 	mItemSize.x = mScrollArea.size.x;
+}
+
+
+void ListBoxBase::scrollToIndex(std::size_t index)
+{
+	const auto itemTop = static_cast<int>(index) * mItemSize.y;
+	const auto itemBottom = itemTop + mItemSize.y;
+
+	if (itemTop < mScrollOffsetInPixels)
+	{
+		mScrollBar.value(itemTop);
+	}
+	else if (itemBottom > mScrollOffsetInPixels + mScrollArea.size.y)
+	{
+		mScrollBar.value(itemBottom - mScrollArea.size.y);
+	}
 }
 
 

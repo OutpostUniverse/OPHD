@@ -57,6 +57,7 @@ protected:
 	void clear();
 	void setSelectedInternal(std::size_t index);
 	void updateScrollLayout();
+	void scrollToIndex(std::size_t index);
 
 	void onVisibilityChange(bool visible) override;
 	void onMove(NAS2D::Vector<int> displacement) override;
