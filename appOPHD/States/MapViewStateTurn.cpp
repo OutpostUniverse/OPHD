@@ -42,6 +42,7 @@
 #include <vector>
 #include <algorithm>
 #include <cfloat>
+#include <iostream>
 
 
 namespace
@@ -594,8 +595,15 @@ void MapViewState::updateResearch()
 				continue;
 			}
 
-			const auto structureId = StructureIdFromString.at(unlock.value);
-			mStructureTracker.addUnlockedSurfaceStructure(structureId);
+			const auto structureIdIt = StructureIdFromString.find(unlock.value);
+			if (structureIdIt == StructureIdFromString.end())
+			{
+				std::cout << "Research topic '" << technology.name << "' id [" << technology.id <<
+					"] unlocks unknown structure '" << unlock.value << "' " << std::endl;
+				continue;
+			}
+
+			mStructureTracker.addUnlockedSurfaceStructure(structureIdIt->second);
 		}
 	}
 
