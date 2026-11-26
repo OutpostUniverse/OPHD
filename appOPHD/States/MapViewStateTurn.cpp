@@ -75,6 +75,8 @@ namespace
 	constexpr inline int ColonistsPerLander = 50;
 	constexpr inline int CargoMoraleLossPerLander = 25;
 
+	std::vector<std::string> LoggedUnknownUnlocks;
+
 
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
@@ -597,8 +599,13 @@ void MapViewState::updateResearch()
 			const auto structureIdIt = StructureIdFromString.find(unlock.value);
 			if (structureIdIt == StructureIdFromString.end())
 			{
-				std::cout << "Research topic '" << technology.name << "' id [" << technology.id <<
-					"] unlocks unknown structure '" << unlock.value << "' " << std::endl;
+				const auto found = std::ranges::find(LoggedUnknownUnlocks, unlock.value);
+				if (found == LoggedUnknownUnlocks.end())
+				{
+					std::cout << "Research topic '" << technology.name << "' id [" << technology.id << "] unlocks unknown structure '" << unlock.value << "'" << std::endl;
+					LoggedUnknownUnlocks.push_back(unlock.value);
+				}
+
 				continue;
 			}
 
