@@ -72,6 +72,9 @@ namespace
 	};
 
 
+	constexpr inline int ColonistsPerLander = 50;
+	constexpr inline int CargoMoraleLossPerLander = 25;
+
 
 	int consumeFood(FoodProduction& producer, int amountToConsume)
 	{
@@ -102,10 +105,6 @@ namespace
 		}
 		return points;
 	}
-
-
-	constexpr inline int ColonistsPerLander = 50;
-	constexpr inline int CargoMoraleLossPerLander = 25;
 }
 
 
